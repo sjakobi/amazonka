@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,228 +23,502 @@
 --
 -- Retrieves information about the partitions in a table.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetPartitions
   ( -- * Creating a Request
-    getPartitions,
-    GetPartitions,
+    GetPartitions (..),
+    newGetPartitions,
 
     -- * Request Lenses
-    gpNextToken,
-    gpCatalogId,
-    gpMaxResults,
-    gpSegment,
-    gpExcludeColumnSchema,
-    gpExpression,
-    gpDatabaseName,
-    gpTableName,
+    getPartitions_nextToken,
+    getPartitions_catalogId,
+    getPartitions_maxResults,
+    getPartitions_segment,
+    getPartitions_excludeColumnSchema,
+    getPartitions_expression,
+    getPartitions_databaseName,
+    getPartitions_tableName,
 
     -- * Destructuring the Response
-    getPartitionsResponse,
-    GetPartitionsResponse,
+    GetPartitionsResponse (..),
+    newGetPartitionsResponse,
 
     -- * Response Lenses
-    grsNextToken,
-    grsPartitions,
-    grsResponseStatus,
+    getPartitionsResponse_nextToken,
+    getPartitionsResponse_partitions,
+    getPartitionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.Partition
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getPartitions' smart constructor.
+-- | /See:/ 'newGetPartitions' smart constructor.
 data GetPartitions = GetPartitions'
-  { _gpNextToken ::
-      !(Maybe Text),
-    _gpCatalogId :: !(Maybe Text),
-    _gpMaxResults :: !(Maybe Nat),
-    _gpSegment :: !(Maybe Segment),
-    _gpExcludeColumnSchema :: !(Maybe Bool),
-    _gpExpression :: !(Maybe Text),
-    _gpDatabaseName :: !Text,
-    _gpTableName :: !Text
+  { -- | A continuation token, if this is not the first call to retrieve these
+    -- partitions.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Data Catalog where the partitions in question reside. If
+    -- none is provided, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of partitions to return in a single response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The segment of the table\'s partitions to scan in this request.
+    segment :: Prelude.Maybe Segment,
+    excludeColumnSchema :: Prelude.Maybe Prelude.Bool,
+    -- | An expression that filters the partitions to be returned.
+    --
+    -- The expression uses SQL syntax similar to the SQL @WHERE@ filter clause.
+    -- The SQL statement parser
+    -- <http://jsqlparser.sourceforge.net/home.php JSQLParser> parses the
+    -- expression.
+    --
+    -- /Operators/: The following are the operators that you can use in the
+    -- @Expression@ API call:
+    --
+    -- [=]
+    --     Checks whether the values of the two operands are equal; if yes,
+    --     then the condition becomes true.
+    --
+    --     Example: Assume \'variable a\' holds 10 and \'variable b\' holds 20.
+    --
+    --     (a = b) is not true.
+    --
+    -- [\< >]
+    --     Checks whether the values of two operands are equal; if the values
+    --     are not equal, then the condition becomes true.
+    --
+    --     Example: (a \< > b) is true.
+    --
+    -- [>]
+    --     Checks whether the value of the left operand is greater than the
+    --     value of the right operand; if yes, then the condition becomes true.
+    --
+    --     Example: (a > b) is not true.
+    --
+    -- [\<]
+    --     Checks whether the value of the left operand is less than the value
+    --     of the right operand; if yes, then the condition becomes true.
+    --
+    --     Example: (a \< b) is true.
+    --
+    -- [>=]
+    --     Checks whether the value of the left operand is greater than or
+    --     equal to the value of the right operand; if yes, then the condition
+    --     becomes true.
+    --
+    --     Example: (a >= b) is not true.
+    --
+    -- [\<=]
+    --     Checks whether the value of the left operand is less than or equal
+    --     to the value of the right operand; if yes, then the condition
+    --     becomes true.
+    --
+    --     Example: (a \<= b) is true.
+    --
+    -- [AND, OR, IN, BETWEEN, LIKE, NOT, IS NULL]
+    --     Logical operators.
+    --
+    -- /Supported Partition Key Types/: The following are the supported
+    -- partition keys.
+    --
+    -- -   @string@
+    --
+    -- -   @date@
+    --
+    -- -   @timestamp@
+    --
+    -- -   @int@
+    --
+    -- -   @bigint@
+    --
+    -- -   @long@
+    --
+    -- -   @tinyint@
+    --
+    -- -   @smallint@
+    --
+    -- -   @decimal@
+    --
+    -- If an invalid type is encountered, an exception is thrown.
+    --
+    -- The following list shows the valid operators on each type. When you
+    -- define a crawler, the @partitionKey@ type is created as a @STRING@, to
+    -- be compatible with the catalog partitions.
+    --
+    -- /Sample API Call/:
+    expression :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database where the partitions reside.
+    databaseName :: Prelude.Text,
+    -- | The name of the partitions\' table.
+    tableName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPartitions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPartitions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpNextToken' - A continuation token, if this is not the first call to retrieve these partitions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpCatalogId' - The ID of the Data Catalog where the partitions in question reside. If none is provided, the AWS account ID is used by default.
+-- 'nextToken', 'getPartitions_nextToken' - A continuation token, if this is not the first call to retrieve these
+-- partitions.
 --
--- * 'gpMaxResults' - The maximum number of partitions to return in a single response.
+-- 'catalogId', 'getPartitions_catalogId' - The ID of the Data Catalog where the partitions in question reside. If
+-- none is provided, the AWS account ID is used by default.
 --
--- * 'gpSegment' - The segment of the table's partitions to scan in this request.
+-- 'maxResults', 'getPartitions_maxResults' - The maximum number of partitions to return in a single response.
 --
--- * 'gpExcludeColumnSchema' - Undocumented member.
+-- 'segment', 'getPartitions_segment' - The segment of the table\'s partitions to scan in this request.
 --
--- * 'gpExpression' - An expression that filters the partitions to be returned. The expression uses SQL syntax similar to the SQL @WHERE@ filter clause. The SQL statement parser <http://jsqlparser.sourceforge.net/home.php JSQLParser> parses the expression.  /Operators/ : The following are the operators that you can use in the @Expression@ API call:     * =    * Checks whether the values of the two operands are equal; if yes, then the condition becomes true. Example: Assume 'variable a' holds 10 and 'variable b' holds 20.  (a = b) is not true.     * < >    * Checks whether the values of two operands are equal; if the values are not equal, then the condition becomes true. Example: (a < > b) is true.     * >    * Checks whether the value of the left operand is greater than the value of the right operand; if yes, then the condition becomes true. Example: (a > b) is not true.     * <    * Checks whether the value of the left operand is less than the value of the right operand; if yes, then the condition becomes true. Example: (a < b) is true.     * >=    * Checks whether the value of the left operand is greater than or equal to the value of the right operand; if yes, then the condition becomes true. Example: (a >= b) is not true.     * <=    * Checks whether the value of the left operand is less than or equal to the value of the right operand; if yes, then the condition becomes true. Example: (a <= b) is true.     * AND, OR, IN, BETWEEN, LIKE, NOT, IS NULL    * Logical operators. /Supported Partition Key Types/ : The following are the supported partition keys.     * @string@      * @date@      * @timestamp@      * @int@      * @bigint@      * @long@      * @tinyint@      * @smallint@      * @decimal@  If an invalid type is encountered, an exception is thrown.  The following list shows the valid operators on each type. When you define a crawler, the @partitionKey@ type is created as a @STRING@ , to be compatible with the catalog partitions.  /Sample API Call/ :
+-- 'excludeColumnSchema', 'getPartitions_excludeColumnSchema' - Undocumented member.
 --
--- * 'gpDatabaseName' - The name of the catalog database where the partitions reside.
+-- 'expression', 'getPartitions_expression' - An expression that filters the partitions to be returned.
 --
--- * 'gpTableName' - The name of the partitions' table.
-getPartitions ::
-  -- | 'gpDatabaseName'
-  Text ->
-  -- | 'gpTableName'
-  Text ->
+-- The expression uses SQL syntax similar to the SQL @WHERE@ filter clause.
+-- The SQL statement parser
+-- <http://jsqlparser.sourceforge.net/home.php JSQLParser> parses the
+-- expression.
+--
+-- /Operators/: The following are the operators that you can use in the
+-- @Expression@ API call:
+--
+-- [=]
+--     Checks whether the values of the two operands are equal; if yes,
+--     then the condition becomes true.
+--
+--     Example: Assume \'variable a\' holds 10 and \'variable b\' holds 20.
+--
+--     (a = b) is not true.
+--
+-- [\< >]
+--     Checks whether the values of two operands are equal; if the values
+--     are not equal, then the condition becomes true.
+--
+--     Example: (a \< > b) is true.
+--
+-- [>]
+--     Checks whether the value of the left operand is greater than the
+--     value of the right operand; if yes, then the condition becomes true.
+--
+--     Example: (a > b) is not true.
+--
+-- [\<]
+--     Checks whether the value of the left operand is less than the value
+--     of the right operand; if yes, then the condition becomes true.
+--
+--     Example: (a \< b) is true.
+--
+-- [>=]
+--     Checks whether the value of the left operand is greater than or
+--     equal to the value of the right operand; if yes, then the condition
+--     becomes true.
+--
+--     Example: (a >= b) is not true.
+--
+-- [\<=]
+--     Checks whether the value of the left operand is less than or equal
+--     to the value of the right operand; if yes, then the condition
+--     becomes true.
+--
+--     Example: (a \<= b) is true.
+--
+-- [AND, OR, IN, BETWEEN, LIKE, NOT, IS NULL]
+--     Logical operators.
+--
+-- /Supported Partition Key Types/: The following are the supported
+-- partition keys.
+--
+-- -   @string@
+--
+-- -   @date@
+--
+-- -   @timestamp@
+--
+-- -   @int@
+--
+-- -   @bigint@
+--
+-- -   @long@
+--
+-- -   @tinyint@
+--
+-- -   @smallint@
+--
+-- -   @decimal@
+--
+-- If an invalid type is encountered, an exception is thrown.
+--
+-- The following list shows the valid operators on each type. When you
+-- define a crawler, the @partitionKey@ type is created as a @STRING@, to
+-- be compatible with the catalog partitions.
+--
+-- /Sample API Call/:
+--
+-- 'databaseName', 'getPartitions_databaseName' - The name of the catalog database where the partitions reside.
+--
+-- 'tableName', 'getPartitions_tableName' - The name of the partitions\' table.
+newGetPartitions ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
   GetPartitions
-getPartitions pDatabaseName_ pTableName_ =
+newGetPartitions pDatabaseName_ pTableName_ =
   GetPartitions'
-    { _gpNextToken = Nothing,
-      _gpCatalogId = Nothing,
-      _gpMaxResults = Nothing,
-      _gpSegment = Nothing,
-      _gpExcludeColumnSchema = Nothing,
-      _gpExpression = Nothing,
-      _gpDatabaseName = pDatabaseName_,
-      _gpTableName = pTableName_
+    { nextToken = Prelude.Nothing,
+      catalogId = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      segment = Prelude.Nothing,
+      excludeColumnSchema = Prelude.Nothing,
+      expression = Prelude.Nothing,
+      databaseName = pDatabaseName_,
+      tableName = pTableName_
     }
 
--- | A continuation token, if this is not the first call to retrieve these partitions.
-gpNextToken :: Lens' GetPartitions (Maybe Text)
-gpNextToken = lens _gpNextToken (\s a -> s {_gpNextToken = a})
+-- | A continuation token, if this is not the first call to retrieve these
+-- partitions.
+getPartitions_nextToken :: Lens.Lens' GetPartitions (Prelude.Maybe Prelude.Text)
+getPartitions_nextToken = Lens.lens (\GetPartitions' {nextToken} -> nextToken) (\s@GetPartitions' {} a -> s {nextToken = a} :: GetPartitions)
 
--- | The ID of the Data Catalog where the partitions in question reside. If none is provided, the AWS account ID is used by default.
-gpCatalogId :: Lens' GetPartitions (Maybe Text)
-gpCatalogId = lens _gpCatalogId (\s a -> s {_gpCatalogId = a})
+-- | The ID of the Data Catalog where the partitions in question reside. If
+-- none is provided, the AWS account ID is used by default.
+getPartitions_catalogId :: Lens.Lens' GetPartitions (Prelude.Maybe Prelude.Text)
+getPartitions_catalogId = Lens.lens (\GetPartitions' {catalogId} -> catalogId) (\s@GetPartitions' {} a -> s {catalogId = a} :: GetPartitions)
 
 -- | The maximum number of partitions to return in a single response.
-gpMaxResults :: Lens' GetPartitions (Maybe Natural)
-gpMaxResults = lens _gpMaxResults (\s a -> s {_gpMaxResults = a}) . mapping _Nat
+getPartitions_maxResults :: Lens.Lens' GetPartitions (Prelude.Maybe Prelude.Natural)
+getPartitions_maxResults = Lens.lens (\GetPartitions' {maxResults} -> maxResults) (\s@GetPartitions' {} a -> s {maxResults = a} :: GetPartitions) Prelude.. Lens.mapping Prelude._Nat
 
--- | The segment of the table's partitions to scan in this request.
-gpSegment :: Lens' GetPartitions (Maybe Segment)
-gpSegment = lens _gpSegment (\s a -> s {_gpSegment = a})
+-- | The segment of the table\'s partitions to scan in this request.
+getPartitions_segment :: Lens.Lens' GetPartitions (Prelude.Maybe Segment)
+getPartitions_segment = Lens.lens (\GetPartitions' {segment} -> segment) (\s@GetPartitions' {} a -> s {segment = a} :: GetPartitions)
 
 -- | Undocumented member.
-gpExcludeColumnSchema :: Lens' GetPartitions (Maybe Bool)
-gpExcludeColumnSchema = lens _gpExcludeColumnSchema (\s a -> s {_gpExcludeColumnSchema = a})
+getPartitions_excludeColumnSchema :: Lens.Lens' GetPartitions (Prelude.Maybe Prelude.Bool)
+getPartitions_excludeColumnSchema = Lens.lens (\GetPartitions' {excludeColumnSchema} -> excludeColumnSchema) (\s@GetPartitions' {} a -> s {excludeColumnSchema = a} :: GetPartitions)
 
--- | An expression that filters the partitions to be returned. The expression uses SQL syntax similar to the SQL @WHERE@ filter clause. The SQL statement parser <http://jsqlparser.sourceforge.net/home.php JSQLParser> parses the expression.  /Operators/ : The following are the operators that you can use in the @Expression@ API call:     * =    * Checks whether the values of the two operands are equal; if yes, then the condition becomes true. Example: Assume 'variable a' holds 10 and 'variable b' holds 20.  (a = b) is not true.     * < >    * Checks whether the values of two operands are equal; if the values are not equal, then the condition becomes true. Example: (a < > b) is true.     * >    * Checks whether the value of the left operand is greater than the value of the right operand; if yes, then the condition becomes true. Example: (a > b) is not true.     * <    * Checks whether the value of the left operand is less than the value of the right operand; if yes, then the condition becomes true. Example: (a < b) is true.     * >=    * Checks whether the value of the left operand is greater than or equal to the value of the right operand; if yes, then the condition becomes true. Example: (a >= b) is not true.     * <=    * Checks whether the value of the left operand is less than or equal to the value of the right operand; if yes, then the condition becomes true. Example: (a <= b) is true.     * AND, OR, IN, BETWEEN, LIKE, NOT, IS NULL    * Logical operators. /Supported Partition Key Types/ : The following are the supported partition keys.     * @string@      * @date@      * @timestamp@      * @int@      * @bigint@      * @long@      * @tinyint@      * @smallint@      * @decimal@  If an invalid type is encountered, an exception is thrown.  The following list shows the valid operators on each type. When you define a crawler, the @partitionKey@ type is created as a @STRING@ , to be compatible with the catalog partitions.  /Sample API Call/ :
-gpExpression :: Lens' GetPartitions (Maybe Text)
-gpExpression = lens _gpExpression (\s a -> s {_gpExpression = a})
+-- | An expression that filters the partitions to be returned.
+--
+-- The expression uses SQL syntax similar to the SQL @WHERE@ filter clause.
+-- The SQL statement parser
+-- <http://jsqlparser.sourceforge.net/home.php JSQLParser> parses the
+-- expression.
+--
+-- /Operators/: The following are the operators that you can use in the
+-- @Expression@ API call:
+--
+-- [=]
+--     Checks whether the values of the two operands are equal; if yes,
+--     then the condition becomes true.
+--
+--     Example: Assume \'variable a\' holds 10 and \'variable b\' holds 20.
+--
+--     (a = b) is not true.
+--
+-- [\< >]
+--     Checks whether the values of two operands are equal; if the values
+--     are not equal, then the condition becomes true.
+--
+--     Example: (a \< > b) is true.
+--
+-- [>]
+--     Checks whether the value of the left operand is greater than the
+--     value of the right operand; if yes, then the condition becomes true.
+--
+--     Example: (a > b) is not true.
+--
+-- [\<]
+--     Checks whether the value of the left operand is less than the value
+--     of the right operand; if yes, then the condition becomes true.
+--
+--     Example: (a \< b) is true.
+--
+-- [>=]
+--     Checks whether the value of the left operand is greater than or
+--     equal to the value of the right operand; if yes, then the condition
+--     becomes true.
+--
+--     Example: (a >= b) is not true.
+--
+-- [\<=]
+--     Checks whether the value of the left operand is less than or equal
+--     to the value of the right operand; if yes, then the condition
+--     becomes true.
+--
+--     Example: (a \<= b) is true.
+--
+-- [AND, OR, IN, BETWEEN, LIKE, NOT, IS NULL]
+--     Logical operators.
+--
+-- /Supported Partition Key Types/: The following are the supported
+-- partition keys.
+--
+-- -   @string@
+--
+-- -   @date@
+--
+-- -   @timestamp@
+--
+-- -   @int@
+--
+-- -   @bigint@
+--
+-- -   @long@
+--
+-- -   @tinyint@
+--
+-- -   @smallint@
+--
+-- -   @decimal@
+--
+-- If an invalid type is encountered, an exception is thrown.
+--
+-- The following list shows the valid operators on each type. When you
+-- define a crawler, the @partitionKey@ type is created as a @STRING@, to
+-- be compatible with the catalog partitions.
+--
+-- /Sample API Call/:
+getPartitions_expression :: Lens.Lens' GetPartitions (Prelude.Maybe Prelude.Text)
+getPartitions_expression = Lens.lens (\GetPartitions' {expression} -> expression) (\s@GetPartitions' {} a -> s {expression = a} :: GetPartitions)
 
 -- | The name of the catalog database where the partitions reside.
-gpDatabaseName :: Lens' GetPartitions Text
-gpDatabaseName = lens _gpDatabaseName (\s a -> s {_gpDatabaseName = a})
+getPartitions_databaseName :: Lens.Lens' GetPartitions Prelude.Text
+getPartitions_databaseName = Lens.lens (\GetPartitions' {databaseName} -> databaseName) (\s@GetPartitions' {} a -> s {databaseName = a} :: GetPartitions)
 
--- | The name of the partitions' table.
-gpTableName :: Lens' GetPartitions Text
-gpTableName = lens _gpTableName (\s a -> s {_gpTableName = a})
+-- | The name of the partitions\' table.
+getPartitions_tableName :: Lens.Lens' GetPartitions Prelude.Text
+getPartitions_tableName = Lens.lens (\GetPartitions' {tableName} -> tableName) (\s@GetPartitions' {} a -> s {tableName = a} :: GetPartitions)
 
-instance AWSPager GetPartitions where
+instance Pager.AWSPager GetPartitions where
   page rq rs
-    | stop (rs ^. grsNextToken) = Nothing
-    | stop (rs ^. grsPartitions) = Nothing
-    | otherwise =
-      Just $ rq & gpNextToken .~ rs ^. grsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getPartitionsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getPartitionsResponse_partitions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getPartitions_nextToken
+          Lens..~ rs
+          Lens.^? getPartitionsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest GetPartitions where
+instance Prelude.AWSRequest GetPartitions where
   type Rs GetPartitions = GetPartitionsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetPartitionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Partitions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Partitions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPartitions
+instance Prelude.Hashable GetPartitions
 
-instance NFData GetPartitions
+instance Prelude.NFData GetPartitions
 
-instance ToHeaders GetPartitions where
+instance Prelude.ToHeaders GetPartitions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetPartitions" :: ByteString),
+              Prelude.=# ("AWSGlue.GetPartitions" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetPartitions where
+instance Prelude.ToJSON GetPartitions where
   toJSON GetPartitions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gpNextToken,
-            ("CatalogId" .=) <$> _gpCatalogId,
-            ("MaxResults" .=) <$> _gpMaxResults,
-            ("Segment" .=) <$> _gpSegment,
-            ("ExcludeColumnSchema" .=)
-              <$> _gpExcludeColumnSchema,
-            ("Expression" .=) <$> _gpExpression,
-            Just ("DatabaseName" .= _gpDatabaseName),
-            Just ("TableName" .= _gpTableName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Segment" Prelude..=) Prelude.<$> segment,
+            ("ExcludeColumnSchema" Prelude..=)
+              Prelude.<$> excludeColumnSchema,
+            ("Expression" Prelude..=) Prelude.<$> expression,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName)
           ]
       )
 
-instance ToPath GetPartitions where
-  toPath = const "/"
+instance Prelude.ToPath GetPartitions where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetPartitions where
-  toQuery = const mempty
+instance Prelude.ToQuery GetPartitions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getPartitionsResponse' smart constructor.
+-- | /See:/ 'newGetPartitionsResponse' smart constructor.
 data GetPartitionsResponse = GetPartitionsResponse'
-  { _grsNextToken ::
-      !(Maybe Text),
-    _grsPartitions ::
-      !(Maybe [Partition]),
-    _grsResponseStatus :: !Int
+  { -- | A continuation token, if the returned list of partitions does not
+    -- include the last one.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of requested partitions.
+    partitions :: Prelude.Maybe [Partition],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPartitionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPartitionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grsNextToken' - A continuation token, if the returned list of partitions does not include the last one.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grsPartitions' - A list of requested partitions.
+-- 'nextToken', 'getPartitionsResponse_nextToken' - A continuation token, if the returned list of partitions does not
+-- include the last one.
 --
--- * 'grsResponseStatus' - -- | The response status code.
-getPartitionsResponse ::
-  -- | 'grsResponseStatus'
-  Int ->
+-- 'partitions', 'getPartitionsResponse_partitions' - A list of requested partitions.
+--
+-- 'httpStatus', 'getPartitionsResponse_httpStatus' - The response's http status code.
+newGetPartitionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPartitionsResponse
-getPartitionsResponse pResponseStatus_ =
+newGetPartitionsResponse pHttpStatus_ =
   GetPartitionsResponse'
-    { _grsNextToken = Nothing,
-      _grsPartitions = Nothing,
-      _grsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      partitions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if the returned list of partitions does not include the last one.
-grsNextToken :: Lens' GetPartitionsResponse (Maybe Text)
-grsNextToken = lens _grsNextToken (\s a -> s {_grsNextToken = a})
+-- | A continuation token, if the returned list of partitions does not
+-- include the last one.
+getPartitionsResponse_nextToken :: Lens.Lens' GetPartitionsResponse (Prelude.Maybe Prelude.Text)
+getPartitionsResponse_nextToken = Lens.lens (\GetPartitionsResponse' {nextToken} -> nextToken) (\s@GetPartitionsResponse' {} a -> s {nextToken = a} :: GetPartitionsResponse)
 
 -- | A list of requested partitions.
-grsPartitions :: Lens' GetPartitionsResponse [Partition]
-grsPartitions = lens _grsPartitions (\s a -> s {_grsPartitions = a}) . _Default . _Coerce
+getPartitionsResponse_partitions :: Lens.Lens' GetPartitionsResponse (Prelude.Maybe [Partition])
+getPartitionsResponse_partitions = Lens.lens (\GetPartitionsResponse' {partitions} -> partitions) (\s@GetPartitionsResponse' {} a -> s {partitions = a} :: GetPartitionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-grsResponseStatus :: Lens' GetPartitionsResponse Int
-grsResponseStatus = lens _grsResponseStatus (\s a -> s {_grsResponseStatus = a})
+-- | The response's http status code.
+getPartitionsResponse_httpStatus :: Lens.Lens' GetPartitionsResponse Prelude.Int
+getPartitionsResponse_httpStatus = Lens.lens (\GetPartitionsResponse' {httpStatus} -> httpStatus) (\s@GetPartitionsResponse' {} a -> s {httpStatus = a} :: GetPartitionsResponse)
 
-instance NFData GetPartitionsResponse
+instance Prelude.NFData GetPartitionsResponse

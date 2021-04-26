@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,178 +24,184 @@
 -- Retrieves metadata for all runs of a given workflow.
 module Network.AWS.Glue.GetWorkflowRuns
   ( -- * Creating a Request
-    getWorkflowRuns,
-    GetWorkflowRuns,
+    GetWorkflowRuns (..),
+    newGetWorkflowRuns,
 
     -- * Request Lenses
-    gwrNextToken,
-    gwrMaxResults,
-    gwrIncludeGraph,
-    gwrName,
+    getWorkflowRuns_nextToken,
+    getWorkflowRuns_maxResults,
+    getWorkflowRuns_includeGraph,
+    getWorkflowRuns_name,
 
     -- * Destructuring the Response
-    getWorkflowRunsResponse,
-    GetWorkflowRunsResponse,
+    GetWorkflowRunsResponse (..),
+    newGetWorkflowRunsResponse,
 
     -- * Response Lenses
-    gwrrwrsNextToken,
-    gwrrwrsRuns,
-    gwrrwrsResponseStatus,
+    getWorkflowRunsResponse_nextToken,
+    getWorkflowRunsResponse_runs,
+    getWorkflowRunsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.WorkflowRun
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getWorkflowRuns' smart constructor.
+-- | /See:/ 'newGetWorkflowRuns' smart constructor.
 data GetWorkflowRuns = GetWorkflowRuns'
-  { _gwrNextToken ::
-      !(Maybe Text),
-    _gwrMaxResults :: !(Maybe Nat),
-    _gwrIncludeGraph :: !(Maybe Bool),
-    _gwrName :: !Text
+  { -- | The maximum size of the response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of workflow runs to be included in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies whether to include the workflow graph in response or not.
+    includeGraph :: Prelude.Maybe Prelude.Bool,
+    -- | Name of the workflow whose metadata of runs should be returned.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetWorkflowRuns' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetWorkflowRuns' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gwrNextToken' - The maximum size of the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gwrMaxResults' - The maximum number of workflow runs to be included in the response.
+-- 'nextToken', 'getWorkflowRuns_nextToken' - The maximum size of the response.
 --
--- * 'gwrIncludeGraph' - Specifies whether to include the workflow graph in response or not.
+-- 'maxResults', 'getWorkflowRuns_maxResults' - The maximum number of workflow runs to be included in the response.
 --
--- * 'gwrName' - Name of the workflow whose metadata of runs should be returned.
-getWorkflowRuns ::
-  -- | 'gwrName'
-  Text ->
+-- 'includeGraph', 'getWorkflowRuns_includeGraph' - Specifies whether to include the workflow graph in response or not.
+--
+-- 'name', 'getWorkflowRuns_name' - Name of the workflow whose metadata of runs should be returned.
+newGetWorkflowRuns ::
+  -- | 'name'
+  Prelude.Text ->
   GetWorkflowRuns
-getWorkflowRuns pName_ =
+newGetWorkflowRuns pName_ =
   GetWorkflowRuns'
-    { _gwrNextToken = Nothing,
-      _gwrMaxResults = Nothing,
-      _gwrIncludeGraph = Nothing,
-      _gwrName = pName_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      includeGraph = Prelude.Nothing,
+      name = pName_
     }
 
 -- | The maximum size of the response.
-gwrNextToken :: Lens' GetWorkflowRuns (Maybe Text)
-gwrNextToken = lens _gwrNextToken (\s a -> s {_gwrNextToken = a})
+getWorkflowRuns_nextToken :: Lens.Lens' GetWorkflowRuns (Prelude.Maybe Prelude.Text)
+getWorkflowRuns_nextToken = Lens.lens (\GetWorkflowRuns' {nextToken} -> nextToken) (\s@GetWorkflowRuns' {} a -> s {nextToken = a} :: GetWorkflowRuns)
 
 -- | The maximum number of workflow runs to be included in the response.
-gwrMaxResults :: Lens' GetWorkflowRuns (Maybe Natural)
-gwrMaxResults = lens _gwrMaxResults (\s a -> s {_gwrMaxResults = a}) . mapping _Nat
+getWorkflowRuns_maxResults :: Lens.Lens' GetWorkflowRuns (Prelude.Maybe Prelude.Natural)
+getWorkflowRuns_maxResults = Lens.lens (\GetWorkflowRuns' {maxResults} -> maxResults) (\s@GetWorkflowRuns' {} a -> s {maxResults = a} :: GetWorkflowRuns) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Specifies whether to include the workflow graph in response or not.
-gwrIncludeGraph :: Lens' GetWorkflowRuns (Maybe Bool)
-gwrIncludeGraph = lens _gwrIncludeGraph (\s a -> s {_gwrIncludeGraph = a})
+getWorkflowRuns_includeGraph :: Lens.Lens' GetWorkflowRuns (Prelude.Maybe Prelude.Bool)
+getWorkflowRuns_includeGraph = Lens.lens (\GetWorkflowRuns' {includeGraph} -> includeGraph) (\s@GetWorkflowRuns' {} a -> s {includeGraph = a} :: GetWorkflowRuns)
 
 -- | Name of the workflow whose metadata of runs should be returned.
-gwrName :: Lens' GetWorkflowRuns Text
-gwrName = lens _gwrName (\s a -> s {_gwrName = a})
+getWorkflowRuns_name :: Lens.Lens' GetWorkflowRuns Prelude.Text
+getWorkflowRuns_name = Lens.lens (\GetWorkflowRuns' {name} -> name) (\s@GetWorkflowRuns' {} a -> s {name = a} :: GetWorkflowRuns)
 
-instance AWSRequest GetWorkflowRuns where
+instance Prelude.AWSRequest GetWorkflowRuns where
   type Rs GetWorkflowRuns = GetWorkflowRunsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetWorkflowRunsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Runs")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Runs")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetWorkflowRuns
+instance Prelude.Hashable GetWorkflowRuns
 
-instance NFData GetWorkflowRuns
+instance Prelude.NFData GetWorkflowRuns
 
-instance ToHeaders GetWorkflowRuns where
+instance Prelude.ToHeaders GetWorkflowRuns where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetWorkflowRuns" :: ByteString),
+              Prelude.=# ("AWSGlue.GetWorkflowRuns" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetWorkflowRuns where
+instance Prelude.ToJSON GetWorkflowRuns where
   toJSON GetWorkflowRuns' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gwrNextToken,
-            ("MaxResults" .=) <$> _gwrMaxResults,
-            ("IncludeGraph" .=) <$> _gwrIncludeGraph,
-            Just ("Name" .= _gwrName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("IncludeGraph" Prelude..=) Prelude.<$> includeGraph,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath GetWorkflowRuns where
-  toPath = const "/"
+instance Prelude.ToPath GetWorkflowRuns where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetWorkflowRuns where
-  toQuery = const mempty
+instance Prelude.ToQuery GetWorkflowRuns where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getWorkflowRunsResponse' smart constructor.
+-- | /See:/ 'newGetWorkflowRunsResponse' smart constructor.
 data GetWorkflowRunsResponse = GetWorkflowRunsResponse'
-  { _gwrrwrsNextToken ::
-      !(Maybe Text),
-    _gwrrwrsRuns ::
-      !( Maybe
-           ( List1
-               WorkflowRun
-           )
-       ),
-    _gwrrwrsResponseStatus ::
-      !Int
+  { -- | A continuation token, if not all requested workflow runs have been
+    -- returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of workflow run metadata objects.
+    runs :: Prelude.Maybe (Prelude.List1 WorkflowRun),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetWorkflowRunsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetWorkflowRunsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gwrrwrsNextToken' - A continuation token, if not all requested workflow runs have been returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gwrrwrsRuns' - A list of workflow run metadata objects.
+-- 'nextToken', 'getWorkflowRunsResponse_nextToken' - A continuation token, if not all requested workflow runs have been
+-- returned.
 --
--- * 'gwrrwrsResponseStatus' - -- | The response status code.
-getWorkflowRunsResponse ::
-  -- | 'gwrrwrsResponseStatus'
-  Int ->
+-- 'runs', 'getWorkflowRunsResponse_runs' - A list of workflow run metadata objects.
+--
+-- 'httpStatus', 'getWorkflowRunsResponse_httpStatus' - The response's http status code.
+newGetWorkflowRunsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetWorkflowRunsResponse
-getWorkflowRunsResponse pResponseStatus_ =
+newGetWorkflowRunsResponse pHttpStatus_ =
   GetWorkflowRunsResponse'
-    { _gwrrwrsNextToken =
-        Nothing,
-      _gwrrwrsRuns = Nothing,
-      _gwrrwrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      runs = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if not all requested workflow runs have been returned.
-gwrrwrsNextToken :: Lens' GetWorkflowRunsResponse (Maybe Text)
-gwrrwrsNextToken = lens _gwrrwrsNextToken (\s a -> s {_gwrrwrsNextToken = a})
+-- | A continuation token, if not all requested workflow runs have been
+-- returned.
+getWorkflowRunsResponse_nextToken :: Lens.Lens' GetWorkflowRunsResponse (Prelude.Maybe Prelude.Text)
+getWorkflowRunsResponse_nextToken = Lens.lens (\GetWorkflowRunsResponse' {nextToken} -> nextToken) (\s@GetWorkflowRunsResponse' {} a -> s {nextToken = a} :: GetWorkflowRunsResponse)
 
 -- | A list of workflow run metadata objects.
-gwrrwrsRuns :: Lens' GetWorkflowRunsResponse (Maybe (NonEmpty WorkflowRun))
-gwrrwrsRuns = lens _gwrrwrsRuns (\s a -> s {_gwrrwrsRuns = a}) . mapping _List1
+getWorkflowRunsResponse_runs :: Lens.Lens' GetWorkflowRunsResponse (Prelude.Maybe (Prelude.NonEmpty WorkflowRun))
+getWorkflowRunsResponse_runs = Lens.lens (\GetWorkflowRunsResponse' {runs} -> runs) (\s@GetWorkflowRunsResponse' {} a -> s {runs = a} :: GetWorkflowRunsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-gwrrwrsResponseStatus :: Lens' GetWorkflowRunsResponse Int
-gwrrwrsResponseStatus = lens _gwrrwrsResponseStatus (\s a -> s {_gwrrwrsResponseStatus = a})
+-- | The response's http status code.
+getWorkflowRunsResponse_httpStatus :: Lens.Lens' GetWorkflowRunsResponse Prelude.Int
+getWorkflowRunsResponse_httpStatus = Lens.lens (\GetWorkflowRunsResponse' {httpStatus} -> httpStatus) (\s@GetWorkflowRunsResponse' {} a -> s {httpStatus = a} :: GetWorkflowRunsResponse)
 
-instance NFData GetWorkflowRunsResponse
+instance Prelude.NFData GetWorkflowRunsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,84 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.UpdateGrokClassifierRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies a grok classifier to update when passed to @UpdateClassifier@ .
+-- | Specifies a grok classifier to update when passed to @UpdateClassifier@.
 --
---
---
--- /See:/ 'updateGrokClassifierRequest' smart constructor.
+-- /See:/ 'newUpdateGrokClassifierRequest' smart constructor.
 data UpdateGrokClassifierRequest = UpdateGrokClassifierRequest'
-  { _ugcrGrokPattern ::
-      !(Maybe Text),
-    _ugcrClassification ::
-      !(Maybe Text),
-    _ugcrCustomPatterns ::
-      !(Maybe Text),
-    _ugcrName ::
-      !Text
+  { -- | The grok pattern used by this classifier.
+    grokPattern :: Prelude.Maybe Prelude.Text,
+    -- | An identifier of the data format that the classifier matches, such as
+    -- Twitter, JSON, Omniture logs, Amazon CloudWatch Logs, and so on.
+    classification :: Prelude.Maybe Prelude.Text,
+    -- | Optional custom grok patterns used by this classifier.
+    customPatterns :: Prelude.Maybe Prelude.Text,
+    -- | The name of the @GrokClassifier@.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateGrokClassifierRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateGrokClassifierRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugcrGrokPattern' - The grok pattern used by this classifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ugcrClassification' - An identifier of the data format that the classifier matches, such as Twitter, JSON, Omniture logs, Amazon CloudWatch Logs, and so on.
+-- 'grokPattern', 'updateGrokClassifierRequest_grokPattern' - The grok pattern used by this classifier.
 --
--- * 'ugcrCustomPatterns' - Optional custom grok patterns used by this classifier.
+-- 'classification', 'updateGrokClassifierRequest_classification' - An identifier of the data format that the classifier matches, such as
+-- Twitter, JSON, Omniture logs, Amazon CloudWatch Logs, and so on.
 --
--- * 'ugcrName' - The name of the @GrokClassifier@ .
-updateGrokClassifierRequest ::
-  -- | 'ugcrName'
-  Text ->
+-- 'customPatterns', 'updateGrokClassifierRequest_customPatterns' - Optional custom grok patterns used by this classifier.
+--
+-- 'name', 'updateGrokClassifierRequest_name' - The name of the @GrokClassifier@.
+newUpdateGrokClassifierRequest ::
+  -- | 'name'
+  Prelude.Text ->
   UpdateGrokClassifierRequest
-updateGrokClassifierRequest pName_ =
+newUpdateGrokClassifierRequest pName_ =
   UpdateGrokClassifierRequest'
-    { _ugcrGrokPattern =
-        Nothing,
-      _ugcrClassification = Nothing,
-      _ugcrCustomPatterns = Nothing,
-      _ugcrName = pName_
+    { grokPattern =
+        Prelude.Nothing,
+      classification = Prelude.Nothing,
+      customPatterns = Prelude.Nothing,
+      name = pName_
     }
 
 -- | The grok pattern used by this classifier.
-ugcrGrokPattern :: Lens' UpdateGrokClassifierRequest (Maybe Text)
-ugcrGrokPattern = lens _ugcrGrokPattern (\s a -> s {_ugcrGrokPattern = a})
+updateGrokClassifierRequest_grokPattern :: Lens.Lens' UpdateGrokClassifierRequest (Prelude.Maybe Prelude.Text)
+updateGrokClassifierRequest_grokPattern = Lens.lens (\UpdateGrokClassifierRequest' {grokPattern} -> grokPattern) (\s@UpdateGrokClassifierRequest' {} a -> s {grokPattern = a} :: UpdateGrokClassifierRequest)
 
--- | An identifier of the data format that the classifier matches, such as Twitter, JSON, Omniture logs, Amazon CloudWatch Logs, and so on.
-ugcrClassification :: Lens' UpdateGrokClassifierRequest (Maybe Text)
-ugcrClassification = lens _ugcrClassification (\s a -> s {_ugcrClassification = a})
+-- | An identifier of the data format that the classifier matches, such as
+-- Twitter, JSON, Omniture logs, Amazon CloudWatch Logs, and so on.
+updateGrokClassifierRequest_classification :: Lens.Lens' UpdateGrokClassifierRequest (Prelude.Maybe Prelude.Text)
+updateGrokClassifierRequest_classification = Lens.lens (\UpdateGrokClassifierRequest' {classification} -> classification) (\s@UpdateGrokClassifierRequest' {} a -> s {classification = a} :: UpdateGrokClassifierRequest)
 
 -- | Optional custom grok patterns used by this classifier.
-ugcrCustomPatterns :: Lens' UpdateGrokClassifierRequest (Maybe Text)
-ugcrCustomPatterns = lens _ugcrCustomPatterns (\s a -> s {_ugcrCustomPatterns = a})
+updateGrokClassifierRequest_customPatterns :: Lens.Lens' UpdateGrokClassifierRequest (Prelude.Maybe Prelude.Text)
+updateGrokClassifierRequest_customPatterns = Lens.lens (\UpdateGrokClassifierRequest' {customPatterns} -> customPatterns) (\s@UpdateGrokClassifierRequest' {} a -> s {customPatterns = a} :: UpdateGrokClassifierRequest)
 
--- | The name of the @GrokClassifier@ .
-ugcrName :: Lens' UpdateGrokClassifierRequest Text
-ugcrName = lens _ugcrName (\s a -> s {_ugcrName = a})
+-- | The name of the @GrokClassifier@.
+updateGrokClassifierRequest_name :: Lens.Lens' UpdateGrokClassifierRequest Prelude.Text
+updateGrokClassifierRequest_name = Lens.lens (\UpdateGrokClassifierRequest' {name} -> name) (\s@UpdateGrokClassifierRequest' {} a -> s {name = a} :: UpdateGrokClassifierRequest)
 
-instance Hashable UpdateGrokClassifierRequest
+instance Prelude.Hashable UpdateGrokClassifierRequest
 
-instance NFData UpdateGrokClassifierRequest
+instance Prelude.NFData UpdateGrokClassifierRequest
 
-instance ToJSON UpdateGrokClassifierRequest where
+instance Prelude.ToJSON UpdateGrokClassifierRequest where
   toJSON UpdateGrokClassifierRequest' {..} =
-    object
-      ( catMaybes
-          [ ("GrokPattern" .=) <$> _ugcrGrokPattern,
-            ("Classification" .=) <$> _ugcrClassification,
-            ("CustomPatterns" .=) <$> _ugcrCustomPatterns,
-            Just ("Name" .= _ugcrName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("GrokPattern" Prelude..=) Prelude.<$> grokPattern,
+            ("Classification" Prelude..=)
+              Prelude.<$> classification,
+            ("CustomPatterns" Prelude..=)
+              Prelude.<$> customPatterns,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

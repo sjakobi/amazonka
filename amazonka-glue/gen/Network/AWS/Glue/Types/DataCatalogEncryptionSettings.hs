@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +21,88 @@ module Network.AWS.Glue.Types.DataCatalogEncryptionSettings where
 
 import Network.AWS.Glue.Types.ConnectionPasswordEncryption
 import Network.AWS.Glue.Types.EncryptionAtRest
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains configuration information for maintaining Data Catalog security.
+-- | Contains configuration information for maintaining Data Catalog
+-- security.
 --
---
---
--- /See:/ 'dataCatalogEncryptionSettings' smart constructor.
+-- /See:/ 'newDataCatalogEncryptionSettings' smart constructor.
 data DataCatalogEncryptionSettings = DataCatalogEncryptionSettings'
-  { _dcesEncryptionAtRest ::
-      !( Maybe
-           EncryptionAtRest
-       ),
-    _dcesConnectionPasswordEncryption ::
-      !( Maybe
-           ConnectionPasswordEncryption
-       )
+  { -- | Specifies the encryption-at-rest configuration for the Data Catalog.
+    encryptionAtRest :: Prelude.Maybe EncryptionAtRest,
+    -- | When connection password protection is enabled, the Data Catalog uses a
+    -- customer-provided key to encrypt the password as part of
+    -- @CreateConnection@ or @UpdateConnection@ and store it in the
+    -- @ENCRYPTED_PASSWORD@ field in the connection properties. You can enable
+    -- catalog encryption or only password encryption.
+    connectionPasswordEncryption :: Prelude.Maybe ConnectionPasswordEncryption
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataCatalogEncryptionSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataCatalogEncryptionSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcesEncryptionAtRest' - Specifies the encryption-at-rest configuration for the Data Catalog.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcesConnectionPasswordEncryption' - When connection password protection is enabled, the Data Catalog uses a customer-provided key to encrypt the password as part of @CreateConnection@ or @UpdateConnection@ and store it in the @ENCRYPTED_PASSWORD@ field in the connection properties. You can enable catalog encryption or only password encryption.
-dataCatalogEncryptionSettings ::
+-- 'encryptionAtRest', 'dataCatalogEncryptionSettings_encryptionAtRest' - Specifies the encryption-at-rest configuration for the Data Catalog.
+--
+-- 'connectionPasswordEncryption', 'dataCatalogEncryptionSettings_connectionPasswordEncryption' - When connection password protection is enabled, the Data Catalog uses a
+-- customer-provided key to encrypt the password as part of
+-- @CreateConnection@ or @UpdateConnection@ and store it in the
+-- @ENCRYPTED_PASSWORD@ field in the connection properties. You can enable
+-- catalog encryption or only password encryption.
+newDataCatalogEncryptionSettings ::
   DataCatalogEncryptionSettings
-dataCatalogEncryptionSettings =
+newDataCatalogEncryptionSettings =
   DataCatalogEncryptionSettings'
-    { _dcesEncryptionAtRest =
-        Nothing,
-      _dcesConnectionPasswordEncryption = Nothing
+    { encryptionAtRest =
+        Prelude.Nothing,
+      connectionPasswordEncryption =
+        Prelude.Nothing
     }
 
 -- | Specifies the encryption-at-rest configuration for the Data Catalog.
-dcesEncryptionAtRest :: Lens' DataCatalogEncryptionSettings (Maybe EncryptionAtRest)
-dcesEncryptionAtRest = lens _dcesEncryptionAtRest (\s a -> s {_dcesEncryptionAtRest = a})
+dataCatalogEncryptionSettings_encryptionAtRest :: Lens.Lens' DataCatalogEncryptionSettings (Prelude.Maybe EncryptionAtRest)
+dataCatalogEncryptionSettings_encryptionAtRest = Lens.lens (\DataCatalogEncryptionSettings' {encryptionAtRest} -> encryptionAtRest) (\s@DataCatalogEncryptionSettings' {} a -> s {encryptionAtRest = a} :: DataCatalogEncryptionSettings)
 
--- | When connection password protection is enabled, the Data Catalog uses a customer-provided key to encrypt the password as part of @CreateConnection@ or @UpdateConnection@ and store it in the @ENCRYPTED_PASSWORD@ field in the connection properties. You can enable catalog encryption or only password encryption.
-dcesConnectionPasswordEncryption :: Lens' DataCatalogEncryptionSettings (Maybe ConnectionPasswordEncryption)
-dcesConnectionPasswordEncryption = lens _dcesConnectionPasswordEncryption (\s a -> s {_dcesConnectionPasswordEncryption = a})
+-- | When connection password protection is enabled, the Data Catalog uses a
+-- customer-provided key to encrypt the password as part of
+-- @CreateConnection@ or @UpdateConnection@ and store it in the
+-- @ENCRYPTED_PASSWORD@ field in the connection properties. You can enable
+-- catalog encryption or only password encryption.
+dataCatalogEncryptionSettings_connectionPasswordEncryption :: Lens.Lens' DataCatalogEncryptionSettings (Prelude.Maybe ConnectionPasswordEncryption)
+dataCatalogEncryptionSettings_connectionPasswordEncryption = Lens.lens (\DataCatalogEncryptionSettings' {connectionPasswordEncryption} -> connectionPasswordEncryption) (\s@DataCatalogEncryptionSettings' {} a -> s {connectionPasswordEncryption = a} :: DataCatalogEncryptionSettings)
 
-instance FromJSON DataCatalogEncryptionSettings where
+instance
+  Prelude.FromJSON
+    DataCatalogEncryptionSettings
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DataCatalogEncryptionSettings"
       ( \x ->
           DataCatalogEncryptionSettings'
-            <$> (x .:? "EncryptionAtRest")
-            <*> (x .:? "ConnectionPasswordEncryption")
+            Prelude.<$> (x Prelude..:? "EncryptionAtRest")
+            Prelude.<*> (x Prelude..:? "ConnectionPasswordEncryption")
       )
 
-instance Hashable DataCatalogEncryptionSettings
+instance
+  Prelude.Hashable
+    DataCatalogEncryptionSettings
 
-instance NFData DataCatalogEncryptionSettings
+instance Prelude.NFData DataCatalogEncryptionSettings
 
-instance ToJSON DataCatalogEncryptionSettings where
+instance Prelude.ToJSON DataCatalogEncryptionSettings where
   toJSON DataCatalogEncryptionSettings' {..} =
-    object
-      ( catMaybes
-          [ ("EncryptionAtRest" .=) <$> _dcesEncryptionAtRest,
-            ("ConnectionPasswordEncryption" .=)
-              <$> _dcesConnectionPasswordEncryption
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EncryptionAtRest" Prelude..=)
+              Prelude.<$> encryptionAtRest,
+            ("ConnectionPasswordEncryption" Prelude..=)
+              Prelude.<$> connectionPasswordEncryption
           ]
       )

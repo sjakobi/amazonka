@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,89 +20,97 @@
 module Network.AWS.Glue.Types.Crawl where
 
 import Network.AWS.Glue.Types.CrawlState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of a crawl in the workflow.
 --
---
---
--- /See:/ 'crawl' smart constructor.
+-- /See:/ 'newCrawl' smart constructor.
 data Crawl = Crawl'
-  { _craLogGroup :: !(Maybe Text),
-    _craState :: !(Maybe CrawlState),
-    _craCompletedOn :: !(Maybe POSIX),
-    _craErrorMessage :: !(Maybe Text),
-    _craStartedOn :: !(Maybe POSIX),
-    _craLogStream :: !(Maybe Text)
+  { -- | The log group associated with the crawl.
+    logGroup :: Prelude.Maybe Prelude.Text,
+    -- | The state of the crawler.
+    state :: Prelude.Maybe CrawlState,
+    -- | The date and time on which the crawl completed.
+    completedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The error message associated with the crawl.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The date and time on which the crawl started.
+    startedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The log stream associated with the crawl.
+    logStream :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Crawl' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Crawl' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'craLogGroup' - The log group associated with the crawl.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'craState' - The state of the crawler.
+-- 'logGroup', 'crawl_logGroup' - The log group associated with the crawl.
 --
--- * 'craCompletedOn' - The date and time on which the crawl completed.
+-- 'state', 'crawl_state' - The state of the crawler.
 --
--- * 'craErrorMessage' - The error message associated with the crawl.
+-- 'completedOn', 'crawl_completedOn' - The date and time on which the crawl completed.
 --
--- * 'craStartedOn' - The date and time on which the crawl started.
+-- 'errorMessage', 'crawl_errorMessage' - The error message associated with the crawl.
 --
--- * 'craLogStream' - The log stream associated with the crawl.
-crawl ::
+-- 'startedOn', 'crawl_startedOn' - The date and time on which the crawl started.
+--
+-- 'logStream', 'crawl_logStream' - The log stream associated with the crawl.
+newCrawl ::
   Crawl
-crawl =
+newCrawl =
   Crawl'
-    { _craLogGroup = Nothing,
-      _craState = Nothing,
-      _craCompletedOn = Nothing,
-      _craErrorMessage = Nothing,
-      _craStartedOn = Nothing,
-      _craLogStream = Nothing
+    { logGroup = Prelude.Nothing,
+      state = Prelude.Nothing,
+      completedOn = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      startedOn = Prelude.Nothing,
+      logStream = Prelude.Nothing
     }
 
 -- | The log group associated with the crawl.
-craLogGroup :: Lens' Crawl (Maybe Text)
-craLogGroup = lens _craLogGroup (\s a -> s {_craLogGroup = a})
+crawl_logGroup :: Lens.Lens' Crawl (Prelude.Maybe Prelude.Text)
+crawl_logGroup = Lens.lens (\Crawl' {logGroup} -> logGroup) (\s@Crawl' {} a -> s {logGroup = a} :: Crawl)
 
 -- | The state of the crawler.
-craState :: Lens' Crawl (Maybe CrawlState)
-craState = lens _craState (\s a -> s {_craState = a})
+crawl_state :: Lens.Lens' Crawl (Prelude.Maybe CrawlState)
+crawl_state = Lens.lens (\Crawl' {state} -> state) (\s@Crawl' {} a -> s {state = a} :: Crawl)
 
 -- | The date and time on which the crawl completed.
-craCompletedOn :: Lens' Crawl (Maybe UTCTime)
-craCompletedOn = lens _craCompletedOn (\s a -> s {_craCompletedOn = a}) . mapping _Time
+crawl_completedOn :: Lens.Lens' Crawl (Prelude.Maybe Prelude.UTCTime)
+crawl_completedOn = Lens.lens (\Crawl' {completedOn} -> completedOn) (\s@Crawl' {} a -> s {completedOn = a} :: Crawl) Prelude.. Lens.mapping Prelude._Time
 
 -- | The error message associated with the crawl.
-craErrorMessage :: Lens' Crawl (Maybe Text)
-craErrorMessage = lens _craErrorMessage (\s a -> s {_craErrorMessage = a})
+crawl_errorMessage :: Lens.Lens' Crawl (Prelude.Maybe Prelude.Text)
+crawl_errorMessage = Lens.lens (\Crawl' {errorMessage} -> errorMessage) (\s@Crawl' {} a -> s {errorMessage = a} :: Crawl)
 
 -- | The date and time on which the crawl started.
-craStartedOn :: Lens' Crawl (Maybe UTCTime)
-craStartedOn = lens _craStartedOn (\s a -> s {_craStartedOn = a}) . mapping _Time
+crawl_startedOn :: Lens.Lens' Crawl (Prelude.Maybe Prelude.UTCTime)
+crawl_startedOn = Lens.lens (\Crawl' {startedOn} -> startedOn) (\s@Crawl' {} a -> s {startedOn = a} :: Crawl) Prelude.. Lens.mapping Prelude._Time
 
 -- | The log stream associated with the crawl.
-craLogStream :: Lens' Crawl (Maybe Text)
-craLogStream = lens _craLogStream (\s a -> s {_craLogStream = a})
+crawl_logStream :: Lens.Lens' Crawl (Prelude.Maybe Prelude.Text)
+crawl_logStream = Lens.lens (\Crawl' {logStream} -> logStream) (\s@Crawl' {} a -> s {logStream = a} :: Crawl)
 
-instance FromJSON Crawl where
+instance Prelude.FromJSON Crawl where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Crawl"
       ( \x ->
           Crawl'
-            <$> (x .:? "LogGroup")
-            <*> (x .:? "State")
-            <*> (x .:? "CompletedOn")
-            <*> (x .:? "ErrorMessage")
-            <*> (x .:? "StartedOn")
-            <*> (x .:? "LogStream")
+            Prelude.<$> (x Prelude..:? "LogGroup")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "CompletedOn")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "StartedOn")
+            Prelude.<*> (x Prelude..:? "LogStream")
       )
 
-instance Hashable Crawl
+instance Prelude.Hashable Crawl
 
-instance NFData Crawl
+instance Prelude.NFData Crawl

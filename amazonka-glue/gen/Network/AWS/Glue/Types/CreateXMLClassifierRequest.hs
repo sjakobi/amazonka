@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.CreateXMLClassifierRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies an XML classifier for @CreateClassifier@ to create.
 --
---
---
--- /See:/ 'createXMLClassifierRequest' smart constructor.
+-- /See:/ 'newCreateXMLClassifierRequest' smart constructor.
 data CreateXMLClassifierRequest = CreateXMLClassifierRequest'
-  { _cxcrRowTag ::
-      !(Maybe Text),
-    _cxcrClassification ::
-      !Text,
-    _cxcrName ::
-      !Text
+  { -- | The XML tag designating the element that contains each record in an XML
+    -- document being parsed. This can\'t identify a self-closing element
+    -- (closed by @\/>@). An empty row element that contains only attributes
+    -- can be parsed as long as it ends with a closing tag (for example,
+    -- @\<row item_a=\"A\" item_b=\"B\">\<\/row>@ is okay, but
+    -- @\<row item_a=\"A\" item_b=\"B\" \/>@ is not).
+    rowTag :: Prelude.Maybe Prelude.Text,
+    -- | An identifier of the data format that the classifier matches.
+    classification :: Prelude.Text,
+    -- | The name of the classifier.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateXMLClassifierRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateXMLClassifierRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cxcrRowTag' - The XML tag designating the element that contains each record in an XML document being parsed. This can't identify a self-closing element (closed by @/>@ ). An empty row element that contains only attributes can be parsed as long as it ends with a closing tag (for example, @<row item_a="A" item_b="B"></row>@ is okay, but @<row item_a="A" item_b="B" />@ is not).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cxcrClassification' - An identifier of the data format that the classifier matches.
+-- 'rowTag', 'createXMLClassifierRequest_rowTag' - The XML tag designating the element that contains each record in an XML
+-- document being parsed. This can\'t identify a self-closing element
+-- (closed by @\/>@). An empty row element that contains only attributes
+-- can be parsed as long as it ends with a closing tag (for example,
+-- @\<row item_a=\"A\" item_b=\"B\">\<\/row>@ is okay, but
+-- @\<row item_a=\"A\" item_b=\"B\" \/>@ is not).
 --
--- * 'cxcrName' - The name of the classifier.
-createXMLClassifierRequest ::
-  -- | 'cxcrClassification'
-  Text ->
-  -- | 'cxcrName'
-  Text ->
+-- 'classification', 'createXMLClassifierRequest_classification' - An identifier of the data format that the classifier matches.
+--
+-- 'name', 'createXMLClassifierRequest_name' - The name of the classifier.
+newCreateXMLClassifierRequest ::
+  -- | 'classification'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   CreateXMLClassifierRequest
-createXMLClassifierRequest pClassification_ pName_ =
+newCreateXMLClassifierRequest pClassification_ pName_ =
   CreateXMLClassifierRequest'
-    { _cxcrRowTag = Nothing,
-      _cxcrClassification = pClassification_,
-      _cxcrName = pName_
+    { rowTag =
+        Prelude.Nothing,
+      classification = pClassification_,
+      name = pName_
     }
 
--- | The XML tag designating the element that contains each record in an XML document being parsed. This can't identify a self-closing element (closed by @/>@ ). An empty row element that contains only attributes can be parsed as long as it ends with a closing tag (for example, @<row item_a="A" item_b="B"></row>@ is okay, but @<row item_a="A" item_b="B" />@ is not).
-cxcrRowTag :: Lens' CreateXMLClassifierRequest (Maybe Text)
-cxcrRowTag = lens _cxcrRowTag (\s a -> s {_cxcrRowTag = a})
+-- | The XML tag designating the element that contains each record in an XML
+-- document being parsed. This can\'t identify a self-closing element
+-- (closed by @\/>@). An empty row element that contains only attributes
+-- can be parsed as long as it ends with a closing tag (for example,
+-- @\<row item_a=\"A\" item_b=\"B\">\<\/row>@ is okay, but
+-- @\<row item_a=\"A\" item_b=\"B\" \/>@ is not).
+createXMLClassifierRequest_rowTag :: Lens.Lens' CreateXMLClassifierRequest (Prelude.Maybe Prelude.Text)
+createXMLClassifierRequest_rowTag = Lens.lens (\CreateXMLClassifierRequest' {rowTag} -> rowTag) (\s@CreateXMLClassifierRequest' {} a -> s {rowTag = a} :: CreateXMLClassifierRequest)
 
 -- | An identifier of the data format that the classifier matches.
-cxcrClassification :: Lens' CreateXMLClassifierRequest Text
-cxcrClassification = lens _cxcrClassification (\s a -> s {_cxcrClassification = a})
+createXMLClassifierRequest_classification :: Lens.Lens' CreateXMLClassifierRequest Prelude.Text
+createXMLClassifierRequest_classification = Lens.lens (\CreateXMLClassifierRequest' {classification} -> classification) (\s@CreateXMLClassifierRequest' {} a -> s {classification = a} :: CreateXMLClassifierRequest)
 
 -- | The name of the classifier.
-cxcrName :: Lens' CreateXMLClassifierRequest Text
-cxcrName = lens _cxcrName (\s a -> s {_cxcrName = a})
+createXMLClassifierRequest_name :: Lens.Lens' CreateXMLClassifierRequest Prelude.Text
+createXMLClassifierRequest_name = Lens.lens (\CreateXMLClassifierRequest' {name} -> name) (\s@CreateXMLClassifierRequest' {} a -> s {name = a} :: CreateXMLClassifierRequest)
 
-instance Hashable CreateXMLClassifierRequest
+instance Prelude.Hashable CreateXMLClassifierRequest
 
-instance NFData CreateXMLClassifierRequest
+instance Prelude.NFData CreateXMLClassifierRequest
 
-instance ToJSON CreateXMLClassifierRequest where
+instance Prelude.ToJSON CreateXMLClassifierRequest where
   toJSON CreateXMLClassifierRequest' {..} =
-    object
-      ( catMaybes
-          [ ("RowTag" .=) <$> _cxcrRowTag,
-            Just ("Classification" .= _cxcrClassification),
-            Just ("Name" .= _cxcrName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RowTag" Prelude..=) Prelude.<$> rowTag,
+            Prelude.Just
+              ("Classification" Prelude..= classification),
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

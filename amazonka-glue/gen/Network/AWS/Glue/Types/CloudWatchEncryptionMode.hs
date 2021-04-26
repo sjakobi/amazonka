@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Glue.Types.CloudWatchEncryptionMode
   ( CloudWatchEncryptionMode
       ( ..,
-        CWEMDisabled,
-        CWEMSseKMS
+        CloudWatchEncryptionModeDISABLED,
+        CloudWatchEncryptionModeSSEKMS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CloudWatchEncryptionMode
-  = CloudWatchEncryptionMode'
-      ( CI
-          Text
-      )
+newtype CloudWatchEncryptionMode = CloudWatchEncryptionMode'
+  { fromCloudWatchEncryptionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CWEMDisabled :: CloudWatchEncryptionMode
-pattern CWEMDisabled = CloudWatchEncryptionMode' "DISABLED"
+pattern CloudWatchEncryptionModeDISABLED :: CloudWatchEncryptionMode
+pattern CloudWatchEncryptionModeDISABLED = CloudWatchEncryptionMode' "DISABLED"
 
-pattern CWEMSseKMS :: CloudWatchEncryptionMode
-pattern CWEMSseKMS = CloudWatchEncryptionMode' "SSE-KMS"
+pattern CloudWatchEncryptionModeSSEKMS :: CloudWatchEncryptionMode
+pattern CloudWatchEncryptionModeSSEKMS = CloudWatchEncryptionMode' "SSE-KMS"
 
 {-# COMPLETE
-  CWEMDisabled,
-  CWEMSseKMS,
+  CloudWatchEncryptionModeDISABLED,
+  CloudWatchEncryptionModeSSEKMS,
   CloudWatchEncryptionMode'
   #-}
 
-instance FromText CloudWatchEncryptionMode where
-  parser = (CloudWatchEncryptionMode' . mk) <$> takeText
+instance Prelude.FromText CloudWatchEncryptionMode where
+  parser = CloudWatchEncryptionMode' Prelude.<$> Prelude.takeText
 
-instance ToText CloudWatchEncryptionMode where
-  toText (CloudWatchEncryptionMode' ci) = original ci
+instance Prelude.ToText CloudWatchEncryptionMode where
+  toText (CloudWatchEncryptionMode' x) = x
 
-instance Hashable CloudWatchEncryptionMode
+instance Prelude.Hashable CloudWatchEncryptionMode
 
-instance NFData CloudWatchEncryptionMode
+instance Prelude.NFData CloudWatchEncryptionMode
 
-instance ToByteString CloudWatchEncryptionMode
+instance Prelude.ToByteString CloudWatchEncryptionMode
 
-instance ToQuery CloudWatchEncryptionMode
+instance Prelude.ToQuery CloudWatchEncryptionMode
 
-instance ToHeader CloudWatchEncryptionMode
+instance Prelude.ToHeader CloudWatchEncryptionMode
 
-instance ToJSON CloudWatchEncryptionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON CloudWatchEncryptionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CloudWatchEncryptionMode where
-  parseJSON = parseJSONText "CloudWatchEncryptionMode"
+instance Prelude.FromJSON CloudWatchEncryptionMode where
+  parseJSON = Prelude.parseJSONText "CloudWatchEncryptionMode"

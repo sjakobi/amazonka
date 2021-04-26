@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +19,85 @@
 module Network.AWS.Glue.Types.TriggerState
   ( TriggerState
       ( ..,
-        TSActivated,
-        TSActivating,
-        TSCreated,
-        TSCreating,
-        TSDeactivated,
-        TSDeactivating,
-        TSDeleting,
-        TSUpdating
+        TriggerStateACTIVATED,
+        TriggerStateACTIVATING,
+        TriggerStateCREATED,
+        TriggerStateCREATING,
+        TriggerStateDEACTIVATED,
+        TriggerStateDEACTIVATING,
+        TriggerStateDELETING,
+        TriggerStateUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TriggerState = TriggerState' (CI Text)
+newtype TriggerState = TriggerState'
+  { fromTriggerState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSActivated :: TriggerState
-pattern TSActivated = TriggerState' "ACTIVATED"
+pattern TriggerStateACTIVATED :: TriggerState
+pattern TriggerStateACTIVATED = TriggerState' "ACTIVATED"
 
-pattern TSActivating :: TriggerState
-pattern TSActivating = TriggerState' "ACTIVATING"
+pattern TriggerStateACTIVATING :: TriggerState
+pattern TriggerStateACTIVATING = TriggerState' "ACTIVATING"
 
-pattern TSCreated :: TriggerState
-pattern TSCreated = TriggerState' "CREATED"
+pattern TriggerStateCREATED :: TriggerState
+pattern TriggerStateCREATED = TriggerState' "CREATED"
 
-pattern TSCreating :: TriggerState
-pattern TSCreating = TriggerState' "CREATING"
+pattern TriggerStateCREATING :: TriggerState
+pattern TriggerStateCREATING = TriggerState' "CREATING"
 
-pattern TSDeactivated :: TriggerState
-pattern TSDeactivated = TriggerState' "DEACTIVATED"
+pattern TriggerStateDEACTIVATED :: TriggerState
+pattern TriggerStateDEACTIVATED = TriggerState' "DEACTIVATED"
 
-pattern TSDeactivating :: TriggerState
-pattern TSDeactivating = TriggerState' "DEACTIVATING"
+pattern TriggerStateDEACTIVATING :: TriggerState
+pattern TriggerStateDEACTIVATING = TriggerState' "DEACTIVATING"
 
-pattern TSDeleting :: TriggerState
-pattern TSDeleting = TriggerState' "DELETING"
+pattern TriggerStateDELETING :: TriggerState
+pattern TriggerStateDELETING = TriggerState' "DELETING"
 
-pattern TSUpdating :: TriggerState
-pattern TSUpdating = TriggerState' "UPDATING"
+pattern TriggerStateUPDATING :: TriggerState
+pattern TriggerStateUPDATING = TriggerState' "UPDATING"
 
 {-# COMPLETE
-  TSActivated,
-  TSActivating,
-  TSCreated,
-  TSCreating,
-  TSDeactivated,
-  TSDeactivating,
-  TSDeleting,
-  TSUpdating,
+  TriggerStateACTIVATED,
+  TriggerStateACTIVATING,
+  TriggerStateCREATED,
+  TriggerStateCREATING,
+  TriggerStateDEACTIVATED,
+  TriggerStateDEACTIVATING,
+  TriggerStateDELETING,
+  TriggerStateUPDATING,
   TriggerState'
   #-}
 
-instance FromText TriggerState where
-  parser = (TriggerState' . mk) <$> takeText
+instance Prelude.FromText TriggerState where
+  parser = TriggerState' Prelude.<$> Prelude.takeText
 
-instance ToText TriggerState where
-  toText (TriggerState' ci) = original ci
+instance Prelude.ToText TriggerState where
+  toText (TriggerState' x) = x
 
-instance Hashable TriggerState
+instance Prelude.Hashable TriggerState
 
-instance NFData TriggerState
+instance Prelude.NFData TriggerState
 
-instance ToByteString TriggerState
+instance Prelude.ToByteString TriggerState
 
-instance ToQuery TriggerState
+instance Prelude.ToQuery TriggerState
 
-instance ToHeader TriggerState
+instance Prelude.ToHeader TriggerState
 
-instance FromJSON TriggerState where
-  parseJSON = parseJSONText "TriggerState"
+instance Prelude.FromJSON TriggerState where
+  parseJSON = Prelude.parseJSONText "TriggerState"

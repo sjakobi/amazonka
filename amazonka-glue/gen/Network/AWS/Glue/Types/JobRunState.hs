@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Glue.Types.JobRunState
   ( JobRunState
       ( ..,
-        Failed,
-        Running,
-        Starting,
-        Stopped,
-        Stopping,
-        Succeeded,
-        Timeout
+        JobRunStateFAILED,
+        JobRunStateRUNNING,
+        JobRunStateSTARTING,
+        JobRunStateSTOPPED,
+        JobRunStateSTOPPING,
+        JobRunStateSUCCEEDED,
+        JobRunStateTIMEOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobRunState = JobRunState' (CI Text)
+newtype JobRunState = JobRunState'
+  { fromJobRunState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: JobRunState
-pattern Failed = JobRunState' "FAILED"
+pattern JobRunStateFAILED :: JobRunState
+pattern JobRunStateFAILED = JobRunState' "FAILED"
 
-pattern Running :: JobRunState
-pattern Running = JobRunState' "RUNNING"
+pattern JobRunStateRUNNING :: JobRunState
+pattern JobRunStateRUNNING = JobRunState' "RUNNING"
 
-pattern Starting :: JobRunState
-pattern Starting = JobRunState' "STARTING"
+pattern JobRunStateSTARTING :: JobRunState
+pattern JobRunStateSTARTING = JobRunState' "STARTING"
 
-pattern Stopped :: JobRunState
-pattern Stopped = JobRunState' "STOPPED"
+pattern JobRunStateSTOPPED :: JobRunState
+pattern JobRunStateSTOPPED = JobRunState' "STOPPED"
 
-pattern Stopping :: JobRunState
-pattern Stopping = JobRunState' "STOPPING"
+pattern JobRunStateSTOPPING :: JobRunState
+pattern JobRunStateSTOPPING = JobRunState' "STOPPING"
 
-pattern Succeeded :: JobRunState
-pattern Succeeded = JobRunState' "SUCCEEDED"
+pattern JobRunStateSUCCEEDED :: JobRunState
+pattern JobRunStateSUCCEEDED = JobRunState' "SUCCEEDED"
 
-pattern Timeout :: JobRunState
-pattern Timeout = JobRunState' "TIMEOUT"
+pattern JobRunStateTIMEOUT :: JobRunState
+pattern JobRunStateTIMEOUT = JobRunState' "TIMEOUT"
 
 {-# COMPLETE
-  Failed,
-  Running,
-  Starting,
-  Stopped,
-  Stopping,
-  Succeeded,
-  Timeout,
+  JobRunStateFAILED,
+  JobRunStateRUNNING,
+  JobRunStateSTARTING,
+  JobRunStateSTOPPED,
+  JobRunStateSTOPPING,
+  JobRunStateSUCCEEDED,
+  JobRunStateTIMEOUT,
   JobRunState'
   #-}
 
-instance FromText JobRunState where
-  parser = (JobRunState' . mk) <$> takeText
+instance Prelude.FromText JobRunState where
+  parser = JobRunState' Prelude.<$> Prelude.takeText
 
-instance ToText JobRunState where
-  toText (JobRunState' ci) = original ci
+instance Prelude.ToText JobRunState where
+  toText (JobRunState' x) = x
 
-instance Hashable JobRunState
+instance Prelude.Hashable JobRunState
 
-instance NFData JobRunState
+instance Prelude.NFData JobRunState
 
-instance ToByteString JobRunState
+instance Prelude.ToByteString JobRunState
 
-instance ToQuery JobRunState
+instance Prelude.ToQuery JobRunState
 
-instance ToHeader JobRunState
+instance Prelude.ToHeader JobRunState
 
-instance ToJSON JobRunState where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobRunState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JobRunState where
-  parseJSON = parseJSONText "JobRunState"
+instance Prelude.FromJSON JobRunState where
+  parseJSON = Prelude.parseJSONText "JobRunState"

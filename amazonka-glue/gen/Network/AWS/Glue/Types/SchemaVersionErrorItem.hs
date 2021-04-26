@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,59 @@
 module Network.AWS.Glue.Types.SchemaVersionErrorItem where
 
 import Network.AWS.Glue.Types.ErrorDetails
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object that contains the error details for an operation on a schema version.
+-- | An object that contains the error details for an operation on a schema
+-- version.
 --
---
---
--- /See:/ 'schemaVersionErrorItem' smart constructor.
+-- /See:/ 'newSchemaVersionErrorItem' smart constructor.
 data SchemaVersionErrorItem = SchemaVersionErrorItem'
-  { _sveiVersionNumber ::
-      !(Maybe Nat),
-    _sveiErrorDetails ::
-      !(Maybe ErrorDetails)
+  { -- | The version number of the schema.
+    versionNumber :: Prelude.Maybe Prelude.Nat,
+    -- | The details of the error for the schema version.
+    errorDetails :: Prelude.Maybe ErrorDetails
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SchemaVersionErrorItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SchemaVersionErrorItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sveiVersionNumber' - The version number of the schema.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sveiErrorDetails' - The details of the error for the schema version.
-schemaVersionErrorItem ::
+-- 'versionNumber', 'schemaVersionErrorItem_versionNumber' - The version number of the schema.
+--
+-- 'errorDetails', 'schemaVersionErrorItem_errorDetails' - The details of the error for the schema version.
+newSchemaVersionErrorItem ::
   SchemaVersionErrorItem
-schemaVersionErrorItem =
+newSchemaVersionErrorItem =
   SchemaVersionErrorItem'
-    { _sveiVersionNumber =
-        Nothing,
-      _sveiErrorDetails = Nothing
+    { versionNumber =
+        Prelude.Nothing,
+      errorDetails = Prelude.Nothing
     }
 
 -- | The version number of the schema.
-sveiVersionNumber :: Lens' SchemaVersionErrorItem (Maybe Natural)
-sveiVersionNumber = lens _sveiVersionNumber (\s a -> s {_sveiVersionNumber = a}) . mapping _Nat
+schemaVersionErrorItem_versionNumber :: Lens.Lens' SchemaVersionErrorItem (Prelude.Maybe Prelude.Natural)
+schemaVersionErrorItem_versionNumber = Lens.lens (\SchemaVersionErrorItem' {versionNumber} -> versionNumber) (\s@SchemaVersionErrorItem' {} a -> s {versionNumber = a} :: SchemaVersionErrorItem) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The details of the error for the schema version.
-sveiErrorDetails :: Lens' SchemaVersionErrorItem (Maybe ErrorDetails)
-sveiErrorDetails = lens _sveiErrorDetails (\s a -> s {_sveiErrorDetails = a})
+schemaVersionErrorItem_errorDetails :: Lens.Lens' SchemaVersionErrorItem (Prelude.Maybe ErrorDetails)
+schemaVersionErrorItem_errorDetails = Lens.lens (\SchemaVersionErrorItem' {errorDetails} -> errorDetails) (\s@SchemaVersionErrorItem' {} a -> s {errorDetails = a} :: SchemaVersionErrorItem)
 
-instance FromJSON SchemaVersionErrorItem where
+instance Prelude.FromJSON SchemaVersionErrorItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SchemaVersionErrorItem"
       ( \x ->
           SchemaVersionErrorItem'
-            <$> (x .:? "VersionNumber") <*> (x .:? "ErrorDetails")
+            Prelude.<$> (x Prelude..:? "VersionNumber")
+            Prelude.<*> (x Prelude..:? "ErrorDetails")
       )
 
-instance Hashable SchemaVersionErrorItem
+instance Prelude.Hashable SchemaVersionErrorItem
 
-instance NFData SchemaVersionErrorItem
+instance Prelude.NFData SchemaVersionErrorItem

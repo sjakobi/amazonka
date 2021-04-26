@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies an existing classifier (a @GrokClassifier@ , an @XMLClassifier@ , a @JsonClassifier@ , or a @CsvClassifier@ , depending on which field is present).
+-- Modifies an existing classifier (a @GrokClassifier@, an @XMLClassifier@,
+-- a @JsonClassifier@, or a @CsvClassifier@, depending on which field is
+-- present).
 module Network.AWS.Glue.UpdateClassifier
   ( -- * Creating a Request
-    updateClassifier,
-    UpdateClassifier,
+    UpdateClassifier (..),
+    newUpdateClassifier,
 
     -- * Request Lenses
-    ucXMLClassifier,
-    ucJSONClassifier,
-    ucCSVClassifier,
-    ucGrokClassifier,
+    updateClassifier_xMLClassifier,
+    updateClassifier_jsonClassifier,
+    updateClassifier_csvClassifier,
+    updateClassifier_grokClassifier,
 
     -- * Destructuring the Response
-    updateClassifierResponse,
-    UpdateClassifierResponse,
+    UpdateClassifierResponse (..),
+    newUpdateClassifierResponse,
 
     -- * Response Lenses
-    uursResponseStatus,
+    updateClassifierResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateClassifier' smart constructor.
+-- | /See:/ 'newUpdateClassifier' smart constructor.
 data UpdateClassifier = UpdateClassifier'
-  { _ucXMLClassifier ::
-      !(Maybe UpdateXMLClassifierRequest),
-    _ucJSONClassifier ::
-      !(Maybe UpdateJSONClassifierRequest),
-    _ucCSVClassifier ::
-      !(Maybe UpdateCSVClassifierRequest),
-    _ucGrokClassifier ::
-      !(Maybe UpdateGrokClassifierRequest)
+  { -- | An @XMLClassifier@ object with updated fields.
+    xMLClassifier :: Prelude.Maybe UpdateXMLClassifierRequest,
+    -- | A @JsonClassifier@ object with updated fields.
+    jsonClassifier :: Prelude.Maybe UpdateJsonClassifierRequest,
+    -- | A @CsvClassifier@ object with updated fields.
+    csvClassifier :: Prelude.Maybe UpdateCsvClassifierRequest,
+    -- | A @GrokClassifier@ object with updated fields.
+    grokClassifier :: Prelude.Maybe UpdateGrokClassifierRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateClassifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateClassifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucXMLClassifier' - An @XMLClassifier@ object with updated fields.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucJSONClassifier' - A @JsonClassifier@ object with updated fields.
+-- 'xMLClassifier', 'updateClassifier_xMLClassifier' - An @XMLClassifier@ object with updated fields.
 --
--- * 'ucCSVClassifier' - A @CsvClassifier@ object with updated fields.
+-- 'jsonClassifier', 'updateClassifier_jsonClassifier' - A @JsonClassifier@ object with updated fields.
 --
--- * 'ucGrokClassifier' - A @GrokClassifier@ object with updated fields.
-updateClassifier ::
+-- 'csvClassifier', 'updateClassifier_csvClassifier' - A @CsvClassifier@ object with updated fields.
+--
+-- 'grokClassifier', 'updateClassifier_grokClassifier' - A @GrokClassifier@ object with updated fields.
+newUpdateClassifier ::
   UpdateClassifier
-updateClassifier =
+newUpdateClassifier =
   UpdateClassifier'
-    { _ucXMLClassifier = Nothing,
-      _ucJSONClassifier = Nothing,
-      _ucCSVClassifier = Nothing,
-      _ucGrokClassifier = Nothing
+    { xMLClassifier = Prelude.Nothing,
+      jsonClassifier = Prelude.Nothing,
+      csvClassifier = Prelude.Nothing,
+      grokClassifier = Prelude.Nothing
     }
 
 -- | An @XMLClassifier@ object with updated fields.
-ucXMLClassifier :: Lens' UpdateClassifier (Maybe UpdateXMLClassifierRequest)
-ucXMLClassifier = lens _ucXMLClassifier (\s a -> s {_ucXMLClassifier = a})
+updateClassifier_xMLClassifier :: Lens.Lens' UpdateClassifier (Prelude.Maybe UpdateXMLClassifierRequest)
+updateClassifier_xMLClassifier = Lens.lens (\UpdateClassifier' {xMLClassifier} -> xMLClassifier) (\s@UpdateClassifier' {} a -> s {xMLClassifier = a} :: UpdateClassifier)
 
 -- | A @JsonClassifier@ object with updated fields.
-ucJSONClassifier :: Lens' UpdateClassifier (Maybe UpdateJSONClassifierRequest)
-ucJSONClassifier = lens _ucJSONClassifier (\s a -> s {_ucJSONClassifier = a})
+updateClassifier_jsonClassifier :: Lens.Lens' UpdateClassifier (Prelude.Maybe UpdateJsonClassifierRequest)
+updateClassifier_jsonClassifier = Lens.lens (\UpdateClassifier' {jsonClassifier} -> jsonClassifier) (\s@UpdateClassifier' {} a -> s {jsonClassifier = a} :: UpdateClassifier)
 
 -- | A @CsvClassifier@ object with updated fields.
-ucCSVClassifier :: Lens' UpdateClassifier (Maybe UpdateCSVClassifierRequest)
-ucCSVClassifier = lens _ucCSVClassifier (\s a -> s {_ucCSVClassifier = a})
+updateClassifier_csvClassifier :: Lens.Lens' UpdateClassifier (Prelude.Maybe UpdateCsvClassifierRequest)
+updateClassifier_csvClassifier = Lens.lens (\UpdateClassifier' {csvClassifier} -> csvClassifier) (\s@UpdateClassifier' {} a -> s {csvClassifier = a} :: UpdateClassifier)
 
 -- | A @GrokClassifier@ object with updated fields.
-ucGrokClassifier :: Lens' UpdateClassifier (Maybe UpdateGrokClassifierRequest)
-ucGrokClassifier = lens _ucGrokClassifier (\s a -> s {_ucGrokClassifier = a})
+updateClassifier_grokClassifier :: Lens.Lens' UpdateClassifier (Prelude.Maybe UpdateGrokClassifierRequest)
+updateClassifier_grokClassifier = Lens.lens (\UpdateClassifier' {grokClassifier} -> grokClassifier) (\s@UpdateClassifier' {} a -> s {grokClassifier = a} :: UpdateClassifier)
 
-instance AWSRequest UpdateClassifier where
+instance Prelude.AWSRequest UpdateClassifier where
   type Rs UpdateClassifier = UpdateClassifierResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateClassifierResponse' <$> (pure (fromEnum s))
+          UpdateClassifierResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateClassifier
+instance Prelude.Hashable UpdateClassifier
 
-instance NFData UpdateClassifier
+instance Prelude.NFData UpdateClassifier
 
-instance ToHeaders UpdateClassifier where
+instance Prelude.ToHeaders UpdateClassifier where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.UpdateClassifier" :: ByteString),
+              Prelude.=# ("AWSGlue.UpdateClassifier" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateClassifier where
+instance Prelude.ToJSON UpdateClassifier where
   toJSON UpdateClassifier' {..} =
-    object
-      ( catMaybes
-          [ ("XMLClassifier" .=) <$> _ucXMLClassifier,
-            ("JsonClassifier" .=) <$> _ucJSONClassifier,
-            ("CsvClassifier" .=) <$> _ucCSVClassifier,
-            ("GrokClassifier" .=) <$> _ucGrokClassifier
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("XMLClassifier" Prelude..=)
+              Prelude.<$> xMLClassifier,
+            ("JsonClassifier" Prelude..=)
+              Prelude.<$> jsonClassifier,
+            ("CsvClassifier" Prelude..=)
+              Prelude.<$> csvClassifier,
+            ("GrokClassifier" Prelude..=)
+              Prelude.<$> grokClassifier
           ]
       )
 
-instance ToPath UpdateClassifier where
-  toPath = const "/"
+instance Prelude.ToPath UpdateClassifier where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateClassifier where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateClassifier where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateClassifierResponse' smart constructor.
-newtype UpdateClassifierResponse = UpdateClassifierResponse'
-  { _uursResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateClassifierResponse' smart constructor.
+data UpdateClassifierResponse = UpdateClassifierResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateClassifierResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateClassifierResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uursResponseStatus' - -- | The response status code.
-updateClassifierResponse ::
-  -- | 'uursResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateClassifierResponse_httpStatus' - The response's http status code.
+newUpdateClassifierResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateClassifierResponse
-updateClassifierResponse pResponseStatus_ =
+newUpdateClassifierResponse pHttpStatus_ =
   UpdateClassifierResponse'
-    { _uursResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uursResponseStatus :: Lens' UpdateClassifierResponse Int
-uursResponseStatus = lens _uursResponseStatus (\s a -> s {_uursResponseStatus = a})
+-- | The response's http status code.
+updateClassifierResponse_httpStatus :: Lens.Lens' UpdateClassifierResponse Prelude.Int
+updateClassifierResponse_httpStatus = Lens.lens (\UpdateClassifierResponse' {httpStatus} -> httpStatus) (\s@UpdateClassifierResponse' {} a -> s {httpStatus = a} :: UpdateClassifierResponse)
 
-instance NFData UpdateClassifierResponse
+instance Prelude.NFData UpdateClassifierResponse

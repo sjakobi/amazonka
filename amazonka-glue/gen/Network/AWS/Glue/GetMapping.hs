@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,144 +24,158 @@
 -- Creates mappings.
 module Network.AWS.Glue.GetMapping
   ( -- * Creating a Request
-    getMapping,
-    GetMapping,
+    GetMapping (..),
+    newGetMapping,
 
     -- * Request Lenses
-    gmSinks,
-    gmLocation,
-    gmSource,
+    getMapping_sinks,
+    getMapping_location,
+    getMapping_source,
 
     -- * Destructuring the Response
-    getMappingResponse,
-    GetMappingResponse,
+    GetMappingResponse (..),
+    newGetMappingResponse,
 
     -- * Response Lenses
-    gmrrsResponseStatus,
-    gmrrsMapping,
+    getMappingResponse_httpStatus,
+    getMappingResponse_mapping,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.MappingEntry
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getMapping' smart constructor.
+-- | /See:/ 'newGetMapping' smart constructor.
 data GetMapping = GetMapping'
-  { _gmSinks ::
-      !(Maybe [CatalogEntry]),
-    _gmLocation :: !(Maybe Location),
-    _gmSource :: !CatalogEntry
+  { -- | A list of target tables.
+    sinks :: Prelude.Maybe [CatalogEntry],
+    -- | Parameters for the mapping.
+    location :: Prelude.Maybe Location,
+    -- | Specifies the source table.
+    source :: CatalogEntry
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmSinks' - A list of target tables.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmLocation' - Parameters for the mapping.
+-- 'sinks', 'getMapping_sinks' - A list of target tables.
 --
--- * 'gmSource' - Specifies the source table.
-getMapping ::
-  -- | 'gmSource'
+-- 'location', 'getMapping_location' - Parameters for the mapping.
+--
+-- 'source', 'getMapping_source' - Specifies the source table.
+newGetMapping ::
+  -- | 'source'
   CatalogEntry ->
   GetMapping
-getMapping pSource_ =
+newGetMapping pSource_ =
   GetMapping'
-    { _gmSinks = Nothing,
-      _gmLocation = Nothing,
-      _gmSource = pSource_
+    { sinks = Prelude.Nothing,
+      location = Prelude.Nothing,
+      source = pSource_
     }
 
 -- | A list of target tables.
-gmSinks :: Lens' GetMapping [CatalogEntry]
-gmSinks = lens _gmSinks (\s a -> s {_gmSinks = a}) . _Default . _Coerce
+getMapping_sinks :: Lens.Lens' GetMapping (Prelude.Maybe [CatalogEntry])
+getMapping_sinks = Lens.lens (\GetMapping' {sinks} -> sinks) (\s@GetMapping' {} a -> s {sinks = a} :: GetMapping) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Parameters for the mapping.
-gmLocation :: Lens' GetMapping (Maybe Location)
-gmLocation = lens _gmLocation (\s a -> s {_gmLocation = a})
+getMapping_location :: Lens.Lens' GetMapping (Prelude.Maybe Location)
+getMapping_location = Lens.lens (\GetMapping' {location} -> location) (\s@GetMapping' {} a -> s {location = a} :: GetMapping)
 
 -- | Specifies the source table.
-gmSource :: Lens' GetMapping CatalogEntry
-gmSource = lens _gmSource (\s a -> s {_gmSource = a})
+getMapping_source :: Lens.Lens' GetMapping CatalogEntry
+getMapping_source = Lens.lens (\GetMapping' {source} -> source) (\s@GetMapping' {} a -> s {source = a} :: GetMapping)
 
-instance AWSRequest GetMapping where
+instance Prelude.AWSRequest GetMapping where
   type Rs GetMapping = GetMappingResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetMappingResponse'
-            <$> (pure (fromEnum s)) <*> (x .?> "Mapping" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..?> "Mapping" Prelude..!@ Prelude.mempty)
       )
 
-instance Hashable GetMapping
+instance Prelude.Hashable GetMapping
 
-instance NFData GetMapping
+instance Prelude.NFData GetMapping
 
-instance ToHeaders GetMapping where
+instance Prelude.ToHeaders GetMapping where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetMapping" :: ByteString),
+              Prelude.=# ("AWSGlue.GetMapping" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetMapping where
+instance Prelude.ToJSON GetMapping where
   toJSON GetMapping' {..} =
-    object
-      ( catMaybes
-          [ ("Sinks" .=) <$> _gmSinks,
-            ("Location" .=) <$> _gmLocation,
-            Just ("Source" .= _gmSource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Sinks" Prelude..=) Prelude.<$> sinks,
+            ("Location" Prelude..=) Prelude.<$> location,
+            Prelude.Just ("Source" Prelude..= source)
           ]
       )
 
-instance ToPath GetMapping where
-  toPath = const "/"
+instance Prelude.ToPath GetMapping where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetMapping where
-  toQuery = const mempty
+instance Prelude.ToQuery GetMapping where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMappingResponse' smart constructor.
+-- | /See:/ 'newGetMappingResponse' smart constructor.
 data GetMappingResponse = GetMappingResponse'
-  { _gmrrsResponseStatus ::
-      !Int,
-    _gmrrsMapping :: ![MappingEntry]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of mappings to the specified targets.
+    mapping :: [MappingEntry]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMappingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMappingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmrrsMapping' - A list of mappings to the specified targets.
-getMappingResponse ::
-  -- | 'gmrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getMappingResponse_httpStatus' - The response's http status code.
+--
+-- 'mapping', 'getMappingResponse_mapping' - A list of mappings to the specified targets.
+newGetMappingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetMappingResponse
-getMappingResponse pResponseStatus_ =
+newGetMappingResponse pHttpStatus_ =
   GetMappingResponse'
-    { _gmrrsResponseStatus =
-        pResponseStatus_,
-      _gmrrsMapping = mempty
+    { httpStatus = pHttpStatus_,
+      mapping = Prelude.mempty
     }
 
--- | -- | The response status code.
-gmrrsResponseStatus :: Lens' GetMappingResponse Int
-gmrrsResponseStatus = lens _gmrrsResponseStatus (\s a -> s {_gmrrsResponseStatus = a})
+-- | The response's http status code.
+getMappingResponse_httpStatus :: Lens.Lens' GetMappingResponse Prelude.Int
+getMappingResponse_httpStatus = Lens.lens (\GetMappingResponse' {httpStatus} -> httpStatus) (\s@GetMappingResponse' {} a -> s {httpStatus = a} :: GetMappingResponse)
 
 -- | A list of mappings to the specified targets.
-gmrrsMapping :: Lens' GetMappingResponse [MappingEntry]
-gmrrsMapping = lens _gmrrsMapping (\s a -> s {_gmrrsMapping = a}) . _Coerce
+getMappingResponse_mapping :: Lens.Lens' GetMappingResponse [MappingEntry]
+getMappingResponse_mapping = Lens.lens (\GetMappingResponse' {mapping} -> mapping) (\s@GetMappingResponse' {} a -> s {mapping = a} :: GetMappingResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetMappingResponse
+instance Prelude.NFData GetMappingResponse

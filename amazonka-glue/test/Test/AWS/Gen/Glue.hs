@@ -28,949 +28,949 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestGetDataCatalogEncryptionSettings $
---             getDataCatalogEncryptionSettings
+--             newGetDataCatalogEncryptionSettings
 --
 --         , requestUpdateColumnStatisticsForTable $
---             updateColumnStatisticsForTable
+--             newUpdateColumnStatisticsForTable
 --
 --         , requestStartMLLabelingSetGenerationTaskRun $
---             startMLLabelingSetGenerationTaskRun
+--             newStartMLLabelingSetGenerationTaskRun
 --
 --         , requestDeleteColumnStatisticsForTable $
---             deleteColumnStatisticsForTable
+--             newDeleteColumnStatisticsForTable
 --
 --         , requestGetSchema $
---             getSchema
+--             newGetSchema
 --
 --         , requestDeleteConnection $
---             deleteConnection
+--             newDeleteConnection
 --
 --         , requestUpdateConnection $
---             updateConnection
+--             newUpdateConnection
 --
 --         , requestCheckSchemaVersionValidity $
---             checkSchemaVersionValidity
+--             newCheckSchemaVersionValidity
 --
 --         , requestCreateWorkflow $
---             createWorkflow
+--             newCreateWorkflow
 --
 --         , requestGetPartitions $
---             getPartitions
+--             newGetPartitions
 --
 --         , requestDeleteSecurityConfiguration $
---             deleteSecurityConfiguration
+--             newDeleteSecurityConfiguration
 --
 --         , requestGetPartition $
---             getPartition
+--             newGetPartition
 --
 --         , requestUpdateRegistry $
---             updateRegistry
+--             newUpdateRegistry
 --
 --         , requestListMLTransforms $
---             listMLTransforms
+--             newListMLTransforms
 --
 --         , requestStopCrawler $
---             stopCrawler
+--             newStopCrawler
 --
 --         , requestStartImportLabelsTaskRun $
---             startImportLabelsTaskRun
+--             newStartImportLabelsTaskRun
 --
 --         , requestGetResourcePolicy $
---             getResourcePolicy
+--             newGetResourcePolicy
 --
 --         , requestQuerySchemaVersionMetadata $
---             querySchemaVersionMetadata
+--             newQuerySchemaVersionMetadata
 --
 --         , requestDeleteRegistry $
---             deleteRegistry
+--             newDeleteRegistry
 --
 --         , requestGetPartitionIndexes $
---             getPartitionIndexes
+--             newGetPartitionIndexes
 --
 --         , requestStartCrawler $
---             startCrawler
+--             newStartCrawler
 --
 --         , requestGetCatalogImportStatus $
---             getCatalogImportStatus
+--             newGetCatalogImportStatus
 --
 --         , requestGetColumnStatisticsForPartition $
---             getColumnStatisticsForPartition
+--             newGetColumnStatisticsForPartition
 --
 --         , requestCreateRegistry $
---             createRegistry
+--             newCreateRegistry
 --
 --         , requestListTriggers $
---             listTriggers
+--             newListTriggers
 --
 --         , requestCreateMLTransform $
---             createMLTransform
+--             newCreateMLTransform
 --
 --         , requestStopCrawlerSchedule $
---             stopCrawlerSchedule
+--             newStopCrawlerSchedule
 --
 --         , requestUpdateTrigger $
---             updateTrigger
+--             newUpdateTrigger
 --
 --         , requestGetSchemaByDefinition $
---             getSchemaByDefinition
+--             newGetSchemaByDefinition
 --
 --         , requestListRegistries $
---             listRegistries
+--             newListRegistries
 --
 --         , requestStartCrawlerSchedule $
---             startCrawlerSchedule
+--             newStartCrawlerSchedule
 --
 --         , requestDeleteTrigger $
---             deleteTrigger
+--             newDeleteTrigger
 --
 --         , requestGetJob $
---             getJob
+--             newGetJob
 --
 --         , requestUpdateClassifier $
---             updateClassifier
+--             newUpdateClassifier
 --
 --         , requestDeleteClassifier $
---             deleteClassifier
+--             newDeleteClassifier
 --
 --         , requestDeleteJob $
---             deleteJob
+--             newDeleteJob
 --
 --         , requestUpdateJob $
---             updateJob
+--             newUpdateJob
 --
 --         , requestCreateUserDefinedFunction $
---             createUserDefinedFunction
+--             newCreateUserDefinedFunction
 --
 --         , requestGetTrigger $
---             getTrigger
+--             newGetTrigger
 --
 --         , requestBatchGetJobs $
---             batchGetJobs
+--             newBatchGetJobs
 --
 --         , requestCreateClassifier $
---             createClassifier
+--             newCreateClassifier
 --
 --         , requestGetSecurityConfigurations $
---             getSecurityConfigurations
+--             newGetSecurityConfigurations
 --
 --         , requestPutResourcePolicy $
---             putResourcePolicy
+--             newPutResourcePolicy
 --
 --         , requestUpdatePartition $
---             updatePartition
+--             newUpdatePartition
 --
 --         , requestGetSchemaVersionsDiff $
---             getSchemaVersionsDiff
+--             newGetSchemaVersionsDiff
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestBatchDeleteTable $
---             batchDeleteTable
+--             newBatchDeleteTable
 --
 --         , requestStartMLEvaluationTaskRun $
---             startMLEvaluationTaskRun
+--             newStartMLEvaluationTaskRun
 --
 --         , requestGetDatabase $
---             getDatabase
+--             newGetDatabase
 --
 --         , requestDeletePartition $
---             deletePartition
+--             newDeletePartition
 --
 --         , requestGetJobRuns $
---             getJobRuns
+--             newGetJobRuns
 --
 --         , requestGetMLTransforms $
---             getMLTransforms
+--             newGetMLTransforms
 --
 --         , requestGetJobRun $
---             getJobRun
+--             newGetJobRun
 --
 --         , requestCreateDevEndpoint $
---             createDevEndpoint
+--             newCreateDevEndpoint
 --
 --         , requestCreatePartitionIndex $
---             createPartitionIndex
+--             newCreatePartitionIndex
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestGetSecurityConfiguration $
---             getSecurityConfiguration
+--             newGetSecurityConfiguration
 --
 --         , requestCreateCrawler $
---             createCrawler
+--             newCreateCrawler
 --
 --         , requestGetMLTaskRuns $
---             getMLTaskRuns
+--             newGetMLTaskRuns
 --
 --         , requestListCrawlers $
---             listCrawlers
+--             newListCrawlers
 --
 --         , requestUpdateDevEndpoint $
---             updateDevEndpoint
+--             newUpdateDevEndpoint
 --
 --         , requestCreateSchema $
---             createSchema
+--             newCreateSchema
 --
 --         , requestListDevEndpoints $
---             listDevEndpoints
+--             newListDevEndpoints
 --
 --         , requestDeleteCrawler $
---             deleteCrawler
+--             newDeleteCrawler
 --
 --         , requestDeleteDevEndpoint $
---             deleteDevEndpoint
+--             newDeleteDevEndpoint
 --
 --         , requestGetWorkflow $
---             getWorkflow
+--             newGetWorkflow
 --
 --         , requestGetSchemaVersion $
---             getSchemaVersion
+--             newGetSchemaVersion
 --
 --         , requestUpdateCrawler $
---             updateCrawler
+--             newUpdateCrawler
 --
 --         , requestDeleteWorkflow $
---             deleteWorkflow
+--             newDeleteWorkflow
 --
 --         , requestRegisterSchemaVersion $
---             registerSchemaVersion
+--             newRegisterSchemaVersion
 --
 --         , requestGetMapping $
---             getMapping
+--             newGetMapping
 --
 --         , requestStopWorkflowRun $
---             stopWorkflowRun
+--             newStopWorkflowRun
 --
 --         , requestCreateConnection $
---             createConnection
+--             newCreateConnection
 --
 --         , requestBatchCreatePartition $
---             batchCreatePartition
+--             newBatchCreatePartition
 --
 --         , requestCreateTable $
---             createTable
+--             newCreateTable
 --
 --         , requestUpdateWorkflow $
---             updateWorkflow
+--             newUpdateWorkflow
 --
 --         , requestGetClassifiers $
---             getClassifiers
+--             newGetClassifiers
 --
 --         , requestBatchStopJobRun $
---             batchStopJobRun
+--             newBatchStopJobRun
 --
 --         , requestStartWorkflowRun $
---             startWorkflowRun
+--             newStartWorkflowRun
 --
 --         , requestListWorkflows $
---             listWorkflows
+--             newListWorkflows
 --
 --         , requestListSchemaVersions $
---             listSchemaVersions
+--             newListSchemaVersions
 --
 --         , requestBatchDeletePartition $
---             batchDeletePartition
+--             newBatchDeletePartition
 --
 --         , requestPutSchemaVersionMetadata $
---             putSchemaVersionMetadata
+--             newPutSchemaVersionMetadata
 --
 --         , requestGetWorkflowRuns $
---             getWorkflowRuns
+--             newGetWorkflowRuns
 --
 --         , requestGetTags $
---             getTags
+--             newGetTags
 --
 --         , requestBatchUpdatePartition $
---             batchUpdatePartition
+--             newBatchUpdatePartition
 --
 --         , requestGetUserDefinedFunctions $
---             getUserDefinedFunctions
+--             newGetUserDefinedFunctions
 --
 --         , requestUpdateTable $
---             updateTable
+--             newUpdateTable
 --
 --         , requestDeleteTable $
---             deleteTable
+--             newDeleteTable
 --
 --         , requestDeleteDatabase $
---             deleteDatabase
+--             newDeleteDatabase
 --
 --         , requestUpdateDatabase $
---             updateDatabase
+--             newUpdateDatabase
 --
 --         , requestGetUserDefinedFunction $
---             getUserDefinedFunction
+--             newGetUserDefinedFunction
 --
 --         , requestUpdateMLTransform $
---             updateMLTransform
+--             newUpdateMLTransform
 --
 --         , requestGetWorkflowRun $
---             getWorkflowRun
+--             newGetWorkflowRun
 --
 --         , requestDeleteMLTransform $
---             deleteMLTransform
+--             newDeleteMLTransform
 --
 --         , requestCreateTrigger $
---             createTrigger
+--             newCreateTrigger
 --
 --         , requestCreateDatabase $
---             createDatabase
+--             newCreateDatabase
 --
 --         , requestGetClassifier $
---             getClassifier
+--             newGetClassifier
 --
 --         , requestDeleteSchemaVersions $
---             deleteSchemaVersions
+--             newDeleteSchemaVersions
 --
 --         , requestBatchGetTriggers $
---             batchGetTriggers
+--             newBatchGetTriggers
 --
 --         , requestBatchDeleteTableVersion $
---             batchDeleteTableVersion
+--             newBatchDeleteTableVersion
 --
 --         , requestGetTableVersions $
---             getTableVersions
+--             newGetTableVersions
 --
 --         , requestGetDevEndpoints $
---             getDevEndpoints
+--             newGetDevEndpoints
 --
 --         , requestGetCrawlers $
---             getCrawlers
+--             newGetCrawlers
 --
 --         , requestStartJobRun $
---             startJobRun
+--             newStartJobRun
 --
 --         , requestImportCatalogToGlue $
---             importCatalogToGlue
+--             newImportCatalogToGlue
 --
 --         , requestCreatePartition $
---             createPartition
+--             newCreatePartition
 --
 --         , requestResetJobBookmark $
---             resetJobBookmark
+--             newResetJobBookmark
 --
 --         , requestListJobs $
---             listJobs
+--             newListJobs
 --
 --         , requestBatchDeleteConnection $
---             batchDeleteConnection
+--             newBatchDeleteConnection
 --
 --         , requestGetTables $
---             getTables
+--             newGetTables
 --
 --         , requestDeleteColumnStatisticsForPartition $
---             deleteColumnStatisticsForPartition
+--             newDeleteColumnStatisticsForPartition
 --
 --         , requestDeleteResourcePolicy $
---             deleteResourcePolicy
+--             newDeleteResourcePolicy
 --
 --         , requestGetRegistry $
---             getRegistry
+--             newGetRegistry
 --
 --         , requestResumeWorkflowRun $
---             resumeWorkflowRun
+--             newResumeWorkflowRun
 --
 --         , requestCancelMLTaskRun $
---             cancelMLTaskRun
+--             newCancelMLTaskRun
 --
 --         , requestCreateJob $
---             createJob
+--             newCreateJob
 --
 --         , requestSearchTables $
---             searchTables
+--             newSearchTables
 --
 --         , requestUpdateUserDefinedFunction $
---             updateUserDefinedFunction
+--             newUpdateUserDefinedFunction
 --
 --         , requestUpdateColumnStatisticsForPartition $
---             updateColumnStatisticsForPartition
+--             newUpdateColumnStatisticsForPartition
 --
 --         , requestGetConnections $
---             getConnections
+--             newGetConnections
 --
 --         , requestGetMLTransform $
---             getMLTransform
+--             newGetMLTransform
 --
 --         , requestCreateScript $
---             createScript
+--             newCreateScript
 --
 --         , requestGetMLTaskRun $
---             getMLTaskRun
+--             newGetMLTaskRun
 --
 --         , requestDeleteUserDefinedFunction $
---             deleteUserDefinedFunction
+--             newDeleteUserDefinedFunction
 --
 --         , requestStartTrigger $
---             startTrigger
+--             newStartTrigger
 --
 --         , requestPutDataCatalogEncryptionSettings $
---             putDataCatalogEncryptionSettings
+--             newPutDataCatalogEncryptionSettings
 --
 --         , requestRemoveSchemaVersionMetadata $
---             removeSchemaVersionMetadata
+--             newRemoveSchemaVersionMetadata
 --
 --         , requestBatchGetPartition $
---             batchGetPartition
+--             newBatchGetPartition
 --
 --         , requestGetTable $
---             getTable
+--             newGetTable
 --
 --         , requestUpdateCrawlerSchedule $
---             updateCrawlerSchedule
+--             newUpdateCrawlerSchedule
 --
 --         , requestGetColumnStatisticsForTable $
---             getColumnStatisticsForTable
+--             newGetColumnStatisticsForTable
 --
 --         , requestStopTrigger $
---             stopTrigger
+--             newStopTrigger
 --
 --         , requestListSchemas $
---             listSchemas
+--             newListSchemas
 --
 --         , requestGetConnection $
---             getConnection
+--             newGetConnection
 --
 --         , requestGetDatabases $
---             getDatabases
+--             newGetDatabases
 --
 --         , requestDeleteSchema $
---             deleteSchema
+--             newDeleteSchema
 --
 --         , requestUpdateSchema $
---             updateSchema
+--             newUpdateSchema
 --
 --         , requestGetDataflowGraph $
---             getDataflowGraph
+--             newGetDataflowGraph
 --
 --         , requestBatchGetDevEndpoints $
---             batchGetDevEndpoints
+--             newBatchGetDevEndpoints
 --
 --         , requestStartExportLabelsTaskRun $
---             startExportLabelsTaskRun
+--             newStartExportLabelsTaskRun
 --
 --         , requestGetTriggers $
---             getTriggers
+--             newGetTriggers
 --
 --         , requestBatchGetCrawlers $
---             batchGetCrawlers
+--             newBatchGetCrawlers
 --
 --         , requestGetPlan $
---             getPlan
+--             newGetPlan
 --
 --         , requestGetCrawlerMetrics $
---             getCrawlerMetrics
+--             newGetCrawlerMetrics
 --
 --         , requestGetWorkflowRunProperties $
---             getWorkflowRunProperties
+--             newGetWorkflowRunProperties
 --
 --         , requestDeletePartitionIndex $
---             deletePartitionIndex
+--             newDeletePartitionIndex
 --
 --         , requestGetJobBookmark $
---             getJobBookmark
+--             newGetJobBookmark
 --
 --         , requestDeleteTableVersion $
---             deleteTableVersion
+--             newDeleteTableVersion
 --
 --         , requestGetTableVersion $
---             getTableVersion
+--             newGetTableVersion
 --
 --         , requestPutWorkflowRunProperties $
---             putWorkflowRunProperties
+--             newPutWorkflowRunProperties
 --
 --         , requestBatchGetWorkflows $
---             batchGetWorkflows
+--             newBatchGetWorkflows
 --
 --         , requestGetResourcePolicies $
---             getResourcePolicies
+--             newGetResourcePolicies
 --
 --         , requestGetJobs $
---             getJobs
+--             newGetJobs
 --
 --         , requestGetDevEndpoint $
---             getDevEndpoint
+--             newGetDevEndpoint
 --
 --         , requestGetCrawler $
---             getCrawler
+--             newGetCrawler
 --
 --         , requestCreateSecurityConfiguration $
---             createSecurityConfiguration
+--             newCreateSecurityConfiguration
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseGetDataCatalogEncryptionSettings $
---             getDataCatalogEncryptionSettingsResponse
+--             newGetDataCatalogEncryptionSettingsResponse
 --
 --         , responseUpdateColumnStatisticsForTable $
---             updateColumnStatisticsForTableResponse
+--             newUpdateColumnStatisticsForTableResponse
 --
 --         , responseStartMLLabelingSetGenerationTaskRun $
---             startMLLabelingSetGenerationTaskRunResponse
+--             newStartMLLabelingSetGenerationTaskRunResponse
 --
 --         , responseDeleteColumnStatisticsForTable $
---             deleteColumnStatisticsForTableResponse
+--             newDeleteColumnStatisticsForTableResponse
 --
 --         , responseGetSchema $
---             getSchemaResponse
+--             newGetSchemaResponse
 --
 --         , responseDeleteConnection $
---             deleteConnectionResponse
+--             newDeleteConnectionResponse
 --
 --         , responseUpdateConnection $
---             updateConnectionResponse
+--             newUpdateConnectionResponse
 --
 --         , responseCheckSchemaVersionValidity $
---             checkSchemaVersionValidityResponse
+--             newCheckSchemaVersionValidityResponse
 --
 --         , responseCreateWorkflow $
---             createWorkflowResponse
+--             newCreateWorkflowResponse
 --
 --         , responseGetPartitions $
---             getPartitionsResponse
+--             newGetPartitionsResponse
 --
 --         , responseDeleteSecurityConfiguration $
---             deleteSecurityConfigurationResponse
+--             newDeleteSecurityConfigurationResponse
 --
 --         , responseGetPartition $
---             getPartitionResponse
+--             newGetPartitionResponse
 --
 --         , responseUpdateRegistry $
---             updateRegistryResponse
+--             newUpdateRegistryResponse
 --
 --         , responseListMLTransforms $
---             listMLTransformsResponse
+--             newListMLTransformsResponse
 --
 --         , responseStopCrawler $
---             stopCrawlerResponse
+--             newStopCrawlerResponse
 --
 --         , responseStartImportLabelsTaskRun $
---             startImportLabelsTaskRunResponse
+--             newStartImportLabelsTaskRunResponse
 --
 --         , responseGetResourcePolicy $
---             getResourcePolicyResponse
+--             newGetResourcePolicyResponse
 --
 --         , responseQuerySchemaVersionMetadata $
---             querySchemaVersionMetadataResponse
+--             newQuerySchemaVersionMetadataResponse
 --
 --         , responseDeleteRegistry $
---             deleteRegistryResponse
+--             newDeleteRegistryResponse
 --
 --         , responseGetPartitionIndexes $
---             getPartitionIndexesResponse
+--             newGetPartitionIndexesResponse
 --
 --         , responseStartCrawler $
---             startCrawlerResponse
+--             newStartCrawlerResponse
 --
 --         , responseGetCatalogImportStatus $
---             getCatalogImportStatusResponse
+--             newGetCatalogImportStatusResponse
 --
 --         , responseGetColumnStatisticsForPartition $
---             getColumnStatisticsForPartitionResponse
+--             newGetColumnStatisticsForPartitionResponse
 --
 --         , responseCreateRegistry $
---             createRegistryResponse
+--             newCreateRegistryResponse
 --
 --         , responseListTriggers $
---             listTriggersResponse
+--             newListTriggersResponse
 --
 --         , responseCreateMLTransform $
---             createMLTransformResponse
+--             newCreateMLTransformResponse
 --
 --         , responseStopCrawlerSchedule $
---             stopCrawlerScheduleResponse
+--             newStopCrawlerScheduleResponse
 --
 --         , responseUpdateTrigger $
---             updateTriggerResponse
+--             newUpdateTriggerResponse
 --
 --         , responseGetSchemaByDefinition $
---             getSchemaByDefinitionResponse
+--             newGetSchemaByDefinitionResponse
 --
 --         , responseListRegistries $
---             listRegistriesResponse
+--             newListRegistriesResponse
 --
 --         , responseStartCrawlerSchedule $
---             startCrawlerScheduleResponse
+--             newStartCrawlerScheduleResponse
 --
 --         , responseDeleteTrigger $
---             deleteTriggerResponse
+--             newDeleteTriggerResponse
 --
 --         , responseGetJob $
---             getJobResponse
+--             newGetJobResponse
 --
 --         , responseUpdateClassifier $
---             updateClassifierResponse
+--             newUpdateClassifierResponse
 --
 --         , responseDeleteClassifier $
---             deleteClassifierResponse
+--             newDeleteClassifierResponse
 --
 --         , responseDeleteJob $
---             deleteJobResponse
+--             newDeleteJobResponse
 --
 --         , responseUpdateJob $
---             updateJobResponse
+--             newUpdateJobResponse
 --
 --         , responseCreateUserDefinedFunction $
---             createUserDefinedFunctionResponse
+--             newCreateUserDefinedFunctionResponse
 --
 --         , responseGetTrigger $
---             getTriggerResponse
+--             newGetTriggerResponse
 --
 --         , responseBatchGetJobs $
---             batchGetJobsResponse
+--             newBatchGetJobsResponse
 --
 --         , responseCreateClassifier $
---             createClassifierResponse
+--             newCreateClassifierResponse
 --
 --         , responseGetSecurityConfigurations $
---             getSecurityConfigurationsResponse
+--             newGetSecurityConfigurationsResponse
 --
 --         , responsePutResourcePolicy $
---             putResourcePolicyResponse
+--             newPutResourcePolicyResponse
 --
 --         , responseUpdatePartition $
---             updatePartitionResponse
+--             newUpdatePartitionResponse
 --
 --         , responseGetSchemaVersionsDiff $
---             getSchemaVersionsDiffResponse
+--             newGetSchemaVersionsDiffResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseBatchDeleteTable $
---             batchDeleteTableResponse
+--             newBatchDeleteTableResponse
 --
 --         , responseStartMLEvaluationTaskRun $
---             startMLEvaluationTaskRunResponse
+--             newStartMLEvaluationTaskRunResponse
 --
 --         , responseGetDatabase $
---             getDatabaseResponse
+--             newGetDatabaseResponse
 --
 --         , responseDeletePartition $
---             deletePartitionResponse
+--             newDeletePartitionResponse
 --
 --         , responseGetJobRuns $
---             getJobRunsResponse
+--             newGetJobRunsResponse
 --
 --         , responseGetMLTransforms $
---             getMLTransformsResponse
+--             newGetMLTransformsResponse
 --
 --         , responseGetJobRun $
---             getJobRunResponse
+--             newGetJobRunResponse
 --
 --         , responseCreateDevEndpoint $
---             createDevEndpointResponse
+--             newCreateDevEndpointResponse
 --
 --         , responseCreatePartitionIndex $
---             createPartitionIndexResponse
+--             newCreatePartitionIndexResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseGetSecurityConfiguration $
---             getSecurityConfigurationResponse
+--             newGetSecurityConfigurationResponse
 --
 --         , responseCreateCrawler $
---             createCrawlerResponse
+--             newCreateCrawlerResponse
 --
 --         , responseGetMLTaskRuns $
---             getMLTaskRunsResponse
+--             newGetMLTaskRunsResponse
 --
 --         , responseListCrawlers $
---             listCrawlersResponse
+--             newListCrawlersResponse
 --
 --         , responseUpdateDevEndpoint $
---             updateDevEndpointResponse
+--             newUpdateDevEndpointResponse
 --
 --         , responseCreateSchema $
---             createSchemaResponse
+--             newCreateSchemaResponse
 --
 --         , responseListDevEndpoints $
---             listDevEndpointsResponse
+--             newListDevEndpointsResponse
 --
 --         , responseDeleteCrawler $
---             deleteCrawlerResponse
+--             newDeleteCrawlerResponse
 --
 --         , responseDeleteDevEndpoint $
---             deleteDevEndpointResponse
+--             newDeleteDevEndpointResponse
 --
 --         , responseGetWorkflow $
---             getWorkflowResponse
+--             newGetWorkflowResponse
 --
 --         , responseGetSchemaVersion $
---             getSchemaVersionResponse
+--             newGetSchemaVersionResponse
 --
 --         , responseUpdateCrawler $
---             updateCrawlerResponse
+--             newUpdateCrawlerResponse
 --
 --         , responseDeleteWorkflow $
---             deleteWorkflowResponse
+--             newDeleteWorkflowResponse
 --
 --         , responseRegisterSchemaVersion $
---             registerSchemaVersionResponse
+--             newRegisterSchemaVersionResponse
 --
 --         , responseGetMapping $
---             getMappingResponse
+--             newGetMappingResponse
 --
 --         , responseStopWorkflowRun $
---             stopWorkflowRunResponse
+--             newStopWorkflowRunResponse
 --
 --         , responseCreateConnection $
---             createConnectionResponse
+--             newCreateConnectionResponse
 --
 --         , responseBatchCreatePartition $
---             batchCreatePartitionResponse
+--             newBatchCreatePartitionResponse
 --
 --         , responseCreateTable $
---             createTableResponse
+--             newCreateTableResponse
 --
 --         , responseUpdateWorkflow $
---             updateWorkflowResponse
+--             newUpdateWorkflowResponse
 --
 --         , responseGetClassifiers $
---             getClassifiersResponse
+--             newGetClassifiersResponse
 --
 --         , responseBatchStopJobRun $
---             batchStopJobRunResponse
+--             newBatchStopJobRunResponse
 --
 --         , responseStartWorkflowRun $
---             startWorkflowRunResponse
+--             newStartWorkflowRunResponse
 --
 --         , responseListWorkflows $
---             listWorkflowsResponse
+--             newListWorkflowsResponse
 --
 --         , responseListSchemaVersions $
---             listSchemaVersionsResponse
+--             newListSchemaVersionsResponse
 --
 --         , responseBatchDeletePartition $
---             batchDeletePartitionResponse
+--             newBatchDeletePartitionResponse
 --
 --         , responsePutSchemaVersionMetadata $
---             putSchemaVersionMetadataResponse
+--             newPutSchemaVersionMetadataResponse
 --
 --         , responseGetWorkflowRuns $
---             getWorkflowRunsResponse
+--             newGetWorkflowRunsResponse
 --
 --         , responseGetTags $
---             getTagsResponse
+--             newGetTagsResponse
 --
 --         , responseBatchUpdatePartition $
---             batchUpdatePartitionResponse
+--             newBatchUpdatePartitionResponse
 --
 --         , responseGetUserDefinedFunctions $
---             getUserDefinedFunctionsResponse
+--             newGetUserDefinedFunctionsResponse
 --
 --         , responseUpdateTable $
---             updateTableResponse
+--             newUpdateTableResponse
 --
 --         , responseDeleteTable $
---             deleteTableResponse
+--             newDeleteTableResponse
 --
 --         , responseDeleteDatabase $
---             deleteDatabaseResponse
+--             newDeleteDatabaseResponse
 --
 --         , responseUpdateDatabase $
---             updateDatabaseResponse
+--             newUpdateDatabaseResponse
 --
 --         , responseGetUserDefinedFunction $
---             getUserDefinedFunctionResponse
+--             newGetUserDefinedFunctionResponse
 --
 --         , responseUpdateMLTransform $
---             updateMLTransformResponse
+--             newUpdateMLTransformResponse
 --
 --         , responseGetWorkflowRun $
---             getWorkflowRunResponse
+--             newGetWorkflowRunResponse
 --
 --         , responseDeleteMLTransform $
---             deleteMLTransformResponse
+--             newDeleteMLTransformResponse
 --
 --         , responseCreateTrigger $
---             createTriggerResponse
+--             newCreateTriggerResponse
 --
 --         , responseCreateDatabase $
---             createDatabaseResponse
+--             newCreateDatabaseResponse
 --
 --         , responseGetClassifier $
---             getClassifierResponse
+--             newGetClassifierResponse
 --
 --         , responseDeleteSchemaVersions $
---             deleteSchemaVersionsResponse
+--             newDeleteSchemaVersionsResponse
 --
 --         , responseBatchGetTriggers $
---             batchGetTriggersResponse
+--             newBatchGetTriggersResponse
 --
 --         , responseBatchDeleteTableVersion $
---             batchDeleteTableVersionResponse
+--             newBatchDeleteTableVersionResponse
 --
 --         , responseGetTableVersions $
---             getTableVersionsResponse
+--             newGetTableVersionsResponse
 --
 --         , responseGetDevEndpoints $
---             getDevEndpointsResponse
+--             newGetDevEndpointsResponse
 --
 --         , responseGetCrawlers $
---             getCrawlersResponse
+--             newGetCrawlersResponse
 --
 --         , responseStartJobRun $
---             startJobRunResponse
+--             newStartJobRunResponse
 --
 --         , responseImportCatalogToGlue $
---             importCatalogToGlueResponse
+--             newImportCatalogToGlueResponse
 --
 --         , responseCreatePartition $
---             createPartitionResponse
+--             newCreatePartitionResponse
 --
 --         , responseResetJobBookmark $
---             resetJobBookmarkResponse
+--             newResetJobBookmarkResponse
 --
 --         , responseListJobs $
---             listJobsResponse
+--             newListJobsResponse
 --
 --         , responseBatchDeleteConnection $
---             batchDeleteConnectionResponse
+--             newBatchDeleteConnectionResponse
 --
 --         , responseGetTables $
---             getTablesResponse
+--             newGetTablesResponse
 --
 --         , responseDeleteColumnStatisticsForPartition $
---             deleteColumnStatisticsForPartitionResponse
+--             newDeleteColumnStatisticsForPartitionResponse
 --
 --         , responseDeleteResourcePolicy $
---             deleteResourcePolicyResponse
+--             newDeleteResourcePolicyResponse
 --
 --         , responseGetRegistry $
---             getRegistryResponse
+--             newGetRegistryResponse
 --
 --         , responseResumeWorkflowRun $
---             resumeWorkflowRunResponse
+--             newResumeWorkflowRunResponse
 --
 --         , responseCancelMLTaskRun $
---             cancelMLTaskRunResponse
+--             newCancelMLTaskRunResponse
 --
 --         , responseCreateJob $
---             createJobResponse
+--             newCreateJobResponse
 --
 --         , responseSearchTables $
---             searchTablesResponse
+--             newSearchTablesResponse
 --
 --         , responseUpdateUserDefinedFunction $
---             updateUserDefinedFunctionResponse
+--             newUpdateUserDefinedFunctionResponse
 --
 --         , responseUpdateColumnStatisticsForPartition $
---             updateColumnStatisticsForPartitionResponse
+--             newUpdateColumnStatisticsForPartitionResponse
 --
 --         , responseGetConnections $
---             getConnectionsResponse
+--             newGetConnectionsResponse
 --
 --         , responseGetMLTransform $
---             getMLTransformResponse
+--             newGetMLTransformResponse
 --
 --         , responseCreateScript $
---             createScriptResponse
+--             newCreateScriptResponse
 --
 --         , responseGetMLTaskRun $
---             getMLTaskRunResponse
+--             newGetMLTaskRunResponse
 --
 --         , responseDeleteUserDefinedFunction $
---             deleteUserDefinedFunctionResponse
+--             newDeleteUserDefinedFunctionResponse
 --
 --         , responseStartTrigger $
---             startTriggerResponse
+--             newStartTriggerResponse
 --
 --         , responsePutDataCatalogEncryptionSettings $
---             putDataCatalogEncryptionSettingsResponse
+--             newPutDataCatalogEncryptionSettingsResponse
 --
 --         , responseRemoveSchemaVersionMetadata $
---             removeSchemaVersionMetadataResponse
+--             newRemoveSchemaVersionMetadataResponse
 --
 --         , responseBatchGetPartition $
---             batchGetPartitionResponse
+--             newBatchGetPartitionResponse
 --
 --         , responseGetTable $
---             getTableResponse
+--             newGetTableResponse
 --
 --         , responseUpdateCrawlerSchedule $
---             updateCrawlerScheduleResponse
+--             newUpdateCrawlerScheduleResponse
 --
 --         , responseGetColumnStatisticsForTable $
---             getColumnStatisticsForTableResponse
+--             newGetColumnStatisticsForTableResponse
 --
 --         , responseStopTrigger $
---             stopTriggerResponse
+--             newStopTriggerResponse
 --
 --         , responseListSchemas $
---             listSchemasResponse
+--             newListSchemasResponse
 --
 --         , responseGetConnection $
---             getConnectionResponse
+--             newGetConnectionResponse
 --
 --         , responseGetDatabases $
---             getDatabasesResponse
+--             newGetDatabasesResponse
 --
 --         , responseDeleteSchema $
---             deleteSchemaResponse
+--             newDeleteSchemaResponse
 --
 --         , responseUpdateSchema $
---             updateSchemaResponse
+--             newUpdateSchemaResponse
 --
 --         , responseGetDataflowGraph $
---             getDataflowGraphResponse
+--             newGetDataflowGraphResponse
 --
 --         , responseBatchGetDevEndpoints $
---             batchGetDevEndpointsResponse
+--             newBatchGetDevEndpointsResponse
 --
 --         , responseStartExportLabelsTaskRun $
---             startExportLabelsTaskRunResponse
+--             newStartExportLabelsTaskRunResponse
 --
 --         , responseGetTriggers $
---             getTriggersResponse
+--             newGetTriggersResponse
 --
 --         , responseBatchGetCrawlers $
---             batchGetCrawlersResponse
+--             newBatchGetCrawlersResponse
 --
 --         , responseGetPlan $
---             getPlanResponse
+--             newGetPlanResponse
 --
 --         , responseGetCrawlerMetrics $
---             getCrawlerMetricsResponse
+--             newGetCrawlerMetricsResponse
 --
 --         , responseGetWorkflowRunProperties $
---             getWorkflowRunPropertiesResponse
+--             newGetWorkflowRunPropertiesResponse
 --
 --         , responseDeletePartitionIndex $
---             deletePartitionIndexResponse
+--             newDeletePartitionIndexResponse
 --
 --         , responseGetJobBookmark $
---             getJobBookmarkResponse
+--             newGetJobBookmarkResponse
 --
 --         , responseDeleteTableVersion $
---             deleteTableVersionResponse
+--             newDeleteTableVersionResponse
 --
 --         , responseGetTableVersion $
---             getTableVersionResponse
+--             newGetTableVersionResponse
 --
 --         , responsePutWorkflowRunProperties $
---             putWorkflowRunPropertiesResponse
+--             newPutWorkflowRunPropertiesResponse
 --
 --         , responseBatchGetWorkflows $
---             batchGetWorkflowsResponse
+--             newBatchGetWorkflowsResponse
 --
 --         , responseGetResourcePolicies $
---             getResourcePoliciesResponse
+--             newGetResourcePoliciesResponse
 --
 --         , responseGetJobs $
---             getJobsResponse
+--             newGetJobsResponse
 --
 --         , responseGetDevEndpoint $
---             getDevEndpointResponse
+--             newGetDevEndpointResponse
 --
 --         , responseGetCrawler $
---             getCrawlerResponse
+--             newGetCrawlerResponse
 --
 --         , responseCreateSecurityConfiguration $
---             createSecurityConfigurationResponse
+--             newCreateSecurityConfigurationResponse
 --
 --           ]
 --     ]
@@ -1926,7 +1926,7 @@ responseGetDataCatalogEncryptionSettings =
   res
     "GetDataCatalogEncryptionSettingsResponse"
     "fixture/GetDataCatalogEncryptionSettingsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetDataCatalogEncryptionSettings)
 
 responseUpdateColumnStatisticsForTable :: UpdateColumnStatisticsForTableResponse -> TestTree
@@ -1934,7 +1934,7 @@ responseUpdateColumnStatisticsForTable =
   res
     "UpdateColumnStatisticsForTableResponse"
     "fixture/UpdateColumnStatisticsForTableResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateColumnStatisticsForTable)
 
 responseStartMLLabelingSetGenerationTaskRun :: StartMLLabelingSetGenerationTaskRunResponse -> TestTree
@@ -1942,7 +1942,7 @@ responseStartMLLabelingSetGenerationTaskRun =
   res
     "StartMLLabelingSetGenerationTaskRunResponse"
     "fixture/StartMLLabelingSetGenerationTaskRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StartMLLabelingSetGenerationTaskRun)
 
 responseDeleteColumnStatisticsForTable :: DeleteColumnStatisticsForTableResponse -> TestTree
@@ -1950,7 +1950,7 @@ responseDeleteColumnStatisticsForTable =
   res
     "DeleteColumnStatisticsForTableResponse"
     "fixture/DeleteColumnStatisticsForTableResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteColumnStatisticsForTable)
 
 responseGetSchema :: GetSchemaResponse -> TestTree
@@ -1958,7 +1958,7 @@ responseGetSchema =
   res
     "GetSchemaResponse"
     "fixture/GetSchemaResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetSchema)
 
 responseDeleteConnection :: DeleteConnectionResponse -> TestTree
@@ -1966,7 +1966,7 @@ responseDeleteConnection =
   res
     "DeleteConnectionResponse"
     "fixture/DeleteConnectionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteConnection)
 
 responseUpdateConnection :: UpdateConnectionResponse -> TestTree
@@ -1974,7 +1974,7 @@ responseUpdateConnection =
   res
     "UpdateConnectionResponse"
     "fixture/UpdateConnectionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateConnection)
 
 responseCheckSchemaVersionValidity :: CheckSchemaVersionValidityResponse -> TestTree
@@ -1982,7 +1982,7 @@ responseCheckSchemaVersionValidity =
   res
     "CheckSchemaVersionValidityResponse"
     "fixture/CheckSchemaVersionValidityResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CheckSchemaVersionValidity)
 
 responseCreateWorkflow :: CreateWorkflowResponse -> TestTree
@@ -1990,7 +1990,7 @@ responseCreateWorkflow =
   res
     "CreateWorkflowResponse"
     "fixture/CreateWorkflowResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateWorkflow)
 
 responseGetPartitions :: GetPartitionsResponse -> TestTree
@@ -1998,7 +1998,7 @@ responseGetPartitions =
   res
     "GetPartitionsResponse"
     "fixture/GetPartitionsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetPartitions)
 
 responseDeleteSecurityConfiguration :: DeleteSecurityConfigurationResponse -> TestTree
@@ -2006,7 +2006,7 @@ responseDeleteSecurityConfiguration =
   res
     "DeleteSecurityConfigurationResponse"
     "fixture/DeleteSecurityConfigurationResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteSecurityConfiguration)
 
 responseGetPartition :: GetPartitionResponse -> TestTree
@@ -2014,7 +2014,7 @@ responseGetPartition =
   res
     "GetPartitionResponse"
     "fixture/GetPartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetPartition)
 
 responseUpdateRegistry :: UpdateRegistryResponse -> TestTree
@@ -2022,7 +2022,7 @@ responseUpdateRegistry =
   res
     "UpdateRegistryResponse"
     "fixture/UpdateRegistryResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateRegistry)
 
 responseListMLTransforms :: ListMLTransformsResponse -> TestTree
@@ -2030,7 +2030,7 @@ responseListMLTransforms =
   res
     "ListMLTransformsResponse"
     "fixture/ListMLTransformsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ListMLTransforms)
 
 responseStopCrawler :: StopCrawlerResponse -> TestTree
@@ -2038,7 +2038,7 @@ responseStopCrawler =
   res
     "StopCrawlerResponse"
     "fixture/StopCrawlerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StopCrawler)
 
 responseStartImportLabelsTaskRun :: StartImportLabelsTaskRunResponse -> TestTree
@@ -2046,7 +2046,7 @@ responseStartImportLabelsTaskRun =
   res
     "StartImportLabelsTaskRunResponse"
     "fixture/StartImportLabelsTaskRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StartImportLabelsTaskRun)
 
 responseGetResourcePolicy :: GetResourcePolicyResponse -> TestTree
@@ -2054,7 +2054,7 @@ responseGetResourcePolicy =
   res
     "GetResourcePolicyResponse"
     "fixture/GetResourcePolicyResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetResourcePolicy)
 
 responseQuerySchemaVersionMetadata :: QuerySchemaVersionMetadataResponse -> TestTree
@@ -2062,7 +2062,7 @@ responseQuerySchemaVersionMetadata =
   res
     "QuerySchemaVersionMetadataResponse"
     "fixture/QuerySchemaVersionMetadataResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy QuerySchemaVersionMetadata)
 
 responseDeleteRegistry :: DeleteRegistryResponse -> TestTree
@@ -2070,7 +2070,7 @@ responseDeleteRegistry =
   res
     "DeleteRegistryResponse"
     "fixture/DeleteRegistryResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteRegistry)
 
 responseGetPartitionIndexes :: GetPartitionIndexesResponse -> TestTree
@@ -2078,7 +2078,7 @@ responseGetPartitionIndexes =
   res
     "GetPartitionIndexesResponse"
     "fixture/GetPartitionIndexesResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetPartitionIndexes)
 
 responseStartCrawler :: StartCrawlerResponse -> TestTree
@@ -2086,7 +2086,7 @@ responseStartCrawler =
   res
     "StartCrawlerResponse"
     "fixture/StartCrawlerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StartCrawler)
 
 responseGetCatalogImportStatus :: GetCatalogImportStatusResponse -> TestTree
@@ -2094,7 +2094,7 @@ responseGetCatalogImportStatus =
   res
     "GetCatalogImportStatusResponse"
     "fixture/GetCatalogImportStatusResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetCatalogImportStatus)
 
 responseGetColumnStatisticsForPartition :: GetColumnStatisticsForPartitionResponse -> TestTree
@@ -2102,7 +2102,7 @@ responseGetColumnStatisticsForPartition =
   res
     "GetColumnStatisticsForPartitionResponse"
     "fixture/GetColumnStatisticsForPartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetColumnStatisticsForPartition)
 
 responseCreateRegistry :: CreateRegistryResponse -> TestTree
@@ -2110,7 +2110,7 @@ responseCreateRegistry =
   res
     "CreateRegistryResponse"
     "fixture/CreateRegistryResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateRegistry)
 
 responseListTriggers :: ListTriggersResponse -> TestTree
@@ -2118,7 +2118,7 @@ responseListTriggers =
   res
     "ListTriggersResponse"
     "fixture/ListTriggersResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ListTriggers)
 
 responseCreateMLTransform :: CreateMLTransformResponse -> TestTree
@@ -2126,7 +2126,7 @@ responseCreateMLTransform =
   res
     "CreateMLTransformResponse"
     "fixture/CreateMLTransformResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateMLTransform)
 
 responseStopCrawlerSchedule :: StopCrawlerScheduleResponse -> TestTree
@@ -2134,7 +2134,7 @@ responseStopCrawlerSchedule =
   res
     "StopCrawlerScheduleResponse"
     "fixture/StopCrawlerScheduleResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StopCrawlerSchedule)
 
 responseUpdateTrigger :: UpdateTriggerResponse -> TestTree
@@ -2142,7 +2142,7 @@ responseUpdateTrigger =
   res
     "UpdateTriggerResponse"
     "fixture/UpdateTriggerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateTrigger)
 
 responseGetSchemaByDefinition :: GetSchemaByDefinitionResponse -> TestTree
@@ -2150,7 +2150,7 @@ responseGetSchemaByDefinition =
   res
     "GetSchemaByDefinitionResponse"
     "fixture/GetSchemaByDefinitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetSchemaByDefinition)
 
 responseListRegistries :: ListRegistriesResponse -> TestTree
@@ -2158,7 +2158,7 @@ responseListRegistries =
   res
     "ListRegistriesResponse"
     "fixture/ListRegistriesResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ListRegistries)
 
 responseStartCrawlerSchedule :: StartCrawlerScheduleResponse -> TestTree
@@ -2166,7 +2166,7 @@ responseStartCrawlerSchedule =
   res
     "StartCrawlerScheduleResponse"
     "fixture/StartCrawlerScheduleResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StartCrawlerSchedule)
 
 responseDeleteTrigger :: DeleteTriggerResponse -> TestTree
@@ -2174,7 +2174,7 @@ responseDeleteTrigger =
   res
     "DeleteTriggerResponse"
     "fixture/DeleteTriggerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteTrigger)
 
 responseGetJob :: GetJobResponse -> TestTree
@@ -2182,7 +2182,7 @@ responseGetJob =
   res
     "GetJobResponse"
     "fixture/GetJobResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetJob)
 
 responseUpdateClassifier :: UpdateClassifierResponse -> TestTree
@@ -2190,7 +2190,7 @@ responseUpdateClassifier =
   res
     "UpdateClassifierResponse"
     "fixture/UpdateClassifierResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateClassifier)
 
 responseDeleteClassifier :: DeleteClassifierResponse -> TestTree
@@ -2198,7 +2198,7 @@ responseDeleteClassifier =
   res
     "DeleteClassifierResponse"
     "fixture/DeleteClassifierResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteClassifier)
 
 responseDeleteJob :: DeleteJobResponse -> TestTree
@@ -2206,7 +2206,7 @@ responseDeleteJob =
   res
     "DeleteJobResponse"
     "fixture/DeleteJobResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteJob)
 
 responseUpdateJob :: UpdateJobResponse -> TestTree
@@ -2214,7 +2214,7 @@ responseUpdateJob =
   res
     "UpdateJobResponse"
     "fixture/UpdateJobResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateJob)
 
 responseCreateUserDefinedFunction :: CreateUserDefinedFunctionResponse -> TestTree
@@ -2222,7 +2222,7 @@ responseCreateUserDefinedFunction =
   res
     "CreateUserDefinedFunctionResponse"
     "fixture/CreateUserDefinedFunctionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateUserDefinedFunction)
 
 responseGetTrigger :: GetTriggerResponse -> TestTree
@@ -2230,7 +2230,7 @@ responseGetTrigger =
   res
     "GetTriggerResponse"
     "fixture/GetTriggerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetTrigger)
 
 responseBatchGetJobs :: BatchGetJobsResponse -> TestTree
@@ -2238,7 +2238,7 @@ responseBatchGetJobs =
   res
     "BatchGetJobsResponse"
     "fixture/BatchGetJobsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchGetJobs)
 
 responseCreateClassifier :: CreateClassifierResponse -> TestTree
@@ -2246,7 +2246,7 @@ responseCreateClassifier =
   res
     "CreateClassifierResponse"
     "fixture/CreateClassifierResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateClassifier)
 
 responseGetSecurityConfigurations :: GetSecurityConfigurationsResponse -> TestTree
@@ -2254,7 +2254,7 @@ responseGetSecurityConfigurations =
   res
     "GetSecurityConfigurationsResponse"
     "fixture/GetSecurityConfigurationsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetSecurityConfigurations)
 
 responsePutResourcePolicy :: PutResourcePolicyResponse -> TestTree
@@ -2262,7 +2262,7 @@ responsePutResourcePolicy =
   res
     "PutResourcePolicyResponse"
     "fixture/PutResourcePolicyResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy PutResourcePolicy)
 
 responseUpdatePartition :: UpdatePartitionResponse -> TestTree
@@ -2270,7 +2270,7 @@ responseUpdatePartition =
   res
     "UpdatePartitionResponse"
     "fixture/UpdatePartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdatePartition)
 
 responseGetSchemaVersionsDiff :: GetSchemaVersionsDiffResponse -> TestTree
@@ -2278,7 +2278,7 @@ responseGetSchemaVersionsDiff =
   res
     "GetSchemaVersionsDiffResponse"
     "fixture/GetSchemaVersionsDiffResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetSchemaVersionsDiff)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -2286,7 +2286,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseBatchDeleteTable :: BatchDeleteTableResponse -> TestTree
@@ -2294,7 +2294,7 @@ responseBatchDeleteTable =
   res
     "BatchDeleteTableResponse"
     "fixture/BatchDeleteTableResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchDeleteTable)
 
 responseStartMLEvaluationTaskRun :: StartMLEvaluationTaskRunResponse -> TestTree
@@ -2302,7 +2302,7 @@ responseStartMLEvaluationTaskRun =
   res
     "StartMLEvaluationTaskRunResponse"
     "fixture/StartMLEvaluationTaskRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StartMLEvaluationTaskRun)
 
 responseGetDatabase :: GetDatabaseResponse -> TestTree
@@ -2310,7 +2310,7 @@ responseGetDatabase =
   res
     "GetDatabaseResponse"
     "fixture/GetDatabaseResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetDatabase)
 
 responseDeletePartition :: DeletePartitionResponse -> TestTree
@@ -2318,7 +2318,7 @@ responseDeletePartition =
   res
     "DeletePartitionResponse"
     "fixture/DeletePartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeletePartition)
 
 responseGetJobRuns :: GetJobRunsResponse -> TestTree
@@ -2326,7 +2326,7 @@ responseGetJobRuns =
   res
     "GetJobRunsResponse"
     "fixture/GetJobRunsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetJobRuns)
 
 responseGetMLTransforms :: GetMLTransformsResponse -> TestTree
@@ -2334,7 +2334,7 @@ responseGetMLTransforms =
   res
     "GetMLTransformsResponse"
     "fixture/GetMLTransformsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetMLTransforms)
 
 responseGetJobRun :: GetJobRunResponse -> TestTree
@@ -2342,7 +2342,7 @@ responseGetJobRun =
   res
     "GetJobRunResponse"
     "fixture/GetJobRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetJobRun)
 
 responseCreateDevEndpoint :: CreateDevEndpointResponse -> TestTree
@@ -2350,7 +2350,7 @@ responseCreateDevEndpoint =
   res
     "CreateDevEndpointResponse"
     "fixture/CreateDevEndpointResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateDevEndpoint)
 
 responseCreatePartitionIndex :: CreatePartitionIndexResponse -> TestTree
@@ -2358,7 +2358,7 @@ responseCreatePartitionIndex =
   res
     "CreatePartitionIndexResponse"
     "fixture/CreatePartitionIndexResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreatePartitionIndex)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -2366,7 +2366,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseGetSecurityConfiguration :: GetSecurityConfigurationResponse -> TestTree
@@ -2374,7 +2374,7 @@ responseGetSecurityConfiguration =
   res
     "GetSecurityConfigurationResponse"
     "fixture/GetSecurityConfigurationResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetSecurityConfiguration)
 
 responseCreateCrawler :: CreateCrawlerResponse -> TestTree
@@ -2382,7 +2382,7 @@ responseCreateCrawler =
   res
     "CreateCrawlerResponse"
     "fixture/CreateCrawlerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateCrawler)
 
 responseGetMLTaskRuns :: GetMLTaskRunsResponse -> TestTree
@@ -2390,7 +2390,7 @@ responseGetMLTaskRuns =
   res
     "GetMLTaskRunsResponse"
     "fixture/GetMLTaskRunsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetMLTaskRuns)
 
 responseListCrawlers :: ListCrawlersResponse -> TestTree
@@ -2398,7 +2398,7 @@ responseListCrawlers =
   res
     "ListCrawlersResponse"
     "fixture/ListCrawlersResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ListCrawlers)
 
 responseUpdateDevEndpoint :: UpdateDevEndpointResponse -> TestTree
@@ -2406,7 +2406,7 @@ responseUpdateDevEndpoint =
   res
     "UpdateDevEndpointResponse"
     "fixture/UpdateDevEndpointResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateDevEndpoint)
 
 responseCreateSchema :: CreateSchemaResponse -> TestTree
@@ -2414,7 +2414,7 @@ responseCreateSchema =
   res
     "CreateSchemaResponse"
     "fixture/CreateSchemaResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateSchema)
 
 responseListDevEndpoints :: ListDevEndpointsResponse -> TestTree
@@ -2422,7 +2422,7 @@ responseListDevEndpoints =
   res
     "ListDevEndpointsResponse"
     "fixture/ListDevEndpointsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ListDevEndpoints)
 
 responseDeleteCrawler :: DeleteCrawlerResponse -> TestTree
@@ -2430,7 +2430,7 @@ responseDeleteCrawler =
   res
     "DeleteCrawlerResponse"
     "fixture/DeleteCrawlerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteCrawler)
 
 responseDeleteDevEndpoint :: DeleteDevEndpointResponse -> TestTree
@@ -2438,7 +2438,7 @@ responseDeleteDevEndpoint =
   res
     "DeleteDevEndpointResponse"
     "fixture/DeleteDevEndpointResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteDevEndpoint)
 
 responseGetWorkflow :: GetWorkflowResponse -> TestTree
@@ -2446,7 +2446,7 @@ responseGetWorkflow =
   res
     "GetWorkflowResponse"
     "fixture/GetWorkflowResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetWorkflow)
 
 responseGetSchemaVersion :: GetSchemaVersionResponse -> TestTree
@@ -2454,7 +2454,7 @@ responseGetSchemaVersion =
   res
     "GetSchemaVersionResponse"
     "fixture/GetSchemaVersionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetSchemaVersion)
 
 responseUpdateCrawler :: UpdateCrawlerResponse -> TestTree
@@ -2462,7 +2462,7 @@ responseUpdateCrawler =
   res
     "UpdateCrawlerResponse"
     "fixture/UpdateCrawlerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateCrawler)
 
 responseDeleteWorkflow :: DeleteWorkflowResponse -> TestTree
@@ -2470,7 +2470,7 @@ responseDeleteWorkflow =
   res
     "DeleteWorkflowResponse"
     "fixture/DeleteWorkflowResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteWorkflow)
 
 responseRegisterSchemaVersion :: RegisterSchemaVersionResponse -> TestTree
@@ -2478,7 +2478,7 @@ responseRegisterSchemaVersion =
   res
     "RegisterSchemaVersionResponse"
     "fixture/RegisterSchemaVersionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy RegisterSchemaVersion)
 
 responseGetMapping :: GetMappingResponse -> TestTree
@@ -2486,7 +2486,7 @@ responseGetMapping =
   res
     "GetMappingResponse"
     "fixture/GetMappingResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetMapping)
 
 responseStopWorkflowRun :: StopWorkflowRunResponse -> TestTree
@@ -2494,7 +2494,7 @@ responseStopWorkflowRun =
   res
     "StopWorkflowRunResponse"
     "fixture/StopWorkflowRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StopWorkflowRun)
 
 responseCreateConnection :: CreateConnectionResponse -> TestTree
@@ -2502,7 +2502,7 @@ responseCreateConnection =
   res
     "CreateConnectionResponse"
     "fixture/CreateConnectionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateConnection)
 
 responseBatchCreatePartition :: BatchCreatePartitionResponse -> TestTree
@@ -2510,7 +2510,7 @@ responseBatchCreatePartition =
   res
     "BatchCreatePartitionResponse"
     "fixture/BatchCreatePartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchCreatePartition)
 
 responseCreateTable :: CreateTableResponse -> TestTree
@@ -2518,7 +2518,7 @@ responseCreateTable =
   res
     "CreateTableResponse"
     "fixture/CreateTableResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateTable)
 
 responseUpdateWorkflow :: UpdateWorkflowResponse -> TestTree
@@ -2526,7 +2526,7 @@ responseUpdateWorkflow =
   res
     "UpdateWorkflowResponse"
     "fixture/UpdateWorkflowResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateWorkflow)
 
 responseGetClassifiers :: GetClassifiersResponse -> TestTree
@@ -2534,7 +2534,7 @@ responseGetClassifiers =
   res
     "GetClassifiersResponse"
     "fixture/GetClassifiersResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetClassifiers)
 
 responseBatchStopJobRun :: BatchStopJobRunResponse -> TestTree
@@ -2542,7 +2542,7 @@ responseBatchStopJobRun =
   res
     "BatchStopJobRunResponse"
     "fixture/BatchStopJobRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchStopJobRun)
 
 responseStartWorkflowRun :: StartWorkflowRunResponse -> TestTree
@@ -2550,7 +2550,7 @@ responseStartWorkflowRun =
   res
     "StartWorkflowRunResponse"
     "fixture/StartWorkflowRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StartWorkflowRun)
 
 responseListWorkflows :: ListWorkflowsResponse -> TestTree
@@ -2558,7 +2558,7 @@ responseListWorkflows =
   res
     "ListWorkflowsResponse"
     "fixture/ListWorkflowsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ListWorkflows)
 
 responseListSchemaVersions :: ListSchemaVersionsResponse -> TestTree
@@ -2566,7 +2566,7 @@ responseListSchemaVersions =
   res
     "ListSchemaVersionsResponse"
     "fixture/ListSchemaVersionsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ListSchemaVersions)
 
 responseBatchDeletePartition :: BatchDeletePartitionResponse -> TestTree
@@ -2574,7 +2574,7 @@ responseBatchDeletePartition =
   res
     "BatchDeletePartitionResponse"
     "fixture/BatchDeletePartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchDeletePartition)
 
 responsePutSchemaVersionMetadata :: PutSchemaVersionMetadataResponse -> TestTree
@@ -2582,7 +2582,7 @@ responsePutSchemaVersionMetadata =
   res
     "PutSchemaVersionMetadataResponse"
     "fixture/PutSchemaVersionMetadataResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy PutSchemaVersionMetadata)
 
 responseGetWorkflowRuns :: GetWorkflowRunsResponse -> TestTree
@@ -2590,7 +2590,7 @@ responseGetWorkflowRuns =
   res
     "GetWorkflowRunsResponse"
     "fixture/GetWorkflowRunsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetWorkflowRuns)
 
 responseGetTags :: GetTagsResponse -> TestTree
@@ -2598,7 +2598,7 @@ responseGetTags =
   res
     "GetTagsResponse"
     "fixture/GetTagsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetTags)
 
 responseBatchUpdatePartition :: BatchUpdatePartitionResponse -> TestTree
@@ -2606,7 +2606,7 @@ responseBatchUpdatePartition =
   res
     "BatchUpdatePartitionResponse"
     "fixture/BatchUpdatePartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchUpdatePartition)
 
 responseGetUserDefinedFunctions :: GetUserDefinedFunctionsResponse -> TestTree
@@ -2614,7 +2614,7 @@ responseGetUserDefinedFunctions =
   res
     "GetUserDefinedFunctionsResponse"
     "fixture/GetUserDefinedFunctionsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetUserDefinedFunctions)
 
 responseUpdateTable :: UpdateTableResponse -> TestTree
@@ -2622,7 +2622,7 @@ responseUpdateTable =
   res
     "UpdateTableResponse"
     "fixture/UpdateTableResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateTable)
 
 responseDeleteTable :: DeleteTableResponse -> TestTree
@@ -2630,7 +2630,7 @@ responseDeleteTable =
   res
     "DeleteTableResponse"
     "fixture/DeleteTableResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteTable)
 
 responseDeleteDatabase :: DeleteDatabaseResponse -> TestTree
@@ -2638,7 +2638,7 @@ responseDeleteDatabase =
   res
     "DeleteDatabaseResponse"
     "fixture/DeleteDatabaseResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteDatabase)
 
 responseUpdateDatabase :: UpdateDatabaseResponse -> TestTree
@@ -2646,7 +2646,7 @@ responseUpdateDatabase =
   res
     "UpdateDatabaseResponse"
     "fixture/UpdateDatabaseResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateDatabase)
 
 responseGetUserDefinedFunction :: GetUserDefinedFunctionResponse -> TestTree
@@ -2654,7 +2654,7 @@ responseGetUserDefinedFunction =
   res
     "GetUserDefinedFunctionResponse"
     "fixture/GetUserDefinedFunctionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetUserDefinedFunction)
 
 responseUpdateMLTransform :: UpdateMLTransformResponse -> TestTree
@@ -2662,7 +2662,7 @@ responseUpdateMLTransform =
   res
     "UpdateMLTransformResponse"
     "fixture/UpdateMLTransformResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateMLTransform)
 
 responseGetWorkflowRun :: GetWorkflowRunResponse -> TestTree
@@ -2670,7 +2670,7 @@ responseGetWorkflowRun =
   res
     "GetWorkflowRunResponse"
     "fixture/GetWorkflowRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetWorkflowRun)
 
 responseDeleteMLTransform :: DeleteMLTransformResponse -> TestTree
@@ -2678,7 +2678,7 @@ responseDeleteMLTransform =
   res
     "DeleteMLTransformResponse"
     "fixture/DeleteMLTransformResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteMLTransform)
 
 responseCreateTrigger :: CreateTriggerResponse -> TestTree
@@ -2686,7 +2686,7 @@ responseCreateTrigger =
   res
     "CreateTriggerResponse"
     "fixture/CreateTriggerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateTrigger)
 
 responseCreateDatabase :: CreateDatabaseResponse -> TestTree
@@ -2694,7 +2694,7 @@ responseCreateDatabase =
   res
     "CreateDatabaseResponse"
     "fixture/CreateDatabaseResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateDatabase)
 
 responseGetClassifier :: GetClassifierResponse -> TestTree
@@ -2702,7 +2702,7 @@ responseGetClassifier =
   res
     "GetClassifierResponse"
     "fixture/GetClassifierResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetClassifier)
 
 responseDeleteSchemaVersions :: DeleteSchemaVersionsResponse -> TestTree
@@ -2710,7 +2710,7 @@ responseDeleteSchemaVersions =
   res
     "DeleteSchemaVersionsResponse"
     "fixture/DeleteSchemaVersionsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteSchemaVersions)
 
 responseBatchGetTriggers :: BatchGetTriggersResponse -> TestTree
@@ -2718,7 +2718,7 @@ responseBatchGetTriggers =
   res
     "BatchGetTriggersResponse"
     "fixture/BatchGetTriggersResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchGetTriggers)
 
 responseBatchDeleteTableVersion :: BatchDeleteTableVersionResponse -> TestTree
@@ -2726,7 +2726,7 @@ responseBatchDeleteTableVersion =
   res
     "BatchDeleteTableVersionResponse"
     "fixture/BatchDeleteTableVersionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchDeleteTableVersion)
 
 responseGetTableVersions :: GetTableVersionsResponse -> TestTree
@@ -2734,7 +2734,7 @@ responseGetTableVersions =
   res
     "GetTableVersionsResponse"
     "fixture/GetTableVersionsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetTableVersions)
 
 responseGetDevEndpoints :: GetDevEndpointsResponse -> TestTree
@@ -2742,7 +2742,7 @@ responseGetDevEndpoints =
   res
     "GetDevEndpointsResponse"
     "fixture/GetDevEndpointsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetDevEndpoints)
 
 responseGetCrawlers :: GetCrawlersResponse -> TestTree
@@ -2750,7 +2750,7 @@ responseGetCrawlers =
   res
     "GetCrawlersResponse"
     "fixture/GetCrawlersResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetCrawlers)
 
 responseStartJobRun :: StartJobRunResponse -> TestTree
@@ -2758,7 +2758,7 @@ responseStartJobRun =
   res
     "StartJobRunResponse"
     "fixture/StartJobRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StartJobRun)
 
 responseImportCatalogToGlue :: ImportCatalogToGlueResponse -> TestTree
@@ -2766,7 +2766,7 @@ responseImportCatalogToGlue =
   res
     "ImportCatalogToGlueResponse"
     "fixture/ImportCatalogToGlueResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ImportCatalogToGlue)
 
 responseCreatePartition :: CreatePartitionResponse -> TestTree
@@ -2774,7 +2774,7 @@ responseCreatePartition =
   res
     "CreatePartitionResponse"
     "fixture/CreatePartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreatePartition)
 
 responseResetJobBookmark :: ResetJobBookmarkResponse -> TestTree
@@ -2782,7 +2782,7 @@ responseResetJobBookmark =
   res
     "ResetJobBookmarkResponse"
     "fixture/ResetJobBookmarkResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ResetJobBookmark)
 
 responseListJobs :: ListJobsResponse -> TestTree
@@ -2790,7 +2790,7 @@ responseListJobs =
   res
     "ListJobsResponse"
     "fixture/ListJobsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ListJobs)
 
 responseBatchDeleteConnection :: BatchDeleteConnectionResponse -> TestTree
@@ -2798,7 +2798,7 @@ responseBatchDeleteConnection =
   res
     "BatchDeleteConnectionResponse"
     "fixture/BatchDeleteConnectionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchDeleteConnection)
 
 responseGetTables :: GetTablesResponse -> TestTree
@@ -2806,7 +2806,7 @@ responseGetTables =
   res
     "GetTablesResponse"
     "fixture/GetTablesResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetTables)
 
 responseDeleteColumnStatisticsForPartition :: DeleteColumnStatisticsForPartitionResponse -> TestTree
@@ -2814,7 +2814,7 @@ responseDeleteColumnStatisticsForPartition =
   res
     "DeleteColumnStatisticsForPartitionResponse"
     "fixture/DeleteColumnStatisticsForPartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteColumnStatisticsForPartition)
 
 responseDeleteResourcePolicy :: DeleteResourcePolicyResponse -> TestTree
@@ -2822,7 +2822,7 @@ responseDeleteResourcePolicy =
   res
     "DeleteResourcePolicyResponse"
     "fixture/DeleteResourcePolicyResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteResourcePolicy)
 
 responseGetRegistry :: GetRegistryResponse -> TestTree
@@ -2830,7 +2830,7 @@ responseGetRegistry =
   res
     "GetRegistryResponse"
     "fixture/GetRegistryResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetRegistry)
 
 responseResumeWorkflowRun :: ResumeWorkflowRunResponse -> TestTree
@@ -2838,7 +2838,7 @@ responseResumeWorkflowRun =
   res
     "ResumeWorkflowRunResponse"
     "fixture/ResumeWorkflowRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ResumeWorkflowRun)
 
 responseCancelMLTaskRun :: CancelMLTaskRunResponse -> TestTree
@@ -2846,7 +2846,7 @@ responseCancelMLTaskRun =
   res
     "CancelMLTaskRunResponse"
     "fixture/CancelMLTaskRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CancelMLTaskRun)
 
 responseCreateJob :: CreateJobResponse -> TestTree
@@ -2854,7 +2854,7 @@ responseCreateJob =
   res
     "CreateJobResponse"
     "fixture/CreateJobResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateJob)
 
 responseSearchTables :: SearchTablesResponse -> TestTree
@@ -2862,7 +2862,7 @@ responseSearchTables =
   res
     "SearchTablesResponse"
     "fixture/SearchTablesResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy SearchTables)
 
 responseUpdateUserDefinedFunction :: UpdateUserDefinedFunctionResponse -> TestTree
@@ -2870,7 +2870,7 @@ responseUpdateUserDefinedFunction =
   res
     "UpdateUserDefinedFunctionResponse"
     "fixture/UpdateUserDefinedFunctionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateUserDefinedFunction)
 
 responseUpdateColumnStatisticsForPartition :: UpdateColumnStatisticsForPartitionResponse -> TestTree
@@ -2878,7 +2878,7 @@ responseUpdateColumnStatisticsForPartition =
   res
     "UpdateColumnStatisticsForPartitionResponse"
     "fixture/UpdateColumnStatisticsForPartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateColumnStatisticsForPartition)
 
 responseGetConnections :: GetConnectionsResponse -> TestTree
@@ -2886,7 +2886,7 @@ responseGetConnections =
   res
     "GetConnectionsResponse"
     "fixture/GetConnectionsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetConnections)
 
 responseGetMLTransform :: GetMLTransformResponse -> TestTree
@@ -2894,7 +2894,7 @@ responseGetMLTransform =
   res
     "GetMLTransformResponse"
     "fixture/GetMLTransformResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetMLTransform)
 
 responseCreateScript :: CreateScriptResponse -> TestTree
@@ -2902,7 +2902,7 @@ responseCreateScript =
   res
     "CreateScriptResponse"
     "fixture/CreateScriptResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateScript)
 
 responseGetMLTaskRun :: GetMLTaskRunResponse -> TestTree
@@ -2910,7 +2910,7 @@ responseGetMLTaskRun =
   res
     "GetMLTaskRunResponse"
     "fixture/GetMLTaskRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetMLTaskRun)
 
 responseDeleteUserDefinedFunction :: DeleteUserDefinedFunctionResponse -> TestTree
@@ -2918,7 +2918,7 @@ responseDeleteUserDefinedFunction =
   res
     "DeleteUserDefinedFunctionResponse"
     "fixture/DeleteUserDefinedFunctionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteUserDefinedFunction)
 
 responseStartTrigger :: StartTriggerResponse -> TestTree
@@ -2926,7 +2926,7 @@ responseStartTrigger =
   res
     "StartTriggerResponse"
     "fixture/StartTriggerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StartTrigger)
 
 responsePutDataCatalogEncryptionSettings :: PutDataCatalogEncryptionSettingsResponse -> TestTree
@@ -2934,7 +2934,7 @@ responsePutDataCatalogEncryptionSettings =
   res
     "PutDataCatalogEncryptionSettingsResponse"
     "fixture/PutDataCatalogEncryptionSettingsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy PutDataCatalogEncryptionSettings)
 
 responseRemoveSchemaVersionMetadata :: RemoveSchemaVersionMetadataResponse -> TestTree
@@ -2942,7 +2942,7 @@ responseRemoveSchemaVersionMetadata =
   res
     "RemoveSchemaVersionMetadataResponse"
     "fixture/RemoveSchemaVersionMetadataResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy RemoveSchemaVersionMetadata)
 
 responseBatchGetPartition :: BatchGetPartitionResponse -> TestTree
@@ -2950,7 +2950,7 @@ responseBatchGetPartition =
   res
     "BatchGetPartitionResponse"
     "fixture/BatchGetPartitionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchGetPartition)
 
 responseGetTable :: GetTableResponse -> TestTree
@@ -2958,7 +2958,7 @@ responseGetTable =
   res
     "GetTableResponse"
     "fixture/GetTableResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetTable)
 
 responseUpdateCrawlerSchedule :: UpdateCrawlerScheduleResponse -> TestTree
@@ -2966,7 +2966,7 @@ responseUpdateCrawlerSchedule =
   res
     "UpdateCrawlerScheduleResponse"
     "fixture/UpdateCrawlerScheduleResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateCrawlerSchedule)
 
 responseGetColumnStatisticsForTable :: GetColumnStatisticsForTableResponse -> TestTree
@@ -2974,7 +2974,7 @@ responseGetColumnStatisticsForTable =
   res
     "GetColumnStatisticsForTableResponse"
     "fixture/GetColumnStatisticsForTableResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetColumnStatisticsForTable)
 
 responseStopTrigger :: StopTriggerResponse -> TestTree
@@ -2982,7 +2982,7 @@ responseStopTrigger =
   res
     "StopTriggerResponse"
     "fixture/StopTriggerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StopTrigger)
 
 responseListSchemas :: ListSchemasResponse -> TestTree
@@ -2990,7 +2990,7 @@ responseListSchemas =
   res
     "ListSchemasResponse"
     "fixture/ListSchemasResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy ListSchemas)
 
 responseGetConnection :: GetConnectionResponse -> TestTree
@@ -2998,7 +2998,7 @@ responseGetConnection =
   res
     "GetConnectionResponse"
     "fixture/GetConnectionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetConnection)
 
 responseGetDatabases :: GetDatabasesResponse -> TestTree
@@ -3006,7 +3006,7 @@ responseGetDatabases =
   res
     "GetDatabasesResponse"
     "fixture/GetDatabasesResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetDatabases)
 
 responseDeleteSchema :: DeleteSchemaResponse -> TestTree
@@ -3014,7 +3014,7 @@ responseDeleteSchema =
   res
     "DeleteSchemaResponse"
     "fixture/DeleteSchemaResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteSchema)
 
 responseUpdateSchema :: UpdateSchemaResponse -> TestTree
@@ -3022,7 +3022,7 @@ responseUpdateSchema =
   res
     "UpdateSchemaResponse"
     "fixture/UpdateSchemaResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy UpdateSchema)
 
 responseGetDataflowGraph :: GetDataflowGraphResponse -> TestTree
@@ -3030,7 +3030,7 @@ responseGetDataflowGraph =
   res
     "GetDataflowGraphResponse"
     "fixture/GetDataflowGraphResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetDataflowGraph)
 
 responseBatchGetDevEndpoints :: BatchGetDevEndpointsResponse -> TestTree
@@ -3038,7 +3038,7 @@ responseBatchGetDevEndpoints =
   res
     "BatchGetDevEndpointsResponse"
     "fixture/BatchGetDevEndpointsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchGetDevEndpoints)
 
 responseStartExportLabelsTaskRun :: StartExportLabelsTaskRunResponse -> TestTree
@@ -3046,7 +3046,7 @@ responseStartExportLabelsTaskRun =
   res
     "StartExportLabelsTaskRunResponse"
     "fixture/StartExportLabelsTaskRunResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy StartExportLabelsTaskRun)
 
 responseGetTriggers :: GetTriggersResponse -> TestTree
@@ -3054,7 +3054,7 @@ responseGetTriggers =
   res
     "GetTriggersResponse"
     "fixture/GetTriggersResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetTriggers)
 
 responseBatchGetCrawlers :: BatchGetCrawlersResponse -> TestTree
@@ -3062,7 +3062,7 @@ responseBatchGetCrawlers =
   res
     "BatchGetCrawlersResponse"
     "fixture/BatchGetCrawlersResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchGetCrawlers)
 
 responseGetPlan :: GetPlanResponse -> TestTree
@@ -3070,7 +3070,7 @@ responseGetPlan =
   res
     "GetPlanResponse"
     "fixture/GetPlanResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetPlan)
 
 responseGetCrawlerMetrics :: GetCrawlerMetricsResponse -> TestTree
@@ -3078,7 +3078,7 @@ responseGetCrawlerMetrics =
   res
     "GetCrawlerMetricsResponse"
     "fixture/GetCrawlerMetricsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetCrawlerMetrics)
 
 responseGetWorkflowRunProperties :: GetWorkflowRunPropertiesResponse -> TestTree
@@ -3086,7 +3086,7 @@ responseGetWorkflowRunProperties =
   res
     "GetWorkflowRunPropertiesResponse"
     "fixture/GetWorkflowRunPropertiesResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetWorkflowRunProperties)
 
 responseDeletePartitionIndex :: DeletePartitionIndexResponse -> TestTree
@@ -3094,7 +3094,7 @@ responseDeletePartitionIndex =
   res
     "DeletePartitionIndexResponse"
     "fixture/DeletePartitionIndexResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeletePartitionIndex)
 
 responseGetJobBookmark :: GetJobBookmarkResponse -> TestTree
@@ -3102,7 +3102,7 @@ responseGetJobBookmark =
   res
     "GetJobBookmarkResponse"
     "fixture/GetJobBookmarkResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetJobBookmark)
 
 responseDeleteTableVersion :: DeleteTableVersionResponse -> TestTree
@@ -3110,7 +3110,7 @@ responseDeleteTableVersion =
   res
     "DeleteTableVersionResponse"
     "fixture/DeleteTableVersionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy DeleteTableVersion)
 
 responseGetTableVersion :: GetTableVersionResponse -> TestTree
@@ -3118,7 +3118,7 @@ responseGetTableVersion =
   res
     "GetTableVersionResponse"
     "fixture/GetTableVersionResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetTableVersion)
 
 responsePutWorkflowRunProperties :: PutWorkflowRunPropertiesResponse -> TestTree
@@ -3126,7 +3126,7 @@ responsePutWorkflowRunProperties =
   res
     "PutWorkflowRunPropertiesResponse"
     "fixture/PutWorkflowRunPropertiesResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy PutWorkflowRunProperties)
 
 responseBatchGetWorkflows :: BatchGetWorkflowsResponse -> TestTree
@@ -3134,7 +3134,7 @@ responseBatchGetWorkflows =
   res
     "BatchGetWorkflowsResponse"
     "fixture/BatchGetWorkflowsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy BatchGetWorkflows)
 
 responseGetResourcePolicies :: GetResourcePoliciesResponse -> TestTree
@@ -3142,7 +3142,7 @@ responseGetResourcePolicies =
   res
     "GetResourcePoliciesResponse"
     "fixture/GetResourcePoliciesResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetResourcePolicies)
 
 responseGetJobs :: GetJobsResponse -> TestTree
@@ -3150,7 +3150,7 @@ responseGetJobs =
   res
     "GetJobsResponse"
     "fixture/GetJobsResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetJobs)
 
 responseGetDevEndpoint :: GetDevEndpointResponse -> TestTree
@@ -3158,7 +3158,7 @@ responseGetDevEndpoint =
   res
     "GetDevEndpointResponse"
     "fixture/GetDevEndpointResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetDevEndpoint)
 
 responseGetCrawler :: GetCrawlerResponse -> TestTree
@@ -3166,7 +3166,7 @@ responseGetCrawler =
   res
     "GetCrawlerResponse"
     "fixture/GetCrawlerResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy GetCrawler)
 
 responseCreateSecurityConfiguration :: CreateSecurityConfigurationResponse -> TestTree
@@ -3174,5 +3174,5 @@ responseCreateSecurityConfiguration =
   res
     "CreateSecurityConfigurationResponse"
     "fixture/CreateSecurityConfigurationResponse.proto"
-    glue
+    defaultService
     (Proxy :: Proxy CreateSecurityConfiguration)

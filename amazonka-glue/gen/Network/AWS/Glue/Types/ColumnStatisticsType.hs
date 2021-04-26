@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,85 +19,83 @@
 module Network.AWS.Glue.Types.ColumnStatisticsType
   ( ColumnStatisticsType
       ( ..,
-        Binary,
-        Boolean,
-        Date,
-        Decimal,
-        Double,
-        Long,
-        String
+        ColumnStatisticsTypeBINARY,
+        ColumnStatisticsTypeBOOLEAN,
+        ColumnStatisticsTypeDATE,
+        ColumnStatisticsTypeDECIMAL,
+        ColumnStatisticsTypeDOUBLE,
+        ColumnStatisticsTypeLONG,
+        ColumnStatisticsTypeSTRING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ColumnStatisticsType
-  = ColumnStatisticsType'
-      ( CI
-          Text
-      )
+newtype ColumnStatisticsType = ColumnStatisticsType'
+  { fromColumnStatisticsType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Binary :: ColumnStatisticsType
-pattern Binary = ColumnStatisticsType' "BINARY"
+pattern ColumnStatisticsTypeBINARY :: ColumnStatisticsType
+pattern ColumnStatisticsTypeBINARY = ColumnStatisticsType' "BINARY"
 
-pattern Boolean :: ColumnStatisticsType
-pattern Boolean = ColumnStatisticsType' "BOOLEAN"
+pattern ColumnStatisticsTypeBOOLEAN :: ColumnStatisticsType
+pattern ColumnStatisticsTypeBOOLEAN = ColumnStatisticsType' "BOOLEAN"
 
-pattern Date :: ColumnStatisticsType
-pattern Date = ColumnStatisticsType' "DATE"
+pattern ColumnStatisticsTypeDATE :: ColumnStatisticsType
+pattern ColumnStatisticsTypeDATE = ColumnStatisticsType' "DATE"
 
-pattern Decimal :: ColumnStatisticsType
-pattern Decimal = ColumnStatisticsType' "DECIMAL"
+pattern ColumnStatisticsTypeDECIMAL :: ColumnStatisticsType
+pattern ColumnStatisticsTypeDECIMAL = ColumnStatisticsType' "DECIMAL"
 
-pattern Double :: ColumnStatisticsType
-pattern Double = ColumnStatisticsType' "DOUBLE"
+pattern ColumnStatisticsTypeDOUBLE :: ColumnStatisticsType
+pattern ColumnStatisticsTypeDOUBLE = ColumnStatisticsType' "DOUBLE"
 
-pattern Long :: ColumnStatisticsType
-pattern Long = ColumnStatisticsType' "LONG"
+pattern ColumnStatisticsTypeLONG :: ColumnStatisticsType
+pattern ColumnStatisticsTypeLONG = ColumnStatisticsType' "LONG"
 
-pattern String :: ColumnStatisticsType
-pattern String = ColumnStatisticsType' "STRING"
+pattern ColumnStatisticsTypeSTRING :: ColumnStatisticsType
+pattern ColumnStatisticsTypeSTRING = ColumnStatisticsType' "STRING"
 
 {-# COMPLETE
-  Binary,
-  Boolean,
-  Date,
-  Decimal,
-  Double,
-  Long,
-  String,
+  ColumnStatisticsTypeBINARY,
+  ColumnStatisticsTypeBOOLEAN,
+  ColumnStatisticsTypeDATE,
+  ColumnStatisticsTypeDECIMAL,
+  ColumnStatisticsTypeDOUBLE,
+  ColumnStatisticsTypeLONG,
+  ColumnStatisticsTypeSTRING,
   ColumnStatisticsType'
   #-}
 
-instance FromText ColumnStatisticsType where
-  parser = (ColumnStatisticsType' . mk) <$> takeText
+instance Prelude.FromText ColumnStatisticsType where
+  parser = ColumnStatisticsType' Prelude.<$> Prelude.takeText
 
-instance ToText ColumnStatisticsType where
-  toText (ColumnStatisticsType' ci) = original ci
+instance Prelude.ToText ColumnStatisticsType where
+  toText (ColumnStatisticsType' x) = x
 
-instance Hashable ColumnStatisticsType
+instance Prelude.Hashable ColumnStatisticsType
 
-instance NFData ColumnStatisticsType
+instance Prelude.NFData ColumnStatisticsType
 
-instance ToByteString ColumnStatisticsType
+instance Prelude.ToByteString ColumnStatisticsType
 
-instance ToQuery ColumnStatisticsType
+instance Prelude.ToQuery ColumnStatisticsType
 
-instance ToHeader ColumnStatisticsType
+instance Prelude.ToHeader ColumnStatisticsType
 
-instance ToJSON ColumnStatisticsType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ColumnStatisticsType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ColumnStatisticsType where
-  parseJSON = parseJSONText "ColumnStatisticsType"
+instance Prelude.FromJSON ColumnStatisticsType where
+  parseJSON = Prelude.parseJSONText "ColumnStatisticsType"

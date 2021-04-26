@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,196 +23,212 @@
 --
 -- Creates or updates table statistics of columns.
 --
---
--- The Identity and Access Management (IAM) permission required for this operation is @UpdateTable@ .
+-- The Identity and Access Management (IAM) permission required for this
+-- operation is @UpdateTable@.
 module Network.AWS.Glue.UpdateColumnStatisticsForTable
   ( -- * Creating a Request
-    updateColumnStatisticsForTable,
-    UpdateColumnStatisticsForTable,
+    UpdateColumnStatisticsForTable (..),
+    newUpdateColumnStatisticsForTable,
 
     -- * Request Lenses
-    ucsftCatalogId,
-    ucsftDatabaseName,
-    ucsftTableName,
-    ucsftColumnStatisticsList,
+    updateColumnStatisticsForTable_catalogId,
+    updateColumnStatisticsForTable_databaseName,
+    updateColumnStatisticsForTable_tableName,
+    updateColumnStatisticsForTable_columnStatisticsList,
 
     -- * Destructuring the Response
-    updateColumnStatisticsForTableResponse,
-    UpdateColumnStatisticsForTableResponse,
+    UpdateColumnStatisticsForTableResponse (..),
+    newUpdateColumnStatisticsForTableResponse,
 
     -- * Response Lenses
-    ucsftrrsErrors,
-    ucsftrrsResponseStatus,
+    updateColumnStatisticsForTableResponse_errors,
+    updateColumnStatisticsForTableResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.ColumnStatisticsError
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateColumnStatisticsForTable' smart constructor.
+-- | /See:/ 'newUpdateColumnStatisticsForTable' smart constructor.
 data UpdateColumnStatisticsForTable = UpdateColumnStatisticsForTable'
-  { _ucsftCatalogId ::
-      !( Maybe
-           Text
-       ),
-    _ucsftDatabaseName ::
-      !Text,
-    _ucsftTableName ::
-      !Text,
-    _ucsftColumnStatisticsList ::
-      ![ColumnStatistics]
+  { -- | The ID of the Data Catalog where the partitions in question reside. If
+    -- none is supplied, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database where the partitions reside.
+    databaseName :: Prelude.Text,
+    -- | The name of the partitions\' table.
+    tableName :: Prelude.Text,
+    -- | A list of the column statistics.
+    columnStatisticsList :: [ColumnStatistics]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateColumnStatisticsForTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateColumnStatisticsForTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucsftCatalogId' - The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucsftDatabaseName' - The name of the catalog database where the partitions reside.
+-- 'catalogId', 'updateColumnStatisticsForTable_catalogId' - The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
 --
--- * 'ucsftTableName' - The name of the partitions' table.
+-- 'databaseName', 'updateColumnStatisticsForTable_databaseName' - The name of the catalog database where the partitions reside.
 --
--- * 'ucsftColumnStatisticsList' - A list of the column statistics.
-updateColumnStatisticsForTable ::
-  -- | 'ucsftDatabaseName'
-  Text ->
-  -- | 'ucsftTableName'
-  Text ->
+-- 'tableName', 'updateColumnStatisticsForTable_tableName' - The name of the partitions\' table.
+--
+-- 'columnStatisticsList', 'updateColumnStatisticsForTable_columnStatisticsList' - A list of the column statistics.
+newUpdateColumnStatisticsForTable ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
   UpdateColumnStatisticsForTable
-updateColumnStatisticsForTable
+newUpdateColumnStatisticsForTable
   pDatabaseName_
   pTableName_ =
     UpdateColumnStatisticsForTable'
-      { _ucsftCatalogId =
-          Nothing,
-        _ucsftDatabaseName = pDatabaseName_,
-        _ucsftTableName = pTableName_,
-        _ucsftColumnStatisticsList = mempty
+      { catalogId =
+          Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        tableName = pTableName_,
+        columnStatisticsList = Prelude.mempty
       }
 
--- | The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
-ucsftCatalogId :: Lens' UpdateColumnStatisticsForTable (Maybe Text)
-ucsftCatalogId = lens _ucsftCatalogId (\s a -> s {_ucsftCatalogId = a})
+-- | The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
+updateColumnStatisticsForTable_catalogId :: Lens.Lens' UpdateColumnStatisticsForTable (Prelude.Maybe Prelude.Text)
+updateColumnStatisticsForTable_catalogId = Lens.lens (\UpdateColumnStatisticsForTable' {catalogId} -> catalogId) (\s@UpdateColumnStatisticsForTable' {} a -> s {catalogId = a} :: UpdateColumnStatisticsForTable)
 
 -- | The name of the catalog database where the partitions reside.
-ucsftDatabaseName :: Lens' UpdateColumnStatisticsForTable Text
-ucsftDatabaseName = lens _ucsftDatabaseName (\s a -> s {_ucsftDatabaseName = a})
+updateColumnStatisticsForTable_databaseName :: Lens.Lens' UpdateColumnStatisticsForTable Prelude.Text
+updateColumnStatisticsForTable_databaseName = Lens.lens (\UpdateColumnStatisticsForTable' {databaseName} -> databaseName) (\s@UpdateColumnStatisticsForTable' {} a -> s {databaseName = a} :: UpdateColumnStatisticsForTable)
 
--- | The name of the partitions' table.
-ucsftTableName :: Lens' UpdateColumnStatisticsForTable Text
-ucsftTableName = lens _ucsftTableName (\s a -> s {_ucsftTableName = a})
+-- | The name of the partitions\' table.
+updateColumnStatisticsForTable_tableName :: Lens.Lens' UpdateColumnStatisticsForTable Prelude.Text
+updateColumnStatisticsForTable_tableName = Lens.lens (\UpdateColumnStatisticsForTable' {tableName} -> tableName) (\s@UpdateColumnStatisticsForTable' {} a -> s {tableName = a} :: UpdateColumnStatisticsForTable)
 
 -- | A list of the column statistics.
-ucsftColumnStatisticsList :: Lens' UpdateColumnStatisticsForTable [ColumnStatistics]
-ucsftColumnStatisticsList = lens _ucsftColumnStatisticsList (\s a -> s {_ucsftColumnStatisticsList = a}) . _Coerce
+updateColumnStatisticsForTable_columnStatisticsList :: Lens.Lens' UpdateColumnStatisticsForTable [ColumnStatistics]
+updateColumnStatisticsForTable_columnStatisticsList = Lens.lens (\UpdateColumnStatisticsForTable' {columnStatisticsList} -> columnStatisticsList) (\s@UpdateColumnStatisticsForTable' {} a -> s {columnStatisticsList = a} :: UpdateColumnStatisticsForTable) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateColumnStatisticsForTable where
+instance
+  Prelude.AWSRequest
+    UpdateColumnStatisticsForTable
+  where
   type
     Rs UpdateColumnStatisticsForTable =
       UpdateColumnStatisticsForTableResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateColumnStatisticsForTableResponse'
-            <$> (x .?> "Errors" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Errors" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateColumnStatisticsForTable
+instance
+  Prelude.Hashable
+    UpdateColumnStatisticsForTable
 
-instance NFData UpdateColumnStatisticsForTable
+instance
+  Prelude.NFData
+    UpdateColumnStatisticsForTable
 
-instance ToHeaders UpdateColumnStatisticsForTable where
+instance
+  Prelude.ToHeaders
+    UpdateColumnStatisticsForTable
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSGlue.UpdateColumnStatisticsForTable" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSGlue.UpdateColumnStatisticsForTable" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateColumnStatisticsForTable where
+instance
+  Prelude.ToJSON
+    UpdateColumnStatisticsForTable
+  where
   toJSON UpdateColumnStatisticsForTable' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _ucsftCatalogId,
-            Just ("DatabaseName" .= _ucsftDatabaseName),
-            Just ("TableName" .= _ucsftTableName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just
               ( "ColumnStatisticsList"
-                  .= _ucsftColumnStatisticsList
+                  Prelude..= columnStatisticsList
               )
           ]
       )
 
-instance ToPath UpdateColumnStatisticsForTable where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    UpdateColumnStatisticsForTable
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateColumnStatisticsForTable where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdateColumnStatisticsForTable
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateColumnStatisticsForTableResponse' smart constructor.
+-- | /See:/ 'newUpdateColumnStatisticsForTableResponse' smart constructor.
 data UpdateColumnStatisticsForTableResponse = UpdateColumnStatisticsForTableResponse'
-  { _ucsftrrsErrors ::
-      !( Maybe
-           [ColumnStatisticsError]
-       ),
-    _ucsftrrsResponseStatus ::
-      !Int
+  { -- | List of ColumnStatisticsErrors.
+    errors :: Prelude.Maybe [ColumnStatisticsError],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateColumnStatisticsForTableResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateColumnStatisticsForTableResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucsftrrsErrors' - List of ColumnStatisticsErrors.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucsftrrsResponseStatus' - -- | The response status code.
-updateColumnStatisticsForTableResponse ::
-  -- | 'ucsftrrsResponseStatus'
-  Int ->
+-- 'errors', 'updateColumnStatisticsForTableResponse_errors' - List of ColumnStatisticsErrors.
+--
+-- 'httpStatus', 'updateColumnStatisticsForTableResponse_httpStatus' - The response's http status code.
+newUpdateColumnStatisticsForTableResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateColumnStatisticsForTableResponse
-updateColumnStatisticsForTableResponse
-  pResponseStatus_ =
+newUpdateColumnStatisticsForTableResponse
+  pHttpStatus_ =
     UpdateColumnStatisticsForTableResponse'
-      { _ucsftrrsErrors =
-          Nothing,
-        _ucsftrrsResponseStatus =
-          pResponseStatus_
+      { errors =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | List of ColumnStatisticsErrors.
-ucsftrrsErrors :: Lens' UpdateColumnStatisticsForTableResponse [ColumnStatisticsError]
-ucsftrrsErrors = lens _ucsftrrsErrors (\s a -> s {_ucsftrrsErrors = a}) . _Default . _Coerce
+updateColumnStatisticsForTableResponse_errors :: Lens.Lens' UpdateColumnStatisticsForTableResponse (Prelude.Maybe [ColumnStatisticsError])
+updateColumnStatisticsForTableResponse_errors = Lens.lens (\UpdateColumnStatisticsForTableResponse' {errors} -> errors) (\s@UpdateColumnStatisticsForTableResponse' {} a -> s {errors = a} :: UpdateColumnStatisticsForTableResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ucsftrrsResponseStatus :: Lens' UpdateColumnStatisticsForTableResponse Int
-ucsftrrsResponseStatus = lens _ucsftrrsResponseStatus (\s a -> s {_ucsftrrsResponseStatus = a})
+-- | The response's http status code.
+updateColumnStatisticsForTableResponse_httpStatus :: Lens.Lens' UpdateColumnStatisticsForTableResponse Prelude.Int
+updateColumnStatisticsForTableResponse_httpStatus = Lens.lens (\UpdateColumnStatisticsForTableResponse' {httpStatus} -> httpStatus) (\s@UpdateColumnStatisticsForTableResponse' {} a -> s {httpStatus = a} :: UpdateColumnStatisticsForTableResponse)
 
 instance
-  NFData
+  Prelude.NFData
     UpdateColumnStatisticsForTableResponse

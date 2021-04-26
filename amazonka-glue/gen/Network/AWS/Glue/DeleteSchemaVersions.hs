@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Remove versions from the specified schema. A version number or range may be supplied. If the compatibility mode forbids deleting of a version that is necessary, such as BACKWARDS_FULL, an error is returned. Calling the @GetSchemaVersions@ API after this call will list the status of the deleted versions.
+-- Remove versions from the specified schema. A version number or range may
+-- be supplied. If the compatibility mode forbids deleting of a version
+-- that is necessary, such as BACKWARDS_FULL, an error is returned. Calling
+-- the @GetSchemaVersions@ API after this call will list the status of the
+-- deleted versions.
 --
+-- When the range of version numbers contain check pointed version, the API
+-- will return a 409 conflict and will not proceed with the deletion. You
+-- have to remove the checkpoint first using the @DeleteSchemaCheckpoint@
+-- API before using this API.
 --
--- When the range of version numbers contain check pointed version, the API will return a 409 conflict and will not proceed with the deletion. You have to remove the checkpoint first using the @DeleteSchemaCheckpoint@ API before using this API.
+-- You cannot use the @DeleteSchemaVersions@ API to delete the first schema
+-- version in the schema set. The first schema version can only be deleted
+-- by the @DeleteSchema@ API. This operation will also delete the attached
+-- @SchemaVersionMetadata@ under the schema versions. Hard deletes will be
+-- enforced on the database.
 --
--- You cannot use the @DeleteSchemaVersions@ API to delete the first schema version in the schema set. The first schema version can only be deleted by the @DeleteSchema@ API. This operation will also delete the attached @SchemaVersionMetadata@ under the schema versions. Hard deletes will be enforced on the database.
---
--- If the compatibility mode forbids deleting of a version that is necessary, such as BACKWARDS_FULL, an error is returned.
+-- If the compatibility mode forbids deleting of a version that is
+-- necessary, such as BACKWARDS_FULL, an error is returned.
 module Network.AWS.Glue.DeleteSchemaVersions
   ( -- * Creating a Request
-    deleteSchemaVersions,
-    DeleteSchemaVersions,
+    DeleteSchemaVersions (..),
+    newDeleteSchemaVersions,
 
     -- * Request Lenses
-    dsvSchemaId,
-    dsvVersions,
+    deleteSchemaVersions_schemaId,
+    deleteSchemaVersions_versions,
 
     -- * Destructuring the Response
-    deleteSchemaVersionsResponse,
-    DeleteSchemaVersionsResponse,
+    DeleteSchemaVersionsResponse (..),
+    newDeleteSchemaVersionsResponse,
 
     -- * Response Lenses
-    dsvrrsSchemaVersionErrors,
-    dsvrrsResponseStatus,
+    deleteSchemaVersionsResponse_schemaVersionErrors,
+    deleteSchemaVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.SchemaVersionErrorItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSchemaVersions' smart constructor.
+-- | /See:/ 'newDeleteSchemaVersions' smart constructor.
 data DeleteSchemaVersions = DeleteSchemaVersions'
-  { _dsvSchemaId ::
-      !SchemaId,
-    _dsvVersions :: !Text
+  { -- | This is a wrapper structure that may contain the schema name and Amazon
+    -- Resource Name (ARN).
+    schemaId :: SchemaId,
+    -- | A version range may be supplied which may be of the format:
+    --
+    -- -   a single version number, 5
+    --
+    -- -   a range, 5-8 : deletes versions 5, 6, 7, 8
+    versions :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSchemaVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSchemaVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsvSchemaId' - This is a wrapper structure that may contain the schema name and Amazon Resource Name (ARN).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsvVersions' - A version range may be supplied which may be of the format:     * a single version number, 5     * a range, 5-8 : deletes versions 5, 6, 7, 8
-deleteSchemaVersions ::
-  -- | 'dsvSchemaId'
+-- 'schemaId', 'deleteSchemaVersions_schemaId' - This is a wrapper structure that may contain the schema name and Amazon
+-- Resource Name (ARN).
+--
+-- 'versions', 'deleteSchemaVersions_versions' - A version range may be supplied which may be of the format:
+--
+-- -   a single version number, 5
+--
+-- -   a range, 5-8 : deletes versions 5, 6, 7, 8
+newDeleteSchemaVersions ::
+  -- | 'schemaId'
   SchemaId ->
-  -- | 'dsvVersions'
-  Text ->
+  -- | 'versions'
+  Prelude.Text ->
   DeleteSchemaVersions
-deleteSchemaVersions pSchemaId_ pVersions_ =
+newDeleteSchemaVersions pSchemaId_ pVersions_ =
   DeleteSchemaVersions'
-    { _dsvSchemaId = pSchemaId_,
-      _dsvVersions = pVersions_
+    { schemaId = pSchemaId_,
+      versions = pVersions_
     }
 
--- | This is a wrapper structure that may contain the schema name and Amazon Resource Name (ARN).
-dsvSchemaId :: Lens' DeleteSchemaVersions SchemaId
-dsvSchemaId = lens _dsvSchemaId (\s a -> s {_dsvSchemaId = a})
+-- | This is a wrapper structure that may contain the schema name and Amazon
+-- Resource Name (ARN).
+deleteSchemaVersions_schemaId :: Lens.Lens' DeleteSchemaVersions SchemaId
+deleteSchemaVersions_schemaId = Lens.lens (\DeleteSchemaVersions' {schemaId} -> schemaId) (\s@DeleteSchemaVersions' {} a -> s {schemaId = a} :: DeleteSchemaVersions)
 
--- | A version range may be supplied which may be of the format:     * a single version number, 5     * a range, 5-8 : deletes versions 5, 6, 7, 8
-dsvVersions :: Lens' DeleteSchemaVersions Text
-dsvVersions = lens _dsvVersions (\s a -> s {_dsvVersions = a})
+-- | A version range may be supplied which may be of the format:
+--
+-- -   a single version number, 5
+--
+-- -   a range, 5-8 : deletes versions 5, 6, 7, 8
+deleteSchemaVersions_versions :: Lens.Lens' DeleteSchemaVersions Prelude.Text
+deleteSchemaVersions_versions = Lens.lens (\DeleteSchemaVersions' {versions} -> versions) (\s@DeleteSchemaVersions' {} a -> s {versions = a} :: DeleteSchemaVersions)
 
-instance AWSRequest DeleteSchemaVersions where
+instance Prelude.AWSRequest DeleteSchemaVersions where
   type
     Rs DeleteSchemaVersions =
       DeleteSchemaVersionsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteSchemaVersionsResponse'
-            <$> (x .?> "SchemaVersionErrors" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SchemaVersionErrors"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSchemaVersions
+instance Prelude.Hashable DeleteSchemaVersions
 
-instance NFData DeleteSchemaVersions
+instance Prelude.NFData DeleteSchemaVersions
 
-instance ToHeaders DeleteSchemaVersions where
+instance Prelude.ToHeaders DeleteSchemaVersions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.DeleteSchemaVersions" :: ByteString),
+              Prelude.=# ( "AWSGlue.DeleteSchemaVersions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteSchemaVersions where
+instance Prelude.ToJSON DeleteSchemaVersions where
   toJSON DeleteSchemaVersions' {..} =
-    object
-      ( catMaybes
-          [ Just ("SchemaId" .= _dsvSchemaId),
-            Just ("Versions" .= _dsvVersions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("SchemaId" Prelude..= schemaId),
+            Prelude.Just ("Versions" Prelude..= versions)
           ]
       )
 
-instance ToPath DeleteSchemaVersions where
-  toPath = const "/"
+instance Prelude.ToPath DeleteSchemaVersions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSchemaVersions where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSchemaVersions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSchemaVersionsResponse' smart constructor.
+-- | /See:/ 'newDeleteSchemaVersionsResponse' smart constructor.
 data DeleteSchemaVersionsResponse = DeleteSchemaVersionsResponse'
-  { _dsvrrsSchemaVersionErrors ::
-      !( Maybe
-           [SchemaVersionErrorItem]
-       ),
-    _dsvrrsResponseStatus ::
-      !Int
+  { -- | A list of @SchemaVersionErrorItem@ objects, each containing an error and
+    -- schema version.
+    schemaVersionErrors :: Prelude.Maybe [SchemaVersionErrorItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSchemaVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSchemaVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsvrrsSchemaVersionErrors' - A list of @SchemaVersionErrorItem@ objects, each containing an error and schema version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsvrrsResponseStatus' - -- | The response status code.
-deleteSchemaVersionsResponse ::
-  -- | 'dsvrrsResponseStatus'
-  Int ->
+-- 'schemaVersionErrors', 'deleteSchemaVersionsResponse_schemaVersionErrors' - A list of @SchemaVersionErrorItem@ objects, each containing an error and
+-- schema version.
+--
+-- 'httpStatus', 'deleteSchemaVersionsResponse_httpStatus' - The response's http status code.
+newDeleteSchemaVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSchemaVersionsResponse
-deleteSchemaVersionsResponse pResponseStatus_ =
+newDeleteSchemaVersionsResponse pHttpStatus_ =
   DeleteSchemaVersionsResponse'
-    { _dsvrrsSchemaVersionErrors =
-        Nothing,
-      _dsvrrsResponseStatus = pResponseStatus_
+    { schemaVersionErrors =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of @SchemaVersionErrorItem@ objects, each containing an error and schema version.
-dsvrrsSchemaVersionErrors :: Lens' DeleteSchemaVersionsResponse [SchemaVersionErrorItem]
-dsvrrsSchemaVersionErrors = lens _dsvrrsSchemaVersionErrors (\s a -> s {_dsvrrsSchemaVersionErrors = a}) . _Default . _Coerce
+-- | A list of @SchemaVersionErrorItem@ objects, each containing an error and
+-- schema version.
+deleteSchemaVersionsResponse_schemaVersionErrors :: Lens.Lens' DeleteSchemaVersionsResponse (Prelude.Maybe [SchemaVersionErrorItem])
+deleteSchemaVersionsResponse_schemaVersionErrors = Lens.lens (\DeleteSchemaVersionsResponse' {schemaVersionErrors} -> schemaVersionErrors) (\s@DeleteSchemaVersionsResponse' {} a -> s {schemaVersionErrors = a} :: DeleteSchemaVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsvrrsResponseStatus :: Lens' DeleteSchemaVersionsResponse Int
-dsvrrsResponseStatus = lens _dsvrrsResponseStatus (\s a -> s {_dsvrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSchemaVersionsResponse_httpStatus :: Lens.Lens' DeleteSchemaVersionsResponse Prelude.Int
+deleteSchemaVersionsResponse_httpStatus = Lens.lens (\DeleteSchemaVersionsResponse' {httpStatus} -> httpStatus) (\s@DeleteSchemaVersionsResponse' {} a -> s {httpStatus = a} :: DeleteSchemaVersionsResponse)
 
-instance NFData DeleteSchemaVersionsResponse
+instance Prelude.NFData DeleteSchemaVersionsResponse

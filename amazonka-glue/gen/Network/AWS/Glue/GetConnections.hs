@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,203 +23,238 @@
 --
 -- Retrieves a list of connection definitions from the Data Catalog.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetConnections
   ( -- * Creating a Request
-    getConnections,
-    GetConnections,
+    GetConnections (..),
+    newGetConnections,
 
     -- * Request Lenses
-    gcsNextToken,
-    gcsCatalogId,
-    gcsMaxResults,
-    gcsHidePassword,
-    gcsFilter,
+    getConnections_nextToken,
+    getConnections_catalogId,
+    getConnections_maxResults,
+    getConnections_hidePassword,
+    getConnections_filter,
 
     -- * Destructuring the Response
-    getConnectionsResponse,
-    GetConnectionsResponse,
+    GetConnectionsResponse (..),
+    newGetConnectionsResponse,
 
     -- * Response Lenses
-    getconnectionsresponseersNextToken,
-    getconnectionsresponseersConnectionList,
-    getconnectionsresponseersResponseStatus,
+    getConnectionsResponse_nextToken,
+    getConnectionsResponse_connectionList,
+    getConnectionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.Connection
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getConnections' smart constructor.
+-- | /See:/ 'newGetConnections' smart constructor.
 data GetConnections = GetConnections'
-  { _gcsNextToken ::
-      !(Maybe Text),
-    _gcsCatalogId :: !(Maybe Text),
-    _gcsMaxResults :: !(Maybe Nat),
-    _gcsHidePassword :: !(Maybe Bool),
-    _gcsFilter ::
-      !(Maybe GetConnectionsFilter)
+  { -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Data Catalog in which the connections reside. If none is
+    -- provided, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of connections to return in one response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Allows you to retrieve the connection metadata without returning the
+    -- password. For instance, the AWS Glue console uses this flag to retrieve
+    -- the connection, and does not display the password. Set this parameter
+    -- when the caller might not have permission to use the AWS KMS key to
+    -- decrypt the password, but it does have permission to access the rest of
+    -- the connection properties.
+    hidePassword :: Prelude.Maybe Prelude.Bool,
+    -- | A filter that controls which connections are returned.
+    filter' :: Prelude.Maybe GetConnectionsFilter
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConnections' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConnections' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsNextToken' - A continuation token, if this is a continuation call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsCatalogId' - The ID of the Data Catalog in which the connections reside. If none is provided, the AWS account ID is used by default.
+-- 'nextToken', 'getConnections_nextToken' - A continuation token, if this is a continuation call.
 --
--- * 'gcsMaxResults' - The maximum number of connections to return in one response.
+-- 'catalogId', 'getConnections_catalogId' - The ID of the Data Catalog in which the connections reside. If none is
+-- provided, the AWS account ID is used by default.
 --
--- * 'gcsHidePassword' - Allows you to retrieve the connection metadata without returning the password. For instance, the AWS Glue console uses this flag to retrieve the connection, and does not display the password. Set this parameter when the caller might not have permission to use the AWS KMS key to decrypt the password, but it does have permission to access the rest of the connection properties.
+-- 'maxResults', 'getConnections_maxResults' - The maximum number of connections to return in one response.
 --
--- * 'gcsFilter' - A filter that controls which connections are returned.
-getConnections ::
+-- 'hidePassword', 'getConnections_hidePassword' - Allows you to retrieve the connection metadata without returning the
+-- password. For instance, the AWS Glue console uses this flag to retrieve
+-- the connection, and does not display the password. Set this parameter
+-- when the caller might not have permission to use the AWS KMS key to
+-- decrypt the password, but it does have permission to access the rest of
+-- the connection properties.
+--
+-- 'filter'', 'getConnections_filter' - A filter that controls which connections are returned.
+newGetConnections ::
   GetConnections
-getConnections =
+newGetConnections =
   GetConnections'
-    { _gcsNextToken = Nothing,
-      _gcsCatalogId = Nothing,
-      _gcsMaxResults = Nothing,
-      _gcsHidePassword = Nothing,
-      _gcsFilter = Nothing
+    { nextToken = Prelude.Nothing,
+      catalogId = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      hidePassword = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
 -- | A continuation token, if this is a continuation call.
-gcsNextToken :: Lens' GetConnections (Maybe Text)
-gcsNextToken = lens _gcsNextToken (\s a -> s {_gcsNextToken = a})
+getConnections_nextToken :: Lens.Lens' GetConnections (Prelude.Maybe Prelude.Text)
+getConnections_nextToken = Lens.lens (\GetConnections' {nextToken} -> nextToken) (\s@GetConnections' {} a -> s {nextToken = a} :: GetConnections)
 
--- | The ID of the Data Catalog in which the connections reside. If none is provided, the AWS account ID is used by default.
-gcsCatalogId :: Lens' GetConnections (Maybe Text)
-gcsCatalogId = lens _gcsCatalogId (\s a -> s {_gcsCatalogId = a})
+-- | The ID of the Data Catalog in which the connections reside. If none is
+-- provided, the AWS account ID is used by default.
+getConnections_catalogId :: Lens.Lens' GetConnections (Prelude.Maybe Prelude.Text)
+getConnections_catalogId = Lens.lens (\GetConnections' {catalogId} -> catalogId) (\s@GetConnections' {} a -> s {catalogId = a} :: GetConnections)
 
 -- | The maximum number of connections to return in one response.
-gcsMaxResults :: Lens' GetConnections (Maybe Natural)
-gcsMaxResults = lens _gcsMaxResults (\s a -> s {_gcsMaxResults = a}) . mapping _Nat
+getConnections_maxResults :: Lens.Lens' GetConnections (Prelude.Maybe Prelude.Natural)
+getConnections_maxResults = Lens.lens (\GetConnections' {maxResults} -> maxResults) (\s@GetConnections' {} a -> s {maxResults = a} :: GetConnections) Prelude.. Lens.mapping Prelude._Nat
 
--- | Allows you to retrieve the connection metadata without returning the password. For instance, the AWS Glue console uses this flag to retrieve the connection, and does not display the password. Set this parameter when the caller might not have permission to use the AWS KMS key to decrypt the password, but it does have permission to access the rest of the connection properties.
-gcsHidePassword :: Lens' GetConnections (Maybe Bool)
-gcsHidePassword = lens _gcsHidePassword (\s a -> s {_gcsHidePassword = a})
+-- | Allows you to retrieve the connection metadata without returning the
+-- password. For instance, the AWS Glue console uses this flag to retrieve
+-- the connection, and does not display the password. Set this parameter
+-- when the caller might not have permission to use the AWS KMS key to
+-- decrypt the password, but it does have permission to access the rest of
+-- the connection properties.
+getConnections_hidePassword :: Lens.Lens' GetConnections (Prelude.Maybe Prelude.Bool)
+getConnections_hidePassword = Lens.lens (\GetConnections' {hidePassword} -> hidePassword) (\s@GetConnections' {} a -> s {hidePassword = a} :: GetConnections)
 
 -- | A filter that controls which connections are returned.
-gcsFilter :: Lens' GetConnections (Maybe GetConnectionsFilter)
-gcsFilter = lens _gcsFilter (\s a -> s {_gcsFilter = a})
+getConnections_filter :: Lens.Lens' GetConnections (Prelude.Maybe GetConnectionsFilter)
+getConnections_filter = Lens.lens (\GetConnections' {filter'} -> filter') (\s@GetConnections' {} a -> s {filter' = a} :: GetConnections)
 
-instance AWSPager GetConnections where
+instance Pager.AWSPager GetConnections where
   page rq rs
-    | stop (rs ^. getconnectionsresponseersNextToken) =
-      Nothing
-    | stop
-        (rs ^. getconnectionsresponseersConnectionList) =
-      Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? getConnectionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getConnectionsResponse_connectionList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & gcsNextToken
-          .~ rs ^. getconnectionsresponseersNextToken
+          Lens.& getConnections_nextToken
+          Lens..~ rs
+          Lens.^? getConnectionsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest GetConnections where
+instance Prelude.AWSRequest GetConnections where
   type Rs GetConnections = GetConnectionsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetConnectionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ConnectionList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ConnectionList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetConnections
+instance Prelude.Hashable GetConnections
 
-instance NFData GetConnections
+instance Prelude.NFData GetConnections
 
-instance ToHeaders GetConnections where
+instance Prelude.ToHeaders GetConnections where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetConnections" :: ByteString),
+              Prelude.=# ("AWSGlue.GetConnections" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetConnections where
+instance Prelude.ToJSON GetConnections where
   toJSON GetConnections' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gcsNextToken,
-            ("CatalogId" .=) <$> _gcsCatalogId,
-            ("MaxResults" .=) <$> _gcsMaxResults,
-            ("HidePassword" .=) <$> _gcsHidePassword,
-            ("Filter" .=) <$> _gcsFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("HidePassword" Prelude..=) Prelude.<$> hidePassword,
+            ("Filter" Prelude..=) Prelude.<$> filter'
           ]
       )
 
-instance ToPath GetConnections where
-  toPath = const "/"
+instance Prelude.ToPath GetConnections where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetConnections where
-  toQuery = const mempty
+instance Prelude.ToQuery GetConnections where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getConnectionsResponse' smart constructor.
+-- | /See:/ 'newGetConnectionsResponse' smart constructor.
 data GetConnectionsResponse = GetConnectionsResponse'
-  { _getconnectionsresponseersNextToken ::
-      !(Maybe Text),
-    _getconnectionsresponseersConnectionList ::
-      !(Maybe [Connection]),
-    _getconnectionsresponseersResponseStatus ::
-      !Int
+  { -- | A continuation token, if the list of connections returned does not
+    -- include the last of the filtered connections.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of requested connection definitions.
+    connectionList :: Prelude.Maybe [Connection],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConnectionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConnectionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'getconnectionsresponseersNextToken' - A continuation token, if the list of connections returned does not include the last of the filtered connections.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'getconnectionsresponseersConnectionList' - A list of requested connection definitions.
+-- 'nextToken', 'getConnectionsResponse_nextToken' - A continuation token, if the list of connections returned does not
+-- include the last of the filtered connections.
 --
--- * 'getconnectionsresponseersResponseStatus' - -- | The response status code.
-getConnectionsResponse ::
-  -- | 'getconnectionsresponseersResponseStatus'
-  Int ->
+-- 'connectionList', 'getConnectionsResponse_connectionList' - A list of requested connection definitions.
+--
+-- 'httpStatus', 'getConnectionsResponse_httpStatus' - The response's http status code.
+newGetConnectionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetConnectionsResponse
-getConnectionsResponse pResponseStatus_ =
+newGetConnectionsResponse pHttpStatus_ =
   GetConnectionsResponse'
-    { _getconnectionsresponseersNextToken =
-        Nothing,
-      _getconnectionsresponseersConnectionList = Nothing,
-      _getconnectionsresponseersResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      connectionList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if the list of connections returned does not include the last of the filtered connections.
-getconnectionsresponseersNextToken :: Lens' GetConnectionsResponse (Maybe Text)
-getconnectionsresponseersNextToken = lens _getconnectionsresponseersNextToken (\s a -> s {_getconnectionsresponseersNextToken = a})
+-- | A continuation token, if the list of connections returned does not
+-- include the last of the filtered connections.
+getConnectionsResponse_nextToken :: Lens.Lens' GetConnectionsResponse (Prelude.Maybe Prelude.Text)
+getConnectionsResponse_nextToken = Lens.lens (\GetConnectionsResponse' {nextToken} -> nextToken) (\s@GetConnectionsResponse' {} a -> s {nextToken = a} :: GetConnectionsResponse)
 
 -- | A list of requested connection definitions.
-getconnectionsresponseersConnectionList :: Lens' GetConnectionsResponse [Connection]
-getconnectionsresponseersConnectionList = lens _getconnectionsresponseersConnectionList (\s a -> s {_getconnectionsresponseersConnectionList = a}) . _Default . _Coerce
+getConnectionsResponse_connectionList :: Lens.Lens' GetConnectionsResponse (Prelude.Maybe [Connection])
+getConnectionsResponse_connectionList = Lens.lens (\GetConnectionsResponse' {connectionList} -> connectionList) (\s@GetConnectionsResponse' {} a -> s {connectionList = a} :: GetConnectionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-getconnectionsresponseersResponseStatus :: Lens' GetConnectionsResponse Int
-getconnectionsresponseersResponseStatus = lens _getconnectionsresponseersResponseStatus (\s a -> s {_getconnectionsresponseersResponseStatus = a})
+-- | The response's http status code.
+getConnectionsResponse_httpStatus :: Lens.Lens' GetConnectionsResponse Prelude.Int
+getConnectionsResponse_httpStatus = Lens.lens (\GetConnectionsResponse' {httpStatus} -> httpStatus) (\s@GetConnectionsResponse' {} a -> s {httpStatus = a} :: GetConnectionsResponse)
 
-instance NFData GetConnectionsResponse
+instance Prelude.NFData GetConnectionsResponse

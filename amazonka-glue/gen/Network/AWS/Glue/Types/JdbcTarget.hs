@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.JdbcTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies a JDBC data store to crawl.
 --
---
---
--- /See:/ 'jdbcTarget' smart constructor.
+-- /See:/ 'newJdbcTarget' smart constructor.
 data JdbcTarget = JdbcTarget'
-  { _jtConnectionName ::
-      !(Maybe Text),
-    _jtExclusions :: !(Maybe [Text]),
-    _jtPath :: !(Maybe Text)
+  { -- | The name of the connection to use to connect to the JDBC target.
+    connectionName :: Prelude.Maybe Prelude.Text,
+    -- | A list of glob patterns used to exclude from the crawl. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html Catalog Tables with a Crawler>.
+    exclusions :: Prelude.Maybe [Prelude.Text],
+    -- | The path of the JDBC target.
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JdbcTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JdbcTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jtConnectionName' - The name of the connection to use to connect to the JDBC target.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jtExclusions' - A list of glob patterns used to exclude from the crawl. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html Catalog Tables with a Crawler> .
+-- 'connectionName', 'jdbcTarget_connectionName' - The name of the connection to use to connect to the JDBC target.
 --
--- * 'jtPath' - The path of the JDBC target.
-jdbcTarget ::
+-- 'exclusions', 'jdbcTarget_exclusions' - A list of glob patterns used to exclude from the crawl. For more
+-- information, see
+-- <https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html Catalog Tables with a Crawler>.
+--
+-- 'path', 'jdbcTarget_path' - The path of the JDBC target.
+newJdbcTarget ::
   JdbcTarget
-jdbcTarget =
+newJdbcTarget =
   JdbcTarget'
-    { _jtConnectionName = Nothing,
-      _jtExclusions = Nothing,
-      _jtPath = Nothing
+    { connectionName = Prelude.Nothing,
+      exclusions = Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
 -- | The name of the connection to use to connect to the JDBC target.
-jtConnectionName :: Lens' JdbcTarget (Maybe Text)
-jtConnectionName = lens _jtConnectionName (\s a -> s {_jtConnectionName = a})
+jdbcTarget_connectionName :: Lens.Lens' JdbcTarget (Prelude.Maybe Prelude.Text)
+jdbcTarget_connectionName = Lens.lens (\JdbcTarget' {connectionName} -> connectionName) (\s@JdbcTarget' {} a -> s {connectionName = a} :: JdbcTarget)
 
--- | A list of glob patterns used to exclude from the crawl. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html Catalog Tables with a Crawler> .
-jtExclusions :: Lens' JdbcTarget [Text]
-jtExclusions = lens _jtExclusions (\s a -> s {_jtExclusions = a}) . _Default . _Coerce
+-- | A list of glob patterns used to exclude from the crawl. For more
+-- information, see
+-- <https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html Catalog Tables with a Crawler>.
+jdbcTarget_exclusions :: Lens.Lens' JdbcTarget (Prelude.Maybe [Prelude.Text])
+jdbcTarget_exclusions = Lens.lens (\JdbcTarget' {exclusions} -> exclusions) (\s@JdbcTarget' {} a -> s {exclusions = a} :: JdbcTarget) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The path of the JDBC target.
-jtPath :: Lens' JdbcTarget (Maybe Text)
-jtPath = lens _jtPath (\s a -> s {_jtPath = a})
+jdbcTarget_path :: Lens.Lens' JdbcTarget (Prelude.Maybe Prelude.Text)
+jdbcTarget_path = Lens.lens (\JdbcTarget' {path} -> path) (\s@JdbcTarget' {} a -> s {path = a} :: JdbcTarget)
 
-instance FromJSON JdbcTarget where
+instance Prelude.FromJSON JdbcTarget where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JdbcTarget"
       ( \x ->
           JdbcTarget'
-            <$> (x .:? "ConnectionName")
-            <*> (x .:? "Exclusions" .!= mempty)
-            <*> (x .:? "Path")
+            Prelude.<$> (x Prelude..:? "ConnectionName")
+            Prelude.<*> ( x Prelude..:? "Exclusions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Path")
       )
 
-instance Hashable JdbcTarget
+instance Prelude.Hashable JdbcTarget
 
-instance NFData JdbcTarget
+instance Prelude.NFData JdbcTarget
 
-instance ToJSON JdbcTarget where
+instance Prelude.ToJSON JdbcTarget where
   toJSON JdbcTarget' {..} =
-    object
-      ( catMaybes
-          [ ("ConnectionName" .=) <$> _jtConnectionName,
-            ("Exclusions" .=) <$> _jtExclusions,
-            ("Path" .=) <$> _jtPath
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ConnectionName" Prelude..=)
+              Prelude.<$> connectionName,
+            ("Exclusions" Prelude..=) Prelude.<$> exclusions,
+            ("Path" Prelude..=) Prelude.<$> path
           ]
       )

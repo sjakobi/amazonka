@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.CatalogImportStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure containing migration status information.
 --
---
---
--- /See:/ 'catalogImportStatus' smart constructor.
+-- /See:/ 'newCatalogImportStatus' smart constructor.
 data CatalogImportStatus = CatalogImportStatus'
-  { _cisImportedBy ::
-      !(Maybe Text),
-    _cisImportCompleted ::
-      !(Maybe Bool),
-    _cisImportTime ::
-      !(Maybe POSIX)
+  { -- | The name of the person who initiated the migration.
+    importedBy :: Prelude.Maybe Prelude.Text,
+    -- | @True@ if the migration has completed, or @False@ otherwise.
+    importCompleted :: Prelude.Maybe Prelude.Bool,
+    -- | The time that the migration was started.
+    importTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CatalogImportStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CatalogImportStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisImportedBy' - The name of the person who initiated the migration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cisImportCompleted' - @True@ if the migration has completed, or @False@ otherwise.
+-- 'importedBy', 'catalogImportStatus_importedBy' - The name of the person who initiated the migration.
 --
--- * 'cisImportTime' - The time that the migration was started.
-catalogImportStatus ::
+-- 'importCompleted', 'catalogImportStatus_importCompleted' - @True@ if the migration has completed, or @False@ otherwise.
+--
+-- 'importTime', 'catalogImportStatus_importTime' - The time that the migration was started.
+newCatalogImportStatus ::
   CatalogImportStatus
-catalogImportStatus =
+newCatalogImportStatus =
   CatalogImportStatus'
-    { _cisImportedBy = Nothing,
-      _cisImportCompleted = Nothing,
-      _cisImportTime = Nothing
+    { importedBy = Prelude.Nothing,
+      importCompleted = Prelude.Nothing,
+      importTime = Prelude.Nothing
     }
 
 -- | The name of the person who initiated the migration.
-cisImportedBy :: Lens' CatalogImportStatus (Maybe Text)
-cisImportedBy = lens _cisImportedBy (\s a -> s {_cisImportedBy = a})
+catalogImportStatus_importedBy :: Lens.Lens' CatalogImportStatus (Prelude.Maybe Prelude.Text)
+catalogImportStatus_importedBy = Lens.lens (\CatalogImportStatus' {importedBy} -> importedBy) (\s@CatalogImportStatus' {} a -> s {importedBy = a} :: CatalogImportStatus)
 
 -- | @True@ if the migration has completed, or @False@ otherwise.
-cisImportCompleted :: Lens' CatalogImportStatus (Maybe Bool)
-cisImportCompleted = lens _cisImportCompleted (\s a -> s {_cisImportCompleted = a})
+catalogImportStatus_importCompleted :: Lens.Lens' CatalogImportStatus (Prelude.Maybe Prelude.Bool)
+catalogImportStatus_importCompleted = Lens.lens (\CatalogImportStatus' {importCompleted} -> importCompleted) (\s@CatalogImportStatus' {} a -> s {importCompleted = a} :: CatalogImportStatus)
 
 -- | The time that the migration was started.
-cisImportTime :: Lens' CatalogImportStatus (Maybe UTCTime)
-cisImportTime = lens _cisImportTime (\s a -> s {_cisImportTime = a}) . mapping _Time
+catalogImportStatus_importTime :: Lens.Lens' CatalogImportStatus (Prelude.Maybe Prelude.UTCTime)
+catalogImportStatus_importTime = Lens.lens (\CatalogImportStatus' {importTime} -> importTime) (\s@CatalogImportStatus' {} a -> s {importTime = a} :: CatalogImportStatus) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON CatalogImportStatus where
+instance Prelude.FromJSON CatalogImportStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CatalogImportStatus"
       ( \x ->
           CatalogImportStatus'
-            <$> (x .:? "ImportedBy")
-            <*> (x .:? "ImportCompleted")
-            <*> (x .:? "ImportTime")
+            Prelude.<$> (x Prelude..:? "ImportedBy")
+            Prelude.<*> (x Prelude..:? "ImportCompleted")
+            Prelude.<*> (x Prelude..:? "ImportTime")
       )
 
-instance Hashable CatalogImportStatus
+instance Prelude.Hashable CatalogImportStatus
 
-instance NFData CatalogImportStatus
+instance Prelude.NFData CatalogImportStatus

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,92 @@
 module Network.AWS.Glue.Types.CodeGenNode where
 
 import Network.AWS.Glue.Types.CodeGenNodeArg
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a node in a directed acyclic graph (DAG)
 --
---
---
--- /See:/ 'codeGenNode' smart constructor.
+-- /See:/ 'newCodeGenNode' smart constructor.
 data CodeGenNode = CodeGenNode'
-  { _cgnLineNumber ::
-      !(Maybe Int),
-    _cgnId :: !Text,
-    _cgnNodeType :: !Text,
-    _cgnArgs :: ![CodeGenNodeArg]
+  { -- | The line number of the node.
+    lineNumber :: Prelude.Maybe Prelude.Int,
+    -- | A node identifier that is unique within the node\'s graph.
+    id :: Prelude.Text,
+    -- | The type of node that this is.
+    nodeType :: Prelude.Text,
+    -- | Properties of the node, in the form of name-value pairs.
+    args :: [CodeGenNodeArg]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeGenNode' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeGenNode' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgnLineNumber' - The line number of the node.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgnId' - A node identifier that is unique within the node's graph.
+-- 'lineNumber', 'codeGenNode_lineNumber' - The line number of the node.
 --
--- * 'cgnNodeType' - The type of node that this is.
+-- 'id', 'codeGenNode_id' - A node identifier that is unique within the node\'s graph.
 --
--- * 'cgnArgs' - Properties of the node, in the form of name-value pairs.
-codeGenNode ::
-  -- | 'cgnId'
-  Text ->
-  -- | 'cgnNodeType'
-  Text ->
+-- 'nodeType', 'codeGenNode_nodeType' - The type of node that this is.
+--
+-- 'args', 'codeGenNode_args' - Properties of the node, in the form of name-value pairs.
+newCodeGenNode ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'nodeType'
+  Prelude.Text ->
   CodeGenNode
-codeGenNode pId_ pNodeType_ =
+newCodeGenNode pId_ pNodeType_ =
   CodeGenNode'
-    { _cgnLineNumber = Nothing,
-      _cgnId = pId_,
-      _cgnNodeType = pNodeType_,
-      _cgnArgs = mempty
+    { lineNumber = Prelude.Nothing,
+      id = pId_,
+      nodeType = pNodeType_,
+      args = Prelude.mempty
     }
 
 -- | The line number of the node.
-cgnLineNumber :: Lens' CodeGenNode (Maybe Int)
-cgnLineNumber = lens _cgnLineNumber (\s a -> s {_cgnLineNumber = a})
+codeGenNode_lineNumber :: Lens.Lens' CodeGenNode (Prelude.Maybe Prelude.Int)
+codeGenNode_lineNumber = Lens.lens (\CodeGenNode' {lineNumber} -> lineNumber) (\s@CodeGenNode' {} a -> s {lineNumber = a} :: CodeGenNode)
 
--- | A node identifier that is unique within the node's graph.
-cgnId :: Lens' CodeGenNode Text
-cgnId = lens _cgnId (\s a -> s {_cgnId = a})
+-- | A node identifier that is unique within the node\'s graph.
+codeGenNode_id :: Lens.Lens' CodeGenNode Prelude.Text
+codeGenNode_id = Lens.lens (\CodeGenNode' {id} -> id) (\s@CodeGenNode' {} a -> s {id = a} :: CodeGenNode)
 
 -- | The type of node that this is.
-cgnNodeType :: Lens' CodeGenNode Text
-cgnNodeType = lens _cgnNodeType (\s a -> s {_cgnNodeType = a})
+codeGenNode_nodeType :: Lens.Lens' CodeGenNode Prelude.Text
+codeGenNode_nodeType = Lens.lens (\CodeGenNode' {nodeType} -> nodeType) (\s@CodeGenNode' {} a -> s {nodeType = a} :: CodeGenNode)
 
 -- | Properties of the node, in the form of name-value pairs.
-cgnArgs :: Lens' CodeGenNode [CodeGenNodeArg]
-cgnArgs = lens _cgnArgs (\s a -> s {_cgnArgs = a}) . _Coerce
+codeGenNode_args :: Lens.Lens' CodeGenNode [CodeGenNodeArg]
+codeGenNode_args = Lens.lens (\CodeGenNode' {args} -> args) (\s@CodeGenNode' {} a -> s {args = a} :: CodeGenNode) Prelude.. Prelude._Coerce
 
-instance FromJSON CodeGenNode where
+instance Prelude.FromJSON CodeGenNode where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CodeGenNode"
       ( \x ->
           CodeGenNode'
-            <$> (x .:? "LineNumber")
-            <*> (x .: "Id")
-            <*> (x .: "NodeType")
-            <*> (x .:? "Args" .!= mempty)
+            Prelude.<$> (x Prelude..:? "LineNumber")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "NodeType")
+            Prelude.<*> (x Prelude..:? "Args" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable CodeGenNode
+instance Prelude.Hashable CodeGenNode
 
-instance NFData CodeGenNode
+instance Prelude.NFData CodeGenNode
 
-instance ToJSON CodeGenNode where
+instance Prelude.ToJSON CodeGenNode where
   toJSON CodeGenNode' {..} =
-    object
-      ( catMaybes
-          [ ("LineNumber" .=) <$> _cgnLineNumber,
-            Just ("Id" .= _cgnId),
-            Just ("NodeType" .= _cgnNodeType),
-            Just ("Args" .= _cgnArgs)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LineNumber" Prelude..=) Prelude.<$> lineNumber,
+            Prelude.Just ("Id" Prelude..= id),
+            Prelude.Just ("NodeType" Prelude..= nodeType),
+            Prelude.Just ("Args" Prelude..= args)
           ]
       )

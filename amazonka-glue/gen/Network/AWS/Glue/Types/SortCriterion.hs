@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,56 @@
 module Network.AWS.Glue.Types.SortCriterion where
 
 import Network.AWS.Glue.Types.Sort
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies a field to sort by and a sort order.
 --
---
---
--- /See:/ 'sortCriterion' smart constructor.
+-- /See:/ 'newSortCriterion' smart constructor.
 data SortCriterion = SortCriterion'
-  { _scFieldName ::
-      !(Maybe Text),
-    _scSort :: !(Maybe Sort)
+  { -- | The name of the field on which to sort.
+    fieldName :: Prelude.Maybe Prelude.Text,
+    -- | An ascending or descending sort.
+    sort :: Prelude.Maybe Sort
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SortCriterion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SortCriterion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scFieldName' - The name of the field on which to sort.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scSort' - An ascending or descending sort.
-sortCriterion ::
+-- 'fieldName', 'sortCriterion_fieldName' - The name of the field on which to sort.
+--
+-- 'sort', 'sortCriterion_sort' - An ascending or descending sort.
+newSortCriterion ::
   SortCriterion
-sortCriterion =
+newSortCriterion =
   SortCriterion'
-    { _scFieldName = Nothing,
-      _scSort = Nothing
+    { fieldName = Prelude.Nothing,
+      sort = Prelude.Nothing
     }
 
 -- | The name of the field on which to sort.
-scFieldName :: Lens' SortCriterion (Maybe Text)
-scFieldName = lens _scFieldName (\s a -> s {_scFieldName = a})
+sortCriterion_fieldName :: Lens.Lens' SortCriterion (Prelude.Maybe Prelude.Text)
+sortCriterion_fieldName = Lens.lens (\SortCriterion' {fieldName} -> fieldName) (\s@SortCriterion' {} a -> s {fieldName = a} :: SortCriterion)
 
 -- | An ascending or descending sort.
-scSort :: Lens' SortCriterion (Maybe Sort)
-scSort = lens _scSort (\s a -> s {_scSort = a})
+sortCriterion_sort :: Lens.Lens' SortCriterion (Prelude.Maybe Sort)
+sortCriterion_sort = Lens.lens (\SortCriterion' {sort} -> sort) (\s@SortCriterion' {} a -> s {sort = a} :: SortCriterion)
 
-instance Hashable SortCriterion
+instance Prelude.Hashable SortCriterion
 
-instance NFData SortCriterion
+instance Prelude.NFData SortCriterion
 
-instance ToJSON SortCriterion where
+instance Prelude.ToJSON SortCriterion where
   toJSON SortCriterion' {..} =
-    object
-      ( catMaybes
-          [ ("FieldName" .=) <$> _scFieldName,
-            ("Sort" .=) <$> _scSort
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FieldName" Prelude..=) Prelude.<$> fieldName,
+            ("Sort" Prelude..=) Prelude.<$> sort
           ]
       )

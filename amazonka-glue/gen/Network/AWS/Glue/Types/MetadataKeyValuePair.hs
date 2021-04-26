@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.MetadataKeyValuePair where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure containing a key value pair for metadata.
 --
---
---
--- /See:/ 'metadataKeyValuePair' smart constructor.
+-- /See:/ 'newMetadataKeyValuePair' smart constructor.
 data MetadataKeyValuePair = MetadataKeyValuePair'
-  { _mkvpMetadataKey ::
-      !(Maybe Text),
-    _mkvpMetadataValue ::
-      !(Maybe Text)
+  { -- | A metadata key.
+    metadataKey :: Prelude.Maybe Prelude.Text,
+    -- | A metadata key’s corresponding value.
+    metadataValue :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetadataKeyValuePair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetadataKeyValuePair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mkvpMetadataKey' - A metadata key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mkvpMetadataValue' - A metadata key’s corresponding value.
-metadataKeyValuePair ::
+-- 'metadataKey', 'metadataKeyValuePair_metadataKey' - A metadata key.
+--
+-- 'metadataValue', 'metadataKeyValuePair_metadataValue' - A metadata key’s corresponding value.
+newMetadataKeyValuePair ::
   MetadataKeyValuePair
-metadataKeyValuePair =
+newMetadataKeyValuePair =
   MetadataKeyValuePair'
-    { _mkvpMetadataKey = Nothing,
-      _mkvpMetadataValue = Nothing
+    { metadataKey =
+        Prelude.Nothing,
+      metadataValue = Prelude.Nothing
     }
 
 -- | A metadata key.
-mkvpMetadataKey :: Lens' MetadataKeyValuePair (Maybe Text)
-mkvpMetadataKey = lens _mkvpMetadataKey (\s a -> s {_mkvpMetadataKey = a})
+metadataKeyValuePair_metadataKey :: Lens.Lens' MetadataKeyValuePair (Prelude.Maybe Prelude.Text)
+metadataKeyValuePair_metadataKey = Lens.lens (\MetadataKeyValuePair' {metadataKey} -> metadataKey) (\s@MetadataKeyValuePair' {} a -> s {metadataKey = a} :: MetadataKeyValuePair)
 
 -- | A metadata key’s corresponding value.
-mkvpMetadataValue :: Lens' MetadataKeyValuePair (Maybe Text)
-mkvpMetadataValue = lens _mkvpMetadataValue (\s a -> s {_mkvpMetadataValue = a})
+metadataKeyValuePair_metadataValue :: Lens.Lens' MetadataKeyValuePair (Prelude.Maybe Prelude.Text)
+metadataKeyValuePair_metadataValue = Lens.lens (\MetadataKeyValuePair' {metadataValue} -> metadataValue) (\s@MetadataKeyValuePair' {} a -> s {metadataValue = a} :: MetadataKeyValuePair)
 
-instance Hashable MetadataKeyValuePair
+instance Prelude.Hashable MetadataKeyValuePair
 
-instance NFData MetadataKeyValuePair
+instance Prelude.NFData MetadataKeyValuePair
 
-instance ToJSON MetadataKeyValuePair where
+instance Prelude.ToJSON MetadataKeyValuePair where
   toJSON MetadataKeyValuePair' {..} =
-    object
-      ( catMaybes
-          [ ("MetadataKey" .=) <$> _mkvpMetadataKey,
-            ("MetadataValue" .=) <$> _mkvpMetadataValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MetadataKey" Prelude..=) Prelude.<$> metadataKey,
+            ("MetadataValue" Prelude..=)
+              Prelude.<$> metadataValue
           ]
       )

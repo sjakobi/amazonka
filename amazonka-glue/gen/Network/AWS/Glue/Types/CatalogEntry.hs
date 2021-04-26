@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.CatalogEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies a table definition in the AWS Glue Data Catalog.
 --
---
---
--- /See:/ 'catalogEntry' smart constructor.
+-- /See:/ 'newCatalogEntry' smart constructor.
 data CatalogEntry = CatalogEntry'
-  { _ceDatabaseName ::
-      !Text,
-    _ceTableName :: !Text
+  { -- | The database in which the table metadata resides.
+    databaseName :: Prelude.Text,
+    -- | The name of the table in question.
+    tableName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CatalogEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CatalogEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ceDatabaseName' - The database in which the table metadata resides.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ceTableName' - The name of the table in question.
-catalogEntry ::
-  -- | 'ceDatabaseName'
-  Text ->
-  -- | 'ceTableName'
-  Text ->
+-- 'databaseName', 'catalogEntry_databaseName' - The database in which the table metadata resides.
+--
+-- 'tableName', 'catalogEntry_tableName' - The name of the table in question.
+newCatalogEntry ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
   CatalogEntry
-catalogEntry pDatabaseName_ pTableName_ =
+newCatalogEntry pDatabaseName_ pTableName_ =
   CatalogEntry'
-    { _ceDatabaseName = pDatabaseName_,
-      _ceTableName = pTableName_
+    { databaseName = pDatabaseName_,
+      tableName = pTableName_
     }
 
 -- | The database in which the table metadata resides.
-ceDatabaseName :: Lens' CatalogEntry Text
-ceDatabaseName = lens _ceDatabaseName (\s a -> s {_ceDatabaseName = a})
+catalogEntry_databaseName :: Lens.Lens' CatalogEntry Prelude.Text
+catalogEntry_databaseName = Lens.lens (\CatalogEntry' {databaseName} -> databaseName) (\s@CatalogEntry' {} a -> s {databaseName = a} :: CatalogEntry)
 
 -- | The name of the table in question.
-ceTableName :: Lens' CatalogEntry Text
-ceTableName = lens _ceTableName (\s a -> s {_ceTableName = a})
+catalogEntry_tableName :: Lens.Lens' CatalogEntry Prelude.Text
+catalogEntry_tableName = Lens.lens (\CatalogEntry' {tableName} -> tableName) (\s@CatalogEntry' {} a -> s {tableName = a} :: CatalogEntry)
 
-instance Hashable CatalogEntry
+instance Prelude.Hashable CatalogEntry
 
-instance NFData CatalogEntry
+instance Prelude.NFData CatalogEntry
 
-instance ToJSON CatalogEntry where
+instance Prelude.ToJSON CatalogEntry where
   toJSON CatalogEntry' {..} =
-    object
-      ( catMaybes
-          [ Just ("DatabaseName" .= _ceDatabaseName),
-            Just ("TableName" .= _ceTableName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName)
           ]
       )

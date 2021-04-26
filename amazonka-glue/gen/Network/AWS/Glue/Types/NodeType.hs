@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Glue.Types.NodeType
   ( NodeType
       ( ..,
-        Crawler,
-        Job,
-        Trigger
+        NodeTypeCRAWLER,
+        NodeTypeJOB,
+        NodeTypeTRIGGER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NodeType = NodeType' (CI Text)
+newtype NodeType = NodeType'
+  { fromNodeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Crawler :: NodeType
-pattern Crawler = NodeType' "CRAWLER"
+pattern NodeTypeCRAWLER :: NodeType
+pattern NodeTypeCRAWLER = NodeType' "CRAWLER"
 
-pattern Job :: NodeType
-pattern Job = NodeType' "JOB"
+pattern NodeTypeJOB :: NodeType
+pattern NodeTypeJOB = NodeType' "JOB"
 
-pattern Trigger :: NodeType
-pattern Trigger = NodeType' "TRIGGER"
+pattern NodeTypeTRIGGER :: NodeType
+pattern NodeTypeTRIGGER = NodeType' "TRIGGER"
 
 {-# COMPLETE
-  Crawler,
-  Job,
-  Trigger,
+  NodeTypeCRAWLER,
+  NodeTypeJOB,
+  NodeTypeTRIGGER,
   NodeType'
   #-}
 
-instance FromText NodeType where
-  parser = (NodeType' . mk) <$> takeText
+instance Prelude.FromText NodeType where
+  parser = NodeType' Prelude.<$> Prelude.takeText
 
-instance ToText NodeType where
-  toText (NodeType' ci) = original ci
+instance Prelude.ToText NodeType where
+  toText (NodeType' x) = x
 
-instance Hashable NodeType
+instance Prelude.Hashable NodeType
 
-instance NFData NodeType
+instance Prelude.NFData NodeType
 
-instance ToByteString NodeType
+instance Prelude.ToByteString NodeType
 
-instance ToQuery NodeType
+instance Prelude.ToQuery NodeType
 
-instance ToHeader NodeType
+instance Prelude.ToHeader NodeType
 
-instance FromJSON NodeType where
-  parseJSON = parseJSONText "NodeType"
+instance Prelude.FromJSON NodeType where
+  parseJSON = Prelude.parseJSONText "NodeType"

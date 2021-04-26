@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Glue.Types.S3EncryptionMode
   ( S3EncryptionMode
       ( ..,
-        SEMDisabled,
-        SEMSseKMS,
-        SEMSseS3
+        S3EncryptionModeDISABLED,
+        S3EncryptionModeSSEKMS,
+        S3EncryptionModeSSES3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data S3EncryptionMode = S3EncryptionMode' (CI Text)
+newtype S3EncryptionMode = S3EncryptionMode'
+  { fromS3EncryptionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SEMDisabled :: S3EncryptionMode
-pattern SEMDisabled = S3EncryptionMode' "DISABLED"
+pattern S3EncryptionModeDISABLED :: S3EncryptionMode
+pattern S3EncryptionModeDISABLED = S3EncryptionMode' "DISABLED"
 
-pattern SEMSseKMS :: S3EncryptionMode
-pattern SEMSseKMS = S3EncryptionMode' "SSE-KMS"
+pattern S3EncryptionModeSSEKMS :: S3EncryptionMode
+pattern S3EncryptionModeSSEKMS = S3EncryptionMode' "SSE-KMS"
 
-pattern SEMSseS3 :: S3EncryptionMode
-pattern SEMSseS3 = S3EncryptionMode' "SSE-S3"
+pattern S3EncryptionModeSSES3 :: S3EncryptionMode
+pattern S3EncryptionModeSSES3 = S3EncryptionMode' "SSE-S3"
 
 {-# COMPLETE
-  SEMDisabled,
-  SEMSseKMS,
-  SEMSseS3,
+  S3EncryptionModeDISABLED,
+  S3EncryptionModeSSEKMS,
+  S3EncryptionModeSSES3,
   S3EncryptionMode'
   #-}
 
-instance FromText S3EncryptionMode where
-  parser = (S3EncryptionMode' . mk) <$> takeText
+instance Prelude.FromText S3EncryptionMode where
+  parser = S3EncryptionMode' Prelude.<$> Prelude.takeText
 
-instance ToText S3EncryptionMode where
-  toText (S3EncryptionMode' ci) = original ci
+instance Prelude.ToText S3EncryptionMode where
+  toText (S3EncryptionMode' x) = x
 
-instance Hashable S3EncryptionMode
+instance Prelude.Hashable S3EncryptionMode
 
-instance NFData S3EncryptionMode
+instance Prelude.NFData S3EncryptionMode
 
-instance ToByteString S3EncryptionMode
+instance Prelude.ToByteString S3EncryptionMode
 
-instance ToQuery S3EncryptionMode
+instance Prelude.ToQuery S3EncryptionMode
 
-instance ToHeader S3EncryptionMode
+instance Prelude.ToHeader S3EncryptionMode
 
-instance ToJSON S3EncryptionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON S3EncryptionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON S3EncryptionMode where
-  parseJSON = parseJSONText "S3EncryptionMode"
+instance Prelude.FromJSON S3EncryptionMode where
+  parseJSON = Prelude.parseJSONText "S3EncryptionMode"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,178 +23,200 @@
 --
 -- Retrieves metrics about specified crawlers.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetCrawlerMetrics
   ( -- * Creating a Request
-    getCrawlerMetrics,
-    GetCrawlerMetrics,
+    GetCrawlerMetrics (..),
+    newGetCrawlerMetrics,
 
     -- * Request Lenses
-    gcmNextToken,
-    gcmCrawlerNameList,
-    gcmMaxResults,
+    getCrawlerMetrics_nextToken,
+    getCrawlerMetrics_crawlerNameList,
+    getCrawlerMetrics_maxResults,
 
     -- * Destructuring the Response
-    getCrawlerMetricsResponse,
-    GetCrawlerMetricsResponse,
+    GetCrawlerMetricsResponse (..),
+    newGetCrawlerMetricsResponse,
 
     -- * Response Lenses
-    gcmrrsNextToken,
-    gcmrrsCrawlerMetricsList,
-    gcmrrsResponseStatus,
+    getCrawlerMetricsResponse_nextToken,
+    getCrawlerMetricsResponse_crawlerMetricsList,
+    getCrawlerMetricsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.CrawlerMetrics
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCrawlerMetrics' smart constructor.
+-- | /See:/ 'newGetCrawlerMetrics' smart constructor.
 data GetCrawlerMetrics = GetCrawlerMetrics'
-  { _gcmNextToken ::
-      !(Maybe Text),
-    _gcmCrawlerNameList ::
-      !(Maybe [Text]),
-    _gcmMaxResults :: !(Maybe Nat)
+  { -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the names of crawlers about which to retrieve metrics.
+    crawlerNameList :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum size of a list to return.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCrawlerMetrics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCrawlerMetrics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcmNextToken' - A continuation token, if this is a continuation call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcmCrawlerNameList' - A list of the names of crawlers about which to retrieve metrics.
+-- 'nextToken', 'getCrawlerMetrics_nextToken' - A continuation token, if this is a continuation call.
 --
--- * 'gcmMaxResults' - The maximum size of a list to return.
-getCrawlerMetrics ::
+-- 'crawlerNameList', 'getCrawlerMetrics_crawlerNameList' - A list of the names of crawlers about which to retrieve metrics.
+--
+-- 'maxResults', 'getCrawlerMetrics_maxResults' - The maximum size of a list to return.
+newGetCrawlerMetrics ::
   GetCrawlerMetrics
-getCrawlerMetrics =
+newGetCrawlerMetrics =
   GetCrawlerMetrics'
-    { _gcmNextToken = Nothing,
-      _gcmCrawlerNameList = Nothing,
-      _gcmMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      crawlerNameList = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | A continuation token, if this is a continuation call.
-gcmNextToken :: Lens' GetCrawlerMetrics (Maybe Text)
-gcmNextToken = lens _gcmNextToken (\s a -> s {_gcmNextToken = a})
+getCrawlerMetrics_nextToken :: Lens.Lens' GetCrawlerMetrics (Prelude.Maybe Prelude.Text)
+getCrawlerMetrics_nextToken = Lens.lens (\GetCrawlerMetrics' {nextToken} -> nextToken) (\s@GetCrawlerMetrics' {} a -> s {nextToken = a} :: GetCrawlerMetrics)
 
 -- | A list of the names of crawlers about which to retrieve metrics.
-gcmCrawlerNameList :: Lens' GetCrawlerMetrics [Text]
-gcmCrawlerNameList = lens _gcmCrawlerNameList (\s a -> s {_gcmCrawlerNameList = a}) . _Default . _Coerce
+getCrawlerMetrics_crawlerNameList :: Lens.Lens' GetCrawlerMetrics (Prelude.Maybe [Prelude.Text])
+getCrawlerMetrics_crawlerNameList = Lens.lens (\GetCrawlerMetrics' {crawlerNameList} -> crawlerNameList) (\s@GetCrawlerMetrics' {} a -> s {crawlerNameList = a} :: GetCrawlerMetrics) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The maximum size of a list to return.
-gcmMaxResults :: Lens' GetCrawlerMetrics (Maybe Natural)
-gcmMaxResults = lens _gcmMaxResults (\s a -> s {_gcmMaxResults = a}) . mapping _Nat
+getCrawlerMetrics_maxResults :: Lens.Lens' GetCrawlerMetrics (Prelude.Maybe Prelude.Natural)
+getCrawlerMetrics_maxResults = Lens.lens (\GetCrawlerMetrics' {maxResults} -> maxResults) (\s@GetCrawlerMetrics' {} a -> s {maxResults = a} :: GetCrawlerMetrics) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager GetCrawlerMetrics where
+instance Pager.AWSPager GetCrawlerMetrics where
   page rq rs
-    | stop (rs ^. gcmrrsNextToken) = Nothing
-    | stop (rs ^. gcmrrsCrawlerMetricsList) = Nothing
-    | otherwise =
-      Just $ rq & gcmNextToken .~ rs ^. gcmrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getCrawlerMetricsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getCrawlerMetricsResponse_crawlerMetricsList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getCrawlerMetrics_nextToken
+          Lens..~ rs
+          Lens.^? getCrawlerMetricsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetCrawlerMetrics where
+instance Prelude.AWSRequest GetCrawlerMetrics where
   type Rs GetCrawlerMetrics = GetCrawlerMetricsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCrawlerMetricsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "CrawlerMetricsList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "CrawlerMetricsList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCrawlerMetrics
+instance Prelude.Hashable GetCrawlerMetrics
 
-instance NFData GetCrawlerMetrics
+instance Prelude.NFData GetCrawlerMetrics
 
-instance ToHeaders GetCrawlerMetrics where
+instance Prelude.ToHeaders GetCrawlerMetrics where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetCrawlerMetrics" :: ByteString),
+              Prelude.=# ("AWSGlue.GetCrawlerMetrics" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCrawlerMetrics where
+instance Prelude.ToJSON GetCrawlerMetrics where
   toJSON GetCrawlerMetrics' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gcmNextToken,
-            ("CrawlerNameList" .=) <$> _gcmCrawlerNameList,
-            ("MaxResults" .=) <$> _gcmMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("CrawlerNameList" Prelude..=)
+              Prelude.<$> crawlerNameList,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath GetCrawlerMetrics where
-  toPath = const "/"
+instance Prelude.ToPath GetCrawlerMetrics where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCrawlerMetrics where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCrawlerMetrics where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCrawlerMetricsResponse' smart constructor.
+-- | /See:/ 'newGetCrawlerMetricsResponse' smart constructor.
 data GetCrawlerMetricsResponse = GetCrawlerMetricsResponse'
-  { _gcmrrsNextToken ::
-      !(Maybe Text),
-    _gcmrrsCrawlerMetricsList ::
-      !( Maybe
-           [CrawlerMetrics]
-       ),
-    _gcmrrsResponseStatus ::
-      !Int
+  { -- | A continuation token, if the returned list does not contain the last
+    -- metric available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of metrics for the specified crawler.
+    crawlerMetricsList :: Prelude.Maybe [CrawlerMetrics],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCrawlerMetricsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCrawlerMetricsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcmrrsNextToken' - A continuation token, if the returned list does not contain the last metric available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcmrrsCrawlerMetricsList' - A list of metrics for the specified crawler.
+-- 'nextToken', 'getCrawlerMetricsResponse_nextToken' - A continuation token, if the returned list does not contain the last
+-- metric available.
 --
--- * 'gcmrrsResponseStatus' - -- | The response status code.
-getCrawlerMetricsResponse ::
-  -- | 'gcmrrsResponseStatus'
-  Int ->
+-- 'crawlerMetricsList', 'getCrawlerMetricsResponse_crawlerMetricsList' - A list of metrics for the specified crawler.
+--
+-- 'httpStatus', 'getCrawlerMetricsResponse_httpStatus' - The response's http status code.
+newGetCrawlerMetricsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCrawlerMetricsResponse
-getCrawlerMetricsResponse pResponseStatus_ =
+newGetCrawlerMetricsResponse pHttpStatus_ =
   GetCrawlerMetricsResponse'
-    { _gcmrrsNextToken =
-        Nothing,
-      _gcmrrsCrawlerMetricsList = Nothing,
-      _gcmrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      crawlerMetricsList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if the returned list does not contain the last metric available.
-gcmrrsNextToken :: Lens' GetCrawlerMetricsResponse (Maybe Text)
-gcmrrsNextToken = lens _gcmrrsNextToken (\s a -> s {_gcmrrsNextToken = a})
+-- | A continuation token, if the returned list does not contain the last
+-- metric available.
+getCrawlerMetricsResponse_nextToken :: Lens.Lens' GetCrawlerMetricsResponse (Prelude.Maybe Prelude.Text)
+getCrawlerMetricsResponse_nextToken = Lens.lens (\GetCrawlerMetricsResponse' {nextToken} -> nextToken) (\s@GetCrawlerMetricsResponse' {} a -> s {nextToken = a} :: GetCrawlerMetricsResponse)
 
 -- | A list of metrics for the specified crawler.
-gcmrrsCrawlerMetricsList :: Lens' GetCrawlerMetricsResponse [CrawlerMetrics]
-gcmrrsCrawlerMetricsList = lens _gcmrrsCrawlerMetricsList (\s a -> s {_gcmrrsCrawlerMetricsList = a}) . _Default . _Coerce
+getCrawlerMetricsResponse_crawlerMetricsList :: Lens.Lens' GetCrawlerMetricsResponse (Prelude.Maybe [CrawlerMetrics])
+getCrawlerMetricsResponse_crawlerMetricsList = Lens.lens (\GetCrawlerMetricsResponse' {crawlerMetricsList} -> crawlerMetricsList) (\s@GetCrawlerMetricsResponse' {} a -> s {crawlerMetricsList = a} :: GetCrawlerMetricsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcmrrsResponseStatus :: Lens' GetCrawlerMetricsResponse Int
-gcmrrsResponseStatus = lens _gcmrrsResponseStatus (\s a -> s {_gcmrrsResponseStatus = a})
+-- | The response's http status code.
+getCrawlerMetricsResponse_httpStatus :: Lens.Lens' GetCrawlerMetricsResponse Prelude.Int
+getCrawlerMetricsResponse_httpStatus = Lens.lens (\GetCrawlerMetricsResponse' {httpStatus} -> httpStatus) (\s@GetCrawlerMetricsResponse' {} a -> s {httpStatus = a} :: GetCrawlerMetricsResponse)
 
-instance NFData GetCrawlerMetricsResponse
+instance Prelude.NFData GetCrawlerMetricsResponse

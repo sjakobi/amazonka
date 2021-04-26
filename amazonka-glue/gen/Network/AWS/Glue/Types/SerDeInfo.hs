@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.SerDeInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a serialization/deserialization program (SerDe) that serves as an extractor and loader.
+-- | Information about a serialization\/deserialization program (SerDe) that
+-- serves as an extractor and loader.
 --
---
---
--- /See:/ 'serDeInfo' smart constructor.
+-- /See:/ 'newSerDeInfo' smart constructor.
 data SerDeInfo = SerDeInfo'
-  { _sdiSerializationLibrary ::
-      !(Maybe Text),
-    _sdiName :: !(Maybe Text),
-    _sdiParameters :: !(Maybe (Map Text Text))
+  { -- | Usually the class that implements the SerDe. An example is
+    -- @org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe@.
+    serializationLibrary :: Prelude.Maybe Prelude.Text,
+    -- | Name of the SerDe.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | These key-value pairs define initialization parameters for the SerDe.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SerDeInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SerDeInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdiSerializationLibrary' - Usually the class that implements the SerDe. An example is @org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdiName' - Name of the SerDe.
+-- 'serializationLibrary', 'serDeInfo_serializationLibrary' - Usually the class that implements the SerDe. An example is
+-- @org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe@.
 --
--- * 'sdiParameters' - These key-value pairs define initialization parameters for the SerDe.
-serDeInfo ::
+-- 'name', 'serDeInfo_name' - Name of the SerDe.
+--
+-- 'parameters', 'serDeInfo_parameters' - These key-value pairs define initialization parameters for the SerDe.
+newSerDeInfo ::
   SerDeInfo
-serDeInfo =
+newSerDeInfo =
   SerDeInfo'
-    { _sdiSerializationLibrary = Nothing,
-      _sdiName = Nothing,
-      _sdiParameters = Nothing
+    { serializationLibrary = Prelude.Nothing,
+      name = Prelude.Nothing,
+      parameters = Prelude.Nothing
     }
 
--- | Usually the class that implements the SerDe. An example is @org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe@ .
-sdiSerializationLibrary :: Lens' SerDeInfo (Maybe Text)
-sdiSerializationLibrary = lens _sdiSerializationLibrary (\s a -> s {_sdiSerializationLibrary = a})
+-- | Usually the class that implements the SerDe. An example is
+-- @org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe@.
+serDeInfo_serializationLibrary :: Lens.Lens' SerDeInfo (Prelude.Maybe Prelude.Text)
+serDeInfo_serializationLibrary = Lens.lens (\SerDeInfo' {serializationLibrary} -> serializationLibrary) (\s@SerDeInfo' {} a -> s {serializationLibrary = a} :: SerDeInfo)
 
 -- | Name of the SerDe.
-sdiName :: Lens' SerDeInfo (Maybe Text)
-sdiName = lens _sdiName (\s a -> s {_sdiName = a})
+serDeInfo_name :: Lens.Lens' SerDeInfo (Prelude.Maybe Prelude.Text)
+serDeInfo_name = Lens.lens (\SerDeInfo' {name} -> name) (\s@SerDeInfo' {} a -> s {name = a} :: SerDeInfo)
 
 -- | These key-value pairs define initialization parameters for the SerDe.
-sdiParameters :: Lens' SerDeInfo (HashMap Text Text)
-sdiParameters = lens _sdiParameters (\s a -> s {_sdiParameters = a}) . _Default . _Map
+serDeInfo_parameters :: Lens.Lens' SerDeInfo (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+serDeInfo_parameters = Lens.lens (\SerDeInfo' {parameters} -> parameters) (\s@SerDeInfo' {} a -> s {parameters = a} :: SerDeInfo) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON SerDeInfo where
+instance Prelude.FromJSON SerDeInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SerDeInfo"
       ( \x ->
           SerDeInfo'
-            <$> (x .:? "SerializationLibrary")
-            <*> (x .:? "Name")
-            <*> (x .:? "Parameters" .!= mempty)
+            Prelude.<$> (x Prelude..:? "SerializationLibrary")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable SerDeInfo
+instance Prelude.Hashable SerDeInfo
 
-instance NFData SerDeInfo
+instance Prelude.NFData SerDeInfo
 
-instance ToJSON SerDeInfo where
+instance Prelude.ToJSON SerDeInfo where
   toJSON SerDeInfo' {..} =
-    object
-      ( catMaybes
-          [ ("SerializationLibrary" .=)
-              <$> _sdiSerializationLibrary,
-            ("Name" .=) <$> _sdiName,
-            ("Parameters" .=) <$> _sdiParameters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SerializationLibrary" Prelude..=)
+              Prelude.<$> serializationLibrary,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Parameters" Prelude..=) Prelude.<$> parameters
           ]
       )

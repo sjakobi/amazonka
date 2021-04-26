@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,116 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts an existing trigger. See <https://docs.aws.amazon.com/glue/latest/dg/trigger-job.html Triggering Jobs> for information about how different types of trigger are started.
+-- Starts an existing trigger. See
+-- <https://docs.aws.amazon.com/glue/latest/dg/trigger-job.html Triggering Jobs>
+-- for information about how different types of trigger are started.
 module Network.AWS.Glue.StartTrigger
   ( -- * Creating a Request
-    startTrigger,
-    StartTrigger,
+    StartTrigger (..),
+    newStartTrigger,
 
     -- * Request Lenses
-    stName,
+    startTrigger_name,
 
     -- * Destructuring the Response
-    startTriggerResponse,
-    StartTriggerResponse,
+    StartTriggerResponse (..),
+    newStartTriggerResponse,
 
     -- * Response Lenses
-    strtrsName,
-    strtrsResponseStatus,
+    startTriggerResponse_name,
+    startTriggerResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startTrigger' smart constructor.
-newtype StartTrigger = StartTrigger' {_stName :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newStartTrigger' smart constructor.
+data StartTrigger = StartTrigger'
+  { -- | The name of the trigger to start.
+    name :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartTrigger' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartTrigger' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stName' - The name of the trigger to start.
-startTrigger ::
-  -- | 'stName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'startTrigger_name' - The name of the trigger to start.
+newStartTrigger ::
+  -- | 'name'
+  Prelude.Text ->
   StartTrigger
-startTrigger pName_ = StartTrigger' {_stName = pName_}
+newStartTrigger pName_ = StartTrigger' {name = pName_}
 
 -- | The name of the trigger to start.
-stName :: Lens' StartTrigger Text
-stName = lens _stName (\s a -> s {_stName = a})
+startTrigger_name :: Lens.Lens' StartTrigger Prelude.Text
+startTrigger_name = Lens.lens (\StartTrigger' {name} -> name) (\s@StartTrigger' {} a -> s {name = a} :: StartTrigger)
 
-instance AWSRequest StartTrigger where
+instance Prelude.AWSRequest StartTrigger where
   type Rs StartTrigger = StartTriggerResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartTriggerResponse'
-            <$> (x .?> "Name") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartTrigger
+instance Prelude.Hashable StartTrigger
 
-instance NFData StartTrigger
+instance Prelude.NFData StartTrigger
 
-instance ToHeaders StartTrigger where
+instance Prelude.ToHeaders StartTrigger where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.StartTrigger" :: ByteString),
+              Prelude.=# ("AWSGlue.StartTrigger" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartTrigger where
+instance Prelude.ToJSON StartTrigger where
   toJSON StartTrigger' {..} =
-    object (catMaybes [Just ("Name" .= _stName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath StartTrigger where
-  toPath = const "/"
+instance Prelude.ToPath StartTrigger where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartTrigger where
-  toQuery = const mempty
+instance Prelude.ToQuery StartTrigger where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startTriggerResponse' smart constructor.
+-- | /See:/ 'newStartTriggerResponse' smart constructor.
 data StartTriggerResponse = StartTriggerResponse'
-  { _strtrsName ::
-      !(Maybe Text),
-    _strtrsResponseStatus :: !Int
+  { -- | The name of the trigger that was started.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartTriggerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartTriggerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'strtrsName' - The name of the trigger that was started.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'strtrsResponseStatus' - -- | The response status code.
-startTriggerResponse ::
-  -- | 'strtrsResponseStatus'
-  Int ->
+-- 'name', 'startTriggerResponse_name' - The name of the trigger that was started.
+--
+-- 'httpStatus', 'startTriggerResponse_httpStatus' - The response's http status code.
+newStartTriggerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartTriggerResponse
-startTriggerResponse pResponseStatus_ =
+newStartTriggerResponse pHttpStatus_ =
   StartTriggerResponse'
-    { _strtrsName = Nothing,
-      _strtrsResponseStatus = pResponseStatus_
+    { name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the trigger that was started.
-strtrsName :: Lens' StartTriggerResponse (Maybe Text)
-strtrsName = lens _strtrsName (\s a -> s {_strtrsName = a})
+startTriggerResponse_name :: Lens.Lens' StartTriggerResponse (Prelude.Maybe Prelude.Text)
+startTriggerResponse_name = Lens.lens (\StartTriggerResponse' {name} -> name) (\s@StartTriggerResponse' {} a -> s {name = a} :: StartTriggerResponse)
 
--- | -- | The response status code.
-strtrsResponseStatus :: Lens' StartTriggerResponse Int
-strtrsResponseStatus = lens _strtrsResponseStatus (\s a -> s {_strtrsResponseStatus = a})
+-- | The response's http status code.
+startTriggerResponse_httpStatus :: Lens.Lens' StartTriggerResponse Prelude.Int
+startTriggerResponse_httpStatus = Lens.lens (\StartTriggerResponse' {httpStatus} -> httpStatus) (\s@StartTriggerResponse' {} a -> s {httpStatus = a} :: StartTriggerResponse)
 
-instance NFData StartTriggerResponse
+instance Prelude.NFData StartTriggerResponse

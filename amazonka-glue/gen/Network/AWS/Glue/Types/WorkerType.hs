@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Glue.Types.WorkerType
   ( WorkerType
       ( ..,
-        G_1X,
-        G_2X,
-        Standard
+        WorkerTypeG_1X,
+        WorkerTypeG_2X,
+        WorkerTypeStandard
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WorkerType = WorkerType' (CI Text)
+newtype WorkerType = WorkerType'
+  { fromWorkerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern G_1X :: WorkerType
-pattern G_1X = WorkerType' "G.1X"
+pattern WorkerTypeG_1X :: WorkerType
+pattern WorkerTypeG_1X = WorkerType' "G.1X"
 
-pattern G_2X :: WorkerType
-pattern G_2X = WorkerType' "G.2X"
+pattern WorkerTypeG_2X :: WorkerType
+pattern WorkerTypeG_2X = WorkerType' "G.2X"
 
-pattern Standard :: WorkerType
-pattern Standard = WorkerType' "Standard"
+pattern WorkerTypeStandard :: WorkerType
+pattern WorkerTypeStandard = WorkerType' "Standard"
 
 {-# COMPLETE
-  G_1X,
-  G_2X,
-  Standard,
+  WorkerTypeG_1X,
+  WorkerTypeG_2X,
+  WorkerTypeStandard,
   WorkerType'
   #-}
 
-instance FromText WorkerType where
-  parser = (WorkerType' . mk) <$> takeText
+instance Prelude.FromText WorkerType where
+  parser = WorkerType' Prelude.<$> Prelude.takeText
 
-instance ToText WorkerType where
-  toText (WorkerType' ci) = original ci
+instance Prelude.ToText WorkerType where
+  toText (WorkerType' x) = x
 
-instance Hashable WorkerType
+instance Prelude.Hashable WorkerType
 
-instance NFData WorkerType
+instance Prelude.NFData WorkerType
 
-instance ToByteString WorkerType
+instance Prelude.ToByteString WorkerType
 
-instance ToQuery WorkerType
+instance Prelude.ToQuery WorkerType
 
-instance ToHeader WorkerType
+instance Prelude.ToHeader WorkerType
 
-instance ToJSON WorkerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON WorkerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WorkerType where
-  parseJSON = parseJSONText "WorkerType"
+instance Prelude.FromJSON WorkerType where
+  parseJSON = Prelude.parseJSONText "WorkerType"

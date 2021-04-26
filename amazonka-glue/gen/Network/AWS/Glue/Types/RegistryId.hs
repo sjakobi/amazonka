@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.RegistryId where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A wrapper structure that may contain the registry name and Amazon Resource Name (ARN).
+-- | A wrapper structure that may contain the registry name and Amazon
+-- Resource Name (ARN).
 --
---
---
--- /See:/ 'registryId' smart constructor.
+-- /See:/ 'newRegistryId' smart constructor.
 data RegistryId = RegistryId'
-  { _riRegistryName ::
-      !(Maybe Text),
-    _riRegistryARN :: !(Maybe Text)
+  { -- | Name of the registry. Used only for lookup. One of @RegistryArn@ or
+    -- @RegistryName@ has to be provided.
+    registryName :: Prelude.Maybe Prelude.Text,
+    -- | Arn of the registry to be updated. One of @RegistryArn@ or
+    -- @RegistryName@ has to be provided.
+    registryArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegistryId' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegistryId' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riRegistryName' - Name of the registry. Used only for lookup. One of @RegistryArn@ or @RegistryName@ has to be provided.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'riRegistryARN' - Arn of the registry to be updated. One of @RegistryArn@ or @RegistryName@ has to be provided.
-registryId ::
+-- 'registryName', 'registryId_registryName' - Name of the registry. Used only for lookup. One of @RegistryArn@ or
+-- @RegistryName@ has to be provided.
+--
+-- 'registryArn', 'registryId_registryArn' - Arn of the registry to be updated. One of @RegistryArn@ or
+-- @RegistryName@ has to be provided.
+newRegistryId ::
   RegistryId
-registryId =
+newRegistryId =
   RegistryId'
-    { _riRegistryName = Nothing,
-      _riRegistryARN = Nothing
+    { registryName = Prelude.Nothing,
+      registryArn = Prelude.Nothing
     }
 
--- | Name of the registry. Used only for lookup. One of @RegistryArn@ or @RegistryName@ has to be provided.
-riRegistryName :: Lens' RegistryId (Maybe Text)
-riRegistryName = lens _riRegistryName (\s a -> s {_riRegistryName = a})
+-- | Name of the registry. Used only for lookup. One of @RegistryArn@ or
+-- @RegistryName@ has to be provided.
+registryId_registryName :: Lens.Lens' RegistryId (Prelude.Maybe Prelude.Text)
+registryId_registryName = Lens.lens (\RegistryId' {registryName} -> registryName) (\s@RegistryId' {} a -> s {registryName = a} :: RegistryId)
 
--- | Arn of the registry to be updated. One of @RegistryArn@ or @RegistryName@ has to be provided.
-riRegistryARN :: Lens' RegistryId (Maybe Text)
-riRegistryARN = lens _riRegistryARN (\s a -> s {_riRegistryARN = a})
+-- | Arn of the registry to be updated. One of @RegistryArn@ or
+-- @RegistryName@ has to be provided.
+registryId_registryArn :: Lens.Lens' RegistryId (Prelude.Maybe Prelude.Text)
+registryId_registryArn = Lens.lens (\RegistryId' {registryArn} -> registryArn) (\s@RegistryId' {} a -> s {registryArn = a} :: RegistryId)
 
-instance Hashable RegistryId
+instance Prelude.Hashable RegistryId
 
-instance NFData RegistryId
+instance Prelude.NFData RegistryId
 
-instance ToJSON RegistryId where
+instance Prelude.ToJSON RegistryId where
   toJSON RegistryId' {..} =
-    object
-      ( catMaybes
-          [ ("RegistryName" .=) <$> _riRegistryName,
-            ("RegistryArn" .=) <$> _riRegistryARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RegistryName" Prelude..=)
+              Prelude.<$> registryName,
+            ("RegistryArn" Prelude..=) Prelude.<$> registryArn
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Glue.Types.LastCrawlStatus
   ( LastCrawlStatus
       ( ..,
-        LCSCancelled,
-        LCSFailed,
-        LCSSucceeded
+        LastCrawlStatusCANCELLED,
+        LastCrawlStatusFAILED,
+        LastCrawlStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LastCrawlStatus = LastCrawlStatus' (CI Text)
+newtype LastCrawlStatus = LastCrawlStatus'
+  { fromLastCrawlStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LCSCancelled :: LastCrawlStatus
-pattern LCSCancelled = LastCrawlStatus' "CANCELLED"
+pattern LastCrawlStatusCANCELLED :: LastCrawlStatus
+pattern LastCrawlStatusCANCELLED = LastCrawlStatus' "CANCELLED"
 
-pattern LCSFailed :: LastCrawlStatus
-pattern LCSFailed = LastCrawlStatus' "FAILED"
+pattern LastCrawlStatusFAILED :: LastCrawlStatus
+pattern LastCrawlStatusFAILED = LastCrawlStatus' "FAILED"
 
-pattern LCSSucceeded :: LastCrawlStatus
-pattern LCSSucceeded = LastCrawlStatus' "SUCCEEDED"
+pattern LastCrawlStatusSUCCEEDED :: LastCrawlStatus
+pattern LastCrawlStatusSUCCEEDED = LastCrawlStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  LCSCancelled,
-  LCSFailed,
-  LCSSucceeded,
+  LastCrawlStatusCANCELLED,
+  LastCrawlStatusFAILED,
+  LastCrawlStatusSUCCEEDED,
   LastCrawlStatus'
   #-}
 
-instance FromText LastCrawlStatus where
-  parser = (LastCrawlStatus' . mk) <$> takeText
+instance Prelude.FromText LastCrawlStatus where
+  parser = LastCrawlStatus' Prelude.<$> Prelude.takeText
 
-instance ToText LastCrawlStatus where
-  toText (LastCrawlStatus' ci) = original ci
+instance Prelude.ToText LastCrawlStatus where
+  toText (LastCrawlStatus' x) = x
 
-instance Hashable LastCrawlStatus
+instance Prelude.Hashable LastCrawlStatus
 
-instance NFData LastCrawlStatus
+instance Prelude.NFData LastCrawlStatus
 
-instance ToByteString LastCrawlStatus
+instance Prelude.ToByteString LastCrawlStatus
 
-instance ToQuery LastCrawlStatus
+instance Prelude.ToQuery LastCrawlStatus
 
-instance ToHeader LastCrawlStatus
+instance Prelude.ToHeader LastCrawlStatus
 
-instance FromJSON LastCrawlStatus where
-  parseJSON = parseJSONText "LastCrawlStatus"
+instance Prelude.FromJSON LastCrawlStatus where
+  parseJSON = Prelude.parseJSONText "LastCrawlStatus"

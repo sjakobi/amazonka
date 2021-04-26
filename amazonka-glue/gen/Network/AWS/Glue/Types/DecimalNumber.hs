@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.DecimalNumber where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains a numeric value in decimal format.
 --
---
---
--- /See:/ 'decimalNumber' smart constructor.
+-- /See:/ 'newDecimalNumber' smart constructor.
 data DecimalNumber = DecimalNumber'
-  { _dnUnscaledValue ::
-      !Base64,
-    _dnScale :: !Int
+  { -- | The unscaled numeric value.
+    unscaledValue :: Prelude.Base64,
+    -- | The scale that determines where the decimal point falls in the unscaled
+    -- value.
+    scale :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DecimalNumber' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DecimalNumber' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnUnscaledValue' - The unscaled numeric value.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dnScale' - The scale that determines where the decimal point falls in the unscaled value.
-decimalNumber ::
-  -- | 'dnUnscaledValue'
-  ByteString ->
-  -- | 'dnScale'
-  Int ->
+-- 'unscaledValue', 'decimalNumber_unscaledValue' - The unscaled numeric value.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+--
+-- 'scale', 'decimalNumber_scale' - The scale that determines where the decimal point falls in the unscaled
+-- value.
+newDecimalNumber ::
+  -- | 'unscaledValue'
+  Prelude.ByteString ->
+  -- | 'scale'
+  Prelude.Int ->
   DecimalNumber
-decimalNumber pUnscaledValue_ pScale_ =
+newDecimalNumber pUnscaledValue_ pScale_ =
   DecimalNumber'
-    { _dnUnscaledValue =
-        _Base64 # pUnscaledValue_,
-      _dnScale = pScale_
+    { unscaledValue =
+        Prelude._Base64 Lens.# pUnscaledValue_,
+      scale = pScale_
     }
 
--- | The unscaled numeric value.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-dnUnscaledValue :: Lens' DecimalNumber ByteString
-dnUnscaledValue = lens _dnUnscaledValue (\s a -> s {_dnUnscaledValue = a}) . _Base64
+-- | The unscaled numeric value.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+decimalNumber_unscaledValue :: Lens.Lens' DecimalNumber Prelude.ByteString
+decimalNumber_unscaledValue = Lens.lens (\DecimalNumber' {unscaledValue} -> unscaledValue) (\s@DecimalNumber' {} a -> s {unscaledValue = a} :: DecimalNumber) Prelude.. Prelude._Base64
 
--- | The scale that determines where the decimal point falls in the unscaled value.
-dnScale :: Lens' DecimalNumber Int
-dnScale = lens _dnScale (\s a -> s {_dnScale = a})
+-- | The scale that determines where the decimal point falls in the unscaled
+-- value.
+decimalNumber_scale :: Lens.Lens' DecimalNumber Prelude.Int
+decimalNumber_scale = Lens.lens (\DecimalNumber' {scale} -> scale) (\s@DecimalNumber' {} a -> s {scale = a} :: DecimalNumber)
 
-instance FromJSON DecimalNumber where
+instance Prelude.FromJSON DecimalNumber where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DecimalNumber"
       ( \x ->
           DecimalNumber'
-            <$> (x .: "UnscaledValue") <*> (x .: "Scale")
+            Prelude.<$> (x Prelude..: "UnscaledValue")
+            Prelude.<*> (x Prelude..: "Scale")
       )
 
-instance Hashable DecimalNumber
+instance Prelude.Hashable DecimalNumber
 
-instance NFData DecimalNumber
+instance Prelude.NFData DecimalNumber
 
-instance ToJSON DecimalNumber where
+instance Prelude.ToJSON DecimalNumber where
   toJSON DecimalNumber' {..} =
-    object
-      ( catMaybes
-          [ Just ("UnscaledValue" .= _dnUnscaledValue),
-            Just ("Scale" .= _dnScale)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("UnscaledValue" Prelude..= unscaledValue),
+            Prelude.Just ("Scale" Prelude..= scale)
           ]
       )

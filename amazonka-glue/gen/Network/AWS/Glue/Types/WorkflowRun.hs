@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,127 +22,149 @@ module Network.AWS.Glue.Types.WorkflowRun where
 import Network.AWS.Glue.Types.WorkflowGraph
 import Network.AWS.Glue.Types.WorkflowRunStatistics
 import Network.AWS.Glue.Types.WorkflowRunStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A workflow run is an execution of a workflow providing all the runtime information.
+-- | A workflow run is an execution of a workflow providing all the runtime
+-- information.
 --
---
---
--- /See:/ 'workflowRun' smart constructor.
+-- /See:/ 'newWorkflowRun' smart constructor.
 data WorkflowRun = WorkflowRun'
-  { _wrWorkflowRunId ::
-      !(Maybe Text),
-    _wrStatus :: !(Maybe WorkflowRunStatus),
-    _wrWorkflowRunProperties ::
-      !(Maybe (Map Text Text)),
-    _wrStatistics :: !(Maybe WorkflowRunStatistics),
-    _wrName :: !(Maybe Text),
-    _wrCompletedOn :: !(Maybe POSIX),
-    _wrGraph :: !(Maybe WorkflowGraph),
-    _wrErrorMessage :: !(Maybe Text),
-    _wrStartedOn :: !(Maybe POSIX),
-    _wrPreviousRunId :: !(Maybe Text)
+  { -- | The ID of this workflow run.
+    workflowRunId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the workflow run.
+    status :: Prelude.Maybe WorkflowRunStatus,
+    -- | The workflow run properties which were set during the run.
+    workflowRunProperties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The statistics of the run.
+    statistics :: Prelude.Maybe WorkflowRunStatistics,
+    -- | Name of the workflow that was executed.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the workflow run completed.
+    completedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The graph representing all the AWS Glue components that belong to the
+    -- workflow as nodes and directed connections between them as edges.
+    graph :: Prelude.Maybe WorkflowGraph,
+    -- | This error message describes any error that may have occurred in
+    -- starting the workflow run. Currently the only error message is
+    -- \"Concurrent runs exceeded for workflow: @foo@.\"
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the workflow run was started.
+    startedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the previous workflow run.
+    previousRunId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wrWorkflowRunId' - The ID of this workflow run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wrStatus' - The status of the workflow run.
+-- 'workflowRunId', 'workflowRun_workflowRunId' - The ID of this workflow run.
 --
--- * 'wrWorkflowRunProperties' - The workflow run properties which were set during the run.
+-- 'status', 'workflowRun_status' - The status of the workflow run.
 --
--- * 'wrStatistics' - The statistics of the run.
+-- 'workflowRunProperties', 'workflowRun_workflowRunProperties' - The workflow run properties which were set during the run.
 --
--- * 'wrName' - Name of the workflow that was executed.
+-- 'statistics', 'workflowRun_statistics' - The statistics of the run.
 --
--- * 'wrCompletedOn' - The date and time when the workflow run completed.
+-- 'name', 'workflowRun_name' - Name of the workflow that was executed.
 --
--- * 'wrGraph' - The graph representing all the AWS Glue components that belong to the workflow as nodes and directed connections between them as edges.
+-- 'completedOn', 'workflowRun_completedOn' - The date and time when the workflow run completed.
 --
--- * 'wrErrorMessage' - This error message describes any error that may have occurred in starting the workflow run. Currently the only error message is "Concurrent runs exceeded for workflow: @foo@ ."
+-- 'graph', 'workflowRun_graph' - The graph representing all the AWS Glue components that belong to the
+-- workflow as nodes and directed connections between them as edges.
 --
--- * 'wrStartedOn' - The date and time when the workflow run was started.
+-- 'errorMessage', 'workflowRun_errorMessage' - This error message describes any error that may have occurred in
+-- starting the workflow run. Currently the only error message is
+-- \"Concurrent runs exceeded for workflow: @foo@.\"
 --
--- * 'wrPreviousRunId' - The ID of the previous workflow run.
-workflowRun ::
+-- 'startedOn', 'workflowRun_startedOn' - The date and time when the workflow run was started.
+--
+-- 'previousRunId', 'workflowRun_previousRunId' - The ID of the previous workflow run.
+newWorkflowRun ::
   WorkflowRun
-workflowRun =
+newWorkflowRun =
   WorkflowRun'
-    { _wrWorkflowRunId = Nothing,
-      _wrStatus = Nothing,
-      _wrWorkflowRunProperties = Nothing,
-      _wrStatistics = Nothing,
-      _wrName = Nothing,
-      _wrCompletedOn = Nothing,
-      _wrGraph = Nothing,
-      _wrErrorMessage = Nothing,
-      _wrStartedOn = Nothing,
-      _wrPreviousRunId = Nothing
+    { workflowRunId = Prelude.Nothing,
+      status = Prelude.Nothing,
+      workflowRunProperties = Prelude.Nothing,
+      statistics = Prelude.Nothing,
+      name = Prelude.Nothing,
+      completedOn = Prelude.Nothing,
+      graph = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      startedOn = Prelude.Nothing,
+      previousRunId = Prelude.Nothing
     }
 
 -- | The ID of this workflow run.
-wrWorkflowRunId :: Lens' WorkflowRun (Maybe Text)
-wrWorkflowRunId = lens _wrWorkflowRunId (\s a -> s {_wrWorkflowRunId = a})
+workflowRun_workflowRunId :: Lens.Lens' WorkflowRun (Prelude.Maybe Prelude.Text)
+workflowRun_workflowRunId = Lens.lens (\WorkflowRun' {workflowRunId} -> workflowRunId) (\s@WorkflowRun' {} a -> s {workflowRunId = a} :: WorkflowRun)
 
 -- | The status of the workflow run.
-wrStatus :: Lens' WorkflowRun (Maybe WorkflowRunStatus)
-wrStatus = lens _wrStatus (\s a -> s {_wrStatus = a})
+workflowRun_status :: Lens.Lens' WorkflowRun (Prelude.Maybe WorkflowRunStatus)
+workflowRun_status = Lens.lens (\WorkflowRun' {status} -> status) (\s@WorkflowRun' {} a -> s {status = a} :: WorkflowRun)
 
 -- | The workflow run properties which were set during the run.
-wrWorkflowRunProperties :: Lens' WorkflowRun (HashMap Text Text)
-wrWorkflowRunProperties = lens _wrWorkflowRunProperties (\s a -> s {_wrWorkflowRunProperties = a}) . _Default . _Map
+workflowRun_workflowRunProperties :: Lens.Lens' WorkflowRun (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+workflowRun_workflowRunProperties = Lens.lens (\WorkflowRun' {workflowRunProperties} -> workflowRunProperties) (\s@WorkflowRun' {} a -> s {workflowRunProperties = a} :: WorkflowRun) Prelude.. Lens.mapping Prelude._Map
 
 -- | The statistics of the run.
-wrStatistics :: Lens' WorkflowRun (Maybe WorkflowRunStatistics)
-wrStatistics = lens _wrStatistics (\s a -> s {_wrStatistics = a})
+workflowRun_statistics :: Lens.Lens' WorkflowRun (Prelude.Maybe WorkflowRunStatistics)
+workflowRun_statistics = Lens.lens (\WorkflowRun' {statistics} -> statistics) (\s@WorkflowRun' {} a -> s {statistics = a} :: WorkflowRun)
 
 -- | Name of the workflow that was executed.
-wrName :: Lens' WorkflowRun (Maybe Text)
-wrName = lens _wrName (\s a -> s {_wrName = a})
+workflowRun_name :: Lens.Lens' WorkflowRun (Prelude.Maybe Prelude.Text)
+workflowRun_name = Lens.lens (\WorkflowRun' {name} -> name) (\s@WorkflowRun' {} a -> s {name = a} :: WorkflowRun)
 
 -- | The date and time when the workflow run completed.
-wrCompletedOn :: Lens' WorkflowRun (Maybe UTCTime)
-wrCompletedOn = lens _wrCompletedOn (\s a -> s {_wrCompletedOn = a}) . mapping _Time
+workflowRun_completedOn :: Lens.Lens' WorkflowRun (Prelude.Maybe Prelude.UTCTime)
+workflowRun_completedOn = Lens.lens (\WorkflowRun' {completedOn} -> completedOn) (\s@WorkflowRun' {} a -> s {completedOn = a} :: WorkflowRun) Prelude.. Lens.mapping Prelude._Time
 
--- | The graph representing all the AWS Glue components that belong to the workflow as nodes and directed connections between them as edges.
-wrGraph :: Lens' WorkflowRun (Maybe WorkflowGraph)
-wrGraph = lens _wrGraph (\s a -> s {_wrGraph = a})
+-- | The graph representing all the AWS Glue components that belong to the
+-- workflow as nodes and directed connections between them as edges.
+workflowRun_graph :: Lens.Lens' WorkflowRun (Prelude.Maybe WorkflowGraph)
+workflowRun_graph = Lens.lens (\WorkflowRun' {graph} -> graph) (\s@WorkflowRun' {} a -> s {graph = a} :: WorkflowRun)
 
--- | This error message describes any error that may have occurred in starting the workflow run. Currently the only error message is "Concurrent runs exceeded for workflow: @foo@ ."
-wrErrorMessage :: Lens' WorkflowRun (Maybe Text)
-wrErrorMessage = lens _wrErrorMessage (\s a -> s {_wrErrorMessage = a})
+-- | This error message describes any error that may have occurred in
+-- starting the workflow run. Currently the only error message is
+-- \"Concurrent runs exceeded for workflow: @foo@.\"
+workflowRun_errorMessage :: Lens.Lens' WorkflowRun (Prelude.Maybe Prelude.Text)
+workflowRun_errorMessage = Lens.lens (\WorkflowRun' {errorMessage} -> errorMessage) (\s@WorkflowRun' {} a -> s {errorMessage = a} :: WorkflowRun)
 
 -- | The date and time when the workflow run was started.
-wrStartedOn :: Lens' WorkflowRun (Maybe UTCTime)
-wrStartedOn = lens _wrStartedOn (\s a -> s {_wrStartedOn = a}) . mapping _Time
+workflowRun_startedOn :: Lens.Lens' WorkflowRun (Prelude.Maybe Prelude.UTCTime)
+workflowRun_startedOn = Lens.lens (\WorkflowRun' {startedOn} -> startedOn) (\s@WorkflowRun' {} a -> s {startedOn = a} :: WorkflowRun) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the previous workflow run.
-wrPreviousRunId :: Lens' WorkflowRun (Maybe Text)
-wrPreviousRunId = lens _wrPreviousRunId (\s a -> s {_wrPreviousRunId = a})
+workflowRun_previousRunId :: Lens.Lens' WorkflowRun (Prelude.Maybe Prelude.Text)
+workflowRun_previousRunId = Lens.lens (\WorkflowRun' {previousRunId} -> previousRunId) (\s@WorkflowRun' {} a -> s {previousRunId = a} :: WorkflowRun)
 
-instance FromJSON WorkflowRun where
+instance Prelude.FromJSON WorkflowRun where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowRun"
       ( \x ->
           WorkflowRun'
-            <$> (x .:? "WorkflowRunId")
-            <*> (x .:? "Status")
-            <*> (x .:? "WorkflowRunProperties" .!= mempty)
-            <*> (x .:? "Statistics")
-            <*> (x .:? "Name")
-            <*> (x .:? "CompletedOn")
-            <*> (x .:? "Graph")
-            <*> (x .:? "ErrorMessage")
-            <*> (x .:? "StartedOn")
-            <*> (x .:? "PreviousRunId")
+            Prelude.<$> (x Prelude..:? "WorkflowRunId")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> ( x Prelude..:? "WorkflowRunProperties"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Statistics")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "CompletedOn")
+            Prelude.<*> (x Prelude..:? "Graph")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "StartedOn")
+            Prelude.<*> (x Prelude..:? "PreviousRunId")
       )
 
-instance Hashable WorkflowRun
+instance Prelude.Hashable WorkflowRun
 
-instance NFData WorkflowRun
+instance Prelude.NFData WorkflowRun

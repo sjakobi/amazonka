@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the security configurations for the resource policies set on individual resources, and also the account-level policy.
+-- Retrieves the security configurations for the resource policies set on
+-- individual resources, and also the account-level policy.
 --
---
--- This operation also returns the Data Catalog resource policy. However, if you enabled metadata encryption in Data Catalog settings, and you do not have permission on the AWS KMS key, the operation can't return the Data Catalog resource policy.
---
+-- This operation also returns the Data Catalog resource policy. However,
+-- if you enabled metadata encryption in Data Catalog settings, and you do
+-- not have permission on the AWS KMS key, the operation can\'t return the
+-- Data Catalog resource policy.
 --
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetResourcePolicies
   ( -- * Creating a Request
-    getResourcePolicies,
-    GetResourcePolicies,
+    GetResourcePolicies (..),
+    newGetResourcePolicies,
 
     -- * Request Lenses
-    grpNextToken,
-    grpMaxResults,
+    getResourcePolicies_nextToken,
+    getResourcePolicies_maxResults,
 
     -- * Destructuring the Response
-    getResourcePoliciesResponse,
-    GetResourcePoliciesResponse,
+    GetResourcePoliciesResponse (..),
+    newGetResourcePoliciesResponse,
 
     -- * Response Lenses
-    grprrrsNextToken,
-    grprrrsGetResourcePoliciesResponseList,
-    grprrrsResponseStatus,
+    getResourcePoliciesResponse_nextToken,
+    getResourcePoliciesResponse_getResourcePoliciesResponseList,
+    getResourcePoliciesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.GluePolicy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getResourcePolicies' smart constructor.
+-- | /See:/ 'newGetResourcePolicies' smart constructor.
 data GetResourcePolicies = GetResourcePolicies'
-  { _grpNextToken ::
-      !(Maybe Text),
-    _grpMaxResults :: !(Maybe Nat)
+  { -- | A continuation token, if this is a continuation request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of a list to return.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResourcePolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResourcePolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grpNextToken' - A continuation token, if this is a continuation request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grpMaxResults' - The maximum size of a list to return.
-getResourcePolicies ::
+-- 'nextToken', 'getResourcePolicies_nextToken' - A continuation token, if this is a continuation request.
+--
+-- 'maxResults', 'getResourcePolicies_maxResults' - The maximum size of a list to return.
+newGetResourcePolicies ::
   GetResourcePolicies
-getResourcePolicies =
+newGetResourcePolicies =
   GetResourcePolicies'
-    { _grpNextToken = Nothing,
-      _grpMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | A continuation token, if this is a continuation request.
-grpNextToken :: Lens' GetResourcePolicies (Maybe Text)
-grpNextToken = lens _grpNextToken (\s a -> s {_grpNextToken = a})
+getResourcePolicies_nextToken :: Lens.Lens' GetResourcePolicies (Prelude.Maybe Prelude.Text)
+getResourcePolicies_nextToken = Lens.lens (\GetResourcePolicies' {nextToken} -> nextToken) (\s@GetResourcePolicies' {} a -> s {nextToken = a} :: GetResourcePolicies)
 
 -- | The maximum size of a list to return.
-grpMaxResults :: Lens' GetResourcePolicies (Maybe Natural)
-grpMaxResults = lens _grpMaxResults (\s a -> s {_grpMaxResults = a}) . mapping _Nat
+getResourcePolicies_maxResults :: Lens.Lens' GetResourcePolicies (Prelude.Maybe Prelude.Natural)
+getResourcePolicies_maxResults = Lens.lens (\GetResourcePolicies' {maxResults} -> maxResults) (\s@GetResourcePolicies' {} a -> s {maxResults = a} :: GetResourcePolicies) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager GetResourcePolicies where
+instance Pager.AWSPager GetResourcePolicies where
   page rq rs
-    | stop (rs ^. grprrrsNextToken) = Nothing
-    | stop (rs ^. grprrrsGetResourcePoliciesResponseList) =
-      Nothing
-    | otherwise =
-      Just $ rq & grpNextToken .~ rs ^. grprrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getResourcePoliciesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getResourcePoliciesResponse_getResourcePoliciesResponseList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getResourcePolicies_nextToken
+          Lens..~ rs
+          Lens.^? getResourcePoliciesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetResourcePolicies where
+instance Prelude.AWSRequest GetResourcePolicies where
   type
     Rs GetResourcePolicies =
       GetResourcePoliciesResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetResourcePoliciesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "GetResourcePoliciesResponseList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "GetResourcePoliciesResponseList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetResourcePolicies
+instance Prelude.Hashable GetResourcePolicies
 
-instance NFData GetResourcePolicies
+instance Prelude.NFData GetResourcePolicies
 
-instance ToHeaders GetResourcePolicies where
+instance Prelude.ToHeaders GetResourcePolicies where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetResourcePolicies" :: ByteString),
+              Prelude.=# ( "AWSGlue.GetResourcePolicies" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetResourcePolicies where
+instance Prelude.ToJSON GetResourcePolicies where
   toJSON GetResourcePolicies' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _grpNextToken,
-            ("MaxResults" .=) <$> _grpMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath GetResourcePolicies where
-  toPath = const "/"
+instance Prelude.ToPath GetResourcePolicies where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetResourcePolicies where
-  toQuery = const mempty
+instance Prelude.ToQuery GetResourcePolicies where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getResourcePoliciesResponse' smart constructor.
+-- | /See:/ 'newGetResourcePoliciesResponse' smart constructor.
 data GetResourcePoliciesResponse = GetResourcePoliciesResponse'
-  { _grprrrsNextToken ::
-      !(Maybe Text),
-    _grprrrsGetResourcePoliciesResponseList ::
-      !( Maybe
-           [GluePolicy]
-       ),
-    _grprrrsResponseStatus ::
-      !Int
+  { -- | A continuation token, if the returned list does not contain the last
+    -- resource policy available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the individual resource policies and the account-level
+    -- resource policy.
+    getResourcePoliciesResponseList :: Prelude.Maybe [GluePolicy],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResourcePoliciesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResourcePoliciesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grprrrsNextToken' - A continuation token, if the returned list does not contain the last resource policy available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grprrrsGetResourcePoliciesResponseList' - A list of the individual resource policies and the account-level resource policy.
+-- 'nextToken', 'getResourcePoliciesResponse_nextToken' - A continuation token, if the returned list does not contain the last
+-- resource policy available.
 --
--- * 'grprrrsResponseStatus' - -- | The response status code.
-getResourcePoliciesResponse ::
-  -- | 'grprrrsResponseStatus'
-  Int ->
+-- 'getResourcePoliciesResponseList', 'getResourcePoliciesResponse_getResourcePoliciesResponseList' - A list of the individual resource policies and the account-level
+-- resource policy.
+--
+-- 'httpStatus', 'getResourcePoliciesResponse_httpStatus' - The response's http status code.
+newGetResourcePoliciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetResourcePoliciesResponse
-getResourcePoliciesResponse pResponseStatus_ =
+newGetResourcePoliciesResponse pHttpStatus_ =
   GetResourcePoliciesResponse'
-    { _grprrrsNextToken =
-        Nothing,
-      _grprrrsGetResourcePoliciesResponseList =
-        Nothing,
-      _grprrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      getResourcePoliciesResponseList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if the returned list does not contain the last resource policy available.
-grprrrsNextToken :: Lens' GetResourcePoliciesResponse (Maybe Text)
-grprrrsNextToken = lens _grprrrsNextToken (\s a -> s {_grprrrsNextToken = a})
+-- | A continuation token, if the returned list does not contain the last
+-- resource policy available.
+getResourcePoliciesResponse_nextToken :: Lens.Lens' GetResourcePoliciesResponse (Prelude.Maybe Prelude.Text)
+getResourcePoliciesResponse_nextToken = Lens.lens (\GetResourcePoliciesResponse' {nextToken} -> nextToken) (\s@GetResourcePoliciesResponse' {} a -> s {nextToken = a} :: GetResourcePoliciesResponse)
 
--- | A list of the individual resource policies and the account-level resource policy.
-grprrrsGetResourcePoliciesResponseList :: Lens' GetResourcePoliciesResponse [GluePolicy]
-grprrrsGetResourcePoliciesResponseList = lens _grprrrsGetResourcePoliciesResponseList (\s a -> s {_grprrrsGetResourcePoliciesResponseList = a}) . _Default . _Coerce
+-- | A list of the individual resource policies and the account-level
+-- resource policy.
+getResourcePoliciesResponse_getResourcePoliciesResponseList :: Lens.Lens' GetResourcePoliciesResponse (Prelude.Maybe [GluePolicy])
+getResourcePoliciesResponse_getResourcePoliciesResponseList = Lens.lens (\GetResourcePoliciesResponse' {getResourcePoliciesResponseList} -> getResourcePoliciesResponseList) (\s@GetResourcePoliciesResponse' {} a -> s {getResourcePoliciesResponseList = a} :: GetResourcePoliciesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-grprrrsResponseStatus :: Lens' GetResourcePoliciesResponse Int
-grprrrsResponseStatus = lens _grprrrsResponseStatus (\s a -> s {_grprrrsResponseStatus = a})
+-- | The response's http status code.
+getResourcePoliciesResponse_httpStatus :: Lens.Lens' GetResourcePoliciesResponse Prelude.Int
+getResourcePoliciesResponse_httpStatus = Lens.lens (\GetResourcePoliciesResponse' {httpStatus} -> httpStatus) (\s@GetResourcePoliciesResponse' {} a -> s {httpStatus = a} :: GetResourcePoliciesResponse)
 
-instance NFData GetResourcePoliciesResponse
+instance Prelude.NFData GetResourcePoliciesResponse

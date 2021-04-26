@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,224 +21,265 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get the specified schema by its unique ID assigned when a version of the schema is created or registered. Schema versions in Deleted status will not be included in the results.
+-- Get the specified schema by its unique ID assigned when a version of the
+-- schema is created or registered. Schema versions in Deleted status will
+-- not be included in the results.
 module Network.AWS.Glue.GetSchemaVersion
   ( -- * Creating a Request
-    getSchemaVersion,
-    GetSchemaVersion,
+    GetSchemaVersion (..),
+    newGetSchemaVersion,
 
     -- * Request Lenses
-    gsvSchemaVersionId,
-    gsvSchemaVersionNumber,
-    gsvSchemaId,
+    getSchemaVersion_schemaVersionId,
+    getSchemaVersion_schemaVersionNumber,
+    getSchemaVersion_schemaId,
 
     -- * Destructuring the Response
-    getSchemaVersionResponse,
-    GetSchemaVersionResponse,
+    GetSchemaVersionResponse (..),
+    newGetSchemaVersionResponse,
 
     -- * Response Lenses
-    gsvrrsSchemaARN,
-    gsvrrsStatus,
-    gsvrrsSchemaDefinition,
-    gsvrrsSchemaVersionId,
-    gsvrrsDataFormat,
-    gsvrrsCreatedTime,
-    gsvrrsVersionNumber,
-    gsvrrsResponseStatus,
+    getSchemaVersionResponse_schemaArn,
+    getSchemaVersionResponse_status,
+    getSchemaVersionResponse_schemaDefinition,
+    getSchemaVersionResponse_schemaVersionId,
+    getSchemaVersionResponse_dataFormat,
+    getSchemaVersionResponse_createdTime,
+    getSchemaVersionResponse_versionNumber,
+    getSchemaVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.DataFormat
+import Network.AWS.Glue.Types.SchemaVersionStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getSchemaVersion' smart constructor.
+-- | /See:/ 'newGetSchemaVersion' smart constructor.
 data GetSchemaVersion = GetSchemaVersion'
-  { _gsvSchemaVersionId ::
-      !(Maybe Text),
-    _gsvSchemaVersionNumber ::
-      !(Maybe SchemaVersionNumber),
-    _gsvSchemaId :: !(Maybe SchemaId)
+  { -- | The @SchemaVersionId@ of the schema version. This field is required for
+    -- fetching by schema ID. Either this or the @SchemaId@ wrapper has to be
+    -- provided.
+    schemaVersionId :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the schema.
+    schemaVersionNumber :: Prelude.Maybe SchemaVersionNumber,
+    -- | This is a wrapper structure to contain schema identity fields. The
+    -- structure contains:
+    --
+    -- -   SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema.
+    --     Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be
+    --     provided.
+    --
+    -- -   SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or
+    --     @SchemaName@ and @RegistryName@ has to be provided.
+    schemaId :: Prelude.Maybe SchemaId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSchemaVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSchemaVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsvSchemaVersionId' - The @SchemaVersionId@ of the schema version. This field is required for fetching by schema ID. Either this or the @SchemaId@ wrapper has to be provided.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsvSchemaVersionNumber' - The version number of the schema.
+-- 'schemaVersionId', 'getSchemaVersion_schemaVersionId' - The @SchemaVersionId@ of the schema version. This field is required for
+-- fetching by schema ID. Either this or the @SchemaId@ wrapper has to be
+-- provided.
 --
--- * 'gsvSchemaId' - This is a wrapper structure to contain schema identity fields. The structure contains:     * SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.     * SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.
-getSchemaVersion ::
+-- 'schemaVersionNumber', 'getSchemaVersion_schemaVersionNumber' - The version number of the schema.
+--
+-- 'schemaId', 'getSchemaVersion_schemaId' - This is a wrapper structure to contain schema identity fields. The
+-- structure contains:
+--
+-- -   SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema.
+--     Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be
+--     provided.
+--
+-- -   SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or
+--     @SchemaName@ and @RegistryName@ has to be provided.
+newGetSchemaVersion ::
   GetSchemaVersion
-getSchemaVersion =
+newGetSchemaVersion =
   GetSchemaVersion'
-    { _gsvSchemaVersionId = Nothing,
-      _gsvSchemaVersionNumber = Nothing,
-      _gsvSchemaId = Nothing
+    { schemaVersionId =
+        Prelude.Nothing,
+      schemaVersionNumber = Prelude.Nothing,
+      schemaId = Prelude.Nothing
     }
 
--- | The @SchemaVersionId@ of the schema version. This field is required for fetching by schema ID. Either this or the @SchemaId@ wrapper has to be provided.
-gsvSchemaVersionId :: Lens' GetSchemaVersion (Maybe Text)
-gsvSchemaVersionId = lens _gsvSchemaVersionId (\s a -> s {_gsvSchemaVersionId = a})
+-- | The @SchemaVersionId@ of the schema version. This field is required for
+-- fetching by schema ID. Either this or the @SchemaId@ wrapper has to be
+-- provided.
+getSchemaVersion_schemaVersionId :: Lens.Lens' GetSchemaVersion (Prelude.Maybe Prelude.Text)
+getSchemaVersion_schemaVersionId = Lens.lens (\GetSchemaVersion' {schemaVersionId} -> schemaVersionId) (\s@GetSchemaVersion' {} a -> s {schemaVersionId = a} :: GetSchemaVersion)
 
 -- | The version number of the schema.
-gsvSchemaVersionNumber :: Lens' GetSchemaVersion (Maybe SchemaVersionNumber)
-gsvSchemaVersionNumber = lens _gsvSchemaVersionNumber (\s a -> s {_gsvSchemaVersionNumber = a})
+getSchemaVersion_schemaVersionNumber :: Lens.Lens' GetSchemaVersion (Prelude.Maybe SchemaVersionNumber)
+getSchemaVersion_schemaVersionNumber = Lens.lens (\GetSchemaVersion' {schemaVersionNumber} -> schemaVersionNumber) (\s@GetSchemaVersion' {} a -> s {schemaVersionNumber = a} :: GetSchemaVersion)
 
--- | This is a wrapper structure to contain schema identity fields. The structure contains:     * SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.     * SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.
-gsvSchemaId :: Lens' GetSchemaVersion (Maybe SchemaId)
-gsvSchemaId = lens _gsvSchemaId (\s a -> s {_gsvSchemaId = a})
+-- | This is a wrapper structure to contain schema identity fields. The
+-- structure contains:
+--
+-- -   SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema.
+--     Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be
+--     provided.
+--
+-- -   SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or
+--     @SchemaName@ and @RegistryName@ has to be provided.
+getSchemaVersion_schemaId :: Lens.Lens' GetSchemaVersion (Prelude.Maybe SchemaId)
+getSchemaVersion_schemaId = Lens.lens (\GetSchemaVersion' {schemaId} -> schemaId) (\s@GetSchemaVersion' {} a -> s {schemaId = a} :: GetSchemaVersion)
 
-instance AWSRequest GetSchemaVersion where
+instance Prelude.AWSRequest GetSchemaVersion where
   type Rs GetSchemaVersion = GetSchemaVersionResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSchemaVersionResponse'
-            <$> (x .?> "SchemaArn")
-            <*> (x .?> "Status")
-            <*> (x .?> "SchemaDefinition")
-            <*> (x .?> "SchemaVersionId")
-            <*> (x .?> "DataFormat")
-            <*> (x .?> "CreatedTime")
-            <*> (x .?> "VersionNumber")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SchemaArn")
+            Prelude.<*> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "SchemaDefinition")
+            Prelude.<*> (x Prelude..?> "SchemaVersionId")
+            Prelude.<*> (x Prelude..?> "DataFormat")
+            Prelude.<*> (x Prelude..?> "CreatedTime")
+            Prelude.<*> (x Prelude..?> "VersionNumber")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSchemaVersion
+instance Prelude.Hashable GetSchemaVersion
 
-instance NFData GetSchemaVersion
+instance Prelude.NFData GetSchemaVersion
 
-instance ToHeaders GetSchemaVersion where
+instance Prelude.ToHeaders GetSchemaVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetSchemaVersion" :: ByteString),
+              Prelude.=# ("AWSGlue.GetSchemaVersion" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetSchemaVersion where
+instance Prelude.ToJSON GetSchemaVersion where
   toJSON GetSchemaVersion' {..} =
-    object
-      ( catMaybes
-          [ ("SchemaVersionId" .=) <$> _gsvSchemaVersionId,
-            ("SchemaVersionNumber" .=)
-              <$> _gsvSchemaVersionNumber,
-            ("SchemaId" .=) <$> _gsvSchemaId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SchemaVersionId" Prelude..=)
+              Prelude.<$> schemaVersionId,
+            ("SchemaVersionNumber" Prelude..=)
+              Prelude.<$> schemaVersionNumber,
+            ("SchemaId" Prelude..=) Prelude.<$> schemaId
           ]
       )
 
-instance ToPath GetSchemaVersion where
-  toPath = const "/"
+instance Prelude.ToPath GetSchemaVersion where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSchemaVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSchemaVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSchemaVersionResponse' smart constructor.
+-- | /See:/ 'newGetSchemaVersionResponse' smart constructor.
 data GetSchemaVersionResponse = GetSchemaVersionResponse'
-  { _gsvrrsSchemaARN ::
-      !(Maybe Text),
-    _gsvrrsStatus ::
-      !( Maybe
-           SchemaVersionStatus
-       ),
-    _gsvrrsSchemaDefinition ::
-      !(Maybe Text),
-    _gsvrrsSchemaVersionId ::
-      !(Maybe Text),
-    _gsvrrsDataFormat ::
-      !(Maybe DataFormat),
-    _gsvrrsCreatedTime ::
-      !(Maybe Text),
-    _gsvrrsVersionNumber ::
-      !(Maybe Nat),
-    _gsvrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the schema.
+    schemaArn :: Prelude.Maybe Prelude.Text,
+    -- | The status of the schema version.
+    status :: Prelude.Maybe SchemaVersionStatus,
+    -- | The schema definition for the schema ID.
+    schemaDefinition :: Prelude.Maybe Prelude.Text,
+    -- | The @SchemaVersionId@ of the schema version.
+    schemaVersionId :: Prelude.Maybe Prelude.Text,
+    -- | The data format of the schema definition. Currently only @AVRO@ is
+    -- supported.
+    dataFormat :: Prelude.Maybe DataFormat,
+    -- | The date and time the schema version was created.
+    createdTime :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the schema.
+    versionNumber :: Prelude.Maybe Prelude.Nat,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSchemaVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSchemaVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsvrrsSchemaARN' - The Amazon Resource Name (ARN) of the schema.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsvrrsStatus' - The status of the schema version.
+-- 'schemaArn', 'getSchemaVersionResponse_schemaArn' - The Amazon Resource Name (ARN) of the schema.
 --
--- * 'gsvrrsSchemaDefinition' - The schema definition for the schema ID.
+-- 'status', 'getSchemaVersionResponse_status' - The status of the schema version.
 --
--- * 'gsvrrsSchemaVersionId' - The @SchemaVersionId@ of the schema version.
+-- 'schemaDefinition', 'getSchemaVersionResponse_schemaDefinition' - The schema definition for the schema ID.
 --
--- * 'gsvrrsDataFormat' - The data format of the schema definition. Currently only @AVRO@ is supported.
+-- 'schemaVersionId', 'getSchemaVersionResponse_schemaVersionId' - The @SchemaVersionId@ of the schema version.
 --
--- * 'gsvrrsCreatedTime' - The date and time the schema version was created.
+-- 'dataFormat', 'getSchemaVersionResponse_dataFormat' - The data format of the schema definition. Currently only @AVRO@ is
+-- supported.
 --
--- * 'gsvrrsVersionNumber' - The version number of the schema.
+-- 'createdTime', 'getSchemaVersionResponse_createdTime' - The date and time the schema version was created.
 --
--- * 'gsvrrsResponseStatus' - -- | The response status code.
-getSchemaVersionResponse ::
-  -- | 'gsvrrsResponseStatus'
-  Int ->
+-- 'versionNumber', 'getSchemaVersionResponse_versionNumber' - The version number of the schema.
+--
+-- 'httpStatus', 'getSchemaVersionResponse_httpStatus' - The response's http status code.
+newGetSchemaVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSchemaVersionResponse
-getSchemaVersionResponse pResponseStatus_ =
+newGetSchemaVersionResponse pHttpStatus_ =
   GetSchemaVersionResponse'
-    { _gsvrrsSchemaARN =
-        Nothing,
-      _gsvrrsStatus = Nothing,
-      _gsvrrsSchemaDefinition = Nothing,
-      _gsvrrsSchemaVersionId = Nothing,
-      _gsvrrsDataFormat = Nothing,
-      _gsvrrsCreatedTime = Nothing,
-      _gsvrrsVersionNumber = Nothing,
-      _gsvrrsResponseStatus = pResponseStatus_
+    { schemaArn =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      schemaDefinition = Prelude.Nothing,
+      schemaVersionId = Prelude.Nothing,
+      dataFormat = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      versionNumber = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the schema.
-gsvrrsSchemaARN :: Lens' GetSchemaVersionResponse (Maybe Text)
-gsvrrsSchemaARN = lens _gsvrrsSchemaARN (\s a -> s {_gsvrrsSchemaARN = a})
+getSchemaVersionResponse_schemaArn :: Lens.Lens' GetSchemaVersionResponse (Prelude.Maybe Prelude.Text)
+getSchemaVersionResponse_schemaArn = Lens.lens (\GetSchemaVersionResponse' {schemaArn} -> schemaArn) (\s@GetSchemaVersionResponse' {} a -> s {schemaArn = a} :: GetSchemaVersionResponse)
 
 -- | The status of the schema version.
-gsvrrsStatus :: Lens' GetSchemaVersionResponse (Maybe SchemaVersionStatus)
-gsvrrsStatus = lens _gsvrrsStatus (\s a -> s {_gsvrrsStatus = a})
+getSchemaVersionResponse_status :: Lens.Lens' GetSchemaVersionResponse (Prelude.Maybe SchemaVersionStatus)
+getSchemaVersionResponse_status = Lens.lens (\GetSchemaVersionResponse' {status} -> status) (\s@GetSchemaVersionResponse' {} a -> s {status = a} :: GetSchemaVersionResponse)
 
 -- | The schema definition for the schema ID.
-gsvrrsSchemaDefinition :: Lens' GetSchemaVersionResponse (Maybe Text)
-gsvrrsSchemaDefinition = lens _gsvrrsSchemaDefinition (\s a -> s {_gsvrrsSchemaDefinition = a})
+getSchemaVersionResponse_schemaDefinition :: Lens.Lens' GetSchemaVersionResponse (Prelude.Maybe Prelude.Text)
+getSchemaVersionResponse_schemaDefinition = Lens.lens (\GetSchemaVersionResponse' {schemaDefinition} -> schemaDefinition) (\s@GetSchemaVersionResponse' {} a -> s {schemaDefinition = a} :: GetSchemaVersionResponse)
 
 -- | The @SchemaVersionId@ of the schema version.
-gsvrrsSchemaVersionId :: Lens' GetSchemaVersionResponse (Maybe Text)
-gsvrrsSchemaVersionId = lens _gsvrrsSchemaVersionId (\s a -> s {_gsvrrsSchemaVersionId = a})
+getSchemaVersionResponse_schemaVersionId :: Lens.Lens' GetSchemaVersionResponse (Prelude.Maybe Prelude.Text)
+getSchemaVersionResponse_schemaVersionId = Lens.lens (\GetSchemaVersionResponse' {schemaVersionId} -> schemaVersionId) (\s@GetSchemaVersionResponse' {} a -> s {schemaVersionId = a} :: GetSchemaVersionResponse)
 
--- | The data format of the schema definition. Currently only @AVRO@ is supported.
-gsvrrsDataFormat :: Lens' GetSchemaVersionResponse (Maybe DataFormat)
-gsvrrsDataFormat = lens _gsvrrsDataFormat (\s a -> s {_gsvrrsDataFormat = a})
+-- | The data format of the schema definition. Currently only @AVRO@ is
+-- supported.
+getSchemaVersionResponse_dataFormat :: Lens.Lens' GetSchemaVersionResponse (Prelude.Maybe DataFormat)
+getSchemaVersionResponse_dataFormat = Lens.lens (\GetSchemaVersionResponse' {dataFormat} -> dataFormat) (\s@GetSchemaVersionResponse' {} a -> s {dataFormat = a} :: GetSchemaVersionResponse)
 
 -- | The date and time the schema version was created.
-gsvrrsCreatedTime :: Lens' GetSchemaVersionResponse (Maybe Text)
-gsvrrsCreatedTime = lens _gsvrrsCreatedTime (\s a -> s {_gsvrrsCreatedTime = a})
+getSchemaVersionResponse_createdTime :: Lens.Lens' GetSchemaVersionResponse (Prelude.Maybe Prelude.Text)
+getSchemaVersionResponse_createdTime = Lens.lens (\GetSchemaVersionResponse' {createdTime} -> createdTime) (\s@GetSchemaVersionResponse' {} a -> s {createdTime = a} :: GetSchemaVersionResponse)
 
 -- | The version number of the schema.
-gsvrrsVersionNumber :: Lens' GetSchemaVersionResponse (Maybe Natural)
-gsvrrsVersionNumber = lens _gsvrrsVersionNumber (\s a -> s {_gsvrrsVersionNumber = a}) . mapping _Nat
+getSchemaVersionResponse_versionNumber :: Lens.Lens' GetSchemaVersionResponse (Prelude.Maybe Prelude.Natural)
+getSchemaVersionResponse_versionNumber = Lens.lens (\GetSchemaVersionResponse' {versionNumber} -> versionNumber) (\s@GetSchemaVersionResponse' {} a -> s {versionNumber = a} :: GetSchemaVersionResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | -- | The response status code.
-gsvrrsResponseStatus :: Lens' GetSchemaVersionResponse Int
-gsvrrsResponseStatus = lens _gsvrrsResponseStatus (\s a -> s {_gsvrrsResponseStatus = a})
+-- | The response's http status code.
+getSchemaVersionResponse_httpStatus :: Lens.Lens' GetSchemaVersionResponse Prelude.Int
+getSchemaVersionResponse_httpStatus = Lens.lens (\GetSchemaVersionResponse' {httpStatus} -> httpStatus) (\s@GetSchemaVersionResponse' {} a -> s {httpStatus = a} :: GetSchemaVersionResponse)
 
-instance NFData GetSchemaVersionResponse
+instance Prelude.NFData GetSchemaVersionResponse

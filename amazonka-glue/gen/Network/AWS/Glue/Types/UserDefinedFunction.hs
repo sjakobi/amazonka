@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,113 +20,121 @@
 module Network.AWS.Glue.Types.UserDefinedFunction where
 
 import Network.AWS.Glue.Types.PrincipalType
-import Network.AWS.Glue.Types.ResourceURI
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.Glue.Types.ResourceUri
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the equivalent of a Hive user-defined function (@UDF@ ) definition.
+-- | Represents the equivalent of a Hive user-defined function (@UDF@)
+-- definition.
 --
---
---
--- /See:/ 'userDefinedFunction' smart constructor.
+-- /See:/ 'newUserDefinedFunction' smart constructor.
 data UserDefinedFunction = UserDefinedFunction'
-  { _udfOwnerType ::
-      !(Maybe PrincipalType),
-    _udfClassName :: !(Maybe Text),
-    _udfCatalogId :: !(Maybe Text),
-    _udfOwnerName :: !(Maybe Text),
-    _udfFunctionName ::
-      !(Maybe Text),
-    _udfResourceURIs ::
-      !(Maybe [ResourceURI]),
-    _udfCreateTime ::
-      !(Maybe POSIX),
-    _udfDatabaseName ::
-      !(Maybe Text)
+  { -- | The owner type.
+    ownerType :: Prelude.Maybe PrincipalType,
+    -- | The Java class that contains the function code.
+    className :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Data Catalog in which the function resides.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The owner of the function.
+    ownerName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the function.
+    functionName :: Prelude.Maybe Prelude.Text,
+    -- | The resource URIs for the function.
+    resourceUris :: Prelude.Maybe [ResourceUri],
+    -- | The time at which the function was created.
+    createTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the catalog database that contains the function.
+    databaseName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserDefinedFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserDefinedFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udfOwnerType' - The owner type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udfClassName' - The Java class that contains the function code.
+-- 'ownerType', 'userDefinedFunction_ownerType' - The owner type.
 --
--- * 'udfCatalogId' - The ID of the Data Catalog in which the function resides.
+-- 'className', 'userDefinedFunction_className' - The Java class that contains the function code.
 --
--- * 'udfOwnerName' - The owner of the function.
+-- 'catalogId', 'userDefinedFunction_catalogId' - The ID of the Data Catalog in which the function resides.
 --
--- * 'udfFunctionName' - The name of the function.
+-- 'ownerName', 'userDefinedFunction_ownerName' - The owner of the function.
 --
--- * 'udfResourceURIs' - The resource URIs for the function.
+-- 'functionName', 'userDefinedFunction_functionName' - The name of the function.
 --
--- * 'udfCreateTime' - The time at which the function was created.
+-- 'resourceUris', 'userDefinedFunction_resourceUris' - The resource URIs for the function.
 --
--- * 'udfDatabaseName' - The name of the catalog database that contains the function.
-userDefinedFunction ::
+-- 'createTime', 'userDefinedFunction_createTime' - The time at which the function was created.
+--
+-- 'databaseName', 'userDefinedFunction_databaseName' - The name of the catalog database that contains the function.
+newUserDefinedFunction ::
   UserDefinedFunction
-userDefinedFunction =
+newUserDefinedFunction =
   UserDefinedFunction'
-    { _udfOwnerType = Nothing,
-      _udfClassName = Nothing,
-      _udfCatalogId = Nothing,
-      _udfOwnerName = Nothing,
-      _udfFunctionName = Nothing,
-      _udfResourceURIs = Nothing,
-      _udfCreateTime = Nothing,
-      _udfDatabaseName = Nothing
+    { ownerType = Prelude.Nothing,
+      className = Prelude.Nothing,
+      catalogId = Prelude.Nothing,
+      ownerName = Prelude.Nothing,
+      functionName = Prelude.Nothing,
+      resourceUris = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      databaseName = Prelude.Nothing
     }
 
 -- | The owner type.
-udfOwnerType :: Lens' UserDefinedFunction (Maybe PrincipalType)
-udfOwnerType = lens _udfOwnerType (\s a -> s {_udfOwnerType = a})
+userDefinedFunction_ownerType :: Lens.Lens' UserDefinedFunction (Prelude.Maybe PrincipalType)
+userDefinedFunction_ownerType = Lens.lens (\UserDefinedFunction' {ownerType} -> ownerType) (\s@UserDefinedFunction' {} a -> s {ownerType = a} :: UserDefinedFunction)
 
 -- | The Java class that contains the function code.
-udfClassName :: Lens' UserDefinedFunction (Maybe Text)
-udfClassName = lens _udfClassName (\s a -> s {_udfClassName = a})
+userDefinedFunction_className :: Lens.Lens' UserDefinedFunction (Prelude.Maybe Prelude.Text)
+userDefinedFunction_className = Lens.lens (\UserDefinedFunction' {className} -> className) (\s@UserDefinedFunction' {} a -> s {className = a} :: UserDefinedFunction)
 
 -- | The ID of the Data Catalog in which the function resides.
-udfCatalogId :: Lens' UserDefinedFunction (Maybe Text)
-udfCatalogId = lens _udfCatalogId (\s a -> s {_udfCatalogId = a})
+userDefinedFunction_catalogId :: Lens.Lens' UserDefinedFunction (Prelude.Maybe Prelude.Text)
+userDefinedFunction_catalogId = Lens.lens (\UserDefinedFunction' {catalogId} -> catalogId) (\s@UserDefinedFunction' {} a -> s {catalogId = a} :: UserDefinedFunction)
 
 -- | The owner of the function.
-udfOwnerName :: Lens' UserDefinedFunction (Maybe Text)
-udfOwnerName = lens _udfOwnerName (\s a -> s {_udfOwnerName = a})
+userDefinedFunction_ownerName :: Lens.Lens' UserDefinedFunction (Prelude.Maybe Prelude.Text)
+userDefinedFunction_ownerName = Lens.lens (\UserDefinedFunction' {ownerName} -> ownerName) (\s@UserDefinedFunction' {} a -> s {ownerName = a} :: UserDefinedFunction)
 
 -- | The name of the function.
-udfFunctionName :: Lens' UserDefinedFunction (Maybe Text)
-udfFunctionName = lens _udfFunctionName (\s a -> s {_udfFunctionName = a})
+userDefinedFunction_functionName :: Lens.Lens' UserDefinedFunction (Prelude.Maybe Prelude.Text)
+userDefinedFunction_functionName = Lens.lens (\UserDefinedFunction' {functionName} -> functionName) (\s@UserDefinedFunction' {} a -> s {functionName = a} :: UserDefinedFunction)
 
 -- | The resource URIs for the function.
-udfResourceURIs :: Lens' UserDefinedFunction [ResourceURI]
-udfResourceURIs = lens _udfResourceURIs (\s a -> s {_udfResourceURIs = a}) . _Default . _Coerce
+userDefinedFunction_resourceUris :: Lens.Lens' UserDefinedFunction (Prelude.Maybe [ResourceUri])
+userDefinedFunction_resourceUris = Lens.lens (\UserDefinedFunction' {resourceUris} -> resourceUris) (\s@UserDefinedFunction' {} a -> s {resourceUris = a} :: UserDefinedFunction) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time at which the function was created.
-udfCreateTime :: Lens' UserDefinedFunction (Maybe UTCTime)
-udfCreateTime = lens _udfCreateTime (\s a -> s {_udfCreateTime = a}) . mapping _Time
+userDefinedFunction_createTime :: Lens.Lens' UserDefinedFunction (Prelude.Maybe Prelude.UTCTime)
+userDefinedFunction_createTime = Lens.lens (\UserDefinedFunction' {createTime} -> createTime) (\s@UserDefinedFunction' {} a -> s {createTime = a} :: UserDefinedFunction) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the catalog database that contains the function.
-udfDatabaseName :: Lens' UserDefinedFunction (Maybe Text)
-udfDatabaseName = lens _udfDatabaseName (\s a -> s {_udfDatabaseName = a})
+userDefinedFunction_databaseName :: Lens.Lens' UserDefinedFunction (Prelude.Maybe Prelude.Text)
+userDefinedFunction_databaseName = Lens.lens (\UserDefinedFunction' {databaseName} -> databaseName) (\s@UserDefinedFunction' {} a -> s {databaseName = a} :: UserDefinedFunction)
 
-instance FromJSON UserDefinedFunction where
+instance Prelude.FromJSON UserDefinedFunction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserDefinedFunction"
       ( \x ->
           UserDefinedFunction'
-            <$> (x .:? "OwnerType")
-            <*> (x .:? "ClassName")
-            <*> (x .:? "CatalogId")
-            <*> (x .:? "OwnerName")
-            <*> (x .:? "FunctionName")
-            <*> (x .:? "ResourceUris" .!= mempty)
-            <*> (x .:? "CreateTime")
-            <*> (x .:? "DatabaseName")
+            Prelude.<$> (x Prelude..:? "OwnerType")
+            Prelude.<*> (x Prelude..:? "ClassName")
+            Prelude.<*> (x Prelude..:? "CatalogId")
+            Prelude.<*> (x Prelude..:? "OwnerName")
+            Prelude.<*> (x Prelude..:? "FunctionName")
+            Prelude.<*> ( x Prelude..:? "ResourceUris"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "CreateTime")
+            Prelude.<*> (x Prelude..:? "DatabaseName")
       )
 
-instance Hashable UserDefinedFunction
+instance Prelude.Hashable UserDefinedFunction
 
-instance NFData UserDefinedFunction
+instance Prelude.NFData UserDefinedFunction

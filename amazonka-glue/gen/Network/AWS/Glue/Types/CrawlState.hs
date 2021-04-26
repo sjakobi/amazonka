@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Glue.Types.CrawlState
   ( CrawlState
       ( ..,
-        CSCancelled,
-        CSCancelling,
-        CSFailed,
-        CSRunning,
-        CSSucceeded
+        CrawlStateCANCELLED,
+        CrawlStateCANCELLING,
+        CrawlStateFAILED,
+        CrawlStateRUNNING,
+        CrawlStateSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CrawlState = CrawlState' (CI Text)
+newtype CrawlState = CrawlState'
+  { fromCrawlState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCancelled :: CrawlState
-pattern CSCancelled = CrawlState' "CANCELLED"
+pattern CrawlStateCANCELLED :: CrawlState
+pattern CrawlStateCANCELLED = CrawlState' "CANCELLED"
 
-pattern CSCancelling :: CrawlState
-pattern CSCancelling = CrawlState' "CANCELLING"
+pattern CrawlStateCANCELLING :: CrawlState
+pattern CrawlStateCANCELLING = CrawlState' "CANCELLING"
 
-pattern CSFailed :: CrawlState
-pattern CSFailed = CrawlState' "FAILED"
+pattern CrawlStateFAILED :: CrawlState
+pattern CrawlStateFAILED = CrawlState' "FAILED"
 
-pattern CSRunning :: CrawlState
-pattern CSRunning = CrawlState' "RUNNING"
+pattern CrawlStateRUNNING :: CrawlState
+pattern CrawlStateRUNNING = CrawlState' "RUNNING"
 
-pattern CSSucceeded :: CrawlState
-pattern CSSucceeded = CrawlState' "SUCCEEDED"
+pattern CrawlStateSUCCEEDED :: CrawlState
+pattern CrawlStateSUCCEEDED = CrawlState' "SUCCEEDED"
 
 {-# COMPLETE
-  CSCancelled,
-  CSCancelling,
-  CSFailed,
-  CSRunning,
-  CSSucceeded,
+  CrawlStateCANCELLED,
+  CrawlStateCANCELLING,
+  CrawlStateFAILED,
+  CrawlStateRUNNING,
+  CrawlStateSUCCEEDED,
   CrawlState'
   #-}
 
-instance FromText CrawlState where
-  parser = (CrawlState' . mk) <$> takeText
+instance Prelude.FromText CrawlState where
+  parser = CrawlState' Prelude.<$> Prelude.takeText
 
-instance ToText CrawlState where
-  toText (CrawlState' ci) = original ci
+instance Prelude.ToText CrawlState where
+  toText (CrawlState' x) = x
 
-instance Hashable CrawlState
+instance Prelude.Hashable CrawlState
 
-instance NFData CrawlState
+instance Prelude.NFData CrawlState
 
-instance ToByteString CrawlState
+instance Prelude.ToByteString CrawlState
 
-instance ToQuery CrawlState
+instance Prelude.ToQuery CrawlState
 
-instance ToHeader CrawlState
+instance Prelude.ToHeader CrawlState
 
-instance ToJSON CrawlState where
-  toJSON = toJSONText
+instance Prelude.ToJSON CrawlState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CrawlState where
-  parseJSON = parseJSONText "CrawlState"
+instance Prelude.FromJSON CrawlState where
+  parseJSON = Prelude.parseJSONText "CrawlState"

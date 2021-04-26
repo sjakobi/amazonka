@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -22,208 +26,265 @@ import Network.AWS.Glue.Types.LineageConfiguration
 import Network.AWS.Glue.Types.RecrawlPolicy
 import Network.AWS.Glue.Types.Schedule
 import Network.AWS.Glue.Types.SchemaChangePolicy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies a crawler program that examines a data source and uses classifiers to try to determine its schema. If successful, the crawler records metadata concerning the data source in the AWS Glue Data Catalog.
+-- | Specifies a crawler program that examines a data source and uses
+-- classifiers to try to determine its schema. If successful, the crawler
+-- records metadata concerning the data source in the AWS Glue Data
+-- Catalog.
 --
---
---
--- /See:/ 'crawler' smart constructor.
+-- /See:/ 'newCrawler' smart constructor.
 data Crawler = Crawler'
-  { _crarSchemaChangePolicy ::
-      !(Maybe SchemaChangePolicy),
-    _crarRecrawlPolicy :: !(Maybe RecrawlPolicy),
-    _crarClassifiers :: !(Maybe [Text]),
-    _crarCreationTime :: !(Maybe POSIX),
-    _crarConfiguration :: !(Maybe Text),
-    _crarLineageConfiguration ::
-      !(Maybe LineageConfiguration),
-    _crarVersion :: !(Maybe Integer),
-    _crarTargets :: !(Maybe CrawlerTargets),
-    _crarLastUpdated :: !(Maybe POSIX),
-    _crarState :: !(Maybe CrawlerState),
-    _crarName :: !(Maybe Text),
-    _crarCrawlElapsedTime :: !(Maybe Integer),
-    _crarRole :: !(Maybe Text),
-    _crarLastCrawl :: !(Maybe LastCrawlInfo),
-    _crarTablePrefix :: !(Maybe Text),
-    _crarDescription :: !(Maybe Text),
-    _crarSchedule :: !(Maybe Schedule),
-    _crarCrawlerSecurityConfiguration :: !(Maybe Text),
-    _crarDatabaseName :: !(Maybe Text)
+  { -- | The policy that specifies update and delete behaviors for the crawler.
+    schemaChangePolicy :: Prelude.Maybe SchemaChangePolicy,
+    -- | A policy that specifies whether to crawl the entire dataset again, or to
+    -- crawl only folders that were added since the last crawler run.
+    recrawlPolicy :: Prelude.Maybe RecrawlPolicy,
+    -- | A list of UTF-8 strings that specify the custom classifiers that are
+    -- associated with the crawler.
+    classifiers :: Prelude.Maybe [Prelude.Text],
+    -- | The time that the crawler was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Crawler configuration information. This versioned JSON string allows
+    -- users to specify aspects of a crawler\'s behavior. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler>.
+    configuration :: Prelude.Maybe Prelude.Text,
+    -- | A configuration that specifies whether data lineage is enabled for the
+    -- crawler.
+    lineageConfiguration :: Prelude.Maybe LineageConfiguration,
+    -- | The version of the crawler.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | A collection of targets to crawl.
+    targets :: Prelude.Maybe CrawlerTargets,
+    -- | The time that the crawler was last updated.
+    lastUpdated :: Prelude.Maybe Prelude.POSIX,
+    -- | Indicates whether the crawler is running, or whether a run is pending.
+    state :: Prelude.Maybe CrawlerState,
+    -- | The name of the crawler.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If the crawler is running, contains the total time elapsed since the
+    -- last crawl began.
+    crawlElapsedTime :: Prelude.Maybe Prelude.Integer,
+    -- | The Amazon Resource Name (ARN) of an IAM role that\'s used to access
+    -- customer resources, such as Amazon Simple Storage Service (Amazon S3)
+    -- data.
+    role' :: Prelude.Maybe Prelude.Text,
+    -- | The status of the last crawl, and potentially error information if an
+    -- error occurred.
+    lastCrawl :: Prelude.Maybe LastCrawlInfo,
+    -- | The prefix added to the names of tables that are created.
+    tablePrefix :: Prelude.Maybe Prelude.Text,
+    -- | A description of the crawler.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | For scheduled crawlers, the schedule when the crawler runs.
+    schedule :: Prelude.Maybe Schedule,
+    -- | The name of the @SecurityConfiguration@ structure to be used by this
+    -- crawler.
+    crawlerSecurityConfiguration :: Prelude.Maybe Prelude.Text,
+    -- | The name of the database in which the crawler\'s output is stored.
+    databaseName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Crawler' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Crawler' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crarSchemaChangePolicy' - The policy that specifies update and delete behaviors for the crawler.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crarRecrawlPolicy' - A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since the last crawler run.
+-- 'schemaChangePolicy', 'crawler_schemaChangePolicy' - The policy that specifies update and delete behaviors for the crawler.
 --
--- * 'crarClassifiers' - A list of UTF-8 strings that specify the custom classifiers that are associated with the crawler.
+-- 'recrawlPolicy', 'crawler_recrawlPolicy' - A policy that specifies whether to crawl the entire dataset again, or to
+-- crawl only folders that were added since the last crawler run.
 --
--- * 'crarCreationTime' - The time that the crawler was created.
+-- 'classifiers', 'crawler_classifiers' - A list of UTF-8 strings that specify the custom classifiers that are
+-- associated with the crawler.
 --
--- * 'crarConfiguration' - Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler> .
+-- 'creationTime', 'crawler_creationTime' - The time that the crawler was created.
 --
--- * 'crarLineageConfiguration' - A configuration that specifies whether data lineage is enabled for the crawler.
+-- 'configuration', 'crawler_configuration' - Crawler configuration information. This versioned JSON string allows
+-- users to specify aspects of a crawler\'s behavior. For more information,
+-- see
+-- <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler>.
 --
--- * 'crarVersion' - The version of the crawler.
+-- 'lineageConfiguration', 'crawler_lineageConfiguration' - A configuration that specifies whether data lineage is enabled for the
+-- crawler.
 --
--- * 'crarTargets' - A collection of targets to crawl.
+-- 'version', 'crawler_version' - The version of the crawler.
 --
--- * 'crarLastUpdated' - The time that the crawler was last updated.
+-- 'targets', 'crawler_targets' - A collection of targets to crawl.
 --
--- * 'crarState' - Indicates whether the crawler is running, or whether a run is pending.
+-- 'lastUpdated', 'crawler_lastUpdated' - The time that the crawler was last updated.
 --
--- * 'crarName' - The name of the crawler.
+-- 'state', 'crawler_state' - Indicates whether the crawler is running, or whether a run is pending.
 --
--- * 'crarCrawlElapsedTime' - If the crawler is running, contains the total time elapsed since the last crawl began.
+-- 'name', 'crawler_name' - The name of the crawler.
 --
--- * 'crarRole' - The Amazon Resource Name (ARN) of an IAM role that's used to access customer resources, such as Amazon Simple Storage Service (Amazon S3) data.
+-- 'crawlElapsedTime', 'crawler_crawlElapsedTime' - If the crawler is running, contains the total time elapsed since the
+-- last crawl began.
 --
--- * 'crarLastCrawl' - The status of the last crawl, and potentially error information if an error occurred.
+-- 'role'', 'crawler_role' - The Amazon Resource Name (ARN) of an IAM role that\'s used to access
+-- customer resources, such as Amazon Simple Storage Service (Amazon S3)
+-- data.
 --
--- * 'crarTablePrefix' - The prefix added to the names of tables that are created.
+-- 'lastCrawl', 'crawler_lastCrawl' - The status of the last crawl, and potentially error information if an
+-- error occurred.
 --
--- * 'crarDescription' - A description of the crawler.
+-- 'tablePrefix', 'crawler_tablePrefix' - The prefix added to the names of tables that are created.
 --
--- * 'crarSchedule' - For scheduled crawlers, the schedule when the crawler runs.
+-- 'description', 'crawler_description' - A description of the crawler.
 --
--- * 'crarCrawlerSecurityConfiguration' - The name of the @SecurityConfiguration@ structure to be used by this crawler.
+-- 'schedule', 'crawler_schedule' - For scheduled crawlers, the schedule when the crawler runs.
 --
--- * 'crarDatabaseName' - The name of the database in which the crawler's output is stored.
-crawler ::
+-- 'crawlerSecurityConfiguration', 'crawler_crawlerSecurityConfiguration' - The name of the @SecurityConfiguration@ structure to be used by this
+-- crawler.
+--
+-- 'databaseName', 'crawler_databaseName' - The name of the database in which the crawler\'s output is stored.
+newCrawler ::
   Crawler
-crawler =
+newCrawler =
   Crawler'
-    { _crarSchemaChangePolicy = Nothing,
-      _crarRecrawlPolicy = Nothing,
-      _crarClassifiers = Nothing,
-      _crarCreationTime = Nothing,
-      _crarConfiguration = Nothing,
-      _crarLineageConfiguration = Nothing,
-      _crarVersion = Nothing,
-      _crarTargets = Nothing,
-      _crarLastUpdated = Nothing,
-      _crarState = Nothing,
-      _crarName = Nothing,
-      _crarCrawlElapsedTime = Nothing,
-      _crarRole = Nothing,
-      _crarLastCrawl = Nothing,
-      _crarTablePrefix = Nothing,
-      _crarDescription = Nothing,
-      _crarSchedule = Nothing,
-      _crarCrawlerSecurityConfiguration = Nothing,
-      _crarDatabaseName = Nothing
+    { schemaChangePolicy = Prelude.Nothing,
+      recrawlPolicy = Prelude.Nothing,
+      classifiers = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      configuration = Prelude.Nothing,
+      lineageConfiguration = Prelude.Nothing,
+      version = Prelude.Nothing,
+      targets = Prelude.Nothing,
+      lastUpdated = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      crawlElapsedTime = Prelude.Nothing,
+      role' = Prelude.Nothing,
+      lastCrawl = Prelude.Nothing,
+      tablePrefix = Prelude.Nothing,
+      description = Prelude.Nothing,
+      schedule = Prelude.Nothing,
+      crawlerSecurityConfiguration = Prelude.Nothing,
+      databaseName = Prelude.Nothing
     }
 
 -- | The policy that specifies update and delete behaviors for the crawler.
-crarSchemaChangePolicy :: Lens' Crawler (Maybe SchemaChangePolicy)
-crarSchemaChangePolicy = lens _crarSchemaChangePolicy (\s a -> s {_crarSchemaChangePolicy = a})
+crawler_schemaChangePolicy :: Lens.Lens' Crawler (Prelude.Maybe SchemaChangePolicy)
+crawler_schemaChangePolicy = Lens.lens (\Crawler' {schemaChangePolicy} -> schemaChangePolicy) (\s@Crawler' {} a -> s {schemaChangePolicy = a} :: Crawler)
 
--- | A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since the last crawler run.
-crarRecrawlPolicy :: Lens' Crawler (Maybe RecrawlPolicy)
-crarRecrawlPolicy = lens _crarRecrawlPolicy (\s a -> s {_crarRecrawlPolicy = a})
+-- | A policy that specifies whether to crawl the entire dataset again, or to
+-- crawl only folders that were added since the last crawler run.
+crawler_recrawlPolicy :: Lens.Lens' Crawler (Prelude.Maybe RecrawlPolicy)
+crawler_recrawlPolicy = Lens.lens (\Crawler' {recrawlPolicy} -> recrawlPolicy) (\s@Crawler' {} a -> s {recrawlPolicy = a} :: Crawler)
 
--- | A list of UTF-8 strings that specify the custom classifiers that are associated with the crawler.
-crarClassifiers :: Lens' Crawler [Text]
-crarClassifiers = lens _crarClassifiers (\s a -> s {_crarClassifiers = a}) . _Default . _Coerce
+-- | A list of UTF-8 strings that specify the custom classifiers that are
+-- associated with the crawler.
+crawler_classifiers :: Lens.Lens' Crawler (Prelude.Maybe [Prelude.Text])
+crawler_classifiers = Lens.lens (\Crawler' {classifiers} -> classifiers) (\s@Crawler' {} a -> s {classifiers = a} :: Crawler) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time that the crawler was created.
-crarCreationTime :: Lens' Crawler (Maybe UTCTime)
-crarCreationTime = lens _crarCreationTime (\s a -> s {_crarCreationTime = a}) . mapping _Time
+crawler_creationTime :: Lens.Lens' Crawler (Prelude.Maybe Prelude.UTCTime)
+crawler_creationTime = Lens.lens (\Crawler' {creationTime} -> creationTime) (\s@Crawler' {} a -> s {creationTime = a} :: Crawler) Prelude.. Lens.mapping Prelude._Time
 
--- | Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler> .
-crarConfiguration :: Lens' Crawler (Maybe Text)
-crarConfiguration = lens _crarConfiguration (\s a -> s {_crarConfiguration = a})
+-- | Crawler configuration information. This versioned JSON string allows
+-- users to specify aspects of a crawler\'s behavior. For more information,
+-- see
+-- <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler>.
+crawler_configuration :: Lens.Lens' Crawler (Prelude.Maybe Prelude.Text)
+crawler_configuration = Lens.lens (\Crawler' {configuration} -> configuration) (\s@Crawler' {} a -> s {configuration = a} :: Crawler)
 
--- | A configuration that specifies whether data lineage is enabled for the crawler.
-crarLineageConfiguration :: Lens' Crawler (Maybe LineageConfiguration)
-crarLineageConfiguration = lens _crarLineageConfiguration (\s a -> s {_crarLineageConfiguration = a})
+-- | A configuration that specifies whether data lineage is enabled for the
+-- crawler.
+crawler_lineageConfiguration :: Lens.Lens' Crawler (Prelude.Maybe LineageConfiguration)
+crawler_lineageConfiguration = Lens.lens (\Crawler' {lineageConfiguration} -> lineageConfiguration) (\s@Crawler' {} a -> s {lineageConfiguration = a} :: Crawler)
 
 -- | The version of the crawler.
-crarVersion :: Lens' Crawler (Maybe Integer)
-crarVersion = lens _crarVersion (\s a -> s {_crarVersion = a})
+crawler_version :: Lens.Lens' Crawler (Prelude.Maybe Prelude.Integer)
+crawler_version = Lens.lens (\Crawler' {version} -> version) (\s@Crawler' {} a -> s {version = a} :: Crawler)
 
 -- | A collection of targets to crawl.
-crarTargets :: Lens' Crawler (Maybe CrawlerTargets)
-crarTargets = lens _crarTargets (\s a -> s {_crarTargets = a})
+crawler_targets :: Lens.Lens' Crawler (Prelude.Maybe CrawlerTargets)
+crawler_targets = Lens.lens (\Crawler' {targets} -> targets) (\s@Crawler' {} a -> s {targets = a} :: Crawler)
 
 -- | The time that the crawler was last updated.
-crarLastUpdated :: Lens' Crawler (Maybe UTCTime)
-crarLastUpdated = lens _crarLastUpdated (\s a -> s {_crarLastUpdated = a}) . mapping _Time
+crawler_lastUpdated :: Lens.Lens' Crawler (Prelude.Maybe Prelude.UTCTime)
+crawler_lastUpdated = Lens.lens (\Crawler' {lastUpdated} -> lastUpdated) (\s@Crawler' {} a -> s {lastUpdated = a} :: Crawler) Prelude.. Lens.mapping Prelude._Time
 
 -- | Indicates whether the crawler is running, or whether a run is pending.
-crarState :: Lens' Crawler (Maybe CrawlerState)
-crarState = lens _crarState (\s a -> s {_crarState = a})
+crawler_state :: Lens.Lens' Crawler (Prelude.Maybe CrawlerState)
+crawler_state = Lens.lens (\Crawler' {state} -> state) (\s@Crawler' {} a -> s {state = a} :: Crawler)
 
 -- | The name of the crawler.
-crarName :: Lens' Crawler (Maybe Text)
-crarName = lens _crarName (\s a -> s {_crarName = a})
+crawler_name :: Lens.Lens' Crawler (Prelude.Maybe Prelude.Text)
+crawler_name = Lens.lens (\Crawler' {name} -> name) (\s@Crawler' {} a -> s {name = a} :: Crawler)
 
--- | If the crawler is running, contains the total time elapsed since the last crawl began.
-crarCrawlElapsedTime :: Lens' Crawler (Maybe Integer)
-crarCrawlElapsedTime = lens _crarCrawlElapsedTime (\s a -> s {_crarCrawlElapsedTime = a})
+-- | If the crawler is running, contains the total time elapsed since the
+-- last crawl began.
+crawler_crawlElapsedTime :: Lens.Lens' Crawler (Prelude.Maybe Prelude.Integer)
+crawler_crawlElapsedTime = Lens.lens (\Crawler' {crawlElapsedTime} -> crawlElapsedTime) (\s@Crawler' {} a -> s {crawlElapsedTime = a} :: Crawler)
 
--- | The Amazon Resource Name (ARN) of an IAM role that's used to access customer resources, such as Amazon Simple Storage Service (Amazon S3) data.
-crarRole :: Lens' Crawler (Maybe Text)
-crarRole = lens _crarRole (\s a -> s {_crarRole = a})
+-- | The Amazon Resource Name (ARN) of an IAM role that\'s used to access
+-- customer resources, such as Amazon Simple Storage Service (Amazon S3)
+-- data.
+crawler_role :: Lens.Lens' Crawler (Prelude.Maybe Prelude.Text)
+crawler_role = Lens.lens (\Crawler' {role'} -> role') (\s@Crawler' {} a -> s {role' = a} :: Crawler)
 
--- | The status of the last crawl, and potentially error information if an error occurred.
-crarLastCrawl :: Lens' Crawler (Maybe LastCrawlInfo)
-crarLastCrawl = lens _crarLastCrawl (\s a -> s {_crarLastCrawl = a})
+-- | The status of the last crawl, and potentially error information if an
+-- error occurred.
+crawler_lastCrawl :: Lens.Lens' Crawler (Prelude.Maybe LastCrawlInfo)
+crawler_lastCrawl = Lens.lens (\Crawler' {lastCrawl} -> lastCrawl) (\s@Crawler' {} a -> s {lastCrawl = a} :: Crawler)
 
 -- | The prefix added to the names of tables that are created.
-crarTablePrefix :: Lens' Crawler (Maybe Text)
-crarTablePrefix = lens _crarTablePrefix (\s a -> s {_crarTablePrefix = a})
+crawler_tablePrefix :: Lens.Lens' Crawler (Prelude.Maybe Prelude.Text)
+crawler_tablePrefix = Lens.lens (\Crawler' {tablePrefix} -> tablePrefix) (\s@Crawler' {} a -> s {tablePrefix = a} :: Crawler)
 
 -- | A description of the crawler.
-crarDescription :: Lens' Crawler (Maybe Text)
-crarDescription = lens _crarDescription (\s a -> s {_crarDescription = a})
+crawler_description :: Lens.Lens' Crawler (Prelude.Maybe Prelude.Text)
+crawler_description = Lens.lens (\Crawler' {description} -> description) (\s@Crawler' {} a -> s {description = a} :: Crawler)
 
 -- | For scheduled crawlers, the schedule when the crawler runs.
-crarSchedule :: Lens' Crawler (Maybe Schedule)
-crarSchedule = lens _crarSchedule (\s a -> s {_crarSchedule = a})
+crawler_schedule :: Lens.Lens' Crawler (Prelude.Maybe Schedule)
+crawler_schedule = Lens.lens (\Crawler' {schedule} -> schedule) (\s@Crawler' {} a -> s {schedule = a} :: Crawler)
 
--- | The name of the @SecurityConfiguration@ structure to be used by this crawler.
-crarCrawlerSecurityConfiguration :: Lens' Crawler (Maybe Text)
-crarCrawlerSecurityConfiguration = lens _crarCrawlerSecurityConfiguration (\s a -> s {_crarCrawlerSecurityConfiguration = a})
+-- | The name of the @SecurityConfiguration@ structure to be used by this
+-- crawler.
+crawler_crawlerSecurityConfiguration :: Lens.Lens' Crawler (Prelude.Maybe Prelude.Text)
+crawler_crawlerSecurityConfiguration = Lens.lens (\Crawler' {crawlerSecurityConfiguration} -> crawlerSecurityConfiguration) (\s@Crawler' {} a -> s {crawlerSecurityConfiguration = a} :: Crawler)
 
--- | The name of the database in which the crawler's output is stored.
-crarDatabaseName :: Lens' Crawler (Maybe Text)
-crarDatabaseName = lens _crarDatabaseName (\s a -> s {_crarDatabaseName = a})
+-- | The name of the database in which the crawler\'s output is stored.
+crawler_databaseName :: Lens.Lens' Crawler (Prelude.Maybe Prelude.Text)
+crawler_databaseName = Lens.lens (\Crawler' {databaseName} -> databaseName) (\s@Crawler' {} a -> s {databaseName = a} :: Crawler)
 
-instance FromJSON Crawler where
+instance Prelude.FromJSON Crawler where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Crawler"
       ( \x ->
           Crawler'
-            <$> (x .:? "SchemaChangePolicy")
-            <*> (x .:? "RecrawlPolicy")
-            <*> (x .:? "Classifiers" .!= mempty)
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "Configuration")
-            <*> (x .:? "LineageConfiguration")
-            <*> (x .:? "Version")
-            <*> (x .:? "Targets")
-            <*> (x .:? "LastUpdated")
-            <*> (x .:? "State")
-            <*> (x .:? "Name")
-            <*> (x .:? "CrawlElapsedTime")
-            <*> (x .:? "Role")
-            <*> (x .:? "LastCrawl")
-            <*> (x .:? "TablePrefix")
-            <*> (x .:? "Description")
-            <*> (x .:? "Schedule")
-            <*> (x .:? "CrawlerSecurityConfiguration")
-            <*> (x .:? "DatabaseName")
+            Prelude.<$> (x Prelude..:? "SchemaChangePolicy")
+            Prelude.<*> (x Prelude..:? "RecrawlPolicy")
+            Prelude.<*> ( x Prelude..:? "Classifiers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "Configuration")
+            Prelude.<*> (x Prelude..:? "LineageConfiguration")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "Targets")
+            Prelude.<*> (x Prelude..:? "LastUpdated")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "CrawlElapsedTime")
+            Prelude.<*> (x Prelude..:? "Role")
+            Prelude.<*> (x Prelude..:? "LastCrawl")
+            Prelude.<*> (x Prelude..:? "TablePrefix")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Schedule")
+            Prelude.<*> (x Prelude..:? "CrawlerSecurityConfiguration")
+            Prelude.<*> (x Prelude..:? "DatabaseName")
       )
 
-instance Hashable Crawler
+instance Prelude.Hashable Crawler
 
-instance NFData Crawler
+instance Prelude.NFData Crawler

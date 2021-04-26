@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,202 +23,209 @@
 --
 -- Retrieves table statistics of columns.
 --
---
--- The Identity and Access Management (IAM) permission required for this operation is @GetTable@ .
+-- The Identity and Access Management (IAM) permission required for this
+-- operation is @GetTable@.
 module Network.AWS.Glue.GetColumnStatisticsForTable
   ( -- * Creating a Request
-    getColumnStatisticsForTable,
-    GetColumnStatisticsForTable,
+    GetColumnStatisticsForTable (..),
+    newGetColumnStatisticsForTable,
 
     -- * Request Lenses
-    gcsftCatalogId,
-    gcsftDatabaseName,
-    gcsftTableName,
-    gcsftColumnNames,
+    getColumnStatisticsForTable_catalogId,
+    getColumnStatisticsForTable_databaseName,
+    getColumnStatisticsForTable_tableName,
+    getColumnStatisticsForTable_columnNames,
 
     -- * Destructuring the Response
-    getColumnStatisticsForTableResponse,
-    GetColumnStatisticsForTableResponse,
+    GetColumnStatisticsForTableResponse (..),
+    newGetColumnStatisticsForTableResponse,
 
     -- * Response Lenses
-    gcsftrrsColumnStatisticsList,
-    gcsftrrsErrors,
-    gcsftrrsResponseStatus,
+    getColumnStatisticsForTableResponse_columnStatisticsList,
+    getColumnStatisticsForTableResponse_errors,
+    getColumnStatisticsForTableResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.ColumnError
+import Network.AWS.Glue.Types.ColumnStatistics
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getColumnStatisticsForTable' smart constructor.
+-- | /See:/ 'newGetColumnStatisticsForTable' smart constructor.
 data GetColumnStatisticsForTable = GetColumnStatisticsForTable'
-  { _gcsftCatalogId ::
-      !(Maybe Text),
-    _gcsftDatabaseName ::
-      !Text,
-    _gcsftTableName ::
-      !Text,
-    _gcsftColumnNames ::
-      ![Text]
+  { -- | The ID of the Data Catalog where the partitions in question reside. If
+    -- none is supplied, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database where the partitions reside.
+    databaseName :: Prelude.Text,
+    -- | The name of the partitions\' table.
+    tableName :: Prelude.Text,
+    -- | A list of the column names.
+    columnNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetColumnStatisticsForTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetColumnStatisticsForTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsftCatalogId' - The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsftDatabaseName' - The name of the catalog database where the partitions reside.
+-- 'catalogId', 'getColumnStatisticsForTable_catalogId' - The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
 --
--- * 'gcsftTableName' - The name of the partitions' table.
+-- 'databaseName', 'getColumnStatisticsForTable_databaseName' - The name of the catalog database where the partitions reside.
 --
--- * 'gcsftColumnNames' - A list of the column names.
-getColumnStatisticsForTable ::
-  -- | 'gcsftDatabaseName'
-  Text ->
-  -- | 'gcsftTableName'
-  Text ->
+-- 'tableName', 'getColumnStatisticsForTable_tableName' - The name of the partitions\' table.
+--
+-- 'columnNames', 'getColumnStatisticsForTable_columnNames' - A list of the column names.
+newGetColumnStatisticsForTable ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
   GetColumnStatisticsForTable
-getColumnStatisticsForTable
+newGetColumnStatisticsForTable
   pDatabaseName_
   pTableName_ =
     GetColumnStatisticsForTable'
-      { _gcsftCatalogId =
-          Nothing,
-        _gcsftDatabaseName = pDatabaseName_,
-        _gcsftTableName = pTableName_,
-        _gcsftColumnNames = mempty
+      { catalogId =
+          Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        tableName = pTableName_,
+        columnNames = Prelude.mempty
       }
 
--- | The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
-gcsftCatalogId :: Lens' GetColumnStatisticsForTable (Maybe Text)
-gcsftCatalogId = lens _gcsftCatalogId (\s a -> s {_gcsftCatalogId = a})
+-- | The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
+getColumnStatisticsForTable_catalogId :: Lens.Lens' GetColumnStatisticsForTable (Prelude.Maybe Prelude.Text)
+getColumnStatisticsForTable_catalogId = Lens.lens (\GetColumnStatisticsForTable' {catalogId} -> catalogId) (\s@GetColumnStatisticsForTable' {} a -> s {catalogId = a} :: GetColumnStatisticsForTable)
 
 -- | The name of the catalog database where the partitions reside.
-gcsftDatabaseName :: Lens' GetColumnStatisticsForTable Text
-gcsftDatabaseName = lens _gcsftDatabaseName (\s a -> s {_gcsftDatabaseName = a})
+getColumnStatisticsForTable_databaseName :: Lens.Lens' GetColumnStatisticsForTable Prelude.Text
+getColumnStatisticsForTable_databaseName = Lens.lens (\GetColumnStatisticsForTable' {databaseName} -> databaseName) (\s@GetColumnStatisticsForTable' {} a -> s {databaseName = a} :: GetColumnStatisticsForTable)
 
--- | The name of the partitions' table.
-gcsftTableName :: Lens' GetColumnStatisticsForTable Text
-gcsftTableName = lens _gcsftTableName (\s a -> s {_gcsftTableName = a})
+-- | The name of the partitions\' table.
+getColumnStatisticsForTable_tableName :: Lens.Lens' GetColumnStatisticsForTable Prelude.Text
+getColumnStatisticsForTable_tableName = Lens.lens (\GetColumnStatisticsForTable' {tableName} -> tableName) (\s@GetColumnStatisticsForTable' {} a -> s {tableName = a} :: GetColumnStatisticsForTable)
 
 -- | A list of the column names.
-gcsftColumnNames :: Lens' GetColumnStatisticsForTable [Text]
-gcsftColumnNames = lens _gcsftColumnNames (\s a -> s {_gcsftColumnNames = a}) . _Coerce
+getColumnStatisticsForTable_columnNames :: Lens.Lens' GetColumnStatisticsForTable [Prelude.Text]
+getColumnStatisticsForTable_columnNames = Lens.lens (\GetColumnStatisticsForTable' {columnNames} -> columnNames) (\s@GetColumnStatisticsForTable' {} a -> s {columnNames = a} :: GetColumnStatisticsForTable) Prelude.. Prelude._Coerce
 
-instance AWSRequest GetColumnStatisticsForTable where
+instance
+  Prelude.AWSRequest
+    GetColumnStatisticsForTable
+  where
   type
     Rs GetColumnStatisticsForTable =
       GetColumnStatisticsForTableResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetColumnStatisticsForTableResponse'
-            <$> (x .?> "ColumnStatisticsList" .!@ mempty)
-            <*> (x .?> "Errors" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ColumnStatisticsList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Errors" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetColumnStatisticsForTable
+instance Prelude.Hashable GetColumnStatisticsForTable
 
-instance NFData GetColumnStatisticsForTable
+instance Prelude.NFData GetColumnStatisticsForTable
 
-instance ToHeaders GetColumnStatisticsForTable where
+instance
+  Prelude.ToHeaders
+    GetColumnStatisticsForTable
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSGlue.GetColumnStatisticsForTable" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSGlue.GetColumnStatisticsForTable" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetColumnStatisticsForTable where
+instance Prelude.ToJSON GetColumnStatisticsForTable where
   toJSON GetColumnStatisticsForTable' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _gcsftCatalogId,
-            Just ("DatabaseName" .= _gcsftDatabaseName),
-            Just ("TableName" .= _gcsftTableName),
-            Just ("ColumnNames" .= _gcsftColumnNames)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just ("ColumnNames" Prelude..= columnNames)
           ]
       )
 
-instance ToPath GetColumnStatisticsForTable where
-  toPath = const "/"
+instance Prelude.ToPath GetColumnStatisticsForTable where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetColumnStatisticsForTable where
-  toQuery = const mempty
+instance Prelude.ToQuery GetColumnStatisticsForTable where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getColumnStatisticsForTableResponse' smart constructor.
+-- | /See:/ 'newGetColumnStatisticsForTableResponse' smart constructor.
 data GetColumnStatisticsForTableResponse = GetColumnStatisticsForTableResponse'
-  { _gcsftrrsColumnStatisticsList ::
-      !( Maybe
-           [ColumnStatistics]
-       ),
-    _gcsftrrsErrors ::
-      !( Maybe
-           [ColumnError]
-       ),
-    _gcsftrrsResponseStatus ::
-      !Int
+  { -- | List of ColumnStatistics that failed to be retrieved.
+    columnStatisticsList :: Prelude.Maybe [ColumnStatistics],
+    -- | List of ColumnStatistics that failed to be retrieved.
+    errors :: Prelude.Maybe [ColumnError],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetColumnStatisticsForTableResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetColumnStatisticsForTableResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsftrrsColumnStatisticsList' - List of ColumnStatistics that failed to be retrieved.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsftrrsErrors' - List of ColumnStatistics that failed to be retrieved.
+-- 'columnStatisticsList', 'getColumnStatisticsForTableResponse_columnStatisticsList' - List of ColumnStatistics that failed to be retrieved.
 --
--- * 'gcsftrrsResponseStatus' - -- | The response status code.
-getColumnStatisticsForTableResponse ::
-  -- | 'gcsftrrsResponseStatus'
-  Int ->
+-- 'errors', 'getColumnStatisticsForTableResponse_errors' - List of ColumnStatistics that failed to be retrieved.
+--
+-- 'httpStatus', 'getColumnStatisticsForTableResponse_httpStatus' - The response's http status code.
+newGetColumnStatisticsForTableResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetColumnStatisticsForTableResponse
-getColumnStatisticsForTableResponse pResponseStatus_ =
+newGetColumnStatisticsForTableResponse pHttpStatus_ =
   GetColumnStatisticsForTableResponse'
-    { _gcsftrrsColumnStatisticsList =
-        Nothing,
-      _gcsftrrsErrors = Nothing,
-      _gcsftrrsResponseStatus =
-        pResponseStatus_
+    { columnStatisticsList =
+        Prelude.Nothing,
+      errors = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | List of ColumnStatistics that failed to be retrieved.
-gcsftrrsColumnStatisticsList :: Lens' GetColumnStatisticsForTableResponse [ColumnStatistics]
-gcsftrrsColumnStatisticsList = lens _gcsftrrsColumnStatisticsList (\s a -> s {_gcsftrrsColumnStatisticsList = a}) . _Default . _Coerce
+getColumnStatisticsForTableResponse_columnStatisticsList :: Lens.Lens' GetColumnStatisticsForTableResponse (Prelude.Maybe [ColumnStatistics])
+getColumnStatisticsForTableResponse_columnStatisticsList = Lens.lens (\GetColumnStatisticsForTableResponse' {columnStatisticsList} -> columnStatisticsList) (\s@GetColumnStatisticsForTableResponse' {} a -> s {columnStatisticsList = a} :: GetColumnStatisticsForTableResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | List of ColumnStatistics that failed to be retrieved.
-gcsftrrsErrors :: Lens' GetColumnStatisticsForTableResponse [ColumnError]
-gcsftrrsErrors = lens _gcsftrrsErrors (\s a -> s {_gcsftrrsErrors = a}) . _Default . _Coerce
+getColumnStatisticsForTableResponse_errors :: Lens.Lens' GetColumnStatisticsForTableResponse (Prelude.Maybe [ColumnError])
+getColumnStatisticsForTableResponse_errors = Lens.lens (\GetColumnStatisticsForTableResponse' {errors} -> errors) (\s@GetColumnStatisticsForTableResponse' {} a -> s {errors = a} :: GetColumnStatisticsForTableResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcsftrrsResponseStatus :: Lens' GetColumnStatisticsForTableResponse Int
-gcsftrrsResponseStatus = lens _gcsftrrsResponseStatus (\s a -> s {_gcsftrrsResponseStatus = a})
+-- | The response's http status code.
+getColumnStatisticsForTableResponse_httpStatus :: Lens.Lens' GetColumnStatisticsForTableResponse Prelude.Int
+getColumnStatisticsForTableResponse_httpStatus = Lens.lens (\GetColumnStatisticsForTableResponse' {httpStatus} -> httpStatus) (\s@GetColumnStatisticsForTableResponse' {} a -> s {httpStatus = a} :: GetColumnStatisticsForTableResponse)
 
-instance NFData GetColumnStatisticsForTableResponse
+instance
+  Prelude.NFData
+    GetColumnStatisticsForTableResponse

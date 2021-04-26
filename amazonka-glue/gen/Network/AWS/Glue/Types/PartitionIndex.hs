@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.PartitionIndex where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure for a partition index.
 --
---
---
--- /See:/ 'partitionIndex' smart constructor.
+-- /See:/ 'newPartitionIndex' smart constructor.
 data PartitionIndex = PartitionIndex'
-  { _piKeys ::
-      !(List1 Text),
-    _piIndexName :: !Text
+  { -- | The keys for the partition index.
+    keys :: Prelude.List1 Prelude.Text,
+    -- | The name of the partition index.
+    indexName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PartitionIndex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PartitionIndex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'piKeys' - The keys for the partition index.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'piIndexName' - The name of the partition index.
-partitionIndex ::
-  -- | 'piKeys'
-  NonEmpty Text ->
-  -- | 'piIndexName'
-  Text ->
+-- 'keys', 'partitionIndex_keys' - The keys for the partition index.
+--
+-- 'indexName', 'partitionIndex_indexName' - The name of the partition index.
+newPartitionIndex ::
+  -- | 'keys'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'indexName'
+  Prelude.Text ->
   PartitionIndex
-partitionIndex pKeys_ pIndexName_ =
+newPartitionIndex pKeys_ pIndexName_ =
   PartitionIndex'
-    { _piKeys = _List1 # pKeys_,
-      _piIndexName = pIndexName_
+    { keys =
+        Prelude._List1 Lens.# pKeys_,
+      indexName = pIndexName_
     }
 
 -- | The keys for the partition index.
-piKeys :: Lens' PartitionIndex (NonEmpty Text)
-piKeys = lens _piKeys (\s a -> s {_piKeys = a}) . _List1
+partitionIndex_keys :: Lens.Lens' PartitionIndex (Prelude.NonEmpty Prelude.Text)
+partitionIndex_keys = Lens.lens (\PartitionIndex' {keys} -> keys) (\s@PartitionIndex' {} a -> s {keys = a} :: PartitionIndex) Prelude.. Prelude._List1
 
 -- | The name of the partition index.
-piIndexName :: Lens' PartitionIndex Text
-piIndexName = lens _piIndexName (\s a -> s {_piIndexName = a})
+partitionIndex_indexName :: Lens.Lens' PartitionIndex Prelude.Text
+partitionIndex_indexName = Lens.lens (\PartitionIndex' {indexName} -> indexName) (\s@PartitionIndex' {} a -> s {indexName = a} :: PartitionIndex)
 
-instance Hashable PartitionIndex
+instance Prelude.Hashable PartitionIndex
 
-instance NFData PartitionIndex
+instance Prelude.NFData PartitionIndex
 
-instance ToJSON PartitionIndex where
+instance Prelude.ToJSON PartitionIndex where
   toJSON PartitionIndex' {..} =
-    object
-      ( catMaybes
-          [ Just ("Keys" .= _piKeys),
-            Just ("IndexName" .= _piIndexName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Keys" Prelude..= keys),
+            Prelude.Just ("IndexName" Prelude..= indexName)
           ]
       )

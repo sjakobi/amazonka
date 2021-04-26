@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.MongoDBTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies an Amazon DocumentDB or MongoDB data store to crawl.
 --
---
---
--- /See:/ 'mongoDBTarget' smart constructor.
+-- /See:/ 'newMongoDBTarget' smart constructor.
 data MongoDBTarget = MongoDBTarget'
-  { _mdtConnectionName ::
-      !(Maybe Text),
-    _mdtScanAll :: !(Maybe Bool),
-    _mdtPath :: !(Maybe Text)
+  { -- | The name of the connection to use to connect to the Amazon DocumentDB or
+    -- MongoDB target.
+    connectionName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether to scan all the records, or to sample rows from the
+    -- table. Scanning all the records can take a long time when the table is
+    -- not a high throughput table.
+    --
+    -- A value of @true@ means to scan all records, while a value of @false@
+    -- means to sample the records. If no value is specified, the value
+    -- defaults to @true@.
+    scanAll :: Prelude.Maybe Prelude.Bool,
+    -- | The path of the Amazon DocumentDB or MongoDB target
+    -- (database\/collection).
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MongoDBTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MongoDBTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdtConnectionName' - The name of the connection to use to connect to the Amazon DocumentDB or MongoDB target.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdtScanAll' - Indicates whether to scan all the records, or to sample rows from the table. Scanning all the records can take a long time when the table is not a high throughput table. A value of @true@ means to scan all records, while a value of @false@ means to sample the records. If no value is specified, the value defaults to @true@ .
+-- 'connectionName', 'mongoDBTarget_connectionName' - The name of the connection to use to connect to the Amazon DocumentDB or
+-- MongoDB target.
 --
--- * 'mdtPath' - The path of the Amazon DocumentDB or MongoDB target (database/collection).
-mongoDBTarget ::
+-- 'scanAll', 'mongoDBTarget_scanAll' - Indicates whether to scan all the records, or to sample rows from the
+-- table. Scanning all the records can take a long time when the table is
+-- not a high throughput table.
+--
+-- A value of @true@ means to scan all records, while a value of @false@
+-- means to sample the records. If no value is specified, the value
+-- defaults to @true@.
+--
+-- 'path', 'mongoDBTarget_path' - The path of the Amazon DocumentDB or MongoDB target
+-- (database\/collection).
+newMongoDBTarget ::
   MongoDBTarget
-mongoDBTarget =
+newMongoDBTarget =
   MongoDBTarget'
-    { _mdtConnectionName = Nothing,
-      _mdtScanAll = Nothing,
-      _mdtPath = Nothing
+    { connectionName = Prelude.Nothing,
+      scanAll = Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
--- | The name of the connection to use to connect to the Amazon DocumentDB or MongoDB target.
-mdtConnectionName :: Lens' MongoDBTarget (Maybe Text)
-mdtConnectionName = lens _mdtConnectionName (\s a -> s {_mdtConnectionName = a})
+-- | The name of the connection to use to connect to the Amazon DocumentDB or
+-- MongoDB target.
+mongoDBTarget_connectionName :: Lens.Lens' MongoDBTarget (Prelude.Maybe Prelude.Text)
+mongoDBTarget_connectionName = Lens.lens (\MongoDBTarget' {connectionName} -> connectionName) (\s@MongoDBTarget' {} a -> s {connectionName = a} :: MongoDBTarget)
 
--- | Indicates whether to scan all the records, or to sample rows from the table. Scanning all the records can take a long time when the table is not a high throughput table. A value of @true@ means to scan all records, while a value of @false@ means to sample the records. If no value is specified, the value defaults to @true@ .
-mdtScanAll :: Lens' MongoDBTarget (Maybe Bool)
-mdtScanAll = lens _mdtScanAll (\s a -> s {_mdtScanAll = a})
+-- | Indicates whether to scan all the records, or to sample rows from the
+-- table. Scanning all the records can take a long time when the table is
+-- not a high throughput table.
+--
+-- A value of @true@ means to scan all records, while a value of @false@
+-- means to sample the records. If no value is specified, the value
+-- defaults to @true@.
+mongoDBTarget_scanAll :: Lens.Lens' MongoDBTarget (Prelude.Maybe Prelude.Bool)
+mongoDBTarget_scanAll = Lens.lens (\MongoDBTarget' {scanAll} -> scanAll) (\s@MongoDBTarget' {} a -> s {scanAll = a} :: MongoDBTarget)
 
--- | The path of the Amazon DocumentDB or MongoDB target (database/collection).
-mdtPath :: Lens' MongoDBTarget (Maybe Text)
-mdtPath = lens _mdtPath (\s a -> s {_mdtPath = a})
+-- | The path of the Amazon DocumentDB or MongoDB target
+-- (database\/collection).
+mongoDBTarget_path :: Lens.Lens' MongoDBTarget (Prelude.Maybe Prelude.Text)
+mongoDBTarget_path = Lens.lens (\MongoDBTarget' {path} -> path) (\s@MongoDBTarget' {} a -> s {path = a} :: MongoDBTarget)
 
-instance FromJSON MongoDBTarget where
+instance Prelude.FromJSON MongoDBTarget where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MongoDBTarget"
       ( \x ->
           MongoDBTarget'
-            <$> (x .:? "ConnectionName")
-            <*> (x .:? "ScanAll")
-            <*> (x .:? "Path")
+            Prelude.<$> (x Prelude..:? "ConnectionName")
+            Prelude.<*> (x Prelude..:? "ScanAll")
+            Prelude.<*> (x Prelude..:? "Path")
       )
 
-instance Hashable MongoDBTarget
+instance Prelude.Hashable MongoDBTarget
 
-instance NFData MongoDBTarget
+instance Prelude.NFData MongoDBTarget
 
-instance ToJSON MongoDBTarget where
+instance Prelude.ToJSON MongoDBTarget where
   toJSON MongoDBTarget' {..} =
-    object
-      ( catMaybes
-          [ ("ConnectionName" .=) <$> _mdtConnectionName,
-            ("ScanAll" .=) <$> _mdtScanAll,
-            ("Path" .=) <$> _mdtPath
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ConnectionName" Prelude..=)
+              Prelude.<$> connectionName,
+            ("ScanAll" Prelude..=) Prelude.<$> scanAll,
+            ("Path" Prelude..=) Prelude.<$> path
           ]
       )

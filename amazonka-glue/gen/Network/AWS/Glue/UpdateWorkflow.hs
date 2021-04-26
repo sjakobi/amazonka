@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,162 +24,186 @@
 -- Updates an existing workflow.
 module Network.AWS.Glue.UpdateWorkflow
   ( -- * Creating a Request
-    updateWorkflow,
-    UpdateWorkflow,
+    UpdateWorkflow (..),
+    newUpdateWorkflow,
 
     -- * Request Lenses
-    uwDefaultRunProperties,
-    uwMaxConcurrentRuns,
-    uwDescription,
-    uwName,
+    updateWorkflow_defaultRunProperties,
+    updateWorkflow_maxConcurrentRuns,
+    updateWorkflow_description,
+    updateWorkflow_name,
 
     -- * Destructuring the Response
-    updateWorkflowResponse,
-    UpdateWorkflowResponse,
+    UpdateWorkflowResponse (..),
+    newUpdateWorkflowResponse,
 
     -- * Response Lenses
-    uwrrsName,
-    uwrrsResponseStatus,
+    updateWorkflowResponse_name,
+    updateWorkflowResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateWorkflow' smart constructor.
+-- | /See:/ 'newUpdateWorkflow' smart constructor.
 data UpdateWorkflow = UpdateWorkflow'
-  { _uwDefaultRunProperties ::
-      !(Maybe (Map Text Text)),
-    _uwMaxConcurrentRuns :: !(Maybe Int),
-    _uwDescription :: !(Maybe Text),
-    _uwName :: !Text
+  { -- | A collection of properties to be used as part of each execution of the
+    -- workflow.
+    defaultRunProperties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | You can use this parameter to prevent unwanted multiple updates to data,
+    -- to control costs, or in some cases, to prevent exceeding the maximum
+    -- number of concurrent runs of any of the component jobs. If you leave
+    -- this parameter blank, there is no limit to the number of concurrent
+    -- workflow runs.
+    maxConcurrentRuns :: Prelude.Maybe Prelude.Int,
+    -- | The description of the workflow.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Name of the workflow to be updated.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateWorkflow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateWorkflow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uwDefaultRunProperties' - A collection of properties to be used as part of each execution of the workflow.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uwMaxConcurrentRuns' - You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter blank, there is no limit to the number of concurrent workflow runs.
+-- 'defaultRunProperties', 'updateWorkflow_defaultRunProperties' - A collection of properties to be used as part of each execution of the
+-- workflow.
 --
--- * 'uwDescription' - The description of the workflow.
+-- 'maxConcurrentRuns', 'updateWorkflow_maxConcurrentRuns' - You can use this parameter to prevent unwanted multiple updates to data,
+-- to control costs, or in some cases, to prevent exceeding the maximum
+-- number of concurrent runs of any of the component jobs. If you leave
+-- this parameter blank, there is no limit to the number of concurrent
+-- workflow runs.
 --
--- * 'uwName' - Name of the workflow to be updated.
-updateWorkflow ::
-  -- | 'uwName'
-  Text ->
+-- 'description', 'updateWorkflow_description' - The description of the workflow.
+--
+-- 'name', 'updateWorkflow_name' - Name of the workflow to be updated.
+newUpdateWorkflow ::
+  -- | 'name'
+  Prelude.Text ->
   UpdateWorkflow
-updateWorkflow pName_ =
+newUpdateWorkflow pName_ =
   UpdateWorkflow'
-    { _uwDefaultRunProperties = Nothing,
-      _uwMaxConcurrentRuns = Nothing,
-      _uwDescription = Nothing,
-      _uwName = pName_
+    { defaultRunProperties =
+        Prelude.Nothing,
+      maxConcurrentRuns = Prelude.Nothing,
+      description = Prelude.Nothing,
+      name = pName_
     }
 
--- | A collection of properties to be used as part of each execution of the workflow.
-uwDefaultRunProperties :: Lens' UpdateWorkflow (HashMap Text Text)
-uwDefaultRunProperties = lens _uwDefaultRunProperties (\s a -> s {_uwDefaultRunProperties = a}) . _Default . _Map
+-- | A collection of properties to be used as part of each execution of the
+-- workflow.
+updateWorkflow_defaultRunProperties :: Lens.Lens' UpdateWorkflow (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateWorkflow_defaultRunProperties = Lens.lens (\UpdateWorkflow' {defaultRunProperties} -> defaultRunProperties) (\s@UpdateWorkflow' {} a -> s {defaultRunProperties = a} :: UpdateWorkflow) Prelude.. Lens.mapping Prelude._Map
 
--- | You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter blank, there is no limit to the number of concurrent workflow runs.
-uwMaxConcurrentRuns :: Lens' UpdateWorkflow (Maybe Int)
-uwMaxConcurrentRuns = lens _uwMaxConcurrentRuns (\s a -> s {_uwMaxConcurrentRuns = a})
+-- | You can use this parameter to prevent unwanted multiple updates to data,
+-- to control costs, or in some cases, to prevent exceeding the maximum
+-- number of concurrent runs of any of the component jobs. If you leave
+-- this parameter blank, there is no limit to the number of concurrent
+-- workflow runs.
+updateWorkflow_maxConcurrentRuns :: Lens.Lens' UpdateWorkflow (Prelude.Maybe Prelude.Int)
+updateWorkflow_maxConcurrentRuns = Lens.lens (\UpdateWorkflow' {maxConcurrentRuns} -> maxConcurrentRuns) (\s@UpdateWorkflow' {} a -> s {maxConcurrentRuns = a} :: UpdateWorkflow)
 
 -- | The description of the workflow.
-uwDescription :: Lens' UpdateWorkflow (Maybe Text)
-uwDescription = lens _uwDescription (\s a -> s {_uwDescription = a})
+updateWorkflow_description :: Lens.Lens' UpdateWorkflow (Prelude.Maybe Prelude.Text)
+updateWorkflow_description = Lens.lens (\UpdateWorkflow' {description} -> description) (\s@UpdateWorkflow' {} a -> s {description = a} :: UpdateWorkflow)
 
 -- | Name of the workflow to be updated.
-uwName :: Lens' UpdateWorkflow Text
-uwName = lens _uwName (\s a -> s {_uwName = a})
+updateWorkflow_name :: Lens.Lens' UpdateWorkflow Prelude.Text
+updateWorkflow_name = Lens.lens (\UpdateWorkflow' {name} -> name) (\s@UpdateWorkflow' {} a -> s {name = a} :: UpdateWorkflow)
 
-instance AWSRequest UpdateWorkflow where
+instance Prelude.AWSRequest UpdateWorkflow where
   type Rs UpdateWorkflow = UpdateWorkflowResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateWorkflowResponse'
-            <$> (x .?> "Name") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateWorkflow
+instance Prelude.Hashable UpdateWorkflow
 
-instance NFData UpdateWorkflow
+instance Prelude.NFData UpdateWorkflow
 
-instance ToHeaders UpdateWorkflow where
+instance Prelude.ToHeaders UpdateWorkflow where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.UpdateWorkflow" :: ByteString),
+              Prelude.=# ("AWSGlue.UpdateWorkflow" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateWorkflow where
+instance Prelude.ToJSON UpdateWorkflow where
   toJSON UpdateWorkflow' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultRunProperties" .=)
-              <$> _uwDefaultRunProperties,
-            ("MaxConcurrentRuns" .=) <$> _uwMaxConcurrentRuns,
-            ("Description" .=) <$> _uwDescription,
-            Just ("Name" .= _uwName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultRunProperties" Prelude..=)
+              Prelude.<$> defaultRunProperties,
+            ("MaxConcurrentRuns" Prelude..=)
+              Prelude.<$> maxConcurrentRuns,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath UpdateWorkflow where
-  toPath = const "/"
+instance Prelude.ToPath UpdateWorkflow where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateWorkflow where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateWorkflow where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateWorkflowResponse' smart constructor.
+-- | /See:/ 'newUpdateWorkflowResponse' smart constructor.
 data UpdateWorkflowResponse = UpdateWorkflowResponse'
-  { _uwrrsName ::
-      !(Maybe Text),
-    _uwrrsResponseStatus ::
-      !Int
+  { -- | The name of the workflow which was specified in input.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateWorkflowResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateWorkflowResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uwrrsName' - The name of the workflow which was specified in input.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uwrrsResponseStatus' - -- | The response status code.
-updateWorkflowResponse ::
-  -- | 'uwrrsResponseStatus'
-  Int ->
+-- 'name', 'updateWorkflowResponse_name' - The name of the workflow which was specified in input.
+--
+-- 'httpStatus', 'updateWorkflowResponse_httpStatus' - The response's http status code.
+newUpdateWorkflowResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateWorkflowResponse
-updateWorkflowResponse pResponseStatus_ =
+newUpdateWorkflowResponse pHttpStatus_ =
   UpdateWorkflowResponse'
-    { _uwrrsName = Nothing,
-      _uwrrsResponseStatus = pResponseStatus_
+    { name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the workflow which was specified in input.
-uwrrsName :: Lens' UpdateWorkflowResponse (Maybe Text)
-uwrrsName = lens _uwrrsName (\s a -> s {_uwrrsName = a})
+updateWorkflowResponse_name :: Lens.Lens' UpdateWorkflowResponse (Prelude.Maybe Prelude.Text)
+updateWorkflowResponse_name = Lens.lens (\UpdateWorkflowResponse' {name} -> name) (\s@UpdateWorkflowResponse' {} a -> s {name = a} :: UpdateWorkflowResponse)
 
--- | -- | The response status code.
-uwrrsResponseStatus :: Lens' UpdateWorkflowResponse Int
-uwrrsResponseStatus = lens _uwrrsResponseStatus (\s a -> s {_uwrrsResponseStatus = a})
+-- | The response's http status code.
+updateWorkflowResponse_httpStatus :: Lens.Lens' UpdateWorkflowResponse Prelude.Int
+updateWorkflowResponse_httpStatus = Lens.lens (\UpdateWorkflowResponse' {httpStatus} -> httpStatus) (\s@UpdateWorkflowResponse' {} a -> s {httpStatus = a} :: UpdateWorkflowResponse)
 
-instance NFData UpdateWorkflowResponse
+instance Prelude.NFData UpdateWorkflowResponse

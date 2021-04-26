@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.Glue.Types.Comparator
   ( Comparator
       ( ..,
-        CEquals,
-        CGreaterThan,
-        CGreaterThanEquals,
-        CLessThan,
-        CLessThanEquals
+        ComparatorEQUALS,
+        ComparatorGREATERTHAN,
+        ComparatorGREATERTHANEQUALS,
+        ComparatorLESSTHAN,
+        ComparatorLESSTHANEQUALS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Comparator = Comparator' (CI Text)
+newtype Comparator = Comparator'
+  { fromComparator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CEquals :: Comparator
-pattern CEquals = Comparator' "EQUALS"
+pattern ComparatorEQUALS :: Comparator
+pattern ComparatorEQUALS = Comparator' "EQUALS"
 
-pattern CGreaterThan :: Comparator
-pattern CGreaterThan = Comparator' "GREATER_THAN"
+pattern ComparatorGREATERTHAN :: Comparator
+pattern ComparatorGREATERTHAN = Comparator' "GREATER_THAN"
 
-pattern CGreaterThanEquals :: Comparator
-pattern CGreaterThanEquals = Comparator' "GREATER_THAN_EQUALS"
+pattern ComparatorGREATERTHANEQUALS :: Comparator
+pattern ComparatorGREATERTHANEQUALS = Comparator' "GREATER_THAN_EQUALS"
 
-pattern CLessThan :: Comparator
-pattern CLessThan = Comparator' "LESS_THAN"
+pattern ComparatorLESSTHAN :: Comparator
+pattern ComparatorLESSTHAN = Comparator' "LESS_THAN"
 
-pattern CLessThanEquals :: Comparator
-pattern CLessThanEquals = Comparator' "LESS_THAN_EQUALS"
+pattern ComparatorLESSTHANEQUALS :: Comparator
+pattern ComparatorLESSTHANEQUALS = Comparator' "LESS_THAN_EQUALS"
 
 {-# COMPLETE
-  CEquals,
-  CGreaterThan,
-  CGreaterThanEquals,
-  CLessThan,
-  CLessThanEquals,
+  ComparatorEQUALS,
+  ComparatorGREATERTHAN,
+  ComparatorGREATERTHANEQUALS,
+  ComparatorLESSTHAN,
+  ComparatorLESSTHANEQUALS,
   Comparator'
   #-}
 
-instance FromText Comparator where
-  parser = (Comparator' . mk) <$> takeText
+instance Prelude.FromText Comparator where
+  parser = Comparator' Prelude.<$> Prelude.takeText
 
-instance ToText Comparator where
-  toText (Comparator' ci) = original ci
+instance Prelude.ToText Comparator where
+  toText (Comparator' x) = x
 
-instance Hashable Comparator
+instance Prelude.Hashable Comparator
 
-instance NFData Comparator
+instance Prelude.NFData Comparator
 
-instance ToByteString Comparator
+instance Prelude.ToByteString Comparator
 
-instance ToQuery Comparator
+instance Prelude.ToQuery Comparator
 
-instance ToHeader Comparator
+instance Prelude.ToHeader Comparator
 
-instance ToJSON Comparator where
-  toJSON = toJSONText
+instance Prelude.ToJSON Comparator where
+  toJSON = Prelude.toJSONText

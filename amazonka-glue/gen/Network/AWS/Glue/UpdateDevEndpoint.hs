@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,197 +24,256 @@
 -- Updates a specified development endpoint.
 module Network.AWS.Glue.UpdateDevEndpoint
   ( -- * Creating a Request
-    updateDevEndpoint,
-    UpdateDevEndpoint,
+    UpdateDevEndpoint (..),
+    newUpdateDevEndpoint,
 
     -- * Request Lenses
-    udePublicKey,
-    udeUpdateEtlLibraries,
-    udeAddPublicKeys,
-    udeDeletePublicKeys,
-    udeAddArguments,
-    udeDeleteArguments,
-    udeCustomLibraries,
-    udeEndpointName,
+    updateDevEndpoint_publicKey,
+    updateDevEndpoint_updateEtlLibraries,
+    updateDevEndpoint_addPublicKeys,
+    updateDevEndpoint_deletePublicKeys,
+    updateDevEndpoint_addArguments,
+    updateDevEndpoint_deleteArguments,
+    updateDevEndpoint_customLibraries,
+    updateDevEndpoint_endpointName,
 
     -- * Destructuring the Response
-    updateDevEndpointResponse,
-    UpdateDevEndpointResponse,
+    UpdateDevEndpointResponse (..),
+    newUpdateDevEndpointResponse,
 
     -- * Response Lenses
-    uderrsResponseStatus,
+    updateDevEndpointResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateDevEndpoint' smart constructor.
+-- | /See:/ 'newUpdateDevEndpoint' smart constructor.
 data UpdateDevEndpoint = UpdateDevEndpoint'
-  { _udePublicKey ::
-      !(Maybe Text),
-    _udeUpdateEtlLibraries ::
-      !(Maybe Bool),
-    _udeAddPublicKeys ::
-      !(Maybe [Text]),
-    _udeDeletePublicKeys ::
-      !(Maybe [Text]),
-    _udeAddArguments ::
-      !(Maybe (Map Text Text)),
-    _udeDeleteArguments ::
-      !(Maybe [Text]),
-    _udeCustomLibraries ::
-      !(Maybe DevEndpointCustomLibraries),
-    _udeEndpointName :: !Text
+  { -- | The public key for the @DevEndpoint@ to use.
+    publicKey :: Prelude.Maybe Prelude.Text,
+    -- | @True@ if the list of custom libraries to be loaded in the development
+    -- endpoint needs to be updated, or @False@ if otherwise.
+    updateEtlLibraries :: Prelude.Maybe Prelude.Bool,
+    -- | The list of public keys for the @DevEndpoint@ to use.
+    addPublicKeys :: Prelude.Maybe [Prelude.Text],
+    -- | The list of public keys to be deleted from the @DevEndpoint@.
+    deletePublicKeys :: Prelude.Maybe [Prelude.Text],
+    -- | The map of arguments to add the map of arguments used to configure the
+    -- @DevEndpoint@.
+    --
+    -- Valid arguments are:
+    --
+    -- -   @\"--enable-glue-datacatalog\": \"\"@
+    --
+    -- -   @\"GLUE_PYTHON_VERSION\": \"3\"@
+    --
+    -- -   @\"GLUE_PYTHON_VERSION\": \"2\"@
+    --
+    -- You can specify a version of Python support for development endpoints by
+    -- using the @Arguments@ parameter in the @CreateDevEndpoint@ or
+    -- @UpdateDevEndpoint@ APIs. If no arguments are provided, the version
+    -- defaults to Python 2.
+    addArguments :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The list of argument keys to be deleted from the map of arguments used
+    -- to configure the @DevEndpoint@.
+    deleteArguments :: Prelude.Maybe [Prelude.Text],
+    -- | Custom Python or Java libraries to be loaded in the @DevEndpoint@.
+    customLibraries :: Prelude.Maybe DevEndpointCustomLibraries,
+    -- | The name of the @DevEndpoint@ to be updated.
+    endpointName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDevEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDevEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udePublicKey' - The public key for the @DevEndpoint@ to use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udeUpdateEtlLibraries' - @True@ if the list of custom libraries to be loaded in the development endpoint needs to be updated, or @False@ if otherwise.
+-- 'publicKey', 'updateDevEndpoint_publicKey' - The public key for the @DevEndpoint@ to use.
 --
--- * 'udeAddPublicKeys' - The list of public keys for the @DevEndpoint@ to use.
+-- 'updateEtlLibraries', 'updateDevEndpoint_updateEtlLibraries' - @True@ if the list of custom libraries to be loaded in the development
+-- endpoint needs to be updated, or @False@ if otherwise.
 --
--- * 'udeDeletePublicKeys' - The list of public keys to be deleted from the @DevEndpoint@ .
+-- 'addPublicKeys', 'updateDevEndpoint_addPublicKeys' - The list of public keys for the @DevEndpoint@ to use.
 --
--- * 'udeAddArguments' - The map of arguments to add the map of arguments used to configure the @DevEndpoint@ . Valid arguments are:     * @"--enable-glue-datacatalog": ""@      * @"GLUE_PYTHON_VERSION": "3"@      * @"GLUE_PYTHON_VERSION": "2"@  You can specify a version of Python support for development endpoints by using the @Arguments@ parameter in the @CreateDevEndpoint@ or @UpdateDevEndpoint@ APIs. If no arguments are provided, the version defaults to Python 2.
+-- 'deletePublicKeys', 'updateDevEndpoint_deletePublicKeys' - The list of public keys to be deleted from the @DevEndpoint@.
 --
--- * 'udeDeleteArguments' - The list of argument keys to be deleted from the map of arguments used to configure the @DevEndpoint@ .
+-- 'addArguments', 'updateDevEndpoint_addArguments' - The map of arguments to add the map of arguments used to configure the
+-- @DevEndpoint@.
 --
--- * 'udeCustomLibraries' - Custom Python or Java libraries to be loaded in the @DevEndpoint@ .
+-- Valid arguments are:
 --
--- * 'udeEndpointName' - The name of the @DevEndpoint@ to be updated.
-updateDevEndpoint ::
-  -- | 'udeEndpointName'
-  Text ->
+-- -   @\"--enable-glue-datacatalog\": \"\"@
+--
+-- -   @\"GLUE_PYTHON_VERSION\": \"3\"@
+--
+-- -   @\"GLUE_PYTHON_VERSION\": \"2\"@
+--
+-- You can specify a version of Python support for development endpoints by
+-- using the @Arguments@ parameter in the @CreateDevEndpoint@ or
+-- @UpdateDevEndpoint@ APIs. If no arguments are provided, the version
+-- defaults to Python 2.
+--
+-- 'deleteArguments', 'updateDevEndpoint_deleteArguments' - The list of argument keys to be deleted from the map of arguments used
+-- to configure the @DevEndpoint@.
+--
+-- 'customLibraries', 'updateDevEndpoint_customLibraries' - Custom Python or Java libraries to be loaded in the @DevEndpoint@.
+--
+-- 'endpointName', 'updateDevEndpoint_endpointName' - The name of the @DevEndpoint@ to be updated.
+newUpdateDevEndpoint ::
+  -- | 'endpointName'
+  Prelude.Text ->
   UpdateDevEndpoint
-updateDevEndpoint pEndpointName_ =
+newUpdateDevEndpoint pEndpointName_ =
   UpdateDevEndpoint'
-    { _udePublicKey = Nothing,
-      _udeUpdateEtlLibraries = Nothing,
-      _udeAddPublicKeys = Nothing,
-      _udeDeletePublicKeys = Nothing,
-      _udeAddArguments = Nothing,
-      _udeDeleteArguments = Nothing,
-      _udeCustomLibraries = Nothing,
-      _udeEndpointName = pEndpointName_
+    { publicKey = Prelude.Nothing,
+      updateEtlLibraries = Prelude.Nothing,
+      addPublicKeys = Prelude.Nothing,
+      deletePublicKeys = Prelude.Nothing,
+      addArguments = Prelude.Nothing,
+      deleteArguments = Prelude.Nothing,
+      customLibraries = Prelude.Nothing,
+      endpointName = pEndpointName_
     }
 
 -- | The public key for the @DevEndpoint@ to use.
-udePublicKey :: Lens' UpdateDevEndpoint (Maybe Text)
-udePublicKey = lens _udePublicKey (\s a -> s {_udePublicKey = a})
+updateDevEndpoint_publicKey :: Lens.Lens' UpdateDevEndpoint (Prelude.Maybe Prelude.Text)
+updateDevEndpoint_publicKey = Lens.lens (\UpdateDevEndpoint' {publicKey} -> publicKey) (\s@UpdateDevEndpoint' {} a -> s {publicKey = a} :: UpdateDevEndpoint)
 
--- | @True@ if the list of custom libraries to be loaded in the development endpoint needs to be updated, or @False@ if otherwise.
-udeUpdateEtlLibraries :: Lens' UpdateDevEndpoint (Maybe Bool)
-udeUpdateEtlLibraries = lens _udeUpdateEtlLibraries (\s a -> s {_udeUpdateEtlLibraries = a})
+-- | @True@ if the list of custom libraries to be loaded in the development
+-- endpoint needs to be updated, or @False@ if otherwise.
+updateDevEndpoint_updateEtlLibraries :: Lens.Lens' UpdateDevEndpoint (Prelude.Maybe Prelude.Bool)
+updateDevEndpoint_updateEtlLibraries = Lens.lens (\UpdateDevEndpoint' {updateEtlLibraries} -> updateEtlLibraries) (\s@UpdateDevEndpoint' {} a -> s {updateEtlLibraries = a} :: UpdateDevEndpoint)
 
 -- | The list of public keys for the @DevEndpoint@ to use.
-udeAddPublicKeys :: Lens' UpdateDevEndpoint [Text]
-udeAddPublicKeys = lens _udeAddPublicKeys (\s a -> s {_udeAddPublicKeys = a}) . _Default . _Coerce
+updateDevEndpoint_addPublicKeys :: Lens.Lens' UpdateDevEndpoint (Prelude.Maybe [Prelude.Text])
+updateDevEndpoint_addPublicKeys = Lens.lens (\UpdateDevEndpoint' {addPublicKeys} -> addPublicKeys) (\s@UpdateDevEndpoint' {} a -> s {addPublicKeys = a} :: UpdateDevEndpoint) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The list of public keys to be deleted from the @DevEndpoint@ .
-udeDeletePublicKeys :: Lens' UpdateDevEndpoint [Text]
-udeDeletePublicKeys = lens _udeDeletePublicKeys (\s a -> s {_udeDeletePublicKeys = a}) . _Default . _Coerce
+-- | The list of public keys to be deleted from the @DevEndpoint@.
+updateDevEndpoint_deletePublicKeys :: Lens.Lens' UpdateDevEndpoint (Prelude.Maybe [Prelude.Text])
+updateDevEndpoint_deletePublicKeys = Lens.lens (\UpdateDevEndpoint' {deletePublicKeys} -> deletePublicKeys) (\s@UpdateDevEndpoint' {} a -> s {deletePublicKeys = a} :: UpdateDevEndpoint) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The map of arguments to add the map of arguments used to configure the @DevEndpoint@ . Valid arguments are:     * @"--enable-glue-datacatalog": ""@      * @"GLUE_PYTHON_VERSION": "3"@      * @"GLUE_PYTHON_VERSION": "2"@  You can specify a version of Python support for development endpoints by using the @Arguments@ parameter in the @CreateDevEndpoint@ or @UpdateDevEndpoint@ APIs. If no arguments are provided, the version defaults to Python 2.
-udeAddArguments :: Lens' UpdateDevEndpoint (HashMap Text Text)
-udeAddArguments = lens _udeAddArguments (\s a -> s {_udeAddArguments = a}) . _Default . _Map
+-- | The map of arguments to add the map of arguments used to configure the
+-- @DevEndpoint@.
+--
+-- Valid arguments are:
+--
+-- -   @\"--enable-glue-datacatalog\": \"\"@
+--
+-- -   @\"GLUE_PYTHON_VERSION\": \"3\"@
+--
+-- -   @\"GLUE_PYTHON_VERSION\": \"2\"@
+--
+-- You can specify a version of Python support for development endpoints by
+-- using the @Arguments@ parameter in the @CreateDevEndpoint@ or
+-- @UpdateDevEndpoint@ APIs. If no arguments are provided, the version
+-- defaults to Python 2.
+updateDevEndpoint_addArguments :: Lens.Lens' UpdateDevEndpoint (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateDevEndpoint_addArguments = Lens.lens (\UpdateDevEndpoint' {addArguments} -> addArguments) (\s@UpdateDevEndpoint' {} a -> s {addArguments = a} :: UpdateDevEndpoint) Prelude.. Lens.mapping Prelude._Map
 
--- | The list of argument keys to be deleted from the map of arguments used to configure the @DevEndpoint@ .
-udeDeleteArguments :: Lens' UpdateDevEndpoint [Text]
-udeDeleteArguments = lens _udeDeleteArguments (\s a -> s {_udeDeleteArguments = a}) . _Default . _Coerce
+-- | The list of argument keys to be deleted from the map of arguments used
+-- to configure the @DevEndpoint@.
+updateDevEndpoint_deleteArguments :: Lens.Lens' UpdateDevEndpoint (Prelude.Maybe [Prelude.Text])
+updateDevEndpoint_deleteArguments = Lens.lens (\UpdateDevEndpoint' {deleteArguments} -> deleteArguments) (\s@UpdateDevEndpoint' {} a -> s {deleteArguments = a} :: UpdateDevEndpoint) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Custom Python or Java libraries to be loaded in the @DevEndpoint@ .
-udeCustomLibraries :: Lens' UpdateDevEndpoint (Maybe DevEndpointCustomLibraries)
-udeCustomLibraries = lens _udeCustomLibraries (\s a -> s {_udeCustomLibraries = a})
+-- | Custom Python or Java libraries to be loaded in the @DevEndpoint@.
+updateDevEndpoint_customLibraries :: Lens.Lens' UpdateDevEndpoint (Prelude.Maybe DevEndpointCustomLibraries)
+updateDevEndpoint_customLibraries = Lens.lens (\UpdateDevEndpoint' {customLibraries} -> customLibraries) (\s@UpdateDevEndpoint' {} a -> s {customLibraries = a} :: UpdateDevEndpoint)
 
 -- | The name of the @DevEndpoint@ to be updated.
-udeEndpointName :: Lens' UpdateDevEndpoint Text
-udeEndpointName = lens _udeEndpointName (\s a -> s {_udeEndpointName = a})
+updateDevEndpoint_endpointName :: Lens.Lens' UpdateDevEndpoint Prelude.Text
+updateDevEndpoint_endpointName = Lens.lens (\UpdateDevEndpoint' {endpointName} -> endpointName) (\s@UpdateDevEndpoint' {} a -> s {endpointName = a} :: UpdateDevEndpoint)
 
-instance AWSRequest UpdateDevEndpoint where
+instance Prelude.AWSRequest UpdateDevEndpoint where
   type Rs UpdateDevEndpoint = UpdateDevEndpointResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateDevEndpointResponse' <$> (pure (fromEnum s))
+          UpdateDevEndpointResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDevEndpoint
+instance Prelude.Hashable UpdateDevEndpoint
 
-instance NFData UpdateDevEndpoint
+instance Prelude.NFData UpdateDevEndpoint
 
-instance ToHeaders UpdateDevEndpoint where
+instance Prelude.ToHeaders UpdateDevEndpoint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.UpdateDevEndpoint" :: ByteString),
+              Prelude.=# ("AWSGlue.UpdateDevEndpoint" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateDevEndpoint where
+instance Prelude.ToJSON UpdateDevEndpoint where
   toJSON UpdateDevEndpoint' {..} =
-    object
-      ( catMaybes
-          [ ("PublicKey" .=) <$> _udePublicKey,
-            ("UpdateEtlLibraries" .=) <$> _udeUpdateEtlLibraries,
-            ("AddPublicKeys" .=) <$> _udeAddPublicKeys,
-            ("DeletePublicKeys" .=) <$> _udeDeletePublicKeys,
-            ("AddArguments" .=) <$> _udeAddArguments,
-            ("DeleteArguments" .=) <$> _udeDeleteArguments,
-            ("CustomLibraries" .=) <$> _udeCustomLibraries,
-            Just ("EndpointName" .= _udeEndpointName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PublicKey" Prelude..=) Prelude.<$> publicKey,
+            ("UpdateEtlLibraries" Prelude..=)
+              Prelude.<$> updateEtlLibraries,
+            ("AddPublicKeys" Prelude..=)
+              Prelude.<$> addPublicKeys,
+            ("DeletePublicKeys" Prelude..=)
+              Prelude.<$> deletePublicKeys,
+            ("AddArguments" Prelude..=) Prelude.<$> addArguments,
+            ("DeleteArguments" Prelude..=)
+              Prelude.<$> deleteArguments,
+            ("CustomLibraries" Prelude..=)
+              Prelude.<$> customLibraries,
+            Prelude.Just
+              ("EndpointName" Prelude..= endpointName)
           ]
       )
 
-instance ToPath UpdateDevEndpoint where
-  toPath = const "/"
+instance Prelude.ToPath UpdateDevEndpoint where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateDevEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDevEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDevEndpointResponse' smart constructor.
-newtype UpdateDevEndpointResponse = UpdateDevEndpointResponse'
-  { _uderrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateDevEndpointResponse' smart constructor.
+data UpdateDevEndpointResponse = UpdateDevEndpointResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDevEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDevEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uderrsResponseStatus' - -- | The response status code.
-updateDevEndpointResponse ::
-  -- | 'uderrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateDevEndpointResponse_httpStatus' - The response's http status code.
+newUpdateDevEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDevEndpointResponse
-updateDevEndpointResponse pResponseStatus_ =
+newUpdateDevEndpointResponse pHttpStatus_ =
   UpdateDevEndpointResponse'
-    { _uderrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uderrsResponseStatus :: Lens' UpdateDevEndpointResponse Int
-uderrsResponseStatus = lens _uderrsResponseStatus (\s a -> s {_uderrsResponseStatus = a})
+-- | The response's http status code.
+updateDevEndpointResponse_httpStatus :: Lens.Lens' UpdateDevEndpointResponse Prelude.Int
+updateDevEndpointResponse_httpStatus = Lens.lens (\UpdateDevEndpointResponse' {httpStatus} -> httpStatus) (\s@UpdateDevEndpointResponse' {} a -> s {httpStatus = a} :: UpdateDevEndpointResponse)
 
-instance NFData UpdateDevEndpointResponse
+instance Prelude.NFData UpdateDevEndpointResponse

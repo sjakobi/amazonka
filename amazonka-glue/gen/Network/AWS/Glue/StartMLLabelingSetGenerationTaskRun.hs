@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,200 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts the active learning workflow for your machine learning transform to improve the transform's quality by generating label sets and adding labels.
+-- Starts the active learning workflow for your machine learning transform
+-- to improve the transform\'s quality by generating label sets and adding
+-- labels.
 --
+-- When the @StartMLLabelingSetGenerationTaskRun@ finishes, AWS Glue will
+-- have generated a \"labeling set\" or a set of questions for humans to
+-- answer.
 --
--- When the @StartMLLabelingSetGenerationTaskRun@ finishes, AWS Glue will have generated a "labeling set" or a set of questions for humans to answer.
+-- In the case of the @FindMatches@ transform, these questions are of the
+-- form, “What is the correct way to group these rows together into groups
+-- composed entirely of matching records?”
 --
--- In the case of the @FindMatches@ transform, these questions are of the form, “What is the correct way to group these rows together into groups composed entirely of matching records?”
---
--- After the labeling process is finished, you can upload your labels with a call to @StartImportLabelsTaskRun@ . After @StartImportLabelsTaskRun@ finishes, all future runs of the machine learning transform will use the new and improved labels and perform a higher-quality transformation.
+-- After the labeling process is finished, you can upload your labels with
+-- a call to @StartImportLabelsTaskRun@. After @StartImportLabelsTaskRun@
+-- finishes, all future runs of the machine learning transform will use the
+-- new and improved labels and perform a higher-quality transformation.
 module Network.AWS.Glue.StartMLLabelingSetGenerationTaskRun
   ( -- * Creating a Request
-    startMLLabelingSetGenerationTaskRun,
-    StartMLLabelingSetGenerationTaskRun,
+    StartMLLabelingSetGenerationTaskRun (..),
+    newStartMLLabelingSetGenerationTaskRun,
 
     -- * Request Lenses
-    smllsgtrTransformId,
-    smllsgtrOutputS3Path,
+    startMLLabelingSetGenerationTaskRun_transformId,
+    startMLLabelingSetGenerationTaskRun_outputS3Path,
 
     -- * Destructuring the Response
-    startMLLabelingSetGenerationTaskRunResponse,
-    StartMLLabelingSetGenerationTaskRunResponse,
+    StartMLLabelingSetGenerationTaskRunResponse (..),
+    newStartMLLabelingSetGenerationTaskRunResponse,
 
     -- * Response Lenses
-    smllsgtrrrsTaskRunId,
-    smllsgtrrrsResponseStatus,
+    startMLLabelingSetGenerationTaskRunResponse_taskRunId,
+    startMLLabelingSetGenerationTaskRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startMLLabelingSetGenerationTaskRun' smart constructor.
+-- | /See:/ 'newStartMLLabelingSetGenerationTaskRun' smart constructor.
 data StartMLLabelingSetGenerationTaskRun = StartMLLabelingSetGenerationTaskRun'
-  { _smllsgtrTransformId ::
-      !Text,
-    _smllsgtrOutputS3Path ::
-      !Text
+  { -- | The unique identifier of the machine learning transform.
+    transformId :: Prelude.Text,
+    -- | The Amazon Simple Storage Service (Amazon S3) path where you generate
+    -- the labeling set.
+    outputS3Path :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMLLabelingSetGenerationTaskRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMLLabelingSetGenerationTaskRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smllsgtrTransformId' - The unique identifier of the machine learning transform.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smllsgtrOutputS3Path' - The Amazon Simple Storage Service (Amazon S3) path where you generate the labeling set.
-startMLLabelingSetGenerationTaskRun ::
-  -- | 'smllsgtrTransformId'
-  Text ->
-  -- | 'smllsgtrOutputS3Path'
-  Text ->
+-- 'transformId', 'startMLLabelingSetGenerationTaskRun_transformId' - The unique identifier of the machine learning transform.
+--
+-- 'outputS3Path', 'startMLLabelingSetGenerationTaskRun_outputS3Path' - The Amazon Simple Storage Service (Amazon S3) path where you generate
+-- the labeling set.
+newStartMLLabelingSetGenerationTaskRun ::
+  -- | 'transformId'
+  Prelude.Text ->
+  -- | 'outputS3Path'
+  Prelude.Text ->
   StartMLLabelingSetGenerationTaskRun
-startMLLabelingSetGenerationTaskRun
+newStartMLLabelingSetGenerationTaskRun
   pTransformId_
   pOutputS3Path_ =
     StartMLLabelingSetGenerationTaskRun'
-      { _smllsgtrTransformId =
+      { transformId =
           pTransformId_,
-        _smllsgtrOutputS3Path = pOutputS3Path_
+        outputS3Path = pOutputS3Path_
       }
 
 -- | The unique identifier of the machine learning transform.
-smllsgtrTransformId :: Lens' StartMLLabelingSetGenerationTaskRun Text
-smllsgtrTransformId = lens _smllsgtrTransformId (\s a -> s {_smllsgtrTransformId = a})
+startMLLabelingSetGenerationTaskRun_transformId :: Lens.Lens' StartMLLabelingSetGenerationTaskRun Prelude.Text
+startMLLabelingSetGenerationTaskRun_transformId = Lens.lens (\StartMLLabelingSetGenerationTaskRun' {transformId} -> transformId) (\s@StartMLLabelingSetGenerationTaskRun' {} a -> s {transformId = a} :: StartMLLabelingSetGenerationTaskRun)
 
--- | The Amazon Simple Storage Service (Amazon S3) path where you generate the labeling set.
-smllsgtrOutputS3Path :: Lens' StartMLLabelingSetGenerationTaskRun Text
-smllsgtrOutputS3Path = lens _smllsgtrOutputS3Path (\s a -> s {_smllsgtrOutputS3Path = a})
+-- | The Amazon Simple Storage Service (Amazon S3) path where you generate
+-- the labeling set.
+startMLLabelingSetGenerationTaskRun_outputS3Path :: Lens.Lens' StartMLLabelingSetGenerationTaskRun Prelude.Text
+startMLLabelingSetGenerationTaskRun_outputS3Path = Lens.lens (\StartMLLabelingSetGenerationTaskRun' {outputS3Path} -> outputS3Path) (\s@StartMLLabelingSetGenerationTaskRun' {} a -> s {outputS3Path = a} :: StartMLLabelingSetGenerationTaskRun)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     StartMLLabelingSetGenerationTaskRun
   where
   type
     Rs StartMLLabelingSetGenerationTaskRun =
       StartMLLabelingSetGenerationTaskRunResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartMLLabelingSetGenerationTaskRunResponse'
-            <$> (x .?> "TaskRunId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TaskRunId")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartMLLabelingSetGenerationTaskRun
-
-instance NFData StartMLLabelingSetGenerationTaskRun
+instance
+  Prelude.Hashable
+    StartMLLabelingSetGenerationTaskRun
 
 instance
-  ToHeaders
+  Prelude.NFData
+    StartMLLabelingSetGenerationTaskRun
+
+instance
+  Prelude.ToHeaders
     StartMLLabelingSetGenerationTaskRun
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSGlue.StartMLLabelingSetGenerationTaskRun" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSGlue.StartMLLabelingSetGenerationTaskRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartMLLabelingSetGenerationTaskRun where
+instance
+  Prelude.ToJSON
+    StartMLLabelingSetGenerationTaskRun
+  where
   toJSON StartMLLabelingSetGenerationTaskRun' {..} =
-    object
-      ( catMaybes
-          [ Just ("TransformId" .= _smllsgtrTransformId),
-            Just ("OutputS3Path" .= _smllsgtrOutputS3Path)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TransformId" Prelude..= transformId),
+            Prelude.Just
+              ("OutputS3Path" Prelude..= outputS3Path)
           ]
       )
 
-instance ToPath StartMLLabelingSetGenerationTaskRun where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    StartMLLabelingSetGenerationTaskRun
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartMLLabelingSetGenerationTaskRun where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    StartMLLabelingSetGenerationTaskRun
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startMLLabelingSetGenerationTaskRunResponse' smart constructor.
+-- | /See:/ 'newStartMLLabelingSetGenerationTaskRunResponse' smart constructor.
 data StartMLLabelingSetGenerationTaskRunResponse = StartMLLabelingSetGenerationTaskRunResponse'
-  { _smllsgtrrrsTaskRunId ::
-      !( Maybe
-           Text
-       ),
-    _smllsgtrrrsResponseStatus ::
-      !Int
+  { -- | The unique run identifier that is associated with this task run.
+    taskRunId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMLLabelingSetGenerationTaskRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMLLabelingSetGenerationTaskRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smllsgtrrrsTaskRunId' - The unique run identifier that is associated with this task run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smllsgtrrrsResponseStatus' - -- | The response status code.
-startMLLabelingSetGenerationTaskRunResponse ::
-  -- | 'smllsgtrrrsResponseStatus'
-  Int ->
+-- 'taskRunId', 'startMLLabelingSetGenerationTaskRunResponse_taskRunId' - The unique run identifier that is associated with this task run.
+--
+-- 'httpStatus', 'startMLLabelingSetGenerationTaskRunResponse_httpStatus' - The response's http status code.
+newStartMLLabelingSetGenerationTaskRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartMLLabelingSetGenerationTaskRunResponse
-startMLLabelingSetGenerationTaskRunResponse
-  pResponseStatus_ =
+newStartMLLabelingSetGenerationTaskRunResponse
+  pHttpStatus_ =
     StartMLLabelingSetGenerationTaskRunResponse'
-      { _smllsgtrrrsTaskRunId =
-          Nothing,
-        _smllsgtrrrsResponseStatus =
-          pResponseStatus_
+      { taskRunId =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The unique run identifier that is associated with this task run.
-smllsgtrrrsTaskRunId :: Lens' StartMLLabelingSetGenerationTaskRunResponse (Maybe Text)
-smllsgtrrrsTaskRunId = lens _smllsgtrrrsTaskRunId (\s a -> s {_smllsgtrrrsTaskRunId = a})
+startMLLabelingSetGenerationTaskRunResponse_taskRunId :: Lens.Lens' StartMLLabelingSetGenerationTaskRunResponse (Prelude.Maybe Prelude.Text)
+startMLLabelingSetGenerationTaskRunResponse_taskRunId = Lens.lens (\StartMLLabelingSetGenerationTaskRunResponse' {taskRunId} -> taskRunId) (\s@StartMLLabelingSetGenerationTaskRunResponse' {} a -> s {taskRunId = a} :: StartMLLabelingSetGenerationTaskRunResponse)
 
--- | -- | The response status code.
-smllsgtrrrsResponseStatus :: Lens' StartMLLabelingSetGenerationTaskRunResponse Int
-smllsgtrrrsResponseStatus = lens _smllsgtrrrsResponseStatus (\s a -> s {_smllsgtrrrsResponseStatus = a})
+-- | The response's http status code.
+startMLLabelingSetGenerationTaskRunResponse_httpStatus :: Lens.Lens' StartMLLabelingSetGenerationTaskRunResponse Prelude.Int
+startMLLabelingSetGenerationTaskRunResponse_httpStatus = Lens.lens (\StartMLLabelingSetGenerationTaskRunResponse' {httpStatus} -> httpStatus) (\s@StartMLLabelingSetGenerationTaskRunResponse' {} a -> s {httpStatus = a} :: StartMLLabelingSetGenerationTaskRunResponse)
 
 instance
-  NFData
+  Prelude.NFData
     StartMLLabelingSetGenerationTaskRunResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an AWS Glue machine learning transform. Machine learning transforms are a special type of transform that use machine learning to learn the details of the transformation to be performed by learning from examples provided by humans. These transformations are then saved by AWS Glue. If you no longer need a transform, you can delete it by calling @DeleteMLTransforms@ . However, any AWS Glue jobs that still reference the deleted transform will no longer succeed.
+-- Deletes an AWS Glue machine learning transform. Machine learning
+-- transforms are a special type of transform that use machine learning to
+-- learn the details of the transformation to be performed by learning from
+-- examples provided by humans. These transformations are then saved by AWS
+-- Glue. If you no longer need a transform, you can delete it by calling
+-- @DeleteMLTransforms@. However, any AWS Glue jobs that still reference
+-- the deleted transform will no longer succeed.
 module Network.AWS.Glue.DeleteMLTransform
   ( -- * Creating a Request
-    deleteMLTransform,
-    DeleteMLTransform,
+    DeleteMLTransform (..),
+    newDeleteMLTransform,
 
     -- * Request Lenses
-    dmltTransformId,
+    deleteMLTransform_transformId,
 
     -- * Destructuring the Response
-    deleteMLTransformResponse,
-    DeleteMLTransformResponse,
+    DeleteMLTransformResponse (..),
+    newDeleteMLTransformResponse,
 
     -- * Response Lenses
-    dmltrrsTransformId,
-    dmltrrsResponseStatus,
+    deleteMLTransformResponse_transformId,
+    deleteMLTransformResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteMLTransform' smart constructor.
-newtype DeleteMLTransform = DeleteMLTransform'
-  { _dmltTransformId ::
-      Text
+-- | /See:/ 'newDeleteMLTransform' smart constructor.
+data DeleteMLTransform = DeleteMLTransform'
+  { -- | The unique identifier of the transform to delete.
+    transformId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMLTransform' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMLTransform' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmltTransformId' - The unique identifier of the transform to delete.
-deleteMLTransform ::
-  -- | 'dmltTransformId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'transformId', 'deleteMLTransform_transformId' - The unique identifier of the transform to delete.
+newDeleteMLTransform ::
+  -- | 'transformId'
+  Prelude.Text ->
   DeleteMLTransform
-deleteMLTransform pTransformId_ =
-  DeleteMLTransform'
-    { _dmltTransformId =
-        pTransformId_
-    }
+newDeleteMLTransform pTransformId_ =
+  DeleteMLTransform' {transformId = pTransformId_}
 
 -- | The unique identifier of the transform to delete.
-dmltTransformId :: Lens' DeleteMLTransform Text
-dmltTransformId = lens _dmltTransformId (\s a -> s {_dmltTransformId = a})
+deleteMLTransform_transformId :: Lens.Lens' DeleteMLTransform Prelude.Text
+deleteMLTransform_transformId = Lens.lens (\DeleteMLTransform' {transformId} -> transformId) (\s@DeleteMLTransform' {} a -> s {transformId = a} :: DeleteMLTransform)
 
-instance AWSRequest DeleteMLTransform where
+instance Prelude.AWSRequest DeleteMLTransform where
   type Rs DeleteMLTransform = DeleteMLTransformResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteMLTransformResponse'
-            <$> (x .?> "TransformId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TransformId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteMLTransform
+instance Prelude.Hashable DeleteMLTransform
 
-instance NFData DeleteMLTransform
+instance Prelude.NFData DeleteMLTransform
 
-instance ToHeaders DeleteMLTransform where
+instance Prelude.ToHeaders DeleteMLTransform where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.DeleteMLTransform" :: ByteString),
+              Prelude.=# ("AWSGlue.DeleteMLTransform" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteMLTransform where
+instance Prelude.ToJSON DeleteMLTransform where
   toJSON DeleteMLTransform' {..} =
-    object
-      ( catMaybes
-          [Just ("TransformId" .= _dmltTransformId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TransformId" Prelude..= transformId)
+          ]
       )
 
-instance ToPath DeleteMLTransform where
-  toPath = const "/"
+instance Prelude.ToPath DeleteMLTransform where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteMLTransform where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteMLTransform where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteMLTransformResponse' smart constructor.
+-- | /See:/ 'newDeleteMLTransformResponse' smart constructor.
 data DeleteMLTransformResponse = DeleteMLTransformResponse'
-  { _dmltrrsTransformId ::
-      !(Maybe Text),
-    _dmltrrsResponseStatus ::
-      !Int
+  { -- | The unique identifier of the transform that was deleted.
+    transformId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMLTransformResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMLTransformResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmltrrsTransformId' - The unique identifier of the transform that was deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmltrrsResponseStatus' - -- | The response status code.
-deleteMLTransformResponse ::
-  -- | 'dmltrrsResponseStatus'
-  Int ->
+-- 'transformId', 'deleteMLTransformResponse_transformId' - The unique identifier of the transform that was deleted.
+--
+-- 'httpStatus', 'deleteMLTransformResponse_httpStatus' - The response's http status code.
+newDeleteMLTransformResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteMLTransformResponse
-deleteMLTransformResponse pResponseStatus_ =
+newDeleteMLTransformResponse pHttpStatus_ =
   DeleteMLTransformResponse'
-    { _dmltrrsTransformId =
-        Nothing,
-      _dmltrrsResponseStatus = pResponseStatus_
+    { transformId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique identifier of the transform that was deleted.
-dmltrrsTransformId :: Lens' DeleteMLTransformResponse (Maybe Text)
-dmltrrsTransformId = lens _dmltrrsTransformId (\s a -> s {_dmltrrsTransformId = a})
+deleteMLTransformResponse_transformId :: Lens.Lens' DeleteMLTransformResponse (Prelude.Maybe Prelude.Text)
+deleteMLTransformResponse_transformId = Lens.lens (\DeleteMLTransformResponse' {transformId} -> transformId) (\s@DeleteMLTransformResponse' {} a -> s {transformId = a} :: DeleteMLTransformResponse)
 
--- | -- | The response status code.
-dmltrrsResponseStatus :: Lens' DeleteMLTransformResponse Int
-dmltrrsResponseStatus = lens _dmltrrsResponseStatus (\s a -> s {_dmltrrsResponseStatus = a})
+-- | The response's http status code.
+deleteMLTransformResponse_httpStatus :: Lens.Lens' DeleteMLTransformResponse Prelude.Int
+deleteMLTransformResponse_httpStatus = Lens.lens (\DeleteMLTransformResponse' {httpStatus} -> httpStatus) (\s@DeleteMLTransformResponse' {} a -> s {httpStatus = a} :: DeleteMLTransformResponse)
 
-instance NFData DeleteMLTransformResponse
+instance Prelude.NFData DeleteMLTransformResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,150 +23,152 @@
 --
 -- Starts a task to estimate the quality of the transform.
 --
+-- When you provide label sets as examples of truth, AWS Glue machine
+-- learning uses some of those examples to learn from them. The rest of the
+-- labels are used as a test to estimate quality.
 --
--- When you provide label sets as examples of truth, AWS Glue machine learning uses some of those examples to learn from them. The rest of the labels are used as a test to estimate quality.
---
--- Returns a unique identifier for the run. You can call @GetMLTaskRun@ to get more information about the stats of the @EvaluationTaskRun@ .
+-- Returns a unique identifier for the run. You can call @GetMLTaskRun@ to
+-- get more information about the stats of the @EvaluationTaskRun@.
 module Network.AWS.Glue.StartMLEvaluationTaskRun
   ( -- * Creating a Request
-    startMLEvaluationTaskRun,
-    StartMLEvaluationTaskRun,
+    StartMLEvaluationTaskRun (..),
+    newStartMLEvaluationTaskRun,
 
     -- * Request Lenses
-    smletrTransformId,
+    startMLEvaluationTaskRun_transformId,
 
     -- * Destructuring the Response
-    startMLEvaluationTaskRunResponse,
-    StartMLEvaluationTaskRunResponse,
+    StartMLEvaluationTaskRunResponse (..),
+    newStartMLEvaluationTaskRunResponse,
 
     -- * Response Lenses
-    smletrrrsTaskRunId,
-    smletrrrsResponseStatus,
+    startMLEvaluationTaskRunResponse_taskRunId,
+    startMLEvaluationTaskRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startMLEvaluationTaskRun' smart constructor.
-newtype StartMLEvaluationTaskRun = StartMLEvaluationTaskRun'
-  { _smletrTransformId ::
-      Text
+-- | /See:/ 'newStartMLEvaluationTaskRun' smart constructor.
+data StartMLEvaluationTaskRun = StartMLEvaluationTaskRun'
+  { -- | The unique identifier of the machine learning transform.
+    transformId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMLEvaluationTaskRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMLEvaluationTaskRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smletrTransformId' - The unique identifier of the machine learning transform.
-startMLEvaluationTaskRun ::
-  -- | 'smletrTransformId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'transformId', 'startMLEvaluationTaskRun_transformId' - The unique identifier of the machine learning transform.
+newStartMLEvaluationTaskRun ::
+  -- | 'transformId'
+  Prelude.Text ->
   StartMLEvaluationTaskRun
-startMLEvaluationTaskRun pTransformId_ =
+newStartMLEvaluationTaskRun pTransformId_ =
   StartMLEvaluationTaskRun'
-    { _smletrTransformId =
+    { transformId =
         pTransformId_
     }
 
 -- | The unique identifier of the machine learning transform.
-smletrTransformId :: Lens' StartMLEvaluationTaskRun Text
-smletrTransformId = lens _smletrTransformId (\s a -> s {_smletrTransformId = a})
+startMLEvaluationTaskRun_transformId :: Lens.Lens' StartMLEvaluationTaskRun Prelude.Text
+startMLEvaluationTaskRun_transformId = Lens.lens (\StartMLEvaluationTaskRun' {transformId} -> transformId) (\s@StartMLEvaluationTaskRun' {} a -> s {transformId = a} :: StartMLEvaluationTaskRun)
 
-instance AWSRequest StartMLEvaluationTaskRun where
+instance Prelude.AWSRequest StartMLEvaluationTaskRun where
   type
     Rs StartMLEvaluationTaskRun =
       StartMLEvaluationTaskRunResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartMLEvaluationTaskRunResponse'
-            <$> (x .?> "TaskRunId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TaskRunId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartMLEvaluationTaskRun
+instance Prelude.Hashable StartMLEvaluationTaskRun
 
-instance NFData StartMLEvaluationTaskRun
+instance Prelude.NFData StartMLEvaluationTaskRun
 
-instance ToHeaders StartMLEvaluationTaskRun where
+instance Prelude.ToHeaders StartMLEvaluationTaskRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.StartMLEvaluationTaskRun" :: ByteString),
+              Prelude.=# ( "AWSGlue.StartMLEvaluationTaskRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartMLEvaluationTaskRun where
+instance Prelude.ToJSON StartMLEvaluationTaskRun where
   toJSON StartMLEvaluationTaskRun' {..} =
-    object
-      ( catMaybes
-          [Just ("TransformId" .= _smletrTransformId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TransformId" Prelude..= transformId)
+          ]
       )
 
-instance ToPath StartMLEvaluationTaskRun where
-  toPath = const "/"
+instance Prelude.ToPath StartMLEvaluationTaskRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartMLEvaluationTaskRun where
-  toQuery = const mempty
+instance Prelude.ToQuery StartMLEvaluationTaskRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startMLEvaluationTaskRunResponse' smart constructor.
+-- | /See:/ 'newStartMLEvaluationTaskRunResponse' smart constructor.
 data StartMLEvaluationTaskRunResponse = StartMLEvaluationTaskRunResponse'
-  { _smletrrrsTaskRunId ::
-      !( Maybe
-           Text
-       ),
-    _smletrrrsResponseStatus ::
-      !Int
+  { -- | The unique identifier associated with this run.
+    taskRunId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMLEvaluationTaskRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMLEvaluationTaskRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smletrrrsTaskRunId' - The unique identifier associated with this run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smletrrrsResponseStatus' - -- | The response status code.
-startMLEvaluationTaskRunResponse ::
-  -- | 'smletrrrsResponseStatus'
-  Int ->
+-- 'taskRunId', 'startMLEvaluationTaskRunResponse_taskRunId' - The unique identifier associated with this run.
+--
+-- 'httpStatus', 'startMLEvaluationTaskRunResponse_httpStatus' - The response's http status code.
+newStartMLEvaluationTaskRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartMLEvaluationTaskRunResponse
-startMLEvaluationTaskRunResponse pResponseStatus_ =
+newStartMLEvaluationTaskRunResponse pHttpStatus_ =
   StartMLEvaluationTaskRunResponse'
-    { _smletrrrsTaskRunId =
-        Nothing,
-      _smletrrrsResponseStatus =
-        pResponseStatus_
+    { taskRunId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique identifier associated with this run.
-smletrrrsTaskRunId :: Lens' StartMLEvaluationTaskRunResponse (Maybe Text)
-smletrrrsTaskRunId = lens _smletrrrsTaskRunId (\s a -> s {_smletrrrsTaskRunId = a})
+startMLEvaluationTaskRunResponse_taskRunId :: Lens.Lens' StartMLEvaluationTaskRunResponse (Prelude.Maybe Prelude.Text)
+startMLEvaluationTaskRunResponse_taskRunId = Lens.lens (\StartMLEvaluationTaskRunResponse' {taskRunId} -> taskRunId) (\s@StartMLEvaluationTaskRunResponse' {} a -> s {taskRunId = a} :: StartMLEvaluationTaskRunResponse)
 
--- | -- | The response status code.
-smletrrrsResponseStatus :: Lens' StartMLEvaluationTaskRunResponse Int
-smletrrrsResponseStatus = lens _smletrrrsResponseStatus (\s a -> s {_smletrrrsResponseStatus = a})
+-- | The response's http status code.
+startMLEvaluationTaskRunResponse_httpStatus :: Lens.Lens' StartMLEvaluationTaskRunResponse Prelude.Int
+startMLEvaluationTaskRunResponse_httpStatus = Lens.lens (\StartMLEvaluationTaskRunResponse' {httpStatus} -> httpStatus) (\s@StartMLEvaluationTaskRunResponse' {} a -> s {httpStatus = a} :: StartMLEvaluationTaskRunResponse)
 
-instance NFData StartMLEvaluationTaskRunResponse
+instance
+  Prelude.NFData
+    StartMLEvaluationTaskRunResponse

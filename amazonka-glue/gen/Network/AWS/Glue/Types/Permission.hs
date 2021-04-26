@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,91 +19,93 @@
 module Network.AWS.Glue.Types.Permission
   ( Permission
       ( ..,
-        All,
-        Alter,
-        CreateDatabase,
-        CreateTable,
-        DataLocationAccess,
-        Delete,
-        Drop,
-        Insert,
-        Select
+        PermissionALL,
+        PermissionALTER,
+        PermissionCREATEDATABASE,
+        PermissionCREATETABLE,
+        PermissionDATALOCATIONACCESS,
+        PermissionDELETE,
+        PermissionDROP,
+        PermissionINSERT,
+        PermissionSELECT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Permission = Permission' (CI Text)
+newtype Permission = Permission'
+  { fromPermission ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: Permission
-pattern All = Permission' "ALL"
+pattern PermissionALL :: Permission
+pattern PermissionALL = Permission' "ALL"
 
-pattern Alter :: Permission
-pattern Alter = Permission' "ALTER"
+pattern PermissionALTER :: Permission
+pattern PermissionALTER = Permission' "ALTER"
 
-pattern CreateDatabase :: Permission
-pattern CreateDatabase = Permission' "CREATE_DATABASE"
+pattern PermissionCREATEDATABASE :: Permission
+pattern PermissionCREATEDATABASE = Permission' "CREATE_DATABASE"
 
-pattern CreateTable :: Permission
-pattern CreateTable = Permission' "CREATE_TABLE"
+pattern PermissionCREATETABLE :: Permission
+pattern PermissionCREATETABLE = Permission' "CREATE_TABLE"
 
-pattern DataLocationAccess :: Permission
-pattern DataLocationAccess = Permission' "DATA_LOCATION_ACCESS"
+pattern PermissionDATALOCATIONACCESS :: Permission
+pattern PermissionDATALOCATIONACCESS = Permission' "DATA_LOCATION_ACCESS"
 
-pattern Delete :: Permission
-pattern Delete = Permission' "DELETE"
+pattern PermissionDELETE :: Permission
+pattern PermissionDELETE = Permission' "DELETE"
 
-pattern Drop :: Permission
-pattern Drop = Permission' "DROP"
+pattern PermissionDROP :: Permission
+pattern PermissionDROP = Permission' "DROP"
 
-pattern Insert :: Permission
-pattern Insert = Permission' "INSERT"
+pattern PermissionINSERT :: Permission
+pattern PermissionINSERT = Permission' "INSERT"
 
-pattern Select :: Permission
-pattern Select = Permission' "SELECT"
+pattern PermissionSELECT :: Permission
+pattern PermissionSELECT = Permission' "SELECT"
 
 {-# COMPLETE
-  All,
-  Alter,
-  CreateDatabase,
-  CreateTable,
-  DataLocationAccess,
-  Delete,
-  Drop,
-  Insert,
-  Select,
+  PermissionALL,
+  PermissionALTER,
+  PermissionCREATEDATABASE,
+  PermissionCREATETABLE,
+  PermissionDATALOCATIONACCESS,
+  PermissionDELETE,
+  PermissionDROP,
+  PermissionINSERT,
+  PermissionSELECT,
   Permission'
   #-}
 
-instance FromText Permission where
-  parser = (Permission' . mk) <$> takeText
+instance Prelude.FromText Permission where
+  parser = Permission' Prelude.<$> Prelude.takeText
 
-instance ToText Permission where
-  toText (Permission' ci) = original ci
+instance Prelude.ToText Permission where
+  toText (Permission' x) = x
 
-instance Hashable Permission
+instance Prelude.Hashable Permission
 
-instance NFData Permission
+instance Prelude.NFData Permission
 
-instance ToByteString Permission
+instance Prelude.ToByteString Permission
 
-instance ToQuery Permission
+instance Prelude.ToQuery Permission
 
-instance ToHeader Permission
+instance Prelude.ToHeader Permission
 
-instance ToJSON Permission where
-  toJSON = toJSONText
+instance Prelude.ToJSON Permission where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Permission where
-  parseJSON = parseJSONText "Permission"
+instance Prelude.FromJSON Permission where
+  parseJSON = Prelude.parseJSONText "Permission"

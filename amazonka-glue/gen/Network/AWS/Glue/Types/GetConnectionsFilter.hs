@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,63 @@
 module Network.AWS.Glue.Types.GetConnectionsFilter where
 
 import Network.AWS.Glue.Types.ConnectionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Filters the connection definitions that are returned by the @GetConnections@ API operation.
+-- | Filters the connection definitions that are returned by the
+-- @GetConnections@ API operation.
 --
---
---
--- /See:/ 'getConnectionsFilter' smart constructor.
+-- /See:/ 'newGetConnectionsFilter' smart constructor.
 data GetConnectionsFilter = GetConnectionsFilter'
-  { _gcfConnectionType ::
-      !(Maybe ConnectionType),
-    _gcfMatchCriteria ::
-      !(Maybe [Text])
+  { -- | The type of connections to return. Currently, SFTP is not supported.
+    connectionType :: Prelude.Maybe ConnectionType,
+    -- | A criteria string that must match the criteria recorded in the
+    -- connection definition for that connection definition to be returned.
+    matchCriteria :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConnectionsFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConnectionsFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcfConnectionType' - The type of connections to return. Currently, SFTP is not supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcfMatchCriteria' - A criteria string that must match the criteria recorded in the connection definition for that connection definition to be returned.
-getConnectionsFilter ::
+-- 'connectionType', 'getConnectionsFilter_connectionType' - The type of connections to return. Currently, SFTP is not supported.
+--
+-- 'matchCriteria', 'getConnectionsFilter_matchCriteria' - A criteria string that must match the criteria recorded in the
+-- connection definition for that connection definition to be returned.
+newGetConnectionsFilter ::
   GetConnectionsFilter
-getConnectionsFilter =
+newGetConnectionsFilter =
   GetConnectionsFilter'
-    { _gcfConnectionType = Nothing,
-      _gcfMatchCriteria = Nothing
+    { connectionType =
+        Prelude.Nothing,
+      matchCriteria = Prelude.Nothing
     }
 
 -- | The type of connections to return. Currently, SFTP is not supported.
-gcfConnectionType :: Lens' GetConnectionsFilter (Maybe ConnectionType)
-gcfConnectionType = lens _gcfConnectionType (\s a -> s {_gcfConnectionType = a})
+getConnectionsFilter_connectionType :: Lens.Lens' GetConnectionsFilter (Prelude.Maybe ConnectionType)
+getConnectionsFilter_connectionType = Lens.lens (\GetConnectionsFilter' {connectionType} -> connectionType) (\s@GetConnectionsFilter' {} a -> s {connectionType = a} :: GetConnectionsFilter)
 
--- | A criteria string that must match the criteria recorded in the connection definition for that connection definition to be returned.
-gcfMatchCriteria :: Lens' GetConnectionsFilter [Text]
-gcfMatchCriteria = lens _gcfMatchCriteria (\s a -> s {_gcfMatchCriteria = a}) . _Default . _Coerce
+-- | A criteria string that must match the criteria recorded in the
+-- connection definition for that connection definition to be returned.
+getConnectionsFilter_matchCriteria :: Lens.Lens' GetConnectionsFilter (Prelude.Maybe [Prelude.Text])
+getConnectionsFilter_matchCriteria = Lens.lens (\GetConnectionsFilter' {matchCriteria} -> matchCriteria) (\s@GetConnectionsFilter' {} a -> s {matchCriteria = a} :: GetConnectionsFilter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable GetConnectionsFilter
+instance Prelude.Hashable GetConnectionsFilter
 
-instance NFData GetConnectionsFilter
+instance Prelude.NFData GetConnectionsFilter
 
-instance ToJSON GetConnectionsFilter where
+instance Prelude.ToJSON GetConnectionsFilter where
   toJSON GetConnectionsFilter' {..} =
-    object
-      ( catMaybes
-          [ ("ConnectionType" .=) <$> _gcfConnectionType,
-            ("MatchCriteria" .=) <$> _gcfMatchCriteria
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ConnectionType" Prelude..=)
+              Prelude.<$> connectionType,
+            ("MatchCriteria" Prelude..=)
+              Prelude.<$> matchCriteria
           ]
       )

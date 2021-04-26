@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,108 +21,138 @@ module Network.AWS.Glue.Types.Workflow where
 
 import Network.AWS.Glue.Types.WorkflowGraph
 import Network.AWS.Glue.Types.WorkflowRun
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A workflow represents a flow in which AWS Glue components should be executed to complete a logical task.
+-- | A workflow represents a flow in which AWS Glue components should be
+-- executed to complete a logical task.
 --
---
---
--- /See:/ 'workflow' smart constructor.
+-- /See:/ 'newWorkflow' smart constructor.
 data Workflow = Workflow'
-  { _wCreatedOn ::
-      !(Maybe POSIX),
-    _wDefaultRunProperties :: !(Maybe (Map Text Text)),
-    _wLastRun :: !(Maybe WorkflowRun),
-    _wMaxConcurrentRuns :: !(Maybe Int),
-    _wLastModifiedOn :: !(Maybe POSIX),
-    _wName :: !(Maybe Text),
-    _wGraph :: !(Maybe WorkflowGraph),
-    _wDescription :: !(Maybe Text)
+  { -- | The date and time when the workflow was created.
+    createdOn :: Prelude.Maybe Prelude.POSIX,
+    -- | A collection of properties to be used as part of each execution of the
+    -- workflow.
+    defaultRunProperties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The information about the last execution of the workflow.
+    lastRun :: Prelude.Maybe WorkflowRun,
+    -- | You can use this parameter to prevent unwanted multiple updates to data,
+    -- to control costs, or in some cases, to prevent exceeding the maximum
+    -- number of concurrent runs of any of the component jobs. If you leave
+    -- this parameter blank, there is no limit to the number of concurrent
+    -- workflow runs.
+    maxConcurrentRuns :: Prelude.Maybe Prelude.Int,
+    -- | The date and time when the workflow was last modified.
+    lastModifiedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the workflow representing the flow.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The graph representing all the AWS Glue components that belong to the
+    -- workflow as nodes and directed connections between them as edges.
+    graph :: Prelude.Maybe WorkflowGraph,
+    -- | A description of the workflow.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Workflow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Workflow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wCreatedOn' - The date and time when the workflow was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wDefaultRunProperties' - A collection of properties to be used as part of each execution of the workflow.
+-- 'createdOn', 'workflow_createdOn' - The date and time when the workflow was created.
 --
--- * 'wLastRun' - The information about the last execution of the workflow.
+-- 'defaultRunProperties', 'workflow_defaultRunProperties' - A collection of properties to be used as part of each execution of the
+-- workflow.
 --
--- * 'wMaxConcurrentRuns' - You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter blank, there is no limit to the number of concurrent workflow runs.
+-- 'lastRun', 'workflow_lastRun' - The information about the last execution of the workflow.
 --
--- * 'wLastModifiedOn' - The date and time when the workflow was last modified.
+-- 'maxConcurrentRuns', 'workflow_maxConcurrentRuns' - You can use this parameter to prevent unwanted multiple updates to data,
+-- to control costs, or in some cases, to prevent exceeding the maximum
+-- number of concurrent runs of any of the component jobs. If you leave
+-- this parameter blank, there is no limit to the number of concurrent
+-- workflow runs.
 --
--- * 'wName' - The name of the workflow representing the flow.
+-- 'lastModifiedOn', 'workflow_lastModifiedOn' - The date and time when the workflow was last modified.
 --
--- * 'wGraph' - The graph representing all the AWS Glue components that belong to the workflow as nodes and directed connections between them as edges.
+-- 'name', 'workflow_name' - The name of the workflow representing the flow.
 --
--- * 'wDescription' - A description of the workflow.
-workflow ::
+-- 'graph', 'workflow_graph' - The graph representing all the AWS Glue components that belong to the
+-- workflow as nodes and directed connections between them as edges.
+--
+-- 'description', 'workflow_description' - A description of the workflow.
+newWorkflow ::
   Workflow
-workflow =
+newWorkflow =
   Workflow'
-    { _wCreatedOn = Nothing,
-      _wDefaultRunProperties = Nothing,
-      _wLastRun = Nothing,
-      _wMaxConcurrentRuns = Nothing,
-      _wLastModifiedOn = Nothing,
-      _wName = Nothing,
-      _wGraph = Nothing,
-      _wDescription = Nothing
+    { createdOn = Prelude.Nothing,
+      defaultRunProperties = Prelude.Nothing,
+      lastRun = Prelude.Nothing,
+      maxConcurrentRuns = Prelude.Nothing,
+      lastModifiedOn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      graph = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The date and time when the workflow was created.
-wCreatedOn :: Lens' Workflow (Maybe UTCTime)
-wCreatedOn = lens _wCreatedOn (\s a -> s {_wCreatedOn = a}) . mapping _Time
+workflow_createdOn :: Lens.Lens' Workflow (Prelude.Maybe Prelude.UTCTime)
+workflow_createdOn = Lens.lens (\Workflow' {createdOn} -> createdOn) (\s@Workflow' {} a -> s {createdOn = a} :: Workflow) Prelude.. Lens.mapping Prelude._Time
 
--- | A collection of properties to be used as part of each execution of the workflow.
-wDefaultRunProperties :: Lens' Workflow (HashMap Text Text)
-wDefaultRunProperties = lens _wDefaultRunProperties (\s a -> s {_wDefaultRunProperties = a}) . _Default . _Map
+-- | A collection of properties to be used as part of each execution of the
+-- workflow.
+workflow_defaultRunProperties :: Lens.Lens' Workflow (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+workflow_defaultRunProperties = Lens.lens (\Workflow' {defaultRunProperties} -> defaultRunProperties) (\s@Workflow' {} a -> s {defaultRunProperties = a} :: Workflow) Prelude.. Lens.mapping Prelude._Map
 
 -- | The information about the last execution of the workflow.
-wLastRun :: Lens' Workflow (Maybe WorkflowRun)
-wLastRun = lens _wLastRun (\s a -> s {_wLastRun = a})
+workflow_lastRun :: Lens.Lens' Workflow (Prelude.Maybe WorkflowRun)
+workflow_lastRun = Lens.lens (\Workflow' {lastRun} -> lastRun) (\s@Workflow' {} a -> s {lastRun = a} :: Workflow)
 
--- | You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter blank, there is no limit to the number of concurrent workflow runs.
-wMaxConcurrentRuns :: Lens' Workflow (Maybe Int)
-wMaxConcurrentRuns = lens _wMaxConcurrentRuns (\s a -> s {_wMaxConcurrentRuns = a})
+-- | You can use this parameter to prevent unwanted multiple updates to data,
+-- to control costs, or in some cases, to prevent exceeding the maximum
+-- number of concurrent runs of any of the component jobs. If you leave
+-- this parameter blank, there is no limit to the number of concurrent
+-- workflow runs.
+workflow_maxConcurrentRuns :: Lens.Lens' Workflow (Prelude.Maybe Prelude.Int)
+workflow_maxConcurrentRuns = Lens.lens (\Workflow' {maxConcurrentRuns} -> maxConcurrentRuns) (\s@Workflow' {} a -> s {maxConcurrentRuns = a} :: Workflow)
 
 -- | The date and time when the workflow was last modified.
-wLastModifiedOn :: Lens' Workflow (Maybe UTCTime)
-wLastModifiedOn = lens _wLastModifiedOn (\s a -> s {_wLastModifiedOn = a}) . mapping _Time
+workflow_lastModifiedOn :: Lens.Lens' Workflow (Prelude.Maybe Prelude.UTCTime)
+workflow_lastModifiedOn = Lens.lens (\Workflow' {lastModifiedOn} -> lastModifiedOn) (\s@Workflow' {} a -> s {lastModifiedOn = a} :: Workflow) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the workflow representing the flow.
-wName :: Lens' Workflow (Maybe Text)
-wName = lens _wName (\s a -> s {_wName = a})
+workflow_name :: Lens.Lens' Workflow (Prelude.Maybe Prelude.Text)
+workflow_name = Lens.lens (\Workflow' {name} -> name) (\s@Workflow' {} a -> s {name = a} :: Workflow)
 
--- | The graph representing all the AWS Glue components that belong to the workflow as nodes and directed connections between them as edges.
-wGraph :: Lens' Workflow (Maybe WorkflowGraph)
-wGraph = lens _wGraph (\s a -> s {_wGraph = a})
+-- | The graph representing all the AWS Glue components that belong to the
+-- workflow as nodes and directed connections between them as edges.
+workflow_graph :: Lens.Lens' Workflow (Prelude.Maybe WorkflowGraph)
+workflow_graph = Lens.lens (\Workflow' {graph} -> graph) (\s@Workflow' {} a -> s {graph = a} :: Workflow)
 
 -- | A description of the workflow.
-wDescription :: Lens' Workflow (Maybe Text)
-wDescription = lens _wDescription (\s a -> s {_wDescription = a})
+workflow_description :: Lens.Lens' Workflow (Prelude.Maybe Prelude.Text)
+workflow_description = Lens.lens (\Workflow' {description} -> description) (\s@Workflow' {} a -> s {description = a} :: Workflow)
 
-instance FromJSON Workflow where
+instance Prelude.FromJSON Workflow where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Workflow"
       ( \x ->
           Workflow'
-            <$> (x .:? "CreatedOn")
-            <*> (x .:? "DefaultRunProperties" .!= mempty)
-            <*> (x .:? "LastRun")
-            <*> (x .:? "MaxConcurrentRuns")
-            <*> (x .:? "LastModifiedOn")
-            <*> (x .:? "Name")
-            <*> (x .:? "Graph")
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "CreatedOn")
+            Prelude.<*> ( x Prelude..:? "DefaultRunProperties"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "LastRun")
+            Prelude.<*> (x Prelude..:? "MaxConcurrentRuns")
+            Prelude.<*> (x Prelude..:? "LastModifiedOn")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Graph")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable Workflow
+instance Prelude.Hashable Workflow
 
-instance NFData Workflow
+instance Prelude.NFData Workflow

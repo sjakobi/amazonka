@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,71 @@
 module Network.AWS.Glue.Types.SecurityConfiguration where
 
 import Network.AWS.Glue.Types.EncryptionConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies a security configuration.
 --
---
---
--- /See:/ 'securityConfiguration' smart constructor.
+-- /See:/ 'newSecurityConfiguration' smart constructor.
 data SecurityConfiguration = SecurityConfiguration'
-  { _secEncryptionConfiguration ::
-      !( Maybe
-           EncryptionConfiguration
-       ),
-    _secCreatedTimeStamp ::
-      !(Maybe POSIX),
-    _secName :: !(Maybe Text)
+  { -- | The encryption configuration associated with this security
+    -- configuration.
+    encryptionConfiguration :: Prelude.Maybe EncryptionConfiguration,
+    -- | The time at which this security configuration was created.
+    createdTimeStamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the security configuration.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SecurityConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SecurityConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'secEncryptionConfiguration' - The encryption configuration associated with this security configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'secCreatedTimeStamp' - The time at which this security configuration was created.
+-- 'encryptionConfiguration', 'securityConfiguration_encryptionConfiguration' - The encryption configuration associated with this security
+-- configuration.
 --
--- * 'secName' - The name of the security configuration.
-securityConfiguration ::
+-- 'createdTimeStamp', 'securityConfiguration_createdTimeStamp' - The time at which this security configuration was created.
+--
+-- 'name', 'securityConfiguration_name' - The name of the security configuration.
+newSecurityConfiguration ::
   SecurityConfiguration
-securityConfiguration =
+newSecurityConfiguration =
   SecurityConfiguration'
-    { _secEncryptionConfiguration =
-        Nothing,
-      _secCreatedTimeStamp = Nothing,
-      _secName = Nothing
+    { encryptionConfiguration =
+        Prelude.Nothing,
+      createdTimeStamp = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
--- | The encryption configuration associated with this security configuration.
-secEncryptionConfiguration :: Lens' SecurityConfiguration (Maybe EncryptionConfiguration)
-secEncryptionConfiguration = lens _secEncryptionConfiguration (\s a -> s {_secEncryptionConfiguration = a})
+-- | The encryption configuration associated with this security
+-- configuration.
+securityConfiguration_encryptionConfiguration :: Lens.Lens' SecurityConfiguration (Prelude.Maybe EncryptionConfiguration)
+securityConfiguration_encryptionConfiguration = Lens.lens (\SecurityConfiguration' {encryptionConfiguration} -> encryptionConfiguration) (\s@SecurityConfiguration' {} a -> s {encryptionConfiguration = a} :: SecurityConfiguration)
 
 -- | The time at which this security configuration was created.
-secCreatedTimeStamp :: Lens' SecurityConfiguration (Maybe UTCTime)
-secCreatedTimeStamp = lens _secCreatedTimeStamp (\s a -> s {_secCreatedTimeStamp = a}) . mapping _Time
+securityConfiguration_createdTimeStamp :: Lens.Lens' SecurityConfiguration (Prelude.Maybe Prelude.UTCTime)
+securityConfiguration_createdTimeStamp = Lens.lens (\SecurityConfiguration' {createdTimeStamp} -> createdTimeStamp) (\s@SecurityConfiguration' {} a -> s {createdTimeStamp = a} :: SecurityConfiguration) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the security configuration.
-secName :: Lens' SecurityConfiguration (Maybe Text)
-secName = lens _secName (\s a -> s {_secName = a})
+securityConfiguration_name :: Lens.Lens' SecurityConfiguration (Prelude.Maybe Prelude.Text)
+securityConfiguration_name = Lens.lens (\SecurityConfiguration' {name} -> name) (\s@SecurityConfiguration' {} a -> s {name = a} :: SecurityConfiguration)
 
-instance FromJSON SecurityConfiguration where
+instance Prelude.FromJSON SecurityConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SecurityConfiguration"
       ( \x ->
           SecurityConfiguration'
-            <$> (x .:? "EncryptionConfiguration")
-            <*> (x .:? "CreatedTimeStamp")
-            <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "EncryptionConfiguration")
+            Prelude.<*> (x Prelude..:? "CreatedTimeStamp")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable SecurityConfiguration
+instance Prelude.Hashable SecurityConfiguration
 
-instance NFData SecurityConfiguration
+instance Prelude.NFData SecurityConfiguration

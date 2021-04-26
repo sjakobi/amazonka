@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.BooleanColumnStatisticsData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines column statistics supported for Boolean data columns.
 --
---
---
--- /See:/ 'booleanColumnStatisticsData' smart constructor.
+-- /See:/ 'newBooleanColumnStatisticsData' smart constructor.
 data BooleanColumnStatisticsData = BooleanColumnStatisticsData'
-  { _bNumberOfTrues ::
-      !Nat,
-    _bNumberOfFalses ::
-      !Nat,
-    _bNumberOfNulls ::
-      !Nat
+  { -- | The number of true values in the column.
+    numberOfTrues :: Prelude.Nat,
+    -- | The number of false values in the column.
+    numberOfFalses :: Prelude.Nat,
+    -- | The number of null values in the column.
+    numberOfNulls :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BooleanColumnStatisticsData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BooleanColumnStatisticsData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bNumberOfTrues' - The number of true values in the column.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bNumberOfFalses' - The number of false values in the column.
+-- 'numberOfTrues', 'booleanColumnStatisticsData_numberOfTrues' - The number of true values in the column.
 --
--- * 'bNumberOfNulls' - The number of null values in the column.
-booleanColumnStatisticsData ::
-  -- | 'bNumberOfTrues'
-  Natural ->
-  -- | 'bNumberOfFalses'
-  Natural ->
-  -- | 'bNumberOfNulls'
-  Natural ->
+-- 'numberOfFalses', 'booleanColumnStatisticsData_numberOfFalses' - The number of false values in the column.
+--
+-- 'numberOfNulls', 'booleanColumnStatisticsData_numberOfNulls' - The number of null values in the column.
+newBooleanColumnStatisticsData ::
+  -- | 'numberOfTrues'
+  Prelude.Natural ->
+  -- | 'numberOfFalses'
+  Prelude.Natural ->
+  -- | 'numberOfNulls'
+  Prelude.Natural ->
   BooleanColumnStatisticsData
-booleanColumnStatisticsData
+newBooleanColumnStatisticsData
   pNumberOfTrues_
   pNumberOfFalses_
   pNumberOfNulls_ =
     BooleanColumnStatisticsData'
-      { _bNumberOfTrues =
-          _Nat # pNumberOfTrues_,
-        _bNumberOfFalses = _Nat # pNumberOfFalses_,
-        _bNumberOfNulls = _Nat # pNumberOfNulls_
+      { numberOfTrues =
+          Prelude._Nat Lens.# pNumberOfTrues_,
+        numberOfFalses =
+          Prelude._Nat Lens.# pNumberOfFalses_,
+        numberOfNulls =
+          Prelude._Nat Lens.# pNumberOfNulls_
       }
 
 -- | The number of true values in the column.
-bNumberOfTrues :: Lens' BooleanColumnStatisticsData Natural
-bNumberOfTrues = lens _bNumberOfTrues (\s a -> s {_bNumberOfTrues = a}) . _Nat
+booleanColumnStatisticsData_numberOfTrues :: Lens.Lens' BooleanColumnStatisticsData Prelude.Natural
+booleanColumnStatisticsData_numberOfTrues = Lens.lens (\BooleanColumnStatisticsData' {numberOfTrues} -> numberOfTrues) (\s@BooleanColumnStatisticsData' {} a -> s {numberOfTrues = a} :: BooleanColumnStatisticsData) Prelude.. Prelude._Nat
 
 -- | The number of false values in the column.
-bNumberOfFalses :: Lens' BooleanColumnStatisticsData Natural
-bNumberOfFalses = lens _bNumberOfFalses (\s a -> s {_bNumberOfFalses = a}) . _Nat
+booleanColumnStatisticsData_numberOfFalses :: Lens.Lens' BooleanColumnStatisticsData Prelude.Natural
+booleanColumnStatisticsData_numberOfFalses = Lens.lens (\BooleanColumnStatisticsData' {numberOfFalses} -> numberOfFalses) (\s@BooleanColumnStatisticsData' {} a -> s {numberOfFalses = a} :: BooleanColumnStatisticsData) Prelude.. Prelude._Nat
 
 -- | The number of null values in the column.
-bNumberOfNulls :: Lens' BooleanColumnStatisticsData Natural
-bNumberOfNulls = lens _bNumberOfNulls (\s a -> s {_bNumberOfNulls = a}) . _Nat
+booleanColumnStatisticsData_numberOfNulls :: Lens.Lens' BooleanColumnStatisticsData Prelude.Natural
+booleanColumnStatisticsData_numberOfNulls = Lens.lens (\BooleanColumnStatisticsData' {numberOfNulls} -> numberOfNulls) (\s@BooleanColumnStatisticsData' {} a -> s {numberOfNulls = a} :: BooleanColumnStatisticsData) Prelude.. Prelude._Nat
 
-instance FromJSON BooleanColumnStatisticsData where
+instance Prelude.FromJSON BooleanColumnStatisticsData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BooleanColumnStatisticsData"
       ( \x ->
           BooleanColumnStatisticsData'
-            <$> (x .: "NumberOfTrues")
-            <*> (x .: "NumberOfFalses")
-            <*> (x .: "NumberOfNulls")
+            Prelude.<$> (x Prelude..: "NumberOfTrues")
+            Prelude.<*> (x Prelude..: "NumberOfFalses")
+            Prelude.<*> (x Prelude..: "NumberOfNulls")
       )
 
-instance Hashable BooleanColumnStatisticsData
+instance Prelude.Hashable BooleanColumnStatisticsData
 
-instance NFData BooleanColumnStatisticsData
+instance Prelude.NFData BooleanColumnStatisticsData
 
-instance ToJSON BooleanColumnStatisticsData where
+instance Prelude.ToJSON BooleanColumnStatisticsData where
   toJSON BooleanColumnStatisticsData' {..} =
-    object
-      ( catMaybes
-          [ Just ("NumberOfTrues" .= _bNumberOfTrues),
-            Just ("NumberOfFalses" .= _bNumberOfFalses),
-            Just ("NumberOfNulls" .= _bNumberOfNulls)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("NumberOfTrues" Prelude..= numberOfTrues),
+            Prelude.Just
+              ("NumberOfFalses" Prelude..= numberOfFalses),
+            Prelude.Just
+              ("NumberOfNulls" Prelude..= numberOfNulls)
           ]
       )

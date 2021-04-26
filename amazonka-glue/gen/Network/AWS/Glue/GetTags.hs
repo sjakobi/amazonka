@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,114 +24,137 @@
 -- Retrieves a list of tags associated with a resource.
 module Network.AWS.Glue.GetTags
   ( -- * Creating a Request
-    getTags,
-    GetTags,
+    GetTags (..),
+    newGetTags,
 
     -- * Request Lenses
-    gtResourceARN,
+    getTags_resourceArn,
 
     -- * Destructuring the Response
-    getTagsResponse,
-    GetTagsResponse,
+    GetTagsResponse (..),
+    newGetTagsResponse,
 
     -- * Response Lenses
-    gtrtrsTags,
-    gtrtrsResponseStatus,
+    getTagsResponse_tags,
+    getTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getTags' smart constructor.
-newtype GetTags = GetTags' {_gtResourceARN :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetTags' smart constructor.
+data GetTags = GetTags'
+  { -- | The Amazon Resource Name (ARN) of the resource for which to retrieve
+    -- tags.
+    resourceArn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtResourceARN' - The Amazon Resource Name (ARN) of the resource for which to retrieve tags.
-getTags ::
-  -- | 'gtResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'getTags_resourceArn' - The Amazon Resource Name (ARN) of the resource for which to retrieve
+-- tags.
+newGetTags ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   GetTags
-getTags pResourceARN_ =
-  GetTags' {_gtResourceARN = pResourceARN_}
+newGetTags pResourceArn_ =
+  GetTags' {resourceArn = pResourceArn_}
 
--- | The Amazon Resource Name (ARN) of the resource for which to retrieve tags.
-gtResourceARN :: Lens' GetTags Text
-gtResourceARN = lens _gtResourceARN (\s a -> s {_gtResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the resource for which to retrieve
+-- tags.
+getTags_resourceArn :: Lens.Lens' GetTags Prelude.Text
+getTags_resourceArn = Lens.lens (\GetTags' {resourceArn} -> resourceArn) (\s@GetTags' {} a -> s {resourceArn = a} :: GetTags)
 
-instance AWSRequest GetTags where
+instance Prelude.AWSRequest GetTags where
   type Rs GetTags = GetTagsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTagsResponse'
-            <$> (x .?> "Tags" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetTags
+instance Prelude.Hashable GetTags
 
-instance NFData GetTags
+instance Prelude.NFData GetTags
 
-instance ToHeaders GetTags where
+instance Prelude.ToHeaders GetTags where
   toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target" =# ("AWSGlue.GetTags" :: ByteString),
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ("AWSGlue.GetTags" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetTags where
+instance Prelude.ToJSON GetTags where
   toJSON GetTags' {..} =
-    object
-      (catMaybes [Just ("ResourceArn" .= _gtResourceARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceArn" Prelude..= resourceArn)
+          ]
+      )
 
-instance ToPath GetTags where
-  toPath = const "/"
+instance Prelude.ToPath GetTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetTags where
-  toQuery = const mempty
+instance Prelude.ToQuery GetTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getTagsResponse' smart constructor.
+-- | /See:/ 'newGetTagsResponse' smart constructor.
 data GetTagsResponse = GetTagsResponse'
-  { _gtrtrsTags ::
-      !(Maybe (Map Text Text)),
-    _gtrtrsResponseStatus :: !Int
+  { -- | The requested tags.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrtrsTags' - The requested tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtrtrsResponseStatus' - -- | The response status code.
-getTagsResponse ::
-  -- | 'gtrtrsResponseStatus'
-  Int ->
+-- 'tags', 'getTagsResponse_tags' - The requested tags.
+--
+-- 'httpStatus', 'getTagsResponse_httpStatus' - The response's http status code.
+newGetTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTagsResponse
-getTagsResponse pResponseStatus_ =
+newGetTagsResponse pHttpStatus_ =
   GetTagsResponse'
-    { _gtrtrsTags = Nothing,
-      _gtrtrsResponseStatus = pResponseStatus_
+    { tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The requested tags.
-gtrtrsTags :: Lens' GetTagsResponse (HashMap Text Text)
-gtrtrsTags = lens _gtrtrsTags (\s a -> s {_gtrtrsTags = a}) . _Default . _Map
+getTagsResponse_tags :: Lens.Lens' GetTagsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getTagsResponse_tags = Lens.lens (\GetTagsResponse' {tags} -> tags) (\s@GetTagsResponse' {} a -> s {tags = a} :: GetTagsResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gtrtrsResponseStatus :: Lens' GetTagsResponse Int
-gtrtrsResponseStatus = lens _gtrtrsResponseStatus (\s a -> s {_gtrtrsResponseStatus = a})
+-- | The response's http status code.
+getTagsResponse_httpStatus :: Lens.Lens' GetTagsResponse Prelude.Int
+getTagsResponse_httpStatus = Lens.lens (\GetTagsResponse' {httpStatus} -> httpStatus) (\s@GetTagsResponse' {} a -> s {httpStatus = a} :: GetTagsResponse)
 
-instance NFData GetTagsResponse
+instance Prelude.NFData GetTagsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,216 +24,407 @@
 -- Starts a job run using a job definition.
 module Network.AWS.Glue.StartJobRun
   ( -- * Creating a Request
-    startJobRun,
-    StartJobRun,
+    StartJobRun (..),
+    newStartJobRun,
 
     -- * Request Lenses
-    sjrSecurityConfiguration,
-    sjrTimeout,
-    sjrMaxCapacity,
-    sjrNotificationProperty,
-    sjrNumberOfWorkers,
-    sjrWorkerType,
-    sjrJobRunId,
-    sjrArguments,
-    sjrAllocatedCapacity,
-    sjrJobName,
+    startJobRun_securityConfiguration,
+    startJobRun_timeout,
+    startJobRun_maxCapacity,
+    startJobRun_notificationProperty,
+    startJobRun_numberOfWorkers,
+    startJobRun_workerType,
+    startJobRun_jobRunId,
+    startJobRun_arguments,
+    startJobRun_allocatedCapacity,
+    startJobRun_jobName,
 
     -- * Destructuring the Response
-    startJobRunResponse,
-    StartJobRunResponse,
+    StartJobRunResponse (..),
+    newStartJobRunResponse,
 
     -- * Response Lenses
-    sjrrrsJobRunId,
-    sjrrrsResponseStatus,
+    startJobRunResponse_jobRunId,
+    startJobRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startJobRun' smart constructor.
+-- | /See:/ 'newStartJobRun' smart constructor.
 data StartJobRun = StartJobRun'
-  { _sjrSecurityConfiguration ::
-      !(Maybe Text),
-    _sjrTimeout :: !(Maybe Nat),
-    _sjrMaxCapacity :: !(Maybe Double),
-    _sjrNotificationProperty ::
-      !(Maybe NotificationProperty),
-    _sjrNumberOfWorkers :: !(Maybe Int),
-    _sjrWorkerType :: !(Maybe WorkerType),
-    _sjrJobRunId :: !(Maybe Text),
-    _sjrArguments :: !(Maybe (Map Text Text)),
-    _sjrAllocatedCapacity :: !(Maybe Int),
-    _sjrJobName :: !Text
+  { -- | The name of the @SecurityConfiguration@ structure to be used with this
+    -- job run.
+    securityConfiguration :: Prelude.Maybe Prelude.Text,
+    -- | The @JobRun@ timeout in minutes. This is the maximum time that a job run
+    -- can consume resources before it is terminated and enters @TIMEOUT@
+    -- status. The default is 2,880 minutes (48 hours). This overrides the
+    -- timeout value set in the parent job.
+    timeout :: Prelude.Maybe Prelude.Nat,
+    -- | The number of AWS Glue data processing units (DPUs) that can be
+    -- allocated when this job runs. A DPU is a relative measure of processing
+    -- power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
+    -- For more information, see the
+    -- <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+    --
+    -- Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@.
+    --
+    -- The value that can be allocated for @MaxCapacity@ depends on whether you
+    -- are running a Python shell job, or an Apache Spark ETL job:
+    --
+    -- -   When you specify a Python shell job
+    --     (@JobCommand.Name@=\"pythonshell\"), you can allocate either 0.0625
+    --     or 1 DPU. The default is 0.0625 DPU.
+    --
+    -- -   When you specify an Apache Spark ETL job
+    --     (@JobCommand.Name@=\"glueetl\"), you can allocate from 2 to 100
+    --     DPUs. The default is 10 DPUs. This job type cannot have a fractional
+    --     DPU allocation.
+    maxCapacity :: Prelude.Maybe Prelude.Double,
+    -- | Specifies configuration properties of a job run notification.
+    notificationProperty :: Prelude.Maybe NotificationProperty,
+    -- | The number of workers of a defined @workerType@ that are allocated when
+    -- a job runs.
+    --
+    -- The maximum number of workers you can define are 299 for @G.1X@, and 149
+    -- for @G.2X@.
+    numberOfWorkers :: Prelude.Maybe Prelude.Int,
+    -- | The type of predefined worker that is allocated when a job runs. Accepts
+    -- a value of Standard, G.1X, or G.2X.
+    --
+    -- -   For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB
+    --     of memory and a 50GB disk, and 2 executors per worker.
+    --
+    -- -   For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of
+    --     memory and a 64GB disk, and 1 executor per worker.
+    --
+    -- -   For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of
+    --     memory and a 128GB disk, and 1 executor per worker.
+    workerType :: Prelude.Maybe WorkerType,
+    -- | The ID of a previous @JobRun@ to retry.
+    jobRunId :: Prelude.Maybe Prelude.Text,
+    -- | The job arguments specifically for this run. For this job run, they
+    -- replace the default arguments set in the job definition itself.
+    --
+    -- You can specify arguments here that your own job-execution script
+    -- consumes, as well as arguments that AWS Glue itself consumes.
+    --
+    -- For information about how to specify and consume your own Job arguments,
+    -- see the
+    -- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python>
+    -- topic in the developer guide.
+    --
+    -- For information about the key-value pairs that AWS Glue consumes to set
+    -- up your job, see the
+    -- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue>
+    -- topic in the developer guide.
+    arguments :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | This field is deprecated. Use @MaxCapacity@ instead.
+    --
+    -- The number of AWS Glue data processing units (DPUs) to allocate to this
+    -- JobRun. From 2 to 100 DPUs can be allocated; the default is 10. A DPU is
+    -- a relative measure of processing power that consists of 4 vCPUs of
+    -- compute capacity and 16 GB of memory. For more information, see the
+    -- <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+    allocatedCapacity :: Prelude.Maybe Prelude.Int,
+    -- | The name of the job definition to use.
+    jobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartJobRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartJobRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sjrSecurityConfiguration' - The name of the @SecurityConfiguration@ structure to be used with this job run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sjrTimeout' - The @JobRun@ timeout in minutes. This is the maximum time that a job run can consume resources before it is terminated and enters @TIMEOUT@ status. The default is 2,880 minutes (48 hours). This overrides the timeout value set in the parent job.
+-- 'securityConfiguration', 'startJobRun_securityConfiguration' - The name of the @SecurityConfiguration@ structure to be used with this
+-- job run.
 --
--- * 'sjrMaxCapacity' - The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page> . Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@ . The value that can be allocated for @MaxCapacity@ depends on whether you are running a Python shell job, or an Apache Spark ETL job:     * When you specify a Python shell job (@JobCommand.Name@ ="pythonshell"), you can allocate either 0.0625 or 1 DPU. The default is 0.0625 DPU.     * When you specify an Apache Spark ETL job (@JobCommand.Name@ ="glueetl"), you can allocate from 2 to 100 DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
+-- 'timeout', 'startJobRun_timeout' - The @JobRun@ timeout in minutes. This is the maximum time that a job run
+-- can consume resources before it is terminated and enters @TIMEOUT@
+-- status. The default is 2,880 minutes (48 hours). This overrides the
+-- timeout value set in the parent job.
 --
--- * 'sjrNotificationProperty' - Specifies configuration properties of a job run notification.
+-- 'maxCapacity', 'startJobRun_maxCapacity' - The number of AWS Glue data processing units (DPUs) that can be
+-- allocated when this job runs. A DPU is a relative measure of processing
+-- power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
+-- For more information, see the
+-- <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
 --
--- * 'sjrNumberOfWorkers' - The number of workers of a defined @workerType@ that are allocated when a job runs. The maximum number of workers you can define are 299 for @G.1X@ , and 149 for @G.2X@ .
+-- Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@.
 --
--- * 'sjrWorkerType' - The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or G.2X.     * For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.     * For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1 executor per worker.     * For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1 executor per worker.
+-- The value that can be allocated for @MaxCapacity@ depends on whether you
+-- are running a Python shell job, or an Apache Spark ETL job:
 --
--- * 'sjrJobRunId' - The ID of a previous @JobRun@ to retry.
+-- -   When you specify a Python shell job
+--     (@JobCommand.Name@=\"pythonshell\"), you can allocate either 0.0625
+--     or 1 DPU. The default is 0.0625 DPU.
 --
--- * 'sjrArguments' - The job arguments specifically for this run. For this job run, they replace the default arguments set in the job definition itself. You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue itself consumes. For information about how to specify and consume your own Job arguments, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python> topic in the developer guide. For information about the key-value pairs that AWS Glue consumes to set up your job, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue> topic in the developer guide.
+-- -   When you specify an Apache Spark ETL job
+--     (@JobCommand.Name@=\"glueetl\"), you can allocate from 2 to 100
+--     DPUs. The default is 10 DPUs. This job type cannot have a fractional
+--     DPU allocation.
 --
--- * 'sjrAllocatedCapacity' - This field is deprecated. Use @MaxCapacity@ instead. The number of AWS Glue data processing units (DPUs) to allocate to this JobRun. From 2 to 100 DPUs can be allocated; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page> .
+-- 'notificationProperty', 'startJobRun_notificationProperty' - Specifies configuration properties of a job run notification.
 --
--- * 'sjrJobName' - The name of the job definition to use.
-startJobRun ::
-  -- | 'sjrJobName'
-  Text ->
+-- 'numberOfWorkers', 'startJobRun_numberOfWorkers' - The number of workers of a defined @workerType@ that are allocated when
+-- a job runs.
+--
+-- The maximum number of workers you can define are 299 for @G.1X@, and 149
+-- for @G.2X@.
+--
+-- 'workerType', 'startJobRun_workerType' - The type of predefined worker that is allocated when a job runs. Accepts
+-- a value of Standard, G.1X, or G.2X.
+--
+-- -   For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB
+--     of memory and a 50GB disk, and 2 executors per worker.
+--
+-- -   For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of
+--     memory and a 64GB disk, and 1 executor per worker.
+--
+-- -   For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of
+--     memory and a 128GB disk, and 1 executor per worker.
+--
+-- 'jobRunId', 'startJobRun_jobRunId' - The ID of a previous @JobRun@ to retry.
+--
+-- 'arguments', 'startJobRun_arguments' - The job arguments specifically for this run. For this job run, they
+-- replace the default arguments set in the job definition itself.
+--
+-- You can specify arguments here that your own job-execution script
+-- consumes, as well as arguments that AWS Glue itself consumes.
+--
+-- For information about how to specify and consume your own Job arguments,
+-- see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python>
+-- topic in the developer guide.
+--
+-- For information about the key-value pairs that AWS Glue consumes to set
+-- up your job, see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue>
+-- topic in the developer guide.
+--
+-- 'allocatedCapacity', 'startJobRun_allocatedCapacity' - This field is deprecated. Use @MaxCapacity@ instead.
+--
+-- The number of AWS Glue data processing units (DPUs) to allocate to this
+-- JobRun. From 2 to 100 DPUs can be allocated; the default is 10. A DPU is
+-- a relative measure of processing power that consists of 4 vCPUs of
+-- compute capacity and 16 GB of memory. For more information, see the
+-- <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+--
+-- 'jobName', 'startJobRun_jobName' - The name of the job definition to use.
+newStartJobRun ::
+  -- | 'jobName'
+  Prelude.Text ->
   StartJobRun
-startJobRun pJobName_ =
+newStartJobRun pJobName_ =
   StartJobRun'
-    { _sjrSecurityConfiguration = Nothing,
-      _sjrTimeout = Nothing,
-      _sjrMaxCapacity = Nothing,
-      _sjrNotificationProperty = Nothing,
-      _sjrNumberOfWorkers = Nothing,
-      _sjrWorkerType = Nothing,
-      _sjrJobRunId = Nothing,
-      _sjrArguments = Nothing,
-      _sjrAllocatedCapacity = Nothing,
-      _sjrJobName = pJobName_
+    { securityConfiguration =
+        Prelude.Nothing,
+      timeout = Prelude.Nothing,
+      maxCapacity = Prelude.Nothing,
+      notificationProperty = Prelude.Nothing,
+      numberOfWorkers = Prelude.Nothing,
+      workerType = Prelude.Nothing,
+      jobRunId = Prelude.Nothing,
+      arguments = Prelude.Nothing,
+      allocatedCapacity = Prelude.Nothing,
+      jobName = pJobName_
     }
 
--- | The name of the @SecurityConfiguration@ structure to be used with this job run.
-sjrSecurityConfiguration :: Lens' StartJobRun (Maybe Text)
-sjrSecurityConfiguration = lens _sjrSecurityConfiguration (\s a -> s {_sjrSecurityConfiguration = a})
+-- | The name of the @SecurityConfiguration@ structure to be used with this
+-- job run.
+startJobRun_securityConfiguration :: Lens.Lens' StartJobRun (Prelude.Maybe Prelude.Text)
+startJobRun_securityConfiguration = Lens.lens (\StartJobRun' {securityConfiguration} -> securityConfiguration) (\s@StartJobRun' {} a -> s {securityConfiguration = a} :: StartJobRun)
 
--- | The @JobRun@ timeout in minutes. This is the maximum time that a job run can consume resources before it is terminated and enters @TIMEOUT@ status. The default is 2,880 minutes (48 hours). This overrides the timeout value set in the parent job.
-sjrTimeout :: Lens' StartJobRun (Maybe Natural)
-sjrTimeout = lens _sjrTimeout (\s a -> s {_sjrTimeout = a}) . mapping _Nat
+-- | The @JobRun@ timeout in minutes. This is the maximum time that a job run
+-- can consume resources before it is terminated and enters @TIMEOUT@
+-- status. The default is 2,880 minutes (48 hours). This overrides the
+-- timeout value set in the parent job.
+startJobRun_timeout :: Lens.Lens' StartJobRun (Prelude.Maybe Prelude.Natural)
+startJobRun_timeout = Lens.lens (\StartJobRun' {timeout} -> timeout) (\s@StartJobRun' {} a -> s {timeout = a} :: StartJobRun) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page> . Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@ . The value that can be allocated for @MaxCapacity@ depends on whether you are running a Python shell job, or an Apache Spark ETL job:     * When you specify a Python shell job (@JobCommand.Name@ ="pythonshell"), you can allocate either 0.0625 or 1 DPU. The default is 0.0625 DPU.     * When you specify an Apache Spark ETL job (@JobCommand.Name@ ="glueetl"), you can allocate from 2 to 100 DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
-sjrMaxCapacity :: Lens' StartJobRun (Maybe Double)
-sjrMaxCapacity = lens _sjrMaxCapacity (\s a -> s {_sjrMaxCapacity = a})
+-- | The number of AWS Glue data processing units (DPUs) that can be
+-- allocated when this job runs. A DPU is a relative measure of processing
+-- power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
+-- For more information, see the
+-- <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+--
+-- Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@.
+--
+-- The value that can be allocated for @MaxCapacity@ depends on whether you
+-- are running a Python shell job, or an Apache Spark ETL job:
+--
+-- -   When you specify a Python shell job
+--     (@JobCommand.Name@=\"pythonshell\"), you can allocate either 0.0625
+--     or 1 DPU. The default is 0.0625 DPU.
+--
+-- -   When you specify an Apache Spark ETL job
+--     (@JobCommand.Name@=\"glueetl\"), you can allocate from 2 to 100
+--     DPUs. The default is 10 DPUs. This job type cannot have a fractional
+--     DPU allocation.
+startJobRun_maxCapacity :: Lens.Lens' StartJobRun (Prelude.Maybe Prelude.Double)
+startJobRun_maxCapacity = Lens.lens (\StartJobRun' {maxCapacity} -> maxCapacity) (\s@StartJobRun' {} a -> s {maxCapacity = a} :: StartJobRun)
 
 -- | Specifies configuration properties of a job run notification.
-sjrNotificationProperty :: Lens' StartJobRun (Maybe NotificationProperty)
-sjrNotificationProperty = lens _sjrNotificationProperty (\s a -> s {_sjrNotificationProperty = a})
+startJobRun_notificationProperty :: Lens.Lens' StartJobRun (Prelude.Maybe NotificationProperty)
+startJobRun_notificationProperty = Lens.lens (\StartJobRun' {notificationProperty} -> notificationProperty) (\s@StartJobRun' {} a -> s {notificationProperty = a} :: StartJobRun)
 
--- | The number of workers of a defined @workerType@ that are allocated when a job runs. The maximum number of workers you can define are 299 for @G.1X@ , and 149 for @G.2X@ .
-sjrNumberOfWorkers :: Lens' StartJobRun (Maybe Int)
-sjrNumberOfWorkers = lens _sjrNumberOfWorkers (\s a -> s {_sjrNumberOfWorkers = a})
+-- | The number of workers of a defined @workerType@ that are allocated when
+-- a job runs.
+--
+-- The maximum number of workers you can define are 299 for @G.1X@, and 149
+-- for @G.2X@.
+startJobRun_numberOfWorkers :: Lens.Lens' StartJobRun (Prelude.Maybe Prelude.Int)
+startJobRun_numberOfWorkers = Lens.lens (\StartJobRun' {numberOfWorkers} -> numberOfWorkers) (\s@StartJobRun' {} a -> s {numberOfWorkers = a} :: StartJobRun)
 
--- | The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or G.2X.     * For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.     * For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1 executor per worker.     * For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1 executor per worker.
-sjrWorkerType :: Lens' StartJobRun (Maybe WorkerType)
-sjrWorkerType = lens _sjrWorkerType (\s a -> s {_sjrWorkerType = a})
+-- | The type of predefined worker that is allocated when a job runs. Accepts
+-- a value of Standard, G.1X, or G.2X.
+--
+-- -   For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB
+--     of memory and a 50GB disk, and 2 executors per worker.
+--
+-- -   For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of
+--     memory and a 64GB disk, and 1 executor per worker.
+--
+-- -   For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of
+--     memory and a 128GB disk, and 1 executor per worker.
+startJobRun_workerType :: Lens.Lens' StartJobRun (Prelude.Maybe WorkerType)
+startJobRun_workerType = Lens.lens (\StartJobRun' {workerType} -> workerType) (\s@StartJobRun' {} a -> s {workerType = a} :: StartJobRun)
 
 -- | The ID of a previous @JobRun@ to retry.
-sjrJobRunId :: Lens' StartJobRun (Maybe Text)
-sjrJobRunId = lens _sjrJobRunId (\s a -> s {_sjrJobRunId = a})
+startJobRun_jobRunId :: Lens.Lens' StartJobRun (Prelude.Maybe Prelude.Text)
+startJobRun_jobRunId = Lens.lens (\StartJobRun' {jobRunId} -> jobRunId) (\s@StartJobRun' {} a -> s {jobRunId = a} :: StartJobRun)
 
--- | The job arguments specifically for this run. For this job run, they replace the default arguments set in the job definition itself. You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue itself consumes. For information about how to specify and consume your own Job arguments, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python> topic in the developer guide. For information about the key-value pairs that AWS Glue consumes to set up your job, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue> topic in the developer guide.
-sjrArguments :: Lens' StartJobRun (HashMap Text Text)
-sjrArguments = lens _sjrArguments (\s a -> s {_sjrArguments = a}) . _Default . _Map
+-- | The job arguments specifically for this run. For this job run, they
+-- replace the default arguments set in the job definition itself.
+--
+-- You can specify arguments here that your own job-execution script
+-- consumes, as well as arguments that AWS Glue itself consumes.
+--
+-- For information about how to specify and consume your own Job arguments,
+-- see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python>
+-- topic in the developer guide.
+--
+-- For information about the key-value pairs that AWS Glue consumes to set
+-- up your job, see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue>
+-- topic in the developer guide.
+startJobRun_arguments :: Lens.Lens' StartJobRun (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+startJobRun_arguments = Lens.lens (\StartJobRun' {arguments} -> arguments) (\s@StartJobRun' {} a -> s {arguments = a} :: StartJobRun) Prelude.. Lens.mapping Prelude._Map
 
--- | This field is deprecated. Use @MaxCapacity@ instead. The number of AWS Glue data processing units (DPUs) to allocate to this JobRun. From 2 to 100 DPUs can be allocated; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page> .
-sjrAllocatedCapacity :: Lens' StartJobRun (Maybe Int)
-sjrAllocatedCapacity = lens _sjrAllocatedCapacity (\s a -> s {_sjrAllocatedCapacity = a})
+-- | This field is deprecated. Use @MaxCapacity@ instead.
+--
+-- The number of AWS Glue data processing units (DPUs) to allocate to this
+-- JobRun. From 2 to 100 DPUs can be allocated; the default is 10. A DPU is
+-- a relative measure of processing power that consists of 4 vCPUs of
+-- compute capacity and 16 GB of memory. For more information, see the
+-- <https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+startJobRun_allocatedCapacity :: Lens.Lens' StartJobRun (Prelude.Maybe Prelude.Int)
+startJobRun_allocatedCapacity = Lens.lens (\StartJobRun' {allocatedCapacity} -> allocatedCapacity) (\s@StartJobRun' {} a -> s {allocatedCapacity = a} :: StartJobRun)
 
 -- | The name of the job definition to use.
-sjrJobName :: Lens' StartJobRun Text
-sjrJobName = lens _sjrJobName (\s a -> s {_sjrJobName = a})
+startJobRun_jobName :: Lens.Lens' StartJobRun Prelude.Text
+startJobRun_jobName = Lens.lens (\StartJobRun' {jobName} -> jobName) (\s@StartJobRun' {} a -> s {jobName = a} :: StartJobRun)
 
-instance AWSRequest StartJobRun where
+instance Prelude.AWSRequest StartJobRun where
   type Rs StartJobRun = StartJobRunResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartJobRunResponse'
-            <$> (x .?> "JobRunId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobRunId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartJobRun
+instance Prelude.Hashable StartJobRun
 
-instance NFData StartJobRun
+instance Prelude.NFData StartJobRun
 
-instance ToHeaders StartJobRun where
+instance Prelude.ToHeaders StartJobRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.StartJobRun" :: ByteString),
+              Prelude.=# ("AWSGlue.StartJobRun" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartJobRun where
+instance Prelude.ToJSON StartJobRun where
   toJSON StartJobRun' {..} =
-    object
-      ( catMaybes
-          [ ("SecurityConfiguration" .=)
-              <$> _sjrSecurityConfiguration,
-            ("Timeout" .=) <$> _sjrTimeout,
-            ("MaxCapacity" .=) <$> _sjrMaxCapacity,
-            ("NotificationProperty" .=)
-              <$> _sjrNotificationProperty,
-            ("NumberOfWorkers" .=) <$> _sjrNumberOfWorkers,
-            ("WorkerType" .=) <$> _sjrWorkerType,
-            ("JobRunId" .=) <$> _sjrJobRunId,
-            ("Arguments" .=) <$> _sjrArguments,
-            ("AllocatedCapacity" .=) <$> _sjrAllocatedCapacity,
-            Just ("JobName" .= _sjrJobName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SecurityConfiguration" Prelude..=)
+              Prelude.<$> securityConfiguration,
+            ("Timeout" Prelude..=) Prelude.<$> timeout,
+            ("MaxCapacity" Prelude..=) Prelude.<$> maxCapacity,
+            ("NotificationProperty" Prelude..=)
+              Prelude.<$> notificationProperty,
+            ("NumberOfWorkers" Prelude..=)
+              Prelude.<$> numberOfWorkers,
+            ("WorkerType" Prelude..=) Prelude.<$> workerType,
+            ("JobRunId" Prelude..=) Prelude.<$> jobRunId,
+            ("Arguments" Prelude..=) Prelude.<$> arguments,
+            ("AllocatedCapacity" Prelude..=)
+              Prelude.<$> allocatedCapacity,
+            Prelude.Just ("JobName" Prelude..= jobName)
           ]
       )
 
-instance ToPath StartJobRun where
-  toPath = const "/"
+instance Prelude.ToPath StartJobRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartJobRun where
-  toQuery = const mempty
+instance Prelude.ToQuery StartJobRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startJobRunResponse' smart constructor.
+-- | /See:/ 'newStartJobRunResponse' smart constructor.
 data StartJobRunResponse = StartJobRunResponse'
-  { _sjrrrsJobRunId ::
-      !(Maybe Text),
-    _sjrrrsResponseStatus :: !Int
+  { -- | The ID assigned to this job run.
+    jobRunId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartJobRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartJobRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sjrrrsJobRunId' - The ID assigned to this job run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sjrrrsResponseStatus' - -- | The response status code.
-startJobRunResponse ::
-  -- | 'sjrrrsResponseStatus'
-  Int ->
+-- 'jobRunId', 'startJobRunResponse_jobRunId' - The ID assigned to this job run.
+--
+-- 'httpStatus', 'startJobRunResponse_httpStatus' - The response's http status code.
+newStartJobRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartJobRunResponse
-startJobRunResponse pResponseStatus_ =
+newStartJobRunResponse pHttpStatus_ =
   StartJobRunResponse'
-    { _sjrrrsJobRunId = Nothing,
-      _sjrrrsResponseStatus = pResponseStatus_
+    { jobRunId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID assigned to this job run.
-sjrrrsJobRunId :: Lens' StartJobRunResponse (Maybe Text)
-sjrrrsJobRunId = lens _sjrrrsJobRunId (\s a -> s {_sjrrrsJobRunId = a})
+startJobRunResponse_jobRunId :: Lens.Lens' StartJobRunResponse (Prelude.Maybe Prelude.Text)
+startJobRunResponse_jobRunId = Lens.lens (\StartJobRunResponse' {jobRunId} -> jobRunId) (\s@StartJobRunResponse' {} a -> s {jobRunId = a} :: StartJobRunResponse)
 
--- | -- | The response status code.
-sjrrrsResponseStatus :: Lens' StartJobRunResponse Int
-sjrrrsResponseStatus = lens _sjrrrsResponseStatus (\s a -> s {_sjrrrsResponseStatus = a})
+-- | The response's http status code.
+startJobRunResponse_httpStatus :: Lens.Lens' StartJobRunResponse Prelude.Int
+startJobRunResponse_httpStatus = Lens.lens (\StartJobRunResponse' {httpStatus} -> httpStatus) (\s@StartJobRunResponse' {} a -> s {httpStatus = a} :: StartJobRunResponse)
 
-instance NFData StartJobRunResponse
+instance Prelude.NFData StartJobRunResponse

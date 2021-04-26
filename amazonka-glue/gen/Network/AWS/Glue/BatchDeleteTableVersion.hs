@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,177 +24,195 @@
 -- Deletes a specified batch of versions of a table.
 module Network.AWS.Glue.BatchDeleteTableVersion
   ( -- * Creating a Request
-    batchDeleteTableVersion,
-    BatchDeleteTableVersion,
+    BatchDeleteTableVersion (..),
+    newBatchDeleteTableVersion,
 
     -- * Request Lenses
-    bdtvCatalogId,
-    bdtvDatabaseName,
-    bdtvTableName,
-    bdtvVersionIds,
+    batchDeleteTableVersion_catalogId,
+    batchDeleteTableVersion_databaseName,
+    batchDeleteTableVersion_tableName,
+    batchDeleteTableVersion_versionIds,
 
     -- * Destructuring the Response
-    batchDeleteTableVersionResponse,
-    BatchDeleteTableVersionResponse,
+    BatchDeleteTableVersionResponse (..),
+    newBatchDeleteTableVersionResponse,
 
     -- * Response Lenses
-    bdtvrrsErrors,
-    bdtvrrsResponseStatus,
+    batchDeleteTableVersionResponse_errors,
+    batchDeleteTableVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.TableVersionError
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchDeleteTableVersion' smart constructor.
+-- | /See:/ 'newBatchDeleteTableVersion' smart constructor.
 data BatchDeleteTableVersion = BatchDeleteTableVersion'
-  { _bdtvCatalogId ::
-      !(Maybe Text),
-    _bdtvDatabaseName ::
-      !Text,
-    _bdtvTableName :: !Text,
-    _bdtvVersionIds ::
-      ![Text]
+  { -- | The ID of the Data Catalog where the tables reside. If none is provided,
+    -- the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The database in the catalog in which the table resides. For Hive
+    -- compatibility, this name is entirely lowercase.
+    databaseName :: Prelude.Text,
+    -- | The name of the table. For Hive compatibility, this name is entirely
+    -- lowercase.
+    tableName :: Prelude.Text,
+    -- | A list of the IDs of versions to be deleted. A @VersionId@ is a string
+    -- representation of an integer. Each version is incremented by 1.
+    versionIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDeleteTableVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDeleteTableVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdtvCatalogId' - The ID of the Data Catalog where the tables reside. If none is provided, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdtvDatabaseName' - The database in the catalog in which the table resides. For Hive compatibility, this name is entirely lowercase.
+-- 'catalogId', 'batchDeleteTableVersion_catalogId' - The ID of the Data Catalog where the tables reside. If none is provided,
+-- the AWS account ID is used by default.
 --
--- * 'bdtvTableName' - The name of the table. For Hive compatibility, this name is entirely lowercase.
+-- 'databaseName', 'batchDeleteTableVersion_databaseName' - The database in the catalog in which the table resides. For Hive
+-- compatibility, this name is entirely lowercase.
 --
--- * 'bdtvVersionIds' - A list of the IDs of versions to be deleted. A @VersionId@ is a string representation of an integer. Each version is incremented by 1.
-batchDeleteTableVersion ::
-  -- | 'bdtvDatabaseName'
-  Text ->
-  -- | 'bdtvTableName'
-  Text ->
+-- 'tableName', 'batchDeleteTableVersion_tableName' - The name of the table. For Hive compatibility, this name is entirely
+-- lowercase.
+--
+-- 'versionIds', 'batchDeleteTableVersion_versionIds' - A list of the IDs of versions to be deleted. A @VersionId@ is a string
+-- representation of an integer. Each version is incremented by 1.
+newBatchDeleteTableVersion ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
   BatchDeleteTableVersion
-batchDeleteTableVersion pDatabaseName_ pTableName_ =
+newBatchDeleteTableVersion pDatabaseName_ pTableName_ =
   BatchDeleteTableVersion'
-    { _bdtvCatalogId = Nothing,
-      _bdtvDatabaseName = pDatabaseName_,
-      _bdtvTableName = pTableName_,
-      _bdtvVersionIds = mempty
+    { catalogId =
+        Prelude.Nothing,
+      databaseName = pDatabaseName_,
+      tableName = pTableName_,
+      versionIds = Prelude.mempty
     }
 
--- | The ID of the Data Catalog where the tables reside. If none is provided, the AWS account ID is used by default.
-bdtvCatalogId :: Lens' BatchDeleteTableVersion (Maybe Text)
-bdtvCatalogId = lens _bdtvCatalogId (\s a -> s {_bdtvCatalogId = a})
+-- | The ID of the Data Catalog where the tables reside. If none is provided,
+-- the AWS account ID is used by default.
+batchDeleteTableVersion_catalogId :: Lens.Lens' BatchDeleteTableVersion (Prelude.Maybe Prelude.Text)
+batchDeleteTableVersion_catalogId = Lens.lens (\BatchDeleteTableVersion' {catalogId} -> catalogId) (\s@BatchDeleteTableVersion' {} a -> s {catalogId = a} :: BatchDeleteTableVersion)
 
--- | The database in the catalog in which the table resides. For Hive compatibility, this name is entirely lowercase.
-bdtvDatabaseName :: Lens' BatchDeleteTableVersion Text
-bdtvDatabaseName = lens _bdtvDatabaseName (\s a -> s {_bdtvDatabaseName = a})
+-- | The database in the catalog in which the table resides. For Hive
+-- compatibility, this name is entirely lowercase.
+batchDeleteTableVersion_databaseName :: Lens.Lens' BatchDeleteTableVersion Prelude.Text
+batchDeleteTableVersion_databaseName = Lens.lens (\BatchDeleteTableVersion' {databaseName} -> databaseName) (\s@BatchDeleteTableVersion' {} a -> s {databaseName = a} :: BatchDeleteTableVersion)
 
--- | The name of the table. For Hive compatibility, this name is entirely lowercase.
-bdtvTableName :: Lens' BatchDeleteTableVersion Text
-bdtvTableName = lens _bdtvTableName (\s a -> s {_bdtvTableName = a})
+-- | The name of the table. For Hive compatibility, this name is entirely
+-- lowercase.
+batchDeleteTableVersion_tableName :: Lens.Lens' BatchDeleteTableVersion Prelude.Text
+batchDeleteTableVersion_tableName = Lens.lens (\BatchDeleteTableVersion' {tableName} -> tableName) (\s@BatchDeleteTableVersion' {} a -> s {tableName = a} :: BatchDeleteTableVersion)
 
--- | A list of the IDs of versions to be deleted. A @VersionId@ is a string representation of an integer. Each version is incremented by 1.
-bdtvVersionIds :: Lens' BatchDeleteTableVersion [Text]
-bdtvVersionIds = lens _bdtvVersionIds (\s a -> s {_bdtvVersionIds = a}) . _Coerce
+-- | A list of the IDs of versions to be deleted. A @VersionId@ is a string
+-- representation of an integer. Each version is incremented by 1.
+batchDeleteTableVersion_versionIds :: Lens.Lens' BatchDeleteTableVersion [Prelude.Text]
+batchDeleteTableVersion_versionIds = Lens.lens (\BatchDeleteTableVersion' {versionIds} -> versionIds) (\s@BatchDeleteTableVersion' {} a -> s {versionIds = a} :: BatchDeleteTableVersion) Prelude.. Prelude._Coerce
 
-instance AWSRequest BatchDeleteTableVersion where
+instance Prelude.AWSRequest BatchDeleteTableVersion where
   type
     Rs BatchDeleteTableVersion =
       BatchDeleteTableVersionResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchDeleteTableVersionResponse'
-            <$> (x .?> "Errors" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Errors" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchDeleteTableVersion
+instance Prelude.Hashable BatchDeleteTableVersion
 
-instance NFData BatchDeleteTableVersion
+instance Prelude.NFData BatchDeleteTableVersion
 
-instance ToHeaders BatchDeleteTableVersion where
+instance Prelude.ToHeaders BatchDeleteTableVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.BatchDeleteTableVersion" :: ByteString),
+              Prelude.=# ( "AWSGlue.BatchDeleteTableVersion" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchDeleteTableVersion where
+instance Prelude.ToJSON BatchDeleteTableVersion where
   toJSON BatchDeleteTableVersion' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _bdtvCatalogId,
-            Just ("DatabaseName" .= _bdtvDatabaseName),
-            Just ("TableName" .= _bdtvTableName),
-            Just ("VersionIds" .= _bdtvVersionIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just ("VersionIds" Prelude..= versionIds)
           ]
       )
 
-instance ToPath BatchDeleteTableVersion where
-  toPath = const "/"
+instance Prelude.ToPath BatchDeleteTableVersion where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchDeleteTableVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchDeleteTableVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchDeleteTableVersionResponse' smart constructor.
+-- | /See:/ 'newBatchDeleteTableVersionResponse' smart constructor.
 data BatchDeleteTableVersionResponse = BatchDeleteTableVersionResponse'
-  { _bdtvrrsErrors ::
-      !( Maybe
-           [TableVersionError]
-       ),
-    _bdtvrrsResponseStatus ::
-      !Int
+  { -- | A list of errors encountered while trying to delete the specified table
+    -- versions.
+    errors :: Prelude.Maybe [TableVersionError],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDeleteTableVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDeleteTableVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdtvrrsErrors' - A list of errors encountered while trying to delete the specified table versions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdtvrrsResponseStatus' - -- | The response status code.
-batchDeleteTableVersionResponse ::
-  -- | 'bdtvrrsResponseStatus'
-  Int ->
+-- 'errors', 'batchDeleteTableVersionResponse_errors' - A list of errors encountered while trying to delete the specified table
+-- versions.
+--
+-- 'httpStatus', 'batchDeleteTableVersionResponse_httpStatus' - The response's http status code.
+newBatchDeleteTableVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchDeleteTableVersionResponse
-batchDeleteTableVersionResponse pResponseStatus_ =
+newBatchDeleteTableVersionResponse pHttpStatus_ =
   BatchDeleteTableVersionResponse'
-    { _bdtvrrsErrors =
-        Nothing,
-      _bdtvrrsResponseStatus = pResponseStatus_
+    { errors =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of errors encountered while trying to delete the specified table versions.
-bdtvrrsErrors :: Lens' BatchDeleteTableVersionResponse [TableVersionError]
-bdtvrrsErrors = lens _bdtvrrsErrors (\s a -> s {_bdtvrrsErrors = a}) . _Default . _Coerce
+-- | A list of errors encountered while trying to delete the specified table
+-- versions.
+batchDeleteTableVersionResponse_errors :: Lens.Lens' BatchDeleteTableVersionResponse (Prelude.Maybe [TableVersionError])
+batchDeleteTableVersionResponse_errors = Lens.lens (\BatchDeleteTableVersionResponse' {errors} -> errors) (\s@BatchDeleteTableVersionResponse' {} a -> s {errors = a} :: BatchDeleteTableVersionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bdtvrrsResponseStatus :: Lens' BatchDeleteTableVersionResponse Int
-bdtvrrsResponseStatus = lens _bdtvrrsResponseStatus (\s a -> s {_bdtvrrsResponseStatus = a})
+-- | The response's http status code.
+batchDeleteTableVersionResponse_httpStatus :: Lens.Lens' BatchDeleteTableVersionResponse Prelude.Int
+batchDeleteTableVersionResponse_httpStatus = Lens.lens (\BatchDeleteTableVersionResponse' {httpStatus} -> httpStatus) (\s@BatchDeleteTableVersionResponse' {} a -> s {httpStatus = a} :: BatchDeleteTableVersionResponse)
 
-instance NFData BatchDeleteTableVersionResponse
+instance
+  Prelude.NFData
+    BatchDeleteTableVersionResponse

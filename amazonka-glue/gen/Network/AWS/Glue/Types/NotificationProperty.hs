@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.NotificationProperty where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies configuration properties of a notification.
 --
---
---
--- /See:/ 'notificationProperty' smart constructor.
-newtype NotificationProperty = NotificationProperty'
-  { _npNotifyDelayAfter ::
-      Maybe Nat
+-- /See:/ 'newNotificationProperty' smart constructor.
+data NotificationProperty = NotificationProperty'
+  { -- | After a job run starts, the number of minutes to wait before sending a
+    -- job run delay notification.
+    notifyDelayAfter :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotificationProperty' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotificationProperty' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'npNotifyDelayAfter' - After a job run starts, the number of minutes to wait before sending a job run delay notification.
-notificationProperty ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'notifyDelayAfter', 'notificationProperty_notifyDelayAfter' - After a job run starts, the number of minutes to wait before sending a
+-- job run delay notification.
+newNotificationProperty ::
   NotificationProperty
-notificationProperty =
+newNotificationProperty =
   NotificationProperty'
-    { _npNotifyDelayAfter =
-        Nothing
+    { notifyDelayAfter =
+        Prelude.Nothing
     }
 
--- | After a job run starts, the number of minutes to wait before sending a job run delay notification.
-npNotifyDelayAfter :: Lens' NotificationProperty (Maybe Natural)
-npNotifyDelayAfter = lens _npNotifyDelayAfter (\s a -> s {_npNotifyDelayAfter = a}) . mapping _Nat
+-- | After a job run starts, the number of minutes to wait before sending a
+-- job run delay notification.
+notificationProperty_notifyDelayAfter :: Lens.Lens' NotificationProperty (Prelude.Maybe Prelude.Natural)
+notificationProperty_notifyDelayAfter = Lens.lens (\NotificationProperty' {notifyDelayAfter} -> notifyDelayAfter) (\s@NotificationProperty' {} a -> s {notifyDelayAfter = a} :: NotificationProperty) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON NotificationProperty where
+instance Prelude.FromJSON NotificationProperty where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NotificationProperty"
       ( \x ->
-          NotificationProperty' <$> (x .:? "NotifyDelayAfter")
+          NotificationProperty'
+            Prelude.<$> (x Prelude..:? "NotifyDelayAfter")
       )
 
-instance Hashable NotificationProperty
+instance Prelude.Hashable NotificationProperty
 
-instance NFData NotificationProperty
+instance Prelude.NFData NotificationProperty
 
-instance ToJSON NotificationProperty where
+instance Prelude.ToJSON NotificationProperty where
   toJSON NotificationProperty' {..} =
-    object
-      ( catMaybes
-          [("NotifyDelayAfter" .=) <$> _npNotifyDelayAfter]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotifyDelayAfter" Prelude..=)
+              Prelude.<$> notifyDelayAfter
+          ]
       )

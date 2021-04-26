@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +21,69 @@ module Network.AWS.Glue.Types.SchemaChangePolicy where
 
 import Network.AWS.Glue.Types.DeleteBehavior
 import Network.AWS.Glue.Types.UpdateBehavior
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A policy that specifies update and deletion behaviors for the crawler.
 --
---
---
--- /See:/ 'schemaChangePolicy' smart constructor.
+-- /See:/ 'newSchemaChangePolicy' smart constructor.
 data SchemaChangePolicy = SchemaChangePolicy'
-  { _scpUpdateBehavior ::
-      !(Maybe UpdateBehavior),
-    _scpDeleteBehavior ::
-      !(Maybe DeleteBehavior)
+  { -- | The update behavior when the crawler finds a changed schema.
+    updateBehavior :: Prelude.Maybe UpdateBehavior,
+    -- | The deletion behavior when the crawler finds a deleted object.
+    deleteBehavior :: Prelude.Maybe DeleteBehavior
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SchemaChangePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SchemaChangePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scpUpdateBehavior' - The update behavior when the crawler finds a changed schema.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scpDeleteBehavior' - The deletion behavior when the crawler finds a deleted object.
-schemaChangePolicy ::
+-- 'updateBehavior', 'schemaChangePolicy_updateBehavior' - The update behavior when the crawler finds a changed schema.
+--
+-- 'deleteBehavior', 'schemaChangePolicy_deleteBehavior' - The deletion behavior when the crawler finds a deleted object.
+newSchemaChangePolicy ::
   SchemaChangePolicy
-schemaChangePolicy =
+newSchemaChangePolicy =
   SchemaChangePolicy'
-    { _scpUpdateBehavior = Nothing,
-      _scpDeleteBehavior = Nothing
+    { updateBehavior =
+        Prelude.Nothing,
+      deleteBehavior = Prelude.Nothing
     }
 
 -- | The update behavior when the crawler finds a changed schema.
-scpUpdateBehavior :: Lens' SchemaChangePolicy (Maybe UpdateBehavior)
-scpUpdateBehavior = lens _scpUpdateBehavior (\s a -> s {_scpUpdateBehavior = a})
+schemaChangePolicy_updateBehavior :: Lens.Lens' SchemaChangePolicy (Prelude.Maybe UpdateBehavior)
+schemaChangePolicy_updateBehavior = Lens.lens (\SchemaChangePolicy' {updateBehavior} -> updateBehavior) (\s@SchemaChangePolicy' {} a -> s {updateBehavior = a} :: SchemaChangePolicy)
 
 -- | The deletion behavior when the crawler finds a deleted object.
-scpDeleteBehavior :: Lens' SchemaChangePolicy (Maybe DeleteBehavior)
-scpDeleteBehavior = lens _scpDeleteBehavior (\s a -> s {_scpDeleteBehavior = a})
+schemaChangePolicy_deleteBehavior :: Lens.Lens' SchemaChangePolicy (Prelude.Maybe DeleteBehavior)
+schemaChangePolicy_deleteBehavior = Lens.lens (\SchemaChangePolicy' {deleteBehavior} -> deleteBehavior) (\s@SchemaChangePolicy' {} a -> s {deleteBehavior = a} :: SchemaChangePolicy)
 
-instance FromJSON SchemaChangePolicy where
+instance Prelude.FromJSON SchemaChangePolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SchemaChangePolicy"
       ( \x ->
           SchemaChangePolicy'
-            <$> (x .:? "UpdateBehavior")
-            <*> (x .:? "DeleteBehavior")
+            Prelude.<$> (x Prelude..:? "UpdateBehavior")
+            Prelude.<*> (x Prelude..:? "DeleteBehavior")
       )
 
-instance Hashable SchemaChangePolicy
+instance Prelude.Hashable SchemaChangePolicy
 
-instance NFData SchemaChangePolicy
+instance Prelude.NFData SchemaChangePolicy
 
-instance ToJSON SchemaChangePolicy where
+instance Prelude.ToJSON SchemaChangePolicy where
   toJSON SchemaChangePolicy' {..} =
-    object
-      ( catMaybes
-          [ ("UpdateBehavior" .=) <$> _scpUpdateBehavior,
-            ("DeleteBehavior" .=) <$> _scpDeleteBehavior
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("UpdateBehavior" Prelude..=)
+              Prelude.<$> updateBehavior,
+            ("DeleteBehavior" Prelude..=)
+              Prelude.<$> deleteBehavior
           ]
       )

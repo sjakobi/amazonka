@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,103 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.DoubleColumnStatisticsData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Defines column statistics supported for floating-point number data columns.
+-- | Defines column statistics supported for floating-point number data
+-- columns.
 --
---
---
--- /See:/ 'doubleColumnStatisticsData' smart constructor.
+-- /See:/ 'newDoubleColumnStatisticsData' smart constructor.
 data DoubleColumnStatisticsData = DoubleColumnStatisticsData'
-  { _dMaximumValue ::
-      !(Maybe Double),
-    _dMinimumValue ::
-      !(Maybe Double),
-    _dNumberOfNulls ::
-      !Nat,
-    _dNumberOfDistinctValues ::
-      !Nat
+  { -- | The highest value in the column.
+    maximumValue :: Prelude.Maybe Prelude.Double,
+    -- | The lowest value in the column.
+    minimumValue :: Prelude.Maybe Prelude.Double,
+    -- | The number of null values in the column.
+    numberOfNulls :: Prelude.Nat,
+    -- | The number of distinct values in a column.
+    numberOfDistinctValues :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DoubleColumnStatisticsData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DoubleColumnStatisticsData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dMaximumValue' - The highest value in the column.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dMinimumValue' - The lowest value in the column.
+-- 'maximumValue', 'doubleColumnStatisticsData_maximumValue' - The highest value in the column.
 --
--- * 'dNumberOfNulls' - The number of null values in the column.
+-- 'minimumValue', 'doubleColumnStatisticsData_minimumValue' - The lowest value in the column.
 --
--- * 'dNumberOfDistinctValues' - The number of distinct values in a column.
-doubleColumnStatisticsData ::
-  -- | 'dNumberOfNulls'
-  Natural ->
-  -- | 'dNumberOfDistinctValues'
-  Natural ->
+-- 'numberOfNulls', 'doubleColumnStatisticsData_numberOfNulls' - The number of null values in the column.
+--
+-- 'numberOfDistinctValues', 'doubleColumnStatisticsData_numberOfDistinctValues' - The number of distinct values in a column.
+newDoubleColumnStatisticsData ::
+  -- | 'numberOfNulls'
+  Prelude.Natural ->
+  -- | 'numberOfDistinctValues'
+  Prelude.Natural ->
   DoubleColumnStatisticsData
-doubleColumnStatisticsData
+newDoubleColumnStatisticsData
   pNumberOfNulls_
   pNumberOfDistinctValues_ =
     DoubleColumnStatisticsData'
-      { _dMaximumValue =
-          Nothing,
-        _dMinimumValue = Nothing,
-        _dNumberOfNulls = _Nat # pNumberOfNulls_,
-        _dNumberOfDistinctValues =
-          _Nat # pNumberOfDistinctValues_
+      { maximumValue =
+          Prelude.Nothing,
+        minimumValue = Prelude.Nothing,
+        numberOfNulls =
+          Prelude._Nat Lens.# pNumberOfNulls_,
+        numberOfDistinctValues =
+          Prelude._Nat Lens.# pNumberOfDistinctValues_
       }
 
 -- | The highest value in the column.
-dMaximumValue :: Lens' DoubleColumnStatisticsData (Maybe Double)
-dMaximumValue = lens _dMaximumValue (\s a -> s {_dMaximumValue = a})
+doubleColumnStatisticsData_maximumValue :: Lens.Lens' DoubleColumnStatisticsData (Prelude.Maybe Prelude.Double)
+doubleColumnStatisticsData_maximumValue = Lens.lens (\DoubleColumnStatisticsData' {maximumValue} -> maximumValue) (\s@DoubleColumnStatisticsData' {} a -> s {maximumValue = a} :: DoubleColumnStatisticsData)
 
 -- | The lowest value in the column.
-dMinimumValue :: Lens' DoubleColumnStatisticsData (Maybe Double)
-dMinimumValue = lens _dMinimumValue (\s a -> s {_dMinimumValue = a})
+doubleColumnStatisticsData_minimumValue :: Lens.Lens' DoubleColumnStatisticsData (Prelude.Maybe Prelude.Double)
+doubleColumnStatisticsData_minimumValue = Lens.lens (\DoubleColumnStatisticsData' {minimumValue} -> minimumValue) (\s@DoubleColumnStatisticsData' {} a -> s {minimumValue = a} :: DoubleColumnStatisticsData)
 
 -- | The number of null values in the column.
-dNumberOfNulls :: Lens' DoubleColumnStatisticsData Natural
-dNumberOfNulls = lens _dNumberOfNulls (\s a -> s {_dNumberOfNulls = a}) . _Nat
+doubleColumnStatisticsData_numberOfNulls :: Lens.Lens' DoubleColumnStatisticsData Prelude.Natural
+doubleColumnStatisticsData_numberOfNulls = Lens.lens (\DoubleColumnStatisticsData' {numberOfNulls} -> numberOfNulls) (\s@DoubleColumnStatisticsData' {} a -> s {numberOfNulls = a} :: DoubleColumnStatisticsData) Prelude.. Prelude._Nat
 
 -- | The number of distinct values in a column.
-dNumberOfDistinctValues :: Lens' DoubleColumnStatisticsData Natural
-dNumberOfDistinctValues = lens _dNumberOfDistinctValues (\s a -> s {_dNumberOfDistinctValues = a}) . _Nat
+doubleColumnStatisticsData_numberOfDistinctValues :: Lens.Lens' DoubleColumnStatisticsData Prelude.Natural
+doubleColumnStatisticsData_numberOfDistinctValues = Lens.lens (\DoubleColumnStatisticsData' {numberOfDistinctValues} -> numberOfDistinctValues) (\s@DoubleColumnStatisticsData' {} a -> s {numberOfDistinctValues = a} :: DoubleColumnStatisticsData) Prelude.. Prelude._Nat
 
-instance FromJSON DoubleColumnStatisticsData where
+instance Prelude.FromJSON DoubleColumnStatisticsData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DoubleColumnStatisticsData"
       ( \x ->
           DoubleColumnStatisticsData'
-            <$> (x .:? "MaximumValue")
-            <*> (x .:? "MinimumValue")
-            <*> (x .: "NumberOfNulls")
-            <*> (x .: "NumberOfDistinctValues")
+            Prelude.<$> (x Prelude..:? "MaximumValue")
+            Prelude.<*> (x Prelude..:? "MinimumValue")
+            Prelude.<*> (x Prelude..: "NumberOfNulls")
+            Prelude.<*> (x Prelude..: "NumberOfDistinctValues")
       )
 
-instance Hashable DoubleColumnStatisticsData
+instance Prelude.Hashable DoubleColumnStatisticsData
 
-instance NFData DoubleColumnStatisticsData
+instance Prelude.NFData DoubleColumnStatisticsData
 
-instance ToJSON DoubleColumnStatisticsData where
+instance Prelude.ToJSON DoubleColumnStatisticsData where
   toJSON DoubleColumnStatisticsData' {..} =
-    object
-      ( catMaybes
-          [ ("MaximumValue" .=) <$> _dMaximumValue,
-            ("MinimumValue" .=) <$> _dMinimumValue,
-            Just ("NumberOfNulls" .= _dNumberOfNulls),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaximumValue" Prelude..=)
+              Prelude.<$> maximumValue,
+            ("MinimumValue" Prelude..=) Prelude.<$> minimumValue,
+            Prelude.Just
+              ("NumberOfNulls" Prelude..= numberOfNulls),
+            Prelude.Just
               ( "NumberOfDistinctValues"
-                  .= _dNumberOfDistinctValues
+                  Prelude..= numberOfDistinctValues
               )
           ]
       )

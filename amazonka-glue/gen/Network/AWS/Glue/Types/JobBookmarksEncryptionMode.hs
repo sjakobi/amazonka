@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Glue.Types.JobBookmarksEncryptionMode
   ( JobBookmarksEncryptionMode
       ( ..,
-        JBEMCseKMS,
-        JBEMDisabled
+        JobBookmarksEncryptionModeCSEKMS,
+        JobBookmarksEncryptionModeDISABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobBookmarksEncryptionMode
-  = JobBookmarksEncryptionMode'
-      ( CI
-          Text
-      )
+newtype JobBookmarksEncryptionMode = JobBookmarksEncryptionMode'
+  { fromJobBookmarksEncryptionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JBEMCseKMS :: JobBookmarksEncryptionMode
-pattern JBEMCseKMS = JobBookmarksEncryptionMode' "CSE-KMS"
+pattern JobBookmarksEncryptionModeCSEKMS :: JobBookmarksEncryptionMode
+pattern JobBookmarksEncryptionModeCSEKMS = JobBookmarksEncryptionMode' "CSE-KMS"
 
-pattern JBEMDisabled :: JobBookmarksEncryptionMode
-pattern JBEMDisabled = JobBookmarksEncryptionMode' "DISABLED"
+pattern JobBookmarksEncryptionModeDISABLED :: JobBookmarksEncryptionMode
+pattern JobBookmarksEncryptionModeDISABLED = JobBookmarksEncryptionMode' "DISABLED"
 
 {-# COMPLETE
-  JBEMCseKMS,
-  JBEMDisabled,
+  JobBookmarksEncryptionModeCSEKMS,
+  JobBookmarksEncryptionModeDISABLED,
   JobBookmarksEncryptionMode'
   #-}
 
-instance FromText JobBookmarksEncryptionMode where
-  parser = (JobBookmarksEncryptionMode' . mk) <$> takeText
+instance Prelude.FromText JobBookmarksEncryptionMode where
+  parser = JobBookmarksEncryptionMode' Prelude.<$> Prelude.takeText
 
-instance ToText JobBookmarksEncryptionMode where
-  toText (JobBookmarksEncryptionMode' ci) = original ci
+instance Prelude.ToText JobBookmarksEncryptionMode where
+  toText (JobBookmarksEncryptionMode' x) = x
 
-instance Hashable JobBookmarksEncryptionMode
+instance Prelude.Hashable JobBookmarksEncryptionMode
 
-instance NFData JobBookmarksEncryptionMode
+instance Prelude.NFData JobBookmarksEncryptionMode
 
-instance ToByteString JobBookmarksEncryptionMode
+instance Prelude.ToByteString JobBookmarksEncryptionMode
 
-instance ToQuery JobBookmarksEncryptionMode
+instance Prelude.ToQuery JobBookmarksEncryptionMode
 
-instance ToHeader JobBookmarksEncryptionMode
+instance Prelude.ToHeader JobBookmarksEncryptionMode
 
-instance ToJSON JobBookmarksEncryptionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobBookmarksEncryptionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JobBookmarksEncryptionMode where
-  parseJSON = parseJSONText "JobBookmarksEncryptionMode"
+instance Prelude.FromJSON JobBookmarksEncryptionMode where
+  parseJSON = Prelude.parseJSONText "JobBookmarksEncryptionMode"

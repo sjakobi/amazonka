@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Glue.Types.ScheduleState
   ( ScheduleState
       ( ..,
-        SSNotScheduled,
-        SSScheduled,
-        SSTransitioning
+        ScheduleStateNOTSCHEDULED,
+        ScheduleStateSCHEDULED,
+        ScheduleStateTRANSITIONING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScheduleState = ScheduleState' (CI Text)
+newtype ScheduleState = ScheduleState'
+  { fromScheduleState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSNotScheduled :: ScheduleState
-pattern SSNotScheduled = ScheduleState' "NOT_SCHEDULED"
+pattern ScheduleStateNOTSCHEDULED :: ScheduleState
+pattern ScheduleStateNOTSCHEDULED = ScheduleState' "NOT_SCHEDULED"
 
-pattern SSScheduled :: ScheduleState
-pattern SSScheduled = ScheduleState' "SCHEDULED"
+pattern ScheduleStateSCHEDULED :: ScheduleState
+pattern ScheduleStateSCHEDULED = ScheduleState' "SCHEDULED"
 
-pattern SSTransitioning :: ScheduleState
-pattern SSTransitioning = ScheduleState' "TRANSITIONING"
+pattern ScheduleStateTRANSITIONING :: ScheduleState
+pattern ScheduleStateTRANSITIONING = ScheduleState' "TRANSITIONING"
 
 {-# COMPLETE
-  SSNotScheduled,
-  SSScheduled,
-  SSTransitioning,
+  ScheduleStateNOTSCHEDULED,
+  ScheduleStateSCHEDULED,
+  ScheduleStateTRANSITIONING,
   ScheduleState'
   #-}
 
-instance FromText ScheduleState where
-  parser = (ScheduleState' . mk) <$> takeText
+instance Prelude.FromText ScheduleState where
+  parser = ScheduleState' Prelude.<$> Prelude.takeText
 
-instance ToText ScheduleState where
-  toText (ScheduleState' ci) = original ci
+instance Prelude.ToText ScheduleState where
+  toText (ScheduleState' x) = x
 
-instance Hashable ScheduleState
+instance Prelude.Hashable ScheduleState
 
-instance NFData ScheduleState
+instance Prelude.NFData ScheduleState
 
-instance ToByteString ScheduleState
+instance Prelude.ToByteString ScheduleState
 
-instance ToQuery ScheduleState
+instance Prelude.ToQuery ScheduleState
 
-instance ToHeader ScheduleState
+instance Prelude.ToHeader ScheduleState
 
-instance FromJSON ScheduleState where
-  parseJSON = parseJSONText "ScheduleState"
+instance Prelude.FromJSON ScheduleState where
+  parseJSON = Prelude.parseJSONText "ScheduleState"

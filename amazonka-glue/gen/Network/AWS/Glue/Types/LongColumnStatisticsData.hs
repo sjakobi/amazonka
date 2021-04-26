@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.LongColumnStatisticsData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines column statistics supported for integer data columns.
 --
---
---
--- /See:/ 'longColumnStatisticsData' smart constructor.
+-- /See:/ 'newLongColumnStatisticsData' smart constructor.
 data LongColumnStatisticsData = LongColumnStatisticsData'
-  { _lcsdMaximumValue ::
-      !(Maybe Integer),
-    _lcsdMinimumValue ::
-      !(Maybe Integer),
-    _lcsdNumberOfNulls ::
-      !Nat,
-    _lcsdNumberOfDistinctValues ::
-      !Nat
+  { -- | The highest value in the column.
+    maximumValue :: Prelude.Maybe Prelude.Integer,
+    -- | The lowest value in the column.
+    minimumValue :: Prelude.Maybe Prelude.Integer,
+    -- | The number of null values in the column.
+    numberOfNulls :: Prelude.Nat,
+    -- | The number of distinct values in a column.
+    numberOfDistinctValues :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LongColumnStatisticsData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LongColumnStatisticsData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcsdMaximumValue' - The highest value in the column.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcsdMinimumValue' - The lowest value in the column.
+-- 'maximumValue', 'longColumnStatisticsData_maximumValue' - The highest value in the column.
 --
--- * 'lcsdNumberOfNulls' - The number of null values in the column.
+-- 'minimumValue', 'longColumnStatisticsData_minimumValue' - The lowest value in the column.
 --
--- * 'lcsdNumberOfDistinctValues' - The number of distinct values in a column.
-longColumnStatisticsData ::
-  -- | 'lcsdNumberOfNulls'
-  Natural ->
-  -- | 'lcsdNumberOfDistinctValues'
-  Natural ->
+-- 'numberOfNulls', 'longColumnStatisticsData_numberOfNulls' - The number of null values in the column.
+--
+-- 'numberOfDistinctValues', 'longColumnStatisticsData_numberOfDistinctValues' - The number of distinct values in a column.
+newLongColumnStatisticsData ::
+  -- | 'numberOfNulls'
+  Prelude.Natural ->
+  -- | 'numberOfDistinctValues'
+  Prelude.Natural ->
   LongColumnStatisticsData
-longColumnStatisticsData
+newLongColumnStatisticsData
   pNumberOfNulls_
   pNumberOfDistinctValues_ =
     LongColumnStatisticsData'
-      { _lcsdMaximumValue =
-          Nothing,
-        _lcsdMinimumValue = Nothing,
-        _lcsdNumberOfNulls = _Nat # pNumberOfNulls_,
-        _lcsdNumberOfDistinctValues =
-          _Nat # pNumberOfDistinctValues_
+      { maximumValue =
+          Prelude.Nothing,
+        minimumValue = Prelude.Nothing,
+        numberOfNulls =
+          Prelude._Nat Lens.# pNumberOfNulls_,
+        numberOfDistinctValues =
+          Prelude._Nat Lens.# pNumberOfDistinctValues_
       }
 
 -- | The highest value in the column.
-lcsdMaximumValue :: Lens' LongColumnStatisticsData (Maybe Integer)
-lcsdMaximumValue = lens _lcsdMaximumValue (\s a -> s {_lcsdMaximumValue = a})
+longColumnStatisticsData_maximumValue :: Lens.Lens' LongColumnStatisticsData (Prelude.Maybe Prelude.Integer)
+longColumnStatisticsData_maximumValue = Lens.lens (\LongColumnStatisticsData' {maximumValue} -> maximumValue) (\s@LongColumnStatisticsData' {} a -> s {maximumValue = a} :: LongColumnStatisticsData)
 
 -- | The lowest value in the column.
-lcsdMinimumValue :: Lens' LongColumnStatisticsData (Maybe Integer)
-lcsdMinimumValue = lens _lcsdMinimumValue (\s a -> s {_lcsdMinimumValue = a})
+longColumnStatisticsData_minimumValue :: Lens.Lens' LongColumnStatisticsData (Prelude.Maybe Prelude.Integer)
+longColumnStatisticsData_minimumValue = Lens.lens (\LongColumnStatisticsData' {minimumValue} -> minimumValue) (\s@LongColumnStatisticsData' {} a -> s {minimumValue = a} :: LongColumnStatisticsData)
 
 -- | The number of null values in the column.
-lcsdNumberOfNulls :: Lens' LongColumnStatisticsData Natural
-lcsdNumberOfNulls = lens _lcsdNumberOfNulls (\s a -> s {_lcsdNumberOfNulls = a}) . _Nat
+longColumnStatisticsData_numberOfNulls :: Lens.Lens' LongColumnStatisticsData Prelude.Natural
+longColumnStatisticsData_numberOfNulls = Lens.lens (\LongColumnStatisticsData' {numberOfNulls} -> numberOfNulls) (\s@LongColumnStatisticsData' {} a -> s {numberOfNulls = a} :: LongColumnStatisticsData) Prelude.. Prelude._Nat
 
 -- | The number of distinct values in a column.
-lcsdNumberOfDistinctValues :: Lens' LongColumnStatisticsData Natural
-lcsdNumberOfDistinctValues = lens _lcsdNumberOfDistinctValues (\s a -> s {_lcsdNumberOfDistinctValues = a}) . _Nat
+longColumnStatisticsData_numberOfDistinctValues :: Lens.Lens' LongColumnStatisticsData Prelude.Natural
+longColumnStatisticsData_numberOfDistinctValues = Lens.lens (\LongColumnStatisticsData' {numberOfDistinctValues} -> numberOfDistinctValues) (\s@LongColumnStatisticsData' {} a -> s {numberOfDistinctValues = a} :: LongColumnStatisticsData) Prelude.. Prelude._Nat
 
-instance FromJSON LongColumnStatisticsData where
+instance Prelude.FromJSON LongColumnStatisticsData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LongColumnStatisticsData"
       ( \x ->
           LongColumnStatisticsData'
-            <$> (x .:? "MaximumValue")
-            <*> (x .:? "MinimumValue")
-            <*> (x .: "NumberOfNulls")
-            <*> (x .: "NumberOfDistinctValues")
+            Prelude.<$> (x Prelude..:? "MaximumValue")
+            Prelude.<*> (x Prelude..:? "MinimumValue")
+            Prelude.<*> (x Prelude..: "NumberOfNulls")
+            Prelude.<*> (x Prelude..: "NumberOfDistinctValues")
       )
 
-instance Hashable LongColumnStatisticsData
+instance Prelude.Hashable LongColumnStatisticsData
 
-instance NFData LongColumnStatisticsData
+instance Prelude.NFData LongColumnStatisticsData
 
-instance ToJSON LongColumnStatisticsData where
+instance Prelude.ToJSON LongColumnStatisticsData where
   toJSON LongColumnStatisticsData' {..} =
-    object
-      ( catMaybes
-          [ ("MaximumValue" .=) <$> _lcsdMaximumValue,
-            ("MinimumValue" .=) <$> _lcsdMinimumValue,
-            Just ("NumberOfNulls" .= _lcsdNumberOfNulls),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaximumValue" Prelude..=)
+              Prelude.<$> maximumValue,
+            ("MinimumValue" Prelude..=) Prelude.<$> minimumValue,
+            Prelude.Just
+              ("NumberOfNulls" Prelude..= numberOfNulls),
+            Prelude.Just
               ( "NumberOfDistinctValues"
-                  .= _lcsdNumberOfDistinctValues
+                  Prelude..= numberOfDistinctValues
               )
           ]
       )

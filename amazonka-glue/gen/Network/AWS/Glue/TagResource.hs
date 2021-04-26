@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds tags to a resource. A tag is a label you can assign to an AWS resource. In AWS Glue, you can tag only certain resources. For information about what resources you can tag, see <https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html AWS Tags in AWS Glue> .
+-- Adds tags to a resource. A tag is a label you can assign to an AWS
+-- resource. In AWS Glue, you can tag only certain resources. For
+-- information about what resources you can tag, see
+-- <https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html AWS Tags in AWS Glue>.
 module Network.AWS.Glue.TagResource
   ( -- * Creating a Request
-    tagResource,
-    TagResource,
+    TagResource (..),
+    newTagResource,
 
     -- * Request Lenses
-    trResourceARN,
-    trTagsToAdd,
+    tagResource_resourceArn,
+    tagResource_tagsToAdd,
 
     -- * Destructuring the Response
-    tagResourceResponse,
-    TagResourceResponse,
+    TagResourceResponse (..),
+    newTagResourceResponse,
 
     -- * Response Lenses
-    trrrsResponseStatus,
+    tagResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagResource' smart constructor.
+-- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { _trResourceARN ::
-      !Text,
-    _trTagsToAdd :: !(Map Text Text)
+  { -- | The ARN of the AWS Glue resource to which to add the tags. For more
+    -- information about AWS Glue resource ARNs, see the
+    -- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id AWS Glue ARN string pattern>.
+    resourceArn :: Prelude.Text,
+    -- | Tags to add to this resource.
+    tagsToAdd :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trResourceARN' - The ARN of the AWS Glue resource to which to add the tags. For more information about AWS Glue resource ARNs, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id AWS Glue ARN string pattern> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTagsToAdd' - Tags to add to this resource.
-tagResource ::
-  -- | 'trResourceARN'
-  Text ->
+-- 'resourceArn', 'tagResource_resourceArn' - The ARN of the AWS Glue resource to which to add the tags. For more
+-- information about AWS Glue resource ARNs, see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id AWS Glue ARN string pattern>.
+--
+-- 'tagsToAdd', 'tagResource_tagsToAdd' - Tags to add to this resource.
+newTagResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   TagResource
-tagResource pResourceARN_ =
+newTagResource pResourceArn_ =
   TagResource'
-    { _trResourceARN = pResourceARN_,
-      _trTagsToAdd = mempty
+    { resourceArn = pResourceArn_,
+      tagsToAdd = Prelude.mempty
     }
 
--- | The ARN of the AWS Glue resource to which to add the tags. For more information about AWS Glue resource ARNs, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id AWS Glue ARN string pattern> .
-trResourceARN :: Lens' TagResource Text
-trResourceARN = lens _trResourceARN (\s a -> s {_trResourceARN = a})
+-- | The ARN of the AWS Glue resource to which to add the tags. For more
+-- information about AWS Glue resource ARNs, see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id AWS Glue ARN string pattern>.
+tagResource_resourceArn :: Lens.Lens' TagResource Prelude.Text
+tagResource_resourceArn = Lens.lens (\TagResource' {resourceArn} -> resourceArn) (\s@TagResource' {} a -> s {resourceArn = a} :: TagResource)
 
 -- | Tags to add to this resource.
-trTagsToAdd :: Lens' TagResource (HashMap Text Text)
-trTagsToAdd = lens _trTagsToAdd (\s a -> s {_trTagsToAdd = a}) . _Map
+tagResource_tagsToAdd :: Lens.Lens' TagResource (Prelude.HashMap Prelude.Text Prelude.Text)
+tagResource_tagsToAdd = Lens.lens (\TagResource' {tagsToAdd} -> tagsToAdd) (\s@TagResource' {} a -> s {tagsToAdd = a} :: TagResource) Prelude.. Prelude._Map
 
-instance AWSRequest TagResource where
+instance Prelude.AWSRequest TagResource where
   type Rs TagResource = TagResourceResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          TagResourceResponse' <$> (pure (fromEnum s))
+          TagResourceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TagResource
+instance Prelude.Hashable TagResource
 
-instance NFData TagResource
+instance Prelude.NFData TagResource
 
-instance ToHeaders TagResource where
+instance Prelude.ToHeaders TagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.TagResource" :: ByteString),
+              Prelude.=# ("AWSGlue.TagResource" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TagResource where
+instance Prelude.ToJSON TagResource where
   toJSON TagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceArn" .= _trResourceARN),
-            Just ("TagsToAdd" .= _trTagsToAdd)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceArn" Prelude..= resourceArn),
+            Prelude.Just ("TagsToAdd" Prelude..= tagsToAdd)
           ]
       )
 
-instance ToPath TagResource where
-  toPath = const "/"
+instance Prelude.ToPath TagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery TagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagResourceResponse' smart constructor.
-newtype TagResourceResponse = TagResourceResponse'
-  { _trrrsResponseStatus ::
-      Int
+-- | /See:/ 'newTagResourceResponse' smart constructor.
+data TagResourceResponse = TagResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trrrsResponseStatus' - -- | The response status code.
-tagResourceResponse ::
-  -- | 'trrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'tagResourceResponse_httpStatus' - The response's http status code.
+newTagResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TagResourceResponse
-tagResourceResponse pResponseStatus_ =
-  TagResourceResponse'
-    { _trrrsResponseStatus =
-        pResponseStatus_
-    }
+newTagResourceResponse pHttpStatus_ =
+  TagResourceResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-trrrsResponseStatus :: Lens' TagResourceResponse Int
-trrrsResponseStatus = lens _trrrsResponseStatus (\s a -> s {_trrrsResponseStatus = a})
+-- | The response's http status code.
+tagResourceResponse_httpStatus :: Lens.Lens' TagResourceResponse Prelude.Int
+tagResourceResponse_httpStatus = Lens.lens (\TagResourceResponse' {httpStatus} -> httpStatus) (\s@TagResourceResponse' {} a -> s {httpStatus = a} :: TagResourceResponse)
 
-instance NFData TagResourceResponse
+instance Prelude.NFData TagResourceResponse

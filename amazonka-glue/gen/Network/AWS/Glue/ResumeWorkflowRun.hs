@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,181 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Restarts selected nodes of a previous partially completed workflow run and resumes the workflow run. The selected nodes and all nodes that are downstream from the selected nodes are run.
+-- Restarts selected nodes of a previous partially completed workflow run
+-- and resumes the workflow run. The selected nodes and all nodes that are
+-- downstream from the selected nodes are run.
 module Network.AWS.Glue.ResumeWorkflowRun
   ( -- * Creating a Request
-    resumeWorkflowRun,
-    ResumeWorkflowRun,
+    ResumeWorkflowRun (..),
+    newResumeWorkflowRun,
 
     -- * Request Lenses
-    rwrName,
-    rwrRunId,
-    rwrNodeIds,
+    resumeWorkflowRun_name,
+    resumeWorkflowRun_runId,
+    resumeWorkflowRun_nodeIds,
 
     -- * Destructuring the Response
-    resumeWorkflowRunResponse,
-    ResumeWorkflowRunResponse,
+    ResumeWorkflowRunResponse (..),
+    newResumeWorkflowRunResponse,
 
     -- * Response Lenses
-    rwrrrsRunId,
-    rwrrrsNodeIds,
-    rwrrrsResponseStatus,
+    resumeWorkflowRunResponse_runId,
+    resumeWorkflowRunResponse_nodeIds,
+    resumeWorkflowRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'resumeWorkflowRun' smart constructor.
+-- | /See:/ 'newResumeWorkflowRun' smart constructor.
 data ResumeWorkflowRun = ResumeWorkflowRun'
-  { _rwrName ::
-      !Text,
-    _rwrRunId :: !Text,
-    _rwrNodeIds :: ![Text]
+  { -- | The name of the workflow to resume.
+    name :: Prelude.Text,
+    -- | The ID of the workflow run to resume.
+    runId :: Prelude.Text,
+    -- | A list of the node IDs for the nodes you want to restart. The nodes that
+    -- are to be restarted must have a run attempt in the original run.
+    nodeIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResumeWorkflowRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResumeWorkflowRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rwrName' - The name of the workflow to resume.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rwrRunId' - The ID of the workflow run to resume.
+-- 'name', 'resumeWorkflowRun_name' - The name of the workflow to resume.
 --
--- * 'rwrNodeIds' - A list of the node IDs for the nodes you want to restart. The nodes that are to be restarted must have a run attempt in the original run.
-resumeWorkflowRun ::
-  -- | 'rwrName'
-  Text ->
-  -- | 'rwrRunId'
-  Text ->
+-- 'runId', 'resumeWorkflowRun_runId' - The ID of the workflow run to resume.
+--
+-- 'nodeIds', 'resumeWorkflowRun_nodeIds' - A list of the node IDs for the nodes you want to restart. The nodes that
+-- are to be restarted must have a run attempt in the original run.
+newResumeWorkflowRun ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'runId'
+  Prelude.Text ->
   ResumeWorkflowRun
-resumeWorkflowRun pName_ pRunId_ =
+newResumeWorkflowRun pName_ pRunId_ =
   ResumeWorkflowRun'
-    { _rwrName = pName_,
-      _rwrRunId = pRunId_,
-      _rwrNodeIds = mempty
+    { name = pName_,
+      runId = pRunId_,
+      nodeIds = Prelude.mempty
     }
 
 -- | The name of the workflow to resume.
-rwrName :: Lens' ResumeWorkflowRun Text
-rwrName = lens _rwrName (\s a -> s {_rwrName = a})
+resumeWorkflowRun_name :: Lens.Lens' ResumeWorkflowRun Prelude.Text
+resumeWorkflowRun_name = Lens.lens (\ResumeWorkflowRun' {name} -> name) (\s@ResumeWorkflowRun' {} a -> s {name = a} :: ResumeWorkflowRun)
 
 -- | The ID of the workflow run to resume.
-rwrRunId :: Lens' ResumeWorkflowRun Text
-rwrRunId = lens _rwrRunId (\s a -> s {_rwrRunId = a})
+resumeWorkflowRun_runId :: Lens.Lens' ResumeWorkflowRun Prelude.Text
+resumeWorkflowRun_runId = Lens.lens (\ResumeWorkflowRun' {runId} -> runId) (\s@ResumeWorkflowRun' {} a -> s {runId = a} :: ResumeWorkflowRun)
 
--- | A list of the node IDs for the nodes you want to restart. The nodes that are to be restarted must have a run attempt in the original run.
-rwrNodeIds :: Lens' ResumeWorkflowRun [Text]
-rwrNodeIds = lens _rwrNodeIds (\s a -> s {_rwrNodeIds = a}) . _Coerce
+-- | A list of the node IDs for the nodes you want to restart. The nodes that
+-- are to be restarted must have a run attempt in the original run.
+resumeWorkflowRun_nodeIds :: Lens.Lens' ResumeWorkflowRun [Prelude.Text]
+resumeWorkflowRun_nodeIds = Lens.lens (\ResumeWorkflowRun' {nodeIds} -> nodeIds) (\s@ResumeWorkflowRun' {} a -> s {nodeIds = a} :: ResumeWorkflowRun) Prelude.. Prelude._Coerce
 
-instance AWSRequest ResumeWorkflowRun where
+instance Prelude.AWSRequest ResumeWorkflowRun where
   type Rs ResumeWorkflowRun = ResumeWorkflowRunResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ResumeWorkflowRunResponse'
-            <$> (x .?> "RunId")
-            <*> (x .?> "NodeIds" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RunId")
+            Prelude.<*> (x Prelude..?> "NodeIds" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ResumeWorkflowRun
+instance Prelude.Hashable ResumeWorkflowRun
 
-instance NFData ResumeWorkflowRun
+instance Prelude.NFData ResumeWorkflowRun
 
-instance ToHeaders ResumeWorkflowRun where
+instance Prelude.ToHeaders ResumeWorkflowRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.ResumeWorkflowRun" :: ByteString),
+              Prelude.=# ("AWSGlue.ResumeWorkflowRun" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ResumeWorkflowRun where
+instance Prelude.ToJSON ResumeWorkflowRun where
   toJSON ResumeWorkflowRun' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _rwrName),
-            Just ("RunId" .= _rwrRunId),
-            Just ("NodeIds" .= _rwrNodeIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("RunId" Prelude..= runId),
+            Prelude.Just ("NodeIds" Prelude..= nodeIds)
           ]
       )
 
-instance ToPath ResumeWorkflowRun where
-  toPath = const "/"
+instance Prelude.ToPath ResumeWorkflowRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery ResumeWorkflowRun where
-  toQuery = const mempty
+instance Prelude.ToQuery ResumeWorkflowRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'resumeWorkflowRunResponse' smart constructor.
+-- | /See:/ 'newResumeWorkflowRunResponse' smart constructor.
 data ResumeWorkflowRunResponse = ResumeWorkflowRunResponse'
-  { _rwrrrsRunId ::
-      !(Maybe Text),
-    _rwrrrsNodeIds ::
-      !(Maybe [Text]),
-    _rwrrrsResponseStatus ::
-      !Int
+  { -- | The new ID assigned to the resumed workflow run. Each resume of a
+    -- workflow run will have a new run ID.
+    runId :: Prelude.Maybe Prelude.Text,
+    -- | A list of the node IDs for the nodes that were actually restarted.
+    nodeIds :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResumeWorkflowRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResumeWorkflowRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rwrrrsRunId' - The new ID assigned to the resumed workflow run. Each resume of a workflow run will have a new run ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rwrrrsNodeIds' - A list of the node IDs for the nodes that were actually restarted.
+-- 'runId', 'resumeWorkflowRunResponse_runId' - The new ID assigned to the resumed workflow run. Each resume of a
+-- workflow run will have a new run ID.
 --
--- * 'rwrrrsResponseStatus' - -- | The response status code.
-resumeWorkflowRunResponse ::
-  -- | 'rwrrrsResponseStatus'
-  Int ->
+-- 'nodeIds', 'resumeWorkflowRunResponse_nodeIds' - A list of the node IDs for the nodes that were actually restarted.
+--
+-- 'httpStatus', 'resumeWorkflowRunResponse_httpStatus' - The response's http status code.
+newResumeWorkflowRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ResumeWorkflowRunResponse
-resumeWorkflowRunResponse pResponseStatus_ =
+newResumeWorkflowRunResponse pHttpStatus_ =
   ResumeWorkflowRunResponse'
-    { _rwrrrsRunId = Nothing,
-      _rwrrrsNodeIds = Nothing,
-      _rwrrrsResponseStatus = pResponseStatus_
+    { runId = Prelude.Nothing,
+      nodeIds = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The new ID assigned to the resumed workflow run. Each resume of a workflow run will have a new run ID.
-rwrrrsRunId :: Lens' ResumeWorkflowRunResponse (Maybe Text)
-rwrrrsRunId = lens _rwrrrsRunId (\s a -> s {_rwrrrsRunId = a})
+-- | The new ID assigned to the resumed workflow run. Each resume of a
+-- workflow run will have a new run ID.
+resumeWorkflowRunResponse_runId :: Lens.Lens' ResumeWorkflowRunResponse (Prelude.Maybe Prelude.Text)
+resumeWorkflowRunResponse_runId = Lens.lens (\ResumeWorkflowRunResponse' {runId} -> runId) (\s@ResumeWorkflowRunResponse' {} a -> s {runId = a} :: ResumeWorkflowRunResponse)
 
 -- | A list of the node IDs for the nodes that were actually restarted.
-rwrrrsNodeIds :: Lens' ResumeWorkflowRunResponse [Text]
-rwrrrsNodeIds = lens _rwrrrsNodeIds (\s a -> s {_rwrrrsNodeIds = a}) . _Default . _Coerce
+resumeWorkflowRunResponse_nodeIds :: Lens.Lens' ResumeWorkflowRunResponse (Prelude.Maybe [Prelude.Text])
+resumeWorkflowRunResponse_nodeIds = Lens.lens (\ResumeWorkflowRunResponse' {nodeIds} -> nodeIds) (\s@ResumeWorkflowRunResponse' {} a -> s {nodeIds = a} :: ResumeWorkflowRunResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-rwrrrsResponseStatus :: Lens' ResumeWorkflowRunResponse Int
-rwrrrsResponseStatus = lens _rwrrrsResponseStatus (\s a -> s {_rwrrrsResponseStatus = a})
+-- | The response's http status code.
+resumeWorkflowRunResponse_httpStatus :: Lens.Lens' ResumeWorkflowRunResponse Prelude.Int
+resumeWorkflowRunResponse_httpStatus = Lens.lens (\ResumeWorkflowRunResponse' {httpStatus} -> httpStatus) (\s@ResumeWorkflowRunResponse' {} a -> s {httpStatus = a} :: ResumeWorkflowRunResponse)
 
-instance NFData ResumeWorkflowRunResponse
+instance Prelude.NFData ResumeWorkflowRunResponse

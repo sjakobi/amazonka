@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,181 +23,195 @@
 --
 -- Retrieves a list of all security configurations.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetSecurityConfigurations
   ( -- * Creating a Request
-    getSecurityConfigurations,
-    GetSecurityConfigurations,
+    GetSecurityConfigurations (..),
+    newGetSecurityConfigurations,
 
     -- * Request Lenses
-    gscNextToken,
-    gscMaxResults,
+    getSecurityConfigurations_nextToken,
+    getSecurityConfigurations_maxResults,
 
     -- * Destructuring the Response
-    getSecurityConfigurationsResponse,
-    GetSecurityConfigurationsResponse,
+    GetSecurityConfigurationsResponse (..),
+    newGetSecurityConfigurationsResponse,
 
     -- * Response Lenses
-    gscrsrsNextToken,
-    gscrsrsSecurityConfigurations,
-    gscrsrsResponseStatus,
+    getSecurityConfigurationsResponse_nextToken,
+    getSecurityConfigurationsResponse_securityConfigurations,
+    getSecurityConfigurationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.SecurityConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getSecurityConfigurations' smart constructor.
+-- | /See:/ 'newGetSecurityConfigurations' smart constructor.
 data GetSecurityConfigurations = GetSecurityConfigurations'
-  { _gscNextToken ::
-      !(Maybe Text),
-    _gscMaxResults ::
-      !(Maybe Nat)
+  { -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSecurityConfigurations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSecurityConfigurations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gscNextToken' - A continuation token, if this is a continuation call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gscMaxResults' - The maximum number of results to return.
-getSecurityConfigurations ::
+-- 'nextToken', 'getSecurityConfigurations_nextToken' - A continuation token, if this is a continuation call.
+--
+-- 'maxResults', 'getSecurityConfigurations_maxResults' - The maximum number of results to return.
+newGetSecurityConfigurations ::
   GetSecurityConfigurations
-getSecurityConfigurations =
+newGetSecurityConfigurations =
   GetSecurityConfigurations'
-    { _gscNextToken = Nothing,
-      _gscMaxResults = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | A continuation token, if this is a continuation call.
-gscNextToken :: Lens' GetSecurityConfigurations (Maybe Text)
-gscNextToken = lens _gscNextToken (\s a -> s {_gscNextToken = a})
+getSecurityConfigurations_nextToken :: Lens.Lens' GetSecurityConfigurations (Prelude.Maybe Prelude.Text)
+getSecurityConfigurations_nextToken = Lens.lens (\GetSecurityConfigurations' {nextToken} -> nextToken) (\s@GetSecurityConfigurations' {} a -> s {nextToken = a} :: GetSecurityConfigurations)
 
 -- | The maximum number of results to return.
-gscMaxResults :: Lens' GetSecurityConfigurations (Maybe Natural)
-gscMaxResults = lens _gscMaxResults (\s a -> s {_gscMaxResults = a}) . mapping _Nat
+getSecurityConfigurations_maxResults :: Lens.Lens' GetSecurityConfigurations (Prelude.Maybe Prelude.Natural)
+getSecurityConfigurations_maxResults = Lens.lens (\GetSecurityConfigurations' {maxResults} -> maxResults) (\s@GetSecurityConfigurations' {} a -> s {maxResults = a} :: GetSecurityConfigurations) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager GetSecurityConfigurations where
+instance Pager.AWSPager GetSecurityConfigurations where
   page rq rs
-    | stop (rs ^. gscrsrsNextToken) = Nothing
-    | stop (rs ^. gscrsrsSecurityConfigurations) =
-      Nothing
-    | otherwise =
-      Just $ rq & gscNextToken .~ rs ^. gscrsrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getSecurityConfigurationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getSecurityConfigurationsResponse_securityConfigurations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getSecurityConfigurations_nextToken
+          Lens..~ rs
+          Lens.^? getSecurityConfigurationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetSecurityConfigurations where
+instance Prelude.AWSRequest GetSecurityConfigurations where
   type
     Rs GetSecurityConfigurations =
       GetSecurityConfigurationsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSecurityConfigurationsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "SecurityConfigurations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "SecurityConfigurations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSecurityConfigurations
+instance Prelude.Hashable GetSecurityConfigurations
 
-instance NFData GetSecurityConfigurations
+instance Prelude.NFData GetSecurityConfigurations
 
-instance ToHeaders GetSecurityConfigurations where
+instance Prelude.ToHeaders GetSecurityConfigurations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetSecurityConfigurations" :: ByteString),
+              Prelude.=# ( "AWSGlue.GetSecurityConfigurations" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetSecurityConfigurations where
+instance Prelude.ToJSON GetSecurityConfigurations where
   toJSON GetSecurityConfigurations' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gscNextToken,
-            ("MaxResults" .=) <$> _gscMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath GetSecurityConfigurations where
-  toPath = const "/"
+instance Prelude.ToPath GetSecurityConfigurations where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSecurityConfigurations where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSecurityConfigurations where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSecurityConfigurationsResponse' smart constructor.
+-- | /See:/ 'newGetSecurityConfigurationsResponse' smart constructor.
 data GetSecurityConfigurationsResponse = GetSecurityConfigurationsResponse'
-  { _gscrsrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gscrsrsSecurityConfigurations ::
-      !( Maybe
-           [SecurityConfiguration]
-       ),
-    _gscrsrsResponseStatus ::
-      !Int
+  { -- | A continuation token, if there are more security configurations to
+    -- return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of security configurations.
+    securityConfigurations :: Prelude.Maybe [SecurityConfiguration],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSecurityConfigurationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSecurityConfigurationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gscrsrsNextToken' - A continuation token, if there are more security configurations to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gscrsrsSecurityConfigurations' - A list of security configurations.
+-- 'nextToken', 'getSecurityConfigurationsResponse_nextToken' - A continuation token, if there are more security configurations to
+-- return.
 --
--- * 'gscrsrsResponseStatus' - -- | The response status code.
-getSecurityConfigurationsResponse ::
-  -- | 'gscrsrsResponseStatus'
-  Int ->
+-- 'securityConfigurations', 'getSecurityConfigurationsResponse_securityConfigurations' - A list of security configurations.
+--
+-- 'httpStatus', 'getSecurityConfigurationsResponse_httpStatus' - The response's http status code.
+newGetSecurityConfigurationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSecurityConfigurationsResponse
-getSecurityConfigurationsResponse pResponseStatus_ =
+newGetSecurityConfigurationsResponse pHttpStatus_ =
   GetSecurityConfigurationsResponse'
-    { _gscrsrsNextToken =
-        Nothing,
-      _gscrsrsSecurityConfigurations = Nothing,
-      _gscrsrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      securityConfigurations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if there are more security configurations to return.
-gscrsrsNextToken :: Lens' GetSecurityConfigurationsResponse (Maybe Text)
-gscrsrsNextToken = lens _gscrsrsNextToken (\s a -> s {_gscrsrsNextToken = a})
+-- | A continuation token, if there are more security configurations to
+-- return.
+getSecurityConfigurationsResponse_nextToken :: Lens.Lens' GetSecurityConfigurationsResponse (Prelude.Maybe Prelude.Text)
+getSecurityConfigurationsResponse_nextToken = Lens.lens (\GetSecurityConfigurationsResponse' {nextToken} -> nextToken) (\s@GetSecurityConfigurationsResponse' {} a -> s {nextToken = a} :: GetSecurityConfigurationsResponse)
 
 -- | A list of security configurations.
-gscrsrsSecurityConfigurations :: Lens' GetSecurityConfigurationsResponse [SecurityConfiguration]
-gscrsrsSecurityConfigurations = lens _gscrsrsSecurityConfigurations (\s a -> s {_gscrsrsSecurityConfigurations = a}) . _Default . _Coerce
+getSecurityConfigurationsResponse_securityConfigurations :: Lens.Lens' GetSecurityConfigurationsResponse (Prelude.Maybe [SecurityConfiguration])
+getSecurityConfigurationsResponse_securityConfigurations = Lens.lens (\GetSecurityConfigurationsResponse' {securityConfigurations} -> securityConfigurations) (\s@GetSecurityConfigurationsResponse' {} a -> s {securityConfigurations = a} :: GetSecurityConfigurationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gscrsrsResponseStatus :: Lens' GetSecurityConfigurationsResponse Int
-gscrsrsResponseStatus = lens _gscrsrsResponseStatus (\s a -> s {_gscrsrsResponseStatus = a})
+-- | The response's http status code.
+getSecurityConfigurationsResponse_httpStatus :: Lens.Lens' GetSecurityConfigurationsResponse Prelude.Int
+getSecurityConfigurationsResponse_httpStatus = Lens.lens (\GetSecurityConfigurationsResponse' {httpStatus} -> httpStatus) (\s@GetSecurityConfigurationsResponse' {} a -> s {httpStatus = a} :: GetSecurityConfigurationsResponse)
 
-instance NFData GetSecurityConfigurationsResponse
+instance
+  Prelude.NFData
+    GetSecurityConfigurationsResponse

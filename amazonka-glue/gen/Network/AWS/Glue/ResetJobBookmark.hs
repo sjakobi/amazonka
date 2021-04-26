@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,144 +24,148 @@
 -- Resets a bookmark entry.
 module Network.AWS.Glue.ResetJobBookmark
   ( -- * Creating a Request
-    resetJobBookmark,
-    ResetJobBookmark,
+    ResetJobBookmark (..),
+    newResetJobBookmark,
 
     -- * Request Lenses
-    rjbRunId,
-    rjbJobName,
+    resetJobBookmark_runId,
+    resetJobBookmark_jobName,
 
     -- * Destructuring the Response
-    resetJobBookmarkResponse,
-    ResetJobBookmarkResponse,
+    ResetJobBookmarkResponse (..),
+    newResetJobBookmarkResponse,
 
     -- * Response Lenses
-    rjbrrsJobBookmarkEntry,
-    rjbrrsResponseStatus,
+    resetJobBookmarkResponse_jobBookmarkEntry,
+    resetJobBookmarkResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.JobBookmarkEntry
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'resetJobBookmark' smart constructor.
+-- | /See:/ 'newResetJobBookmark' smart constructor.
 data ResetJobBookmark = ResetJobBookmark'
-  { _rjbRunId ::
-      !(Maybe Text),
-    _rjbJobName :: !Text
+  { -- | The unique run identifier associated with this job run.
+    runId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the job in question.
+    jobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetJobBookmark' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetJobBookmark' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rjbRunId' - The unique run identifier associated with this job run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rjbJobName' - The name of the job in question.
-resetJobBookmark ::
-  -- | 'rjbJobName'
-  Text ->
+-- 'runId', 'resetJobBookmark_runId' - The unique run identifier associated with this job run.
+--
+-- 'jobName', 'resetJobBookmark_jobName' - The name of the job in question.
+newResetJobBookmark ::
+  -- | 'jobName'
+  Prelude.Text ->
   ResetJobBookmark
-resetJobBookmark pJobName_ =
+newResetJobBookmark pJobName_ =
   ResetJobBookmark'
-    { _rjbRunId = Nothing,
-      _rjbJobName = pJobName_
+    { runId = Prelude.Nothing,
+      jobName = pJobName_
     }
 
 -- | The unique run identifier associated with this job run.
-rjbRunId :: Lens' ResetJobBookmark (Maybe Text)
-rjbRunId = lens _rjbRunId (\s a -> s {_rjbRunId = a})
+resetJobBookmark_runId :: Lens.Lens' ResetJobBookmark (Prelude.Maybe Prelude.Text)
+resetJobBookmark_runId = Lens.lens (\ResetJobBookmark' {runId} -> runId) (\s@ResetJobBookmark' {} a -> s {runId = a} :: ResetJobBookmark)
 
 -- | The name of the job in question.
-rjbJobName :: Lens' ResetJobBookmark Text
-rjbJobName = lens _rjbJobName (\s a -> s {_rjbJobName = a})
+resetJobBookmark_jobName :: Lens.Lens' ResetJobBookmark Prelude.Text
+resetJobBookmark_jobName = Lens.lens (\ResetJobBookmark' {jobName} -> jobName) (\s@ResetJobBookmark' {} a -> s {jobName = a} :: ResetJobBookmark)
 
-instance AWSRequest ResetJobBookmark where
+instance Prelude.AWSRequest ResetJobBookmark where
   type Rs ResetJobBookmark = ResetJobBookmarkResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ResetJobBookmarkResponse'
-            <$> (x .?> "JobBookmarkEntry") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobBookmarkEntry")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ResetJobBookmark
+instance Prelude.Hashable ResetJobBookmark
 
-instance NFData ResetJobBookmark
+instance Prelude.NFData ResetJobBookmark
 
-instance ToHeaders ResetJobBookmark where
+instance Prelude.ToHeaders ResetJobBookmark where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.ResetJobBookmark" :: ByteString),
+              Prelude.=# ("AWSGlue.ResetJobBookmark" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ResetJobBookmark where
+instance Prelude.ToJSON ResetJobBookmark where
   toJSON ResetJobBookmark' {..} =
-    object
-      ( catMaybes
-          [ ("RunId" .=) <$> _rjbRunId,
-            Just ("JobName" .= _rjbJobName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RunId" Prelude..=) Prelude.<$> runId,
+            Prelude.Just ("JobName" Prelude..= jobName)
           ]
       )
 
-instance ToPath ResetJobBookmark where
-  toPath = const "/"
+instance Prelude.ToPath ResetJobBookmark where
+  toPath = Prelude.const "/"
 
-instance ToQuery ResetJobBookmark where
-  toQuery = const mempty
+instance Prelude.ToQuery ResetJobBookmark where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'resetJobBookmarkResponse' smart constructor.
+-- | /See:/ 'newResetJobBookmarkResponse' smart constructor.
 data ResetJobBookmarkResponse = ResetJobBookmarkResponse'
-  { _rjbrrsJobBookmarkEntry ::
-      !( Maybe
-           JobBookmarkEntry
-       ),
-    _rjbrrsResponseStatus ::
-      !Int
+  { -- | The reset bookmark entry.
+    jobBookmarkEntry :: Prelude.Maybe JobBookmarkEntry,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetJobBookmarkResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetJobBookmarkResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rjbrrsJobBookmarkEntry' - The reset bookmark entry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rjbrrsResponseStatus' - -- | The response status code.
-resetJobBookmarkResponse ::
-  -- | 'rjbrrsResponseStatus'
-  Int ->
+-- 'jobBookmarkEntry', 'resetJobBookmarkResponse_jobBookmarkEntry' - The reset bookmark entry.
+--
+-- 'httpStatus', 'resetJobBookmarkResponse_httpStatus' - The response's http status code.
+newResetJobBookmarkResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ResetJobBookmarkResponse
-resetJobBookmarkResponse pResponseStatus_ =
+newResetJobBookmarkResponse pHttpStatus_ =
   ResetJobBookmarkResponse'
-    { _rjbrrsJobBookmarkEntry =
-        Nothing,
-      _rjbrrsResponseStatus = pResponseStatus_
+    { jobBookmarkEntry =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The reset bookmark entry.
-rjbrrsJobBookmarkEntry :: Lens' ResetJobBookmarkResponse (Maybe JobBookmarkEntry)
-rjbrrsJobBookmarkEntry = lens _rjbrrsJobBookmarkEntry (\s a -> s {_rjbrrsJobBookmarkEntry = a})
+resetJobBookmarkResponse_jobBookmarkEntry :: Lens.Lens' ResetJobBookmarkResponse (Prelude.Maybe JobBookmarkEntry)
+resetJobBookmarkResponse_jobBookmarkEntry = Lens.lens (\ResetJobBookmarkResponse' {jobBookmarkEntry} -> jobBookmarkEntry) (\s@ResetJobBookmarkResponse' {} a -> s {jobBookmarkEntry = a} :: ResetJobBookmarkResponse)
 
--- | -- | The response status code.
-rjbrrsResponseStatus :: Lens' ResetJobBookmarkResponse Int
-rjbrrsResponseStatus = lens _rjbrrsResponseStatus (\s a -> s {_rjbrrsResponseStatus = a})
+-- | The response's http status code.
+resetJobBookmarkResponse_httpStatus :: Lens.Lens' ResetJobBookmarkResponse Prelude.Int
+resetJobBookmarkResponse_httpStatus = Lens.lens (\ResetJobBookmarkResponse' {httpStatus} -> httpStatus) (\s@ResetJobBookmarkResponse' {} a -> s {httpStatus = a} :: ResetJobBookmarkResponse)
 
-instance NFData ResetJobBookmarkResponse
+instance Prelude.NFData ResetJobBookmarkResponse

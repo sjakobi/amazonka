@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,174 +24,191 @@
 -- Describes the specified registry in detail.
 module Network.AWS.Glue.GetRegistry
   ( -- * Creating a Request
-    getRegistry,
-    GetRegistry,
+    GetRegistry (..),
+    newGetRegistry,
 
     -- * Request Lenses
-    grRegistryId,
+    getRegistry_registryId,
 
     -- * Destructuring the Response
-    getRegistryResponse,
-    GetRegistryResponse,
+    GetRegistryResponse (..),
+    newGetRegistryResponse,
 
     -- * Response Lenses
-    grrrsStatus,
-    grrrsUpdatedTime,
-    grrrsCreatedTime,
-    grrrsRegistryName,
-    grrrsDescription,
-    grrrsRegistryARN,
-    grrrsResponseStatus,
+    getRegistryResponse_status,
+    getRegistryResponse_updatedTime,
+    getRegistryResponse_createdTime,
+    getRegistryResponse_registryName,
+    getRegistryResponse_description,
+    getRegistryResponse_registryArn,
+    getRegistryResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.RegistryStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRegistry' smart constructor.
-newtype GetRegistry = GetRegistry'
-  { _grRegistryId ::
-      RegistryId
+-- | /See:/ 'newGetRegistry' smart constructor.
+data GetRegistry = GetRegistry'
+  { -- | This is a wrapper structure that may contain the registry name and
+    -- Amazon Resource Name (ARN).
+    registryId :: RegistryId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRegistry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRegistry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grRegistryId' - This is a wrapper structure that may contain the registry name and Amazon Resource Name (ARN).
-getRegistry ::
-  -- | 'grRegistryId'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'registryId', 'getRegistry_registryId' - This is a wrapper structure that may contain the registry name and
+-- Amazon Resource Name (ARN).
+newGetRegistry ::
+  -- | 'registryId'
   RegistryId ->
   GetRegistry
-getRegistry pRegistryId_ =
-  GetRegistry' {_grRegistryId = pRegistryId_}
+newGetRegistry pRegistryId_ =
+  GetRegistry' {registryId = pRegistryId_}
 
--- | This is a wrapper structure that may contain the registry name and Amazon Resource Name (ARN).
-grRegistryId :: Lens' GetRegistry RegistryId
-grRegistryId = lens _grRegistryId (\s a -> s {_grRegistryId = a})
+-- | This is a wrapper structure that may contain the registry name and
+-- Amazon Resource Name (ARN).
+getRegistry_registryId :: Lens.Lens' GetRegistry RegistryId
+getRegistry_registryId = Lens.lens (\GetRegistry' {registryId} -> registryId) (\s@GetRegistry' {} a -> s {registryId = a} :: GetRegistry)
 
-instance AWSRequest GetRegistry where
+instance Prelude.AWSRequest GetRegistry where
   type Rs GetRegistry = GetRegistryResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRegistryResponse'
-            <$> (x .?> "Status")
-            <*> (x .?> "UpdatedTime")
-            <*> (x .?> "CreatedTime")
-            <*> (x .?> "RegistryName")
-            <*> (x .?> "Description")
-            <*> (x .?> "RegistryArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "UpdatedTime")
+            Prelude.<*> (x Prelude..?> "CreatedTime")
+            Prelude.<*> (x Prelude..?> "RegistryName")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "RegistryArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRegistry
+instance Prelude.Hashable GetRegistry
 
-instance NFData GetRegistry
+instance Prelude.NFData GetRegistry
 
-instance ToHeaders GetRegistry where
+instance Prelude.ToHeaders GetRegistry where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetRegistry" :: ByteString),
+              Prelude.=# ("AWSGlue.GetRegistry" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetRegistry where
+instance Prelude.ToJSON GetRegistry where
   toJSON GetRegistry' {..} =
-    object
-      (catMaybes [Just ("RegistryId" .= _grRegistryId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("RegistryId" Prelude..= registryId)]
+      )
 
-instance ToPath GetRegistry where
-  toPath = const "/"
+instance Prelude.ToPath GetRegistry where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetRegistry where
-  toQuery = const mempty
+instance Prelude.ToQuery GetRegistry where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getRegistryResponse' smart constructor.
+-- | /See:/ 'newGetRegistryResponse' smart constructor.
 data GetRegistryResponse = GetRegistryResponse'
-  { _grrrsStatus ::
-      !(Maybe RegistryStatus),
-    _grrrsUpdatedTime ::
-      !(Maybe Text),
-    _grrrsCreatedTime ::
-      !(Maybe Text),
-    _grrrsRegistryName ::
-      !(Maybe Text),
-    _grrrsDescription ::
-      !(Maybe Text),
-    _grrrsRegistryARN ::
-      !(Maybe Text),
-    _grrrsResponseStatus :: !Int
+  { -- | The status of the registry.
+    status :: Prelude.Maybe RegistryStatus,
+    -- | The date and time the registry was updated.
+    updatedTime :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the registry was created.
+    createdTime :: Prelude.Maybe Prelude.Text,
+    -- | The name of the registry.
+    registryName :: Prelude.Maybe Prelude.Text,
+    -- | A description of the registry.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the registry.
+    registryArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRegistryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRegistryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grrrsStatus' - The status of the registry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grrrsUpdatedTime' - The date and time the registry was updated.
+-- 'status', 'getRegistryResponse_status' - The status of the registry.
 --
--- * 'grrrsCreatedTime' - The date and time the registry was created.
+-- 'updatedTime', 'getRegistryResponse_updatedTime' - The date and time the registry was updated.
 --
--- * 'grrrsRegistryName' - The name of the registry.
+-- 'createdTime', 'getRegistryResponse_createdTime' - The date and time the registry was created.
 --
--- * 'grrrsDescription' - A description of the registry.
+-- 'registryName', 'getRegistryResponse_registryName' - The name of the registry.
 --
--- * 'grrrsRegistryARN' - The Amazon Resource Name (ARN) of the registry.
+-- 'description', 'getRegistryResponse_description' - A description of the registry.
 --
--- * 'grrrsResponseStatus' - -- | The response status code.
-getRegistryResponse ::
-  -- | 'grrrsResponseStatus'
-  Int ->
+-- 'registryArn', 'getRegistryResponse_registryArn' - The Amazon Resource Name (ARN) of the registry.
+--
+-- 'httpStatus', 'getRegistryResponse_httpStatus' - The response's http status code.
+newGetRegistryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRegistryResponse
-getRegistryResponse pResponseStatus_ =
+newGetRegistryResponse pHttpStatus_ =
   GetRegistryResponse'
-    { _grrrsStatus = Nothing,
-      _grrrsUpdatedTime = Nothing,
-      _grrrsCreatedTime = Nothing,
-      _grrrsRegistryName = Nothing,
-      _grrrsDescription = Nothing,
-      _grrrsRegistryARN = Nothing,
-      _grrrsResponseStatus = pResponseStatus_
+    { status = Prelude.Nothing,
+      updatedTime = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      registryName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      registryArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the registry.
-grrrsStatus :: Lens' GetRegistryResponse (Maybe RegistryStatus)
-grrrsStatus = lens _grrrsStatus (\s a -> s {_grrrsStatus = a})
+getRegistryResponse_status :: Lens.Lens' GetRegistryResponse (Prelude.Maybe RegistryStatus)
+getRegistryResponse_status = Lens.lens (\GetRegistryResponse' {status} -> status) (\s@GetRegistryResponse' {} a -> s {status = a} :: GetRegistryResponse)
 
 -- | The date and time the registry was updated.
-grrrsUpdatedTime :: Lens' GetRegistryResponse (Maybe Text)
-grrrsUpdatedTime = lens _grrrsUpdatedTime (\s a -> s {_grrrsUpdatedTime = a})
+getRegistryResponse_updatedTime :: Lens.Lens' GetRegistryResponse (Prelude.Maybe Prelude.Text)
+getRegistryResponse_updatedTime = Lens.lens (\GetRegistryResponse' {updatedTime} -> updatedTime) (\s@GetRegistryResponse' {} a -> s {updatedTime = a} :: GetRegistryResponse)
 
 -- | The date and time the registry was created.
-grrrsCreatedTime :: Lens' GetRegistryResponse (Maybe Text)
-grrrsCreatedTime = lens _grrrsCreatedTime (\s a -> s {_grrrsCreatedTime = a})
+getRegistryResponse_createdTime :: Lens.Lens' GetRegistryResponse (Prelude.Maybe Prelude.Text)
+getRegistryResponse_createdTime = Lens.lens (\GetRegistryResponse' {createdTime} -> createdTime) (\s@GetRegistryResponse' {} a -> s {createdTime = a} :: GetRegistryResponse)
 
 -- | The name of the registry.
-grrrsRegistryName :: Lens' GetRegistryResponse (Maybe Text)
-grrrsRegistryName = lens _grrrsRegistryName (\s a -> s {_grrrsRegistryName = a})
+getRegistryResponse_registryName :: Lens.Lens' GetRegistryResponse (Prelude.Maybe Prelude.Text)
+getRegistryResponse_registryName = Lens.lens (\GetRegistryResponse' {registryName} -> registryName) (\s@GetRegistryResponse' {} a -> s {registryName = a} :: GetRegistryResponse)
 
 -- | A description of the registry.
-grrrsDescription :: Lens' GetRegistryResponse (Maybe Text)
-grrrsDescription = lens _grrrsDescription (\s a -> s {_grrrsDescription = a})
+getRegistryResponse_description :: Lens.Lens' GetRegistryResponse (Prelude.Maybe Prelude.Text)
+getRegistryResponse_description = Lens.lens (\GetRegistryResponse' {description} -> description) (\s@GetRegistryResponse' {} a -> s {description = a} :: GetRegistryResponse)
 
 -- | The Amazon Resource Name (ARN) of the registry.
-grrrsRegistryARN :: Lens' GetRegistryResponse (Maybe Text)
-grrrsRegistryARN = lens _grrrsRegistryARN (\s a -> s {_grrrsRegistryARN = a})
+getRegistryResponse_registryArn :: Lens.Lens' GetRegistryResponse (Prelude.Maybe Prelude.Text)
+getRegistryResponse_registryArn = Lens.lens (\GetRegistryResponse' {registryArn} -> registryArn) (\s@GetRegistryResponse' {} a -> s {registryArn = a} :: GetRegistryResponse)
 
--- | -- | The response status code.
-grrrsResponseStatus :: Lens' GetRegistryResponse Int
-grrrsResponseStatus = lens _grrrsResponseStatus (\s a -> s {_grrrsResponseStatus = a})
+-- | The response's http status code.
+getRegistryResponse_httpStatus :: Lens.Lens' GetRegistryResponse Prelude.Int
+getRegistryResponse_httpStatus = Lens.lens (\GetRegistryResponse' {httpStatus} -> httpStatus) (\s@GetRegistryResponse' {} a -> s {httpStatus = a} :: GetRegistryResponse)
 
-instance NFData GetRegistryResponse
+instance Prelude.NFData GetRegistryResponse

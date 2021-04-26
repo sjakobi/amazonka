@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.CatalogTarget where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies an AWS Glue Data Catalog target.
 --
---
---
--- /See:/ 'catalogTarget' smart constructor.
+-- /See:/ 'newCatalogTarget' smart constructor.
 data CatalogTarget = CatalogTarget'
-  { _ctDatabaseName ::
-      !Text,
-    _ctTables :: !(List1 Text)
+  { -- | The name of the database to be synchronized.
+    databaseName :: Prelude.Text,
+    -- | A list of the tables to be synchronized.
+    tables :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CatalogTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CatalogTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctDatabaseName' - The name of the database to be synchronized.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctTables' - A list of the tables to be synchronized.
-catalogTarget ::
-  -- | 'ctDatabaseName'
-  Text ->
-  -- | 'ctTables'
-  NonEmpty Text ->
+-- 'databaseName', 'catalogTarget_databaseName' - The name of the database to be synchronized.
+--
+-- 'tables', 'catalogTarget_tables' - A list of the tables to be synchronized.
+newCatalogTarget ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tables'
+  Prelude.NonEmpty Prelude.Text ->
   CatalogTarget
-catalogTarget pDatabaseName_ pTables_ =
+newCatalogTarget pDatabaseName_ pTables_ =
   CatalogTarget'
-    { _ctDatabaseName = pDatabaseName_,
-      _ctTables = _List1 # pTables_
+    { databaseName = pDatabaseName_,
+      tables = Prelude._List1 Lens.# pTables_
     }
 
 -- | The name of the database to be synchronized.
-ctDatabaseName :: Lens' CatalogTarget Text
-ctDatabaseName = lens _ctDatabaseName (\s a -> s {_ctDatabaseName = a})
+catalogTarget_databaseName :: Lens.Lens' CatalogTarget Prelude.Text
+catalogTarget_databaseName = Lens.lens (\CatalogTarget' {databaseName} -> databaseName) (\s@CatalogTarget' {} a -> s {databaseName = a} :: CatalogTarget)
 
 -- | A list of the tables to be synchronized.
-ctTables :: Lens' CatalogTarget (NonEmpty Text)
-ctTables = lens _ctTables (\s a -> s {_ctTables = a}) . _List1
+catalogTarget_tables :: Lens.Lens' CatalogTarget (Prelude.NonEmpty Prelude.Text)
+catalogTarget_tables = Lens.lens (\CatalogTarget' {tables} -> tables) (\s@CatalogTarget' {} a -> s {tables = a} :: CatalogTarget) Prelude.. Prelude._List1
 
-instance FromJSON CatalogTarget where
+instance Prelude.FromJSON CatalogTarget where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CatalogTarget"
       ( \x ->
           CatalogTarget'
-            <$> (x .: "DatabaseName") <*> (x .: "Tables")
+            Prelude.<$> (x Prelude..: "DatabaseName")
+            Prelude.<*> (x Prelude..: "Tables")
       )
 
-instance Hashable CatalogTarget
+instance Prelude.Hashable CatalogTarget
 
-instance NFData CatalogTarget
+instance Prelude.NFData CatalogTarget
 
-instance ToJSON CatalogTarget where
+instance Prelude.ToJSON CatalogTarget where
   toJSON CatalogTarget' {..} =
-    object
-      ( catMaybes
-          [ Just ("DatabaseName" .= _ctDatabaseName),
-            Just ("Tables" .= _ctTables)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("Tables" Prelude..= tables)
           ]
       )

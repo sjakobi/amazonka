@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Glue.Types.TriggerType
   ( TriggerType
       ( ..,
-        Conditional,
-        OnDemand,
-        Scheduled
+        TriggerTypeCONDITIONAL,
+        TriggerTypeONDEMAND,
+        TriggerTypeSCHEDULED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TriggerType = TriggerType' (CI Text)
+newtype TriggerType = TriggerType'
+  { fromTriggerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Conditional :: TriggerType
-pattern Conditional = TriggerType' "CONDITIONAL"
+pattern TriggerTypeCONDITIONAL :: TriggerType
+pattern TriggerTypeCONDITIONAL = TriggerType' "CONDITIONAL"
 
-pattern OnDemand :: TriggerType
-pattern OnDemand = TriggerType' "ON_DEMAND"
+pattern TriggerTypeONDEMAND :: TriggerType
+pattern TriggerTypeONDEMAND = TriggerType' "ON_DEMAND"
 
-pattern Scheduled :: TriggerType
-pattern Scheduled = TriggerType' "SCHEDULED"
+pattern TriggerTypeSCHEDULED :: TriggerType
+pattern TriggerTypeSCHEDULED = TriggerType' "SCHEDULED"
 
 {-# COMPLETE
-  Conditional,
-  OnDemand,
-  Scheduled,
+  TriggerTypeCONDITIONAL,
+  TriggerTypeONDEMAND,
+  TriggerTypeSCHEDULED,
   TriggerType'
   #-}
 
-instance FromText TriggerType where
-  parser = (TriggerType' . mk) <$> takeText
+instance Prelude.FromText TriggerType where
+  parser = TriggerType' Prelude.<$> Prelude.takeText
 
-instance ToText TriggerType where
-  toText (TriggerType' ci) = original ci
+instance Prelude.ToText TriggerType where
+  toText (TriggerType' x) = x
 
-instance Hashable TriggerType
+instance Prelude.Hashable TriggerType
 
-instance NFData TriggerType
+instance Prelude.NFData TriggerType
 
-instance ToByteString TriggerType
+instance Prelude.ToByteString TriggerType
 
-instance ToQuery TriggerType
+instance Prelude.ToQuery TriggerType
 
-instance ToHeader TriggerType
+instance Prelude.ToHeader TriggerType
 
-instance ToJSON TriggerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TriggerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TriggerType where
-  parseJSON = parseJSONText "TriggerType"
+instance Prelude.FromJSON TriggerType where
+  parseJSON = Prelude.parseJSONText "TriggerType"

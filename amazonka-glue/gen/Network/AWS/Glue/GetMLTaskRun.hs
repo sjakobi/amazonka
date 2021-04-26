@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,240 +21,257 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets details for a specific task run on a machine learning transform. Machine learning task runs are asynchronous tasks that AWS Glue runs on your behalf as part of various machine learning workflows. You can check the stats of any task run by calling @GetMLTaskRun@ with the @TaskRunID@ and its parent transform's @TransformID@ .
+-- Gets details for a specific task run on a machine learning transform.
+-- Machine learning task runs are asynchronous tasks that AWS Glue runs on
+-- your behalf as part of various machine learning workflows. You can check
+-- the stats of any task run by calling @GetMLTaskRun@ with the @TaskRunID@
+-- and its parent transform\'s @TransformID@.
 module Network.AWS.Glue.GetMLTaskRun
   ( -- * Creating a Request
-    getMLTaskRun,
-    GetMLTaskRun,
+    GetMLTaskRun (..),
+    newGetMLTaskRun,
 
     -- * Request Lenses
-    gTransformId,
-    gTaskRunId,
+    getMLTaskRun_transformId,
+    getMLTaskRun_taskRunId,
 
     -- * Destructuring the Response
-    getMLTaskRunResponse,
-    GetMLTaskRunResponse,
+    GetMLTaskRunResponse (..),
+    newGetMLTaskRunResponse,
 
     -- * Response Lenses
-    gmltrrmrsExecutionTime,
-    gmltrrmrsStatus,
-    gmltrrmrsTransformId,
-    gmltrrmrsTaskRunId,
-    gmltrrmrsErrorString,
-    gmltrrmrsLastModifiedOn,
-    gmltrrmrsLogGroupName,
-    gmltrrmrsCompletedOn,
-    gmltrrmrsProperties,
-    gmltrrmrsStartedOn,
-    gmltrrmrsResponseStatus,
+    getMLTaskRunResponse_executionTime,
+    getMLTaskRunResponse_status,
+    getMLTaskRunResponse_transformId,
+    getMLTaskRunResponse_taskRunId,
+    getMLTaskRunResponse_errorString,
+    getMLTaskRunResponse_lastModifiedOn,
+    getMLTaskRunResponse_logGroupName,
+    getMLTaskRunResponse_completedOn,
+    getMLTaskRunResponse_properties,
+    getMLTaskRunResponse_startedOn,
+    getMLTaskRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.TaskRunProperties
+import Network.AWS.Glue.Types.TaskStatusType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getMLTaskRun' smart constructor.
+-- | /See:/ 'newGetMLTaskRun' smart constructor.
 data GetMLTaskRun = GetMLTaskRun'
-  { _gTransformId ::
-      !Text,
-    _gTaskRunId :: !Text
+  { -- | The unique identifier of the machine learning transform.
+    transformId :: Prelude.Text,
+    -- | The unique identifier of the task run.
+    taskRunId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMLTaskRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMLTaskRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gTransformId' - The unique identifier of the machine learning transform.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gTaskRunId' - The unique identifier of the task run.
-getMLTaskRun ::
-  -- | 'gTransformId'
-  Text ->
-  -- | 'gTaskRunId'
-  Text ->
+-- 'transformId', 'getMLTaskRun_transformId' - The unique identifier of the machine learning transform.
+--
+-- 'taskRunId', 'getMLTaskRun_taskRunId' - The unique identifier of the task run.
+newGetMLTaskRun ::
+  -- | 'transformId'
+  Prelude.Text ->
+  -- | 'taskRunId'
+  Prelude.Text ->
   GetMLTaskRun
-getMLTaskRun pTransformId_ pTaskRunId_ =
+newGetMLTaskRun pTransformId_ pTaskRunId_ =
   GetMLTaskRun'
-    { _gTransformId = pTransformId_,
-      _gTaskRunId = pTaskRunId_
+    { transformId = pTransformId_,
+      taskRunId = pTaskRunId_
     }
 
 -- | The unique identifier of the machine learning transform.
-gTransformId :: Lens' GetMLTaskRun Text
-gTransformId = lens _gTransformId (\s a -> s {_gTransformId = a})
+getMLTaskRun_transformId :: Lens.Lens' GetMLTaskRun Prelude.Text
+getMLTaskRun_transformId = Lens.lens (\GetMLTaskRun' {transformId} -> transformId) (\s@GetMLTaskRun' {} a -> s {transformId = a} :: GetMLTaskRun)
 
 -- | The unique identifier of the task run.
-gTaskRunId :: Lens' GetMLTaskRun Text
-gTaskRunId = lens _gTaskRunId (\s a -> s {_gTaskRunId = a})
+getMLTaskRun_taskRunId :: Lens.Lens' GetMLTaskRun Prelude.Text
+getMLTaskRun_taskRunId = Lens.lens (\GetMLTaskRun' {taskRunId} -> taskRunId) (\s@GetMLTaskRun' {} a -> s {taskRunId = a} :: GetMLTaskRun)
 
-instance AWSRequest GetMLTaskRun where
+instance Prelude.AWSRequest GetMLTaskRun where
   type Rs GetMLTaskRun = GetMLTaskRunResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetMLTaskRunResponse'
-            <$> (x .?> "ExecutionTime")
-            <*> (x .?> "Status")
-            <*> (x .?> "TransformId")
-            <*> (x .?> "TaskRunId")
-            <*> (x .?> "ErrorString")
-            <*> (x .?> "LastModifiedOn")
-            <*> (x .?> "LogGroupName")
-            <*> (x .?> "CompletedOn")
-            <*> (x .?> "Properties")
-            <*> (x .?> "StartedOn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ExecutionTime")
+            Prelude.<*> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "TransformId")
+            Prelude.<*> (x Prelude..?> "TaskRunId")
+            Prelude.<*> (x Prelude..?> "ErrorString")
+            Prelude.<*> (x Prelude..?> "LastModifiedOn")
+            Prelude.<*> (x Prelude..?> "LogGroupName")
+            Prelude.<*> (x Prelude..?> "CompletedOn")
+            Prelude.<*> (x Prelude..?> "Properties")
+            Prelude.<*> (x Prelude..?> "StartedOn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetMLTaskRun
+instance Prelude.Hashable GetMLTaskRun
 
-instance NFData GetMLTaskRun
+instance Prelude.NFData GetMLTaskRun
 
-instance ToHeaders GetMLTaskRun where
+instance Prelude.ToHeaders GetMLTaskRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetMLTaskRun" :: ByteString),
+              Prelude.=# ("AWSGlue.GetMLTaskRun" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetMLTaskRun where
+instance Prelude.ToJSON GetMLTaskRun where
   toJSON GetMLTaskRun' {..} =
-    object
-      ( catMaybes
-          [ Just ("TransformId" .= _gTransformId),
-            Just ("TaskRunId" .= _gTaskRunId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TransformId" Prelude..= transformId),
+            Prelude.Just ("TaskRunId" Prelude..= taskRunId)
           ]
       )
 
-instance ToPath GetMLTaskRun where
-  toPath = const "/"
+instance Prelude.ToPath GetMLTaskRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetMLTaskRun where
-  toQuery = const mempty
+instance Prelude.ToQuery GetMLTaskRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMLTaskRunResponse' smart constructor.
+-- | /See:/ 'newGetMLTaskRunResponse' smart constructor.
 data GetMLTaskRunResponse = GetMLTaskRunResponse'
-  { _gmltrrmrsExecutionTime ::
-      !(Maybe Int),
-    _gmltrrmrsStatus ::
-      !(Maybe TaskStatusType),
-    _gmltrrmrsTransformId ::
-      !(Maybe Text),
-    _gmltrrmrsTaskRunId ::
-      !(Maybe Text),
-    _gmltrrmrsErrorString ::
-      !(Maybe Text),
-    _gmltrrmrsLastModifiedOn ::
-      !(Maybe POSIX),
-    _gmltrrmrsLogGroupName ::
-      !(Maybe Text),
-    _gmltrrmrsCompletedOn ::
-      !(Maybe POSIX),
-    _gmltrrmrsProperties ::
-      !(Maybe TaskRunProperties),
-    _gmltrrmrsStartedOn ::
-      !(Maybe POSIX),
-    _gmltrrmrsResponseStatus ::
-      !Int
+  { -- | The amount of time (in seconds) that the task run consumed resources.
+    executionTime :: Prelude.Maybe Prelude.Int,
+    -- | The status for this task run.
+    status :: Prelude.Maybe TaskStatusType,
+    -- | The unique identifier of the task run.
+    transformId :: Prelude.Maybe Prelude.Text,
+    -- | The unique run identifier associated with this run.
+    taskRunId :: Prelude.Maybe Prelude.Text,
+    -- | The error strings that are associated with the task run.
+    errorString :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when this task run was last modified.
+    lastModifiedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The names of the log groups that are associated with the task run.
+    logGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when this task run was completed.
+    completedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The list of properties that are associated with the task run.
+    properties :: Prelude.Maybe TaskRunProperties,
+    -- | The date and time when this task run started.
+    startedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMLTaskRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMLTaskRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmltrrmrsExecutionTime' - The amount of time (in seconds) that the task run consumed resources.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmltrrmrsStatus' - The status for this task run.
+-- 'executionTime', 'getMLTaskRunResponse_executionTime' - The amount of time (in seconds) that the task run consumed resources.
 --
--- * 'gmltrrmrsTransformId' - The unique identifier of the task run.
+-- 'status', 'getMLTaskRunResponse_status' - The status for this task run.
 --
--- * 'gmltrrmrsTaskRunId' - The unique run identifier associated with this run.
+-- 'transformId', 'getMLTaskRunResponse_transformId' - The unique identifier of the task run.
 --
--- * 'gmltrrmrsErrorString' - The error strings that are associated with the task run.
+-- 'taskRunId', 'getMLTaskRunResponse_taskRunId' - The unique run identifier associated with this run.
 --
--- * 'gmltrrmrsLastModifiedOn' - The date and time when this task run was last modified.
+-- 'errorString', 'getMLTaskRunResponse_errorString' - The error strings that are associated with the task run.
 --
--- * 'gmltrrmrsLogGroupName' - The names of the log groups that are associated with the task run.
+-- 'lastModifiedOn', 'getMLTaskRunResponse_lastModifiedOn' - The date and time when this task run was last modified.
 --
--- * 'gmltrrmrsCompletedOn' - The date and time when this task run was completed.
+-- 'logGroupName', 'getMLTaskRunResponse_logGroupName' - The names of the log groups that are associated with the task run.
 --
--- * 'gmltrrmrsProperties' - The list of properties that are associated with the task run.
+-- 'completedOn', 'getMLTaskRunResponse_completedOn' - The date and time when this task run was completed.
 --
--- * 'gmltrrmrsStartedOn' - The date and time when this task run started.
+-- 'properties', 'getMLTaskRunResponse_properties' - The list of properties that are associated with the task run.
 --
--- * 'gmltrrmrsResponseStatus' - -- | The response status code.
-getMLTaskRunResponse ::
-  -- | 'gmltrrmrsResponseStatus'
-  Int ->
+-- 'startedOn', 'getMLTaskRunResponse_startedOn' - The date and time when this task run started.
+--
+-- 'httpStatus', 'getMLTaskRunResponse_httpStatus' - The response's http status code.
+newGetMLTaskRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetMLTaskRunResponse
-getMLTaskRunResponse pResponseStatus_ =
+newGetMLTaskRunResponse pHttpStatus_ =
   GetMLTaskRunResponse'
-    { _gmltrrmrsExecutionTime =
-        Nothing,
-      _gmltrrmrsStatus = Nothing,
-      _gmltrrmrsTransformId = Nothing,
-      _gmltrrmrsTaskRunId = Nothing,
-      _gmltrrmrsErrorString = Nothing,
-      _gmltrrmrsLastModifiedOn = Nothing,
-      _gmltrrmrsLogGroupName = Nothing,
-      _gmltrrmrsCompletedOn = Nothing,
-      _gmltrrmrsProperties = Nothing,
-      _gmltrrmrsStartedOn = Nothing,
-      _gmltrrmrsResponseStatus = pResponseStatus_
+    { executionTime =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      transformId = Prelude.Nothing,
+      taskRunId = Prelude.Nothing,
+      errorString = Prelude.Nothing,
+      lastModifiedOn = Prelude.Nothing,
+      logGroupName = Prelude.Nothing,
+      completedOn = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      startedOn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The amount of time (in seconds) that the task run consumed resources.
-gmltrrmrsExecutionTime :: Lens' GetMLTaskRunResponse (Maybe Int)
-gmltrrmrsExecutionTime = lens _gmltrrmrsExecutionTime (\s a -> s {_gmltrrmrsExecutionTime = a})
+getMLTaskRunResponse_executionTime :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe Prelude.Int)
+getMLTaskRunResponse_executionTime = Lens.lens (\GetMLTaskRunResponse' {executionTime} -> executionTime) (\s@GetMLTaskRunResponse' {} a -> s {executionTime = a} :: GetMLTaskRunResponse)
 
 -- | The status for this task run.
-gmltrrmrsStatus :: Lens' GetMLTaskRunResponse (Maybe TaskStatusType)
-gmltrrmrsStatus = lens _gmltrrmrsStatus (\s a -> s {_gmltrrmrsStatus = a})
+getMLTaskRunResponse_status :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe TaskStatusType)
+getMLTaskRunResponse_status = Lens.lens (\GetMLTaskRunResponse' {status} -> status) (\s@GetMLTaskRunResponse' {} a -> s {status = a} :: GetMLTaskRunResponse)
 
 -- | The unique identifier of the task run.
-gmltrrmrsTransformId :: Lens' GetMLTaskRunResponse (Maybe Text)
-gmltrrmrsTransformId = lens _gmltrrmrsTransformId (\s a -> s {_gmltrrmrsTransformId = a})
+getMLTaskRunResponse_transformId :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe Prelude.Text)
+getMLTaskRunResponse_transformId = Lens.lens (\GetMLTaskRunResponse' {transformId} -> transformId) (\s@GetMLTaskRunResponse' {} a -> s {transformId = a} :: GetMLTaskRunResponse)
 
 -- | The unique run identifier associated with this run.
-gmltrrmrsTaskRunId :: Lens' GetMLTaskRunResponse (Maybe Text)
-gmltrrmrsTaskRunId = lens _gmltrrmrsTaskRunId (\s a -> s {_gmltrrmrsTaskRunId = a})
+getMLTaskRunResponse_taskRunId :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe Prelude.Text)
+getMLTaskRunResponse_taskRunId = Lens.lens (\GetMLTaskRunResponse' {taskRunId} -> taskRunId) (\s@GetMLTaskRunResponse' {} a -> s {taskRunId = a} :: GetMLTaskRunResponse)
 
 -- | The error strings that are associated with the task run.
-gmltrrmrsErrorString :: Lens' GetMLTaskRunResponse (Maybe Text)
-gmltrrmrsErrorString = lens _gmltrrmrsErrorString (\s a -> s {_gmltrrmrsErrorString = a})
+getMLTaskRunResponse_errorString :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe Prelude.Text)
+getMLTaskRunResponse_errorString = Lens.lens (\GetMLTaskRunResponse' {errorString} -> errorString) (\s@GetMLTaskRunResponse' {} a -> s {errorString = a} :: GetMLTaskRunResponse)
 
 -- | The date and time when this task run was last modified.
-gmltrrmrsLastModifiedOn :: Lens' GetMLTaskRunResponse (Maybe UTCTime)
-gmltrrmrsLastModifiedOn = lens _gmltrrmrsLastModifiedOn (\s a -> s {_gmltrrmrsLastModifiedOn = a}) . mapping _Time
+getMLTaskRunResponse_lastModifiedOn :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe Prelude.UTCTime)
+getMLTaskRunResponse_lastModifiedOn = Lens.lens (\GetMLTaskRunResponse' {lastModifiedOn} -> lastModifiedOn) (\s@GetMLTaskRunResponse' {} a -> s {lastModifiedOn = a} :: GetMLTaskRunResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The names of the log groups that are associated with the task run.
-gmltrrmrsLogGroupName :: Lens' GetMLTaskRunResponse (Maybe Text)
-gmltrrmrsLogGroupName = lens _gmltrrmrsLogGroupName (\s a -> s {_gmltrrmrsLogGroupName = a})
+getMLTaskRunResponse_logGroupName :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe Prelude.Text)
+getMLTaskRunResponse_logGroupName = Lens.lens (\GetMLTaskRunResponse' {logGroupName} -> logGroupName) (\s@GetMLTaskRunResponse' {} a -> s {logGroupName = a} :: GetMLTaskRunResponse)
 
 -- | The date and time when this task run was completed.
-gmltrrmrsCompletedOn :: Lens' GetMLTaskRunResponse (Maybe UTCTime)
-gmltrrmrsCompletedOn = lens _gmltrrmrsCompletedOn (\s a -> s {_gmltrrmrsCompletedOn = a}) . mapping _Time
+getMLTaskRunResponse_completedOn :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe Prelude.UTCTime)
+getMLTaskRunResponse_completedOn = Lens.lens (\GetMLTaskRunResponse' {completedOn} -> completedOn) (\s@GetMLTaskRunResponse' {} a -> s {completedOn = a} :: GetMLTaskRunResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The list of properties that are associated with the task run.
-gmltrrmrsProperties :: Lens' GetMLTaskRunResponse (Maybe TaskRunProperties)
-gmltrrmrsProperties = lens _gmltrrmrsProperties (\s a -> s {_gmltrrmrsProperties = a})
+getMLTaskRunResponse_properties :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe TaskRunProperties)
+getMLTaskRunResponse_properties = Lens.lens (\GetMLTaskRunResponse' {properties} -> properties) (\s@GetMLTaskRunResponse' {} a -> s {properties = a} :: GetMLTaskRunResponse)
 
 -- | The date and time when this task run started.
-gmltrrmrsStartedOn :: Lens' GetMLTaskRunResponse (Maybe UTCTime)
-gmltrrmrsStartedOn = lens _gmltrrmrsStartedOn (\s a -> s {_gmltrrmrsStartedOn = a}) . mapping _Time
+getMLTaskRunResponse_startedOn :: Lens.Lens' GetMLTaskRunResponse (Prelude.Maybe Prelude.UTCTime)
+getMLTaskRunResponse_startedOn = Lens.lens (\GetMLTaskRunResponse' {startedOn} -> startedOn) (\s@GetMLTaskRunResponse' {} a -> s {startedOn = a} :: GetMLTaskRunResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-gmltrrmrsResponseStatus :: Lens' GetMLTaskRunResponse Int
-gmltrrmrsResponseStatus = lens _gmltrrmrsResponseStatus (\s a -> s {_gmltrrmrsResponseStatus = a})
+-- | The response's http status code.
+getMLTaskRunResponse_httpStatus :: Lens.Lens' GetMLTaskRunResponse Prelude.Int
+getMLTaskRunResponse_httpStatus = Lens.lens (\GetMLTaskRunResponse' {httpStatus} -> httpStatus) (\s@GetMLTaskRunResponse' {} a -> s {httpStatus = a} :: GetMLTaskRunResponse)
 
-instance NFData GetMLTaskRunResponse
+instance Prelude.NFData GetMLTaskRunResponse

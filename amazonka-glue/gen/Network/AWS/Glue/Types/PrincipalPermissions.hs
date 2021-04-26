@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +21,69 @@ module Network.AWS.Glue.Types.PrincipalPermissions where
 
 import Network.AWS.Glue.Types.DataLakePrincipal
 import Network.AWS.Glue.Types.Permission
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Permissions granted to a principal.
 --
---
---
--- /See:/ 'principalPermissions' smart constructor.
+-- /See:/ 'newPrincipalPermissions' smart constructor.
 data PrincipalPermissions = PrincipalPermissions'
-  { _ppPermissions ::
-      !(Maybe [Permission]),
-    _ppPrincipal ::
-      !(Maybe DataLakePrincipal)
+  { -- | The permissions that are granted to the principal.
+    permissions :: Prelude.Maybe [Permission],
+    -- | The principal who is granted permissions.
+    principal :: Prelude.Maybe DataLakePrincipal
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PrincipalPermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PrincipalPermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppPermissions' - The permissions that are granted to the principal.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ppPrincipal' - The principal who is granted permissions.
-principalPermissions ::
+-- 'permissions', 'principalPermissions_permissions' - The permissions that are granted to the principal.
+--
+-- 'principal', 'principalPermissions_principal' - The principal who is granted permissions.
+newPrincipalPermissions ::
   PrincipalPermissions
-principalPermissions =
+newPrincipalPermissions =
   PrincipalPermissions'
-    { _ppPermissions = Nothing,
-      _ppPrincipal = Nothing
+    { permissions =
+        Prelude.Nothing,
+      principal = Prelude.Nothing
     }
 
 -- | The permissions that are granted to the principal.
-ppPermissions :: Lens' PrincipalPermissions [Permission]
-ppPermissions = lens _ppPermissions (\s a -> s {_ppPermissions = a}) . _Default . _Coerce
+principalPermissions_permissions :: Lens.Lens' PrincipalPermissions (Prelude.Maybe [Permission])
+principalPermissions_permissions = Lens.lens (\PrincipalPermissions' {permissions} -> permissions) (\s@PrincipalPermissions' {} a -> s {permissions = a} :: PrincipalPermissions) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The principal who is granted permissions.
-ppPrincipal :: Lens' PrincipalPermissions (Maybe DataLakePrincipal)
-ppPrincipal = lens _ppPrincipal (\s a -> s {_ppPrincipal = a})
+principalPermissions_principal :: Lens.Lens' PrincipalPermissions (Prelude.Maybe DataLakePrincipal)
+principalPermissions_principal = Lens.lens (\PrincipalPermissions' {principal} -> principal) (\s@PrincipalPermissions' {} a -> s {principal = a} :: PrincipalPermissions)
 
-instance FromJSON PrincipalPermissions where
+instance Prelude.FromJSON PrincipalPermissions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PrincipalPermissions"
       ( \x ->
           PrincipalPermissions'
-            <$> (x .:? "Permissions" .!= mempty)
-            <*> (x .:? "Principal")
+            Prelude.<$> ( x Prelude..:? "Permissions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Principal")
       )
 
-instance Hashable PrincipalPermissions
+instance Prelude.Hashable PrincipalPermissions
 
-instance NFData PrincipalPermissions
+instance Prelude.NFData PrincipalPermissions
 
-instance ToJSON PrincipalPermissions where
+instance Prelude.ToJSON PrincipalPermissions where
   toJSON PrincipalPermissions' {..} =
-    object
-      ( catMaybes
-          [ ("Permissions" .=) <$> _ppPermissions,
-            ("Principal" .=) <$> _ppPrincipal
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Permissions" Prelude..=) Prelude.<$> permissions,
+            ("Principal" Prelude..=) Prelude.<$> principal
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.GlueTable where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The database and table in the AWS Glue Data Catalog that is used for input or output data.
+-- | The database and table in the AWS Glue Data Catalog that is used for
+-- input or output data.
 --
---
---
--- /See:/ 'glueTable' smart constructor.
+-- /See:/ 'newGlueTable' smart constructor.
 data GlueTable = GlueTable'
-  { _gtConnectionName ::
-      !(Maybe Text),
-    _gtCatalogId :: !(Maybe Text),
-    _gtDatabaseName :: !Text,
-    _gtTableName :: !Text
+  { -- | The name of the connection to the AWS Glue Data Catalog.
+    connectionName :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the AWS Glue Data Catalog.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | A database name in the AWS Glue Data Catalog.
+    databaseName :: Prelude.Text,
+    -- | A table name in the AWS Glue Data Catalog.
+    tableName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GlueTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GlueTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtConnectionName' - The name of the connection to the AWS Glue Data Catalog.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtCatalogId' - A unique identifier for the AWS Glue Data Catalog.
+-- 'connectionName', 'glueTable_connectionName' - The name of the connection to the AWS Glue Data Catalog.
 --
--- * 'gtDatabaseName' - A database name in the AWS Glue Data Catalog.
+-- 'catalogId', 'glueTable_catalogId' - A unique identifier for the AWS Glue Data Catalog.
 --
--- * 'gtTableName' - A table name in the AWS Glue Data Catalog.
-glueTable ::
-  -- | 'gtDatabaseName'
-  Text ->
-  -- | 'gtTableName'
-  Text ->
+-- 'databaseName', 'glueTable_databaseName' - A database name in the AWS Glue Data Catalog.
+--
+-- 'tableName', 'glueTable_tableName' - A table name in the AWS Glue Data Catalog.
+newGlueTable ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
   GlueTable
-glueTable pDatabaseName_ pTableName_ =
+newGlueTable pDatabaseName_ pTableName_ =
   GlueTable'
-    { _gtConnectionName = Nothing,
-      _gtCatalogId = Nothing,
-      _gtDatabaseName = pDatabaseName_,
-      _gtTableName = pTableName_
+    { connectionName = Prelude.Nothing,
+      catalogId = Prelude.Nothing,
+      databaseName = pDatabaseName_,
+      tableName = pTableName_
     }
 
 -- | The name of the connection to the AWS Glue Data Catalog.
-gtConnectionName :: Lens' GlueTable (Maybe Text)
-gtConnectionName = lens _gtConnectionName (\s a -> s {_gtConnectionName = a})
+glueTable_connectionName :: Lens.Lens' GlueTable (Prelude.Maybe Prelude.Text)
+glueTable_connectionName = Lens.lens (\GlueTable' {connectionName} -> connectionName) (\s@GlueTable' {} a -> s {connectionName = a} :: GlueTable)
 
 -- | A unique identifier for the AWS Glue Data Catalog.
-gtCatalogId :: Lens' GlueTable (Maybe Text)
-gtCatalogId = lens _gtCatalogId (\s a -> s {_gtCatalogId = a})
+glueTable_catalogId :: Lens.Lens' GlueTable (Prelude.Maybe Prelude.Text)
+glueTable_catalogId = Lens.lens (\GlueTable' {catalogId} -> catalogId) (\s@GlueTable' {} a -> s {catalogId = a} :: GlueTable)
 
 -- | A database name in the AWS Glue Data Catalog.
-gtDatabaseName :: Lens' GlueTable Text
-gtDatabaseName = lens _gtDatabaseName (\s a -> s {_gtDatabaseName = a})
+glueTable_databaseName :: Lens.Lens' GlueTable Prelude.Text
+glueTable_databaseName = Lens.lens (\GlueTable' {databaseName} -> databaseName) (\s@GlueTable' {} a -> s {databaseName = a} :: GlueTable)
 
 -- | A table name in the AWS Glue Data Catalog.
-gtTableName :: Lens' GlueTable Text
-gtTableName = lens _gtTableName (\s a -> s {_gtTableName = a})
+glueTable_tableName :: Lens.Lens' GlueTable Prelude.Text
+glueTable_tableName = Lens.lens (\GlueTable' {tableName} -> tableName) (\s@GlueTable' {} a -> s {tableName = a} :: GlueTable)
 
-instance FromJSON GlueTable where
+instance Prelude.FromJSON GlueTable where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GlueTable"
       ( \x ->
           GlueTable'
-            <$> (x .:? "ConnectionName")
-            <*> (x .:? "CatalogId")
-            <*> (x .: "DatabaseName")
-            <*> (x .: "TableName")
+            Prelude.<$> (x Prelude..:? "ConnectionName")
+            Prelude.<*> (x Prelude..:? "CatalogId")
+            Prelude.<*> (x Prelude..: "DatabaseName")
+            Prelude.<*> (x Prelude..: "TableName")
       )
 
-instance Hashable GlueTable
+instance Prelude.Hashable GlueTable
 
-instance NFData GlueTable
+instance Prelude.NFData GlueTable
 
-instance ToJSON GlueTable where
+instance Prelude.ToJSON GlueTable where
   toJSON GlueTable' {..} =
-    object
-      ( catMaybes
-          [ ("ConnectionName" .=) <$> _gtConnectionName,
-            ("CatalogId" .=) <$> _gtCatalogId,
-            Just ("DatabaseName" .= _gtDatabaseName),
-            Just ("TableName" .= _gtTableName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ConnectionName" Prelude..=)
+              Prelude.<$> connectionName,
+            ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName)
           ]
       )

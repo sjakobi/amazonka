@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +21,71 @@ module Network.AWS.Glue.Types.Predicate where
 
 import Network.AWS.Glue.Types.Condition
 import Network.AWS.Glue.Types.Logical
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines the predicate of the trigger, which determines when it fires.
 --
---
---
--- /See:/ 'predicate' smart constructor.
+-- /See:/ 'newPredicate' smart constructor.
 data Predicate = Predicate'
-  { _pLogical ::
-      !(Maybe Logical),
-    _pConditions :: !(Maybe [Condition])
+  { -- | An optional field if only one condition is listed. If multiple
+    -- conditions are listed, then this field is required.
+    logical :: Prelude.Maybe Logical,
+    -- | A list of the conditions that determine when the trigger will fire.
+    conditions :: Prelude.Maybe [Condition]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Predicate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Predicate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pLogical' - An optional field if only one condition is listed. If multiple conditions are listed, then this field is required.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pConditions' - A list of the conditions that determine when the trigger will fire.
-predicate ::
+-- 'logical', 'predicate_logical' - An optional field if only one condition is listed. If multiple
+-- conditions are listed, then this field is required.
+--
+-- 'conditions', 'predicate_conditions' - A list of the conditions that determine when the trigger will fire.
+newPredicate ::
   Predicate
-predicate =
+newPredicate =
   Predicate'
-    { _pLogical = Nothing,
-      _pConditions = Nothing
+    { logical = Prelude.Nothing,
+      conditions = Prelude.Nothing
     }
 
--- | An optional field if only one condition is listed. If multiple conditions are listed, then this field is required.
-pLogical :: Lens' Predicate (Maybe Logical)
-pLogical = lens _pLogical (\s a -> s {_pLogical = a})
+-- | An optional field if only one condition is listed. If multiple
+-- conditions are listed, then this field is required.
+predicate_logical :: Lens.Lens' Predicate (Prelude.Maybe Logical)
+predicate_logical = Lens.lens (\Predicate' {logical} -> logical) (\s@Predicate' {} a -> s {logical = a} :: Predicate)
 
 -- | A list of the conditions that determine when the trigger will fire.
-pConditions :: Lens' Predicate [Condition]
-pConditions = lens _pConditions (\s a -> s {_pConditions = a}) . _Default . _Coerce
+predicate_conditions :: Lens.Lens' Predicate (Prelude.Maybe [Condition])
+predicate_conditions = Lens.lens (\Predicate' {conditions} -> conditions) (\s@Predicate' {} a -> s {conditions = a} :: Predicate) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Predicate where
+instance Prelude.FromJSON Predicate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Predicate"
       ( \x ->
           Predicate'
-            <$> (x .:? "Logical")
-            <*> (x .:? "Conditions" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Logical")
+            Prelude.<*> ( x Prelude..:? "Conditions"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Predicate
+instance Prelude.Hashable Predicate
 
-instance NFData Predicate
+instance Prelude.NFData Predicate
 
-instance ToJSON Predicate where
+instance Prelude.ToJSON Predicate where
   toJSON Predicate' {..} =
-    object
-      ( catMaybes
-          [ ("Logical" .=) <$> _pLogical,
-            ("Conditions" .=) <$> _pConditions
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Logical" Prelude..=) Prelude.<$> logical,
+            ("Conditions" Prelude..=) Prelude.<$> conditions
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,172 +24,200 @@
 -- Creates a new workflow.
 module Network.AWS.Glue.CreateWorkflow
   ( -- * Creating a Request
-    createWorkflow,
-    CreateWorkflow,
+    CreateWorkflow (..),
+    newCreateWorkflow,
 
     -- * Request Lenses
-    cwDefaultRunProperties,
-    cwMaxConcurrentRuns,
-    cwTags,
-    cwDescription,
-    cwName,
+    createWorkflow_defaultRunProperties,
+    createWorkflow_maxConcurrentRuns,
+    createWorkflow_tags,
+    createWorkflow_description,
+    createWorkflow_name,
 
     -- * Destructuring the Response
-    createWorkflowResponse,
-    CreateWorkflowResponse,
+    CreateWorkflowResponse (..),
+    newCreateWorkflowResponse,
 
     -- * Response Lenses
-    cwrrsName,
-    cwrrsResponseStatus,
+    createWorkflowResponse_name,
+    createWorkflowResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createWorkflow' smart constructor.
+-- | /See:/ 'newCreateWorkflow' smart constructor.
 data CreateWorkflow = CreateWorkflow'
-  { _cwDefaultRunProperties ::
-      !(Maybe (Map Text Text)),
-    _cwMaxConcurrentRuns :: !(Maybe Int),
-    _cwTags :: !(Maybe (Map Text Text)),
-    _cwDescription :: !(Maybe Text),
-    _cwName :: !Text
+  { -- | A collection of properties to be used as part of each execution of the
+    -- workflow.
+    defaultRunProperties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | You can use this parameter to prevent unwanted multiple updates to data,
+    -- to control costs, or in some cases, to prevent exceeding the maximum
+    -- number of concurrent runs of any of the component jobs. If you leave
+    -- this parameter blank, there is no limit to the number of concurrent
+    -- workflow runs.
+    maxConcurrentRuns :: Prelude.Maybe Prelude.Int,
+    -- | The tags to be used with this workflow.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A description of the workflow.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name to be assigned to the workflow. It should be unique within your
+    -- account.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateWorkflow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateWorkflow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwDefaultRunProperties' - A collection of properties to be used as part of each execution of the workflow.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwMaxConcurrentRuns' - You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter blank, there is no limit to the number of concurrent workflow runs.
+-- 'defaultRunProperties', 'createWorkflow_defaultRunProperties' - A collection of properties to be used as part of each execution of the
+-- workflow.
 --
--- * 'cwTags' - The tags to be used with this workflow.
+-- 'maxConcurrentRuns', 'createWorkflow_maxConcurrentRuns' - You can use this parameter to prevent unwanted multiple updates to data,
+-- to control costs, or in some cases, to prevent exceeding the maximum
+-- number of concurrent runs of any of the component jobs. If you leave
+-- this parameter blank, there is no limit to the number of concurrent
+-- workflow runs.
 --
--- * 'cwDescription' - A description of the workflow.
+-- 'tags', 'createWorkflow_tags' - The tags to be used with this workflow.
 --
--- * 'cwName' - The name to be assigned to the workflow. It should be unique within your account.
-createWorkflow ::
-  -- | 'cwName'
-  Text ->
+-- 'description', 'createWorkflow_description' - A description of the workflow.
+--
+-- 'name', 'createWorkflow_name' - The name to be assigned to the workflow. It should be unique within your
+-- account.
+newCreateWorkflow ::
+  -- | 'name'
+  Prelude.Text ->
   CreateWorkflow
-createWorkflow pName_ =
+newCreateWorkflow pName_ =
   CreateWorkflow'
-    { _cwDefaultRunProperties = Nothing,
-      _cwMaxConcurrentRuns = Nothing,
-      _cwTags = Nothing,
-      _cwDescription = Nothing,
-      _cwName = pName_
+    { defaultRunProperties =
+        Prelude.Nothing,
+      maxConcurrentRuns = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      name = pName_
     }
 
--- | A collection of properties to be used as part of each execution of the workflow.
-cwDefaultRunProperties :: Lens' CreateWorkflow (HashMap Text Text)
-cwDefaultRunProperties = lens _cwDefaultRunProperties (\s a -> s {_cwDefaultRunProperties = a}) . _Default . _Map
+-- | A collection of properties to be used as part of each execution of the
+-- workflow.
+createWorkflow_defaultRunProperties :: Lens.Lens' CreateWorkflow (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createWorkflow_defaultRunProperties = Lens.lens (\CreateWorkflow' {defaultRunProperties} -> defaultRunProperties) (\s@CreateWorkflow' {} a -> s {defaultRunProperties = a} :: CreateWorkflow) Prelude.. Lens.mapping Prelude._Map
 
--- | You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter blank, there is no limit to the number of concurrent workflow runs.
-cwMaxConcurrentRuns :: Lens' CreateWorkflow (Maybe Int)
-cwMaxConcurrentRuns = lens _cwMaxConcurrentRuns (\s a -> s {_cwMaxConcurrentRuns = a})
+-- | You can use this parameter to prevent unwanted multiple updates to data,
+-- to control costs, or in some cases, to prevent exceeding the maximum
+-- number of concurrent runs of any of the component jobs. If you leave
+-- this parameter blank, there is no limit to the number of concurrent
+-- workflow runs.
+createWorkflow_maxConcurrentRuns :: Lens.Lens' CreateWorkflow (Prelude.Maybe Prelude.Int)
+createWorkflow_maxConcurrentRuns = Lens.lens (\CreateWorkflow' {maxConcurrentRuns} -> maxConcurrentRuns) (\s@CreateWorkflow' {} a -> s {maxConcurrentRuns = a} :: CreateWorkflow)
 
 -- | The tags to be used with this workflow.
-cwTags :: Lens' CreateWorkflow (HashMap Text Text)
-cwTags = lens _cwTags (\s a -> s {_cwTags = a}) . _Default . _Map
+createWorkflow_tags :: Lens.Lens' CreateWorkflow (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createWorkflow_tags = Lens.lens (\CreateWorkflow' {tags} -> tags) (\s@CreateWorkflow' {} a -> s {tags = a} :: CreateWorkflow) Prelude.. Lens.mapping Prelude._Map
 
 -- | A description of the workflow.
-cwDescription :: Lens' CreateWorkflow (Maybe Text)
-cwDescription = lens _cwDescription (\s a -> s {_cwDescription = a})
+createWorkflow_description :: Lens.Lens' CreateWorkflow (Prelude.Maybe Prelude.Text)
+createWorkflow_description = Lens.lens (\CreateWorkflow' {description} -> description) (\s@CreateWorkflow' {} a -> s {description = a} :: CreateWorkflow)
 
--- | The name to be assigned to the workflow. It should be unique within your account.
-cwName :: Lens' CreateWorkflow Text
-cwName = lens _cwName (\s a -> s {_cwName = a})
+-- | The name to be assigned to the workflow. It should be unique within your
+-- account.
+createWorkflow_name :: Lens.Lens' CreateWorkflow Prelude.Text
+createWorkflow_name = Lens.lens (\CreateWorkflow' {name} -> name) (\s@CreateWorkflow' {} a -> s {name = a} :: CreateWorkflow)
 
-instance AWSRequest CreateWorkflow where
+instance Prelude.AWSRequest CreateWorkflow where
   type Rs CreateWorkflow = CreateWorkflowResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateWorkflowResponse'
-            <$> (x .?> "Name") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateWorkflow
+instance Prelude.Hashable CreateWorkflow
 
-instance NFData CreateWorkflow
+instance Prelude.NFData CreateWorkflow
 
-instance ToHeaders CreateWorkflow where
+instance Prelude.ToHeaders CreateWorkflow where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.CreateWorkflow" :: ByteString),
+              Prelude.=# ("AWSGlue.CreateWorkflow" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateWorkflow where
+instance Prelude.ToJSON CreateWorkflow where
   toJSON CreateWorkflow' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultRunProperties" .=)
-              <$> _cwDefaultRunProperties,
-            ("MaxConcurrentRuns" .=) <$> _cwMaxConcurrentRuns,
-            ("Tags" .=) <$> _cwTags,
-            ("Description" .=) <$> _cwDescription,
-            Just ("Name" .= _cwName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultRunProperties" Prelude..=)
+              Prelude.<$> defaultRunProperties,
+            ("MaxConcurrentRuns" Prelude..=)
+              Prelude.<$> maxConcurrentRuns,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateWorkflow where
-  toPath = const "/"
+instance Prelude.ToPath CreateWorkflow where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateWorkflow where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateWorkflow where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createWorkflowResponse' smart constructor.
+-- | /See:/ 'newCreateWorkflowResponse' smart constructor.
 data CreateWorkflowResponse = CreateWorkflowResponse'
-  { _cwrrsName ::
-      !(Maybe Text),
-    _cwrrsResponseStatus ::
-      !Int
+  { -- | The name of the workflow which was provided as part of the request.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateWorkflowResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateWorkflowResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwrrsName' - The name of the workflow which was provided as part of the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwrrsResponseStatus' - -- | The response status code.
-createWorkflowResponse ::
-  -- | 'cwrrsResponseStatus'
-  Int ->
+-- 'name', 'createWorkflowResponse_name' - The name of the workflow which was provided as part of the request.
+--
+-- 'httpStatus', 'createWorkflowResponse_httpStatus' - The response's http status code.
+newCreateWorkflowResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateWorkflowResponse
-createWorkflowResponse pResponseStatus_ =
+newCreateWorkflowResponse pHttpStatus_ =
   CreateWorkflowResponse'
-    { _cwrrsName = Nothing,
-      _cwrrsResponseStatus = pResponseStatus_
+    { name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the workflow which was provided as part of the request.
-cwrrsName :: Lens' CreateWorkflowResponse (Maybe Text)
-cwrrsName = lens _cwrrsName (\s a -> s {_cwrrsName = a})
+createWorkflowResponse_name :: Lens.Lens' CreateWorkflowResponse (Prelude.Maybe Prelude.Text)
+createWorkflowResponse_name = Lens.lens (\CreateWorkflowResponse' {name} -> name) (\s@CreateWorkflowResponse' {} a -> s {name = a} :: CreateWorkflowResponse)
 
--- | -- | The response status code.
-cwrrsResponseStatus :: Lens' CreateWorkflowResponse Int
-cwrrsResponseStatus = lens _cwrrsResponseStatus (\s a -> s {_cwrrsResponseStatus = a})
+-- | The response's http status code.
+createWorkflowResponse_httpStatus :: Lens.Lens' CreateWorkflowResponse Prelude.Int
+createWorkflowResponse_httpStatus = Lens.lens (\CreateWorkflowResponse' {httpStatus} -> httpStatus) (\s@CreateWorkflowResponse' {} a -> s {httpStatus = a} :: CreateWorkflowResponse)
 
-instance NFData CreateWorkflowResponse
+instance Prelude.NFData CreateWorkflowResponse

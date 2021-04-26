@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,191 +21,226 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds a new version to the existing schema. Returns an error if new version of schema does not meet the compatibility requirements of the schema set. This API will not create a new schema set and will return a 404 error if the schema set is not already present in the Schema Registry.
+-- Adds a new version to the existing schema. Returns an error if new
+-- version of schema does not meet the compatibility requirements of the
+-- schema set. This API will not create a new schema set and will return a
+-- 404 error if the schema set is not already present in the Schema
+-- Registry.
 --
+-- If this is the first schema definition to be registered in the Schema
+-- Registry, this API will store the schema version and return immediately.
+-- Otherwise, this call has the potential to run longer than other
+-- operations due to compatibility modes. You can call the
+-- @GetSchemaVersion@ API with the @SchemaVersionId@ to check compatibility
+-- modes.
 --
--- If this is the first schema definition to be registered in the Schema Registry, this API will store the schema version and return immediately. Otherwise, this call has the potential to run longer than other operations due to compatibility modes. You can call the @GetSchemaVersion@ API with the @SchemaVersionId@ to check compatibility modes.
---
--- If the same schema definition is already stored in Schema Registry as a version, the schema ID of the existing schema is returned to the caller.
+-- If the same schema definition is already stored in Schema Registry as a
+-- version, the schema ID of the existing schema is returned to the caller.
 module Network.AWS.Glue.RegisterSchemaVersion
   ( -- * Creating a Request
-    registerSchemaVersion,
-    RegisterSchemaVersion,
+    RegisterSchemaVersion (..),
+    newRegisterSchemaVersion,
 
     -- * Request Lenses
-    rsvSchemaId,
-    rsvSchemaDefinition,
+    registerSchemaVersion_schemaId,
+    registerSchemaVersion_schemaDefinition,
 
     -- * Destructuring the Response
-    registerSchemaVersionResponse,
-    RegisterSchemaVersionResponse,
+    RegisterSchemaVersionResponse (..),
+    newRegisterSchemaVersionResponse,
 
     -- * Response Lenses
-    rsvrrsStatus,
-    rsvrrsSchemaVersionId,
-    rsvrrsVersionNumber,
-    rsvrrsResponseStatus,
+    registerSchemaVersionResponse_status,
+    registerSchemaVersionResponse_schemaVersionId,
+    registerSchemaVersionResponse_versionNumber,
+    registerSchemaVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.SchemaVersionStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerSchemaVersion' smart constructor.
+-- | /See:/ 'newRegisterSchemaVersion' smart constructor.
 data RegisterSchemaVersion = RegisterSchemaVersion'
-  { _rsvSchemaId ::
-      !SchemaId,
-    _rsvSchemaDefinition ::
-      !Text
+  { -- | This is a wrapper structure to contain schema identity fields. The
+    -- structure contains:
+    --
+    -- -   SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema.
+    --     Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be
+    --     provided.
+    --
+    -- -   SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or
+    --     @SchemaName@ and @RegistryName@ has to be provided.
+    schemaId :: SchemaId,
+    -- | The schema definition using the @DataFormat@ setting for the
+    -- @SchemaName@.
+    schemaDefinition :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterSchemaVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterSchemaVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsvSchemaId' - This is a wrapper structure to contain schema identity fields. The structure contains:     * SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.     * SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsvSchemaDefinition' - The schema definition using the @DataFormat@ setting for the @SchemaName@ .
-registerSchemaVersion ::
-  -- | 'rsvSchemaId'
+-- 'schemaId', 'registerSchemaVersion_schemaId' - This is a wrapper structure to contain schema identity fields. The
+-- structure contains:
+--
+-- -   SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema.
+--     Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be
+--     provided.
+--
+-- -   SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or
+--     @SchemaName@ and @RegistryName@ has to be provided.
+--
+-- 'schemaDefinition', 'registerSchemaVersion_schemaDefinition' - The schema definition using the @DataFormat@ setting for the
+-- @SchemaName@.
+newRegisterSchemaVersion ::
+  -- | 'schemaId'
   SchemaId ->
-  -- | 'rsvSchemaDefinition'
-  Text ->
+  -- | 'schemaDefinition'
+  Prelude.Text ->
   RegisterSchemaVersion
-registerSchemaVersion pSchemaId_ pSchemaDefinition_ =
-  RegisterSchemaVersion'
-    { _rsvSchemaId = pSchemaId_,
-      _rsvSchemaDefinition = pSchemaDefinition_
-    }
+newRegisterSchemaVersion
+  pSchemaId_
+  pSchemaDefinition_ =
+    RegisterSchemaVersion'
+      { schemaId = pSchemaId_,
+        schemaDefinition = pSchemaDefinition_
+      }
 
--- | This is a wrapper structure to contain schema identity fields. The structure contains:     * SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.     * SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.
-rsvSchemaId :: Lens' RegisterSchemaVersion SchemaId
-rsvSchemaId = lens _rsvSchemaId (\s a -> s {_rsvSchemaId = a})
+-- | This is a wrapper structure to contain schema identity fields. The
+-- structure contains:
+--
+-- -   SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema.
+--     Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be
+--     provided.
+--
+-- -   SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or
+--     @SchemaName@ and @RegistryName@ has to be provided.
+registerSchemaVersion_schemaId :: Lens.Lens' RegisterSchemaVersion SchemaId
+registerSchemaVersion_schemaId = Lens.lens (\RegisterSchemaVersion' {schemaId} -> schemaId) (\s@RegisterSchemaVersion' {} a -> s {schemaId = a} :: RegisterSchemaVersion)
 
--- | The schema definition using the @DataFormat@ setting for the @SchemaName@ .
-rsvSchemaDefinition :: Lens' RegisterSchemaVersion Text
-rsvSchemaDefinition = lens _rsvSchemaDefinition (\s a -> s {_rsvSchemaDefinition = a})
+-- | The schema definition using the @DataFormat@ setting for the
+-- @SchemaName@.
+registerSchemaVersion_schemaDefinition :: Lens.Lens' RegisterSchemaVersion Prelude.Text
+registerSchemaVersion_schemaDefinition = Lens.lens (\RegisterSchemaVersion' {schemaDefinition} -> schemaDefinition) (\s@RegisterSchemaVersion' {} a -> s {schemaDefinition = a} :: RegisterSchemaVersion)
 
-instance AWSRequest RegisterSchemaVersion where
+instance Prelude.AWSRequest RegisterSchemaVersion where
   type
     Rs RegisterSchemaVersion =
       RegisterSchemaVersionResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterSchemaVersionResponse'
-            <$> (x .?> "Status")
-            <*> (x .?> "SchemaVersionId")
-            <*> (x .?> "VersionNumber")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "SchemaVersionId")
+            Prelude.<*> (x Prelude..?> "VersionNumber")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterSchemaVersion
+instance Prelude.Hashable RegisterSchemaVersion
 
-instance NFData RegisterSchemaVersion
+instance Prelude.NFData RegisterSchemaVersion
 
-instance ToHeaders RegisterSchemaVersion where
+instance Prelude.ToHeaders RegisterSchemaVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.RegisterSchemaVersion" :: ByteString),
+              Prelude.=# ( "AWSGlue.RegisterSchemaVersion" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterSchemaVersion where
+instance Prelude.ToJSON RegisterSchemaVersion where
   toJSON RegisterSchemaVersion' {..} =
-    object
-      ( catMaybes
-          [ Just ("SchemaId" .= _rsvSchemaId),
-            Just ("SchemaDefinition" .= _rsvSchemaDefinition)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("SchemaId" Prelude..= schemaId),
+            Prelude.Just
+              ("SchemaDefinition" Prelude..= schemaDefinition)
           ]
       )
 
-instance ToPath RegisterSchemaVersion where
-  toPath = const "/"
+instance Prelude.ToPath RegisterSchemaVersion where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterSchemaVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterSchemaVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerSchemaVersionResponse' smart constructor.
+-- | /See:/ 'newRegisterSchemaVersionResponse' smart constructor.
 data RegisterSchemaVersionResponse = RegisterSchemaVersionResponse'
-  { _rsvrrsStatus ::
-      !( Maybe
-           SchemaVersionStatus
-       ),
-    _rsvrrsSchemaVersionId ::
-      !( Maybe
-           Text
-       ),
-    _rsvrrsVersionNumber ::
-      !( Maybe
-           Nat
-       ),
-    _rsvrrsResponseStatus ::
-      !Int
+  { -- | The status of the schema version.
+    status :: Prelude.Maybe SchemaVersionStatus,
+    -- | The unique ID that represents the version of this schema.
+    schemaVersionId :: Prelude.Maybe Prelude.Text,
+    -- | The version of this schema (for sync flow only, in case this is the
+    -- first version).
+    versionNumber :: Prelude.Maybe Prelude.Nat,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterSchemaVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterSchemaVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsvrrsStatus' - The status of the schema version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsvrrsSchemaVersionId' - The unique ID that represents the version of this schema.
+-- 'status', 'registerSchemaVersionResponse_status' - The status of the schema version.
 --
--- * 'rsvrrsVersionNumber' - The version of this schema (for sync flow only, in case this is the first version).
+-- 'schemaVersionId', 'registerSchemaVersionResponse_schemaVersionId' - The unique ID that represents the version of this schema.
 --
--- * 'rsvrrsResponseStatus' - -- | The response status code.
-registerSchemaVersionResponse ::
-  -- | 'rsvrrsResponseStatus'
-  Int ->
+-- 'versionNumber', 'registerSchemaVersionResponse_versionNumber' - The version of this schema (for sync flow only, in case this is the
+-- first version).
+--
+-- 'httpStatus', 'registerSchemaVersionResponse_httpStatus' - The response's http status code.
+newRegisterSchemaVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterSchemaVersionResponse
-registerSchemaVersionResponse pResponseStatus_ =
+newRegisterSchemaVersionResponse pHttpStatus_ =
   RegisterSchemaVersionResponse'
-    { _rsvrrsStatus =
-        Nothing,
-      _rsvrrsSchemaVersionId = Nothing,
-      _rsvrrsVersionNumber = Nothing,
-      _rsvrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      schemaVersionId = Prelude.Nothing,
+      versionNumber = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the schema version.
-rsvrrsStatus :: Lens' RegisterSchemaVersionResponse (Maybe SchemaVersionStatus)
-rsvrrsStatus = lens _rsvrrsStatus (\s a -> s {_rsvrrsStatus = a})
+registerSchemaVersionResponse_status :: Lens.Lens' RegisterSchemaVersionResponse (Prelude.Maybe SchemaVersionStatus)
+registerSchemaVersionResponse_status = Lens.lens (\RegisterSchemaVersionResponse' {status} -> status) (\s@RegisterSchemaVersionResponse' {} a -> s {status = a} :: RegisterSchemaVersionResponse)
 
 -- | The unique ID that represents the version of this schema.
-rsvrrsSchemaVersionId :: Lens' RegisterSchemaVersionResponse (Maybe Text)
-rsvrrsSchemaVersionId = lens _rsvrrsSchemaVersionId (\s a -> s {_rsvrrsSchemaVersionId = a})
+registerSchemaVersionResponse_schemaVersionId :: Lens.Lens' RegisterSchemaVersionResponse (Prelude.Maybe Prelude.Text)
+registerSchemaVersionResponse_schemaVersionId = Lens.lens (\RegisterSchemaVersionResponse' {schemaVersionId} -> schemaVersionId) (\s@RegisterSchemaVersionResponse' {} a -> s {schemaVersionId = a} :: RegisterSchemaVersionResponse)
 
--- | The version of this schema (for sync flow only, in case this is the first version).
-rsvrrsVersionNumber :: Lens' RegisterSchemaVersionResponse (Maybe Natural)
-rsvrrsVersionNumber = lens _rsvrrsVersionNumber (\s a -> s {_rsvrrsVersionNumber = a}) . mapping _Nat
+-- | The version of this schema (for sync flow only, in case this is the
+-- first version).
+registerSchemaVersionResponse_versionNumber :: Lens.Lens' RegisterSchemaVersionResponse (Prelude.Maybe Prelude.Natural)
+registerSchemaVersionResponse_versionNumber = Lens.lens (\RegisterSchemaVersionResponse' {versionNumber} -> versionNumber) (\s@RegisterSchemaVersionResponse' {} a -> s {versionNumber = a} :: RegisterSchemaVersionResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | -- | The response status code.
-rsvrrsResponseStatus :: Lens' RegisterSchemaVersionResponse Int
-rsvrrsResponseStatus = lens _rsvrrsResponseStatus (\s a -> s {_rsvrrsResponseStatus = a})
+-- | The response's http status code.
+registerSchemaVersionResponse_httpStatus :: Lens.Lens' RegisterSchemaVersionResponse Prelude.Int
+registerSchemaVersionResponse_httpStatus = Lens.lens (\RegisterSchemaVersionResponse' {httpStatus} -> httpStatus) (\s@RegisterSchemaVersionResponse' {} a -> s {httpStatus = a} :: RegisterSchemaVersionResponse)
 
-instance NFData RegisterSchemaVersionResponse
+instance Prelude.NFData RegisterSchemaVersionResponse

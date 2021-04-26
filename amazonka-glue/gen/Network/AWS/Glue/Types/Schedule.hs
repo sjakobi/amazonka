@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,66 @@
 module Network.AWS.Glue.Types.Schedule where
 
 import Network.AWS.Glue.Types.ScheduleState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A scheduling object using a @cron@ statement to schedule an event.
 --
---
---
--- /See:/ 'schedule' smart constructor.
+-- /See:/ 'newSchedule' smart constructor.
 data Schedule = Schedule'
-  { _sState ::
-      !(Maybe ScheduleState),
-    _sScheduleExpression :: !(Maybe Text)
+  { -- | The state of the schedule.
+    state :: Prelude.Maybe ScheduleState,
+    -- | A @cron@ expression used to specify the schedule (see
+    -- <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers>.
+    -- For example, to run something every day at 12:15 UTC, you would specify:
+    -- @cron(15 12 * * ? *)@.
+    scheduleExpression :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Schedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Schedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sState' - The state of the schedule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sScheduleExpression' - A @cron@ expression used to specify the schedule (see <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
-schedule ::
+-- 'state', 'schedule_state' - The state of the schedule.
+--
+-- 'scheduleExpression', 'schedule_scheduleExpression' - A @cron@ expression used to specify the schedule (see
+-- <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers>.
+-- For example, to run something every day at 12:15 UTC, you would specify:
+-- @cron(15 12 * * ? *)@.
+newSchedule ::
   Schedule
-schedule =
+newSchedule =
   Schedule'
-    { _sState = Nothing,
-      _sScheduleExpression = Nothing
+    { state = Prelude.Nothing,
+      scheduleExpression = Prelude.Nothing
     }
 
 -- | The state of the schedule.
-sState :: Lens' Schedule (Maybe ScheduleState)
-sState = lens _sState (\s a -> s {_sState = a})
+schedule_state :: Lens.Lens' Schedule (Prelude.Maybe ScheduleState)
+schedule_state = Lens.lens (\Schedule' {state} -> state) (\s@Schedule' {} a -> s {state = a} :: Schedule)
 
--- | A @cron@ expression used to specify the schedule (see <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
-sScheduleExpression :: Lens' Schedule (Maybe Text)
-sScheduleExpression = lens _sScheduleExpression (\s a -> s {_sScheduleExpression = a})
+-- | A @cron@ expression used to specify the schedule (see
+-- <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers>.
+-- For example, to run something every day at 12:15 UTC, you would specify:
+-- @cron(15 12 * * ? *)@.
+schedule_scheduleExpression :: Lens.Lens' Schedule (Prelude.Maybe Prelude.Text)
+schedule_scheduleExpression = Lens.lens (\Schedule' {scheduleExpression} -> scheduleExpression) (\s@Schedule' {} a -> s {scheduleExpression = a} :: Schedule)
 
-instance FromJSON Schedule where
+instance Prelude.FromJSON Schedule where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Schedule"
       ( \x ->
           Schedule'
-            <$> (x .:? "State") <*> (x .:? "ScheduleExpression")
+            Prelude.<$> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "ScheduleExpression")
       )
 
-instance Hashable Schedule
+instance Prelude.Hashable Schedule
 
-instance NFData Schedule
+instance Prelude.NFData Schedule

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,84 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.Column where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A column in a @Table@ .
+-- | A column in a @Table@.
 --
---
---
--- /See:/ 'column' smart constructor.
+-- /See:/ 'newColumn' smart constructor.
 data Column = Column'
-  { _cComment :: !(Maybe Text),
-    _cType :: !(Maybe Text),
-    _cParameters :: !(Maybe (Map Text Text)),
-    _cName :: !Text
+  { -- | A free-form text comment.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | The data type of the @Column@.
+    type' :: Prelude.Maybe Prelude.Text,
+    -- | These key-value pairs define properties associated with the column.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the @Column@.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Column' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Column' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cComment' - A free-form text comment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cType' - The data type of the @Column@ .
+-- 'comment', 'column_comment' - A free-form text comment.
 --
--- * 'cParameters' - These key-value pairs define properties associated with the column.
+-- 'type'', 'column_type' - The data type of the @Column@.
 --
--- * 'cName' - The name of the @Column@ .
-column ::
-  -- | 'cName'
-  Text ->
+-- 'parameters', 'column_parameters' - These key-value pairs define properties associated with the column.
+--
+-- 'name', 'column_name' - The name of the @Column@.
+newColumn ::
+  -- | 'name'
+  Prelude.Text ->
   Column
-column pName_ =
+newColumn pName_ =
   Column'
-    { _cComment = Nothing,
-      _cType = Nothing,
-      _cParameters = Nothing,
-      _cName = pName_
+    { comment = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      name = pName_
     }
 
 -- | A free-form text comment.
-cComment :: Lens' Column (Maybe Text)
-cComment = lens _cComment (\s a -> s {_cComment = a})
+column_comment :: Lens.Lens' Column (Prelude.Maybe Prelude.Text)
+column_comment = Lens.lens (\Column' {comment} -> comment) (\s@Column' {} a -> s {comment = a} :: Column)
 
--- | The data type of the @Column@ .
-cType :: Lens' Column (Maybe Text)
-cType = lens _cType (\s a -> s {_cType = a})
+-- | The data type of the @Column@.
+column_type :: Lens.Lens' Column (Prelude.Maybe Prelude.Text)
+column_type = Lens.lens (\Column' {type'} -> type') (\s@Column' {} a -> s {type' = a} :: Column)
 
 -- | These key-value pairs define properties associated with the column.
-cParameters :: Lens' Column (HashMap Text Text)
-cParameters = lens _cParameters (\s a -> s {_cParameters = a}) . _Default . _Map
+column_parameters :: Lens.Lens' Column (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+column_parameters = Lens.lens (\Column' {parameters} -> parameters) (\s@Column' {} a -> s {parameters = a} :: Column) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the @Column@ .
-cName :: Lens' Column Text
-cName = lens _cName (\s a -> s {_cName = a})
+-- | The name of the @Column@.
+column_name :: Lens.Lens' Column Prelude.Text
+column_name = Lens.lens (\Column' {name} -> name) (\s@Column' {} a -> s {name = a} :: Column)
 
-instance FromJSON Column where
+instance Prelude.FromJSON Column where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Column"
       ( \x ->
           Column'
-            <$> (x .:? "Comment")
-            <*> (x .:? "Type")
-            <*> (x .:? "Parameters" .!= mempty)
-            <*> (x .: "Name")
+            Prelude.<$> (x Prelude..:? "Comment")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable Column
+instance Prelude.Hashable Column
 
-instance NFData Column
+instance Prelude.NFData Column
 
-instance ToJSON Column where
+instance Prelude.ToJSON Column where
   toJSON Column' {..} =
-    object
-      ( catMaybes
-          [ ("Comment" .=) <$> _cComment,
-            ("Type" .=) <$> _cType,
-            ("Parameters" .=) <$> _cParameters,
-            Just ("Name" .= _cName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Comment" Prelude..=) Prelude.<$> comment,
+            ("Type" Prelude..=) Prelude.<$> type',
+            ("Parameters" Prelude..=) Prelude.<$> parameters,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

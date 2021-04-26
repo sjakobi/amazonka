@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Glue.Types.TaskRunSortColumnType
   ( TaskRunSortColumnType
       ( ..,
-        TRSCTStarted,
-        TRSCTStatus,
-        TRSCTTaskRunType
+        TaskRunSortColumnTypeSTARTED,
+        TaskRunSortColumnTypeSTATUS,
+        TaskRunSortColumnTypeTASKRUNTYPE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskRunSortColumnType
-  = TaskRunSortColumnType'
-      ( CI
-          Text
-      )
+newtype TaskRunSortColumnType = TaskRunSortColumnType'
+  { fromTaskRunSortColumnType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TRSCTStarted :: TaskRunSortColumnType
-pattern TRSCTStarted = TaskRunSortColumnType' "STARTED"
+pattern TaskRunSortColumnTypeSTARTED :: TaskRunSortColumnType
+pattern TaskRunSortColumnTypeSTARTED = TaskRunSortColumnType' "STARTED"
 
-pattern TRSCTStatus :: TaskRunSortColumnType
-pattern TRSCTStatus = TaskRunSortColumnType' "STATUS"
+pattern TaskRunSortColumnTypeSTATUS :: TaskRunSortColumnType
+pattern TaskRunSortColumnTypeSTATUS = TaskRunSortColumnType' "STATUS"
 
-pattern TRSCTTaskRunType :: TaskRunSortColumnType
-pattern TRSCTTaskRunType = TaskRunSortColumnType' "TASK_RUN_TYPE"
+pattern TaskRunSortColumnTypeTASKRUNTYPE :: TaskRunSortColumnType
+pattern TaskRunSortColumnTypeTASKRUNTYPE = TaskRunSortColumnType' "TASK_RUN_TYPE"
 
 {-# COMPLETE
-  TRSCTStarted,
-  TRSCTStatus,
-  TRSCTTaskRunType,
+  TaskRunSortColumnTypeSTARTED,
+  TaskRunSortColumnTypeSTATUS,
+  TaskRunSortColumnTypeTASKRUNTYPE,
   TaskRunSortColumnType'
   #-}
 
-instance FromText TaskRunSortColumnType where
-  parser = (TaskRunSortColumnType' . mk) <$> takeText
+instance Prelude.FromText TaskRunSortColumnType where
+  parser = TaskRunSortColumnType' Prelude.<$> Prelude.takeText
 
-instance ToText TaskRunSortColumnType where
-  toText (TaskRunSortColumnType' ci) = original ci
+instance Prelude.ToText TaskRunSortColumnType where
+  toText (TaskRunSortColumnType' x) = x
 
-instance Hashable TaskRunSortColumnType
+instance Prelude.Hashable TaskRunSortColumnType
 
-instance NFData TaskRunSortColumnType
+instance Prelude.NFData TaskRunSortColumnType
 
-instance ToByteString TaskRunSortColumnType
+instance Prelude.ToByteString TaskRunSortColumnType
 
-instance ToQuery TaskRunSortColumnType
+instance Prelude.ToQuery TaskRunSortColumnType
 
-instance ToHeader TaskRunSortColumnType
+instance Prelude.ToHeader TaskRunSortColumnType
 
-instance ToJSON TaskRunSortColumnType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskRunSortColumnType where
+  toJSON = Prelude.toJSONText

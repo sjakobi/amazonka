@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +21,68 @@ module Network.AWS.Glue.Types.TransformSortCriteria where
 
 import Network.AWS.Glue.Types.SortDirectionType
 import Network.AWS.Glue.Types.TransformSortColumnType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The sorting criteria that are associated with the machine learning transform.
+-- | The sorting criteria that are associated with the machine learning
+-- transform.
 --
---
---
--- /See:/ 'transformSortCriteria' smart constructor.
+-- /See:/ 'newTransformSortCriteria' smart constructor.
 data TransformSortCriteria = TransformSortCriteria'
-  { _tscColumn ::
-      !TransformSortColumnType,
-    _tscSortDirection ::
-      !SortDirectionType
+  { -- | The column to be used in the sorting criteria that are associated with
+    -- the machine learning transform.
+    column :: TransformSortColumnType,
+    -- | The sort direction to be used in the sorting criteria that are
+    -- associated with the machine learning transform.
+    sortDirection :: SortDirectionType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransformSortCriteria' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransformSortCriteria' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tscColumn' - The column to be used in the sorting criteria that are associated with the machine learning transform.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tscSortDirection' - The sort direction to be used in the sorting criteria that are associated with the machine learning transform.
-transformSortCriteria ::
-  -- | 'tscColumn'
+-- 'column', 'transformSortCriteria_column' - The column to be used in the sorting criteria that are associated with
+-- the machine learning transform.
+--
+-- 'sortDirection', 'transformSortCriteria_sortDirection' - The sort direction to be used in the sorting criteria that are
+-- associated with the machine learning transform.
+newTransformSortCriteria ::
+  -- | 'column'
   TransformSortColumnType ->
-  -- | 'tscSortDirection'
+  -- | 'sortDirection'
   SortDirectionType ->
   TransformSortCriteria
-transformSortCriteria pColumn_ pSortDirection_ =
+newTransformSortCriteria pColumn_ pSortDirection_ =
   TransformSortCriteria'
-    { _tscColumn = pColumn_,
-      _tscSortDirection = pSortDirection_
+    { column = pColumn_,
+      sortDirection = pSortDirection_
     }
 
--- | The column to be used in the sorting criteria that are associated with the machine learning transform.
-tscColumn :: Lens' TransformSortCriteria TransformSortColumnType
-tscColumn = lens _tscColumn (\s a -> s {_tscColumn = a})
+-- | The column to be used in the sorting criteria that are associated with
+-- the machine learning transform.
+transformSortCriteria_column :: Lens.Lens' TransformSortCriteria TransformSortColumnType
+transformSortCriteria_column = Lens.lens (\TransformSortCriteria' {column} -> column) (\s@TransformSortCriteria' {} a -> s {column = a} :: TransformSortCriteria)
 
--- | The sort direction to be used in the sorting criteria that are associated with the machine learning transform.
-tscSortDirection :: Lens' TransformSortCriteria SortDirectionType
-tscSortDirection = lens _tscSortDirection (\s a -> s {_tscSortDirection = a})
+-- | The sort direction to be used in the sorting criteria that are
+-- associated with the machine learning transform.
+transformSortCriteria_sortDirection :: Lens.Lens' TransformSortCriteria SortDirectionType
+transformSortCriteria_sortDirection = Lens.lens (\TransformSortCriteria' {sortDirection} -> sortDirection) (\s@TransformSortCriteria' {} a -> s {sortDirection = a} :: TransformSortCriteria)
 
-instance Hashable TransformSortCriteria
+instance Prelude.Hashable TransformSortCriteria
 
-instance NFData TransformSortCriteria
+instance Prelude.NFData TransformSortCriteria
 
-instance ToJSON TransformSortCriteria where
+instance Prelude.ToJSON TransformSortCriteria where
   toJSON TransformSortCriteria' {..} =
-    object
-      ( catMaybes
-          [ Just ("Column" .= _tscColumn),
-            Just ("SortDirection" .= _tscSortDirection)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Column" Prelude..= column),
+            Prelude.Just
+              ("SortDirection" Prelude..= sortDirection)
           ]
       )

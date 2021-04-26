@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,161 +24,176 @@
 -- Deletes a specified partition index from an existing table.
 module Network.AWS.Glue.DeletePartitionIndex
   ( -- * Creating a Request
-    deletePartitionIndex,
-    DeletePartitionIndex,
+    DeletePartitionIndex (..),
+    newDeletePartitionIndex,
 
     -- * Request Lenses
-    dpiCatalogId,
-    dpiDatabaseName,
-    dpiTableName,
-    dpiIndexName,
+    deletePartitionIndex_catalogId,
+    deletePartitionIndex_databaseName,
+    deletePartitionIndex_tableName,
+    deletePartitionIndex_indexName,
 
     -- * Destructuring the Response
-    deletePartitionIndexResponse,
-    DeletePartitionIndexResponse,
+    DeletePartitionIndexResponse (..),
+    newDeletePartitionIndexResponse,
 
     -- * Response Lenses
-    dpirrsResponseStatus,
+    deletePartitionIndexResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deletePartitionIndex' smart constructor.
+-- | /See:/ 'newDeletePartitionIndex' smart constructor.
 data DeletePartitionIndex = DeletePartitionIndex'
-  { _dpiCatalogId ::
-      !(Maybe Text),
-    _dpiDatabaseName :: !Text,
-    _dpiTableName :: !Text,
-    _dpiIndexName :: !Text
+  { -- | The catalog ID where the table resides.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the name of a database from which you want to delete a
+    -- partition index.
+    databaseName :: Prelude.Text,
+    -- | Specifies the name of a table from which you want to delete a partition
+    -- index.
+    tableName :: Prelude.Text,
+    -- | The name of the partition index to be deleted.
+    indexName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePartitionIndex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePartitionIndex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpiCatalogId' - The catalog ID where the table resides.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpiDatabaseName' - Specifies the name of a database from which you want to delete a partition index.
+-- 'catalogId', 'deletePartitionIndex_catalogId' - The catalog ID where the table resides.
 --
--- * 'dpiTableName' - Specifies the name of a table from which you want to delete a partition index.
+-- 'databaseName', 'deletePartitionIndex_databaseName' - Specifies the name of a database from which you want to delete a
+-- partition index.
 --
--- * 'dpiIndexName' - The name of the partition index to be deleted.
-deletePartitionIndex ::
-  -- | 'dpiDatabaseName'
-  Text ->
-  -- | 'dpiTableName'
-  Text ->
-  -- | 'dpiIndexName'
-  Text ->
+-- 'tableName', 'deletePartitionIndex_tableName' - Specifies the name of a table from which you want to delete a partition
+-- index.
+--
+-- 'indexName', 'deletePartitionIndex_indexName' - The name of the partition index to be deleted.
+newDeletePartitionIndex ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'indexName'
+  Prelude.Text ->
   DeletePartitionIndex
-deletePartitionIndex
+newDeletePartitionIndex
   pDatabaseName_
   pTableName_
   pIndexName_ =
     DeletePartitionIndex'
-      { _dpiCatalogId = Nothing,
-        _dpiDatabaseName = pDatabaseName_,
-        _dpiTableName = pTableName_,
-        _dpiIndexName = pIndexName_
+      { catalogId = Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        tableName = pTableName_,
+        indexName = pIndexName_
       }
 
 -- | The catalog ID where the table resides.
-dpiCatalogId :: Lens' DeletePartitionIndex (Maybe Text)
-dpiCatalogId = lens _dpiCatalogId (\s a -> s {_dpiCatalogId = a})
+deletePartitionIndex_catalogId :: Lens.Lens' DeletePartitionIndex (Prelude.Maybe Prelude.Text)
+deletePartitionIndex_catalogId = Lens.lens (\DeletePartitionIndex' {catalogId} -> catalogId) (\s@DeletePartitionIndex' {} a -> s {catalogId = a} :: DeletePartitionIndex)
 
--- | Specifies the name of a database from which you want to delete a partition index.
-dpiDatabaseName :: Lens' DeletePartitionIndex Text
-dpiDatabaseName = lens _dpiDatabaseName (\s a -> s {_dpiDatabaseName = a})
+-- | Specifies the name of a database from which you want to delete a
+-- partition index.
+deletePartitionIndex_databaseName :: Lens.Lens' DeletePartitionIndex Prelude.Text
+deletePartitionIndex_databaseName = Lens.lens (\DeletePartitionIndex' {databaseName} -> databaseName) (\s@DeletePartitionIndex' {} a -> s {databaseName = a} :: DeletePartitionIndex)
 
--- | Specifies the name of a table from which you want to delete a partition index.
-dpiTableName :: Lens' DeletePartitionIndex Text
-dpiTableName = lens _dpiTableName (\s a -> s {_dpiTableName = a})
+-- | Specifies the name of a table from which you want to delete a partition
+-- index.
+deletePartitionIndex_tableName :: Lens.Lens' DeletePartitionIndex Prelude.Text
+deletePartitionIndex_tableName = Lens.lens (\DeletePartitionIndex' {tableName} -> tableName) (\s@DeletePartitionIndex' {} a -> s {tableName = a} :: DeletePartitionIndex)
 
 -- | The name of the partition index to be deleted.
-dpiIndexName :: Lens' DeletePartitionIndex Text
-dpiIndexName = lens _dpiIndexName (\s a -> s {_dpiIndexName = a})
+deletePartitionIndex_indexName :: Lens.Lens' DeletePartitionIndex Prelude.Text
+deletePartitionIndex_indexName = Lens.lens (\DeletePartitionIndex' {indexName} -> indexName) (\s@DeletePartitionIndex' {} a -> s {indexName = a} :: DeletePartitionIndex)
 
-instance AWSRequest DeletePartitionIndex where
+instance Prelude.AWSRequest DeletePartitionIndex where
   type
     Rs DeletePartitionIndex =
       DeletePartitionIndexResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeletePartitionIndexResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeletePartitionIndex
+instance Prelude.Hashable DeletePartitionIndex
 
-instance NFData DeletePartitionIndex
+instance Prelude.NFData DeletePartitionIndex
 
-instance ToHeaders DeletePartitionIndex where
+instance Prelude.ToHeaders DeletePartitionIndex where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.DeletePartitionIndex" :: ByteString),
+              Prelude.=# ( "AWSGlue.DeletePartitionIndex" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeletePartitionIndex where
+instance Prelude.ToJSON DeletePartitionIndex where
   toJSON DeletePartitionIndex' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _dpiCatalogId,
-            Just ("DatabaseName" .= _dpiDatabaseName),
-            Just ("TableName" .= _dpiTableName),
-            Just ("IndexName" .= _dpiIndexName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just ("IndexName" Prelude..= indexName)
           ]
       )
 
-instance ToPath DeletePartitionIndex where
-  toPath = const "/"
+instance Prelude.ToPath DeletePartitionIndex where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeletePartitionIndex where
-  toQuery = const mempty
+instance Prelude.ToQuery DeletePartitionIndex where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deletePartitionIndexResponse' smart constructor.
-newtype DeletePartitionIndexResponse = DeletePartitionIndexResponse'
-  { _dpirrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeletePartitionIndexResponse' smart constructor.
+data DeletePartitionIndexResponse = DeletePartitionIndexResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePartitionIndexResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePartitionIndexResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpirrsResponseStatus' - -- | The response status code.
-deletePartitionIndexResponse ::
-  -- | 'dpirrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deletePartitionIndexResponse_httpStatus' - The response's http status code.
+newDeletePartitionIndexResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeletePartitionIndexResponse
-deletePartitionIndexResponse pResponseStatus_ =
+newDeletePartitionIndexResponse pHttpStatus_ =
   DeletePartitionIndexResponse'
-    { _dpirrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dpirrsResponseStatus :: Lens' DeletePartitionIndexResponse Int
-dpirrsResponseStatus = lens _dpirrsResponseStatus (\s a -> s {_dpirrsResponseStatus = a})
+-- | The response's http status code.
+deletePartitionIndexResponse_httpStatus :: Lens.Lens' DeletePartitionIndexResponse Prelude.Int
+deletePartitionIndexResponse_httpStatus = Lens.lens (\DeletePartitionIndexResponse' {httpStatus} -> httpStatus) (\s@DeletePartitionIndexResponse' {} a -> s {httpStatus = a} :: DeletePartitionIndexResponse)
 
-instance NFData DeletePartitionIndexResponse
+instance Prelude.NFData DeletePartitionIndexResponse

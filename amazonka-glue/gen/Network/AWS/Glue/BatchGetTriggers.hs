@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of resource metadata for a given list of trigger names. After calling the @ListTriggers@ operation, you can call this operation to access the data to which you have been granted permissions. This operation supports all IAM permissions, including permission conditions that uses tags.
+-- Returns a list of resource metadata for a given list of trigger names.
+-- After calling the @ListTriggers@ operation, you can call this operation
+-- to access the data to which you have been granted permissions. This
+-- operation supports all IAM permissions, including permission conditions
+-- that uses tags.
 module Network.AWS.Glue.BatchGetTriggers
   ( -- * Creating a Request
-    batchGetTriggers,
-    BatchGetTriggers,
+    BatchGetTriggers (..),
+    newBatchGetTriggers,
 
     -- * Request Lenses
-    bgtTriggerNames,
+    batchGetTriggers_triggerNames,
 
     -- * Destructuring the Response
-    batchGetTriggersResponse,
-    BatchGetTriggersResponse,
+    BatchGetTriggersResponse (..),
+    newBatchGetTriggersResponse,
 
     -- * Response Lenses
-    bgtrrsTriggers,
-    bgtrrsTriggersNotFound,
-    bgtrrsResponseStatus,
+    batchGetTriggersResponse_triggers,
+    batchGetTriggersResponse_triggersNotFound,
+    batchGetTriggersResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.Trigger
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchGetTriggers' smart constructor.
-newtype BatchGetTriggers = BatchGetTriggers'
-  { _bgtTriggerNames ::
-      [Text]
+-- | /See:/ 'newBatchGetTriggers' smart constructor.
+data BatchGetTriggers = BatchGetTriggers'
+  { -- | A list of trigger names, which may be the names returned from the
+    -- @ListTriggers@ operation.
+    triggerNames :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetTriggers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetTriggers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgtTriggerNames' - A list of trigger names, which may be the names returned from the @ListTriggers@ operation.
-batchGetTriggers ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'triggerNames', 'batchGetTriggers_triggerNames' - A list of trigger names, which may be the names returned from the
+-- @ListTriggers@ operation.
+newBatchGetTriggers ::
   BatchGetTriggers
-batchGetTriggers =
-  BatchGetTriggers' {_bgtTriggerNames = mempty}
+newBatchGetTriggers =
+  BatchGetTriggers' {triggerNames = Prelude.mempty}
 
--- | A list of trigger names, which may be the names returned from the @ListTriggers@ operation.
-bgtTriggerNames :: Lens' BatchGetTriggers [Text]
-bgtTriggerNames = lens _bgtTriggerNames (\s a -> s {_bgtTriggerNames = a}) . _Coerce
+-- | A list of trigger names, which may be the names returned from the
+-- @ListTriggers@ operation.
+batchGetTriggers_triggerNames :: Lens.Lens' BatchGetTriggers [Prelude.Text]
+batchGetTriggers_triggerNames = Lens.lens (\BatchGetTriggers' {triggerNames} -> triggerNames) (\s@BatchGetTriggers' {} a -> s {triggerNames = a} :: BatchGetTriggers) Prelude.. Prelude._Coerce
 
-instance AWSRequest BatchGetTriggers where
+instance Prelude.AWSRequest BatchGetTriggers where
   type Rs BatchGetTriggers = BatchGetTriggersResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetTriggersResponse'
-            <$> (x .?> "Triggers" .!@ mempty)
-            <*> (x .?> "TriggersNotFound" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Triggers" Prelude..!@ Prelude.mempty)
+            Prelude.<*> ( x Prelude..?> "TriggersNotFound"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetTriggers
+instance Prelude.Hashable BatchGetTriggers
 
-instance NFData BatchGetTriggers
+instance Prelude.NFData BatchGetTriggers
 
-instance ToHeaders BatchGetTriggers where
+instance Prelude.ToHeaders BatchGetTriggers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.BatchGetTriggers" :: ByteString),
+              Prelude.=# ("AWSGlue.BatchGetTriggers" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetTriggers where
+instance Prelude.ToJSON BatchGetTriggers where
   toJSON BatchGetTriggers' {..} =
-    object
-      ( catMaybes
-          [Just ("TriggerNames" .= _bgtTriggerNames)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TriggerNames" Prelude..= triggerNames)
+          ]
       )
 
-instance ToPath BatchGetTriggers where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetTriggers where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetTriggers where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetTriggers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchGetTriggersResponse' smart constructor.
+-- | /See:/ 'newBatchGetTriggersResponse' smart constructor.
 data BatchGetTriggersResponse = BatchGetTriggersResponse'
-  { _bgtrrsTriggers ::
-      !(Maybe [Trigger]),
-    _bgtrrsTriggersNotFound ::
-      !(Maybe [Text]),
-    _bgtrrsResponseStatus ::
-      !Int
+  { -- | A list of trigger definitions.
+    triggers :: Prelude.Maybe [Trigger],
+    -- | A list of names of triggers not found.
+    triggersNotFound :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetTriggersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetTriggersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgtrrsTriggers' - A list of trigger definitions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgtrrsTriggersNotFound' - A list of names of triggers not found.
+-- 'triggers', 'batchGetTriggersResponse_triggers' - A list of trigger definitions.
 --
--- * 'bgtrrsResponseStatus' - -- | The response status code.
-batchGetTriggersResponse ::
-  -- | 'bgtrrsResponseStatus'
-  Int ->
+-- 'triggersNotFound', 'batchGetTriggersResponse_triggersNotFound' - A list of names of triggers not found.
+--
+-- 'httpStatus', 'batchGetTriggersResponse_httpStatus' - The response's http status code.
+newBatchGetTriggersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetTriggersResponse
-batchGetTriggersResponse pResponseStatus_ =
+newBatchGetTriggersResponse pHttpStatus_ =
   BatchGetTriggersResponse'
-    { _bgtrrsTriggers =
-        Nothing,
-      _bgtrrsTriggersNotFound = Nothing,
-      _bgtrrsResponseStatus = pResponseStatus_
+    { triggers =
+        Prelude.Nothing,
+      triggersNotFound = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of trigger definitions.
-bgtrrsTriggers :: Lens' BatchGetTriggersResponse [Trigger]
-bgtrrsTriggers = lens _bgtrrsTriggers (\s a -> s {_bgtrrsTriggers = a}) . _Default . _Coerce
+batchGetTriggersResponse_triggers :: Lens.Lens' BatchGetTriggersResponse (Prelude.Maybe [Trigger])
+batchGetTriggersResponse_triggers = Lens.lens (\BatchGetTriggersResponse' {triggers} -> triggers) (\s@BatchGetTriggersResponse' {} a -> s {triggers = a} :: BatchGetTriggersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of names of triggers not found.
-bgtrrsTriggersNotFound :: Lens' BatchGetTriggersResponse [Text]
-bgtrrsTriggersNotFound = lens _bgtrrsTriggersNotFound (\s a -> s {_bgtrrsTriggersNotFound = a}) . _Default . _Coerce
+batchGetTriggersResponse_triggersNotFound :: Lens.Lens' BatchGetTriggersResponse (Prelude.Maybe [Prelude.Text])
+batchGetTriggersResponse_triggersNotFound = Lens.lens (\BatchGetTriggersResponse' {triggersNotFound} -> triggersNotFound) (\s@BatchGetTriggersResponse' {} a -> s {triggersNotFound = a} :: BatchGetTriggersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bgtrrsResponseStatus :: Lens' BatchGetTriggersResponse Int
-bgtrrsResponseStatus = lens _bgtrrsResponseStatus (\s a -> s {_bgtrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetTriggersResponse_httpStatus :: Lens.Lens' BatchGetTriggersResponse Prelude.Int
+batchGetTriggersResponse_httpStatus = Lens.lens (\BatchGetTriggersResponse' {httpStatus} -> httpStatus) (\s@BatchGetTriggersResponse' {} a -> s {httpStatus = a} :: BatchGetTriggersResponse)
 
-instance NFData BatchGetTriggersResponse
+instance Prelude.NFData BatchGetTriggersResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,166 +24,175 @@
 -- Retrieves a specified function definition from the Data Catalog.
 module Network.AWS.Glue.GetUserDefinedFunction
   ( -- * Creating a Request
-    getUserDefinedFunction,
-    GetUserDefinedFunction,
+    GetUserDefinedFunction (..),
+    newGetUserDefinedFunction,
 
     -- * Request Lenses
-    getCatalogId,
-    getDatabaseName,
-    getFunctionName,
+    getUserDefinedFunction_catalogId,
+    getUserDefinedFunction_databaseName,
+    getUserDefinedFunction_functionName,
 
     -- * Destructuring the Response
-    getUserDefinedFunctionResponse,
-    GetUserDefinedFunctionResponse,
+    GetUserDefinedFunctionResponse (..),
+    newGetUserDefinedFunctionResponse,
 
     -- * Response Lenses
-    gudfrrsUserDefinedFunction,
-    gudfrrsResponseStatus,
+    getUserDefinedFunctionResponse_userDefinedFunction,
+    getUserDefinedFunctionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.UserDefinedFunction
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getUserDefinedFunction' smart constructor.
+-- | /See:/ 'newGetUserDefinedFunction' smart constructor.
 data GetUserDefinedFunction = GetUserDefinedFunction'
-  { _getCatalogId ::
-      !(Maybe Text),
-    _getDatabaseName :: !Text,
-    _getFunctionName :: !Text
+  { -- | The ID of the Data Catalog where the function to be retrieved is
+    -- located. If none is provided, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database where the function is located.
+    databaseName :: Prelude.Text,
+    -- | The name of the function.
+    functionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserDefinedFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserDefinedFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'getCatalogId' - The ID of the Data Catalog where the function to be retrieved is located. If none is provided, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'getDatabaseName' - The name of the catalog database where the function is located.
+-- 'catalogId', 'getUserDefinedFunction_catalogId' - The ID of the Data Catalog where the function to be retrieved is
+-- located. If none is provided, the AWS account ID is used by default.
 --
--- * 'getFunctionName' - The name of the function.
-getUserDefinedFunction ::
-  -- | 'getDatabaseName'
-  Text ->
-  -- | 'getFunctionName'
-  Text ->
+-- 'databaseName', 'getUserDefinedFunction_databaseName' - The name of the catalog database where the function is located.
+--
+-- 'functionName', 'getUserDefinedFunction_functionName' - The name of the function.
+newGetUserDefinedFunction ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'functionName'
+  Prelude.Text ->
   GetUserDefinedFunction
-getUserDefinedFunction pDatabaseName_ pFunctionName_ =
-  GetUserDefinedFunction'
-    { _getCatalogId = Nothing,
-      _getDatabaseName = pDatabaseName_,
-      _getFunctionName = pFunctionName_
-    }
+newGetUserDefinedFunction
+  pDatabaseName_
+  pFunctionName_ =
+    GetUserDefinedFunction'
+      { catalogId =
+          Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        functionName = pFunctionName_
+      }
 
--- | The ID of the Data Catalog where the function to be retrieved is located. If none is provided, the AWS account ID is used by default.
-getCatalogId :: Lens' GetUserDefinedFunction (Maybe Text)
-getCatalogId = lens _getCatalogId (\s a -> s {_getCatalogId = a})
+-- | The ID of the Data Catalog where the function to be retrieved is
+-- located. If none is provided, the AWS account ID is used by default.
+getUserDefinedFunction_catalogId :: Lens.Lens' GetUserDefinedFunction (Prelude.Maybe Prelude.Text)
+getUserDefinedFunction_catalogId = Lens.lens (\GetUserDefinedFunction' {catalogId} -> catalogId) (\s@GetUserDefinedFunction' {} a -> s {catalogId = a} :: GetUserDefinedFunction)
 
 -- | The name of the catalog database where the function is located.
-getDatabaseName :: Lens' GetUserDefinedFunction Text
-getDatabaseName = lens _getDatabaseName (\s a -> s {_getDatabaseName = a})
+getUserDefinedFunction_databaseName :: Lens.Lens' GetUserDefinedFunction Prelude.Text
+getUserDefinedFunction_databaseName = Lens.lens (\GetUserDefinedFunction' {databaseName} -> databaseName) (\s@GetUserDefinedFunction' {} a -> s {databaseName = a} :: GetUserDefinedFunction)
 
 -- | The name of the function.
-getFunctionName :: Lens' GetUserDefinedFunction Text
-getFunctionName = lens _getFunctionName (\s a -> s {_getFunctionName = a})
+getUserDefinedFunction_functionName :: Lens.Lens' GetUserDefinedFunction Prelude.Text
+getUserDefinedFunction_functionName = Lens.lens (\GetUserDefinedFunction' {functionName} -> functionName) (\s@GetUserDefinedFunction' {} a -> s {functionName = a} :: GetUserDefinedFunction)
 
-instance AWSRequest GetUserDefinedFunction where
+instance Prelude.AWSRequest GetUserDefinedFunction where
   type
     Rs GetUserDefinedFunction =
       GetUserDefinedFunctionResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetUserDefinedFunctionResponse'
-            <$> (x .?> "UserDefinedFunction")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UserDefinedFunction")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetUserDefinedFunction
+instance Prelude.Hashable GetUserDefinedFunction
 
-instance NFData GetUserDefinedFunction
+instance Prelude.NFData GetUserDefinedFunction
 
-instance ToHeaders GetUserDefinedFunction where
+instance Prelude.ToHeaders GetUserDefinedFunction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetUserDefinedFunction" :: ByteString),
+              Prelude.=# ( "AWSGlue.GetUserDefinedFunction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetUserDefinedFunction where
+instance Prelude.ToJSON GetUserDefinedFunction where
   toJSON GetUserDefinedFunction' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _getCatalogId,
-            Just ("DatabaseName" .= _getDatabaseName),
-            Just ("FunctionName" .= _getFunctionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just
+              ("FunctionName" Prelude..= functionName)
           ]
       )
 
-instance ToPath GetUserDefinedFunction where
-  toPath = const "/"
+instance Prelude.ToPath GetUserDefinedFunction where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetUserDefinedFunction where
-  toQuery = const mempty
+instance Prelude.ToQuery GetUserDefinedFunction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getUserDefinedFunctionResponse' smart constructor.
+-- | /See:/ 'newGetUserDefinedFunctionResponse' smart constructor.
 data GetUserDefinedFunctionResponse = GetUserDefinedFunctionResponse'
-  { _gudfrrsUserDefinedFunction ::
-      !( Maybe
-           UserDefinedFunction
-       ),
-    _gudfrrsResponseStatus ::
-      !Int
+  { -- | The requested function definition.
+    userDefinedFunction :: Prelude.Maybe UserDefinedFunction,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserDefinedFunctionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserDefinedFunctionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gudfrrsUserDefinedFunction' - The requested function definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gudfrrsResponseStatus' - -- | The response status code.
-getUserDefinedFunctionResponse ::
-  -- | 'gudfrrsResponseStatus'
-  Int ->
+-- 'userDefinedFunction', 'getUserDefinedFunctionResponse_userDefinedFunction' - The requested function definition.
+--
+-- 'httpStatus', 'getUserDefinedFunctionResponse_httpStatus' - The response's http status code.
+newGetUserDefinedFunctionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetUserDefinedFunctionResponse
-getUserDefinedFunctionResponse pResponseStatus_ =
+newGetUserDefinedFunctionResponse pHttpStatus_ =
   GetUserDefinedFunctionResponse'
-    { _gudfrrsUserDefinedFunction =
-        Nothing,
-      _gudfrrsResponseStatus = pResponseStatus_
+    { userDefinedFunction =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The requested function definition.
-gudfrrsUserDefinedFunction :: Lens' GetUserDefinedFunctionResponse (Maybe UserDefinedFunction)
-gudfrrsUserDefinedFunction = lens _gudfrrsUserDefinedFunction (\s a -> s {_gudfrrsUserDefinedFunction = a})
+getUserDefinedFunctionResponse_userDefinedFunction :: Lens.Lens' GetUserDefinedFunctionResponse (Prelude.Maybe UserDefinedFunction)
+getUserDefinedFunctionResponse_userDefinedFunction = Lens.lens (\GetUserDefinedFunctionResponse' {userDefinedFunction} -> userDefinedFunction) (\s@GetUserDefinedFunctionResponse' {} a -> s {userDefinedFunction = a} :: GetUserDefinedFunctionResponse)
 
--- | -- | The response status code.
-gudfrrsResponseStatus :: Lens' GetUserDefinedFunctionResponse Int
-gudfrrsResponseStatus = lens _gudfrrsResponseStatus (\s a -> s {_gudfrrsResponseStatus = a})
+-- | The response's http status code.
+getUserDefinedFunctionResponse_httpStatus :: Lens.Lens' GetUserDefinedFunctionResponse Prelude.Int
+getUserDefinedFunctionResponse_httpStatus = Lens.lens (\GetUserDefinedFunctionResponse' {httpStatus} -> httpStatus) (\s@GetUserDefinedFunctionResponse' {} a -> s {httpStatus = a} :: GetUserDefinedFunctionResponse)
 
-instance NFData GetUserDefinedFunctionResponse
+instance
+  Prelude.NFData
+    GetUserDefinedFunctionResponse

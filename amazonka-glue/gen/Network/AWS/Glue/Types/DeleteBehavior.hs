@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Glue.Types.DeleteBehavior
   ( DeleteBehavior
       ( ..,
-        DBDeleteFromDatabase,
-        DBDeprecateInDatabase,
-        DBLog
+        DeleteBehaviorDELETEFROMDATABASE,
+        DeleteBehaviorDEPRECATEINDATABASE,
+        DeleteBehaviorLOG
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeleteBehavior = DeleteBehavior' (CI Text)
+newtype DeleteBehavior = DeleteBehavior'
+  { fromDeleteBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DBDeleteFromDatabase :: DeleteBehavior
-pattern DBDeleteFromDatabase = DeleteBehavior' "DELETE_FROM_DATABASE"
+pattern DeleteBehaviorDELETEFROMDATABASE :: DeleteBehavior
+pattern DeleteBehaviorDELETEFROMDATABASE = DeleteBehavior' "DELETE_FROM_DATABASE"
 
-pattern DBDeprecateInDatabase :: DeleteBehavior
-pattern DBDeprecateInDatabase = DeleteBehavior' "DEPRECATE_IN_DATABASE"
+pattern DeleteBehaviorDEPRECATEINDATABASE :: DeleteBehavior
+pattern DeleteBehaviorDEPRECATEINDATABASE = DeleteBehavior' "DEPRECATE_IN_DATABASE"
 
-pattern DBLog :: DeleteBehavior
-pattern DBLog = DeleteBehavior' "LOG"
+pattern DeleteBehaviorLOG :: DeleteBehavior
+pattern DeleteBehaviorLOG = DeleteBehavior' "LOG"
 
 {-# COMPLETE
-  DBDeleteFromDatabase,
-  DBDeprecateInDatabase,
-  DBLog,
+  DeleteBehaviorDELETEFROMDATABASE,
+  DeleteBehaviorDEPRECATEINDATABASE,
+  DeleteBehaviorLOG,
   DeleteBehavior'
   #-}
 
-instance FromText DeleteBehavior where
-  parser = (DeleteBehavior' . mk) <$> takeText
+instance Prelude.FromText DeleteBehavior where
+  parser = DeleteBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText DeleteBehavior where
-  toText (DeleteBehavior' ci) = original ci
+instance Prelude.ToText DeleteBehavior where
+  toText (DeleteBehavior' x) = x
 
-instance Hashable DeleteBehavior
+instance Prelude.Hashable DeleteBehavior
 
-instance NFData DeleteBehavior
+instance Prelude.NFData DeleteBehavior
 
-instance ToByteString DeleteBehavior
+instance Prelude.ToByteString DeleteBehavior
 
-instance ToQuery DeleteBehavior
+instance Prelude.ToQuery DeleteBehavior
 
-instance ToHeader DeleteBehavior
+instance Prelude.ToHeader DeleteBehavior
 
-instance ToJSON DeleteBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeleteBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeleteBehavior where
-  parseJSON = parseJSONText "DeleteBehavior"
+instance Prelude.FromJSON DeleteBehavior where
+  parseJSON = Prelude.parseJSONText "DeleteBehavior"

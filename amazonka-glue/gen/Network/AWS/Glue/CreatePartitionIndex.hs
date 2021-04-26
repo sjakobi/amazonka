@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,162 +24,180 @@
 -- Creates a specified partition index in an existing table.
 module Network.AWS.Glue.CreatePartitionIndex
   ( -- * Creating a Request
-    createPartitionIndex,
-    CreatePartitionIndex,
+    CreatePartitionIndex (..),
+    newCreatePartitionIndex,
 
     -- * Request Lenses
-    cpiCatalogId,
-    cpiDatabaseName,
-    cpiTableName,
-    cpiPartitionIndex,
+    createPartitionIndex_catalogId,
+    createPartitionIndex_databaseName,
+    createPartitionIndex_tableName,
+    createPartitionIndex_partitionIndex,
 
     -- * Destructuring the Response
-    createPartitionIndexResponse,
-    CreatePartitionIndexResponse,
+    CreatePartitionIndexResponse (..),
+    newCreatePartitionIndexResponse,
 
     -- * Response Lenses
-    cpirrsResponseStatus,
+    createPartitionIndexResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createPartitionIndex' smart constructor.
+-- | /See:/ 'newCreatePartitionIndex' smart constructor.
 data CreatePartitionIndex = CreatePartitionIndex'
-  { _cpiCatalogId ::
-      !(Maybe Text),
-    _cpiDatabaseName :: !Text,
-    _cpiTableName :: !Text,
-    _cpiPartitionIndex ::
-      !PartitionIndex
+  { -- | The catalog ID where the table resides.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the name of a database in which you want to create a partition
+    -- index.
+    databaseName :: Prelude.Text,
+    -- | Specifies the name of a table in which you want to create a partition
+    -- index.
+    tableName :: Prelude.Text,
+    -- | Specifies a @PartitionIndex@ structure to create a partition index in an
+    -- existing table.
+    partitionIndex :: PartitionIndex
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePartitionIndex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePartitionIndex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpiCatalogId' - The catalog ID where the table resides.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpiDatabaseName' - Specifies the name of a database in which you want to create a partition index.
+-- 'catalogId', 'createPartitionIndex_catalogId' - The catalog ID where the table resides.
 --
--- * 'cpiTableName' - Specifies the name of a table in which you want to create a partition index.
+-- 'databaseName', 'createPartitionIndex_databaseName' - Specifies the name of a database in which you want to create a partition
+-- index.
 --
--- * 'cpiPartitionIndex' - Specifies a @PartitionIndex@ structure to create a partition index in an existing table.
-createPartitionIndex ::
-  -- | 'cpiDatabaseName'
-  Text ->
-  -- | 'cpiTableName'
-  Text ->
-  -- | 'cpiPartitionIndex'
+-- 'tableName', 'createPartitionIndex_tableName' - Specifies the name of a table in which you want to create a partition
+-- index.
+--
+-- 'partitionIndex', 'createPartitionIndex_partitionIndex' - Specifies a @PartitionIndex@ structure to create a partition index in an
+-- existing table.
+newCreatePartitionIndex ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'partitionIndex'
   PartitionIndex ->
   CreatePartitionIndex
-createPartitionIndex
+newCreatePartitionIndex
   pDatabaseName_
   pTableName_
   pPartitionIndex_ =
     CreatePartitionIndex'
-      { _cpiCatalogId = Nothing,
-        _cpiDatabaseName = pDatabaseName_,
-        _cpiTableName = pTableName_,
-        _cpiPartitionIndex = pPartitionIndex_
+      { catalogId = Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        tableName = pTableName_,
+        partitionIndex = pPartitionIndex_
       }
 
 -- | The catalog ID where the table resides.
-cpiCatalogId :: Lens' CreatePartitionIndex (Maybe Text)
-cpiCatalogId = lens _cpiCatalogId (\s a -> s {_cpiCatalogId = a})
+createPartitionIndex_catalogId :: Lens.Lens' CreatePartitionIndex (Prelude.Maybe Prelude.Text)
+createPartitionIndex_catalogId = Lens.lens (\CreatePartitionIndex' {catalogId} -> catalogId) (\s@CreatePartitionIndex' {} a -> s {catalogId = a} :: CreatePartitionIndex)
 
--- | Specifies the name of a database in which you want to create a partition index.
-cpiDatabaseName :: Lens' CreatePartitionIndex Text
-cpiDatabaseName = lens _cpiDatabaseName (\s a -> s {_cpiDatabaseName = a})
+-- | Specifies the name of a database in which you want to create a partition
+-- index.
+createPartitionIndex_databaseName :: Lens.Lens' CreatePartitionIndex Prelude.Text
+createPartitionIndex_databaseName = Lens.lens (\CreatePartitionIndex' {databaseName} -> databaseName) (\s@CreatePartitionIndex' {} a -> s {databaseName = a} :: CreatePartitionIndex)
 
--- | Specifies the name of a table in which you want to create a partition index.
-cpiTableName :: Lens' CreatePartitionIndex Text
-cpiTableName = lens _cpiTableName (\s a -> s {_cpiTableName = a})
+-- | Specifies the name of a table in which you want to create a partition
+-- index.
+createPartitionIndex_tableName :: Lens.Lens' CreatePartitionIndex Prelude.Text
+createPartitionIndex_tableName = Lens.lens (\CreatePartitionIndex' {tableName} -> tableName) (\s@CreatePartitionIndex' {} a -> s {tableName = a} :: CreatePartitionIndex)
 
--- | Specifies a @PartitionIndex@ structure to create a partition index in an existing table.
-cpiPartitionIndex :: Lens' CreatePartitionIndex PartitionIndex
-cpiPartitionIndex = lens _cpiPartitionIndex (\s a -> s {_cpiPartitionIndex = a})
+-- | Specifies a @PartitionIndex@ structure to create a partition index in an
+-- existing table.
+createPartitionIndex_partitionIndex :: Lens.Lens' CreatePartitionIndex PartitionIndex
+createPartitionIndex_partitionIndex = Lens.lens (\CreatePartitionIndex' {partitionIndex} -> partitionIndex) (\s@CreatePartitionIndex' {} a -> s {partitionIndex = a} :: CreatePartitionIndex)
 
-instance AWSRequest CreatePartitionIndex where
+instance Prelude.AWSRequest CreatePartitionIndex where
   type
     Rs CreatePartitionIndex =
       CreatePartitionIndexResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           CreatePartitionIndexResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreatePartitionIndex
+instance Prelude.Hashable CreatePartitionIndex
 
-instance NFData CreatePartitionIndex
+instance Prelude.NFData CreatePartitionIndex
 
-instance ToHeaders CreatePartitionIndex where
+instance Prelude.ToHeaders CreatePartitionIndex where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.CreatePartitionIndex" :: ByteString),
+              Prelude.=# ( "AWSGlue.CreatePartitionIndex" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePartitionIndex where
+instance Prelude.ToJSON CreatePartitionIndex where
   toJSON CreatePartitionIndex' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _cpiCatalogId,
-            Just ("DatabaseName" .= _cpiDatabaseName),
-            Just ("TableName" .= _cpiTableName),
-            Just ("PartitionIndex" .= _cpiPartitionIndex)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just
+              ("PartitionIndex" Prelude..= partitionIndex)
           ]
       )
 
-instance ToPath CreatePartitionIndex where
-  toPath = const "/"
+instance Prelude.ToPath CreatePartitionIndex where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreatePartitionIndex where
-  toQuery = const mempty
+instance Prelude.ToQuery CreatePartitionIndex where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createPartitionIndexResponse' smart constructor.
-newtype CreatePartitionIndexResponse = CreatePartitionIndexResponse'
-  { _cpirrsResponseStatus ::
-      Int
+-- | /See:/ 'newCreatePartitionIndexResponse' smart constructor.
+data CreatePartitionIndexResponse = CreatePartitionIndexResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePartitionIndexResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePartitionIndexResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpirrsResponseStatus' - -- | The response status code.
-createPartitionIndexResponse ::
-  -- | 'cpirrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createPartitionIndexResponse_httpStatus' - The response's http status code.
+newCreatePartitionIndexResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreatePartitionIndexResponse
-createPartitionIndexResponse pResponseStatus_ =
+newCreatePartitionIndexResponse pHttpStatus_ =
   CreatePartitionIndexResponse'
-    { _cpirrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-cpirrsResponseStatus :: Lens' CreatePartitionIndexResponse Int
-cpirrsResponseStatus = lens _cpirrsResponseStatus (\s a -> s {_cpirrsResponseStatus = a})
+-- | The response's http status code.
+createPartitionIndexResponse_httpStatus :: Lens.Lens' CreatePartitionIndexResponse Prelude.Int
+createPartitionIndexResponse_httpStatus = Lens.lens (\CreatePartitionIndexResponse' {httpStatus} -> httpStatus) (\s@CreatePartitionIndexResponse' {} a -> s {httpStatus = a} :: CreatePartitionIndexResponse)
 
-instance NFData CreatePartitionIndexResponse
+instance Prelude.NFData CreatePartitionIndexResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of resource metadata for a given list of crawler names. After calling the @ListCrawlers@ operation, you can call this operation to access the data to which you have been granted permissions. This operation supports all IAM permissions, including permission conditions that uses tags.
+-- Returns a list of resource metadata for a given list of crawler names.
+-- After calling the @ListCrawlers@ operation, you can call this operation
+-- to access the data to which you have been granted permissions. This
+-- operation supports all IAM permissions, including permission conditions
+-- that uses tags.
 module Network.AWS.Glue.BatchGetCrawlers
   ( -- * Creating a Request
-    batchGetCrawlers,
-    BatchGetCrawlers,
+    BatchGetCrawlers (..),
+    newBatchGetCrawlers,
 
     -- * Request Lenses
-    bgcCrawlerNames,
+    batchGetCrawlers_crawlerNames,
 
     -- * Destructuring the Response
-    batchGetCrawlersResponse,
-    BatchGetCrawlersResponse,
+    BatchGetCrawlersResponse (..),
+    newBatchGetCrawlersResponse,
 
     -- * Response Lenses
-    bgcrrsCrawlers,
-    bgcrrsCrawlersNotFound,
-    bgcrrsResponseStatus,
+    batchGetCrawlersResponse_crawlers,
+    batchGetCrawlersResponse_crawlersNotFound,
+    batchGetCrawlersResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.Crawler
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchGetCrawlers' smart constructor.
-newtype BatchGetCrawlers = BatchGetCrawlers'
-  { _bgcCrawlerNames ::
-      [Text]
+-- | /See:/ 'newBatchGetCrawlers' smart constructor.
+data BatchGetCrawlers = BatchGetCrawlers'
+  { -- | A list of crawler names, which might be the names returned from the
+    -- @ListCrawlers@ operation.
+    crawlerNames :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetCrawlers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetCrawlers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgcCrawlerNames' - A list of crawler names, which might be the names returned from the @ListCrawlers@ operation.
-batchGetCrawlers ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'crawlerNames', 'batchGetCrawlers_crawlerNames' - A list of crawler names, which might be the names returned from the
+-- @ListCrawlers@ operation.
+newBatchGetCrawlers ::
   BatchGetCrawlers
-batchGetCrawlers =
-  BatchGetCrawlers' {_bgcCrawlerNames = mempty}
+newBatchGetCrawlers =
+  BatchGetCrawlers' {crawlerNames = Prelude.mempty}
 
--- | A list of crawler names, which might be the names returned from the @ListCrawlers@ operation.
-bgcCrawlerNames :: Lens' BatchGetCrawlers [Text]
-bgcCrawlerNames = lens _bgcCrawlerNames (\s a -> s {_bgcCrawlerNames = a}) . _Coerce
+-- | A list of crawler names, which might be the names returned from the
+-- @ListCrawlers@ operation.
+batchGetCrawlers_crawlerNames :: Lens.Lens' BatchGetCrawlers [Prelude.Text]
+batchGetCrawlers_crawlerNames = Lens.lens (\BatchGetCrawlers' {crawlerNames} -> crawlerNames) (\s@BatchGetCrawlers' {} a -> s {crawlerNames = a} :: BatchGetCrawlers) Prelude.. Prelude._Coerce
 
-instance AWSRequest BatchGetCrawlers where
+instance Prelude.AWSRequest BatchGetCrawlers where
   type Rs BatchGetCrawlers = BatchGetCrawlersResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetCrawlersResponse'
-            <$> (x .?> "Crawlers" .!@ mempty)
-            <*> (x .?> "CrawlersNotFound" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Crawlers" Prelude..!@ Prelude.mempty)
+            Prelude.<*> ( x Prelude..?> "CrawlersNotFound"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetCrawlers
+instance Prelude.Hashable BatchGetCrawlers
 
-instance NFData BatchGetCrawlers
+instance Prelude.NFData BatchGetCrawlers
 
-instance ToHeaders BatchGetCrawlers where
+instance Prelude.ToHeaders BatchGetCrawlers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.BatchGetCrawlers" :: ByteString),
+              Prelude.=# ("AWSGlue.BatchGetCrawlers" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetCrawlers where
+instance Prelude.ToJSON BatchGetCrawlers where
   toJSON BatchGetCrawlers' {..} =
-    object
-      ( catMaybes
-          [Just ("CrawlerNames" .= _bgcCrawlerNames)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CrawlerNames" Prelude..= crawlerNames)
+          ]
       )
 
-instance ToPath BatchGetCrawlers where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetCrawlers where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetCrawlers where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetCrawlers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchGetCrawlersResponse' smart constructor.
+-- | /See:/ 'newBatchGetCrawlersResponse' smart constructor.
 data BatchGetCrawlersResponse = BatchGetCrawlersResponse'
-  { _bgcrrsCrawlers ::
-      !(Maybe [Crawler]),
-    _bgcrrsCrawlersNotFound ::
-      !(Maybe [Text]),
-    _bgcrrsResponseStatus ::
-      !Int
+  { -- | A list of crawler definitions.
+    crawlers :: Prelude.Maybe [Crawler],
+    -- | A list of names of crawlers that were not found.
+    crawlersNotFound :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetCrawlersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetCrawlersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgcrrsCrawlers' - A list of crawler definitions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgcrrsCrawlersNotFound' - A list of names of crawlers that were not found.
+-- 'crawlers', 'batchGetCrawlersResponse_crawlers' - A list of crawler definitions.
 --
--- * 'bgcrrsResponseStatus' - -- | The response status code.
-batchGetCrawlersResponse ::
-  -- | 'bgcrrsResponseStatus'
-  Int ->
+-- 'crawlersNotFound', 'batchGetCrawlersResponse_crawlersNotFound' - A list of names of crawlers that were not found.
+--
+-- 'httpStatus', 'batchGetCrawlersResponse_httpStatus' - The response's http status code.
+newBatchGetCrawlersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetCrawlersResponse
-batchGetCrawlersResponse pResponseStatus_ =
+newBatchGetCrawlersResponse pHttpStatus_ =
   BatchGetCrawlersResponse'
-    { _bgcrrsCrawlers =
-        Nothing,
-      _bgcrrsCrawlersNotFound = Nothing,
-      _bgcrrsResponseStatus = pResponseStatus_
+    { crawlers =
+        Prelude.Nothing,
+      crawlersNotFound = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of crawler definitions.
-bgcrrsCrawlers :: Lens' BatchGetCrawlersResponse [Crawler]
-bgcrrsCrawlers = lens _bgcrrsCrawlers (\s a -> s {_bgcrrsCrawlers = a}) . _Default . _Coerce
+batchGetCrawlersResponse_crawlers :: Lens.Lens' BatchGetCrawlersResponse (Prelude.Maybe [Crawler])
+batchGetCrawlersResponse_crawlers = Lens.lens (\BatchGetCrawlersResponse' {crawlers} -> crawlers) (\s@BatchGetCrawlersResponse' {} a -> s {crawlers = a} :: BatchGetCrawlersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of names of crawlers that were not found.
-bgcrrsCrawlersNotFound :: Lens' BatchGetCrawlersResponse [Text]
-bgcrrsCrawlersNotFound = lens _bgcrrsCrawlersNotFound (\s a -> s {_bgcrrsCrawlersNotFound = a}) . _Default . _Coerce
+batchGetCrawlersResponse_crawlersNotFound :: Lens.Lens' BatchGetCrawlersResponse (Prelude.Maybe [Prelude.Text])
+batchGetCrawlersResponse_crawlersNotFound = Lens.lens (\BatchGetCrawlersResponse' {crawlersNotFound} -> crawlersNotFound) (\s@BatchGetCrawlersResponse' {} a -> s {crawlersNotFound = a} :: BatchGetCrawlersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bgcrrsResponseStatus :: Lens' BatchGetCrawlersResponse Int
-bgcrrsResponseStatus = lens _bgcrrsResponseStatus (\s a -> s {_bgcrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetCrawlersResponse_httpStatus :: Lens.Lens' BatchGetCrawlersResponse Prelude.Int
+batchGetCrawlersResponse_httpStatus = Lens.lens (\BatchGetCrawlersResponse' {httpStatus} -> httpStatus) (\s@BatchGetCrawlersResponse' {} a -> s {httpStatus = a} :: BatchGetCrawlersResponse)
 
-instance NFData BatchGetCrawlersResponse
+instance Prelude.NFData BatchGetCrawlersResponse

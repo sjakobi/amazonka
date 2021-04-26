@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,57 @@
 module Network.AWS.Glue.Types.ColumnError where
 
 import Network.AWS.Glue.Types.ErrorDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Encapsulates a column name that failed and the reason for failure.
 --
---
---
--- /See:/ 'columnError' smart constructor.
+-- /See:/ 'newColumnError' smart constructor.
 data ColumnError = ColumnError'
-  { _ceColumnName ::
-      !(Maybe Text),
-    _ceError :: !(Maybe ErrorDetail)
+  { -- | The name of the column that failed.
+    columnName :: Prelude.Maybe Prelude.Text,
+    -- | An error message with the reason for the failure of an operation.
+    error :: Prelude.Maybe ErrorDetail
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ColumnError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ColumnError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ceColumnName' - The name of the column that failed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ceError' - An error message with the reason for the failure of an operation.
-columnError ::
+-- 'columnName', 'columnError_columnName' - The name of the column that failed.
+--
+-- 'error', 'columnError_error' - An error message with the reason for the failure of an operation.
+newColumnError ::
   ColumnError
-columnError =
+newColumnError =
   ColumnError'
-    { _ceColumnName = Nothing,
-      _ceError = Nothing
+    { columnName = Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | The name of the column that failed.
-ceColumnName :: Lens' ColumnError (Maybe Text)
-ceColumnName = lens _ceColumnName (\s a -> s {_ceColumnName = a})
+columnError_columnName :: Lens.Lens' ColumnError (Prelude.Maybe Prelude.Text)
+columnError_columnName = Lens.lens (\ColumnError' {columnName} -> columnName) (\s@ColumnError' {} a -> s {columnName = a} :: ColumnError)
 
 -- | An error message with the reason for the failure of an operation.
-ceError :: Lens' ColumnError (Maybe ErrorDetail)
-ceError = lens _ceError (\s a -> s {_ceError = a})
+columnError_error :: Lens.Lens' ColumnError (Prelude.Maybe ErrorDetail)
+columnError_error = Lens.lens (\ColumnError' {error} -> error) (\s@ColumnError' {} a -> s {error = a} :: ColumnError)
 
-instance FromJSON ColumnError where
+instance Prelude.FromJSON ColumnError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ColumnError"
       ( \x ->
           ColumnError'
-            <$> (x .:? "ColumnName") <*> (x .:? "Error")
+            Prelude.<$> (x Prelude..:? "ColumnName")
+            Prelude.<*> (x Prelude..:? "Error")
       )
 
-instance Hashable ColumnError
+instance Prelude.Hashable ColumnError
 
-instance NFData ColumnError
+instance Prelude.NFData ColumnError

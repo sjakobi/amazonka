@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a sortable, filterable list of existing AWS Glue machine learning transforms in this AWS account, or the resources with the specified tag. This operation takes the optional @Tags@ field, which you can use as a filter of the responses so that tagged resources can be retrieved as a group. If you choose to use tag filtering, only resources with the tags are retrieved.
+-- Retrieves a sortable, filterable list of existing AWS Glue machine
+-- learning transforms in this AWS account, or the resources with the
+-- specified tag. This operation takes the optional @Tags@ field, which you
+-- can use as a filter of the responses so that tagged resources can be
+-- retrieved as a group. If you choose to use tag filtering, only resources
+-- with the tags are retrieved.
 module Network.AWS.Glue.ListMLTransforms
   ( -- * Creating a Request
-    listMLTransforms,
-    ListMLTransforms,
+    ListMLTransforms (..),
+    newListMLTransforms,
 
     -- * Request Lenses
-    lmltNextToken,
-    lmltMaxResults,
-    lmltTags,
-    lmltFilter,
-    lmltSort,
+    listMLTransforms_nextToken,
+    listMLTransforms_maxResults,
+    listMLTransforms_tags,
+    listMLTransforms_filter,
+    listMLTransforms_sort,
 
     -- * Destructuring the Response
-    listMLTransformsResponse,
-    ListMLTransformsResponse,
+    ListMLTransformsResponse (..),
+    newListMLTransformsResponse,
 
     -- * Response Lenses
-    lmltrrsNextToken,
-    lmltrrsResponseStatus,
-    lmltrrsTransformIds,
+    listMLTransformsResponse_nextToken,
+    listMLTransformsResponse_httpStatus,
+    listMLTransformsResponse_transformIds,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listMLTransforms' smart constructor.
+-- | /See:/ 'newListMLTransforms' smart constructor.
 data ListMLTransforms = ListMLTransforms'
-  { _lmltNextToken ::
-      !(Maybe Text),
-    _lmltMaxResults :: !(Maybe Nat),
-    _lmltTags :: !(Maybe (Map Text Text)),
-    _lmltFilter ::
-      !(Maybe TransformFilterCriteria),
-    _lmltSort ::
-      !(Maybe TransformSortCriteria)
+  { -- | A continuation token, if this is a continuation request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of a list to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies to return only these tagged resources.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A @TransformFilterCriteria@ used to filter the machine learning
+    -- transforms.
+    filter' :: Prelude.Maybe TransformFilterCriteria,
+    -- | A @TransformSortCriteria@ used to sort the machine learning transforms.
+    sort :: Prelude.Maybe TransformSortCriteria
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMLTransforms' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMLTransforms' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmltNextToken' - A continuation token, if this is a continuation request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmltMaxResults' - The maximum size of a list to return.
+-- 'nextToken', 'listMLTransforms_nextToken' - A continuation token, if this is a continuation request.
 --
--- * 'lmltTags' - Specifies to return only these tagged resources.
+-- 'maxResults', 'listMLTransforms_maxResults' - The maximum size of a list to return.
 --
--- * 'lmltFilter' - A @TransformFilterCriteria@ used to filter the machine learning transforms.
+-- 'tags', 'listMLTransforms_tags' - Specifies to return only these tagged resources.
 --
--- * 'lmltSort' - A @TransformSortCriteria@ used to sort the machine learning transforms.
-listMLTransforms ::
+-- 'filter'', 'listMLTransforms_filter' - A @TransformFilterCriteria@ used to filter the machine learning
+-- transforms.
+--
+-- 'sort', 'listMLTransforms_sort' - A @TransformSortCriteria@ used to sort the machine learning transforms.
+newListMLTransforms ::
   ListMLTransforms
-listMLTransforms =
+newListMLTransforms =
   ListMLTransforms'
-    { _lmltNextToken = Nothing,
-      _lmltMaxResults = Nothing,
-      _lmltTags = Nothing,
-      _lmltFilter = Nothing,
-      _lmltSort = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      sort = Prelude.Nothing
     }
 
 -- | A continuation token, if this is a continuation request.
-lmltNextToken :: Lens' ListMLTransforms (Maybe Text)
-lmltNextToken = lens _lmltNextToken (\s a -> s {_lmltNextToken = a})
+listMLTransforms_nextToken :: Lens.Lens' ListMLTransforms (Prelude.Maybe Prelude.Text)
+listMLTransforms_nextToken = Lens.lens (\ListMLTransforms' {nextToken} -> nextToken) (\s@ListMLTransforms' {} a -> s {nextToken = a} :: ListMLTransforms)
 
 -- | The maximum size of a list to return.
-lmltMaxResults :: Lens' ListMLTransforms (Maybe Natural)
-lmltMaxResults = lens _lmltMaxResults (\s a -> s {_lmltMaxResults = a}) . mapping _Nat
+listMLTransforms_maxResults :: Lens.Lens' ListMLTransforms (Prelude.Maybe Prelude.Natural)
+listMLTransforms_maxResults = Lens.lens (\ListMLTransforms' {maxResults} -> maxResults) (\s@ListMLTransforms' {} a -> s {maxResults = a} :: ListMLTransforms) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Specifies to return only these tagged resources.
-lmltTags :: Lens' ListMLTransforms (HashMap Text Text)
-lmltTags = lens _lmltTags (\s a -> s {_lmltTags = a}) . _Default . _Map
+listMLTransforms_tags :: Lens.Lens' ListMLTransforms (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+listMLTransforms_tags = Lens.lens (\ListMLTransforms' {tags} -> tags) (\s@ListMLTransforms' {} a -> s {tags = a} :: ListMLTransforms) Prelude.. Lens.mapping Prelude._Map
 
--- | A @TransformFilterCriteria@ used to filter the machine learning transforms.
-lmltFilter :: Lens' ListMLTransforms (Maybe TransformFilterCriteria)
-lmltFilter = lens _lmltFilter (\s a -> s {_lmltFilter = a})
+-- | A @TransformFilterCriteria@ used to filter the machine learning
+-- transforms.
+listMLTransforms_filter :: Lens.Lens' ListMLTransforms (Prelude.Maybe TransformFilterCriteria)
+listMLTransforms_filter = Lens.lens (\ListMLTransforms' {filter'} -> filter') (\s@ListMLTransforms' {} a -> s {filter' = a} :: ListMLTransforms)
 
 -- | A @TransformSortCriteria@ used to sort the machine learning transforms.
-lmltSort :: Lens' ListMLTransforms (Maybe TransformSortCriteria)
-lmltSort = lens _lmltSort (\s a -> s {_lmltSort = a})
+listMLTransforms_sort :: Lens.Lens' ListMLTransforms (Prelude.Maybe TransformSortCriteria)
+listMLTransforms_sort = Lens.lens (\ListMLTransforms' {sort} -> sort) (\s@ListMLTransforms' {} a -> s {sort = a} :: ListMLTransforms)
 
-instance AWSRequest ListMLTransforms where
+instance Prelude.AWSRequest ListMLTransforms where
   type Rs ListMLTransforms = ListMLTransformsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListMLTransformsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "TransformIds" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "TransformIds"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListMLTransforms
+instance Prelude.Hashable ListMLTransforms
 
-instance NFData ListMLTransforms
+instance Prelude.NFData ListMLTransforms
 
-instance ToHeaders ListMLTransforms where
+instance Prelude.ToHeaders ListMLTransforms where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.ListMLTransforms" :: ByteString),
+              Prelude.=# ("AWSGlue.ListMLTransforms" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListMLTransforms where
+instance Prelude.ToJSON ListMLTransforms where
   toJSON ListMLTransforms' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lmltNextToken,
-            ("MaxResults" .=) <$> _lmltMaxResults,
-            ("Tags" .=) <$> _lmltTags,
-            ("Filter" .=) <$> _lmltFilter,
-            ("Sort" .=) <$> _lmltSort
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Filter" Prelude..=) Prelude.<$> filter',
+            ("Sort" Prelude..=) Prelude.<$> sort
           ]
       )
 
-instance ToPath ListMLTransforms where
-  toPath = const "/"
+instance Prelude.ToPath ListMLTransforms where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListMLTransforms where
-  toQuery = const mempty
+instance Prelude.ToQuery ListMLTransforms where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listMLTransformsResponse' smart constructor.
+-- | /See:/ 'newListMLTransformsResponse' smart constructor.
 data ListMLTransformsResponse = ListMLTransformsResponse'
-  { _lmltrrsNextToken ::
-      !(Maybe Text),
-    _lmltrrsResponseStatus ::
-      !Int,
-    _lmltrrsTransformIds ::
-      ![Text]
+  { -- | A continuation token, if the returned list does not contain the last
+    -- metric available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The identifiers of all the machine learning transforms in the account,
+    -- or the machine learning transforms with the specified tags.
+    transformIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMLTransformsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMLTransformsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmltrrsNextToken' - A continuation token, if the returned list does not contain the last metric available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmltrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listMLTransformsResponse_nextToken' - A continuation token, if the returned list does not contain the last
+-- metric available.
 --
--- * 'lmltrrsTransformIds' - The identifiers of all the machine learning transforms in the account, or the machine learning transforms with the specified tags.
-listMLTransformsResponse ::
-  -- | 'lmltrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listMLTransformsResponse_httpStatus' - The response's http status code.
+--
+-- 'transformIds', 'listMLTransformsResponse_transformIds' - The identifiers of all the machine learning transforms in the account,
+-- or the machine learning transforms with the specified tags.
+newListMLTransformsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListMLTransformsResponse
-listMLTransformsResponse pResponseStatus_ =
+newListMLTransformsResponse pHttpStatus_ =
   ListMLTransformsResponse'
-    { _lmltrrsNextToken =
-        Nothing,
-      _lmltrrsResponseStatus = pResponseStatus_,
-      _lmltrrsTransformIds = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      transformIds = Prelude.mempty
     }
 
--- | A continuation token, if the returned list does not contain the last metric available.
-lmltrrsNextToken :: Lens' ListMLTransformsResponse (Maybe Text)
-lmltrrsNextToken = lens _lmltrrsNextToken (\s a -> s {_lmltrrsNextToken = a})
+-- | A continuation token, if the returned list does not contain the last
+-- metric available.
+listMLTransformsResponse_nextToken :: Lens.Lens' ListMLTransformsResponse (Prelude.Maybe Prelude.Text)
+listMLTransformsResponse_nextToken = Lens.lens (\ListMLTransformsResponse' {nextToken} -> nextToken) (\s@ListMLTransformsResponse' {} a -> s {nextToken = a} :: ListMLTransformsResponse)
 
--- | -- | The response status code.
-lmltrrsResponseStatus :: Lens' ListMLTransformsResponse Int
-lmltrrsResponseStatus = lens _lmltrrsResponseStatus (\s a -> s {_lmltrrsResponseStatus = a})
+-- | The response's http status code.
+listMLTransformsResponse_httpStatus :: Lens.Lens' ListMLTransformsResponse Prelude.Int
+listMLTransformsResponse_httpStatus = Lens.lens (\ListMLTransformsResponse' {httpStatus} -> httpStatus) (\s@ListMLTransformsResponse' {} a -> s {httpStatus = a} :: ListMLTransformsResponse)
 
--- | The identifiers of all the machine learning transforms in the account, or the machine learning transforms with the specified tags.
-lmltrrsTransformIds :: Lens' ListMLTransformsResponse [Text]
-lmltrrsTransformIds = lens _lmltrrsTransformIds (\s a -> s {_lmltrrsTransformIds = a}) . _Coerce
+-- | The identifiers of all the machine learning transforms in the account,
+-- or the machine learning transforms with the specified tags.
+listMLTransformsResponse_transformIds :: Lens.Lens' ListMLTransformsResponse [Prelude.Text]
+listMLTransformsResponse_transformIds = Lens.lens (\ListMLTransformsResponse' {transformIds} -> transformIds) (\s@ListMLTransformsResponse' {} a -> s {transformIds = a} :: ListMLTransformsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListMLTransformsResponse
+instance Prelude.NFData ListMLTransformsResponse

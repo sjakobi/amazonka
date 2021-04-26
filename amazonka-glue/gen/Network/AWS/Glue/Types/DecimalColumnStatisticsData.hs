@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,108 +20,102 @@
 module Network.AWS.Glue.Types.DecimalColumnStatisticsData where
 
 import Network.AWS.Glue.Types.DecimalNumber
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines column statistics supported for fixed-point number data columns.
 --
---
---
--- /See:/ 'decimalColumnStatisticsData' smart constructor.
+-- /See:/ 'newDecimalColumnStatisticsData' smart constructor.
 data DecimalColumnStatisticsData = DecimalColumnStatisticsData'
-  { _decMaximumValue ::
-      !( Maybe
-           DecimalNumber
-       ),
-    _decMinimumValue ::
-      !( Maybe
-           DecimalNumber
-       ),
-    _decNumberOfNulls ::
-      !Nat,
-    _decNumberOfDistinctValues ::
-      !Nat
+  { -- | The highest value in the column.
+    maximumValue :: Prelude.Maybe DecimalNumber,
+    -- | The lowest value in the column.
+    minimumValue :: Prelude.Maybe DecimalNumber,
+    -- | The number of null values in the column.
+    numberOfNulls :: Prelude.Nat,
+    -- | The number of distinct values in a column.
+    numberOfDistinctValues :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DecimalColumnStatisticsData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DecimalColumnStatisticsData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'decMaximumValue' - The highest value in the column.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'decMinimumValue' - The lowest value in the column.
+-- 'maximumValue', 'decimalColumnStatisticsData_maximumValue' - The highest value in the column.
 --
--- * 'decNumberOfNulls' - The number of null values in the column.
+-- 'minimumValue', 'decimalColumnStatisticsData_minimumValue' - The lowest value in the column.
 --
--- * 'decNumberOfDistinctValues' - The number of distinct values in a column.
-decimalColumnStatisticsData ::
-  -- | 'decNumberOfNulls'
-  Natural ->
-  -- | 'decNumberOfDistinctValues'
-  Natural ->
+-- 'numberOfNulls', 'decimalColumnStatisticsData_numberOfNulls' - The number of null values in the column.
+--
+-- 'numberOfDistinctValues', 'decimalColumnStatisticsData_numberOfDistinctValues' - The number of distinct values in a column.
+newDecimalColumnStatisticsData ::
+  -- | 'numberOfNulls'
+  Prelude.Natural ->
+  -- | 'numberOfDistinctValues'
+  Prelude.Natural ->
   DecimalColumnStatisticsData
-decimalColumnStatisticsData
+newDecimalColumnStatisticsData
   pNumberOfNulls_
   pNumberOfDistinctValues_ =
     DecimalColumnStatisticsData'
-      { _decMaximumValue =
-          Nothing,
-        _decMinimumValue = Nothing,
-        _decNumberOfNulls = _Nat # pNumberOfNulls_,
-        _decNumberOfDistinctValues =
-          _Nat # pNumberOfDistinctValues_
+      { maximumValue =
+          Prelude.Nothing,
+        minimumValue = Prelude.Nothing,
+        numberOfNulls =
+          Prelude._Nat Lens.# pNumberOfNulls_,
+        numberOfDistinctValues =
+          Prelude._Nat Lens.# pNumberOfDistinctValues_
       }
 
 -- | The highest value in the column.
-decMaximumValue :: Lens' DecimalColumnStatisticsData (Maybe DecimalNumber)
-decMaximumValue = lens _decMaximumValue (\s a -> s {_decMaximumValue = a})
+decimalColumnStatisticsData_maximumValue :: Lens.Lens' DecimalColumnStatisticsData (Prelude.Maybe DecimalNumber)
+decimalColumnStatisticsData_maximumValue = Lens.lens (\DecimalColumnStatisticsData' {maximumValue} -> maximumValue) (\s@DecimalColumnStatisticsData' {} a -> s {maximumValue = a} :: DecimalColumnStatisticsData)
 
 -- | The lowest value in the column.
-decMinimumValue :: Lens' DecimalColumnStatisticsData (Maybe DecimalNumber)
-decMinimumValue = lens _decMinimumValue (\s a -> s {_decMinimumValue = a})
+decimalColumnStatisticsData_minimumValue :: Lens.Lens' DecimalColumnStatisticsData (Prelude.Maybe DecimalNumber)
+decimalColumnStatisticsData_minimumValue = Lens.lens (\DecimalColumnStatisticsData' {minimumValue} -> minimumValue) (\s@DecimalColumnStatisticsData' {} a -> s {minimumValue = a} :: DecimalColumnStatisticsData)
 
 -- | The number of null values in the column.
-decNumberOfNulls :: Lens' DecimalColumnStatisticsData Natural
-decNumberOfNulls = lens _decNumberOfNulls (\s a -> s {_decNumberOfNulls = a}) . _Nat
+decimalColumnStatisticsData_numberOfNulls :: Lens.Lens' DecimalColumnStatisticsData Prelude.Natural
+decimalColumnStatisticsData_numberOfNulls = Lens.lens (\DecimalColumnStatisticsData' {numberOfNulls} -> numberOfNulls) (\s@DecimalColumnStatisticsData' {} a -> s {numberOfNulls = a} :: DecimalColumnStatisticsData) Prelude.. Prelude._Nat
 
 -- | The number of distinct values in a column.
-decNumberOfDistinctValues :: Lens' DecimalColumnStatisticsData Natural
-decNumberOfDistinctValues = lens _decNumberOfDistinctValues (\s a -> s {_decNumberOfDistinctValues = a}) . _Nat
+decimalColumnStatisticsData_numberOfDistinctValues :: Lens.Lens' DecimalColumnStatisticsData Prelude.Natural
+decimalColumnStatisticsData_numberOfDistinctValues = Lens.lens (\DecimalColumnStatisticsData' {numberOfDistinctValues} -> numberOfDistinctValues) (\s@DecimalColumnStatisticsData' {} a -> s {numberOfDistinctValues = a} :: DecimalColumnStatisticsData) Prelude.. Prelude._Nat
 
-instance FromJSON DecimalColumnStatisticsData where
+instance Prelude.FromJSON DecimalColumnStatisticsData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DecimalColumnStatisticsData"
       ( \x ->
           DecimalColumnStatisticsData'
-            <$> (x .:? "MaximumValue")
-            <*> (x .:? "MinimumValue")
-            <*> (x .: "NumberOfNulls")
-            <*> (x .: "NumberOfDistinctValues")
+            Prelude.<$> (x Prelude..:? "MaximumValue")
+            Prelude.<*> (x Prelude..:? "MinimumValue")
+            Prelude.<*> (x Prelude..: "NumberOfNulls")
+            Prelude.<*> (x Prelude..: "NumberOfDistinctValues")
       )
 
-instance Hashable DecimalColumnStatisticsData
+instance Prelude.Hashable DecimalColumnStatisticsData
 
-instance NFData DecimalColumnStatisticsData
+instance Prelude.NFData DecimalColumnStatisticsData
 
-instance ToJSON DecimalColumnStatisticsData where
+instance Prelude.ToJSON DecimalColumnStatisticsData where
   toJSON DecimalColumnStatisticsData' {..} =
-    object
-      ( catMaybes
-          [ ("MaximumValue" .=) <$> _decMaximumValue,
-            ("MinimumValue" .=) <$> _decMinimumValue,
-            Just ("NumberOfNulls" .= _decNumberOfNulls),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaximumValue" Prelude..=)
+              Prelude.<$> maximumValue,
+            ("MinimumValue" Prelude..=) Prelude.<$> minimumValue,
+            Prelude.Just
+              ("NumberOfNulls" Prelude..= numberOfNulls),
+            Prelude.Just
               ( "NumberOfDistinctValues"
-                  .= _decNumberOfDistinctValues
+                  Prelude..= numberOfDistinctValues
               )
           ]
       )

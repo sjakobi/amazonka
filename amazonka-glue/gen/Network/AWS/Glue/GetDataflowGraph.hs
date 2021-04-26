@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,143 +24,146 @@
 -- Transforms a Python script into a directed acyclic graph (DAG).
 module Network.AWS.Glue.GetDataflowGraph
   ( -- * Creating a Request
-    getDataflowGraph,
-    GetDataflowGraph,
+    GetDataflowGraph (..),
+    newGetDataflowGraph,
 
     -- * Request Lenses
-    gdgPythonScript,
+    getDataflowGraph_pythonScript,
 
     -- * Destructuring the Response
-    getDataflowGraphResponse,
-    GetDataflowGraphResponse,
+    GetDataflowGraphResponse (..),
+    newGetDataflowGraphResponse,
 
     -- * Response Lenses
-    gdgrrsDagNodes,
-    gdgrrsDagEdges,
-    gdgrrsResponseStatus,
+    getDataflowGraphResponse_dagNodes,
+    getDataflowGraphResponse_dagEdges,
+    getDataflowGraphResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.CodeGenEdge
+import Network.AWS.Glue.Types.CodeGenNode
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDataflowGraph' smart constructor.
-newtype GetDataflowGraph = GetDataflowGraph'
-  { _gdgPythonScript ::
-      Maybe Text
+-- | /See:/ 'newGetDataflowGraph' smart constructor.
+data GetDataflowGraph = GetDataflowGraph'
+  { -- | The Python script to transform.
+    pythonScript :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDataflowGraph' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDataflowGraph' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdgPythonScript' - The Python script to transform.
-getDataflowGraph ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pythonScript', 'getDataflowGraph_pythonScript' - The Python script to transform.
+newGetDataflowGraph ::
   GetDataflowGraph
-getDataflowGraph =
-  GetDataflowGraph' {_gdgPythonScript = Nothing}
+newGetDataflowGraph =
+  GetDataflowGraph' {pythonScript = Prelude.Nothing}
 
 -- | The Python script to transform.
-gdgPythonScript :: Lens' GetDataflowGraph (Maybe Text)
-gdgPythonScript = lens _gdgPythonScript (\s a -> s {_gdgPythonScript = a})
+getDataflowGraph_pythonScript :: Lens.Lens' GetDataflowGraph (Prelude.Maybe Prelude.Text)
+getDataflowGraph_pythonScript = Lens.lens (\GetDataflowGraph' {pythonScript} -> pythonScript) (\s@GetDataflowGraph' {} a -> s {pythonScript = a} :: GetDataflowGraph)
 
-instance AWSRequest GetDataflowGraph where
+instance Prelude.AWSRequest GetDataflowGraph where
   type Rs GetDataflowGraph = GetDataflowGraphResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDataflowGraphResponse'
-            <$> (x .?> "DagNodes" .!@ mempty)
-            <*> (x .?> "DagEdges" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DagNodes" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "DagEdges" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDataflowGraph
+instance Prelude.Hashable GetDataflowGraph
 
-instance NFData GetDataflowGraph
+instance Prelude.NFData GetDataflowGraph
 
-instance ToHeaders GetDataflowGraph where
+instance Prelude.ToHeaders GetDataflowGraph where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetDataflowGraph" :: ByteString),
+              Prelude.=# ("AWSGlue.GetDataflowGraph" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDataflowGraph where
+instance Prelude.ToJSON GetDataflowGraph where
   toJSON GetDataflowGraph' {..} =
-    object
-      ( catMaybes
-          [("PythonScript" .=) <$> _gdgPythonScript]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PythonScript" Prelude..=)
+              Prelude.<$> pythonScript
+          ]
       )
 
-instance ToPath GetDataflowGraph where
-  toPath = const "/"
+instance Prelude.ToPath GetDataflowGraph where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDataflowGraph where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDataflowGraph where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDataflowGraphResponse' smart constructor.
+-- | /See:/ 'newGetDataflowGraphResponse' smart constructor.
 data GetDataflowGraphResponse = GetDataflowGraphResponse'
-  { _gdgrrsDagNodes ::
-      !( Maybe
-           [CodeGenNode]
-       ),
-    _gdgrrsDagEdges ::
-      !( Maybe
-           [CodeGenEdge]
-       ),
-    _gdgrrsResponseStatus ::
-      !Int
+  { -- | A list of the nodes in the resulting DAG.
+    dagNodes :: Prelude.Maybe [CodeGenNode],
+    -- | A list of the edges in the resulting DAG.
+    dagEdges :: Prelude.Maybe [CodeGenEdge],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDataflowGraphResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDataflowGraphResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdgrrsDagNodes' - A list of the nodes in the resulting DAG.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdgrrsDagEdges' - A list of the edges in the resulting DAG.
+-- 'dagNodes', 'getDataflowGraphResponse_dagNodes' - A list of the nodes in the resulting DAG.
 --
--- * 'gdgrrsResponseStatus' - -- | The response status code.
-getDataflowGraphResponse ::
-  -- | 'gdgrrsResponseStatus'
-  Int ->
+-- 'dagEdges', 'getDataflowGraphResponse_dagEdges' - A list of the edges in the resulting DAG.
+--
+-- 'httpStatus', 'getDataflowGraphResponse_httpStatus' - The response's http status code.
+newGetDataflowGraphResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDataflowGraphResponse
-getDataflowGraphResponse pResponseStatus_ =
+newGetDataflowGraphResponse pHttpStatus_ =
   GetDataflowGraphResponse'
-    { _gdgrrsDagNodes =
-        Nothing,
-      _gdgrrsDagEdges = Nothing,
-      _gdgrrsResponseStatus = pResponseStatus_
+    { dagNodes =
+        Prelude.Nothing,
+      dagEdges = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of the nodes in the resulting DAG.
-gdgrrsDagNodes :: Lens' GetDataflowGraphResponse [CodeGenNode]
-gdgrrsDagNodes = lens _gdgrrsDagNodes (\s a -> s {_gdgrrsDagNodes = a}) . _Default . _Coerce
+getDataflowGraphResponse_dagNodes :: Lens.Lens' GetDataflowGraphResponse (Prelude.Maybe [CodeGenNode])
+getDataflowGraphResponse_dagNodes = Lens.lens (\GetDataflowGraphResponse' {dagNodes} -> dagNodes) (\s@GetDataflowGraphResponse' {} a -> s {dagNodes = a} :: GetDataflowGraphResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of the edges in the resulting DAG.
-gdgrrsDagEdges :: Lens' GetDataflowGraphResponse [CodeGenEdge]
-gdgrrsDagEdges = lens _gdgrrsDagEdges (\s a -> s {_gdgrrsDagEdges = a}) . _Default . _Coerce
+getDataflowGraphResponse_dagEdges :: Lens.Lens' GetDataflowGraphResponse (Prelude.Maybe [CodeGenEdge])
+getDataflowGraphResponse_dagEdges = Lens.lens (\GetDataflowGraphResponse' {dagEdges} -> dagEdges) (\s@GetDataflowGraphResponse' {} a -> s {dagEdges = a} :: GetDataflowGraphResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gdgrrsResponseStatus :: Lens' GetDataflowGraphResponse Int
-gdgrrsResponseStatus = lens _gdgrrsResponseStatus (\s a -> s {_gdgrrsResponseStatus = a})
+-- | The response's http status code.
+getDataflowGraphResponse_httpStatus :: Lens.Lens' GetDataflowGraphResponse Prelude.Int
+getDataflowGraphResponse_httpStatus = Lens.lens (\GetDataflowGraphResponse' {httpStatus} -> httpStatus) (\s@GetDataflowGraphResponse' {} a -> s {httpStatus = a} :: GetDataflowGraphResponse)
 
-instance NFData GetDataflowGraphResponse
+instance Prelude.NFData GetDataflowGraphResponse

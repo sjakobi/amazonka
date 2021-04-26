@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.CodeGenEdge where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a directional edge in a directed acyclic graph (DAG).
 --
---
---
--- /See:/ 'codeGenEdge' smart constructor.
+-- /See:/ 'newCodeGenEdge' smart constructor.
 data CodeGenEdge = CodeGenEdge'
-  { _cgeTargetParameter ::
-      !(Maybe Text),
-    _cgeSource :: !Text,
-    _cgeTarget :: !Text
+  { -- | The target of the edge.
+    targetParameter :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the node at which the edge starts.
+    source :: Prelude.Text,
+    -- | The ID of the node at which the edge ends.
+    target :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeGenEdge' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeGenEdge' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgeTargetParameter' - The target of the edge.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgeSource' - The ID of the node at which the edge starts.
+-- 'targetParameter', 'codeGenEdge_targetParameter' - The target of the edge.
 --
--- * 'cgeTarget' - The ID of the node at which the edge ends.
-codeGenEdge ::
-  -- | 'cgeSource'
-  Text ->
-  -- | 'cgeTarget'
-  Text ->
+-- 'source', 'codeGenEdge_source' - The ID of the node at which the edge starts.
+--
+-- 'target', 'codeGenEdge_target' - The ID of the node at which the edge ends.
+newCodeGenEdge ::
+  -- | 'source'
+  Prelude.Text ->
+  -- | 'target'
+  Prelude.Text ->
   CodeGenEdge
-codeGenEdge pSource_ pTarget_ =
+newCodeGenEdge pSource_ pTarget_ =
   CodeGenEdge'
-    { _cgeTargetParameter = Nothing,
-      _cgeSource = pSource_,
-      _cgeTarget = pTarget_
+    { targetParameter = Prelude.Nothing,
+      source = pSource_,
+      target = pTarget_
     }
 
 -- | The target of the edge.
-cgeTargetParameter :: Lens' CodeGenEdge (Maybe Text)
-cgeTargetParameter = lens _cgeTargetParameter (\s a -> s {_cgeTargetParameter = a})
+codeGenEdge_targetParameter :: Lens.Lens' CodeGenEdge (Prelude.Maybe Prelude.Text)
+codeGenEdge_targetParameter = Lens.lens (\CodeGenEdge' {targetParameter} -> targetParameter) (\s@CodeGenEdge' {} a -> s {targetParameter = a} :: CodeGenEdge)
 
 -- | The ID of the node at which the edge starts.
-cgeSource :: Lens' CodeGenEdge Text
-cgeSource = lens _cgeSource (\s a -> s {_cgeSource = a})
+codeGenEdge_source :: Lens.Lens' CodeGenEdge Prelude.Text
+codeGenEdge_source = Lens.lens (\CodeGenEdge' {source} -> source) (\s@CodeGenEdge' {} a -> s {source = a} :: CodeGenEdge)
 
 -- | The ID of the node at which the edge ends.
-cgeTarget :: Lens' CodeGenEdge Text
-cgeTarget = lens _cgeTarget (\s a -> s {_cgeTarget = a})
+codeGenEdge_target :: Lens.Lens' CodeGenEdge Prelude.Text
+codeGenEdge_target = Lens.lens (\CodeGenEdge' {target} -> target) (\s@CodeGenEdge' {} a -> s {target = a} :: CodeGenEdge)
 
-instance FromJSON CodeGenEdge where
+instance Prelude.FromJSON CodeGenEdge where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CodeGenEdge"
       ( \x ->
           CodeGenEdge'
-            <$> (x .:? "TargetParameter")
-            <*> (x .: "Source")
-            <*> (x .: "Target")
+            Prelude.<$> (x Prelude..:? "TargetParameter")
+            Prelude.<*> (x Prelude..: "Source")
+            Prelude.<*> (x Prelude..: "Target")
       )
 
-instance Hashable CodeGenEdge
+instance Prelude.Hashable CodeGenEdge
 
-instance NFData CodeGenEdge
+instance Prelude.NFData CodeGenEdge
 
-instance ToJSON CodeGenEdge where
+instance Prelude.ToJSON CodeGenEdge where
   toJSON CodeGenEdge' {..} =
-    object
-      ( catMaybes
-          [ ("TargetParameter" .=) <$> _cgeTargetParameter,
-            Just ("Source" .= _cgeSource),
-            Just ("Target" .= _cgeTarget)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TargetParameter" Prelude..=)
+              Prelude.<$> targetParameter,
+            Prelude.Just ("Source" Prelude..= source),
+            Prelude.Just ("Target" Prelude..= target)
           ]
       )

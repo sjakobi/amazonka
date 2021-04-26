@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Glue.Types.CatalogEncryptionMode
   ( CatalogEncryptionMode
       ( ..,
-        CEMDisabled,
-        CEMSseKMS
+        CatalogEncryptionModeDISABLED,
+        CatalogEncryptionModeSSEKMS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CatalogEncryptionMode
-  = CatalogEncryptionMode'
-      ( CI
-          Text
-      )
+newtype CatalogEncryptionMode = CatalogEncryptionMode'
+  { fromCatalogEncryptionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CEMDisabled :: CatalogEncryptionMode
-pattern CEMDisabled = CatalogEncryptionMode' "DISABLED"
+pattern CatalogEncryptionModeDISABLED :: CatalogEncryptionMode
+pattern CatalogEncryptionModeDISABLED = CatalogEncryptionMode' "DISABLED"
 
-pattern CEMSseKMS :: CatalogEncryptionMode
-pattern CEMSseKMS = CatalogEncryptionMode' "SSE-KMS"
+pattern CatalogEncryptionModeSSEKMS :: CatalogEncryptionMode
+pattern CatalogEncryptionModeSSEKMS = CatalogEncryptionMode' "SSE-KMS"
 
 {-# COMPLETE
-  CEMDisabled,
-  CEMSseKMS,
+  CatalogEncryptionModeDISABLED,
+  CatalogEncryptionModeSSEKMS,
   CatalogEncryptionMode'
   #-}
 
-instance FromText CatalogEncryptionMode where
-  parser = (CatalogEncryptionMode' . mk) <$> takeText
+instance Prelude.FromText CatalogEncryptionMode where
+  parser = CatalogEncryptionMode' Prelude.<$> Prelude.takeText
 
-instance ToText CatalogEncryptionMode where
-  toText (CatalogEncryptionMode' ci) = original ci
+instance Prelude.ToText CatalogEncryptionMode where
+  toText (CatalogEncryptionMode' x) = x
 
-instance Hashable CatalogEncryptionMode
+instance Prelude.Hashable CatalogEncryptionMode
 
-instance NFData CatalogEncryptionMode
+instance Prelude.NFData CatalogEncryptionMode
 
-instance ToByteString CatalogEncryptionMode
+instance Prelude.ToByteString CatalogEncryptionMode
 
-instance ToQuery CatalogEncryptionMode
+instance Prelude.ToQuery CatalogEncryptionMode
 
-instance ToHeader CatalogEncryptionMode
+instance Prelude.ToHeader CatalogEncryptionMode
 
-instance ToJSON CatalogEncryptionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON CatalogEncryptionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CatalogEncryptionMode where
-  parseJSON = parseJSONText "CatalogEncryptionMode"
+instance Prelude.FromJSON CatalogEncryptionMode where
+  parseJSON = Prelude.parseJSONText "CatalogEncryptionMode"

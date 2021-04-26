@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Glue.Types.SchemaStatus
   ( SchemaStatus
       ( ..,
-        SSAvailable,
-        SSDeleting,
-        SSPending
+        SchemaStatusAVAILABLE,
+        SchemaStatusDELETING,
+        SchemaStatusPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SchemaStatus = SchemaStatus' (CI Text)
+newtype SchemaStatus = SchemaStatus'
+  { fromSchemaStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSAvailable :: SchemaStatus
-pattern SSAvailable = SchemaStatus' "AVAILABLE"
+pattern SchemaStatusAVAILABLE :: SchemaStatus
+pattern SchemaStatusAVAILABLE = SchemaStatus' "AVAILABLE"
 
-pattern SSDeleting :: SchemaStatus
-pattern SSDeleting = SchemaStatus' "DELETING"
+pattern SchemaStatusDELETING :: SchemaStatus
+pattern SchemaStatusDELETING = SchemaStatus' "DELETING"
 
-pattern SSPending :: SchemaStatus
-pattern SSPending = SchemaStatus' "PENDING"
+pattern SchemaStatusPENDING :: SchemaStatus
+pattern SchemaStatusPENDING = SchemaStatus' "PENDING"
 
 {-# COMPLETE
-  SSAvailable,
-  SSDeleting,
-  SSPending,
+  SchemaStatusAVAILABLE,
+  SchemaStatusDELETING,
+  SchemaStatusPENDING,
   SchemaStatus'
   #-}
 
-instance FromText SchemaStatus where
-  parser = (SchemaStatus' . mk) <$> takeText
+instance Prelude.FromText SchemaStatus where
+  parser = SchemaStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SchemaStatus where
-  toText (SchemaStatus' ci) = original ci
+instance Prelude.ToText SchemaStatus where
+  toText (SchemaStatus' x) = x
 
-instance Hashable SchemaStatus
+instance Prelude.Hashable SchemaStatus
 
-instance NFData SchemaStatus
+instance Prelude.NFData SchemaStatus
 
-instance ToByteString SchemaStatus
+instance Prelude.ToByteString SchemaStatus
 
-instance ToQuery SchemaStatus
+instance Prelude.ToQuery SchemaStatus
 
-instance ToHeader SchemaStatus
+instance Prelude.ToHeader SchemaStatus
 
-instance FromJSON SchemaStatus where
-  parseJSON = parseJSONText "SchemaStatus"
+instance Prelude.FromJSON SchemaStatus where
+  parseJSON = Prelude.parseJSONText "SchemaStatus"

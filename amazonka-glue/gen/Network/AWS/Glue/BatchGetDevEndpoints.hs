@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of resource metadata for a given list of development endpoint names. After calling the @ListDevEndpoints@ operation, you can call this operation to access the data to which you have been granted permissions. This operation supports all IAM permissions, including permission conditions that uses tags.
+-- Returns a list of resource metadata for a given list of development
+-- endpoint names. After calling the @ListDevEndpoints@ operation, you can
+-- call this operation to access the data to which you have been granted
+-- permissions. This operation supports all IAM permissions, including
+-- permission conditions that uses tags.
 module Network.AWS.Glue.BatchGetDevEndpoints
   ( -- * Creating a Request
-    batchGetDevEndpoints,
-    BatchGetDevEndpoints,
+    BatchGetDevEndpoints (..),
+    newBatchGetDevEndpoints,
 
     -- * Request Lenses
-    bgdeDevEndpointNames,
+    batchGetDevEndpoints_devEndpointNames,
 
     -- * Destructuring the Response
-    batchGetDevEndpointsResponse,
-    BatchGetDevEndpointsResponse,
+    BatchGetDevEndpointsResponse (..),
+    newBatchGetDevEndpointsResponse,
 
     -- * Response Lenses
-    bgderrsDevEndpoints,
-    bgderrsDevEndpointsNotFound,
-    bgderrsResponseStatus,
+    batchGetDevEndpointsResponse_devEndpoints,
+    batchGetDevEndpointsResponse_devEndpointsNotFound,
+    batchGetDevEndpointsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.DevEndpoint
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchGetDevEndpoints' smart constructor.
-newtype BatchGetDevEndpoints = BatchGetDevEndpoints'
-  { _bgdeDevEndpointNames ::
-      List1 Text
+-- | /See:/ 'newBatchGetDevEndpoints' smart constructor.
+data BatchGetDevEndpoints = BatchGetDevEndpoints'
+  { -- | The list of @DevEndpoint@ names, which might be the names returned from
+    -- the @ListDevEndpoint@ operation.
+    devEndpointNames :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetDevEndpoints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetDevEndpoints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgdeDevEndpointNames' - The list of @DevEndpoint@ names, which might be the names returned from the @ListDevEndpoint@ operation.
-batchGetDevEndpoints ::
-  -- | 'bgdeDevEndpointNames'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'devEndpointNames', 'batchGetDevEndpoints_devEndpointNames' - The list of @DevEndpoint@ names, which might be the names returned from
+-- the @ListDevEndpoint@ operation.
+newBatchGetDevEndpoints ::
+  -- | 'devEndpointNames'
+  Prelude.NonEmpty Prelude.Text ->
   BatchGetDevEndpoints
-batchGetDevEndpoints pDevEndpointNames_ =
+newBatchGetDevEndpoints pDevEndpointNames_ =
   BatchGetDevEndpoints'
-    { _bgdeDevEndpointNames =
-        _List1 # pDevEndpointNames_
+    { devEndpointNames =
+        Prelude._List1 Lens.# pDevEndpointNames_
     }
 
--- | The list of @DevEndpoint@ names, which might be the names returned from the @ListDevEndpoint@ operation.
-bgdeDevEndpointNames :: Lens' BatchGetDevEndpoints (NonEmpty Text)
-bgdeDevEndpointNames = lens _bgdeDevEndpointNames (\s a -> s {_bgdeDevEndpointNames = a}) . _List1
+-- | The list of @DevEndpoint@ names, which might be the names returned from
+-- the @ListDevEndpoint@ operation.
+batchGetDevEndpoints_devEndpointNames :: Lens.Lens' BatchGetDevEndpoints (Prelude.NonEmpty Prelude.Text)
+batchGetDevEndpoints_devEndpointNames = Lens.lens (\BatchGetDevEndpoints' {devEndpointNames} -> devEndpointNames) (\s@BatchGetDevEndpoints' {} a -> s {devEndpointNames = a} :: BatchGetDevEndpoints) Prelude.. Prelude._List1
 
-instance AWSRequest BatchGetDevEndpoints where
+instance Prelude.AWSRequest BatchGetDevEndpoints where
   type
     Rs BatchGetDevEndpoints =
       BatchGetDevEndpointsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetDevEndpointsResponse'
-            <$> (x .?> "DevEndpoints" .!@ mempty)
-            <*> (x .?> "DevEndpointsNotFound")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "DevEndpoints"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "DevEndpointsNotFound")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetDevEndpoints
+instance Prelude.Hashable BatchGetDevEndpoints
 
-instance NFData BatchGetDevEndpoints
+instance Prelude.NFData BatchGetDevEndpoints
 
-instance ToHeaders BatchGetDevEndpoints where
+instance Prelude.ToHeaders BatchGetDevEndpoints where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.BatchGetDevEndpoints" :: ByteString),
+              Prelude.=# ( "AWSGlue.BatchGetDevEndpoints" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetDevEndpoints where
+instance Prelude.ToJSON BatchGetDevEndpoints where
   toJSON BatchGetDevEndpoints' {..} =
-    object
-      ( catMaybes
-          [Just ("DevEndpointNames" .= _bgdeDevEndpointNames)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DevEndpointNames" Prelude..= devEndpointNames)
+          ]
       )
 
-instance ToPath BatchGetDevEndpoints where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetDevEndpoints where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetDevEndpoints where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetDevEndpoints where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchGetDevEndpointsResponse' smart constructor.
+-- | /See:/ 'newBatchGetDevEndpointsResponse' smart constructor.
 data BatchGetDevEndpointsResponse = BatchGetDevEndpointsResponse'
-  { _bgderrsDevEndpoints ::
-      !( Maybe
-           [DevEndpoint]
-       ),
-    _bgderrsDevEndpointsNotFound ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       ),
-    _bgderrsResponseStatus ::
-      !Int
+  { -- | A list of @DevEndpoint@ definitions.
+    devEndpoints :: Prelude.Maybe [DevEndpoint],
+    -- | A list of @DevEndpoints@ not found.
+    devEndpointsNotFound :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetDevEndpointsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetDevEndpointsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgderrsDevEndpoints' - A list of @DevEndpoint@ definitions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgderrsDevEndpointsNotFound' - A list of @DevEndpoints@ not found.
+-- 'devEndpoints', 'batchGetDevEndpointsResponse_devEndpoints' - A list of @DevEndpoint@ definitions.
 --
--- * 'bgderrsResponseStatus' - -- | The response status code.
-batchGetDevEndpointsResponse ::
-  -- | 'bgderrsResponseStatus'
-  Int ->
+-- 'devEndpointsNotFound', 'batchGetDevEndpointsResponse_devEndpointsNotFound' - A list of @DevEndpoints@ not found.
+--
+-- 'httpStatus', 'batchGetDevEndpointsResponse_httpStatus' - The response's http status code.
+newBatchGetDevEndpointsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetDevEndpointsResponse
-batchGetDevEndpointsResponse pResponseStatus_ =
+newBatchGetDevEndpointsResponse pHttpStatus_ =
   BatchGetDevEndpointsResponse'
-    { _bgderrsDevEndpoints =
-        Nothing,
-      _bgderrsDevEndpointsNotFound = Nothing,
-      _bgderrsResponseStatus = pResponseStatus_
+    { devEndpoints =
+        Prelude.Nothing,
+      devEndpointsNotFound = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of @DevEndpoint@ definitions.
-bgderrsDevEndpoints :: Lens' BatchGetDevEndpointsResponse [DevEndpoint]
-bgderrsDevEndpoints = lens _bgderrsDevEndpoints (\s a -> s {_bgderrsDevEndpoints = a}) . _Default . _Coerce
+batchGetDevEndpointsResponse_devEndpoints :: Lens.Lens' BatchGetDevEndpointsResponse (Prelude.Maybe [DevEndpoint])
+batchGetDevEndpointsResponse_devEndpoints = Lens.lens (\BatchGetDevEndpointsResponse' {devEndpoints} -> devEndpoints) (\s@BatchGetDevEndpointsResponse' {} a -> s {devEndpoints = a} :: BatchGetDevEndpointsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of @DevEndpoints@ not found.
-bgderrsDevEndpointsNotFound :: Lens' BatchGetDevEndpointsResponse (Maybe (NonEmpty Text))
-bgderrsDevEndpointsNotFound = lens _bgderrsDevEndpointsNotFound (\s a -> s {_bgderrsDevEndpointsNotFound = a}) . mapping _List1
+batchGetDevEndpointsResponse_devEndpointsNotFound :: Lens.Lens' BatchGetDevEndpointsResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+batchGetDevEndpointsResponse_devEndpointsNotFound = Lens.lens (\BatchGetDevEndpointsResponse' {devEndpointsNotFound} -> devEndpointsNotFound) (\s@BatchGetDevEndpointsResponse' {} a -> s {devEndpointsNotFound = a} :: BatchGetDevEndpointsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-bgderrsResponseStatus :: Lens' BatchGetDevEndpointsResponse Int
-bgderrsResponseStatus = lens _bgderrsResponseStatus (\s a -> s {_bgderrsResponseStatus = a})
+-- | The response's http status code.
+batchGetDevEndpointsResponse_httpStatus :: Lens.Lens' BatchGetDevEndpointsResponse Prelude.Int
+batchGetDevEndpointsResponse_httpStatus = Lens.lens (\BatchGetDevEndpointsResponse' {httpStatus} -> httpStatus) (\s@BatchGetDevEndpointsResponse' {} a -> s {httpStatus = a} :: BatchGetDevEndpointsResponse)
 
-instance NFData BatchGetDevEndpointsResponse
+instance Prelude.NFData BatchGetDevEndpointsResponse

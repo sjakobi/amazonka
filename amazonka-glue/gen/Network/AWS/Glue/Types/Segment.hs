@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.Segment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Defines a non-overlapping region of a table's partitions, allowing multiple requests to be executed in parallel.
+-- | Defines a non-overlapping region of a table\'s partitions, allowing
+-- multiple requests to be executed in parallel.
 --
---
---
--- /See:/ 'segment' smart constructor.
+-- /See:/ 'newSegment' smart constructor.
 data Segment = Segment'
-  { _sSegmentNumber :: !Nat,
-    _sTotalSegments :: !Nat
+  { -- | The zero-based index number of the segment. For example, if the total
+    -- number of segments is 4, @SegmentNumber@ values range from 0 through 3.
+    segmentNumber :: Prelude.Nat,
+    -- | The total number of segments.
+    totalSegments :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Segment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Segment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sSegmentNumber' - The zero-based index number of the segment. For example, if the total number of segments is 4, @SegmentNumber@ values range from 0 through 3.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sTotalSegments' - The total number of segments.
-segment ::
-  -- | 'sSegmentNumber'
-  Natural ->
-  -- | 'sTotalSegments'
-  Natural ->
+-- 'segmentNumber', 'segment_segmentNumber' - The zero-based index number of the segment. For example, if the total
+-- number of segments is 4, @SegmentNumber@ values range from 0 through 3.
+--
+-- 'totalSegments', 'segment_totalSegments' - The total number of segments.
+newSegment ::
+  -- | 'segmentNumber'
+  Prelude.Natural ->
+  -- | 'totalSegments'
+  Prelude.Natural ->
   Segment
-segment pSegmentNumber_ pTotalSegments_ =
+newSegment pSegmentNumber_ pTotalSegments_ =
   Segment'
-    { _sSegmentNumber = _Nat # pSegmentNumber_,
-      _sTotalSegments = _Nat # pTotalSegments_
+    { segmentNumber =
+        Prelude._Nat Lens.# pSegmentNumber_,
+      totalSegments = Prelude._Nat Lens.# pTotalSegments_
     }
 
--- | The zero-based index number of the segment. For example, if the total number of segments is 4, @SegmentNumber@ values range from 0 through 3.
-sSegmentNumber :: Lens' Segment Natural
-sSegmentNumber = lens _sSegmentNumber (\s a -> s {_sSegmentNumber = a}) . _Nat
+-- | The zero-based index number of the segment. For example, if the total
+-- number of segments is 4, @SegmentNumber@ values range from 0 through 3.
+segment_segmentNumber :: Lens.Lens' Segment Prelude.Natural
+segment_segmentNumber = Lens.lens (\Segment' {segmentNumber} -> segmentNumber) (\s@Segment' {} a -> s {segmentNumber = a} :: Segment) Prelude.. Prelude._Nat
 
 -- | The total number of segments.
-sTotalSegments :: Lens' Segment Natural
-sTotalSegments = lens _sTotalSegments (\s a -> s {_sTotalSegments = a}) . _Nat
+segment_totalSegments :: Lens.Lens' Segment Prelude.Natural
+segment_totalSegments = Lens.lens (\Segment' {totalSegments} -> totalSegments) (\s@Segment' {} a -> s {totalSegments = a} :: Segment) Prelude.. Prelude._Nat
 
-instance Hashable Segment
+instance Prelude.Hashable Segment
 
-instance NFData Segment
+instance Prelude.NFData Segment
 
-instance ToJSON Segment where
+instance Prelude.ToJSON Segment where
   toJSON Segment' {..} =
-    object
-      ( catMaybes
-          [ Just ("SegmentNumber" .= _sSegmentNumber),
-            Just ("TotalSegments" .= _sTotalSegments)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("SegmentNumber" Prelude..= segmentNumber),
+            Prelude.Just
+              ("TotalSegments" Prelude..= totalSegments)
           ]
       )

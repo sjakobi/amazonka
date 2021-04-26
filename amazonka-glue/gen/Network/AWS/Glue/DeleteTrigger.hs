@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,128 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified trigger. If the trigger is not found, no exception is thrown.
+-- Deletes a specified trigger. If the trigger is not found, no exception
+-- is thrown.
 module Network.AWS.Glue.DeleteTrigger
   ( -- * Creating a Request
-    deleteTrigger,
-    DeleteTrigger,
+    DeleteTrigger (..),
+    newDeleteTrigger,
 
     -- * Request Lenses
-    dtName,
+    deleteTrigger_name,
 
     -- * Destructuring the Response
-    deleteTriggerResponse,
-    DeleteTriggerResponse,
+    DeleteTriggerResponse (..),
+    newDeleteTriggerResponse,
 
     -- * Response Lenses
-    dtrrsName,
-    dtrrsResponseStatus,
+    deleteTriggerResponse_name,
+    deleteTriggerResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTrigger' smart constructor.
-newtype DeleteTrigger = DeleteTrigger'
-  { _dtName ::
-      Text
+-- | /See:/ 'newDeleteTrigger' smart constructor.
+data DeleteTrigger = DeleteTrigger'
+  { -- | The name of the trigger to delete.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTrigger' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTrigger' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtName' - The name of the trigger to delete.
-deleteTrigger ::
-  -- | 'dtName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'deleteTrigger_name' - The name of the trigger to delete.
+newDeleteTrigger ::
+  -- | 'name'
+  Prelude.Text ->
   DeleteTrigger
-deleteTrigger pName_ =
-  DeleteTrigger' {_dtName = pName_}
+newDeleteTrigger pName_ =
+  DeleteTrigger' {name = pName_}
 
 -- | The name of the trigger to delete.
-dtName :: Lens' DeleteTrigger Text
-dtName = lens _dtName (\s a -> s {_dtName = a})
+deleteTrigger_name :: Lens.Lens' DeleteTrigger Prelude.Text
+deleteTrigger_name = Lens.lens (\DeleteTrigger' {name} -> name) (\s@DeleteTrigger' {} a -> s {name = a} :: DeleteTrigger)
 
-instance AWSRequest DeleteTrigger where
+instance Prelude.AWSRequest DeleteTrigger where
   type Rs DeleteTrigger = DeleteTriggerResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteTriggerResponse'
-            <$> (x .?> "Name") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTrigger
+instance Prelude.Hashable DeleteTrigger
 
-instance NFData DeleteTrigger
+instance Prelude.NFData DeleteTrigger
 
-instance ToHeaders DeleteTrigger where
+instance Prelude.ToHeaders DeleteTrigger where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.DeleteTrigger" :: ByteString),
+              Prelude.=# ("AWSGlue.DeleteTrigger" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTrigger where
+instance Prelude.ToJSON DeleteTrigger where
   toJSON DeleteTrigger' {..} =
-    object (catMaybes [Just ("Name" .= _dtName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DeleteTrigger where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTrigger where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTrigger where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTrigger where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTriggerResponse' smart constructor.
+-- | /See:/ 'newDeleteTriggerResponse' smart constructor.
 data DeleteTriggerResponse = DeleteTriggerResponse'
-  { _dtrrsName ::
-      !(Maybe Text),
-    _dtrrsResponseStatus ::
-      !Int
+  { -- | The name of the trigger that was deleted.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTriggerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTriggerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrrsName' - The name of the trigger that was deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtrrsResponseStatus' - -- | The response status code.
-deleteTriggerResponse ::
-  -- | 'dtrrsResponseStatus'
-  Int ->
+-- 'name', 'deleteTriggerResponse_name' - The name of the trigger that was deleted.
+--
+-- 'httpStatus', 'deleteTriggerResponse_httpStatus' - The response's http status code.
+newDeleteTriggerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTriggerResponse
-deleteTriggerResponse pResponseStatus_ =
+newDeleteTriggerResponse pHttpStatus_ =
   DeleteTriggerResponse'
-    { _dtrrsName = Nothing,
-      _dtrrsResponseStatus = pResponseStatus_
+    { name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the trigger that was deleted.
-dtrrsName :: Lens' DeleteTriggerResponse (Maybe Text)
-dtrrsName = lens _dtrrsName (\s a -> s {_dtrrsName = a})
+deleteTriggerResponse_name :: Lens.Lens' DeleteTriggerResponse (Prelude.Maybe Prelude.Text)
+deleteTriggerResponse_name = Lens.lens (\DeleteTriggerResponse' {name} -> name) (\s@DeleteTriggerResponse' {} a -> s {name = a} :: DeleteTriggerResponse)
 
--- | -- | The response status code.
-dtrrsResponseStatus :: Lens' DeleteTriggerResponse Int
-dtrrsResponseStatus = lens _dtrrsResponseStatus (\s a -> s {_dtrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTriggerResponse_httpStatus :: Lens.Lens' DeleteTriggerResponse Prelude.Int
+deleteTriggerResponse_httpStatus = Lens.lens (\DeleteTriggerResponse' {httpStatus} -> httpStatus) (\s@DeleteTriggerResponse' {} a -> s {httpStatus = a} :: DeleteTriggerResponse)
 
-instance NFData DeleteTriggerResponse
+instance Prelude.NFData DeleteTriggerResponse

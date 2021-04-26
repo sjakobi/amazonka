@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.Glue.Types.SchemaVersionStatus
   ( SchemaVersionStatus
       ( ..,
-        SVSAvailable,
-        SVSDeleting,
-        SVSFailure,
-        SVSPending
+        SchemaVersionStatusAVAILABLE,
+        SchemaVersionStatusDELETING,
+        SchemaVersionStatusFAILURE,
+        SchemaVersionStatusPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SchemaVersionStatus
-  = SchemaVersionStatus'
-      ( CI
-          Text
-      )
+newtype SchemaVersionStatus = SchemaVersionStatus'
+  { fromSchemaVersionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SVSAvailable :: SchemaVersionStatus
-pattern SVSAvailable = SchemaVersionStatus' "AVAILABLE"
+pattern SchemaVersionStatusAVAILABLE :: SchemaVersionStatus
+pattern SchemaVersionStatusAVAILABLE = SchemaVersionStatus' "AVAILABLE"
 
-pattern SVSDeleting :: SchemaVersionStatus
-pattern SVSDeleting = SchemaVersionStatus' "DELETING"
+pattern SchemaVersionStatusDELETING :: SchemaVersionStatus
+pattern SchemaVersionStatusDELETING = SchemaVersionStatus' "DELETING"
 
-pattern SVSFailure :: SchemaVersionStatus
-pattern SVSFailure = SchemaVersionStatus' "FAILURE"
+pattern SchemaVersionStatusFAILURE :: SchemaVersionStatus
+pattern SchemaVersionStatusFAILURE = SchemaVersionStatus' "FAILURE"
 
-pattern SVSPending :: SchemaVersionStatus
-pattern SVSPending = SchemaVersionStatus' "PENDING"
+pattern SchemaVersionStatusPENDING :: SchemaVersionStatus
+pattern SchemaVersionStatusPENDING = SchemaVersionStatus' "PENDING"
 
 {-# COMPLETE
-  SVSAvailable,
-  SVSDeleting,
-  SVSFailure,
-  SVSPending,
+  SchemaVersionStatusAVAILABLE,
+  SchemaVersionStatusDELETING,
+  SchemaVersionStatusFAILURE,
+  SchemaVersionStatusPENDING,
   SchemaVersionStatus'
   #-}
 
-instance FromText SchemaVersionStatus where
-  parser = (SchemaVersionStatus' . mk) <$> takeText
+instance Prelude.FromText SchemaVersionStatus where
+  parser = SchemaVersionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SchemaVersionStatus where
-  toText (SchemaVersionStatus' ci) = original ci
+instance Prelude.ToText SchemaVersionStatus where
+  toText (SchemaVersionStatus' x) = x
 
-instance Hashable SchemaVersionStatus
+instance Prelude.Hashable SchemaVersionStatus
 
-instance NFData SchemaVersionStatus
+instance Prelude.NFData SchemaVersionStatus
 
-instance ToByteString SchemaVersionStatus
+instance Prelude.ToByteString SchemaVersionStatus
 
-instance ToQuery SchemaVersionStatus
+instance Prelude.ToQuery SchemaVersionStatus
 
-instance ToHeader SchemaVersionStatus
+instance Prelude.ToHeader SchemaVersionStatus
 
-instance FromJSON SchemaVersionStatus where
-  parseJSON = parseJSONText "SchemaVersionStatus"
+instance Prelude.FromJSON SchemaVersionStatus where
+  parseJSON = Prelude.parseJSONText "SchemaVersionStatus"

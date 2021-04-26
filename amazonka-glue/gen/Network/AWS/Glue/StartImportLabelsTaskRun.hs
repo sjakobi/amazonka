@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables you to provide additional labels (examples of truth) to be used to teach the machine learning transform and improve its quality. This API operation is generally used as part of the active learning workflow that starts with the @StartMLLabelingSetGenerationTaskRun@ call and that ultimately results in improving the quality of your machine learning transform.
+-- Enables you to provide additional labels (examples of truth) to be used
+-- to teach the machine learning transform and improve its quality. This
+-- API operation is generally used as part of the active learning workflow
+-- that starts with the @StartMLLabelingSetGenerationTaskRun@ call and that
+-- ultimately results in improving the quality of your machine learning
+-- transform.
 --
+-- After the @StartMLLabelingSetGenerationTaskRun@ finishes, AWS Glue
+-- machine learning will have generated a series of questions for humans to
+-- answer. (Answering these questions is often called \'labeling\' in the
+-- machine learning workflows). In the case of the @FindMatches@ transform,
+-- these questions are of the form, “What is the correct way to group these
+-- rows together into groups composed entirely of matching records?” After
+-- the labeling process is finished, users upload their answers\/labels
+-- with a call to @StartImportLabelsTaskRun@. After
+-- @StartImportLabelsTaskRun@ finishes, all future runs of the machine
+-- learning transform use the new and improved labels and perform a
+-- higher-quality transformation.
 --
--- After the @StartMLLabelingSetGenerationTaskRun@ finishes, AWS Glue machine learning will have generated a series of questions for humans to answer. (Answering these questions is often called 'labeling' in the machine learning workflows). In the case of the @FindMatches@ transform, these questions are of the form, “What is the correct way to group these rows together into groups composed entirely of matching records?” After the labeling process is finished, users upload their answers/labels with a call to @StartImportLabelsTaskRun@ . After @StartImportLabelsTaskRun@ finishes, all future runs of the machine learning transform use the new and improved labels and perform a higher-quality transformation.
+-- By default, @StartMLLabelingSetGenerationTaskRun@ continually learns
+-- from and combines all labels that you upload unless you set @Replace@ to
+-- true. If you set @Replace@ to true, @StartImportLabelsTaskRun@ deletes
+-- and forgets all previously uploaded labels and learns only from the
+-- exact set that you upload. Replacing labels can be helpful if you
+-- realize that you previously uploaded incorrect labels, and you believe
+-- that they are having a negative effect on your transform quality.
 --
--- By default, @StartMLLabelingSetGenerationTaskRun@ continually learns from and combines all labels that you upload unless you set @Replace@ to true. If you set @Replace@ to true, @StartImportLabelsTaskRun@ deletes and forgets all previously uploaded labels and learns only from the exact set that you upload. Replacing labels can be helpful if you realize that you previously uploaded incorrect labels, and you believe that they are having a negative effect on your transform quality.
---
--- You can check on the status of your task run by calling the @GetMLTaskRun@ operation.
+-- You can check on the status of your task run by calling the
+-- @GetMLTaskRun@ operation.
 module Network.AWS.Glue.StartImportLabelsTaskRun
   ( -- * Creating a Request
-    startImportLabelsTaskRun,
-    StartImportLabelsTaskRun,
+    StartImportLabelsTaskRun (..),
+    newStartImportLabelsTaskRun,
 
     -- * Request Lenses
-    siltrReplaceAllLabels,
-    siltrTransformId,
-    siltrInputS3Path,
+    startImportLabelsTaskRun_replaceAllLabels,
+    startImportLabelsTaskRun_transformId,
+    startImportLabelsTaskRun_inputS3Path,
 
     -- * Destructuring the Response
-    startImportLabelsTaskRunResponse,
-    StartImportLabelsTaskRunResponse,
+    StartImportLabelsTaskRunResponse (..),
+    newStartImportLabelsTaskRunResponse,
 
     -- * Response Lenses
-    siltrrrsTaskRunId,
-    siltrrrsResponseStatus,
+    startImportLabelsTaskRunResponse_taskRunId,
+    startImportLabelsTaskRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startImportLabelsTaskRun' smart constructor.
+-- | /See:/ 'newStartImportLabelsTaskRun' smart constructor.
 data StartImportLabelsTaskRun = StartImportLabelsTaskRun'
-  { _siltrReplaceAllLabels ::
-      !(Maybe Bool),
-    _siltrTransformId ::
-      !Text,
-    _siltrInputS3Path ::
-      !Text
+  { -- | Indicates whether to overwrite your existing labels.
+    replaceAllLabels :: Prelude.Maybe Prelude.Bool,
+    -- | The unique identifier of the machine learning transform.
+    transformId :: Prelude.Text,
+    -- | The Amazon Simple Storage Service (Amazon S3) path from where you import
+    -- the labels.
+    inputS3Path :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartImportLabelsTaskRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartImportLabelsTaskRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siltrReplaceAllLabels' - Indicates whether to overwrite your existing labels.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'siltrTransformId' - The unique identifier of the machine learning transform.
+-- 'replaceAllLabels', 'startImportLabelsTaskRun_replaceAllLabels' - Indicates whether to overwrite your existing labels.
 --
--- * 'siltrInputS3Path' - The Amazon Simple Storage Service (Amazon S3) path from where you import the labels.
-startImportLabelsTaskRun ::
-  -- | 'siltrTransformId'
-  Text ->
-  -- | 'siltrInputS3Path'
-  Text ->
+-- 'transformId', 'startImportLabelsTaskRun_transformId' - The unique identifier of the machine learning transform.
+--
+-- 'inputS3Path', 'startImportLabelsTaskRun_inputS3Path' - The Amazon Simple Storage Service (Amazon S3) path from where you import
+-- the labels.
+newStartImportLabelsTaskRun ::
+  -- | 'transformId'
+  Prelude.Text ->
+  -- | 'inputS3Path'
+  Prelude.Text ->
   StartImportLabelsTaskRun
-startImportLabelsTaskRun pTransformId_ pInputS3Path_ =
-  StartImportLabelsTaskRun'
-    { _siltrReplaceAllLabels =
-        Nothing,
-      _siltrTransformId = pTransformId_,
-      _siltrInputS3Path = pInputS3Path_
-    }
+newStartImportLabelsTaskRun
+  pTransformId_
+  pInputS3Path_ =
+    StartImportLabelsTaskRun'
+      { replaceAllLabels =
+          Prelude.Nothing,
+        transformId = pTransformId_,
+        inputS3Path = pInputS3Path_
+      }
 
 -- | Indicates whether to overwrite your existing labels.
-siltrReplaceAllLabels :: Lens' StartImportLabelsTaskRun (Maybe Bool)
-siltrReplaceAllLabels = lens _siltrReplaceAllLabels (\s a -> s {_siltrReplaceAllLabels = a})
+startImportLabelsTaskRun_replaceAllLabels :: Lens.Lens' StartImportLabelsTaskRun (Prelude.Maybe Prelude.Bool)
+startImportLabelsTaskRun_replaceAllLabels = Lens.lens (\StartImportLabelsTaskRun' {replaceAllLabels} -> replaceAllLabels) (\s@StartImportLabelsTaskRun' {} a -> s {replaceAllLabels = a} :: StartImportLabelsTaskRun)
 
 -- | The unique identifier of the machine learning transform.
-siltrTransformId :: Lens' StartImportLabelsTaskRun Text
-siltrTransformId = lens _siltrTransformId (\s a -> s {_siltrTransformId = a})
+startImportLabelsTaskRun_transformId :: Lens.Lens' StartImportLabelsTaskRun Prelude.Text
+startImportLabelsTaskRun_transformId = Lens.lens (\StartImportLabelsTaskRun' {transformId} -> transformId) (\s@StartImportLabelsTaskRun' {} a -> s {transformId = a} :: StartImportLabelsTaskRun)
 
--- | The Amazon Simple Storage Service (Amazon S3) path from where you import the labels.
-siltrInputS3Path :: Lens' StartImportLabelsTaskRun Text
-siltrInputS3Path = lens _siltrInputS3Path (\s a -> s {_siltrInputS3Path = a})
+-- | The Amazon Simple Storage Service (Amazon S3) path from where you import
+-- the labels.
+startImportLabelsTaskRun_inputS3Path :: Lens.Lens' StartImportLabelsTaskRun Prelude.Text
+startImportLabelsTaskRun_inputS3Path = Lens.lens (\StartImportLabelsTaskRun' {inputS3Path} -> inputS3Path) (\s@StartImportLabelsTaskRun' {} a -> s {inputS3Path = a} :: StartImportLabelsTaskRun)
 
-instance AWSRequest StartImportLabelsTaskRun where
+instance Prelude.AWSRequest StartImportLabelsTaskRun where
   type
     Rs StartImportLabelsTaskRun =
       StartImportLabelsTaskRunResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartImportLabelsTaskRunResponse'
-            <$> (x .?> "TaskRunId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TaskRunId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartImportLabelsTaskRun
+instance Prelude.Hashable StartImportLabelsTaskRun
 
-instance NFData StartImportLabelsTaskRun
+instance Prelude.NFData StartImportLabelsTaskRun
 
-instance ToHeaders StartImportLabelsTaskRun where
+instance Prelude.ToHeaders StartImportLabelsTaskRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.StartImportLabelsTaskRun" :: ByteString),
+              Prelude.=# ( "AWSGlue.StartImportLabelsTaskRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartImportLabelsTaskRun where
+instance Prelude.ToJSON StartImportLabelsTaskRun where
   toJSON StartImportLabelsTaskRun' {..} =
-    object
-      ( catMaybes
-          [ ("ReplaceAllLabels" .=) <$> _siltrReplaceAllLabels,
-            Just ("TransformId" .= _siltrTransformId),
-            Just ("InputS3Path" .= _siltrInputS3Path)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ReplaceAllLabels" Prelude..=)
+              Prelude.<$> replaceAllLabels,
+            Prelude.Just ("TransformId" Prelude..= transformId),
+            Prelude.Just ("InputS3Path" Prelude..= inputS3Path)
           ]
       )
 
-instance ToPath StartImportLabelsTaskRun where
-  toPath = const "/"
+instance Prelude.ToPath StartImportLabelsTaskRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartImportLabelsTaskRun where
-  toQuery = const mempty
+instance Prelude.ToQuery StartImportLabelsTaskRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startImportLabelsTaskRunResponse' smart constructor.
+-- | /See:/ 'newStartImportLabelsTaskRunResponse' smart constructor.
 data StartImportLabelsTaskRunResponse = StartImportLabelsTaskRunResponse'
-  { _siltrrrsTaskRunId ::
-      !( Maybe
-           Text
-       ),
-    _siltrrrsResponseStatus ::
-      !Int
+  { -- | The unique identifier for the task run.
+    taskRunId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartImportLabelsTaskRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartImportLabelsTaskRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siltrrrsTaskRunId' - The unique identifier for the task run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'siltrrrsResponseStatus' - -- | The response status code.
-startImportLabelsTaskRunResponse ::
-  -- | 'siltrrrsResponseStatus'
-  Int ->
+-- 'taskRunId', 'startImportLabelsTaskRunResponse_taskRunId' - The unique identifier for the task run.
+--
+-- 'httpStatus', 'startImportLabelsTaskRunResponse_httpStatus' - The response's http status code.
+newStartImportLabelsTaskRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartImportLabelsTaskRunResponse
-startImportLabelsTaskRunResponse pResponseStatus_ =
+newStartImportLabelsTaskRunResponse pHttpStatus_ =
   StartImportLabelsTaskRunResponse'
-    { _siltrrrsTaskRunId =
-        Nothing,
-      _siltrrrsResponseStatus =
-        pResponseStatus_
+    { taskRunId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique identifier for the task run.
-siltrrrsTaskRunId :: Lens' StartImportLabelsTaskRunResponse (Maybe Text)
-siltrrrsTaskRunId = lens _siltrrrsTaskRunId (\s a -> s {_siltrrrsTaskRunId = a})
+startImportLabelsTaskRunResponse_taskRunId :: Lens.Lens' StartImportLabelsTaskRunResponse (Prelude.Maybe Prelude.Text)
+startImportLabelsTaskRunResponse_taskRunId = Lens.lens (\StartImportLabelsTaskRunResponse' {taskRunId} -> taskRunId) (\s@StartImportLabelsTaskRunResponse' {} a -> s {taskRunId = a} :: StartImportLabelsTaskRunResponse)
 
--- | -- | The response status code.
-siltrrrsResponseStatus :: Lens' StartImportLabelsTaskRunResponse Int
-siltrrrsResponseStatus = lens _siltrrrsResponseStatus (\s a -> s {_siltrrrsResponseStatus = a})
+-- | The response's http status code.
+startImportLabelsTaskRunResponse_httpStatus :: Lens.Lens' StartImportLabelsTaskRunResponse Prelude.Int
+startImportLabelsTaskRunResponse_httpStatus = Lens.lens (\StartImportLabelsTaskRunResponse' {httpStatus} -> httpStatus) (\s@StartImportLabelsTaskRunResponse' {} a -> s {httpStatus = a} :: StartImportLabelsTaskRunResponse)
 
-instance NFData StartImportLabelsTaskRunResponse
+instance
+  Prelude.NFData
+    StartImportLabelsTaskRunResponse

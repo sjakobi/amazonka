@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +21,65 @@ module Network.AWS.Glue.Types.WorkflowGraph where
 
 import Network.AWS.Glue.Types.Edge
 import Network.AWS.Glue.Types.Node
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A workflow graph represents the complete workflow containing all the AWS Glue components present in the workflow and all the directed connections between them.
+-- | A workflow graph represents the complete workflow containing all the AWS
+-- Glue components present in the workflow and all the directed connections
+-- between them.
 --
---
---
--- /See:/ 'workflowGraph' smart constructor.
+-- /See:/ 'newWorkflowGraph' smart constructor.
 data WorkflowGraph = WorkflowGraph'
-  { _wgNodes ::
-      !(Maybe [Node]),
-    _wgEdges :: !(Maybe [Edge])
+  { -- | A list of the the AWS Glue components belong to the workflow represented
+    -- as nodes.
+    nodes :: Prelude.Maybe [Node],
+    -- | A list of all the directed connections between the nodes belonging to
+    -- the workflow.
+    edges :: Prelude.Maybe [Edge]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkflowGraph' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkflowGraph' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wgNodes' - A list of the the AWS Glue components belong to the workflow represented as nodes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wgEdges' - A list of all the directed connections between the nodes belonging to the workflow.
-workflowGraph ::
+-- 'nodes', 'workflowGraph_nodes' - A list of the the AWS Glue components belong to the workflow represented
+-- as nodes.
+--
+-- 'edges', 'workflowGraph_edges' - A list of all the directed connections between the nodes belonging to
+-- the workflow.
+newWorkflowGraph ::
   WorkflowGraph
-workflowGraph =
+newWorkflowGraph =
   WorkflowGraph'
-    { _wgNodes = Nothing,
-      _wgEdges = Nothing
+    { nodes = Prelude.Nothing,
+      edges = Prelude.Nothing
     }
 
--- | A list of the the AWS Glue components belong to the workflow represented as nodes.
-wgNodes :: Lens' WorkflowGraph [Node]
-wgNodes = lens _wgNodes (\s a -> s {_wgNodes = a}) . _Default . _Coerce
+-- | A list of the the AWS Glue components belong to the workflow represented
+-- as nodes.
+workflowGraph_nodes :: Lens.Lens' WorkflowGraph (Prelude.Maybe [Node])
+workflowGraph_nodes = Lens.lens (\WorkflowGraph' {nodes} -> nodes) (\s@WorkflowGraph' {} a -> s {nodes = a} :: WorkflowGraph) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of all the directed connections between the nodes belonging to the workflow.
-wgEdges :: Lens' WorkflowGraph [Edge]
-wgEdges = lens _wgEdges (\s a -> s {_wgEdges = a}) . _Default . _Coerce
+-- | A list of all the directed connections between the nodes belonging to
+-- the workflow.
+workflowGraph_edges :: Lens.Lens' WorkflowGraph (Prelude.Maybe [Edge])
+workflowGraph_edges = Lens.lens (\WorkflowGraph' {edges} -> edges) (\s@WorkflowGraph' {} a -> s {edges = a} :: WorkflowGraph) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON WorkflowGraph where
+instance Prelude.FromJSON WorkflowGraph where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkflowGraph"
       ( \x ->
           WorkflowGraph'
-            <$> (x .:? "Nodes" .!= mempty)
-            <*> (x .:? "Edges" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Nodes" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Edges" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable WorkflowGraph
+instance Prelude.Hashable WorkflowGraph
 
-instance NFData WorkflowGraph
+instance Prelude.NFData WorkflowGraph

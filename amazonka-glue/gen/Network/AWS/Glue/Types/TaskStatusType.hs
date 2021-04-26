@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Glue.Types.TaskStatusType
   ( TaskStatusType
       ( ..,
-        TSTFailed,
-        TSTRunning,
-        TSTStarting,
-        TSTStopped,
-        TSTStopping,
-        TSTSucceeded,
-        TSTTimeout
+        TaskStatusTypeFAILED,
+        TaskStatusTypeRUNNING,
+        TaskStatusTypeSTARTING,
+        TaskStatusTypeSTOPPED,
+        TaskStatusTypeSTOPPING,
+        TaskStatusTypeSUCCEEDED,
+        TaskStatusTypeTIMEOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskStatusType = TaskStatusType' (CI Text)
+newtype TaskStatusType = TaskStatusType'
+  { fromTaskStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSTFailed :: TaskStatusType
-pattern TSTFailed = TaskStatusType' "FAILED"
+pattern TaskStatusTypeFAILED :: TaskStatusType
+pattern TaskStatusTypeFAILED = TaskStatusType' "FAILED"
 
-pattern TSTRunning :: TaskStatusType
-pattern TSTRunning = TaskStatusType' "RUNNING"
+pattern TaskStatusTypeRUNNING :: TaskStatusType
+pattern TaskStatusTypeRUNNING = TaskStatusType' "RUNNING"
 
-pattern TSTStarting :: TaskStatusType
-pattern TSTStarting = TaskStatusType' "STARTING"
+pattern TaskStatusTypeSTARTING :: TaskStatusType
+pattern TaskStatusTypeSTARTING = TaskStatusType' "STARTING"
 
-pattern TSTStopped :: TaskStatusType
-pattern TSTStopped = TaskStatusType' "STOPPED"
+pattern TaskStatusTypeSTOPPED :: TaskStatusType
+pattern TaskStatusTypeSTOPPED = TaskStatusType' "STOPPED"
 
-pattern TSTStopping :: TaskStatusType
-pattern TSTStopping = TaskStatusType' "STOPPING"
+pattern TaskStatusTypeSTOPPING :: TaskStatusType
+pattern TaskStatusTypeSTOPPING = TaskStatusType' "STOPPING"
 
-pattern TSTSucceeded :: TaskStatusType
-pattern TSTSucceeded = TaskStatusType' "SUCCEEDED"
+pattern TaskStatusTypeSUCCEEDED :: TaskStatusType
+pattern TaskStatusTypeSUCCEEDED = TaskStatusType' "SUCCEEDED"
 
-pattern TSTTimeout :: TaskStatusType
-pattern TSTTimeout = TaskStatusType' "TIMEOUT"
+pattern TaskStatusTypeTIMEOUT :: TaskStatusType
+pattern TaskStatusTypeTIMEOUT = TaskStatusType' "TIMEOUT"
 
 {-# COMPLETE
-  TSTFailed,
-  TSTRunning,
-  TSTStarting,
-  TSTStopped,
-  TSTStopping,
-  TSTSucceeded,
-  TSTTimeout,
+  TaskStatusTypeFAILED,
+  TaskStatusTypeRUNNING,
+  TaskStatusTypeSTARTING,
+  TaskStatusTypeSTOPPED,
+  TaskStatusTypeSTOPPING,
+  TaskStatusTypeSUCCEEDED,
+  TaskStatusTypeTIMEOUT,
   TaskStatusType'
   #-}
 
-instance FromText TaskStatusType where
-  parser = (TaskStatusType' . mk) <$> takeText
+instance Prelude.FromText TaskStatusType where
+  parser = TaskStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText TaskStatusType where
-  toText (TaskStatusType' ci) = original ci
+instance Prelude.ToText TaskStatusType where
+  toText (TaskStatusType' x) = x
 
-instance Hashable TaskStatusType
+instance Prelude.Hashable TaskStatusType
 
-instance NFData TaskStatusType
+instance Prelude.NFData TaskStatusType
 
-instance ToByteString TaskStatusType
+instance Prelude.ToByteString TaskStatusType
 
-instance ToQuery TaskStatusType
+instance Prelude.ToQuery TaskStatusType
 
-instance ToHeader TaskStatusType
+instance Prelude.ToHeader TaskStatusType
 
-instance ToJSON TaskStatusType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskStatusType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TaskStatusType where
-  parseJSON = parseJSONText "TaskStatusType"
+instance Prelude.FromJSON TaskStatusType where
+  parseJSON = Prelude.parseJSONText "TaskStatusType"

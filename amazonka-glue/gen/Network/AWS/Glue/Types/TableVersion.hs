@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,60 @@
 module Network.AWS.Glue.Types.TableVersion where
 
 import Network.AWS.Glue.Types.Table
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies a version of a table.
 --
---
---
--- /See:/ 'tableVersion' smart constructor.
+-- /See:/ 'newTableVersion' smart constructor.
 data TableVersion = TableVersion'
-  { _tvVersionId ::
-      !(Maybe Text),
-    _tvTable :: !(Maybe Table)
+  { -- | The ID value that identifies this table version. A @VersionId@ is a
+    -- string representation of an integer. Each version is incremented by 1.
+    versionId :: Prelude.Maybe Prelude.Text,
+    -- | The table in question.
+    table :: Prelude.Maybe Table
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TableVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TableVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tvVersionId' - The ID value that identifies this table version. A @VersionId@ is a string representation of an integer. Each version is incremented by 1.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tvTable' - The table in question.
-tableVersion ::
+-- 'versionId', 'tableVersion_versionId' - The ID value that identifies this table version. A @VersionId@ is a
+-- string representation of an integer. Each version is incremented by 1.
+--
+-- 'table', 'tableVersion_table' - The table in question.
+newTableVersion ::
   TableVersion
-tableVersion =
+newTableVersion =
   TableVersion'
-    { _tvVersionId = Nothing,
-      _tvTable = Nothing
+    { versionId = Prelude.Nothing,
+      table = Prelude.Nothing
     }
 
--- | The ID value that identifies this table version. A @VersionId@ is a string representation of an integer. Each version is incremented by 1.
-tvVersionId :: Lens' TableVersion (Maybe Text)
-tvVersionId = lens _tvVersionId (\s a -> s {_tvVersionId = a})
+-- | The ID value that identifies this table version. A @VersionId@ is a
+-- string representation of an integer. Each version is incremented by 1.
+tableVersion_versionId :: Lens.Lens' TableVersion (Prelude.Maybe Prelude.Text)
+tableVersion_versionId = Lens.lens (\TableVersion' {versionId} -> versionId) (\s@TableVersion' {} a -> s {versionId = a} :: TableVersion)
 
 -- | The table in question.
-tvTable :: Lens' TableVersion (Maybe Table)
-tvTable = lens _tvTable (\s a -> s {_tvTable = a})
+tableVersion_table :: Lens.Lens' TableVersion (Prelude.Maybe Table)
+tableVersion_table = Lens.lens (\TableVersion' {table} -> table) (\s@TableVersion' {} a -> s {table = a} :: TableVersion)
 
-instance FromJSON TableVersion where
+instance Prelude.FromJSON TableVersion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TableVersion"
       ( \x ->
           TableVersion'
-            <$> (x .:? "VersionId") <*> (x .:? "Table")
+            Prelude.<$> (x Prelude..:? "VersionId")
+            Prelude.<*> (x Prelude..:? "Table")
       )
 
-instance Hashable TableVersion
+instance Prelude.Hashable TableVersion
 
-instance NFData TableVersion
+instance Prelude.NFData TableVersion

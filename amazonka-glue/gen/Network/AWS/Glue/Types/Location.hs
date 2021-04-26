@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,66 @@
 module Network.AWS.Glue.Types.Location where
 
 import Network.AWS.Glue.Types.CodeGenNodeArg
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The location of resources.
 --
---
---
--- /See:/ 'location' smart constructor.
+-- /See:/ 'newLocation' smart constructor.
 data Location = Location'
-  { _lJdbc ::
-      !(Maybe [CodeGenNodeArg]),
-    _lDynamoDB :: !(Maybe [CodeGenNodeArg]),
-    _lS3 :: !(Maybe [CodeGenNodeArg])
+  { -- | A JDBC location.
+    jdbc :: Prelude.Maybe [CodeGenNodeArg],
+    -- | An Amazon DynamoDB table location.
+    dynamoDB :: Prelude.Maybe [CodeGenNodeArg],
+    -- | An Amazon Simple Storage Service (Amazon S3) location.
+    s3 :: Prelude.Maybe [CodeGenNodeArg]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Location' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Location' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lJdbc' - A JDBC location.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lDynamoDB' - An Amazon DynamoDB table location.
+-- 'jdbc', 'location_jdbc' - A JDBC location.
 --
--- * 'lS3' - An Amazon Simple Storage Service (Amazon S3) location.
-location ::
+-- 'dynamoDB', 'location_dynamoDB' - An Amazon DynamoDB table location.
+--
+-- 's3', 'location_s3' - An Amazon Simple Storage Service (Amazon S3) location.
+newLocation ::
   Location
-location =
+newLocation =
   Location'
-    { _lJdbc = Nothing,
-      _lDynamoDB = Nothing,
-      _lS3 = Nothing
+    { jdbc = Prelude.Nothing,
+      dynamoDB = Prelude.Nothing,
+      s3 = Prelude.Nothing
     }
 
 -- | A JDBC location.
-lJdbc :: Lens' Location [CodeGenNodeArg]
-lJdbc = lens _lJdbc (\s a -> s {_lJdbc = a}) . _Default . _Coerce
+location_jdbc :: Lens.Lens' Location (Prelude.Maybe [CodeGenNodeArg])
+location_jdbc = Lens.lens (\Location' {jdbc} -> jdbc) (\s@Location' {} a -> s {jdbc = a} :: Location) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | An Amazon DynamoDB table location.
-lDynamoDB :: Lens' Location [CodeGenNodeArg]
-lDynamoDB = lens _lDynamoDB (\s a -> s {_lDynamoDB = a}) . _Default . _Coerce
+location_dynamoDB :: Lens.Lens' Location (Prelude.Maybe [CodeGenNodeArg])
+location_dynamoDB = Lens.lens (\Location' {dynamoDB} -> dynamoDB) (\s@Location' {} a -> s {dynamoDB = a} :: Location) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | An Amazon Simple Storage Service (Amazon S3) location.
-lS3 :: Lens' Location [CodeGenNodeArg]
-lS3 = lens _lS3 (\s a -> s {_lS3 = a}) . _Default . _Coerce
+location_s3 :: Lens.Lens' Location (Prelude.Maybe [CodeGenNodeArg])
+location_s3 = Lens.lens (\Location' {s3} -> s3) (\s@Location' {} a -> s {s3 = a} :: Location) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable Location
+instance Prelude.Hashable Location
 
-instance NFData Location
+instance Prelude.NFData Location
 
-instance ToJSON Location where
+instance Prelude.ToJSON Location where
   toJSON Location' {..} =
-    object
-      ( catMaybes
-          [ ("Jdbc" .=) <$> _lJdbc,
-            ("DynamoDB" .=) <$> _lDynamoDB,
-            ("S3" .=) <$> _lS3
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Jdbc" Prelude..=) Prelude.<$> jdbc,
+            ("DynamoDB" Prelude..=) Prelude.<$> dynamoDB,
+            ("S3" Prelude..=) Prelude.<$> s3
           ]
       )

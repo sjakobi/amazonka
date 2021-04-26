@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.Glue.Types.BackfillErrorCode
   ( BackfillErrorCode
       ( ..,
-        EncryptedPartitionError,
-        InternalError,
-        InvalidPartitionTypeDataError,
-        MissingPartitionValueError,
-        UnsupportedPartitionCharacterError
+        BackfillErrorCodeENCRYPTEDPARTITIONERROR,
+        BackfillErrorCodeINTERNALERROR,
+        BackfillErrorCodeINVALIDPARTITIONTYPEDATAERROR,
+        BackfillErrorCodeMISSINGPARTITIONVALUEERROR,
+        BackfillErrorCodeUNSUPPORTEDPARTITIONCHARACTERERROR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BackfillErrorCode = BackfillErrorCode' (CI Text)
+newtype BackfillErrorCode = BackfillErrorCode'
+  { fromBackfillErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EncryptedPartitionError :: BackfillErrorCode
-pattern EncryptedPartitionError = BackfillErrorCode' "ENCRYPTED_PARTITION_ERROR"
+pattern BackfillErrorCodeENCRYPTEDPARTITIONERROR :: BackfillErrorCode
+pattern BackfillErrorCodeENCRYPTEDPARTITIONERROR = BackfillErrorCode' "ENCRYPTED_PARTITION_ERROR"
 
-pattern InternalError :: BackfillErrorCode
-pattern InternalError = BackfillErrorCode' "INTERNAL_ERROR"
+pattern BackfillErrorCodeINTERNALERROR :: BackfillErrorCode
+pattern BackfillErrorCodeINTERNALERROR = BackfillErrorCode' "INTERNAL_ERROR"
 
-pattern InvalidPartitionTypeDataError :: BackfillErrorCode
-pattern InvalidPartitionTypeDataError = BackfillErrorCode' "INVALID_PARTITION_TYPE_DATA_ERROR"
+pattern BackfillErrorCodeINVALIDPARTITIONTYPEDATAERROR :: BackfillErrorCode
+pattern BackfillErrorCodeINVALIDPARTITIONTYPEDATAERROR = BackfillErrorCode' "INVALID_PARTITION_TYPE_DATA_ERROR"
 
-pattern MissingPartitionValueError :: BackfillErrorCode
-pattern MissingPartitionValueError = BackfillErrorCode' "MISSING_PARTITION_VALUE_ERROR"
+pattern BackfillErrorCodeMISSINGPARTITIONVALUEERROR :: BackfillErrorCode
+pattern BackfillErrorCodeMISSINGPARTITIONVALUEERROR = BackfillErrorCode' "MISSING_PARTITION_VALUE_ERROR"
 
-pattern UnsupportedPartitionCharacterError :: BackfillErrorCode
-pattern UnsupportedPartitionCharacterError = BackfillErrorCode' "UNSUPPORTED_PARTITION_CHARACTER_ERROR"
+pattern BackfillErrorCodeUNSUPPORTEDPARTITIONCHARACTERERROR :: BackfillErrorCode
+pattern BackfillErrorCodeUNSUPPORTEDPARTITIONCHARACTERERROR = BackfillErrorCode' "UNSUPPORTED_PARTITION_CHARACTER_ERROR"
 
 {-# COMPLETE
-  EncryptedPartitionError,
-  InternalError,
-  InvalidPartitionTypeDataError,
-  MissingPartitionValueError,
-  UnsupportedPartitionCharacterError,
+  BackfillErrorCodeENCRYPTEDPARTITIONERROR,
+  BackfillErrorCodeINTERNALERROR,
+  BackfillErrorCodeINVALIDPARTITIONTYPEDATAERROR,
+  BackfillErrorCodeMISSINGPARTITIONVALUEERROR,
+  BackfillErrorCodeUNSUPPORTEDPARTITIONCHARACTERERROR,
   BackfillErrorCode'
   #-}
 
-instance FromText BackfillErrorCode where
-  parser = (BackfillErrorCode' . mk) <$> takeText
+instance Prelude.FromText BackfillErrorCode where
+  parser = BackfillErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText BackfillErrorCode where
-  toText (BackfillErrorCode' ci) = original ci
+instance Prelude.ToText BackfillErrorCode where
+  toText (BackfillErrorCode' x) = x
 
-instance Hashable BackfillErrorCode
+instance Prelude.Hashable BackfillErrorCode
 
-instance NFData BackfillErrorCode
+instance Prelude.NFData BackfillErrorCode
 
-instance ToByteString BackfillErrorCode
+instance Prelude.ToByteString BackfillErrorCode
 
-instance ToQuery BackfillErrorCode
+instance Prelude.ToQuery BackfillErrorCode
 
-instance ToHeader BackfillErrorCode
+instance Prelude.ToHeader BackfillErrorCode
 
-instance FromJSON BackfillErrorCode where
-  parseJSON = parseJSONText "BackfillErrorCode"
+instance Prelude.FromJSON BackfillErrorCode where
+  parseJSON = Prelude.parseJSONText "BackfillErrorCode"

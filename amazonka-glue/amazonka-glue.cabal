@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.Glue" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.Glue.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.Glue" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,8 +37,8 @@ source-repository head
   subdir:   amazonka-glue
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
@@ -153,6 +151,7 @@ library
     Network.AWS.Glue.GetWorkflowRunProperties
     Network.AWS.Glue.GetWorkflowRuns
     Network.AWS.Glue.ImportCatalogToGlue
+    Network.AWS.Glue.Lens
     Network.AWS.Glue.ListCrawlers
     Network.AWS.Glue.ListDevEndpoints
     Network.AWS.Glue.ListJobs
@@ -187,27 +186,6 @@ library
     Network.AWS.Glue.StopWorkflowRun
     Network.AWS.Glue.TagResource
     Network.AWS.Glue.Types
-    Network.AWS.Glue.UntagResource
-    Network.AWS.Glue.UpdateClassifier
-    Network.AWS.Glue.UpdateColumnStatisticsForPartition
-    Network.AWS.Glue.UpdateColumnStatisticsForTable
-    Network.AWS.Glue.UpdateConnection
-    Network.AWS.Glue.UpdateCrawler
-    Network.AWS.Glue.UpdateCrawlerSchedule
-    Network.AWS.Glue.UpdateDatabase
-    Network.AWS.Glue.UpdateDevEndpoint
-    Network.AWS.Glue.UpdateJob
-    Network.AWS.Glue.UpdateMLTransform
-    Network.AWS.Glue.UpdatePartition
-    Network.AWS.Glue.UpdateRegistry
-    Network.AWS.Glue.UpdateSchema
-    Network.AWS.Glue.UpdateTable
-    Network.AWS.Glue.UpdateTrigger
-    Network.AWS.Glue.UpdateUserDefinedFunction
-    Network.AWS.Glue.UpdateWorkflow
-    Network.AWS.Glue.Waiters
-
-  other-modules:
     Network.AWS.Glue.Types.Action
     Network.AWS.Glue.Types.BackfillError
     Network.AWS.Glue.Types.BackfillErrorCode
@@ -252,12 +230,12 @@ library
     Network.AWS.Glue.Types.CrawlerState
     Network.AWS.Glue.Types.CrawlerTargets
     Network.AWS.Glue.Types.CrawlState
-    Network.AWS.Glue.Types.CreateCSVClassifierRequest
+    Network.AWS.Glue.Types.CreateCsvClassifierRequest
     Network.AWS.Glue.Types.CreateGrokClassifierRequest
-    Network.AWS.Glue.Types.CreateJSONClassifierRequest
+    Network.AWS.Glue.Types.CreateJsonClassifierRequest
     Network.AWS.Glue.Types.CreateXMLClassifierRequest
-    Network.AWS.Glue.Types.CSVClassifier
-    Network.AWS.Glue.Types.CSVHeaderOption
+    Network.AWS.Glue.Types.CsvClassifier
+    Network.AWS.Glue.Types.CsvHeaderOption
     Network.AWS.Glue.Types.Database
     Network.AWS.Glue.Types.DatabaseIdentifier
     Network.AWS.Glue.Types.DatabaseInput
@@ -300,7 +278,7 @@ library
     Network.AWS.Glue.Types.JobRun
     Network.AWS.Glue.Types.JobRunState
     Network.AWS.Glue.Types.JobUpdate
-    Network.AWS.Glue.Types.JSONClassifier
+    Network.AWS.Glue.Types.JsonClassifier
     Network.AWS.Glue.Types.KeySchemaElement
     Network.AWS.Glue.Types.LabelingSetGenerationTaskRunProperties
     Network.AWS.Glue.Types.Language
@@ -343,7 +321,7 @@ library
     Network.AWS.Glue.Types.RegistryStatus
     Network.AWS.Glue.Types.ResourceShareType
     Network.AWS.Glue.Types.ResourceType
-    Network.AWS.Glue.Types.ResourceURI
+    Network.AWS.Glue.Types.ResourceUri
     Network.AWS.Glue.Types.S3Encryption
     Network.AWS.Glue.Types.S3EncryptionMode
     Network.AWS.Glue.Types.S3Target
@@ -395,9 +373,9 @@ library
     Network.AWS.Glue.Types.TriggerType
     Network.AWS.Glue.Types.TriggerUpdate
     Network.AWS.Glue.Types.UpdateBehavior
-    Network.AWS.Glue.Types.UpdateCSVClassifierRequest
+    Network.AWS.Glue.Types.UpdateCsvClassifierRequest
     Network.AWS.Glue.Types.UpdateGrokClassifierRequest
-    Network.AWS.Glue.Types.UpdateJSONClassifierRequest
+    Network.AWS.Glue.Types.UpdateJsonClassifierRequest
     Network.AWS.Glue.Types.UpdateXMLClassifierRequest
     Network.AWS.Glue.Types.UserDefinedFunction
     Network.AWS.Glue.Types.UserDefinedFunctionInput
@@ -408,11 +386,30 @@ library
     Network.AWS.Glue.Types.WorkflowRunStatistics
     Network.AWS.Glue.Types.WorkflowRunStatus
     Network.AWS.Glue.Types.XMLClassifier
+    Network.AWS.Glue.UntagResource
+    Network.AWS.Glue.UpdateClassifier
+    Network.AWS.Glue.UpdateColumnStatisticsForPartition
+    Network.AWS.Glue.UpdateColumnStatisticsForTable
+    Network.AWS.Glue.UpdateConnection
+    Network.AWS.Glue.UpdateCrawler
+    Network.AWS.Glue.UpdateCrawlerSchedule
+    Network.AWS.Glue.UpdateDatabase
+    Network.AWS.Glue.UpdateDevEndpoint
+    Network.AWS.Glue.UpdateJob
+    Network.AWS.Glue.UpdateMLTransform
+    Network.AWS.Glue.UpdatePartition
+    Network.AWS.Glue.UpdateRegistry
+    Network.AWS.Glue.UpdateSchema
+    Network.AWS.Glue.UpdateTable
+    Network.AWS.Glue.UpdateTrigger
+    Network.AWS.Glue.UpdateUserDefinedFunction
+    Network.AWS.Glue.UpdateWorkflow
+    Network.AWS.Glue.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-glue-test
   type:             exitcode-stdio-1.0

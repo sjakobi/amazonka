@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.Glue.Types.WorkflowRunStatus
   ( WorkflowRunStatus
       ( ..,
-        WRSCompleted,
-        WRSError',
-        WRSRunning,
-        WRSStopped,
-        WRSStopping
+        WorkflowRunStatusCOMPLETED,
+        WorkflowRunStatusERROR,
+        WorkflowRunStatusRUNNING,
+        WorkflowRunStatusSTOPPED,
+        WorkflowRunStatusSTOPPING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WorkflowRunStatus = WorkflowRunStatus' (CI Text)
+newtype WorkflowRunStatus = WorkflowRunStatus'
+  { fromWorkflowRunStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern WRSCompleted :: WorkflowRunStatus
-pattern WRSCompleted = WorkflowRunStatus' "COMPLETED"
+pattern WorkflowRunStatusCOMPLETED :: WorkflowRunStatus
+pattern WorkflowRunStatusCOMPLETED = WorkflowRunStatus' "COMPLETED"
 
-pattern WRSError' :: WorkflowRunStatus
-pattern WRSError' = WorkflowRunStatus' "ERROR"
+pattern WorkflowRunStatusERROR :: WorkflowRunStatus
+pattern WorkflowRunStatusERROR = WorkflowRunStatus' "ERROR"
 
-pattern WRSRunning :: WorkflowRunStatus
-pattern WRSRunning = WorkflowRunStatus' "RUNNING"
+pattern WorkflowRunStatusRUNNING :: WorkflowRunStatus
+pattern WorkflowRunStatusRUNNING = WorkflowRunStatus' "RUNNING"
 
-pattern WRSStopped :: WorkflowRunStatus
-pattern WRSStopped = WorkflowRunStatus' "STOPPED"
+pattern WorkflowRunStatusSTOPPED :: WorkflowRunStatus
+pattern WorkflowRunStatusSTOPPED = WorkflowRunStatus' "STOPPED"
 
-pattern WRSStopping :: WorkflowRunStatus
-pattern WRSStopping = WorkflowRunStatus' "STOPPING"
+pattern WorkflowRunStatusSTOPPING :: WorkflowRunStatus
+pattern WorkflowRunStatusSTOPPING = WorkflowRunStatus' "STOPPING"
 
 {-# COMPLETE
-  WRSCompleted,
-  WRSError',
-  WRSRunning,
-  WRSStopped,
-  WRSStopping,
+  WorkflowRunStatusCOMPLETED,
+  WorkflowRunStatusERROR,
+  WorkflowRunStatusRUNNING,
+  WorkflowRunStatusSTOPPED,
+  WorkflowRunStatusSTOPPING,
   WorkflowRunStatus'
   #-}
 
-instance FromText WorkflowRunStatus where
-  parser = (WorkflowRunStatus' . mk) <$> takeText
+instance Prelude.FromText WorkflowRunStatus where
+  parser = WorkflowRunStatus' Prelude.<$> Prelude.takeText
 
-instance ToText WorkflowRunStatus where
-  toText (WorkflowRunStatus' ci) = original ci
+instance Prelude.ToText WorkflowRunStatus where
+  toText (WorkflowRunStatus' x) = x
 
-instance Hashable WorkflowRunStatus
+instance Prelude.Hashable WorkflowRunStatus
 
-instance NFData WorkflowRunStatus
+instance Prelude.NFData WorkflowRunStatus
 
-instance ToByteString WorkflowRunStatus
+instance Prelude.ToByteString WorkflowRunStatus
 
-instance ToQuery WorkflowRunStatus
+instance Prelude.ToQuery WorkflowRunStatus
 
-instance ToHeader WorkflowRunStatus
+instance Prelude.ToHeader WorkflowRunStatus
 
-instance FromJSON WorkflowRunStatus where
-  parseJSON = parseJSONText "WorkflowRunStatus"
+instance Prelude.FromJSON WorkflowRunStatus where
+  parseJSON = Prelude.parseJSONText "WorkflowRunStatus"

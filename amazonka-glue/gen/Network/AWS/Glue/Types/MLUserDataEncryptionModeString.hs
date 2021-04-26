@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Glue.Types.MLUserDataEncryptionModeString
   ( MLUserDataEncryptionModeString
       ( ..,
-        Disabled,
-        SseKMS
+        MLUserDataEncryptionModeStringDISABLED,
+        MLUserDataEncryptionModeStringSSEKMS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MLUserDataEncryptionModeString
-  = MLUserDataEncryptionModeString'
-      ( CI
-          Text
-      )
+newtype MLUserDataEncryptionModeString = MLUserDataEncryptionModeString'
+  { fromMLUserDataEncryptionModeString ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: MLUserDataEncryptionModeString
-pattern Disabled = MLUserDataEncryptionModeString' "DISABLED"
+pattern MLUserDataEncryptionModeStringDISABLED :: MLUserDataEncryptionModeString
+pattern MLUserDataEncryptionModeStringDISABLED = MLUserDataEncryptionModeString' "DISABLED"
 
-pattern SseKMS :: MLUserDataEncryptionModeString
-pattern SseKMS = MLUserDataEncryptionModeString' "SSE-KMS"
+pattern MLUserDataEncryptionModeStringSSEKMS :: MLUserDataEncryptionModeString
+pattern MLUserDataEncryptionModeStringSSEKMS = MLUserDataEncryptionModeString' "SSE-KMS"
 
 {-# COMPLETE
-  Disabled,
-  SseKMS,
+  MLUserDataEncryptionModeStringDISABLED,
+  MLUserDataEncryptionModeStringSSEKMS,
   MLUserDataEncryptionModeString'
   #-}
 
-instance FromText MLUserDataEncryptionModeString where
-  parser = (MLUserDataEncryptionModeString' . mk) <$> takeText
+instance Prelude.FromText MLUserDataEncryptionModeString where
+  parser = MLUserDataEncryptionModeString' Prelude.<$> Prelude.takeText
 
-instance ToText MLUserDataEncryptionModeString where
-  toText (MLUserDataEncryptionModeString' ci) = original ci
+instance Prelude.ToText MLUserDataEncryptionModeString where
+  toText (MLUserDataEncryptionModeString' x) = x
 
-instance Hashable MLUserDataEncryptionModeString
+instance Prelude.Hashable MLUserDataEncryptionModeString
 
-instance NFData MLUserDataEncryptionModeString
+instance Prelude.NFData MLUserDataEncryptionModeString
 
-instance ToByteString MLUserDataEncryptionModeString
+instance Prelude.ToByteString MLUserDataEncryptionModeString
 
-instance ToQuery MLUserDataEncryptionModeString
+instance Prelude.ToQuery MLUserDataEncryptionModeString
 
-instance ToHeader MLUserDataEncryptionModeString
+instance Prelude.ToHeader MLUserDataEncryptionModeString
 
-instance ToJSON MLUserDataEncryptionModeString where
-  toJSON = toJSONText
+instance Prelude.ToJSON MLUserDataEncryptionModeString where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MLUserDataEncryptionModeString where
-  parseJSON = parseJSONText "MLUserDataEncryptionModeString"
+instance Prelude.FromJSON MLUserDataEncryptionModeString where
+  parseJSON = Prelude.parseJSONText "MLUserDataEncryptionModeString"

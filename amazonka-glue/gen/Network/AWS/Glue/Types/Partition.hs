@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,117 +20,135 @@
 module Network.AWS.Glue.Types.Partition where
 
 import Network.AWS.Glue.Types.StorageDescriptor
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a slice of table data.
 --
---
---
--- /See:/ 'partition' smart constructor.
+-- /See:/ 'newPartition' smart constructor.
 data Partition = Partition'
-  { _pCreationTime ::
-      !(Maybe POSIX),
-    _pTableName :: !(Maybe Text),
-    _pCatalogId :: !(Maybe Text),
-    _pValues :: !(Maybe [Text]),
-    _pStorageDescriptor :: !(Maybe StorageDescriptor),
-    _pLastAnalyzedTime :: !(Maybe POSIX),
-    _pLastAccessTime :: !(Maybe POSIX),
-    _pParameters :: !(Maybe (Map Text Text)),
-    _pDatabaseName :: !(Maybe Text)
+  { -- | The time at which the partition was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the database table in which to create the partition.
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Data Catalog in which the partition resides.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The values of the partition.
+    values :: Prelude.Maybe [Prelude.Text],
+    -- | Provides information about the physical location where the partition is
+    -- stored.
+    storageDescriptor :: Prelude.Maybe StorageDescriptor,
+    -- | The last time at which column statistics were computed for this
+    -- partition.
+    lastAnalyzedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The last time at which the partition was accessed.
+    lastAccessTime :: Prelude.Maybe Prelude.POSIX,
+    -- | These key-value pairs define partition parameters.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the catalog database in which to create the partition.
+    databaseName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Partition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Partition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pCreationTime' - The time at which the partition was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pTableName' - The name of the database table in which to create the partition.
+-- 'creationTime', 'partition_creationTime' - The time at which the partition was created.
 --
--- * 'pCatalogId' - The ID of the Data Catalog in which the partition resides.
+-- 'tableName', 'partition_tableName' - The name of the database table in which to create the partition.
 --
--- * 'pValues' - The values of the partition.
+-- 'catalogId', 'partition_catalogId' - The ID of the Data Catalog in which the partition resides.
 --
--- * 'pStorageDescriptor' - Provides information about the physical location where the partition is stored.
+-- 'values', 'partition_values' - The values of the partition.
 --
--- * 'pLastAnalyzedTime' - The last time at which column statistics were computed for this partition.
+-- 'storageDescriptor', 'partition_storageDescriptor' - Provides information about the physical location where the partition is
+-- stored.
 --
--- * 'pLastAccessTime' - The last time at which the partition was accessed.
+-- 'lastAnalyzedTime', 'partition_lastAnalyzedTime' - The last time at which column statistics were computed for this
+-- partition.
 --
--- * 'pParameters' - These key-value pairs define partition parameters.
+-- 'lastAccessTime', 'partition_lastAccessTime' - The last time at which the partition was accessed.
 --
--- * 'pDatabaseName' - The name of the catalog database in which to create the partition.
-partition ::
+-- 'parameters', 'partition_parameters' - These key-value pairs define partition parameters.
+--
+-- 'databaseName', 'partition_databaseName' - The name of the catalog database in which to create the partition.
+newPartition ::
   Partition
-partition =
+newPartition =
   Partition'
-    { _pCreationTime = Nothing,
-      _pTableName = Nothing,
-      _pCatalogId = Nothing,
-      _pValues = Nothing,
-      _pStorageDescriptor = Nothing,
-      _pLastAnalyzedTime = Nothing,
-      _pLastAccessTime = Nothing,
-      _pParameters = Nothing,
-      _pDatabaseName = Nothing
+    { creationTime = Prelude.Nothing,
+      tableName = Prelude.Nothing,
+      catalogId = Prelude.Nothing,
+      values = Prelude.Nothing,
+      storageDescriptor = Prelude.Nothing,
+      lastAnalyzedTime = Prelude.Nothing,
+      lastAccessTime = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      databaseName = Prelude.Nothing
     }
 
 -- | The time at which the partition was created.
-pCreationTime :: Lens' Partition (Maybe UTCTime)
-pCreationTime = lens _pCreationTime (\s a -> s {_pCreationTime = a}) . mapping _Time
+partition_creationTime :: Lens.Lens' Partition (Prelude.Maybe Prelude.UTCTime)
+partition_creationTime = Lens.lens (\Partition' {creationTime} -> creationTime) (\s@Partition' {} a -> s {creationTime = a} :: Partition) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the database table in which to create the partition.
-pTableName :: Lens' Partition (Maybe Text)
-pTableName = lens _pTableName (\s a -> s {_pTableName = a})
+partition_tableName :: Lens.Lens' Partition (Prelude.Maybe Prelude.Text)
+partition_tableName = Lens.lens (\Partition' {tableName} -> tableName) (\s@Partition' {} a -> s {tableName = a} :: Partition)
 
 -- | The ID of the Data Catalog in which the partition resides.
-pCatalogId :: Lens' Partition (Maybe Text)
-pCatalogId = lens _pCatalogId (\s a -> s {_pCatalogId = a})
+partition_catalogId :: Lens.Lens' Partition (Prelude.Maybe Prelude.Text)
+partition_catalogId = Lens.lens (\Partition' {catalogId} -> catalogId) (\s@Partition' {} a -> s {catalogId = a} :: Partition)
 
 -- | The values of the partition.
-pValues :: Lens' Partition [Text]
-pValues = lens _pValues (\s a -> s {_pValues = a}) . _Default . _Coerce
+partition_values :: Lens.Lens' Partition (Prelude.Maybe [Prelude.Text])
+partition_values = Lens.lens (\Partition' {values} -> values) (\s@Partition' {} a -> s {values = a} :: Partition) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Provides information about the physical location where the partition is stored.
-pStorageDescriptor :: Lens' Partition (Maybe StorageDescriptor)
-pStorageDescriptor = lens _pStorageDescriptor (\s a -> s {_pStorageDescriptor = a})
+-- | Provides information about the physical location where the partition is
+-- stored.
+partition_storageDescriptor :: Lens.Lens' Partition (Prelude.Maybe StorageDescriptor)
+partition_storageDescriptor = Lens.lens (\Partition' {storageDescriptor} -> storageDescriptor) (\s@Partition' {} a -> s {storageDescriptor = a} :: Partition)
 
--- | The last time at which column statistics were computed for this partition.
-pLastAnalyzedTime :: Lens' Partition (Maybe UTCTime)
-pLastAnalyzedTime = lens _pLastAnalyzedTime (\s a -> s {_pLastAnalyzedTime = a}) . mapping _Time
+-- | The last time at which column statistics were computed for this
+-- partition.
+partition_lastAnalyzedTime :: Lens.Lens' Partition (Prelude.Maybe Prelude.UTCTime)
+partition_lastAnalyzedTime = Lens.lens (\Partition' {lastAnalyzedTime} -> lastAnalyzedTime) (\s@Partition' {} a -> s {lastAnalyzedTime = a} :: Partition) Prelude.. Lens.mapping Prelude._Time
 
 -- | The last time at which the partition was accessed.
-pLastAccessTime :: Lens' Partition (Maybe UTCTime)
-pLastAccessTime = lens _pLastAccessTime (\s a -> s {_pLastAccessTime = a}) . mapping _Time
+partition_lastAccessTime :: Lens.Lens' Partition (Prelude.Maybe Prelude.UTCTime)
+partition_lastAccessTime = Lens.lens (\Partition' {lastAccessTime} -> lastAccessTime) (\s@Partition' {} a -> s {lastAccessTime = a} :: Partition) Prelude.. Lens.mapping Prelude._Time
 
 -- | These key-value pairs define partition parameters.
-pParameters :: Lens' Partition (HashMap Text Text)
-pParameters = lens _pParameters (\s a -> s {_pParameters = a}) . _Default . _Map
+partition_parameters :: Lens.Lens' Partition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+partition_parameters = Lens.lens (\Partition' {parameters} -> parameters) (\s@Partition' {} a -> s {parameters = a} :: Partition) Prelude.. Lens.mapping Prelude._Map
 
 -- | The name of the catalog database in which to create the partition.
-pDatabaseName :: Lens' Partition (Maybe Text)
-pDatabaseName = lens _pDatabaseName (\s a -> s {_pDatabaseName = a})
+partition_databaseName :: Lens.Lens' Partition (Prelude.Maybe Prelude.Text)
+partition_databaseName = Lens.lens (\Partition' {databaseName} -> databaseName) (\s@Partition' {} a -> s {databaseName = a} :: Partition)
 
-instance FromJSON Partition where
+instance Prelude.FromJSON Partition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Partition"
       ( \x ->
           Partition'
-            <$> (x .:? "CreationTime")
-            <*> (x .:? "TableName")
-            <*> (x .:? "CatalogId")
-            <*> (x .:? "Values" .!= mempty)
-            <*> (x .:? "StorageDescriptor")
-            <*> (x .:? "LastAnalyzedTime")
-            <*> (x .:? "LastAccessTime")
-            <*> (x .:? "Parameters" .!= mempty)
-            <*> (x .:? "DatabaseName")
+            Prelude.<$> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "TableName")
+            Prelude.<*> (x Prelude..:? "CatalogId")
+            Prelude.<*> (x Prelude..:? "Values" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "StorageDescriptor")
+            Prelude.<*> (x Prelude..:? "LastAnalyzedTime")
+            Prelude.<*> (x Prelude..:? "LastAccessTime")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DatabaseName")
       )
 
-instance Hashable Partition
+instance Prelude.Hashable Partition
 
-instance NFData Partition
+instance Prelude.NFData Partition

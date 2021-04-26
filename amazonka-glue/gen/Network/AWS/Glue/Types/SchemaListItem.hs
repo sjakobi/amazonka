@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,99 +20,107 @@
 module Network.AWS.Glue.Types.SchemaListItem where
 
 import Network.AWS.Glue.Types.SchemaStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object that contains minimal details for a schema.
 --
---
---
--- /See:/ 'schemaListItem' smart constructor.
+-- /See:/ 'newSchemaListItem' smart constructor.
 data SchemaListItem = SchemaListItem'
-  { _sliSchemaARN ::
-      !(Maybe Text),
-    _sliUpdatedTime :: !(Maybe Text),
-    _sliCreatedTime :: !(Maybe Text),
-    _sliRegistryName :: !(Maybe Text),
-    _sliSchemaName :: !(Maybe Text),
-    _sliDescription :: !(Maybe Text),
-    _sliSchemaStatus :: !(Maybe SchemaStatus)
+  { -- | The Amazon Resource Name (ARN) for the schema.
+    schemaArn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that a schema was updated.
+    updatedTime :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that a schema was created.
+    createdTime :: Prelude.Maybe Prelude.Text,
+    -- | the name of the registry where the schema resides.
+    registryName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the schema.
+    schemaName :: Prelude.Maybe Prelude.Text,
+    -- | A description for the schema.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The status of the schema.
+    schemaStatus :: Prelude.Maybe SchemaStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SchemaListItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SchemaListItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sliSchemaARN' - The Amazon Resource Name (ARN) for the schema.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sliUpdatedTime' - The date and time that a schema was updated.
+-- 'schemaArn', 'schemaListItem_schemaArn' - The Amazon Resource Name (ARN) for the schema.
 --
--- * 'sliCreatedTime' - The date and time that a schema was created.
+-- 'updatedTime', 'schemaListItem_updatedTime' - The date and time that a schema was updated.
 --
--- * 'sliRegistryName' - the name of the registry where the schema resides.
+-- 'createdTime', 'schemaListItem_createdTime' - The date and time that a schema was created.
 --
--- * 'sliSchemaName' - The name of the schema.
+-- 'registryName', 'schemaListItem_registryName' - the name of the registry where the schema resides.
 --
--- * 'sliDescription' - A description for the schema.
+-- 'schemaName', 'schemaListItem_schemaName' - The name of the schema.
 --
--- * 'sliSchemaStatus' - The status of the schema.
-schemaListItem ::
+-- 'description', 'schemaListItem_description' - A description for the schema.
+--
+-- 'schemaStatus', 'schemaListItem_schemaStatus' - The status of the schema.
+newSchemaListItem ::
   SchemaListItem
-schemaListItem =
+newSchemaListItem =
   SchemaListItem'
-    { _sliSchemaARN = Nothing,
-      _sliUpdatedTime = Nothing,
-      _sliCreatedTime = Nothing,
-      _sliRegistryName = Nothing,
-      _sliSchemaName = Nothing,
-      _sliDescription = Nothing,
-      _sliSchemaStatus = Nothing
+    { schemaArn = Prelude.Nothing,
+      updatedTime = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      registryName = Prelude.Nothing,
+      schemaName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      schemaStatus = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) for the schema.
-sliSchemaARN :: Lens' SchemaListItem (Maybe Text)
-sliSchemaARN = lens _sliSchemaARN (\s a -> s {_sliSchemaARN = a})
+schemaListItem_schemaArn :: Lens.Lens' SchemaListItem (Prelude.Maybe Prelude.Text)
+schemaListItem_schemaArn = Lens.lens (\SchemaListItem' {schemaArn} -> schemaArn) (\s@SchemaListItem' {} a -> s {schemaArn = a} :: SchemaListItem)
 
 -- | The date and time that a schema was updated.
-sliUpdatedTime :: Lens' SchemaListItem (Maybe Text)
-sliUpdatedTime = lens _sliUpdatedTime (\s a -> s {_sliUpdatedTime = a})
+schemaListItem_updatedTime :: Lens.Lens' SchemaListItem (Prelude.Maybe Prelude.Text)
+schemaListItem_updatedTime = Lens.lens (\SchemaListItem' {updatedTime} -> updatedTime) (\s@SchemaListItem' {} a -> s {updatedTime = a} :: SchemaListItem)
 
 -- | The date and time that a schema was created.
-sliCreatedTime :: Lens' SchemaListItem (Maybe Text)
-sliCreatedTime = lens _sliCreatedTime (\s a -> s {_sliCreatedTime = a})
+schemaListItem_createdTime :: Lens.Lens' SchemaListItem (Prelude.Maybe Prelude.Text)
+schemaListItem_createdTime = Lens.lens (\SchemaListItem' {createdTime} -> createdTime) (\s@SchemaListItem' {} a -> s {createdTime = a} :: SchemaListItem)
 
 -- | the name of the registry where the schema resides.
-sliRegistryName :: Lens' SchemaListItem (Maybe Text)
-sliRegistryName = lens _sliRegistryName (\s a -> s {_sliRegistryName = a})
+schemaListItem_registryName :: Lens.Lens' SchemaListItem (Prelude.Maybe Prelude.Text)
+schemaListItem_registryName = Lens.lens (\SchemaListItem' {registryName} -> registryName) (\s@SchemaListItem' {} a -> s {registryName = a} :: SchemaListItem)
 
 -- | The name of the schema.
-sliSchemaName :: Lens' SchemaListItem (Maybe Text)
-sliSchemaName = lens _sliSchemaName (\s a -> s {_sliSchemaName = a})
+schemaListItem_schemaName :: Lens.Lens' SchemaListItem (Prelude.Maybe Prelude.Text)
+schemaListItem_schemaName = Lens.lens (\SchemaListItem' {schemaName} -> schemaName) (\s@SchemaListItem' {} a -> s {schemaName = a} :: SchemaListItem)
 
 -- | A description for the schema.
-sliDescription :: Lens' SchemaListItem (Maybe Text)
-sliDescription = lens _sliDescription (\s a -> s {_sliDescription = a})
+schemaListItem_description :: Lens.Lens' SchemaListItem (Prelude.Maybe Prelude.Text)
+schemaListItem_description = Lens.lens (\SchemaListItem' {description} -> description) (\s@SchemaListItem' {} a -> s {description = a} :: SchemaListItem)
 
 -- | The status of the schema.
-sliSchemaStatus :: Lens' SchemaListItem (Maybe SchemaStatus)
-sliSchemaStatus = lens _sliSchemaStatus (\s a -> s {_sliSchemaStatus = a})
+schemaListItem_schemaStatus :: Lens.Lens' SchemaListItem (Prelude.Maybe SchemaStatus)
+schemaListItem_schemaStatus = Lens.lens (\SchemaListItem' {schemaStatus} -> schemaStatus) (\s@SchemaListItem' {} a -> s {schemaStatus = a} :: SchemaListItem)
 
-instance FromJSON SchemaListItem where
+instance Prelude.FromJSON SchemaListItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SchemaListItem"
       ( \x ->
           SchemaListItem'
-            <$> (x .:? "SchemaArn")
-            <*> (x .:? "UpdatedTime")
-            <*> (x .:? "CreatedTime")
-            <*> (x .:? "RegistryName")
-            <*> (x .:? "SchemaName")
-            <*> (x .:? "Description")
-            <*> (x .:? "SchemaStatus")
+            Prelude.<$> (x Prelude..:? "SchemaArn")
+            Prelude.<*> (x Prelude..:? "UpdatedTime")
+            Prelude.<*> (x Prelude..:? "CreatedTime")
+            Prelude.<*> (x Prelude..:? "RegistryName")
+            Prelude.<*> (x Prelude..:? "SchemaName")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "SchemaStatus")
       )
 
-instance Hashable SchemaListItem
+instance Prelude.Hashable SchemaListItem
 
-instance NFData SchemaListItem
+instance Prelude.NFData SchemaListItem

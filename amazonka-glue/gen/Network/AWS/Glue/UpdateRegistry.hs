@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing registry which is used to hold a collection of schemas. The updated properties relate to the registry, and do not modify any of the schemas within the registry.
+-- Updates an existing registry which is used to hold a collection of
+-- schemas. The updated properties relate to the registry, and do not
+-- modify any of the schemas within the registry.
 module Network.AWS.Glue.UpdateRegistry
   ( -- * Creating a Request
-    updateRegistry,
-    UpdateRegistry,
+    UpdateRegistry (..),
+    newUpdateRegistry,
 
     -- * Request Lenses
-    urRegistryId,
-    urDescription,
+    updateRegistry_registryId,
+    updateRegistry_description,
 
     -- * Destructuring the Response
-    updateRegistryResponse,
-    UpdateRegistryResponse,
+    UpdateRegistryResponse (..),
+    newUpdateRegistryResponse,
 
     -- * Response Lenses
-    urrrsRegistryName,
-    urrrsRegistryARN,
-    urrrsResponseStatus,
+    updateRegistryResponse_registryName,
+    updateRegistryResponse_registryArn,
+    updateRegistryResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateRegistry' smart constructor.
+-- | /See:/ 'newUpdateRegistry' smart constructor.
 data UpdateRegistry = UpdateRegistry'
-  { _urRegistryId ::
-      !RegistryId,
-    _urDescription :: !Text
+  { -- | This is a wrapper structure that may contain the registry name and
+    -- Amazon Resource Name (ARN).
+    registryId :: RegistryId,
+    -- | A description of the registry. If description is not provided, this
+    -- field will not be updated.
+    description :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRegistry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRegistry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urRegistryId' - This is a wrapper structure that may contain the registry name and Amazon Resource Name (ARN).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urDescription' - A description of the registry. If description is not provided, this field will not be updated.
-updateRegistry ::
-  -- | 'urRegistryId'
+-- 'registryId', 'updateRegistry_registryId' - This is a wrapper structure that may contain the registry name and
+-- Amazon Resource Name (ARN).
+--
+-- 'description', 'updateRegistry_description' - A description of the registry. If description is not provided, this
+-- field will not be updated.
+newUpdateRegistry ::
+  -- | 'registryId'
   RegistryId ->
-  -- | 'urDescription'
-  Text ->
+  -- | 'description'
+  Prelude.Text ->
   UpdateRegistry
-updateRegistry pRegistryId_ pDescription_ =
+newUpdateRegistry pRegistryId_ pDescription_ =
   UpdateRegistry'
-    { _urRegistryId = pRegistryId_,
-      _urDescription = pDescription_
+    { registryId = pRegistryId_,
+      description = pDescription_
     }
 
--- | This is a wrapper structure that may contain the registry name and Amazon Resource Name (ARN).
-urRegistryId :: Lens' UpdateRegistry RegistryId
-urRegistryId = lens _urRegistryId (\s a -> s {_urRegistryId = a})
+-- | This is a wrapper structure that may contain the registry name and
+-- Amazon Resource Name (ARN).
+updateRegistry_registryId :: Lens.Lens' UpdateRegistry RegistryId
+updateRegistry_registryId = Lens.lens (\UpdateRegistry' {registryId} -> registryId) (\s@UpdateRegistry' {} a -> s {registryId = a} :: UpdateRegistry)
 
--- | A description of the registry. If description is not provided, this field will not be updated.
-urDescription :: Lens' UpdateRegistry Text
-urDescription = lens _urDescription (\s a -> s {_urDescription = a})
+-- | A description of the registry. If description is not provided, this
+-- field will not be updated.
+updateRegistry_description :: Lens.Lens' UpdateRegistry Prelude.Text
+updateRegistry_description = Lens.lens (\UpdateRegistry' {description} -> description) (\s@UpdateRegistry' {} a -> s {description = a} :: UpdateRegistry)
 
-instance AWSRequest UpdateRegistry where
+instance Prelude.AWSRequest UpdateRegistry where
   type Rs UpdateRegistry = UpdateRegistryResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateRegistryResponse'
-            <$> (x .?> "RegistryName")
-            <*> (x .?> "RegistryArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RegistryName")
+            Prelude.<*> (x Prelude..?> "RegistryArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateRegistry
+instance Prelude.Hashable UpdateRegistry
 
-instance NFData UpdateRegistry
+instance Prelude.NFData UpdateRegistry
 
-instance ToHeaders UpdateRegistry where
+instance Prelude.ToHeaders UpdateRegistry where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.UpdateRegistry" :: ByteString),
+              Prelude.=# ("AWSGlue.UpdateRegistry" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateRegistry where
+instance Prelude.ToJSON UpdateRegistry where
   toJSON UpdateRegistry' {..} =
-    object
-      ( catMaybes
-          [ Just ("RegistryId" .= _urRegistryId),
-            Just ("Description" .= _urDescription)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("RegistryId" Prelude..= registryId),
+            Prelude.Just ("Description" Prelude..= description)
           ]
       )
 
-instance ToPath UpdateRegistry where
-  toPath = const "/"
+instance Prelude.ToPath UpdateRegistry where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateRegistry where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateRegistry where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRegistryResponse' smart constructor.
+-- | /See:/ 'newUpdateRegistryResponse' smart constructor.
 data UpdateRegistryResponse = UpdateRegistryResponse'
-  { _urrrsRegistryName ::
-      !(Maybe Text),
-    _urrrsRegistryARN ::
-      !(Maybe Text),
-    _urrrsResponseStatus ::
-      !Int
+  { -- | The name of the updated registry.
+    registryName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource name (ARN) of the updated registry.
+    registryArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRegistryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRegistryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrrsRegistryName' - The name of the updated registry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urrrsRegistryARN' - The Amazon Resource name (ARN) of the updated registry.
+-- 'registryName', 'updateRegistryResponse_registryName' - The name of the updated registry.
 --
--- * 'urrrsResponseStatus' - -- | The response status code.
-updateRegistryResponse ::
-  -- | 'urrrsResponseStatus'
-  Int ->
+-- 'registryArn', 'updateRegistryResponse_registryArn' - The Amazon Resource name (ARN) of the updated registry.
+--
+-- 'httpStatus', 'updateRegistryResponse_httpStatus' - The response's http status code.
+newUpdateRegistryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateRegistryResponse
-updateRegistryResponse pResponseStatus_ =
+newUpdateRegistryResponse pHttpStatus_ =
   UpdateRegistryResponse'
-    { _urrrsRegistryName =
-        Nothing,
-      _urrrsRegistryARN = Nothing,
-      _urrrsResponseStatus = pResponseStatus_
+    { registryName =
+        Prelude.Nothing,
+      registryArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the updated registry.
-urrrsRegistryName :: Lens' UpdateRegistryResponse (Maybe Text)
-urrrsRegistryName = lens _urrrsRegistryName (\s a -> s {_urrrsRegistryName = a})
+updateRegistryResponse_registryName :: Lens.Lens' UpdateRegistryResponse (Prelude.Maybe Prelude.Text)
+updateRegistryResponse_registryName = Lens.lens (\UpdateRegistryResponse' {registryName} -> registryName) (\s@UpdateRegistryResponse' {} a -> s {registryName = a} :: UpdateRegistryResponse)
 
 -- | The Amazon Resource name (ARN) of the updated registry.
-urrrsRegistryARN :: Lens' UpdateRegistryResponse (Maybe Text)
-urrrsRegistryARN = lens _urrrsRegistryARN (\s a -> s {_urrrsRegistryARN = a})
+updateRegistryResponse_registryArn :: Lens.Lens' UpdateRegistryResponse (Prelude.Maybe Prelude.Text)
+updateRegistryResponse_registryArn = Lens.lens (\UpdateRegistryResponse' {registryArn} -> registryArn) (\s@UpdateRegistryResponse' {} a -> s {registryArn = a} :: UpdateRegistryResponse)
 
--- | -- | The response status code.
-urrrsResponseStatus :: Lens' UpdateRegistryResponse Int
-urrrsResponseStatus = lens _urrrsResponseStatus (\s a -> s {_urrrsResponseStatus = a})
+-- | The response's http status code.
+updateRegistryResponse_httpStatus :: Lens.Lens' UpdateRegistryResponse Prelude.Int
+updateRegistryResponse_httpStatus = Lens.lens (\UpdateRegistryResponse' {httpStatus} -> httpStatus) (\s@UpdateRegistryResponse' {} a -> s {httpStatus = a} :: UpdateRegistryResponse)
 
-instance NFData UpdateRegistryResponse
+instance Prelude.NFData UpdateRegistryResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Glue.Types.UpdateBehavior
   ( UpdateBehavior
       ( ..,
-        Log,
-        UpdateInDatabase
+        UpdateBehaviorLOG,
+        UpdateBehaviorUPDATEINDATABASE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UpdateBehavior = UpdateBehavior' (CI Text)
+newtype UpdateBehavior = UpdateBehavior'
+  { fromUpdateBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Log :: UpdateBehavior
-pattern Log = UpdateBehavior' "LOG"
+pattern UpdateBehaviorLOG :: UpdateBehavior
+pattern UpdateBehaviorLOG = UpdateBehavior' "LOG"
 
-pattern UpdateInDatabase :: UpdateBehavior
-pattern UpdateInDatabase = UpdateBehavior' "UPDATE_IN_DATABASE"
+pattern UpdateBehaviorUPDATEINDATABASE :: UpdateBehavior
+pattern UpdateBehaviorUPDATEINDATABASE = UpdateBehavior' "UPDATE_IN_DATABASE"
 
 {-# COMPLETE
-  Log,
-  UpdateInDatabase,
+  UpdateBehaviorLOG,
+  UpdateBehaviorUPDATEINDATABASE,
   UpdateBehavior'
   #-}
 
-instance FromText UpdateBehavior where
-  parser = (UpdateBehavior' . mk) <$> takeText
+instance Prelude.FromText UpdateBehavior where
+  parser = UpdateBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText UpdateBehavior where
-  toText (UpdateBehavior' ci) = original ci
+instance Prelude.ToText UpdateBehavior where
+  toText (UpdateBehavior' x) = x
 
-instance Hashable UpdateBehavior
+instance Prelude.Hashable UpdateBehavior
 
-instance NFData UpdateBehavior
+instance Prelude.NFData UpdateBehavior
 
-instance ToByteString UpdateBehavior
+instance Prelude.ToByteString UpdateBehavior
 
-instance ToQuery UpdateBehavior
+instance Prelude.ToQuery UpdateBehavior
 
-instance ToHeader UpdateBehavior
+instance Prelude.ToHeader UpdateBehavior
 
-instance ToJSON UpdateBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON UpdateBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON UpdateBehavior where
-  parseJSON = parseJSONText "UpdateBehavior"
+instance Prelude.FromJSON UpdateBehavior where
+  parseJSON = Prelude.parseJSONText "UpdateBehavior"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Glue.Types.RecrawlBehavior
   ( RecrawlBehavior
       ( ..,
-        CrawlEverything,
-        CrawlNewFoldersOnly
+        RecrawlBehaviorCRAWLEVERYTHING,
+        RecrawlBehaviorCRAWLNEWFOLDERSONLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecrawlBehavior = RecrawlBehavior' (CI Text)
+newtype RecrawlBehavior = RecrawlBehavior'
+  { fromRecrawlBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CrawlEverything :: RecrawlBehavior
-pattern CrawlEverything = RecrawlBehavior' "CRAWL_EVERYTHING"
+pattern RecrawlBehaviorCRAWLEVERYTHING :: RecrawlBehavior
+pattern RecrawlBehaviorCRAWLEVERYTHING = RecrawlBehavior' "CRAWL_EVERYTHING"
 
-pattern CrawlNewFoldersOnly :: RecrawlBehavior
-pattern CrawlNewFoldersOnly = RecrawlBehavior' "CRAWL_NEW_FOLDERS_ONLY"
+pattern RecrawlBehaviorCRAWLNEWFOLDERSONLY :: RecrawlBehavior
+pattern RecrawlBehaviorCRAWLNEWFOLDERSONLY = RecrawlBehavior' "CRAWL_NEW_FOLDERS_ONLY"
 
 {-# COMPLETE
-  CrawlEverything,
-  CrawlNewFoldersOnly,
+  RecrawlBehaviorCRAWLEVERYTHING,
+  RecrawlBehaviorCRAWLNEWFOLDERSONLY,
   RecrawlBehavior'
   #-}
 
-instance FromText RecrawlBehavior where
-  parser = (RecrawlBehavior' . mk) <$> takeText
+instance Prelude.FromText RecrawlBehavior where
+  parser = RecrawlBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText RecrawlBehavior where
-  toText (RecrawlBehavior' ci) = original ci
+instance Prelude.ToText RecrawlBehavior where
+  toText (RecrawlBehavior' x) = x
 
-instance Hashable RecrawlBehavior
+instance Prelude.Hashable RecrawlBehavior
 
-instance NFData RecrawlBehavior
+instance Prelude.NFData RecrawlBehavior
 
-instance ToByteString RecrawlBehavior
+instance Prelude.ToByteString RecrawlBehavior
 
-instance ToQuery RecrawlBehavior
+instance Prelude.ToQuery RecrawlBehavior
 
-instance ToHeader RecrawlBehavior
+instance Prelude.ToHeader RecrawlBehavior
 
-instance ToJSON RecrawlBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON RecrawlBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RecrawlBehavior where
-  parseJSON = parseJSONText "RecrawlBehavior"
+instance Prelude.FromJSON RecrawlBehavior where
+  parseJSON = Prelude.parseJSONText "RecrawlBehavior"

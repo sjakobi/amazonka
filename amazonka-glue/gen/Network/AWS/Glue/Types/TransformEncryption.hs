@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,69 +20,77 @@
 module Network.AWS.Glue.Types.TransformEncryption where
 
 import Network.AWS.Glue.Types.MLUserDataEncryption
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The encryption-at-rest settings of the transform that apply to accessing user data. Machine learning transforms can access user data encrypted in Amazon S3 using KMS.
+-- | The encryption-at-rest settings of the transform that apply to accessing
+-- user data. Machine learning transforms can access user data encrypted in
+-- Amazon S3 using KMS.
 --
+-- Additionally, imported labels and trained transforms can now be
+-- encrypted using a customer provided KMS key.
 --
--- Additionally, imported labels and trained transforms can now be encrypted using a customer provided KMS key.
---
---
--- /See:/ 'transformEncryption' smart constructor.
+-- /See:/ 'newTransformEncryption' smart constructor.
 data TransformEncryption = TransformEncryption'
-  { _teMlUserDataEncryption ::
-      !(Maybe MLUserDataEncryption),
-    _teTaskRunSecurityConfigurationName ::
-      !(Maybe Text)
+  { -- | An @MLUserDataEncryption@ object containing the encryption mode and
+    -- customer-provided KMS key ID.
+    mlUserDataEncryption :: Prelude.Maybe MLUserDataEncryption,
+    -- | The name of the security configuration.
+    taskRunSecurityConfigurationName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransformEncryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransformEncryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'teMlUserDataEncryption' - An @MLUserDataEncryption@ object containing the encryption mode and customer-provided KMS key ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'teTaskRunSecurityConfigurationName' - The name of the security configuration.
-transformEncryption ::
+-- 'mlUserDataEncryption', 'transformEncryption_mlUserDataEncryption' - An @MLUserDataEncryption@ object containing the encryption mode and
+-- customer-provided KMS key ID.
+--
+-- 'taskRunSecurityConfigurationName', 'transformEncryption_taskRunSecurityConfigurationName' - The name of the security configuration.
+newTransformEncryption ::
   TransformEncryption
-transformEncryption =
+newTransformEncryption =
   TransformEncryption'
-    { _teMlUserDataEncryption =
-        Nothing,
-      _teTaskRunSecurityConfigurationName = Nothing
+    { mlUserDataEncryption =
+        Prelude.Nothing,
+      taskRunSecurityConfigurationName = Prelude.Nothing
     }
 
--- | An @MLUserDataEncryption@ object containing the encryption mode and customer-provided KMS key ID.
-teMlUserDataEncryption :: Lens' TransformEncryption (Maybe MLUserDataEncryption)
-teMlUserDataEncryption = lens _teMlUserDataEncryption (\s a -> s {_teMlUserDataEncryption = a})
+-- | An @MLUserDataEncryption@ object containing the encryption mode and
+-- customer-provided KMS key ID.
+transformEncryption_mlUserDataEncryption :: Lens.Lens' TransformEncryption (Prelude.Maybe MLUserDataEncryption)
+transformEncryption_mlUserDataEncryption = Lens.lens (\TransformEncryption' {mlUserDataEncryption} -> mlUserDataEncryption) (\s@TransformEncryption' {} a -> s {mlUserDataEncryption = a} :: TransformEncryption)
 
 -- | The name of the security configuration.
-teTaskRunSecurityConfigurationName :: Lens' TransformEncryption (Maybe Text)
-teTaskRunSecurityConfigurationName = lens _teTaskRunSecurityConfigurationName (\s a -> s {_teTaskRunSecurityConfigurationName = a})
+transformEncryption_taskRunSecurityConfigurationName :: Lens.Lens' TransformEncryption (Prelude.Maybe Prelude.Text)
+transformEncryption_taskRunSecurityConfigurationName = Lens.lens (\TransformEncryption' {taskRunSecurityConfigurationName} -> taskRunSecurityConfigurationName) (\s@TransformEncryption' {} a -> s {taskRunSecurityConfigurationName = a} :: TransformEncryption)
 
-instance FromJSON TransformEncryption where
+instance Prelude.FromJSON TransformEncryption where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TransformEncryption"
       ( \x ->
           TransformEncryption'
-            <$> (x .:? "MlUserDataEncryption")
-            <*> (x .:? "TaskRunSecurityConfigurationName")
+            Prelude.<$> (x Prelude..:? "MlUserDataEncryption")
+            Prelude.<*> (x Prelude..:? "TaskRunSecurityConfigurationName")
       )
 
-instance Hashable TransformEncryption
+instance Prelude.Hashable TransformEncryption
 
-instance NFData TransformEncryption
+instance Prelude.NFData TransformEncryption
 
-instance ToJSON TransformEncryption where
+instance Prelude.ToJSON TransformEncryption where
   toJSON TransformEncryption' {..} =
-    object
-      ( catMaybes
-          [ ("MlUserDataEncryption" .=)
-              <$> _teMlUserDataEncryption,
-            ("TaskRunSecurityConfigurationName" .=)
-              <$> _teTaskRunSecurityConfigurationName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MlUserDataEncryption" Prelude..=)
+              Prelude.<$> mlUserDataEncryption,
+            ("TaskRunSecurityConfigurationName" Prelude..=)
+              Prelude.<$> taskRunSecurityConfigurationName
           ]
       )

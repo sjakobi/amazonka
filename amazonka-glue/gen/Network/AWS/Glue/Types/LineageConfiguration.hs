@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,72 @@
 module Network.AWS.Glue.Types.LineageConfiguration where
 
 import Network.AWS.Glue.Types.CrawlerLineageSettings
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies data lineage configuration settings for the crawler.
 --
---
---
--- /See:/ 'lineageConfiguration' smart constructor.
-newtype LineageConfiguration = LineageConfiguration'
-  { _lcCrawlerLineageSettings ::
-      Maybe
-        CrawlerLineageSettings
+-- /See:/ 'newLineageConfiguration' smart constructor.
+data LineageConfiguration = LineageConfiguration'
+  { -- | Specifies whether data lineage is enabled for the crawler. Valid values
+    -- are:
+    --
+    -- -   ENABLE: enables data lineage for the crawler
+    --
+    -- -   DISABLE: disables data lineage for the crawler
+    crawlerLineageSettings :: Prelude.Maybe CrawlerLineageSettings
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LineageConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LineageConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcCrawlerLineageSettings' - Specifies whether data lineage is enabled for the crawler. Valid values are:     * ENABLE: enables data lineage for the crawler     * DISABLE: disables data lineage for the crawler
-lineageConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'crawlerLineageSettings', 'lineageConfiguration_crawlerLineageSettings' - Specifies whether data lineage is enabled for the crawler. Valid values
+-- are:
+--
+-- -   ENABLE: enables data lineage for the crawler
+--
+-- -   DISABLE: disables data lineage for the crawler
+newLineageConfiguration ::
   LineageConfiguration
-lineageConfiguration =
+newLineageConfiguration =
   LineageConfiguration'
-    { _lcCrawlerLineageSettings =
-        Nothing
+    { crawlerLineageSettings =
+        Prelude.Nothing
     }
 
--- | Specifies whether data lineage is enabled for the crawler. Valid values are:     * ENABLE: enables data lineage for the crawler     * DISABLE: disables data lineage for the crawler
-lcCrawlerLineageSettings :: Lens' LineageConfiguration (Maybe CrawlerLineageSettings)
-lcCrawlerLineageSettings = lens _lcCrawlerLineageSettings (\s a -> s {_lcCrawlerLineageSettings = a})
+-- | Specifies whether data lineage is enabled for the crawler. Valid values
+-- are:
+--
+-- -   ENABLE: enables data lineage for the crawler
+--
+-- -   DISABLE: disables data lineage for the crawler
+lineageConfiguration_crawlerLineageSettings :: Lens.Lens' LineageConfiguration (Prelude.Maybe CrawlerLineageSettings)
+lineageConfiguration_crawlerLineageSettings = Lens.lens (\LineageConfiguration' {crawlerLineageSettings} -> crawlerLineageSettings) (\s@LineageConfiguration' {} a -> s {crawlerLineageSettings = a} :: LineageConfiguration)
 
-instance FromJSON LineageConfiguration where
+instance Prelude.FromJSON LineageConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LineageConfiguration"
       ( \x ->
           LineageConfiguration'
-            <$> (x .:? "CrawlerLineageSettings")
+            Prelude.<$> (x Prelude..:? "CrawlerLineageSettings")
       )
 
-instance Hashable LineageConfiguration
+instance Prelude.Hashable LineageConfiguration
 
-instance NFData LineageConfiguration
+instance Prelude.NFData LineageConfiguration
 
-instance ToJSON LineageConfiguration where
+instance Prelude.ToJSON LineageConfiguration where
   toJSON LineageConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("CrawlerLineageSettings" .=)
-              <$> _lcCrawlerLineageSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CrawlerLineageSettings" Prelude..=)
+              Prelude.<$> crawlerLineageSettings
           ]
       )

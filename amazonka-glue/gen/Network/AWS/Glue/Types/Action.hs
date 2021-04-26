@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,106 +20,168 @@
 module Network.AWS.Glue.Types.Action where
 
 import Network.AWS.Glue.Types.NotificationProperty
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines an action to be initiated by a trigger.
 --
---
---
--- /See:/ 'action' smart constructor.
+-- /See:/ 'newAction' smart constructor.
 data Action = Action'
-  { _aSecurityConfiguration ::
-      !(Maybe Text),
-    _aCrawlerName :: !(Maybe Text),
-    _aTimeout :: !(Maybe Nat),
-    _aNotificationProperty ::
-      !(Maybe NotificationProperty),
-    _aJobName :: !(Maybe Text),
-    _aArguments :: !(Maybe (Map Text Text))
+  { -- | The name of the @SecurityConfiguration@ structure to be used with this
+    -- action.
+    securityConfiguration :: Prelude.Maybe Prelude.Text,
+    -- | The name of the crawler to be used with this action.
+    crawlerName :: Prelude.Maybe Prelude.Text,
+    -- | The @JobRun@ timeout in minutes. This is the maximum time that a job run
+    -- can consume resources before it is terminated and enters @TIMEOUT@
+    -- status. The default is 2,880 minutes (48 hours). This overrides the
+    -- timeout value set in the parent job.
+    timeout :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies configuration properties of a job run notification.
+    notificationProperty :: Prelude.Maybe NotificationProperty,
+    -- | The name of a job to be executed.
+    jobName :: Prelude.Maybe Prelude.Text,
+    -- | The job arguments used when this trigger fires. For this job run, they
+    -- replace the default arguments set in the job definition itself.
+    --
+    -- You can specify arguments here that your own job-execution script
+    -- consumes, as well as arguments that AWS Glue itself consumes.
+    --
+    -- For information about how to specify and consume your own Job arguments,
+    -- see the
+    -- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python>
+    -- topic in the developer guide.
+    --
+    -- For information about the key-value pairs that AWS Glue consumes to set
+    -- up your job, see the
+    -- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue>
+    -- topic in the developer guide.
+    arguments :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Action' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Action' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aSecurityConfiguration' - The name of the @SecurityConfiguration@ structure to be used with this action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aCrawlerName' - The name of the crawler to be used with this action.
+-- 'securityConfiguration', 'action_securityConfiguration' - The name of the @SecurityConfiguration@ structure to be used with this
+-- action.
 --
--- * 'aTimeout' - The @JobRun@ timeout in minutes. This is the maximum time that a job run can consume resources before it is terminated and enters @TIMEOUT@ status. The default is 2,880 minutes (48 hours). This overrides the timeout value set in the parent job.
+-- 'crawlerName', 'action_crawlerName' - The name of the crawler to be used with this action.
 --
--- * 'aNotificationProperty' - Specifies configuration properties of a job run notification.
+-- 'timeout', 'action_timeout' - The @JobRun@ timeout in minutes. This is the maximum time that a job run
+-- can consume resources before it is terminated and enters @TIMEOUT@
+-- status. The default is 2,880 minutes (48 hours). This overrides the
+-- timeout value set in the parent job.
 --
--- * 'aJobName' - The name of a job to be executed.
+-- 'notificationProperty', 'action_notificationProperty' - Specifies configuration properties of a job run notification.
 --
--- * 'aArguments' - The job arguments used when this trigger fires. For this job run, they replace the default arguments set in the job definition itself. You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue itself consumes. For information about how to specify and consume your own Job arguments, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python> topic in the developer guide. For information about the key-value pairs that AWS Glue consumes to set up your job, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue> topic in the developer guide.
-action ::
+-- 'jobName', 'action_jobName' - The name of a job to be executed.
+--
+-- 'arguments', 'action_arguments' - The job arguments used when this trigger fires. For this job run, they
+-- replace the default arguments set in the job definition itself.
+--
+-- You can specify arguments here that your own job-execution script
+-- consumes, as well as arguments that AWS Glue itself consumes.
+--
+-- For information about how to specify and consume your own Job arguments,
+-- see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python>
+-- topic in the developer guide.
+--
+-- For information about the key-value pairs that AWS Glue consumes to set
+-- up your job, see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue>
+-- topic in the developer guide.
+newAction ::
   Action
-action =
+newAction =
   Action'
-    { _aSecurityConfiguration = Nothing,
-      _aCrawlerName = Nothing,
-      _aTimeout = Nothing,
-      _aNotificationProperty = Nothing,
-      _aJobName = Nothing,
-      _aArguments = Nothing
+    { securityConfiguration = Prelude.Nothing,
+      crawlerName = Prelude.Nothing,
+      timeout = Prelude.Nothing,
+      notificationProperty = Prelude.Nothing,
+      jobName = Prelude.Nothing,
+      arguments = Prelude.Nothing
     }
 
--- | The name of the @SecurityConfiguration@ structure to be used with this action.
-aSecurityConfiguration :: Lens' Action (Maybe Text)
-aSecurityConfiguration = lens _aSecurityConfiguration (\s a -> s {_aSecurityConfiguration = a})
+-- | The name of the @SecurityConfiguration@ structure to be used with this
+-- action.
+action_securityConfiguration :: Lens.Lens' Action (Prelude.Maybe Prelude.Text)
+action_securityConfiguration = Lens.lens (\Action' {securityConfiguration} -> securityConfiguration) (\s@Action' {} a -> s {securityConfiguration = a} :: Action)
 
 -- | The name of the crawler to be used with this action.
-aCrawlerName :: Lens' Action (Maybe Text)
-aCrawlerName = lens _aCrawlerName (\s a -> s {_aCrawlerName = a})
+action_crawlerName :: Lens.Lens' Action (Prelude.Maybe Prelude.Text)
+action_crawlerName = Lens.lens (\Action' {crawlerName} -> crawlerName) (\s@Action' {} a -> s {crawlerName = a} :: Action)
 
--- | The @JobRun@ timeout in minutes. This is the maximum time that a job run can consume resources before it is terminated and enters @TIMEOUT@ status. The default is 2,880 minutes (48 hours). This overrides the timeout value set in the parent job.
-aTimeout :: Lens' Action (Maybe Natural)
-aTimeout = lens _aTimeout (\s a -> s {_aTimeout = a}) . mapping _Nat
+-- | The @JobRun@ timeout in minutes. This is the maximum time that a job run
+-- can consume resources before it is terminated and enters @TIMEOUT@
+-- status. The default is 2,880 minutes (48 hours). This overrides the
+-- timeout value set in the parent job.
+action_timeout :: Lens.Lens' Action (Prelude.Maybe Prelude.Natural)
+action_timeout = Lens.lens (\Action' {timeout} -> timeout) (\s@Action' {} a -> s {timeout = a} :: Action) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Specifies configuration properties of a job run notification.
-aNotificationProperty :: Lens' Action (Maybe NotificationProperty)
-aNotificationProperty = lens _aNotificationProperty (\s a -> s {_aNotificationProperty = a})
+action_notificationProperty :: Lens.Lens' Action (Prelude.Maybe NotificationProperty)
+action_notificationProperty = Lens.lens (\Action' {notificationProperty} -> notificationProperty) (\s@Action' {} a -> s {notificationProperty = a} :: Action)
 
 -- | The name of a job to be executed.
-aJobName :: Lens' Action (Maybe Text)
-aJobName = lens _aJobName (\s a -> s {_aJobName = a})
+action_jobName :: Lens.Lens' Action (Prelude.Maybe Prelude.Text)
+action_jobName = Lens.lens (\Action' {jobName} -> jobName) (\s@Action' {} a -> s {jobName = a} :: Action)
 
--- | The job arguments used when this trigger fires. For this job run, they replace the default arguments set in the job definition itself. You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue itself consumes. For information about how to specify and consume your own Job arguments, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python> topic in the developer guide. For information about the key-value pairs that AWS Glue consumes to set up your job, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue> topic in the developer guide.
-aArguments :: Lens' Action (HashMap Text Text)
-aArguments = lens _aArguments (\s a -> s {_aArguments = a}) . _Default . _Map
+-- | The job arguments used when this trigger fires. For this job run, they
+-- replace the default arguments set in the job definition itself.
+--
+-- You can specify arguments here that your own job-execution script
+-- consumes, as well as arguments that AWS Glue itself consumes.
+--
+-- For information about how to specify and consume your own Job arguments,
+-- see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python>
+-- topic in the developer guide.
+--
+-- For information about the key-value pairs that AWS Glue consumes to set
+-- up your job, see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue>
+-- topic in the developer guide.
+action_arguments :: Lens.Lens' Action (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+action_arguments = Lens.lens (\Action' {arguments} -> arguments) (\s@Action' {} a -> s {arguments = a} :: Action) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON Action where
+instance Prelude.FromJSON Action where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Action"
       ( \x ->
           Action'
-            <$> (x .:? "SecurityConfiguration")
-            <*> (x .:? "CrawlerName")
-            <*> (x .:? "Timeout")
-            <*> (x .:? "NotificationProperty")
-            <*> (x .:? "JobName")
-            <*> (x .:? "Arguments" .!= mempty)
+            Prelude.<$> (x Prelude..:? "SecurityConfiguration")
+            Prelude.<*> (x Prelude..:? "CrawlerName")
+            Prelude.<*> (x Prelude..:? "Timeout")
+            Prelude.<*> (x Prelude..:? "NotificationProperty")
+            Prelude.<*> (x Prelude..:? "JobName")
+            Prelude.<*> ( x Prelude..:? "Arguments"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Action
+instance Prelude.Hashable Action
 
-instance NFData Action
+instance Prelude.NFData Action
 
-instance ToJSON Action where
+instance Prelude.ToJSON Action where
   toJSON Action' {..} =
-    object
-      ( catMaybes
-          [ ("SecurityConfiguration" .=)
-              <$> _aSecurityConfiguration,
-            ("CrawlerName" .=) <$> _aCrawlerName,
-            ("Timeout" .=) <$> _aTimeout,
-            ("NotificationProperty" .=)
-              <$> _aNotificationProperty,
-            ("JobName" .=) <$> _aJobName,
-            ("Arguments" .=) <$> _aArguments
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SecurityConfiguration" Prelude..=)
+              Prelude.<$> securityConfiguration,
+            ("CrawlerName" Prelude..=) Prelude.<$> crawlerName,
+            ("Timeout" Prelude..=) Prelude.<$> timeout,
+            ("NotificationProperty" Prelude..=)
+              Prelude.<$> notificationProperty,
+            ("JobName" Prelude..=) Prelude.<$> jobName,
+            ("Arguments" Prelude..=) Prelude.<$> arguments
           ]
       )

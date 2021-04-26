@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,131 +24,137 @@
 -- Creates a new database in a Data Catalog.
 module Network.AWS.Glue.CreateDatabase
   ( -- * Creating a Request
-    createDatabase,
-    CreateDatabase,
+    CreateDatabase (..),
+    newCreateDatabase,
 
     -- * Request Lenses
-    cdCatalogId,
-    cdDatabaseInput,
+    createDatabase_catalogId,
+    createDatabase_databaseInput,
 
     -- * Destructuring the Response
-    createDatabaseResponse,
-    CreateDatabaseResponse,
+    CreateDatabaseResponse (..),
+    newCreateDatabaseResponse,
 
     -- * Response Lenses
-    cdrrsResponseStatus,
+    createDatabaseResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDatabase' smart constructor.
+-- | /See:/ 'newCreateDatabase' smart constructor.
 data CreateDatabase = CreateDatabase'
-  { _cdCatalogId ::
-      !(Maybe Text),
-    _cdDatabaseInput :: !DatabaseInput
+  { -- | The ID of the Data Catalog in which to create the database. If none is
+    -- provided, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The metadata for the database.
+    databaseInput :: DatabaseInput
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDatabase' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDatabase' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdCatalogId' - The ID of the Data Catalog in which to create the database. If none is provided, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdDatabaseInput' - The metadata for the database.
-createDatabase ::
-  -- | 'cdDatabaseInput'
+-- 'catalogId', 'createDatabase_catalogId' - The ID of the Data Catalog in which to create the database. If none is
+-- provided, the AWS account ID is used by default.
+--
+-- 'databaseInput', 'createDatabase_databaseInput' - The metadata for the database.
+newCreateDatabase ::
+  -- | 'databaseInput'
   DatabaseInput ->
   CreateDatabase
-createDatabase pDatabaseInput_ =
+newCreateDatabase pDatabaseInput_ =
   CreateDatabase'
-    { _cdCatalogId = Nothing,
-      _cdDatabaseInput = pDatabaseInput_
+    { catalogId = Prelude.Nothing,
+      databaseInput = pDatabaseInput_
     }
 
--- | The ID of the Data Catalog in which to create the database. If none is provided, the AWS account ID is used by default.
-cdCatalogId :: Lens' CreateDatabase (Maybe Text)
-cdCatalogId = lens _cdCatalogId (\s a -> s {_cdCatalogId = a})
+-- | The ID of the Data Catalog in which to create the database. If none is
+-- provided, the AWS account ID is used by default.
+createDatabase_catalogId :: Lens.Lens' CreateDatabase (Prelude.Maybe Prelude.Text)
+createDatabase_catalogId = Lens.lens (\CreateDatabase' {catalogId} -> catalogId) (\s@CreateDatabase' {} a -> s {catalogId = a} :: CreateDatabase)
 
 -- | The metadata for the database.
-cdDatabaseInput :: Lens' CreateDatabase DatabaseInput
-cdDatabaseInput = lens _cdDatabaseInput (\s a -> s {_cdDatabaseInput = a})
+createDatabase_databaseInput :: Lens.Lens' CreateDatabase DatabaseInput
+createDatabase_databaseInput = Lens.lens (\CreateDatabase' {databaseInput} -> databaseInput) (\s@CreateDatabase' {} a -> s {databaseInput = a} :: CreateDatabase)
 
-instance AWSRequest CreateDatabase where
+instance Prelude.AWSRequest CreateDatabase where
   type Rs CreateDatabase = CreateDatabaseResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CreateDatabaseResponse' <$> (pure (fromEnum s))
+          CreateDatabaseResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDatabase
+instance Prelude.Hashable CreateDatabase
 
-instance NFData CreateDatabase
+instance Prelude.NFData CreateDatabase
 
-instance ToHeaders CreateDatabase where
+instance Prelude.ToHeaders CreateDatabase where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.CreateDatabase" :: ByteString),
+              Prelude.=# ("AWSGlue.CreateDatabase" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateDatabase where
+instance Prelude.ToJSON CreateDatabase where
   toJSON CreateDatabase' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _cdCatalogId,
-            Just ("DatabaseInput" .= _cdDatabaseInput)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseInput" Prelude..= databaseInput)
           ]
       )
 
-instance ToPath CreateDatabase where
-  toPath = const "/"
+instance Prelude.ToPath CreateDatabase where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDatabase where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDatabase where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDatabaseResponse' smart constructor.
-newtype CreateDatabaseResponse = CreateDatabaseResponse'
-  { _cdrrsResponseStatus ::
-      Int
+-- | /See:/ 'newCreateDatabaseResponse' smart constructor.
+data CreateDatabaseResponse = CreateDatabaseResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDatabaseResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDatabaseResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdrrsResponseStatus' - -- | The response status code.
-createDatabaseResponse ::
-  -- | 'cdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createDatabaseResponse_httpStatus' - The response's http status code.
+newCreateDatabaseResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDatabaseResponse
-createDatabaseResponse pResponseStatus_ =
-  CreateDatabaseResponse'
-    { _cdrrsResponseStatus =
-        pResponseStatus_
-    }
+newCreateDatabaseResponse pHttpStatus_ =
+  CreateDatabaseResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-cdrrsResponseStatus :: Lens' CreateDatabaseResponse Int
-cdrrsResponseStatus = lens _cdrrsResponseStatus (\s a -> s {_cdrrsResponseStatus = a})
+-- | The response's http status code.
+createDatabaseResponse_httpStatus :: Lens.Lens' CreateDatabaseResponse Prelude.Int
+createDatabaseResponse_httpStatus = Lens.lens (\CreateDatabaseResponse' {httpStatus} -> httpStatus) (\s@CreateDatabaseResponse' {} a -> s {httpStatus = a} :: CreateDatabaseResponse)
 
-instance NFData CreateDatabaseResponse
+instance Prelude.NFData CreateDatabaseResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.DataLakePrincipal where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The AWS Lake Formation principal.
 --
---
---
--- /See:/ 'dataLakePrincipal' smart constructor.
-newtype DataLakePrincipal = DataLakePrincipal'
-  { _dlpDataLakePrincipalIdentifier ::
-      Maybe Text
+-- /See:/ 'newDataLakePrincipal' smart constructor.
+data DataLakePrincipal = DataLakePrincipal'
+  { -- | An identifier for the AWS Lake Formation principal.
+    dataLakePrincipalIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataLakePrincipal' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataLakePrincipal' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlpDataLakePrincipalIdentifier' - An identifier for the AWS Lake Formation principal.
-dataLakePrincipal ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dataLakePrincipalIdentifier', 'dataLakePrincipal_dataLakePrincipalIdentifier' - An identifier for the AWS Lake Formation principal.
+newDataLakePrincipal ::
   DataLakePrincipal
-dataLakePrincipal =
+newDataLakePrincipal =
   DataLakePrincipal'
-    { _dlpDataLakePrincipalIdentifier =
-        Nothing
+    { dataLakePrincipalIdentifier =
+        Prelude.Nothing
     }
 
 -- | An identifier for the AWS Lake Formation principal.
-dlpDataLakePrincipalIdentifier :: Lens' DataLakePrincipal (Maybe Text)
-dlpDataLakePrincipalIdentifier = lens _dlpDataLakePrincipalIdentifier (\s a -> s {_dlpDataLakePrincipalIdentifier = a})
+dataLakePrincipal_dataLakePrincipalIdentifier :: Lens.Lens' DataLakePrincipal (Prelude.Maybe Prelude.Text)
+dataLakePrincipal_dataLakePrincipalIdentifier = Lens.lens (\DataLakePrincipal' {dataLakePrincipalIdentifier} -> dataLakePrincipalIdentifier) (\s@DataLakePrincipal' {} a -> s {dataLakePrincipalIdentifier = a} :: DataLakePrincipal)
 
-instance FromJSON DataLakePrincipal where
+instance Prelude.FromJSON DataLakePrincipal where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DataLakePrincipal"
       ( \x ->
           DataLakePrincipal'
-            <$> (x .:? "DataLakePrincipalIdentifier")
+            Prelude.<$> (x Prelude..:? "DataLakePrincipalIdentifier")
       )
 
-instance Hashable DataLakePrincipal
+instance Prelude.Hashable DataLakePrincipal
 
-instance NFData DataLakePrincipal
+instance Prelude.NFData DataLakePrincipal
 
-instance ToJSON DataLakePrincipal where
+instance Prelude.ToJSON DataLakePrincipal where
   toJSON DataLakePrincipal' {..} =
-    object
-      ( catMaybes
-          [ ("DataLakePrincipalIdentifier" .=)
-              <$> _dlpDataLakePrincipalIdentifier
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DataLakePrincipalIdentifier" Prelude..=)
+              Prelude.<$> dataLakePrincipalIdentifier
           ]
       )

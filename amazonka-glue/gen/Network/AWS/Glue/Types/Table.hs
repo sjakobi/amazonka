@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,209 +22,266 @@ module Network.AWS.Glue.Types.Table where
 import Network.AWS.Glue.Types.Column
 import Network.AWS.Glue.Types.StorageDescriptor
 import Network.AWS.Glue.Types.TableIdentifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a collection of related data organized in columns and rows.
 --
---
---
--- /See:/ 'table' smart constructor.
+-- /See:/ 'newTable' smart constructor.
 data Table = Table'
-  { _ttViewOriginalText ::
-      !(Maybe Text),
-    _ttCatalogId :: !(Maybe Text),
-    _ttTableType :: !(Maybe Text),
-    _ttStorageDescriptor :: !(Maybe StorageDescriptor),
-    _ttLastAnalyzedTime :: !(Maybe POSIX),
-    _ttViewExpandedText :: !(Maybe Text),
-    _ttTargetTable :: !(Maybe TableIdentifier),
-    _ttRetention :: !(Maybe Nat),
-    _ttUpdateTime :: !(Maybe POSIX),
-    _ttCreateTime :: !(Maybe POSIX),
-    _ttOwner :: !(Maybe Text),
-    _ttPartitionKeys :: !(Maybe [Column]),
-    _ttDescription :: !(Maybe Text),
-    _ttLastAccessTime :: !(Maybe POSIX),
-    _ttCreatedBy :: !(Maybe Text),
-    _ttIsRegisteredWithLakeFormation :: !(Maybe Bool),
-    _ttParameters :: !(Maybe (Map Text Text)),
-    _ttDatabaseName :: !(Maybe Text),
-    _ttName :: !Text
+  { -- | If the table is a view, the original text of the view; otherwise @null@.
+    viewOriginalText :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Data Catalog in which the table resides.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The type of this table (@EXTERNAL_TABLE@, @VIRTUAL_VIEW@, etc.).
+    tableType :: Prelude.Maybe Prelude.Text,
+    -- | A storage descriptor containing information about the physical storage
+    -- of this table.
+    storageDescriptor :: Prelude.Maybe StorageDescriptor,
+    -- | The last time that column statistics were computed for this table.
+    lastAnalyzedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | If the table is a view, the expanded text of the view; otherwise @null@.
+    viewExpandedText :: Prelude.Maybe Prelude.Text,
+    -- | A @TableIdentifier@ structure that describes a target table for resource
+    -- linking.
+    targetTable :: Prelude.Maybe TableIdentifier,
+    -- | The retention time for this table.
+    retention :: Prelude.Maybe Prelude.Nat,
+    -- | The last time that the table was updated.
+    updateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time when the table definition was created in the Data Catalog.
+    createTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The owner of the table.
+    owner :: Prelude.Maybe Prelude.Text,
+    -- | A list of columns by which the table is partitioned. Only primitive
+    -- types are supported as partition keys.
+    --
+    -- When you create a table used by Amazon Athena, and you do not specify
+    -- any @partitionKeys@, you must at least set the value of @partitionKeys@
+    -- to an empty list. For example:
+    --
+    -- @\"PartitionKeys\": []@
+    partitionKeys :: Prelude.Maybe [Column],
+    -- | A description of the table.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The last time that the table was accessed. This is usually taken from
+    -- HDFS, and might not be reliable.
+    lastAccessTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The person or entity who created the table.
+    createdBy :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the table has been registered with AWS Lake Formation.
+    isRegisteredWithLakeFormation :: Prelude.Maybe Prelude.Bool,
+    -- | These key-value pairs define properties associated with the table.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the database where the table metadata resides. For Hive
+    -- compatibility, this must be all lowercase.
+    databaseName :: Prelude.Maybe Prelude.Text,
+    -- | The table name. For Hive compatibility, this must be entirely lowercase.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Table' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Table' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ttViewOriginalText' - If the table is a view, the original text of the view; otherwise @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ttCatalogId' - The ID of the Data Catalog in which the table resides.
+-- 'viewOriginalText', 'table_viewOriginalText' - If the table is a view, the original text of the view; otherwise @null@.
 --
--- * 'ttTableType' - The type of this table (@EXTERNAL_TABLE@ , @VIRTUAL_VIEW@ , etc.).
+-- 'catalogId', 'table_catalogId' - The ID of the Data Catalog in which the table resides.
 --
--- * 'ttStorageDescriptor' - A storage descriptor containing information about the physical storage of this table.
+-- 'tableType', 'table_tableType' - The type of this table (@EXTERNAL_TABLE@, @VIRTUAL_VIEW@, etc.).
 --
--- * 'ttLastAnalyzedTime' - The last time that column statistics were computed for this table.
+-- 'storageDescriptor', 'table_storageDescriptor' - A storage descriptor containing information about the physical storage
+-- of this table.
 --
--- * 'ttViewExpandedText' - If the table is a view, the expanded text of the view; otherwise @null@ .
+-- 'lastAnalyzedTime', 'table_lastAnalyzedTime' - The last time that column statistics were computed for this table.
 --
--- * 'ttTargetTable' - A @TableIdentifier@ structure that describes a target table for resource linking.
+-- 'viewExpandedText', 'table_viewExpandedText' - If the table is a view, the expanded text of the view; otherwise @null@.
 --
--- * 'ttRetention' - The retention time for this table.
+-- 'targetTable', 'table_targetTable' - A @TableIdentifier@ structure that describes a target table for resource
+-- linking.
 --
--- * 'ttUpdateTime' - The last time that the table was updated.
+-- 'retention', 'table_retention' - The retention time for this table.
 --
--- * 'ttCreateTime' - The time when the table definition was created in the Data Catalog.
+-- 'updateTime', 'table_updateTime' - The last time that the table was updated.
 --
--- * 'ttOwner' - The owner of the table.
+-- 'createTime', 'table_createTime' - The time when the table definition was created in the Data Catalog.
 --
--- * 'ttPartitionKeys' - A list of columns by which the table is partitioned. Only primitive types are supported as partition keys. When you create a table used by Amazon Athena, and you do not specify any @partitionKeys@ , you must at least set the value of @partitionKeys@ to an empty list. For example: @"PartitionKeys": []@
+-- 'owner', 'table_owner' - The owner of the table.
 --
--- * 'ttDescription' - A description of the table.
+-- 'partitionKeys', 'table_partitionKeys' - A list of columns by which the table is partitioned. Only primitive
+-- types are supported as partition keys.
 --
--- * 'ttLastAccessTime' - The last time that the table was accessed. This is usually taken from HDFS, and might not be reliable.
+-- When you create a table used by Amazon Athena, and you do not specify
+-- any @partitionKeys@, you must at least set the value of @partitionKeys@
+-- to an empty list. For example:
 --
--- * 'ttCreatedBy' - The person or entity who created the table.
+-- @\"PartitionKeys\": []@
 --
--- * 'ttIsRegisteredWithLakeFormation' - Indicates whether the table has been registered with AWS Lake Formation.
+-- 'description', 'table_description' - A description of the table.
 --
--- * 'ttParameters' - These key-value pairs define properties associated with the table.
+-- 'lastAccessTime', 'table_lastAccessTime' - The last time that the table was accessed. This is usually taken from
+-- HDFS, and might not be reliable.
 --
--- * 'ttDatabaseName' - The name of the database where the table metadata resides. For Hive compatibility, this must be all lowercase.
+-- 'createdBy', 'table_createdBy' - The person or entity who created the table.
 --
--- * 'ttName' - The table name. For Hive compatibility, this must be entirely lowercase.
-table ::
-  -- | 'ttName'
-  Text ->
+-- 'isRegisteredWithLakeFormation', 'table_isRegisteredWithLakeFormation' - Indicates whether the table has been registered with AWS Lake Formation.
+--
+-- 'parameters', 'table_parameters' - These key-value pairs define properties associated with the table.
+--
+-- 'databaseName', 'table_databaseName' - The name of the database where the table metadata resides. For Hive
+-- compatibility, this must be all lowercase.
+--
+-- 'name', 'table_name' - The table name. For Hive compatibility, this must be entirely lowercase.
+newTable ::
+  -- | 'name'
+  Prelude.Text ->
   Table
-table pName_ =
+newTable pName_ =
   Table'
-    { _ttViewOriginalText = Nothing,
-      _ttCatalogId = Nothing,
-      _ttTableType = Nothing,
-      _ttStorageDescriptor = Nothing,
-      _ttLastAnalyzedTime = Nothing,
-      _ttViewExpandedText = Nothing,
-      _ttTargetTable = Nothing,
-      _ttRetention = Nothing,
-      _ttUpdateTime = Nothing,
-      _ttCreateTime = Nothing,
-      _ttOwner = Nothing,
-      _ttPartitionKeys = Nothing,
-      _ttDescription = Nothing,
-      _ttLastAccessTime = Nothing,
-      _ttCreatedBy = Nothing,
-      _ttIsRegisteredWithLakeFormation = Nothing,
-      _ttParameters = Nothing,
-      _ttDatabaseName = Nothing,
-      _ttName = pName_
+    { viewOriginalText = Prelude.Nothing,
+      catalogId = Prelude.Nothing,
+      tableType = Prelude.Nothing,
+      storageDescriptor = Prelude.Nothing,
+      lastAnalyzedTime = Prelude.Nothing,
+      viewExpandedText = Prelude.Nothing,
+      targetTable = Prelude.Nothing,
+      retention = Prelude.Nothing,
+      updateTime = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      owner = Prelude.Nothing,
+      partitionKeys = Prelude.Nothing,
+      description = Prelude.Nothing,
+      lastAccessTime = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      isRegisteredWithLakeFormation = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      databaseName = Prelude.Nothing,
+      name = pName_
     }
 
--- | If the table is a view, the original text of the view; otherwise @null@ .
-ttViewOriginalText :: Lens' Table (Maybe Text)
-ttViewOriginalText = lens _ttViewOriginalText (\s a -> s {_ttViewOriginalText = a})
+-- | If the table is a view, the original text of the view; otherwise @null@.
+table_viewOriginalText :: Lens.Lens' Table (Prelude.Maybe Prelude.Text)
+table_viewOriginalText = Lens.lens (\Table' {viewOriginalText} -> viewOriginalText) (\s@Table' {} a -> s {viewOriginalText = a} :: Table)
 
 -- | The ID of the Data Catalog in which the table resides.
-ttCatalogId :: Lens' Table (Maybe Text)
-ttCatalogId = lens _ttCatalogId (\s a -> s {_ttCatalogId = a})
+table_catalogId :: Lens.Lens' Table (Prelude.Maybe Prelude.Text)
+table_catalogId = Lens.lens (\Table' {catalogId} -> catalogId) (\s@Table' {} a -> s {catalogId = a} :: Table)
 
--- | The type of this table (@EXTERNAL_TABLE@ , @VIRTUAL_VIEW@ , etc.).
-ttTableType :: Lens' Table (Maybe Text)
-ttTableType = lens _ttTableType (\s a -> s {_ttTableType = a})
+-- | The type of this table (@EXTERNAL_TABLE@, @VIRTUAL_VIEW@, etc.).
+table_tableType :: Lens.Lens' Table (Prelude.Maybe Prelude.Text)
+table_tableType = Lens.lens (\Table' {tableType} -> tableType) (\s@Table' {} a -> s {tableType = a} :: Table)
 
--- | A storage descriptor containing information about the physical storage of this table.
-ttStorageDescriptor :: Lens' Table (Maybe StorageDescriptor)
-ttStorageDescriptor = lens _ttStorageDescriptor (\s a -> s {_ttStorageDescriptor = a})
+-- | A storage descriptor containing information about the physical storage
+-- of this table.
+table_storageDescriptor :: Lens.Lens' Table (Prelude.Maybe StorageDescriptor)
+table_storageDescriptor = Lens.lens (\Table' {storageDescriptor} -> storageDescriptor) (\s@Table' {} a -> s {storageDescriptor = a} :: Table)
 
 -- | The last time that column statistics were computed for this table.
-ttLastAnalyzedTime :: Lens' Table (Maybe UTCTime)
-ttLastAnalyzedTime = lens _ttLastAnalyzedTime (\s a -> s {_ttLastAnalyzedTime = a}) . mapping _Time
+table_lastAnalyzedTime :: Lens.Lens' Table (Prelude.Maybe Prelude.UTCTime)
+table_lastAnalyzedTime = Lens.lens (\Table' {lastAnalyzedTime} -> lastAnalyzedTime) (\s@Table' {} a -> s {lastAnalyzedTime = a} :: Table) Prelude.. Lens.mapping Prelude._Time
 
--- | If the table is a view, the expanded text of the view; otherwise @null@ .
-ttViewExpandedText :: Lens' Table (Maybe Text)
-ttViewExpandedText = lens _ttViewExpandedText (\s a -> s {_ttViewExpandedText = a})
+-- | If the table is a view, the expanded text of the view; otherwise @null@.
+table_viewExpandedText :: Lens.Lens' Table (Prelude.Maybe Prelude.Text)
+table_viewExpandedText = Lens.lens (\Table' {viewExpandedText} -> viewExpandedText) (\s@Table' {} a -> s {viewExpandedText = a} :: Table)
 
--- | A @TableIdentifier@ structure that describes a target table for resource linking.
-ttTargetTable :: Lens' Table (Maybe TableIdentifier)
-ttTargetTable = lens _ttTargetTable (\s a -> s {_ttTargetTable = a})
+-- | A @TableIdentifier@ structure that describes a target table for resource
+-- linking.
+table_targetTable :: Lens.Lens' Table (Prelude.Maybe TableIdentifier)
+table_targetTable = Lens.lens (\Table' {targetTable} -> targetTable) (\s@Table' {} a -> s {targetTable = a} :: Table)
 
 -- | The retention time for this table.
-ttRetention :: Lens' Table (Maybe Natural)
-ttRetention = lens _ttRetention (\s a -> s {_ttRetention = a}) . mapping _Nat
+table_retention :: Lens.Lens' Table (Prelude.Maybe Prelude.Natural)
+table_retention = Lens.lens (\Table' {retention} -> retention) (\s@Table' {} a -> s {retention = a} :: Table) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The last time that the table was updated.
-ttUpdateTime :: Lens' Table (Maybe UTCTime)
-ttUpdateTime = lens _ttUpdateTime (\s a -> s {_ttUpdateTime = a}) . mapping _Time
+table_updateTime :: Lens.Lens' Table (Prelude.Maybe Prelude.UTCTime)
+table_updateTime = Lens.lens (\Table' {updateTime} -> updateTime) (\s@Table' {} a -> s {updateTime = a} :: Table) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time when the table definition was created in the Data Catalog.
-ttCreateTime :: Lens' Table (Maybe UTCTime)
-ttCreateTime = lens _ttCreateTime (\s a -> s {_ttCreateTime = a}) . mapping _Time
+table_createTime :: Lens.Lens' Table (Prelude.Maybe Prelude.UTCTime)
+table_createTime = Lens.lens (\Table' {createTime} -> createTime) (\s@Table' {} a -> s {createTime = a} :: Table) Prelude.. Lens.mapping Prelude._Time
 
 -- | The owner of the table.
-ttOwner :: Lens' Table (Maybe Text)
-ttOwner = lens _ttOwner (\s a -> s {_ttOwner = a})
+table_owner :: Lens.Lens' Table (Prelude.Maybe Prelude.Text)
+table_owner = Lens.lens (\Table' {owner} -> owner) (\s@Table' {} a -> s {owner = a} :: Table)
 
--- | A list of columns by which the table is partitioned. Only primitive types are supported as partition keys. When you create a table used by Amazon Athena, and you do not specify any @partitionKeys@ , you must at least set the value of @partitionKeys@ to an empty list. For example: @"PartitionKeys": []@
-ttPartitionKeys :: Lens' Table [Column]
-ttPartitionKeys = lens _ttPartitionKeys (\s a -> s {_ttPartitionKeys = a}) . _Default . _Coerce
+-- | A list of columns by which the table is partitioned. Only primitive
+-- types are supported as partition keys.
+--
+-- When you create a table used by Amazon Athena, and you do not specify
+-- any @partitionKeys@, you must at least set the value of @partitionKeys@
+-- to an empty list. For example:
+--
+-- @\"PartitionKeys\": []@
+table_partitionKeys :: Lens.Lens' Table (Prelude.Maybe [Column])
+table_partitionKeys = Lens.lens (\Table' {partitionKeys} -> partitionKeys) (\s@Table' {} a -> s {partitionKeys = a} :: Table) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the table.
-ttDescription :: Lens' Table (Maybe Text)
-ttDescription = lens _ttDescription (\s a -> s {_ttDescription = a})
+table_description :: Lens.Lens' Table (Prelude.Maybe Prelude.Text)
+table_description = Lens.lens (\Table' {description} -> description) (\s@Table' {} a -> s {description = a} :: Table)
 
--- | The last time that the table was accessed. This is usually taken from HDFS, and might not be reliable.
-ttLastAccessTime :: Lens' Table (Maybe UTCTime)
-ttLastAccessTime = lens _ttLastAccessTime (\s a -> s {_ttLastAccessTime = a}) . mapping _Time
+-- | The last time that the table was accessed. This is usually taken from
+-- HDFS, and might not be reliable.
+table_lastAccessTime :: Lens.Lens' Table (Prelude.Maybe Prelude.UTCTime)
+table_lastAccessTime = Lens.lens (\Table' {lastAccessTime} -> lastAccessTime) (\s@Table' {} a -> s {lastAccessTime = a} :: Table) Prelude.. Lens.mapping Prelude._Time
 
 -- | The person or entity who created the table.
-ttCreatedBy :: Lens' Table (Maybe Text)
-ttCreatedBy = lens _ttCreatedBy (\s a -> s {_ttCreatedBy = a})
+table_createdBy :: Lens.Lens' Table (Prelude.Maybe Prelude.Text)
+table_createdBy = Lens.lens (\Table' {createdBy} -> createdBy) (\s@Table' {} a -> s {createdBy = a} :: Table)
 
 -- | Indicates whether the table has been registered with AWS Lake Formation.
-ttIsRegisteredWithLakeFormation :: Lens' Table (Maybe Bool)
-ttIsRegisteredWithLakeFormation = lens _ttIsRegisteredWithLakeFormation (\s a -> s {_ttIsRegisteredWithLakeFormation = a})
+table_isRegisteredWithLakeFormation :: Lens.Lens' Table (Prelude.Maybe Prelude.Bool)
+table_isRegisteredWithLakeFormation = Lens.lens (\Table' {isRegisteredWithLakeFormation} -> isRegisteredWithLakeFormation) (\s@Table' {} a -> s {isRegisteredWithLakeFormation = a} :: Table)
 
 -- | These key-value pairs define properties associated with the table.
-ttParameters :: Lens' Table (HashMap Text Text)
-ttParameters = lens _ttParameters (\s a -> s {_ttParameters = a}) . _Default . _Map
+table_parameters :: Lens.Lens' Table (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+table_parameters = Lens.lens (\Table' {parameters} -> parameters) (\s@Table' {} a -> s {parameters = a} :: Table) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the database where the table metadata resides. For Hive compatibility, this must be all lowercase.
-ttDatabaseName :: Lens' Table (Maybe Text)
-ttDatabaseName = lens _ttDatabaseName (\s a -> s {_ttDatabaseName = a})
+-- | The name of the database where the table metadata resides. For Hive
+-- compatibility, this must be all lowercase.
+table_databaseName :: Lens.Lens' Table (Prelude.Maybe Prelude.Text)
+table_databaseName = Lens.lens (\Table' {databaseName} -> databaseName) (\s@Table' {} a -> s {databaseName = a} :: Table)
 
 -- | The table name. For Hive compatibility, this must be entirely lowercase.
-ttName :: Lens' Table Text
-ttName = lens _ttName (\s a -> s {_ttName = a})
+table_name :: Lens.Lens' Table Prelude.Text
+table_name = Lens.lens (\Table' {name} -> name) (\s@Table' {} a -> s {name = a} :: Table)
 
-instance FromJSON Table where
+instance Prelude.FromJSON Table where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Table"
       ( \x ->
           Table'
-            <$> (x .:? "ViewOriginalText")
-            <*> (x .:? "CatalogId")
-            <*> (x .:? "TableType")
-            <*> (x .:? "StorageDescriptor")
-            <*> (x .:? "LastAnalyzedTime")
-            <*> (x .:? "ViewExpandedText")
-            <*> (x .:? "TargetTable")
-            <*> (x .:? "Retention")
-            <*> (x .:? "UpdateTime")
-            <*> (x .:? "CreateTime")
-            <*> (x .:? "Owner")
-            <*> (x .:? "PartitionKeys" .!= mempty)
-            <*> (x .:? "Description")
-            <*> (x .:? "LastAccessTime")
-            <*> (x .:? "CreatedBy")
-            <*> (x .:? "IsRegisteredWithLakeFormation")
-            <*> (x .:? "Parameters" .!= mempty)
-            <*> (x .:? "DatabaseName")
-            <*> (x .: "Name")
+            Prelude.<$> (x Prelude..:? "ViewOriginalText")
+            Prelude.<*> (x Prelude..:? "CatalogId")
+            Prelude.<*> (x Prelude..:? "TableType")
+            Prelude.<*> (x Prelude..:? "StorageDescriptor")
+            Prelude.<*> (x Prelude..:? "LastAnalyzedTime")
+            Prelude.<*> (x Prelude..:? "ViewExpandedText")
+            Prelude.<*> (x Prelude..:? "TargetTable")
+            Prelude.<*> (x Prelude..:? "Retention")
+            Prelude.<*> (x Prelude..:? "UpdateTime")
+            Prelude.<*> (x Prelude..:? "CreateTime")
+            Prelude.<*> (x Prelude..:? "Owner")
+            Prelude.<*> ( x Prelude..:? "PartitionKeys"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "LastAccessTime")
+            Prelude.<*> (x Prelude..:? "CreatedBy")
+            Prelude.<*> (x Prelude..:? "IsRegisteredWithLakeFormation")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DatabaseName")
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable Table
+instance Prelude.Hashable Table
 
-instance NFData Table
+instance Prelude.NFData Table

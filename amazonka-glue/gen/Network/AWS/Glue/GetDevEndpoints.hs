@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,165 +23,193 @@
 --
 -- Retrieves all the development endpoints in this AWS account.
 --
---
+-- When you create a development endpoint in a virtual private cloud (VPC),
+-- AWS Glue returns only a private IP address and the public IP address
+-- field is not populated. When you create a non-VPC development endpoint,
+-- AWS Glue returns only a public IP address.
 --
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetDevEndpoints
   ( -- * Creating a Request
-    getDevEndpoints,
-    GetDevEndpoints,
+    GetDevEndpoints (..),
+    newGetDevEndpoints,
 
     -- * Request Lenses
-    gdeNextToken,
-    gdeMaxResults,
+    getDevEndpoints_nextToken,
+    getDevEndpoints_maxResults,
 
     -- * Destructuring the Response
-    getDevEndpointsResponse,
-    GetDevEndpointsResponse,
+    GetDevEndpointsResponse (..),
+    newGetDevEndpointsResponse,
 
     -- * Response Lenses
-    gderdrsNextToken,
-    gderdrsDevEndpoints,
-    gderdrsResponseStatus,
+    getDevEndpointsResponse_nextToken,
+    getDevEndpointsResponse_devEndpoints,
+    getDevEndpointsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.DevEndpoint
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDevEndpoints' smart constructor.
+-- | /See:/ 'newGetDevEndpoints' smart constructor.
 data GetDevEndpoints = GetDevEndpoints'
-  { _gdeNextToken ::
-      !(Maybe Text),
-    _gdeMaxResults :: !(Maybe Nat)
+  { -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of information to return.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevEndpoints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevEndpoints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdeNextToken' - A continuation token, if this is a continuation call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdeMaxResults' - The maximum size of information to return.
-getDevEndpoints ::
+-- 'nextToken', 'getDevEndpoints_nextToken' - A continuation token, if this is a continuation call.
+--
+-- 'maxResults', 'getDevEndpoints_maxResults' - The maximum size of information to return.
+newGetDevEndpoints ::
   GetDevEndpoints
-getDevEndpoints =
+newGetDevEndpoints =
   GetDevEndpoints'
-    { _gdeNextToken = Nothing,
-      _gdeMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | A continuation token, if this is a continuation call.
-gdeNextToken :: Lens' GetDevEndpoints (Maybe Text)
-gdeNextToken = lens _gdeNextToken (\s a -> s {_gdeNextToken = a})
+getDevEndpoints_nextToken :: Lens.Lens' GetDevEndpoints (Prelude.Maybe Prelude.Text)
+getDevEndpoints_nextToken = Lens.lens (\GetDevEndpoints' {nextToken} -> nextToken) (\s@GetDevEndpoints' {} a -> s {nextToken = a} :: GetDevEndpoints)
 
 -- | The maximum size of information to return.
-gdeMaxResults :: Lens' GetDevEndpoints (Maybe Natural)
-gdeMaxResults = lens _gdeMaxResults (\s a -> s {_gdeMaxResults = a}) . mapping _Nat
+getDevEndpoints_maxResults :: Lens.Lens' GetDevEndpoints (Prelude.Maybe Prelude.Natural)
+getDevEndpoints_maxResults = Lens.lens (\GetDevEndpoints' {maxResults} -> maxResults) (\s@GetDevEndpoints' {} a -> s {maxResults = a} :: GetDevEndpoints) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager GetDevEndpoints where
+instance Pager.AWSPager GetDevEndpoints where
   page rq rs
-    | stop (rs ^. gderdrsNextToken) = Nothing
-    | stop (rs ^. gderdrsDevEndpoints) = Nothing
-    | otherwise =
-      Just $ rq & gdeNextToken .~ rs ^. gderdrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getDevEndpointsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getDevEndpointsResponse_devEndpoints
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getDevEndpoints_nextToken
+          Lens..~ rs
+          Lens.^? getDevEndpointsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetDevEndpoints where
+instance Prelude.AWSRequest GetDevEndpoints where
   type Rs GetDevEndpoints = GetDevEndpointsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDevEndpointsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "DevEndpoints" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "DevEndpoints"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDevEndpoints
+instance Prelude.Hashable GetDevEndpoints
 
-instance NFData GetDevEndpoints
+instance Prelude.NFData GetDevEndpoints
 
-instance ToHeaders GetDevEndpoints where
+instance Prelude.ToHeaders GetDevEndpoints where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetDevEndpoints" :: ByteString),
+              Prelude.=# ("AWSGlue.GetDevEndpoints" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDevEndpoints where
+instance Prelude.ToJSON GetDevEndpoints where
   toJSON GetDevEndpoints' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gdeNextToken,
-            ("MaxResults" .=) <$> _gdeMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath GetDevEndpoints where
-  toPath = const "/"
+instance Prelude.ToPath GetDevEndpoints where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDevEndpoints where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDevEndpoints where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDevEndpointsResponse' smart constructor.
+-- | /See:/ 'newGetDevEndpointsResponse' smart constructor.
 data GetDevEndpointsResponse = GetDevEndpointsResponse'
-  { _gderdrsNextToken ::
-      !(Maybe Text),
-    _gderdrsDevEndpoints ::
-      !(Maybe [DevEndpoint]),
-    _gderdrsResponseStatus ::
-      !Int
+  { -- | A continuation token, if not all @DevEndpoint@ definitions have yet been
+    -- returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @DevEndpoint@ definitions.
+    devEndpoints :: Prelude.Maybe [DevEndpoint],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevEndpointsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevEndpointsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gderdrsNextToken' - A continuation token, if not all @DevEndpoint@ definitions have yet been returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gderdrsDevEndpoints' - A list of @DevEndpoint@ definitions.
+-- 'nextToken', 'getDevEndpointsResponse_nextToken' - A continuation token, if not all @DevEndpoint@ definitions have yet been
+-- returned.
 --
--- * 'gderdrsResponseStatus' - -- | The response status code.
-getDevEndpointsResponse ::
-  -- | 'gderdrsResponseStatus'
-  Int ->
+-- 'devEndpoints', 'getDevEndpointsResponse_devEndpoints' - A list of @DevEndpoint@ definitions.
+--
+-- 'httpStatus', 'getDevEndpointsResponse_httpStatus' - The response's http status code.
+newGetDevEndpointsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDevEndpointsResponse
-getDevEndpointsResponse pResponseStatus_ =
+newGetDevEndpointsResponse pHttpStatus_ =
   GetDevEndpointsResponse'
-    { _gderdrsNextToken =
-        Nothing,
-      _gderdrsDevEndpoints = Nothing,
-      _gderdrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      devEndpoints = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if not all @DevEndpoint@ definitions have yet been returned.
-gderdrsNextToken :: Lens' GetDevEndpointsResponse (Maybe Text)
-gderdrsNextToken = lens _gderdrsNextToken (\s a -> s {_gderdrsNextToken = a})
+-- | A continuation token, if not all @DevEndpoint@ definitions have yet been
+-- returned.
+getDevEndpointsResponse_nextToken :: Lens.Lens' GetDevEndpointsResponse (Prelude.Maybe Prelude.Text)
+getDevEndpointsResponse_nextToken = Lens.lens (\GetDevEndpointsResponse' {nextToken} -> nextToken) (\s@GetDevEndpointsResponse' {} a -> s {nextToken = a} :: GetDevEndpointsResponse)
 
 -- | A list of @DevEndpoint@ definitions.
-gderdrsDevEndpoints :: Lens' GetDevEndpointsResponse [DevEndpoint]
-gderdrsDevEndpoints = lens _gderdrsDevEndpoints (\s a -> s {_gderdrsDevEndpoints = a}) . _Default . _Coerce
+getDevEndpointsResponse_devEndpoints :: Lens.Lens' GetDevEndpointsResponse (Prelude.Maybe [DevEndpoint])
+getDevEndpointsResponse_devEndpoints = Lens.lens (\GetDevEndpointsResponse' {devEndpoints} -> devEndpoints) (\s@GetDevEndpointsResponse' {} a -> s {devEndpoints = a} :: GetDevEndpointsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gderdrsResponseStatus :: Lens' GetDevEndpointsResponse Int
-gderdrsResponseStatus = lens _gderdrsResponseStatus (\s a -> s {_gderdrsResponseStatus = a})
+-- | The response's http status code.
+getDevEndpointsResponse_httpStatus :: Lens.Lens' GetDevEndpointsResponse Prelude.Int
+getDevEndpointsResponse_httpStatus = Lens.lens (\GetDevEndpointsResponse' {httpStatus} -> httpStatus) (\s@GetDevEndpointsResponse' {} a -> s {httpStatus = a} :: GetDevEndpointsResponse)
 
-instance NFData GetDevEndpointsResponse
+instance Prelude.NFData GetDevEndpointsResponse

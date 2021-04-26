@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Glue.Types.CrawlerState
   ( CrawlerState
       ( ..,
-        CReady,
-        CRunning,
-        CStopping
+        CrawlerStateREADY,
+        CrawlerStateRUNNING,
+        CrawlerStateSTOPPING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CrawlerState = CrawlerState' (CI Text)
+newtype CrawlerState = CrawlerState'
+  { fromCrawlerState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CReady :: CrawlerState
-pattern CReady = CrawlerState' "READY"
+pattern CrawlerStateREADY :: CrawlerState
+pattern CrawlerStateREADY = CrawlerState' "READY"
 
-pattern CRunning :: CrawlerState
-pattern CRunning = CrawlerState' "RUNNING"
+pattern CrawlerStateRUNNING :: CrawlerState
+pattern CrawlerStateRUNNING = CrawlerState' "RUNNING"
 
-pattern CStopping :: CrawlerState
-pattern CStopping = CrawlerState' "STOPPING"
+pattern CrawlerStateSTOPPING :: CrawlerState
+pattern CrawlerStateSTOPPING = CrawlerState' "STOPPING"
 
 {-# COMPLETE
-  CReady,
-  CRunning,
-  CStopping,
+  CrawlerStateREADY,
+  CrawlerStateRUNNING,
+  CrawlerStateSTOPPING,
   CrawlerState'
   #-}
 
-instance FromText CrawlerState where
-  parser = (CrawlerState' . mk) <$> takeText
+instance Prelude.FromText CrawlerState where
+  parser = CrawlerState' Prelude.<$> Prelude.takeText
 
-instance ToText CrawlerState where
-  toText (CrawlerState' ci) = original ci
+instance Prelude.ToText CrawlerState where
+  toText (CrawlerState' x) = x
 
-instance Hashable CrawlerState
+instance Prelude.Hashable CrawlerState
 
-instance NFData CrawlerState
+instance Prelude.NFData CrawlerState
 
-instance ToByteString CrawlerState
+instance Prelude.ToByteString CrawlerState
 
-instance ToQuery CrawlerState
+instance Prelude.ToQuery CrawlerState
 
-instance ToHeader CrawlerState
+instance Prelude.ToHeader CrawlerState
 
-instance FromJSON CrawlerState where
-  parseJSON = parseJSONText "CrawlerState"
+instance Prelude.FromJSON CrawlerState where
+  parseJSON = Prelude.parseJSONText "CrawlerState"

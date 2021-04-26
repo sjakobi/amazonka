@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the security configuration for a specified catalog. After the configuration has been set, the specified encryption is applied to every catalog write thereafter.
+-- Sets the security configuration for a specified catalog. After the
+-- configuration has been set, the specified encryption is applied to every
+-- catalog write thereafter.
 module Network.AWS.Glue.PutDataCatalogEncryptionSettings
   ( -- * Creating a Request
-    putDataCatalogEncryptionSettings,
-    PutDataCatalogEncryptionSettings,
+    PutDataCatalogEncryptionSettings (..),
+    newPutDataCatalogEncryptionSettings,
 
     -- * Request Lenses
-    pdcesCatalogId,
-    pdcesDataCatalogEncryptionSettings,
+    putDataCatalogEncryptionSettings_catalogId,
+    putDataCatalogEncryptionSettings_dataCatalogEncryptionSettings,
 
     -- * Destructuring the Response
-    putDataCatalogEncryptionSettingsResponse,
-    PutDataCatalogEncryptionSettingsResponse,
+    PutDataCatalogEncryptionSettingsResponse (..),
+    newPutDataCatalogEncryptionSettingsResponse,
 
     -- * Response Lenses
-    pdcesrrsResponseStatus,
+    putDataCatalogEncryptionSettingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putDataCatalogEncryptionSettings' smart constructor.
+-- | /See:/ 'newPutDataCatalogEncryptionSettings' smart constructor.
 data PutDataCatalogEncryptionSettings = PutDataCatalogEncryptionSettings'
-  { _pdcesCatalogId ::
-      !( Maybe
-           Text
-       ),
-    _pdcesDataCatalogEncryptionSettings ::
-      !DataCatalogEncryptionSettings
+  { -- | The ID of the Data Catalog to set the security configuration for. If
+    -- none is provided, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The security configuration to set.
+    dataCatalogEncryptionSettings :: DataCatalogEncryptionSettings
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutDataCatalogEncryptionSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutDataCatalogEncryptionSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdcesCatalogId' - The ID of the Data Catalog to set the security configuration for. If none is provided, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdcesDataCatalogEncryptionSettings' - The security configuration to set.
-putDataCatalogEncryptionSettings ::
-  -- | 'pdcesDataCatalogEncryptionSettings'
+-- 'catalogId', 'putDataCatalogEncryptionSettings_catalogId' - The ID of the Data Catalog to set the security configuration for. If
+-- none is provided, the AWS account ID is used by default.
+--
+-- 'dataCatalogEncryptionSettings', 'putDataCatalogEncryptionSettings_dataCatalogEncryptionSettings' - The security configuration to set.
+newPutDataCatalogEncryptionSettings ::
+  -- | 'dataCatalogEncryptionSettings'
   DataCatalogEncryptionSettings ->
   PutDataCatalogEncryptionSettings
-putDataCatalogEncryptionSettings
+newPutDataCatalogEncryptionSettings
   pDataCatalogEncryptionSettings_ =
     PutDataCatalogEncryptionSettings'
-      { _pdcesCatalogId =
-          Nothing,
-        _pdcesDataCatalogEncryptionSettings =
+      { catalogId =
+          Prelude.Nothing,
+        dataCatalogEncryptionSettings =
           pDataCatalogEncryptionSettings_
       }
 
--- | The ID of the Data Catalog to set the security configuration for. If none is provided, the AWS account ID is used by default.
-pdcesCatalogId :: Lens' PutDataCatalogEncryptionSettings (Maybe Text)
-pdcesCatalogId = lens _pdcesCatalogId (\s a -> s {_pdcesCatalogId = a})
+-- | The ID of the Data Catalog to set the security configuration for. If
+-- none is provided, the AWS account ID is used by default.
+putDataCatalogEncryptionSettings_catalogId :: Lens.Lens' PutDataCatalogEncryptionSettings (Prelude.Maybe Prelude.Text)
+putDataCatalogEncryptionSettings_catalogId = Lens.lens (\PutDataCatalogEncryptionSettings' {catalogId} -> catalogId) (\s@PutDataCatalogEncryptionSettings' {} a -> s {catalogId = a} :: PutDataCatalogEncryptionSettings)
 
 -- | The security configuration to set.
-pdcesDataCatalogEncryptionSettings :: Lens' PutDataCatalogEncryptionSettings DataCatalogEncryptionSettings
-pdcesDataCatalogEncryptionSettings = lens _pdcesDataCatalogEncryptionSettings (\s a -> s {_pdcesDataCatalogEncryptionSettings = a})
+putDataCatalogEncryptionSettings_dataCatalogEncryptionSettings :: Lens.Lens' PutDataCatalogEncryptionSettings DataCatalogEncryptionSettings
+putDataCatalogEncryptionSettings_dataCatalogEncryptionSettings = Lens.lens (\PutDataCatalogEncryptionSettings' {dataCatalogEncryptionSettings} -> dataCatalogEncryptionSettings) (\s@PutDataCatalogEncryptionSettings' {} a -> s {dataCatalogEncryptionSettings = a} :: PutDataCatalogEncryptionSettings)
 
-instance AWSRequest PutDataCatalogEncryptionSettings where
+instance
+  Prelude.AWSRequest
+    PutDataCatalogEncryptionSettings
+  where
   type
     Rs PutDataCatalogEncryptionSettings =
       PutDataCatalogEncryptionSettingsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutDataCatalogEncryptionSettingsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutDataCatalogEncryptionSettings
+instance
+  Prelude.Hashable
+    PutDataCatalogEncryptionSettings
 
-instance NFData PutDataCatalogEncryptionSettings
+instance
+  Prelude.NFData
+    PutDataCatalogEncryptionSettings
 
-instance ToHeaders PutDataCatalogEncryptionSettings where
+instance
+  Prelude.ToHeaders
+    PutDataCatalogEncryptionSettings
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSGlue.PutDataCatalogEncryptionSettings" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSGlue.PutDataCatalogEncryptionSettings" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutDataCatalogEncryptionSettings where
+instance
+  Prelude.ToJSON
+    PutDataCatalogEncryptionSettings
+  where
   toJSON PutDataCatalogEncryptionSettings' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _pdcesCatalogId,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
               ( "DataCatalogEncryptionSettings"
-                  .= _pdcesDataCatalogEncryptionSettings
+                  Prelude..= dataCatalogEncryptionSettings
               )
           ]
       )
 
-instance ToPath PutDataCatalogEncryptionSettings where
-  toPath = const "/"
-
-instance ToQuery PutDataCatalogEncryptionSettings where
-  toQuery = const mempty
-
--- | /See:/ 'putDataCatalogEncryptionSettingsResponse' smart constructor.
-newtype PutDataCatalogEncryptionSettingsResponse = PutDataCatalogEncryptionSettingsResponse'
-  { _pdcesrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'PutDataCatalogEncryptionSettingsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'pdcesrrsResponseStatus' - -- | The response status code.
-putDataCatalogEncryptionSettingsResponse ::
-  -- | 'pdcesrrsResponseStatus'
-  Int ->
-  PutDataCatalogEncryptionSettingsResponse
-putDataCatalogEncryptionSettingsResponse
-  pResponseStatus_ =
-    PutDataCatalogEncryptionSettingsResponse'
-      { _pdcesrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-pdcesrrsResponseStatus :: Lens' PutDataCatalogEncryptionSettingsResponse Int
-pdcesrrsResponseStatus = lens _pdcesrrsResponseStatus (\s a -> s {_pdcesrrsResponseStatus = a})
+instance
+  Prelude.ToPath
+    PutDataCatalogEncryptionSettings
+  where
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    PutDataCatalogEncryptionSettings
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newPutDataCatalogEncryptionSettingsResponse' smart constructor.
+data PutDataCatalogEncryptionSettingsResponse = PutDataCatalogEncryptionSettingsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'PutDataCatalogEncryptionSettingsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putDataCatalogEncryptionSettingsResponse_httpStatus' - The response's http status code.
+newPutDataCatalogEncryptionSettingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  PutDataCatalogEncryptionSettingsResponse
+newPutDataCatalogEncryptionSettingsResponse
+  pHttpStatus_ =
+    PutDataCatalogEncryptionSettingsResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+putDataCatalogEncryptionSettingsResponse_httpStatus :: Lens.Lens' PutDataCatalogEncryptionSettingsResponse Prelude.Int
+putDataCatalogEncryptionSettingsResponse_httpStatus = Lens.lens (\PutDataCatalogEncryptionSettingsResponse' {httpStatus} -> httpStatus) (\s@PutDataCatalogEncryptionSettingsResponse' {} a -> s {httpStatus = a} :: PutDataCatalogEncryptionSettingsResponse)
+
+instance
+  Prelude.NFData
     PutDataCatalogEncryptionSettingsResponse

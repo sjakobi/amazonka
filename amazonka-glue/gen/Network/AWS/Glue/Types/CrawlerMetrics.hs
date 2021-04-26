@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,109 +19,120 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.CrawlerMetrics where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Metrics for a specified crawler.
 --
---
---
--- /See:/ 'crawlerMetrics' smart constructor.
+-- /See:/ 'newCrawlerMetrics' smart constructor.
 data CrawlerMetrics = CrawlerMetrics'
-  { _cmCrawlerName ::
-      !(Maybe Text),
-    _cmTablesDeleted :: !(Maybe Nat),
-    _cmTablesUpdated :: !(Maybe Nat),
-    _cmTablesCreated :: !(Maybe Nat),
-    _cmMedianRuntimeSeconds ::
-      !(Maybe Double),
-    _cmStillEstimating :: !(Maybe Bool),
-    _cmTimeLeftSeconds :: !(Maybe Double),
-    _cmLastRuntimeSeconds :: !(Maybe Double)
+  { -- | The name of the crawler.
+    crawlerName :: Prelude.Maybe Prelude.Text,
+    -- | The number of tables deleted by this crawler.
+    tablesDeleted :: Prelude.Maybe Prelude.Nat,
+    -- | The number of tables updated by this crawler.
+    tablesUpdated :: Prelude.Maybe Prelude.Nat,
+    -- | The number of tables created by this crawler.
+    tablesCreated :: Prelude.Maybe Prelude.Nat,
+    -- | The median duration of this crawler\'s runs, in seconds.
+    medianRuntimeSeconds :: Prelude.Maybe Prelude.Double,
+    -- | True if the crawler is still estimating how long it will take to
+    -- complete this run.
+    stillEstimating :: Prelude.Maybe Prelude.Bool,
+    -- | The estimated time left to complete a running crawl.
+    timeLeftSeconds :: Prelude.Maybe Prelude.Double,
+    -- | The duration of the crawler\'s most recent run, in seconds.
+    lastRuntimeSeconds :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CrawlerMetrics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CrawlerMetrics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmCrawlerName' - The name of the crawler.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmTablesDeleted' - The number of tables deleted by this crawler.
+-- 'crawlerName', 'crawlerMetrics_crawlerName' - The name of the crawler.
 --
--- * 'cmTablesUpdated' - The number of tables updated by this crawler.
+-- 'tablesDeleted', 'crawlerMetrics_tablesDeleted' - The number of tables deleted by this crawler.
 --
--- * 'cmTablesCreated' - The number of tables created by this crawler.
+-- 'tablesUpdated', 'crawlerMetrics_tablesUpdated' - The number of tables updated by this crawler.
 --
--- * 'cmMedianRuntimeSeconds' - The median duration of this crawler's runs, in seconds.
+-- 'tablesCreated', 'crawlerMetrics_tablesCreated' - The number of tables created by this crawler.
 --
--- * 'cmStillEstimating' - True if the crawler is still estimating how long it will take to complete this run.
+-- 'medianRuntimeSeconds', 'crawlerMetrics_medianRuntimeSeconds' - The median duration of this crawler\'s runs, in seconds.
 --
--- * 'cmTimeLeftSeconds' - The estimated time left to complete a running crawl.
+-- 'stillEstimating', 'crawlerMetrics_stillEstimating' - True if the crawler is still estimating how long it will take to
+-- complete this run.
 --
--- * 'cmLastRuntimeSeconds' - The duration of the crawler's most recent run, in seconds.
-crawlerMetrics ::
+-- 'timeLeftSeconds', 'crawlerMetrics_timeLeftSeconds' - The estimated time left to complete a running crawl.
+--
+-- 'lastRuntimeSeconds', 'crawlerMetrics_lastRuntimeSeconds' - The duration of the crawler\'s most recent run, in seconds.
+newCrawlerMetrics ::
   CrawlerMetrics
-crawlerMetrics =
+newCrawlerMetrics =
   CrawlerMetrics'
-    { _cmCrawlerName = Nothing,
-      _cmTablesDeleted = Nothing,
-      _cmTablesUpdated = Nothing,
-      _cmTablesCreated = Nothing,
-      _cmMedianRuntimeSeconds = Nothing,
-      _cmStillEstimating = Nothing,
-      _cmTimeLeftSeconds = Nothing,
-      _cmLastRuntimeSeconds = Nothing
+    { crawlerName = Prelude.Nothing,
+      tablesDeleted = Prelude.Nothing,
+      tablesUpdated = Prelude.Nothing,
+      tablesCreated = Prelude.Nothing,
+      medianRuntimeSeconds = Prelude.Nothing,
+      stillEstimating = Prelude.Nothing,
+      timeLeftSeconds = Prelude.Nothing,
+      lastRuntimeSeconds = Prelude.Nothing
     }
 
 -- | The name of the crawler.
-cmCrawlerName :: Lens' CrawlerMetrics (Maybe Text)
-cmCrawlerName = lens _cmCrawlerName (\s a -> s {_cmCrawlerName = a})
+crawlerMetrics_crawlerName :: Lens.Lens' CrawlerMetrics (Prelude.Maybe Prelude.Text)
+crawlerMetrics_crawlerName = Lens.lens (\CrawlerMetrics' {crawlerName} -> crawlerName) (\s@CrawlerMetrics' {} a -> s {crawlerName = a} :: CrawlerMetrics)
 
 -- | The number of tables deleted by this crawler.
-cmTablesDeleted :: Lens' CrawlerMetrics (Maybe Natural)
-cmTablesDeleted = lens _cmTablesDeleted (\s a -> s {_cmTablesDeleted = a}) . mapping _Nat
+crawlerMetrics_tablesDeleted :: Lens.Lens' CrawlerMetrics (Prelude.Maybe Prelude.Natural)
+crawlerMetrics_tablesDeleted = Lens.lens (\CrawlerMetrics' {tablesDeleted} -> tablesDeleted) (\s@CrawlerMetrics' {} a -> s {tablesDeleted = a} :: CrawlerMetrics) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The number of tables updated by this crawler.
-cmTablesUpdated :: Lens' CrawlerMetrics (Maybe Natural)
-cmTablesUpdated = lens _cmTablesUpdated (\s a -> s {_cmTablesUpdated = a}) . mapping _Nat
+crawlerMetrics_tablesUpdated :: Lens.Lens' CrawlerMetrics (Prelude.Maybe Prelude.Natural)
+crawlerMetrics_tablesUpdated = Lens.lens (\CrawlerMetrics' {tablesUpdated} -> tablesUpdated) (\s@CrawlerMetrics' {} a -> s {tablesUpdated = a} :: CrawlerMetrics) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The number of tables created by this crawler.
-cmTablesCreated :: Lens' CrawlerMetrics (Maybe Natural)
-cmTablesCreated = lens _cmTablesCreated (\s a -> s {_cmTablesCreated = a}) . mapping _Nat
+crawlerMetrics_tablesCreated :: Lens.Lens' CrawlerMetrics (Prelude.Maybe Prelude.Natural)
+crawlerMetrics_tablesCreated = Lens.lens (\CrawlerMetrics' {tablesCreated} -> tablesCreated) (\s@CrawlerMetrics' {} a -> s {tablesCreated = a} :: CrawlerMetrics) Prelude.. Lens.mapping Prelude._Nat
 
--- | The median duration of this crawler's runs, in seconds.
-cmMedianRuntimeSeconds :: Lens' CrawlerMetrics (Maybe Double)
-cmMedianRuntimeSeconds = lens _cmMedianRuntimeSeconds (\s a -> s {_cmMedianRuntimeSeconds = a})
+-- | The median duration of this crawler\'s runs, in seconds.
+crawlerMetrics_medianRuntimeSeconds :: Lens.Lens' CrawlerMetrics (Prelude.Maybe Prelude.Double)
+crawlerMetrics_medianRuntimeSeconds = Lens.lens (\CrawlerMetrics' {medianRuntimeSeconds} -> medianRuntimeSeconds) (\s@CrawlerMetrics' {} a -> s {medianRuntimeSeconds = a} :: CrawlerMetrics)
 
--- | True if the crawler is still estimating how long it will take to complete this run.
-cmStillEstimating :: Lens' CrawlerMetrics (Maybe Bool)
-cmStillEstimating = lens _cmStillEstimating (\s a -> s {_cmStillEstimating = a})
+-- | True if the crawler is still estimating how long it will take to
+-- complete this run.
+crawlerMetrics_stillEstimating :: Lens.Lens' CrawlerMetrics (Prelude.Maybe Prelude.Bool)
+crawlerMetrics_stillEstimating = Lens.lens (\CrawlerMetrics' {stillEstimating} -> stillEstimating) (\s@CrawlerMetrics' {} a -> s {stillEstimating = a} :: CrawlerMetrics)
 
 -- | The estimated time left to complete a running crawl.
-cmTimeLeftSeconds :: Lens' CrawlerMetrics (Maybe Double)
-cmTimeLeftSeconds = lens _cmTimeLeftSeconds (\s a -> s {_cmTimeLeftSeconds = a})
+crawlerMetrics_timeLeftSeconds :: Lens.Lens' CrawlerMetrics (Prelude.Maybe Prelude.Double)
+crawlerMetrics_timeLeftSeconds = Lens.lens (\CrawlerMetrics' {timeLeftSeconds} -> timeLeftSeconds) (\s@CrawlerMetrics' {} a -> s {timeLeftSeconds = a} :: CrawlerMetrics)
 
--- | The duration of the crawler's most recent run, in seconds.
-cmLastRuntimeSeconds :: Lens' CrawlerMetrics (Maybe Double)
-cmLastRuntimeSeconds = lens _cmLastRuntimeSeconds (\s a -> s {_cmLastRuntimeSeconds = a})
+-- | The duration of the crawler\'s most recent run, in seconds.
+crawlerMetrics_lastRuntimeSeconds :: Lens.Lens' CrawlerMetrics (Prelude.Maybe Prelude.Double)
+crawlerMetrics_lastRuntimeSeconds = Lens.lens (\CrawlerMetrics' {lastRuntimeSeconds} -> lastRuntimeSeconds) (\s@CrawlerMetrics' {} a -> s {lastRuntimeSeconds = a} :: CrawlerMetrics)
 
-instance FromJSON CrawlerMetrics where
+instance Prelude.FromJSON CrawlerMetrics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CrawlerMetrics"
       ( \x ->
           CrawlerMetrics'
-            <$> (x .:? "CrawlerName")
-            <*> (x .:? "TablesDeleted")
-            <*> (x .:? "TablesUpdated")
-            <*> (x .:? "TablesCreated")
-            <*> (x .:? "MedianRuntimeSeconds")
-            <*> (x .:? "StillEstimating")
-            <*> (x .:? "TimeLeftSeconds")
-            <*> (x .:? "LastRuntimeSeconds")
+            Prelude.<$> (x Prelude..:? "CrawlerName")
+            Prelude.<*> (x Prelude..:? "TablesDeleted")
+            Prelude.<*> (x Prelude..:? "TablesUpdated")
+            Prelude.<*> (x Prelude..:? "TablesCreated")
+            Prelude.<*> (x Prelude..:? "MedianRuntimeSeconds")
+            Prelude.<*> (x Prelude..:? "StillEstimating")
+            Prelude.<*> (x Prelude..:? "TimeLeftSeconds")
+            Prelude.<*> (x Prelude..:? "LastRuntimeSeconds")
       )
 
-instance Hashable CrawlerMetrics
+instance Prelude.Hashable CrawlerMetrics
 
-instance NFData CrawlerMetrics
+instance Prelude.NFData CrawlerMetrics

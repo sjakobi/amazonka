@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.Glue.Types.PartitionIndexStatus
   ( PartitionIndexStatus
       ( ..,
-        PISActive,
-        PISCreating,
-        PISDeleting,
-        PISFailed
+        PartitionIndexStatusACTIVE,
+        PartitionIndexStatusCREATING,
+        PartitionIndexStatusDELETING,
+        PartitionIndexStatusFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PartitionIndexStatus
-  = PartitionIndexStatus'
-      ( CI
-          Text
-      )
+newtype PartitionIndexStatus = PartitionIndexStatus'
+  { fromPartitionIndexStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PISActive :: PartitionIndexStatus
-pattern PISActive = PartitionIndexStatus' "ACTIVE"
+pattern PartitionIndexStatusACTIVE :: PartitionIndexStatus
+pattern PartitionIndexStatusACTIVE = PartitionIndexStatus' "ACTIVE"
 
-pattern PISCreating :: PartitionIndexStatus
-pattern PISCreating = PartitionIndexStatus' "CREATING"
+pattern PartitionIndexStatusCREATING :: PartitionIndexStatus
+pattern PartitionIndexStatusCREATING = PartitionIndexStatus' "CREATING"
 
-pattern PISDeleting :: PartitionIndexStatus
-pattern PISDeleting = PartitionIndexStatus' "DELETING"
+pattern PartitionIndexStatusDELETING :: PartitionIndexStatus
+pattern PartitionIndexStatusDELETING = PartitionIndexStatus' "DELETING"
 
-pattern PISFailed :: PartitionIndexStatus
-pattern PISFailed = PartitionIndexStatus' "FAILED"
+pattern PartitionIndexStatusFAILED :: PartitionIndexStatus
+pattern PartitionIndexStatusFAILED = PartitionIndexStatus' "FAILED"
 
 {-# COMPLETE
-  PISActive,
-  PISCreating,
-  PISDeleting,
-  PISFailed,
+  PartitionIndexStatusACTIVE,
+  PartitionIndexStatusCREATING,
+  PartitionIndexStatusDELETING,
+  PartitionIndexStatusFAILED,
   PartitionIndexStatus'
   #-}
 
-instance FromText PartitionIndexStatus where
-  parser = (PartitionIndexStatus' . mk) <$> takeText
+instance Prelude.FromText PartitionIndexStatus where
+  parser = PartitionIndexStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PartitionIndexStatus where
-  toText (PartitionIndexStatus' ci) = original ci
+instance Prelude.ToText PartitionIndexStatus where
+  toText (PartitionIndexStatus' x) = x
 
-instance Hashable PartitionIndexStatus
+instance Prelude.Hashable PartitionIndexStatus
 
-instance NFData PartitionIndexStatus
+instance Prelude.NFData PartitionIndexStatus
 
-instance ToByteString PartitionIndexStatus
+instance Prelude.ToByteString PartitionIndexStatus
 
-instance ToQuery PartitionIndexStatus
+instance Prelude.ToQuery PartitionIndexStatus
 
-instance ToHeader PartitionIndexStatus
+instance Prelude.ToHeader PartitionIndexStatus
 
-instance FromJSON PartitionIndexStatus where
-  parseJSON = parseJSONText "PartitionIndexStatus"
+instance Prelude.FromJSON PartitionIndexStatus where
+  parseJSON = Prelude.parseJSONText "PartitionIndexStatus"

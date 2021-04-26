@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.Glue.Types.TransformSortColumnType
   ( TransformSortColumnType
       ( ..,
-        Created,
-        LastModified,
-        Name,
-        Status,
-        TransformType
+        TransformSortColumnTypeCREATED,
+        TransformSortColumnTypeLASTMODIFIED,
+        TransformSortColumnTypeNAME,
+        TransformSortColumnTypeSTATUS,
+        TransformSortColumnTypeTRANSFORMTYPE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransformSortColumnType
-  = TransformSortColumnType'
-      ( CI
-          Text
-      )
+newtype TransformSortColumnType = TransformSortColumnType'
+  { fromTransformSortColumnType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Created :: TransformSortColumnType
-pattern Created = TransformSortColumnType' "CREATED"
+pattern TransformSortColumnTypeCREATED :: TransformSortColumnType
+pattern TransformSortColumnTypeCREATED = TransformSortColumnType' "CREATED"
 
-pattern LastModified :: TransformSortColumnType
-pattern LastModified = TransformSortColumnType' "LAST_MODIFIED"
+pattern TransformSortColumnTypeLASTMODIFIED :: TransformSortColumnType
+pattern TransformSortColumnTypeLASTMODIFIED = TransformSortColumnType' "LAST_MODIFIED"
 
-pattern Name :: TransformSortColumnType
-pattern Name = TransformSortColumnType' "NAME"
+pattern TransformSortColumnTypeNAME :: TransformSortColumnType
+pattern TransformSortColumnTypeNAME = TransformSortColumnType' "NAME"
 
-pattern Status :: TransformSortColumnType
-pattern Status = TransformSortColumnType' "STATUS"
+pattern TransformSortColumnTypeSTATUS :: TransformSortColumnType
+pattern TransformSortColumnTypeSTATUS = TransformSortColumnType' "STATUS"
 
-pattern TransformType :: TransformSortColumnType
-pattern TransformType = TransformSortColumnType' "TRANSFORM_TYPE"
+pattern TransformSortColumnTypeTRANSFORMTYPE :: TransformSortColumnType
+pattern TransformSortColumnTypeTRANSFORMTYPE = TransformSortColumnType' "TRANSFORM_TYPE"
 
 {-# COMPLETE
-  Created,
-  LastModified,
-  Name,
-  Status,
-  TransformType,
+  TransformSortColumnTypeCREATED,
+  TransformSortColumnTypeLASTMODIFIED,
+  TransformSortColumnTypeNAME,
+  TransformSortColumnTypeSTATUS,
+  TransformSortColumnTypeTRANSFORMTYPE,
   TransformSortColumnType'
   #-}
 
-instance FromText TransformSortColumnType where
-  parser = (TransformSortColumnType' . mk) <$> takeText
+instance Prelude.FromText TransformSortColumnType where
+  parser = TransformSortColumnType' Prelude.<$> Prelude.takeText
 
-instance ToText TransformSortColumnType where
-  toText (TransformSortColumnType' ci) = original ci
+instance Prelude.ToText TransformSortColumnType where
+  toText (TransformSortColumnType' x) = x
 
-instance Hashable TransformSortColumnType
+instance Prelude.Hashable TransformSortColumnType
 
-instance NFData TransformSortColumnType
+instance Prelude.NFData TransformSortColumnType
 
-instance ToByteString TransformSortColumnType
+instance Prelude.ToByteString TransformSortColumnType
 
-instance ToQuery TransformSortColumnType
+instance Prelude.ToQuery TransformSortColumnType
 
-instance ToHeader TransformSortColumnType
+instance Prelude.ToHeader TransformSortColumnType
 
-instance ToJSON TransformSortColumnType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TransformSortColumnType where
+  toJSON = Prelude.toJSONText

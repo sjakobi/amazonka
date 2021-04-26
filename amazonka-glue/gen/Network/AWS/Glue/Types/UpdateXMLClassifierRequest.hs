@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.UpdateXMLClassifierRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies an XML classifier to be updated.
 --
---
---
--- /See:/ 'updateXMLClassifierRequest' smart constructor.
+-- /See:/ 'newUpdateXMLClassifierRequest' smart constructor.
 data UpdateXMLClassifierRequest = UpdateXMLClassifierRequest'
-  { _uxcrClassification ::
-      !(Maybe Text),
-    _uxcrRowTag ::
-      !(Maybe Text),
-    _uxcrName ::
-      !Text
+  { -- | An identifier of the data format that the classifier matches.
+    classification :: Prelude.Maybe Prelude.Text,
+    -- | The XML tag designating the element that contains each record in an XML
+    -- document being parsed. This cannot identify a self-closing element
+    -- (closed by @\/>@). An empty row element that contains only attributes
+    -- can be parsed as long as it ends with a closing tag (for example,
+    -- @\<row item_a=\"A\" item_b=\"B\">\<\/row>@ is okay, but
+    -- @\<row item_a=\"A\" item_b=\"B\" \/>@ is not).
+    rowTag :: Prelude.Maybe Prelude.Text,
+    -- | The name of the classifier.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateXMLClassifierRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateXMLClassifierRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uxcrClassification' - An identifier of the data format that the classifier matches.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uxcrRowTag' - The XML tag designating the element that contains each record in an XML document being parsed. This cannot identify a self-closing element (closed by @/>@ ). An empty row element that contains only attributes can be parsed as long as it ends with a closing tag (for example, @<row item_a="A" item_b="B"></row>@ is okay, but @<row item_a="A" item_b="B" />@ is not).
+-- 'classification', 'updateXMLClassifierRequest_classification' - An identifier of the data format that the classifier matches.
 --
--- * 'uxcrName' - The name of the classifier.
-updateXMLClassifierRequest ::
-  -- | 'uxcrName'
-  Text ->
+-- 'rowTag', 'updateXMLClassifierRequest_rowTag' - The XML tag designating the element that contains each record in an XML
+-- document being parsed. This cannot identify a self-closing element
+-- (closed by @\/>@). An empty row element that contains only attributes
+-- can be parsed as long as it ends with a closing tag (for example,
+-- @\<row item_a=\"A\" item_b=\"B\">\<\/row>@ is okay, but
+-- @\<row item_a=\"A\" item_b=\"B\" \/>@ is not).
+--
+-- 'name', 'updateXMLClassifierRequest_name' - The name of the classifier.
+newUpdateXMLClassifierRequest ::
+  -- | 'name'
+  Prelude.Text ->
   UpdateXMLClassifierRequest
-updateXMLClassifierRequest pName_ =
+newUpdateXMLClassifierRequest pName_ =
   UpdateXMLClassifierRequest'
-    { _uxcrClassification =
-        Nothing,
-      _uxcrRowTag = Nothing,
-      _uxcrName = pName_
+    { classification =
+        Prelude.Nothing,
+      rowTag = Prelude.Nothing,
+      name = pName_
     }
 
 -- | An identifier of the data format that the classifier matches.
-uxcrClassification :: Lens' UpdateXMLClassifierRequest (Maybe Text)
-uxcrClassification = lens _uxcrClassification (\s a -> s {_uxcrClassification = a})
+updateXMLClassifierRequest_classification :: Lens.Lens' UpdateXMLClassifierRequest (Prelude.Maybe Prelude.Text)
+updateXMLClassifierRequest_classification = Lens.lens (\UpdateXMLClassifierRequest' {classification} -> classification) (\s@UpdateXMLClassifierRequest' {} a -> s {classification = a} :: UpdateXMLClassifierRequest)
 
--- | The XML tag designating the element that contains each record in an XML document being parsed. This cannot identify a self-closing element (closed by @/>@ ). An empty row element that contains only attributes can be parsed as long as it ends with a closing tag (for example, @<row item_a="A" item_b="B"></row>@ is okay, but @<row item_a="A" item_b="B" />@ is not).
-uxcrRowTag :: Lens' UpdateXMLClassifierRequest (Maybe Text)
-uxcrRowTag = lens _uxcrRowTag (\s a -> s {_uxcrRowTag = a})
+-- | The XML tag designating the element that contains each record in an XML
+-- document being parsed. This cannot identify a self-closing element
+-- (closed by @\/>@). An empty row element that contains only attributes
+-- can be parsed as long as it ends with a closing tag (for example,
+-- @\<row item_a=\"A\" item_b=\"B\">\<\/row>@ is okay, but
+-- @\<row item_a=\"A\" item_b=\"B\" \/>@ is not).
+updateXMLClassifierRequest_rowTag :: Lens.Lens' UpdateXMLClassifierRequest (Prelude.Maybe Prelude.Text)
+updateXMLClassifierRequest_rowTag = Lens.lens (\UpdateXMLClassifierRequest' {rowTag} -> rowTag) (\s@UpdateXMLClassifierRequest' {} a -> s {rowTag = a} :: UpdateXMLClassifierRequest)
 
 -- | The name of the classifier.
-uxcrName :: Lens' UpdateXMLClassifierRequest Text
-uxcrName = lens _uxcrName (\s a -> s {_uxcrName = a})
+updateXMLClassifierRequest_name :: Lens.Lens' UpdateXMLClassifierRequest Prelude.Text
+updateXMLClassifierRequest_name = Lens.lens (\UpdateXMLClassifierRequest' {name} -> name) (\s@UpdateXMLClassifierRequest' {} a -> s {name = a} :: UpdateXMLClassifierRequest)
 
-instance Hashable UpdateXMLClassifierRequest
+instance Prelude.Hashable UpdateXMLClassifierRequest
 
-instance NFData UpdateXMLClassifierRequest
+instance Prelude.NFData UpdateXMLClassifierRequest
 
-instance ToJSON UpdateXMLClassifierRequest where
+instance Prelude.ToJSON UpdateXMLClassifierRequest where
   toJSON UpdateXMLClassifierRequest' {..} =
-    object
-      ( catMaybes
-          [ ("Classification" .=) <$> _uxcrClassification,
-            ("RowTag" .=) <$> _uxcrRowTag,
-            Just ("Name" .= _uxcrName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Classification" Prelude..=)
+              Prelude.<$> classification,
+            ("RowTag" Prelude..=) Prelude.<$> rowTag,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

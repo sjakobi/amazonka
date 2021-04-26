@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.Order where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the sort order of a sorted column.
 --
---
---
--- /See:/ 'order' smart constructor.
+-- /See:/ 'newOrder' smart constructor.
 data Order = Order'
-  { _oColumn :: !Text,
-    _oSortOrder :: !Nat
+  { -- | The name of the column.
+    column :: Prelude.Text,
+    -- | Indicates that the column is sorted in ascending order (@== 1@), or in
+    -- descending order (@==0@).
+    sortOrder :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Order' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Order' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oColumn' - The name of the column.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oSortOrder' - Indicates that the column is sorted in ascending order (@== 1@ ), or in descending order (@==0@ ).
-order ::
-  -- | 'oColumn'
-  Text ->
-  -- | 'oSortOrder'
-  Natural ->
+-- 'column', 'order_column' - The name of the column.
+--
+-- 'sortOrder', 'order_sortOrder' - Indicates that the column is sorted in ascending order (@== 1@), or in
+-- descending order (@==0@).
+newOrder ::
+  -- | 'column'
+  Prelude.Text ->
+  -- | 'sortOrder'
+  Prelude.Natural ->
   Order
-order pColumn_ pSortOrder_ =
+newOrder pColumn_ pSortOrder_ =
   Order'
-    { _oColumn = pColumn_,
-      _oSortOrder = _Nat # pSortOrder_
+    { column = pColumn_,
+      sortOrder = Prelude._Nat Lens.# pSortOrder_
     }
 
 -- | The name of the column.
-oColumn :: Lens' Order Text
-oColumn = lens _oColumn (\s a -> s {_oColumn = a})
+order_column :: Lens.Lens' Order Prelude.Text
+order_column = Lens.lens (\Order' {column} -> column) (\s@Order' {} a -> s {column = a} :: Order)
 
--- | Indicates that the column is sorted in ascending order (@== 1@ ), or in descending order (@==0@ ).
-oSortOrder :: Lens' Order Natural
-oSortOrder = lens _oSortOrder (\s a -> s {_oSortOrder = a}) . _Nat
+-- | Indicates that the column is sorted in ascending order (@== 1@), or in
+-- descending order (@==0@).
+order_sortOrder :: Lens.Lens' Order Prelude.Natural
+order_sortOrder = Lens.lens (\Order' {sortOrder} -> sortOrder) (\s@Order' {} a -> s {sortOrder = a} :: Order) Prelude.. Prelude._Nat
 
-instance FromJSON Order where
+instance Prelude.FromJSON Order where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Order"
       ( \x ->
-          Order' <$> (x .: "Column") <*> (x .: "SortOrder")
+          Order'
+            Prelude.<$> (x Prelude..: "Column")
+            Prelude.<*> (x Prelude..: "SortOrder")
       )
 
-instance Hashable Order
+instance Prelude.Hashable Order
 
-instance NFData Order
+instance Prelude.NFData Order
 
-instance ToJSON Order where
+instance Prelude.ToJSON Order where
   toJSON Order' {..} =
-    object
-      ( catMaybes
-          [ Just ("Column" .= _oColumn),
-            Just ("SortOrder" .= _oSortOrder)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Column" Prelude..= column),
+            Prelude.Just ("SortOrder" Prelude..= sortOrder)
           ]
       )

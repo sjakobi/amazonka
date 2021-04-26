@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,125 +24,132 @@
 -- Starts a new run of the specified workflow.
 module Network.AWS.Glue.StartWorkflowRun
   ( -- * Creating a Request
-    startWorkflowRun,
-    StartWorkflowRun,
+    StartWorkflowRun (..),
+    newStartWorkflowRun,
 
     -- * Request Lenses
-    swrwName,
+    startWorkflowRun_name,
 
     -- * Destructuring the Response
-    startWorkflowRunResponse,
-    StartWorkflowRunResponse,
+    StartWorkflowRunResponse (..),
+    newStartWorkflowRunResponse,
 
     -- * Response Lenses
-    starsRunId,
-    starsResponseStatus,
+    startWorkflowRunResponse_runId,
+    startWorkflowRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startWorkflowRun' smart constructor.
-newtype StartWorkflowRun = StartWorkflowRun'
-  { _swrwName ::
-      Text
+-- | /See:/ 'newStartWorkflowRun' smart constructor.
+data StartWorkflowRun = StartWorkflowRun'
+  { -- | The name of the workflow to start.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartWorkflowRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartWorkflowRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'swrwName' - The name of the workflow to start.
-startWorkflowRun ::
-  -- | 'swrwName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'startWorkflowRun_name' - The name of the workflow to start.
+newStartWorkflowRun ::
+  -- | 'name'
+  Prelude.Text ->
   StartWorkflowRun
-startWorkflowRun pName_ =
-  StartWorkflowRun' {_swrwName = pName_}
+newStartWorkflowRun pName_ =
+  StartWorkflowRun' {name = pName_}
 
 -- | The name of the workflow to start.
-swrwName :: Lens' StartWorkflowRun Text
-swrwName = lens _swrwName (\s a -> s {_swrwName = a})
+startWorkflowRun_name :: Lens.Lens' StartWorkflowRun Prelude.Text
+startWorkflowRun_name = Lens.lens (\StartWorkflowRun' {name} -> name) (\s@StartWorkflowRun' {} a -> s {name = a} :: StartWorkflowRun)
 
-instance AWSRequest StartWorkflowRun where
+instance Prelude.AWSRequest StartWorkflowRun where
   type Rs StartWorkflowRun = StartWorkflowRunResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartWorkflowRunResponse'
-            <$> (x .?> "RunId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RunId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartWorkflowRun
+instance Prelude.Hashable StartWorkflowRun
 
-instance NFData StartWorkflowRun
+instance Prelude.NFData StartWorkflowRun
 
-instance ToHeaders StartWorkflowRun where
+instance Prelude.ToHeaders StartWorkflowRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.StartWorkflowRun" :: ByteString),
+              Prelude.=# ("AWSGlue.StartWorkflowRun" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartWorkflowRun where
+instance Prelude.ToJSON StartWorkflowRun where
   toJSON StartWorkflowRun' {..} =
-    object (catMaybes [Just ("Name" .= _swrwName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath StartWorkflowRun where
-  toPath = const "/"
+instance Prelude.ToPath StartWorkflowRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartWorkflowRun where
-  toQuery = const mempty
+instance Prelude.ToQuery StartWorkflowRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startWorkflowRunResponse' smart constructor.
+-- | /See:/ 'newStartWorkflowRunResponse' smart constructor.
 data StartWorkflowRunResponse = StartWorkflowRunResponse'
-  { _starsRunId ::
-      !(Maybe Text),
-    _starsResponseStatus ::
-      !Int
+  { -- | An Id for the new run.
+    runId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartWorkflowRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartWorkflowRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'starsRunId' - An Id for the new run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'starsResponseStatus' - -- | The response status code.
-startWorkflowRunResponse ::
-  -- | 'starsResponseStatus'
-  Int ->
+-- 'runId', 'startWorkflowRunResponse_runId' - An Id for the new run.
+--
+-- 'httpStatus', 'startWorkflowRunResponse_httpStatus' - The response's http status code.
+newStartWorkflowRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartWorkflowRunResponse
-startWorkflowRunResponse pResponseStatus_ =
+newStartWorkflowRunResponse pHttpStatus_ =
   StartWorkflowRunResponse'
-    { _starsRunId = Nothing,
-      _starsResponseStatus = pResponseStatus_
+    { runId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An Id for the new run.
-starsRunId :: Lens' StartWorkflowRunResponse (Maybe Text)
-starsRunId = lens _starsRunId (\s a -> s {_starsRunId = a})
+startWorkflowRunResponse_runId :: Lens.Lens' StartWorkflowRunResponse (Prelude.Maybe Prelude.Text)
+startWorkflowRunResponse_runId = Lens.lens (\StartWorkflowRunResponse' {runId} -> runId) (\s@StartWorkflowRunResponse' {} a -> s {runId = a} :: StartWorkflowRunResponse)
 
--- | -- | The response status code.
-starsResponseStatus :: Lens' StartWorkflowRunResponse Int
-starsResponseStatus = lens _starsResponseStatus (\s a -> s {_starsResponseStatus = a})
+-- | The response's http status code.
+startWorkflowRunResponse_httpStatus :: Lens.Lens' StartWorkflowRunResponse Prelude.Int
+startWorkflowRunResponse_httpStatus = Lens.lens (\StartWorkflowRunResponse' {httpStatus} -> httpStatus) (\s@StartWorkflowRunResponse' {} a -> s {httpStatus = a} :: StartWorkflowRunResponse)
 
-instance NFData StartWorkflowRunResponse
+instance Prelude.NFData StartWorkflowRunResponse

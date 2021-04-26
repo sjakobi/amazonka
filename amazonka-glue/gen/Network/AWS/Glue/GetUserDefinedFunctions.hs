@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,213 +23,242 @@
 --
 -- Retrieves multiple function definitions from the Data Catalog.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetUserDefinedFunctions
   ( -- * Creating a Request
-    getUserDefinedFunctions,
-    GetUserDefinedFunctions,
+    GetUserDefinedFunctions (..),
+    newGetUserDefinedFunctions,
 
     -- * Request Lenses
-    gudfNextToken,
-    gudfCatalogId,
-    gudfMaxResults,
-    gudfDatabaseName,
-    gudfPattern,
+    getUserDefinedFunctions_nextToken,
+    getUserDefinedFunctions_catalogId,
+    getUserDefinedFunctions_maxResults,
+    getUserDefinedFunctions_databaseName,
+    getUserDefinedFunctions_pattern,
 
     -- * Destructuring the Response
-    getUserDefinedFunctionsResponse,
-    GetUserDefinedFunctionsResponse,
+    GetUserDefinedFunctionsResponse (..),
+    newGetUserDefinedFunctionsResponse,
 
     -- * Response Lenses
-    gudfrursNextToken,
-    gudfrursUserDefinedFunctions,
-    gudfrursResponseStatus,
+    getUserDefinedFunctionsResponse_nextToken,
+    getUserDefinedFunctionsResponse_userDefinedFunctions,
+    getUserDefinedFunctionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.UserDefinedFunction
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getUserDefinedFunctions' smart constructor.
+-- | /See:/ 'newGetUserDefinedFunctions' smart constructor.
 data GetUserDefinedFunctions = GetUserDefinedFunctions'
-  { _gudfNextToken ::
-      !(Maybe Text),
-    _gudfCatalogId ::
-      !(Maybe Text),
-    _gudfMaxResults ::
-      !(Maybe Nat),
-    _gudfDatabaseName ::
-      !(Maybe Text),
-    _gudfPattern :: !Text
+  { -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Data Catalog where the functions to be retrieved are
+    -- located. If none is provided, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of functions to return in one response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the catalog database where the functions are located. If
+    -- none is provided, functions from all the databases across the catalog
+    -- will be returned.
+    databaseName :: Prelude.Maybe Prelude.Text,
+    -- | An optional function-name pattern string that filters the function
+    -- definitions returned.
+    pattern' :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserDefinedFunctions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserDefinedFunctions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gudfNextToken' - A continuation token, if this is a continuation call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gudfCatalogId' - The ID of the Data Catalog where the functions to be retrieved are located. If none is provided, the AWS account ID is used by default.
+-- 'nextToken', 'getUserDefinedFunctions_nextToken' - A continuation token, if this is a continuation call.
 --
--- * 'gudfMaxResults' - The maximum number of functions to return in one response.
+-- 'catalogId', 'getUserDefinedFunctions_catalogId' - The ID of the Data Catalog where the functions to be retrieved are
+-- located. If none is provided, the AWS account ID is used by default.
 --
--- * 'gudfDatabaseName' - The name of the catalog database where the functions are located. If none is provided, functions from all the databases across the catalog will be returned.
+-- 'maxResults', 'getUserDefinedFunctions_maxResults' - The maximum number of functions to return in one response.
 --
--- * 'gudfPattern' - An optional function-name pattern string that filters the function definitions returned.
-getUserDefinedFunctions ::
-  -- | 'gudfPattern'
-  Text ->
+-- 'databaseName', 'getUserDefinedFunctions_databaseName' - The name of the catalog database where the functions are located. If
+-- none is provided, functions from all the databases across the catalog
+-- will be returned.
+--
+-- 'pattern'', 'getUserDefinedFunctions_pattern' - An optional function-name pattern string that filters the function
+-- definitions returned.
+newGetUserDefinedFunctions ::
+  -- | 'pattern''
+  Prelude.Text ->
   GetUserDefinedFunctions
-getUserDefinedFunctions pPattern_ =
+newGetUserDefinedFunctions pPattern_ =
   GetUserDefinedFunctions'
-    { _gudfNextToken = Nothing,
-      _gudfCatalogId = Nothing,
-      _gudfMaxResults = Nothing,
-      _gudfDatabaseName = Nothing,
-      _gudfPattern = pPattern_
+    { nextToken =
+        Prelude.Nothing,
+      catalogId = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      databaseName = Prelude.Nothing,
+      pattern' = pPattern_
     }
 
 -- | A continuation token, if this is a continuation call.
-gudfNextToken :: Lens' GetUserDefinedFunctions (Maybe Text)
-gudfNextToken = lens _gudfNextToken (\s a -> s {_gudfNextToken = a})
+getUserDefinedFunctions_nextToken :: Lens.Lens' GetUserDefinedFunctions (Prelude.Maybe Prelude.Text)
+getUserDefinedFunctions_nextToken = Lens.lens (\GetUserDefinedFunctions' {nextToken} -> nextToken) (\s@GetUserDefinedFunctions' {} a -> s {nextToken = a} :: GetUserDefinedFunctions)
 
--- | The ID of the Data Catalog where the functions to be retrieved are located. If none is provided, the AWS account ID is used by default.
-gudfCatalogId :: Lens' GetUserDefinedFunctions (Maybe Text)
-gudfCatalogId = lens _gudfCatalogId (\s a -> s {_gudfCatalogId = a})
+-- | The ID of the Data Catalog where the functions to be retrieved are
+-- located. If none is provided, the AWS account ID is used by default.
+getUserDefinedFunctions_catalogId :: Lens.Lens' GetUserDefinedFunctions (Prelude.Maybe Prelude.Text)
+getUserDefinedFunctions_catalogId = Lens.lens (\GetUserDefinedFunctions' {catalogId} -> catalogId) (\s@GetUserDefinedFunctions' {} a -> s {catalogId = a} :: GetUserDefinedFunctions)
 
 -- | The maximum number of functions to return in one response.
-gudfMaxResults :: Lens' GetUserDefinedFunctions (Maybe Natural)
-gudfMaxResults = lens _gudfMaxResults (\s a -> s {_gudfMaxResults = a}) . mapping _Nat
+getUserDefinedFunctions_maxResults :: Lens.Lens' GetUserDefinedFunctions (Prelude.Maybe Prelude.Natural)
+getUserDefinedFunctions_maxResults = Lens.lens (\GetUserDefinedFunctions' {maxResults} -> maxResults) (\s@GetUserDefinedFunctions' {} a -> s {maxResults = a} :: GetUserDefinedFunctions) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of the catalog database where the functions are located. If none is provided, functions from all the databases across the catalog will be returned.
-gudfDatabaseName :: Lens' GetUserDefinedFunctions (Maybe Text)
-gudfDatabaseName = lens _gudfDatabaseName (\s a -> s {_gudfDatabaseName = a})
+-- | The name of the catalog database where the functions are located. If
+-- none is provided, functions from all the databases across the catalog
+-- will be returned.
+getUserDefinedFunctions_databaseName :: Lens.Lens' GetUserDefinedFunctions (Prelude.Maybe Prelude.Text)
+getUserDefinedFunctions_databaseName = Lens.lens (\GetUserDefinedFunctions' {databaseName} -> databaseName) (\s@GetUserDefinedFunctions' {} a -> s {databaseName = a} :: GetUserDefinedFunctions)
 
--- | An optional function-name pattern string that filters the function definitions returned.
-gudfPattern :: Lens' GetUserDefinedFunctions Text
-gudfPattern = lens _gudfPattern (\s a -> s {_gudfPattern = a})
+-- | An optional function-name pattern string that filters the function
+-- definitions returned.
+getUserDefinedFunctions_pattern :: Lens.Lens' GetUserDefinedFunctions Prelude.Text
+getUserDefinedFunctions_pattern = Lens.lens (\GetUserDefinedFunctions' {pattern'} -> pattern') (\s@GetUserDefinedFunctions' {} a -> s {pattern' = a} :: GetUserDefinedFunctions)
 
-instance AWSPager GetUserDefinedFunctions where
+instance Pager.AWSPager GetUserDefinedFunctions where
   page rq rs
-    | stop (rs ^. gudfrursNextToken) = Nothing
-    | stop (rs ^. gudfrursUserDefinedFunctions) = Nothing
-    | otherwise =
-      Just $ rq & gudfNextToken .~ rs ^. gudfrursNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getUserDefinedFunctionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getUserDefinedFunctionsResponse_userDefinedFunctions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getUserDefinedFunctions_nextToken
+          Lens..~ rs
+          Lens.^? getUserDefinedFunctionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetUserDefinedFunctions where
+instance Prelude.AWSRequest GetUserDefinedFunctions where
   type
     Rs GetUserDefinedFunctions =
       GetUserDefinedFunctionsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetUserDefinedFunctionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "UserDefinedFunctions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "UserDefinedFunctions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetUserDefinedFunctions
+instance Prelude.Hashable GetUserDefinedFunctions
 
-instance NFData GetUserDefinedFunctions
+instance Prelude.NFData GetUserDefinedFunctions
 
-instance ToHeaders GetUserDefinedFunctions where
+instance Prelude.ToHeaders GetUserDefinedFunctions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetUserDefinedFunctions" :: ByteString),
+              Prelude.=# ( "AWSGlue.GetUserDefinedFunctions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetUserDefinedFunctions where
+instance Prelude.ToJSON GetUserDefinedFunctions where
   toJSON GetUserDefinedFunctions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gudfNextToken,
-            ("CatalogId" .=) <$> _gudfCatalogId,
-            ("MaxResults" .=) <$> _gudfMaxResults,
-            ("DatabaseName" .=) <$> _gudfDatabaseName,
-            Just ("Pattern" .= _gudfPattern)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("DatabaseName" Prelude..=) Prelude.<$> databaseName,
+            Prelude.Just ("Pattern" Prelude..= pattern')
           ]
       )
 
-instance ToPath GetUserDefinedFunctions where
-  toPath = const "/"
+instance Prelude.ToPath GetUserDefinedFunctions where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetUserDefinedFunctions where
-  toQuery = const mempty
+instance Prelude.ToQuery GetUserDefinedFunctions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getUserDefinedFunctionsResponse' smart constructor.
+-- | /See:/ 'newGetUserDefinedFunctionsResponse' smart constructor.
 data GetUserDefinedFunctionsResponse = GetUserDefinedFunctionsResponse'
-  { _gudfrursNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gudfrursUserDefinedFunctions ::
-      !( Maybe
-           [UserDefinedFunction]
-       ),
-    _gudfrursResponseStatus ::
-      !Int
+  { -- | A continuation token, if the list of functions returned does not include
+    -- the last requested function.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of requested function definitions.
+    userDefinedFunctions :: Prelude.Maybe [UserDefinedFunction],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserDefinedFunctionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserDefinedFunctionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gudfrursNextToken' - A continuation token, if the list of functions returned does not include the last requested function.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gudfrursUserDefinedFunctions' - A list of requested function definitions.
+-- 'nextToken', 'getUserDefinedFunctionsResponse_nextToken' - A continuation token, if the list of functions returned does not include
+-- the last requested function.
 --
--- * 'gudfrursResponseStatus' - -- | The response status code.
-getUserDefinedFunctionsResponse ::
-  -- | 'gudfrursResponseStatus'
-  Int ->
+-- 'userDefinedFunctions', 'getUserDefinedFunctionsResponse_userDefinedFunctions' - A list of requested function definitions.
+--
+-- 'httpStatus', 'getUserDefinedFunctionsResponse_httpStatus' - The response's http status code.
+newGetUserDefinedFunctionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetUserDefinedFunctionsResponse
-getUserDefinedFunctionsResponse pResponseStatus_ =
+newGetUserDefinedFunctionsResponse pHttpStatus_ =
   GetUserDefinedFunctionsResponse'
-    { _gudfrursNextToken =
-        Nothing,
-      _gudfrursUserDefinedFunctions = Nothing,
-      _gudfrursResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      userDefinedFunctions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if the list of functions returned does not include the last requested function.
-gudfrursNextToken :: Lens' GetUserDefinedFunctionsResponse (Maybe Text)
-gudfrursNextToken = lens _gudfrursNextToken (\s a -> s {_gudfrursNextToken = a})
+-- | A continuation token, if the list of functions returned does not include
+-- the last requested function.
+getUserDefinedFunctionsResponse_nextToken :: Lens.Lens' GetUserDefinedFunctionsResponse (Prelude.Maybe Prelude.Text)
+getUserDefinedFunctionsResponse_nextToken = Lens.lens (\GetUserDefinedFunctionsResponse' {nextToken} -> nextToken) (\s@GetUserDefinedFunctionsResponse' {} a -> s {nextToken = a} :: GetUserDefinedFunctionsResponse)
 
 -- | A list of requested function definitions.
-gudfrursUserDefinedFunctions :: Lens' GetUserDefinedFunctionsResponse [UserDefinedFunction]
-gudfrursUserDefinedFunctions = lens _gudfrursUserDefinedFunctions (\s a -> s {_gudfrursUserDefinedFunctions = a}) . _Default . _Coerce
+getUserDefinedFunctionsResponse_userDefinedFunctions :: Lens.Lens' GetUserDefinedFunctionsResponse (Prelude.Maybe [UserDefinedFunction])
+getUserDefinedFunctionsResponse_userDefinedFunctions = Lens.lens (\GetUserDefinedFunctionsResponse' {userDefinedFunctions} -> userDefinedFunctions) (\s@GetUserDefinedFunctionsResponse' {} a -> s {userDefinedFunctions = a} :: GetUserDefinedFunctionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gudfrursResponseStatus :: Lens' GetUserDefinedFunctionsResponse Int
-gudfrursResponseStatus = lens _gudfrursResponseStatus (\s a -> s {_gudfrursResponseStatus = a})
+-- | The response's http status code.
+getUserDefinedFunctionsResponse_httpStatus :: Lens.Lens' GetUserDefinedFunctionsResponse Prelude.Int
+getUserDefinedFunctionsResponse_httpStatus = Lens.lens (\GetUserDefinedFunctionsResponse' {httpStatus} -> httpStatus) (\s@GetUserDefinedFunctionsResponse' {} a -> s {httpStatus = a} :: GetUserDefinedFunctionsResponse)
 
-instance NFData GetUserDefinedFunctionsResponse
+instance
+  Prelude.NFData
+    GetUserDefinedFunctionsResponse

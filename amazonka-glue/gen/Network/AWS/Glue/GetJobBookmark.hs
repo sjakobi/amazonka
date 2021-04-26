@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,142 +24,148 @@
 -- Returns information on a job bookmark entry.
 module Network.AWS.Glue.GetJobBookmark
   ( -- * Creating a Request
-    getJobBookmark,
-    GetJobBookmark,
+    GetJobBookmark (..),
+    newGetJobBookmark,
 
     -- * Request Lenses
-    gjbRunId,
-    gjbJobName,
+    getJobBookmark_runId,
+    getJobBookmark_jobName,
 
     -- * Destructuring the Response
-    getJobBookmarkResponse,
-    GetJobBookmarkResponse,
+    GetJobBookmarkResponse (..),
+    newGetJobBookmarkResponse,
 
     -- * Response Lenses
-    gjbrrsJobBookmarkEntry,
-    gjbrrsResponseStatus,
+    getJobBookmarkResponse_jobBookmarkEntry,
+    getJobBookmarkResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.JobBookmarkEntry
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getJobBookmark' smart constructor.
+-- | /See:/ 'newGetJobBookmark' smart constructor.
 data GetJobBookmark = GetJobBookmark'
-  { _gjbRunId ::
-      !(Maybe Text),
-    _gjbJobName :: !Text
+  { -- | The unique run identifier associated with this job run.
+    runId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the job in question.
+    jobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetJobBookmark' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetJobBookmark' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gjbRunId' - The unique run identifier associated with this job run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gjbJobName' - The name of the job in question.
-getJobBookmark ::
-  -- | 'gjbJobName'
-  Text ->
+-- 'runId', 'getJobBookmark_runId' - The unique run identifier associated with this job run.
+--
+-- 'jobName', 'getJobBookmark_jobName' - The name of the job in question.
+newGetJobBookmark ::
+  -- | 'jobName'
+  Prelude.Text ->
   GetJobBookmark
-getJobBookmark pJobName_ =
+newGetJobBookmark pJobName_ =
   GetJobBookmark'
-    { _gjbRunId = Nothing,
-      _gjbJobName = pJobName_
+    { runId = Prelude.Nothing,
+      jobName = pJobName_
     }
 
 -- | The unique run identifier associated with this job run.
-gjbRunId :: Lens' GetJobBookmark (Maybe Text)
-gjbRunId = lens _gjbRunId (\s a -> s {_gjbRunId = a})
+getJobBookmark_runId :: Lens.Lens' GetJobBookmark (Prelude.Maybe Prelude.Text)
+getJobBookmark_runId = Lens.lens (\GetJobBookmark' {runId} -> runId) (\s@GetJobBookmark' {} a -> s {runId = a} :: GetJobBookmark)
 
 -- | The name of the job in question.
-gjbJobName :: Lens' GetJobBookmark Text
-gjbJobName = lens _gjbJobName (\s a -> s {_gjbJobName = a})
+getJobBookmark_jobName :: Lens.Lens' GetJobBookmark Prelude.Text
+getJobBookmark_jobName = Lens.lens (\GetJobBookmark' {jobName} -> jobName) (\s@GetJobBookmark' {} a -> s {jobName = a} :: GetJobBookmark)
 
-instance AWSRequest GetJobBookmark where
+instance Prelude.AWSRequest GetJobBookmark where
   type Rs GetJobBookmark = GetJobBookmarkResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetJobBookmarkResponse'
-            <$> (x .?> "JobBookmarkEntry") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobBookmarkEntry")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetJobBookmark
+instance Prelude.Hashable GetJobBookmark
 
-instance NFData GetJobBookmark
+instance Prelude.NFData GetJobBookmark
 
-instance ToHeaders GetJobBookmark where
+instance Prelude.ToHeaders GetJobBookmark where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetJobBookmark" :: ByteString),
+              Prelude.=# ("AWSGlue.GetJobBookmark" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetJobBookmark where
+instance Prelude.ToJSON GetJobBookmark where
   toJSON GetJobBookmark' {..} =
-    object
-      ( catMaybes
-          [ ("RunId" .=) <$> _gjbRunId,
-            Just ("JobName" .= _gjbJobName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RunId" Prelude..=) Prelude.<$> runId,
+            Prelude.Just ("JobName" Prelude..= jobName)
           ]
       )
 
-instance ToPath GetJobBookmark where
-  toPath = const "/"
+instance Prelude.ToPath GetJobBookmark where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetJobBookmark where
-  toQuery = const mempty
+instance Prelude.ToQuery GetJobBookmark where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getJobBookmarkResponse' smart constructor.
+-- | /See:/ 'newGetJobBookmarkResponse' smart constructor.
 data GetJobBookmarkResponse = GetJobBookmarkResponse'
-  { _gjbrrsJobBookmarkEntry ::
-      !(Maybe JobBookmarkEntry),
-    _gjbrrsResponseStatus ::
-      !Int
+  { -- | A structure that defines a point that a job can resume processing.
+    jobBookmarkEntry :: Prelude.Maybe JobBookmarkEntry,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetJobBookmarkResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetJobBookmarkResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gjbrrsJobBookmarkEntry' - A structure that defines a point that a job can resume processing.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gjbrrsResponseStatus' - -- | The response status code.
-getJobBookmarkResponse ::
-  -- | 'gjbrrsResponseStatus'
-  Int ->
+-- 'jobBookmarkEntry', 'getJobBookmarkResponse_jobBookmarkEntry' - A structure that defines a point that a job can resume processing.
+--
+-- 'httpStatus', 'getJobBookmarkResponse_httpStatus' - The response's http status code.
+newGetJobBookmarkResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetJobBookmarkResponse
-getJobBookmarkResponse pResponseStatus_ =
+newGetJobBookmarkResponse pHttpStatus_ =
   GetJobBookmarkResponse'
-    { _gjbrrsJobBookmarkEntry =
-        Nothing,
-      _gjbrrsResponseStatus = pResponseStatus_
+    { jobBookmarkEntry =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A structure that defines a point that a job can resume processing.
-gjbrrsJobBookmarkEntry :: Lens' GetJobBookmarkResponse (Maybe JobBookmarkEntry)
-gjbrrsJobBookmarkEntry = lens _gjbrrsJobBookmarkEntry (\s a -> s {_gjbrrsJobBookmarkEntry = a})
+getJobBookmarkResponse_jobBookmarkEntry :: Lens.Lens' GetJobBookmarkResponse (Prelude.Maybe JobBookmarkEntry)
+getJobBookmarkResponse_jobBookmarkEntry = Lens.lens (\GetJobBookmarkResponse' {jobBookmarkEntry} -> jobBookmarkEntry) (\s@GetJobBookmarkResponse' {} a -> s {jobBookmarkEntry = a} :: GetJobBookmarkResponse)
 
--- | -- | The response status code.
-gjbrrsResponseStatus :: Lens' GetJobBookmarkResponse Int
-gjbrrsResponseStatus = lens _gjbrrsResponseStatus (\s a -> s {_gjbrrsResponseStatus = a})
+-- | The response's http status code.
+getJobBookmarkResponse_httpStatus :: Lens.Lens' GetJobBookmarkResponse Prelude.Int
+getJobBookmarkResponse_httpStatus = Lens.lens (\GetJobBookmarkResponse' {httpStatus} -> httpStatus) (\s@GetJobBookmarkResponse' {} a -> s {httpStatus = a} :: GetJobBookmarkResponse)
 
-instance NFData GetJobBookmarkResponse
+instance Prelude.NFData GetJobBookmarkResponse

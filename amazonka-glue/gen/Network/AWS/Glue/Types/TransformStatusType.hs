@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Glue.Types.TransformStatusType
   ( TransformStatusType
       ( ..,
-        TSTDeleting,
-        TSTNotReady,
-        TSTReady
+        TransformStatusTypeDELETING,
+        TransformStatusTypeNOTREADY,
+        TransformStatusTypeREADY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransformStatusType
-  = TransformStatusType'
-      ( CI
-          Text
-      )
+newtype TransformStatusType = TransformStatusType'
+  { fromTransformStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSTDeleting :: TransformStatusType
-pattern TSTDeleting = TransformStatusType' "DELETING"
+pattern TransformStatusTypeDELETING :: TransformStatusType
+pattern TransformStatusTypeDELETING = TransformStatusType' "DELETING"
 
-pattern TSTNotReady :: TransformStatusType
-pattern TSTNotReady = TransformStatusType' "NOT_READY"
+pattern TransformStatusTypeNOTREADY :: TransformStatusType
+pattern TransformStatusTypeNOTREADY = TransformStatusType' "NOT_READY"
 
-pattern TSTReady :: TransformStatusType
-pattern TSTReady = TransformStatusType' "READY"
+pattern TransformStatusTypeREADY :: TransformStatusType
+pattern TransformStatusTypeREADY = TransformStatusType' "READY"
 
 {-# COMPLETE
-  TSTDeleting,
-  TSTNotReady,
-  TSTReady,
+  TransformStatusTypeDELETING,
+  TransformStatusTypeNOTREADY,
+  TransformStatusTypeREADY,
   TransformStatusType'
   #-}
 
-instance FromText TransformStatusType where
-  parser = (TransformStatusType' . mk) <$> takeText
+instance Prelude.FromText TransformStatusType where
+  parser = TransformStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText TransformStatusType where
-  toText (TransformStatusType' ci) = original ci
+instance Prelude.ToText TransformStatusType where
+  toText (TransformStatusType' x) = x
 
-instance Hashable TransformStatusType
+instance Prelude.Hashable TransformStatusType
 
-instance NFData TransformStatusType
+instance Prelude.NFData TransformStatusType
 
-instance ToByteString TransformStatusType
+instance Prelude.ToByteString TransformStatusType
 
-instance ToQuery TransformStatusType
+instance Prelude.ToQuery TransformStatusType
 
-instance ToHeader TransformStatusType
+instance Prelude.ToHeader TransformStatusType
 
-instance ToJSON TransformStatusType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TransformStatusType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TransformStatusType where
-  parseJSON = parseJSONText "TransformStatusType"
+instance Prelude.FromJSON TransformStatusType where
+  parseJSON = Prelude.parseJSONText "TransformStatusType"

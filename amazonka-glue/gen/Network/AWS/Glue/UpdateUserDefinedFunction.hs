@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,172 +24,184 @@
 -- Updates an existing function definition in the Data Catalog.
 module Network.AWS.Glue.UpdateUserDefinedFunction
   ( -- * Creating a Request
-    updateUserDefinedFunction,
-    UpdateUserDefinedFunction,
+    UpdateUserDefinedFunction (..),
+    newUpdateUserDefinedFunction,
 
     -- * Request Lenses
-    uudfCatalogId,
-    uudfDatabaseName,
-    uudfFunctionName,
-    uudfFunctionInput,
+    updateUserDefinedFunction_catalogId,
+    updateUserDefinedFunction_databaseName,
+    updateUserDefinedFunction_functionName,
+    updateUserDefinedFunction_functionInput,
 
     -- * Destructuring the Response
-    updateUserDefinedFunctionResponse,
-    UpdateUserDefinedFunctionResponse,
+    UpdateUserDefinedFunctionResponse (..),
+    newUpdateUserDefinedFunctionResponse,
 
     -- * Response Lenses
-    uudfrrsResponseStatus,
+    updateUserDefinedFunctionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateUserDefinedFunction' smart constructor.
+-- | /See:/ 'newUpdateUserDefinedFunction' smart constructor.
 data UpdateUserDefinedFunction = UpdateUserDefinedFunction'
-  { _uudfCatalogId ::
-      !(Maybe Text),
-    _uudfDatabaseName ::
-      !Text,
-    _uudfFunctionName ::
-      !Text,
-    _uudfFunctionInput ::
-      !UserDefinedFunctionInput
+  { -- | The ID of the Data Catalog where the function to be updated is located.
+    -- If none is provided, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database where the function to be updated is
+    -- located.
+    databaseName :: Prelude.Text,
+    -- | The name of the function.
+    functionName :: Prelude.Text,
+    -- | A @FunctionInput@ object that redefines the function in the Data
+    -- Catalog.
+    functionInput :: UserDefinedFunctionInput
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserDefinedFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserDefinedFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uudfCatalogId' - The ID of the Data Catalog where the function to be updated is located. If none is provided, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uudfDatabaseName' - The name of the catalog database where the function to be updated is located.
+-- 'catalogId', 'updateUserDefinedFunction_catalogId' - The ID of the Data Catalog where the function to be updated is located.
+-- If none is provided, the AWS account ID is used by default.
 --
--- * 'uudfFunctionName' - The name of the function.
+-- 'databaseName', 'updateUserDefinedFunction_databaseName' - The name of the catalog database where the function to be updated is
+-- located.
 --
--- * 'uudfFunctionInput' - A @FunctionInput@ object that redefines the function in the Data Catalog.
-updateUserDefinedFunction ::
-  -- | 'uudfDatabaseName'
-  Text ->
-  -- | 'uudfFunctionName'
-  Text ->
-  -- | 'uudfFunctionInput'
+-- 'functionName', 'updateUserDefinedFunction_functionName' - The name of the function.
+--
+-- 'functionInput', 'updateUserDefinedFunction_functionInput' - A @FunctionInput@ object that redefines the function in the Data
+-- Catalog.
+newUpdateUserDefinedFunction ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'functionName'
+  Prelude.Text ->
+  -- | 'functionInput'
   UserDefinedFunctionInput ->
   UpdateUserDefinedFunction
-updateUserDefinedFunction
+newUpdateUserDefinedFunction
   pDatabaseName_
   pFunctionName_
   pFunctionInput_ =
     UpdateUserDefinedFunction'
-      { _uudfCatalogId =
-          Nothing,
-        _uudfDatabaseName = pDatabaseName_,
-        _uudfFunctionName = pFunctionName_,
-        _uudfFunctionInput = pFunctionInput_
+      { catalogId =
+          Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        functionName = pFunctionName_,
+        functionInput = pFunctionInput_
       }
 
--- | The ID of the Data Catalog where the function to be updated is located. If none is provided, the AWS account ID is used by default.
-uudfCatalogId :: Lens' UpdateUserDefinedFunction (Maybe Text)
-uudfCatalogId = lens _uudfCatalogId (\s a -> s {_uudfCatalogId = a})
+-- | The ID of the Data Catalog where the function to be updated is located.
+-- If none is provided, the AWS account ID is used by default.
+updateUserDefinedFunction_catalogId :: Lens.Lens' UpdateUserDefinedFunction (Prelude.Maybe Prelude.Text)
+updateUserDefinedFunction_catalogId = Lens.lens (\UpdateUserDefinedFunction' {catalogId} -> catalogId) (\s@UpdateUserDefinedFunction' {} a -> s {catalogId = a} :: UpdateUserDefinedFunction)
 
--- | The name of the catalog database where the function to be updated is located.
-uudfDatabaseName :: Lens' UpdateUserDefinedFunction Text
-uudfDatabaseName = lens _uudfDatabaseName (\s a -> s {_uudfDatabaseName = a})
+-- | The name of the catalog database where the function to be updated is
+-- located.
+updateUserDefinedFunction_databaseName :: Lens.Lens' UpdateUserDefinedFunction Prelude.Text
+updateUserDefinedFunction_databaseName = Lens.lens (\UpdateUserDefinedFunction' {databaseName} -> databaseName) (\s@UpdateUserDefinedFunction' {} a -> s {databaseName = a} :: UpdateUserDefinedFunction)
 
 -- | The name of the function.
-uudfFunctionName :: Lens' UpdateUserDefinedFunction Text
-uudfFunctionName = lens _uudfFunctionName (\s a -> s {_uudfFunctionName = a})
+updateUserDefinedFunction_functionName :: Lens.Lens' UpdateUserDefinedFunction Prelude.Text
+updateUserDefinedFunction_functionName = Lens.lens (\UpdateUserDefinedFunction' {functionName} -> functionName) (\s@UpdateUserDefinedFunction' {} a -> s {functionName = a} :: UpdateUserDefinedFunction)
 
--- | A @FunctionInput@ object that redefines the function in the Data Catalog.
-uudfFunctionInput :: Lens' UpdateUserDefinedFunction UserDefinedFunctionInput
-uudfFunctionInput = lens _uudfFunctionInput (\s a -> s {_uudfFunctionInput = a})
+-- | A @FunctionInput@ object that redefines the function in the Data
+-- Catalog.
+updateUserDefinedFunction_functionInput :: Lens.Lens' UpdateUserDefinedFunction UserDefinedFunctionInput
+updateUserDefinedFunction_functionInput = Lens.lens (\UpdateUserDefinedFunction' {functionInput} -> functionInput) (\s@UpdateUserDefinedFunction' {} a -> s {functionInput = a} :: UpdateUserDefinedFunction)
 
-instance AWSRequest UpdateUserDefinedFunction where
+instance Prelude.AWSRequest UpdateUserDefinedFunction where
   type
     Rs UpdateUserDefinedFunction =
       UpdateUserDefinedFunctionResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateUserDefinedFunctionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateUserDefinedFunction
+instance Prelude.Hashable UpdateUserDefinedFunction
 
-instance NFData UpdateUserDefinedFunction
+instance Prelude.NFData UpdateUserDefinedFunction
 
-instance ToHeaders UpdateUserDefinedFunction where
+instance Prelude.ToHeaders UpdateUserDefinedFunction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.UpdateUserDefinedFunction" :: ByteString),
+              Prelude.=# ( "AWSGlue.UpdateUserDefinedFunction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateUserDefinedFunction where
+instance Prelude.ToJSON UpdateUserDefinedFunction where
   toJSON UpdateUserDefinedFunction' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _uudfCatalogId,
-            Just ("DatabaseName" .= _uudfDatabaseName),
-            Just ("FunctionName" .= _uudfFunctionName),
-            Just ("FunctionInput" .= _uudfFunctionInput)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just
+              ("FunctionName" Prelude..= functionName),
+            Prelude.Just
+              ("FunctionInput" Prelude..= functionInput)
           ]
       )
 
-instance ToPath UpdateUserDefinedFunction where
-  toPath = const "/"
+instance Prelude.ToPath UpdateUserDefinedFunction where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateUserDefinedFunction where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateUserDefinedFunction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateUserDefinedFunctionResponse' smart constructor.
-newtype UpdateUserDefinedFunctionResponse = UpdateUserDefinedFunctionResponse'
-  { _uudfrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateUserDefinedFunctionResponse' smart constructor.
+data UpdateUserDefinedFunctionResponse = UpdateUserDefinedFunctionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserDefinedFunctionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserDefinedFunctionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uudfrrsResponseStatus' - -- | The response status code.
-updateUserDefinedFunctionResponse ::
-  -- | 'uudfrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateUserDefinedFunctionResponse_httpStatus' - The response's http status code.
+newUpdateUserDefinedFunctionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateUserDefinedFunctionResponse
-updateUserDefinedFunctionResponse pResponseStatus_ =
+newUpdateUserDefinedFunctionResponse pHttpStatus_ =
   UpdateUserDefinedFunctionResponse'
-    { _uudfrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uudfrrsResponseStatus :: Lens' UpdateUserDefinedFunctionResponse Int
-uudfrrsResponseStatus = lens _uudfrrsResponseStatus (\s a -> s {_uudfrrsResponseStatus = a})
+-- | The response's http status code.
+updateUserDefinedFunctionResponse_httpStatus :: Lens.Lens' UpdateUserDefinedFunctionResponse Prelude.Int
+updateUserDefinedFunctionResponse_httpStatus = Lens.lens (\UpdateUserDefinedFunctionResponse' {httpStatus} -> httpStatus) (\s@UpdateUserDefinedFunctionResponse' {} a -> s {httpStatus = a} :: UpdateUserDefinedFunctionResponse)
 
-instance NFData UpdateUserDefinedFunctionResponse
+instance
+  Prelude.NFData
+    UpdateUserDefinedFunctionResponse

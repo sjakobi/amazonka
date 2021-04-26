@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Begins an asynchronous task to export all labeled data for a particular transform. This task is the only label-related API call that is not part of the typical active learning workflow. You typically use @StartExportLabelsTaskRun@ when you want to work with all of your existing labels at the same time, such as when you want to remove or change labels that were previously submitted as truth. This API operation accepts the @TransformId@ whose labels you want to export and an Amazon Simple Storage Service (Amazon S3) path to export the labels to. The operation returns a @TaskRunId@ . You can check on the status of your task run by calling the @GetMLTaskRun@ API.
+-- Begins an asynchronous task to export all labeled data for a particular
+-- transform. This task is the only label-related API call that is not part
+-- of the typical active learning workflow. You typically use
+-- @StartExportLabelsTaskRun@ when you want to work with all of your
+-- existing labels at the same time, such as when you want to remove or
+-- change labels that were previously submitted as truth. This API
+-- operation accepts the @TransformId@ whose labels you want to export and
+-- an Amazon Simple Storage Service (Amazon S3) path to export the labels
+-- to. The operation returns a @TaskRunId@. You can check on the status of
+-- your task run by calling the @GetMLTaskRun@ API.
 module Network.AWS.Glue.StartExportLabelsTaskRun
   ( -- * Creating a Request
-    startExportLabelsTaskRun,
-    StartExportLabelsTaskRun,
+    StartExportLabelsTaskRun (..),
+    newStartExportLabelsTaskRun,
 
     -- * Request Lenses
-    seltrTransformId,
-    seltrOutputS3Path,
+    startExportLabelsTaskRun_transformId,
+    startExportLabelsTaskRun_outputS3Path,
 
     -- * Destructuring the Response
-    startExportLabelsTaskRunResponse,
-    StartExportLabelsTaskRunResponse,
+    StartExportLabelsTaskRunResponse (..),
+    newStartExportLabelsTaskRunResponse,
 
     -- * Response Lenses
-    seltrrrsTaskRunId,
-    seltrrrsResponseStatus,
+    startExportLabelsTaskRunResponse_taskRunId,
+    startExportLabelsTaskRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startExportLabelsTaskRun' smart constructor.
+-- | /See:/ 'newStartExportLabelsTaskRun' smart constructor.
 data StartExportLabelsTaskRun = StartExportLabelsTaskRun'
-  { _seltrTransformId ::
-      !Text,
-    _seltrOutputS3Path ::
-      !Text
+  { -- | The unique identifier of the machine learning transform.
+    transformId :: Prelude.Text,
+    -- | The Amazon S3 path where you export the labels.
+    outputS3Path :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartExportLabelsTaskRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartExportLabelsTaskRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seltrTransformId' - The unique identifier of the machine learning transform.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seltrOutputS3Path' - The Amazon S3 path where you export the labels.
-startExportLabelsTaskRun ::
-  -- | 'seltrTransformId'
-  Text ->
-  -- | 'seltrOutputS3Path'
-  Text ->
+-- 'transformId', 'startExportLabelsTaskRun_transformId' - The unique identifier of the machine learning transform.
+--
+-- 'outputS3Path', 'startExportLabelsTaskRun_outputS3Path' - The Amazon S3 path where you export the labels.
+newStartExportLabelsTaskRun ::
+  -- | 'transformId'
+  Prelude.Text ->
+  -- | 'outputS3Path'
+  Prelude.Text ->
   StartExportLabelsTaskRun
-startExportLabelsTaskRun pTransformId_ pOutputS3Path_ =
-  StartExportLabelsTaskRun'
-    { _seltrTransformId =
-        pTransformId_,
-      _seltrOutputS3Path = pOutputS3Path_
-    }
+newStartExportLabelsTaskRun
+  pTransformId_
+  pOutputS3Path_ =
+    StartExportLabelsTaskRun'
+      { transformId =
+          pTransformId_,
+        outputS3Path = pOutputS3Path_
+      }
 
 -- | The unique identifier of the machine learning transform.
-seltrTransformId :: Lens' StartExportLabelsTaskRun Text
-seltrTransformId = lens _seltrTransformId (\s a -> s {_seltrTransformId = a})
+startExportLabelsTaskRun_transformId :: Lens.Lens' StartExportLabelsTaskRun Prelude.Text
+startExportLabelsTaskRun_transformId = Lens.lens (\StartExportLabelsTaskRun' {transformId} -> transformId) (\s@StartExportLabelsTaskRun' {} a -> s {transformId = a} :: StartExportLabelsTaskRun)
 
 -- | The Amazon S3 path where you export the labels.
-seltrOutputS3Path :: Lens' StartExportLabelsTaskRun Text
-seltrOutputS3Path = lens _seltrOutputS3Path (\s a -> s {_seltrOutputS3Path = a})
+startExportLabelsTaskRun_outputS3Path :: Lens.Lens' StartExportLabelsTaskRun Prelude.Text
+startExportLabelsTaskRun_outputS3Path = Lens.lens (\StartExportLabelsTaskRun' {outputS3Path} -> outputS3Path) (\s@StartExportLabelsTaskRun' {} a -> s {outputS3Path = a} :: StartExportLabelsTaskRun)
 
-instance AWSRequest StartExportLabelsTaskRun where
+instance Prelude.AWSRequest StartExportLabelsTaskRun where
   type
     Rs StartExportLabelsTaskRun =
       StartExportLabelsTaskRunResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartExportLabelsTaskRunResponse'
-            <$> (x .?> "TaskRunId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TaskRunId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartExportLabelsTaskRun
+instance Prelude.Hashable StartExportLabelsTaskRun
 
-instance NFData StartExportLabelsTaskRun
+instance Prelude.NFData StartExportLabelsTaskRun
 
-instance ToHeaders StartExportLabelsTaskRun where
+instance Prelude.ToHeaders StartExportLabelsTaskRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.StartExportLabelsTaskRun" :: ByteString),
+              Prelude.=# ( "AWSGlue.StartExportLabelsTaskRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartExportLabelsTaskRun where
+instance Prelude.ToJSON StartExportLabelsTaskRun where
   toJSON StartExportLabelsTaskRun' {..} =
-    object
-      ( catMaybes
-          [ Just ("TransformId" .= _seltrTransformId),
-            Just ("OutputS3Path" .= _seltrOutputS3Path)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TransformId" Prelude..= transformId),
+            Prelude.Just
+              ("OutputS3Path" Prelude..= outputS3Path)
           ]
       )
 
-instance ToPath StartExportLabelsTaskRun where
-  toPath = const "/"
+instance Prelude.ToPath StartExportLabelsTaskRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartExportLabelsTaskRun where
-  toQuery = const mempty
+instance Prelude.ToQuery StartExportLabelsTaskRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startExportLabelsTaskRunResponse' smart constructor.
+-- | /See:/ 'newStartExportLabelsTaskRunResponse' smart constructor.
 data StartExportLabelsTaskRunResponse = StartExportLabelsTaskRunResponse'
-  { _seltrrrsTaskRunId ::
-      !( Maybe
-           Text
-       ),
-    _seltrrrsResponseStatus ::
-      !Int
+  { -- | The unique identifier for the task run.
+    taskRunId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartExportLabelsTaskRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartExportLabelsTaskRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seltrrrsTaskRunId' - The unique identifier for the task run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seltrrrsResponseStatus' - -- | The response status code.
-startExportLabelsTaskRunResponse ::
-  -- | 'seltrrrsResponseStatus'
-  Int ->
+-- 'taskRunId', 'startExportLabelsTaskRunResponse_taskRunId' - The unique identifier for the task run.
+--
+-- 'httpStatus', 'startExportLabelsTaskRunResponse_httpStatus' - The response's http status code.
+newStartExportLabelsTaskRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartExportLabelsTaskRunResponse
-startExportLabelsTaskRunResponse pResponseStatus_ =
+newStartExportLabelsTaskRunResponse pHttpStatus_ =
   StartExportLabelsTaskRunResponse'
-    { _seltrrrsTaskRunId =
-        Nothing,
-      _seltrrrsResponseStatus =
-        pResponseStatus_
+    { taskRunId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique identifier for the task run.
-seltrrrsTaskRunId :: Lens' StartExportLabelsTaskRunResponse (Maybe Text)
-seltrrrsTaskRunId = lens _seltrrrsTaskRunId (\s a -> s {_seltrrrsTaskRunId = a})
+startExportLabelsTaskRunResponse_taskRunId :: Lens.Lens' StartExportLabelsTaskRunResponse (Prelude.Maybe Prelude.Text)
+startExportLabelsTaskRunResponse_taskRunId = Lens.lens (\StartExportLabelsTaskRunResponse' {taskRunId} -> taskRunId) (\s@StartExportLabelsTaskRunResponse' {} a -> s {taskRunId = a} :: StartExportLabelsTaskRunResponse)
 
--- | -- | The response status code.
-seltrrrsResponseStatus :: Lens' StartExportLabelsTaskRunResponse Int
-seltrrrsResponseStatus = lens _seltrrrsResponseStatus (\s a -> s {_seltrrrsResponseStatus = a})
+-- | The response's http status code.
+startExportLabelsTaskRunResponse_httpStatus :: Lens.Lens' StartExportLabelsTaskRunResponse Prelude.Int
+startExportLabelsTaskRunResponse_httpStatus = Lens.lens (\StartExportLabelsTaskRunResponse' {httpStatus} -> httpStatus) (\s@StartExportLabelsTaskRunResponse' {} a -> s {httpStatus = a} :: StartExportLabelsTaskRunResponse)
 
-instance NFData StartExportLabelsTaskRunResponse
+instance
+  Prelude.NFData
+    StartExportLabelsTaskRunResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.Glue.Types.SchemaDiffType
   ( SchemaDiffType
       ( ..,
-        SyntaxDiff
+        SchemaDiffTypeSYNTAXDIFF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SchemaDiffType = SchemaDiffType' (CI Text)
+newtype SchemaDiffType = SchemaDiffType'
+  { fromSchemaDiffType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SyntaxDiff :: SchemaDiffType
-pattern SyntaxDiff = SchemaDiffType' "SYNTAX_DIFF"
+pattern SchemaDiffTypeSYNTAXDIFF :: SchemaDiffType
+pattern SchemaDiffTypeSYNTAXDIFF = SchemaDiffType' "SYNTAX_DIFF"
 
 {-# COMPLETE
-  SyntaxDiff,
+  SchemaDiffTypeSYNTAXDIFF,
   SchemaDiffType'
   #-}
 
-instance FromText SchemaDiffType where
-  parser = (SchemaDiffType' . mk) <$> takeText
+instance Prelude.FromText SchemaDiffType where
+  parser = SchemaDiffType' Prelude.<$> Prelude.takeText
 
-instance ToText SchemaDiffType where
-  toText (SchemaDiffType' ci) = original ci
+instance Prelude.ToText SchemaDiffType where
+  toText (SchemaDiffType' x) = x
 
-instance Hashable SchemaDiffType
+instance Prelude.Hashable SchemaDiffType
 
-instance NFData SchemaDiffType
+instance Prelude.NFData SchemaDiffType
 
-instance ToByteString SchemaDiffType
+instance Prelude.ToByteString SchemaDiffType
 
-instance ToQuery SchemaDiffType
+instance Prelude.ToQuery SchemaDiffType
 
-instance ToHeader SchemaDiffType
+instance Prelude.ToHeader SchemaDiffType
 
-instance ToJSON SchemaDiffType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SchemaDiffType where
+  toJSON = Prelude.toJSONText

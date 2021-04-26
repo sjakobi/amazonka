@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.CodeGenNodeArg where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An argument or property of a node.
 --
---
---
--- /See:/ 'codeGenNodeArg' smart constructor.
+-- /See:/ 'newCodeGenNodeArg' smart constructor.
 data CodeGenNodeArg = CodeGenNodeArg'
-  { _cgnaParam ::
-      !(Maybe Bool),
-    _cgnaName :: !Text,
-    _cgnaValue :: !Text
+  { -- | True if the value is used as a parameter.
+    param :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the argument or property.
+    name :: Prelude.Text,
+    -- | The value of the argument or property.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeGenNodeArg' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeGenNodeArg' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgnaParam' - True if the value is used as a parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgnaName' - The name of the argument or property.
+-- 'param', 'codeGenNodeArg_param' - True if the value is used as a parameter.
 --
--- * 'cgnaValue' - The value of the argument or property.
-codeGenNodeArg ::
-  -- | 'cgnaName'
-  Text ->
-  -- | 'cgnaValue'
-  Text ->
+-- 'name', 'codeGenNodeArg_name' - The name of the argument or property.
+--
+-- 'value', 'codeGenNodeArg_value' - The value of the argument or property.
+newCodeGenNodeArg ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   CodeGenNodeArg
-codeGenNodeArg pName_ pValue_ =
+newCodeGenNodeArg pName_ pValue_ =
   CodeGenNodeArg'
-    { _cgnaParam = Nothing,
-      _cgnaName = pName_,
-      _cgnaValue = pValue_
+    { param = Prelude.Nothing,
+      name = pName_,
+      value = pValue_
     }
 
 -- | True if the value is used as a parameter.
-cgnaParam :: Lens' CodeGenNodeArg (Maybe Bool)
-cgnaParam = lens _cgnaParam (\s a -> s {_cgnaParam = a})
+codeGenNodeArg_param :: Lens.Lens' CodeGenNodeArg (Prelude.Maybe Prelude.Bool)
+codeGenNodeArg_param = Lens.lens (\CodeGenNodeArg' {param} -> param) (\s@CodeGenNodeArg' {} a -> s {param = a} :: CodeGenNodeArg)
 
 -- | The name of the argument or property.
-cgnaName :: Lens' CodeGenNodeArg Text
-cgnaName = lens _cgnaName (\s a -> s {_cgnaName = a})
+codeGenNodeArg_name :: Lens.Lens' CodeGenNodeArg Prelude.Text
+codeGenNodeArg_name = Lens.lens (\CodeGenNodeArg' {name} -> name) (\s@CodeGenNodeArg' {} a -> s {name = a} :: CodeGenNodeArg)
 
 -- | The value of the argument or property.
-cgnaValue :: Lens' CodeGenNodeArg Text
-cgnaValue = lens _cgnaValue (\s a -> s {_cgnaValue = a})
+codeGenNodeArg_value :: Lens.Lens' CodeGenNodeArg Prelude.Text
+codeGenNodeArg_value = Lens.lens (\CodeGenNodeArg' {value} -> value) (\s@CodeGenNodeArg' {} a -> s {value = a} :: CodeGenNodeArg)
 
-instance FromJSON CodeGenNodeArg where
+instance Prelude.FromJSON CodeGenNodeArg where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CodeGenNodeArg"
       ( \x ->
           CodeGenNodeArg'
-            <$> (x .:? "Param") <*> (x .: "Name") <*> (x .: "Value")
+            Prelude.<$> (x Prelude..:? "Param")
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable CodeGenNodeArg
+instance Prelude.Hashable CodeGenNodeArg
 
-instance NFData CodeGenNodeArg
+instance Prelude.NFData CodeGenNodeArg
 
-instance ToJSON CodeGenNodeArg where
+instance Prelude.ToJSON CodeGenNodeArg where
   toJSON CodeGenNodeArg' {..} =
-    object
-      ( catMaybes
-          [ ("Param" .=) <$> _cgnaParam,
-            Just ("Name" .= _cgnaName),
-            Just ("Value" .= _cgnaValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Param" Prelude..=) Prelude.<$> param,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Glue.Types.Language
   ( Language
       ( ..,
-        Python,
-        Scala
+        LanguagePYTHON,
+        LanguageSCALA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Language = Language' (CI Text)
+newtype Language = Language'
+  { fromLanguage ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Python :: Language
-pattern Python = Language' "PYTHON"
+pattern LanguagePYTHON :: Language
+pattern LanguagePYTHON = Language' "PYTHON"
 
-pattern Scala :: Language
-pattern Scala = Language' "SCALA"
+pattern LanguageSCALA :: Language
+pattern LanguageSCALA = Language' "SCALA"
 
 {-# COMPLETE
-  Python,
-  Scala,
+  LanguagePYTHON,
+  LanguageSCALA,
   Language'
   #-}
 
-instance FromText Language where
-  parser = (Language' . mk) <$> takeText
+instance Prelude.FromText Language where
+  parser = Language' Prelude.<$> Prelude.takeText
 
-instance ToText Language where
-  toText (Language' ci) = original ci
+instance Prelude.ToText Language where
+  toText (Language' x) = x
 
-instance Hashable Language
+instance Prelude.Hashable Language
 
-instance NFData Language
+instance Prelude.NFData Language
 
-instance ToByteString Language
+instance Prelude.ToByteString Language
 
-instance ToQuery Language
+instance Prelude.ToQuery Language
 
-instance ToHeader Language
+instance Prelude.ToHeader Language
 
-instance ToJSON Language where
-  toJSON = toJSONText
+instance Prelude.ToJSON Language where
+  toJSON = Prelude.toJSONText

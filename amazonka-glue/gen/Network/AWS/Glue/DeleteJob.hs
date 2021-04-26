@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,117 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified job definition. If the job definition is not found, no exception is thrown.
+-- Deletes a specified job definition. If the job definition is not found,
+-- no exception is thrown.
 module Network.AWS.Glue.DeleteJob
   ( -- * Creating a Request
-    deleteJob,
-    DeleteJob,
+    DeleteJob (..),
+    newDeleteJob,
 
     -- * Request Lenses
-    djJobName,
+    deleteJob_jobName,
 
     -- * Destructuring the Response
-    deleteJobResponse,
-    DeleteJobResponse,
+    DeleteJobResponse (..),
+    newDeleteJobResponse,
 
     -- * Response Lenses
-    djrrsJobName,
-    djrrsResponseStatus,
+    deleteJobResponse_jobName,
+    deleteJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteJob' smart constructor.
-newtype DeleteJob = DeleteJob' {_djJobName :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteJob' smart constructor.
+data DeleteJob = DeleteJob'
+  { -- | The name of the job definition to delete.
+    jobName :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djJobName' - The name of the job definition to delete.
-deleteJob ::
-  -- | 'djJobName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobName', 'deleteJob_jobName' - The name of the job definition to delete.
+newDeleteJob ::
+  -- | 'jobName'
+  Prelude.Text ->
   DeleteJob
-deleteJob pJobName_ =
-  DeleteJob' {_djJobName = pJobName_}
+newDeleteJob pJobName_ =
+  DeleteJob' {jobName = pJobName_}
 
 -- | The name of the job definition to delete.
-djJobName :: Lens' DeleteJob Text
-djJobName = lens _djJobName (\s a -> s {_djJobName = a})
+deleteJob_jobName :: Lens.Lens' DeleteJob Prelude.Text
+deleteJob_jobName = Lens.lens (\DeleteJob' {jobName} -> jobName) (\s@DeleteJob' {} a -> s {jobName = a} :: DeleteJob)
 
-instance AWSRequest DeleteJob where
+instance Prelude.AWSRequest DeleteJob where
   type Rs DeleteJob = DeleteJobResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteJobResponse'
-            <$> (x .?> "JobName") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteJob
+instance Prelude.Hashable DeleteJob
 
-instance NFData DeleteJob
+instance Prelude.NFData DeleteJob
 
-instance ToHeaders DeleteJob where
+instance Prelude.ToHeaders DeleteJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.DeleteJob" :: ByteString),
+              Prelude.=# ("AWSGlue.DeleteJob" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteJob where
+instance Prelude.ToJSON DeleteJob where
   toJSON DeleteJob' {..} =
-    object (catMaybes [Just ("JobName" .= _djJobName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobName" Prelude..= jobName)]
+      )
 
-instance ToPath DeleteJob where
-  toPath = const "/"
+instance Prelude.ToPath DeleteJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteJob where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteJobResponse' smart constructor.
+-- | /See:/ 'newDeleteJobResponse' smart constructor.
 data DeleteJobResponse = DeleteJobResponse'
-  { _djrrsJobName ::
-      !(Maybe Text),
-    _djrrsResponseStatus :: !Int
+  { -- | The name of the job definition that was deleted.
+    jobName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'djrrsJobName' - The name of the job definition that was deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'djrrsResponseStatus' - -- | The response status code.
-deleteJobResponse ::
-  -- | 'djrrsResponseStatus'
-  Int ->
+-- 'jobName', 'deleteJobResponse_jobName' - The name of the job definition that was deleted.
+--
+-- 'httpStatus', 'deleteJobResponse_httpStatus' - The response's http status code.
+newDeleteJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteJobResponse
-deleteJobResponse pResponseStatus_ =
+newDeleteJobResponse pHttpStatus_ =
   DeleteJobResponse'
-    { _djrrsJobName = Nothing,
-      _djrrsResponseStatus = pResponseStatus_
+    { jobName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the job definition that was deleted.
-djrrsJobName :: Lens' DeleteJobResponse (Maybe Text)
-djrrsJobName = lens _djrrsJobName (\s a -> s {_djrrsJobName = a})
+deleteJobResponse_jobName :: Lens.Lens' DeleteJobResponse (Prelude.Maybe Prelude.Text)
+deleteJobResponse_jobName = Lens.lens (\DeleteJobResponse' {jobName} -> jobName) (\s@DeleteJobResponse' {} a -> s {jobName = a} :: DeleteJobResponse)
 
--- | -- | The response status code.
-djrrsResponseStatus :: Lens' DeleteJobResponse Int
-djrrsResponseStatus = lens _djrrsResponseStatus (\s a -> s {_djrrsResponseStatus = a})
+-- | The response's http status code.
+deleteJobResponse_httpStatus :: Lens.Lens' DeleteJobResponse Prelude.Int
+deleteJobResponse_httpStatus = Lens.lens (\DeleteJobResponse' {httpStatus} -> httpStatus) (\s@DeleteJobResponse' {} a -> s {httpStatus = a} :: DeleteJobResponse)
 
-instance NFData DeleteJobResponse
+instance Prelude.NFData DeleteJobResponse

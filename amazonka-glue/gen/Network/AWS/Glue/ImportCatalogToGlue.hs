@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,123 +24,127 @@
 -- Imports an existing Amazon Athena Data Catalog to AWS Glue
 module Network.AWS.Glue.ImportCatalogToGlue
   ( -- * Creating a Request
-    importCatalogToGlue,
-    ImportCatalogToGlue,
+    ImportCatalogToGlue (..),
+    newImportCatalogToGlue,
 
     -- * Request Lenses
-    ictgCatalogId,
+    importCatalogToGlue_catalogId,
 
     -- * Destructuring the Response
-    importCatalogToGlueResponse,
-    ImportCatalogToGlueResponse,
+    ImportCatalogToGlueResponse (..),
+    newImportCatalogToGlueResponse,
 
     -- * Response Lenses
-    ictgrrsResponseStatus,
+    importCatalogToGlueResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'importCatalogToGlue' smart constructor.
-newtype ImportCatalogToGlue = ImportCatalogToGlue'
-  { _ictgCatalogId ::
-      Maybe Text
+-- | /See:/ 'newImportCatalogToGlue' smart constructor.
+data ImportCatalogToGlue = ImportCatalogToGlue'
+  { -- | The ID of the catalog to import. Currently, this should be the AWS
+    -- account ID.
+    catalogId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportCatalogToGlue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportCatalogToGlue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ictgCatalogId' - The ID of the catalog to import. Currently, this should be the AWS account ID.
-importCatalogToGlue ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'catalogId', 'importCatalogToGlue_catalogId' - The ID of the catalog to import. Currently, this should be the AWS
+-- account ID.
+newImportCatalogToGlue ::
   ImportCatalogToGlue
-importCatalogToGlue =
-  ImportCatalogToGlue' {_ictgCatalogId = Nothing}
+newImportCatalogToGlue =
+  ImportCatalogToGlue' {catalogId = Prelude.Nothing}
 
--- | The ID of the catalog to import. Currently, this should be the AWS account ID.
-ictgCatalogId :: Lens' ImportCatalogToGlue (Maybe Text)
-ictgCatalogId = lens _ictgCatalogId (\s a -> s {_ictgCatalogId = a})
+-- | The ID of the catalog to import. Currently, this should be the AWS
+-- account ID.
+importCatalogToGlue_catalogId :: Lens.Lens' ImportCatalogToGlue (Prelude.Maybe Prelude.Text)
+importCatalogToGlue_catalogId = Lens.lens (\ImportCatalogToGlue' {catalogId} -> catalogId) (\s@ImportCatalogToGlue' {} a -> s {catalogId = a} :: ImportCatalogToGlue)
 
-instance AWSRequest ImportCatalogToGlue where
+instance Prelude.AWSRequest ImportCatalogToGlue where
   type
     Rs ImportCatalogToGlue =
       ImportCatalogToGlueResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          ImportCatalogToGlueResponse' <$> (pure (fromEnum s))
+          ImportCatalogToGlueResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ImportCatalogToGlue
+instance Prelude.Hashable ImportCatalogToGlue
 
-instance NFData ImportCatalogToGlue
+instance Prelude.NFData ImportCatalogToGlue
 
-instance ToHeaders ImportCatalogToGlue where
+instance Prelude.ToHeaders ImportCatalogToGlue where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.ImportCatalogToGlue" :: ByteString),
+              Prelude.=# ( "AWSGlue.ImportCatalogToGlue" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ImportCatalogToGlue where
+instance Prelude.ToJSON ImportCatalogToGlue where
   toJSON ImportCatalogToGlue' {..} =
-    object
-      (catMaybes [("CatalogId" .=) <$> _ictgCatalogId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("CatalogId" Prelude..=) Prelude.<$> catalogId]
+      )
 
-instance ToPath ImportCatalogToGlue where
-  toPath = const "/"
+instance Prelude.ToPath ImportCatalogToGlue where
+  toPath = Prelude.const "/"
 
-instance ToQuery ImportCatalogToGlue where
-  toQuery = const mempty
+instance Prelude.ToQuery ImportCatalogToGlue where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'importCatalogToGlueResponse' smart constructor.
-newtype ImportCatalogToGlueResponse = ImportCatalogToGlueResponse'
-  { _ictgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newImportCatalogToGlueResponse' smart constructor.
+data ImportCatalogToGlueResponse = ImportCatalogToGlueResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportCatalogToGlueResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportCatalogToGlueResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ictgrrsResponseStatus' - -- | The response status code.
-importCatalogToGlueResponse ::
-  -- | 'ictgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'importCatalogToGlueResponse_httpStatus' - The response's http status code.
+newImportCatalogToGlueResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ImportCatalogToGlueResponse
-importCatalogToGlueResponse pResponseStatus_ =
+newImportCatalogToGlueResponse pHttpStatus_ =
   ImportCatalogToGlueResponse'
-    { _ictgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ictgrrsResponseStatus :: Lens' ImportCatalogToGlueResponse Int
-ictgrrsResponseStatus = lens _ictgrrsResponseStatus (\s a -> s {_ictgrrsResponseStatus = a})
+-- | The response's http status code.
+importCatalogToGlueResponse_httpStatus :: Lens.Lens' ImportCatalogToGlueResponse Prelude.Int
+importCatalogToGlueResponse_httpStatus = Lens.lens (\ImportCatalogToGlueResponse' {httpStatus} -> httpStatus) (\s@ImportCatalogToGlueResponse' {} a -> s {httpStatus = a} :: ImportCatalogToGlueResponse)
 
-instance NFData ImportCatalogToGlueResponse
+instance Prelude.NFData ImportCatalogToGlueResponse

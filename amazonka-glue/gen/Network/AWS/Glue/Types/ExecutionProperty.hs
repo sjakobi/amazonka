@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.ExecutionProperty where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An execution property of a job.
 --
---
---
--- /See:/ 'executionProperty' smart constructor.
-newtype ExecutionProperty = ExecutionProperty'
-  { _epMaxConcurrentRuns ::
-      Maybe Int
+-- /See:/ 'newExecutionProperty' smart constructor.
+data ExecutionProperty = ExecutionProperty'
+  { -- | The maximum number of concurrent runs allowed for the job. The default
+    -- is 1. An error is returned when this threshold is reached. The maximum
+    -- value you can specify is controlled by a service limit.
+    maxConcurrentRuns :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecutionProperty' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecutionProperty' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'epMaxConcurrentRuns' - The maximum number of concurrent runs allowed for the job. The default is 1. An error is returned when this threshold is reached. The maximum value you can specify is controlled by a service limit.
-executionProperty ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'maxConcurrentRuns', 'executionProperty_maxConcurrentRuns' - The maximum number of concurrent runs allowed for the job. The default
+-- is 1. An error is returned when this threshold is reached. The maximum
+-- value you can specify is controlled by a service limit.
+newExecutionProperty ::
   ExecutionProperty
-executionProperty =
-  ExecutionProperty' {_epMaxConcurrentRuns = Nothing}
+newExecutionProperty =
+  ExecutionProperty'
+    { maxConcurrentRuns =
+        Prelude.Nothing
+    }
 
--- | The maximum number of concurrent runs allowed for the job. The default is 1. An error is returned when this threshold is reached. The maximum value you can specify is controlled by a service limit.
-epMaxConcurrentRuns :: Lens' ExecutionProperty (Maybe Int)
-epMaxConcurrentRuns = lens _epMaxConcurrentRuns (\s a -> s {_epMaxConcurrentRuns = a})
+-- | The maximum number of concurrent runs allowed for the job. The default
+-- is 1. An error is returned when this threshold is reached. The maximum
+-- value you can specify is controlled by a service limit.
+executionProperty_maxConcurrentRuns :: Lens.Lens' ExecutionProperty (Prelude.Maybe Prelude.Int)
+executionProperty_maxConcurrentRuns = Lens.lens (\ExecutionProperty' {maxConcurrentRuns} -> maxConcurrentRuns) (\s@ExecutionProperty' {} a -> s {maxConcurrentRuns = a} :: ExecutionProperty)
 
-instance FromJSON ExecutionProperty where
+instance Prelude.FromJSON ExecutionProperty where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExecutionProperty"
       ( \x ->
-          ExecutionProperty' <$> (x .:? "MaxConcurrentRuns")
+          ExecutionProperty'
+            Prelude.<$> (x Prelude..:? "MaxConcurrentRuns")
       )
 
-instance Hashable ExecutionProperty
+instance Prelude.Hashable ExecutionProperty
 
-instance NFData ExecutionProperty
+instance Prelude.NFData ExecutionProperty
 
-instance ToJSON ExecutionProperty where
+instance Prelude.ToJSON ExecutionProperty where
   toJSON ExecutionProperty' {..} =
-    object
-      ( catMaybes
-          [("MaxConcurrentRuns" .=) <$> _epMaxConcurrentRuns]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxConcurrentRuns" Prelude..=)
+              Prelude.<$> maxConcurrentRuns
+          ]
       )

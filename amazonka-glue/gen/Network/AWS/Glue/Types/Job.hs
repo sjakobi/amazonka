@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,217 +24,451 @@ import Network.AWS.Glue.Types.ExecutionProperty
 import Network.AWS.Glue.Types.JobCommand
 import Network.AWS.Glue.Types.NotificationProperty
 import Network.AWS.Glue.Types.WorkerType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies a job definition.
 --
---
---
--- /See:/ 'job' smart constructor.
+-- /See:/ 'newJob' smart constructor.
 data Job = Job'
-  { _jNonOverridableArguments ::
-      !(Maybe (Map Text Text)),
-    _jCreatedOn :: !(Maybe POSIX),
-    _jSecurityConfiguration :: !(Maybe Text),
-    _jTimeout :: !(Maybe Nat),
-    _jMaxCapacity :: !(Maybe Double),
-    _jConnections :: !(Maybe ConnectionsList),
-    _jNotificationProperty ::
-      !(Maybe NotificationProperty),
-    _jLastModifiedOn :: !(Maybe POSIX),
-    _jCommand :: !(Maybe JobCommand),
-    _jNumberOfWorkers :: !(Maybe Int),
-    _jName :: !(Maybe Text),
-    _jRole :: !(Maybe Text),
-    _jGlueVersion :: !(Maybe Text),
-    _jWorkerType :: !(Maybe WorkerType),
-    _jDescription :: !(Maybe Text),
-    _jDefaultArguments :: !(Maybe (Map Text Text)),
-    _jAllocatedCapacity :: !(Maybe Int),
-    _jExecutionProperty :: !(Maybe ExecutionProperty),
-    _jMaxRetries :: !(Maybe Int),
-    _jLogURI :: !(Maybe Text)
+  { -- | Non-overridable arguments for this job, specified as name-value pairs.
+    nonOverridableArguments :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The time and date that this job definition was created.
+    createdOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the @SecurityConfiguration@ structure to be used with this
+    -- job.
+    securityConfiguration :: Prelude.Maybe Prelude.Text,
+    -- | The job timeout in minutes. This is the maximum time that a job run can
+    -- consume resources before it is terminated and enters @TIMEOUT@ status.
+    -- The default is 2,880 minutes (48 hours).
+    timeout :: Prelude.Maybe Prelude.Nat,
+    -- | The number of AWS Glue data processing units (DPUs) that can be
+    -- allocated when this job runs. A DPU is a relative measure of processing
+    -- power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
+    -- For more information, see the
+    -- <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+    --
+    -- Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@.
+    --
+    -- The value that can be allocated for @MaxCapacity@ depends on whether you
+    -- are running a Python shell job, an Apache Spark ETL job, or an Apache
+    -- Spark streaming ETL job:
+    --
+    -- -   When you specify a Python shell job
+    --     (@JobCommand.Name@=\"pythonshell\"), you can allocate either 0.0625
+    --     or 1 DPU. The default is 0.0625 DPU.
+    --
+    -- -   When you specify an Apache Spark ETL job
+    --     (@JobCommand.Name@=\"glueetl\") or Apache Spark streaming ETL job
+    --     (@JobCommand.Name@=\"gluestreaming\"), you can allocate from 2 to
+    --     100 DPUs. The default is 10 DPUs. This job type cannot have a
+    --     fractional DPU allocation.
+    maxCapacity :: Prelude.Maybe Prelude.Double,
+    -- | The connections used for this job.
+    connections :: Prelude.Maybe ConnectionsList,
+    -- | Specifies configuration properties of a job notification.
+    notificationProperty :: Prelude.Maybe NotificationProperty,
+    -- | The last point in time when this job definition was modified.
+    lastModifiedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The @JobCommand@ that executes this job.
+    command :: Prelude.Maybe JobCommand,
+    -- | The number of workers of a defined @workerType@ that are allocated when
+    -- a job runs.
+    --
+    -- The maximum number of workers you can define are 299 for @G.1X@, and 149
+    -- for @G.2X@.
+    numberOfWorkers :: Prelude.Maybe Prelude.Int,
+    -- | The name you assign to this job definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The name or Amazon Resource Name (ARN) of the IAM role associated with
+    -- this job.
+    role' :: Prelude.Maybe Prelude.Text,
+    -- | Glue version determines the versions of Apache Spark and Python that AWS
+    -- Glue supports. The Python version indicates the version supported for
+    -- jobs of type Spark.
+    --
+    -- For more information about the available AWS Glue versions and
+    -- corresponding Spark and Python versions, see
+    -- <https://docs.aws.amazon.com/glue/latest/dg/add-job.html Glue version>
+    -- in the developer guide.
+    --
+    -- Jobs that are created without specifying a Glue version default to Glue
+    -- 0.9.
+    glueVersion :: Prelude.Maybe Prelude.Text,
+    -- | The type of predefined worker that is allocated when a job runs. Accepts
+    -- a value of Standard, G.1X, or G.2X.
+    --
+    -- -   For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB
+    --     of memory and a 50GB disk, and 2 executors per worker.
+    --
+    -- -   For the @G.1X@ worker type, each worker maps to 1 DPU (4 vCPU, 16 GB
+    --     of memory, 64 GB disk), and provides 1 executor per worker. We
+    --     recommend this worker type for memory-intensive jobs.
+    --
+    -- -   For the @G.2X@ worker type, each worker maps to 2 DPU (8 vCPU, 32 GB
+    --     of memory, 128 GB disk), and provides 1 executor per worker. We
+    --     recommend this worker type for memory-intensive jobs.
+    workerType :: Prelude.Maybe WorkerType,
+    -- | A description of the job.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The default arguments for this job, specified as name-value pairs.
+    --
+    -- You can specify arguments here that your own job-execution script
+    -- consumes, as well as arguments that AWS Glue itself consumes.
+    --
+    -- For information about how to specify and consume your own Job arguments,
+    -- see the
+    -- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python>
+    -- topic in the developer guide.
+    --
+    -- For information about the key-value pairs that AWS Glue consumes to set
+    -- up your job, see the
+    -- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue>
+    -- topic in the developer guide.
+    defaultArguments :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | This field is deprecated. Use @MaxCapacity@ instead.
+    --
+    -- The number of AWS Glue data processing units (DPUs) allocated to runs of
+    -- this job. You can allocate from 2 to 100 DPUs; the default is 10. A DPU
+    -- is a relative measure of processing power that consists of 4 vCPUs of
+    -- compute capacity and 16 GB of memory. For more information, see the
+    -- <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+    allocatedCapacity :: Prelude.Maybe Prelude.Int,
+    -- | An @ExecutionProperty@ specifying the maximum number of concurrent runs
+    -- allowed for this job.
+    executionProperty :: Prelude.Maybe ExecutionProperty,
+    -- | The maximum number of times to retry this job after a JobRun fails.
+    maxRetries :: Prelude.Maybe Prelude.Int,
+    -- | This field is reserved for future use.
+    logUri :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Job' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Job' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jNonOverridableArguments' - Non-overridable arguments for this job, specified as name-value pairs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jCreatedOn' - The time and date that this job definition was created.
+-- 'nonOverridableArguments', 'job_nonOverridableArguments' - Non-overridable arguments for this job, specified as name-value pairs.
 --
--- * 'jSecurityConfiguration' - The name of the @SecurityConfiguration@ structure to be used with this job.
+-- 'createdOn', 'job_createdOn' - The time and date that this job definition was created.
 --
--- * 'jTimeout' - The job timeout in minutes. This is the maximum time that a job run can consume resources before it is terminated and enters @TIMEOUT@ status. The default is 2,880 minutes (48 hours).
+-- 'securityConfiguration', 'job_securityConfiguration' - The name of the @SecurityConfiguration@ structure to be used with this
+-- job.
 --
--- * 'jMaxCapacity' - The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page> . Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@ . The value that can be allocated for @MaxCapacity@ depends on whether you are running a Python shell job, an Apache Spark ETL job, or an Apache Spark streaming ETL job:     * When you specify a Python shell job (@JobCommand.Name@ ="pythonshell"), you can allocate either 0.0625 or 1 DPU. The default is 0.0625 DPU.     * When you specify an Apache Spark ETL job (@JobCommand.Name@ ="glueetl") or Apache Spark streaming ETL job (@JobCommand.Name@ ="gluestreaming"), you can allocate from 2 to 100 DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
+-- 'timeout', 'job_timeout' - The job timeout in minutes. This is the maximum time that a job run can
+-- consume resources before it is terminated and enters @TIMEOUT@ status.
+-- The default is 2,880 minutes (48 hours).
 --
--- * 'jConnections' - The connections used for this job.
+-- 'maxCapacity', 'job_maxCapacity' - The number of AWS Glue data processing units (DPUs) that can be
+-- allocated when this job runs. A DPU is a relative measure of processing
+-- power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
+-- For more information, see the
+-- <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
 --
--- * 'jNotificationProperty' - Specifies configuration properties of a job notification.
+-- Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@.
 --
--- * 'jLastModifiedOn' - The last point in time when this job definition was modified.
+-- The value that can be allocated for @MaxCapacity@ depends on whether you
+-- are running a Python shell job, an Apache Spark ETL job, or an Apache
+-- Spark streaming ETL job:
 --
--- * 'jCommand' - The @JobCommand@ that executes this job.
+-- -   When you specify a Python shell job
+--     (@JobCommand.Name@=\"pythonshell\"), you can allocate either 0.0625
+--     or 1 DPU. The default is 0.0625 DPU.
 --
--- * 'jNumberOfWorkers' - The number of workers of a defined @workerType@ that are allocated when a job runs. The maximum number of workers you can define are 299 for @G.1X@ , and 149 for @G.2X@ .
+-- -   When you specify an Apache Spark ETL job
+--     (@JobCommand.Name@=\"glueetl\") or Apache Spark streaming ETL job
+--     (@JobCommand.Name@=\"gluestreaming\"), you can allocate from 2 to
+--     100 DPUs. The default is 10 DPUs. This job type cannot have a
+--     fractional DPU allocation.
 --
--- * 'jName' - The name you assign to this job definition.
+-- 'connections', 'job_connections' - The connections used for this job.
 --
--- * 'jRole' - The name or Amazon Resource Name (ARN) of the IAM role associated with this job.
+-- 'notificationProperty', 'job_notificationProperty' - Specifies configuration properties of a job notification.
 --
--- * 'jGlueVersion' - Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version indicates the version supported for jobs of type Spark.  For more information about the available AWS Glue versions and corresponding Spark and Python versions, see <https://docs.aws.amazon.com/glue/latest/dg/add-job.html Glue version> in the developer guide. Jobs that are created without specifying a Glue version default to Glue 0.9.
+-- 'lastModifiedOn', 'job_lastModifiedOn' - The last point in time when this job definition was modified.
 --
--- * 'jWorkerType' - The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or G.2X.     * For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.     * For the @G.1X@ worker type, each worker maps to 1 DPU (4 vCPU, 16 GB of memory, 64 GB disk), and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.     * For the @G.2X@ worker type, each worker maps to 2 DPU (8 vCPU, 32 GB of memory, 128 GB disk), and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.
+-- 'command', 'job_command' - The @JobCommand@ that executes this job.
 --
--- * 'jDescription' - A description of the job.
+-- 'numberOfWorkers', 'job_numberOfWorkers' - The number of workers of a defined @workerType@ that are allocated when
+-- a job runs.
 --
--- * 'jDefaultArguments' - The default arguments for this job, specified as name-value pairs. You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue itself consumes. For information about how to specify and consume your own Job arguments, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python> topic in the developer guide. For information about the key-value pairs that AWS Glue consumes to set up your job, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue> topic in the developer guide.
+-- The maximum number of workers you can define are 299 for @G.1X@, and 149
+-- for @G.2X@.
 --
--- * 'jAllocatedCapacity' - This field is deprecated. Use @MaxCapacity@ instead. The number of AWS Glue data processing units (DPUs) allocated to runs of this job. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page> .
+-- 'name', 'job_name' - The name you assign to this job definition.
 --
--- * 'jExecutionProperty' - An @ExecutionProperty@ specifying the maximum number of concurrent runs allowed for this job.
+-- 'role'', 'job_role' - The name or Amazon Resource Name (ARN) of the IAM role associated with
+-- this job.
 --
--- * 'jMaxRetries' - The maximum number of times to retry this job after a JobRun fails.
+-- 'glueVersion', 'job_glueVersion' - Glue version determines the versions of Apache Spark and Python that AWS
+-- Glue supports. The Python version indicates the version supported for
+-- jobs of type Spark.
 --
--- * 'jLogURI' - This field is reserved for future use.
-job ::
+-- For more information about the available AWS Glue versions and
+-- corresponding Spark and Python versions, see
+-- <https://docs.aws.amazon.com/glue/latest/dg/add-job.html Glue version>
+-- in the developer guide.
+--
+-- Jobs that are created without specifying a Glue version default to Glue
+-- 0.9.
+--
+-- 'workerType', 'job_workerType' - The type of predefined worker that is allocated when a job runs. Accepts
+-- a value of Standard, G.1X, or G.2X.
+--
+-- -   For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB
+--     of memory and a 50GB disk, and 2 executors per worker.
+--
+-- -   For the @G.1X@ worker type, each worker maps to 1 DPU (4 vCPU, 16 GB
+--     of memory, 64 GB disk), and provides 1 executor per worker. We
+--     recommend this worker type for memory-intensive jobs.
+--
+-- -   For the @G.2X@ worker type, each worker maps to 2 DPU (8 vCPU, 32 GB
+--     of memory, 128 GB disk), and provides 1 executor per worker. We
+--     recommend this worker type for memory-intensive jobs.
+--
+-- 'description', 'job_description' - A description of the job.
+--
+-- 'defaultArguments', 'job_defaultArguments' - The default arguments for this job, specified as name-value pairs.
+--
+-- You can specify arguments here that your own job-execution script
+-- consumes, as well as arguments that AWS Glue itself consumes.
+--
+-- For information about how to specify and consume your own Job arguments,
+-- see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python>
+-- topic in the developer guide.
+--
+-- For information about the key-value pairs that AWS Glue consumes to set
+-- up your job, see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue>
+-- topic in the developer guide.
+--
+-- 'allocatedCapacity', 'job_allocatedCapacity' - This field is deprecated. Use @MaxCapacity@ instead.
+--
+-- The number of AWS Glue data processing units (DPUs) allocated to runs of
+-- this job. You can allocate from 2 to 100 DPUs; the default is 10. A DPU
+-- is a relative measure of processing power that consists of 4 vCPUs of
+-- compute capacity and 16 GB of memory. For more information, see the
+-- <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+--
+-- 'executionProperty', 'job_executionProperty' - An @ExecutionProperty@ specifying the maximum number of concurrent runs
+-- allowed for this job.
+--
+-- 'maxRetries', 'job_maxRetries' - The maximum number of times to retry this job after a JobRun fails.
+--
+-- 'logUri', 'job_logUri' - This field is reserved for future use.
+newJob ::
   Job
-job =
+newJob =
   Job'
-    { _jNonOverridableArguments = Nothing,
-      _jCreatedOn = Nothing,
-      _jSecurityConfiguration = Nothing,
-      _jTimeout = Nothing,
-      _jMaxCapacity = Nothing,
-      _jConnections = Nothing,
-      _jNotificationProperty = Nothing,
-      _jLastModifiedOn = Nothing,
-      _jCommand = Nothing,
-      _jNumberOfWorkers = Nothing,
-      _jName = Nothing,
-      _jRole = Nothing,
-      _jGlueVersion = Nothing,
-      _jWorkerType = Nothing,
-      _jDescription = Nothing,
-      _jDefaultArguments = Nothing,
-      _jAllocatedCapacity = Nothing,
-      _jExecutionProperty = Nothing,
-      _jMaxRetries = Nothing,
-      _jLogURI = Nothing
+    { nonOverridableArguments = Prelude.Nothing,
+      createdOn = Prelude.Nothing,
+      securityConfiguration = Prelude.Nothing,
+      timeout = Prelude.Nothing,
+      maxCapacity = Prelude.Nothing,
+      connections = Prelude.Nothing,
+      notificationProperty = Prelude.Nothing,
+      lastModifiedOn = Prelude.Nothing,
+      command = Prelude.Nothing,
+      numberOfWorkers = Prelude.Nothing,
+      name = Prelude.Nothing,
+      role' = Prelude.Nothing,
+      glueVersion = Prelude.Nothing,
+      workerType = Prelude.Nothing,
+      description = Prelude.Nothing,
+      defaultArguments = Prelude.Nothing,
+      allocatedCapacity = Prelude.Nothing,
+      executionProperty = Prelude.Nothing,
+      maxRetries = Prelude.Nothing,
+      logUri = Prelude.Nothing
     }
 
 -- | Non-overridable arguments for this job, specified as name-value pairs.
-jNonOverridableArguments :: Lens' Job (HashMap Text Text)
-jNonOverridableArguments = lens _jNonOverridableArguments (\s a -> s {_jNonOverridableArguments = a}) . _Default . _Map
+job_nonOverridableArguments :: Lens.Lens' Job (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+job_nonOverridableArguments = Lens.lens (\Job' {nonOverridableArguments} -> nonOverridableArguments) (\s@Job' {} a -> s {nonOverridableArguments = a} :: Job) Prelude.. Lens.mapping Prelude._Map
 
 -- | The time and date that this job definition was created.
-jCreatedOn :: Lens' Job (Maybe UTCTime)
-jCreatedOn = lens _jCreatedOn (\s a -> s {_jCreatedOn = a}) . mapping _Time
+job_createdOn :: Lens.Lens' Job (Prelude.Maybe Prelude.UTCTime)
+job_createdOn = Lens.lens (\Job' {createdOn} -> createdOn) (\s@Job' {} a -> s {createdOn = a} :: Job) Prelude.. Lens.mapping Prelude._Time
 
--- | The name of the @SecurityConfiguration@ structure to be used with this job.
-jSecurityConfiguration :: Lens' Job (Maybe Text)
-jSecurityConfiguration = lens _jSecurityConfiguration (\s a -> s {_jSecurityConfiguration = a})
+-- | The name of the @SecurityConfiguration@ structure to be used with this
+-- job.
+job_securityConfiguration :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_securityConfiguration = Lens.lens (\Job' {securityConfiguration} -> securityConfiguration) (\s@Job' {} a -> s {securityConfiguration = a} :: Job)
 
--- | The job timeout in minutes. This is the maximum time that a job run can consume resources before it is terminated and enters @TIMEOUT@ status. The default is 2,880 minutes (48 hours).
-jTimeout :: Lens' Job (Maybe Natural)
-jTimeout = lens _jTimeout (\s a -> s {_jTimeout = a}) . mapping _Nat
+-- | The job timeout in minutes. This is the maximum time that a job run can
+-- consume resources before it is terminated and enters @TIMEOUT@ status.
+-- The default is 2,880 minutes (48 hours).
+job_timeout :: Lens.Lens' Job (Prelude.Maybe Prelude.Natural)
+job_timeout = Lens.lens (\Job' {timeout} -> timeout) (\s@Job' {} a -> s {timeout = a} :: Job) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of AWS Glue data processing units (DPUs) that can be allocated when this job runs. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page> . Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@ . The value that can be allocated for @MaxCapacity@ depends on whether you are running a Python shell job, an Apache Spark ETL job, or an Apache Spark streaming ETL job:     * When you specify a Python shell job (@JobCommand.Name@ ="pythonshell"), you can allocate either 0.0625 or 1 DPU. The default is 0.0625 DPU.     * When you specify an Apache Spark ETL job (@JobCommand.Name@ ="glueetl") or Apache Spark streaming ETL job (@JobCommand.Name@ ="gluestreaming"), you can allocate from 2 to 100 DPUs. The default is 10 DPUs. This job type cannot have a fractional DPU allocation.
-jMaxCapacity :: Lens' Job (Maybe Double)
-jMaxCapacity = lens _jMaxCapacity (\s a -> s {_jMaxCapacity = a})
+-- | The number of AWS Glue data processing units (DPUs) that can be
+-- allocated when this job runs. A DPU is a relative measure of processing
+-- power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
+-- For more information, see the
+-- <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+--
+-- Do not set @Max Capacity@ if using @WorkerType@ and @NumberOfWorkers@.
+--
+-- The value that can be allocated for @MaxCapacity@ depends on whether you
+-- are running a Python shell job, an Apache Spark ETL job, or an Apache
+-- Spark streaming ETL job:
+--
+-- -   When you specify a Python shell job
+--     (@JobCommand.Name@=\"pythonshell\"), you can allocate either 0.0625
+--     or 1 DPU. The default is 0.0625 DPU.
+--
+-- -   When you specify an Apache Spark ETL job
+--     (@JobCommand.Name@=\"glueetl\") or Apache Spark streaming ETL job
+--     (@JobCommand.Name@=\"gluestreaming\"), you can allocate from 2 to
+--     100 DPUs. The default is 10 DPUs. This job type cannot have a
+--     fractional DPU allocation.
+job_maxCapacity :: Lens.Lens' Job (Prelude.Maybe Prelude.Double)
+job_maxCapacity = Lens.lens (\Job' {maxCapacity} -> maxCapacity) (\s@Job' {} a -> s {maxCapacity = a} :: Job)
 
 -- | The connections used for this job.
-jConnections :: Lens' Job (Maybe ConnectionsList)
-jConnections = lens _jConnections (\s a -> s {_jConnections = a})
+job_connections :: Lens.Lens' Job (Prelude.Maybe ConnectionsList)
+job_connections = Lens.lens (\Job' {connections} -> connections) (\s@Job' {} a -> s {connections = a} :: Job)
 
 -- | Specifies configuration properties of a job notification.
-jNotificationProperty :: Lens' Job (Maybe NotificationProperty)
-jNotificationProperty = lens _jNotificationProperty (\s a -> s {_jNotificationProperty = a})
+job_notificationProperty :: Lens.Lens' Job (Prelude.Maybe NotificationProperty)
+job_notificationProperty = Lens.lens (\Job' {notificationProperty} -> notificationProperty) (\s@Job' {} a -> s {notificationProperty = a} :: Job)
 
 -- | The last point in time when this job definition was modified.
-jLastModifiedOn :: Lens' Job (Maybe UTCTime)
-jLastModifiedOn = lens _jLastModifiedOn (\s a -> s {_jLastModifiedOn = a}) . mapping _Time
+job_lastModifiedOn :: Lens.Lens' Job (Prelude.Maybe Prelude.UTCTime)
+job_lastModifiedOn = Lens.lens (\Job' {lastModifiedOn} -> lastModifiedOn) (\s@Job' {} a -> s {lastModifiedOn = a} :: Job) Prelude.. Lens.mapping Prelude._Time
 
 -- | The @JobCommand@ that executes this job.
-jCommand :: Lens' Job (Maybe JobCommand)
-jCommand = lens _jCommand (\s a -> s {_jCommand = a})
+job_command :: Lens.Lens' Job (Prelude.Maybe JobCommand)
+job_command = Lens.lens (\Job' {command} -> command) (\s@Job' {} a -> s {command = a} :: Job)
 
--- | The number of workers of a defined @workerType@ that are allocated when a job runs. The maximum number of workers you can define are 299 for @G.1X@ , and 149 for @G.2X@ .
-jNumberOfWorkers :: Lens' Job (Maybe Int)
-jNumberOfWorkers = lens _jNumberOfWorkers (\s a -> s {_jNumberOfWorkers = a})
+-- | The number of workers of a defined @workerType@ that are allocated when
+-- a job runs.
+--
+-- The maximum number of workers you can define are 299 for @G.1X@, and 149
+-- for @G.2X@.
+job_numberOfWorkers :: Lens.Lens' Job (Prelude.Maybe Prelude.Int)
+job_numberOfWorkers = Lens.lens (\Job' {numberOfWorkers} -> numberOfWorkers) (\s@Job' {} a -> s {numberOfWorkers = a} :: Job)
 
 -- | The name you assign to this job definition.
-jName :: Lens' Job (Maybe Text)
-jName = lens _jName (\s a -> s {_jName = a})
+job_name :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_name = Lens.lens (\Job' {name} -> name) (\s@Job' {} a -> s {name = a} :: Job)
 
--- | The name or Amazon Resource Name (ARN) of the IAM role associated with this job.
-jRole :: Lens' Job (Maybe Text)
-jRole = lens _jRole (\s a -> s {_jRole = a})
+-- | The name or Amazon Resource Name (ARN) of the IAM role associated with
+-- this job.
+job_role :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_role = Lens.lens (\Job' {role'} -> role') (\s@Job' {} a -> s {role' = a} :: Job)
 
--- | Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version indicates the version supported for jobs of type Spark.  For more information about the available AWS Glue versions and corresponding Spark and Python versions, see <https://docs.aws.amazon.com/glue/latest/dg/add-job.html Glue version> in the developer guide. Jobs that are created without specifying a Glue version default to Glue 0.9.
-jGlueVersion :: Lens' Job (Maybe Text)
-jGlueVersion = lens _jGlueVersion (\s a -> s {_jGlueVersion = a})
+-- | Glue version determines the versions of Apache Spark and Python that AWS
+-- Glue supports. The Python version indicates the version supported for
+-- jobs of type Spark.
+--
+-- For more information about the available AWS Glue versions and
+-- corresponding Spark and Python versions, see
+-- <https://docs.aws.amazon.com/glue/latest/dg/add-job.html Glue version>
+-- in the developer guide.
+--
+-- Jobs that are created without specifying a Glue version default to Glue
+-- 0.9.
+job_glueVersion :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_glueVersion = Lens.lens (\Job' {glueVersion} -> glueVersion) (\s@Job' {} a -> s {glueVersion = a} :: Job)
 
--- | The type of predefined worker that is allocated when a job runs. Accepts a value of Standard, G.1X, or G.2X.     * For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.     * For the @G.1X@ worker type, each worker maps to 1 DPU (4 vCPU, 16 GB of memory, 64 GB disk), and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.     * For the @G.2X@ worker type, each worker maps to 2 DPU (8 vCPU, 32 GB of memory, 128 GB disk), and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.
-jWorkerType :: Lens' Job (Maybe WorkerType)
-jWorkerType = lens _jWorkerType (\s a -> s {_jWorkerType = a})
+-- | The type of predefined worker that is allocated when a job runs. Accepts
+-- a value of Standard, G.1X, or G.2X.
+--
+-- -   For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB
+--     of memory and a 50GB disk, and 2 executors per worker.
+--
+-- -   For the @G.1X@ worker type, each worker maps to 1 DPU (4 vCPU, 16 GB
+--     of memory, 64 GB disk), and provides 1 executor per worker. We
+--     recommend this worker type for memory-intensive jobs.
+--
+-- -   For the @G.2X@ worker type, each worker maps to 2 DPU (8 vCPU, 32 GB
+--     of memory, 128 GB disk), and provides 1 executor per worker. We
+--     recommend this worker type for memory-intensive jobs.
+job_workerType :: Lens.Lens' Job (Prelude.Maybe WorkerType)
+job_workerType = Lens.lens (\Job' {workerType} -> workerType) (\s@Job' {} a -> s {workerType = a} :: Job)
 
 -- | A description of the job.
-jDescription :: Lens' Job (Maybe Text)
-jDescription = lens _jDescription (\s a -> s {_jDescription = a})
+job_description :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_description = Lens.lens (\Job' {description} -> description) (\s@Job' {} a -> s {description = a} :: Job)
 
--- | The default arguments for this job, specified as name-value pairs. You can specify arguments here that your own job-execution script consumes, as well as arguments that AWS Glue itself consumes. For information about how to specify and consume your own Job arguments, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python> topic in the developer guide. For information about the key-value pairs that AWS Glue consumes to set up your job, see the <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue> topic in the developer guide.
-jDefaultArguments :: Lens' Job (HashMap Text Text)
-jDefaultArguments = lens _jDefaultArguments (\s a -> s {_jDefaultArguments = a}) . _Default . _Map
+-- | The default arguments for this job, specified as name-value pairs.
+--
+-- You can specify arguments here that your own job-execution script
+-- consumes, as well as arguments that AWS Glue itself consumes.
+--
+-- For information about how to specify and consume your own Job arguments,
+-- see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html Calling AWS Glue APIs in Python>
+-- topic in the developer guide.
+--
+-- For information about the key-value pairs that AWS Glue consumes to set
+-- up your job, see the
+-- <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Special Parameters Used by AWS Glue>
+-- topic in the developer guide.
+job_defaultArguments :: Lens.Lens' Job (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+job_defaultArguments = Lens.lens (\Job' {defaultArguments} -> defaultArguments) (\s@Job' {} a -> s {defaultArguments = a} :: Job) Prelude.. Lens.mapping Prelude._Map
 
--- | This field is deprecated. Use @MaxCapacity@ instead. The number of AWS Glue data processing units (DPUs) allocated to runs of this job. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page> .
-jAllocatedCapacity :: Lens' Job (Maybe Int)
-jAllocatedCapacity = lens _jAllocatedCapacity (\s a -> s {_jAllocatedCapacity = a})
+-- | This field is deprecated. Use @MaxCapacity@ instead.
+--
+-- The number of AWS Glue data processing units (DPUs) allocated to runs of
+-- this job. You can allocate from 2 to 100 DPUs; the default is 10. A DPU
+-- is a relative measure of processing power that consists of 4 vCPUs of
+-- compute capacity and 16 GB of memory. For more information, see the
+-- <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+job_allocatedCapacity :: Lens.Lens' Job (Prelude.Maybe Prelude.Int)
+job_allocatedCapacity = Lens.lens (\Job' {allocatedCapacity} -> allocatedCapacity) (\s@Job' {} a -> s {allocatedCapacity = a} :: Job)
 
--- | An @ExecutionProperty@ specifying the maximum number of concurrent runs allowed for this job.
-jExecutionProperty :: Lens' Job (Maybe ExecutionProperty)
-jExecutionProperty = lens _jExecutionProperty (\s a -> s {_jExecutionProperty = a})
+-- | An @ExecutionProperty@ specifying the maximum number of concurrent runs
+-- allowed for this job.
+job_executionProperty :: Lens.Lens' Job (Prelude.Maybe ExecutionProperty)
+job_executionProperty = Lens.lens (\Job' {executionProperty} -> executionProperty) (\s@Job' {} a -> s {executionProperty = a} :: Job)
 
 -- | The maximum number of times to retry this job after a JobRun fails.
-jMaxRetries :: Lens' Job (Maybe Int)
-jMaxRetries = lens _jMaxRetries (\s a -> s {_jMaxRetries = a})
+job_maxRetries :: Lens.Lens' Job (Prelude.Maybe Prelude.Int)
+job_maxRetries = Lens.lens (\Job' {maxRetries} -> maxRetries) (\s@Job' {} a -> s {maxRetries = a} :: Job)
 
 -- | This field is reserved for future use.
-jLogURI :: Lens' Job (Maybe Text)
-jLogURI = lens _jLogURI (\s a -> s {_jLogURI = a})
+job_logUri :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_logUri = Lens.lens (\Job' {logUri} -> logUri) (\s@Job' {} a -> s {logUri = a} :: Job)
 
-instance FromJSON Job where
+instance Prelude.FromJSON Job where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Job"
       ( \x ->
           Job'
-            <$> (x .:? "NonOverridableArguments" .!= mempty)
-            <*> (x .:? "CreatedOn")
-            <*> (x .:? "SecurityConfiguration")
-            <*> (x .:? "Timeout")
-            <*> (x .:? "MaxCapacity")
-            <*> (x .:? "Connections")
-            <*> (x .:? "NotificationProperty")
-            <*> (x .:? "LastModifiedOn")
-            <*> (x .:? "Command")
-            <*> (x .:? "NumberOfWorkers")
-            <*> (x .:? "Name")
-            <*> (x .:? "Role")
-            <*> (x .:? "GlueVersion")
-            <*> (x .:? "WorkerType")
-            <*> (x .:? "Description")
-            <*> (x .:? "DefaultArguments" .!= mempty)
-            <*> (x .:? "AllocatedCapacity")
-            <*> (x .:? "ExecutionProperty")
-            <*> (x .:? "MaxRetries")
-            <*> (x .:? "LogUri")
+            Prelude.<$> ( x Prelude..:? "NonOverridableArguments"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "CreatedOn")
+            Prelude.<*> (x Prelude..:? "SecurityConfiguration")
+            Prelude.<*> (x Prelude..:? "Timeout")
+            Prelude.<*> (x Prelude..:? "MaxCapacity")
+            Prelude.<*> (x Prelude..:? "Connections")
+            Prelude.<*> (x Prelude..:? "NotificationProperty")
+            Prelude.<*> (x Prelude..:? "LastModifiedOn")
+            Prelude.<*> (x Prelude..:? "Command")
+            Prelude.<*> (x Prelude..:? "NumberOfWorkers")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Role")
+            Prelude.<*> (x Prelude..:? "GlueVersion")
+            Prelude.<*> (x Prelude..:? "WorkerType")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> ( x Prelude..:? "DefaultArguments"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "AllocatedCapacity")
+            Prelude.<*> (x Prelude..:? "ExecutionProperty")
+            Prelude.<*> (x Prelude..:? "MaxRetries")
+            Prelude.<*> (x Prelude..:? "LogUri")
       )
 
-instance Hashable Job
+instance Prelude.Hashable Job
 
-instance NFData Job
+instance Prelude.NFData Job

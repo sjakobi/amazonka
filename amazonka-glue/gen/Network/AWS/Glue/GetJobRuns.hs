@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,168 +23,192 @@
 --
 -- Retrieves metadata for all runs of a given job definition.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetJobRuns
   ( -- * Creating a Request
-    getJobRuns,
-    GetJobRuns,
+    GetJobRuns (..),
+    newGetJobRuns,
 
     -- * Request Lenses
-    gjrNextToken,
-    gjrMaxResults,
-    gjrJobName,
+    getJobRuns_nextToken,
+    getJobRuns_maxResults,
+    getJobRuns_jobName,
 
     -- * Destructuring the Response
-    getJobRunsResponse,
-    GetJobRunsResponse,
+    GetJobRunsResponse (..),
+    newGetJobRunsResponse,
 
     -- * Response Lenses
-    gjrrjrsNextToken,
-    gjrrjrsJobRuns,
-    gjrrjrsResponseStatus,
+    getJobRunsResponse_nextToken,
+    getJobRunsResponse_jobRuns,
+    getJobRunsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.JobRun
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getJobRuns' smart constructor.
+-- | /See:/ 'newGetJobRuns' smart constructor.
 data GetJobRuns = GetJobRuns'
-  { _gjrNextToken ::
-      !(Maybe Text),
-    _gjrMaxResults :: !(Maybe Nat),
-    _gjrJobName :: !Text
+  { -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the job definition for which to retrieve all job runs.
+    jobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetJobRuns' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetJobRuns' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gjrNextToken' - A continuation token, if this is a continuation call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gjrMaxResults' - The maximum size of the response.
+-- 'nextToken', 'getJobRuns_nextToken' - A continuation token, if this is a continuation call.
 --
--- * 'gjrJobName' - The name of the job definition for which to retrieve all job runs.
-getJobRuns ::
-  -- | 'gjrJobName'
-  Text ->
+-- 'maxResults', 'getJobRuns_maxResults' - The maximum size of the response.
+--
+-- 'jobName', 'getJobRuns_jobName' - The name of the job definition for which to retrieve all job runs.
+newGetJobRuns ::
+  -- | 'jobName'
+  Prelude.Text ->
   GetJobRuns
-getJobRuns pJobName_ =
+newGetJobRuns pJobName_ =
   GetJobRuns'
-    { _gjrNextToken = Nothing,
-      _gjrMaxResults = Nothing,
-      _gjrJobName = pJobName_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      jobName = pJobName_
     }
 
 -- | A continuation token, if this is a continuation call.
-gjrNextToken :: Lens' GetJobRuns (Maybe Text)
-gjrNextToken = lens _gjrNextToken (\s a -> s {_gjrNextToken = a})
+getJobRuns_nextToken :: Lens.Lens' GetJobRuns (Prelude.Maybe Prelude.Text)
+getJobRuns_nextToken = Lens.lens (\GetJobRuns' {nextToken} -> nextToken) (\s@GetJobRuns' {} a -> s {nextToken = a} :: GetJobRuns)
 
 -- | The maximum size of the response.
-gjrMaxResults :: Lens' GetJobRuns (Maybe Natural)
-gjrMaxResults = lens _gjrMaxResults (\s a -> s {_gjrMaxResults = a}) . mapping _Nat
+getJobRuns_maxResults :: Lens.Lens' GetJobRuns (Prelude.Maybe Prelude.Natural)
+getJobRuns_maxResults = Lens.lens (\GetJobRuns' {maxResults} -> maxResults) (\s@GetJobRuns' {} a -> s {maxResults = a} :: GetJobRuns) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the job definition for which to retrieve all job runs.
-gjrJobName :: Lens' GetJobRuns Text
-gjrJobName = lens _gjrJobName (\s a -> s {_gjrJobName = a})
+getJobRuns_jobName :: Lens.Lens' GetJobRuns Prelude.Text
+getJobRuns_jobName = Lens.lens (\GetJobRuns' {jobName} -> jobName) (\s@GetJobRuns' {} a -> s {jobName = a} :: GetJobRuns)
 
-instance AWSPager GetJobRuns where
+instance Pager.AWSPager GetJobRuns where
   page rq rs
-    | stop (rs ^. gjrrjrsNextToken) = Nothing
-    | stop (rs ^. gjrrjrsJobRuns) = Nothing
-    | otherwise =
-      Just $ rq & gjrNextToken .~ rs ^. gjrrjrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getJobRunsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getJobRunsResponse_jobRuns Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getJobRuns_nextToken
+          Lens..~ rs
+          Lens.^? getJobRunsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest GetJobRuns where
+instance Prelude.AWSRequest GetJobRuns where
   type Rs GetJobRuns = GetJobRunsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetJobRunsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "JobRuns" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "JobRuns" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetJobRuns
+instance Prelude.Hashable GetJobRuns
 
-instance NFData GetJobRuns
+instance Prelude.NFData GetJobRuns
 
-instance ToHeaders GetJobRuns where
+instance Prelude.ToHeaders GetJobRuns where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetJobRuns" :: ByteString),
+              Prelude.=# ("AWSGlue.GetJobRuns" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetJobRuns where
+instance Prelude.ToJSON GetJobRuns where
   toJSON GetJobRuns' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gjrNextToken,
-            ("MaxResults" .=) <$> _gjrMaxResults,
-            Just ("JobName" .= _gjrJobName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("JobName" Prelude..= jobName)
           ]
       )
 
-instance ToPath GetJobRuns where
-  toPath = const "/"
+instance Prelude.ToPath GetJobRuns where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetJobRuns where
-  toQuery = const mempty
+instance Prelude.ToQuery GetJobRuns where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getJobRunsResponse' smart constructor.
+-- | /See:/ 'newGetJobRunsResponse' smart constructor.
 data GetJobRunsResponse = GetJobRunsResponse'
-  { _gjrrjrsNextToken ::
-      !(Maybe Text),
-    _gjrrjrsJobRuns ::
-      !(Maybe [JobRun]),
-    _gjrrjrsResponseStatus :: !Int
+  { -- | A continuation token, if not all requested job runs have been returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of job-run metadata objects.
+    jobRuns :: Prelude.Maybe [JobRun],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetJobRunsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetJobRunsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gjrrjrsNextToken' - A continuation token, if not all requested job runs have been returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gjrrjrsJobRuns' - A list of job-run metadata objects.
+-- 'nextToken', 'getJobRunsResponse_nextToken' - A continuation token, if not all requested job runs have been returned.
 --
--- * 'gjrrjrsResponseStatus' - -- | The response status code.
-getJobRunsResponse ::
-  -- | 'gjrrjrsResponseStatus'
-  Int ->
+-- 'jobRuns', 'getJobRunsResponse_jobRuns' - A list of job-run metadata objects.
+--
+-- 'httpStatus', 'getJobRunsResponse_httpStatus' - The response's http status code.
+newGetJobRunsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetJobRunsResponse
-getJobRunsResponse pResponseStatus_ =
+newGetJobRunsResponse pHttpStatus_ =
   GetJobRunsResponse'
-    { _gjrrjrsNextToken = Nothing,
-      _gjrrjrsJobRuns = Nothing,
-      _gjrrjrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      jobRuns = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A continuation token, if not all requested job runs have been returned.
-gjrrjrsNextToken :: Lens' GetJobRunsResponse (Maybe Text)
-gjrrjrsNextToken = lens _gjrrjrsNextToken (\s a -> s {_gjrrjrsNextToken = a})
+getJobRunsResponse_nextToken :: Lens.Lens' GetJobRunsResponse (Prelude.Maybe Prelude.Text)
+getJobRunsResponse_nextToken = Lens.lens (\GetJobRunsResponse' {nextToken} -> nextToken) (\s@GetJobRunsResponse' {} a -> s {nextToken = a} :: GetJobRunsResponse)
 
 -- | A list of job-run metadata objects.
-gjrrjrsJobRuns :: Lens' GetJobRunsResponse [JobRun]
-gjrrjrsJobRuns = lens _gjrrjrsJobRuns (\s a -> s {_gjrrjrsJobRuns = a}) . _Default . _Coerce
+getJobRunsResponse_jobRuns :: Lens.Lens' GetJobRunsResponse (Prelude.Maybe [JobRun])
+getJobRunsResponse_jobRuns = Lens.lens (\GetJobRunsResponse' {jobRuns} -> jobRuns) (\s@GetJobRunsResponse' {} a -> s {jobRuns = a} :: GetJobRunsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gjrrjrsResponseStatus :: Lens' GetJobRunsResponse Int
-gjrrjrsResponseStatus = lens _gjrrjrsResponseStatus (\s a -> s {_gjrrjrsResponseStatus = a})
+-- | The response's http status code.
+getJobRunsResponse_httpStatus :: Lens.Lens' GetJobRunsResponse Prelude.Int
+getJobRunsResponse_httpStatus = Lens.lens (\GetJobRunsResponse' {httpStatus} -> httpStatus) (\s@GetJobRunsResponse' {} a -> s {httpStatus = a} :: GetJobRunsResponse)
 
-instance NFData GetJobRunsResponse
+instance Prelude.NFData GetJobRunsResponse

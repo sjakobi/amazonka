@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Glue.Types.ExistCondition
   ( ExistCondition
       ( ..,
-        MustExist,
-        None,
-        NotExist
+        ExistConditionMUSTEXIST,
+        ExistConditionNONE,
+        ExistConditionNOTEXIST
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExistCondition = ExistCondition' (CI Text)
+newtype ExistCondition = ExistCondition'
+  { fromExistCondition ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MustExist :: ExistCondition
-pattern MustExist = ExistCondition' "MUST_EXIST"
+pattern ExistConditionMUSTEXIST :: ExistCondition
+pattern ExistConditionMUSTEXIST = ExistCondition' "MUST_EXIST"
 
-pattern None :: ExistCondition
-pattern None = ExistCondition' "NONE"
+pattern ExistConditionNONE :: ExistCondition
+pattern ExistConditionNONE = ExistCondition' "NONE"
 
-pattern NotExist :: ExistCondition
-pattern NotExist = ExistCondition' "NOT_EXIST"
+pattern ExistConditionNOTEXIST :: ExistCondition
+pattern ExistConditionNOTEXIST = ExistCondition' "NOT_EXIST"
 
 {-# COMPLETE
-  MustExist,
-  None,
-  NotExist,
+  ExistConditionMUSTEXIST,
+  ExistConditionNONE,
+  ExistConditionNOTEXIST,
   ExistCondition'
   #-}
 
-instance FromText ExistCondition where
-  parser = (ExistCondition' . mk) <$> takeText
+instance Prelude.FromText ExistCondition where
+  parser = ExistCondition' Prelude.<$> Prelude.takeText
 
-instance ToText ExistCondition where
-  toText (ExistCondition' ci) = original ci
+instance Prelude.ToText ExistCondition where
+  toText (ExistCondition' x) = x
 
-instance Hashable ExistCondition
+instance Prelude.Hashable ExistCondition
 
-instance NFData ExistCondition
+instance Prelude.NFData ExistCondition
 
-instance ToByteString ExistCondition
+instance Prelude.ToByteString ExistCondition
 
-instance ToQuery ExistCondition
+instance Prelude.ToQuery ExistCondition
 
-instance ToHeader ExistCondition
+instance Prelude.ToHeader ExistCondition
 
-instance ToJSON ExistCondition where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExistCondition where
+  toJSON = Prelude.toJSONText

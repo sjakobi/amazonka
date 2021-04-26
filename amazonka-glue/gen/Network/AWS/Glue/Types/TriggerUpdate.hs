@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +21,97 @@ module Network.AWS.Glue.Types.TriggerUpdate where
 
 import Network.AWS.Glue.Types.Action
 import Network.AWS.Glue.Types.Predicate
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A structure used to provide information used to update a trigger. This object updates the previous trigger definition by overwriting it completely.
+-- | A structure used to provide information used to update a trigger. This
+-- object updates the previous trigger definition by overwriting it
+-- completely.
 --
---
---
--- /See:/ 'triggerUpdate' smart constructor.
+-- /See:/ 'newTriggerUpdate' smart constructor.
 data TriggerUpdate = TriggerUpdate'
-  { _tuActions ::
-      !(Maybe [Action]),
-    _tuName :: !(Maybe Text),
-    _tuPredicate :: !(Maybe Predicate),
-    _tuDescription :: !(Maybe Text),
-    _tuSchedule :: !(Maybe Text)
+  { -- | The actions initiated by this trigger.
+    actions :: Prelude.Maybe [Action],
+    -- | Reserved for future use.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The predicate of this trigger, which defines when it will fire.
+    predicate :: Prelude.Maybe Predicate,
+    -- | A description of this trigger.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A @cron@ expression used to specify the schedule (see
+    -- <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers>.
+    -- For example, to run something every day at 12:15 UTC, you would specify:
+    -- @cron(15 12 * * ? *)@.
+    schedule :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TriggerUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TriggerUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tuActions' - The actions initiated by this trigger.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tuName' - Reserved for future use.
+-- 'actions', 'triggerUpdate_actions' - The actions initiated by this trigger.
 --
--- * 'tuPredicate' - The predicate of this trigger, which defines when it will fire.
+-- 'name', 'triggerUpdate_name' - Reserved for future use.
 --
--- * 'tuDescription' - A description of this trigger.
+-- 'predicate', 'triggerUpdate_predicate' - The predicate of this trigger, which defines when it will fire.
 --
--- * 'tuSchedule' - A @cron@ expression used to specify the schedule (see <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
-triggerUpdate ::
+-- 'description', 'triggerUpdate_description' - A description of this trigger.
+--
+-- 'schedule', 'triggerUpdate_schedule' - A @cron@ expression used to specify the schedule (see
+-- <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers>.
+-- For example, to run something every day at 12:15 UTC, you would specify:
+-- @cron(15 12 * * ? *)@.
+newTriggerUpdate ::
   TriggerUpdate
-triggerUpdate =
+newTriggerUpdate =
   TriggerUpdate'
-    { _tuActions = Nothing,
-      _tuName = Nothing,
-      _tuPredicate = Nothing,
-      _tuDescription = Nothing,
-      _tuSchedule = Nothing
+    { actions = Prelude.Nothing,
+      name = Prelude.Nothing,
+      predicate = Prelude.Nothing,
+      description = Prelude.Nothing,
+      schedule = Prelude.Nothing
     }
 
 -- | The actions initiated by this trigger.
-tuActions :: Lens' TriggerUpdate [Action]
-tuActions = lens _tuActions (\s a -> s {_tuActions = a}) . _Default . _Coerce
+triggerUpdate_actions :: Lens.Lens' TriggerUpdate (Prelude.Maybe [Action])
+triggerUpdate_actions = Lens.lens (\TriggerUpdate' {actions} -> actions) (\s@TriggerUpdate' {} a -> s {actions = a} :: TriggerUpdate) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Reserved for future use.
-tuName :: Lens' TriggerUpdate (Maybe Text)
-tuName = lens _tuName (\s a -> s {_tuName = a})
+triggerUpdate_name :: Lens.Lens' TriggerUpdate (Prelude.Maybe Prelude.Text)
+triggerUpdate_name = Lens.lens (\TriggerUpdate' {name} -> name) (\s@TriggerUpdate' {} a -> s {name = a} :: TriggerUpdate)
 
 -- | The predicate of this trigger, which defines when it will fire.
-tuPredicate :: Lens' TriggerUpdate (Maybe Predicate)
-tuPredicate = lens _tuPredicate (\s a -> s {_tuPredicate = a})
+triggerUpdate_predicate :: Lens.Lens' TriggerUpdate (Prelude.Maybe Predicate)
+triggerUpdate_predicate = Lens.lens (\TriggerUpdate' {predicate} -> predicate) (\s@TriggerUpdate' {} a -> s {predicate = a} :: TriggerUpdate)
 
 -- | A description of this trigger.
-tuDescription :: Lens' TriggerUpdate (Maybe Text)
-tuDescription = lens _tuDescription (\s a -> s {_tuDescription = a})
+triggerUpdate_description :: Lens.Lens' TriggerUpdate (Prelude.Maybe Prelude.Text)
+triggerUpdate_description = Lens.lens (\TriggerUpdate' {description} -> description) (\s@TriggerUpdate' {} a -> s {description = a} :: TriggerUpdate)
 
--- | A @cron@ expression used to specify the schedule (see <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
-tuSchedule :: Lens' TriggerUpdate (Maybe Text)
-tuSchedule = lens _tuSchedule (\s a -> s {_tuSchedule = a})
+-- | A @cron@ expression used to specify the schedule (see
+-- <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers>.
+-- For example, to run something every day at 12:15 UTC, you would specify:
+-- @cron(15 12 * * ? *)@.
+triggerUpdate_schedule :: Lens.Lens' TriggerUpdate (Prelude.Maybe Prelude.Text)
+triggerUpdate_schedule = Lens.lens (\TriggerUpdate' {schedule} -> schedule) (\s@TriggerUpdate' {} a -> s {schedule = a} :: TriggerUpdate)
 
-instance Hashable TriggerUpdate
+instance Prelude.Hashable TriggerUpdate
 
-instance NFData TriggerUpdate
+instance Prelude.NFData TriggerUpdate
 
-instance ToJSON TriggerUpdate where
+instance Prelude.ToJSON TriggerUpdate where
   toJSON TriggerUpdate' {..} =
-    object
-      ( catMaybes
-          [ ("Actions" .=) <$> _tuActions,
-            ("Name" .=) <$> _tuName,
-            ("Predicate" .=) <$> _tuPredicate,
-            ("Description" .=) <$> _tuDescription,
-            ("Schedule" .=) <$> _tuSchedule
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Actions" Prelude..=) Prelude.<$> actions,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Predicate" Prelude..=) Prelude.<$> predicate,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("Schedule" Prelude..=) Prelude.<$> schedule
           ]
       )

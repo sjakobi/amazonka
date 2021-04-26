@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +21,68 @@ module Network.AWS.Glue.Types.TaskRunSortCriteria where
 
 import Network.AWS.Glue.Types.SortDirectionType
 import Network.AWS.Glue.Types.TaskRunSortColumnType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The sorting criteria that are used to sort the list of task runs for the machine learning transform.
+-- | The sorting criteria that are used to sort the list of task runs for the
+-- machine learning transform.
 --
---
---
--- /See:/ 'taskRunSortCriteria' smart constructor.
+-- /See:/ 'newTaskRunSortCriteria' smart constructor.
 data TaskRunSortCriteria = TaskRunSortCriteria'
-  { _trscColumn ::
-      !TaskRunSortColumnType,
-    _trscSortDirection ::
-      !SortDirectionType
+  { -- | The column to be used to sort the list of task runs for the machine
+    -- learning transform.
+    column :: TaskRunSortColumnType,
+    -- | The sort direction to be used to sort the list of task runs for the
+    -- machine learning transform.
+    sortDirection :: SortDirectionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TaskRunSortCriteria' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TaskRunSortCriteria' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trscColumn' - The column to be used to sort the list of task runs for the machine learning transform.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trscSortDirection' - The sort direction to be used to sort the list of task runs for the machine learning transform.
-taskRunSortCriteria ::
-  -- | 'trscColumn'
+-- 'column', 'taskRunSortCriteria_column' - The column to be used to sort the list of task runs for the machine
+-- learning transform.
+--
+-- 'sortDirection', 'taskRunSortCriteria_sortDirection' - The sort direction to be used to sort the list of task runs for the
+-- machine learning transform.
+newTaskRunSortCriteria ::
+  -- | 'column'
   TaskRunSortColumnType ->
-  -- | 'trscSortDirection'
+  -- | 'sortDirection'
   SortDirectionType ->
   TaskRunSortCriteria
-taskRunSortCriteria pColumn_ pSortDirection_ =
+newTaskRunSortCriteria pColumn_ pSortDirection_ =
   TaskRunSortCriteria'
-    { _trscColumn = pColumn_,
-      _trscSortDirection = pSortDirection_
+    { column = pColumn_,
+      sortDirection = pSortDirection_
     }
 
--- | The column to be used to sort the list of task runs for the machine learning transform.
-trscColumn :: Lens' TaskRunSortCriteria TaskRunSortColumnType
-trscColumn = lens _trscColumn (\s a -> s {_trscColumn = a})
+-- | The column to be used to sort the list of task runs for the machine
+-- learning transform.
+taskRunSortCriteria_column :: Lens.Lens' TaskRunSortCriteria TaskRunSortColumnType
+taskRunSortCriteria_column = Lens.lens (\TaskRunSortCriteria' {column} -> column) (\s@TaskRunSortCriteria' {} a -> s {column = a} :: TaskRunSortCriteria)
 
--- | The sort direction to be used to sort the list of task runs for the machine learning transform.
-trscSortDirection :: Lens' TaskRunSortCriteria SortDirectionType
-trscSortDirection = lens _trscSortDirection (\s a -> s {_trscSortDirection = a})
+-- | The sort direction to be used to sort the list of task runs for the
+-- machine learning transform.
+taskRunSortCriteria_sortDirection :: Lens.Lens' TaskRunSortCriteria SortDirectionType
+taskRunSortCriteria_sortDirection = Lens.lens (\TaskRunSortCriteria' {sortDirection} -> sortDirection) (\s@TaskRunSortCriteria' {} a -> s {sortDirection = a} :: TaskRunSortCriteria)
 
-instance Hashable TaskRunSortCriteria
+instance Prelude.Hashable TaskRunSortCriteria
 
-instance NFData TaskRunSortCriteria
+instance Prelude.NFData TaskRunSortCriteria
 
-instance ToJSON TaskRunSortCriteria where
+instance Prelude.ToJSON TaskRunSortCriteria where
   toJSON TaskRunSortCriteria' {..} =
-    object
-      ( catMaybes
-          [ Just ("Column" .= _trscColumn),
-            Just ("SortDirection" .= _trscSortDirection)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Column" Prelude..= column),
+            Prelude.Just
+              ("SortDirection" Prelude..= sortDirection)
           ]
       )

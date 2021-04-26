@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Glue.Types.TaskType
   ( TaskType
       ( ..,
-        TTEvaluation,
-        TTExportLabels,
-        TTFindMatches,
-        TTImportLabels,
-        TTLabelingSetGeneration
+        TaskTypeEVALUATION,
+        TaskTypeEXPORTLABELS,
+        TaskTypeFINDMATCHES,
+        TaskTypeIMPORTLABELS,
+        TaskTypeLABELINGSETGENERATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskType = TaskType' (CI Text)
+newtype TaskType = TaskType'
+  { fromTaskType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TTEvaluation :: TaskType
-pattern TTEvaluation = TaskType' "EVALUATION"
+pattern TaskTypeEVALUATION :: TaskType
+pattern TaskTypeEVALUATION = TaskType' "EVALUATION"
 
-pattern TTExportLabels :: TaskType
-pattern TTExportLabels = TaskType' "EXPORT_LABELS"
+pattern TaskTypeEXPORTLABELS :: TaskType
+pattern TaskTypeEXPORTLABELS = TaskType' "EXPORT_LABELS"
 
-pattern TTFindMatches :: TaskType
-pattern TTFindMatches = TaskType' "FIND_MATCHES"
+pattern TaskTypeFINDMATCHES :: TaskType
+pattern TaskTypeFINDMATCHES = TaskType' "FIND_MATCHES"
 
-pattern TTImportLabels :: TaskType
-pattern TTImportLabels = TaskType' "IMPORT_LABELS"
+pattern TaskTypeIMPORTLABELS :: TaskType
+pattern TaskTypeIMPORTLABELS = TaskType' "IMPORT_LABELS"
 
-pattern TTLabelingSetGeneration :: TaskType
-pattern TTLabelingSetGeneration = TaskType' "LABELING_SET_GENERATION"
+pattern TaskTypeLABELINGSETGENERATION :: TaskType
+pattern TaskTypeLABELINGSETGENERATION = TaskType' "LABELING_SET_GENERATION"
 
 {-# COMPLETE
-  TTEvaluation,
-  TTExportLabels,
-  TTFindMatches,
-  TTImportLabels,
-  TTLabelingSetGeneration,
+  TaskTypeEVALUATION,
+  TaskTypeEXPORTLABELS,
+  TaskTypeFINDMATCHES,
+  TaskTypeIMPORTLABELS,
+  TaskTypeLABELINGSETGENERATION,
   TaskType'
   #-}
 
-instance FromText TaskType where
-  parser = (TaskType' . mk) <$> takeText
+instance Prelude.FromText TaskType where
+  parser = TaskType' Prelude.<$> Prelude.takeText
 
-instance ToText TaskType where
-  toText (TaskType' ci) = original ci
+instance Prelude.ToText TaskType where
+  toText (TaskType' x) = x
 
-instance Hashable TaskType
+instance Prelude.Hashable TaskType
 
-instance NFData TaskType
+instance Prelude.NFData TaskType
 
-instance ToByteString TaskType
+instance Prelude.ToByteString TaskType
 
-instance ToQuery TaskType
+instance Prelude.ToQuery TaskType
 
-instance ToHeader TaskType
+instance Prelude.ToHeader TaskType
 
-instance ToJSON TaskType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TaskType where
-  parseJSON = parseJSONText "TaskType"
+instance Prelude.FromJSON TaskType where
+  parseJSON = Prelude.parseJSONText "TaskType"

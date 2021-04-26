@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Glue.Types.ConnectionType
   ( ConnectionType
       ( ..,
-        Custom,
-        Jdbc,
-        Kafka,
-        Marketplace,
-        Mongodb,
-        Network,
-        Sftp
+        ConnectionTypeCUSTOM,
+        ConnectionTypeJDBC,
+        ConnectionTypeKAFKA,
+        ConnectionTypeMARKETPLACE,
+        ConnectionTypeMONGODB,
+        ConnectionTypeNETWORK,
+        ConnectionTypeSFTP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionType = ConnectionType' (CI Text)
+newtype ConnectionType = ConnectionType'
+  { fromConnectionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Custom :: ConnectionType
-pattern Custom = ConnectionType' "CUSTOM"
+pattern ConnectionTypeCUSTOM :: ConnectionType
+pattern ConnectionTypeCUSTOM = ConnectionType' "CUSTOM"
 
-pattern Jdbc :: ConnectionType
-pattern Jdbc = ConnectionType' "JDBC"
+pattern ConnectionTypeJDBC :: ConnectionType
+pattern ConnectionTypeJDBC = ConnectionType' "JDBC"
 
-pattern Kafka :: ConnectionType
-pattern Kafka = ConnectionType' "KAFKA"
+pattern ConnectionTypeKAFKA :: ConnectionType
+pattern ConnectionTypeKAFKA = ConnectionType' "KAFKA"
 
-pattern Marketplace :: ConnectionType
-pattern Marketplace = ConnectionType' "MARKETPLACE"
+pattern ConnectionTypeMARKETPLACE :: ConnectionType
+pattern ConnectionTypeMARKETPLACE = ConnectionType' "MARKETPLACE"
 
-pattern Mongodb :: ConnectionType
-pattern Mongodb = ConnectionType' "MONGODB"
+pattern ConnectionTypeMONGODB :: ConnectionType
+pattern ConnectionTypeMONGODB = ConnectionType' "MONGODB"
 
-pattern Network :: ConnectionType
-pattern Network = ConnectionType' "NETWORK"
+pattern ConnectionTypeNETWORK :: ConnectionType
+pattern ConnectionTypeNETWORK = ConnectionType' "NETWORK"
 
-pattern Sftp :: ConnectionType
-pattern Sftp = ConnectionType' "SFTP"
+pattern ConnectionTypeSFTP :: ConnectionType
+pattern ConnectionTypeSFTP = ConnectionType' "SFTP"
 
 {-# COMPLETE
-  Custom,
-  Jdbc,
-  Kafka,
-  Marketplace,
-  Mongodb,
-  Network,
-  Sftp,
+  ConnectionTypeCUSTOM,
+  ConnectionTypeJDBC,
+  ConnectionTypeKAFKA,
+  ConnectionTypeMARKETPLACE,
+  ConnectionTypeMONGODB,
+  ConnectionTypeNETWORK,
+  ConnectionTypeSFTP,
   ConnectionType'
   #-}
 
-instance FromText ConnectionType where
-  parser = (ConnectionType' . mk) <$> takeText
+instance Prelude.FromText ConnectionType where
+  parser = ConnectionType' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionType where
-  toText (ConnectionType' ci) = original ci
+instance Prelude.ToText ConnectionType where
+  toText (ConnectionType' x) = x
 
-instance Hashable ConnectionType
+instance Prelude.Hashable ConnectionType
 
-instance NFData ConnectionType
+instance Prelude.NFData ConnectionType
 
-instance ToByteString ConnectionType
+instance Prelude.ToByteString ConnectionType
 
-instance ToQuery ConnectionType
+instance Prelude.ToQuery ConnectionType
 
-instance ToHeader ConnectionType
+instance Prelude.ToHeader ConnectionType
 
-instance ToJSON ConnectionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConnectionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ConnectionType where
-  parseJSON = parseJSONText "ConnectionType"
+instance Prelude.FromJSON ConnectionType where
+  parseJSON = Prelude.parseJSONText "ConnectionType"

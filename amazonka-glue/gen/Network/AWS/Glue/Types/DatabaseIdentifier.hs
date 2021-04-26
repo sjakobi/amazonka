@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.DatabaseIdentifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure that describes a target database for resource linking.
 --
---
---
--- /See:/ 'databaseIdentifier' smart constructor.
+-- /See:/ 'newDatabaseIdentifier' smart constructor.
 data DatabaseIdentifier = DatabaseIdentifier'
-  { _diCatalogId ::
-      !(Maybe Text),
-    _diDatabaseName :: !(Maybe Text)
+  { -- | The ID of the Data Catalog in which the database resides.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database.
+    databaseName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DatabaseIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DatabaseIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diCatalogId' - The ID of the Data Catalog in which the database resides.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diDatabaseName' - The name of the catalog database.
-databaseIdentifier ::
+-- 'catalogId', 'databaseIdentifier_catalogId' - The ID of the Data Catalog in which the database resides.
+--
+-- 'databaseName', 'databaseIdentifier_databaseName' - The name of the catalog database.
+newDatabaseIdentifier ::
   DatabaseIdentifier
-databaseIdentifier =
+newDatabaseIdentifier =
   DatabaseIdentifier'
-    { _diCatalogId = Nothing,
-      _diDatabaseName = Nothing
+    { catalogId = Prelude.Nothing,
+      databaseName = Prelude.Nothing
     }
 
 -- | The ID of the Data Catalog in which the database resides.
-diCatalogId :: Lens' DatabaseIdentifier (Maybe Text)
-diCatalogId = lens _diCatalogId (\s a -> s {_diCatalogId = a})
+databaseIdentifier_catalogId :: Lens.Lens' DatabaseIdentifier (Prelude.Maybe Prelude.Text)
+databaseIdentifier_catalogId = Lens.lens (\DatabaseIdentifier' {catalogId} -> catalogId) (\s@DatabaseIdentifier' {} a -> s {catalogId = a} :: DatabaseIdentifier)
 
 -- | The name of the catalog database.
-diDatabaseName :: Lens' DatabaseIdentifier (Maybe Text)
-diDatabaseName = lens _diDatabaseName (\s a -> s {_diDatabaseName = a})
+databaseIdentifier_databaseName :: Lens.Lens' DatabaseIdentifier (Prelude.Maybe Prelude.Text)
+databaseIdentifier_databaseName = Lens.lens (\DatabaseIdentifier' {databaseName} -> databaseName) (\s@DatabaseIdentifier' {} a -> s {databaseName = a} :: DatabaseIdentifier)
 
-instance FromJSON DatabaseIdentifier where
+instance Prelude.FromJSON DatabaseIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DatabaseIdentifier"
       ( \x ->
           DatabaseIdentifier'
-            <$> (x .:? "CatalogId") <*> (x .:? "DatabaseName")
+            Prelude.<$> (x Prelude..:? "CatalogId")
+            Prelude.<*> (x Prelude..:? "DatabaseName")
       )
 
-instance Hashable DatabaseIdentifier
+instance Prelude.Hashable DatabaseIdentifier
 
-instance NFData DatabaseIdentifier
+instance Prelude.NFData DatabaseIdentifier
 
-instance ToJSON DatabaseIdentifier where
+instance Prelude.ToJSON DatabaseIdentifier where
   toJSON DatabaseIdentifier' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _diCatalogId,
-            ("DatabaseName" .=) <$> _diDatabaseName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            ("DatabaseName" Prelude..=)
+              Prelude.<$> databaseName
           ]
       )

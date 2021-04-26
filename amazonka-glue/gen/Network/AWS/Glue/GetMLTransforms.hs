@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a sortable, filterable list of existing AWS Glue machine learning transforms. Machine learning transforms are a special type of transform that use machine learning to learn the details of the transformation to be performed by learning from examples provided by humans. These transformations are then saved by AWS Glue, and you can retrieve their metadata by calling @GetMLTransforms@ .
+-- Gets a sortable, filterable list of existing AWS Glue machine learning
+-- transforms. Machine learning transforms are a special type of transform
+-- that use machine learning to learn the details of the transformation to
+-- be performed by learning from examples provided by humans. These
+-- transformations are then saved by AWS Glue, and you can retrieve their
+-- metadata by calling @GetMLTransforms@.
 module Network.AWS.Glue.GetMLTransforms
   ( -- * Creating a Request
-    getMLTransforms,
-    GetMLTransforms,
+    GetMLTransforms (..),
+    newGetMLTransforms,
 
     -- * Request Lenses
-    gmltNextToken,
-    gmltMaxResults,
-    gmltFilter,
-    gmltSort,
+    getMLTransforms_nextToken,
+    getMLTransforms_maxResults,
+    getMLTransforms_filter,
+    getMLTransforms_sort,
 
     -- * Destructuring the Response
-    getMLTransformsResponse,
-    GetMLTransformsResponse,
+    GetMLTransformsResponse (..),
+    newGetMLTransformsResponse,
 
     -- * Response Lenses
-    gmltrrsNextToken,
-    gmltrrsResponseStatus,
-    gmltrrsTransforms,
+    getMLTransformsResponse_nextToken,
+    getMLTransformsResponse_httpStatus,
+    getMLTransformsResponse_transforms,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.MLTransform
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getMLTransforms' smart constructor.
+-- | /See:/ 'newGetMLTransforms' smart constructor.
 data GetMLTransforms = GetMLTransforms'
-  { _gmltNextToken ::
-      !(Maybe Text),
-    _gmltMaxResults :: !(Maybe Nat),
-    _gmltFilter ::
-      !(Maybe TransformFilterCriteria),
-    _gmltSort ::
-      !(Maybe TransformSortCriteria)
+  { -- | A paginated token to offset the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The filter transformation criteria.
+    filter' :: Prelude.Maybe TransformFilterCriteria,
+    -- | The sorting criteria.
+    sort :: Prelude.Maybe TransformSortCriteria
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMLTransforms' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMLTransforms' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmltNextToken' - A paginated token to offset the results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmltMaxResults' - The maximum number of results to return.
+-- 'nextToken', 'getMLTransforms_nextToken' - A paginated token to offset the results.
 --
--- * 'gmltFilter' - The filter transformation criteria.
+-- 'maxResults', 'getMLTransforms_maxResults' - The maximum number of results to return.
 --
--- * 'gmltSort' - The sorting criteria.
-getMLTransforms ::
+-- 'filter'', 'getMLTransforms_filter' - The filter transformation criteria.
+--
+-- 'sort', 'getMLTransforms_sort' - The sorting criteria.
+newGetMLTransforms ::
   GetMLTransforms
-getMLTransforms =
+newGetMLTransforms =
   GetMLTransforms'
-    { _gmltNextToken = Nothing,
-      _gmltMaxResults = Nothing,
-      _gmltFilter = Nothing,
-      _gmltSort = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      sort = Prelude.Nothing
     }
 
 -- | A paginated token to offset the results.
-gmltNextToken :: Lens' GetMLTransforms (Maybe Text)
-gmltNextToken = lens _gmltNextToken (\s a -> s {_gmltNextToken = a})
+getMLTransforms_nextToken :: Lens.Lens' GetMLTransforms (Prelude.Maybe Prelude.Text)
+getMLTransforms_nextToken = Lens.lens (\GetMLTransforms' {nextToken} -> nextToken) (\s@GetMLTransforms' {} a -> s {nextToken = a} :: GetMLTransforms)
 
 -- | The maximum number of results to return.
-gmltMaxResults :: Lens' GetMLTransforms (Maybe Natural)
-gmltMaxResults = lens _gmltMaxResults (\s a -> s {_gmltMaxResults = a}) . mapping _Nat
+getMLTransforms_maxResults :: Lens.Lens' GetMLTransforms (Prelude.Maybe Prelude.Natural)
+getMLTransforms_maxResults = Lens.lens (\GetMLTransforms' {maxResults} -> maxResults) (\s@GetMLTransforms' {} a -> s {maxResults = a} :: GetMLTransforms) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The filter transformation criteria.
-gmltFilter :: Lens' GetMLTransforms (Maybe TransformFilterCriteria)
-gmltFilter = lens _gmltFilter (\s a -> s {_gmltFilter = a})
+getMLTransforms_filter :: Lens.Lens' GetMLTransforms (Prelude.Maybe TransformFilterCriteria)
+getMLTransforms_filter = Lens.lens (\GetMLTransforms' {filter'} -> filter') (\s@GetMLTransforms' {} a -> s {filter' = a} :: GetMLTransforms)
 
 -- | The sorting criteria.
-gmltSort :: Lens' GetMLTransforms (Maybe TransformSortCriteria)
-gmltSort = lens _gmltSort (\s a -> s {_gmltSort = a})
+getMLTransforms_sort :: Lens.Lens' GetMLTransforms (Prelude.Maybe TransformSortCriteria)
+getMLTransforms_sort = Lens.lens (\GetMLTransforms' {sort} -> sort) (\s@GetMLTransforms' {} a -> s {sort = a} :: GetMLTransforms)
 
-instance AWSRequest GetMLTransforms where
+instance Prelude.AWSRequest GetMLTransforms where
   type Rs GetMLTransforms = GetMLTransformsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetMLTransformsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "Transforms" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "Transforms"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable GetMLTransforms
+instance Prelude.Hashable GetMLTransforms
 
-instance NFData GetMLTransforms
+instance Prelude.NFData GetMLTransforms
 
-instance ToHeaders GetMLTransforms where
+instance Prelude.ToHeaders GetMLTransforms where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetMLTransforms" :: ByteString),
+              Prelude.=# ("AWSGlue.GetMLTransforms" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetMLTransforms where
+instance Prelude.ToJSON GetMLTransforms where
   toJSON GetMLTransforms' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gmltNextToken,
-            ("MaxResults" .=) <$> _gmltMaxResults,
-            ("Filter" .=) <$> _gmltFilter,
-            ("Sort" .=) <$> _gmltSort
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filter" Prelude..=) Prelude.<$> filter',
+            ("Sort" Prelude..=) Prelude.<$> sort
           ]
       )
 
-instance ToPath GetMLTransforms where
-  toPath = const "/"
+instance Prelude.ToPath GetMLTransforms where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetMLTransforms where
-  toQuery = const mempty
+instance Prelude.ToQuery GetMLTransforms where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMLTransformsResponse' smart constructor.
+-- | /See:/ 'newGetMLTransformsResponse' smart constructor.
 data GetMLTransformsResponse = GetMLTransformsResponse'
-  { _gmltrrsNextToken ::
-      !(Maybe Text),
-    _gmltrrsResponseStatus ::
-      !Int,
-    _gmltrrsTransforms ::
-      ![MLTransform]
+  { -- | A pagination token, if more results are available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of machine learning transforms.
+    transforms :: [MLTransform]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMLTransformsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMLTransformsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmltrrsNextToken' - A pagination token, if more results are available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmltrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'getMLTransformsResponse_nextToken' - A pagination token, if more results are available.
 --
--- * 'gmltrrsTransforms' - A list of machine learning transforms.
-getMLTransformsResponse ::
-  -- | 'gmltrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getMLTransformsResponse_httpStatus' - The response's http status code.
+--
+-- 'transforms', 'getMLTransformsResponse_transforms' - A list of machine learning transforms.
+newGetMLTransformsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetMLTransformsResponse
-getMLTransformsResponse pResponseStatus_ =
+newGetMLTransformsResponse pHttpStatus_ =
   GetMLTransformsResponse'
-    { _gmltrrsNextToken =
-        Nothing,
-      _gmltrrsResponseStatus = pResponseStatus_,
-      _gmltrrsTransforms = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      transforms = Prelude.mempty
     }
 
 -- | A pagination token, if more results are available.
-gmltrrsNextToken :: Lens' GetMLTransformsResponse (Maybe Text)
-gmltrrsNextToken = lens _gmltrrsNextToken (\s a -> s {_gmltrrsNextToken = a})
+getMLTransformsResponse_nextToken :: Lens.Lens' GetMLTransformsResponse (Prelude.Maybe Prelude.Text)
+getMLTransformsResponse_nextToken = Lens.lens (\GetMLTransformsResponse' {nextToken} -> nextToken) (\s@GetMLTransformsResponse' {} a -> s {nextToken = a} :: GetMLTransformsResponse)
 
--- | -- | The response status code.
-gmltrrsResponseStatus :: Lens' GetMLTransformsResponse Int
-gmltrrsResponseStatus = lens _gmltrrsResponseStatus (\s a -> s {_gmltrrsResponseStatus = a})
+-- | The response's http status code.
+getMLTransformsResponse_httpStatus :: Lens.Lens' GetMLTransformsResponse Prelude.Int
+getMLTransformsResponse_httpStatus = Lens.lens (\GetMLTransformsResponse' {httpStatus} -> httpStatus) (\s@GetMLTransformsResponse' {} a -> s {httpStatus = a} :: GetMLTransformsResponse)
 
 -- | A list of machine learning transforms.
-gmltrrsTransforms :: Lens' GetMLTransformsResponse [MLTransform]
-gmltrrsTransforms = lens _gmltrrsTransforms (\s a -> s {_gmltrrsTransforms = a}) . _Coerce
+getMLTransformsResponse_transforms :: Lens.Lens' GetMLTransformsResponse [MLTransform]
+getMLTransformsResponse_transforms = Lens.lens (\GetMLTransformsResponse' {transforms} -> transforms) (\s@GetMLTransformsResponse' {} a -> s {transforms = a} :: GetMLTransformsResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetMLTransformsResponse
+instance Prelude.NFData GetMLTransformsResponse

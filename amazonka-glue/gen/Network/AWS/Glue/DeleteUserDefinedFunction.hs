@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,158 +24,163 @@
 -- Deletes an existing function definition from the Data Catalog.
 module Network.AWS.Glue.DeleteUserDefinedFunction
   ( -- * Creating a Request
-    deleteUserDefinedFunction,
-    DeleteUserDefinedFunction,
+    DeleteUserDefinedFunction (..),
+    newDeleteUserDefinedFunction,
 
     -- * Request Lenses
-    dudfCatalogId,
-    dudfDatabaseName,
-    dudfFunctionName,
+    deleteUserDefinedFunction_catalogId,
+    deleteUserDefinedFunction_databaseName,
+    deleteUserDefinedFunction_functionName,
 
     -- * Destructuring the Response
-    deleteUserDefinedFunctionResponse,
-    DeleteUserDefinedFunctionResponse,
+    DeleteUserDefinedFunctionResponse (..),
+    newDeleteUserDefinedFunctionResponse,
 
     -- * Response Lenses
-    dudfrrsResponseStatus,
+    deleteUserDefinedFunctionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUserDefinedFunction' smart constructor.
+-- | /See:/ 'newDeleteUserDefinedFunction' smart constructor.
 data DeleteUserDefinedFunction = DeleteUserDefinedFunction'
-  { _dudfCatalogId ::
-      !(Maybe Text),
-    _dudfDatabaseName ::
-      !Text,
-    _dudfFunctionName ::
-      !Text
+  { -- | The ID of the Data Catalog where the function to be deleted is located.
+    -- If none is supplied, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database where the function is located.
+    databaseName :: Prelude.Text,
+    -- | The name of the function definition to be deleted.
+    functionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserDefinedFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserDefinedFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dudfCatalogId' - The ID of the Data Catalog where the function to be deleted is located. If none is supplied, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dudfDatabaseName' - The name of the catalog database where the function is located.
+-- 'catalogId', 'deleteUserDefinedFunction_catalogId' - The ID of the Data Catalog where the function to be deleted is located.
+-- If none is supplied, the AWS account ID is used by default.
 --
--- * 'dudfFunctionName' - The name of the function definition to be deleted.
-deleteUserDefinedFunction ::
-  -- | 'dudfDatabaseName'
-  Text ->
-  -- | 'dudfFunctionName'
-  Text ->
+-- 'databaseName', 'deleteUserDefinedFunction_databaseName' - The name of the catalog database where the function is located.
+--
+-- 'functionName', 'deleteUserDefinedFunction_functionName' - The name of the function definition to be deleted.
+newDeleteUserDefinedFunction ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'functionName'
+  Prelude.Text ->
   DeleteUserDefinedFunction
-deleteUserDefinedFunction
+newDeleteUserDefinedFunction
   pDatabaseName_
   pFunctionName_ =
     DeleteUserDefinedFunction'
-      { _dudfCatalogId =
-          Nothing,
-        _dudfDatabaseName = pDatabaseName_,
-        _dudfFunctionName = pFunctionName_
+      { catalogId =
+          Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        functionName = pFunctionName_
       }
 
--- | The ID of the Data Catalog where the function to be deleted is located. If none is supplied, the AWS account ID is used by default.
-dudfCatalogId :: Lens' DeleteUserDefinedFunction (Maybe Text)
-dudfCatalogId = lens _dudfCatalogId (\s a -> s {_dudfCatalogId = a})
+-- | The ID of the Data Catalog where the function to be deleted is located.
+-- If none is supplied, the AWS account ID is used by default.
+deleteUserDefinedFunction_catalogId :: Lens.Lens' DeleteUserDefinedFunction (Prelude.Maybe Prelude.Text)
+deleteUserDefinedFunction_catalogId = Lens.lens (\DeleteUserDefinedFunction' {catalogId} -> catalogId) (\s@DeleteUserDefinedFunction' {} a -> s {catalogId = a} :: DeleteUserDefinedFunction)
 
 -- | The name of the catalog database where the function is located.
-dudfDatabaseName :: Lens' DeleteUserDefinedFunction Text
-dudfDatabaseName = lens _dudfDatabaseName (\s a -> s {_dudfDatabaseName = a})
+deleteUserDefinedFunction_databaseName :: Lens.Lens' DeleteUserDefinedFunction Prelude.Text
+deleteUserDefinedFunction_databaseName = Lens.lens (\DeleteUserDefinedFunction' {databaseName} -> databaseName) (\s@DeleteUserDefinedFunction' {} a -> s {databaseName = a} :: DeleteUserDefinedFunction)
 
 -- | The name of the function definition to be deleted.
-dudfFunctionName :: Lens' DeleteUserDefinedFunction Text
-dudfFunctionName = lens _dudfFunctionName (\s a -> s {_dudfFunctionName = a})
+deleteUserDefinedFunction_functionName :: Lens.Lens' DeleteUserDefinedFunction Prelude.Text
+deleteUserDefinedFunction_functionName = Lens.lens (\DeleteUserDefinedFunction' {functionName} -> functionName) (\s@DeleteUserDefinedFunction' {} a -> s {functionName = a} :: DeleteUserDefinedFunction)
 
-instance AWSRequest DeleteUserDefinedFunction where
+instance Prelude.AWSRequest DeleteUserDefinedFunction where
   type
     Rs DeleteUserDefinedFunction =
       DeleteUserDefinedFunctionResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteUserDefinedFunctionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteUserDefinedFunction
+instance Prelude.Hashable DeleteUserDefinedFunction
 
-instance NFData DeleteUserDefinedFunction
+instance Prelude.NFData DeleteUserDefinedFunction
 
-instance ToHeaders DeleteUserDefinedFunction where
+instance Prelude.ToHeaders DeleteUserDefinedFunction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.DeleteUserDefinedFunction" :: ByteString),
+              Prelude.=# ( "AWSGlue.DeleteUserDefinedFunction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteUserDefinedFunction where
+instance Prelude.ToJSON DeleteUserDefinedFunction where
   toJSON DeleteUserDefinedFunction' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _dudfCatalogId,
-            Just ("DatabaseName" .= _dudfDatabaseName),
-            Just ("FunctionName" .= _dudfFunctionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just
+              ("FunctionName" Prelude..= functionName)
           ]
       )
 
-instance ToPath DeleteUserDefinedFunction where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUserDefinedFunction where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUserDefinedFunction where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUserDefinedFunction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUserDefinedFunctionResponse' smart constructor.
-newtype DeleteUserDefinedFunctionResponse = DeleteUserDefinedFunctionResponse'
-  { _dudfrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteUserDefinedFunctionResponse' smart constructor.
+data DeleteUserDefinedFunctionResponse = DeleteUserDefinedFunctionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserDefinedFunctionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserDefinedFunctionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dudfrrsResponseStatus' - -- | The response status code.
-deleteUserDefinedFunctionResponse ::
-  -- | 'dudfrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteUserDefinedFunctionResponse_httpStatus' - The response's http status code.
+newDeleteUserDefinedFunctionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteUserDefinedFunctionResponse
-deleteUserDefinedFunctionResponse pResponseStatus_ =
+newDeleteUserDefinedFunctionResponse pHttpStatus_ =
   DeleteUserDefinedFunctionResponse'
-    { _dudfrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dudfrrsResponseStatus :: Lens' DeleteUserDefinedFunctionResponse Int
-dudfrrsResponseStatus = lens _dudfrrsResponseStatus (\s a -> s {_dudfrrsResponseStatus = a})
+-- | The response's http status code.
+deleteUserDefinedFunctionResponse_httpStatus :: Lens.Lens' DeleteUserDefinedFunctionResponse Prelude.Int
+deleteUserDefinedFunctionResponse_httpStatus = Lens.lens (\DeleteUserDefinedFunctionResponse' {httpStatus} -> httpStatus) (\s@DeleteUserDefinedFunctionResponse' {} a -> s {httpStatus = a} :: DeleteUserDefinedFunctionResponse)
 
-instance NFData DeleteUserDefinedFunctionResponse
+instance
+  Prelude.NFData
+    DeleteUserDefinedFunctionResponse

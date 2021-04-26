@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +19,88 @@
 module Network.AWS.Glue.Types.Compatibility
   ( Compatibility
       ( ..,
-        CBackward,
-        CBackwardAll,
-        CDisabled,
-        CForward,
-        CForwardAll,
-        CFull,
-        CFullAll,
-        CNone
+        CompatibilityBACKWARD,
+        CompatibilityBACKWARDALL,
+        CompatibilityDISABLED,
+        CompatibilityFORWARD,
+        CompatibilityFORWARDALL,
+        CompatibilityFULL,
+        CompatibilityFULLALL,
+        CompatibilityNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Compatibility = Compatibility' (CI Text)
+newtype Compatibility = Compatibility'
+  { fromCompatibility ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CBackward :: Compatibility
-pattern CBackward = Compatibility' "BACKWARD"
+pattern CompatibilityBACKWARD :: Compatibility
+pattern CompatibilityBACKWARD = Compatibility' "BACKWARD"
 
-pattern CBackwardAll :: Compatibility
-pattern CBackwardAll = Compatibility' "BACKWARD_ALL"
+pattern CompatibilityBACKWARDALL :: Compatibility
+pattern CompatibilityBACKWARDALL = Compatibility' "BACKWARD_ALL"
 
-pattern CDisabled :: Compatibility
-pattern CDisabled = Compatibility' "DISABLED"
+pattern CompatibilityDISABLED :: Compatibility
+pattern CompatibilityDISABLED = Compatibility' "DISABLED"
 
-pattern CForward :: Compatibility
-pattern CForward = Compatibility' "FORWARD"
+pattern CompatibilityFORWARD :: Compatibility
+pattern CompatibilityFORWARD = Compatibility' "FORWARD"
 
-pattern CForwardAll :: Compatibility
-pattern CForwardAll = Compatibility' "FORWARD_ALL"
+pattern CompatibilityFORWARDALL :: Compatibility
+pattern CompatibilityFORWARDALL = Compatibility' "FORWARD_ALL"
 
-pattern CFull :: Compatibility
-pattern CFull = Compatibility' "FULL"
+pattern CompatibilityFULL :: Compatibility
+pattern CompatibilityFULL = Compatibility' "FULL"
 
-pattern CFullAll :: Compatibility
-pattern CFullAll = Compatibility' "FULL_ALL"
+pattern CompatibilityFULLALL :: Compatibility
+pattern CompatibilityFULLALL = Compatibility' "FULL_ALL"
 
-pattern CNone :: Compatibility
-pattern CNone = Compatibility' "NONE"
+pattern CompatibilityNONE :: Compatibility
+pattern CompatibilityNONE = Compatibility' "NONE"
 
 {-# COMPLETE
-  CBackward,
-  CBackwardAll,
-  CDisabled,
-  CForward,
-  CForwardAll,
-  CFull,
-  CFullAll,
-  CNone,
+  CompatibilityBACKWARD,
+  CompatibilityBACKWARDALL,
+  CompatibilityDISABLED,
+  CompatibilityFORWARD,
+  CompatibilityFORWARDALL,
+  CompatibilityFULL,
+  CompatibilityFULLALL,
+  CompatibilityNONE,
   Compatibility'
   #-}
 
-instance FromText Compatibility where
-  parser = (Compatibility' . mk) <$> takeText
+instance Prelude.FromText Compatibility where
+  parser = Compatibility' Prelude.<$> Prelude.takeText
 
-instance ToText Compatibility where
-  toText (Compatibility' ci) = original ci
+instance Prelude.ToText Compatibility where
+  toText (Compatibility' x) = x
 
-instance Hashable Compatibility
+instance Prelude.Hashable Compatibility
 
-instance NFData Compatibility
+instance Prelude.NFData Compatibility
 
-instance ToByteString Compatibility
+instance Prelude.ToByteString Compatibility
 
-instance ToQuery Compatibility
+instance Prelude.ToQuery Compatibility
 
-instance ToHeader Compatibility
+instance Prelude.ToHeader Compatibility
 
-instance ToJSON Compatibility where
-  toJSON = toJSONText
+instance Prelude.ToJSON Compatibility where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Compatibility where
-  parseJSON = parseJSONText "Compatibility"
+instance Prelude.FromJSON Compatibility where
+  parseJSON = Prelude.parseJSONText "Compatibility"

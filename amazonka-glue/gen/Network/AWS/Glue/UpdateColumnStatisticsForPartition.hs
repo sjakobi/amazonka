@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,210 +23,224 @@
 --
 -- Creates or updates partition statistics of columns.
 --
---
--- The Identity and Access Management (IAM) permission required for this operation is @UpdatePartition@ .
+-- The Identity and Access Management (IAM) permission required for this
+-- operation is @UpdatePartition@.
 module Network.AWS.Glue.UpdateColumnStatisticsForPartition
   ( -- * Creating a Request
-    updateColumnStatisticsForPartition,
-    UpdateColumnStatisticsForPartition,
+    UpdateColumnStatisticsForPartition (..),
+    newUpdateColumnStatisticsForPartition,
 
     -- * Request Lenses
-    ucsfpCatalogId,
-    ucsfpDatabaseName,
-    ucsfpTableName,
-    ucsfpPartitionValues,
-    ucsfpColumnStatisticsList,
+    updateColumnStatisticsForPartition_catalogId,
+    updateColumnStatisticsForPartition_databaseName,
+    updateColumnStatisticsForPartition_tableName,
+    updateColumnStatisticsForPartition_partitionValues,
+    updateColumnStatisticsForPartition_columnStatisticsList,
 
     -- * Destructuring the Response
-    updateColumnStatisticsForPartitionResponse,
-    UpdateColumnStatisticsForPartitionResponse,
+    UpdateColumnStatisticsForPartitionResponse (..),
+    newUpdateColumnStatisticsForPartitionResponse,
 
     -- * Response Lenses
-    ucsfprrsErrors,
-    ucsfprrsResponseStatus,
+    updateColumnStatisticsForPartitionResponse_errors,
+    updateColumnStatisticsForPartitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.ColumnStatisticsError
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateColumnStatisticsForPartition' smart constructor.
+-- | /See:/ 'newUpdateColumnStatisticsForPartition' smart constructor.
 data UpdateColumnStatisticsForPartition = UpdateColumnStatisticsForPartition'
-  { _ucsfpCatalogId ::
-      !( Maybe
-           Text
-       ),
-    _ucsfpDatabaseName ::
-      !Text,
-    _ucsfpTableName ::
-      !Text,
-    _ucsfpPartitionValues ::
-      ![Text],
-    _ucsfpColumnStatisticsList ::
-      ![ColumnStatistics]
+  { -- | The ID of the Data Catalog where the partitions in question reside. If
+    -- none is supplied, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database where the partitions reside.
+    databaseName :: Prelude.Text,
+    -- | The name of the partitions\' table.
+    tableName :: Prelude.Text,
+    -- | A list of partition values identifying the partition.
+    partitionValues :: [Prelude.Text],
+    -- | A list of the column statistics.
+    columnStatisticsList :: [ColumnStatistics]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateColumnStatisticsForPartition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateColumnStatisticsForPartition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucsfpCatalogId' - The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucsfpDatabaseName' - The name of the catalog database where the partitions reside.
+-- 'catalogId', 'updateColumnStatisticsForPartition_catalogId' - The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
 --
--- * 'ucsfpTableName' - The name of the partitions' table.
+-- 'databaseName', 'updateColumnStatisticsForPartition_databaseName' - The name of the catalog database where the partitions reside.
 --
--- * 'ucsfpPartitionValues' - A list of partition values identifying the partition.
+-- 'tableName', 'updateColumnStatisticsForPartition_tableName' - The name of the partitions\' table.
 --
--- * 'ucsfpColumnStatisticsList' - A list of the column statistics.
-updateColumnStatisticsForPartition ::
-  -- | 'ucsfpDatabaseName'
-  Text ->
-  -- | 'ucsfpTableName'
-  Text ->
+-- 'partitionValues', 'updateColumnStatisticsForPartition_partitionValues' - A list of partition values identifying the partition.
+--
+-- 'columnStatisticsList', 'updateColumnStatisticsForPartition_columnStatisticsList' - A list of the column statistics.
+newUpdateColumnStatisticsForPartition ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
   UpdateColumnStatisticsForPartition
-updateColumnStatisticsForPartition
+newUpdateColumnStatisticsForPartition
   pDatabaseName_
   pTableName_ =
     UpdateColumnStatisticsForPartition'
-      { _ucsfpCatalogId =
-          Nothing,
-        _ucsfpDatabaseName = pDatabaseName_,
-        _ucsfpTableName = pTableName_,
-        _ucsfpPartitionValues = mempty,
-        _ucsfpColumnStatisticsList = mempty
+      { catalogId =
+          Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        tableName = pTableName_,
+        partitionValues = Prelude.mempty,
+        columnStatisticsList = Prelude.mempty
       }
 
--- | The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
-ucsfpCatalogId :: Lens' UpdateColumnStatisticsForPartition (Maybe Text)
-ucsfpCatalogId = lens _ucsfpCatalogId (\s a -> s {_ucsfpCatalogId = a})
+-- | The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
+updateColumnStatisticsForPartition_catalogId :: Lens.Lens' UpdateColumnStatisticsForPartition (Prelude.Maybe Prelude.Text)
+updateColumnStatisticsForPartition_catalogId = Lens.lens (\UpdateColumnStatisticsForPartition' {catalogId} -> catalogId) (\s@UpdateColumnStatisticsForPartition' {} a -> s {catalogId = a} :: UpdateColumnStatisticsForPartition)
 
 -- | The name of the catalog database where the partitions reside.
-ucsfpDatabaseName :: Lens' UpdateColumnStatisticsForPartition Text
-ucsfpDatabaseName = lens _ucsfpDatabaseName (\s a -> s {_ucsfpDatabaseName = a})
+updateColumnStatisticsForPartition_databaseName :: Lens.Lens' UpdateColumnStatisticsForPartition Prelude.Text
+updateColumnStatisticsForPartition_databaseName = Lens.lens (\UpdateColumnStatisticsForPartition' {databaseName} -> databaseName) (\s@UpdateColumnStatisticsForPartition' {} a -> s {databaseName = a} :: UpdateColumnStatisticsForPartition)
 
--- | The name of the partitions' table.
-ucsfpTableName :: Lens' UpdateColumnStatisticsForPartition Text
-ucsfpTableName = lens _ucsfpTableName (\s a -> s {_ucsfpTableName = a})
+-- | The name of the partitions\' table.
+updateColumnStatisticsForPartition_tableName :: Lens.Lens' UpdateColumnStatisticsForPartition Prelude.Text
+updateColumnStatisticsForPartition_tableName = Lens.lens (\UpdateColumnStatisticsForPartition' {tableName} -> tableName) (\s@UpdateColumnStatisticsForPartition' {} a -> s {tableName = a} :: UpdateColumnStatisticsForPartition)
 
 -- | A list of partition values identifying the partition.
-ucsfpPartitionValues :: Lens' UpdateColumnStatisticsForPartition [Text]
-ucsfpPartitionValues = lens _ucsfpPartitionValues (\s a -> s {_ucsfpPartitionValues = a}) . _Coerce
+updateColumnStatisticsForPartition_partitionValues :: Lens.Lens' UpdateColumnStatisticsForPartition [Prelude.Text]
+updateColumnStatisticsForPartition_partitionValues = Lens.lens (\UpdateColumnStatisticsForPartition' {partitionValues} -> partitionValues) (\s@UpdateColumnStatisticsForPartition' {} a -> s {partitionValues = a} :: UpdateColumnStatisticsForPartition) Prelude.. Prelude._Coerce
 
 -- | A list of the column statistics.
-ucsfpColumnStatisticsList :: Lens' UpdateColumnStatisticsForPartition [ColumnStatistics]
-ucsfpColumnStatisticsList = lens _ucsfpColumnStatisticsList (\s a -> s {_ucsfpColumnStatisticsList = a}) . _Coerce
+updateColumnStatisticsForPartition_columnStatisticsList :: Lens.Lens' UpdateColumnStatisticsForPartition [ColumnStatistics]
+updateColumnStatisticsForPartition_columnStatisticsList = Lens.lens (\UpdateColumnStatisticsForPartition' {columnStatisticsList} -> columnStatisticsList) (\s@UpdateColumnStatisticsForPartition' {} a -> s {columnStatisticsList = a} :: UpdateColumnStatisticsForPartition) Prelude.. Prelude._Coerce
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     UpdateColumnStatisticsForPartition
   where
   type
     Rs UpdateColumnStatisticsForPartition =
       UpdateColumnStatisticsForPartitionResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateColumnStatisticsForPartitionResponse'
-            <$> (x .?> "Errors" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Errors" Prelude..!@ Prelude.mempty)
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateColumnStatisticsForPartition
+instance
+  Prelude.Hashable
+    UpdateColumnStatisticsForPartition
 
-instance NFData UpdateColumnStatisticsForPartition
+instance
+  Prelude.NFData
+    UpdateColumnStatisticsForPartition
 
-instance ToHeaders UpdateColumnStatisticsForPartition where
+instance
+  Prelude.ToHeaders
+    UpdateColumnStatisticsForPartition
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSGlue.UpdateColumnStatisticsForPartition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSGlue.UpdateColumnStatisticsForPartition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateColumnStatisticsForPartition where
+instance
+  Prelude.ToJSON
+    UpdateColumnStatisticsForPartition
+  where
   toJSON UpdateColumnStatisticsForPartition' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _ucsfpCatalogId,
-            Just ("DatabaseName" .= _ucsfpDatabaseName),
-            Just ("TableName" .= _ucsfpTableName),
-            Just ("PartitionValues" .= _ucsfpPartitionValues),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just
+              ("PartitionValues" Prelude..= partitionValues),
+            Prelude.Just
               ( "ColumnStatisticsList"
-                  .= _ucsfpColumnStatisticsList
+                  Prelude..= columnStatisticsList
               )
           ]
       )
 
-instance ToPath UpdateColumnStatisticsForPartition where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    UpdateColumnStatisticsForPartition
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateColumnStatisticsForPartition where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdateColumnStatisticsForPartition
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateColumnStatisticsForPartitionResponse' smart constructor.
+-- | /See:/ 'newUpdateColumnStatisticsForPartitionResponse' smart constructor.
 data UpdateColumnStatisticsForPartitionResponse = UpdateColumnStatisticsForPartitionResponse'
-  { _ucsfprrsErrors ::
-      !( Maybe
-           [ColumnStatisticsError]
-       ),
-    _ucsfprrsResponseStatus ::
-      !Int
+  { -- | Error occurred during updating column statistics data.
+    errors :: Prelude.Maybe [ColumnStatisticsError],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateColumnStatisticsForPartitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateColumnStatisticsForPartitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucsfprrsErrors' - Error occurred during updating column statistics data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucsfprrsResponseStatus' - -- | The response status code.
-updateColumnStatisticsForPartitionResponse ::
-  -- | 'ucsfprrsResponseStatus'
-  Int ->
+-- 'errors', 'updateColumnStatisticsForPartitionResponse_errors' - Error occurred during updating column statistics data.
+--
+-- 'httpStatus', 'updateColumnStatisticsForPartitionResponse_httpStatus' - The response's http status code.
+newUpdateColumnStatisticsForPartitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateColumnStatisticsForPartitionResponse
-updateColumnStatisticsForPartitionResponse
-  pResponseStatus_ =
+newUpdateColumnStatisticsForPartitionResponse
+  pHttpStatus_ =
     UpdateColumnStatisticsForPartitionResponse'
-      { _ucsfprrsErrors =
-          Nothing,
-        _ucsfprrsResponseStatus =
-          pResponseStatus_
+      { errors =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Error occurred during updating column statistics data.
-ucsfprrsErrors :: Lens' UpdateColumnStatisticsForPartitionResponse [ColumnStatisticsError]
-ucsfprrsErrors = lens _ucsfprrsErrors (\s a -> s {_ucsfprrsErrors = a}) . _Default . _Coerce
+updateColumnStatisticsForPartitionResponse_errors :: Lens.Lens' UpdateColumnStatisticsForPartitionResponse (Prelude.Maybe [ColumnStatisticsError])
+updateColumnStatisticsForPartitionResponse_errors = Lens.lens (\UpdateColumnStatisticsForPartitionResponse' {errors} -> errors) (\s@UpdateColumnStatisticsForPartitionResponse' {} a -> s {errors = a} :: UpdateColumnStatisticsForPartitionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ucsfprrsResponseStatus :: Lens' UpdateColumnStatisticsForPartitionResponse Int
-ucsfprrsResponseStatus = lens _ucsfprrsResponseStatus (\s a -> s {_ucsfprrsResponseStatus = a})
+-- | The response's http status code.
+updateColumnStatisticsForPartitionResponse_httpStatus :: Lens.Lens' UpdateColumnStatisticsForPartitionResponse Prelude.Int
+updateColumnStatisticsForPartitionResponse_httpStatus = Lens.lens (\UpdateColumnStatisticsForPartitionResponse' {httpStatus} -> httpStatus) (\s@UpdateColumnStatisticsForPartitionResponse' {} a -> s {httpStatus = a} :: UpdateColumnStatisticsForPartitionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     UpdateColumnStatisticsForPartitionResponse

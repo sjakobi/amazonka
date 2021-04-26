@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,160 +24,180 @@
 -- Deletes a specified version of a table.
 module Network.AWS.Glue.DeleteTableVersion
   ( -- * Creating a Request
-    deleteTableVersion,
-    DeleteTableVersion,
+    DeleteTableVersion (..),
+    newDeleteTableVersion,
 
     -- * Request Lenses
-    dtvCatalogId,
-    dtvDatabaseName,
-    dtvTableName,
-    dtvVersionId,
+    deleteTableVersion_catalogId,
+    deleteTableVersion_databaseName,
+    deleteTableVersion_tableName,
+    deleteTableVersion_versionId,
 
     -- * Destructuring the Response
-    deleteTableVersionResponse,
-    DeleteTableVersionResponse,
+    DeleteTableVersionResponse (..),
+    newDeleteTableVersionResponse,
 
     -- * Response Lenses
-    dtvrrsResponseStatus,
+    deleteTableVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTableVersion' smart constructor.
+-- | /See:/ 'newDeleteTableVersion' smart constructor.
 data DeleteTableVersion = DeleteTableVersion'
-  { _dtvCatalogId ::
-      !(Maybe Text),
-    _dtvDatabaseName :: !Text,
-    _dtvTableName :: !Text,
-    _dtvVersionId :: !Text
+  { -- | The ID of the Data Catalog where the tables reside. If none is provided,
+    -- the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The database in the catalog in which the table resides. For Hive
+    -- compatibility, this name is entirely lowercase.
+    databaseName :: Prelude.Text,
+    -- | The name of the table. For Hive compatibility, this name is entirely
+    -- lowercase.
+    tableName :: Prelude.Text,
+    -- | The ID of the table version to be deleted. A @VersionID@ is a string
+    -- representation of an integer. Each version is incremented by 1.
+    versionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTableVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTableVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtvCatalogId' - The ID of the Data Catalog where the tables reside. If none is provided, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtvDatabaseName' - The database in the catalog in which the table resides. For Hive compatibility, this name is entirely lowercase.
+-- 'catalogId', 'deleteTableVersion_catalogId' - The ID of the Data Catalog where the tables reside. If none is provided,
+-- the AWS account ID is used by default.
 --
--- * 'dtvTableName' - The name of the table. For Hive compatibility, this name is entirely lowercase.
+-- 'databaseName', 'deleteTableVersion_databaseName' - The database in the catalog in which the table resides. For Hive
+-- compatibility, this name is entirely lowercase.
 --
--- * 'dtvVersionId' - The ID of the table version to be deleted. A @VersionID@ is a string representation of an integer. Each version is incremented by 1.
-deleteTableVersion ::
-  -- | 'dtvDatabaseName'
-  Text ->
-  -- | 'dtvTableName'
-  Text ->
-  -- | 'dtvVersionId'
-  Text ->
+-- 'tableName', 'deleteTableVersion_tableName' - The name of the table. For Hive compatibility, this name is entirely
+-- lowercase.
+--
+-- 'versionId', 'deleteTableVersion_versionId' - The ID of the table version to be deleted. A @VersionID@ is a string
+-- representation of an integer. Each version is incremented by 1.
+newDeleteTableVersion ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'versionId'
+  Prelude.Text ->
   DeleteTableVersion
-deleteTableVersion
+newDeleteTableVersion
   pDatabaseName_
   pTableName_
   pVersionId_ =
     DeleteTableVersion'
-      { _dtvCatalogId = Nothing,
-        _dtvDatabaseName = pDatabaseName_,
-        _dtvTableName = pTableName_,
-        _dtvVersionId = pVersionId_
+      { catalogId = Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        tableName = pTableName_,
+        versionId = pVersionId_
       }
 
--- | The ID of the Data Catalog where the tables reside. If none is provided, the AWS account ID is used by default.
-dtvCatalogId :: Lens' DeleteTableVersion (Maybe Text)
-dtvCatalogId = lens _dtvCatalogId (\s a -> s {_dtvCatalogId = a})
+-- | The ID of the Data Catalog where the tables reside. If none is provided,
+-- the AWS account ID is used by default.
+deleteTableVersion_catalogId :: Lens.Lens' DeleteTableVersion (Prelude.Maybe Prelude.Text)
+deleteTableVersion_catalogId = Lens.lens (\DeleteTableVersion' {catalogId} -> catalogId) (\s@DeleteTableVersion' {} a -> s {catalogId = a} :: DeleteTableVersion)
 
--- | The database in the catalog in which the table resides. For Hive compatibility, this name is entirely lowercase.
-dtvDatabaseName :: Lens' DeleteTableVersion Text
-dtvDatabaseName = lens _dtvDatabaseName (\s a -> s {_dtvDatabaseName = a})
+-- | The database in the catalog in which the table resides. For Hive
+-- compatibility, this name is entirely lowercase.
+deleteTableVersion_databaseName :: Lens.Lens' DeleteTableVersion Prelude.Text
+deleteTableVersion_databaseName = Lens.lens (\DeleteTableVersion' {databaseName} -> databaseName) (\s@DeleteTableVersion' {} a -> s {databaseName = a} :: DeleteTableVersion)
 
--- | The name of the table. For Hive compatibility, this name is entirely lowercase.
-dtvTableName :: Lens' DeleteTableVersion Text
-dtvTableName = lens _dtvTableName (\s a -> s {_dtvTableName = a})
+-- | The name of the table. For Hive compatibility, this name is entirely
+-- lowercase.
+deleteTableVersion_tableName :: Lens.Lens' DeleteTableVersion Prelude.Text
+deleteTableVersion_tableName = Lens.lens (\DeleteTableVersion' {tableName} -> tableName) (\s@DeleteTableVersion' {} a -> s {tableName = a} :: DeleteTableVersion)
 
--- | The ID of the table version to be deleted. A @VersionID@ is a string representation of an integer. Each version is incremented by 1.
-dtvVersionId :: Lens' DeleteTableVersion Text
-dtvVersionId = lens _dtvVersionId (\s a -> s {_dtvVersionId = a})
+-- | The ID of the table version to be deleted. A @VersionID@ is a string
+-- representation of an integer. Each version is incremented by 1.
+deleteTableVersion_versionId :: Lens.Lens' DeleteTableVersion Prelude.Text
+deleteTableVersion_versionId = Lens.lens (\DeleteTableVersion' {versionId} -> versionId) (\s@DeleteTableVersion' {} a -> s {versionId = a} :: DeleteTableVersion)
 
-instance AWSRequest DeleteTableVersion where
+instance Prelude.AWSRequest DeleteTableVersion where
   type
     Rs DeleteTableVersion =
       DeleteTableVersionResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteTableVersionResponse' <$> (pure (fromEnum s))
+          DeleteTableVersionResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTableVersion
+instance Prelude.Hashable DeleteTableVersion
 
-instance NFData DeleteTableVersion
+instance Prelude.NFData DeleteTableVersion
 
-instance ToHeaders DeleteTableVersion where
+instance Prelude.ToHeaders DeleteTableVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.DeleteTableVersion" :: ByteString),
+              Prelude.=# ("AWSGlue.DeleteTableVersion" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTableVersion where
+instance Prelude.ToJSON DeleteTableVersion where
   toJSON DeleteTableVersion' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _dtvCatalogId,
-            Just ("DatabaseName" .= _dtvDatabaseName),
-            Just ("TableName" .= _dtvTableName),
-            Just ("VersionId" .= _dtvVersionId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just ("VersionId" Prelude..= versionId)
           ]
       )
 
-instance ToPath DeleteTableVersion where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTableVersion where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTableVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTableVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTableVersionResponse' smart constructor.
-newtype DeleteTableVersionResponse = DeleteTableVersionResponse'
-  { _dtvrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteTableVersionResponse' smart constructor.
+data DeleteTableVersionResponse = DeleteTableVersionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTableVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTableVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtvrrsResponseStatus' - -- | The response status code.
-deleteTableVersionResponse ::
-  -- | 'dtvrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteTableVersionResponse_httpStatus' - The response's http status code.
+newDeleteTableVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTableVersionResponse
-deleteTableVersionResponse pResponseStatus_ =
+newDeleteTableVersionResponse pHttpStatus_ =
   DeleteTableVersionResponse'
-    { _dtvrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dtvrrsResponseStatus :: Lens' DeleteTableVersionResponse Int
-dtvrrsResponseStatus = lens _dtvrrsResponseStatus (\s a -> s {_dtvrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTableVersionResponse_httpStatus :: Lens.Lens' DeleteTableVersionResponse Prelude.Int
+deleteTableVersionResponse_httpStatus = Lens.lens (\DeleteTableVersionResponse' {httpStatus} -> httpStatus) (\s@DeleteTableVersionResponse' {} a -> s {httpStatus = a} :: DeleteTableVersionResponse)
 
-instance NFData DeleteTableVersionResponse
+instance Prelude.NFData DeleteTableVersionResponse

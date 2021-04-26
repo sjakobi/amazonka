@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,133 +22,153 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Removes a specified database from a Data Catalog.
+--
+-- After completing this operation, you no longer have access to the tables
+-- (and all table versions and partitions that might belong to the tables)
+-- and the user-defined functions in the deleted database. AWS Glue deletes
+-- these \"orphaned\" resources asynchronously in a timely manner, at the
+-- discretion of the service.
+--
+-- To ensure the immediate deletion of all related resources, before
+-- calling @DeleteDatabase@, use @DeleteTableVersion@ or
+-- @BatchDeleteTableVersion@, @DeletePartition@ or @BatchDeletePartition@,
+-- @DeleteUserDefinedFunction@, and @DeleteTable@ or @BatchDeleteTable@, to
+-- delete any resources that belong to the database.
 module Network.AWS.Glue.DeleteDatabase
   ( -- * Creating a Request
-    deleteDatabase,
-    DeleteDatabase,
+    DeleteDatabase (..),
+    newDeleteDatabase,
 
     -- * Request Lenses
-    ddCatalogId,
-    ddName,
+    deleteDatabase_catalogId,
+    deleteDatabase_name,
 
     -- * Destructuring the Response
-    deleteDatabaseResponse,
-    DeleteDatabaseResponse,
+    DeleteDatabaseResponse (..),
+    newDeleteDatabaseResponse,
 
     -- * Response Lenses
-    ddrrsResponseStatus,
+    deleteDatabaseResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDatabase' smart constructor.
+-- | /See:/ 'newDeleteDatabase' smart constructor.
 data DeleteDatabase = DeleteDatabase'
-  { _ddCatalogId ::
-      !(Maybe Text),
-    _ddName :: !Text
+  { -- | The ID of the Data Catalog in which the database resides. If none is
+    -- provided, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the database to delete. For Hive compatibility, this must be
+    -- all lowercase.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDatabase' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDatabase' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddCatalogId' - The ID of the Data Catalog in which the database resides. If none is provided, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddName' - The name of the database to delete. For Hive compatibility, this must be all lowercase.
-deleteDatabase ::
-  -- | 'ddName'
-  Text ->
+-- 'catalogId', 'deleteDatabase_catalogId' - The ID of the Data Catalog in which the database resides. If none is
+-- provided, the AWS account ID is used by default.
+--
+-- 'name', 'deleteDatabase_name' - The name of the database to delete. For Hive compatibility, this must be
+-- all lowercase.
+newDeleteDatabase ::
+  -- | 'name'
+  Prelude.Text ->
   DeleteDatabase
-deleteDatabase pName_ =
+newDeleteDatabase pName_ =
   DeleteDatabase'
-    { _ddCatalogId = Nothing,
-      _ddName = pName_
+    { catalogId = Prelude.Nothing,
+      name = pName_
     }
 
--- | The ID of the Data Catalog in which the database resides. If none is provided, the AWS account ID is used by default.
-ddCatalogId :: Lens' DeleteDatabase (Maybe Text)
-ddCatalogId = lens _ddCatalogId (\s a -> s {_ddCatalogId = a})
+-- | The ID of the Data Catalog in which the database resides. If none is
+-- provided, the AWS account ID is used by default.
+deleteDatabase_catalogId :: Lens.Lens' DeleteDatabase (Prelude.Maybe Prelude.Text)
+deleteDatabase_catalogId = Lens.lens (\DeleteDatabase' {catalogId} -> catalogId) (\s@DeleteDatabase' {} a -> s {catalogId = a} :: DeleteDatabase)
 
--- | The name of the database to delete. For Hive compatibility, this must be all lowercase.
-ddName :: Lens' DeleteDatabase Text
-ddName = lens _ddName (\s a -> s {_ddName = a})
+-- | The name of the database to delete. For Hive compatibility, this must be
+-- all lowercase.
+deleteDatabase_name :: Lens.Lens' DeleteDatabase Prelude.Text
+deleteDatabase_name = Lens.lens (\DeleteDatabase' {name} -> name) (\s@DeleteDatabase' {} a -> s {name = a} :: DeleteDatabase)
 
-instance AWSRequest DeleteDatabase where
+instance Prelude.AWSRequest DeleteDatabase where
   type Rs DeleteDatabase = DeleteDatabaseResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteDatabaseResponse' <$> (pure (fromEnum s))
+          DeleteDatabaseResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDatabase
+instance Prelude.Hashable DeleteDatabase
 
-instance NFData DeleteDatabase
+instance Prelude.NFData DeleteDatabase
 
-instance ToHeaders DeleteDatabase where
+instance Prelude.ToHeaders DeleteDatabase where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.DeleteDatabase" :: ByteString),
+              Prelude.=# ("AWSGlue.DeleteDatabase" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDatabase where
+instance Prelude.ToJSON DeleteDatabase where
   toJSON DeleteDatabase' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _ddCatalogId,
-            Just ("Name" .= _ddName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath DeleteDatabase where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDatabase where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDatabase where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDatabase where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDatabaseResponse' smart constructor.
-newtype DeleteDatabaseResponse = DeleteDatabaseResponse'
-  { _ddrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteDatabaseResponse' smart constructor.
+data DeleteDatabaseResponse = DeleteDatabaseResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDatabaseResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDatabaseResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrrsResponseStatus' - -- | The response status code.
-deleteDatabaseResponse ::
-  -- | 'ddrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteDatabaseResponse_httpStatus' - The response's http status code.
+newDeleteDatabaseResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDatabaseResponse
-deleteDatabaseResponse pResponseStatus_ =
-  DeleteDatabaseResponse'
-    { _ddrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteDatabaseResponse pHttpStatus_ =
+  DeleteDatabaseResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ddrrsResponseStatus :: Lens' DeleteDatabaseResponse Int
-ddrrsResponseStatus = lens _ddrrsResponseStatus (\s a -> s {_ddrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDatabaseResponse_httpStatus :: Lens.Lens' DeleteDatabaseResponse Prelude.Int
+deleteDatabaseResponse_httpStatus = Lens.lens (\DeleteDatabaseResponse' {httpStatus} -> httpStatus) (\s@DeleteDatabaseResponse' {} a -> s {httpStatus = a} :: DeleteDatabaseResponse)
 
-instance NFData DeleteDatabaseResponse
+instance Prelude.NFData DeleteDatabaseResponse

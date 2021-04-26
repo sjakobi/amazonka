@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,96 +20,103 @@
 module Network.AWS.Glue.Types.ColumnStatistics where
 
 import Network.AWS.Glue.Types.ColumnStatisticsData
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the generated column-level statistics for a table or partition.
+-- | Represents the generated column-level statistics for a table or
+-- partition.
 --
---
---
--- /See:/ 'columnStatistics' smart constructor.
+-- /See:/ 'newColumnStatistics' smart constructor.
 data ColumnStatistics = ColumnStatistics'
-  { _csColumnName ::
-      !Text,
-    _csColumnType :: !Text,
-    _csAnalyzedTime :: !POSIX,
-    _csStatisticsData ::
-      !ColumnStatisticsData
+  { -- | Name of column which statistics belong to.
+    columnName :: Prelude.Text,
+    -- | The data type of the column.
+    columnType :: Prelude.Text,
+    -- | The timestamp of when column statistics were generated.
+    analyzedTime :: Prelude.POSIX,
+    -- | A @ColumnStatisticData@ object that contains the statistics data values.
+    statisticsData :: ColumnStatisticsData
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ColumnStatistics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ColumnStatistics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csColumnName' - Name of column which statistics belong to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csColumnType' - The data type of the column.
+-- 'columnName', 'columnStatistics_columnName' - Name of column which statistics belong to.
 --
--- * 'csAnalyzedTime' - The timestamp of when column statistics were generated.
+-- 'columnType', 'columnStatistics_columnType' - The data type of the column.
 --
--- * 'csStatisticsData' - A @ColumnStatisticData@ object that contains the statistics data values.
-columnStatistics ::
-  -- | 'csColumnName'
-  Text ->
-  -- | 'csColumnType'
-  Text ->
-  -- | 'csAnalyzedTime'
-  UTCTime ->
-  -- | 'csStatisticsData'
+-- 'analyzedTime', 'columnStatistics_analyzedTime' - The timestamp of when column statistics were generated.
+--
+-- 'statisticsData', 'columnStatistics_statisticsData' - A @ColumnStatisticData@ object that contains the statistics data values.
+newColumnStatistics ::
+  -- | 'columnName'
+  Prelude.Text ->
+  -- | 'columnType'
+  Prelude.Text ->
+  -- | 'analyzedTime'
+  Prelude.UTCTime ->
+  -- | 'statisticsData'
   ColumnStatisticsData ->
   ColumnStatistics
-columnStatistics
+newColumnStatistics
   pColumnName_
   pColumnType_
   pAnalyzedTime_
   pStatisticsData_ =
     ColumnStatistics'
-      { _csColumnName = pColumnName_,
-        _csColumnType = pColumnType_,
-        _csAnalyzedTime = _Time # pAnalyzedTime_,
-        _csStatisticsData = pStatisticsData_
+      { columnName = pColumnName_,
+        columnType = pColumnType_,
+        analyzedTime = Prelude._Time Lens.# pAnalyzedTime_,
+        statisticsData = pStatisticsData_
       }
 
 -- | Name of column which statistics belong to.
-csColumnName :: Lens' ColumnStatistics Text
-csColumnName = lens _csColumnName (\s a -> s {_csColumnName = a})
+columnStatistics_columnName :: Lens.Lens' ColumnStatistics Prelude.Text
+columnStatistics_columnName = Lens.lens (\ColumnStatistics' {columnName} -> columnName) (\s@ColumnStatistics' {} a -> s {columnName = a} :: ColumnStatistics)
 
 -- | The data type of the column.
-csColumnType :: Lens' ColumnStatistics Text
-csColumnType = lens _csColumnType (\s a -> s {_csColumnType = a})
+columnStatistics_columnType :: Lens.Lens' ColumnStatistics Prelude.Text
+columnStatistics_columnType = Lens.lens (\ColumnStatistics' {columnType} -> columnType) (\s@ColumnStatistics' {} a -> s {columnType = a} :: ColumnStatistics)
 
 -- | The timestamp of when column statistics were generated.
-csAnalyzedTime :: Lens' ColumnStatistics UTCTime
-csAnalyzedTime = lens _csAnalyzedTime (\s a -> s {_csAnalyzedTime = a}) . _Time
+columnStatistics_analyzedTime :: Lens.Lens' ColumnStatistics Prelude.UTCTime
+columnStatistics_analyzedTime = Lens.lens (\ColumnStatistics' {analyzedTime} -> analyzedTime) (\s@ColumnStatistics' {} a -> s {analyzedTime = a} :: ColumnStatistics) Prelude.. Prelude._Time
 
 -- | A @ColumnStatisticData@ object that contains the statistics data values.
-csStatisticsData :: Lens' ColumnStatistics ColumnStatisticsData
-csStatisticsData = lens _csStatisticsData (\s a -> s {_csStatisticsData = a})
+columnStatistics_statisticsData :: Lens.Lens' ColumnStatistics ColumnStatisticsData
+columnStatistics_statisticsData = Lens.lens (\ColumnStatistics' {statisticsData} -> statisticsData) (\s@ColumnStatistics' {} a -> s {statisticsData = a} :: ColumnStatistics)
 
-instance FromJSON ColumnStatistics where
+instance Prelude.FromJSON ColumnStatistics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ColumnStatistics"
       ( \x ->
           ColumnStatistics'
-            <$> (x .: "ColumnName")
-            <*> (x .: "ColumnType")
-            <*> (x .: "AnalyzedTime")
-            <*> (x .: "StatisticsData")
+            Prelude.<$> (x Prelude..: "ColumnName")
+            Prelude.<*> (x Prelude..: "ColumnType")
+            Prelude.<*> (x Prelude..: "AnalyzedTime")
+            Prelude.<*> (x Prelude..: "StatisticsData")
       )
 
-instance Hashable ColumnStatistics
+instance Prelude.Hashable ColumnStatistics
 
-instance NFData ColumnStatistics
+instance Prelude.NFData ColumnStatistics
 
-instance ToJSON ColumnStatistics where
+instance Prelude.ToJSON ColumnStatistics where
   toJSON ColumnStatistics' {..} =
-    object
-      ( catMaybes
-          [ Just ("ColumnName" .= _csColumnName),
-            Just ("ColumnType" .= _csColumnType),
-            Just ("AnalyzedTime" .= _csAnalyzedTime),
-            Just ("StatisticsData" .= _csStatisticsData)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ColumnName" Prelude..= columnName),
+            Prelude.Just ("ColumnType" Prelude..= columnType),
+            Prelude.Just
+              ("AnalyzedTime" Prelude..= analyzedTime),
+            Prelude.Just
+              ("StatisticsData" Prelude..= statisticsData)
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Glue.Types.RegistryStatus
   ( RegistryStatus
       ( ..,
-        Available,
-        Deleting
+        RegistryStatusAVAILABLE,
+        RegistryStatusDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RegistryStatus = RegistryStatus' (CI Text)
+newtype RegistryStatus = RegistryStatus'
+  { fromRegistryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: RegistryStatus
-pattern Available = RegistryStatus' "AVAILABLE"
+pattern RegistryStatusAVAILABLE :: RegistryStatus
+pattern RegistryStatusAVAILABLE = RegistryStatus' "AVAILABLE"
 
-pattern Deleting :: RegistryStatus
-pattern Deleting = RegistryStatus' "DELETING"
+pattern RegistryStatusDELETING :: RegistryStatus
+pattern RegistryStatusDELETING = RegistryStatus' "DELETING"
 
 {-# COMPLETE
-  Available,
-  Deleting,
+  RegistryStatusAVAILABLE,
+  RegistryStatusDELETING,
   RegistryStatus'
   #-}
 
-instance FromText RegistryStatus where
-  parser = (RegistryStatus' . mk) <$> takeText
+instance Prelude.FromText RegistryStatus where
+  parser = RegistryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RegistryStatus where
-  toText (RegistryStatus' ci) = original ci
+instance Prelude.ToText RegistryStatus where
+  toText (RegistryStatus' x) = x
 
-instance Hashable RegistryStatus
+instance Prelude.Hashable RegistryStatus
 
-instance NFData RegistryStatus
+instance Prelude.NFData RegistryStatus
 
-instance ToByteString RegistryStatus
+instance Prelude.ToByteString RegistryStatus
 
-instance ToQuery RegistryStatus
+instance Prelude.ToQuery RegistryStatus
 
-instance ToHeader RegistryStatus
+instance Prelude.ToHeader RegistryStatus
 
-instance FromJSON RegistryStatus where
-  parseJSON = parseJSONText "RegistryStatus"
+instance Prelude.FromJSON RegistryStatus where
+  parseJSON = Prelude.parseJSONText "RegistryStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,338 +21,454 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets an AWS Glue machine learning transform artifact and all its corresponding metadata. Machine learning transforms are a special type of transform that use machine learning to learn the details of the transformation to be performed by learning from examples provided by humans. These transformations are then saved by AWS Glue. You can retrieve their metadata by calling @GetMLTransform@ .
+-- Gets an AWS Glue machine learning transform artifact and all its
+-- corresponding metadata. Machine learning transforms are a special type
+-- of transform that use machine learning to learn the details of the
+-- transformation to be performed by learning from examples provided by
+-- humans. These transformations are then saved by AWS Glue. You can
+-- retrieve their metadata by calling @GetMLTransform@.
 module Network.AWS.Glue.GetMLTransform
   ( -- * Creating a Request
-    getMLTransform,
-    GetMLTransform,
+    GetMLTransform (..),
+    newGetMLTransform,
 
     -- * Request Lenses
-    gmltTransformId,
+    getMLTransform_transformId,
 
     -- * Destructuring the Response
-    getMLTransformResponse,
-    GetMLTransformResponse,
+    GetMLTransformResponse (..),
+    newGetMLTransformResponse,
 
     -- * Response Lenses
-    gmltrmrsStatus,
-    gmltrmrsTransformId,
-    gmltrmrsSchema,
-    gmltrmrsCreatedOn,
-    gmltrmrsInputRecordTables,
-    gmltrmrsTransformEncryption,
-    gmltrmrsTimeout,
-    gmltrmrsMaxCapacity,
-    gmltrmrsLastModifiedOn,
-    gmltrmrsNumberOfWorkers,
-    gmltrmrsName,
-    gmltrmrsRole,
-    gmltrmrsGlueVersion,
-    gmltrmrsEvaluationMetrics,
-    gmltrmrsWorkerType,
-    gmltrmrsDescription,
-    gmltrmrsLabelCount,
-    gmltrmrsParameters,
-    gmltrmrsMaxRetries,
-    gmltrmrsResponseStatus,
+    getMLTransformResponse_status,
+    getMLTransformResponse_transformId,
+    getMLTransformResponse_schema,
+    getMLTransformResponse_createdOn,
+    getMLTransformResponse_inputRecordTables,
+    getMLTransformResponse_transformEncryption,
+    getMLTransformResponse_timeout,
+    getMLTransformResponse_maxCapacity,
+    getMLTransformResponse_lastModifiedOn,
+    getMLTransformResponse_numberOfWorkers,
+    getMLTransformResponse_name,
+    getMLTransformResponse_role,
+    getMLTransformResponse_glueVersion,
+    getMLTransformResponse_evaluationMetrics,
+    getMLTransformResponse_workerType,
+    getMLTransformResponse_description,
+    getMLTransformResponse_labelCount,
+    getMLTransformResponse_parameters,
+    getMLTransformResponse_maxRetries,
+    getMLTransformResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.EvaluationMetrics
+import Network.AWS.Glue.Types.GlueTable
+import Network.AWS.Glue.Types.SchemaColumn
+import Network.AWS.Glue.Types.TransformEncryption
+import Network.AWS.Glue.Types.TransformParameters
+import Network.AWS.Glue.Types.TransformStatusType
+import Network.AWS.Glue.Types.WorkerType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getMLTransform' smart constructor.
-newtype GetMLTransform = GetMLTransform'
-  { _gmltTransformId ::
-      Text
+-- | /See:/ 'newGetMLTransform' smart constructor.
+data GetMLTransform = GetMLTransform'
+  { -- | The unique identifier of the transform, generated at the time that the
+    -- transform was created.
+    transformId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMLTransform' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMLTransform' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmltTransformId' - The unique identifier of the transform, generated at the time that the transform was created.
-getMLTransform ::
-  -- | 'gmltTransformId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'transformId', 'getMLTransform_transformId' - The unique identifier of the transform, generated at the time that the
+-- transform was created.
+newGetMLTransform ::
+  -- | 'transformId'
+  Prelude.Text ->
   GetMLTransform
-getMLTransform pTransformId_ =
-  GetMLTransform' {_gmltTransformId = pTransformId_}
+newGetMLTransform pTransformId_ =
+  GetMLTransform' {transformId = pTransformId_}
 
--- | The unique identifier of the transform, generated at the time that the transform was created.
-gmltTransformId :: Lens' GetMLTransform Text
-gmltTransformId = lens _gmltTransformId (\s a -> s {_gmltTransformId = a})
+-- | The unique identifier of the transform, generated at the time that the
+-- transform was created.
+getMLTransform_transformId :: Lens.Lens' GetMLTransform Prelude.Text
+getMLTransform_transformId = Lens.lens (\GetMLTransform' {transformId} -> transformId) (\s@GetMLTransform' {} a -> s {transformId = a} :: GetMLTransform)
 
-instance AWSRequest GetMLTransform where
+instance Prelude.AWSRequest GetMLTransform where
   type Rs GetMLTransform = GetMLTransformResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetMLTransformResponse'
-            <$> (x .?> "Status")
-            <*> (x .?> "TransformId")
-            <*> (x .?> "Schema" .!@ mempty)
-            <*> (x .?> "CreatedOn")
-            <*> (x .?> "InputRecordTables" .!@ mempty)
-            <*> (x .?> "TransformEncryption")
-            <*> (x .?> "Timeout")
-            <*> (x .?> "MaxCapacity")
-            <*> (x .?> "LastModifiedOn")
-            <*> (x .?> "NumberOfWorkers")
-            <*> (x .?> "Name")
-            <*> (x .?> "Role")
-            <*> (x .?> "GlueVersion")
-            <*> (x .?> "EvaluationMetrics")
-            <*> (x .?> "WorkerType")
-            <*> (x .?> "Description")
-            <*> (x .?> "LabelCount")
-            <*> (x .?> "Parameters")
-            <*> (x .?> "MaxRetries")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "TransformId")
+            Prelude.<*> (x Prelude..?> "Schema" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "CreatedOn")
+            Prelude.<*> ( x Prelude..?> "InputRecordTables"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "TransformEncryption")
+            Prelude.<*> (x Prelude..?> "Timeout")
+            Prelude.<*> (x Prelude..?> "MaxCapacity")
+            Prelude.<*> (x Prelude..?> "LastModifiedOn")
+            Prelude.<*> (x Prelude..?> "NumberOfWorkers")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "Role")
+            Prelude.<*> (x Prelude..?> "GlueVersion")
+            Prelude.<*> (x Prelude..?> "EvaluationMetrics")
+            Prelude.<*> (x Prelude..?> "WorkerType")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "LabelCount")
+            Prelude.<*> (x Prelude..?> "Parameters")
+            Prelude.<*> (x Prelude..?> "MaxRetries")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetMLTransform
+instance Prelude.Hashable GetMLTransform
 
-instance NFData GetMLTransform
+instance Prelude.NFData GetMLTransform
 
-instance ToHeaders GetMLTransform where
+instance Prelude.ToHeaders GetMLTransform where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetMLTransform" :: ByteString),
+              Prelude.=# ("AWSGlue.GetMLTransform" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetMLTransform where
+instance Prelude.ToJSON GetMLTransform where
   toJSON GetMLTransform' {..} =
-    object
-      ( catMaybes
-          [Just ("TransformId" .= _gmltTransformId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TransformId" Prelude..= transformId)
+          ]
       )
 
-instance ToPath GetMLTransform where
-  toPath = const "/"
+instance Prelude.ToPath GetMLTransform where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetMLTransform where
-  toQuery = const mempty
+instance Prelude.ToQuery GetMLTransform where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMLTransformResponse' smart constructor.
+-- | /See:/ 'newGetMLTransformResponse' smart constructor.
 data GetMLTransformResponse = GetMLTransformResponse'
-  { _gmltrmrsStatus ::
-      !( Maybe
-           TransformStatusType
-       ),
-    _gmltrmrsTransformId ::
-      !(Maybe Text),
-    _gmltrmrsSchema ::
-      !(Maybe [SchemaColumn]),
-    _gmltrmrsCreatedOn ::
-      !(Maybe POSIX),
-    _gmltrmrsInputRecordTables ::
-      !(Maybe [GlueTable]),
-    _gmltrmrsTransformEncryption ::
-      !( Maybe
-           TransformEncryption
-       ),
-    _gmltrmrsTimeout ::
-      !(Maybe Nat),
-    _gmltrmrsMaxCapacity ::
-      !(Maybe Double),
-    _gmltrmrsLastModifiedOn ::
-      !(Maybe POSIX),
-    _gmltrmrsNumberOfWorkers ::
-      !(Maybe Int),
-    _gmltrmrsName ::
-      !(Maybe Text),
-    _gmltrmrsRole ::
-      !(Maybe Text),
-    _gmltrmrsGlueVersion ::
-      !(Maybe Text),
-    _gmltrmrsEvaluationMetrics ::
-      !( Maybe
-           EvaluationMetrics
-       ),
-    _gmltrmrsWorkerType ::
-      !(Maybe WorkerType),
-    _gmltrmrsDescription ::
-      !(Maybe Text),
-    _gmltrmrsLabelCount ::
-      !(Maybe Int),
-    _gmltrmrsParameters ::
-      !( Maybe
-           TransformParameters
-       ),
-    _gmltrmrsMaxRetries ::
-      !(Maybe Int),
-    _gmltrmrsResponseStatus ::
-      !Int
+  { -- | The last known status of the transform (to indicate whether it can be
+    -- used or not). One of \"NOT_READY\", \"READY\", or \"DELETING\".
+    status :: Prelude.Maybe TransformStatusType,
+    -- | The unique identifier of the transform, generated at the time that the
+    -- transform was created.
+    transformId :: Prelude.Maybe Prelude.Text,
+    -- | The @Map\<Column, Type>@ object that represents the schema that this
+    -- transform accepts. Has an upper bound of 100 columns.
+    schema :: Prelude.Maybe [SchemaColumn],
+    -- | The date and time when the transform was created.
+    createdOn :: Prelude.Maybe Prelude.POSIX,
+    -- | A list of AWS Glue table definitions used by the transform.
+    inputRecordTables :: Prelude.Maybe [GlueTable],
+    -- | The encryption-at-rest settings of the transform that apply to accessing
+    -- user data. Machine learning transforms can access user data encrypted in
+    -- Amazon S3 using KMS.
+    transformEncryption :: Prelude.Maybe TransformEncryption,
+    -- | The timeout for a task run for this transform in minutes. This is the
+    -- maximum time that a task run for this transform can consume resources
+    -- before it is terminated and enters @TIMEOUT@ status. The default is
+    -- 2,880 minutes (48 hours).
+    timeout :: Prelude.Maybe Prelude.Nat,
+    -- | The number of AWS Glue data processing units (DPUs) that are allocated
+    -- to task runs for this transform. You can allocate from 2 to 100 DPUs;
+    -- the default is 10. A DPU is a relative measure of processing power that
+    -- consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
+    -- information, see the
+    -- <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+    --
+    -- When the @WorkerType@ field is set to a value other than @Standard@, the
+    -- @MaxCapacity@ field is set automatically and becomes read-only.
+    maxCapacity :: Prelude.Maybe Prelude.Double,
+    -- | The date and time when the transform was last modified.
+    lastModifiedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The number of workers of a defined @workerType@ that are allocated when
+    -- this task runs.
+    numberOfWorkers :: Prelude.Maybe Prelude.Int,
+    -- | The unique name given to the transform when it was created.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The name or Amazon Resource Name (ARN) of the IAM role with the required
+    -- permissions.
+    role' :: Prelude.Maybe Prelude.Text,
+    -- | This value determines which version of AWS Glue this machine learning
+    -- transform is compatible with. Glue 1.0 is recommended for most
+    -- customers. If the value is not set, the Glue compatibility defaults to
+    -- Glue 0.9. For more information, see
+    -- <https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions AWS Glue Versions>
+    -- in the developer guide.
+    glueVersion :: Prelude.Maybe Prelude.Text,
+    -- | The latest evaluation metrics.
+    evaluationMetrics :: Prelude.Maybe EvaluationMetrics,
+    -- | The type of predefined worker that is allocated when this task runs.
+    -- Accepts a value of Standard, G.1X, or G.2X.
+    --
+    -- -   For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB
+    --     of memory and a 50GB disk, and 2 executors per worker.
+    --
+    -- -   For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of
+    --     memory and a 64GB disk, and 1 executor per worker.
+    --
+    -- -   For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of
+    --     memory and a 128GB disk, and 1 executor per worker.
+    workerType :: Prelude.Maybe WorkerType,
+    -- | A description of the transform.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The number of labels available for this transform.
+    labelCount :: Prelude.Maybe Prelude.Int,
+    -- | The configuration parameters that are specific to the algorithm used.
+    parameters :: Prelude.Maybe TransformParameters,
+    -- | The maximum number of times to retry a task for this transform after a
+    -- task run fails.
+    maxRetries :: Prelude.Maybe Prelude.Int,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMLTransformResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMLTransformResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmltrmrsStatus' - The last known status of the transform (to indicate whether it can be used or not). One of "NOT_READY", "READY", or "DELETING".
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmltrmrsTransformId' - The unique identifier of the transform, generated at the time that the transform was created.
+-- 'status', 'getMLTransformResponse_status' - The last known status of the transform (to indicate whether it can be
+-- used or not). One of \"NOT_READY\", \"READY\", or \"DELETING\".
 --
--- * 'gmltrmrsSchema' - The @Map<Column, Type>@ object that represents the schema that this transform accepts. Has an upper bound of 100 columns.
+-- 'transformId', 'getMLTransformResponse_transformId' - The unique identifier of the transform, generated at the time that the
+-- transform was created.
 --
--- * 'gmltrmrsCreatedOn' - The date and time when the transform was created.
+-- 'schema', 'getMLTransformResponse_schema' - The @Map\<Column, Type>@ object that represents the schema that this
+-- transform accepts. Has an upper bound of 100 columns.
 --
--- * 'gmltrmrsInputRecordTables' - A list of AWS Glue table definitions used by the transform.
+-- 'createdOn', 'getMLTransformResponse_createdOn' - The date and time when the transform was created.
 --
--- * 'gmltrmrsTransformEncryption' - The encryption-at-rest settings of the transform that apply to accessing user data. Machine learning transforms can access user data encrypted in Amazon S3 using KMS.
+-- 'inputRecordTables', 'getMLTransformResponse_inputRecordTables' - A list of AWS Glue table definitions used by the transform.
 --
--- * 'gmltrmrsTimeout' - The timeout for a task run for this transform in minutes. This is the maximum time that a task run for this transform can consume resources before it is terminated and enters @TIMEOUT@ status. The default is 2,880 minutes (48 hours).
+-- 'transformEncryption', 'getMLTransformResponse_transformEncryption' - The encryption-at-rest settings of the transform that apply to accessing
+-- user data. Machine learning transforms can access user data encrypted in
+-- Amazon S3 using KMS.
 --
--- * 'gmltrmrsMaxCapacity' - The number of AWS Glue data processing units (DPUs) that are allocated to task runs for this transform. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page> .  When the @WorkerType@ field is set to a value other than @Standard@ , the @MaxCapacity@ field is set automatically and becomes read-only.
+-- 'timeout', 'getMLTransformResponse_timeout' - The timeout for a task run for this transform in minutes. This is the
+-- maximum time that a task run for this transform can consume resources
+-- before it is terminated and enters @TIMEOUT@ status. The default is
+-- 2,880 minutes (48 hours).
 --
--- * 'gmltrmrsLastModifiedOn' - The date and time when the transform was last modified.
+-- 'maxCapacity', 'getMLTransformResponse_maxCapacity' - The number of AWS Glue data processing units (DPUs) that are allocated
+-- to task runs for this transform. You can allocate from 2 to 100 DPUs;
+-- the default is 10. A DPU is a relative measure of processing power that
+-- consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
+-- information, see the
+-- <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
 --
--- * 'gmltrmrsNumberOfWorkers' - The number of workers of a defined @workerType@ that are allocated when this task runs.
+-- When the @WorkerType@ field is set to a value other than @Standard@, the
+-- @MaxCapacity@ field is set automatically and becomes read-only.
 --
--- * 'gmltrmrsName' - The unique name given to the transform when it was created.
+-- 'lastModifiedOn', 'getMLTransformResponse_lastModifiedOn' - The date and time when the transform was last modified.
 --
--- * 'gmltrmrsRole' - The name or Amazon Resource Name (ARN) of the IAM role with the required permissions.
+-- 'numberOfWorkers', 'getMLTransformResponse_numberOfWorkers' - The number of workers of a defined @workerType@ that are allocated when
+-- this task runs.
 --
--- * 'gmltrmrsGlueVersion' - This value determines which version of AWS Glue this machine learning transform is compatible with. Glue 1.0 is recommended for most customers. If the value is not set, the Glue compatibility defaults to Glue 0.9. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions AWS Glue Versions> in the developer guide.
+-- 'name', 'getMLTransformResponse_name' - The unique name given to the transform when it was created.
 --
--- * 'gmltrmrsEvaluationMetrics' - The latest evaluation metrics.
+-- 'role'', 'getMLTransformResponse_role' - The name or Amazon Resource Name (ARN) of the IAM role with the required
+-- permissions.
 --
--- * 'gmltrmrsWorkerType' - The type of predefined worker that is allocated when this task runs. Accepts a value of Standard, G.1X, or G.2X.     * For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.     * For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1 executor per worker.     * For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1 executor per worker.
+-- 'glueVersion', 'getMLTransformResponse_glueVersion' - This value determines which version of AWS Glue this machine learning
+-- transform is compatible with. Glue 1.0 is recommended for most
+-- customers. If the value is not set, the Glue compatibility defaults to
+-- Glue 0.9. For more information, see
+-- <https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions AWS Glue Versions>
+-- in the developer guide.
 --
--- * 'gmltrmrsDescription' - A description of the transform.
+-- 'evaluationMetrics', 'getMLTransformResponse_evaluationMetrics' - The latest evaluation metrics.
 --
--- * 'gmltrmrsLabelCount' - The number of labels available for this transform.
+-- 'workerType', 'getMLTransformResponse_workerType' - The type of predefined worker that is allocated when this task runs.
+-- Accepts a value of Standard, G.1X, or G.2X.
 --
--- * 'gmltrmrsParameters' - The configuration parameters that are specific to the algorithm used.
+-- -   For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB
+--     of memory and a 50GB disk, and 2 executors per worker.
 --
--- * 'gmltrmrsMaxRetries' - The maximum number of times to retry a task for this transform after a task run fails.
+-- -   For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of
+--     memory and a 64GB disk, and 1 executor per worker.
 --
--- * 'gmltrmrsResponseStatus' - -- | The response status code.
-getMLTransformResponse ::
-  -- | 'gmltrmrsResponseStatus'
-  Int ->
+-- -   For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of
+--     memory and a 128GB disk, and 1 executor per worker.
+--
+-- 'description', 'getMLTransformResponse_description' - A description of the transform.
+--
+-- 'labelCount', 'getMLTransformResponse_labelCount' - The number of labels available for this transform.
+--
+-- 'parameters', 'getMLTransformResponse_parameters' - The configuration parameters that are specific to the algorithm used.
+--
+-- 'maxRetries', 'getMLTransformResponse_maxRetries' - The maximum number of times to retry a task for this transform after a
+-- task run fails.
+--
+-- 'httpStatus', 'getMLTransformResponse_httpStatus' - The response's http status code.
+newGetMLTransformResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetMLTransformResponse
-getMLTransformResponse pResponseStatus_ =
+newGetMLTransformResponse pHttpStatus_ =
   GetMLTransformResponse'
-    { _gmltrmrsStatus = Nothing,
-      _gmltrmrsTransformId = Nothing,
-      _gmltrmrsSchema = Nothing,
-      _gmltrmrsCreatedOn = Nothing,
-      _gmltrmrsInputRecordTables = Nothing,
-      _gmltrmrsTransformEncryption = Nothing,
-      _gmltrmrsTimeout = Nothing,
-      _gmltrmrsMaxCapacity = Nothing,
-      _gmltrmrsLastModifiedOn = Nothing,
-      _gmltrmrsNumberOfWorkers = Nothing,
-      _gmltrmrsName = Nothing,
-      _gmltrmrsRole = Nothing,
-      _gmltrmrsGlueVersion = Nothing,
-      _gmltrmrsEvaluationMetrics = Nothing,
-      _gmltrmrsWorkerType = Nothing,
-      _gmltrmrsDescription = Nothing,
-      _gmltrmrsLabelCount = Nothing,
-      _gmltrmrsParameters = Nothing,
-      _gmltrmrsMaxRetries = Nothing,
-      _gmltrmrsResponseStatus = pResponseStatus_
+    { status = Prelude.Nothing,
+      transformId = Prelude.Nothing,
+      schema = Prelude.Nothing,
+      createdOn = Prelude.Nothing,
+      inputRecordTables = Prelude.Nothing,
+      transformEncryption = Prelude.Nothing,
+      timeout = Prelude.Nothing,
+      maxCapacity = Prelude.Nothing,
+      lastModifiedOn = Prelude.Nothing,
+      numberOfWorkers = Prelude.Nothing,
+      name = Prelude.Nothing,
+      role' = Prelude.Nothing,
+      glueVersion = Prelude.Nothing,
+      evaluationMetrics = Prelude.Nothing,
+      workerType = Prelude.Nothing,
+      description = Prelude.Nothing,
+      labelCount = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      maxRetries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The last known status of the transform (to indicate whether it can be used or not). One of "NOT_READY", "READY", or "DELETING".
-gmltrmrsStatus :: Lens' GetMLTransformResponse (Maybe TransformStatusType)
-gmltrmrsStatus = lens _gmltrmrsStatus (\s a -> s {_gmltrmrsStatus = a})
+-- | The last known status of the transform (to indicate whether it can be
+-- used or not). One of \"NOT_READY\", \"READY\", or \"DELETING\".
+getMLTransformResponse_status :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe TransformStatusType)
+getMLTransformResponse_status = Lens.lens (\GetMLTransformResponse' {status} -> status) (\s@GetMLTransformResponse' {} a -> s {status = a} :: GetMLTransformResponse)
 
--- | The unique identifier of the transform, generated at the time that the transform was created.
-gmltrmrsTransformId :: Lens' GetMLTransformResponse (Maybe Text)
-gmltrmrsTransformId = lens _gmltrmrsTransformId (\s a -> s {_gmltrmrsTransformId = a})
+-- | The unique identifier of the transform, generated at the time that the
+-- transform was created.
+getMLTransformResponse_transformId :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Text)
+getMLTransformResponse_transformId = Lens.lens (\GetMLTransformResponse' {transformId} -> transformId) (\s@GetMLTransformResponse' {} a -> s {transformId = a} :: GetMLTransformResponse)
 
--- | The @Map<Column, Type>@ object that represents the schema that this transform accepts. Has an upper bound of 100 columns.
-gmltrmrsSchema :: Lens' GetMLTransformResponse [SchemaColumn]
-gmltrmrsSchema = lens _gmltrmrsSchema (\s a -> s {_gmltrmrsSchema = a}) . _Default . _Coerce
+-- | The @Map\<Column, Type>@ object that represents the schema that this
+-- transform accepts. Has an upper bound of 100 columns.
+getMLTransformResponse_schema :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe [SchemaColumn])
+getMLTransformResponse_schema = Lens.lens (\GetMLTransformResponse' {schema} -> schema) (\s@GetMLTransformResponse' {} a -> s {schema = a} :: GetMLTransformResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date and time when the transform was created.
-gmltrmrsCreatedOn :: Lens' GetMLTransformResponse (Maybe UTCTime)
-gmltrmrsCreatedOn = lens _gmltrmrsCreatedOn (\s a -> s {_gmltrmrsCreatedOn = a}) . mapping _Time
+getMLTransformResponse_createdOn :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.UTCTime)
+getMLTransformResponse_createdOn = Lens.lens (\GetMLTransformResponse' {createdOn} -> createdOn) (\s@GetMLTransformResponse' {} a -> s {createdOn = a} :: GetMLTransformResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | A list of AWS Glue table definitions used by the transform.
-gmltrmrsInputRecordTables :: Lens' GetMLTransformResponse [GlueTable]
-gmltrmrsInputRecordTables = lens _gmltrmrsInputRecordTables (\s a -> s {_gmltrmrsInputRecordTables = a}) . _Default . _Coerce
+getMLTransformResponse_inputRecordTables :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe [GlueTable])
+getMLTransformResponse_inputRecordTables = Lens.lens (\GetMLTransformResponse' {inputRecordTables} -> inputRecordTables) (\s@GetMLTransformResponse' {} a -> s {inputRecordTables = a} :: GetMLTransformResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The encryption-at-rest settings of the transform that apply to accessing user data. Machine learning transforms can access user data encrypted in Amazon S3 using KMS.
-gmltrmrsTransformEncryption :: Lens' GetMLTransformResponse (Maybe TransformEncryption)
-gmltrmrsTransformEncryption = lens _gmltrmrsTransformEncryption (\s a -> s {_gmltrmrsTransformEncryption = a})
+-- | The encryption-at-rest settings of the transform that apply to accessing
+-- user data. Machine learning transforms can access user data encrypted in
+-- Amazon S3 using KMS.
+getMLTransformResponse_transformEncryption :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe TransformEncryption)
+getMLTransformResponse_transformEncryption = Lens.lens (\GetMLTransformResponse' {transformEncryption} -> transformEncryption) (\s@GetMLTransformResponse' {} a -> s {transformEncryption = a} :: GetMLTransformResponse)
 
--- | The timeout for a task run for this transform in minutes. This is the maximum time that a task run for this transform can consume resources before it is terminated and enters @TIMEOUT@ status. The default is 2,880 minutes (48 hours).
-gmltrmrsTimeout :: Lens' GetMLTransformResponse (Maybe Natural)
-gmltrmrsTimeout = lens _gmltrmrsTimeout (\s a -> s {_gmltrmrsTimeout = a}) . mapping _Nat
+-- | The timeout for a task run for this transform in minutes. This is the
+-- maximum time that a task run for this transform can consume resources
+-- before it is terminated and enters @TIMEOUT@ status. The default is
+-- 2,880 minutes (48 hours).
+getMLTransformResponse_timeout :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Natural)
+getMLTransformResponse_timeout = Lens.lens (\GetMLTransformResponse' {timeout} -> timeout) (\s@GetMLTransformResponse' {} a -> s {timeout = a} :: GetMLTransformResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of AWS Glue data processing units (DPUs) that are allocated to task runs for this transform. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page> .  When the @WorkerType@ field is set to a value other than @Standard@ , the @MaxCapacity@ field is set automatically and becomes read-only.
-gmltrmrsMaxCapacity :: Lens' GetMLTransformResponse (Maybe Double)
-gmltrmrsMaxCapacity = lens _gmltrmrsMaxCapacity (\s a -> s {_gmltrmrsMaxCapacity = a})
+-- | The number of AWS Glue data processing units (DPUs) that are allocated
+-- to task runs for this transform. You can allocate from 2 to 100 DPUs;
+-- the default is 10. A DPU is a relative measure of processing power that
+-- consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
+-- information, see the
+-- <https://aws.amazon.com/glue/pricing/ AWS Glue pricing page>.
+--
+-- When the @WorkerType@ field is set to a value other than @Standard@, the
+-- @MaxCapacity@ field is set automatically and becomes read-only.
+getMLTransformResponse_maxCapacity :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Double)
+getMLTransformResponse_maxCapacity = Lens.lens (\GetMLTransformResponse' {maxCapacity} -> maxCapacity) (\s@GetMLTransformResponse' {} a -> s {maxCapacity = a} :: GetMLTransformResponse)
 
 -- | The date and time when the transform was last modified.
-gmltrmrsLastModifiedOn :: Lens' GetMLTransformResponse (Maybe UTCTime)
-gmltrmrsLastModifiedOn = lens _gmltrmrsLastModifiedOn (\s a -> s {_gmltrmrsLastModifiedOn = a}) . mapping _Time
+getMLTransformResponse_lastModifiedOn :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.UTCTime)
+getMLTransformResponse_lastModifiedOn = Lens.lens (\GetMLTransformResponse' {lastModifiedOn} -> lastModifiedOn) (\s@GetMLTransformResponse' {} a -> s {lastModifiedOn = a} :: GetMLTransformResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The number of workers of a defined @workerType@ that are allocated when this task runs.
-gmltrmrsNumberOfWorkers :: Lens' GetMLTransformResponse (Maybe Int)
-gmltrmrsNumberOfWorkers = lens _gmltrmrsNumberOfWorkers (\s a -> s {_gmltrmrsNumberOfWorkers = a})
+-- | The number of workers of a defined @workerType@ that are allocated when
+-- this task runs.
+getMLTransformResponse_numberOfWorkers :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Int)
+getMLTransformResponse_numberOfWorkers = Lens.lens (\GetMLTransformResponse' {numberOfWorkers} -> numberOfWorkers) (\s@GetMLTransformResponse' {} a -> s {numberOfWorkers = a} :: GetMLTransformResponse)
 
 -- | The unique name given to the transform when it was created.
-gmltrmrsName :: Lens' GetMLTransformResponse (Maybe Text)
-gmltrmrsName = lens _gmltrmrsName (\s a -> s {_gmltrmrsName = a})
+getMLTransformResponse_name :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Text)
+getMLTransformResponse_name = Lens.lens (\GetMLTransformResponse' {name} -> name) (\s@GetMLTransformResponse' {} a -> s {name = a} :: GetMLTransformResponse)
 
--- | The name or Amazon Resource Name (ARN) of the IAM role with the required permissions.
-gmltrmrsRole :: Lens' GetMLTransformResponse (Maybe Text)
-gmltrmrsRole = lens _gmltrmrsRole (\s a -> s {_gmltrmrsRole = a})
+-- | The name or Amazon Resource Name (ARN) of the IAM role with the required
+-- permissions.
+getMLTransformResponse_role :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Text)
+getMLTransformResponse_role = Lens.lens (\GetMLTransformResponse' {role'} -> role') (\s@GetMLTransformResponse' {} a -> s {role' = a} :: GetMLTransformResponse)
 
--- | This value determines which version of AWS Glue this machine learning transform is compatible with. Glue 1.0 is recommended for most customers. If the value is not set, the Glue compatibility defaults to Glue 0.9. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions AWS Glue Versions> in the developer guide.
-gmltrmrsGlueVersion :: Lens' GetMLTransformResponse (Maybe Text)
-gmltrmrsGlueVersion = lens _gmltrmrsGlueVersion (\s a -> s {_gmltrmrsGlueVersion = a})
+-- | This value determines which version of AWS Glue this machine learning
+-- transform is compatible with. Glue 1.0 is recommended for most
+-- customers. If the value is not set, the Glue compatibility defaults to
+-- Glue 0.9. For more information, see
+-- <https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions AWS Glue Versions>
+-- in the developer guide.
+getMLTransformResponse_glueVersion :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Text)
+getMLTransformResponse_glueVersion = Lens.lens (\GetMLTransformResponse' {glueVersion} -> glueVersion) (\s@GetMLTransformResponse' {} a -> s {glueVersion = a} :: GetMLTransformResponse)
 
 -- | The latest evaluation metrics.
-gmltrmrsEvaluationMetrics :: Lens' GetMLTransformResponse (Maybe EvaluationMetrics)
-gmltrmrsEvaluationMetrics = lens _gmltrmrsEvaluationMetrics (\s a -> s {_gmltrmrsEvaluationMetrics = a})
+getMLTransformResponse_evaluationMetrics :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe EvaluationMetrics)
+getMLTransformResponse_evaluationMetrics = Lens.lens (\GetMLTransformResponse' {evaluationMetrics} -> evaluationMetrics) (\s@GetMLTransformResponse' {} a -> s {evaluationMetrics = a} :: GetMLTransformResponse)
 
--- | The type of predefined worker that is allocated when this task runs. Accepts a value of Standard, G.1X, or G.2X.     * For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.     * For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1 executor per worker.     * For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1 executor per worker.
-gmltrmrsWorkerType :: Lens' GetMLTransformResponse (Maybe WorkerType)
-gmltrmrsWorkerType = lens _gmltrmrsWorkerType (\s a -> s {_gmltrmrsWorkerType = a})
+-- | The type of predefined worker that is allocated when this task runs.
+-- Accepts a value of Standard, G.1X, or G.2X.
+--
+-- -   For the @Standard@ worker type, each worker provides 4 vCPU, 16 GB
+--     of memory and a 50GB disk, and 2 executors per worker.
+--
+-- -   For the @G.1X@ worker type, each worker provides 4 vCPU, 16 GB of
+--     memory and a 64GB disk, and 1 executor per worker.
+--
+-- -   For the @G.2X@ worker type, each worker provides 8 vCPU, 32 GB of
+--     memory and a 128GB disk, and 1 executor per worker.
+getMLTransformResponse_workerType :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe WorkerType)
+getMLTransformResponse_workerType = Lens.lens (\GetMLTransformResponse' {workerType} -> workerType) (\s@GetMLTransformResponse' {} a -> s {workerType = a} :: GetMLTransformResponse)
 
 -- | A description of the transform.
-gmltrmrsDescription :: Lens' GetMLTransformResponse (Maybe Text)
-gmltrmrsDescription = lens _gmltrmrsDescription (\s a -> s {_gmltrmrsDescription = a})
+getMLTransformResponse_description :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Text)
+getMLTransformResponse_description = Lens.lens (\GetMLTransformResponse' {description} -> description) (\s@GetMLTransformResponse' {} a -> s {description = a} :: GetMLTransformResponse)
 
 -- | The number of labels available for this transform.
-gmltrmrsLabelCount :: Lens' GetMLTransformResponse (Maybe Int)
-gmltrmrsLabelCount = lens _gmltrmrsLabelCount (\s a -> s {_gmltrmrsLabelCount = a})
+getMLTransformResponse_labelCount :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Int)
+getMLTransformResponse_labelCount = Lens.lens (\GetMLTransformResponse' {labelCount} -> labelCount) (\s@GetMLTransformResponse' {} a -> s {labelCount = a} :: GetMLTransformResponse)
 
 -- | The configuration parameters that are specific to the algorithm used.
-gmltrmrsParameters :: Lens' GetMLTransformResponse (Maybe TransformParameters)
-gmltrmrsParameters = lens _gmltrmrsParameters (\s a -> s {_gmltrmrsParameters = a})
+getMLTransformResponse_parameters :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe TransformParameters)
+getMLTransformResponse_parameters = Lens.lens (\GetMLTransformResponse' {parameters} -> parameters) (\s@GetMLTransformResponse' {} a -> s {parameters = a} :: GetMLTransformResponse)
 
--- | The maximum number of times to retry a task for this transform after a task run fails.
-gmltrmrsMaxRetries :: Lens' GetMLTransformResponse (Maybe Int)
-gmltrmrsMaxRetries = lens _gmltrmrsMaxRetries (\s a -> s {_gmltrmrsMaxRetries = a})
+-- | The maximum number of times to retry a task for this transform after a
+-- task run fails.
+getMLTransformResponse_maxRetries :: Lens.Lens' GetMLTransformResponse (Prelude.Maybe Prelude.Int)
+getMLTransformResponse_maxRetries = Lens.lens (\GetMLTransformResponse' {maxRetries} -> maxRetries) (\s@GetMLTransformResponse' {} a -> s {maxRetries = a} :: GetMLTransformResponse)
 
--- | -- | The response status code.
-gmltrmrsResponseStatus :: Lens' GetMLTransformResponse Int
-gmltrmrsResponseStatus = lens _gmltrmrsResponseStatus (\s a -> s {_gmltrmrsResponseStatus = a})
+-- | The response's http status code.
+getMLTransformResponse_httpStatus :: Lens.Lens' GetMLTransformResponse Prelude.Int
+getMLTransformResponse_httpStatus = Lens.lens (\GetMLTransformResponse' {httpStatus} -> httpStatus) (\s@GetMLTransformResponse' {} a -> s {httpStatus = a} :: GetMLTransformResponse)
 
-instance NFData GetMLTransformResponse
+instance Prelude.NFData GetMLTransformResponse

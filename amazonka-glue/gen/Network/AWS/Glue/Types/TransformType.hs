@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Glue.Types.TransformType
   ( TransformType
       ( ..,
-        FindMatches
+        TransformTypeFINDMATCHES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransformType = TransformType' (CI Text)
+newtype TransformType = TransformType'
+  { fromTransformType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FindMatches :: TransformType
-pattern FindMatches = TransformType' "FIND_MATCHES"
+pattern TransformTypeFINDMATCHES :: TransformType
+pattern TransformTypeFINDMATCHES = TransformType' "FIND_MATCHES"
 
 {-# COMPLETE
-  FindMatches,
+  TransformTypeFINDMATCHES,
   TransformType'
   #-}
 
-instance FromText TransformType where
-  parser = (TransformType' . mk) <$> takeText
+instance Prelude.FromText TransformType where
+  parser = TransformType' Prelude.<$> Prelude.takeText
 
-instance ToText TransformType where
-  toText (TransformType' ci) = original ci
+instance Prelude.ToText TransformType where
+  toText (TransformType' x) = x
 
-instance Hashable TransformType
+instance Prelude.Hashable TransformType
 
-instance NFData TransformType
+instance Prelude.NFData TransformType
 
-instance ToByteString TransformType
+instance Prelude.ToByteString TransformType
 
-instance ToQuery TransformType
+instance Prelude.ToQuery TransformType
 
-instance ToHeader TransformType
+instance Prelude.ToHeader TransformType
 
-instance ToJSON TransformType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TransformType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TransformType where
-  parseJSON = parseJSONText "TransformType"
+instance Prelude.FromJSON TransformType where
+  parseJSON = Prelude.parseJSONText "TransformType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Glue.Types.CrawlerLineageSettings
   ( CrawlerLineageSettings
       ( ..,
-        Disable,
-        Enable
+        CrawlerLineageSettingsDISABLE,
+        CrawlerLineageSettingsENABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CrawlerLineageSettings
-  = CrawlerLineageSettings'
-      ( CI
-          Text
-      )
+newtype CrawlerLineageSettings = CrawlerLineageSettings'
+  { fromCrawlerLineageSettings ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disable :: CrawlerLineageSettings
-pattern Disable = CrawlerLineageSettings' "DISABLE"
+pattern CrawlerLineageSettingsDISABLE :: CrawlerLineageSettings
+pattern CrawlerLineageSettingsDISABLE = CrawlerLineageSettings' "DISABLE"
 
-pattern Enable :: CrawlerLineageSettings
-pattern Enable = CrawlerLineageSettings' "ENABLE"
+pattern CrawlerLineageSettingsENABLE :: CrawlerLineageSettings
+pattern CrawlerLineageSettingsENABLE = CrawlerLineageSettings' "ENABLE"
 
 {-# COMPLETE
-  Disable,
-  Enable,
+  CrawlerLineageSettingsDISABLE,
+  CrawlerLineageSettingsENABLE,
   CrawlerLineageSettings'
   #-}
 
-instance FromText CrawlerLineageSettings where
-  parser = (CrawlerLineageSettings' . mk) <$> takeText
+instance Prelude.FromText CrawlerLineageSettings where
+  parser = CrawlerLineageSettings' Prelude.<$> Prelude.takeText
 
-instance ToText CrawlerLineageSettings where
-  toText (CrawlerLineageSettings' ci) = original ci
+instance Prelude.ToText CrawlerLineageSettings where
+  toText (CrawlerLineageSettings' x) = x
 
-instance Hashable CrawlerLineageSettings
+instance Prelude.Hashable CrawlerLineageSettings
 
-instance NFData CrawlerLineageSettings
+instance Prelude.NFData CrawlerLineageSettings
 
-instance ToByteString CrawlerLineageSettings
+instance Prelude.ToByteString CrawlerLineageSettings
 
-instance ToQuery CrawlerLineageSettings
+instance Prelude.ToQuery CrawlerLineageSettings
 
-instance ToHeader CrawlerLineageSettings
+instance Prelude.ToHeader CrawlerLineageSettings
 
-instance ToJSON CrawlerLineageSettings where
-  toJSON = toJSONText
+instance Prelude.ToJSON CrawlerLineageSettings where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CrawlerLineageSettings where
-  parseJSON = parseJSONText "CrawlerLineageSettings"
+instance Prelude.FromJSON CrawlerLineageSettings where
+  parseJSON = Prelude.parseJSONText "CrawlerLineageSettings"

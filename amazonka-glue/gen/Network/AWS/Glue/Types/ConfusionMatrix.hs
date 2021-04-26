@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.ConfusionMatrix where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The confusion matrix shows you what your transform is predicting accurately and what types of errors it is making.
+-- | The confusion matrix shows you what your transform is predicting
+-- accurately and what types of errors it is making.
 --
+-- For more information, see
+-- <https://en.wikipedia.org/wiki/Confusion_matrix Confusion matrix> in
+-- Wikipedia.
 --
--- For more information, see <https://en.wikipedia.org/wiki/Confusion_matrix Confusion matrix> in Wikipedia.
---
---
--- /See:/ 'confusionMatrix' smart constructor.
+-- /See:/ 'newConfusionMatrix' smart constructor.
 data ConfusionMatrix = ConfusionMatrix'
-  { _cmNumFalsePositives ::
-      !(Maybe Integer),
-    _cmNumTrueNegatives :: !(Maybe Integer),
-    _cmNumFalseNegatives ::
-      !(Maybe Integer),
-    _cmNumTruePositives :: !(Maybe Integer)
+  { -- | The number of nonmatches in the data that the transform incorrectly
+    -- classified as a match, in the confusion matrix for your transform.
+    numFalsePositives :: Prelude.Maybe Prelude.Integer,
+    -- | The number of nonmatches in the data that the transform correctly
+    -- rejected, in the confusion matrix for your transform.
+    numTrueNegatives :: Prelude.Maybe Prelude.Integer,
+    -- | The number of matches in the data that the transform didn\'t find, in
+    -- the confusion matrix for your transform.
+    numFalseNegatives :: Prelude.Maybe Prelude.Integer,
+    -- | The number of matches in the data that the transform correctly found, in
+    -- the confusion matrix for your transform.
+    numTruePositives :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfusionMatrix' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfusionMatrix' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmNumFalsePositives' - The number of nonmatches in the data that the transform incorrectly classified as a match, in the confusion matrix for your transform.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmNumTrueNegatives' - The number of nonmatches in the data that the transform correctly rejected, in the confusion matrix for your transform.
+-- 'numFalsePositives', 'confusionMatrix_numFalsePositives' - The number of nonmatches in the data that the transform incorrectly
+-- classified as a match, in the confusion matrix for your transform.
 --
--- * 'cmNumFalseNegatives' - The number of matches in the data that the transform didn't find, in the confusion matrix for your transform.
+-- 'numTrueNegatives', 'confusionMatrix_numTrueNegatives' - The number of nonmatches in the data that the transform correctly
+-- rejected, in the confusion matrix for your transform.
 --
--- * 'cmNumTruePositives' - The number of matches in the data that the transform correctly found, in the confusion matrix for your transform.
-confusionMatrix ::
+-- 'numFalseNegatives', 'confusionMatrix_numFalseNegatives' - The number of matches in the data that the transform didn\'t find, in
+-- the confusion matrix for your transform.
+--
+-- 'numTruePositives', 'confusionMatrix_numTruePositives' - The number of matches in the data that the transform correctly found, in
+-- the confusion matrix for your transform.
+newConfusionMatrix ::
   ConfusionMatrix
-confusionMatrix =
+newConfusionMatrix =
   ConfusionMatrix'
-    { _cmNumFalsePositives = Nothing,
-      _cmNumTrueNegatives = Nothing,
-      _cmNumFalseNegatives = Nothing,
-      _cmNumTruePositives = Nothing
+    { numFalsePositives =
+        Prelude.Nothing,
+      numTrueNegatives = Prelude.Nothing,
+      numFalseNegatives = Prelude.Nothing,
+      numTruePositives = Prelude.Nothing
     }
 
--- | The number of nonmatches in the data that the transform incorrectly classified as a match, in the confusion matrix for your transform.
-cmNumFalsePositives :: Lens' ConfusionMatrix (Maybe Integer)
-cmNumFalsePositives = lens _cmNumFalsePositives (\s a -> s {_cmNumFalsePositives = a})
+-- | The number of nonmatches in the data that the transform incorrectly
+-- classified as a match, in the confusion matrix for your transform.
+confusionMatrix_numFalsePositives :: Lens.Lens' ConfusionMatrix (Prelude.Maybe Prelude.Integer)
+confusionMatrix_numFalsePositives = Lens.lens (\ConfusionMatrix' {numFalsePositives} -> numFalsePositives) (\s@ConfusionMatrix' {} a -> s {numFalsePositives = a} :: ConfusionMatrix)
 
--- | The number of nonmatches in the data that the transform correctly rejected, in the confusion matrix for your transform.
-cmNumTrueNegatives :: Lens' ConfusionMatrix (Maybe Integer)
-cmNumTrueNegatives = lens _cmNumTrueNegatives (\s a -> s {_cmNumTrueNegatives = a})
+-- | The number of nonmatches in the data that the transform correctly
+-- rejected, in the confusion matrix for your transform.
+confusionMatrix_numTrueNegatives :: Lens.Lens' ConfusionMatrix (Prelude.Maybe Prelude.Integer)
+confusionMatrix_numTrueNegatives = Lens.lens (\ConfusionMatrix' {numTrueNegatives} -> numTrueNegatives) (\s@ConfusionMatrix' {} a -> s {numTrueNegatives = a} :: ConfusionMatrix)
 
--- | The number of matches in the data that the transform didn't find, in the confusion matrix for your transform.
-cmNumFalseNegatives :: Lens' ConfusionMatrix (Maybe Integer)
-cmNumFalseNegatives = lens _cmNumFalseNegatives (\s a -> s {_cmNumFalseNegatives = a})
+-- | The number of matches in the data that the transform didn\'t find, in
+-- the confusion matrix for your transform.
+confusionMatrix_numFalseNegatives :: Lens.Lens' ConfusionMatrix (Prelude.Maybe Prelude.Integer)
+confusionMatrix_numFalseNegatives = Lens.lens (\ConfusionMatrix' {numFalseNegatives} -> numFalseNegatives) (\s@ConfusionMatrix' {} a -> s {numFalseNegatives = a} :: ConfusionMatrix)
 
--- | The number of matches in the data that the transform correctly found, in the confusion matrix for your transform.
-cmNumTruePositives :: Lens' ConfusionMatrix (Maybe Integer)
-cmNumTruePositives = lens _cmNumTruePositives (\s a -> s {_cmNumTruePositives = a})
+-- | The number of matches in the data that the transform correctly found, in
+-- the confusion matrix for your transform.
+confusionMatrix_numTruePositives :: Lens.Lens' ConfusionMatrix (Prelude.Maybe Prelude.Integer)
+confusionMatrix_numTruePositives = Lens.lens (\ConfusionMatrix' {numTruePositives} -> numTruePositives) (\s@ConfusionMatrix' {} a -> s {numTruePositives = a} :: ConfusionMatrix)
 
-instance FromJSON ConfusionMatrix where
+instance Prelude.FromJSON ConfusionMatrix where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConfusionMatrix"
       ( \x ->
           ConfusionMatrix'
-            <$> (x .:? "NumFalsePositives")
-            <*> (x .:? "NumTrueNegatives")
-            <*> (x .:? "NumFalseNegatives")
-            <*> (x .:? "NumTruePositives")
+            Prelude.<$> (x Prelude..:? "NumFalsePositives")
+            Prelude.<*> (x Prelude..:? "NumTrueNegatives")
+            Prelude.<*> (x Prelude..:? "NumFalseNegatives")
+            Prelude.<*> (x Prelude..:? "NumTruePositives")
       )
 
-instance Hashable ConfusionMatrix
+instance Prelude.Hashable ConfusionMatrix
 
-instance NFData ConfusionMatrix
+instance Prelude.NFData ConfusionMatrix

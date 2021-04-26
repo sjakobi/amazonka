@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,70 +20,88 @@
 module Network.AWS.Glue.Types.MLUserDataEncryption where
 
 import Network.AWS.Glue.Types.MLUserDataEncryptionModeString
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The encryption-at-rest settings of the transform that apply to accessing user data.
+-- | The encryption-at-rest settings of the transform that apply to accessing
+-- user data.
 --
---
---
--- /See:/ 'mLUserDataEncryption' smart constructor.
+-- /See:/ 'newMLUserDataEncryption' smart constructor.
 data MLUserDataEncryption = MLUserDataEncryption'
-  { _mludeKMSKeyId ::
-      !(Maybe Text),
-    _mludeMlUserDataEncryptionMode ::
-      !MLUserDataEncryptionModeString
+  { -- | The ID for the customer-provided KMS key.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The encryption mode applied to user data. Valid values are:
+    --
+    -- -   DISABLED: encryption is disabled
+    --
+    -- -   SSEKMS: use of server-side encryption with AWS Key Management
+    --     Service (SSE-KMS) for user data stored in Amazon S3.
+    mlUserDataEncryptionMode :: MLUserDataEncryptionModeString
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MLUserDataEncryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MLUserDataEncryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mludeKMSKeyId' - The ID for the customer-provided KMS key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mludeMlUserDataEncryptionMode' - The encryption mode applied to user data. Valid values are:     * DISABLED: encryption is disabled     * SSEKMS: use of server-side encryption with AWS Key Management Service (SSE-KMS) for user data stored in Amazon S3.
-mLUserDataEncryption ::
-  -- | 'mludeMlUserDataEncryptionMode'
+-- 'kmsKeyId', 'mLUserDataEncryption_kmsKeyId' - The ID for the customer-provided KMS key.
+--
+-- 'mlUserDataEncryptionMode', 'mLUserDataEncryption_mlUserDataEncryptionMode' - The encryption mode applied to user data. Valid values are:
+--
+-- -   DISABLED: encryption is disabled
+--
+-- -   SSEKMS: use of server-side encryption with AWS Key Management
+--     Service (SSE-KMS) for user data stored in Amazon S3.
+newMLUserDataEncryption ::
+  -- | 'mlUserDataEncryptionMode'
   MLUserDataEncryptionModeString ->
   MLUserDataEncryption
-mLUserDataEncryption pMlUserDataEncryptionMode_ =
+newMLUserDataEncryption pMlUserDataEncryptionMode_ =
   MLUserDataEncryption'
-    { _mludeKMSKeyId = Nothing,
-      _mludeMlUserDataEncryptionMode =
+    { kmsKeyId = Prelude.Nothing,
+      mlUserDataEncryptionMode =
         pMlUserDataEncryptionMode_
     }
 
 -- | The ID for the customer-provided KMS key.
-mludeKMSKeyId :: Lens' MLUserDataEncryption (Maybe Text)
-mludeKMSKeyId = lens _mludeKMSKeyId (\s a -> s {_mludeKMSKeyId = a})
+mLUserDataEncryption_kmsKeyId :: Lens.Lens' MLUserDataEncryption (Prelude.Maybe Prelude.Text)
+mLUserDataEncryption_kmsKeyId = Lens.lens (\MLUserDataEncryption' {kmsKeyId} -> kmsKeyId) (\s@MLUserDataEncryption' {} a -> s {kmsKeyId = a} :: MLUserDataEncryption)
 
--- | The encryption mode applied to user data. Valid values are:     * DISABLED: encryption is disabled     * SSEKMS: use of server-side encryption with AWS Key Management Service (SSE-KMS) for user data stored in Amazon S3.
-mludeMlUserDataEncryptionMode :: Lens' MLUserDataEncryption MLUserDataEncryptionModeString
-mludeMlUserDataEncryptionMode = lens _mludeMlUserDataEncryptionMode (\s a -> s {_mludeMlUserDataEncryptionMode = a})
+-- | The encryption mode applied to user data. Valid values are:
+--
+-- -   DISABLED: encryption is disabled
+--
+-- -   SSEKMS: use of server-side encryption with AWS Key Management
+--     Service (SSE-KMS) for user data stored in Amazon S3.
+mLUserDataEncryption_mlUserDataEncryptionMode :: Lens.Lens' MLUserDataEncryption MLUserDataEncryptionModeString
+mLUserDataEncryption_mlUserDataEncryptionMode = Lens.lens (\MLUserDataEncryption' {mlUserDataEncryptionMode} -> mlUserDataEncryptionMode) (\s@MLUserDataEncryption' {} a -> s {mlUserDataEncryptionMode = a} :: MLUserDataEncryption)
 
-instance FromJSON MLUserDataEncryption where
+instance Prelude.FromJSON MLUserDataEncryption where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MLUserDataEncryption"
       ( \x ->
           MLUserDataEncryption'
-            <$> (x .:? "KmsKeyId")
-            <*> (x .: "MlUserDataEncryptionMode")
+            Prelude.<$> (x Prelude..:? "KmsKeyId")
+            Prelude.<*> (x Prelude..: "MlUserDataEncryptionMode")
       )
 
-instance Hashable MLUserDataEncryption
+instance Prelude.Hashable MLUserDataEncryption
 
-instance NFData MLUserDataEncryption
+instance Prelude.NFData MLUserDataEncryption
 
-instance ToJSON MLUserDataEncryption where
+instance Prelude.ToJSON MLUserDataEncryption where
   toJSON MLUserDataEncryption' {..} =
-    object
-      ( catMaybes
-          [ ("KmsKeyId" .=) <$> _mludeKMSKeyId,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("KmsKeyId" Prelude..=) Prelude.<$> kmsKeyId,
+            Prelude.Just
               ( "MlUserDataEncryptionMode"
-                  .= _mludeMlUserDataEncryptionMode
+                  Prelude..= mlUserDataEncryptionMode
               )
           ]
       )

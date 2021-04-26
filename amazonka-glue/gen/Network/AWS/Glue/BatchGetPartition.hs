@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,181 +24,196 @@
 -- Retrieves partitions in a batch request.
 module Network.AWS.Glue.BatchGetPartition
   ( -- * Creating a Request
-    batchGetPartition,
-    BatchGetPartition,
+    BatchGetPartition (..),
+    newBatchGetPartition,
 
     -- * Request Lenses
-    bgpCatalogId,
-    bgpDatabaseName,
-    bgpTableName,
-    bgpPartitionsToGet,
+    batchGetPartition_catalogId,
+    batchGetPartition_databaseName,
+    batchGetPartition_tableName,
+    batchGetPartition_partitionsToGet,
 
     -- * Destructuring the Response
-    batchGetPartitionResponse,
-    BatchGetPartitionResponse,
+    BatchGetPartitionResponse (..),
+    newBatchGetPartitionResponse,
 
     -- * Response Lenses
-    bgprrsPartitions,
-    bgprrsUnprocessedKeys,
-    bgprrsResponseStatus,
+    batchGetPartitionResponse_partitions,
+    batchGetPartitionResponse_unprocessedKeys,
+    batchGetPartitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.Partition
+import Network.AWS.Glue.Types.PartitionValueList
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchGetPartition' smart constructor.
+-- | /See:/ 'newBatchGetPartition' smart constructor.
 data BatchGetPartition = BatchGetPartition'
-  { _bgpCatalogId ::
-      !(Maybe Text),
-    _bgpDatabaseName :: !Text,
-    _bgpTableName :: !Text,
-    _bgpPartitionsToGet ::
-      ![PartitionValueList]
+  { -- | The ID of the Data Catalog where the partitions in question reside. If
+    -- none is supplied, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database where the partitions reside.
+    databaseName :: Prelude.Text,
+    -- | The name of the partitions\' table.
+    tableName :: Prelude.Text,
+    -- | A list of partition values identifying the partitions to retrieve.
+    partitionsToGet :: [PartitionValueList]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetPartition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetPartition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgpCatalogId' - The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgpDatabaseName' - The name of the catalog database where the partitions reside.
+-- 'catalogId', 'batchGetPartition_catalogId' - The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
 --
--- * 'bgpTableName' - The name of the partitions' table.
+-- 'databaseName', 'batchGetPartition_databaseName' - The name of the catalog database where the partitions reside.
 --
--- * 'bgpPartitionsToGet' - A list of partition values identifying the partitions to retrieve.
-batchGetPartition ::
-  -- | 'bgpDatabaseName'
-  Text ->
-  -- | 'bgpTableName'
-  Text ->
+-- 'tableName', 'batchGetPartition_tableName' - The name of the partitions\' table.
+--
+-- 'partitionsToGet', 'batchGetPartition_partitionsToGet' - A list of partition values identifying the partitions to retrieve.
+newBatchGetPartition ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
   BatchGetPartition
-batchGetPartition pDatabaseName_ pTableName_ =
+newBatchGetPartition pDatabaseName_ pTableName_ =
   BatchGetPartition'
-    { _bgpCatalogId = Nothing,
-      _bgpDatabaseName = pDatabaseName_,
-      _bgpTableName = pTableName_,
-      _bgpPartitionsToGet = mempty
+    { catalogId = Prelude.Nothing,
+      databaseName = pDatabaseName_,
+      tableName = pTableName_,
+      partitionsToGet = Prelude.mempty
     }
 
--- | The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
-bgpCatalogId :: Lens' BatchGetPartition (Maybe Text)
-bgpCatalogId = lens _bgpCatalogId (\s a -> s {_bgpCatalogId = a})
+-- | The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
+batchGetPartition_catalogId :: Lens.Lens' BatchGetPartition (Prelude.Maybe Prelude.Text)
+batchGetPartition_catalogId = Lens.lens (\BatchGetPartition' {catalogId} -> catalogId) (\s@BatchGetPartition' {} a -> s {catalogId = a} :: BatchGetPartition)
 
 -- | The name of the catalog database where the partitions reside.
-bgpDatabaseName :: Lens' BatchGetPartition Text
-bgpDatabaseName = lens _bgpDatabaseName (\s a -> s {_bgpDatabaseName = a})
+batchGetPartition_databaseName :: Lens.Lens' BatchGetPartition Prelude.Text
+batchGetPartition_databaseName = Lens.lens (\BatchGetPartition' {databaseName} -> databaseName) (\s@BatchGetPartition' {} a -> s {databaseName = a} :: BatchGetPartition)
 
--- | The name of the partitions' table.
-bgpTableName :: Lens' BatchGetPartition Text
-bgpTableName = lens _bgpTableName (\s a -> s {_bgpTableName = a})
+-- | The name of the partitions\' table.
+batchGetPartition_tableName :: Lens.Lens' BatchGetPartition Prelude.Text
+batchGetPartition_tableName = Lens.lens (\BatchGetPartition' {tableName} -> tableName) (\s@BatchGetPartition' {} a -> s {tableName = a} :: BatchGetPartition)
 
 -- | A list of partition values identifying the partitions to retrieve.
-bgpPartitionsToGet :: Lens' BatchGetPartition [PartitionValueList]
-bgpPartitionsToGet = lens _bgpPartitionsToGet (\s a -> s {_bgpPartitionsToGet = a}) . _Coerce
+batchGetPartition_partitionsToGet :: Lens.Lens' BatchGetPartition [PartitionValueList]
+batchGetPartition_partitionsToGet = Lens.lens (\BatchGetPartition' {partitionsToGet} -> partitionsToGet) (\s@BatchGetPartition' {} a -> s {partitionsToGet = a} :: BatchGetPartition) Prelude.. Prelude._Coerce
 
-instance AWSRequest BatchGetPartition where
+instance Prelude.AWSRequest BatchGetPartition where
   type Rs BatchGetPartition = BatchGetPartitionResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetPartitionResponse'
-            <$> (x .?> "Partitions" .!@ mempty)
-            <*> (x .?> "UnprocessedKeys" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Partitions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "UnprocessedKeys"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetPartition
+instance Prelude.Hashable BatchGetPartition
 
-instance NFData BatchGetPartition
+instance Prelude.NFData BatchGetPartition
 
-instance ToHeaders BatchGetPartition where
+instance Prelude.ToHeaders BatchGetPartition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.BatchGetPartition" :: ByteString),
+              Prelude.=# ("AWSGlue.BatchGetPartition" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetPartition where
+instance Prelude.ToJSON BatchGetPartition where
   toJSON BatchGetPartition' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _bgpCatalogId,
-            Just ("DatabaseName" .= _bgpDatabaseName),
-            Just ("TableName" .= _bgpTableName),
-            Just ("PartitionsToGet" .= _bgpPartitionsToGet)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just
+              ("PartitionsToGet" Prelude..= partitionsToGet)
           ]
       )
 
-instance ToPath BatchGetPartition where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetPartition where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetPartition where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetPartition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchGetPartitionResponse' smart constructor.
+-- | /See:/ 'newBatchGetPartitionResponse' smart constructor.
 data BatchGetPartitionResponse = BatchGetPartitionResponse'
-  { _bgprrsPartitions ::
-      !( Maybe
-           [Partition]
-       ),
-    _bgprrsUnprocessedKeys ::
-      !( Maybe
-           [PartitionValueList]
-       ),
-    _bgprrsResponseStatus ::
-      !Int
+  { -- | A list of the requested partitions.
+    partitions :: Prelude.Maybe [Partition],
+    -- | A list of the partition values in the request for which partitions were
+    -- not returned.
+    unprocessedKeys :: Prelude.Maybe [PartitionValueList],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetPartitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetPartitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgprrsPartitions' - A list of the requested partitions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgprrsUnprocessedKeys' - A list of the partition values in the request for which partitions were not returned.
+-- 'partitions', 'batchGetPartitionResponse_partitions' - A list of the requested partitions.
 --
--- * 'bgprrsResponseStatus' - -- | The response status code.
-batchGetPartitionResponse ::
-  -- | 'bgprrsResponseStatus'
-  Int ->
+-- 'unprocessedKeys', 'batchGetPartitionResponse_unprocessedKeys' - A list of the partition values in the request for which partitions were
+-- not returned.
+--
+-- 'httpStatus', 'batchGetPartitionResponse_httpStatus' - The response's http status code.
+newBatchGetPartitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetPartitionResponse
-batchGetPartitionResponse pResponseStatus_ =
+newBatchGetPartitionResponse pHttpStatus_ =
   BatchGetPartitionResponse'
-    { _bgprrsPartitions =
-        Nothing,
-      _bgprrsUnprocessedKeys = Nothing,
-      _bgprrsResponseStatus = pResponseStatus_
+    { partitions =
+        Prelude.Nothing,
+      unprocessedKeys = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of the requested partitions.
-bgprrsPartitions :: Lens' BatchGetPartitionResponse [Partition]
-bgprrsPartitions = lens _bgprrsPartitions (\s a -> s {_bgprrsPartitions = a}) . _Default . _Coerce
+batchGetPartitionResponse_partitions :: Lens.Lens' BatchGetPartitionResponse (Prelude.Maybe [Partition])
+batchGetPartitionResponse_partitions = Lens.lens (\BatchGetPartitionResponse' {partitions} -> partitions) (\s@BatchGetPartitionResponse' {} a -> s {partitions = a} :: BatchGetPartitionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of the partition values in the request for which partitions were not returned.
-bgprrsUnprocessedKeys :: Lens' BatchGetPartitionResponse [PartitionValueList]
-bgprrsUnprocessedKeys = lens _bgprrsUnprocessedKeys (\s a -> s {_bgprrsUnprocessedKeys = a}) . _Default . _Coerce
+-- | A list of the partition values in the request for which partitions were
+-- not returned.
+batchGetPartitionResponse_unprocessedKeys :: Lens.Lens' BatchGetPartitionResponse (Prelude.Maybe [PartitionValueList])
+batchGetPartitionResponse_unprocessedKeys = Lens.lens (\BatchGetPartitionResponse' {unprocessedKeys} -> unprocessedKeys) (\s@BatchGetPartitionResponse' {} a -> s {unprocessedKeys = a} :: BatchGetPartitionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bgprrsResponseStatus :: Lens' BatchGetPartitionResponse Int
-bgprrsResponseStatus = lens _bgprrsResponseStatus (\s a -> s {_bgprrsResponseStatus = a})
+-- | The response's http status code.
+batchGetPartitionResponse_httpStatus :: Lens.Lens' BatchGetPartitionResponse Prelude.Int
+batchGetPartitionResponse_httpStatus = Lens.lens (\BatchGetPartitionResponse' {httpStatus} -> httpStatus) (\s@BatchGetPartitionResponse' {} a -> s {httpStatus = a} :: BatchGetPartitionResponse)
 
-instance NFData BatchGetPartitionResponse
+instance Prelude.NFData BatchGetPartitionResponse

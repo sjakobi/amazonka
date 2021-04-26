@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.TableIdentifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure that describes a target table for resource linking.
 --
---
---
--- /See:/ 'tableIdentifier' smart constructor.
+-- /See:/ 'newTableIdentifier' smart constructor.
 data TableIdentifier = TableIdentifier'
-  { _tiCatalogId ::
-      !(Maybe Text),
-    _tiName :: !(Maybe Text),
-    _tiDatabaseName :: !(Maybe Text)
+  { -- | The ID of the Data Catalog in which the table resides.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the target table.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database that contains the target table.
+    databaseName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TableIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TableIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tiCatalogId' - The ID of the Data Catalog in which the table resides.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tiName' - The name of the target table.
+-- 'catalogId', 'tableIdentifier_catalogId' - The ID of the Data Catalog in which the table resides.
 --
--- * 'tiDatabaseName' - The name of the catalog database that contains the target table.
-tableIdentifier ::
+-- 'name', 'tableIdentifier_name' - The name of the target table.
+--
+-- 'databaseName', 'tableIdentifier_databaseName' - The name of the catalog database that contains the target table.
+newTableIdentifier ::
   TableIdentifier
-tableIdentifier =
+newTableIdentifier =
   TableIdentifier'
-    { _tiCatalogId = Nothing,
-      _tiName = Nothing,
-      _tiDatabaseName = Nothing
+    { catalogId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      databaseName = Prelude.Nothing
     }
 
 -- | The ID of the Data Catalog in which the table resides.
-tiCatalogId :: Lens' TableIdentifier (Maybe Text)
-tiCatalogId = lens _tiCatalogId (\s a -> s {_tiCatalogId = a})
+tableIdentifier_catalogId :: Lens.Lens' TableIdentifier (Prelude.Maybe Prelude.Text)
+tableIdentifier_catalogId = Lens.lens (\TableIdentifier' {catalogId} -> catalogId) (\s@TableIdentifier' {} a -> s {catalogId = a} :: TableIdentifier)
 
 -- | The name of the target table.
-tiName :: Lens' TableIdentifier (Maybe Text)
-tiName = lens _tiName (\s a -> s {_tiName = a})
+tableIdentifier_name :: Lens.Lens' TableIdentifier (Prelude.Maybe Prelude.Text)
+tableIdentifier_name = Lens.lens (\TableIdentifier' {name} -> name) (\s@TableIdentifier' {} a -> s {name = a} :: TableIdentifier)
 
 -- | The name of the catalog database that contains the target table.
-tiDatabaseName :: Lens' TableIdentifier (Maybe Text)
-tiDatabaseName = lens _tiDatabaseName (\s a -> s {_tiDatabaseName = a})
+tableIdentifier_databaseName :: Lens.Lens' TableIdentifier (Prelude.Maybe Prelude.Text)
+tableIdentifier_databaseName = Lens.lens (\TableIdentifier' {databaseName} -> databaseName) (\s@TableIdentifier' {} a -> s {databaseName = a} :: TableIdentifier)
 
-instance FromJSON TableIdentifier where
+instance Prelude.FromJSON TableIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TableIdentifier"
       ( \x ->
           TableIdentifier'
-            <$> (x .:? "CatalogId")
-            <*> (x .:? "Name")
-            <*> (x .:? "DatabaseName")
+            Prelude.<$> (x Prelude..:? "CatalogId")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "DatabaseName")
       )
 
-instance Hashable TableIdentifier
+instance Prelude.Hashable TableIdentifier
 
-instance NFData TableIdentifier
+instance Prelude.NFData TableIdentifier
 
-instance ToJSON TableIdentifier where
+instance Prelude.ToJSON TableIdentifier where
   toJSON TableIdentifier' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _tiCatalogId,
-            ("Name" .=) <$> _tiName,
-            ("DatabaseName" .=) <$> _tiDatabaseName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("DatabaseName" Prelude..=)
+              Prelude.<$> databaseName
           ]
       )

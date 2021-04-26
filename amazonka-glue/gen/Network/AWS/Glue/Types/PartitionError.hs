@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,59 @@
 module Network.AWS.Glue.Types.PartitionError where
 
 import Network.AWS.Glue.Types.ErrorDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a partition error.
 --
---
---
--- /See:/ 'partitionError' smart constructor.
+-- /See:/ 'newPartitionError' smart constructor.
 data PartitionError = PartitionError'
-  { _peErrorDetail ::
-      !(Maybe ErrorDetail),
-    _pePartitionValues :: !(Maybe [Text])
+  { -- | The details about the partition error.
+    errorDetail :: Prelude.Maybe ErrorDetail,
+    -- | The values that define the partition.
+    partitionValues :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PartitionError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PartitionError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'peErrorDetail' - The details about the partition error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pePartitionValues' - The values that define the partition.
-partitionError ::
+-- 'errorDetail', 'partitionError_errorDetail' - The details about the partition error.
+--
+-- 'partitionValues', 'partitionError_partitionValues' - The values that define the partition.
+newPartitionError ::
   PartitionError
-partitionError =
+newPartitionError =
   PartitionError'
-    { _peErrorDetail = Nothing,
-      _pePartitionValues = Nothing
+    { errorDetail = Prelude.Nothing,
+      partitionValues = Prelude.Nothing
     }
 
 -- | The details about the partition error.
-peErrorDetail :: Lens' PartitionError (Maybe ErrorDetail)
-peErrorDetail = lens _peErrorDetail (\s a -> s {_peErrorDetail = a})
+partitionError_errorDetail :: Lens.Lens' PartitionError (Prelude.Maybe ErrorDetail)
+partitionError_errorDetail = Lens.lens (\PartitionError' {errorDetail} -> errorDetail) (\s@PartitionError' {} a -> s {errorDetail = a} :: PartitionError)
 
 -- | The values that define the partition.
-pePartitionValues :: Lens' PartitionError [Text]
-pePartitionValues = lens _pePartitionValues (\s a -> s {_pePartitionValues = a}) . _Default . _Coerce
+partitionError_partitionValues :: Lens.Lens' PartitionError (Prelude.Maybe [Prelude.Text])
+partitionError_partitionValues = Lens.lens (\PartitionError' {partitionValues} -> partitionValues) (\s@PartitionError' {} a -> s {partitionValues = a} :: PartitionError) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON PartitionError where
+instance Prelude.FromJSON PartitionError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PartitionError"
       ( \x ->
           PartitionError'
-            <$> (x .:? "ErrorDetail")
-            <*> (x .:? "PartitionValues" .!= mempty)
+            Prelude.<$> (x Prelude..:? "ErrorDetail")
+            Prelude.<*> ( x Prelude..:? "PartitionValues"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable PartitionError
+instance Prelude.Hashable PartitionError
 
-instance NFData PartitionError
+instance Prelude.NFData PartitionError

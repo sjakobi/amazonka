@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,125 +24,132 @@
 -- Deletes a workflow.
 module Network.AWS.Glue.DeleteWorkflow
   ( -- * Creating a Request
-    deleteWorkflow,
-    DeleteWorkflow,
+    DeleteWorkflow (..),
+    newDeleteWorkflow,
 
     -- * Request Lenses
-    dwName,
+    deleteWorkflow_name,
 
     -- * Destructuring the Response
-    deleteWorkflowResponse,
-    DeleteWorkflowResponse,
+    DeleteWorkflowResponse (..),
+    newDeleteWorkflowResponse,
 
     -- * Response Lenses
-    dwrrsName,
-    dwrrsResponseStatus,
+    deleteWorkflowResponse_name,
+    deleteWorkflowResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteWorkflow' smart constructor.
-newtype DeleteWorkflow = DeleteWorkflow'
-  { _dwName ::
-      Text
+-- | /See:/ 'newDeleteWorkflow' smart constructor.
+data DeleteWorkflow = DeleteWorkflow'
+  { -- | Name of the workflow to be deleted.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkflow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkflow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwName' - Name of the workflow to be deleted.
-deleteWorkflow ::
-  -- | 'dwName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'deleteWorkflow_name' - Name of the workflow to be deleted.
+newDeleteWorkflow ::
+  -- | 'name'
+  Prelude.Text ->
   DeleteWorkflow
-deleteWorkflow pName_ =
-  DeleteWorkflow' {_dwName = pName_}
+newDeleteWorkflow pName_ =
+  DeleteWorkflow' {name = pName_}
 
 -- | Name of the workflow to be deleted.
-dwName :: Lens' DeleteWorkflow Text
-dwName = lens _dwName (\s a -> s {_dwName = a})
+deleteWorkflow_name :: Lens.Lens' DeleteWorkflow Prelude.Text
+deleteWorkflow_name = Lens.lens (\DeleteWorkflow' {name} -> name) (\s@DeleteWorkflow' {} a -> s {name = a} :: DeleteWorkflow)
 
-instance AWSRequest DeleteWorkflow where
+instance Prelude.AWSRequest DeleteWorkflow where
   type Rs DeleteWorkflow = DeleteWorkflowResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteWorkflowResponse'
-            <$> (x .?> "Name") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteWorkflow
+instance Prelude.Hashable DeleteWorkflow
 
-instance NFData DeleteWorkflow
+instance Prelude.NFData DeleteWorkflow
 
-instance ToHeaders DeleteWorkflow where
+instance Prelude.ToHeaders DeleteWorkflow where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.DeleteWorkflow" :: ByteString),
+              Prelude.=# ("AWSGlue.DeleteWorkflow" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteWorkflow where
+instance Prelude.ToJSON DeleteWorkflow where
   toJSON DeleteWorkflow' {..} =
-    object (catMaybes [Just ("Name" .= _dwName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DeleteWorkflow where
-  toPath = const "/"
+instance Prelude.ToPath DeleteWorkflow where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteWorkflow where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteWorkflow where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteWorkflowResponse' smart constructor.
+-- | /See:/ 'newDeleteWorkflowResponse' smart constructor.
 data DeleteWorkflowResponse = DeleteWorkflowResponse'
-  { _dwrrsName ::
-      !(Maybe Text),
-    _dwrrsResponseStatus ::
-      !Int
+  { -- | Name of the workflow specified in input.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkflowResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkflowResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwrrsName' - Name of the workflow specified in input.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwrrsResponseStatus' - -- | The response status code.
-deleteWorkflowResponse ::
-  -- | 'dwrrsResponseStatus'
-  Int ->
+-- 'name', 'deleteWorkflowResponse_name' - Name of the workflow specified in input.
+--
+-- 'httpStatus', 'deleteWorkflowResponse_httpStatus' - The response's http status code.
+newDeleteWorkflowResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteWorkflowResponse
-deleteWorkflowResponse pResponseStatus_ =
+newDeleteWorkflowResponse pHttpStatus_ =
   DeleteWorkflowResponse'
-    { _dwrrsName = Nothing,
-      _dwrrsResponseStatus = pResponseStatus_
+    { name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Name of the workflow specified in input.
-dwrrsName :: Lens' DeleteWorkflowResponse (Maybe Text)
-dwrrsName = lens _dwrrsName (\s a -> s {_dwrrsName = a})
+deleteWorkflowResponse_name :: Lens.Lens' DeleteWorkflowResponse (Prelude.Maybe Prelude.Text)
+deleteWorkflowResponse_name = Lens.lens (\DeleteWorkflowResponse' {name} -> name) (\s@DeleteWorkflowResponse' {} a -> s {name = a} :: DeleteWorkflowResponse)
 
--- | -- | The response status code.
-dwrrsResponseStatus :: Lens' DeleteWorkflowResponse Int
-dwrrsResponseStatus = lens _dwrrsResponseStatus (\s a -> s {_dwrrsResponseStatus = a})
+-- | The response's http status code.
+deleteWorkflowResponse_httpStatus :: Lens.Lens' DeleteWorkflowResponse Prelude.Int
+deleteWorkflowResponse_httpStatus = Lens.lens (\DeleteWorkflowResponse' {httpStatus} -> httpStatus) (\s@DeleteWorkflowResponse' {} a -> s {httpStatus = a} :: DeleteWorkflowResponse)
 
-instance NFData DeleteWorkflowResponse
+instance Prelude.NFData DeleteWorkflowResponse

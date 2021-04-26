@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,160 +24,173 @@
 -- Stops one or more job runs for a specified job definition.
 module Network.AWS.Glue.BatchStopJobRun
   ( -- * Creating a Request
-    batchStopJobRun,
-    BatchStopJobRun,
+    BatchStopJobRun (..),
+    newBatchStopJobRun,
 
     -- * Request Lenses
-    bsjrJobName,
-    bsjrJobRunIds,
+    batchStopJobRun_jobName,
+    batchStopJobRun_jobRunIds,
 
     -- * Destructuring the Response
-    batchStopJobRunResponse,
-    BatchStopJobRunResponse,
+    BatchStopJobRunResponse (..),
+    newBatchStopJobRunResponse,
 
     -- * Response Lenses
-    bsjrrrsSuccessfulSubmissions,
-    bsjrrrsErrors,
-    bsjrrrsResponseStatus,
+    batchStopJobRunResponse_successfulSubmissions,
+    batchStopJobRunResponse_errors,
+    batchStopJobRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.BatchStopJobRunError
+import Network.AWS.Glue.Types.BatchStopJobRunSuccessfulSubmission
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchStopJobRun' smart constructor.
+-- | /See:/ 'newBatchStopJobRun' smart constructor.
 data BatchStopJobRun = BatchStopJobRun'
-  { _bsjrJobName ::
-      !Text,
-    _bsjrJobRunIds :: !(List1 Text)
+  { -- | The name of the job definition for which to stop job runs.
+    jobName :: Prelude.Text,
+    -- | A list of the @JobRunIds@ that should be stopped for that job
+    -- definition.
+    jobRunIds :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchStopJobRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchStopJobRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsjrJobName' - The name of the job definition for which to stop job runs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsjrJobRunIds' - A list of the @JobRunIds@ that should be stopped for that job definition.
-batchStopJobRun ::
-  -- | 'bsjrJobName'
-  Text ->
-  -- | 'bsjrJobRunIds'
-  NonEmpty Text ->
+-- 'jobName', 'batchStopJobRun_jobName' - The name of the job definition for which to stop job runs.
+--
+-- 'jobRunIds', 'batchStopJobRun_jobRunIds' - A list of the @JobRunIds@ that should be stopped for that job
+-- definition.
+newBatchStopJobRun ::
+  -- | 'jobName'
+  Prelude.Text ->
+  -- | 'jobRunIds'
+  Prelude.NonEmpty Prelude.Text ->
   BatchStopJobRun
-batchStopJobRun pJobName_ pJobRunIds_ =
+newBatchStopJobRun pJobName_ pJobRunIds_ =
   BatchStopJobRun'
-    { _bsjrJobName = pJobName_,
-      _bsjrJobRunIds = _List1 # pJobRunIds_
+    { jobName = pJobName_,
+      jobRunIds = Prelude._List1 Lens.# pJobRunIds_
     }
 
 -- | The name of the job definition for which to stop job runs.
-bsjrJobName :: Lens' BatchStopJobRun Text
-bsjrJobName = lens _bsjrJobName (\s a -> s {_bsjrJobName = a})
+batchStopJobRun_jobName :: Lens.Lens' BatchStopJobRun Prelude.Text
+batchStopJobRun_jobName = Lens.lens (\BatchStopJobRun' {jobName} -> jobName) (\s@BatchStopJobRun' {} a -> s {jobName = a} :: BatchStopJobRun)
 
--- | A list of the @JobRunIds@ that should be stopped for that job definition.
-bsjrJobRunIds :: Lens' BatchStopJobRun (NonEmpty Text)
-bsjrJobRunIds = lens _bsjrJobRunIds (\s a -> s {_bsjrJobRunIds = a}) . _List1
+-- | A list of the @JobRunIds@ that should be stopped for that job
+-- definition.
+batchStopJobRun_jobRunIds :: Lens.Lens' BatchStopJobRun (Prelude.NonEmpty Prelude.Text)
+batchStopJobRun_jobRunIds = Lens.lens (\BatchStopJobRun' {jobRunIds} -> jobRunIds) (\s@BatchStopJobRun' {} a -> s {jobRunIds = a} :: BatchStopJobRun) Prelude.. Prelude._List1
 
-instance AWSRequest BatchStopJobRun where
+instance Prelude.AWSRequest BatchStopJobRun where
   type Rs BatchStopJobRun = BatchStopJobRunResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchStopJobRunResponse'
-            <$> (x .?> "SuccessfulSubmissions" .!@ mempty)
-            <*> (x .?> "Errors" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SuccessfulSubmissions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Errors" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchStopJobRun
+instance Prelude.Hashable BatchStopJobRun
 
-instance NFData BatchStopJobRun
+instance Prelude.NFData BatchStopJobRun
 
-instance ToHeaders BatchStopJobRun where
+instance Prelude.ToHeaders BatchStopJobRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.BatchStopJobRun" :: ByteString),
+              Prelude.=# ("AWSGlue.BatchStopJobRun" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchStopJobRun where
+instance Prelude.ToJSON BatchStopJobRun where
   toJSON BatchStopJobRun' {..} =
-    object
-      ( catMaybes
-          [ Just ("JobName" .= _bsjrJobName),
-            Just ("JobRunIds" .= _bsjrJobRunIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("JobName" Prelude..= jobName),
+            Prelude.Just ("JobRunIds" Prelude..= jobRunIds)
           ]
       )
 
-instance ToPath BatchStopJobRun where
-  toPath = const "/"
+instance Prelude.ToPath BatchStopJobRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchStopJobRun where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchStopJobRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchStopJobRunResponse' smart constructor.
+-- | /See:/ 'newBatchStopJobRunResponse' smart constructor.
 data BatchStopJobRunResponse = BatchStopJobRunResponse'
-  { _bsjrrrsSuccessfulSubmissions ::
-      !( Maybe
-           [BatchStopJobRunSuccessfulSubmission]
-       ),
-    _bsjrrrsErrors ::
-      !( Maybe
-           [BatchStopJobRunError]
-       ),
-    _bsjrrrsResponseStatus ::
-      !Int
+  { -- | A list of the JobRuns that were successfully submitted for stopping.
+    successfulSubmissions :: Prelude.Maybe [BatchStopJobRunSuccessfulSubmission],
+    -- | A list of the errors that were encountered in trying to stop @JobRuns@,
+    -- including the @JobRunId@ for which each error was encountered and
+    -- details about the error.
+    errors :: Prelude.Maybe [BatchStopJobRunError],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchStopJobRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchStopJobRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsjrrrsSuccessfulSubmissions' - A list of the JobRuns that were successfully submitted for stopping.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsjrrrsErrors' - A list of the errors that were encountered in trying to stop @JobRuns@ , including the @JobRunId@ for which each error was encountered and details about the error.
+-- 'successfulSubmissions', 'batchStopJobRunResponse_successfulSubmissions' - A list of the JobRuns that were successfully submitted for stopping.
 --
--- * 'bsjrrrsResponseStatus' - -- | The response status code.
-batchStopJobRunResponse ::
-  -- | 'bsjrrrsResponseStatus'
-  Int ->
+-- 'errors', 'batchStopJobRunResponse_errors' - A list of the errors that were encountered in trying to stop @JobRuns@,
+-- including the @JobRunId@ for which each error was encountered and
+-- details about the error.
+--
+-- 'httpStatus', 'batchStopJobRunResponse_httpStatus' - The response's http status code.
+newBatchStopJobRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchStopJobRunResponse
-batchStopJobRunResponse pResponseStatus_ =
+newBatchStopJobRunResponse pHttpStatus_ =
   BatchStopJobRunResponse'
-    { _bsjrrrsSuccessfulSubmissions =
-        Nothing,
-      _bsjrrrsErrors = Nothing,
-      _bsjrrrsResponseStatus = pResponseStatus_
+    { successfulSubmissions =
+        Prelude.Nothing,
+      errors = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of the JobRuns that were successfully submitted for stopping.
-bsjrrrsSuccessfulSubmissions :: Lens' BatchStopJobRunResponse [BatchStopJobRunSuccessfulSubmission]
-bsjrrrsSuccessfulSubmissions = lens _bsjrrrsSuccessfulSubmissions (\s a -> s {_bsjrrrsSuccessfulSubmissions = a}) . _Default . _Coerce
+batchStopJobRunResponse_successfulSubmissions :: Lens.Lens' BatchStopJobRunResponse (Prelude.Maybe [BatchStopJobRunSuccessfulSubmission])
+batchStopJobRunResponse_successfulSubmissions = Lens.lens (\BatchStopJobRunResponse' {successfulSubmissions} -> successfulSubmissions) (\s@BatchStopJobRunResponse' {} a -> s {successfulSubmissions = a} :: BatchStopJobRunResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of the errors that were encountered in trying to stop @JobRuns@ , including the @JobRunId@ for which each error was encountered and details about the error.
-bsjrrrsErrors :: Lens' BatchStopJobRunResponse [BatchStopJobRunError]
-bsjrrrsErrors = lens _bsjrrrsErrors (\s a -> s {_bsjrrrsErrors = a}) . _Default . _Coerce
+-- | A list of the errors that were encountered in trying to stop @JobRuns@,
+-- including the @JobRunId@ for which each error was encountered and
+-- details about the error.
+batchStopJobRunResponse_errors :: Lens.Lens' BatchStopJobRunResponse (Prelude.Maybe [BatchStopJobRunError])
+batchStopJobRunResponse_errors = Lens.lens (\BatchStopJobRunResponse' {errors} -> errors) (\s@BatchStopJobRunResponse' {} a -> s {errors = a} :: BatchStopJobRunResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bsjrrrsResponseStatus :: Lens' BatchStopJobRunResponse Int
-bsjrrrsResponseStatus = lens _bsjrrrsResponseStatus (\s a -> s {_bsjrrrsResponseStatus = a})
+-- | The response's http status code.
+batchStopJobRunResponse_httpStatus :: Lens.Lens' BatchStopJobRunResponse Prelude.Int
+batchStopJobRunResponse_httpStatus = Lens.lens (\BatchStopJobRunResponse' {httpStatus} -> httpStatus) (\s@BatchStopJobRunResponse' {} a -> s {httpStatus = a} :: BatchStopJobRunResponse)
 
-instance NFData BatchStopJobRunResponse
+instance Prelude.NFData BatchStopJobRunResponse

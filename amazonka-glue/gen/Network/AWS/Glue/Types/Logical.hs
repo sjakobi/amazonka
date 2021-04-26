@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Glue.Types.Logical
   ( Logical
       ( ..,
-        And,
-        Any
+        LogicalAND,
+        LogicalANY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Logical = Logical' (CI Text)
+newtype Logical = Logical'
+  { fromLogical ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern And :: Logical
-pattern And = Logical' "AND"
+pattern LogicalAND :: Logical
+pattern LogicalAND = Logical' "AND"
 
-pattern Any :: Logical
-pattern Any = Logical' "ANY"
+pattern LogicalANY :: Logical
+pattern LogicalANY = Logical' "ANY"
 
 {-# COMPLETE
-  And,
-  Any,
+  LogicalAND,
+  LogicalANY,
   Logical'
   #-}
 
-instance FromText Logical where
-  parser = (Logical' . mk) <$> takeText
+instance Prelude.FromText Logical where
+  parser = Logical' Prelude.<$> Prelude.takeText
 
-instance ToText Logical where
-  toText (Logical' ci) = original ci
+instance Prelude.ToText Logical where
+  toText (Logical' x) = x
 
-instance Hashable Logical
+instance Prelude.Hashable Logical
 
-instance NFData Logical
+instance Prelude.NFData Logical
 
-instance ToByteString Logical
+instance Prelude.ToByteString Logical
 
-instance ToQuery Logical
+instance Prelude.ToQuery Logical
 
-instance ToHeader Logical
+instance Prelude.ToHeader Logical
 
-instance ToJSON Logical where
-  toJSON = toJSONText
+instance Prelude.ToJSON Logical where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Logical where
-  parseJSON = parseJSONText "Logical"
+instance Prelude.FromJSON Logical where
+  parseJSON = Prelude.parseJSONText "Logical"

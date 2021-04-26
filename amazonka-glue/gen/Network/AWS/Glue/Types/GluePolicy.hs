@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.GluePolicy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure for returning a resource policy.
 --
---
---
--- /See:/ 'gluePolicy' smart constructor.
+-- /See:/ 'newGluePolicy' smart constructor.
 data GluePolicy = GluePolicy'
-  { _gpPolicyInJSON ::
-      !(Maybe Text),
-    _gpUpdateTime :: !(Maybe POSIX),
-    _gpCreateTime :: !(Maybe POSIX),
-    _gpPolicyHash :: !(Maybe Text)
+  { -- | Contains the requested policy document, in JSON format.
+    policyInJson :: Prelude.Maybe Prelude.Text,
+    -- | The date and time at which the policy was last updated.
+    updateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time at which the policy was created.
+    createTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Contains the hash value associated with this policy.
+    policyHash :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GluePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GluePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpPolicyInJSON' - Contains the requested policy document, in JSON format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpUpdateTime' - The date and time at which the policy was last updated.
+-- 'policyInJson', 'gluePolicy_policyInJson' - Contains the requested policy document, in JSON format.
 --
--- * 'gpCreateTime' - The date and time at which the policy was created.
+-- 'updateTime', 'gluePolicy_updateTime' - The date and time at which the policy was last updated.
 --
--- * 'gpPolicyHash' - Contains the hash value associated with this policy.
-gluePolicy ::
+-- 'createTime', 'gluePolicy_createTime' - The date and time at which the policy was created.
+--
+-- 'policyHash', 'gluePolicy_policyHash' - Contains the hash value associated with this policy.
+newGluePolicy ::
   GluePolicy
-gluePolicy =
+newGluePolicy =
   GluePolicy'
-    { _gpPolicyInJSON = Nothing,
-      _gpUpdateTime = Nothing,
-      _gpCreateTime = Nothing,
-      _gpPolicyHash = Nothing
+    { policyInJson = Prelude.Nothing,
+      updateTime = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      policyHash = Prelude.Nothing
     }
 
 -- | Contains the requested policy document, in JSON format.
-gpPolicyInJSON :: Lens' GluePolicy (Maybe Text)
-gpPolicyInJSON = lens _gpPolicyInJSON (\s a -> s {_gpPolicyInJSON = a})
+gluePolicy_policyInJson :: Lens.Lens' GluePolicy (Prelude.Maybe Prelude.Text)
+gluePolicy_policyInJson = Lens.lens (\GluePolicy' {policyInJson} -> policyInJson) (\s@GluePolicy' {} a -> s {policyInJson = a} :: GluePolicy)
 
 -- | The date and time at which the policy was last updated.
-gpUpdateTime :: Lens' GluePolicy (Maybe UTCTime)
-gpUpdateTime = lens _gpUpdateTime (\s a -> s {_gpUpdateTime = a}) . mapping _Time
+gluePolicy_updateTime :: Lens.Lens' GluePolicy (Prelude.Maybe Prelude.UTCTime)
+gluePolicy_updateTime = Lens.lens (\GluePolicy' {updateTime} -> updateTime) (\s@GluePolicy' {} a -> s {updateTime = a} :: GluePolicy) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date and time at which the policy was created.
-gpCreateTime :: Lens' GluePolicy (Maybe UTCTime)
-gpCreateTime = lens _gpCreateTime (\s a -> s {_gpCreateTime = a}) . mapping _Time
+gluePolicy_createTime :: Lens.Lens' GluePolicy (Prelude.Maybe Prelude.UTCTime)
+gluePolicy_createTime = Lens.lens (\GluePolicy' {createTime} -> createTime) (\s@GluePolicy' {} a -> s {createTime = a} :: GluePolicy) Prelude.. Lens.mapping Prelude._Time
 
 -- | Contains the hash value associated with this policy.
-gpPolicyHash :: Lens' GluePolicy (Maybe Text)
-gpPolicyHash = lens _gpPolicyHash (\s a -> s {_gpPolicyHash = a})
+gluePolicy_policyHash :: Lens.Lens' GluePolicy (Prelude.Maybe Prelude.Text)
+gluePolicy_policyHash = Lens.lens (\GluePolicy' {policyHash} -> policyHash) (\s@GluePolicy' {} a -> s {policyHash = a} :: GluePolicy)
 
-instance FromJSON GluePolicy where
+instance Prelude.FromJSON GluePolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GluePolicy"
       ( \x ->
           GluePolicy'
-            <$> (x .:? "PolicyInJson")
-            <*> (x .:? "UpdateTime")
-            <*> (x .:? "CreateTime")
-            <*> (x .:? "PolicyHash")
+            Prelude.<$> (x Prelude..:? "PolicyInJson")
+            Prelude.<*> (x Prelude..:? "UpdateTime")
+            Prelude.<*> (x Prelude..:? "CreateTime")
+            Prelude.<*> (x Prelude..:? "PolicyHash")
       )
 
-instance Hashable GluePolicy
+instance Prelude.Hashable GluePolicy
 
-instance NFData GluePolicy
+instance Prelude.NFData GluePolicy

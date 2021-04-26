@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +21,81 @@ module Network.AWS.Glue.Types.TransformParameters where
 
 import Network.AWS.Glue.Types.FindMatchesParameters
 import Network.AWS.Glue.Types.TransformType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The algorithm-specific parameters that are associated with the machine learning transform.
+-- | The algorithm-specific parameters that are associated with the machine
+-- learning transform.
 --
---
---
--- /See:/ 'transformParameters' smart constructor.
+-- /See:/ 'newTransformParameters' smart constructor.
 data TransformParameters = TransformParameters'
-  { _tpFindMatchesParameters ::
-      !(Maybe FindMatchesParameters),
-    _tpTransformType ::
-      !TransformType
+  { -- | The parameters for the find matches algorithm.
+    findMatchesParameters :: Prelude.Maybe FindMatchesParameters,
+    -- | The type of machine learning transform.
+    --
+    -- For information about the types of machine learning transforms, see
+    -- <https://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html Creating Machine Learning Transforms>.
+    transformType :: TransformType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransformParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransformParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tpFindMatchesParameters' - The parameters for the find matches algorithm.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tpTransformType' - The type of machine learning transform. For information about the types of machine learning transforms, see <https://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html Creating Machine Learning Transforms> .
-transformParameters ::
-  -- | 'tpTransformType'
+-- 'findMatchesParameters', 'transformParameters_findMatchesParameters' - The parameters for the find matches algorithm.
+--
+-- 'transformType', 'transformParameters_transformType' - The type of machine learning transform.
+--
+-- For information about the types of machine learning transforms, see
+-- <https://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html Creating Machine Learning Transforms>.
+newTransformParameters ::
+  -- | 'transformType'
   TransformType ->
   TransformParameters
-transformParameters pTransformType_ =
+newTransformParameters pTransformType_ =
   TransformParameters'
-    { _tpFindMatchesParameters =
-        Nothing,
-      _tpTransformType = pTransformType_
+    { findMatchesParameters =
+        Prelude.Nothing,
+      transformType = pTransformType_
     }
 
 -- | The parameters for the find matches algorithm.
-tpFindMatchesParameters :: Lens' TransformParameters (Maybe FindMatchesParameters)
-tpFindMatchesParameters = lens _tpFindMatchesParameters (\s a -> s {_tpFindMatchesParameters = a})
+transformParameters_findMatchesParameters :: Lens.Lens' TransformParameters (Prelude.Maybe FindMatchesParameters)
+transformParameters_findMatchesParameters = Lens.lens (\TransformParameters' {findMatchesParameters} -> findMatchesParameters) (\s@TransformParameters' {} a -> s {findMatchesParameters = a} :: TransformParameters)
 
--- | The type of machine learning transform. For information about the types of machine learning transforms, see <https://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html Creating Machine Learning Transforms> .
-tpTransformType :: Lens' TransformParameters TransformType
-tpTransformType = lens _tpTransformType (\s a -> s {_tpTransformType = a})
+-- | The type of machine learning transform.
+--
+-- For information about the types of machine learning transforms, see
+-- <https://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html Creating Machine Learning Transforms>.
+transformParameters_transformType :: Lens.Lens' TransformParameters TransformType
+transformParameters_transformType = Lens.lens (\TransformParameters' {transformType} -> transformType) (\s@TransformParameters' {} a -> s {transformType = a} :: TransformParameters)
 
-instance FromJSON TransformParameters where
+instance Prelude.FromJSON TransformParameters where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TransformParameters"
       ( \x ->
           TransformParameters'
-            <$> (x .:? "FindMatchesParameters")
-            <*> (x .: "TransformType")
+            Prelude.<$> (x Prelude..:? "FindMatchesParameters")
+            Prelude.<*> (x Prelude..: "TransformType")
       )
 
-instance Hashable TransformParameters
+instance Prelude.Hashable TransformParameters
 
-instance NFData TransformParameters
+instance Prelude.NFData TransformParameters
 
-instance ToJSON TransformParameters where
+instance Prelude.ToJSON TransformParameters where
   toJSON TransformParameters' {..} =
-    object
-      ( catMaybes
-          [ ("FindMatchesParameters" .=)
-              <$> _tpFindMatchesParameters,
-            Just ("TransformType" .= _tpTransformType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FindMatchesParameters" Prelude..=)
+              Prelude.<$> findMatchesParameters,
+            Prelude.Just
+              ("TransformType" Prelude..= transformType)
           ]
       )

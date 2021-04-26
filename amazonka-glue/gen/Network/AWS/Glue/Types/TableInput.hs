@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,155 +22,204 @@ module Network.AWS.Glue.Types.TableInput where
 import Network.AWS.Glue.Types.Column
 import Network.AWS.Glue.Types.StorageDescriptor
 import Network.AWS.Glue.Types.TableIdentifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure used to define a table.
 --
---
---
--- /See:/ 'tableInput' smart constructor.
+-- /See:/ 'newTableInput' smart constructor.
 data TableInput = TableInput'
-  { _tabViewOriginalText ::
-      !(Maybe Text),
-    _tabTableType :: !(Maybe Text),
-    _tabStorageDescriptor ::
-      !(Maybe StorageDescriptor),
-    _tabLastAnalyzedTime :: !(Maybe POSIX),
-    _tabViewExpandedText :: !(Maybe Text),
-    _tabTargetTable :: !(Maybe TableIdentifier),
-    _tabRetention :: !(Maybe Nat),
-    _tabOwner :: !(Maybe Text),
-    _tabPartitionKeys :: !(Maybe [Column]),
-    _tabDescription :: !(Maybe Text),
-    _tabLastAccessTime :: !(Maybe POSIX),
-    _tabParameters :: !(Maybe (Map Text Text)),
-    _tabName :: !Text
+  { -- | If the table is a view, the original text of the view; otherwise @null@.
+    viewOriginalText :: Prelude.Maybe Prelude.Text,
+    -- | The type of this table (@EXTERNAL_TABLE@, @VIRTUAL_VIEW@, etc.).
+    tableType :: Prelude.Maybe Prelude.Text,
+    -- | A storage descriptor containing information about the physical storage
+    -- of this table.
+    storageDescriptor :: Prelude.Maybe StorageDescriptor,
+    -- | The last time that column statistics were computed for this table.
+    lastAnalyzedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | If the table is a view, the expanded text of the view; otherwise @null@.
+    viewExpandedText :: Prelude.Maybe Prelude.Text,
+    -- | A @TableIdentifier@ structure that describes a target table for resource
+    -- linking.
+    targetTable :: Prelude.Maybe TableIdentifier,
+    -- | The retention time for this table.
+    retention :: Prelude.Maybe Prelude.Nat,
+    -- | The table owner.
+    owner :: Prelude.Maybe Prelude.Text,
+    -- | A list of columns by which the table is partitioned. Only primitive
+    -- types are supported as partition keys.
+    --
+    -- When you create a table used by Amazon Athena, and you do not specify
+    -- any @partitionKeys@, you must at least set the value of @partitionKeys@
+    -- to an empty list. For example:
+    --
+    -- @\"PartitionKeys\": []@
+    partitionKeys :: Prelude.Maybe [Column],
+    -- | A description of the table.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The last time that the table was accessed.
+    lastAccessTime :: Prelude.Maybe Prelude.POSIX,
+    -- | These key-value pairs define properties associated with the table.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The table name. For Hive compatibility, this is folded to lowercase when
+    -- it is stored.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TableInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TableInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tabViewOriginalText' - If the table is a view, the original text of the view; otherwise @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tabTableType' - The type of this table (@EXTERNAL_TABLE@ , @VIRTUAL_VIEW@ , etc.).
+-- 'viewOriginalText', 'tableInput_viewOriginalText' - If the table is a view, the original text of the view; otherwise @null@.
 --
--- * 'tabStorageDescriptor' - A storage descriptor containing information about the physical storage of this table.
+-- 'tableType', 'tableInput_tableType' - The type of this table (@EXTERNAL_TABLE@, @VIRTUAL_VIEW@, etc.).
 --
--- * 'tabLastAnalyzedTime' - The last time that column statistics were computed for this table.
+-- 'storageDescriptor', 'tableInput_storageDescriptor' - A storage descriptor containing information about the physical storage
+-- of this table.
 --
--- * 'tabViewExpandedText' - If the table is a view, the expanded text of the view; otherwise @null@ .
+-- 'lastAnalyzedTime', 'tableInput_lastAnalyzedTime' - The last time that column statistics were computed for this table.
 --
--- * 'tabTargetTable' - A @TableIdentifier@ structure that describes a target table for resource linking.
+-- 'viewExpandedText', 'tableInput_viewExpandedText' - If the table is a view, the expanded text of the view; otherwise @null@.
 --
--- * 'tabRetention' - The retention time for this table.
+-- 'targetTable', 'tableInput_targetTable' - A @TableIdentifier@ structure that describes a target table for resource
+-- linking.
 --
--- * 'tabOwner' - The table owner.
+-- 'retention', 'tableInput_retention' - The retention time for this table.
 --
--- * 'tabPartitionKeys' - A list of columns by which the table is partitioned. Only primitive types are supported as partition keys. When you create a table used by Amazon Athena, and you do not specify any @partitionKeys@ , you must at least set the value of @partitionKeys@ to an empty list. For example: @"PartitionKeys": []@
+-- 'owner', 'tableInput_owner' - The table owner.
 --
--- * 'tabDescription' - A description of the table.
+-- 'partitionKeys', 'tableInput_partitionKeys' - A list of columns by which the table is partitioned. Only primitive
+-- types are supported as partition keys.
 --
--- * 'tabLastAccessTime' - The last time that the table was accessed.
+-- When you create a table used by Amazon Athena, and you do not specify
+-- any @partitionKeys@, you must at least set the value of @partitionKeys@
+-- to an empty list. For example:
 --
--- * 'tabParameters' - These key-value pairs define properties associated with the table.
+-- @\"PartitionKeys\": []@
 --
--- * 'tabName' - The table name. For Hive compatibility, this is folded to lowercase when it is stored.
-tableInput ::
-  -- | 'tabName'
-  Text ->
+-- 'description', 'tableInput_description' - A description of the table.
+--
+-- 'lastAccessTime', 'tableInput_lastAccessTime' - The last time that the table was accessed.
+--
+-- 'parameters', 'tableInput_parameters' - These key-value pairs define properties associated with the table.
+--
+-- 'name', 'tableInput_name' - The table name. For Hive compatibility, this is folded to lowercase when
+-- it is stored.
+newTableInput ::
+  -- | 'name'
+  Prelude.Text ->
   TableInput
-tableInput pName_ =
+newTableInput pName_ =
   TableInput'
-    { _tabViewOriginalText = Nothing,
-      _tabTableType = Nothing,
-      _tabStorageDescriptor = Nothing,
-      _tabLastAnalyzedTime = Nothing,
-      _tabViewExpandedText = Nothing,
-      _tabTargetTable = Nothing,
-      _tabRetention = Nothing,
-      _tabOwner = Nothing,
-      _tabPartitionKeys = Nothing,
-      _tabDescription = Nothing,
-      _tabLastAccessTime = Nothing,
-      _tabParameters = Nothing,
-      _tabName = pName_
+    { viewOriginalText = Prelude.Nothing,
+      tableType = Prelude.Nothing,
+      storageDescriptor = Prelude.Nothing,
+      lastAnalyzedTime = Prelude.Nothing,
+      viewExpandedText = Prelude.Nothing,
+      targetTable = Prelude.Nothing,
+      retention = Prelude.Nothing,
+      owner = Prelude.Nothing,
+      partitionKeys = Prelude.Nothing,
+      description = Prelude.Nothing,
+      lastAccessTime = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      name = pName_
     }
 
--- | If the table is a view, the original text of the view; otherwise @null@ .
-tabViewOriginalText :: Lens' TableInput (Maybe Text)
-tabViewOriginalText = lens _tabViewOriginalText (\s a -> s {_tabViewOriginalText = a})
+-- | If the table is a view, the original text of the view; otherwise @null@.
+tableInput_viewOriginalText :: Lens.Lens' TableInput (Prelude.Maybe Prelude.Text)
+tableInput_viewOriginalText = Lens.lens (\TableInput' {viewOriginalText} -> viewOriginalText) (\s@TableInput' {} a -> s {viewOriginalText = a} :: TableInput)
 
--- | The type of this table (@EXTERNAL_TABLE@ , @VIRTUAL_VIEW@ , etc.).
-tabTableType :: Lens' TableInput (Maybe Text)
-tabTableType = lens _tabTableType (\s a -> s {_tabTableType = a})
+-- | The type of this table (@EXTERNAL_TABLE@, @VIRTUAL_VIEW@, etc.).
+tableInput_tableType :: Lens.Lens' TableInput (Prelude.Maybe Prelude.Text)
+tableInput_tableType = Lens.lens (\TableInput' {tableType} -> tableType) (\s@TableInput' {} a -> s {tableType = a} :: TableInput)
 
--- | A storage descriptor containing information about the physical storage of this table.
-tabStorageDescriptor :: Lens' TableInput (Maybe StorageDescriptor)
-tabStorageDescriptor = lens _tabStorageDescriptor (\s a -> s {_tabStorageDescriptor = a})
+-- | A storage descriptor containing information about the physical storage
+-- of this table.
+tableInput_storageDescriptor :: Lens.Lens' TableInput (Prelude.Maybe StorageDescriptor)
+tableInput_storageDescriptor = Lens.lens (\TableInput' {storageDescriptor} -> storageDescriptor) (\s@TableInput' {} a -> s {storageDescriptor = a} :: TableInput)
 
 -- | The last time that column statistics were computed for this table.
-tabLastAnalyzedTime :: Lens' TableInput (Maybe UTCTime)
-tabLastAnalyzedTime = lens _tabLastAnalyzedTime (\s a -> s {_tabLastAnalyzedTime = a}) . mapping _Time
+tableInput_lastAnalyzedTime :: Lens.Lens' TableInput (Prelude.Maybe Prelude.UTCTime)
+tableInput_lastAnalyzedTime = Lens.lens (\TableInput' {lastAnalyzedTime} -> lastAnalyzedTime) (\s@TableInput' {} a -> s {lastAnalyzedTime = a} :: TableInput) Prelude.. Lens.mapping Prelude._Time
 
--- | If the table is a view, the expanded text of the view; otherwise @null@ .
-tabViewExpandedText :: Lens' TableInput (Maybe Text)
-tabViewExpandedText = lens _tabViewExpandedText (\s a -> s {_tabViewExpandedText = a})
+-- | If the table is a view, the expanded text of the view; otherwise @null@.
+tableInput_viewExpandedText :: Lens.Lens' TableInput (Prelude.Maybe Prelude.Text)
+tableInput_viewExpandedText = Lens.lens (\TableInput' {viewExpandedText} -> viewExpandedText) (\s@TableInput' {} a -> s {viewExpandedText = a} :: TableInput)
 
--- | A @TableIdentifier@ structure that describes a target table for resource linking.
-tabTargetTable :: Lens' TableInput (Maybe TableIdentifier)
-tabTargetTable = lens _tabTargetTable (\s a -> s {_tabTargetTable = a})
+-- | A @TableIdentifier@ structure that describes a target table for resource
+-- linking.
+tableInput_targetTable :: Lens.Lens' TableInput (Prelude.Maybe TableIdentifier)
+tableInput_targetTable = Lens.lens (\TableInput' {targetTable} -> targetTable) (\s@TableInput' {} a -> s {targetTable = a} :: TableInput)
 
 -- | The retention time for this table.
-tabRetention :: Lens' TableInput (Maybe Natural)
-tabRetention = lens _tabRetention (\s a -> s {_tabRetention = a}) . mapping _Nat
+tableInput_retention :: Lens.Lens' TableInput (Prelude.Maybe Prelude.Natural)
+tableInput_retention = Lens.lens (\TableInput' {retention} -> retention) (\s@TableInput' {} a -> s {retention = a} :: TableInput) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The table owner.
-tabOwner :: Lens' TableInput (Maybe Text)
-tabOwner = lens _tabOwner (\s a -> s {_tabOwner = a})
+tableInput_owner :: Lens.Lens' TableInput (Prelude.Maybe Prelude.Text)
+tableInput_owner = Lens.lens (\TableInput' {owner} -> owner) (\s@TableInput' {} a -> s {owner = a} :: TableInput)
 
--- | A list of columns by which the table is partitioned. Only primitive types are supported as partition keys. When you create a table used by Amazon Athena, and you do not specify any @partitionKeys@ , you must at least set the value of @partitionKeys@ to an empty list. For example: @"PartitionKeys": []@
-tabPartitionKeys :: Lens' TableInput [Column]
-tabPartitionKeys = lens _tabPartitionKeys (\s a -> s {_tabPartitionKeys = a}) . _Default . _Coerce
+-- | A list of columns by which the table is partitioned. Only primitive
+-- types are supported as partition keys.
+--
+-- When you create a table used by Amazon Athena, and you do not specify
+-- any @partitionKeys@, you must at least set the value of @partitionKeys@
+-- to an empty list. For example:
+--
+-- @\"PartitionKeys\": []@
+tableInput_partitionKeys :: Lens.Lens' TableInput (Prelude.Maybe [Column])
+tableInput_partitionKeys = Lens.lens (\TableInput' {partitionKeys} -> partitionKeys) (\s@TableInput' {} a -> s {partitionKeys = a} :: TableInput) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the table.
-tabDescription :: Lens' TableInput (Maybe Text)
-tabDescription = lens _tabDescription (\s a -> s {_tabDescription = a})
+tableInput_description :: Lens.Lens' TableInput (Prelude.Maybe Prelude.Text)
+tableInput_description = Lens.lens (\TableInput' {description} -> description) (\s@TableInput' {} a -> s {description = a} :: TableInput)
 
 -- | The last time that the table was accessed.
-tabLastAccessTime :: Lens' TableInput (Maybe UTCTime)
-tabLastAccessTime = lens _tabLastAccessTime (\s a -> s {_tabLastAccessTime = a}) . mapping _Time
+tableInput_lastAccessTime :: Lens.Lens' TableInput (Prelude.Maybe Prelude.UTCTime)
+tableInput_lastAccessTime = Lens.lens (\TableInput' {lastAccessTime} -> lastAccessTime) (\s@TableInput' {} a -> s {lastAccessTime = a} :: TableInput) Prelude.. Lens.mapping Prelude._Time
 
 -- | These key-value pairs define properties associated with the table.
-tabParameters :: Lens' TableInput (HashMap Text Text)
-tabParameters = lens _tabParameters (\s a -> s {_tabParameters = a}) . _Default . _Map
+tableInput_parameters :: Lens.Lens' TableInput (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+tableInput_parameters = Lens.lens (\TableInput' {parameters} -> parameters) (\s@TableInput' {} a -> s {parameters = a} :: TableInput) Prelude.. Lens.mapping Prelude._Map
 
--- | The table name. For Hive compatibility, this is folded to lowercase when it is stored.
-tabName :: Lens' TableInput Text
-tabName = lens _tabName (\s a -> s {_tabName = a})
+-- | The table name. For Hive compatibility, this is folded to lowercase when
+-- it is stored.
+tableInput_name :: Lens.Lens' TableInput Prelude.Text
+tableInput_name = Lens.lens (\TableInput' {name} -> name) (\s@TableInput' {} a -> s {name = a} :: TableInput)
 
-instance Hashable TableInput
+instance Prelude.Hashable TableInput
 
-instance NFData TableInput
+instance Prelude.NFData TableInput
 
-instance ToJSON TableInput where
+instance Prelude.ToJSON TableInput where
   toJSON TableInput' {..} =
-    object
-      ( catMaybes
-          [ ("ViewOriginalText" .=) <$> _tabViewOriginalText,
-            ("TableType" .=) <$> _tabTableType,
-            ("StorageDescriptor" .=) <$> _tabStorageDescriptor,
-            ("LastAnalyzedTime" .=) <$> _tabLastAnalyzedTime,
-            ("ViewExpandedText" .=) <$> _tabViewExpandedText,
-            ("TargetTable" .=) <$> _tabTargetTable,
-            ("Retention" .=) <$> _tabRetention,
-            ("Owner" .=) <$> _tabOwner,
-            ("PartitionKeys" .=) <$> _tabPartitionKeys,
-            ("Description" .=) <$> _tabDescription,
-            ("LastAccessTime" .=) <$> _tabLastAccessTime,
-            ("Parameters" .=) <$> _tabParameters,
-            Just ("Name" .= _tabName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ViewOriginalText" Prelude..=)
+              Prelude.<$> viewOriginalText,
+            ("TableType" Prelude..=) Prelude.<$> tableType,
+            ("StorageDescriptor" Prelude..=)
+              Prelude.<$> storageDescriptor,
+            ("LastAnalyzedTime" Prelude..=)
+              Prelude.<$> lastAnalyzedTime,
+            ("ViewExpandedText" Prelude..=)
+              Prelude.<$> viewExpandedText,
+            ("TargetTable" Prelude..=) Prelude.<$> targetTable,
+            ("Retention" Prelude..=) Prelude.<$> retention,
+            ("Owner" Prelude..=) Prelude.<$> owner,
+            ("PartitionKeys" Prelude..=)
+              Prelude.<$> partitionKeys,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("LastAccessTime" Prelude..=)
+              Prelude.<$> lastAccessTime,
+            ("Parameters" Prelude..=) Prelude.<$> parameters,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

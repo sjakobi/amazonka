@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,248 +21,303 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a crawler. If a crawler is running, you must stop it using @StopCrawler@ before updating it.
+-- Updates a crawler. If a crawler is running, you must stop it using
+-- @StopCrawler@ before updating it.
 module Network.AWS.Glue.UpdateCrawler
   ( -- * Creating a Request
-    updateCrawler,
-    UpdateCrawler,
+    UpdateCrawler (..),
+    newUpdateCrawler,
 
     -- * Request Lenses
-    uSchemaChangePolicy,
-    uRecrawlPolicy,
-    uClassifiers,
-    uConfiguration,
-    uLineageConfiguration,
-    uTargets,
-    uRole,
-    uTablePrefix,
-    uDescription,
-    uSchedule,
-    uCrawlerSecurityConfiguration,
-    uDatabaseName,
-    uName,
+    updateCrawler_schemaChangePolicy,
+    updateCrawler_recrawlPolicy,
+    updateCrawler_classifiers,
+    updateCrawler_configuration,
+    updateCrawler_lineageConfiguration,
+    updateCrawler_targets,
+    updateCrawler_role,
+    updateCrawler_tablePrefix,
+    updateCrawler_description,
+    updateCrawler_schedule,
+    updateCrawler_crawlerSecurityConfiguration,
+    updateCrawler_databaseName,
+    updateCrawler_name,
 
     -- * Destructuring the Response
-    updateCrawlerResponse,
-    UpdateCrawlerResponse,
+    UpdateCrawlerResponse (..),
+    newUpdateCrawlerResponse,
 
     -- * Response Lenses
-    ucrcrsResponseStatus,
+    updateCrawlerResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateCrawler' smart constructor.
+-- | /See:/ 'newUpdateCrawler' smart constructor.
 data UpdateCrawler = UpdateCrawler'
-  { _uSchemaChangePolicy ::
-      !(Maybe SchemaChangePolicy),
-    _uRecrawlPolicy :: !(Maybe RecrawlPolicy),
-    _uClassifiers :: !(Maybe [Text]),
-    _uConfiguration :: !(Maybe Text),
-    _uLineageConfiguration ::
-      !(Maybe LineageConfiguration),
-    _uTargets :: !(Maybe CrawlerTargets),
-    _uRole :: !(Maybe Text),
-    _uTablePrefix :: !(Maybe Text),
-    _uDescription :: !(Maybe Text),
-    _uSchedule :: !(Maybe Text),
-    _uCrawlerSecurityConfiguration ::
-      !(Maybe Text),
-    _uDatabaseName :: !(Maybe Text),
-    _uName :: !Text
+  { -- | The policy for the crawler\'s update and deletion behavior.
+    schemaChangePolicy :: Prelude.Maybe SchemaChangePolicy,
+    -- | A policy that specifies whether to crawl the entire dataset again, or to
+    -- crawl only folders that were added since the last crawler run.
+    recrawlPolicy :: Prelude.Maybe RecrawlPolicy,
+    -- | A list of custom classifiers that the user has registered. By default,
+    -- all built-in classifiers are included in a crawl, but these custom
+    -- classifiers always override the default classifiers for a given
+    -- classification.
+    classifiers :: Prelude.Maybe [Prelude.Text],
+    -- | Crawler configuration information. This versioned JSON string allows
+    -- users to specify aspects of a crawler\'s behavior. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler>.
+    configuration :: Prelude.Maybe Prelude.Text,
+    -- | Specifies data lineage configuration settings for the crawler.
+    lineageConfiguration :: Prelude.Maybe LineageConfiguration,
+    -- | A list of targets to crawl.
+    targets :: Prelude.Maybe CrawlerTargets,
+    -- | The IAM role or Amazon Resource Name (ARN) of an IAM role that is used
+    -- by the new crawler to access customer resources.
+    role' :: Prelude.Maybe Prelude.Text,
+    -- | The table prefix used for catalog tables that are created.
+    tablePrefix :: Prelude.Maybe Prelude.Text,
+    -- | A description of the new crawler.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A @cron@ expression used to specify the schedule (see
+    -- <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers>.
+    -- For example, to run something every day at 12:15 UTC, you would specify:
+    -- @cron(15 12 * * ? *)@.
+    schedule :: Prelude.Maybe Prelude.Text,
+    -- | The name of the @SecurityConfiguration@ structure to be used by this
+    -- crawler.
+    crawlerSecurityConfiguration :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Glue database where results are stored, such as:
+    -- @arn:aws:daylight:us-east-1::database\/sometable\/*@.
+    databaseName :: Prelude.Maybe Prelude.Text,
+    -- | Name of the new crawler.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCrawler' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCrawler' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uSchemaChangePolicy' - The policy for the crawler's update and deletion behavior.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uRecrawlPolicy' - A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since the last crawler run.
+-- 'schemaChangePolicy', 'updateCrawler_schemaChangePolicy' - The policy for the crawler\'s update and deletion behavior.
 --
--- * 'uClassifiers' - A list of custom classifiers that the user has registered. By default, all built-in classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification.
+-- 'recrawlPolicy', 'updateCrawler_recrawlPolicy' - A policy that specifies whether to crawl the entire dataset again, or to
+-- crawl only folders that were added since the last crawler run.
 --
--- * 'uConfiguration' - Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler> .
+-- 'classifiers', 'updateCrawler_classifiers' - A list of custom classifiers that the user has registered. By default,
+-- all built-in classifiers are included in a crawl, but these custom
+-- classifiers always override the default classifiers for a given
+-- classification.
 --
--- * 'uLineageConfiguration' - Specifies data lineage configuration settings for the crawler.
+-- 'configuration', 'updateCrawler_configuration' - Crawler configuration information. This versioned JSON string allows
+-- users to specify aspects of a crawler\'s behavior. For more information,
+-- see
+-- <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler>.
 --
--- * 'uTargets' - A list of targets to crawl.
+-- 'lineageConfiguration', 'updateCrawler_lineageConfiguration' - Specifies data lineage configuration settings for the crawler.
 --
--- * 'uRole' - The IAM role or Amazon Resource Name (ARN) of an IAM role that is used by the new crawler to access customer resources.
+-- 'targets', 'updateCrawler_targets' - A list of targets to crawl.
 --
--- * 'uTablePrefix' - The table prefix used for catalog tables that are created.
+-- 'role'', 'updateCrawler_role' - The IAM role or Amazon Resource Name (ARN) of an IAM role that is used
+-- by the new crawler to access customer resources.
 --
--- * 'uDescription' - A description of the new crawler.
+-- 'tablePrefix', 'updateCrawler_tablePrefix' - The table prefix used for catalog tables that are created.
 --
--- * 'uSchedule' - A @cron@ expression used to specify the schedule (see <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
+-- 'description', 'updateCrawler_description' - A description of the new crawler.
 --
--- * 'uCrawlerSecurityConfiguration' - The name of the @SecurityConfiguration@ structure to be used by this crawler.
+-- 'schedule', 'updateCrawler_schedule' - A @cron@ expression used to specify the schedule (see
+-- <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers>.
+-- For example, to run something every day at 12:15 UTC, you would specify:
+-- @cron(15 12 * * ? *)@.
 --
--- * 'uDatabaseName' - The AWS Glue database where results are stored, such as: @arn:aws:daylight:us-east-1::database/sometable/*@ .
+-- 'crawlerSecurityConfiguration', 'updateCrawler_crawlerSecurityConfiguration' - The name of the @SecurityConfiguration@ structure to be used by this
+-- crawler.
 --
--- * 'uName' - Name of the new crawler.
-updateCrawler ::
-  -- | 'uName'
-  Text ->
+-- 'databaseName', 'updateCrawler_databaseName' - The AWS Glue database where results are stored, such as:
+-- @arn:aws:daylight:us-east-1::database\/sometable\/*@.
+--
+-- 'name', 'updateCrawler_name' - Name of the new crawler.
+newUpdateCrawler ::
+  -- | 'name'
+  Prelude.Text ->
   UpdateCrawler
-updateCrawler pName_ =
+newUpdateCrawler pName_ =
   UpdateCrawler'
-    { _uSchemaChangePolicy = Nothing,
-      _uRecrawlPolicy = Nothing,
-      _uClassifiers = Nothing,
-      _uConfiguration = Nothing,
-      _uLineageConfiguration = Nothing,
-      _uTargets = Nothing,
-      _uRole = Nothing,
-      _uTablePrefix = Nothing,
-      _uDescription = Nothing,
-      _uSchedule = Nothing,
-      _uCrawlerSecurityConfiguration = Nothing,
-      _uDatabaseName = Nothing,
-      _uName = pName_
+    { schemaChangePolicy =
+        Prelude.Nothing,
+      recrawlPolicy = Prelude.Nothing,
+      classifiers = Prelude.Nothing,
+      configuration = Prelude.Nothing,
+      lineageConfiguration = Prelude.Nothing,
+      targets = Prelude.Nothing,
+      role' = Prelude.Nothing,
+      tablePrefix = Prelude.Nothing,
+      description = Prelude.Nothing,
+      schedule = Prelude.Nothing,
+      crawlerSecurityConfiguration = Prelude.Nothing,
+      databaseName = Prelude.Nothing,
+      name = pName_
     }
 
--- | The policy for the crawler's update and deletion behavior.
-uSchemaChangePolicy :: Lens' UpdateCrawler (Maybe SchemaChangePolicy)
-uSchemaChangePolicy = lens _uSchemaChangePolicy (\s a -> s {_uSchemaChangePolicy = a})
+-- | The policy for the crawler\'s update and deletion behavior.
+updateCrawler_schemaChangePolicy :: Lens.Lens' UpdateCrawler (Prelude.Maybe SchemaChangePolicy)
+updateCrawler_schemaChangePolicy = Lens.lens (\UpdateCrawler' {schemaChangePolicy} -> schemaChangePolicy) (\s@UpdateCrawler' {} a -> s {schemaChangePolicy = a} :: UpdateCrawler)
 
--- | A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since the last crawler run.
-uRecrawlPolicy :: Lens' UpdateCrawler (Maybe RecrawlPolicy)
-uRecrawlPolicy = lens _uRecrawlPolicy (\s a -> s {_uRecrawlPolicy = a})
+-- | A policy that specifies whether to crawl the entire dataset again, or to
+-- crawl only folders that were added since the last crawler run.
+updateCrawler_recrawlPolicy :: Lens.Lens' UpdateCrawler (Prelude.Maybe RecrawlPolicy)
+updateCrawler_recrawlPolicy = Lens.lens (\UpdateCrawler' {recrawlPolicy} -> recrawlPolicy) (\s@UpdateCrawler' {} a -> s {recrawlPolicy = a} :: UpdateCrawler)
 
--- | A list of custom classifiers that the user has registered. By default, all built-in classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification.
-uClassifiers :: Lens' UpdateCrawler [Text]
-uClassifiers = lens _uClassifiers (\s a -> s {_uClassifiers = a}) . _Default . _Coerce
+-- | A list of custom classifiers that the user has registered. By default,
+-- all built-in classifiers are included in a crawl, but these custom
+-- classifiers always override the default classifiers for a given
+-- classification.
+updateCrawler_classifiers :: Lens.Lens' UpdateCrawler (Prelude.Maybe [Prelude.Text])
+updateCrawler_classifiers = Lens.lens (\UpdateCrawler' {classifiers} -> classifiers) (\s@UpdateCrawler' {} a -> s {classifiers = a} :: UpdateCrawler) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's behavior. For more information, see <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler> .
-uConfiguration :: Lens' UpdateCrawler (Maybe Text)
-uConfiguration = lens _uConfiguration (\s a -> s {_uConfiguration = a})
+-- | Crawler configuration information. This versioned JSON string allows
+-- users to specify aspects of a crawler\'s behavior. For more information,
+-- see
+-- <https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html Configuring a Crawler>.
+updateCrawler_configuration :: Lens.Lens' UpdateCrawler (Prelude.Maybe Prelude.Text)
+updateCrawler_configuration = Lens.lens (\UpdateCrawler' {configuration} -> configuration) (\s@UpdateCrawler' {} a -> s {configuration = a} :: UpdateCrawler)
 
 -- | Specifies data lineage configuration settings for the crawler.
-uLineageConfiguration :: Lens' UpdateCrawler (Maybe LineageConfiguration)
-uLineageConfiguration = lens _uLineageConfiguration (\s a -> s {_uLineageConfiguration = a})
+updateCrawler_lineageConfiguration :: Lens.Lens' UpdateCrawler (Prelude.Maybe LineageConfiguration)
+updateCrawler_lineageConfiguration = Lens.lens (\UpdateCrawler' {lineageConfiguration} -> lineageConfiguration) (\s@UpdateCrawler' {} a -> s {lineageConfiguration = a} :: UpdateCrawler)
 
 -- | A list of targets to crawl.
-uTargets :: Lens' UpdateCrawler (Maybe CrawlerTargets)
-uTargets = lens _uTargets (\s a -> s {_uTargets = a})
+updateCrawler_targets :: Lens.Lens' UpdateCrawler (Prelude.Maybe CrawlerTargets)
+updateCrawler_targets = Lens.lens (\UpdateCrawler' {targets} -> targets) (\s@UpdateCrawler' {} a -> s {targets = a} :: UpdateCrawler)
 
--- | The IAM role or Amazon Resource Name (ARN) of an IAM role that is used by the new crawler to access customer resources.
-uRole :: Lens' UpdateCrawler (Maybe Text)
-uRole = lens _uRole (\s a -> s {_uRole = a})
+-- | The IAM role or Amazon Resource Name (ARN) of an IAM role that is used
+-- by the new crawler to access customer resources.
+updateCrawler_role :: Lens.Lens' UpdateCrawler (Prelude.Maybe Prelude.Text)
+updateCrawler_role = Lens.lens (\UpdateCrawler' {role'} -> role') (\s@UpdateCrawler' {} a -> s {role' = a} :: UpdateCrawler)
 
 -- | The table prefix used for catalog tables that are created.
-uTablePrefix :: Lens' UpdateCrawler (Maybe Text)
-uTablePrefix = lens _uTablePrefix (\s a -> s {_uTablePrefix = a})
+updateCrawler_tablePrefix :: Lens.Lens' UpdateCrawler (Prelude.Maybe Prelude.Text)
+updateCrawler_tablePrefix = Lens.lens (\UpdateCrawler' {tablePrefix} -> tablePrefix) (\s@UpdateCrawler' {} a -> s {tablePrefix = a} :: UpdateCrawler)
 
 -- | A description of the new crawler.
-uDescription :: Lens' UpdateCrawler (Maybe Text)
-uDescription = lens _uDescription (\s a -> s {_uDescription = a})
+updateCrawler_description :: Lens.Lens' UpdateCrawler (Prelude.Maybe Prelude.Text)
+updateCrawler_description = Lens.lens (\UpdateCrawler' {description} -> description) (\s@UpdateCrawler' {} a -> s {description = a} :: UpdateCrawler)
 
--- | A @cron@ expression used to specify the schedule (see <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
-uSchedule :: Lens' UpdateCrawler (Maybe Text)
-uSchedule = lens _uSchedule (\s a -> s {_uSchedule = a})
+-- | A @cron@ expression used to specify the schedule (see
+-- <https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers>.
+-- For example, to run something every day at 12:15 UTC, you would specify:
+-- @cron(15 12 * * ? *)@.
+updateCrawler_schedule :: Lens.Lens' UpdateCrawler (Prelude.Maybe Prelude.Text)
+updateCrawler_schedule = Lens.lens (\UpdateCrawler' {schedule} -> schedule) (\s@UpdateCrawler' {} a -> s {schedule = a} :: UpdateCrawler)
 
--- | The name of the @SecurityConfiguration@ structure to be used by this crawler.
-uCrawlerSecurityConfiguration :: Lens' UpdateCrawler (Maybe Text)
-uCrawlerSecurityConfiguration = lens _uCrawlerSecurityConfiguration (\s a -> s {_uCrawlerSecurityConfiguration = a})
+-- | The name of the @SecurityConfiguration@ structure to be used by this
+-- crawler.
+updateCrawler_crawlerSecurityConfiguration :: Lens.Lens' UpdateCrawler (Prelude.Maybe Prelude.Text)
+updateCrawler_crawlerSecurityConfiguration = Lens.lens (\UpdateCrawler' {crawlerSecurityConfiguration} -> crawlerSecurityConfiguration) (\s@UpdateCrawler' {} a -> s {crawlerSecurityConfiguration = a} :: UpdateCrawler)
 
--- | The AWS Glue database where results are stored, such as: @arn:aws:daylight:us-east-1::database/sometable/*@ .
-uDatabaseName :: Lens' UpdateCrawler (Maybe Text)
-uDatabaseName = lens _uDatabaseName (\s a -> s {_uDatabaseName = a})
+-- | The AWS Glue database where results are stored, such as:
+-- @arn:aws:daylight:us-east-1::database\/sometable\/*@.
+updateCrawler_databaseName :: Lens.Lens' UpdateCrawler (Prelude.Maybe Prelude.Text)
+updateCrawler_databaseName = Lens.lens (\UpdateCrawler' {databaseName} -> databaseName) (\s@UpdateCrawler' {} a -> s {databaseName = a} :: UpdateCrawler)
 
 -- | Name of the new crawler.
-uName :: Lens' UpdateCrawler Text
-uName = lens _uName (\s a -> s {_uName = a})
+updateCrawler_name :: Lens.Lens' UpdateCrawler Prelude.Text
+updateCrawler_name = Lens.lens (\UpdateCrawler' {name} -> name) (\s@UpdateCrawler' {} a -> s {name = a} :: UpdateCrawler)
 
-instance AWSRequest UpdateCrawler where
+instance Prelude.AWSRequest UpdateCrawler where
   type Rs UpdateCrawler = UpdateCrawlerResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateCrawlerResponse' <$> (pure (fromEnum s))
+          UpdateCrawlerResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateCrawler
+instance Prelude.Hashable UpdateCrawler
 
-instance NFData UpdateCrawler
+instance Prelude.NFData UpdateCrawler
 
-instance ToHeaders UpdateCrawler where
+instance Prelude.ToHeaders UpdateCrawler where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.UpdateCrawler" :: ByteString),
+              Prelude.=# ("AWSGlue.UpdateCrawler" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateCrawler where
+instance Prelude.ToJSON UpdateCrawler where
   toJSON UpdateCrawler' {..} =
-    object
-      ( catMaybes
-          [ ("SchemaChangePolicy" .=) <$> _uSchemaChangePolicy,
-            ("RecrawlPolicy" .=) <$> _uRecrawlPolicy,
-            ("Classifiers" .=) <$> _uClassifiers,
-            ("Configuration" .=) <$> _uConfiguration,
-            ("LineageConfiguration" .=)
-              <$> _uLineageConfiguration,
-            ("Targets" .=) <$> _uTargets,
-            ("Role" .=) <$> _uRole,
-            ("TablePrefix" .=) <$> _uTablePrefix,
-            ("Description" .=) <$> _uDescription,
-            ("Schedule" .=) <$> _uSchedule,
-            ("CrawlerSecurityConfiguration" .=)
-              <$> _uCrawlerSecurityConfiguration,
-            ("DatabaseName" .=) <$> _uDatabaseName,
-            Just ("Name" .= _uName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SchemaChangePolicy" Prelude..=)
+              Prelude.<$> schemaChangePolicy,
+            ("RecrawlPolicy" Prelude..=)
+              Prelude.<$> recrawlPolicy,
+            ("Classifiers" Prelude..=) Prelude.<$> classifiers,
+            ("Configuration" Prelude..=)
+              Prelude.<$> configuration,
+            ("LineageConfiguration" Prelude..=)
+              Prelude.<$> lineageConfiguration,
+            ("Targets" Prelude..=) Prelude.<$> targets,
+            ("Role" Prelude..=) Prelude.<$> role',
+            ("TablePrefix" Prelude..=) Prelude.<$> tablePrefix,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("Schedule" Prelude..=) Prelude.<$> schedule,
+            ("CrawlerSecurityConfiguration" Prelude..=)
+              Prelude.<$> crawlerSecurityConfiguration,
+            ("DatabaseName" Prelude..=) Prelude.<$> databaseName,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath UpdateCrawler where
-  toPath = const "/"
+instance Prelude.ToPath UpdateCrawler where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateCrawler where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateCrawler where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateCrawlerResponse' smart constructor.
-newtype UpdateCrawlerResponse = UpdateCrawlerResponse'
-  { _ucrcrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateCrawlerResponse' smart constructor.
+data UpdateCrawlerResponse = UpdateCrawlerResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCrawlerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCrawlerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucrcrsResponseStatus' - -- | The response status code.
-updateCrawlerResponse ::
-  -- | 'ucrcrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateCrawlerResponse_httpStatus' - The response's http status code.
+newUpdateCrawlerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateCrawlerResponse
-updateCrawlerResponse pResponseStatus_ =
-  UpdateCrawlerResponse'
-    { _ucrcrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateCrawlerResponse pHttpStatus_ =
+  UpdateCrawlerResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ucrcrsResponseStatus :: Lens' UpdateCrawlerResponse Int
-ucrcrsResponseStatus = lens _ucrcrsResponseStatus (\s a -> s {_ucrcrsResponseStatus = a})
+-- | The response's http status code.
+updateCrawlerResponse_httpStatus :: Lens.Lens' UpdateCrawlerResponse Prelude.Int
+updateCrawlerResponse_httpStatus = Lens.lens (\UpdateCrawlerResponse' {httpStatus} -> httpStatus) (\s@UpdateCrawlerResponse' {} a -> s {httpStatus = a} :: UpdateCrawlerResponse)
 
-instance NFData UpdateCrawlerResponse
+instance Prelude.NFData UpdateCrawlerResponse

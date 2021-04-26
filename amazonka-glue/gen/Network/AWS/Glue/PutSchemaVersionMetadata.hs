@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,275 +21,261 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Puts the metadata key value pair for a specified schema version ID. A maximum of 10 key value pairs will be allowed per schema version. They can be added over one or more calls.
+-- Puts the metadata key value pair for a specified schema version ID. A
+-- maximum of 10 key value pairs will be allowed per schema version. They
+-- can be added over one or more calls.
 module Network.AWS.Glue.PutSchemaVersionMetadata
   ( -- * Creating a Request
-    putSchemaVersionMetadata,
-    PutSchemaVersionMetadata,
+    PutSchemaVersionMetadata (..),
+    newPutSchemaVersionMetadata,
 
     -- * Request Lenses
-    psvmSchemaVersionId,
-    psvmSchemaVersionNumber,
-    psvmSchemaId,
-    psvmMetadataKeyValue,
+    putSchemaVersionMetadata_schemaVersionId,
+    putSchemaVersionMetadata_schemaVersionNumber,
+    putSchemaVersionMetadata_schemaId,
+    putSchemaVersionMetadata_metadataKeyValue,
 
     -- * Destructuring the Response
-    putSchemaVersionMetadataResponse,
-    PutSchemaVersionMetadataResponse,
+    PutSchemaVersionMetadataResponse (..),
+    newPutSchemaVersionMetadataResponse,
 
     -- * Response Lenses
-    psvmrrsSchemaARN,
-    psvmrrsLatestVersion,
-    psvmrrsSchemaVersionId,
-    psvmrrsMetadataKey,
-    psvmrrsRegistryName,
-    psvmrrsVersionNumber,
-    psvmrrsSchemaName,
-    psvmrrsMetadataValue,
-    psvmrrsResponseStatus,
+    putSchemaVersionMetadataResponse_schemaArn,
+    putSchemaVersionMetadataResponse_latestVersion,
+    putSchemaVersionMetadataResponse_schemaVersionId,
+    putSchemaVersionMetadataResponse_metadataKey,
+    putSchemaVersionMetadataResponse_registryName,
+    putSchemaVersionMetadataResponse_versionNumber,
+    putSchemaVersionMetadataResponse_schemaName,
+    putSchemaVersionMetadataResponse_metadataValue,
+    putSchemaVersionMetadataResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putSchemaVersionMetadata' smart constructor.
+-- | /See:/ 'newPutSchemaVersionMetadata' smart constructor.
 data PutSchemaVersionMetadata = PutSchemaVersionMetadata'
-  { _psvmSchemaVersionId ::
-      !(Maybe Text),
-    _psvmSchemaVersionNumber ::
-      !( Maybe
-           SchemaVersionNumber
-       ),
-    _psvmSchemaId ::
-      !(Maybe SchemaId),
-    _psvmMetadataKeyValue ::
-      !MetadataKeyValuePair
+  { -- | The unique version ID of the schema version.
+    schemaVersionId :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the schema.
+    schemaVersionNumber :: Prelude.Maybe SchemaVersionNumber,
+    -- | The unique ID for the schema.
+    schemaId :: Prelude.Maybe SchemaId,
+    -- | The metadata key\'s corresponding value.
+    metadataKeyValue :: MetadataKeyValuePair
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutSchemaVersionMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutSchemaVersionMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psvmSchemaVersionId' - The unique version ID of the schema version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psvmSchemaVersionNumber' - The version number of the schema.
+-- 'schemaVersionId', 'putSchemaVersionMetadata_schemaVersionId' - The unique version ID of the schema version.
 --
--- * 'psvmSchemaId' - The unique ID for the schema.
+-- 'schemaVersionNumber', 'putSchemaVersionMetadata_schemaVersionNumber' - The version number of the schema.
 --
--- * 'psvmMetadataKeyValue' - The metadata key's corresponding value.
-putSchemaVersionMetadata ::
-  -- | 'psvmMetadataKeyValue'
+-- 'schemaId', 'putSchemaVersionMetadata_schemaId' - The unique ID for the schema.
+--
+-- 'metadataKeyValue', 'putSchemaVersionMetadata_metadataKeyValue' - The metadata key\'s corresponding value.
+newPutSchemaVersionMetadata ::
+  -- | 'metadataKeyValue'
   MetadataKeyValuePair ->
   PutSchemaVersionMetadata
-putSchemaVersionMetadata pMetadataKeyValue_ =
+newPutSchemaVersionMetadata pMetadataKeyValue_ =
   PutSchemaVersionMetadata'
-    { _psvmSchemaVersionId =
-        Nothing,
-      _psvmSchemaVersionNumber = Nothing,
-      _psvmSchemaId = Nothing,
-      _psvmMetadataKeyValue = pMetadataKeyValue_
+    { schemaVersionId =
+        Prelude.Nothing,
+      schemaVersionNumber = Prelude.Nothing,
+      schemaId = Prelude.Nothing,
+      metadataKeyValue = pMetadataKeyValue_
     }
 
 -- | The unique version ID of the schema version.
-psvmSchemaVersionId :: Lens' PutSchemaVersionMetadata (Maybe Text)
-psvmSchemaVersionId = lens _psvmSchemaVersionId (\s a -> s {_psvmSchemaVersionId = a})
+putSchemaVersionMetadata_schemaVersionId :: Lens.Lens' PutSchemaVersionMetadata (Prelude.Maybe Prelude.Text)
+putSchemaVersionMetadata_schemaVersionId = Lens.lens (\PutSchemaVersionMetadata' {schemaVersionId} -> schemaVersionId) (\s@PutSchemaVersionMetadata' {} a -> s {schemaVersionId = a} :: PutSchemaVersionMetadata)
 
 -- | The version number of the schema.
-psvmSchemaVersionNumber :: Lens' PutSchemaVersionMetadata (Maybe SchemaVersionNumber)
-psvmSchemaVersionNumber = lens _psvmSchemaVersionNumber (\s a -> s {_psvmSchemaVersionNumber = a})
+putSchemaVersionMetadata_schemaVersionNumber :: Lens.Lens' PutSchemaVersionMetadata (Prelude.Maybe SchemaVersionNumber)
+putSchemaVersionMetadata_schemaVersionNumber = Lens.lens (\PutSchemaVersionMetadata' {schemaVersionNumber} -> schemaVersionNumber) (\s@PutSchemaVersionMetadata' {} a -> s {schemaVersionNumber = a} :: PutSchemaVersionMetadata)
 
 -- | The unique ID for the schema.
-psvmSchemaId :: Lens' PutSchemaVersionMetadata (Maybe SchemaId)
-psvmSchemaId = lens _psvmSchemaId (\s a -> s {_psvmSchemaId = a})
+putSchemaVersionMetadata_schemaId :: Lens.Lens' PutSchemaVersionMetadata (Prelude.Maybe SchemaId)
+putSchemaVersionMetadata_schemaId = Lens.lens (\PutSchemaVersionMetadata' {schemaId} -> schemaId) (\s@PutSchemaVersionMetadata' {} a -> s {schemaId = a} :: PutSchemaVersionMetadata)
 
--- | The metadata key's corresponding value.
-psvmMetadataKeyValue :: Lens' PutSchemaVersionMetadata MetadataKeyValuePair
-psvmMetadataKeyValue = lens _psvmMetadataKeyValue (\s a -> s {_psvmMetadataKeyValue = a})
+-- | The metadata key\'s corresponding value.
+putSchemaVersionMetadata_metadataKeyValue :: Lens.Lens' PutSchemaVersionMetadata MetadataKeyValuePair
+putSchemaVersionMetadata_metadataKeyValue = Lens.lens (\PutSchemaVersionMetadata' {metadataKeyValue} -> metadataKeyValue) (\s@PutSchemaVersionMetadata' {} a -> s {metadataKeyValue = a} :: PutSchemaVersionMetadata)
 
-instance AWSRequest PutSchemaVersionMetadata where
+instance Prelude.AWSRequest PutSchemaVersionMetadata where
   type
     Rs PutSchemaVersionMetadata =
       PutSchemaVersionMetadataResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutSchemaVersionMetadataResponse'
-            <$> (x .?> "SchemaArn")
-            <*> (x .?> "LatestVersion")
-            <*> (x .?> "SchemaVersionId")
-            <*> (x .?> "MetadataKey")
-            <*> (x .?> "RegistryName")
-            <*> (x .?> "VersionNumber")
-            <*> (x .?> "SchemaName")
-            <*> (x .?> "MetadataValue")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SchemaArn")
+            Prelude.<*> (x Prelude..?> "LatestVersion")
+            Prelude.<*> (x Prelude..?> "SchemaVersionId")
+            Prelude.<*> (x Prelude..?> "MetadataKey")
+            Prelude.<*> (x Prelude..?> "RegistryName")
+            Prelude.<*> (x Prelude..?> "VersionNumber")
+            Prelude.<*> (x Prelude..?> "SchemaName")
+            Prelude.<*> (x Prelude..?> "MetadataValue")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutSchemaVersionMetadata
+instance Prelude.Hashable PutSchemaVersionMetadata
 
-instance NFData PutSchemaVersionMetadata
+instance Prelude.NFData PutSchemaVersionMetadata
 
-instance ToHeaders PutSchemaVersionMetadata where
+instance Prelude.ToHeaders PutSchemaVersionMetadata where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.PutSchemaVersionMetadata" :: ByteString),
+              Prelude.=# ( "AWSGlue.PutSchemaVersionMetadata" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutSchemaVersionMetadata where
+instance Prelude.ToJSON PutSchemaVersionMetadata where
   toJSON PutSchemaVersionMetadata' {..} =
-    object
-      ( catMaybes
-          [ ("SchemaVersionId" .=) <$> _psvmSchemaVersionId,
-            ("SchemaVersionNumber" .=)
-              <$> _psvmSchemaVersionNumber,
-            ("SchemaId" .=) <$> _psvmSchemaId,
-            Just ("MetadataKeyValue" .= _psvmMetadataKeyValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SchemaVersionId" Prelude..=)
+              Prelude.<$> schemaVersionId,
+            ("SchemaVersionNumber" Prelude..=)
+              Prelude.<$> schemaVersionNumber,
+            ("SchemaId" Prelude..=) Prelude.<$> schemaId,
+            Prelude.Just
+              ("MetadataKeyValue" Prelude..= metadataKeyValue)
           ]
       )
 
-instance ToPath PutSchemaVersionMetadata where
-  toPath = const "/"
+instance Prelude.ToPath PutSchemaVersionMetadata where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutSchemaVersionMetadata where
-  toQuery = const mempty
+instance Prelude.ToQuery PutSchemaVersionMetadata where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putSchemaVersionMetadataResponse' smart constructor.
+-- | /See:/ 'newPutSchemaVersionMetadataResponse' smart constructor.
 data PutSchemaVersionMetadataResponse = PutSchemaVersionMetadataResponse'
-  { _psvmrrsSchemaARN ::
-      !( Maybe
-           Text
-       ),
-    _psvmrrsLatestVersion ::
-      !( Maybe
-           Bool
-       ),
-    _psvmrrsSchemaVersionId ::
-      !( Maybe
-           Text
-       ),
-    _psvmrrsMetadataKey ::
-      !( Maybe
-           Text
-       ),
-    _psvmrrsRegistryName ::
-      !( Maybe
-           Text
-       ),
-    _psvmrrsVersionNumber ::
-      !( Maybe
-           Nat
-       ),
-    _psvmrrsSchemaName ::
-      !( Maybe
-           Text
-       ),
-    _psvmrrsMetadataValue ::
-      !( Maybe
-           Text
-       ),
-    _psvmrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) for the schema.
+    schemaArn :: Prelude.Maybe Prelude.Text,
+    -- | The latest version of the schema.
+    latestVersion :: Prelude.Maybe Prelude.Bool,
+    -- | The unique version ID of the schema version.
+    schemaVersionId :: Prelude.Maybe Prelude.Text,
+    -- | The metadata key.
+    metadataKey :: Prelude.Maybe Prelude.Text,
+    -- | The name for the registry.
+    registryName :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the schema.
+    versionNumber :: Prelude.Maybe Prelude.Nat,
+    -- | The name for the schema.
+    schemaName :: Prelude.Maybe Prelude.Text,
+    -- | The value of the metadata key.
+    metadataValue :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutSchemaVersionMetadataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutSchemaVersionMetadataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psvmrrsSchemaARN' - The Amazon Resource Name (ARN) for the schema.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psvmrrsLatestVersion' - The latest version of the schema.
+-- 'schemaArn', 'putSchemaVersionMetadataResponse_schemaArn' - The Amazon Resource Name (ARN) for the schema.
 --
--- * 'psvmrrsSchemaVersionId' - The unique version ID of the schema version.
+-- 'latestVersion', 'putSchemaVersionMetadataResponse_latestVersion' - The latest version of the schema.
 --
--- * 'psvmrrsMetadataKey' - The metadata key.
+-- 'schemaVersionId', 'putSchemaVersionMetadataResponse_schemaVersionId' - The unique version ID of the schema version.
 --
--- * 'psvmrrsRegistryName' - The name for the registry.
+-- 'metadataKey', 'putSchemaVersionMetadataResponse_metadataKey' - The metadata key.
 --
--- * 'psvmrrsVersionNumber' - The version number of the schema.
+-- 'registryName', 'putSchemaVersionMetadataResponse_registryName' - The name for the registry.
 --
--- * 'psvmrrsSchemaName' - The name for the schema.
+-- 'versionNumber', 'putSchemaVersionMetadataResponse_versionNumber' - The version number of the schema.
 --
--- * 'psvmrrsMetadataValue' - The value of the metadata key.
+-- 'schemaName', 'putSchemaVersionMetadataResponse_schemaName' - The name for the schema.
 --
--- * 'psvmrrsResponseStatus' - -- | The response status code.
-putSchemaVersionMetadataResponse ::
-  -- | 'psvmrrsResponseStatus'
-  Int ->
+-- 'metadataValue', 'putSchemaVersionMetadataResponse_metadataValue' - The value of the metadata key.
+--
+-- 'httpStatus', 'putSchemaVersionMetadataResponse_httpStatus' - The response's http status code.
+newPutSchemaVersionMetadataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutSchemaVersionMetadataResponse
-putSchemaVersionMetadataResponse pResponseStatus_ =
+newPutSchemaVersionMetadataResponse pHttpStatus_ =
   PutSchemaVersionMetadataResponse'
-    { _psvmrrsSchemaARN =
-        Nothing,
-      _psvmrrsLatestVersion = Nothing,
-      _psvmrrsSchemaVersionId = Nothing,
-      _psvmrrsMetadataKey = Nothing,
-      _psvmrrsRegistryName = Nothing,
-      _psvmrrsVersionNumber = Nothing,
-      _psvmrrsSchemaName = Nothing,
-      _psvmrrsMetadataValue = Nothing,
-      _psvmrrsResponseStatus = pResponseStatus_
+    { schemaArn =
+        Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      schemaVersionId = Prelude.Nothing,
+      metadataKey = Prelude.Nothing,
+      registryName = Prelude.Nothing,
+      versionNumber = Prelude.Nothing,
+      schemaName = Prelude.Nothing,
+      metadataValue = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) for the schema.
-psvmrrsSchemaARN :: Lens' PutSchemaVersionMetadataResponse (Maybe Text)
-psvmrrsSchemaARN = lens _psvmrrsSchemaARN (\s a -> s {_psvmrrsSchemaARN = a})
+putSchemaVersionMetadataResponse_schemaArn :: Lens.Lens' PutSchemaVersionMetadataResponse (Prelude.Maybe Prelude.Text)
+putSchemaVersionMetadataResponse_schemaArn = Lens.lens (\PutSchemaVersionMetadataResponse' {schemaArn} -> schemaArn) (\s@PutSchemaVersionMetadataResponse' {} a -> s {schemaArn = a} :: PutSchemaVersionMetadataResponse)
 
 -- | The latest version of the schema.
-psvmrrsLatestVersion :: Lens' PutSchemaVersionMetadataResponse (Maybe Bool)
-psvmrrsLatestVersion = lens _psvmrrsLatestVersion (\s a -> s {_psvmrrsLatestVersion = a})
+putSchemaVersionMetadataResponse_latestVersion :: Lens.Lens' PutSchemaVersionMetadataResponse (Prelude.Maybe Prelude.Bool)
+putSchemaVersionMetadataResponse_latestVersion = Lens.lens (\PutSchemaVersionMetadataResponse' {latestVersion} -> latestVersion) (\s@PutSchemaVersionMetadataResponse' {} a -> s {latestVersion = a} :: PutSchemaVersionMetadataResponse)
 
 -- | The unique version ID of the schema version.
-psvmrrsSchemaVersionId :: Lens' PutSchemaVersionMetadataResponse (Maybe Text)
-psvmrrsSchemaVersionId = lens _psvmrrsSchemaVersionId (\s a -> s {_psvmrrsSchemaVersionId = a})
+putSchemaVersionMetadataResponse_schemaVersionId :: Lens.Lens' PutSchemaVersionMetadataResponse (Prelude.Maybe Prelude.Text)
+putSchemaVersionMetadataResponse_schemaVersionId = Lens.lens (\PutSchemaVersionMetadataResponse' {schemaVersionId} -> schemaVersionId) (\s@PutSchemaVersionMetadataResponse' {} a -> s {schemaVersionId = a} :: PutSchemaVersionMetadataResponse)
 
 -- | The metadata key.
-psvmrrsMetadataKey :: Lens' PutSchemaVersionMetadataResponse (Maybe Text)
-psvmrrsMetadataKey = lens _psvmrrsMetadataKey (\s a -> s {_psvmrrsMetadataKey = a})
+putSchemaVersionMetadataResponse_metadataKey :: Lens.Lens' PutSchemaVersionMetadataResponse (Prelude.Maybe Prelude.Text)
+putSchemaVersionMetadataResponse_metadataKey = Lens.lens (\PutSchemaVersionMetadataResponse' {metadataKey} -> metadataKey) (\s@PutSchemaVersionMetadataResponse' {} a -> s {metadataKey = a} :: PutSchemaVersionMetadataResponse)
 
 -- | The name for the registry.
-psvmrrsRegistryName :: Lens' PutSchemaVersionMetadataResponse (Maybe Text)
-psvmrrsRegistryName = lens _psvmrrsRegistryName (\s a -> s {_psvmrrsRegistryName = a})
+putSchemaVersionMetadataResponse_registryName :: Lens.Lens' PutSchemaVersionMetadataResponse (Prelude.Maybe Prelude.Text)
+putSchemaVersionMetadataResponse_registryName = Lens.lens (\PutSchemaVersionMetadataResponse' {registryName} -> registryName) (\s@PutSchemaVersionMetadataResponse' {} a -> s {registryName = a} :: PutSchemaVersionMetadataResponse)
 
 -- | The version number of the schema.
-psvmrrsVersionNumber :: Lens' PutSchemaVersionMetadataResponse (Maybe Natural)
-psvmrrsVersionNumber = lens _psvmrrsVersionNumber (\s a -> s {_psvmrrsVersionNumber = a}) . mapping _Nat
+putSchemaVersionMetadataResponse_versionNumber :: Lens.Lens' PutSchemaVersionMetadataResponse (Prelude.Maybe Prelude.Natural)
+putSchemaVersionMetadataResponse_versionNumber = Lens.lens (\PutSchemaVersionMetadataResponse' {versionNumber} -> versionNumber) (\s@PutSchemaVersionMetadataResponse' {} a -> s {versionNumber = a} :: PutSchemaVersionMetadataResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name for the schema.
-psvmrrsSchemaName :: Lens' PutSchemaVersionMetadataResponse (Maybe Text)
-psvmrrsSchemaName = lens _psvmrrsSchemaName (\s a -> s {_psvmrrsSchemaName = a})
+putSchemaVersionMetadataResponse_schemaName :: Lens.Lens' PutSchemaVersionMetadataResponse (Prelude.Maybe Prelude.Text)
+putSchemaVersionMetadataResponse_schemaName = Lens.lens (\PutSchemaVersionMetadataResponse' {schemaName} -> schemaName) (\s@PutSchemaVersionMetadataResponse' {} a -> s {schemaName = a} :: PutSchemaVersionMetadataResponse)
 
 -- | The value of the metadata key.
-psvmrrsMetadataValue :: Lens' PutSchemaVersionMetadataResponse (Maybe Text)
-psvmrrsMetadataValue = lens _psvmrrsMetadataValue (\s a -> s {_psvmrrsMetadataValue = a})
+putSchemaVersionMetadataResponse_metadataValue :: Lens.Lens' PutSchemaVersionMetadataResponse (Prelude.Maybe Prelude.Text)
+putSchemaVersionMetadataResponse_metadataValue = Lens.lens (\PutSchemaVersionMetadataResponse' {metadataValue} -> metadataValue) (\s@PutSchemaVersionMetadataResponse' {} a -> s {metadataValue = a} :: PutSchemaVersionMetadataResponse)
 
--- | -- | The response status code.
-psvmrrsResponseStatus :: Lens' PutSchemaVersionMetadataResponse Int
-psvmrrsResponseStatus = lens _psvmrrsResponseStatus (\s a -> s {_psvmrrsResponseStatus = a})
+-- | The response's http status code.
+putSchemaVersionMetadataResponse_httpStatus :: Lens.Lens' PutSchemaVersionMetadataResponse Prelude.Int
+putSchemaVersionMetadataResponse_httpStatus = Lens.lens (\PutSchemaVersionMetadataResponse' {httpStatus} -> httpStatus) (\s@PutSchemaVersionMetadataResponse' {} a -> s {httpStatus = a} :: PutSchemaVersionMetadataResponse)
 
-instance NFData PutSchemaVersionMetadataResponse
+instance
+  Prelude.NFData
+    PutSchemaVersionMetadataResponse

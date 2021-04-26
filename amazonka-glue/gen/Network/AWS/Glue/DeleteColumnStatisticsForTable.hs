@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,183 +23,200 @@
 --
 -- Retrieves table statistics of columns.
 --
---
--- The Identity and Access Management (IAM) permission required for this operation is @DeleteTable@ .
+-- The Identity and Access Management (IAM) permission required for this
+-- operation is @DeleteTable@.
 module Network.AWS.Glue.DeleteColumnStatisticsForTable
   ( -- * Creating a Request
-    deleteColumnStatisticsForTable,
-    DeleteColumnStatisticsForTable,
+    DeleteColumnStatisticsForTable (..),
+    newDeleteColumnStatisticsForTable,
 
     -- * Request Lenses
-    dcsftCatalogId,
-    dcsftDatabaseName,
-    dcsftTableName,
-    dcsftColumnName,
+    deleteColumnStatisticsForTable_catalogId,
+    deleteColumnStatisticsForTable_databaseName,
+    deleteColumnStatisticsForTable_tableName,
+    deleteColumnStatisticsForTable_columnName,
 
     -- * Destructuring the Response
-    deleteColumnStatisticsForTableResponse,
-    DeleteColumnStatisticsForTableResponse,
+    DeleteColumnStatisticsForTableResponse (..),
+    newDeleteColumnStatisticsForTableResponse,
 
     -- * Response Lenses
-    dcsftrrsResponseStatus,
+    deleteColumnStatisticsForTableResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteColumnStatisticsForTable' smart constructor.
+-- | /See:/ 'newDeleteColumnStatisticsForTable' smart constructor.
 data DeleteColumnStatisticsForTable = DeleteColumnStatisticsForTable'
-  { _dcsftCatalogId ::
-      !( Maybe
-           Text
-       ),
-    _dcsftDatabaseName ::
-      !Text,
-    _dcsftTableName ::
-      !Text,
-    _dcsftColumnName ::
-      !Text
+  { -- | The ID of the Data Catalog where the partitions in question reside. If
+    -- none is supplied, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the catalog database where the partitions reside.
+    databaseName :: Prelude.Text,
+    -- | The name of the partitions\' table.
+    tableName :: Prelude.Text,
+    -- | The name of the column.
+    columnName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteColumnStatisticsForTable' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteColumnStatisticsForTable' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsftCatalogId' - The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsftDatabaseName' - The name of the catalog database where the partitions reside.
+-- 'catalogId', 'deleteColumnStatisticsForTable_catalogId' - The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
 --
--- * 'dcsftTableName' - The name of the partitions' table.
+-- 'databaseName', 'deleteColumnStatisticsForTable_databaseName' - The name of the catalog database where the partitions reside.
 --
--- * 'dcsftColumnName' - The name of the column.
-deleteColumnStatisticsForTable ::
-  -- | 'dcsftDatabaseName'
-  Text ->
-  -- | 'dcsftTableName'
-  Text ->
-  -- | 'dcsftColumnName'
-  Text ->
+-- 'tableName', 'deleteColumnStatisticsForTable_tableName' - The name of the partitions\' table.
+--
+-- 'columnName', 'deleteColumnStatisticsForTable_columnName' - The name of the column.
+newDeleteColumnStatisticsForTable ::
+  -- | 'databaseName'
+  Prelude.Text ->
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'columnName'
+  Prelude.Text ->
   DeleteColumnStatisticsForTable
-deleteColumnStatisticsForTable
+newDeleteColumnStatisticsForTable
   pDatabaseName_
   pTableName_
   pColumnName_ =
     DeleteColumnStatisticsForTable'
-      { _dcsftCatalogId =
-          Nothing,
-        _dcsftDatabaseName = pDatabaseName_,
-        _dcsftTableName = pTableName_,
-        _dcsftColumnName = pColumnName_
+      { catalogId =
+          Prelude.Nothing,
+        databaseName = pDatabaseName_,
+        tableName = pTableName_,
+        columnName = pColumnName_
       }
 
--- | The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.
-dcsftCatalogId :: Lens' DeleteColumnStatisticsForTable (Maybe Text)
-dcsftCatalogId = lens _dcsftCatalogId (\s a -> s {_dcsftCatalogId = a})
+-- | The ID of the Data Catalog where the partitions in question reside. If
+-- none is supplied, the AWS account ID is used by default.
+deleteColumnStatisticsForTable_catalogId :: Lens.Lens' DeleteColumnStatisticsForTable (Prelude.Maybe Prelude.Text)
+deleteColumnStatisticsForTable_catalogId = Lens.lens (\DeleteColumnStatisticsForTable' {catalogId} -> catalogId) (\s@DeleteColumnStatisticsForTable' {} a -> s {catalogId = a} :: DeleteColumnStatisticsForTable)
 
 -- | The name of the catalog database where the partitions reside.
-dcsftDatabaseName :: Lens' DeleteColumnStatisticsForTable Text
-dcsftDatabaseName = lens _dcsftDatabaseName (\s a -> s {_dcsftDatabaseName = a})
+deleteColumnStatisticsForTable_databaseName :: Lens.Lens' DeleteColumnStatisticsForTable Prelude.Text
+deleteColumnStatisticsForTable_databaseName = Lens.lens (\DeleteColumnStatisticsForTable' {databaseName} -> databaseName) (\s@DeleteColumnStatisticsForTable' {} a -> s {databaseName = a} :: DeleteColumnStatisticsForTable)
 
--- | The name of the partitions' table.
-dcsftTableName :: Lens' DeleteColumnStatisticsForTable Text
-dcsftTableName = lens _dcsftTableName (\s a -> s {_dcsftTableName = a})
+-- | The name of the partitions\' table.
+deleteColumnStatisticsForTable_tableName :: Lens.Lens' DeleteColumnStatisticsForTable Prelude.Text
+deleteColumnStatisticsForTable_tableName = Lens.lens (\DeleteColumnStatisticsForTable' {tableName} -> tableName) (\s@DeleteColumnStatisticsForTable' {} a -> s {tableName = a} :: DeleteColumnStatisticsForTable)
 
 -- | The name of the column.
-dcsftColumnName :: Lens' DeleteColumnStatisticsForTable Text
-dcsftColumnName = lens _dcsftColumnName (\s a -> s {_dcsftColumnName = a})
+deleteColumnStatisticsForTable_columnName :: Lens.Lens' DeleteColumnStatisticsForTable Prelude.Text
+deleteColumnStatisticsForTable_columnName = Lens.lens (\DeleteColumnStatisticsForTable' {columnName} -> columnName) (\s@DeleteColumnStatisticsForTable' {} a -> s {columnName = a} :: DeleteColumnStatisticsForTable)
 
-instance AWSRequest DeleteColumnStatisticsForTable where
+instance
+  Prelude.AWSRequest
+    DeleteColumnStatisticsForTable
+  where
   type
     Rs DeleteColumnStatisticsForTable =
       DeleteColumnStatisticsForTableResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteColumnStatisticsForTableResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable DeleteColumnStatisticsForTable
-
-instance NFData DeleteColumnStatisticsForTable
-
-instance ToHeaders DeleteColumnStatisticsForTable where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "AWSGlue.DeleteColumnStatisticsForTable" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON DeleteColumnStatisticsForTable where
-  toJSON DeleteColumnStatisticsForTable' {..} =
-    object
-      ( catMaybes
-          [ ("CatalogId" .=) <$> _dcsftCatalogId,
-            Just ("DatabaseName" .= _dcsftDatabaseName),
-            Just ("TableName" .= _dcsftTableName),
-            Just ("ColumnName" .= _dcsftColumnName)
-          ]
-      )
-
-instance ToPath DeleteColumnStatisticsForTable where
-  toPath = const "/"
-
-instance ToQuery DeleteColumnStatisticsForTable where
-  toQuery = const mempty
-
--- | /See:/ 'deleteColumnStatisticsForTableResponse' smart constructor.
-newtype DeleteColumnStatisticsForTableResponse = DeleteColumnStatisticsForTableResponse'
-  { _dcsftrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DeleteColumnStatisticsForTableResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dcsftrrsResponseStatus' - -- | The response status code.
-deleteColumnStatisticsForTableResponse ::
-  -- | 'dcsftrrsResponseStatus'
-  Int ->
-  DeleteColumnStatisticsForTableResponse
-deleteColumnStatisticsForTableResponse
-  pResponseStatus_ =
-    DeleteColumnStatisticsForTableResponse'
-      { _dcsftrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-dcsftrrsResponseStatus :: Lens' DeleteColumnStatisticsForTableResponse Int
-dcsftrrsResponseStatus = lens _dcsftrrsResponseStatus (\s a -> s {_dcsftrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    DeleteColumnStatisticsForTable
+
+instance
+  Prelude.NFData
+    DeleteColumnStatisticsForTable
+
+instance
+  Prelude.ToHeaders
+    DeleteColumnStatisticsForTable
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "AWSGlue.DeleteColumnStatisticsForTable" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    DeleteColumnStatisticsForTable
+  where
+  toJSON DeleteColumnStatisticsForTable' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CatalogId" Prelude..=) Prelude.<$> catalogId,
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName),
+            Prelude.Just ("TableName" Prelude..= tableName),
+            Prelude.Just ("ColumnName" Prelude..= columnName)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    DeleteColumnStatisticsForTable
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DeleteColumnStatisticsForTable
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDeleteColumnStatisticsForTableResponse' smart constructor.
+data DeleteColumnStatisticsForTableResponse = DeleteColumnStatisticsForTableResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DeleteColumnStatisticsForTableResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteColumnStatisticsForTableResponse_httpStatus' - The response's http status code.
+newDeleteColumnStatisticsForTableResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DeleteColumnStatisticsForTableResponse
+newDeleteColumnStatisticsForTableResponse
+  pHttpStatus_ =
+    DeleteColumnStatisticsForTableResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+deleteColumnStatisticsForTableResponse_httpStatus :: Lens.Lens' DeleteColumnStatisticsForTableResponse Prelude.Int
+deleteColumnStatisticsForTableResponse_httpStatus = Lens.lens (\DeleteColumnStatisticsForTableResponse' {httpStatus} -> httpStatus) (\s@DeleteColumnStatisticsForTableResponse' {} a -> s {httpStatus = a} :: DeleteColumnStatisticsForTableResponse)
+
+instance
+  Prelude.NFData
     DeleteColumnStatisticsForTableResponse

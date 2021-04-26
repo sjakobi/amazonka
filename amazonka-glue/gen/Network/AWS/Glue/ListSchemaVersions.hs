@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,236 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of schema versions that you have created, with minimal information. Schema versions in Deleted status will not be included in the results. Empty results will be returned if there are no schema versions available.
---
---
+-- Returns a list of schema versions that you have created, with minimal
+-- information. Schema versions in Deleted status will not be included in
+-- the results. Empty results will be returned if there are no schema
+-- versions available.
 --
 -- This operation returns paginated results.
 module Network.AWS.Glue.ListSchemaVersions
   ( -- * Creating a Request
-    listSchemaVersions,
-    ListSchemaVersions,
+    ListSchemaVersions (..),
+    newListSchemaVersions,
 
     -- * Request Lenses
-    lsvNextToken,
-    lsvMaxResults,
-    lsvSchemaId,
+    listSchemaVersions_nextToken,
+    listSchemaVersions_maxResults,
+    listSchemaVersions_schemaId,
 
     -- * Destructuring the Response
-    listSchemaVersionsResponse,
-    ListSchemaVersionsResponse,
+    ListSchemaVersionsResponse (..),
+    newListSchemaVersionsResponse,
 
     -- * Response Lenses
-    lsvrrsNextToken,
-    lsvrrsSchemas,
-    lsvrrsResponseStatus,
+    listSchemaVersionsResponse_nextToken,
+    listSchemaVersionsResponse_schemas,
+    listSchemaVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.SchemaVersionListItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSchemaVersions' smart constructor.
+-- | /See:/ 'newListSchemaVersions' smart constructor.
 data ListSchemaVersions = ListSchemaVersions'
-  { _lsvNextToken ::
-      !(Maybe Text),
-    _lsvMaxResults :: !(Maybe Nat),
-    _lsvSchemaId :: !SchemaId
+  { -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of results required per page. If the value is not
+    -- supplied, this will be defaulted to 25 per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | This is a wrapper structure to contain schema identity fields. The
+    -- structure contains:
+    --
+    -- -   SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema.
+    --     Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be
+    --     provided.
+    --
+    -- -   SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or
+    --     @SchemaName@ and @RegistryName@ has to be provided.
+    schemaId :: SchemaId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSchemaVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSchemaVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsvNextToken' - A continuation token, if this is a continuation call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsvMaxResults' - Maximum number of results required per page. If the value is not supplied, this will be defaulted to 25 per page.
+-- 'nextToken', 'listSchemaVersions_nextToken' - A continuation token, if this is a continuation call.
 --
--- * 'lsvSchemaId' - This is a wrapper structure to contain schema identity fields. The structure contains:     * SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.     * SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.
-listSchemaVersions ::
-  -- | 'lsvSchemaId'
+-- 'maxResults', 'listSchemaVersions_maxResults' - Maximum number of results required per page. If the value is not
+-- supplied, this will be defaulted to 25 per page.
+--
+-- 'schemaId', 'listSchemaVersions_schemaId' - This is a wrapper structure to contain schema identity fields. The
+-- structure contains:
+--
+-- -   SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema.
+--     Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be
+--     provided.
+--
+-- -   SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or
+--     @SchemaName@ and @RegistryName@ has to be provided.
+newListSchemaVersions ::
+  -- | 'schemaId'
   SchemaId ->
   ListSchemaVersions
-listSchemaVersions pSchemaId_ =
+newListSchemaVersions pSchemaId_ =
   ListSchemaVersions'
-    { _lsvNextToken = Nothing,
-      _lsvMaxResults = Nothing,
-      _lsvSchemaId = pSchemaId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      schemaId = pSchemaId_
     }
 
 -- | A continuation token, if this is a continuation call.
-lsvNextToken :: Lens' ListSchemaVersions (Maybe Text)
-lsvNextToken = lens _lsvNextToken (\s a -> s {_lsvNextToken = a})
+listSchemaVersions_nextToken :: Lens.Lens' ListSchemaVersions (Prelude.Maybe Prelude.Text)
+listSchemaVersions_nextToken = Lens.lens (\ListSchemaVersions' {nextToken} -> nextToken) (\s@ListSchemaVersions' {} a -> s {nextToken = a} :: ListSchemaVersions)
 
--- | Maximum number of results required per page. If the value is not supplied, this will be defaulted to 25 per page.
-lsvMaxResults :: Lens' ListSchemaVersions (Maybe Natural)
-lsvMaxResults = lens _lsvMaxResults (\s a -> s {_lsvMaxResults = a}) . mapping _Nat
+-- | Maximum number of results required per page. If the value is not
+-- supplied, this will be defaulted to 25 per page.
+listSchemaVersions_maxResults :: Lens.Lens' ListSchemaVersions (Prelude.Maybe Prelude.Natural)
+listSchemaVersions_maxResults = Lens.lens (\ListSchemaVersions' {maxResults} -> maxResults) (\s@ListSchemaVersions' {} a -> s {maxResults = a} :: ListSchemaVersions) Prelude.. Lens.mapping Prelude._Nat
 
--- | This is a wrapper structure to contain schema identity fields. The structure contains:     * SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.     * SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be provided.
-lsvSchemaId :: Lens' ListSchemaVersions SchemaId
-lsvSchemaId = lens _lsvSchemaId (\s a -> s {_lsvSchemaId = a})
+-- | This is a wrapper structure to contain schema identity fields. The
+-- structure contains:
+--
+-- -   SchemaId$SchemaArn: The Amazon Resource Name (ARN) of the schema.
+--     Either @SchemaArn@ or @SchemaName@ and @RegistryName@ has to be
+--     provided.
+--
+-- -   SchemaId$SchemaName: The name of the schema. Either @SchemaArn@ or
+--     @SchemaName@ and @RegistryName@ has to be provided.
+listSchemaVersions_schemaId :: Lens.Lens' ListSchemaVersions SchemaId
+listSchemaVersions_schemaId = Lens.lens (\ListSchemaVersions' {schemaId} -> schemaId) (\s@ListSchemaVersions' {} a -> s {schemaId = a} :: ListSchemaVersions)
 
-instance AWSPager ListSchemaVersions where
+instance Pager.AWSPager ListSchemaVersions where
   page rq rs
-    | stop (rs ^. lsvrrsNextToken) = Nothing
-    | stop (rs ^. lsvrrsSchemas) = Nothing
-    | otherwise =
-      Just $ rq & lsvNextToken .~ rs ^. lsvrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSchemaVersionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSchemaVersionsResponse_schemas
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSchemaVersions_nextToken
+          Lens..~ rs
+          Lens.^? listSchemaVersionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSchemaVersions where
+instance Prelude.AWSRequest ListSchemaVersions where
   type
     Rs ListSchemaVersions =
       ListSchemaVersionsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSchemaVersionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Schemas" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Schemas" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSchemaVersions
+instance Prelude.Hashable ListSchemaVersions
 
-instance NFData ListSchemaVersions
+instance Prelude.NFData ListSchemaVersions
 
-instance ToHeaders ListSchemaVersions where
+instance Prelude.ToHeaders ListSchemaVersions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.ListSchemaVersions" :: ByteString),
+              Prelude.=# ("AWSGlue.ListSchemaVersions" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSchemaVersions where
+instance Prelude.ToJSON ListSchemaVersions where
   toJSON ListSchemaVersions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lsvNextToken,
-            ("MaxResults" .=) <$> _lsvMaxResults,
-            Just ("SchemaId" .= _lsvSchemaId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("SchemaId" Prelude..= schemaId)
           ]
       )
 
-instance ToPath ListSchemaVersions where
-  toPath = const "/"
+instance Prelude.ToPath ListSchemaVersions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSchemaVersions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSchemaVersions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSchemaVersionsResponse' smart constructor.
+-- | /See:/ 'newListSchemaVersionsResponse' smart constructor.
 data ListSchemaVersionsResponse = ListSchemaVersionsResponse'
-  { _lsvrrsNextToken ::
-      !(Maybe Text),
-    _lsvrrsSchemas ::
-      !( Maybe
-           [SchemaVersionListItem]
-       ),
-    _lsvrrsResponseStatus ::
-      !Int
+  { -- | A continuation token for paginating the returned list of tokens,
+    -- returned if the current segment of the list is not the last.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @SchemaVersionList@ objects containing details of each
+    -- schema version.
+    schemas :: Prelude.Maybe [SchemaVersionListItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSchemaVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSchemaVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsvrrsNextToken' - A continuation token for paginating the returned list of tokens, returned if the current segment of the list is not the last.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsvrrsSchemas' - An array of @SchemaVersionList@ objects containing details of each schema version.
+-- 'nextToken', 'listSchemaVersionsResponse_nextToken' - A continuation token for paginating the returned list of tokens,
+-- returned if the current segment of the list is not the last.
 --
--- * 'lsvrrsResponseStatus' - -- | The response status code.
-listSchemaVersionsResponse ::
-  -- | 'lsvrrsResponseStatus'
-  Int ->
+-- 'schemas', 'listSchemaVersionsResponse_schemas' - An array of @SchemaVersionList@ objects containing details of each
+-- schema version.
+--
+-- 'httpStatus', 'listSchemaVersionsResponse_httpStatus' - The response's http status code.
+newListSchemaVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSchemaVersionsResponse
-listSchemaVersionsResponse pResponseStatus_ =
+newListSchemaVersionsResponse pHttpStatus_ =
   ListSchemaVersionsResponse'
-    { _lsvrrsNextToken =
-        Nothing,
-      _lsvrrsSchemas = Nothing,
-      _lsvrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      schemas = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token for paginating the returned list of tokens, returned if the current segment of the list is not the last.
-lsvrrsNextToken :: Lens' ListSchemaVersionsResponse (Maybe Text)
-lsvrrsNextToken = lens _lsvrrsNextToken (\s a -> s {_lsvrrsNextToken = a})
+-- | A continuation token for paginating the returned list of tokens,
+-- returned if the current segment of the list is not the last.
+listSchemaVersionsResponse_nextToken :: Lens.Lens' ListSchemaVersionsResponse (Prelude.Maybe Prelude.Text)
+listSchemaVersionsResponse_nextToken = Lens.lens (\ListSchemaVersionsResponse' {nextToken} -> nextToken) (\s@ListSchemaVersionsResponse' {} a -> s {nextToken = a} :: ListSchemaVersionsResponse)
 
--- | An array of @SchemaVersionList@ objects containing details of each schema version.
-lsvrrsSchemas :: Lens' ListSchemaVersionsResponse [SchemaVersionListItem]
-lsvrrsSchemas = lens _lsvrrsSchemas (\s a -> s {_lsvrrsSchemas = a}) . _Default . _Coerce
+-- | An array of @SchemaVersionList@ objects containing details of each
+-- schema version.
+listSchemaVersionsResponse_schemas :: Lens.Lens' ListSchemaVersionsResponse (Prelude.Maybe [SchemaVersionListItem])
+listSchemaVersionsResponse_schemas = Lens.lens (\ListSchemaVersionsResponse' {schemas} -> schemas) (\s@ListSchemaVersionsResponse' {} a -> s {schemas = a} :: ListSchemaVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsvrrsResponseStatus :: Lens' ListSchemaVersionsResponse Int
-lsvrrsResponseStatus = lens _lsvrrsResponseStatus (\s a -> s {_lsvrrsResponseStatus = a})
+-- | The response's http status code.
+listSchemaVersionsResponse_httpStatus :: Lens.Lens' ListSchemaVersionsResponse Prelude.Int
+listSchemaVersionsResponse_httpStatus = Lens.lens (\ListSchemaVersionsResponse' {httpStatus} -> httpStatus) (\s@ListSchemaVersionsResponse' {} a -> s {httpStatus = a} :: ListSchemaVersionsResponse)
 
-instance NFData ListSchemaVersionsResponse
+instance Prelude.NFData ListSchemaVersionsResponse

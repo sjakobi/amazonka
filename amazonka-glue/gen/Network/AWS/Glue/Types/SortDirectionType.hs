@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Glue.Types.SortDirectionType
   ( SortDirectionType
       ( ..,
-        Ascending,
-        Descending
+        SortDirectionTypeASCENDING,
+        SortDirectionTypeDESCENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortDirectionType = SortDirectionType' (CI Text)
+newtype SortDirectionType = SortDirectionType'
+  { fromSortDirectionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ascending :: SortDirectionType
-pattern Ascending = SortDirectionType' "ASCENDING"
+pattern SortDirectionTypeASCENDING :: SortDirectionType
+pattern SortDirectionTypeASCENDING = SortDirectionType' "ASCENDING"
 
-pattern Descending :: SortDirectionType
-pattern Descending = SortDirectionType' "DESCENDING"
+pattern SortDirectionTypeDESCENDING :: SortDirectionType
+pattern SortDirectionTypeDESCENDING = SortDirectionType' "DESCENDING"
 
 {-# COMPLETE
-  Ascending,
-  Descending,
+  SortDirectionTypeASCENDING,
+  SortDirectionTypeDESCENDING,
   SortDirectionType'
   #-}
 
-instance FromText SortDirectionType where
-  parser = (SortDirectionType' . mk) <$> takeText
+instance Prelude.FromText SortDirectionType where
+  parser = SortDirectionType' Prelude.<$> Prelude.takeText
 
-instance ToText SortDirectionType where
-  toText (SortDirectionType' ci) = original ci
+instance Prelude.ToText SortDirectionType where
+  toText (SortDirectionType' x) = x
 
-instance Hashable SortDirectionType
+instance Prelude.Hashable SortDirectionType
 
-instance NFData SortDirectionType
+instance Prelude.NFData SortDirectionType
 
-instance ToByteString SortDirectionType
+instance Prelude.ToByteString SortDirectionType
 
-instance ToQuery SortDirectionType
+instance Prelude.ToQuery SortDirectionType
 
-instance ToHeader SortDirectionType
+instance Prelude.ToHeader SortDirectionType
 
-instance ToJSON SortDirectionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortDirectionType where
+  toJSON = Prelude.toJSONText

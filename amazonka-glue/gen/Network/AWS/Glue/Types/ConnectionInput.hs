@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,97 +22,176 @@ module Network.AWS.Glue.Types.ConnectionInput where
 import Network.AWS.Glue.Types.ConnectionPropertyKey
 import Network.AWS.Glue.Types.ConnectionType
 import Network.AWS.Glue.Types.PhysicalConnectionRequirements
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure that is used to specify a connection to create or update.
 --
---
---
--- /See:/ 'connectionInput' smart constructor.
+-- /See:/ 'newConnectionInput' smart constructor.
 data ConnectionInput = ConnectionInput'
-  { _ciPhysicalConnectionRequirements ::
-      !(Maybe PhysicalConnectionRequirements),
-    _ciDescription :: !(Maybe Text),
-    _ciMatchCriteria :: !(Maybe [Text]),
-    _ciName :: !Text,
-    _ciConnectionType :: !ConnectionType,
-    _ciConnectionProperties ::
-      !(Map ConnectionPropertyKey Text)
+  { -- | A map of physical connection requirements, such as virtual private cloud
+    -- (VPC) and @SecurityGroup@, that are needed to successfully make this
+    -- connection.
+    physicalConnectionRequirements :: Prelude.Maybe PhysicalConnectionRequirements,
+    -- | The description of the connection.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A list of criteria that can be used in selecting this connection.
+    matchCriteria :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the connection.
+    name :: Prelude.Text,
+    -- | The type of the connection. Currently, these types are supported:
+    --
+    -- -   @JDBC@ - Designates a connection to a database through Java Database
+    --     Connectivity (JDBC).
+    --
+    -- -   @KAFKA@ - Designates a connection to an Apache Kafka streaming
+    --     platform.
+    --
+    -- -   @MONGODB@ - Designates a connection to a MongoDB document database.
+    --
+    -- -   @NETWORK@ - Designates a network connection to a data source within
+    --     an Amazon Virtual Private Cloud environment (Amazon VPC).
+    --
+    -- -   @MARKETPLACE@ - Uses configuration settings contained in a connector
+    --     purchased from AWS Marketplace to read from and write to data stores
+    --     that are not natively supported by AWS Glue.
+    --
+    -- -   @CUSTOM@ - Uses configuration settings contained in a custom
+    --     connector to read from and write to data stores that are not
+    --     natively supported by AWS Glue.
+    --
+    -- SFTP is not supported.
+    connectionType :: ConnectionType,
+    -- | These key-value pairs define parameters for the connection.
+    connectionProperties :: Prelude.Map ConnectionPropertyKey Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConnectionInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConnectionInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciPhysicalConnectionRequirements' - A map of physical connection requirements, such as virtual private cloud (VPC) and @SecurityGroup@ , that are needed to successfully make this connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciDescription' - The description of the connection.
+-- 'physicalConnectionRequirements', 'connectionInput_physicalConnectionRequirements' - A map of physical connection requirements, such as virtual private cloud
+-- (VPC) and @SecurityGroup@, that are needed to successfully make this
+-- connection.
 --
--- * 'ciMatchCriteria' - A list of criteria that can be used in selecting this connection.
+-- 'description', 'connectionInput_description' - The description of the connection.
 --
--- * 'ciName' - The name of the connection.
+-- 'matchCriteria', 'connectionInput_matchCriteria' - A list of criteria that can be used in selecting this connection.
 --
--- * 'ciConnectionType' - The type of the connection. Currently, these types are supported:     * @JDBC@ - Designates a connection to a database through Java Database Connectivity (JDBC).     * @KAFKA@ - Designates a connection to an Apache Kafka streaming platform.     * @MONGODB@ - Designates a connection to a MongoDB document database.     * @NETWORK@ - Designates a network connection to a data source within an Amazon Virtual Private Cloud environment (Amazon VPC).     * @MARKETPLACE@ - Uses configuration settings contained in a connector purchased from AWS Marketplace to read from and write to data stores that are not natively supported by AWS Glue.     * @CUSTOM@ - Uses configuration settings contained in a custom connector to read from and write to data stores that are not natively supported by AWS Glue. SFTP is not supported.
+-- 'name', 'connectionInput_name' - The name of the connection.
 --
--- * 'ciConnectionProperties' - These key-value pairs define parameters for the connection.
-connectionInput ::
-  -- | 'ciName'
-  Text ->
-  -- | 'ciConnectionType'
+-- 'connectionType', 'connectionInput_connectionType' - The type of the connection. Currently, these types are supported:
+--
+-- -   @JDBC@ - Designates a connection to a database through Java Database
+--     Connectivity (JDBC).
+--
+-- -   @KAFKA@ - Designates a connection to an Apache Kafka streaming
+--     platform.
+--
+-- -   @MONGODB@ - Designates a connection to a MongoDB document database.
+--
+-- -   @NETWORK@ - Designates a network connection to a data source within
+--     an Amazon Virtual Private Cloud environment (Amazon VPC).
+--
+-- -   @MARKETPLACE@ - Uses configuration settings contained in a connector
+--     purchased from AWS Marketplace to read from and write to data stores
+--     that are not natively supported by AWS Glue.
+--
+-- -   @CUSTOM@ - Uses configuration settings contained in a custom
+--     connector to read from and write to data stores that are not
+--     natively supported by AWS Glue.
+--
+-- SFTP is not supported.
+--
+-- 'connectionProperties', 'connectionInput_connectionProperties' - These key-value pairs define parameters for the connection.
+newConnectionInput ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'connectionType'
   ConnectionType ->
   ConnectionInput
-connectionInput pName_ pConnectionType_ =
+newConnectionInput pName_ pConnectionType_ =
   ConnectionInput'
-    { _ciPhysicalConnectionRequirements =
-        Nothing,
-      _ciDescription = Nothing,
-      _ciMatchCriteria = Nothing,
-      _ciName = pName_,
-      _ciConnectionType = pConnectionType_,
-      _ciConnectionProperties = mempty
+    { physicalConnectionRequirements =
+        Prelude.Nothing,
+      description = Prelude.Nothing,
+      matchCriteria = Prelude.Nothing,
+      name = pName_,
+      connectionType = pConnectionType_,
+      connectionProperties = Prelude.mempty
     }
 
--- | A map of physical connection requirements, such as virtual private cloud (VPC) and @SecurityGroup@ , that are needed to successfully make this connection.
-ciPhysicalConnectionRequirements :: Lens' ConnectionInput (Maybe PhysicalConnectionRequirements)
-ciPhysicalConnectionRequirements = lens _ciPhysicalConnectionRequirements (\s a -> s {_ciPhysicalConnectionRequirements = a})
+-- | A map of physical connection requirements, such as virtual private cloud
+-- (VPC) and @SecurityGroup@, that are needed to successfully make this
+-- connection.
+connectionInput_physicalConnectionRequirements :: Lens.Lens' ConnectionInput (Prelude.Maybe PhysicalConnectionRequirements)
+connectionInput_physicalConnectionRequirements = Lens.lens (\ConnectionInput' {physicalConnectionRequirements} -> physicalConnectionRequirements) (\s@ConnectionInput' {} a -> s {physicalConnectionRequirements = a} :: ConnectionInput)
 
 -- | The description of the connection.
-ciDescription :: Lens' ConnectionInput (Maybe Text)
-ciDescription = lens _ciDescription (\s a -> s {_ciDescription = a})
+connectionInput_description :: Lens.Lens' ConnectionInput (Prelude.Maybe Prelude.Text)
+connectionInput_description = Lens.lens (\ConnectionInput' {description} -> description) (\s@ConnectionInput' {} a -> s {description = a} :: ConnectionInput)
 
 -- | A list of criteria that can be used in selecting this connection.
-ciMatchCriteria :: Lens' ConnectionInput [Text]
-ciMatchCriteria = lens _ciMatchCriteria (\s a -> s {_ciMatchCriteria = a}) . _Default . _Coerce
+connectionInput_matchCriteria :: Lens.Lens' ConnectionInput (Prelude.Maybe [Prelude.Text])
+connectionInput_matchCriteria = Lens.lens (\ConnectionInput' {matchCriteria} -> matchCriteria) (\s@ConnectionInput' {} a -> s {matchCriteria = a} :: ConnectionInput) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the connection.
-ciName :: Lens' ConnectionInput Text
-ciName = lens _ciName (\s a -> s {_ciName = a})
+connectionInput_name :: Lens.Lens' ConnectionInput Prelude.Text
+connectionInput_name = Lens.lens (\ConnectionInput' {name} -> name) (\s@ConnectionInput' {} a -> s {name = a} :: ConnectionInput)
 
--- | The type of the connection. Currently, these types are supported:     * @JDBC@ - Designates a connection to a database through Java Database Connectivity (JDBC).     * @KAFKA@ - Designates a connection to an Apache Kafka streaming platform.     * @MONGODB@ - Designates a connection to a MongoDB document database.     * @NETWORK@ - Designates a network connection to a data source within an Amazon Virtual Private Cloud environment (Amazon VPC).     * @MARKETPLACE@ - Uses configuration settings contained in a connector purchased from AWS Marketplace to read from and write to data stores that are not natively supported by AWS Glue.     * @CUSTOM@ - Uses configuration settings contained in a custom connector to read from and write to data stores that are not natively supported by AWS Glue. SFTP is not supported.
-ciConnectionType :: Lens' ConnectionInput ConnectionType
-ciConnectionType = lens _ciConnectionType (\s a -> s {_ciConnectionType = a})
+-- | The type of the connection. Currently, these types are supported:
+--
+-- -   @JDBC@ - Designates a connection to a database through Java Database
+--     Connectivity (JDBC).
+--
+-- -   @KAFKA@ - Designates a connection to an Apache Kafka streaming
+--     platform.
+--
+-- -   @MONGODB@ - Designates a connection to a MongoDB document database.
+--
+-- -   @NETWORK@ - Designates a network connection to a data source within
+--     an Amazon Virtual Private Cloud environment (Amazon VPC).
+--
+-- -   @MARKETPLACE@ - Uses configuration settings contained in a connector
+--     purchased from AWS Marketplace to read from and write to data stores
+--     that are not natively supported by AWS Glue.
+--
+-- -   @CUSTOM@ - Uses configuration settings contained in a custom
+--     connector to read from and write to data stores that are not
+--     natively supported by AWS Glue.
+--
+-- SFTP is not supported.
+connectionInput_connectionType :: Lens.Lens' ConnectionInput ConnectionType
+connectionInput_connectionType = Lens.lens (\ConnectionInput' {connectionType} -> connectionType) (\s@ConnectionInput' {} a -> s {connectionType = a} :: ConnectionInput)
 
 -- | These key-value pairs define parameters for the connection.
-ciConnectionProperties :: Lens' ConnectionInput (HashMap ConnectionPropertyKey Text)
-ciConnectionProperties = lens _ciConnectionProperties (\s a -> s {_ciConnectionProperties = a}) . _Map
+connectionInput_connectionProperties :: Lens.Lens' ConnectionInput (Prelude.HashMap ConnectionPropertyKey Prelude.Text)
+connectionInput_connectionProperties = Lens.lens (\ConnectionInput' {connectionProperties} -> connectionProperties) (\s@ConnectionInput' {} a -> s {connectionProperties = a} :: ConnectionInput) Prelude.. Prelude._Map
 
-instance Hashable ConnectionInput
+instance Prelude.Hashable ConnectionInput
 
-instance NFData ConnectionInput
+instance Prelude.NFData ConnectionInput
 
-instance ToJSON ConnectionInput where
+instance Prelude.ToJSON ConnectionInput where
   toJSON ConnectionInput' {..} =
-    object
-      ( catMaybes
-          [ ("PhysicalConnectionRequirements" .=)
-              <$> _ciPhysicalConnectionRequirements,
-            ("Description" .=) <$> _ciDescription,
-            ("MatchCriteria" .=) <$> _ciMatchCriteria,
-            Just ("Name" .= _ciName),
-            Just ("ConnectionType" .= _ciConnectionType),
-            Just
-              ("ConnectionProperties" .= _ciConnectionProperties)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PhysicalConnectionRequirements" Prelude..=)
+              Prelude.<$> physicalConnectionRequirements,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("MatchCriteria" Prelude..=)
+              Prelude.<$> matchCriteria,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("ConnectionType" Prelude..= connectionType),
+            Prelude.Just
+              ( "ConnectionProperties"
+                  Prelude..= connectionProperties
+              )
           ]
       )

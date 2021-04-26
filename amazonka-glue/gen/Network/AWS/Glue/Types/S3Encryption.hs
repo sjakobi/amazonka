@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,71 @@
 module Network.AWS.Glue.Types.S3Encryption where
 
 import Network.AWS.Glue.Types.S3EncryptionMode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies how Amazon Simple Storage Service (Amazon S3) data should be encrypted.
+-- | Specifies how Amazon Simple Storage Service (Amazon S3) data should be
+-- encrypted.
 --
---
---
--- /See:/ 's3Encryption' smart constructor.
+-- /See:/ 'newS3Encryption' smart constructor.
 data S3Encryption = S3Encryption'
-  { _seS3EncryptionMode ::
-      !(Maybe S3EncryptionMode),
-    _seKMSKeyARN :: !(Maybe Text)
+  { -- | The encryption mode to use for Amazon S3 data.
+    s3EncryptionMode :: Prelude.Maybe S3EncryptionMode,
+    -- | The Amazon Resource Name (ARN) of the KMS key to be used to encrypt the
+    -- data.
+    kmsKeyArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3Encryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3Encryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seS3EncryptionMode' - The encryption mode to use for Amazon S3 data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seKMSKeyARN' - The Amazon Resource Name (ARN) of the KMS key to be used to encrypt the data.
-s3Encryption ::
+-- 's3EncryptionMode', 's3Encryption_s3EncryptionMode' - The encryption mode to use for Amazon S3 data.
+--
+-- 'kmsKeyArn', 's3Encryption_kmsKeyArn' - The Amazon Resource Name (ARN) of the KMS key to be used to encrypt the
+-- data.
+newS3Encryption ::
   S3Encryption
-s3Encryption =
+newS3Encryption =
   S3Encryption'
-    { _seS3EncryptionMode = Nothing,
-      _seKMSKeyARN = Nothing
+    { s3EncryptionMode = Prelude.Nothing,
+      kmsKeyArn = Prelude.Nothing
     }
 
 -- | The encryption mode to use for Amazon S3 data.
-seS3EncryptionMode :: Lens' S3Encryption (Maybe S3EncryptionMode)
-seS3EncryptionMode = lens _seS3EncryptionMode (\s a -> s {_seS3EncryptionMode = a})
+s3Encryption_s3EncryptionMode :: Lens.Lens' S3Encryption (Prelude.Maybe S3EncryptionMode)
+s3Encryption_s3EncryptionMode = Lens.lens (\S3Encryption' {s3EncryptionMode} -> s3EncryptionMode) (\s@S3Encryption' {} a -> s {s3EncryptionMode = a} :: S3Encryption)
 
--- | The Amazon Resource Name (ARN) of the KMS key to be used to encrypt the data.
-seKMSKeyARN :: Lens' S3Encryption (Maybe Text)
-seKMSKeyARN = lens _seKMSKeyARN (\s a -> s {_seKMSKeyARN = a})
+-- | The Amazon Resource Name (ARN) of the KMS key to be used to encrypt the
+-- data.
+s3Encryption_kmsKeyArn :: Lens.Lens' S3Encryption (Prelude.Maybe Prelude.Text)
+s3Encryption_kmsKeyArn = Lens.lens (\S3Encryption' {kmsKeyArn} -> kmsKeyArn) (\s@S3Encryption' {} a -> s {kmsKeyArn = a} :: S3Encryption)
 
-instance FromJSON S3Encryption where
+instance Prelude.FromJSON S3Encryption where
   parseJSON =
-    withObject
+    Prelude.withObject
       "S3Encryption"
       ( \x ->
           S3Encryption'
-            <$> (x .:? "S3EncryptionMode") <*> (x .:? "KmsKeyArn")
+            Prelude.<$> (x Prelude..:? "S3EncryptionMode")
+            Prelude.<*> (x Prelude..:? "KmsKeyArn")
       )
 
-instance Hashable S3Encryption
+instance Prelude.Hashable S3Encryption
 
-instance NFData S3Encryption
+instance Prelude.NFData S3Encryption
 
-instance ToJSON S3Encryption where
+instance Prelude.ToJSON S3Encryption where
   toJSON S3Encryption' {..} =
-    object
-      ( catMaybes
-          [ ("S3EncryptionMode" .=) <$> _seS3EncryptionMode,
-            ("KmsKeyArn" .=) <$> _seKMSKeyARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3EncryptionMode" Prelude..=)
+              Prelude.<$> s3EncryptionMode,
+            ("KmsKeyArn" Prelude..=) Prelude.<$> kmsKeyArn
           ]
       )

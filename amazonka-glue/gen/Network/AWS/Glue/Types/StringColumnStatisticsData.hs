@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,110 +19,109 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.StringColumnStatisticsData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines column statistics supported for character sequence data values.
 --
---
---
--- /See:/ 'stringColumnStatisticsData' smart constructor.
+-- /See:/ 'newStringColumnStatisticsData' smart constructor.
 data StringColumnStatisticsData = StringColumnStatisticsData'
-  { _scsdMaximumLength ::
-      !Nat,
-    _scsdAverageLength ::
-      !Double,
-    _scsdNumberOfNulls ::
-      !Nat,
-    _scsdNumberOfDistinctValues ::
-      !Nat
+  { -- | The size of the longest string in the column.
+    maximumLength :: Prelude.Nat,
+    -- | The average string length in the column.
+    averageLength :: Prelude.Double,
+    -- | The number of null values in the column.
+    numberOfNulls :: Prelude.Nat,
+    -- | The number of distinct values in a column.
+    numberOfDistinctValues :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StringColumnStatisticsData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StringColumnStatisticsData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scsdMaximumLength' - The size of the longest string in the column.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scsdAverageLength' - The average string length in the column.
+-- 'maximumLength', 'stringColumnStatisticsData_maximumLength' - The size of the longest string in the column.
 --
--- * 'scsdNumberOfNulls' - The number of null values in the column.
+-- 'averageLength', 'stringColumnStatisticsData_averageLength' - The average string length in the column.
 --
--- * 'scsdNumberOfDistinctValues' - The number of distinct values in a column.
-stringColumnStatisticsData ::
-  -- | 'scsdMaximumLength'
-  Natural ->
-  -- | 'scsdAverageLength'
-  Double ->
-  -- | 'scsdNumberOfNulls'
-  Natural ->
-  -- | 'scsdNumberOfDistinctValues'
-  Natural ->
+-- 'numberOfNulls', 'stringColumnStatisticsData_numberOfNulls' - The number of null values in the column.
+--
+-- 'numberOfDistinctValues', 'stringColumnStatisticsData_numberOfDistinctValues' - The number of distinct values in a column.
+newStringColumnStatisticsData ::
+  -- | 'maximumLength'
+  Prelude.Natural ->
+  -- | 'averageLength'
+  Prelude.Double ->
+  -- | 'numberOfNulls'
+  Prelude.Natural ->
+  -- | 'numberOfDistinctValues'
+  Prelude.Natural ->
   StringColumnStatisticsData
-stringColumnStatisticsData
+newStringColumnStatisticsData
   pMaximumLength_
   pAverageLength_
   pNumberOfNulls_
   pNumberOfDistinctValues_ =
     StringColumnStatisticsData'
-      { _scsdMaximumLength =
-          _Nat # pMaximumLength_,
-        _scsdAverageLength = pAverageLength_,
-        _scsdNumberOfNulls = _Nat # pNumberOfNulls_,
-        _scsdNumberOfDistinctValues =
-          _Nat # pNumberOfDistinctValues_
+      { maximumLength =
+          Prelude._Nat Lens.# pMaximumLength_,
+        averageLength = pAverageLength_,
+        numberOfNulls =
+          Prelude._Nat Lens.# pNumberOfNulls_,
+        numberOfDistinctValues =
+          Prelude._Nat Lens.# pNumberOfDistinctValues_
       }
 
 -- | The size of the longest string in the column.
-scsdMaximumLength :: Lens' StringColumnStatisticsData Natural
-scsdMaximumLength = lens _scsdMaximumLength (\s a -> s {_scsdMaximumLength = a}) . _Nat
+stringColumnStatisticsData_maximumLength :: Lens.Lens' StringColumnStatisticsData Prelude.Natural
+stringColumnStatisticsData_maximumLength = Lens.lens (\StringColumnStatisticsData' {maximumLength} -> maximumLength) (\s@StringColumnStatisticsData' {} a -> s {maximumLength = a} :: StringColumnStatisticsData) Prelude.. Prelude._Nat
 
 -- | The average string length in the column.
-scsdAverageLength :: Lens' StringColumnStatisticsData Double
-scsdAverageLength = lens _scsdAverageLength (\s a -> s {_scsdAverageLength = a})
+stringColumnStatisticsData_averageLength :: Lens.Lens' StringColumnStatisticsData Prelude.Double
+stringColumnStatisticsData_averageLength = Lens.lens (\StringColumnStatisticsData' {averageLength} -> averageLength) (\s@StringColumnStatisticsData' {} a -> s {averageLength = a} :: StringColumnStatisticsData)
 
 -- | The number of null values in the column.
-scsdNumberOfNulls :: Lens' StringColumnStatisticsData Natural
-scsdNumberOfNulls = lens _scsdNumberOfNulls (\s a -> s {_scsdNumberOfNulls = a}) . _Nat
+stringColumnStatisticsData_numberOfNulls :: Lens.Lens' StringColumnStatisticsData Prelude.Natural
+stringColumnStatisticsData_numberOfNulls = Lens.lens (\StringColumnStatisticsData' {numberOfNulls} -> numberOfNulls) (\s@StringColumnStatisticsData' {} a -> s {numberOfNulls = a} :: StringColumnStatisticsData) Prelude.. Prelude._Nat
 
 -- | The number of distinct values in a column.
-scsdNumberOfDistinctValues :: Lens' StringColumnStatisticsData Natural
-scsdNumberOfDistinctValues = lens _scsdNumberOfDistinctValues (\s a -> s {_scsdNumberOfDistinctValues = a}) . _Nat
+stringColumnStatisticsData_numberOfDistinctValues :: Lens.Lens' StringColumnStatisticsData Prelude.Natural
+stringColumnStatisticsData_numberOfDistinctValues = Lens.lens (\StringColumnStatisticsData' {numberOfDistinctValues} -> numberOfDistinctValues) (\s@StringColumnStatisticsData' {} a -> s {numberOfDistinctValues = a} :: StringColumnStatisticsData) Prelude.. Prelude._Nat
 
-instance FromJSON StringColumnStatisticsData where
+instance Prelude.FromJSON StringColumnStatisticsData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StringColumnStatisticsData"
       ( \x ->
           StringColumnStatisticsData'
-            <$> (x .: "MaximumLength")
-            <*> (x .: "AverageLength")
-            <*> (x .: "NumberOfNulls")
-            <*> (x .: "NumberOfDistinctValues")
+            Prelude.<$> (x Prelude..: "MaximumLength")
+            Prelude.<*> (x Prelude..: "AverageLength")
+            Prelude.<*> (x Prelude..: "NumberOfNulls")
+            Prelude.<*> (x Prelude..: "NumberOfDistinctValues")
       )
 
-instance Hashable StringColumnStatisticsData
+instance Prelude.Hashable StringColumnStatisticsData
 
-instance NFData StringColumnStatisticsData
+instance Prelude.NFData StringColumnStatisticsData
 
-instance ToJSON StringColumnStatisticsData where
+instance Prelude.ToJSON StringColumnStatisticsData where
   toJSON StringColumnStatisticsData' {..} =
-    object
-      ( catMaybes
-          [ Just ("MaximumLength" .= _scsdMaximumLength),
-            Just ("AverageLength" .= _scsdAverageLength),
-            Just ("NumberOfNulls" .= _scsdNumberOfNulls),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("MaximumLength" Prelude..= maximumLength),
+            Prelude.Just
+              ("AverageLength" Prelude..= averageLength),
+            Prelude.Just
+              ("NumberOfNulls" Prelude..= numberOfNulls),
+            Prelude.Just
               ( "NumberOfDistinctValues"
-                  .= _scsdNumberOfDistinctValues
+                  Prelude..= numberOfDistinctValues
               )
           ]
       )

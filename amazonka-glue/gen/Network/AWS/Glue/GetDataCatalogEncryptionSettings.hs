@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,147 +24,164 @@
 -- Retrieves the security configuration for a specified catalog.
 module Network.AWS.Glue.GetDataCatalogEncryptionSettings
   ( -- * Creating a Request
-    getDataCatalogEncryptionSettings,
-    GetDataCatalogEncryptionSettings,
+    GetDataCatalogEncryptionSettings (..),
+    newGetDataCatalogEncryptionSettings,
 
     -- * Request Lenses
-    gdcesCatalogId,
+    getDataCatalogEncryptionSettings_catalogId,
 
     -- * Destructuring the Response
-    getDataCatalogEncryptionSettingsResponse,
-    GetDataCatalogEncryptionSettingsResponse,
+    GetDataCatalogEncryptionSettingsResponse (..),
+    newGetDataCatalogEncryptionSettingsResponse,
 
     -- * Response Lenses
-    gdcesrrsDataCatalogEncryptionSettings,
-    gdcesrrsResponseStatus,
+    getDataCatalogEncryptionSettingsResponse_dataCatalogEncryptionSettings,
+    getDataCatalogEncryptionSettingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.DataCatalogEncryptionSettings
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDataCatalogEncryptionSettings' smart constructor.
-newtype GetDataCatalogEncryptionSettings = GetDataCatalogEncryptionSettings'
-  { _gdcesCatalogId ::
-      Maybe
-        Text
+-- | /See:/ 'newGetDataCatalogEncryptionSettings' smart constructor.
+data GetDataCatalogEncryptionSettings = GetDataCatalogEncryptionSettings'
+  { -- | The ID of the Data Catalog to retrieve the security configuration for.
+    -- If none is provided, the AWS account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDataCatalogEncryptionSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDataCatalogEncryptionSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdcesCatalogId' - The ID of the Data Catalog to retrieve the security configuration for. If none is provided, the AWS account ID is used by default.
-getDataCatalogEncryptionSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'catalogId', 'getDataCatalogEncryptionSettings_catalogId' - The ID of the Data Catalog to retrieve the security configuration for.
+-- If none is provided, the AWS account ID is used by default.
+newGetDataCatalogEncryptionSettings ::
   GetDataCatalogEncryptionSettings
-getDataCatalogEncryptionSettings =
+newGetDataCatalogEncryptionSettings =
   GetDataCatalogEncryptionSettings'
-    { _gdcesCatalogId =
-        Nothing
+    { catalogId =
+        Prelude.Nothing
     }
 
--- | The ID of the Data Catalog to retrieve the security configuration for. If none is provided, the AWS account ID is used by default.
-gdcesCatalogId :: Lens' GetDataCatalogEncryptionSettings (Maybe Text)
-gdcesCatalogId = lens _gdcesCatalogId (\s a -> s {_gdcesCatalogId = a})
+-- | The ID of the Data Catalog to retrieve the security configuration for.
+-- If none is provided, the AWS account ID is used by default.
+getDataCatalogEncryptionSettings_catalogId :: Lens.Lens' GetDataCatalogEncryptionSettings (Prelude.Maybe Prelude.Text)
+getDataCatalogEncryptionSettings_catalogId = Lens.lens (\GetDataCatalogEncryptionSettings' {catalogId} -> catalogId) (\s@GetDataCatalogEncryptionSettings' {} a -> s {catalogId = a} :: GetDataCatalogEncryptionSettings)
 
-instance AWSRequest GetDataCatalogEncryptionSettings where
+instance
+  Prelude.AWSRequest
+    GetDataCatalogEncryptionSettings
+  where
   type
     Rs GetDataCatalogEncryptionSettings =
       GetDataCatalogEncryptionSettingsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDataCatalogEncryptionSettingsResponse'
-            <$> (x .?> "DataCatalogEncryptionSettings")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DataCatalogEncryptionSettings")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDataCatalogEncryptionSettings
+instance
+  Prelude.Hashable
+    GetDataCatalogEncryptionSettings
 
-instance NFData GetDataCatalogEncryptionSettings
+instance
+  Prelude.NFData
+    GetDataCatalogEncryptionSettings
 
-instance ToHeaders GetDataCatalogEncryptionSettings where
+instance
+  Prelude.ToHeaders
+    GetDataCatalogEncryptionSettings
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSGlue.GetDataCatalogEncryptionSettings" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSGlue.GetDataCatalogEncryptionSettings" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDataCatalogEncryptionSettings where
+instance
+  Prelude.ToJSON
+    GetDataCatalogEncryptionSettings
+  where
   toJSON GetDataCatalogEncryptionSettings' {..} =
-    object
-      (catMaybes [("CatalogId" .=) <$> _gdcesCatalogId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("CatalogId" Prelude..=) Prelude.<$> catalogId]
+      )
 
-instance ToPath GetDataCatalogEncryptionSettings where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetDataCatalogEncryptionSettings
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDataCatalogEncryptionSettings where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetDataCatalogEncryptionSettings
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDataCatalogEncryptionSettingsResponse' smart constructor.
+-- | /See:/ 'newGetDataCatalogEncryptionSettingsResponse' smart constructor.
 data GetDataCatalogEncryptionSettingsResponse = GetDataCatalogEncryptionSettingsResponse'
-  { _gdcesrrsDataCatalogEncryptionSettings ::
-      !( Maybe
-           DataCatalogEncryptionSettings
-       ),
-    _gdcesrrsResponseStatus ::
-      !Int
+  { -- | The requested security configuration.
+    dataCatalogEncryptionSettings :: Prelude.Maybe DataCatalogEncryptionSettings,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDataCatalogEncryptionSettingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDataCatalogEncryptionSettingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdcesrrsDataCatalogEncryptionSettings' - The requested security configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdcesrrsResponseStatus' - -- | The response status code.
-getDataCatalogEncryptionSettingsResponse ::
-  -- | 'gdcesrrsResponseStatus'
-  Int ->
+-- 'dataCatalogEncryptionSettings', 'getDataCatalogEncryptionSettingsResponse_dataCatalogEncryptionSettings' - The requested security configuration.
+--
+-- 'httpStatus', 'getDataCatalogEncryptionSettingsResponse_httpStatus' - The response's http status code.
+newGetDataCatalogEncryptionSettingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDataCatalogEncryptionSettingsResponse
-getDataCatalogEncryptionSettingsResponse
-  pResponseStatus_ =
+newGetDataCatalogEncryptionSettingsResponse
+  pHttpStatus_ =
     GetDataCatalogEncryptionSettingsResponse'
-      { _gdcesrrsDataCatalogEncryptionSettings =
-          Nothing,
-        _gdcesrrsResponseStatus =
-          pResponseStatus_
+      { dataCatalogEncryptionSettings =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The requested security configuration.
-gdcesrrsDataCatalogEncryptionSettings :: Lens' GetDataCatalogEncryptionSettingsResponse (Maybe DataCatalogEncryptionSettings)
-gdcesrrsDataCatalogEncryptionSettings = lens _gdcesrrsDataCatalogEncryptionSettings (\s a -> s {_gdcesrrsDataCatalogEncryptionSettings = a})
+getDataCatalogEncryptionSettingsResponse_dataCatalogEncryptionSettings :: Lens.Lens' GetDataCatalogEncryptionSettingsResponse (Prelude.Maybe DataCatalogEncryptionSettings)
+getDataCatalogEncryptionSettingsResponse_dataCatalogEncryptionSettings = Lens.lens (\GetDataCatalogEncryptionSettingsResponse' {dataCatalogEncryptionSettings} -> dataCatalogEncryptionSettings) (\s@GetDataCatalogEncryptionSettingsResponse' {} a -> s {dataCatalogEncryptionSettings = a} :: GetDataCatalogEncryptionSettingsResponse)
 
--- | -- | The response status code.
-gdcesrrsResponseStatus :: Lens' GetDataCatalogEncryptionSettingsResponse Int
-gdcesrrsResponseStatus = lens _gdcesrrsResponseStatus (\s a -> s {_gdcesrrsResponseStatus = a})
+-- | The response's http status code.
+getDataCatalogEncryptionSettingsResponse_httpStatus :: Lens.Lens' GetDataCatalogEncryptionSettingsResponse Prelude.Int
+getDataCatalogEncryptionSettingsResponse_httpStatus = Lens.lens (\GetDataCatalogEncryptionSettingsResponse' {httpStatus} -> httpStatus) (\s@GetDataCatalogEncryptionSettingsResponse' {} a -> s {httpStatus = a} :: GetDataCatalogEncryptionSettingsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetDataCatalogEncryptionSettingsResponse

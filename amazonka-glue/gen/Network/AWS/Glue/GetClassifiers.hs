@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,164 +23,184 @@
 --
 -- Lists all classifier objects in the Data Catalog.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Glue.GetClassifiers
   ( -- * Creating a Request
-    getClassifiers,
-    GetClassifiers,
+    GetClassifiers (..),
+    newGetClassifiers,
 
     -- * Request Lenses
-    gcNextToken,
-    gcMaxResults,
+    getClassifiers_nextToken,
+    getClassifiers_maxResults,
 
     -- * Destructuring the Response
-    getClassifiersResponse,
-    GetClassifiersResponse,
+    GetClassifiersResponse (..),
+    newGetClassifiersResponse,
 
     -- * Response Lenses
-    gcrrsNextToken,
-    gcrrsClassifiers,
-    gcrrsResponseStatus,
+    getClassifiersResponse_nextToken,
+    getClassifiersResponse_classifiers,
+    getClassifiersResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.Classifier
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getClassifiers' smart constructor.
+-- | /See:/ 'newGetClassifiers' smart constructor.
 data GetClassifiers = GetClassifiers'
-  { _gcNextToken ::
-      !(Maybe Text),
-    _gcMaxResults :: !(Maybe Nat)
+  { -- | An optional continuation token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The size of the list to return (optional).
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetClassifiers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetClassifiers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcNextToken' - An optional continuation token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcMaxResults' - The size of the list to return (optional).
-getClassifiers ::
+-- 'nextToken', 'getClassifiers_nextToken' - An optional continuation token.
+--
+-- 'maxResults', 'getClassifiers_maxResults' - The size of the list to return (optional).
+newGetClassifiers ::
   GetClassifiers
-getClassifiers =
+newGetClassifiers =
   GetClassifiers'
-    { _gcNextToken = Nothing,
-      _gcMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | An optional continuation token.
-gcNextToken :: Lens' GetClassifiers (Maybe Text)
-gcNextToken = lens _gcNextToken (\s a -> s {_gcNextToken = a})
+getClassifiers_nextToken :: Lens.Lens' GetClassifiers (Prelude.Maybe Prelude.Text)
+getClassifiers_nextToken = Lens.lens (\GetClassifiers' {nextToken} -> nextToken) (\s@GetClassifiers' {} a -> s {nextToken = a} :: GetClassifiers)
 
 -- | The size of the list to return (optional).
-gcMaxResults :: Lens' GetClassifiers (Maybe Natural)
-gcMaxResults = lens _gcMaxResults (\s a -> s {_gcMaxResults = a}) . mapping _Nat
+getClassifiers_maxResults :: Lens.Lens' GetClassifiers (Prelude.Maybe Prelude.Natural)
+getClassifiers_maxResults = Lens.lens (\GetClassifiers' {maxResults} -> maxResults) (\s@GetClassifiers' {} a -> s {maxResults = a} :: GetClassifiers) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager GetClassifiers where
+instance Pager.AWSPager GetClassifiers where
   page rq rs
-    | stop (rs ^. gcrrsNextToken) = Nothing
-    | stop (rs ^. gcrrsClassifiers) = Nothing
-    | otherwise =
-      Just $ rq & gcNextToken .~ rs ^. gcrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getClassifiersResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getClassifiersResponse_classifiers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getClassifiers_nextToken
+          Lens..~ rs
+          Lens.^? getClassifiersResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest GetClassifiers where
+instance Prelude.AWSRequest GetClassifiers where
   type Rs GetClassifiers = GetClassifiersResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetClassifiersResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Classifiers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Classifiers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetClassifiers
+instance Prelude.Hashable GetClassifiers
 
-instance NFData GetClassifiers
+instance Prelude.NFData GetClassifiers
 
-instance ToHeaders GetClassifiers where
+instance Prelude.ToHeaders GetClassifiers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetClassifiers" :: ByteString),
+              Prelude.=# ("AWSGlue.GetClassifiers" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetClassifiers where
+instance Prelude.ToJSON GetClassifiers where
   toJSON GetClassifiers' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gcNextToken,
-            ("MaxResults" .=) <$> _gcMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath GetClassifiers where
-  toPath = const "/"
+instance Prelude.ToPath GetClassifiers where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetClassifiers where
-  toQuery = const mempty
+instance Prelude.ToQuery GetClassifiers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getClassifiersResponse' smart constructor.
+-- | /See:/ 'newGetClassifiersResponse' smart constructor.
 data GetClassifiersResponse = GetClassifiersResponse'
-  { _gcrrsNextToken ::
-      !(Maybe Text),
-    _gcrrsClassifiers ::
-      !(Maybe [Classifier]),
-    _gcrrsResponseStatus ::
-      !Int
+  { -- | A continuation token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The requested list of classifier objects.
+    classifiers :: Prelude.Maybe [Classifier],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetClassifiersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetClassifiersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrrsNextToken' - A continuation token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrrsClassifiers' - The requested list of classifier objects.
+-- 'nextToken', 'getClassifiersResponse_nextToken' - A continuation token.
 --
--- * 'gcrrsResponseStatus' - -- | The response status code.
-getClassifiersResponse ::
-  -- | 'gcrrsResponseStatus'
-  Int ->
+-- 'classifiers', 'getClassifiersResponse_classifiers' - The requested list of classifier objects.
+--
+-- 'httpStatus', 'getClassifiersResponse_httpStatus' - The response's http status code.
+newGetClassifiersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetClassifiersResponse
-getClassifiersResponse pResponseStatus_ =
+newGetClassifiersResponse pHttpStatus_ =
   GetClassifiersResponse'
-    { _gcrrsNextToken = Nothing,
-      _gcrrsClassifiers = Nothing,
-      _gcrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      classifiers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A continuation token.
-gcrrsNextToken :: Lens' GetClassifiersResponse (Maybe Text)
-gcrrsNextToken = lens _gcrrsNextToken (\s a -> s {_gcrrsNextToken = a})
+getClassifiersResponse_nextToken :: Lens.Lens' GetClassifiersResponse (Prelude.Maybe Prelude.Text)
+getClassifiersResponse_nextToken = Lens.lens (\GetClassifiersResponse' {nextToken} -> nextToken) (\s@GetClassifiersResponse' {} a -> s {nextToken = a} :: GetClassifiersResponse)
 
 -- | The requested list of classifier objects.
-gcrrsClassifiers :: Lens' GetClassifiersResponse [Classifier]
-gcrrsClassifiers = lens _gcrrsClassifiers (\s a -> s {_gcrrsClassifiers = a}) . _Default . _Coerce
+getClassifiersResponse_classifiers :: Lens.Lens' GetClassifiersResponse (Prelude.Maybe [Classifier])
+getClassifiersResponse_classifiers = Lens.lens (\GetClassifiersResponse' {classifiers} -> classifiers) (\s@GetClassifiersResponse' {} a -> s {classifiers = a} :: GetClassifiersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcrrsResponseStatus :: Lens' GetClassifiersResponse Int
-gcrrsResponseStatus = lens _gcrrsResponseStatus (\s a -> s {_gcrrsResponseStatus = a})
+-- | The response's http status code.
+getClassifiersResponse_httpStatus :: Lens.Lens' GetClassifiersResponse Prelude.Int
+getClassifiersResponse_httpStatus = Lens.lens (\GetClassifiersResponse' {httpStatus} -> httpStatus) (\s@GetClassifiersResponse' {} a -> s {httpStatus = a} :: GetClassifiersResponse)
 
-instance NFData GetClassifiersResponse
+instance Prelude.NFData GetClassifiersResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,131 +22,143 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Retrieves information about a specified development endpoint.
+--
+-- When you create a development endpoint in a virtual private cloud (VPC),
+-- AWS Glue returns only a private IP address, and the public IP address
+-- field is not populated. When you create a non-VPC development endpoint,
+-- AWS Glue returns only a public IP address.
 module Network.AWS.Glue.GetDevEndpoint
   ( -- * Creating a Request
-    getDevEndpoint,
-    GetDevEndpoint,
+    GetDevEndpoint (..),
+    newGetDevEndpoint,
 
     -- * Request Lenses
-    gdeEndpointName,
+    getDevEndpoint_endpointName,
 
     -- * Destructuring the Response
-    getDevEndpointResponse,
-    GetDevEndpointResponse,
+    GetDevEndpointResponse (..),
+    newGetDevEndpointResponse,
 
     -- * Response Lenses
-    gderrsDevEndpoint,
-    gderrsResponseStatus,
+    getDevEndpointResponse_devEndpoint,
+    getDevEndpointResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Glue.Types.DevEndpoint
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDevEndpoint' smart constructor.
-newtype GetDevEndpoint = GetDevEndpoint'
-  { _gdeEndpointName ::
-      Text
+-- | /See:/ 'newGetDevEndpoint' smart constructor.
+data GetDevEndpoint = GetDevEndpoint'
+  { -- | Name of the @DevEndpoint@ to retrieve information for.
+    endpointName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdeEndpointName' - Name of the @DevEndpoint@ to retrieve information for.
-getDevEndpoint ::
-  -- | 'gdeEndpointName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'endpointName', 'getDevEndpoint_endpointName' - Name of the @DevEndpoint@ to retrieve information for.
+newGetDevEndpoint ::
+  -- | 'endpointName'
+  Prelude.Text ->
   GetDevEndpoint
-getDevEndpoint pEndpointName_ =
-  GetDevEndpoint' {_gdeEndpointName = pEndpointName_}
+newGetDevEndpoint pEndpointName_ =
+  GetDevEndpoint' {endpointName = pEndpointName_}
 
 -- | Name of the @DevEndpoint@ to retrieve information for.
-gdeEndpointName :: Lens' GetDevEndpoint Text
-gdeEndpointName = lens _gdeEndpointName (\s a -> s {_gdeEndpointName = a})
+getDevEndpoint_endpointName :: Lens.Lens' GetDevEndpoint Prelude.Text
+getDevEndpoint_endpointName = Lens.lens (\GetDevEndpoint' {endpointName} -> endpointName) (\s@GetDevEndpoint' {} a -> s {endpointName = a} :: GetDevEndpoint)
 
-instance AWSRequest GetDevEndpoint where
+instance Prelude.AWSRequest GetDevEndpoint where
   type Rs GetDevEndpoint = GetDevEndpointResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDevEndpointResponse'
-            <$> (x .?> "DevEndpoint") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DevEndpoint")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDevEndpoint
+instance Prelude.Hashable GetDevEndpoint
 
-instance NFData GetDevEndpoint
+instance Prelude.NFData GetDevEndpoint
 
-instance ToHeaders GetDevEndpoint where
+instance Prelude.ToHeaders GetDevEndpoint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.GetDevEndpoint" :: ByteString),
+              Prelude.=# ("AWSGlue.GetDevEndpoint" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDevEndpoint where
+instance Prelude.ToJSON GetDevEndpoint where
   toJSON GetDevEndpoint' {..} =
-    object
-      ( catMaybes
-          [Just ("EndpointName" .= _gdeEndpointName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("EndpointName" Prelude..= endpointName)
+          ]
       )
 
-instance ToPath GetDevEndpoint where
-  toPath = const "/"
+instance Prelude.ToPath GetDevEndpoint where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDevEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDevEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDevEndpointResponse' smart constructor.
+-- | /See:/ 'newGetDevEndpointResponse' smart constructor.
 data GetDevEndpointResponse = GetDevEndpointResponse'
-  { _gderrsDevEndpoint ::
-      !(Maybe DevEndpoint),
-    _gderrsResponseStatus ::
-      !Int
+  { -- | A @DevEndpoint@ definition.
+    devEndpoint :: Prelude.Maybe DevEndpoint,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gderrsDevEndpoint' - A @DevEndpoint@ definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gderrsResponseStatus' - -- | The response status code.
-getDevEndpointResponse ::
-  -- | 'gderrsResponseStatus'
-  Int ->
+-- 'devEndpoint', 'getDevEndpointResponse_devEndpoint' - A @DevEndpoint@ definition.
+--
+-- 'httpStatus', 'getDevEndpointResponse_httpStatus' - The response's http status code.
+newGetDevEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDevEndpointResponse
-getDevEndpointResponse pResponseStatus_ =
+newGetDevEndpointResponse pHttpStatus_ =
   GetDevEndpointResponse'
-    { _gderrsDevEndpoint =
-        Nothing,
-      _gderrsResponseStatus = pResponseStatus_
+    { devEndpoint =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A @DevEndpoint@ definition.
-gderrsDevEndpoint :: Lens' GetDevEndpointResponse (Maybe DevEndpoint)
-gderrsDevEndpoint = lens _gderrsDevEndpoint (\s a -> s {_gderrsDevEndpoint = a})
+getDevEndpointResponse_devEndpoint :: Lens.Lens' GetDevEndpointResponse (Prelude.Maybe DevEndpoint)
+getDevEndpointResponse_devEndpoint = Lens.lens (\GetDevEndpointResponse' {devEndpoint} -> devEndpoint) (\s@GetDevEndpointResponse' {} a -> s {devEndpoint = a} :: GetDevEndpointResponse)
 
--- | -- | The response status code.
-gderrsResponseStatus :: Lens' GetDevEndpointResponse Int
-gderrsResponseStatus = lens _gderrsResponseStatus (\s a -> s {_gderrsResponseStatus = a})
+-- | The response's http status code.
+getDevEndpointResponse_httpStatus :: Lens.Lens' GetDevEndpointResponse Prelude.Int
+getDevEndpointResponse_httpStatus = Lens.lens (\GetDevEndpointResponse' {httpStatus} -> httpStatus) (\s@GetDevEndpointResponse' {} a -> s {httpStatus = a} :: GetDevEndpointResponse)
 
-instance NFData GetDevEndpointResponse
+instance Prelude.NFData GetDevEndpointResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the names of all job resources in this AWS account, or the resources with the specified tag. This operation allows you to see which resources are available in your account, and their names.
+-- Retrieves the names of all job resources in this AWS account, or the
+-- resources with the specified tag. This operation allows you to see which
+-- resources are available in your account, and their names.
 --
---
--- This operation takes the optional @Tags@ field, which you can use as a filter on the response so that tagged resources can be retrieved as a group. If you choose to use tags filtering, only resources with the tag are retrieved.
+-- This operation takes the optional @Tags@ field, which you can use as a
+-- filter on the response so that tagged resources can be retrieved as a
+-- group. If you choose to use tags filtering, only resources with the tag
+-- are retrieved.
 module Network.AWS.Glue.ListJobs
   ( -- * Creating a Request
-    listJobs,
-    ListJobs,
+    ListJobs (..),
+    newListJobs,
 
     -- * Request Lenses
-    ljNextToken,
-    ljMaxResults,
-    ljTags,
+    listJobs_nextToken,
+    listJobs_maxResults,
+    listJobs_tags,
 
     -- * Destructuring the Response
-    listJobsResponse,
-    ListJobsResponse,
+    ListJobsResponse (..),
+    newListJobsResponse,
 
     -- * Response Lenses
-    ljrrsNextToken,
-    ljrrsJobNames,
-    ljrrsResponseStatus,
+    listJobsResponse_nextToken,
+    listJobsResponse_jobNames,
+    listJobsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listJobs' smart constructor.
+-- | /See:/ 'newListJobs' smart constructor.
 data ListJobs = ListJobs'
-  { _ljNextToken ::
-      !(Maybe Text),
-    _ljMaxResults :: !(Maybe Nat),
-    _ljTags :: !(Maybe (Map Text Text))
+  { -- | A continuation token, if this is a continuation request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of a list to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies to return only these tagged resources.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljNextToken' - A continuation token, if this is a continuation request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljMaxResults' - The maximum size of a list to return.
+-- 'nextToken', 'listJobs_nextToken' - A continuation token, if this is a continuation request.
 --
--- * 'ljTags' - Specifies to return only these tagged resources.
-listJobs ::
+-- 'maxResults', 'listJobs_maxResults' - The maximum size of a list to return.
+--
+-- 'tags', 'listJobs_tags' - Specifies to return only these tagged resources.
+newListJobs ::
   ListJobs
-listJobs =
+newListJobs =
   ListJobs'
-    { _ljNextToken = Nothing,
-      _ljMaxResults = Nothing,
-      _ljTags = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
 -- | A continuation token, if this is a continuation request.
-ljNextToken :: Lens' ListJobs (Maybe Text)
-ljNextToken = lens _ljNextToken (\s a -> s {_ljNextToken = a})
+listJobs_nextToken :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
+listJobs_nextToken = Lens.lens (\ListJobs' {nextToken} -> nextToken) (\s@ListJobs' {} a -> s {nextToken = a} :: ListJobs)
 
 -- | The maximum size of a list to return.
-ljMaxResults :: Lens' ListJobs (Maybe Natural)
-ljMaxResults = lens _ljMaxResults (\s a -> s {_ljMaxResults = a}) . mapping _Nat
+listJobs_maxResults :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Natural)
+listJobs_maxResults = Lens.lens (\ListJobs' {maxResults} -> maxResults) (\s@ListJobs' {} a -> s {maxResults = a} :: ListJobs) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Specifies to return only these tagged resources.
-ljTags :: Lens' ListJobs (HashMap Text Text)
-ljTags = lens _ljTags (\s a -> s {_ljTags = a}) . _Default . _Map
+listJobs_tags :: Lens.Lens' ListJobs (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+listJobs_tags = Lens.lens (\ListJobs' {tags} -> tags) (\s@ListJobs' {} a -> s {tags = a} :: ListJobs) Prelude.. Lens.mapping Prelude._Map
 
-instance AWSRequest ListJobs where
+instance Prelude.AWSRequest ListJobs where
   type Rs ListJobs = ListJobsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListJobsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "JobNames" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "JobNames" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListJobs
+instance Prelude.Hashable ListJobs
 
-instance NFData ListJobs
+instance Prelude.NFData ListJobs
 
-instance ToHeaders ListJobs where
+instance Prelude.ToHeaders ListJobs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.ListJobs" :: ByteString),
+              Prelude.=# ("AWSGlue.ListJobs" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListJobs where
+instance Prelude.ToJSON ListJobs where
   toJSON ListJobs' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ljNextToken,
-            ("MaxResults" .=) <$> _ljMaxResults,
-            ("Tags" .=) <$> _ljTags
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Tags" Prelude..=) Prelude.<$> tags
           ]
       )
 
-instance ToPath ListJobs where
-  toPath = const "/"
+instance Prelude.ToPath ListJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListJobs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListJobs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listJobsResponse' smart constructor.
+-- | /See:/ 'newListJobsResponse' smart constructor.
 data ListJobsResponse = ListJobsResponse'
-  { _ljrrsNextToken ::
-      !(Maybe Text),
-    _ljrrsJobNames :: !(Maybe [Text]),
-    _ljrrsResponseStatus :: !Int
+  { -- | A continuation token, if the returned list does not contain the last
+    -- metric available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The names of all jobs in the account, or the jobs with the specified
+    -- tags.
+    jobNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljrrsNextToken' - A continuation token, if the returned list does not contain the last metric available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljrrsJobNames' - The names of all jobs in the account, or the jobs with the specified tags.
+-- 'nextToken', 'listJobsResponse_nextToken' - A continuation token, if the returned list does not contain the last
+-- metric available.
 --
--- * 'ljrrsResponseStatus' - -- | The response status code.
-listJobsResponse ::
-  -- | 'ljrrsResponseStatus'
-  Int ->
+-- 'jobNames', 'listJobsResponse_jobNames' - The names of all jobs in the account, or the jobs with the specified
+-- tags.
+--
+-- 'httpStatus', 'listJobsResponse_httpStatus' - The response's http status code.
+newListJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListJobsResponse
-listJobsResponse pResponseStatus_ =
+newListJobsResponse pHttpStatus_ =
   ListJobsResponse'
-    { _ljrrsNextToken = Nothing,
-      _ljrrsJobNames = Nothing,
-      _ljrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      jobNames = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if the returned list does not contain the last metric available.
-ljrrsNextToken :: Lens' ListJobsResponse (Maybe Text)
-ljrrsNextToken = lens _ljrrsNextToken (\s a -> s {_ljrrsNextToken = a})
+-- | A continuation token, if the returned list does not contain the last
+-- metric available.
+listJobsResponse_nextToken :: Lens.Lens' ListJobsResponse (Prelude.Maybe Prelude.Text)
+listJobsResponse_nextToken = Lens.lens (\ListJobsResponse' {nextToken} -> nextToken) (\s@ListJobsResponse' {} a -> s {nextToken = a} :: ListJobsResponse)
 
--- | The names of all jobs in the account, or the jobs with the specified tags.
-ljrrsJobNames :: Lens' ListJobsResponse [Text]
-ljrrsJobNames = lens _ljrrsJobNames (\s a -> s {_ljrrsJobNames = a}) . _Default . _Coerce
+-- | The names of all jobs in the account, or the jobs with the specified
+-- tags.
+listJobsResponse_jobNames :: Lens.Lens' ListJobsResponse (Prelude.Maybe [Prelude.Text])
+listJobsResponse_jobNames = Lens.lens (\ListJobsResponse' {jobNames} -> jobNames) (\s@ListJobsResponse' {} a -> s {jobNames = a} :: ListJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ljrrsResponseStatus :: Lens' ListJobsResponse Int
-ljrrsResponseStatus = lens _ljrrsResponseStatus (\s a -> s {_ljrrsResponseStatus = a})
+-- | The response's http status code.
+listJobsResponse_httpStatus :: Lens.Lens' ListJobsResponse Prelude.Int
+listJobsResponse_httpStatus = Lens.lens (\ListJobsResponse' {httpStatus} -> httpStatus) (\s@ListJobsResponse' {} a -> s {httpStatus = a} :: ListJobsResponse)
 
-instance NFData ListJobsResponse
+instance Prelude.NFData ListJobsResponse

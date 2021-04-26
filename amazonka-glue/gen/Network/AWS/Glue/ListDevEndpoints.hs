@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the names of all @DevEndpoint@ resources in this AWS account, or the resources with the specified tag. This operation allows you to see which resources are available in your account, and their names.
+-- Retrieves the names of all @DevEndpoint@ resources in this AWS account,
+-- or the resources with the specified tag. This operation allows you to
+-- see which resources are available in your account, and their names.
 --
---
--- This operation takes the optional @Tags@ field, which you can use as a filter on the response so that tagged resources can be retrieved as a group. If you choose to use tags filtering, only resources with the tag are retrieved.
+-- This operation takes the optional @Tags@ field, which you can use as a
+-- filter on the response so that tagged resources can be retrieved as a
+-- group. If you choose to use tags filtering, only resources with the tag
+-- are retrieved.
 module Network.AWS.Glue.ListDevEndpoints
   ( -- * Creating a Request
-    listDevEndpoints,
-    ListDevEndpoints,
+    ListDevEndpoints (..),
+    newListDevEndpoints,
 
     -- * Request Lenses
-    ldeNextToken,
-    ldeMaxResults,
-    ldeTags,
+    listDevEndpoints_nextToken,
+    listDevEndpoints_maxResults,
+    listDevEndpoints_tags,
 
     -- * Destructuring the Response
-    listDevEndpointsResponse,
-    ListDevEndpointsResponse,
+    ListDevEndpointsResponse (..),
+    newListDevEndpointsResponse,
 
     -- * Response Lenses
-    lderrsNextToken,
-    lderrsDevEndpointNames,
-    lderrsResponseStatus,
+    listDevEndpointsResponse_nextToken,
+    listDevEndpointsResponse_devEndpointNames,
+    listDevEndpointsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDevEndpoints' smart constructor.
+-- | /See:/ 'newListDevEndpoints' smart constructor.
 data ListDevEndpoints = ListDevEndpoints'
-  { _ldeNextToken ::
-      !(Maybe Text),
-    _ldeMaxResults :: !(Maybe Nat),
-    _ldeTags :: !(Maybe (Map Text Text))
+  { -- | A continuation token, if this is a continuation request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of a list to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies to return only these tagged resources.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDevEndpoints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDevEndpoints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldeNextToken' - A continuation token, if this is a continuation request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldeMaxResults' - The maximum size of a list to return.
+-- 'nextToken', 'listDevEndpoints_nextToken' - A continuation token, if this is a continuation request.
 --
--- * 'ldeTags' - Specifies to return only these tagged resources.
-listDevEndpoints ::
+-- 'maxResults', 'listDevEndpoints_maxResults' - The maximum size of a list to return.
+--
+-- 'tags', 'listDevEndpoints_tags' - Specifies to return only these tagged resources.
+newListDevEndpoints ::
   ListDevEndpoints
-listDevEndpoints =
+newListDevEndpoints =
   ListDevEndpoints'
-    { _ldeNextToken = Nothing,
-      _ldeMaxResults = Nothing,
-      _ldeTags = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
 -- | A continuation token, if this is a continuation request.
-ldeNextToken :: Lens' ListDevEndpoints (Maybe Text)
-ldeNextToken = lens _ldeNextToken (\s a -> s {_ldeNextToken = a})
+listDevEndpoints_nextToken :: Lens.Lens' ListDevEndpoints (Prelude.Maybe Prelude.Text)
+listDevEndpoints_nextToken = Lens.lens (\ListDevEndpoints' {nextToken} -> nextToken) (\s@ListDevEndpoints' {} a -> s {nextToken = a} :: ListDevEndpoints)
 
 -- | The maximum size of a list to return.
-ldeMaxResults :: Lens' ListDevEndpoints (Maybe Natural)
-ldeMaxResults = lens _ldeMaxResults (\s a -> s {_ldeMaxResults = a}) . mapping _Nat
+listDevEndpoints_maxResults :: Lens.Lens' ListDevEndpoints (Prelude.Maybe Prelude.Natural)
+listDevEndpoints_maxResults = Lens.lens (\ListDevEndpoints' {maxResults} -> maxResults) (\s@ListDevEndpoints' {} a -> s {maxResults = a} :: ListDevEndpoints) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Specifies to return only these tagged resources.
-ldeTags :: Lens' ListDevEndpoints (HashMap Text Text)
-ldeTags = lens _ldeTags (\s a -> s {_ldeTags = a}) . _Default . _Map
+listDevEndpoints_tags :: Lens.Lens' ListDevEndpoints (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+listDevEndpoints_tags = Lens.lens (\ListDevEndpoints' {tags} -> tags) (\s@ListDevEndpoints' {} a -> s {tags = a} :: ListDevEndpoints) Prelude.. Lens.mapping Prelude._Map
 
-instance AWSRequest ListDevEndpoints where
+instance Prelude.AWSRequest ListDevEndpoints where
   type Rs ListDevEndpoints = ListDevEndpointsResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDevEndpointsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "DevEndpointNames" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "DevEndpointNames"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDevEndpoints
+instance Prelude.Hashable ListDevEndpoints
 
-instance NFData ListDevEndpoints
+instance Prelude.NFData ListDevEndpoints
 
-instance ToHeaders ListDevEndpoints where
+instance Prelude.ToHeaders ListDevEndpoints where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.ListDevEndpoints" :: ByteString),
+              Prelude.=# ("AWSGlue.ListDevEndpoints" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDevEndpoints where
+instance Prelude.ToJSON ListDevEndpoints where
   toJSON ListDevEndpoints' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ldeNextToken,
-            ("MaxResults" .=) <$> _ldeMaxResults,
-            ("Tags" .=) <$> _ldeTags
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Tags" Prelude..=) Prelude.<$> tags
           ]
       )
 
-instance ToPath ListDevEndpoints where
-  toPath = const "/"
+instance Prelude.ToPath ListDevEndpoints where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDevEndpoints where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDevEndpoints where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listDevEndpointsResponse' smart constructor.
+-- | /See:/ 'newListDevEndpointsResponse' smart constructor.
 data ListDevEndpointsResponse = ListDevEndpointsResponse'
-  { _lderrsNextToken ::
-      !(Maybe Text),
-    _lderrsDevEndpointNames ::
-      !(Maybe [Text]),
-    _lderrsResponseStatus ::
-      !Int
+  { -- | A continuation token, if the returned list does not contain the last
+    -- metric available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The names of all the @DevEndpoint@s in the account, or the
+    -- @DevEndpoint@s with the specified tags.
+    devEndpointNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDevEndpointsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDevEndpointsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lderrsNextToken' - A continuation token, if the returned list does not contain the last metric available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lderrsDevEndpointNames' - The names of all the @DevEndpoint@ s in the account, or the @DevEndpoint@ s with the specified tags.
+-- 'nextToken', 'listDevEndpointsResponse_nextToken' - A continuation token, if the returned list does not contain the last
+-- metric available.
 --
--- * 'lderrsResponseStatus' - -- | The response status code.
-listDevEndpointsResponse ::
-  -- | 'lderrsResponseStatus'
-  Int ->
+-- 'devEndpointNames', 'listDevEndpointsResponse_devEndpointNames' - The names of all the @DevEndpoint@s in the account, or the
+-- @DevEndpoint@s with the specified tags.
+--
+-- 'httpStatus', 'listDevEndpointsResponse_httpStatus' - The response's http status code.
+newListDevEndpointsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDevEndpointsResponse
-listDevEndpointsResponse pResponseStatus_ =
+newListDevEndpointsResponse pHttpStatus_ =
   ListDevEndpointsResponse'
-    { _lderrsNextToken =
-        Nothing,
-      _lderrsDevEndpointNames = Nothing,
-      _lderrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      devEndpointNames = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A continuation token, if the returned list does not contain the last metric available.
-lderrsNextToken :: Lens' ListDevEndpointsResponse (Maybe Text)
-lderrsNextToken = lens _lderrsNextToken (\s a -> s {_lderrsNextToken = a})
+-- | A continuation token, if the returned list does not contain the last
+-- metric available.
+listDevEndpointsResponse_nextToken :: Lens.Lens' ListDevEndpointsResponse (Prelude.Maybe Prelude.Text)
+listDevEndpointsResponse_nextToken = Lens.lens (\ListDevEndpointsResponse' {nextToken} -> nextToken) (\s@ListDevEndpointsResponse' {} a -> s {nextToken = a} :: ListDevEndpointsResponse)
 
--- | The names of all the @DevEndpoint@ s in the account, or the @DevEndpoint@ s with the specified tags.
-lderrsDevEndpointNames :: Lens' ListDevEndpointsResponse [Text]
-lderrsDevEndpointNames = lens _lderrsDevEndpointNames (\s a -> s {_lderrsDevEndpointNames = a}) . _Default . _Coerce
+-- | The names of all the @DevEndpoint@s in the account, or the
+-- @DevEndpoint@s with the specified tags.
+listDevEndpointsResponse_devEndpointNames :: Lens.Lens' ListDevEndpointsResponse (Prelude.Maybe [Prelude.Text])
+listDevEndpointsResponse_devEndpointNames = Lens.lens (\ListDevEndpointsResponse' {devEndpointNames} -> devEndpointNames) (\s@ListDevEndpointsResponse' {} a -> s {devEndpointNames = a} :: ListDevEndpointsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lderrsResponseStatus :: Lens' ListDevEndpointsResponse Int
-lderrsResponseStatus = lens _lderrsResponseStatus (\s a -> s {_lderrsResponseStatus = a})
+-- | The response's http status code.
+listDevEndpointsResponse_httpStatus :: Lens.Lens' ListDevEndpointsResponse Prelude.Int
+listDevEndpointsResponse_httpStatus = Lens.lens (\ListDevEndpointsResponse' {httpStatus} -> httpStatus) (\s@ListDevEndpointsResponse' {} a -> s {httpStatus = a} :: ListDevEndpointsResponse)
 
-instance NFData ListDevEndpointsResponse
+instance Prelude.NFData ListDevEndpointsResponse

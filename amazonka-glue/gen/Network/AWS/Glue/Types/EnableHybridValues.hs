@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Glue.Types.EnableHybridValues
   ( EnableHybridValues
       ( ..,
-        False',
-        True'
+        EnableHybridValuesFALSE,
+        EnableHybridValuesTRUE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnableHybridValues
-  = EnableHybridValues'
-      ( CI
-          Text
-      )
+newtype EnableHybridValues = EnableHybridValues'
+  { fromEnableHybridValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern False' :: EnableHybridValues
-pattern False' = EnableHybridValues' "FALSE"
+pattern EnableHybridValuesFALSE :: EnableHybridValues
+pattern EnableHybridValuesFALSE = EnableHybridValues' "FALSE"
 
-pattern True' :: EnableHybridValues
-pattern True' = EnableHybridValues' "TRUE"
+pattern EnableHybridValuesTRUE :: EnableHybridValues
+pattern EnableHybridValuesTRUE = EnableHybridValues' "TRUE"
 
 {-# COMPLETE
-  False',
-  True',
+  EnableHybridValuesFALSE,
+  EnableHybridValuesTRUE,
   EnableHybridValues'
   #-}
 
-instance FromText EnableHybridValues where
-  parser = (EnableHybridValues' . mk) <$> takeText
+instance Prelude.FromText EnableHybridValues where
+  parser = EnableHybridValues' Prelude.<$> Prelude.takeText
 
-instance ToText EnableHybridValues where
-  toText (EnableHybridValues' ci) = original ci
+instance Prelude.ToText EnableHybridValues where
+  toText (EnableHybridValues' x) = x
 
-instance Hashable EnableHybridValues
+instance Prelude.Hashable EnableHybridValues
 
-instance NFData EnableHybridValues
+instance Prelude.NFData EnableHybridValues
 
-instance ToByteString EnableHybridValues
+instance Prelude.ToByteString EnableHybridValues
 
-instance ToQuery EnableHybridValues
+instance Prelude.ToQuery EnableHybridValues
 
-instance ToHeader EnableHybridValues
+instance Prelude.ToHeader EnableHybridValues
 
-instance ToJSON EnableHybridValues where
-  toJSON = toJSONText
+instance Prelude.ToJSON EnableHybridValues where
+  toJSON = Prelude.toJSONText

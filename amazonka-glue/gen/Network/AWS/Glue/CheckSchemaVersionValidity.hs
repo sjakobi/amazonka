@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Validates the supplied schema. This call has no side effects, it simply validates using the supplied schema using @DataFormat@ as the format. Since it does not take a schema set name, no compatibility checks are performed.
+-- Validates the supplied schema. This call has no side effects, it simply
+-- validates using the supplied schema using @DataFormat@ as the format.
+-- Since it does not take a schema set name, no compatibility checks are
+-- performed.
 module Network.AWS.Glue.CheckSchemaVersionValidity
   ( -- * Creating a Request
-    checkSchemaVersionValidity,
-    CheckSchemaVersionValidity,
+    CheckSchemaVersionValidity (..),
+    newCheckSchemaVersionValidity,
 
     -- * Request Lenses
-    csvvDataFormat,
-    csvvSchemaDefinition,
+    checkSchemaVersionValidity_dataFormat,
+    checkSchemaVersionValidity_schemaDefinition,
 
     -- * Destructuring the Response
-    checkSchemaVersionValidityResponse,
-    CheckSchemaVersionValidityResponse,
+    CheckSchemaVersionValidityResponse (..),
+    newCheckSchemaVersionValidityResponse,
 
     -- * Response Lenses
-    csvvrrsValid,
-    csvvrrsError,
-    csvvrrsResponseStatus,
+    checkSchemaVersionValidityResponse_valid,
+    checkSchemaVersionValidityResponse_error,
+    checkSchemaVersionValidityResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glue.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'checkSchemaVersionValidity' smart constructor.
+-- | /See:/ 'newCheckSchemaVersionValidity' smart constructor.
 data CheckSchemaVersionValidity = CheckSchemaVersionValidity'
-  { _csvvDataFormat ::
-      !DataFormat,
-    _csvvSchemaDefinition ::
-      !Text
+  { -- | The data format of the schema definition. Currently only @AVRO@ is
+    -- supported.
+    dataFormat :: DataFormat,
+    -- | The definition of the schema that has to be validated.
+    schemaDefinition :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CheckSchemaVersionValidity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CheckSchemaVersionValidity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csvvDataFormat' - The data format of the schema definition. Currently only @AVRO@ is supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csvvSchemaDefinition' - The definition of the schema that has to be validated.
-checkSchemaVersionValidity ::
-  -- | 'csvvDataFormat'
+-- 'dataFormat', 'checkSchemaVersionValidity_dataFormat' - The data format of the schema definition. Currently only @AVRO@ is
+-- supported.
+--
+-- 'schemaDefinition', 'checkSchemaVersionValidity_schemaDefinition' - The definition of the schema that has to be validated.
+newCheckSchemaVersionValidity ::
+  -- | 'dataFormat'
   DataFormat ->
-  -- | 'csvvSchemaDefinition'
-  Text ->
+  -- | 'schemaDefinition'
+  Prelude.Text ->
   CheckSchemaVersionValidity
-checkSchemaVersionValidity
+newCheckSchemaVersionValidity
   pDataFormat_
   pSchemaDefinition_ =
     CheckSchemaVersionValidity'
-      { _csvvDataFormat =
+      { dataFormat =
           pDataFormat_,
-        _csvvSchemaDefinition = pSchemaDefinition_
+        schemaDefinition = pSchemaDefinition_
       }
 
--- | The data format of the schema definition. Currently only @AVRO@ is supported.
-csvvDataFormat :: Lens' CheckSchemaVersionValidity DataFormat
-csvvDataFormat = lens _csvvDataFormat (\s a -> s {_csvvDataFormat = a})
+-- | The data format of the schema definition. Currently only @AVRO@ is
+-- supported.
+checkSchemaVersionValidity_dataFormat :: Lens.Lens' CheckSchemaVersionValidity DataFormat
+checkSchemaVersionValidity_dataFormat = Lens.lens (\CheckSchemaVersionValidity' {dataFormat} -> dataFormat) (\s@CheckSchemaVersionValidity' {} a -> s {dataFormat = a} :: CheckSchemaVersionValidity)
 
 -- | The definition of the schema that has to be validated.
-csvvSchemaDefinition :: Lens' CheckSchemaVersionValidity Text
-csvvSchemaDefinition = lens _csvvSchemaDefinition (\s a -> s {_csvvSchemaDefinition = a})
+checkSchemaVersionValidity_schemaDefinition :: Lens.Lens' CheckSchemaVersionValidity Prelude.Text
+checkSchemaVersionValidity_schemaDefinition = Lens.lens (\CheckSchemaVersionValidity' {schemaDefinition} -> schemaDefinition) (\s@CheckSchemaVersionValidity' {} a -> s {schemaDefinition = a} :: CheckSchemaVersionValidity)
 
-instance AWSRequest CheckSchemaVersionValidity where
+instance
+  Prelude.AWSRequest
+    CheckSchemaVersionValidity
+  where
   type
     Rs CheckSchemaVersionValidity =
       CheckSchemaVersionValidityResponse
-  request = postJSON glue
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CheckSchemaVersionValidityResponse'
-            <$> (x .?> "Valid")
-            <*> (x .?> "Error")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Valid")
+            Prelude.<*> (x Prelude..?> "Error")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CheckSchemaVersionValidity
+instance Prelude.Hashable CheckSchemaVersionValidity
 
-instance NFData CheckSchemaVersionValidity
+instance Prelude.NFData CheckSchemaVersionValidity
 
-instance ToHeaders CheckSchemaVersionValidity where
+instance Prelude.ToHeaders CheckSchemaVersionValidity where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSGlue.CheckSchemaVersionValidity" :: ByteString),
+              Prelude.=# ( "AWSGlue.CheckSchemaVersionValidity" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CheckSchemaVersionValidity where
+instance Prelude.ToJSON CheckSchemaVersionValidity where
   toJSON CheckSchemaVersionValidity' {..} =
-    object
-      ( catMaybes
-          [ Just ("DataFormat" .= _csvvDataFormat),
-            Just ("SchemaDefinition" .= _csvvSchemaDefinition)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DataFormat" Prelude..= dataFormat),
+            Prelude.Just
+              ("SchemaDefinition" Prelude..= schemaDefinition)
           ]
       )
 
-instance ToPath CheckSchemaVersionValidity where
-  toPath = const "/"
+instance Prelude.ToPath CheckSchemaVersionValidity where
+  toPath = Prelude.const "/"
 
-instance ToQuery CheckSchemaVersionValidity where
-  toQuery = const mempty
+instance Prelude.ToQuery CheckSchemaVersionValidity where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'checkSchemaVersionValidityResponse' smart constructor.
+-- | /See:/ 'newCheckSchemaVersionValidityResponse' smart constructor.
 data CheckSchemaVersionValidityResponse = CheckSchemaVersionValidityResponse'
-  { _csvvrrsValid ::
-      !( Maybe
-           Bool
-       ),
-    _csvvrrsError ::
-      !( Maybe
-           Text
-       ),
-    _csvvrrsResponseStatus ::
-      !Int
+  { -- | Return true, if the schema is valid and false otherwise.
+    valid :: Prelude.Maybe Prelude.Bool,
+    -- | A validation failure error message.
+    error :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CheckSchemaVersionValidityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CheckSchemaVersionValidityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csvvrrsValid' - Return true, if the schema is valid and false otherwise.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csvvrrsError' - A validation failure error message.
+-- 'valid', 'checkSchemaVersionValidityResponse_valid' - Return true, if the schema is valid and false otherwise.
 --
--- * 'csvvrrsResponseStatus' - -- | The response status code.
-checkSchemaVersionValidityResponse ::
-  -- | 'csvvrrsResponseStatus'
-  Int ->
+-- 'error', 'checkSchemaVersionValidityResponse_error' - A validation failure error message.
+--
+-- 'httpStatus', 'checkSchemaVersionValidityResponse_httpStatus' - The response's http status code.
+newCheckSchemaVersionValidityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CheckSchemaVersionValidityResponse
-checkSchemaVersionValidityResponse pResponseStatus_ =
+newCheckSchemaVersionValidityResponse pHttpStatus_ =
   CheckSchemaVersionValidityResponse'
-    { _csvvrrsValid =
-        Nothing,
-      _csvvrrsError = Nothing,
-      _csvvrrsResponseStatus =
-        pResponseStatus_
+    { valid =
+        Prelude.Nothing,
+      error = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Return true, if the schema is valid and false otherwise.
-csvvrrsValid :: Lens' CheckSchemaVersionValidityResponse (Maybe Bool)
-csvvrrsValid = lens _csvvrrsValid (\s a -> s {_csvvrrsValid = a})
+checkSchemaVersionValidityResponse_valid :: Lens.Lens' CheckSchemaVersionValidityResponse (Prelude.Maybe Prelude.Bool)
+checkSchemaVersionValidityResponse_valid = Lens.lens (\CheckSchemaVersionValidityResponse' {valid} -> valid) (\s@CheckSchemaVersionValidityResponse' {} a -> s {valid = a} :: CheckSchemaVersionValidityResponse)
 
 -- | A validation failure error message.
-csvvrrsError :: Lens' CheckSchemaVersionValidityResponse (Maybe Text)
-csvvrrsError = lens _csvvrrsError (\s a -> s {_csvvrrsError = a})
+checkSchemaVersionValidityResponse_error :: Lens.Lens' CheckSchemaVersionValidityResponse (Prelude.Maybe Prelude.Text)
+checkSchemaVersionValidityResponse_error = Lens.lens (\CheckSchemaVersionValidityResponse' {error} -> error) (\s@CheckSchemaVersionValidityResponse' {} a -> s {error = a} :: CheckSchemaVersionValidityResponse)
 
--- | -- | The response status code.
-csvvrrsResponseStatus :: Lens' CheckSchemaVersionValidityResponse Int
-csvvrrsResponseStatus = lens _csvvrrsResponseStatus (\s a -> s {_csvvrrsResponseStatus = a})
+-- | The response's http status code.
+checkSchemaVersionValidityResponse_httpStatus :: Lens.Lens' CheckSchemaVersionValidityResponse Prelude.Int
+checkSchemaVersionValidityResponse_httpStatus = Lens.lens (\CheckSchemaVersionValidityResponse' {httpStatus} -> httpStatus) (\s@CheckSchemaVersionValidityResponse' {} a -> s {httpStatus = a} :: CheckSchemaVersionValidityResponse)
 
-instance NFData CheckSchemaVersionValidityResponse
+instance
+  Prelude.NFData
+    CheckSchemaVersionValidityResponse

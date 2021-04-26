@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glue.Types.BinaryColumnStatisticsData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines column statistics supported for bit sequence data values.
 --
---
---
--- /See:/ 'binaryColumnStatisticsData' smart constructor.
+-- /See:/ 'newBinaryColumnStatisticsData' smart constructor.
 data BinaryColumnStatisticsData = BinaryColumnStatisticsData'
-  { _bcsdMaximumLength ::
-      !Nat,
-    _bcsdAverageLength ::
-      !Double,
-    _bcsdNumberOfNulls ::
-      !Nat
+  { -- | The size of the longest bit sequence in the column.
+    maximumLength :: Prelude.Nat,
+    -- | The average bit sequence length in the column.
+    averageLength :: Prelude.Double,
+    -- | The number of null values in the column.
+    numberOfNulls :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BinaryColumnStatisticsData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BinaryColumnStatisticsData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bcsdMaximumLength' - The size of the longest bit sequence in the column.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bcsdAverageLength' - The average bit sequence length in the column.
+-- 'maximumLength', 'binaryColumnStatisticsData_maximumLength' - The size of the longest bit sequence in the column.
 --
--- * 'bcsdNumberOfNulls' - The number of null values in the column.
-binaryColumnStatisticsData ::
-  -- | 'bcsdMaximumLength'
-  Natural ->
-  -- | 'bcsdAverageLength'
-  Double ->
-  -- | 'bcsdNumberOfNulls'
-  Natural ->
+-- 'averageLength', 'binaryColumnStatisticsData_averageLength' - The average bit sequence length in the column.
+--
+-- 'numberOfNulls', 'binaryColumnStatisticsData_numberOfNulls' - The number of null values in the column.
+newBinaryColumnStatisticsData ::
+  -- | 'maximumLength'
+  Prelude.Natural ->
+  -- | 'averageLength'
+  Prelude.Double ->
+  -- | 'numberOfNulls'
+  Prelude.Natural ->
   BinaryColumnStatisticsData
-binaryColumnStatisticsData
+newBinaryColumnStatisticsData
   pMaximumLength_
   pAverageLength_
   pNumberOfNulls_ =
     BinaryColumnStatisticsData'
-      { _bcsdMaximumLength =
-          _Nat # pMaximumLength_,
-        _bcsdAverageLength = pAverageLength_,
-        _bcsdNumberOfNulls = _Nat # pNumberOfNulls_
+      { maximumLength =
+          Prelude._Nat Lens.# pMaximumLength_,
+        averageLength = pAverageLength_,
+        numberOfNulls =
+          Prelude._Nat Lens.# pNumberOfNulls_
       }
 
 -- | The size of the longest bit sequence in the column.
-bcsdMaximumLength :: Lens' BinaryColumnStatisticsData Natural
-bcsdMaximumLength = lens _bcsdMaximumLength (\s a -> s {_bcsdMaximumLength = a}) . _Nat
+binaryColumnStatisticsData_maximumLength :: Lens.Lens' BinaryColumnStatisticsData Prelude.Natural
+binaryColumnStatisticsData_maximumLength = Lens.lens (\BinaryColumnStatisticsData' {maximumLength} -> maximumLength) (\s@BinaryColumnStatisticsData' {} a -> s {maximumLength = a} :: BinaryColumnStatisticsData) Prelude.. Prelude._Nat
 
 -- | The average bit sequence length in the column.
-bcsdAverageLength :: Lens' BinaryColumnStatisticsData Double
-bcsdAverageLength = lens _bcsdAverageLength (\s a -> s {_bcsdAverageLength = a})
+binaryColumnStatisticsData_averageLength :: Lens.Lens' BinaryColumnStatisticsData Prelude.Double
+binaryColumnStatisticsData_averageLength = Lens.lens (\BinaryColumnStatisticsData' {averageLength} -> averageLength) (\s@BinaryColumnStatisticsData' {} a -> s {averageLength = a} :: BinaryColumnStatisticsData)
 
 -- | The number of null values in the column.
-bcsdNumberOfNulls :: Lens' BinaryColumnStatisticsData Natural
-bcsdNumberOfNulls = lens _bcsdNumberOfNulls (\s a -> s {_bcsdNumberOfNulls = a}) . _Nat
+binaryColumnStatisticsData_numberOfNulls :: Lens.Lens' BinaryColumnStatisticsData Prelude.Natural
+binaryColumnStatisticsData_numberOfNulls = Lens.lens (\BinaryColumnStatisticsData' {numberOfNulls} -> numberOfNulls) (\s@BinaryColumnStatisticsData' {} a -> s {numberOfNulls = a} :: BinaryColumnStatisticsData) Prelude.. Prelude._Nat
 
-instance FromJSON BinaryColumnStatisticsData where
+instance Prelude.FromJSON BinaryColumnStatisticsData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BinaryColumnStatisticsData"
       ( \x ->
           BinaryColumnStatisticsData'
-            <$> (x .: "MaximumLength")
-            <*> (x .: "AverageLength")
-            <*> (x .: "NumberOfNulls")
+            Prelude.<$> (x Prelude..: "MaximumLength")
+            Prelude.<*> (x Prelude..: "AverageLength")
+            Prelude.<*> (x Prelude..: "NumberOfNulls")
       )
 
-instance Hashable BinaryColumnStatisticsData
+instance Prelude.Hashable BinaryColumnStatisticsData
 
-instance NFData BinaryColumnStatisticsData
+instance Prelude.NFData BinaryColumnStatisticsData
 
-instance ToJSON BinaryColumnStatisticsData where
+instance Prelude.ToJSON BinaryColumnStatisticsData where
   toJSON BinaryColumnStatisticsData' {..} =
-    object
-      ( catMaybes
-          [ Just ("MaximumLength" .= _bcsdMaximumLength),
-            Just ("AverageLength" .= _bcsdAverageLength),
-            Just ("NumberOfNulls" .= _bcsdNumberOfNulls)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("MaximumLength" Prelude..= maximumLength),
+            Prelude.Just
+              ("AverageLength" Prelude..= averageLength),
+            Prelude.Just
+              ("NumberOfNulls" Prelude..= numberOfNulls)
           ]
       )
