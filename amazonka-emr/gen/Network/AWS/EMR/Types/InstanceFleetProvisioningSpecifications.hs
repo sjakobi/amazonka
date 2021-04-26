@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +21,108 @@ module Network.AWS.EMR.Types.InstanceFleetProvisioningSpecifications where
 
 import Network.AWS.EMR.Types.OnDemandProvisioningSpecification
 import Network.AWS.EMR.Types.SpotProvisioningSpecification
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The launch specification for Spot Instances in the fleet, which determines the defined duration, provisioning timeout behavior, and allocation strategy.
+-- | The launch specification for Spot Instances in the fleet, which
+-- determines the defined duration, provisioning timeout behavior, and
+-- allocation strategy.
 --
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions. On-Demand and Spot
+-- Instance allocation strategies are available in Amazon EMR version
+-- 5.12.1 and later.
 --
---
--- /See:/ 'instanceFleetProvisioningSpecifications' smart constructor.
+-- /See:/ 'newInstanceFleetProvisioningSpecifications' smart constructor.
 data InstanceFleetProvisioningSpecifications = InstanceFleetProvisioningSpecifications'
-  { _ifpsOnDemandSpecification ::
-      !( Maybe
-           OnDemandProvisioningSpecification
-       ),
-    _ifpsSpotSpecification ::
-      !( Maybe
-           SpotProvisioningSpecification
-       )
+  { -- | The launch specification for On-Demand Instances in the instance fleet,
+    -- which determines the allocation strategy.
+    --
+    -- The instance fleet configuration is available only in Amazon EMR
+    -- versions 4.8.0 and later, excluding 5.0.x versions. On-Demand Instances
+    -- allocation strategy is available in Amazon EMR version 5.12.1 and later.
+    onDemandSpecification :: Prelude.Maybe OnDemandProvisioningSpecification,
+    -- | The launch specification for Spot Instances in the fleet, which
+    -- determines the defined duration, provisioning timeout behavior, and
+    -- allocation strategy.
+    spotSpecification :: Prelude.Maybe SpotProvisioningSpecification
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceFleetProvisioningSpecifications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceFleetProvisioningSpecifications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ifpsOnDemandSpecification' - The launch specification for On-Demand Instances in the instance fleet, which determines the allocation strategy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ifpsSpotSpecification' - The launch specification for Spot Instances in the fleet, which determines the defined duration, provisioning timeout behavior, and allocation strategy.
-instanceFleetProvisioningSpecifications ::
+-- 'onDemandSpecification', 'instanceFleetProvisioningSpecifications_onDemandSpecification' - The launch specification for On-Demand Instances in the instance fleet,
+-- which determines the allocation strategy.
+--
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions. On-Demand Instances
+-- allocation strategy is available in Amazon EMR version 5.12.1 and later.
+--
+-- 'spotSpecification', 'instanceFleetProvisioningSpecifications_spotSpecification' - The launch specification for Spot Instances in the fleet, which
+-- determines the defined duration, provisioning timeout behavior, and
+-- allocation strategy.
+newInstanceFleetProvisioningSpecifications ::
   InstanceFleetProvisioningSpecifications
-instanceFleetProvisioningSpecifications =
+newInstanceFleetProvisioningSpecifications =
   InstanceFleetProvisioningSpecifications'
-    { _ifpsOnDemandSpecification =
-        Nothing,
-      _ifpsSpotSpecification = Nothing
+    { onDemandSpecification =
+        Prelude.Nothing,
+      spotSpecification =
+        Prelude.Nothing
     }
 
--- | The launch specification for On-Demand Instances in the instance fleet, which determines the allocation strategy.
-ifpsOnDemandSpecification :: Lens' InstanceFleetProvisioningSpecifications (Maybe OnDemandProvisioningSpecification)
-ifpsOnDemandSpecification = lens _ifpsOnDemandSpecification (\s a -> s {_ifpsOnDemandSpecification = a})
+-- | The launch specification for On-Demand Instances in the instance fleet,
+-- which determines the allocation strategy.
+--
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions. On-Demand Instances
+-- allocation strategy is available in Amazon EMR version 5.12.1 and later.
+instanceFleetProvisioningSpecifications_onDemandSpecification :: Lens.Lens' InstanceFleetProvisioningSpecifications (Prelude.Maybe OnDemandProvisioningSpecification)
+instanceFleetProvisioningSpecifications_onDemandSpecification = Lens.lens (\InstanceFleetProvisioningSpecifications' {onDemandSpecification} -> onDemandSpecification) (\s@InstanceFleetProvisioningSpecifications' {} a -> s {onDemandSpecification = a} :: InstanceFleetProvisioningSpecifications)
 
--- | The launch specification for Spot Instances in the fleet, which determines the defined duration, provisioning timeout behavior, and allocation strategy.
-ifpsSpotSpecification :: Lens' InstanceFleetProvisioningSpecifications (Maybe SpotProvisioningSpecification)
-ifpsSpotSpecification = lens _ifpsSpotSpecification (\s a -> s {_ifpsSpotSpecification = a})
+-- | The launch specification for Spot Instances in the fleet, which
+-- determines the defined duration, provisioning timeout behavior, and
+-- allocation strategy.
+instanceFleetProvisioningSpecifications_spotSpecification :: Lens.Lens' InstanceFleetProvisioningSpecifications (Prelude.Maybe SpotProvisioningSpecification)
+instanceFleetProvisioningSpecifications_spotSpecification = Lens.lens (\InstanceFleetProvisioningSpecifications' {spotSpecification} -> spotSpecification) (\s@InstanceFleetProvisioningSpecifications' {} a -> s {spotSpecification = a} :: InstanceFleetProvisioningSpecifications)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     InstanceFleetProvisioningSpecifications
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceFleetProvisioningSpecifications"
       ( \x ->
           InstanceFleetProvisioningSpecifications'
-            <$> (x .:? "OnDemandSpecification")
-            <*> (x .:? "SpotSpecification")
+            Prelude.<$> (x Prelude..:? "OnDemandSpecification")
+            Prelude.<*> (x Prelude..:? "SpotSpecification")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     InstanceFleetProvisioningSpecifications
 
 instance
-  NFData
+  Prelude.NFData
     InstanceFleetProvisioningSpecifications
 
 instance
-  ToJSON
+  Prelude.ToJSON
     InstanceFleetProvisioningSpecifications
   where
   toJSON InstanceFleetProvisioningSpecifications' {..} =
-    object
-      ( catMaybes
-          [ ("OnDemandSpecification" .=)
-              <$> _ifpsOnDemandSpecification,
-            ("SpotSpecification" .=) <$> _ifpsSpotSpecification
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OnDemandSpecification" Prelude..=)
+              Prelude.<$> onDemandSpecification,
+            ("SpotSpecification" Prelude..=)
+              Prelude.<$> spotSpecification
           ]
       )

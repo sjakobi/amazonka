@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,76 @@
 module Network.AWS.EMR.Types.ShrinkPolicy where
 
 import Network.AWS.EMR.Types.InstanceResizePolicy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Policy for customizing shrink operations. Allows configuration of decommissioning timeout and targeted instance shrinking.
+-- | Policy for customizing shrink operations. Allows configuration of
+-- decommissioning timeout and targeted instance shrinking.
 --
---
---
--- /See:/ 'shrinkPolicy' smart constructor.
+-- /See:/ 'newShrinkPolicy' smart constructor.
 data ShrinkPolicy = ShrinkPolicy'
-  { _spInstanceResizePolicy ::
-      !(Maybe InstanceResizePolicy),
-    _spDecommissionTimeout :: !(Maybe Int)
+  { -- | Custom policy for requesting termination protection or termination of
+    -- specific instances when shrinking an instance group.
+    instanceResizePolicy :: Prelude.Maybe InstanceResizePolicy,
+    -- | The desired timeout for decommissioning an instance. Overrides the
+    -- default YARN decommissioning timeout.
+    decommissionTimeout :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ShrinkPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ShrinkPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spInstanceResizePolicy' - Custom policy for requesting termination protection or termination of specific instances when shrinking an instance group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spDecommissionTimeout' - The desired timeout for decommissioning an instance. Overrides the default YARN decommissioning timeout.
-shrinkPolicy ::
+-- 'instanceResizePolicy', 'shrinkPolicy_instanceResizePolicy' - Custom policy for requesting termination protection or termination of
+-- specific instances when shrinking an instance group.
+--
+-- 'decommissionTimeout', 'shrinkPolicy_decommissionTimeout' - The desired timeout for decommissioning an instance. Overrides the
+-- default YARN decommissioning timeout.
+newShrinkPolicy ::
   ShrinkPolicy
-shrinkPolicy =
+newShrinkPolicy =
   ShrinkPolicy'
-    { _spInstanceResizePolicy = Nothing,
-      _spDecommissionTimeout = Nothing
+    { instanceResizePolicy =
+        Prelude.Nothing,
+      decommissionTimeout = Prelude.Nothing
     }
 
--- | Custom policy for requesting termination protection or termination of specific instances when shrinking an instance group.
-spInstanceResizePolicy :: Lens' ShrinkPolicy (Maybe InstanceResizePolicy)
-spInstanceResizePolicy = lens _spInstanceResizePolicy (\s a -> s {_spInstanceResizePolicy = a})
+-- | Custom policy for requesting termination protection or termination of
+-- specific instances when shrinking an instance group.
+shrinkPolicy_instanceResizePolicy :: Lens.Lens' ShrinkPolicy (Prelude.Maybe InstanceResizePolicy)
+shrinkPolicy_instanceResizePolicy = Lens.lens (\ShrinkPolicy' {instanceResizePolicy} -> instanceResizePolicy) (\s@ShrinkPolicy' {} a -> s {instanceResizePolicy = a} :: ShrinkPolicy)
 
--- | The desired timeout for decommissioning an instance. Overrides the default YARN decommissioning timeout.
-spDecommissionTimeout :: Lens' ShrinkPolicy (Maybe Int)
-spDecommissionTimeout = lens _spDecommissionTimeout (\s a -> s {_spDecommissionTimeout = a})
+-- | The desired timeout for decommissioning an instance. Overrides the
+-- default YARN decommissioning timeout.
+shrinkPolicy_decommissionTimeout :: Lens.Lens' ShrinkPolicy (Prelude.Maybe Prelude.Int)
+shrinkPolicy_decommissionTimeout = Lens.lens (\ShrinkPolicy' {decommissionTimeout} -> decommissionTimeout) (\s@ShrinkPolicy' {} a -> s {decommissionTimeout = a} :: ShrinkPolicy)
 
-instance FromJSON ShrinkPolicy where
+instance Prelude.FromJSON ShrinkPolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ShrinkPolicy"
       ( \x ->
           ShrinkPolicy'
-            <$> (x .:? "InstanceResizePolicy")
-            <*> (x .:? "DecommissionTimeout")
+            Prelude.<$> (x Prelude..:? "InstanceResizePolicy")
+            Prelude.<*> (x Prelude..:? "DecommissionTimeout")
       )
 
-instance Hashable ShrinkPolicy
+instance Prelude.Hashable ShrinkPolicy
 
-instance NFData ShrinkPolicy
+instance Prelude.NFData ShrinkPolicy
 
-instance ToJSON ShrinkPolicy where
+instance Prelude.ToJSON ShrinkPolicy where
   toJSON ShrinkPolicy' {..} =
-    object
-      ( catMaybes
-          [ ("InstanceResizePolicy" .=)
-              <$> _spInstanceResizePolicy,
-            ("DecommissionTimeout" .=)
-              <$> _spDecommissionTimeout
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InstanceResizePolicy" Prelude..=)
+              Prelude.<$> instanceResizePolicy,
+            ("DecommissionTimeout" Prelude..=)
+              Prelude.<$> decommissionTimeout
           ]
       )

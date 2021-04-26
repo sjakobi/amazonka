@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.EMR.Types.OnDemandProvisioningAllocationStrategy
   ( OnDemandProvisioningAllocationStrategy
       ( ..,
-        LowestPrice
+        OnDemandProvisioningAllocationStrategyLowestPrice
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OnDemandProvisioningAllocationStrategy
-  = OnDemandProvisioningAllocationStrategy'
-      ( CI
-          Text
-      )
+newtype OnDemandProvisioningAllocationStrategy = OnDemandProvisioningAllocationStrategy'
+  { fromOnDemandProvisioningAllocationStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LowestPrice :: OnDemandProvisioningAllocationStrategy
-pattern LowestPrice = OnDemandProvisioningAllocationStrategy' "lowest-price"
+pattern OnDemandProvisioningAllocationStrategyLowestPrice :: OnDemandProvisioningAllocationStrategy
+pattern OnDemandProvisioningAllocationStrategyLowestPrice = OnDemandProvisioningAllocationStrategy' "lowest-price"
 
 {-# COMPLETE
-  LowestPrice,
+  OnDemandProvisioningAllocationStrategyLowestPrice,
   OnDemandProvisioningAllocationStrategy'
   #-}
 
-instance FromText OnDemandProvisioningAllocationStrategy where
-  parser = (OnDemandProvisioningAllocationStrategy' . mk) <$> takeText
+instance Prelude.FromText OnDemandProvisioningAllocationStrategy where
+  parser = OnDemandProvisioningAllocationStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText OnDemandProvisioningAllocationStrategy where
-  toText (OnDemandProvisioningAllocationStrategy' ci) = original ci
+instance Prelude.ToText OnDemandProvisioningAllocationStrategy where
+  toText (OnDemandProvisioningAllocationStrategy' x) = x
 
-instance Hashable OnDemandProvisioningAllocationStrategy
+instance Prelude.Hashable OnDemandProvisioningAllocationStrategy
 
-instance NFData OnDemandProvisioningAllocationStrategy
+instance Prelude.NFData OnDemandProvisioningAllocationStrategy
 
-instance ToByteString OnDemandProvisioningAllocationStrategy
+instance Prelude.ToByteString OnDemandProvisioningAllocationStrategy
 
-instance ToQuery OnDemandProvisioningAllocationStrategy
+instance Prelude.ToQuery OnDemandProvisioningAllocationStrategy
 
-instance ToHeader OnDemandProvisioningAllocationStrategy
+instance Prelude.ToHeader OnDemandProvisioningAllocationStrategy
 
-instance ToJSON OnDemandProvisioningAllocationStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON OnDemandProvisioningAllocationStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OnDemandProvisioningAllocationStrategy where
-  parseJSON = parseJSONText "OnDemandProvisioningAllocationStrategy"
+instance Prelude.FromJSON OnDemandProvisioningAllocationStrategy where
+  parseJSON = Prelude.parseJSONText "OnDemandProvisioningAllocationStrategy"

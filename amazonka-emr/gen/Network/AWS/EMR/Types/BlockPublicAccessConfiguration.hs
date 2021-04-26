@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,84 +20,131 @@
 module Network.AWS.EMR.Types.BlockPublicAccessConfiguration where
 
 import Network.AWS.EMR.Types.PortRange
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A configuration for Amazon EMR block public access. When @BlockPublicSecurityGroupRules@ is set to @true@ , Amazon EMR prevents cluster creation if one of the cluster's security groups has a rule that allows inbound traffic from 0.0.0.0/0 or ::/0 on a port, unless the port is specified as an exception using @PermittedPublicSecurityGroupRuleRanges@ .
+-- | A configuration for Amazon EMR block public access. When
+-- @BlockPublicSecurityGroupRules@ is set to @true@, Amazon EMR prevents
+-- cluster creation if one of the cluster\'s security groups has a rule
+-- that allows inbound traffic from 0.0.0.0\/0 or ::\/0 on a port, unless
+-- the port is specified as an exception using
+-- @PermittedPublicSecurityGroupRuleRanges@.
 --
---
---
--- /See:/ 'blockPublicAccessConfiguration' smart constructor.
+-- /See:/ 'newBlockPublicAccessConfiguration' smart constructor.
 data BlockPublicAccessConfiguration = BlockPublicAccessConfiguration'
-  { _bpacPermittedPublicSecurityGroupRuleRanges ::
-      !( Maybe
-           [PortRange]
-       ),
-    _bpacBlockPublicSecurityGroupRules ::
-      !Bool
+  { -- | Specifies ports and port ranges that are permitted to have security
+    -- group rules that allow inbound traffic from all public sources. For
+    -- example, if Port 23 (Telnet) is specified for
+    -- @PermittedPublicSecurityGroupRuleRanges@, Amazon EMR allows cluster
+    -- creation if a security group associated with the cluster has a rule that
+    -- allows inbound traffic on Port 23 from IPv4 0.0.0.0\/0 or IPv6 port
+    -- ::\/0 as the source.
+    --
+    -- By default, Port 22, which is used for SSH access to the cluster EC2
+    -- instances, is in the list of @PermittedPublicSecurityGroupRuleRanges@.
+    permittedPublicSecurityGroupRuleRanges :: Prelude.Maybe [PortRange],
+    -- | Indicates whether Amazon EMR block public access is enabled (@true@) or
+    -- disabled (@false@). By default, the value is @false@ for accounts that
+    -- have created EMR clusters before July 2019. For accounts created after
+    -- this, the default is @true@.
+    blockPublicSecurityGroupRules :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BlockPublicAccessConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BlockPublicAccessConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bpacPermittedPublicSecurityGroupRuleRanges' - Specifies ports and port ranges that are permitted to have security group rules that allow inbound traffic from all public sources. For example, if Port 23 (Telnet) is specified for @PermittedPublicSecurityGroupRuleRanges@ , Amazon EMR allows cluster creation if a security group associated with the cluster has a rule that allows inbound traffic on Port 23 from IPv4 0.0.0.0/0 or IPv6 port ::/0 as the source. By default, Port 22, which is used for SSH access to the cluster EC2 instances, is in the list of @PermittedPublicSecurityGroupRuleRanges@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bpacBlockPublicSecurityGroupRules' - Indicates whether Amazon EMR block public access is enabled (@true@ ) or disabled (@false@ ). By default, the value is @false@ for accounts that have created EMR clusters before July 2019. For accounts created after this, the default is @true@ .
-blockPublicAccessConfiguration ::
-  -- | 'bpacBlockPublicSecurityGroupRules'
-  Bool ->
+-- 'permittedPublicSecurityGroupRuleRanges', 'blockPublicAccessConfiguration_permittedPublicSecurityGroupRuleRanges' - Specifies ports and port ranges that are permitted to have security
+-- group rules that allow inbound traffic from all public sources. For
+-- example, if Port 23 (Telnet) is specified for
+-- @PermittedPublicSecurityGroupRuleRanges@, Amazon EMR allows cluster
+-- creation if a security group associated with the cluster has a rule that
+-- allows inbound traffic on Port 23 from IPv4 0.0.0.0\/0 or IPv6 port
+-- ::\/0 as the source.
+--
+-- By default, Port 22, which is used for SSH access to the cluster EC2
+-- instances, is in the list of @PermittedPublicSecurityGroupRuleRanges@.
+--
+-- 'blockPublicSecurityGroupRules', 'blockPublicAccessConfiguration_blockPublicSecurityGroupRules' - Indicates whether Amazon EMR block public access is enabled (@true@) or
+-- disabled (@false@). By default, the value is @false@ for accounts that
+-- have created EMR clusters before July 2019. For accounts created after
+-- this, the default is @true@.
+newBlockPublicAccessConfiguration ::
+  -- | 'blockPublicSecurityGroupRules'
+  Prelude.Bool ->
   BlockPublicAccessConfiguration
-blockPublicAccessConfiguration
+newBlockPublicAccessConfiguration
   pBlockPublicSecurityGroupRules_ =
     BlockPublicAccessConfiguration'
-      { _bpacPermittedPublicSecurityGroupRuleRanges =
-          Nothing,
-        _bpacBlockPublicSecurityGroupRules =
+      { permittedPublicSecurityGroupRuleRanges =
+          Prelude.Nothing,
+        blockPublicSecurityGroupRules =
           pBlockPublicSecurityGroupRules_
       }
 
--- | Specifies ports and port ranges that are permitted to have security group rules that allow inbound traffic from all public sources. For example, if Port 23 (Telnet) is specified for @PermittedPublicSecurityGroupRuleRanges@ , Amazon EMR allows cluster creation if a security group associated with the cluster has a rule that allows inbound traffic on Port 23 from IPv4 0.0.0.0/0 or IPv6 port ::/0 as the source. By default, Port 22, which is used for SSH access to the cluster EC2 instances, is in the list of @PermittedPublicSecurityGroupRuleRanges@ .
-bpacPermittedPublicSecurityGroupRuleRanges :: Lens' BlockPublicAccessConfiguration [PortRange]
-bpacPermittedPublicSecurityGroupRuleRanges = lens _bpacPermittedPublicSecurityGroupRuleRanges (\s a -> s {_bpacPermittedPublicSecurityGroupRuleRanges = a}) . _Default . _Coerce
+-- | Specifies ports and port ranges that are permitted to have security
+-- group rules that allow inbound traffic from all public sources. For
+-- example, if Port 23 (Telnet) is specified for
+-- @PermittedPublicSecurityGroupRuleRanges@, Amazon EMR allows cluster
+-- creation if a security group associated with the cluster has a rule that
+-- allows inbound traffic on Port 23 from IPv4 0.0.0.0\/0 or IPv6 port
+-- ::\/0 as the source.
+--
+-- By default, Port 22, which is used for SSH access to the cluster EC2
+-- instances, is in the list of @PermittedPublicSecurityGroupRuleRanges@.
+blockPublicAccessConfiguration_permittedPublicSecurityGroupRuleRanges :: Lens.Lens' BlockPublicAccessConfiguration (Prelude.Maybe [PortRange])
+blockPublicAccessConfiguration_permittedPublicSecurityGroupRuleRanges = Lens.lens (\BlockPublicAccessConfiguration' {permittedPublicSecurityGroupRuleRanges} -> permittedPublicSecurityGroupRuleRanges) (\s@BlockPublicAccessConfiguration' {} a -> s {permittedPublicSecurityGroupRuleRanges = a} :: BlockPublicAccessConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Indicates whether Amazon EMR block public access is enabled (@true@ ) or disabled (@false@ ). By default, the value is @false@ for accounts that have created EMR clusters before July 2019. For accounts created after this, the default is @true@ .
-bpacBlockPublicSecurityGroupRules :: Lens' BlockPublicAccessConfiguration Bool
-bpacBlockPublicSecurityGroupRules = lens _bpacBlockPublicSecurityGroupRules (\s a -> s {_bpacBlockPublicSecurityGroupRules = a})
+-- | Indicates whether Amazon EMR block public access is enabled (@true@) or
+-- disabled (@false@). By default, the value is @false@ for accounts that
+-- have created EMR clusters before July 2019. For accounts created after
+-- this, the default is @true@.
+blockPublicAccessConfiguration_blockPublicSecurityGroupRules :: Lens.Lens' BlockPublicAccessConfiguration Prelude.Bool
+blockPublicAccessConfiguration_blockPublicSecurityGroupRules = Lens.lens (\BlockPublicAccessConfiguration' {blockPublicSecurityGroupRules} -> blockPublicSecurityGroupRules) (\s@BlockPublicAccessConfiguration' {} a -> s {blockPublicSecurityGroupRules = a} :: BlockPublicAccessConfiguration)
 
-instance FromJSON BlockPublicAccessConfiguration where
+instance
+  Prelude.FromJSON
+    BlockPublicAccessConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BlockPublicAccessConfiguration"
       ( \x ->
           BlockPublicAccessConfiguration'
-            <$> ( x .:? "PermittedPublicSecurityGroupRuleRanges"
-                    .!= mempty
-                )
-            <*> (x .: "BlockPublicSecurityGroupRules")
+            Prelude.<$> ( x
+                            Prelude..:? "PermittedPublicSecurityGroupRuleRanges"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "BlockPublicSecurityGroupRules")
       )
 
-instance Hashable BlockPublicAccessConfiguration
+instance
+  Prelude.Hashable
+    BlockPublicAccessConfiguration
 
-instance NFData BlockPublicAccessConfiguration
+instance
+  Prelude.NFData
+    BlockPublicAccessConfiguration
 
-instance ToJSON BlockPublicAccessConfiguration where
+instance
+  Prelude.ToJSON
+    BlockPublicAccessConfiguration
+  where
   toJSON BlockPublicAccessConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("PermittedPublicSecurityGroupRuleRanges" .=)
-              <$> _bpacPermittedPublicSecurityGroupRuleRanges,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ( "PermittedPublicSecurityGroupRuleRanges"
+                Prelude..=
+            )
+              Prelude.<$> permittedPublicSecurityGroupRuleRanges,
+            Prelude.Just
               ( "BlockPublicSecurityGroupRules"
-                  .= _bpacBlockPublicSecurityGroupRules
+                  Prelude..= blockPublicSecurityGroupRules
               )
           ]
       )

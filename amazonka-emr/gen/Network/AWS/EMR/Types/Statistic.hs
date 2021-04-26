@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.EMR.Types.Statistic
   ( Statistic
       ( ..,
-        Average,
-        Maximum,
-        Minimum,
-        SampleCount,
-        Sum
+        StatisticAVERAGE,
+        StatisticMAXIMUM,
+        StatisticMINIMUM,
+        StatisticSAMPLECOUNT,
+        StatisticSUM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Statistic = Statistic' (CI Text)
+newtype Statistic = Statistic'
+  { fromStatistic ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Average :: Statistic
-pattern Average = Statistic' "AVERAGE"
+pattern StatisticAVERAGE :: Statistic
+pattern StatisticAVERAGE = Statistic' "AVERAGE"
 
-pattern Maximum :: Statistic
-pattern Maximum = Statistic' "MAXIMUM"
+pattern StatisticMAXIMUM :: Statistic
+pattern StatisticMAXIMUM = Statistic' "MAXIMUM"
 
-pattern Minimum :: Statistic
-pattern Minimum = Statistic' "MINIMUM"
+pattern StatisticMINIMUM :: Statistic
+pattern StatisticMINIMUM = Statistic' "MINIMUM"
 
-pattern SampleCount :: Statistic
-pattern SampleCount = Statistic' "SAMPLE_COUNT"
+pattern StatisticSAMPLECOUNT :: Statistic
+pattern StatisticSAMPLECOUNT = Statistic' "SAMPLE_COUNT"
 
-pattern Sum :: Statistic
-pattern Sum = Statistic' "SUM"
+pattern StatisticSUM :: Statistic
+pattern StatisticSUM = Statistic' "SUM"
 
 {-# COMPLETE
-  Average,
-  Maximum,
-  Minimum,
-  SampleCount,
-  Sum,
+  StatisticAVERAGE,
+  StatisticMAXIMUM,
+  StatisticMINIMUM,
+  StatisticSAMPLECOUNT,
+  StatisticSUM,
   Statistic'
   #-}
 
-instance FromText Statistic where
-  parser = (Statistic' . mk) <$> takeText
+instance Prelude.FromText Statistic where
+  parser = Statistic' Prelude.<$> Prelude.takeText
 
-instance ToText Statistic where
-  toText (Statistic' ci) = original ci
+instance Prelude.ToText Statistic where
+  toText (Statistic' x) = x
 
-instance Hashable Statistic
+instance Prelude.Hashable Statistic
 
-instance NFData Statistic
+instance Prelude.NFData Statistic
 
-instance ToByteString Statistic
+instance Prelude.ToByteString Statistic
 
-instance ToQuery Statistic
+instance Prelude.ToQuery Statistic
 
-instance ToHeader Statistic
+instance Prelude.ToHeader Statistic
 
-instance ToJSON Statistic where
-  toJSON = toJSONText
+instance Prelude.ToJSON Statistic where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Statistic where
-  parseJSON = parseJSONText "Statistic"
+instance Prelude.FromJSON Statistic where
+  parseJSON = Prelude.parseJSONText "Statistic"

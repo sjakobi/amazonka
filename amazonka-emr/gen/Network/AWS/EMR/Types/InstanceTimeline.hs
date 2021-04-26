@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.InstanceTimeline where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The timeline of the instance lifecycle.
 --
---
---
--- /See:/ 'instanceTimeline' smart constructor.
+-- /See:/ 'newInstanceTimeline' smart constructor.
 data InstanceTimeline = InstanceTimeline'
-  { _itEndDateTime ::
-      !(Maybe POSIX),
-    _itCreationDateTime :: !(Maybe POSIX),
-    _itReadyDateTime :: !(Maybe POSIX)
+  { -- | The date and time when the instance was terminated.
+    endDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The creation date and time of the instance.
+    creationDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time when the instance was ready to perform tasks.
+    readyDateTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceTimeline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceTimeline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'itEndDateTime' - The date and time when the instance was terminated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'itCreationDateTime' - The creation date and time of the instance.
+-- 'endDateTime', 'instanceTimeline_endDateTime' - The date and time when the instance was terminated.
 --
--- * 'itReadyDateTime' - The date and time when the instance was ready to perform tasks.
-instanceTimeline ::
+-- 'creationDateTime', 'instanceTimeline_creationDateTime' - The creation date and time of the instance.
+--
+-- 'readyDateTime', 'instanceTimeline_readyDateTime' - The date and time when the instance was ready to perform tasks.
+newInstanceTimeline ::
   InstanceTimeline
-instanceTimeline =
+newInstanceTimeline =
   InstanceTimeline'
-    { _itEndDateTime = Nothing,
-      _itCreationDateTime = Nothing,
-      _itReadyDateTime = Nothing
+    { endDateTime = Prelude.Nothing,
+      creationDateTime = Prelude.Nothing,
+      readyDateTime = Prelude.Nothing
     }
 
 -- | The date and time when the instance was terminated.
-itEndDateTime :: Lens' InstanceTimeline (Maybe UTCTime)
-itEndDateTime = lens _itEndDateTime (\s a -> s {_itEndDateTime = a}) . mapping _Time
+instanceTimeline_endDateTime :: Lens.Lens' InstanceTimeline (Prelude.Maybe Prelude.UTCTime)
+instanceTimeline_endDateTime = Lens.lens (\InstanceTimeline' {endDateTime} -> endDateTime) (\s@InstanceTimeline' {} a -> s {endDateTime = a} :: InstanceTimeline) Prelude.. Lens.mapping Prelude._Time
 
 -- | The creation date and time of the instance.
-itCreationDateTime :: Lens' InstanceTimeline (Maybe UTCTime)
-itCreationDateTime = lens _itCreationDateTime (\s a -> s {_itCreationDateTime = a}) . mapping _Time
+instanceTimeline_creationDateTime :: Lens.Lens' InstanceTimeline (Prelude.Maybe Prelude.UTCTime)
+instanceTimeline_creationDateTime = Lens.lens (\InstanceTimeline' {creationDateTime} -> creationDateTime) (\s@InstanceTimeline' {} a -> s {creationDateTime = a} :: InstanceTimeline) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date and time when the instance was ready to perform tasks.
-itReadyDateTime :: Lens' InstanceTimeline (Maybe UTCTime)
-itReadyDateTime = lens _itReadyDateTime (\s a -> s {_itReadyDateTime = a}) . mapping _Time
+instanceTimeline_readyDateTime :: Lens.Lens' InstanceTimeline (Prelude.Maybe Prelude.UTCTime)
+instanceTimeline_readyDateTime = Lens.lens (\InstanceTimeline' {readyDateTime} -> readyDateTime) (\s@InstanceTimeline' {} a -> s {readyDateTime = a} :: InstanceTimeline) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON InstanceTimeline where
+instance Prelude.FromJSON InstanceTimeline where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceTimeline"
       ( \x ->
           InstanceTimeline'
-            <$> (x .:? "EndDateTime")
-            <*> (x .:? "CreationDateTime")
-            <*> (x .:? "ReadyDateTime")
+            Prelude.<$> (x Prelude..:? "EndDateTime")
+            Prelude.<*> (x Prelude..:? "CreationDateTime")
+            Prelude.<*> (x Prelude..:? "ReadyDateTime")
       )
 
-instance Hashable InstanceTimeline
+instance Prelude.Hashable InstanceTimeline
 
-instance NFData InstanceTimeline
+instance Prelude.NFData InstanceTimeline

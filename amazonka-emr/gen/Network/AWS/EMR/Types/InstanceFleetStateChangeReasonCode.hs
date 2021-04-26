@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.EMR.Types.InstanceFleetStateChangeReasonCode
   ( InstanceFleetStateChangeReasonCode
       ( ..,
-        ClusterTerminated,
-        InstanceFailure,
-        InternalError,
-        ValidationError
+        InstanceFleetStateChangeReasonCodeCLUSTERTERMINATED,
+        InstanceFleetStateChangeReasonCodeINSTANCEFAILURE,
+        InstanceFleetStateChangeReasonCodeINTERNALERROR,
+        InstanceFleetStateChangeReasonCodeVALIDATIONERROR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceFleetStateChangeReasonCode
-  = InstanceFleetStateChangeReasonCode'
-      ( CI
-          Text
-      )
+newtype InstanceFleetStateChangeReasonCode = InstanceFleetStateChangeReasonCode'
+  { fromInstanceFleetStateChangeReasonCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ClusterTerminated :: InstanceFleetStateChangeReasonCode
-pattern ClusterTerminated = InstanceFleetStateChangeReasonCode' "CLUSTER_TERMINATED"
+pattern InstanceFleetStateChangeReasonCodeCLUSTERTERMINATED :: InstanceFleetStateChangeReasonCode
+pattern InstanceFleetStateChangeReasonCodeCLUSTERTERMINATED = InstanceFleetStateChangeReasonCode' "CLUSTER_TERMINATED"
 
-pattern InstanceFailure :: InstanceFleetStateChangeReasonCode
-pattern InstanceFailure = InstanceFleetStateChangeReasonCode' "INSTANCE_FAILURE"
+pattern InstanceFleetStateChangeReasonCodeINSTANCEFAILURE :: InstanceFleetStateChangeReasonCode
+pattern InstanceFleetStateChangeReasonCodeINSTANCEFAILURE = InstanceFleetStateChangeReasonCode' "INSTANCE_FAILURE"
 
-pattern InternalError :: InstanceFleetStateChangeReasonCode
-pattern InternalError = InstanceFleetStateChangeReasonCode' "INTERNAL_ERROR"
+pattern InstanceFleetStateChangeReasonCodeINTERNALERROR :: InstanceFleetStateChangeReasonCode
+pattern InstanceFleetStateChangeReasonCodeINTERNALERROR = InstanceFleetStateChangeReasonCode' "INTERNAL_ERROR"
 
-pattern ValidationError :: InstanceFleetStateChangeReasonCode
-pattern ValidationError = InstanceFleetStateChangeReasonCode' "VALIDATION_ERROR"
+pattern InstanceFleetStateChangeReasonCodeVALIDATIONERROR :: InstanceFleetStateChangeReasonCode
+pattern InstanceFleetStateChangeReasonCodeVALIDATIONERROR = InstanceFleetStateChangeReasonCode' "VALIDATION_ERROR"
 
 {-# COMPLETE
-  ClusterTerminated,
-  InstanceFailure,
-  InternalError,
-  ValidationError,
+  InstanceFleetStateChangeReasonCodeCLUSTERTERMINATED,
+  InstanceFleetStateChangeReasonCodeINSTANCEFAILURE,
+  InstanceFleetStateChangeReasonCodeINTERNALERROR,
+  InstanceFleetStateChangeReasonCodeVALIDATIONERROR,
   InstanceFleetStateChangeReasonCode'
   #-}
 
-instance FromText InstanceFleetStateChangeReasonCode where
-  parser = (InstanceFleetStateChangeReasonCode' . mk) <$> takeText
+instance Prelude.FromText InstanceFleetStateChangeReasonCode where
+  parser = InstanceFleetStateChangeReasonCode' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceFleetStateChangeReasonCode where
-  toText (InstanceFleetStateChangeReasonCode' ci) = original ci
+instance Prelude.ToText InstanceFleetStateChangeReasonCode where
+  toText (InstanceFleetStateChangeReasonCode' x) = x
 
-instance Hashable InstanceFleetStateChangeReasonCode
+instance Prelude.Hashable InstanceFleetStateChangeReasonCode
 
-instance NFData InstanceFleetStateChangeReasonCode
+instance Prelude.NFData InstanceFleetStateChangeReasonCode
 
-instance ToByteString InstanceFleetStateChangeReasonCode
+instance Prelude.ToByteString InstanceFleetStateChangeReasonCode
 
-instance ToQuery InstanceFleetStateChangeReasonCode
+instance Prelude.ToQuery InstanceFleetStateChangeReasonCode
 
-instance ToHeader InstanceFleetStateChangeReasonCode
+instance Prelude.ToHeader InstanceFleetStateChangeReasonCode
 
-instance FromJSON InstanceFleetStateChangeReasonCode where
-  parseJSON = parseJSONText "InstanceFleetStateChangeReasonCode"
+instance Prelude.FromJSON InstanceFleetStateChangeReasonCode where
+  parseJSON = Prelude.parseJSONText "InstanceFleetStateChangeReasonCode"

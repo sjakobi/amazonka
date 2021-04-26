@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.InstanceFleetTimeline where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides historical timestamps for the instance fleet, including the time of creation, the time it became ready to run jobs, and the time of termination.
+-- | Provides historical timestamps for the instance fleet, including the
+-- time of creation, the time it became ready to run jobs, and the time of
+-- termination.
 --
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions.
 --
---
--- /See:/ 'instanceFleetTimeline' smart constructor.
+-- /See:/ 'newInstanceFleetTimeline' smart constructor.
 data InstanceFleetTimeline = InstanceFleetTimeline'
-  { _iftEndDateTime ::
-      !(Maybe POSIX),
-    _iftCreationDateTime ::
-      !(Maybe POSIX),
-    _iftReadyDateTime ::
-      !(Maybe POSIX)
+  { -- | The time and date the instance fleet terminated.
+    endDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time and date the instance fleet was created.
+    creationDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time and date the instance fleet was ready to run jobs.
+    readyDateTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceFleetTimeline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceFleetTimeline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iftEndDateTime' - The time and date the instance fleet terminated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iftCreationDateTime' - The time and date the instance fleet was created.
+-- 'endDateTime', 'instanceFleetTimeline_endDateTime' - The time and date the instance fleet terminated.
 --
--- * 'iftReadyDateTime' - The time and date the instance fleet was ready to run jobs.
-instanceFleetTimeline ::
+-- 'creationDateTime', 'instanceFleetTimeline_creationDateTime' - The time and date the instance fleet was created.
+--
+-- 'readyDateTime', 'instanceFleetTimeline_readyDateTime' - The time and date the instance fleet was ready to run jobs.
+newInstanceFleetTimeline ::
   InstanceFleetTimeline
-instanceFleetTimeline =
+newInstanceFleetTimeline =
   InstanceFleetTimeline'
-    { _iftEndDateTime = Nothing,
-      _iftCreationDateTime = Nothing,
-      _iftReadyDateTime = Nothing
+    { endDateTime =
+        Prelude.Nothing,
+      creationDateTime = Prelude.Nothing,
+      readyDateTime = Prelude.Nothing
     }
 
 -- | The time and date the instance fleet terminated.
-iftEndDateTime :: Lens' InstanceFleetTimeline (Maybe UTCTime)
-iftEndDateTime = lens _iftEndDateTime (\s a -> s {_iftEndDateTime = a}) . mapping _Time
+instanceFleetTimeline_endDateTime :: Lens.Lens' InstanceFleetTimeline (Prelude.Maybe Prelude.UTCTime)
+instanceFleetTimeline_endDateTime = Lens.lens (\InstanceFleetTimeline' {endDateTime} -> endDateTime) (\s@InstanceFleetTimeline' {} a -> s {endDateTime = a} :: InstanceFleetTimeline) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time and date the instance fleet was created.
-iftCreationDateTime :: Lens' InstanceFleetTimeline (Maybe UTCTime)
-iftCreationDateTime = lens _iftCreationDateTime (\s a -> s {_iftCreationDateTime = a}) . mapping _Time
+instanceFleetTimeline_creationDateTime :: Lens.Lens' InstanceFleetTimeline (Prelude.Maybe Prelude.UTCTime)
+instanceFleetTimeline_creationDateTime = Lens.lens (\InstanceFleetTimeline' {creationDateTime} -> creationDateTime) (\s@InstanceFleetTimeline' {} a -> s {creationDateTime = a} :: InstanceFleetTimeline) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time and date the instance fleet was ready to run jobs.
-iftReadyDateTime :: Lens' InstanceFleetTimeline (Maybe UTCTime)
-iftReadyDateTime = lens _iftReadyDateTime (\s a -> s {_iftReadyDateTime = a}) . mapping _Time
+instanceFleetTimeline_readyDateTime :: Lens.Lens' InstanceFleetTimeline (Prelude.Maybe Prelude.UTCTime)
+instanceFleetTimeline_readyDateTime = Lens.lens (\InstanceFleetTimeline' {readyDateTime} -> readyDateTime) (\s@InstanceFleetTimeline' {} a -> s {readyDateTime = a} :: InstanceFleetTimeline) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON InstanceFleetTimeline where
+instance Prelude.FromJSON InstanceFleetTimeline where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceFleetTimeline"
       ( \x ->
           InstanceFleetTimeline'
-            <$> (x .:? "EndDateTime")
-            <*> (x .:? "CreationDateTime")
-            <*> (x .:? "ReadyDateTime")
+            Prelude.<$> (x Prelude..:? "EndDateTime")
+            Prelude.<*> (x Prelude..:? "CreationDateTime")
+            Prelude.<*> (x Prelude..:? "ReadyDateTime")
       )
 
-instance Hashable InstanceFleetTimeline
+instance Prelude.Hashable InstanceFleetTimeline
 
-instance NFData InstanceFleetTimeline
+instance Prelude.NFData InstanceFleetTimeline

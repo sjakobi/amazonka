@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.EMR.Types.ComputeLimitsUnitType
   ( ComputeLimitsUnitType
       ( ..,
-        InstanceFleetUnits,
-        Instances,
-        Vcpu
+        ComputeLimitsUnitTypeInstanceFleetUnits,
+        ComputeLimitsUnitTypeInstances,
+        ComputeLimitsUnitTypeVCPU
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComputeLimitsUnitType
-  = ComputeLimitsUnitType'
-      ( CI
-          Text
-      )
+newtype ComputeLimitsUnitType = ComputeLimitsUnitType'
+  { fromComputeLimitsUnitType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InstanceFleetUnits :: ComputeLimitsUnitType
-pattern InstanceFleetUnits = ComputeLimitsUnitType' "InstanceFleetUnits"
+pattern ComputeLimitsUnitTypeInstanceFleetUnits :: ComputeLimitsUnitType
+pattern ComputeLimitsUnitTypeInstanceFleetUnits = ComputeLimitsUnitType' "InstanceFleetUnits"
 
-pattern Instances :: ComputeLimitsUnitType
-pattern Instances = ComputeLimitsUnitType' "Instances"
+pattern ComputeLimitsUnitTypeInstances :: ComputeLimitsUnitType
+pattern ComputeLimitsUnitTypeInstances = ComputeLimitsUnitType' "Instances"
 
-pattern Vcpu :: ComputeLimitsUnitType
-pattern Vcpu = ComputeLimitsUnitType' "VCPU"
+pattern ComputeLimitsUnitTypeVCPU :: ComputeLimitsUnitType
+pattern ComputeLimitsUnitTypeVCPU = ComputeLimitsUnitType' "VCPU"
 
 {-# COMPLETE
-  InstanceFleetUnits,
-  Instances,
-  Vcpu,
+  ComputeLimitsUnitTypeInstanceFleetUnits,
+  ComputeLimitsUnitTypeInstances,
+  ComputeLimitsUnitTypeVCPU,
   ComputeLimitsUnitType'
   #-}
 
-instance FromText ComputeLimitsUnitType where
-  parser = (ComputeLimitsUnitType' . mk) <$> takeText
+instance Prelude.FromText ComputeLimitsUnitType where
+  parser = ComputeLimitsUnitType' Prelude.<$> Prelude.takeText
 
-instance ToText ComputeLimitsUnitType where
-  toText (ComputeLimitsUnitType' ci) = original ci
+instance Prelude.ToText ComputeLimitsUnitType where
+  toText (ComputeLimitsUnitType' x) = x
 
-instance Hashable ComputeLimitsUnitType
+instance Prelude.Hashable ComputeLimitsUnitType
 
-instance NFData ComputeLimitsUnitType
+instance Prelude.NFData ComputeLimitsUnitType
 
-instance ToByteString ComputeLimitsUnitType
+instance Prelude.ToByteString ComputeLimitsUnitType
 
-instance ToQuery ComputeLimitsUnitType
+instance Prelude.ToQuery ComputeLimitsUnitType
 
-instance ToHeader ComputeLimitsUnitType
+instance Prelude.ToHeader ComputeLimitsUnitType
 
-instance ToJSON ComputeLimitsUnitType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComputeLimitsUnitType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ComputeLimitsUnitType where
-  parseJSON = parseJSONText "ComputeLimitsUnitType"
+instance Prelude.FromJSON ComputeLimitsUnitType where
+  parseJSON = Prelude.parseJSONText "ComputeLimitsUnitType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.EMR.Types.SpotProvisioningAllocationStrategy
   ( SpotProvisioningAllocationStrategy
       ( ..,
-        CapacityOptimized
+        SpotProvisioningAllocationStrategyCapacityOptimized
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SpotProvisioningAllocationStrategy
-  = SpotProvisioningAllocationStrategy'
-      ( CI
-          Text
-      )
+newtype SpotProvisioningAllocationStrategy = SpotProvisioningAllocationStrategy'
+  { fromSpotProvisioningAllocationStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CapacityOptimized :: SpotProvisioningAllocationStrategy
-pattern CapacityOptimized = SpotProvisioningAllocationStrategy' "capacity-optimized"
+pattern SpotProvisioningAllocationStrategyCapacityOptimized :: SpotProvisioningAllocationStrategy
+pattern SpotProvisioningAllocationStrategyCapacityOptimized = SpotProvisioningAllocationStrategy' "capacity-optimized"
 
 {-# COMPLETE
-  CapacityOptimized,
+  SpotProvisioningAllocationStrategyCapacityOptimized,
   SpotProvisioningAllocationStrategy'
   #-}
 
-instance FromText SpotProvisioningAllocationStrategy where
-  parser = (SpotProvisioningAllocationStrategy' . mk) <$> takeText
+instance Prelude.FromText SpotProvisioningAllocationStrategy where
+  parser = SpotProvisioningAllocationStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText SpotProvisioningAllocationStrategy where
-  toText (SpotProvisioningAllocationStrategy' ci) = original ci
+instance Prelude.ToText SpotProvisioningAllocationStrategy where
+  toText (SpotProvisioningAllocationStrategy' x) = x
 
-instance Hashable SpotProvisioningAllocationStrategy
+instance Prelude.Hashable SpotProvisioningAllocationStrategy
 
-instance NFData SpotProvisioningAllocationStrategy
+instance Prelude.NFData SpotProvisioningAllocationStrategy
 
-instance ToByteString SpotProvisioningAllocationStrategy
+instance Prelude.ToByteString SpotProvisioningAllocationStrategy
 
-instance ToQuery SpotProvisioningAllocationStrategy
+instance Prelude.ToQuery SpotProvisioningAllocationStrategy
 
-instance ToHeader SpotProvisioningAllocationStrategy
+instance Prelude.ToHeader SpotProvisioningAllocationStrategy
 
-instance ToJSON SpotProvisioningAllocationStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SpotProvisioningAllocationStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SpotProvisioningAllocationStrategy where
-  parseJSON = parseJSONText "SpotProvisioningAllocationStrategy"
+instance Prelude.FromJSON SpotProvisioningAllocationStrategy where
+  parseJSON = Prelude.parseJSONText "SpotProvisioningAllocationStrategy"

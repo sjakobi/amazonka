@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.EMR.Types.SpotProvisioningTimeoutAction
   ( SpotProvisioningTimeoutAction
       ( ..,
-        SPTASwitchToOnDemand,
-        SPTATerminateCluster
+        SpotProvisioningTimeoutActionSWITCHTOONDEMAND,
+        SpotProvisioningTimeoutActionTERMINATECLUSTER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SpotProvisioningTimeoutAction
-  = SpotProvisioningTimeoutAction'
-      ( CI
-          Text
-      )
+newtype SpotProvisioningTimeoutAction = SpotProvisioningTimeoutAction'
+  { fromSpotProvisioningTimeoutAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SPTASwitchToOnDemand :: SpotProvisioningTimeoutAction
-pattern SPTASwitchToOnDemand = SpotProvisioningTimeoutAction' "SWITCH_TO_ON_DEMAND"
+pattern SpotProvisioningTimeoutActionSWITCHTOONDEMAND :: SpotProvisioningTimeoutAction
+pattern SpotProvisioningTimeoutActionSWITCHTOONDEMAND = SpotProvisioningTimeoutAction' "SWITCH_TO_ON_DEMAND"
 
-pattern SPTATerminateCluster :: SpotProvisioningTimeoutAction
-pattern SPTATerminateCluster = SpotProvisioningTimeoutAction' "TERMINATE_CLUSTER"
+pattern SpotProvisioningTimeoutActionTERMINATECLUSTER :: SpotProvisioningTimeoutAction
+pattern SpotProvisioningTimeoutActionTERMINATECLUSTER = SpotProvisioningTimeoutAction' "TERMINATE_CLUSTER"
 
 {-# COMPLETE
-  SPTASwitchToOnDemand,
-  SPTATerminateCluster,
+  SpotProvisioningTimeoutActionSWITCHTOONDEMAND,
+  SpotProvisioningTimeoutActionTERMINATECLUSTER,
   SpotProvisioningTimeoutAction'
   #-}
 
-instance FromText SpotProvisioningTimeoutAction where
-  parser = (SpotProvisioningTimeoutAction' . mk) <$> takeText
+instance Prelude.FromText SpotProvisioningTimeoutAction where
+  parser = SpotProvisioningTimeoutAction' Prelude.<$> Prelude.takeText
 
-instance ToText SpotProvisioningTimeoutAction where
-  toText (SpotProvisioningTimeoutAction' ci) = original ci
+instance Prelude.ToText SpotProvisioningTimeoutAction where
+  toText (SpotProvisioningTimeoutAction' x) = x
 
-instance Hashable SpotProvisioningTimeoutAction
+instance Prelude.Hashable SpotProvisioningTimeoutAction
 
-instance NFData SpotProvisioningTimeoutAction
+instance Prelude.NFData SpotProvisioningTimeoutAction
 
-instance ToByteString SpotProvisioningTimeoutAction
+instance Prelude.ToByteString SpotProvisioningTimeoutAction
 
-instance ToQuery SpotProvisioningTimeoutAction
+instance Prelude.ToQuery SpotProvisioningTimeoutAction
 
-instance ToHeader SpotProvisioningTimeoutAction
+instance Prelude.ToHeader SpotProvisioningTimeoutAction
 
-instance ToJSON SpotProvisioningTimeoutAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON SpotProvisioningTimeoutAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SpotProvisioningTimeoutAction where
-  parseJSON = parseJSONText "SpotProvisioningTimeoutAction"
+instance Prelude.FromJSON SpotProvisioningTimeoutAction where
+  parseJSON = Prelude.parseJSONText "SpotProvisioningTimeoutAction"

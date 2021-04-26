@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,63 +22,70 @@ module Network.AWS.EMR.Types.ClusterStatus where
 import Network.AWS.EMR.Types.ClusterState
 import Network.AWS.EMR.Types.ClusterStateChangeReason
 import Network.AWS.EMR.Types.ClusterTimeline
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The detailed status of the cluster.
 --
---
---
--- /See:/ 'clusterStatus' smart constructor.
+-- /See:/ 'newClusterStatus' smart constructor.
 data ClusterStatus = ClusterStatus'
-  { _csStateChangeReason ::
-      !(Maybe ClusterStateChangeReason),
-    _csState :: !(Maybe ClusterState),
-    _csTimeline :: !(Maybe ClusterTimeline)
+  { -- | The reason for the cluster status change.
+    stateChangeReason :: Prelude.Maybe ClusterStateChangeReason,
+    -- | The current state of the cluster.
+    state :: Prelude.Maybe ClusterState,
+    -- | A timeline that represents the status of a cluster over the lifetime of
+    -- the cluster.
+    timeline :: Prelude.Maybe ClusterTimeline
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csStateChangeReason' - The reason for the cluster status change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csState' - The current state of the cluster.
+-- 'stateChangeReason', 'clusterStatus_stateChangeReason' - The reason for the cluster status change.
 --
--- * 'csTimeline' - A timeline that represents the status of a cluster over the lifetime of the cluster.
-clusterStatus ::
+-- 'state', 'clusterStatus_state' - The current state of the cluster.
+--
+-- 'timeline', 'clusterStatus_timeline' - A timeline that represents the status of a cluster over the lifetime of
+-- the cluster.
+newClusterStatus ::
   ClusterStatus
-clusterStatus =
+newClusterStatus =
   ClusterStatus'
-    { _csStateChangeReason = Nothing,
-      _csState = Nothing,
-      _csTimeline = Nothing
+    { stateChangeReason = Prelude.Nothing,
+      state = Prelude.Nothing,
+      timeline = Prelude.Nothing
     }
 
 -- | The reason for the cluster status change.
-csStateChangeReason :: Lens' ClusterStatus (Maybe ClusterStateChangeReason)
-csStateChangeReason = lens _csStateChangeReason (\s a -> s {_csStateChangeReason = a})
+clusterStatus_stateChangeReason :: Lens.Lens' ClusterStatus (Prelude.Maybe ClusterStateChangeReason)
+clusterStatus_stateChangeReason = Lens.lens (\ClusterStatus' {stateChangeReason} -> stateChangeReason) (\s@ClusterStatus' {} a -> s {stateChangeReason = a} :: ClusterStatus)
 
 -- | The current state of the cluster.
-csState :: Lens' ClusterStatus (Maybe ClusterState)
-csState = lens _csState (\s a -> s {_csState = a})
+clusterStatus_state :: Lens.Lens' ClusterStatus (Prelude.Maybe ClusterState)
+clusterStatus_state = Lens.lens (\ClusterStatus' {state} -> state) (\s@ClusterStatus' {} a -> s {state = a} :: ClusterStatus)
 
--- | A timeline that represents the status of a cluster over the lifetime of the cluster.
-csTimeline :: Lens' ClusterStatus (Maybe ClusterTimeline)
-csTimeline = lens _csTimeline (\s a -> s {_csTimeline = a})
+-- | A timeline that represents the status of a cluster over the lifetime of
+-- the cluster.
+clusterStatus_timeline :: Lens.Lens' ClusterStatus (Prelude.Maybe ClusterTimeline)
+clusterStatus_timeline = Lens.lens (\ClusterStatus' {timeline} -> timeline) (\s@ClusterStatus' {} a -> s {timeline = a} :: ClusterStatus)
 
-instance FromJSON ClusterStatus where
+instance Prelude.FromJSON ClusterStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClusterStatus"
       ( \x ->
           ClusterStatus'
-            <$> (x .:? "StateChangeReason")
-            <*> (x .:? "State")
-            <*> (x .:? "Timeline")
+            Prelude.<$> (x Prelude..:? "StateChangeReason")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Timeline")
       )
 
-instance Hashable ClusterStatus
+instance Prelude.Hashable ClusterStatus
 
-instance NFData ClusterStatus
+instance Prelude.NFData ClusterStatus

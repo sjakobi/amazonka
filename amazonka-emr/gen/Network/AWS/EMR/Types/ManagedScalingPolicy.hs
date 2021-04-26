@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,56 +20,69 @@
 module Network.AWS.EMR.Types.ManagedScalingPolicy where
 
 import Network.AWS.EMR.Types.ComputeLimits
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Managed scaling policy for an Amazon EMR cluster. The policy specifies the limits for resources that can be added or terminated from a cluster. The policy only applies to the core and task nodes. The master node cannot be scaled after initial configuration.
+-- | Managed scaling policy for an Amazon EMR cluster. The policy specifies
+-- the limits for resources that can be added or terminated from a cluster.
+-- The policy only applies to the core and task nodes. The master node
+-- cannot be scaled after initial configuration.
 --
---
---
--- /See:/ 'managedScalingPolicy' smart constructor.
-newtype ManagedScalingPolicy = ManagedScalingPolicy'
-  { _mspComputeLimits ::
-      Maybe ComputeLimits
+-- /See:/ 'newManagedScalingPolicy' smart constructor.
+data ManagedScalingPolicy = ManagedScalingPolicy'
+  { -- | The EC2 unit limits for a managed scaling policy. The managed scaling
+    -- activity of a cluster is not allowed to go above or below these limits.
+    -- The limit only applies to the core and task nodes. The master node
+    -- cannot be scaled after initial configuration.
+    computeLimits :: Prelude.Maybe ComputeLimits
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ManagedScalingPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ManagedScalingPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mspComputeLimits' - The EC2 unit limits for a managed scaling policy. The managed scaling activity of a cluster is not allowed to go above or below these limits. The limit only applies to the core and task nodes. The master node cannot be scaled after initial configuration.
-managedScalingPolicy ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'computeLimits', 'managedScalingPolicy_computeLimits' - The EC2 unit limits for a managed scaling policy. The managed scaling
+-- activity of a cluster is not allowed to go above or below these limits.
+-- The limit only applies to the core and task nodes. The master node
+-- cannot be scaled after initial configuration.
+newManagedScalingPolicy ::
   ManagedScalingPolicy
-managedScalingPolicy =
-  ManagedScalingPolicy' {_mspComputeLimits = Nothing}
+newManagedScalingPolicy =
+  ManagedScalingPolicy'
+    { computeLimits =
+        Prelude.Nothing
+    }
 
--- | The EC2 unit limits for a managed scaling policy. The managed scaling activity of a cluster is not allowed to go above or below these limits. The limit only applies to the core and task nodes. The master node cannot be scaled after initial configuration.
-mspComputeLimits :: Lens' ManagedScalingPolicy (Maybe ComputeLimits)
-mspComputeLimits = lens _mspComputeLimits (\s a -> s {_mspComputeLimits = a})
+-- | The EC2 unit limits for a managed scaling policy. The managed scaling
+-- activity of a cluster is not allowed to go above or below these limits.
+-- The limit only applies to the core and task nodes. The master node
+-- cannot be scaled after initial configuration.
+managedScalingPolicy_computeLimits :: Lens.Lens' ManagedScalingPolicy (Prelude.Maybe ComputeLimits)
+managedScalingPolicy_computeLimits = Lens.lens (\ManagedScalingPolicy' {computeLimits} -> computeLimits) (\s@ManagedScalingPolicy' {} a -> s {computeLimits = a} :: ManagedScalingPolicy)
 
-instance FromJSON ManagedScalingPolicy where
+instance Prelude.FromJSON ManagedScalingPolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ManagedScalingPolicy"
       ( \x ->
-          ManagedScalingPolicy' <$> (x .:? "ComputeLimits")
+          ManagedScalingPolicy'
+            Prelude.<$> (x Prelude..:? "ComputeLimits")
       )
 
-instance Hashable ManagedScalingPolicy
+instance Prelude.Hashable ManagedScalingPolicy
 
-instance NFData ManagedScalingPolicy
+instance Prelude.NFData ManagedScalingPolicy
 
-instance ToJSON ManagedScalingPolicy where
+instance Prelude.ToJSON ManagedScalingPolicy where
   toJSON ManagedScalingPolicy' {..} =
-    object
-      ( catMaybes
-          [("ComputeLimits" .=) <$> _mspComputeLimits]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ComputeLimits" Prelude..=)
+              Prelude.<$> computeLimits
+          ]
       )

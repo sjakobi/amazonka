@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.PortRange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of port ranges that are permitted to allow inbound traffic from all public IP addresses. To specify a single port, use the same value for @MinRange@ and @MaxRange@ .
+-- | A list of port ranges that are permitted to allow inbound traffic from
+-- all public IP addresses. To specify a single port, use the same value
+-- for @MinRange@ and @MaxRange@.
 --
---
---
--- /See:/ 'portRange' smart constructor.
+-- /See:/ 'newPortRange' smart constructor.
 data PortRange = PortRange'
-  { _prMaxRange ::
-      !(Maybe Int),
-    _prMinRange :: !Int
+  { -- | The smallest port number in a specified range of port numbers.
+    maxRange :: Prelude.Maybe Prelude.Int,
+    -- | The smallest port number in a specified range of port numbers.
+    minRange :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PortRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PortRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prMaxRange' - The smallest port number in a specified range of port numbers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prMinRange' - The smallest port number in a specified range of port numbers.
-portRange ::
-  -- | 'prMinRange'
-  Int ->
+-- 'maxRange', 'portRange_maxRange' - The smallest port number in a specified range of port numbers.
+--
+-- 'minRange', 'portRange_minRange' - The smallest port number in a specified range of port numbers.
+newPortRange ::
+  -- | 'minRange'
+  Prelude.Int ->
   PortRange
-portRange pMinRange_ =
+newPortRange pMinRange_ =
   PortRange'
-    { _prMaxRange = Nothing,
-      _prMinRange = pMinRange_
+    { maxRange = Prelude.Nothing,
+      minRange = pMinRange_
     }
 
 -- | The smallest port number in a specified range of port numbers.
-prMaxRange :: Lens' PortRange (Maybe Int)
-prMaxRange = lens _prMaxRange (\s a -> s {_prMaxRange = a})
+portRange_maxRange :: Lens.Lens' PortRange (Prelude.Maybe Prelude.Int)
+portRange_maxRange = Lens.lens (\PortRange' {maxRange} -> maxRange) (\s@PortRange' {} a -> s {maxRange = a} :: PortRange)
 
 -- | The smallest port number in a specified range of port numbers.
-prMinRange :: Lens' PortRange Int
-prMinRange = lens _prMinRange (\s a -> s {_prMinRange = a})
+portRange_minRange :: Lens.Lens' PortRange Prelude.Int
+portRange_minRange = Lens.lens (\PortRange' {minRange} -> minRange) (\s@PortRange' {} a -> s {minRange = a} :: PortRange)
 
-instance FromJSON PortRange where
+instance Prelude.FromJSON PortRange where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PortRange"
       ( \x ->
           PortRange'
-            <$> (x .:? "MaxRange") <*> (x .: "MinRange")
+            Prelude.<$> (x Prelude..:? "MaxRange")
+            Prelude.<*> (x Prelude..: "MinRange")
       )
 
-instance Hashable PortRange
+instance Prelude.Hashable PortRange
 
-instance NFData PortRange
+instance Prelude.NFData PortRange
 
-instance ToJSON PortRange where
+instance Prelude.ToJSON PortRange where
   toJSON PortRange' {..} =
-    object
-      ( catMaybes
-          [ ("MaxRange" .=) <$> _prMaxRange,
-            Just ("MinRange" .= _prMinRange)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxRange" Prelude..=) Prelude.<$> maxRange,
+            Prelude.Just ("MinRange" Prelude..= minRange)
           ]
       )

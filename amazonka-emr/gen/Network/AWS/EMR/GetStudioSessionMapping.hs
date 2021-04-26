@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,221 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Fetches mapping details for the specified Amazon EMR Studio and identity (user or group).
+-- Fetches mapping details for the specified Amazon EMR Studio and identity
+-- (user or group).
 module Network.AWS.EMR.GetStudioSessionMapping
   ( -- * Creating a Request
-    getStudioSessionMapping,
-    GetStudioSessionMapping,
+    GetStudioSessionMapping (..),
+    newGetStudioSessionMapping,
 
     -- * Request Lenses
-    gssmIdentityName,
-    gssmIdentityId,
-    gssmStudioId,
-    gssmIdentityType,
+    getStudioSessionMapping_identityName,
+    getStudioSessionMapping_identityId,
+    getStudioSessionMapping_studioId,
+    getStudioSessionMapping_identityType,
 
     -- * Destructuring the Response
-    getStudioSessionMappingResponse,
-    GetStudioSessionMappingResponse,
+    GetStudioSessionMappingResponse (..),
+    newGetStudioSessionMappingResponse,
 
     -- * Response Lenses
-    gssmrrsSessionMapping,
-    gssmrrsResponseStatus,
+    getStudioSessionMappingResponse_sessionMapping,
+    getStudioSessionMappingResponse_httpStatus,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EMR.Types.SessionMappingDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getStudioSessionMapping' smart constructor.
+-- | /See:/ 'newGetStudioSessionMapping' smart constructor.
 data GetStudioSessionMapping = GetStudioSessionMapping'
-  { _gssmIdentityName ::
-      !(Maybe Text),
-    _gssmIdentityId ::
-      !(Maybe Text),
-    _gssmStudioId :: !Text,
-    _gssmIdentityType ::
-      !IdentityType
+  { -- | The name of the user or group to fetch. For more information, see
+    -- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName>
+    -- and
+    -- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName>
+    -- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+    -- @IdentityId@ must be specified.
+    identityName :: Prelude.Maybe Prelude.Text,
+    -- | The globally unique identifier (GUID) of the user or group. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId>
+    -- and
+    -- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId>
+    -- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+    -- @IdentityId@ must be specified.
+    identityId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon EMR Studio.
+    studioId :: Prelude.Text,
+    -- | Specifies whether the identity to fetch is a user or a group.
+    identityType :: IdentityType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStudioSessionMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStudioSessionMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gssmIdentityName' - The name of the user or group to fetch. For more information, see <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName> and <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName> in the /AWS SSO Identity Store API Reference/ . Either @IdentityName@ or @IdentityId@ must be specified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gssmIdentityId' - The globally unique identifier (GUID) of the user or group. For more information, see <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId> and <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId> in the /AWS SSO Identity Store API Reference/ . Either @IdentityName@ or @IdentityId@ must be specified.
+-- 'identityName', 'getStudioSessionMapping_identityName' - The name of the user or group to fetch. For more information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName>
+-- and
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName>
+-- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+-- @IdentityId@ must be specified.
 --
--- * 'gssmStudioId' - The ID of the Amazon EMR Studio.
+-- 'identityId', 'getStudioSessionMapping_identityId' - The globally unique identifier (GUID) of the user or group. For more
+-- information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId>
+-- and
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId>
+-- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+-- @IdentityId@ must be specified.
 --
--- * 'gssmIdentityType' - Specifies whether the identity to fetch is a user or a group.
-getStudioSessionMapping ::
-  -- | 'gssmStudioId'
-  Text ->
-  -- | 'gssmIdentityType'
+-- 'studioId', 'getStudioSessionMapping_studioId' - The ID of the Amazon EMR Studio.
+--
+-- 'identityType', 'getStudioSessionMapping_identityType' - Specifies whether the identity to fetch is a user or a group.
+newGetStudioSessionMapping ::
+  -- | 'studioId'
+  Prelude.Text ->
+  -- | 'identityType'
   IdentityType ->
   GetStudioSessionMapping
-getStudioSessionMapping pStudioId_ pIdentityType_ =
+newGetStudioSessionMapping pStudioId_ pIdentityType_ =
   GetStudioSessionMapping'
-    { _gssmIdentityName =
-        Nothing,
-      _gssmIdentityId = Nothing,
-      _gssmStudioId = pStudioId_,
-      _gssmIdentityType = pIdentityType_
+    { identityName =
+        Prelude.Nothing,
+      identityId = Prelude.Nothing,
+      studioId = pStudioId_,
+      identityType = pIdentityType_
     }
 
--- | The name of the user or group to fetch. For more information, see <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName> and <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName> in the /AWS SSO Identity Store API Reference/ . Either @IdentityName@ or @IdentityId@ must be specified.
-gssmIdentityName :: Lens' GetStudioSessionMapping (Maybe Text)
-gssmIdentityName = lens _gssmIdentityName (\s a -> s {_gssmIdentityName = a})
+-- | The name of the user or group to fetch. For more information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName>
+-- and
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName>
+-- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+-- @IdentityId@ must be specified.
+getStudioSessionMapping_identityName :: Lens.Lens' GetStudioSessionMapping (Prelude.Maybe Prelude.Text)
+getStudioSessionMapping_identityName = Lens.lens (\GetStudioSessionMapping' {identityName} -> identityName) (\s@GetStudioSessionMapping' {} a -> s {identityName = a} :: GetStudioSessionMapping)
 
--- | The globally unique identifier (GUID) of the user or group. For more information, see <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId> and <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId> in the /AWS SSO Identity Store API Reference/ . Either @IdentityName@ or @IdentityId@ must be specified.
-gssmIdentityId :: Lens' GetStudioSessionMapping (Maybe Text)
-gssmIdentityId = lens _gssmIdentityId (\s a -> s {_gssmIdentityId = a})
+-- | The globally unique identifier (GUID) of the user or group. For more
+-- information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId>
+-- and
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId>
+-- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+-- @IdentityId@ must be specified.
+getStudioSessionMapping_identityId :: Lens.Lens' GetStudioSessionMapping (Prelude.Maybe Prelude.Text)
+getStudioSessionMapping_identityId = Lens.lens (\GetStudioSessionMapping' {identityId} -> identityId) (\s@GetStudioSessionMapping' {} a -> s {identityId = a} :: GetStudioSessionMapping)
 
 -- | The ID of the Amazon EMR Studio.
-gssmStudioId :: Lens' GetStudioSessionMapping Text
-gssmStudioId = lens _gssmStudioId (\s a -> s {_gssmStudioId = a})
+getStudioSessionMapping_studioId :: Lens.Lens' GetStudioSessionMapping Prelude.Text
+getStudioSessionMapping_studioId = Lens.lens (\GetStudioSessionMapping' {studioId} -> studioId) (\s@GetStudioSessionMapping' {} a -> s {studioId = a} :: GetStudioSessionMapping)
 
 -- | Specifies whether the identity to fetch is a user or a group.
-gssmIdentityType :: Lens' GetStudioSessionMapping IdentityType
-gssmIdentityType = lens _gssmIdentityType (\s a -> s {_gssmIdentityType = a})
+getStudioSessionMapping_identityType :: Lens.Lens' GetStudioSessionMapping IdentityType
+getStudioSessionMapping_identityType = Lens.lens (\GetStudioSessionMapping' {identityType} -> identityType) (\s@GetStudioSessionMapping' {} a -> s {identityType = a} :: GetStudioSessionMapping)
 
-instance AWSRequest GetStudioSessionMapping where
+instance Prelude.AWSRequest GetStudioSessionMapping where
   type
     Rs GetStudioSessionMapping =
       GetStudioSessionMappingResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetStudioSessionMappingResponse'
-            <$> (x .?> "SessionMapping") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SessionMapping")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetStudioSessionMapping
+instance Prelude.Hashable GetStudioSessionMapping
 
-instance NFData GetStudioSessionMapping
+instance Prelude.NFData GetStudioSessionMapping
 
-instance ToHeaders GetStudioSessionMapping where
+instance Prelude.ToHeaders GetStudioSessionMapping where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.GetStudioSessionMapping" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.GetStudioSessionMapping" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetStudioSessionMapping where
+instance Prelude.ToJSON GetStudioSessionMapping where
   toJSON GetStudioSessionMapping' {..} =
-    object
-      ( catMaybes
-          [ ("IdentityName" .=) <$> _gssmIdentityName,
-            ("IdentityId" .=) <$> _gssmIdentityId,
-            Just ("StudioId" .= _gssmStudioId),
-            Just ("IdentityType" .= _gssmIdentityType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IdentityName" Prelude..=)
+              Prelude.<$> identityName,
+            ("IdentityId" Prelude..=) Prelude.<$> identityId,
+            Prelude.Just ("StudioId" Prelude..= studioId),
+            Prelude.Just
+              ("IdentityType" Prelude..= identityType)
           ]
       )
 
-instance ToPath GetStudioSessionMapping where
-  toPath = const "/"
+instance Prelude.ToPath GetStudioSessionMapping where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetStudioSessionMapping where
-  toQuery = const mempty
+instance Prelude.ToQuery GetStudioSessionMapping where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getStudioSessionMappingResponse' smart constructor.
+-- | /See:/ 'newGetStudioSessionMappingResponse' smart constructor.
 data GetStudioSessionMappingResponse = GetStudioSessionMappingResponse'
-  { _gssmrrsSessionMapping ::
-      !( Maybe
-           SessionMappingDetail
-       ),
-    _gssmrrsResponseStatus ::
-      !Int
+  { -- | The session mapping details for the specified Amazon EMR Studio and
+    -- identity, including session policy ARN and creation time.
+    sessionMapping :: Prelude.Maybe SessionMappingDetail,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetStudioSessionMappingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetStudioSessionMappingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gssmrrsSessionMapping' - The session mapping details for the specified Amazon EMR Studio and identity, including session policy ARN and creation time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gssmrrsResponseStatus' - -- | The response status code.
-getStudioSessionMappingResponse ::
-  -- | 'gssmrrsResponseStatus'
-  Int ->
+-- 'sessionMapping', 'getStudioSessionMappingResponse_sessionMapping' - The session mapping details for the specified Amazon EMR Studio and
+-- identity, including session policy ARN and creation time.
+--
+-- 'httpStatus', 'getStudioSessionMappingResponse_httpStatus' - The response's http status code.
+newGetStudioSessionMappingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetStudioSessionMappingResponse
-getStudioSessionMappingResponse pResponseStatus_ =
+newGetStudioSessionMappingResponse pHttpStatus_ =
   GetStudioSessionMappingResponse'
-    { _gssmrrsSessionMapping =
-        Nothing,
-      _gssmrrsResponseStatus = pResponseStatus_
+    { sessionMapping =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The session mapping details for the specified Amazon EMR Studio and identity, including session policy ARN and creation time.
-gssmrrsSessionMapping :: Lens' GetStudioSessionMappingResponse (Maybe SessionMappingDetail)
-gssmrrsSessionMapping = lens _gssmrrsSessionMapping (\s a -> s {_gssmrrsSessionMapping = a})
+-- | The session mapping details for the specified Amazon EMR Studio and
+-- identity, including session policy ARN and creation time.
+getStudioSessionMappingResponse_sessionMapping :: Lens.Lens' GetStudioSessionMappingResponse (Prelude.Maybe SessionMappingDetail)
+getStudioSessionMappingResponse_sessionMapping = Lens.lens (\GetStudioSessionMappingResponse' {sessionMapping} -> sessionMapping) (\s@GetStudioSessionMappingResponse' {} a -> s {sessionMapping = a} :: GetStudioSessionMappingResponse)
 
--- | -- | The response status code.
-gssmrrsResponseStatus :: Lens' GetStudioSessionMappingResponse Int
-gssmrrsResponseStatus = lens _gssmrrsResponseStatus (\s a -> s {_gssmrrsResponseStatus = a})
+-- | The response's http status code.
+getStudioSessionMappingResponse_httpStatus :: Lens.Lens' GetStudioSessionMappingResponse Prelude.Int
+getStudioSessionMappingResponse_httpStatus = Lens.lens (\GetStudioSessionMappingResponse' {httpStatus} -> httpStatus) (\s@GetStudioSessionMappingResponse' {} a -> s {httpStatus = a} :: GetStudioSessionMappingResponse)
 
-instance NFData GetStudioSessionMappingResponse
+instance
+  Prelude.NFData
+    GetStudioSessionMappingResponse

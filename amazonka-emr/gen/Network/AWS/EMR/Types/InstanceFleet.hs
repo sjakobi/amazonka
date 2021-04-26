@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,131 +23,274 @@ import Network.AWS.EMR.Types.InstanceFleetProvisioningSpecifications
 import Network.AWS.EMR.Types.InstanceFleetStatus
 import Network.AWS.EMR.Types.InstanceFleetType
 import Network.AWS.EMR.Types.InstanceTypeSpecification
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an instance fleet, which is a group of EC2 instances that host a particular node type (master, core, or task) in an Amazon EMR cluster. Instance fleets can consist of a mix of instance types and On-Demand and Spot Instances, which are provisioned to meet a defined target capacity.
+-- | Describes an instance fleet, which is a group of EC2 instances that host
+-- a particular node type (master, core, or task) in an Amazon EMR cluster.
+-- Instance fleets can consist of a mix of instance types and On-Demand and
+-- Spot Instances, which are provisioned to meet a defined target capacity.
 --
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions.
 --
---
--- /See:/ 'instanceFleet' smart constructor.
+-- /See:/ 'newInstanceFleet' smart constructor.
 data InstanceFleet = InstanceFleet'
-  { _ifInstanceFleetType ::
-      !(Maybe InstanceFleetType),
-    _ifStatus :: !(Maybe InstanceFleetStatus),
-    _ifTargetOnDemandCapacity :: !(Maybe Nat),
-    _ifId :: !(Maybe Text),
-    _ifTargetSpotCapacity :: !(Maybe Nat),
-    _ifProvisionedOnDemandCapacity ::
-      !(Maybe Nat),
-    _ifInstanceTypeSpecifications ::
-      !(Maybe [InstanceTypeSpecification]),
-    _ifName :: !(Maybe Text),
-    _ifProvisionedSpotCapacity :: !(Maybe Nat),
-    _ifLaunchSpecifications ::
-      !( Maybe
-           InstanceFleetProvisioningSpecifications
-       )
+  { -- | The node type that the instance fleet hosts. Valid values are MASTER,
+    -- CORE, or TASK.
+    instanceFleetType :: Prelude.Maybe InstanceFleetType,
+    -- | The current status of the instance fleet.
+    status :: Prelude.Maybe InstanceFleetStatus,
+    -- | The target capacity of On-Demand units for the instance fleet, which
+    -- determines how many On-Demand Instances to provision. When the instance
+    -- fleet launches, Amazon EMR tries to provision On-Demand Instances as
+    -- specified by InstanceTypeConfig. Each instance configuration has a
+    -- specified @WeightedCapacity@. When an On-Demand Instance is provisioned,
+    -- the @WeightedCapacity@ units count toward the target capacity. Amazon
+    -- EMR provisions instances until the target capacity is totally fulfilled,
+    -- even if this results in an overage. For example, if there are 2 units
+    -- remaining to fulfill capacity, and Amazon EMR can only provision an
+    -- instance with a @WeightedCapacity@ of 5 units, the instance is
+    -- provisioned, and the target capacity is exceeded by 3 units. You can use
+    -- InstanceFleet$ProvisionedOnDemandCapacity to determine the Spot capacity
+    -- units that have been provisioned for the instance fleet.
+    --
+    -- If not specified or set to 0, only Spot Instances are provisioned for
+    -- the instance fleet using @TargetSpotCapacity@. At least one of
+    -- @TargetSpotCapacity@ and @TargetOnDemandCapacity@ should be greater than
+    -- 0. For a master instance fleet, only one of @TargetSpotCapacity@ and
+    -- @TargetOnDemandCapacity@ can be specified, and its value must be 1.
+    targetOnDemandCapacity :: Prelude.Maybe Prelude.Nat,
+    -- | The unique identifier of the instance fleet.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The target capacity of Spot units for the instance fleet, which
+    -- determines how many Spot Instances to provision. When the instance fleet
+    -- launches, Amazon EMR tries to provision Spot Instances as specified by
+    -- InstanceTypeConfig. Each instance configuration has a specified
+    -- @WeightedCapacity@. When a Spot instance is provisioned, the
+    -- @WeightedCapacity@ units count toward the target capacity. Amazon EMR
+    -- provisions instances until the target capacity is totally fulfilled,
+    -- even if this results in an overage. For example, if there are 2 units
+    -- remaining to fulfill capacity, and Amazon EMR can only provision an
+    -- instance with a @WeightedCapacity@ of 5 units, the instance is
+    -- provisioned, and the target capacity is exceeded by 3 units. You can use
+    -- InstanceFleet$ProvisionedSpotCapacity to determine the Spot capacity
+    -- units that have been provisioned for the instance fleet.
+    --
+    -- If not specified or set to 0, only On-Demand Instances are provisioned
+    -- for the instance fleet. At least one of @TargetSpotCapacity@ and
+    -- @TargetOnDemandCapacity@ should be greater than 0. For a master instance
+    -- fleet, only one of @TargetSpotCapacity@ and @TargetOnDemandCapacity@ can
+    -- be specified, and its value must be 1.
+    targetSpotCapacity :: Prelude.Maybe Prelude.Nat,
+    -- | The number of On-Demand units that have been provisioned for the
+    -- instance fleet to fulfill @TargetOnDemandCapacity@. This provisioned
+    -- capacity might be less than or greater than @TargetOnDemandCapacity@.
+    provisionedOnDemandCapacity :: Prelude.Maybe Prelude.Nat,
+    -- | The specification for the instance types that comprise an instance
+    -- fleet. Up to five unique instance specifications may be defined for each
+    -- instance fleet.
+    instanceTypeSpecifications :: Prelude.Maybe [InstanceTypeSpecification],
+    -- | A friendly name for the instance fleet.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The number of Spot units that have been provisioned for this instance
+    -- fleet to fulfill @TargetSpotCapacity@. This provisioned capacity might
+    -- be less than or greater than @TargetSpotCapacity@.
+    provisionedSpotCapacity :: Prelude.Maybe Prelude.Nat,
+    -- | Describes the launch specification for an instance fleet.
+    launchSpecifications :: Prelude.Maybe InstanceFleetProvisioningSpecifications
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ifInstanceFleetType' - The node type that the instance fleet hosts. Valid values are MASTER, CORE, or TASK.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ifStatus' - The current status of the instance fleet.
+-- 'instanceFleetType', 'instanceFleet_instanceFleetType' - The node type that the instance fleet hosts. Valid values are MASTER,
+-- CORE, or TASK.
 --
--- * 'ifTargetOnDemandCapacity' - The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand Instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand Instances as specified by 'InstanceTypeConfig' . Each instance configuration has a specified @WeightedCapacity@ . When an On-Demand Instance is provisioned, the @WeightedCapacity@ units count toward the target capacity. Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a @WeightedCapacity@ of 5 units, the instance is provisioned, and the target capacity is exceeded by 3 units. You can use 'InstanceFleet$ProvisionedOnDemandCapacity' to determine the Spot capacity units that have been provisioned for the instance fleet.
+-- 'status', 'instanceFleet_status' - The current status of the instance fleet.
 --
--- * 'ifId' - The unique identifier of the instance fleet.
+-- 'targetOnDemandCapacity', 'instanceFleet_targetOnDemandCapacity' - The target capacity of On-Demand units for the instance fleet, which
+-- determines how many On-Demand Instances to provision. When the instance
+-- fleet launches, Amazon EMR tries to provision On-Demand Instances as
+-- specified by InstanceTypeConfig. Each instance configuration has a
+-- specified @WeightedCapacity@. When an On-Demand Instance is provisioned,
+-- the @WeightedCapacity@ units count toward the target capacity. Amazon
+-- EMR provisions instances until the target capacity is totally fulfilled,
+-- even if this results in an overage. For example, if there are 2 units
+-- remaining to fulfill capacity, and Amazon EMR can only provision an
+-- instance with a @WeightedCapacity@ of 5 units, the instance is
+-- provisioned, and the target capacity is exceeded by 3 units. You can use
+-- InstanceFleet$ProvisionedOnDemandCapacity to determine the Spot capacity
+-- units that have been provisioned for the instance fleet.
 --
--- * 'ifTargetSpotCapacity' - The target capacity of Spot units for the instance fleet, which determines how many Spot Instances to provision. When the instance fleet launches, Amazon EMR tries to provision Spot Instances as specified by 'InstanceTypeConfig' . Each instance configuration has a specified @WeightedCapacity@ . When a Spot instance is provisioned, the @WeightedCapacity@ units count toward the target capacity. Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a @WeightedCapacity@ of 5 units, the instance is provisioned, and the target capacity is exceeded by 3 units. You can use 'InstanceFleet$ProvisionedSpotCapacity' to determine the Spot capacity units that have been provisioned for the instance fleet.
+-- If not specified or set to 0, only Spot Instances are provisioned for
+-- the instance fleet using @TargetSpotCapacity@. At least one of
+-- @TargetSpotCapacity@ and @TargetOnDemandCapacity@ should be greater than
+-- 0. For a master instance fleet, only one of @TargetSpotCapacity@ and
+-- @TargetOnDemandCapacity@ can be specified, and its value must be 1.
 --
--- * 'ifProvisionedOnDemandCapacity' - The number of On-Demand units that have been provisioned for the instance fleet to fulfill @TargetOnDemandCapacity@ . This provisioned capacity might be less than or greater than @TargetOnDemandCapacity@ .
+-- 'id', 'instanceFleet_id' - The unique identifier of the instance fleet.
 --
--- * 'ifInstanceTypeSpecifications' - The specification for the instance types that comprise an instance fleet. Up to five unique instance specifications may be defined for each instance fleet.
+-- 'targetSpotCapacity', 'instanceFleet_targetSpotCapacity' - The target capacity of Spot units for the instance fleet, which
+-- determines how many Spot Instances to provision. When the instance fleet
+-- launches, Amazon EMR tries to provision Spot Instances as specified by
+-- InstanceTypeConfig. Each instance configuration has a specified
+-- @WeightedCapacity@. When a Spot instance is provisioned, the
+-- @WeightedCapacity@ units count toward the target capacity. Amazon EMR
+-- provisions instances until the target capacity is totally fulfilled,
+-- even if this results in an overage. For example, if there are 2 units
+-- remaining to fulfill capacity, and Amazon EMR can only provision an
+-- instance with a @WeightedCapacity@ of 5 units, the instance is
+-- provisioned, and the target capacity is exceeded by 3 units. You can use
+-- InstanceFleet$ProvisionedSpotCapacity to determine the Spot capacity
+-- units that have been provisioned for the instance fleet.
 --
--- * 'ifName' - A friendly name for the instance fleet.
+-- If not specified or set to 0, only On-Demand Instances are provisioned
+-- for the instance fleet. At least one of @TargetSpotCapacity@ and
+-- @TargetOnDemandCapacity@ should be greater than 0. For a master instance
+-- fleet, only one of @TargetSpotCapacity@ and @TargetOnDemandCapacity@ can
+-- be specified, and its value must be 1.
 --
--- * 'ifProvisionedSpotCapacity' - The number of Spot units that have been provisioned for this instance fleet to fulfill @TargetSpotCapacity@ . This provisioned capacity might be less than or greater than @TargetSpotCapacity@ .
+-- 'provisionedOnDemandCapacity', 'instanceFleet_provisionedOnDemandCapacity' - The number of On-Demand units that have been provisioned for the
+-- instance fleet to fulfill @TargetOnDemandCapacity@. This provisioned
+-- capacity might be less than or greater than @TargetOnDemandCapacity@.
 --
--- * 'ifLaunchSpecifications' - Describes the launch specification for an instance fleet.
-instanceFleet ::
+-- 'instanceTypeSpecifications', 'instanceFleet_instanceTypeSpecifications' - The specification for the instance types that comprise an instance
+-- fleet. Up to five unique instance specifications may be defined for each
+-- instance fleet.
+--
+-- 'name', 'instanceFleet_name' - A friendly name for the instance fleet.
+--
+-- 'provisionedSpotCapacity', 'instanceFleet_provisionedSpotCapacity' - The number of Spot units that have been provisioned for this instance
+-- fleet to fulfill @TargetSpotCapacity@. This provisioned capacity might
+-- be less than or greater than @TargetSpotCapacity@.
+--
+-- 'launchSpecifications', 'instanceFleet_launchSpecifications' - Describes the launch specification for an instance fleet.
+newInstanceFleet ::
   InstanceFleet
-instanceFleet =
+newInstanceFleet =
   InstanceFleet'
-    { _ifInstanceFleetType = Nothing,
-      _ifStatus = Nothing,
-      _ifTargetOnDemandCapacity = Nothing,
-      _ifId = Nothing,
-      _ifTargetSpotCapacity = Nothing,
-      _ifProvisionedOnDemandCapacity = Nothing,
-      _ifInstanceTypeSpecifications = Nothing,
-      _ifName = Nothing,
-      _ifProvisionedSpotCapacity = Nothing,
-      _ifLaunchSpecifications = Nothing
+    { instanceFleetType = Prelude.Nothing,
+      status = Prelude.Nothing,
+      targetOnDemandCapacity = Prelude.Nothing,
+      id = Prelude.Nothing,
+      targetSpotCapacity = Prelude.Nothing,
+      provisionedOnDemandCapacity = Prelude.Nothing,
+      instanceTypeSpecifications = Prelude.Nothing,
+      name = Prelude.Nothing,
+      provisionedSpotCapacity = Prelude.Nothing,
+      launchSpecifications = Prelude.Nothing
     }
 
--- | The node type that the instance fleet hosts. Valid values are MASTER, CORE, or TASK.
-ifInstanceFleetType :: Lens' InstanceFleet (Maybe InstanceFleetType)
-ifInstanceFleetType = lens _ifInstanceFleetType (\s a -> s {_ifInstanceFleetType = a})
+-- | The node type that the instance fleet hosts. Valid values are MASTER,
+-- CORE, or TASK.
+instanceFleet_instanceFleetType :: Lens.Lens' InstanceFleet (Prelude.Maybe InstanceFleetType)
+instanceFleet_instanceFleetType = Lens.lens (\InstanceFleet' {instanceFleetType} -> instanceFleetType) (\s@InstanceFleet' {} a -> s {instanceFleetType = a} :: InstanceFleet)
 
 -- | The current status of the instance fleet.
-ifStatus :: Lens' InstanceFleet (Maybe InstanceFleetStatus)
-ifStatus = lens _ifStatus (\s a -> s {_ifStatus = a})
+instanceFleet_status :: Lens.Lens' InstanceFleet (Prelude.Maybe InstanceFleetStatus)
+instanceFleet_status = Lens.lens (\InstanceFleet' {status} -> status) (\s@InstanceFleet' {} a -> s {status = a} :: InstanceFleet)
 
--- | The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand Instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand Instances as specified by 'InstanceTypeConfig' . Each instance configuration has a specified @WeightedCapacity@ . When an On-Demand Instance is provisioned, the @WeightedCapacity@ units count toward the target capacity. Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a @WeightedCapacity@ of 5 units, the instance is provisioned, and the target capacity is exceeded by 3 units. You can use 'InstanceFleet$ProvisionedOnDemandCapacity' to determine the Spot capacity units that have been provisioned for the instance fleet.
-ifTargetOnDemandCapacity :: Lens' InstanceFleet (Maybe Natural)
-ifTargetOnDemandCapacity = lens _ifTargetOnDemandCapacity (\s a -> s {_ifTargetOnDemandCapacity = a}) . mapping _Nat
+-- | The target capacity of On-Demand units for the instance fleet, which
+-- determines how many On-Demand Instances to provision. When the instance
+-- fleet launches, Amazon EMR tries to provision On-Demand Instances as
+-- specified by InstanceTypeConfig. Each instance configuration has a
+-- specified @WeightedCapacity@. When an On-Demand Instance is provisioned,
+-- the @WeightedCapacity@ units count toward the target capacity. Amazon
+-- EMR provisions instances until the target capacity is totally fulfilled,
+-- even if this results in an overage. For example, if there are 2 units
+-- remaining to fulfill capacity, and Amazon EMR can only provision an
+-- instance with a @WeightedCapacity@ of 5 units, the instance is
+-- provisioned, and the target capacity is exceeded by 3 units. You can use
+-- InstanceFleet$ProvisionedOnDemandCapacity to determine the Spot capacity
+-- units that have been provisioned for the instance fleet.
+--
+-- If not specified or set to 0, only Spot Instances are provisioned for
+-- the instance fleet using @TargetSpotCapacity@. At least one of
+-- @TargetSpotCapacity@ and @TargetOnDemandCapacity@ should be greater than
+-- 0. For a master instance fleet, only one of @TargetSpotCapacity@ and
+-- @TargetOnDemandCapacity@ can be specified, and its value must be 1.
+instanceFleet_targetOnDemandCapacity :: Lens.Lens' InstanceFleet (Prelude.Maybe Prelude.Natural)
+instanceFleet_targetOnDemandCapacity = Lens.lens (\InstanceFleet' {targetOnDemandCapacity} -> targetOnDemandCapacity) (\s@InstanceFleet' {} a -> s {targetOnDemandCapacity = a} :: InstanceFleet) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The unique identifier of the instance fleet.
-ifId :: Lens' InstanceFleet (Maybe Text)
-ifId = lens _ifId (\s a -> s {_ifId = a})
+instanceFleet_id :: Lens.Lens' InstanceFleet (Prelude.Maybe Prelude.Text)
+instanceFleet_id = Lens.lens (\InstanceFleet' {id} -> id) (\s@InstanceFleet' {} a -> s {id = a} :: InstanceFleet)
 
--- | The target capacity of Spot units for the instance fleet, which determines how many Spot Instances to provision. When the instance fleet launches, Amazon EMR tries to provision Spot Instances as specified by 'InstanceTypeConfig' . Each instance configuration has a specified @WeightedCapacity@ . When a Spot instance is provisioned, the @WeightedCapacity@ units count toward the target capacity. Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a @WeightedCapacity@ of 5 units, the instance is provisioned, and the target capacity is exceeded by 3 units. You can use 'InstanceFleet$ProvisionedSpotCapacity' to determine the Spot capacity units that have been provisioned for the instance fleet.
-ifTargetSpotCapacity :: Lens' InstanceFleet (Maybe Natural)
-ifTargetSpotCapacity = lens _ifTargetSpotCapacity (\s a -> s {_ifTargetSpotCapacity = a}) . mapping _Nat
+-- | The target capacity of Spot units for the instance fleet, which
+-- determines how many Spot Instances to provision. When the instance fleet
+-- launches, Amazon EMR tries to provision Spot Instances as specified by
+-- InstanceTypeConfig. Each instance configuration has a specified
+-- @WeightedCapacity@. When a Spot instance is provisioned, the
+-- @WeightedCapacity@ units count toward the target capacity. Amazon EMR
+-- provisions instances until the target capacity is totally fulfilled,
+-- even if this results in an overage. For example, if there are 2 units
+-- remaining to fulfill capacity, and Amazon EMR can only provision an
+-- instance with a @WeightedCapacity@ of 5 units, the instance is
+-- provisioned, and the target capacity is exceeded by 3 units. You can use
+-- InstanceFleet$ProvisionedSpotCapacity to determine the Spot capacity
+-- units that have been provisioned for the instance fleet.
+--
+-- If not specified or set to 0, only On-Demand Instances are provisioned
+-- for the instance fleet. At least one of @TargetSpotCapacity@ and
+-- @TargetOnDemandCapacity@ should be greater than 0. For a master instance
+-- fleet, only one of @TargetSpotCapacity@ and @TargetOnDemandCapacity@ can
+-- be specified, and its value must be 1.
+instanceFleet_targetSpotCapacity :: Lens.Lens' InstanceFleet (Prelude.Maybe Prelude.Natural)
+instanceFleet_targetSpotCapacity = Lens.lens (\InstanceFleet' {targetSpotCapacity} -> targetSpotCapacity) (\s@InstanceFleet' {} a -> s {targetSpotCapacity = a} :: InstanceFleet) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of On-Demand units that have been provisioned for the instance fleet to fulfill @TargetOnDemandCapacity@ . This provisioned capacity might be less than or greater than @TargetOnDemandCapacity@ .
-ifProvisionedOnDemandCapacity :: Lens' InstanceFleet (Maybe Natural)
-ifProvisionedOnDemandCapacity = lens _ifProvisionedOnDemandCapacity (\s a -> s {_ifProvisionedOnDemandCapacity = a}) . mapping _Nat
+-- | The number of On-Demand units that have been provisioned for the
+-- instance fleet to fulfill @TargetOnDemandCapacity@. This provisioned
+-- capacity might be less than or greater than @TargetOnDemandCapacity@.
+instanceFleet_provisionedOnDemandCapacity :: Lens.Lens' InstanceFleet (Prelude.Maybe Prelude.Natural)
+instanceFleet_provisionedOnDemandCapacity = Lens.lens (\InstanceFleet' {provisionedOnDemandCapacity} -> provisionedOnDemandCapacity) (\s@InstanceFleet' {} a -> s {provisionedOnDemandCapacity = a} :: InstanceFleet) Prelude.. Lens.mapping Prelude._Nat
 
--- | The specification for the instance types that comprise an instance fleet. Up to five unique instance specifications may be defined for each instance fleet.
-ifInstanceTypeSpecifications :: Lens' InstanceFleet [InstanceTypeSpecification]
-ifInstanceTypeSpecifications = lens _ifInstanceTypeSpecifications (\s a -> s {_ifInstanceTypeSpecifications = a}) . _Default . _Coerce
+-- | The specification for the instance types that comprise an instance
+-- fleet. Up to five unique instance specifications may be defined for each
+-- instance fleet.
+instanceFleet_instanceTypeSpecifications :: Lens.Lens' InstanceFleet (Prelude.Maybe [InstanceTypeSpecification])
+instanceFleet_instanceTypeSpecifications = Lens.lens (\InstanceFleet' {instanceTypeSpecifications} -> instanceTypeSpecifications) (\s@InstanceFleet' {} a -> s {instanceTypeSpecifications = a} :: InstanceFleet) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A friendly name for the instance fleet.
-ifName :: Lens' InstanceFleet (Maybe Text)
-ifName = lens _ifName (\s a -> s {_ifName = a})
+instanceFleet_name :: Lens.Lens' InstanceFleet (Prelude.Maybe Prelude.Text)
+instanceFleet_name = Lens.lens (\InstanceFleet' {name} -> name) (\s@InstanceFleet' {} a -> s {name = a} :: InstanceFleet)
 
--- | The number of Spot units that have been provisioned for this instance fleet to fulfill @TargetSpotCapacity@ . This provisioned capacity might be less than or greater than @TargetSpotCapacity@ .
-ifProvisionedSpotCapacity :: Lens' InstanceFleet (Maybe Natural)
-ifProvisionedSpotCapacity = lens _ifProvisionedSpotCapacity (\s a -> s {_ifProvisionedSpotCapacity = a}) . mapping _Nat
+-- | The number of Spot units that have been provisioned for this instance
+-- fleet to fulfill @TargetSpotCapacity@. This provisioned capacity might
+-- be less than or greater than @TargetSpotCapacity@.
+instanceFleet_provisionedSpotCapacity :: Lens.Lens' InstanceFleet (Prelude.Maybe Prelude.Natural)
+instanceFleet_provisionedSpotCapacity = Lens.lens (\InstanceFleet' {provisionedSpotCapacity} -> provisionedSpotCapacity) (\s@InstanceFleet' {} a -> s {provisionedSpotCapacity = a} :: InstanceFleet) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Describes the launch specification for an instance fleet.
-ifLaunchSpecifications :: Lens' InstanceFleet (Maybe InstanceFleetProvisioningSpecifications)
-ifLaunchSpecifications = lens _ifLaunchSpecifications (\s a -> s {_ifLaunchSpecifications = a})
+instanceFleet_launchSpecifications :: Lens.Lens' InstanceFleet (Prelude.Maybe InstanceFleetProvisioningSpecifications)
+instanceFleet_launchSpecifications = Lens.lens (\InstanceFleet' {launchSpecifications} -> launchSpecifications) (\s@InstanceFleet' {} a -> s {launchSpecifications = a} :: InstanceFleet)
 
-instance FromJSON InstanceFleet where
+instance Prelude.FromJSON InstanceFleet where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceFleet"
       ( \x ->
           InstanceFleet'
-            <$> (x .:? "InstanceFleetType")
-            <*> (x .:? "Status")
-            <*> (x .:? "TargetOnDemandCapacity")
-            <*> (x .:? "Id")
-            <*> (x .:? "TargetSpotCapacity")
-            <*> (x .:? "ProvisionedOnDemandCapacity")
-            <*> (x .:? "InstanceTypeSpecifications" .!= mempty)
-            <*> (x .:? "Name")
-            <*> (x .:? "ProvisionedSpotCapacity")
-            <*> (x .:? "LaunchSpecifications")
+            Prelude.<$> (x Prelude..:? "InstanceFleetType")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "TargetOnDemandCapacity")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "TargetSpotCapacity")
+            Prelude.<*> (x Prelude..:? "ProvisionedOnDemandCapacity")
+            Prelude.<*> ( x Prelude..:? "InstanceTypeSpecifications"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "ProvisionedSpotCapacity")
+            Prelude.<*> (x Prelude..:? "LaunchSpecifications")
       )
 
-instance Hashable InstanceFleet
+instance Prelude.Hashable InstanceFleet
 
-instance NFData InstanceFleet
+instance Prelude.NFData InstanceFleet

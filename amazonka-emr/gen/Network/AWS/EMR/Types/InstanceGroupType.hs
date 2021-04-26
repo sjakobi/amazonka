@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.EMR.Types.InstanceGroupType
   ( InstanceGroupType
       ( ..,
-        IGTCore,
-        IGTMaster,
-        IGTTask
+        InstanceGroupTypeCORE,
+        InstanceGroupTypeMASTER,
+        InstanceGroupTypeTASK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceGroupType = InstanceGroupType' (CI Text)
+newtype InstanceGroupType = InstanceGroupType'
+  { fromInstanceGroupType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IGTCore :: InstanceGroupType
-pattern IGTCore = InstanceGroupType' "CORE"
+pattern InstanceGroupTypeCORE :: InstanceGroupType
+pattern InstanceGroupTypeCORE = InstanceGroupType' "CORE"
 
-pattern IGTMaster :: InstanceGroupType
-pattern IGTMaster = InstanceGroupType' "MASTER"
+pattern InstanceGroupTypeMASTER :: InstanceGroupType
+pattern InstanceGroupTypeMASTER = InstanceGroupType' "MASTER"
 
-pattern IGTTask :: InstanceGroupType
-pattern IGTTask = InstanceGroupType' "TASK"
+pattern InstanceGroupTypeTASK :: InstanceGroupType
+pattern InstanceGroupTypeTASK = InstanceGroupType' "TASK"
 
 {-# COMPLETE
-  IGTCore,
-  IGTMaster,
-  IGTTask,
+  InstanceGroupTypeCORE,
+  InstanceGroupTypeMASTER,
+  InstanceGroupTypeTASK,
   InstanceGroupType'
   #-}
 
-instance FromText InstanceGroupType where
-  parser = (InstanceGroupType' . mk) <$> takeText
+instance Prelude.FromText InstanceGroupType where
+  parser = InstanceGroupType' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceGroupType where
-  toText (InstanceGroupType' ci) = original ci
+instance Prelude.ToText InstanceGroupType where
+  toText (InstanceGroupType' x) = x
 
-instance Hashable InstanceGroupType
+instance Prelude.Hashable InstanceGroupType
 
-instance NFData InstanceGroupType
+instance Prelude.NFData InstanceGroupType
 
-instance ToByteString InstanceGroupType
+instance Prelude.ToByteString InstanceGroupType
 
-instance ToQuery InstanceGroupType
+instance Prelude.ToQuery InstanceGroupType
 
-instance ToHeader InstanceGroupType
+instance Prelude.ToHeader InstanceGroupType
 
-instance ToJSON InstanceGroupType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceGroupType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InstanceGroupType where
-  parseJSON = parseJSONText "InstanceGroupType"
+instance Prelude.FromJSON InstanceGroupType where
+  parseJSON = Prelude.parseJSONText "InstanceGroupType"

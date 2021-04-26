@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.ScalingConstraints where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The upper and lower EC2 instance limits for an automatic scaling policy. Automatic scaling activities triggered by automatic scaling rules will not cause an instance group to grow above or below these limits.
+-- | The upper and lower EC2 instance limits for an automatic scaling policy.
+-- Automatic scaling activities triggered by automatic scaling rules will
+-- not cause an instance group to grow above or below these limits.
 --
---
---
--- /See:/ 'scalingConstraints' smart constructor.
+-- /See:/ 'newScalingConstraints' smart constructor.
 data ScalingConstraints = ScalingConstraints'
-  { _scMinCapacity ::
-      !Int,
-    _scMaxCapacity :: !Int
+  { -- | The lower boundary of EC2 instances in an instance group below which
+    -- scaling activities are not allowed to shrink. Scale-in activities will
+    -- not terminate instances below this boundary.
+    minCapacity :: Prelude.Int,
+    -- | The upper boundary of EC2 instances in an instance group beyond which
+    -- scaling activities are not allowed to grow. Scale-out activities will
+    -- not add instances beyond this boundary.
+    maxCapacity :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScalingConstraints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScalingConstraints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scMinCapacity' - The lower boundary of EC2 instances in an instance group below which scaling activities are not allowed to shrink. Scale-in activities will not terminate instances below this boundary.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scMaxCapacity' - The upper boundary of EC2 instances in an instance group beyond which scaling activities are not allowed to grow. Scale-out activities will not add instances beyond this boundary.
-scalingConstraints ::
-  -- | 'scMinCapacity'
-  Int ->
-  -- | 'scMaxCapacity'
-  Int ->
+-- 'minCapacity', 'scalingConstraints_minCapacity' - The lower boundary of EC2 instances in an instance group below which
+-- scaling activities are not allowed to shrink. Scale-in activities will
+-- not terminate instances below this boundary.
+--
+-- 'maxCapacity', 'scalingConstraints_maxCapacity' - The upper boundary of EC2 instances in an instance group beyond which
+-- scaling activities are not allowed to grow. Scale-out activities will
+-- not add instances beyond this boundary.
+newScalingConstraints ::
+  -- | 'minCapacity'
+  Prelude.Int ->
+  -- | 'maxCapacity'
+  Prelude.Int ->
   ScalingConstraints
-scalingConstraints pMinCapacity_ pMaxCapacity_ =
+newScalingConstraints pMinCapacity_ pMaxCapacity_ =
   ScalingConstraints'
-    { _scMinCapacity = pMinCapacity_,
-      _scMaxCapacity = pMaxCapacity_
+    { minCapacity = pMinCapacity_,
+      maxCapacity = pMaxCapacity_
     }
 
--- | The lower boundary of EC2 instances in an instance group below which scaling activities are not allowed to shrink. Scale-in activities will not terminate instances below this boundary.
-scMinCapacity :: Lens' ScalingConstraints Int
-scMinCapacity = lens _scMinCapacity (\s a -> s {_scMinCapacity = a})
+-- | The lower boundary of EC2 instances in an instance group below which
+-- scaling activities are not allowed to shrink. Scale-in activities will
+-- not terminate instances below this boundary.
+scalingConstraints_minCapacity :: Lens.Lens' ScalingConstraints Prelude.Int
+scalingConstraints_minCapacity = Lens.lens (\ScalingConstraints' {minCapacity} -> minCapacity) (\s@ScalingConstraints' {} a -> s {minCapacity = a} :: ScalingConstraints)
 
--- | The upper boundary of EC2 instances in an instance group beyond which scaling activities are not allowed to grow. Scale-out activities will not add instances beyond this boundary.
-scMaxCapacity :: Lens' ScalingConstraints Int
-scMaxCapacity = lens _scMaxCapacity (\s a -> s {_scMaxCapacity = a})
+-- | The upper boundary of EC2 instances in an instance group beyond which
+-- scaling activities are not allowed to grow. Scale-out activities will
+-- not add instances beyond this boundary.
+scalingConstraints_maxCapacity :: Lens.Lens' ScalingConstraints Prelude.Int
+scalingConstraints_maxCapacity = Lens.lens (\ScalingConstraints' {maxCapacity} -> maxCapacity) (\s@ScalingConstraints' {} a -> s {maxCapacity = a} :: ScalingConstraints)
 
-instance FromJSON ScalingConstraints where
+instance Prelude.FromJSON ScalingConstraints where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ScalingConstraints"
       ( \x ->
           ScalingConstraints'
-            <$> (x .: "MinCapacity") <*> (x .: "MaxCapacity")
+            Prelude.<$> (x Prelude..: "MinCapacity")
+            Prelude.<*> (x Prelude..: "MaxCapacity")
       )
 
-instance Hashable ScalingConstraints
+instance Prelude.Hashable ScalingConstraints
 
-instance NFData ScalingConstraints
+instance Prelude.NFData ScalingConstraints
 
-instance ToJSON ScalingConstraints where
+instance Prelude.ToJSON ScalingConstraints where
   toJSON ScalingConstraints' {..} =
-    object
-      ( catMaybes
-          [ Just ("MinCapacity" .= _scMinCapacity),
-            Just ("MaxCapacity" .= _scMaxCapacity)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("MinCapacity" Prelude..= minCapacity),
+            Prelude.Just ("MaxCapacity" Prelude..= maxCapacity)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns details for the specified Amazon EMR Studio including ID, Name, VPC, Studio access URL, and so on.
+-- Returns details for the specified Amazon EMR Studio including ID, Name,
+-- VPC, Studio access URL, and so on.
 module Network.AWS.EMR.DescribeStudio
   ( -- * Creating a Request
-    describeStudio,
-    DescribeStudio,
+    DescribeStudio (..),
+    newDescribeStudio,
 
     -- * Request Lenses
-    dStudioId,
+    describeStudio_studioId,
 
     -- * Destructuring the Response
-    describeStudioResponse,
-    DescribeStudioResponse,
+    DescribeStudioResponse (..),
+    newDescribeStudioResponse,
 
     -- * Response Lenses
-    drsStudio,
-    drsResponseStatus,
+    describeStudioResponse_studio,
+    describeStudioResponse_httpStatus,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EMR.Types.Studio
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeStudio' smart constructor.
-newtype DescribeStudio = DescribeStudio'
-  { _dStudioId ::
-      Text
+-- | /See:/ 'newDescribeStudio' smart constructor.
+data DescribeStudio = DescribeStudio'
+  { -- | The Amazon EMR Studio ID.
+    studioId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStudio' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStudio' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dStudioId' - The Amazon EMR Studio ID.
-describeStudio ::
-  -- | 'dStudioId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'studioId', 'describeStudio_studioId' - The Amazon EMR Studio ID.
+newDescribeStudio ::
+  -- | 'studioId'
+  Prelude.Text ->
   DescribeStudio
-describeStudio pStudioId_ =
-  DescribeStudio' {_dStudioId = pStudioId_}
+newDescribeStudio pStudioId_ =
+  DescribeStudio' {studioId = pStudioId_}
 
 -- | The Amazon EMR Studio ID.
-dStudioId :: Lens' DescribeStudio Text
-dStudioId = lens _dStudioId (\s a -> s {_dStudioId = a})
+describeStudio_studioId :: Lens.Lens' DescribeStudio Prelude.Text
+describeStudio_studioId = Lens.lens (\DescribeStudio' {studioId} -> studioId) (\s@DescribeStudio' {} a -> s {studioId = a} :: DescribeStudio)
 
-instance AWSRequest DescribeStudio where
+instance Prelude.AWSRequest DescribeStudio where
   type Rs DescribeStudio = DescribeStudioResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeStudioResponse'
-            <$> (x .?> "Studio") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Studio")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeStudio
+instance Prelude.Hashable DescribeStudio
 
-instance NFData DescribeStudio
+instance Prelude.NFData DescribeStudio
 
-instance ToHeaders DescribeStudio where
+instance Prelude.ToHeaders DescribeStudio where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("ElasticMapReduce.DescribeStudio" :: ByteString),
+              Prelude.=# ( "ElasticMapReduce.DescribeStudio" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeStudio where
+instance Prelude.ToJSON DescribeStudio where
   toJSON DescribeStudio' {..} =
-    object
-      (catMaybes [Just ("StudioId" .= _dStudioId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("StudioId" Prelude..= studioId)]
+      )
 
-instance ToPath DescribeStudio where
-  toPath = const "/"
+instance Prelude.ToPath DescribeStudio where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeStudio where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeStudio where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeStudioResponse' smart constructor.
+-- | /See:/ 'newDescribeStudioResponse' smart constructor.
 data DescribeStudioResponse = DescribeStudioResponse'
-  { _drsStudio ::
-      !(Maybe Studio),
-    _drsResponseStatus ::
-      !Int
+  { -- | The Amazon EMR Studio details.
+    studio :: Prelude.Maybe Studio,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStudioResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStudioResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsStudio' - The Amazon EMR Studio details.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeStudioResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'studio', 'describeStudioResponse_studio' - The Amazon EMR Studio details.
+--
+-- 'httpStatus', 'describeStudioResponse_httpStatus' - The response's http status code.
+newDescribeStudioResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeStudioResponse
-describeStudioResponse pResponseStatus_ =
+newDescribeStudioResponse pHttpStatus_ =
   DescribeStudioResponse'
-    { _drsStudio = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { studio = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon EMR Studio details.
-drsStudio :: Lens' DescribeStudioResponse (Maybe Studio)
-drsStudio = lens _drsStudio (\s a -> s {_drsStudio = a})
+describeStudioResponse_studio :: Lens.Lens' DescribeStudioResponse (Prelude.Maybe Studio)
+describeStudioResponse_studio = Lens.lens (\DescribeStudioResponse' {studio} -> studio) (\s@DescribeStudioResponse' {} a -> s {studio = a} :: DescribeStudioResponse)
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeStudioResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeStudioResponse_httpStatus :: Lens.Lens' DescribeStudioResponse Prelude.Int
+describeStudioResponse_httpStatus = Lens.lens (\DescribeStudioResponse' {httpStatus} -> httpStatus) (\s@DescribeStudioResponse' {} a -> s {httpStatus = a} :: DescribeStudioResponse)
 
-instance NFData DescribeStudioResponse
+instance Prelude.NFData DescribeStudioResponse

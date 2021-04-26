@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.EMR.Types.StepCancellationOption
   ( StepCancellationOption
       ( ..,
-        SendInterrupt,
-        TerminateProcess
+        StepCancellationOptionSENDINTERRUPT,
+        StepCancellationOptionTERMINATEPROCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StepCancellationOption
-  = StepCancellationOption'
-      ( CI
-          Text
-      )
+newtype StepCancellationOption = StepCancellationOption'
+  { fromStepCancellationOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SendInterrupt :: StepCancellationOption
-pattern SendInterrupt = StepCancellationOption' "SEND_INTERRUPT"
+pattern StepCancellationOptionSENDINTERRUPT :: StepCancellationOption
+pattern StepCancellationOptionSENDINTERRUPT = StepCancellationOption' "SEND_INTERRUPT"
 
-pattern TerminateProcess :: StepCancellationOption
-pattern TerminateProcess = StepCancellationOption' "TERMINATE_PROCESS"
+pattern StepCancellationOptionTERMINATEPROCESS :: StepCancellationOption
+pattern StepCancellationOptionTERMINATEPROCESS = StepCancellationOption' "TERMINATE_PROCESS"
 
 {-# COMPLETE
-  SendInterrupt,
-  TerminateProcess,
+  StepCancellationOptionSENDINTERRUPT,
+  StepCancellationOptionTERMINATEPROCESS,
   StepCancellationOption'
   #-}
 
-instance FromText StepCancellationOption where
-  parser = (StepCancellationOption' . mk) <$> takeText
+instance Prelude.FromText StepCancellationOption where
+  parser = StepCancellationOption' Prelude.<$> Prelude.takeText
 
-instance ToText StepCancellationOption where
-  toText (StepCancellationOption' ci) = original ci
+instance Prelude.ToText StepCancellationOption where
+  toText (StepCancellationOption' x) = x
 
-instance Hashable StepCancellationOption
+instance Prelude.Hashable StepCancellationOption
 
-instance NFData StepCancellationOption
+instance Prelude.NFData StepCancellationOption
 
-instance ToByteString StepCancellationOption
+instance Prelude.ToByteString StepCancellationOption
 
-instance ToQuery StepCancellationOption
+instance Prelude.ToQuery StepCancellationOption
 
-instance ToHeader StepCancellationOption
+instance Prelude.ToHeader StepCancellationOption
 
-instance ToJSON StepCancellationOption where
-  toJSON = toJSONText
+instance Prelude.ToJSON StepCancellationOption where
+  toJSON = Prelude.toJSONText

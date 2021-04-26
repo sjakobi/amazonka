@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,91 +20,156 @@
 module Network.AWS.EMR.Types.SimpleScalingPolicyConfiguration where
 
 import Network.AWS.EMR.Types.AdjustmentType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An automatic scaling configuration, which describes how the policy adds or removes instances, the cooldown period, and the number of EC2 instances that will be added each time the CloudWatch metric alarm condition is satisfied.
+-- | An automatic scaling configuration, which describes how the policy adds
+-- or removes instances, the cooldown period, and the number of EC2
+-- instances that will be added each time the CloudWatch metric alarm
+-- condition is satisfied.
 --
---
---
--- /See:/ 'simpleScalingPolicyConfiguration' smart constructor.
+-- /See:/ 'newSimpleScalingPolicyConfiguration' smart constructor.
 data SimpleScalingPolicyConfiguration = SimpleScalingPolicyConfiguration'
-  { _sspcCoolDown ::
-      !( Maybe
-           Int
-       ),
-    _sspcAdjustmentType ::
-      !( Maybe
-           AdjustmentType
-       ),
-    _sspcScalingAdjustment ::
-      !Int
+  { -- | The amount of time, in seconds, after a scaling activity completes
+    -- before any further trigger-related scaling activities can start. The
+    -- default value is 0.
+    coolDown :: Prelude.Maybe Prelude.Int,
+    -- | The way in which EC2 instances are added (if @ScalingAdjustment@ is a
+    -- positive number) or terminated (if @ScalingAdjustment@ is a negative
+    -- number) each time the scaling activity is triggered.
+    -- @CHANGE_IN_CAPACITY@ is the default. @CHANGE_IN_CAPACITY@ indicates that
+    -- the EC2 instance count increments or decrements by @ScalingAdjustment@,
+    -- which should be expressed as an integer. @PERCENT_CHANGE_IN_CAPACITY@
+    -- indicates the instance count increments or decrements by the percentage
+    -- specified by @ScalingAdjustment@, which should be expressed as an
+    -- integer. For example, 20 indicates an increase in 20% increments of
+    -- cluster capacity. @EXACT_CAPACITY@ indicates the scaling activity
+    -- results in an instance group with the number of EC2 instances specified
+    -- by @ScalingAdjustment@, which should be expressed as a positive integer.
+    adjustmentType :: Prelude.Maybe AdjustmentType,
+    -- | The amount by which to scale in or scale out, based on the specified
+    -- @AdjustmentType@. A positive value adds to the instance group\'s EC2
+    -- instance count while a negative number removes instances. If
+    -- @AdjustmentType@ is set to @EXACT_CAPACITY@, the number should only be a
+    -- positive integer. If @AdjustmentType@ is set to
+    -- @PERCENT_CHANGE_IN_CAPACITY@, the value should express the percentage as
+    -- an integer. For example, -20 indicates a decrease in 20% increments of
+    -- cluster capacity.
+    scalingAdjustment :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SimpleScalingPolicyConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SimpleScalingPolicyConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sspcCoolDown' - The amount of time, in seconds, after a scaling activity completes before any further trigger-related scaling activities can start. The default value is 0.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sspcAdjustmentType' - The way in which EC2 instances are added (if @ScalingAdjustment@ is a positive number) or terminated (if @ScalingAdjustment@ is a negative number) each time the scaling activity is triggered. @CHANGE_IN_CAPACITY@ is the default. @CHANGE_IN_CAPACITY@ indicates that the EC2 instance count increments or decrements by @ScalingAdjustment@ , which should be expressed as an integer. @PERCENT_CHANGE_IN_CAPACITY@ indicates the instance count increments or decrements by the percentage specified by @ScalingAdjustment@ , which should be expressed as an integer. For example, 20 indicates an increase in 20% increments of cluster capacity. @EXACT_CAPACITY@ indicates the scaling activity results in an instance group with the number of EC2 instances specified by @ScalingAdjustment@ , which should be expressed as a positive integer.
+-- 'coolDown', 'simpleScalingPolicyConfiguration_coolDown' - The amount of time, in seconds, after a scaling activity completes
+-- before any further trigger-related scaling activities can start. The
+-- default value is 0.
 --
--- * 'sspcScalingAdjustment' - The amount by which to scale in or scale out, based on the specified @AdjustmentType@ . A positive value adds to the instance group's EC2 instance count while a negative number removes instances. If @AdjustmentType@ is set to @EXACT_CAPACITY@ , the number should only be a positive integer. If @AdjustmentType@ is set to @PERCENT_CHANGE_IN_CAPACITY@ , the value should express the percentage as an integer. For example, -20 indicates a decrease in 20% increments of cluster capacity.
-simpleScalingPolicyConfiguration ::
-  -- | 'sspcScalingAdjustment'
-  Int ->
+-- 'adjustmentType', 'simpleScalingPolicyConfiguration_adjustmentType' - The way in which EC2 instances are added (if @ScalingAdjustment@ is a
+-- positive number) or terminated (if @ScalingAdjustment@ is a negative
+-- number) each time the scaling activity is triggered.
+-- @CHANGE_IN_CAPACITY@ is the default. @CHANGE_IN_CAPACITY@ indicates that
+-- the EC2 instance count increments or decrements by @ScalingAdjustment@,
+-- which should be expressed as an integer. @PERCENT_CHANGE_IN_CAPACITY@
+-- indicates the instance count increments or decrements by the percentage
+-- specified by @ScalingAdjustment@, which should be expressed as an
+-- integer. For example, 20 indicates an increase in 20% increments of
+-- cluster capacity. @EXACT_CAPACITY@ indicates the scaling activity
+-- results in an instance group with the number of EC2 instances specified
+-- by @ScalingAdjustment@, which should be expressed as a positive integer.
+--
+-- 'scalingAdjustment', 'simpleScalingPolicyConfiguration_scalingAdjustment' - The amount by which to scale in or scale out, based on the specified
+-- @AdjustmentType@. A positive value adds to the instance group\'s EC2
+-- instance count while a negative number removes instances. If
+-- @AdjustmentType@ is set to @EXACT_CAPACITY@, the number should only be a
+-- positive integer. If @AdjustmentType@ is set to
+-- @PERCENT_CHANGE_IN_CAPACITY@, the value should express the percentage as
+-- an integer. For example, -20 indicates a decrease in 20% increments of
+-- cluster capacity.
+newSimpleScalingPolicyConfiguration ::
+  -- | 'scalingAdjustment'
+  Prelude.Int ->
   SimpleScalingPolicyConfiguration
-simpleScalingPolicyConfiguration pScalingAdjustment_ =
-  SimpleScalingPolicyConfiguration'
-    { _sspcCoolDown =
-        Nothing,
-      _sspcAdjustmentType = Nothing,
-      _sspcScalingAdjustment =
-        pScalingAdjustment_
-    }
+newSimpleScalingPolicyConfiguration
+  pScalingAdjustment_ =
+    SimpleScalingPolicyConfiguration'
+      { coolDown =
+          Prelude.Nothing,
+        adjustmentType = Prelude.Nothing,
+        scalingAdjustment = pScalingAdjustment_
+      }
 
--- | The amount of time, in seconds, after a scaling activity completes before any further trigger-related scaling activities can start. The default value is 0.
-sspcCoolDown :: Lens' SimpleScalingPolicyConfiguration (Maybe Int)
-sspcCoolDown = lens _sspcCoolDown (\s a -> s {_sspcCoolDown = a})
+-- | The amount of time, in seconds, after a scaling activity completes
+-- before any further trigger-related scaling activities can start. The
+-- default value is 0.
+simpleScalingPolicyConfiguration_coolDown :: Lens.Lens' SimpleScalingPolicyConfiguration (Prelude.Maybe Prelude.Int)
+simpleScalingPolicyConfiguration_coolDown = Lens.lens (\SimpleScalingPolicyConfiguration' {coolDown} -> coolDown) (\s@SimpleScalingPolicyConfiguration' {} a -> s {coolDown = a} :: SimpleScalingPolicyConfiguration)
 
--- | The way in which EC2 instances are added (if @ScalingAdjustment@ is a positive number) or terminated (if @ScalingAdjustment@ is a negative number) each time the scaling activity is triggered. @CHANGE_IN_CAPACITY@ is the default. @CHANGE_IN_CAPACITY@ indicates that the EC2 instance count increments or decrements by @ScalingAdjustment@ , which should be expressed as an integer. @PERCENT_CHANGE_IN_CAPACITY@ indicates the instance count increments or decrements by the percentage specified by @ScalingAdjustment@ , which should be expressed as an integer. For example, 20 indicates an increase in 20% increments of cluster capacity. @EXACT_CAPACITY@ indicates the scaling activity results in an instance group with the number of EC2 instances specified by @ScalingAdjustment@ , which should be expressed as a positive integer.
-sspcAdjustmentType :: Lens' SimpleScalingPolicyConfiguration (Maybe AdjustmentType)
-sspcAdjustmentType = lens _sspcAdjustmentType (\s a -> s {_sspcAdjustmentType = a})
+-- | The way in which EC2 instances are added (if @ScalingAdjustment@ is a
+-- positive number) or terminated (if @ScalingAdjustment@ is a negative
+-- number) each time the scaling activity is triggered.
+-- @CHANGE_IN_CAPACITY@ is the default. @CHANGE_IN_CAPACITY@ indicates that
+-- the EC2 instance count increments or decrements by @ScalingAdjustment@,
+-- which should be expressed as an integer. @PERCENT_CHANGE_IN_CAPACITY@
+-- indicates the instance count increments or decrements by the percentage
+-- specified by @ScalingAdjustment@, which should be expressed as an
+-- integer. For example, 20 indicates an increase in 20% increments of
+-- cluster capacity. @EXACT_CAPACITY@ indicates the scaling activity
+-- results in an instance group with the number of EC2 instances specified
+-- by @ScalingAdjustment@, which should be expressed as a positive integer.
+simpleScalingPolicyConfiguration_adjustmentType :: Lens.Lens' SimpleScalingPolicyConfiguration (Prelude.Maybe AdjustmentType)
+simpleScalingPolicyConfiguration_adjustmentType = Lens.lens (\SimpleScalingPolicyConfiguration' {adjustmentType} -> adjustmentType) (\s@SimpleScalingPolicyConfiguration' {} a -> s {adjustmentType = a} :: SimpleScalingPolicyConfiguration)
 
--- | The amount by which to scale in or scale out, based on the specified @AdjustmentType@ . A positive value adds to the instance group's EC2 instance count while a negative number removes instances. If @AdjustmentType@ is set to @EXACT_CAPACITY@ , the number should only be a positive integer. If @AdjustmentType@ is set to @PERCENT_CHANGE_IN_CAPACITY@ , the value should express the percentage as an integer. For example, -20 indicates a decrease in 20% increments of cluster capacity.
-sspcScalingAdjustment :: Lens' SimpleScalingPolicyConfiguration Int
-sspcScalingAdjustment = lens _sspcScalingAdjustment (\s a -> s {_sspcScalingAdjustment = a})
+-- | The amount by which to scale in or scale out, based on the specified
+-- @AdjustmentType@. A positive value adds to the instance group\'s EC2
+-- instance count while a negative number removes instances. If
+-- @AdjustmentType@ is set to @EXACT_CAPACITY@, the number should only be a
+-- positive integer. If @AdjustmentType@ is set to
+-- @PERCENT_CHANGE_IN_CAPACITY@, the value should express the percentage as
+-- an integer. For example, -20 indicates a decrease in 20% increments of
+-- cluster capacity.
+simpleScalingPolicyConfiguration_scalingAdjustment :: Lens.Lens' SimpleScalingPolicyConfiguration Prelude.Int
+simpleScalingPolicyConfiguration_scalingAdjustment = Lens.lens (\SimpleScalingPolicyConfiguration' {scalingAdjustment} -> scalingAdjustment) (\s@SimpleScalingPolicyConfiguration' {} a -> s {scalingAdjustment = a} :: SimpleScalingPolicyConfiguration)
 
-instance FromJSON SimpleScalingPolicyConfiguration where
+instance
+  Prelude.FromJSON
+    SimpleScalingPolicyConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SimpleScalingPolicyConfiguration"
       ( \x ->
           SimpleScalingPolicyConfiguration'
-            <$> (x .:? "CoolDown")
-            <*> (x .:? "AdjustmentType")
-            <*> (x .: "ScalingAdjustment")
+            Prelude.<$> (x Prelude..:? "CoolDown")
+            Prelude.<*> (x Prelude..:? "AdjustmentType")
+            Prelude.<*> (x Prelude..: "ScalingAdjustment")
       )
 
-instance Hashable SimpleScalingPolicyConfiguration
+instance
+  Prelude.Hashable
+    SimpleScalingPolicyConfiguration
 
-instance NFData SimpleScalingPolicyConfiguration
+instance
+  Prelude.NFData
+    SimpleScalingPolicyConfiguration
 
-instance ToJSON SimpleScalingPolicyConfiguration where
+instance
+  Prelude.ToJSON
+    SimpleScalingPolicyConfiguration
+  where
   toJSON SimpleScalingPolicyConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("CoolDown" .=) <$> _sspcCoolDown,
-            ("AdjustmentType" .=) <$> _sspcAdjustmentType,
-            Just
-              ("ScalingAdjustment" .= _sspcScalingAdjustment)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CoolDown" Prelude..=) Prelude.<$> coolDown,
+            ("AdjustmentType" Prelude..=)
+              Prelude.<$> adjustmentType,
+            Prelude.Just
+              ("ScalingAdjustment" Prelude..= scalingAdjustment)
           ]
       )

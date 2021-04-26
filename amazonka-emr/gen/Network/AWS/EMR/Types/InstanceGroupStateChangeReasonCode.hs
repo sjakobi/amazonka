@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.EMR.Types.InstanceGroupStateChangeReasonCode
   ( InstanceGroupStateChangeReasonCode
       ( ..,
-        IGSCRCClusterTerminated,
-        IGSCRCInstanceFailure,
-        IGSCRCInternalError,
-        IGSCRCValidationError
+        InstanceGroupStateChangeReasonCodeCLUSTERTERMINATED,
+        InstanceGroupStateChangeReasonCodeINSTANCEFAILURE,
+        InstanceGroupStateChangeReasonCodeINTERNALERROR,
+        InstanceGroupStateChangeReasonCodeVALIDATIONERROR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceGroupStateChangeReasonCode
-  = InstanceGroupStateChangeReasonCode'
-      ( CI
-          Text
-      )
+newtype InstanceGroupStateChangeReasonCode = InstanceGroupStateChangeReasonCode'
+  { fromInstanceGroupStateChangeReasonCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IGSCRCClusterTerminated :: InstanceGroupStateChangeReasonCode
-pattern IGSCRCClusterTerminated = InstanceGroupStateChangeReasonCode' "CLUSTER_TERMINATED"
+pattern InstanceGroupStateChangeReasonCodeCLUSTERTERMINATED :: InstanceGroupStateChangeReasonCode
+pattern InstanceGroupStateChangeReasonCodeCLUSTERTERMINATED = InstanceGroupStateChangeReasonCode' "CLUSTER_TERMINATED"
 
-pattern IGSCRCInstanceFailure :: InstanceGroupStateChangeReasonCode
-pattern IGSCRCInstanceFailure = InstanceGroupStateChangeReasonCode' "INSTANCE_FAILURE"
+pattern InstanceGroupStateChangeReasonCodeINSTANCEFAILURE :: InstanceGroupStateChangeReasonCode
+pattern InstanceGroupStateChangeReasonCodeINSTANCEFAILURE = InstanceGroupStateChangeReasonCode' "INSTANCE_FAILURE"
 
-pattern IGSCRCInternalError :: InstanceGroupStateChangeReasonCode
-pattern IGSCRCInternalError = InstanceGroupStateChangeReasonCode' "INTERNAL_ERROR"
+pattern InstanceGroupStateChangeReasonCodeINTERNALERROR :: InstanceGroupStateChangeReasonCode
+pattern InstanceGroupStateChangeReasonCodeINTERNALERROR = InstanceGroupStateChangeReasonCode' "INTERNAL_ERROR"
 
-pattern IGSCRCValidationError :: InstanceGroupStateChangeReasonCode
-pattern IGSCRCValidationError = InstanceGroupStateChangeReasonCode' "VALIDATION_ERROR"
+pattern InstanceGroupStateChangeReasonCodeVALIDATIONERROR :: InstanceGroupStateChangeReasonCode
+pattern InstanceGroupStateChangeReasonCodeVALIDATIONERROR = InstanceGroupStateChangeReasonCode' "VALIDATION_ERROR"
 
 {-# COMPLETE
-  IGSCRCClusterTerminated,
-  IGSCRCInstanceFailure,
-  IGSCRCInternalError,
-  IGSCRCValidationError,
+  InstanceGroupStateChangeReasonCodeCLUSTERTERMINATED,
+  InstanceGroupStateChangeReasonCodeINSTANCEFAILURE,
+  InstanceGroupStateChangeReasonCodeINTERNALERROR,
+  InstanceGroupStateChangeReasonCodeVALIDATIONERROR,
   InstanceGroupStateChangeReasonCode'
   #-}
 
-instance FromText InstanceGroupStateChangeReasonCode where
-  parser = (InstanceGroupStateChangeReasonCode' . mk) <$> takeText
+instance Prelude.FromText InstanceGroupStateChangeReasonCode where
+  parser = InstanceGroupStateChangeReasonCode' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceGroupStateChangeReasonCode where
-  toText (InstanceGroupStateChangeReasonCode' ci) = original ci
+instance Prelude.ToText InstanceGroupStateChangeReasonCode where
+  toText (InstanceGroupStateChangeReasonCode' x) = x
 
-instance Hashable InstanceGroupStateChangeReasonCode
+instance Prelude.Hashable InstanceGroupStateChangeReasonCode
 
-instance NFData InstanceGroupStateChangeReasonCode
+instance Prelude.NFData InstanceGroupStateChangeReasonCode
 
-instance ToByteString InstanceGroupStateChangeReasonCode
+instance Prelude.ToByteString InstanceGroupStateChangeReasonCode
 
-instance ToQuery InstanceGroupStateChangeReasonCode
+instance Prelude.ToQuery InstanceGroupStateChangeReasonCode
 
-instance ToHeader InstanceGroupStateChangeReasonCode
+instance Prelude.ToHeader InstanceGroupStateChangeReasonCode
 
-instance FromJSON InstanceGroupStateChangeReasonCode where
-  parseJSON = parseJSONText "InstanceGroupStateChangeReasonCode"
+instance Prelude.FromJSON InstanceGroupStateChangeReasonCode where
+  parseJSON = Prelude.parseJSONText "InstanceGroupStateChangeReasonCode"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,181 +23,195 @@
 --
 -- Provides all available details about the instance groups in a cluster.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.EMR.ListInstanceGroups
   ( -- * Creating a Request
-    listInstanceGroups,
-    ListInstanceGroups,
+    ListInstanceGroups (..),
+    newListInstanceGroups,
 
     -- * Request Lenses
-    ligMarker,
-    ligClusterId,
+    listInstanceGroups_marker,
+    listInstanceGroups_clusterId,
 
     -- * Destructuring the Response
-    listInstanceGroupsResponse,
-    ListInstanceGroupsResponse,
+    ListInstanceGroupsResponse (..),
+    newListInstanceGroupsResponse,
 
     -- * Response Lenses
-    ligrrsInstanceGroups,
-    ligrrsMarker,
-    ligrrsResponseStatus,
+    listInstanceGroupsResponse_instanceGroups,
+    listInstanceGroupsResponse_marker,
+    listInstanceGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EMR.Types.InstanceGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | This input determines which instance groups to retrieve.
 --
---
---
--- /See:/ 'listInstanceGroups' smart constructor.
+-- /See:/ 'newListInstanceGroups' smart constructor.
 data ListInstanceGroups = ListInstanceGroups'
-  { _ligMarker ::
-      !(Maybe Text),
-    _ligClusterId :: !Text
+  { -- | The pagination token that indicates the next set of results to retrieve.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the cluster for which to list the instance groups.
+    clusterId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstanceGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstanceGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ligMarker' - The pagination token that indicates the next set of results to retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ligClusterId' - The identifier of the cluster for which to list the instance groups.
-listInstanceGroups ::
-  -- | 'ligClusterId'
-  Text ->
+-- 'marker', 'listInstanceGroups_marker' - The pagination token that indicates the next set of results to retrieve.
+--
+-- 'clusterId', 'listInstanceGroups_clusterId' - The identifier of the cluster for which to list the instance groups.
+newListInstanceGroups ::
+  -- | 'clusterId'
+  Prelude.Text ->
   ListInstanceGroups
-listInstanceGroups pClusterId_ =
+newListInstanceGroups pClusterId_ =
   ListInstanceGroups'
-    { _ligMarker = Nothing,
-      _ligClusterId = pClusterId_
+    { marker = Prelude.Nothing,
+      clusterId = pClusterId_
     }
 
 -- | The pagination token that indicates the next set of results to retrieve.
-ligMarker :: Lens' ListInstanceGroups (Maybe Text)
-ligMarker = lens _ligMarker (\s a -> s {_ligMarker = a})
+listInstanceGroups_marker :: Lens.Lens' ListInstanceGroups (Prelude.Maybe Prelude.Text)
+listInstanceGroups_marker = Lens.lens (\ListInstanceGroups' {marker} -> marker) (\s@ListInstanceGroups' {} a -> s {marker = a} :: ListInstanceGroups)
 
 -- | The identifier of the cluster for which to list the instance groups.
-ligClusterId :: Lens' ListInstanceGroups Text
-ligClusterId = lens _ligClusterId (\s a -> s {_ligClusterId = a})
+listInstanceGroups_clusterId :: Lens.Lens' ListInstanceGroups Prelude.Text
+listInstanceGroups_clusterId = Lens.lens (\ListInstanceGroups' {clusterId} -> clusterId) (\s@ListInstanceGroups' {} a -> s {clusterId = a} :: ListInstanceGroups)
 
-instance AWSPager ListInstanceGroups where
+instance Pager.AWSPager ListInstanceGroups where
   page rq rs
-    | stop (rs ^. ligrrsMarker) = Nothing
-    | stop (rs ^. ligrrsInstanceGroups) = Nothing
-    | otherwise =
-      Just $ rq & ligMarker .~ rs ^. ligrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listInstanceGroupsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listInstanceGroupsResponse_instanceGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listInstanceGroups_marker
+          Lens..~ rs
+          Lens.^? listInstanceGroupsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListInstanceGroups where
+instance Prelude.AWSRequest ListInstanceGroups where
   type
     Rs ListInstanceGroups =
       ListInstanceGroupsResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListInstanceGroupsResponse'
-            <$> (x .?> "InstanceGroups" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "InstanceGroups"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListInstanceGroups
+instance Prelude.Hashable ListInstanceGroups
 
-instance NFData ListInstanceGroups
+instance Prelude.NFData ListInstanceGroups
 
-instance ToHeaders ListInstanceGroups where
+instance Prelude.ToHeaders ListInstanceGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.ListInstanceGroups" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.ListInstanceGroups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListInstanceGroups where
+instance Prelude.ToJSON ListInstanceGroups where
   toJSON ListInstanceGroups' {..} =
-    object
-      ( catMaybes
-          [ ("Marker" .=) <$> _ligMarker,
-            Just ("ClusterId" .= _ligClusterId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Marker" Prelude..=) Prelude.<$> marker,
+            Prelude.Just ("ClusterId" Prelude..= clusterId)
           ]
       )
 
-instance ToPath ListInstanceGroups where
-  toPath = const "/"
+instance Prelude.ToPath ListInstanceGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListInstanceGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery ListInstanceGroups where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | This input determines which instance groups to retrieve.
 --
---
---
--- /See:/ 'listInstanceGroupsResponse' smart constructor.
+-- /See:/ 'newListInstanceGroupsResponse' smart constructor.
 data ListInstanceGroupsResponse = ListInstanceGroupsResponse'
-  { _ligrrsInstanceGroups ::
-      !( Maybe
-           [InstanceGroup]
-       ),
-    _ligrrsMarker ::
-      !(Maybe Text),
-    _ligrrsResponseStatus ::
-      !Int
+  { -- | The list of instance groups for the cluster and given filters.
+    instanceGroups :: Prelude.Maybe [InstanceGroup],
+    -- | The pagination token that indicates the next set of results to retrieve.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstanceGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstanceGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ligrrsInstanceGroups' - The list of instance groups for the cluster and given filters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ligrrsMarker' - The pagination token that indicates the next set of results to retrieve.
+-- 'instanceGroups', 'listInstanceGroupsResponse_instanceGroups' - The list of instance groups for the cluster and given filters.
 --
--- * 'ligrrsResponseStatus' - -- | The response status code.
-listInstanceGroupsResponse ::
-  -- | 'ligrrsResponseStatus'
-  Int ->
+-- 'marker', 'listInstanceGroupsResponse_marker' - The pagination token that indicates the next set of results to retrieve.
+--
+-- 'httpStatus', 'listInstanceGroupsResponse_httpStatus' - The response's http status code.
+newListInstanceGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListInstanceGroupsResponse
-listInstanceGroupsResponse pResponseStatus_ =
+newListInstanceGroupsResponse pHttpStatus_ =
   ListInstanceGroupsResponse'
-    { _ligrrsInstanceGroups =
-        Nothing,
-      _ligrrsMarker = Nothing,
-      _ligrrsResponseStatus = pResponseStatus_
+    { instanceGroups =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of instance groups for the cluster and given filters.
-ligrrsInstanceGroups :: Lens' ListInstanceGroupsResponse [InstanceGroup]
-ligrrsInstanceGroups = lens _ligrrsInstanceGroups (\s a -> s {_ligrrsInstanceGroups = a}) . _Default . _Coerce
+listInstanceGroupsResponse_instanceGroups :: Lens.Lens' ListInstanceGroupsResponse (Prelude.Maybe [InstanceGroup])
+listInstanceGroupsResponse_instanceGroups = Lens.lens (\ListInstanceGroupsResponse' {instanceGroups} -> instanceGroups) (\s@ListInstanceGroupsResponse' {} a -> s {instanceGroups = a} :: ListInstanceGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The pagination token that indicates the next set of results to retrieve.
-ligrrsMarker :: Lens' ListInstanceGroupsResponse (Maybe Text)
-ligrrsMarker = lens _ligrrsMarker (\s a -> s {_ligrrsMarker = a})
+listInstanceGroupsResponse_marker :: Lens.Lens' ListInstanceGroupsResponse (Prelude.Maybe Prelude.Text)
+listInstanceGroupsResponse_marker = Lens.lens (\ListInstanceGroupsResponse' {marker} -> marker) (\s@ListInstanceGroupsResponse' {} a -> s {marker = a} :: ListInstanceGroupsResponse)
 
--- | -- | The response status code.
-ligrrsResponseStatus :: Lens' ListInstanceGroupsResponse Int
-ligrrsResponseStatus = lens _ligrrsResponseStatus (\s a -> s {_ligrrsResponseStatus = a})
+-- | The response's http status code.
+listInstanceGroupsResponse_httpStatus :: Lens.Lens' ListInstanceGroupsResponse Prelude.Int
+listInstanceGroupsResponse_httpStatus = Lens.lens (\ListInstanceGroupsResponse' {httpStatus} -> httpStatus) (\s@ListInstanceGroupsResponse' {} a -> s {httpStatus = a} :: ListInstanceGroupsResponse)
 
-instance NFData ListInstanceGroupsResponse
+instance Prelude.NFData ListInstanceGroupsResponse

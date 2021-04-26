@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.EMR.Types.ActionOnFailure
   ( ActionOnFailure
       ( ..,
-        CancelAndWait,
-        Continue,
-        TerminateCluster,
-        TerminateJobFlow
+        ActionOnFailureCANCELANDWAIT,
+        ActionOnFailureCONTINUE,
+        ActionOnFailureTERMINATECLUSTER,
+        ActionOnFailureTERMINATEJOBFLOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionOnFailure = ActionOnFailure' (CI Text)
+newtype ActionOnFailure = ActionOnFailure'
+  { fromActionOnFailure ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CancelAndWait :: ActionOnFailure
-pattern CancelAndWait = ActionOnFailure' "CANCEL_AND_WAIT"
+pattern ActionOnFailureCANCELANDWAIT :: ActionOnFailure
+pattern ActionOnFailureCANCELANDWAIT = ActionOnFailure' "CANCEL_AND_WAIT"
 
-pattern Continue :: ActionOnFailure
-pattern Continue = ActionOnFailure' "CONTINUE"
+pattern ActionOnFailureCONTINUE :: ActionOnFailure
+pattern ActionOnFailureCONTINUE = ActionOnFailure' "CONTINUE"
 
-pattern TerminateCluster :: ActionOnFailure
-pattern TerminateCluster = ActionOnFailure' "TERMINATE_CLUSTER"
+pattern ActionOnFailureTERMINATECLUSTER :: ActionOnFailure
+pattern ActionOnFailureTERMINATECLUSTER = ActionOnFailure' "TERMINATE_CLUSTER"
 
-pattern TerminateJobFlow :: ActionOnFailure
-pattern TerminateJobFlow = ActionOnFailure' "TERMINATE_JOB_FLOW"
+pattern ActionOnFailureTERMINATEJOBFLOW :: ActionOnFailure
+pattern ActionOnFailureTERMINATEJOBFLOW = ActionOnFailure' "TERMINATE_JOB_FLOW"
 
 {-# COMPLETE
-  CancelAndWait,
-  Continue,
-  TerminateCluster,
-  TerminateJobFlow,
+  ActionOnFailureCANCELANDWAIT,
+  ActionOnFailureCONTINUE,
+  ActionOnFailureTERMINATECLUSTER,
+  ActionOnFailureTERMINATEJOBFLOW,
   ActionOnFailure'
   #-}
 
-instance FromText ActionOnFailure where
-  parser = (ActionOnFailure' . mk) <$> takeText
+instance Prelude.FromText ActionOnFailure where
+  parser = ActionOnFailure' Prelude.<$> Prelude.takeText
 
-instance ToText ActionOnFailure where
-  toText (ActionOnFailure' ci) = original ci
+instance Prelude.ToText ActionOnFailure where
+  toText (ActionOnFailure' x) = x
 
-instance Hashable ActionOnFailure
+instance Prelude.Hashable ActionOnFailure
 
-instance NFData ActionOnFailure
+instance Prelude.NFData ActionOnFailure
 
-instance ToByteString ActionOnFailure
+instance Prelude.ToByteString ActionOnFailure
 
-instance ToQuery ActionOnFailure
+instance Prelude.ToQuery ActionOnFailure
 
-instance ToHeader ActionOnFailure
+instance Prelude.ToHeader ActionOnFailure
 
-instance ToJSON ActionOnFailure where
-  toJSON = toJSONText
+instance Prelude.ToJSON ActionOnFailure where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ActionOnFailure where
-  parseJSON = parseJSONText "ActionOnFailure"
+instance Prelude.FromJSON ActionOnFailure where
+  parseJSON = Prelude.parseJSONText "ActionOnFailure"

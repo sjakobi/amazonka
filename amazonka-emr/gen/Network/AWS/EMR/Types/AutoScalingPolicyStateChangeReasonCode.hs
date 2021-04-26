@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.EMR.Types.AutoScalingPolicyStateChangeReasonCode
   ( AutoScalingPolicyStateChangeReasonCode
       ( ..,
-        CleanupFailure,
-        ProvisionFailure,
-        UserRequest
+        AutoScalingPolicyStateChangeReasonCodeCLEANUPFAILURE,
+        AutoScalingPolicyStateChangeReasonCodePROVISIONFAILURE,
+        AutoScalingPolicyStateChangeReasonCodeUSERREQUEST
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoScalingPolicyStateChangeReasonCode
-  = AutoScalingPolicyStateChangeReasonCode'
-      ( CI
-          Text
-      )
+newtype AutoScalingPolicyStateChangeReasonCode = AutoScalingPolicyStateChangeReasonCode'
+  { fromAutoScalingPolicyStateChangeReasonCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CleanupFailure :: AutoScalingPolicyStateChangeReasonCode
-pattern CleanupFailure = AutoScalingPolicyStateChangeReasonCode' "CLEANUP_FAILURE"
+pattern AutoScalingPolicyStateChangeReasonCodeCLEANUPFAILURE :: AutoScalingPolicyStateChangeReasonCode
+pattern AutoScalingPolicyStateChangeReasonCodeCLEANUPFAILURE = AutoScalingPolicyStateChangeReasonCode' "CLEANUP_FAILURE"
 
-pattern ProvisionFailure :: AutoScalingPolicyStateChangeReasonCode
-pattern ProvisionFailure = AutoScalingPolicyStateChangeReasonCode' "PROVISION_FAILURE"
+pattern AutoScalingPolicyStateChangeReasonCodePROVISIONFAILURE :: AutoScalingPolicyStateChangeReasonCode
+pattern AutoScalingPolicyStateChangeReasonCodePROVISIONFAILURE = AutoScalingPolicyStateChangeReasonCode' "PROVISION_FAILURE"
 
-pattern UserRequest :: AutoScalingPolicyStateChangeReasonCode
-pattern UserRequest = AutoScalingPolicyStateChangeReasonCode' "USER_REQUEST"
+pattern AutoScalingPolicyStateChangeReasonCodeUSERREQUEST :: AutoScalingPolicyStateChangeReasonCode
+pattern AutoScalingPolicyStateChangeReasonCodeUSERREQUEST = AutoScalingPolicyStateChangeReasonCode' "USER_REQUEST"
 
 {-# COMPLETE
-  CleanupFailure,
-  ProvisionFailure,
-  UserRequest,
+  AutoScalingPolicyStateChangeReasonCodeCLEANUPFAILURE,
+  AutoScalingPolicyStateChangeReasonCodePROVISIONFAILURE,
+  AutoScalingPolicyStateChangeReasonCodeUSERREQUEST,
   AutoScalingPolicyStateChangeReasonCode'
   #-}
 
-instance FromText AutoScalingPolicyStateChangeReasonCode where
-  parser = (AutoScalingPolicyStateChangeReasonCode' . mk) <$> takeText
+instance Prelude.FromText AutoScalingPolicyStateChangeReasonCode where
+  parser = AutoScalingPolicyStateChangeReasonCode' Prelude.<$> Prelude.takeText
 
-instance ToText AutoScalingPolicyStateChangeReasonCode where
-  toText (AutoScalingPolicyStateChangeReasonCode' ci) = original ci
+instance Prelude.ToText AutoScalingPolicyStateChangeReasonCode where
+  toText (AutoScalingPolicyStateChangeReasonCode' x) = x
 
-instance Hashable AutoScalingPolicyStateChangeReasonCode
+instance Prelude.Hashable AutoScalingPolicyStateChangeReasonCode
 
-instance NFData AutoScalingPolicyStateChangeReasonCode
+instance Prelude.NFData AutoScalingPolicyStateChangeReasonCode
 
-instance ToByteString AutoScalingPolicyStateChangeReasonCode
+instance Prelude.ToByteString AutoScalingPolicyStateChangeReasonCode
 
-instance ToQuery AutoScalingPolicyStateChangeReasonCode
+instance Prelude.ToQuery AutoScalingPolicyStateChangeReasonCode
 
-instance ToHeader AutoScalingPolicyStateChangeReasonCode
+instance Prelude.ToHeader AutoScalingPolicyStateChangeReasonCode
 
-instance FromJSON AutoScalingPolicyStateChangeReasonCode where
-  parseJSON = parseJSONText "AutoScalingPolicyStateChangeReasonCode"
+instance Prelude.FromJSON AutoScalingPolicyStateChangeReasonCode where
+  parseJSON = Prelude.parseJSONText "AutoScalingPolicyStateChangeReasonCode"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the session policy attached to the user or group for the specified Amazon EMR Studio.
+-- Updates the session policy attached to the user or group for the
+-- specified Amazon EMR Studio.
 module Network.AWS.EMR.UpdateStudioSessionMapping
   ( -- * Creating a Request
-    updateStudioSessionMapping,
-    UpdateStudioSessionMapping,
+    UpdateStudioSessionMapping (..),
+    newUpdateStudioSessionMapping,
 
     -- * Request Lenses
-    ussmIdentityName,
-    ussmIdentityId,
-    ussmStudioId,
-    ussmIdentityType,
-    ussmSessionPolicyARN,
+    updateStudioSessionMapping_identityName,
+    updateStudioSessionMapping_identityId,
+    updateStudioSessionMapping_studioId,
+    updateStudioSessionMapping_identityType,
+    updateStudioSessionMapping_sessionPolicyArn,
 
     -- * Destructuring the Response
-    updateStudioSessionMappingResponse,
-    UpdateStudioSessionMappingResponse,
+    UpdateStudioSessionMappingResponse (..),
+    newUpdateStudioSessionMappingResponse,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateStudioSessionMapping' smart constructor.
+-- | /See:/ 'newUpdateStudioSessionMapping' smart constructor.
 data UpdateStudioSessionMapping = UpdateStudioSessionMapping'
-  { _ussmIdentityName ::
-      !(Maybe Text),
-    _ussmIdentityId ::
-      !(Maybe Text),
-    _ussmStudioId ::
-      !Text,
-    _ussmIdentityType ::
-      !IdentityType,
-    _ussmSessionPolicyARN ::
-      !Text
+  { -- | The name of the user or group to update. For more information, see
+    -- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName>
+    -- and
+    -- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName>
+    -- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+    -- @IdentityId@ must be specified.
+    identityName :: Prelude.Maybe Prelude.Text,
+    -- | The globally unique identifier (GUID) of the user or group. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId>
+    -- and
+    -- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId>
+    -- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+    -- @IdentityId@ must be specified.
+    identityId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon EMR Studio.
+    studioId :: Prelude.Text,
+    -- | Specifies whether the identity to update is a user or a group.
+    identityType :: IdentityType,
+    -- | The Amazon Resource Name (ARN) of the session policy to associate with
+    -- the specified user or group.
+    sessionPolicyArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStudioSessionMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateStudioSessionMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ussmIdentityName' - The name of the user or group to update. For more information, see <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName> and <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName> in the /AWS SSO Identity Store API Reference/ . Either @IdentityName@ or @IdentityId@ must be specified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ussmIdentityId' - The globally unique identifier (GUID) of the user or group. For more information, see <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId> and <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId> in the /AWS SSO Identity Store API Reference/ . Either @IdentityName@ or @IdentityId@ must be specified.
+-- 'identityName', 'updateStudioSessionMapping_identityName' - The name of the user or group to update. For more information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName>
+-- and
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName>
+-- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+-- @IdentityId@ must be specified.
 --
--- * 'ussmStudioId' - The ID of the Amazon EMR Studio.
+-- 'identityId', 'updateStudioSessionMapping_identityId' - The globally unique identifier (GUID) of the user or group. For more
+-- information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId>
+-- and
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId>
+-- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+-- @IdentityId@ must be specified.
 --
--- * 'ussmIdentityType' - Specifies whether the identity to update is a user or a group.
+-- 'studioId', 'updateStudioSessionMapping_studioId' - The ID of the Amazon EMR Studio.
 --
--- * 'ussmSessionPolicyARN' - The Amazon Resource Name (ARN) of the session policy to associate with the specified user or group.
-updateStudioSessionMapping ::
-  -- | 'ussmStudioId'
-  Text ->
-  -- | 'ussmIdentityType'
+-- 'identityType', 'updateStudioSessionMapping_identityType' - Specifies whether the identity to update is a user or a group.
+--
+-- 'sessionPolicyArn', 'updateStudioSessionMapping_sessionPolicyArn' - The Amazon Resource Name (ARN) of the session policy to associate with
+-- the specified user or group.
+newUpdateStudioSessionMapping ::
+  -- | 'studioId'
+  Prelude.Text ->
+  -- | 'identityType'
   IdentityType ->
-  -- | 'ussmSessionPolicyARN'
-  Text ->
+  -- | 'sessionPolicyArn'
+  Prelude.Text ->
   UpdateStudioSessionMapping
-updateStudioSessionMapping
+newUpdateStudioSessionMapping
   pStudioId_
   pIdentityType_
-  pSessionPolicyARN_ =
+  pSessionPolicyArn_ =
     UpdateStudioSessionMapping'
-      { _ussmIdentityName =
-          Nothing,
-        _ussmIdentityId = Nothing,
-        _ussmStudioId = pStudioId_,
-        _ussmIdentityType = pIdentityType_,
-        _ussmSessionPolicyARN = pSessionPolicyARN_
+      { identityName =
+          Prelude.Nothing,
+        identityId = Prelude.Nothing,
+        studioId = pStudioId_,
+        identityType = pIdentityType_,
+        sessionPolicyArn = pSessionPolicyArn_
       }
 
--- | The name of the user or group to update. For more information, see <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName> and <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName> in the /AWS SSO Identity Store API Reference/ . Either @IdentityName@ or @IdentityId@ must be specified.
-ussmIdentityName :: Lens' UpdateStudioSessionMapping (Maybe Text)
-ussmIdentityName = lens _ussmIdentityName (\s a -> s {_ussmIdentityName = a})
+-- | The name of the user or group to update. For more information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName UserName>
+-- and
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName DisplayName>
+-- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+-- @IdentityId@ must be specified.
+updateStudioSessionMapping_identityName :: Lens.Lens' UpdateStudioSessionMapping (Prelude.Maybe Prelude.Text)
+updateStudioSessionMapping_identityName = Lens.lens (\UpdateStudioSessionMapping' {identityName} -> identityName) (\s@UpdateStudioSessionMapping' {} a -> s {identityName = a} :: UpdateStudioSessionMapping)
 
--- | The globally unique identifier (GUID) of the user or group. For more information, see <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId> and <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId> in the /AWS SSO Identity Store API Reference/ . Either @IdentityName@ or @IdentityId@ must be specified.
-ussmIdentityId :: Lens' UpdateStudioSessionMapping (Maybe Text)
-ussmIdentityId = lens _ussmIdentityId (\s a -> s {_ussmIdentityId = a})
+-- | The globally unique identifier (GUID) of the user or group. For more
+-- information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId UserId>
+-- and
+-- <https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId GroupId>
+-- in the /AWS SSO Identity Store API Reference/. Either @IdentityName@ or
+-- @IdentityId@ must be specified.
+updateStudioSessionMapping_identityId :: Lens.Lens' UpdateStudioSessionMapping (Prelude.Maybe Prelude.Text)
+updateStudioSessionMapping_identityId = Lens.lens (\UpdateStudioSessionMapping' {identityId} -> identityId) (\s@UpdateStudioSessionMapping' {} a -> s {identityId = a} :: UpdateStudioSessionMapping)
 
 -- | The ID of the Amazon EMR Studio.
-ussmStudioId :: Lens' UpdateStudioSessionMapping Text
-ussmStudioId = lens _ussmStudioId (\s a -> s {_ussmStudioId = a})
+updateStudioSessionMapping_studioId :: Lens.Lens' UpdateStudioSessionMapping Prelude.Text
+updateStudioSessionMapping_studioId = Lens.lens (\UpdateStudioSessionMapping' {studioId} -> studioId) (\s@UpdateStudioSessionMapping' {} a -> s {studioId = a} :: UpdateStudioSessionMapping)
 
 -- | Specifies whether the identity to update is a user or a group.
-ussmIdentityType :: Lens' UpdateStudioSessionMapping IdentityType
-ussmIdentityType = lens _ussmIdentityType (\s a -> s {_ussmIdentityType = a})
+updateStudioSessionMapping_identityType :: Lens.Lens' UpdateStudioSessionMapping IdentityType
+updateStudioSessionMapping_identityType = Lens.lens (\UpdateStudioSessionMapping' {identityType} -> identityType) (\s@UpdateStudioSessionMapping' {} a -> s {identityType = a} :: UpdateStudioSessionMapping)
 
--- | The Amazon Resource Name (ARN) of the session policy to associate with the specified user or group.
-ussmSessionPolicyARN :: Lens' UpdateStudioSessionMapping Text
-ussmSessionPolicyARN = lens _ussmSessionPolicyARN (\s a -> s {_ussmSessionPolicyARN = a})
+-- | The Amazon Resource Name (ARN) of the session policy to associate with
+-- the specified user or group.
+updateStudioSessionMapping_sessionPolicyArn :: Lens.Lens' UpdateStudioSessionMapping Prelude.Text
+updateStudioSessionMapping_sessionPolicyArn = Lens.lens (\UpdateStudioSessionMapping' {sessionPolicyArn} -> sessionPolicyArn) (\s@UpdateStudioSessionMapping' {} a -> s {sessionPolicyArn = a} :: UpdateStudioSessionMapping)
 
-instance AWSRequest UpdateStudioSessionMapping where
+instance
+  Prelude.AWSRequest
+    UpdateStudioSessionMapping
+  where
   type
     Rs UpdateStudioSessionMapping =
       UpdateStudioSessionMappingResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateStudioSessionMappingResponse'
+    Response.receiveNull
+      UpdateStudioSessionMappingResponse'
 
-instance Hashable UpdateStudioSessionMapping
+instance Prelude.Hashable UpdateStudioSessionMapping
 
-instance NFData UpdateStudioSessionMapping
+instance Prelude.NFData UpdateStudioSessionMapping
 
-instance ToHeaders UpdateStudioSessionMapping where
+instance Prelude.ToHeaders UpdateStudioSessionMapping where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.UpdateStudioSessionMapping" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.UpdateStudioSessionMapping" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateStudioSessionMapping where
+instance Prelude.ToJSON UpdateStudioSessionMapping where
   toJSON UpdateStudioSessionMapping' {..} =
-    object
-      ( catMaybes
-          [ ("IdentityName" .=) <$> _ussmIdentityName,
-            ("IdentityId" .=) <$> _ussmIdentityId,
-            Just ("StudioId" .= _ussmStudioId),
-            Just ("IdentityType" .= _ussmIdentityType),
-            Just ("SessionPolicyArn" .= _ussmSessionPolicyARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IdentityName" Prelude..=)
+              Prelude.<$> identityName,
+            ("IdentityId" Prelude..=) Prelude.<$> identityId,
+            Prelude.Just ("StudioId" Prelude..= studioId),
+            Prelude.Just
+              ("IdentityType" Prelude..= identityType),
+            Prelude.Just
+              ("SessionPolicyArn" Prelude..= sessionPolicyArn)
           ]
       )
 
-instance ToPath UpdateStudioSessionMapping where
-  toPath = const "/"
+instance Prelude.ToPath UpdateStudioSessionMapping where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateStudioSessionMapping where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateStudioSessionMapping where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateStudioSessionMappingResponse' smart constructor.
+-- | /See:/ 'newUpdateStudioSessionMappingResponse' smart constructor.
 data UpdateStudioSessionMappingResponse = UpdateStudioSessionMappingResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStudioSessionMappingResponse' with the minimum fields required to make a request.
-updateStudioSessionMappingResponse ::
+-- |
+-- Create a value of 'UpdateStudioSessionMappingResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateStudioSessionMappingResponse ::
   UpdateStudioSessionMappingResponse
-updateStudioSessionMappingResponse =
+newUpdateStudioSessionMappingResponse =
   UpdateStudioSessionMappingResponse'
 
-instance NFData UpdateStudioSessionMappingResponse
+instance
+  Prelude.NFData
+    UpdateStudioSessionMappingResponse

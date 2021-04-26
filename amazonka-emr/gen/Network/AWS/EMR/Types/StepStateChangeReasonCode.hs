@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.EMR.Types.StepStateChangeReasonCode
   ( StepStateChangeReasonCode
       ( ..,
-        SSCRCNone
+        StepStateChangeReasonCodeNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StepStateChangeReasonCode
-  = StepStateChangeReasonCode'
-      ( CI
-          Text
-      )
+newtype StepStateChangeReasonCode = StepStateChangeReasonCode'
+  { fromStepStateChangeReasonCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSCRCNone :: StepStateChangeReasonCode
-pattern SSCRCNone = StepStateChangeReasonCode' "NONE"
+pattern StepStateChangeReasonCodeNONE :: StepStateChangeReasonCode
+pattern StepStateChangeReasonCodeNONE = StepStateChangeReasonCode' "NONE"
 
 {-# COMPLETE
-  SSCRCNone,
+  StepStateChangeReasonCodeNONE,
   StepStateChangeReasonCode'
   #-}
 
-instance FromText StepStateChangeReasonCode where
-  parser = (StepStateChangeReasonCode' . mk) <$> takeText
+instance Prelude.FromText StepStateChangeReasonCode where
+  parser = StepStateChangeReasonCode' Prelude.<$> Prelude.takeText
 
-instance ToText StepStateChangeReasonCode where
-  toText (StepStateChangeReasonCode' ci) = original ci
+instance Prelude.ToText StepStateChangeReasonCode where
+  toText (StepStateChangeReasonCode' x) = x
 
-instance Hashable StepStateChangeReasonCode
+instance Prelude.Hashable StepStateChangeReasonCode
 
-instance NFData StepStateChangeReasonCode
+instance Prelude.NFData StepStateChangeReasonCode
 
-instance ToByteString StepStateChangeReasonCode
+instance Prelude.ToByteString StepStateChangeReasonCode
 
-instance ToQuery StepStateChangeReasonCode
+instance Prelude.ToQuery StepStateChangeReasonCode
 
-instance ToHeader StepStateChangeReasonCode
+instance Prelude.ToHeader StepStateChangeReasonCode
 
-instance FromJSON StepStateChangeReasonCode where
-  parseJSON = parseJSONText "StepStateChangeReasonCode"
+instance Prelude.FromJSON StepStateChangeReasonCode where
+  parseJSON = Prelude.parseJSONText "StepStateChangeReasonCode"

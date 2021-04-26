@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.Configuration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An optional configuration specification to be used when provisioning cluster instances, which can include configurations for applications and software bundled with Amazon EMR. A configuration consists of a classification, properties, and optional nested configurations. A classification refers to an application-specific configuration file. Properties are the settings you want to change in that file. For more information, see <https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-configure-apps.html Configuring Applications> .
+-- | Amazon EMR releases 4.x or later.
 --
+-- An optional configuration specification to be used when provisioning
+-- cluster instances, which can include configurations for applications and
+-- software bundled with Amazon EMR. A configuration consists of a
+-- classification, properties, and optional nested configurations. A
+-- classification refers to an application-specific configuration file.
+-- Properties are the settings you want to change in that file. For more
+-- information, see
+-- <https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-configure-apps.html Configuring Applications>.
 --
---
--- /See:/ 'configuration' smart constructor.
+-- /See:/ 'newConfiguration' smart constructor.
 data Configuration = Configuration'
-  { _cConfigurations ::
-      !(Maybe [Configuration]),
-    _cProperties :: !(Maybe (Map Text Text)),
-    _cClassification :: !(Maybe Text)
+  { -- | A list of additional configurations to apply within a configuration
+    -- object.
+    configurations :: Prelude.Maybe [Configuration],
+    -- | A set of properties specified within a configuration classification.
+    properties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The classification within a configuration.
+    classification :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Configuration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Configuration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cConfigurations' - A list of additional configurations to apply within a configuration object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cProperties' - A set of properties specified within a configuration classification.
+-- 'configurations', 'configuration_configurations' - A list of additional configurations to apply within a configuration
+-- object.
 --
--- * 'cClassification' - The classification within a configuration.
-configuration ::
+-- 'properties', 'configuration_properties' - A set of properties specified within a configuration classification.
+--
+-- 'classification', 'configuration_classification' - The classification within a configuration.
+newConfiguration ::
   Configuration
-configuration =
+newConfiguration =
   Configuration'
-    { _cConfigurations = Nothing,
-      _cProperties = Nothing,
-      _cClassification = Nothing
+    { configurations = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      classification = Prelude.Nothing
     }
 
--- | A list of additional configurations to apply within a configuration object.
-cConfigurations :: Lens' Configuration [Configuration]
-cConfigurations = lens _cConfigurations (\s a -> s {_cConfigurations = a}) . _Default . _Coerce
+-- | A list of additional configurations to apply within a configuration
+-- object.
+configuration_configurations :: Lens.Lens' Configuration (Prelude.Maybe [Configuration])
+configuration_configurations = Lens.lens (\Configuration' {configurations} -> configurations) (\s@Configuration' {} a -> s {configurations = a} :: Configuration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A set of properties specified within a configuration classification.
-cProperties :: Lens' Configuration (HashMap Text Text)
-cProperties = lens _cProperties (\s a -> s {_cProperties = a}) . _Default . _Map
+configuration_properties :: Lens.Lens' Configuration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+configuration_properties = Lens.lens (\Configuration' {properties} -> properties) (\s@Configuration' {} a -> s {properties = a} :: Configuration) Prelude.. Lens.mapping Prelude._Map
 
 -- | The classification within a configuration.
-cClassification :: Lens' Configuration (Maybe Text)
-cClassification = lens _cClassification (\s a -> s {_cClassification = a})
+configuration_classification :: Lens.Lens' Configuration (Prelude.Maybe Prelude.Text)
+configuration_classification = Lens.lens (\Configuration' {classification} -> classification) (\s@Configuration' {} a -> s {classification = a} :: Configuration)
 
-instance FromJSON Configuration where
+instance Prelude.FromJSON Configuration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Configuration"
       ( \x ->
           Configuration'
-            <$> (x .:? "Configurations" .!= mempty)
-            <*> (x .:? "Properties" .!= mempty)
-            <*> (x .:? "Classification")
+            Prelude.<$> ( x Prelude..:? "Configurations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "Properties"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Classification")
       )
 
-instance Hashable Configuration
+instance Prelude.Hashable Configuration
 
-instance NFData Configuration
+instance Prelude.NFData Configuration
 
-instance ToJSON Configuration where
+instance Prelude.ToJSON Configuration where
   toJSON Configuration' {..} =
-    object
-      ( catMaybes
-          [ ("Configurations" .=) <$> _cConfigurations,
-            ("Properties" .=) <$> _cProperties,
-            ("Classification" .=) <$> _cClassification
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Configurations" Prelude..=)
+              Prelude.<$> configurations,
+            ("Properties" Prelude..=) Prelude.<$> properties,
+            ("Classification" Prelude..=)
+              Prelude.<$> classification
           ]
       )

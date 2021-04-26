@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,68 @@
 module Network.AWS.EMR.Types.InstanceFleetStateChangeReason where
 
 import Network.AWS.EMR.Types.InstanceFleetStateChangeReasonCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides status change reason details for the instance fleet.
 --
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions.
 --
---
--- /See:/ 'instanceFleetStateChangeReason' smart constructor.
+-- /See:/ 'newInstanceFleetStateChangeReason' smart constructor.
 data InstanceFleetStateChangeReason = InstanceFleetStateChangeReason'
-  { _ifscrMessage ::
-      !( Maybe
-           Text
-       ),
-    _ifscrCode ::
-      !( Maybe
-           InstanceFleetStateChangeReasonCode
-       )
+  { -- | An explanatory message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | A code corresponding to the reason the state change occurred.
+    code :: Prelude.Maybe InstanceFleetStateChangeReasonCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceFleetStateChangeReason' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceFleetStateChangeReason' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ifscrMessage' - An explanatory message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ifscrCode' - A code corresponding to the reason the state change occurred.
-instanceFleetStateChangeReason ::
+-- 'message', 'instanceFleetStateChangeReason_message' - An explanatory message.
+--
+-- 'code', 'instanceFleetStateChangeReason_code' - A code corresponding to the reason the state change occurred.
+newInstanceFleetStateChangeReason ::
   InstanceFleetStateChangeReason
-instanceFleetStateChangeReason =
+newInstanceFleetStateChangeReason =
   InstanceFleetStateChangeReason'
-    { _ifscrMessage =
-        Nothing,
-      _ifscrCode = Nothing
+    { message =
+        Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | An explanatory message.
-ifscrMessage :: Lens' InstanceFleetStateChangeReason (Maybe Text)
-ifscrMessage = lens _ifscrMessage (\s a -> s {_ifscrMessage = a})
+instanceFleetStateChangeReason_message :: Lens.Lens' InstanceFleetStateChangeReason (Prelude.Maybe Prelude.Text)
+instanceFleetStateChangeReason_message = Lens.lens (\InstanceFleetStateChangeReason' {message} -> message) (\s@InstanceFleetStateChangeReason' {} a -> s {message = a} :: InstanceFleetStateChangeReason)
 
 -- | A code corresponding to the reason the state change occurred.
-ifscrCode :: Lens' InstanceFleetStateChangeReason (Maybe InstanceFleetStateChangeReasonCode)
-ifscrCode = lens _ifscrCode (\s a -> s {_ifscrCode = a})
+instanceFleetStateChangeReason_code :: Lens.Lens' InstanceFleetStateChangeReason (Prelude.Maybe InstanceFleetStateChangeReasonCode)
+instanceFleetStateChangeReason_code = Lens.lens (\InstanceFleetStateChangeReason' {code} -> code) (\s@InstanceFleetStateChangeReason' {} a -> s {code = a} :: InstanceFleetStateChangeReason)
 
-instance FromJSON InstanceFleetStateChangeReason where
+instance
+  Prelude.FromJSON
+    InstanceFleetStateChangeReason
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceFleetStateChangeReason"
       ( \x ->
           InstanceFleetStateChangeReason'
-            <$> (x .:? "Message") <*> (x .:? "Code")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Code")
       )
 
-instance Hashable InstanceFleetStateChangeReason
+instance
+  Prelude.Hashable
+    InstanceFleetStateChangeReason
 
-instance NFData InstanceFleetStateChangeReason
+instance
+  Prelude.NFData
+    InstanceFleetStateChangeReason

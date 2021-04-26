@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.EMR.Types.AutoScalingPolicyState
   ( AutoScalingPolicyState
       ( ..,
-        ASPSAttached,
-        ASPSAttaching,
-        ASPSDetached,
-        ASPSDetaching,
-        ASPSFailed,
-        ASPSPending
+        AutoScalingPolicyStateATTACHED,
+        AutoScalingPolicyStateATTACHING,
+        AutoScalingPolicyStateDETACHED,
+        AutoScalingPolicyStateDETACHING,
+        AutoScalingPolicyStateFAILED,
+        AutoScalingPolicyStatePENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoScalingPolicyState
-  = AutoScalingPolicyState'
-      ( CI
-          Text
-      )
+newtype AutoScalingPolicyState = AutoScalingPolicyState'
+  { fromAutoScalingPolicyState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASPSAttached :: AutoScalingPolicyState
-pattern ASPSAttached = AutoScalingPolicyState' "ATTACHED"
+pattern AutoScalingPolicyStateATTACHED :: AutoScalingPolicyState
+pattern AutoScalingPolicyStateATTACHED = AutoScalingPolicyState' "ATTACHED"
 
-pattern ASPSAttaching :: AutoScalingPolicyState
-pattern ASPSAttaching = AutoScalingPolicyState' "ATTACHING"
+pattern AutoScalingPolicyStateATTACHING :: AutoScalingPolicyState
+pattern AutoScalingPolicyStateATTACHING = AutoScalingPolicyState' "ATTACHING"
 
-pattern ASPSDetached :: AutoScalingPolicyState
-pattern ASPSDetached = AutoScalingPolicyState' "DETACHED"
+pattern AutoScalingPolicyStateDETACHED :: AutoScalingPolicyState
+pattern AutoScalingPolicyStateDETACHED = AutoScalingPolicyState' "DETACHED"
 
-pattern ASPSDetaching :: AutoScalingPolicyState
-pattern ASPSDetaching = AutoScalingPolicyState' "DETACHING"
+pattern AutoScalingPolicyStateDETACHING :: AutoScalingPolicyState
+pattern AutoScalingPolicyStateDETACHING = AutoScalingPolicyState' "DETACHING"
 
-pattern ASPSFailed :: AutoScalingPolicyState
-pattern ASPSFailed = AutoScalingPolicyState' "FAILED"
+pattern AutoScalingPolicyStateFAILED :: AutoScalingPolicyState
+pattern AutoScalingPolicyStateFAILED = AutoScalingPolicyState' "FAILED"
 
-pattern ASPSPending :: AutoScalingPolicyState
-pattern ASPSPending = AutoScalingPolicyState' "PENDING"
+pattern AutoScalingPolicyStatePENDING :: AutoScalingPolicyState
+pattern AutoScalingPolicyStatePENDING = AutoScalingPolicyState' "PENDING"
 
 {-# COMPLETE
-  ASPSAttached,
-  ASPSAttaching,
-  ASPSDetached,
-  ASPSDetaching,
-  ASPSFailed,
-  ASPSPending,
+  AutoScalingPolicyStateATTACHED,
+  AutoScalingPolicyStateATTACHING,
+  AutoScalingPolicyStateDETACHED,
+  AutoScalingPolicyStateDETACHING,
+  AutoScalingPolicyStateFAILED,
+  AutoScalingPolicyStatePENDING,
   AutoScalingPolicyState'
   #-}
 
-instance FromText AutoScalingPolicyState where
-  parser = (AutoScalingPolicyState' . mk) <$> takeText
+instance Prelude.FromText AutoScalingPolicyState where
+  parser = AutoScalingPolicyState' Prelude.<$> Prelude.takeText
 
-instance ToText AutoScalingPolicyState where
-  toText (AutoScalingPolicyState' ci) = original ci
+instance Prelude.ToText AutoScalingPolicyState where
+  toText (AutoScalingPolicyState' x) = x
 
-instance Hashable AutoScalingPolicyState
+instance Prelude.Hashable AutoScalingPolicyState
 
-instance NFData AutoScalingPolicyState
+instance Prelude.NFData AutoScalingPolicyState
 
-instance ToByteString AutoScalingPolicyState
+instance Prelude.ToByteString AutoScalingPolicyState
 
-instance ToQuery AutoScalingPolicyState
+instance Prelude.ToQuery AutoScalingPolicyState
 
-instance ToHeader AutoScalingPolicyState
+instance Prelude.ToHeader AutoScalingPolicyState
 
-instance FromJSON AutoScalingPolicyState where
-  parseJSON = parseJSONText "AutoScalingPolicyState"
+instance Prelude.FromJSON AutoScalingPolicyState where
+  parseJSON = Prelude.parseJSONText "AutoScalingPolicyState"

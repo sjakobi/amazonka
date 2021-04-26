@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.SupportedProductConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The list of supported product configurations that allow user-supplied arguments. EMR accepts these arguments and forwards them to the corresponding installation script as bootstrap action arguments.
+-- | The list of supported product configurations that allow user-supplied
+-- arguments. EMR accepts these arguments and forwards them to the
+-- corresponding installation script as bootstrap action arguments.
 --
---
---
--- /See:/ 'supportedProductConfig' smart constructor.
+-- /See:/ 'newSupportedProductConfig' smart constructor.
 data SupportedProductConfig = SupportedProductConfig'
-  { _spcArgs ::
-      !(Maybe [Text]),
-    _spcName :: !(Maybe Text)
+  { -- | The list of user-supplied arguments.
+    args :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the product configuration.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SupportedProductConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SupportedProductConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spcArgs' - The list of user-supplied arguments.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spcName' - The name of the product configuration.
-supportedProductConfig ::
+-- 'args', 'supportedProductConfig_args' - The list of user-supplied arguments.
+--
+-- 'name', 'supportedProductConfig_name' - The name of the product configuration.
+newSupportedProductConfig ::
   SupportedProductConfig
-supportedProductConfig =
+newSupportedProductConfig =
   SupportedProductConfig'
-    { _spcArgs = Nothing,
-      _spcName = Nothing
+    { args = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The list of user-supplied arguments.
-spcArgs :: Lens' SupportedProductConfig [Text]
-spcArgs = lens _spcArgs (\s a -> s {_spcArgs = a}) . _Default . _Coerce
+supportedProductConfig_args :: Lens.Lens' SupportedProductConfig (Prelude.Maybe [Prelude.Text])
+supportedProductConfig_args = Lens.lens (\SupportedProductConfig' {args} -> args) (\s@SupportedProductConfig' {} a -> s {args = a} :: SupportedProductConfig) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the product configuration.
-spcName :: Lens' SupportedProductConfig (Maybe Text)
-spcName = lens _spcName (\s a -> s {_spcName = a})
+supportedProductConfig_name :: Lens.Lens' SupportedProductConfig (Prelude.Maybe Prelude.Text)
+supportedProductConfig_name = Lens.lens (\SupportedProductConfig' {name} -> name) (\s@SupportedProductConfig' {} a -> s {name = a} :: SupportedProductConfig)
 
-instance Hashable SupportedProductConfig
+instance Prelude.Hashable SupportedProductConfig
 
-instance NFData SupportedProductConfig
+instance Prelude.NFData SupportedProductConfig
 
-instance ToJSON SupportedProductConfig where
+instance Prelude.ToJSON SupportedProductConfig where
   toJSON SupportedProductConfig' {..} =
-    object
-      ( catMaybes
-          [("Args" .=) <$> _spcArgs, ("Name" .=) <$> _spcName]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Args" Prelude..=) Prelude.<$> args,
+            ("Name" Prelude..=) Prelude.<$> name
+          ]
       )

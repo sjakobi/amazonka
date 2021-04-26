@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.BlockPublicAccessConfigurationMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Properties that describe the AWS principal that created the @BlockPublicAccessConfiguration@ using the @PutBlockPublicAccessConfiguration@ action as well as the date and time that the configuration was created. Each time a configuration for block public access is updated, Amazon EMR updates this metadata.
+-- | Properties that describe the AWS principal that created the
+-- @BlockPublicAccessConfiguration@ using the
+-- @PutBlockPublicAccessConfiguration@ action as well as the date and time
+-- that the configuration was created. Each time a configuration for block
+-- public access is updated, Amazon EMR updates this metadata.
 --
---
---
--- /See:/ 'blockPublicAccessConfigurationMetadata' smart constructor.
+-- /See:/ 'newBlockPublicAccessConfigurationMetadata' smart constructor.
 data BlockPublicAccessConfigurationMetadata = BlockPublicAccessConfigurationMetadata'
-  { _bpacmCreationDateTime ::
-      !POSIX,
-    _bpacmCreatedByARN ::
-      !Text
+  { -- | The date and time that the configuration was created.
+    creationDateTime :: Prelude.POSIX,
+    -- | The Amazon Resource Name that created or last modified the
+    -- configuration.
+    createdByArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BlockPublicAccessConfigurationMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BlockPublicAccessConfigurationMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bpacmCreationDateTime' - The date and time that the configuration was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bpacmCreatedByARN' - The Amazon Resource Name that created or last modified the configuration.
-blockPublicAccessConfigurationMetadata ::
-  -- | 'bpacmCreationDateTime'
-  UTCTime ->
-  -- | 'bpacmCreatedByARN'
-  Text ->
+-- 'creationDateTime', 'blockPublicAccessConfigurationMetadata_creationDateTime' - The date and time that the configuration was created.
+--
+-- 'createdByArn', 'blockPublicAccessConfigurationMetadata_createdByArn' - The Amazon Resource Name that created or last modified the
+-- configuration.
+newBlockPublicAccessConfigurationMetadata ::
+  -- | 'creationDateTime'
+  Prelude.UTCTime ->
+  -- | 'createdByArn'
+  Prelude.Text ->
   BlockPublicAccessConfigurationMetadata
-blockPublicAccessConfigurationMetadata
+newBlockPublicAccessConfigurationMetadata
   pCreationDateTime_
-  pCreatedByARN_ =
+  pCreatedByArn_ =
     BlockPublicAccessConfigurationMetadata'
-      { _bpacmCreationDateTime =
-          _Time # pCreationDateTime_,
-        _bpacmCreatedByARN = pCreatedByARN_
+      { creationDateTime =
+          Prelude._Time
+            Lens.# pCreationDateTime_,
+        createdByArn = pCreatedByArn_
       }
 
 -- | The date and time that the configuration was created.
-bpacmCreationDateTime :: Lens' BlockPublicAccessConfigurationMetadata UTCTime
-bpacmCreationDateTime = lens _bpacmCreationDateTime (\s a -> s {_bpacmCreationDateTime = a}) . _Time
+blockPublicAccessConfigurationMetadata_creationDateTime :: Lens.Lens' BlockPublicAccessConfigurationMetadata Prelude.UTCTime
+blockPublicAccessConfigurationMetadata_creationDateTime = Lens.lens (\BlockPublicAccessConfigurationMetadata' {creationDateTime} -> creationDateTime) (\s@BlockPublicAccessConfigurationMetadata' {} a -> s {creationDateTime = a} :: BlockPublicAccessConfigurationMetadata) Prelude.. Prelude._Time
 
--- | The Amazon Resource Name that created or last modified the configuration.
-bpacmCreatedByARN :: Lens' BlockPublicAccessConfigurationMetadata Text
-bpacmCreatedByARN = lens _bpacmCreatedByARN (\s a -> s {_bpacmCreatedByARN = a})
+-- | The Amazon Resource Name that created or last modified the
+-- configuration.
+blockPublicAccessConfigurationMetadata_createdByArn :: Lens.Lens' BlockPublicAccessConfigurationMetadata Prelude.Text
+blockPublicAccessConfigurationMetadata_createdByArn = Lens.lens (\BlockPublicAccessConfigurationMetadata' {createdByArn} -> createdByArn) (\s@BlockPublicAccessConfigurationMetadata' {} a -> s {createdByArn = a} :: BlockPublicAccessConfigurationMetadata)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     BlockPublicAccessConfigurationMetadata
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BlockPublicAccessConfigurationMetadata"
       ( \x ->
           BlockPublicAccessConfigurationMetadata'
-            <$> (x .: "CreationDateTime") <*> (x .: "CreatedByArn")
+            Prelude.<$> (x Prelude..: "CreationDateTime")
+            Prelude.<*> (x Prelude..: "CreatedByArn")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     BlockPublicAccessConfigurationMetadata
 
 instance
-  NFData
+  Prelude.NFData
     BlockPublicAccessConfigurationMetadata

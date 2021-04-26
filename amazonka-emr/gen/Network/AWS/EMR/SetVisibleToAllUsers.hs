@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,142 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the 'Cluster$VisibleToAllUsers' value, which determines whether the cluster is visible to all IAM users of the AWS account associated with the cluster. Only the IAM user who created the cluster or the AWS account root user can call this action. The default value, @true@ , indicates that all IAM users in the AWS account can perform cluster actions if they have the proper IAM policy permissions. If set to @false@ , only the IAM user that created the cluster can perform actions. This action works on running clusters. You can override the default @true@ setting when you create a cluster by using the @VisibleToAllUsers@ parameter with @RunJobFlow@ .
+-- Sets the Cluster$VisibleToAllUsers value, which determines whether the
+-- cluster is visible to all IAM users of the AWS account associated with
+-- the cluster. Only the IAM user who created the cluster or the AWS
+-- account root user can call this action. The default value, @true@,
+-- indicates that all IAM users in the AWS account can perform cluster
+-- actions if they have the proper IAM policy permissions. If set to
+-- @false@, only the IAM user that created the cluster can perform actions.
+-- This action works on running clusters. You can override the default
+-- @true@ setting when you create a cluster by using the
+-- @VisibleToAllUsers@ parameter with @RunJobFlow@.
 module Network.AWS.EMR.SetVisibleToAllUsers
   ( -- * Creating a Request
-    setVisibleToAllUsers,
-    SetVisibleToAllUsers,
+    SetVisibleToAllUsers (..),
+    newSetVisibleToAllUsers,
 
     -- * Request Lenses
-    svtauJobFlowIds,
-    svtauVisibleToAllUsers,
+    setVisibleToAllUsers_jobFlowIds,
+    setVisibleToAllUsers_visibleToAllUsers,
 
     -- * Destructuring the Response
-    setVisibleToAllUsersResponse,
-    SetVisibleToAllUsersResponse,
+    SetVisibleToAllUsersResponse (..),
+    newSetVisibleToAllUsersResponse,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input to the SetVisibleToAllUsers action.
 --
---
---
--- /See:/ 'setVisibleToAllUsers' smart constructor.
+-- /See:/ 'newSetVisibleToAllUsers' smart constructor.
 data SetVisibleToAllUsers = SetVisibleToAllUsers'
-  { _svtauJobFlowIds ::
-      ![Text],
-    _svtauVisibleToAllUsers ::
-      !Bool
+  { -- | The unique identifier of the job flow (cluster).
+    jobFlowIds :: [Prelude.Text],
+    -- | A value of @true@ indicates that all IAM users in the AWS account can
+    -- perform cluster actions if they have the proper IAM policy permissions.
+    -- This is the default. A value of @false@ indicates that only the IAM user
+    -- who created the cluster can perform actions.
+    visibleToAllUsers :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetVisibleToAllUsers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetVisibleToAllUsers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'svtauJobFlowIds' - The unique identifier of the job flow (cluster).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'svtauVisibleToAllUsers' - A value of @true@ indicates that all IAM users in the AWS account can perform cluster actions if they have the proper IAM policy permissions. This is the default. A value of @false@ indicates that only the IAM user who created the cluster can perform actions.
-setVisibleToAllUsers ::
-  -- | 'svtauVisibleToAllUsers'
-  Bool ->
+-- 'jobFlowIds', 'setVisibleToAllUsers_jobFlowIds' - The unique identifier of the job flow (cluster).
+--
+-- 'visibleToAllUsers', 'setVisibleToAllUsers_visibleToAllUsers' - A value of @true@ indicates that all IAM users in the AWS account can
+-- perform cluster actions if they have the proper IAM policy permissions.
+-- This is the default. A value of @false@ indicates that only the IAM user
+-- who created the cluster can perform actions.
+newSetVisibleToAllUsers ::
+  -- | 'visibleToAllUsers'
+  Prelude.Bool ->
   SetVisibleToAllUsers
-setVisibleToAllUsers pVisibleToAllUsers_ =
+newSetVisibleToAllUsers pVisibleToAllUsers_ =
   SetVisibleToAllUsers'
-    { _svtauJobFlowIds = mempty,
-      _svtauVisibleToAllUsers = pVisibleToAllUsers_
+    { jobFlowIds = Prelude.mempty,
+      visibleToAllUsers = pVisibleToAllUsers_
     }
 
 -- | The unique identifier of the job flow (cluster).
-svtauJobFlowIds :: Lens' SetVisibleToAllUsers [Text]
-svtauJobFlowIds = lens _svtauJobFlowIds (\s a -> s {_svtauJobFlowIds = a}) . _Coerce
+setVisibleToAllUsers_jobFlowIds :: Lens.Lens' SetVisibleToAllUsers [Prelude.Text]
+setVisibleToAllUsers_jobFlowIds = Lens.lens (\SetVisibleToAllUsers' {jobFlowIds} -> jobFlowIds) (\s@SetVisibleToAllUsers' {} a -> s {jobFlowIds = a} :: SetVisibleToAllUsers) Prelude.. Prelude._Coerce
 
--- | A value of @true@ indicates that all IAM users in the AWS account can perform cluster actions if they have the proper IAM policy permissions. This is the default. A value of @false@ indicates that only the IAM user who created the cluster can perform actions.
-svtauVisibleToAllUsers :: Lens' SetVisibleToAllUsers Bool
-svtauVisibleToAllUsers = lens _svtauVisibleToAllUsers (\s a -> s {_svtauVisibleToAllUsers = a})
+-- | A value of @true@ indicates that all IAM users in the AWS account can
+-- perform cluster actions if they have the proper IAM policy permissions.
+-- This is the default. A value of @false@ indicates that only the IAM user
+-- who created the cluster can perform actions.
+setVisibleToAllUsers_visibleToAllUsers :: Lens.Lens' SetVisibleToAllUsers Prelude.Bool
+setVisibleToAllUsers_visibleToAllUsers = Lens.lens (\SetVisibleToAllUsers' {visibleToAllUsers} -> visibleToAllUsers) (\s@SetVisibleToAllUsers' {} a -> s {visibleToAllUsers = a} :: SetVisibleToAllUsers)
 
-instance AWSRequest SetVisibleToAllUsers where
+instance Prelude.AWSRequest SetVisibleToAllUsers where
   type
     Rs SetVisibleToAllUsers =
       SetVisibleToAllUsersResponse
-  request = postJSON emr
-  response = receiveNull SetVisibleToAllUsersResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull SetVisibleToAllUsersResponse'
 
-instance Hashable SetVisibleToAllUsers
+instance Prelude.Hashable SetVisibleToAllUsers
 
-instance NFData SetVisibleToAllUsers
+instance Prelude.NFData SetVisibleToAllUsers
 
-instance ToHeaders SetVisibleToAllUsers where
+instance Prelude.ToHeaders SetVisibleToAllUsers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.SetVisibleToAllUsers" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.SetVisibleToAllUsers" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SetVisibleToAllUsers where
+instance Prelude.ToJSON SetVisibleToAllUsers where
   toJSON SetVisibleToAllUsers' {..} =
-    object
-      ( catMaybes
-          [ Just ("JobFlowIds" .= _svtauJobFlowIds),
-            Just
-              ("VisibleToAllUsers" .= _svtauVisibleToAllUsers)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("JobFlowIds" Prelude..= jobFlowIds),
+            Prelude.Just
+              ("VisibleToAllUsers" Prelude..= visibleToAllUsers)
           ]
       )
 
-instance ToPath SetVisibleToAllUsers where
-  toPath = const "/"
+instance Prelude.ToPath SetVisibleToAllUsers where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetVisibleToAllUsers where
-  toQuery = const mempty
+instance Prelude.ToQuery SetVisibleToAllUsers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'setVisibleToAllUsersResponse' smart constructor.
+-- | /See:/ 'newSetVisibleToAllUsersResponse' smart constructor.
 data SetVisibleToAllUsersResponse = SetVisibleToAllUsersResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetVisibleToAllUsersResponse' with the minimum fields required to make a request.
-setVisibleToAllUsersResponse ::
+-- |
+-- Create a value of 'SetVisibleToAllUsersResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newSetVisibleToAllUsersResponse ::
   SetVisibleToAllUsersResponse
-setVisibleToAllUsersResponse =
+newSetVisibleToAllUsersResponse =
   SetVisibleToAllUsersResponse'
 
-instance NFData SetVisibleToAllUsersResponse
+instance Prelude.NFData SetVisibleToAllUsersResponse

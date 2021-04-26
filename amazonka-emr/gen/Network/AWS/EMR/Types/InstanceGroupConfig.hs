@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,133 +21,178 @@ module Network.AWS.EMR.Types.InstanceGroupConfig where
 
 import Network.AWS.EMR.Types.AutoScalingPolicy
 import Network.AWS.EMR.Types.Configuration
-import Network.AWS.EMR.Types.EBSConfiguration
+import Network.AWS.EMR.Types.EbsConfiguration
 import Network.AWS.EMR.Types.InstanceRoleType
 import Network.AWS.EMR.Types.MarketType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration defining a new instance group.
 --
---
---
--- /See:/ 'instanceGroupConfig' smart constructor.
+-- /See:/ 'newInstanceGroupConfig' smart constructor.
 data InstanceGroupConfig = InstanceGroupConfig'
-  { _igcEBSConfiguration ::
-      !(Maybe EBSConfiguration),
-    _igcConfigurations ::
-      !(Maybe [Configuration]),
-    _igcAutoScalingPolicy ::
-      !(Maybe AutoScalingPolicy),
-    _igcBidPrice :: !(Maybe Text),
-    _igcName :: !(Maybe Text),
-    _igcMarket ::
-      !(Maybe MarketType),
-    _igcInstanceRole ::
-      !InstanceRoleType,
-    _igcInstanceType :: !Text,
-    _igcInstanceCount :: !Int
+  { -- | EBS configurations that will be attached to each EC2 instance in the
+    -- instance group.
+    ebsConfiguration :: Prelude.Maybe EbsConfiguration,
+    -- | Amazon EMR releases 4.x or later.
+    --
+    -- The list of configurations supplied for an EMR cluster instance group.
+    -- You can specify a separate configuration for each instance group
+    -- (master, core, and task).
+    configurations :: Prelude.Maybe [Configuration],
+    -- | An automatic scaling policy for a core instance group or task instance
+    -- group in an Amazon EMR cluster. The automatic scaling policy defines how
+    -- an instance group dynamically adds and terminates EC2 instances in
+    -- response to the value of a CloudWatch metric. See PutAutoScalingPolicy.
+    autoScalingPolicy :: Prelude.Maybe AutoScalingPolicy,
+    -- | The bid price for each EC2 Spot Instance as defined by @InstanceType@.
+    -- Expressed in USD. If neither @BidPrice@ nor
+    -- @BidPriceAsPercentageOfOnDemandPrice@ is provided,
+    -- @BidPriceAsPercentageOfOnDemandPrice@ defaults to 100%.
+    bidPrice :: Prelude.Maybe Prelude.Text,
+    -- | Friendly name given to the instance group.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Market type of the EC2 instances used to create a cluster node.
+    market :: Prelude.Maybe MarketType,
+    -- | The role of the instance group in the cluster.
+    instanceRole :: InstanceRoleType,
+    -- | The EC2 instance type for all instances in the instance group.
+    instanceType :: Prelude.Text,
+    -- | Target number of instances for the instance group.
+    instanceCount :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceGroupConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceGroupConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'igcEBSConfiguration' - EBS configurations that will be attached to each EC2 instance in the instance group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'igcConfigurations' - The list of configurations supplied for an EMR cluster instance group. You can specify a separate configuration for each instance group (master, core, and task).
+-- 'ebsConfiguration', 'instanceGroupConfig_ebsConfiguration' - EBS configurations that will be attached to each EC2 instance in the
+-- instance group.
 --
--- * 'igcAutoScalingPolicy' - An automatic scaling policy for a core instance group or task instance group in an Amazon EMR cluster. The automatic scaling policy defines how an instance group dynamically adds and terminates EC2 instances in response to the value of a CloudWatch metric. See 'PutAutoScalingPolicy' .
+-- 'configurations', 'instanceGroupConfig_configurations' - Amazon EMR releases 4.x or later.
 --
--- * 'igcBidPrice' - The bid price for each EC2 Spot Instance as defined by @InstanceType@ . Expressed in USD. If neither @BidPrice@ nor @BidPriceAsPercentageOfOnDemandPrice@ is provided, @BidPriceAsPercentageOfOnDemandPrice@ defaults to 100%.
+-- The list of configurations supplied for an EMR cluster instance group.
+-- You can specify a separate configuration for each instance group
+-- (master, core, and task).
 --
--- * 'igcName' - Friendly name given to the instance group.
+-- 'autoScalingPolicy', 'instanceGroupConfig_autoScalingPolicy' - An automatic scaling policy for a core instance group or task instance
+-- group in an Amazon EMR cluster. The automatic scaling policy defines how
+-- an instance group dynamically adds and terminates EC2 instances in
+-- response to the value of a CloudWatch metric. See PutAutoScalingPolicy.
 --
--- * 'igcMarket' - Market type of the EC2 instances used to create a cluster node.
+-- 'bidPrice', 'instanceGroupConfig_bidPrice' - The bid price for each EC2 Spot Instance as defined by @InstanceType@.
+-- Expressed in USD. If neither @BidPrice@ nor
+-- @BidPriceAsPercentageOfOnDemandPrice@ is provided,
+-- @BidPriceAsPercentageOfOnDemandPrice@ defaults to 100%.
 --
--- * 'igcInstanceRole' - The role of the instance group in the cluster.
+-- 'name', 'instanceGroupConfig_name' - Friendly name given to the instance group.
 --
--- * 'igcInstanceType' - The EC2 instance type for all instances in the instance group.
+-- 'market', 'instanceGroupConfig_market' - Market type of the EC2 instances used to create a cluster node.
 --
--- * 'igcInstanceCount' - Target number of instances for the instance group.
-instanceGroupConfig ::
-  -- | 'igcInstanceRole'
+-- 'instanceRole', 'instanceGroupConfig_instanceRole' - The role of the instance group in the cluster.
+--
+-- 'instanceType', 'instanceGroupConfig_instanceType' - The EC2 instance type for all instances in the instance group.
+--
+-- 'instanceCount', 'instanceGroupConfig_instanceCount' - Target number of instances for the instance group.
+newInstanceGroupConfig ::
+  -- | 'instanceRole'
   InstanceRoleType ->
-  -- | 'igcInstanceType'
-  Text ->
-  -- | 'igcInstanceCount'
-  Int ->
+  -- | 'instanceType'
+  Prelude.Text ->
+  -- | 'instanceCount'
+  Prelude.Int ->
   InstanceGroupConfig
-instanceGroupConfig
+newInstanceGroupConfig
   pInstanceRole_
   pInstanceType_
   pInstanceCount_ =
     InstanceGroupConfig'
-      { _igcEBSConfiguration =
-          Nothing,
-        _igcConfigurations = Nothing,
-        _igcAutoScalingPolicy = Nothing,
-        _igcBidPrice = Nothing,
-        _igcName = Nothing,
-        _igcMarket = Nothing,
-        _igcInstanceRole = pInstanceRole_,
-        _igcInstanceType = pInstanceType_,
-        _igcInstanceCount = pInstanceCount_
+      { ebsConfiguration =
+          Prelude.Nothing,
+        configurations = Prelude.Nothing,
+        autoScalingPolicy = Prelude.Nothing,
+        bidPrice = Prelude.Nothing,
+        name = Prelude.Nothing,
+        market = Prelude.Nothing,
+        instanceRole = pInstanceRole_,
+        instanceType = pInstanceType_,
+        instanceCount = pInstanceCount_
       }
 
--- | EBS configurations that will be attached to each EC2 instance in the instance group.
-igcEBSConfiguration :: Lens' InstanceGroupConfig (Maybe EBSConfiguration)
-igcEBSConfiguration = lens _igcEBSConfiguration (\s a -> s {_igcEBSConfiguration = a})
+-- | EBS configurations that will be attached to each EC2 instance in the
+-- instance group.
+instanceGroupConfig_ebsConfiguration :: Lens.Lens' InstanceGroupConfig (Prelude.Maybe EbsConfiguration)
+instanceGroupConfig_ebsConfiguration = Lens.lens (\InstanceGroupConfig' {ebsConfiguration} -> ebsConfiguration) (\s@InstanceGroupConfig' {} a -> s {ebsConfiguration = a} :: InstanceGroupConfig)
 
--- | The list of configurations supplied for an EMR cluster instance group. You can specify a separate configuration for each instance group (master, core, and task).
-igcConfigurations :: Lens' InstanceGroupConfig [Configuration]
-igcConfigurations = lens _igcConfigurations (\s a -> s {_igcConfigurations = a}) . _Default . _Coerce
+-- | Amazon EMR releases 4.x or later.
+--
+-- The list of configurations supplied for an EMR cluster instance group.
+-- You can specify a separate configuration for each instance group
+-- (master, core, and task).
+instanceGroupConfig_configurations :: Lens.Lens' InstanceGroupConfig (Prelude.Maybe [Configuration])
+instanceGroupConfig_configurations = Lens.lens (\InstanceGroupConfig' {configurations} -> configurations) (\s@InstanceGroupConfig' {} a -> s {configurations = a} :: InstanceGroupConfig) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An automatic scaling policy for a core instance group or task instance group in an Amazon EMR cluster. The automatic scaling policy defines how an instance group dynamically adds and terminates EC2 instances in response to the value of a CloudWatch metric. See 'PutAutoScalingPolicy' .
-igcAutoScalingPolicy :: Lens' InstanceGroupConfig (Maybe AutoScalingPolicy)
-igcAutoScalingPolicy = lens _igcAutoScalingPolicy (\s a -> s {_igcAutoScalingPolicy = a})
+-- | An automatic scaling policy for a core instance group or task instance
+-- group in an Amazon EMR cluster. The automatic scaling policy defines how
+-- an instance group dynamically adds and terminates EC2 instances in
+-- response to the value of a CloudWatch metric. See PutAutoScalingPolicy.
+instanceGroupConfig_autoScalingPolicy :: Lens.Lens' InstanceGroupConfig (Prelude.Maybe AutoScalingPolicy)
+instanceGroupConfig_autoScalingPolicy = Lens.lens (\InstanceGroupConfig' {autoScalingPolicy} -> autoScalingPolicy) (\s@InstanceGroupConfig' {} a -> s {autoScalingPolicy = a} :: InstanceGroupConfig)
 
--- | The bid price for each EC2 Spot Instance as defined by @InstanceType@ . Expressed in USD. If neither @BidPrice@ nor @BidPriceAsPercentageOfOnDemandPrice@ is provided, @BidPriceAsPercentageOfOnDemandPrice@ defaults to 100%.
-igcBidPrice :: Lens' InstanceGroupConfig (Maybe Text)
-igcBidPrice = lens _igcBidPrice (\s a -> s {_igcBidPrice = a})
+-- | The bid price for each EC2 Spot Instance as defined by @InstanceType@.
+-- Expressed in USD. If neither @BidPrice@ nor
+-- @BidPriceAsPercentageOfOnDemandPrice@ is provided,
+-- @BidPriceAsPercentageOfOnDemandPrice@ defaults to 100%.
+instanceGroupConfig_bidPrice :: Lens.Lens' InstanceGroupConfig (Prelude.Maybe Prelude.Text)
+instanceGroupConfig_bidPrice = Lens.lens (\InstanceGroupConfig' {bidPrice} -> bidPrice) (\s@InstanceGroupConfig' {} a -> s {bidPrice = a} :: InstanceGroupConfig)
 
 -- | Friendly name given to the instance group.
-igcName :: Lens' InstanceGroupConfig (Maybe Text)
-igcName = lens _igcName (\s a -> s {_igcName = a})
+instanceGroupConfig_name :: Lens.Lens' InstanceGroupConfig (Prelude.Maybe Prelude.Text)
+instanceGroupConfig_name = Lens.lens (\InstanceGroupConfig' {name} -> name) (\s@InstanceGroupConfig' {} a -> s {name = a} :: InstanceGroupConfig)
 
 -- | Market type of the EC2 instances used to create a cluster node.
-igcMarket :: Lens' InstanceGroupConfig (Maybe MarketType)
-igcMarket = lens _igcMarket (\s a -> s {_igcMarket = a})
+instanceGroupConfig_market :: Lens.Lens' InstanceGroupConfig (Prelude.Maybe MarketType)
+instanceGroupConfig_market = Lens.lens (\InstanceGroupConfig' {market} -> market) (\s@InstanceGroupConfig' {} a -> s {market = a} :: InstanceGroupConfig)
 
 -- | The role of the instance group in the cluster.
-igcInstanceRole :: Lens' InstanceGroupConfig InstanceRoleType
-igcInstanceRole = lens _igcInstanceRole (\s a -> s {_igcInstanceRole = a})
+instanceGroupConfig_instanceRole :: Lens.Lens' InstanceGroupConfig InstanceRoleType
+instanceGroupConfig_instanceRole = Lens.lens (\InstanceGroupConfig' {instanceRole} -> instanceRole) (\s@InstanceGroupConfig' {} a -> s {instanceRole = a} :: InstanceGroupConfig)
 
 -- | The EC2 instance type for all instances in the instance group.
-igcInstanceType :: Lens' InstanceGroupConfig Text
-igcInstanceType = lens _igcInstanceType (\s a -> s {_igcInstanceType = a})
+instanceGroupConfig_instanceType :: Lens.Lens' InstanceGroupConfig Prelude.Text
+instanceGroupConfig_instanceType = Lens.lens (\InstanceGroupConfig' {instanceType} -> instanceType) (\s@InstanceGroupConfig' {} a -> s {instanceType = a} :: InstanceGroupConfig)
 
 -- | Target number of instances for the instance group.
-igcInstanceCount :: Lens' InstanceGroupConfig Int
-igcInstanceCount = lens _igcInstanceCount (\s a -> s {_igcInstanceCount = a})
+instanceGroupConfig_instanceCount :: Lens.Lens' InstanceGroupConfig Prelude.Int
+instanceGroupConfig_instanceCount = Lens.lens (\InstanceGroupConfig' {instanceCount} -> instanceCount) (\s@InstanceGroupConfig' {} a -> s {instanceCount = a} :: InstanceGroupConfig)
 
-instance Hashable InstanceGroupConfig
+instance Prelude.Hashable InstanceGroupConfig
 
-instance NFData InstanceGroupConfig
+instance Prelude.NFData InstanceGroupConfig
 
-instance ToJSON InstanceGroupConfig where
+instance Prelude.ToJSON InstanceGroupConfig where
   toJSON InstanceGroupConfig' {..} =
-    object
-      ( catMaybes
-          [ ("EbsConfiguration" .=) <$> _igcEBSConfiguration,
-            ("Configurations" .=) <$> _igcConfigurations,
-            ("AutoScalingPolicy" .=) <$> _igcAutoScalingPolicy,
-            ("BidPrice" .=) <$> _igcBidPrice,
-            ("Name" .=) <$> _igcName,
-            ("Market" .=) <$> _igcMarket,
-            Just ("InstanceRole" .= _igcInstanceRole),
-            Just ("InstanceType" .= _igcInstanceType),
-            Just ("InstanceCount" .= _igcInstanceCount)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EbsConfiguration" Prelude..=)
+              Prelude.<$> ebsConfiguration,
+            ("Configurations" Prelude..=)
+              Prelude.<$> configurations,
+            ("AutoScalingPolicy" Prelude..=)
+              Prelude.<$> autoScalingPolicy,
+            ("BidPrice" Prelude..=) Prelude.<$> bidPrice,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Market" Prelude..=) Prelude.<$> market,
+            Prelude.Just
+              ("InstanceRole" Prelude..= instanceRole),
+            Prelude.Just
+              ("InstanceType" Prelude..= instanceType),
+            Prelude.Just
+              ("InstanceCount" Prelude..= instanceCount)
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.EMR.Types.RepoUpgradeOnBoot
   ( RepoUpgradeOnBoot
       ( ..,
-        None,
-        Security
+        RepoUpgradeOnBootNONE,
+        RepoUpgradeOnBootSECURITY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RepoUpgradeOnBoot = RepoUpgradeOnBoot' (CI Text)
+newtype RepoUpgradeOnBoot = RepoUpgradeOnBoot'
+  { fromRepoUpgradeOnBoot ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern None :: RepoUpgradeOnBoot
-pattern None = RepoUpgradeOnBoot' "NONE"
+pattern RepoUpgradeOnBootNONE :: RepoUpgradeOnBoot
+pattern RepoUpgradeOnBootNONE = RepoUpgradeOnBoot' "NONE"
 
-pattern Security :: RepoUpgradeOnBoot
-pattern Security = RepoUpgradeOnBoot' "SECURITY"
+pattern RepoUpgradeOnBootSECURITY :: RepoUpgradeOnBoot
+pattern RepoUpgradeOnBootSECURITY = RepoUpgradeOnBoot' "SECURITY"
 
 {-# COMPLETE
-  None,
-  Security,
+  RepoUpgradeOnBootNONE,
+  RepoUpgradeOnBootSECURITY,
   RepoUpgradeOnBoot'
   #-}
 
-instance FromText RepoUpgradeOnBoot where
-  parser = (RepoUpgradeOnBoot' . mk) <$> takeText
+instance Prelude.FromText RepoUpgradeOnBoot where
+  parser = RepoUpgradeOnBoot' Prelude.<$> Prelude.takeText
 
-instance ToText RepoUpgradeOnBoot where
-  toText (RepoUpgradeOnBoot' ci) = original ci
+instance Prelude.ToText RepoUpgradeOnBoot where
+  toText (RepoUpgradeOnBoot' x) = x
 
-instance Hashable RepoUpgradeOnBoot
+instance Prelude.Hashable RepoUpgradeOnBoot
 
-instance NFData RepoUpgradeOnBoot
+instance Prelude.NFData RepoUpgradeOnBoot
 
-instance ToByteString RepoUpgradeOnBoot
+instance Prelude.ToByteString RepoUpgradeOnBoot
 
-instance ToQuery RepoUpgradeOnBoot
+instance Prelude.ToQuery RepoUpgradeOnBoot
 
-instance ToHeader RepoUpgradeOnBoot
+instance Prelude.ToHeader RepoUpgradeOnBoot
 
-instance ToJSON RepoUpgradeOnBoot where
-  toJSON = toJSONText
+instance Prelude.ToJSON RepoUpgradeOnBoot where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RepoUpgradeOnBoot where
-  parseJSON = parseJSONText "RepoUpgradeOnBoot"
+instance Prelude.FromJSON RepoUpgradeOnBoot where
+  parseJSON = Prelude.parseJSONText "RepoUpgradeOnBoot"

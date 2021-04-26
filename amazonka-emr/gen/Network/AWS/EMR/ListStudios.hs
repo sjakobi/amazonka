@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,139 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of all Amazon EMR Studios associated with the AWS account. The list includes details such as ID, Studio Access URL, and creation time for each Studio.
---
---
+-- Returns a list of all Amazon EMR Studios associated with the AWS
+-- account. The list includes details such as ID, Studio Access URL, and
+-- creation time for each Studio.
 --
 -- This operation returns paginated results.
 module Network.AWS.EMR.ListStudios
   ( -- * Creating a Request
-    listStudios,
-    ListStudios,
+    ListStudios (..),
+    newListStudios,
 
     -- * Request Lenses
-    lsMarker,
+    listStudios_marker,
 
     -- * Destructuring the Response
-    listStudiosResponse,
-    ListStudiosResponse,
+    ListStudiosResponse (..),
+    newListStudiosResponse,
 
     -- * Response Lenses
-    lrsStudios,
-    lrsMarker,
-    lrsResponseStatus,
+    listStudiosResponse_studios,
+    listStudiosResponse_marker,
+    listStudiosResponse_httpStatus,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EMR.Types.StudioSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listStudios' smart constructor.
-newtype ListStudios = ListStudios'
-  { _lsMarker ::
-      Maybe Text
+-- | /See:/ 'newListStudios' smart constructor.
+data ListStudios = ListStudios'
+  { -- | The pagination token that indicates the set of results to retrieve.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStudios' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStudios' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsMarker' - The pagination token that indicates the set of results to retrieve.
-listStudios ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'marker', 'listStudios_marker' - The pagination token that indicates the set of results to retrieve.
+newListStudios ::
   ListStudios
-listStudios = ListStudios' {_lsMarker = Nothing}
+newListStudios =
+  ListStudios' {marker = Prelude.Nothing}
 
 -- | The pagination token that indicates the set of results to retrieve.
-lsMarker :: Lens' ListStudios (Maybe Text)
-lsMarker = lens _lsMarker (\s a -> s {_lsMarker = a})
+listStudios_marker :: Lens.Lens' ListStudios (Prelude.Maybe Prelude.Text)
+listStudios_marker = Lens.lens (\ListStudios' {marker} -> marker) (\s@ListStudios' {} a -> s {marker = a} :: ListStudios)
 
-instance AWSPager ListStudios where
+instance Pager.AWSPager ListStudios where
   page rq rs
-    | stop (rs ^. lrsMarker) = Nothing
-    | stop (rs ^. lrsStudios) = Nothing
-    | otherwise = Just $ rq & lsMarker .~ rs ^. lrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listStudiosResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listStudiosResponse_studios Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listStudios_marker
+          Lens..~ rs
+          Lens.^? listStudiosResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest ListStudios where
+instance Prelude.AWSRequest ListStudios where
   type Rs ListStudios = ListStudiosResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListStudiosResponse'
-            <$> (x .?> "Studios" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Studios" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListStudios
+instance Prelude.Hashable ListStudios
 
-instance NFData ListStudios
+instance Prelude.NFData ListStudios
 
-instance ToHeaders ListStudios where
+instance Prelude.ToHeaders ListStudios where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("ElasticMapReduce.ListStudios" :: ByteString),
+              Prelude.=# ( "ElasticMapReduce.ListStudios" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListStudios where
+instance Prelude.ToJSON ListStudios where
   toJSON ListStudios' {..} =
-    object (catMaybes [("Marker" .=) <$> _lsMarker])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Marker" Prelude..=) Prelude.<$> marker]
+      )
 
-instance ToPath ListStudios where
-  toPath = const "/"
+instance Prelude.ToPath ListStudios where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListStudios where
-  toQuery = const mempty
+instance Prelude.ToQuery ListStudios where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listStudiosResponse' smart constructor.
+-- | /See:/ 'newListStudiosResponse' smart constructor.
 data ListStudiosResponse = ListStudiosResponse'
-  { _lrsStudios ::
-      !(Maybe [StudioSummary]),
-    _lrsMarker :: !(Maybe Text),
-    _lrsResponseStatus :: !Int
+  { -- | The list of Studio summary objects.
+    studios :: Prelude.Maybe [StudioSummary],
+    -- | The pagination token that indicates the next set of results to retrieve.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStudiosResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStudiosResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrsStudios' - The list of Studio summary objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrsMarker' - The pagination token that indicates the next set of results to retrieve.
+-- 'studios', 'listStudiosResponse_studios' - The list of Studio summary objects.
 --
--- * 'lrsResponseStatus' - -- | The response status code.
-listStudiosResponse ::
-  -- | 'lrsResponseStatus'
-  Int ->
+-- 'marker', 'listStudiosResponse_marker' - The pagination token that indicates the next set of results to retrieve.
+--
+-- 'httpStatus', 'listStudiosResponse_httpStatus' - The response's http status code.
+newListStudiosResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListStudiosResponse
-listStudiosResponse pResponseStatus_ =
+newListStudiosResponse pHttpStatus_ =
   ListStudiosResponse'
-    { _lrsStudios = Nothing,
-      _lrsMarker = Nothing,
-      _lrsResponseStatus = pResponseStatus_
+    { studios = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of Studio summary objects.
-lrsStudios :: Lens' ListStudiosResponse [StudioSummary]
-lrsStudios = lens _lrsStudios (\s a -> s {_lrsStudios = a}) . _Default . _Coerce
+listStudiosResponse_studios :: Lens.Lens' ListStudiosResponse (Prelude.Maybe [StudioSummary])
+listStudiosResponse_studios = Lens.lens (\ListStudiosResponse' {studios} -> studios) (\s@ListStudiosResponse' {} a -> s {studios = a} :: ListStudiosResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The pagination token that indicates the next set of results to retrieve.
-lrsMarker :: Lens' ListStudiosResponse (Maybe Text)
-lrsMarker = lens _lrsMarker (\s a -> s {_lrsMarker = a})
+listStudiosResponse_marker :: Lens.Lens' ListStudiosResponse (Prelude.Maybe Prelude.Text)
+listStudiosResponse_marker = Lens.lens (\ListStudiosResponse' {marker} -> marker) (\s@ListStudiosResponse' {} a -> s {marker = a} :: ListStudiosResponse)
 
--- | -- | The response status code.
-lrsResponseStatus :: Lens' ListStudiosResponse Int
-lrsResponseStatus = lens _lrsResponseStatus (\s a -> s {_lrsResponseStatus = a})
+-- | The response's http status code.
+listStudiosResponse_httpStatus :: Lens.Lens' ListStudiosResponse Prelude.Int
+listStudiosResponse_httpStatus = Lens.lens (\ListStudiosResponse' {httpStatus} -> httpStatus) (\s@ListStudiosResponse' {} a -> s {httpStatus = a} :: ListStudiosResponse)
 
-instance NFData ListStudiosResponse
+instance Prelude.NFData ListStudiosResponse

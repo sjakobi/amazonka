@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,147 +24,147 @@
 -- Provides details of a notebook execution.
 module Network.AWS.EMR.DescribeNotebookExecution
   ( -- * Creating a Request
-    describeNotebookExecution,
-    DescribeNotebookExecution,
+    DescribeNotebookExecution (..),
+    newDescribeNotebookExecution,
 
     -- * Request Lenses
-    dneNotebookExecutionId,
+    describeNotebookExecution_notebookExecutionId,
 
     -- * Destructuring the Response
-    describeNotebookExecutionResponse,
-    DescribeNotebookExecutionResponse,
+    DescribeNotebookExecutionResponse (..),
+    newDescribeNotebookExecutionResponse,
 
     -- * Response Lenses
-    dnerrsNotebookExecution,
-    dnerrsResponseStatus,
+    describeNotebookExecutionResponse_notebookExecution,
+    describeNotebookExecutionResponse_httpStatus,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EMR.Types.NotebookExecution
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeNotebookExecution' smart constructor.
-newtype DescribeNotebookExecution = DescribeNotebookExecution'
-  { _dneNotebookExecutionId ::
-      Text
+-- | /See:/ 'newDescribeNotebookExecution' smart constructor.
+data DescribeNotebookExecution = DescribeNotebookExecution'
+  { -- | The unique identifier of the notebook execution.
+    notebookExecutionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeNotebookExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeNotebookExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dneNotebookExecutionId' - The unique identifier of the notebook execution.
-describeNotebookExecution ::
-  -- | 'dneNotebookExecutionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'notebookExecutionId', 'describeNotebookExecution_notebookExecutionId' - The unique identifier of the notebook execution.
+newDescribeNotebookExecution ::
+  -- | 'notebookExecutionId'
+  Prelude.Text ->
   DescribeNotebookExecution
-describeNotebookExecution pNotebookExecutionId_ =
+newDescribeNotebookExecution pNotebookExecutionId_ =
   DescribeNotebookExecution'
-    { _dneNotebookExecutionId =
+    { notebookExecutionId =
         pNotebookExecutionId_
     }
 
 -- | The unique identifier of the notebook execution.
-dneNotebookExecutionId :: Lens' DescribeNotebookExecution Text
-dneNotebookExecutionId = lens _dneNotebookExecutionId (\s a -> s {_dneNotebookExecutionId = a})
+describeNotebookExecution_notebookExecutionId :: Lens.Lens' DescribeNotebookExecution Prelude.Text
+describeNotebookExecution_notebookExecutionId = Lens.lens (\DescribeNotebookExecution' {notebookExecutionId} -> notebookExecutionId) (\s@DescribeNotebookExecution' {} a -> s {notebookExecutionId = a} :: DescribeNotebookExecution)
 
-instance AWSRequest DescribeNotebookExecution where
+instance Prelude.AWSRequest DescribeNotebookExecution where
   type
     Rs DescribeNotebookExecution =
       DescribeNotebookExecutionResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeNotebookExecutionResponse'
-            <$> (x .?> "NotebookExecution") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NotebookExecution")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeNotebookExecution
+instance Prelude.Hashable DescribeNotebookExecution
 
-instance NFData DescribeNotebookExecution
+instance Prelude.NFData DescribeNotebookExecution
 
-instance ToHeaders DescribeNotebookExecution where
+instance Prelude.ToHeaders DescribeNotebookExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.DescribeNotebookExecution" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.DescribeNotebookExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeNotebookExecution where
+instance Prelude.ToJSON DescribeNotebookExecution where
   toJSON DescribeNotebookExecution' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("NotebookExecutionId" .= _dneNotebookExecutionId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "NotebookExecutionId"
+                  Prelude..= notebookExecutionId
+              )
           ]
       )
 
-instance ToPath DescribeNotebookExecution where
-  toPath = const "/"
+instance Prelude.ToPath DescribeNotebookExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeNotebookExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeNotebookExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeNotebookExecutionResponse' smart constructor.
+-- | /See:/ 'newDescribeNotebookExecutionResponse' smart constructor.
 data DescribeNotebookExecutionResponse = DescribeNotebookExecutionResponse'
-  { _dnerrsNotebookExecution ::
-      !( Maybe
-           NotebookExecution
-       ),
-    _dnerrsResponseStatus ::
-      !Int
+  { -- | Properties of the notebook execution.
+    notebookExecution :: Prelude.Maybe NotebookExecution,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeNotebookExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeNotebookExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnerrsNotebookExecution' - Properties of the notebook execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dnerrsResponseStatus' - -- | The response status code.
-describeNotebookExecutionResponse ::
-  -- | 'dnerrsResponseStatus'
-  Int ->
+-- 'notebookExecution', 'describeNotebookExecutionResponse_notebookExecution' - Properties of the notebook execution.
+--
+-- 'httpStatus', 'describeNotebookExecutionResponse_httpStatus' - The response's http status code.
+newDescribeNotebookExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeNotebookExecutionResponse
-describeNotebookExecutionResponse pResponseStatus_ =
+newDescribeNotebookExecutionResponse pHttpStatus_ =
   DescribeNotebookExecutionResponse'
-    { _dnerrsNotebookExecution =
-        Nothing,
-      _dnerrsResponseStatus = pResponseStatus_
+    { notebookExecution =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Properties of the notebook execution.
-dnerrsNotebookExecution :: Lens' DescribeNotebookExecutionResponse (Maybe NotebookExecution)
-dnerrsNotebookExecution = lens _dnerrsNotebookExecution (\s a -> s {_dnerrsNotebookExecution = a})
+describeNotebookExecutionResponse_notebookExecution :: Lens.Lens' DescribeNotebookExecutionResponse (Prelude.Maybe NotebookExecution)
+describeNotebookExecutionResponse_notebookExecution = Lens.lens (\DescribeNotebookExecutionResponse' {notebookExecution} -> notebookExecution) (\s@DescribeNotebookExecutionResponse' {} a -> s {notebookExecution = a} :: DescribeNotebookExecutionResponse)
 
--- | -- | The response status code.
-dnerrsResponseStatus :: Lens' DescribeNotebookExecutionResponse Int
-dnerrsResponseStatus = lens _dnerrsResponseStatus (\s a -> s {_dnerrsResponseStatus = a})
+-- | The response's http status code.
+describeNotebookExecutionResponse_httpStatus :: Lens.Lens' DescribeNotebookExecutionResponse Prelude.Int
+describeNotebookExecutionResponse_httpStatus = Lens.lens (\DescribeNotebookExecutionResponse' {httpStatus} -> httpStatus) (\s@DescribeNotebookExecutionResponse' {} a -> s {httpStatus = a} :: DescribeNotebookExecutionResponse)
 
-instance NFData DescribeNotebookExecutionResponse
+instance
+  Prelude.NFData
+    DescribeNotebookExecutionResponse

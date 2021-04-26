@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.EMR.Types.StepState
   ( StepState
       ( ..,
-        CancelPending,
-        Cancelled,
-        Completed,
-        Failed,
-        Interrupted,
-        Pending,
-        Running
+        StepStateCANCELLED,
+        StepStateCANCELPENDING,
+        StepStateCOMPLETED,
+        StepStateFAILED,
+        StepStateINTERRUPTED,
+        StepStatePENDING,
+        StepStateRUNNING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StepState = StepState' (CI Text)
+newtype StepState = StepState'
+  { fromStepState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CancelPending :: StepState
-pattern CancelPending = StepState' "CANCEL_PENDING"
+pattern StepStateCANCELLED :: StepState
+pattern StepStateCANCELLED = StepState' "CANCELLED"
 
-pattern Cancelled :: StepState
-pattern Cancelled = StepState' "CANCELLED"
+pattern StepStateCANCELPENDING :: StepState
+pattern StepStateCANCELPENDING = StepState' "CANCEL_PENDING"
 
-pattern Completed :: StepState
-pattern Completed = StepState' "COMPLETED"
+pattern StepStateCOMPLETED :: StepState
+pattern StepStateCOMPLETED = StepState' "COMPLETED"
 
-pattern Failed :: StepState
-pattern Failed = StepState' "FAILED"
+pattern StepStateFAILED :: StepState
+pattern StepStateFAILED = StepState' "FAILED"
 
-pattern Interrupted :: StepState
-pattern Interrupted = StepState' "INTERRUPTED"
+pattern StepStateINTERRUPTED :: StepState
+pattern StepStateINTERRUPTED = StepState' "INTERRUPTED"
 
-pattern Pending :: StepState
-pattern Pending = StepState' "PENDING"
+pattern StepStatePENDING :: StepState
+pattern StepStatePENDING = StepState' "PENDING"
 
-pattern Running :: StepState
-pattern Running = StepState' "RUNNING"
+pattern StepStateRUNNING :: StepState
+pattern StepStateRUNNING = StepState' "RUNNING"
 
 {-# COMPLETE
-  CancelPending,
-  Cancelled,
-  Completed,
-  Failed,
-  Interrupted,
-  Pending,
-  Running,
+  StepStateCANCELLED,
+  StepStateCANCELPENDING,
+  StepStateCOMPLETED,
+  StepStateFAILED,
+  StepStateINTERRUPTED,
+  StepStatePENDING,
+  StepStateRUNNING,
   StepState'
   #-}
 
-instance FromText StepState where
-  parser = (StepState' . mk) <$> takeText
+instance Prelude.FromText StepState where
+  parser = StepState' Prelude.<$> Prelude.takeText
 
-instance ToText StepState where
-  toText (StepState' ci) = original ci
+instance Prelude.ToText StepState where
+  toText (StepState' x) = x
 
-instance Hashable StepState
+instance Prelude.Hashable StepState
 
-instance NFData StepState
+instance Prelude.NFData StepState
 
-instance ToByteString StepState
+instance Prelude.ToByteString StepState
 
-instance ToQuery StepState
+instance Prelude.ToQuery StepState
 
-instance ToHeader StepState
+instance Prelude.ToHeader StepState
 
-instance ToJSON StepState where
-  toJSON = toJSONText
+instance Prelude.ToJSON StepState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StepState where
-  parseJSON = parseJSONText "StepState"
+instance Prelude.FromJSON StepState where
+  parseJSON = Prelude.parseJSONText "StepState"

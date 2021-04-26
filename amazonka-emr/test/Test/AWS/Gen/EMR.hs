@@ -28,283 +28,283 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDescribeStep $
---             describeStep
+--             newDescribeStep
 --
 --         , requestRemoveTags $
---             removeTags
+--             newRemoveTags
 --
 --         , requestDeleteSecurityConfiguration $
---             deleteSecurityConfiguration
+--             newDeleteSecurityConfiguration
 --
 --         , requestListSecurityConfigurations $
---             listSecurityConfigurations
+--             newListSecurityConfigurations
 --
 --         , requestModifyInstanceFleet $
---             modifyInstanceFleet
+--             newModifyInstanceFleet
 --
 --         , requestRunJobFlow $
---             runJobFlow
+--             newRunJobFlow
 --
 --         , requestGetStudioSessionMapping $
---             getStudioSessionMapping
+--             newGetStudioSessionMapping
 --
 --         , requestSetVisibleToAllUsers $
---             setVisibleToAllUsers
+--             newSetVisibleToAllUsers
 --
 --         , requestAddInstanceGroups $
---             addInstanceGroups
+--             newAddInstanceGroups
 --
 --         , requestCreateStudio $
---             createStudio
+--             newCreateStudio
 --
 --         , requestDeleteStudio $
---             deleteStudio
+--             newDeleteStudio
 --
 --         , requestUpdateStudio $
---             updateStudio
+--             newUpdateStudio
 --
 --         , requestListInstanceFleets $
---             listInstanceFleets
+--             newListInstanceFleets
 --
 --         , requestRemoveManagedScalingPolicy $
---             removeManagedScalingPolicy
+--             newRemoveManagedScalingPolicy
 --
 --         , requestDescribeSecurityConfiguration $
---             describeSecurityConfiguration
+--             newDescribeSecurityConfiguration
 --
 --         , requestStartNotebookExecution $
---             startNotebookExecution
+--             newStartNotebookExecution
 --
 --         , requestListStudioSessionMappings $
---             listStudioSessionMappings
+--             newListStudioSessionMappings
 --
 --         , requestStopNotebookExecution $
---             stopNotebookExecution
+--             newStopNotebookExecution
 --
 --         , requestListInstances $
---             listInstances
+--             newListInstances
 --
 --         , requestAddTags $
---             addTags
+--             newAddTags
 --
 --         , requestAddJobFlowSteps $
---             addJobFlowSteps
+--             newAddJobFlowSteps
 --
 --         , requestListBootstrapActions $
---             listBootstrapActions
+--             newListBootstrapActions
 --
 --         , requestListNotebookExecutions $
---             listNotebookExecutions
+--             newListNotebookExecutions
 --
 --         , requestGetBlockPublicAccessConfiguration $
---             getBlockPublicAccessConfiguration
+--             newGetBlockPublicAccessConfiguration
 --
 --         , requestModifyCluster $
---             modifyCluster
+--             newModifyCluster
 --
 --         , requestTerminateJobFlows $
---             terminateJobFlows
+--             newTerminateJobFlows
 --
 --         , requestDescribeCluster $
---             describeCluster
+--             newDescribeCluster
 --
 --         , requestCancelSteps $
---             cancelSteps
+--             newCancelSteps
 --
 --         , requestListInstanceGroups $
---             listInstanceGroups
+--             newListInstanceGroups
 --
 --         , requestRemoveAutoScalingPolicy $
---             removeAutoScalingPolicy
+--             newRemoveAutoScalingPolicy
 --
 --         , requestPutManagedScalingPolicy $
---             putManagedScalingPolicy
+--             newPutManagedScalingPolicy
 --
 --         , requestListStudios $
---             listStudios
+--             newListStudios
 --
 --         , requestAddInstanceFleet $
---             addInstanceFleet
+--             newAddInstanceFleet
 --
 --         , requestCreateStudioSessionMapping $
---             createStudioSessionMapping
+--             newCreateStudioSessionMapping
 --
 --         , requestGetManagedScalingPolicy $
---             getManagedScalingPolicy
+--             newGetManagedScalingPolicy
 --
 --         , requestDescribeNotebookExecution $
---             describeNotebookExecution
+--             newDescribeNotebookExecution
 --
 --         , requestUpdateStudioSessionMapping $
---             updateStudioSessionMapping
+--             newUpdateStudioSessionMapping
 --
 --         , requestDeleteStudioSessionMapping $
---             deleteStudioSessionMapping
+--             newDeleteStudioSessionMapping
 --
 --         , requestListSteps $
---             listSteps
+--             newListSteps
 --
 --         , requestListClusters $
---             listClusters
+--             newListClusters
 --
 --         , requestPutAutoScalingPolicy $
---             putAutoScalingPolicy
+--             newPutAutoScalingPolicy
 --
 --         , requestSetTerminationProtection $
---             setTerminationProtection
+--             newSetTerminationProtection
 --
 --         , requestPutBlockPublicAccessConfiguration $
---             putBlockPublicAccessConfiguration
+--             newPutBlockPublicAccessConfiguration
 --
 --         , requestDescribeStudio $
---             describeStudio
+--             newDescribeStudio
 --
 --         , requestModifyInstanceGroups $
---             modifyInstanceGroups
+--             newModifyInstanceGroups
 --
 --         , requestCreateSecurityConfiguration $
---             createSecurityConfiguration
+--             newCreateSecurityConfiguration
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDescribeStep $
---             describeStepResponse
+--             newDescribeStepResponse
 --
 --         , responseRemoveTags $
---             removeTagsResponse
+--             newRemoveTagsResponse
 --
 --         , responseDeleteSecurityConfiguration $
---             deleteSecurityConfigurationResponse
+--             newDeleteSecurityConfigurationResponse
 --
 --         , responseListSecurityConfigurations $
---             listSecurityConfigurationsResponse
+--             newListSecurityConfigurationsResponse
 --
 --         , responseModifyInstanceFleet $
---             modifyInstanceFleetResponse
+--             newModifyInstanceFleetResponse
 --
 --         , responseRunJobFlow $
---             runJobFlowResponse
+--             newRunJobFlowResponse
 --
 --         , responseGetStudioSessionMapping $
---             getStudioSessionMappingResponse
+--             newGetStudioSessionMappingResponse
 --
 --         , responseSetVisibleToAllUsers $
---             setVisibleToAllUsersResponse
+--             newSetVisibleToAllUsersResponse
 --
 --         , responseAddInstanceGroups $
---             addInstanceGroupsResponse
+--             newAddInstanceGroupsResponse
 --
 --         , responseCreateStudio $
---             createStudioResponse
+--             newCreateStudioResponse
 --
 --         , responseDeleteStudio $
---             deleteStudioResponse
+--             newDeleteStudioResponse
 --
 --         , responseUpdateStudio $
---             updateStudioResponse
+--             newUpdateStudioResponse
 --
 --         , responseListInstanceFleets $
---             listInstanceFleetsResponse
+--             newListInstanceFleetsResponse
 --
 --         , responseRemoveManagedScalingPolicy $
---             removeManagedScalingPolicyResponse
+--             newRemoveManagedScalingPolicyResponse
 --
 --         , responseDescribeSecurityConfiguration $
---             describeSecurityConfigurationResponse
+--             newDescribeSecurityConfigurationResponse
 --
 --         , responseStartNotebookExecution $
---             startNotebookExecutionResponse
+--             newStartNotebookExecutionResponse
 --
 --         , responseListStudioSessionMappings $
---             listStudioSessionMappingsResponse
+--             newListStudioSessionMappingsResponse
 --
 --         , responseStopNotebookExecution $
---             stopNotebookExecutionResponse
+--             newStopNotebookExecutionResponse
 --
 --         , responseListInstances $
---             listInstancesResponse
+--             newListInstancesResponse
 --
 --         , responseAddTags $
---             addTagsResponse
+--             newAddTagsResponse
 --
 --         , responseAddJobFlowSteps $
---             addJobFlowStepsResponse
+--             newAddJobFlowStepsResponse
 --
 --         , responseListBootstrapActions $
---             listBootstrapActionsResponse
+--             newListBootstrapActionsResponse
 --
 --         , responseListNotebookExecutions $
---             listNotebookExecutionsResponse
+--             newListNotebookExecutionsResponse
 --
 --         , responseGetBlockPublicAccessConfiguration $
---             getBlockPublicAccessConfigurationResponse
+--             newGetBlockPublicAccessConfigurationResponse
 --
 --         , responseModifyCluster $
---             modifyClusterResponse
+--             newModifyClusterResponse
 --
 --         , responseTerminateJobFlows $
---             terminateJobFlowsResponse
+--             newTerminateJobFlowsResponse
 --
 --         , responseDescribeCluster $
---             describeClusterResponse
+--             newDescribeClusterResponse
 --
 --         , responseCancelSteps $
---             cancelStepsResponse
+--             newCancelStepsResponse
 --
 --         , responseListInstanceGroups $
---             listInstanceGroupsResponse
+--             newListInstanceGroupsResponse
 --
 --         , responseRemoveAutoScalingPolicy $
---             removeAutoScalingPolicyResponse
+--             newRemoveAutoScalingPolicyResponse
 --
 --         , responsePutManagedScalingPolicy $
---             putManagedScalingPolicyResponse
+--             newPutManagedScalingPolicyResponse
 --
 --         , responseListStudios $
---             listStudiosResponse
+--             newListStudiosResponse
 --
 --         , responseAddInstanceFleet $
---             addInstanceFleetResponse
+--             newAddInstanceFleetResponse
 --
 --         , responseCreateStudioSessionMapping $
---             createStudioSessionMappingResponse
+--             newCreateStudioSessionMappingResponse
 --
 --         , responseGetManagedScalingPolicy $
---             getManagedScalingPolicyResponse
+--             newGetManagedScalingPolicyResponse
 --
 --         , responseDescribeNotebookExecution $
---             describeNotebookExecutionResponse
+--             newDescribeNotebookExecutionResponse
 --
 --         , responseUpdateStudioSessionMapping $
---             updateStudioSessionMappingResponse
+--             newUpdateStudioSessionMappingResponse
 --
 --         , responseDeleteStudioSessionMapping $
---             deleteStudioSessionMappingResponse
+--             newDeleteStudioSessionMappingResponse
 --
 --         , responseListSteps $
---             listStepsResponse
+--             newListStepsResponse
 --
 --         , responseListClusters $
---             listClustersResponse
+--             newListClustersResponse
 --
 --         , responsePutAutoScalingPolicy $
---             putAutoScalingPolicyResponse
+--             newPutAutoScalingPolicyResponse
 --
 --         , responseSetTerminationProtection $
---             setTerminationProtectionResponse
+--             newSetTerminationProtectionResponse
 --
 --         , responsePutBlockPublicAccessConfiguration $
---             putBlockPublicAccessConfigurationResponse
+--             newPutBlockPublicAccessConfigurationResponse
 --
 --         , responseDescribeStudio $
---             describeStudioResponse
+--             newDescribeStudioResponse
 --
 --         , responseModifyInstanceGroups $
---             modifyInstanceGroupsResponse
+--             newModifyInstanceGroupsResponse
 --
 --         , responseCreateSecurityConfiguration $
---             createSecurityConfigurationResponse
+--             newCreateSecurityConfigurationResponse
 --
 --           ]
 --     ]
@@ -594,7 +594,7 @@ responseDescribeStep =
   res
     "DescribeStepResponse"
     "fixture/DescribeStepResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy DescribeStep)
 
 responseRemoveTags :: RemoveTagsResponse -> TestTree
@@ -602,7 +602,7 @@ responseRemoveTags =
   res
     "RemoveTagsResponse"
     "fixture/RemoveTagsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy RemoveTags)
 
 responseDeleteSecurityConfiguration :: DeleteSecurityConfigurationResponse -> TestTree
@@ -610,7 +610,7 @@ responseDeleteSecurityConfiguration =
   res
     "DeleteSecurityConfigurationResponse"
     "fixture/DeleteSecurityConfigurationResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy DeleteSecurityConfiguration)
 
 responseListSecurityConfigurations :: ListSecurityConfigurationsResponse -> TestTree
@@ -618,7 +618,7 @@ responseListSecurityConfigurations =
   res
     "ListSecurityConfigurationsResponse"
     "fixture/ListSecurityConfigurationsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListSecurityConfigurations)
 
 responseModifyInstanceFleet :: ModifyInstanceFleetResponse -> TestTree
@@ -626,7 +626,7 @@ responseModifyInstanceFleet =
   res
     "ModifyInstanceFleetResponse"
     "fixture/ModifyInstanceFleetResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ModifyInstanceFleet)
 
 responseRunJobFlow :: RunJobFlowResponse -> TestTree
@@ -634,7 +634,7 @@ responseRunJobFlow =
   res
     "RunJobFlowResponse"
     "fixture/RunJobFlowResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy RunJobFlow)
 
 responseGetStudioSessionMapping :: GetStudioSessionMappingResponse -> TestTree
@@ -642,7 +642,7 @@ responseGetStudioSessionMapping =
   res
     "GetStudioSessionMappingResponse"
     "fixture/GetStudioSessionMappingResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy GetStudioSessionMapping)
 
 responseSetVisibleToAllUsers :: SetVisibleToAllUsersResponse -> TestTree
@@ -650,7 +650,7 @@ responseSetVisibleToAllUsers =
   res
     "SetVisibleToAllUsersResponse"
     "fixture/SetVisibleToAllUsersResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy SetVisibleToAllUsers)
 
 responseAddInstanceGroups :: AddInstanceGroupsResponse -> TestTree
@@ -658,7 +658,7 @@ responseAddInstanceGroups =
   res
     "AddInstanceGroupsResponse"
     "fixture/AddInstanceGroupsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy AddInstanceGroups)
 
 responseCreateStudio :: CreateStudioResponse -> TestTree
@@ -666,7 +666,7 @@ responseCreateStudio =
   res
     "CreateStudioResponse"
     "fixture/CreateStudioResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy CreateStudio)
 
 responseDeleteStudio :: DeleteStudioResponse -> TestTree
@@ -674,7 +674,7 @@ responseDeleteStudio =
   res
     "DeleteStudioResponse"
     "fixture/DeleteStudioResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy DeleteStudio)
 
 responseUpdateStudio :: UpdateStudioResponse -> TestTree
@@ -682,7 +682,7 @@ responseUpdateStudio =
   res
     "UpdateStudioResponse"
     "fixture/UpdateStudioResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy UpdateStudio)
 
 responseListInstanceFleets :: ListInstanceFleetsResponse -> TestTree
@@ -690,7 +690,7 @@ responseListInstanceFleets =
   res
     "ListInstanceFleetsResponse"
     "fixture/ListInstanceFleetsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListInstanceFleets)
 
 responseRemoveManagedScalingPolicy :: RemoveManagedScalingPolicyResponse -> TestTree
@@ -698,7 +698,7 @@ responseRemoveManagedScalingPolicy =
   res
     "RemoveManagedScalingPolicyResponse"
     "fixture/RemoveManagedScalingPolicyResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy RemoveManagedScalingPolicy)
 
 responseDescribeSecurityConfiguration :: DescribeSecurityConfigurationResponse -> TestTree
@@ -706,7 +706,7 @@ responseDescribeSecurityConfiguration =
   res
     "DescribeSecurityConfigurationResponse"
     "fixture/DescribeSecurityConfigurationResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy DescribeSecurityConfiguration)
 
 responseStartNotebookExecution :: StartNotebookExecutionResponse -> TestTree
@@ -714,7 +714,7 @@ responseStartNotebookExecution =
   res
     "StartNotebookExecutionResponse"
     "fixture/StartNotebookExecutionResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy StartNotebookExecution)
 
 responseListStudioSessionMappings :: ListStudioSessionMappingsResponse -> TestTree
@@ -722,7 +722,7 @@ responseListStudioSessionMappings =
   res
     "ListStudioSessionMappingsResponse"
     "fixture/ListStudioSessionMappingsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListStudioSessionMappings)
 
 responseStopNotebookExecution :: StopNotebookExecutionResponse -> TestTree
@@ -730,7 +730,7 @@ responseStopNotebookExecution =
   res
     "StopNotebookExecutionResponse"
     "fixture/StopNotebookExecutionResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy StopNotebookExecution)
 
 responseListInstances :: ListInstancesResponse -> TestTree
@@ -738,7 +738,7 @@ responseListInstances =
   res
     "ListInstancesResponse"
     "fixture/ListInstancesResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListInstances)
 
 responseAddTags :: AddTagsResponse -> TestTree
@@ -746,7 +746,7 @@ responseAddTags =
   res
     "AddTagsResponse"
     "fixture/AddTagsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy AddTags)
 
 responseAddJobFlowSteps :: AddJobFlowStepsResponse -> TestTree
@@ -754,7 +754,7 @@ responseAddJobFlowSteps =
   res
     "AddJobFlowStepsResponse"
     "fixture/AddJobFlowStepsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy AddJobFlowSteps)
 
 responseListBootstrapActions :: ListBootstrapActionsResponse -> TestTree
@@ -762,7 +762,7 @@ responseListBootstrapActions =
   res
     "ListBootstrapActionsResponse"
     "fixture/ListBootstrapActionsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListBootstrapActions)
 
 responseListNotebookExecutions :: ListNotebookExecutionsResponse -> TestTree
@@ -770,7 +770,7 @@ responseListNotebookExecutions =
   res
     "ListNotebookExecutionsResponse"
     "fixture/ListNotebookExecutionsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListNotebookExecutions)
 
 responseGetBlockPublicAccessConfiguration :: GetBlockPublicAccessConfigurationResponse -> TestTree
@@ -778,7 +778,7 @@ responseGetBlockPublicAccessConfiguration =
   res
     "GetBlockPublicAccessConfigurationResponse"
     "fixture/GetBlockPublicAccessConfigurationResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy GetBlockPublicAccessConfiguration)
 
 responseModifyCluster :: ModifyClusterResponse -> TestTree
@@ -786,7 +786,7 @@ responseModifyCluster =
   res
     "ModifyClusterResponse"
     "fixture/ModifyClusterResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ModifyCluster)
 
 responseTerminateJobFlows :: TerminateJobFlowsResponse -> TestTree
@@ -794,7 +794,7 @@ responseTerminateJobFlows =
   res
     "TerminateJobFlowsResponse"
     "fixture/TerminateJobFlowsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy TerminateJobFlows)
 
 responseDescribeCluster :: DescribeClusterResponse -> TestTree
@@ -802,7 +802,7 @@ responseDescribeCluster =
   res
     "DescribeClusterResponse"
     "fixture/DescribeClusterResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy DescribeCluster)
 
 responseCancelSteps :: CancelStepsResponse -> TestTree
@@ -810,7 +810,7 @@ responseCancelSteps =
   res
     "CancelStepsResponse"
     "fixture/CancelStepsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy CancelSteps)
 
 responseListInstanceGroups :: ListInstanceGroupsResponse -> TestTree
@@ -818,7 +818,7 @@ responseListInstanceGroups =
   res
     "ListInstanceGroupsResponse"
     "fixture/ListInstanceGroupsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListInstanceGroups)
 
 responseRemoveAutoScalingPolicy :: RemoveAutoScalingPolicyResponse -> TestTree
@@ -826,7 +826,7 @@ responseRemoveAutoScalingPolicy =
   res
     "RemoveAutoScalingPolicyResponse"
     "fixture/RemoveAutoScalingPolicyResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy RemoveAutoScalingPolicy)
 
 responsePutManagedScalingPolicy :: PutManagedScalingPolicyResponse -> TestTree
@@ -834,7 +834,7 @@ responsePutManagedScalingPolicy =
   res
     "PutManagedScalingPolicyResponse"
     "fixture/PutManagedScalingPolicyResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy PutManagedScalingPolicy)
 
 responseListStudios :: ListStudiosResponse -> TestTree
@@ -842,7 +842,7 @@ responseListStudios =
   res
     "ListStudiosResponse"
     "fixture/ListStudiosResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListStudios)
 
 responseAddInstanceFleet :: AddInstanceFleetResponse -> TestTree
@@ -850,7 +850,7 @@ responseAddInstanceFleet =
   res
     "AddInstanceFleetResponse"
     "fixture/AddInstanceFleetResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy AddInstanceFleet)
 
 responseCreateStudioSessionMapping :: CreateStudioSessionMappingResponse -> TestTree
@@ -858,7 +858,7 @@ responseCreateStudioSessionMapping =
   res
     "CreateStudioSessionMappingResponse"
     "fixture/CreateStudioSessionMappingResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy CreateStudioSessionMapping)
 
 responseGetManagedScalingPolicy :: GetManagedScalingPolicyResponse -> TestTree
@@ -866,7 +866,7 @@ responseGetManagedScalingPolicy =
   res
     "GetManagedScalingPolicyResponse"
     "fixture/GetManagedScalingPolicyResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy GetManagedScalingPolicy)
 
 responseDescribeNotebookExecution :: DescribeNotebookExecutionResponse -> TestTree
@@ -874,7 +874,7 @@ responseDescribeNotebookExecution =
   res
     "DescribeNotebookExecutionResponse"
     "fixture/DescribeNotebookExecutionResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy DescribeNotebookExecution)
 
 responseUpdateStudioSessionMapping :: UpdateStudioSessionMappingResponse -> TestTree
@@ -882,7 +882,7 @@ responseUpdateStudioSessionMapping =
   res
     "UpdateStudioSessionMappingResponse"
     "fixture/UpdateStudioSessionMappingResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy UpdateStudioSessionMapping)
 
 responseDeleteStudioSessionMapping :: DeleteStudioSessionMappingResponse -> TestTree
@@ -890,7 +890,7 @@ responseDeleteStudioSessionMapping =
   res
     "DeleteStudioSessionMappingResponse"
     "fixture/DeleteStudioSessionMappingResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy DeleteStudioSessionMapping)
 
 responseListSteps :: ListStepsResponse -> TestTree
@@ -898,7 +898,7 @@ responseListSteps =
   res
     "ListStepsResponse"
     "fixture/ListStepsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListSteps)
 
 responseListClusters :: ListClustersResponse -> TestTree
@@ -906,7 +906,7 @@ responseListClusters =
   res
     "ListClustersResponse"
     "fixture/ListClustersResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ListClusters)
 
 responsePutAutoScalingPolicy :: PutAutoScalingPolicyResponse -> TestTree
@@ -914,7 +914,7 @@ responsePutAutoScalingPolicy =
   res
     "PutAutoScalingPolicyResponse"
     "fixture/PutAutoScalingPolicyResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy PutAutoScalingPolicy)
 
 responseSetTerminationProtection :: SetTerminationProtectionResponse -> TestTree
@@ -922,7 +922,7 @@ responseSetTerminationProtection =
   res
     "SetTerminationProtectionResponse"
     "fixture/SetTerminationProtectionResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy SetTerminationProtection)
 
 responsePutBlockPublicAccessConfiguration :: PutBlockPublicAccessConfigurationResponse -> TestTree
@@ -930,7 +930,7 @@ responsePutBlockPublicAccessConfiguration =
   res
     "PutBlockPublicAccessConfigurationResponse"
     "fixture/PutBlockPublicAccessConfigurationResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy PutBlockPublicAccessConfiguration)
 
 responseDescribeStudio :: DescribeStudioResponse -> TestTree
@@ -938,7 +938,7 @@ responseDescribeStudio =
   res
     "DescribeStudioResponse"
     "fixture/DescribeStudioResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy DescribeStudio)
 
 responseModifyInstanceGroups :: ModifyInstanceGroupsResponse -> TestTree
@@ -946,7 +946,7 @@ responseModifyInstanceGroups =
   res
     "ModifyInstanceGroupsResponse"
     "fixture/ModifyInstanceGroupsResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy ModifyInstanceGroups)
 
 responseCreateSecurityConfiguration :: CreateSecurityConfigurationResponse -> TestTree
@@ -954,5 +954,5 @@ responseCreateSecurityConfiguration =
   res
     "CreateSecurityConfigurationResponse"
     "fixture/CreateSecurityConfigurationResponse.proto"
-    emr
+    defaultService
     (Proxy :: Proxy CreateSecurityConfiguration)

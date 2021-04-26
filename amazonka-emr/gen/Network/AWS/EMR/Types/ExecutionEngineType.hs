@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.EMR.Types.ExecutionEngineType
   ( ExecutionEngineType
       ( ..,
-        Emr
+        ExecutionEngineTypeEMR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutionEngineType
-  = ExecutionEngineType'
-      ( CI
-          Text
-      )
+newtype ExecutionEngineType = ExecutionEngineType'
+  { fromExecutionEngineType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Emr :: ExecutionEngineType
-pattern Emr = ExecutionEngineType' "EMR"
+pattern ExecutionEngineTypeEMR :: ExecutionEngineType
+pattern ExecutionEngineTypeEMR = ExecutionEngineType' "EMR"
 
 {-# COMPLETE
-  Emr,
+  ExecutionEngineTypeEMR,
   ExecutionEngineType'
   #-}
 
-instance FromText ExecutionEngineType where
-  parser = (ExecutionEngineType' . mk) <$> takeText
+instance Prelude.FromText ExecutionEngineType where
+  parser = ExecutionEngineType' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutionEngineType where
-  toText (ExecutionEngineType' ci) = original ci
+instance Prelude.ToText ExecutionEngineType where
+  toText (ExecutionEngineType' x) = x
 
-instance Hashable ExecutionEngineType
+instance Prelude.Hashable ExecutionEngineType
 
-instance NFData ExecutionEngineType
+instance Prelude.NFData ExecutionEngineType
 
-instance ToByteString ExecutionEngineType
+instance Prelude.ToByteString ExecutionEngineType
 
-instance ToQuery ExecutionEngineType
+instance Prelude.ToQuery ExecutionEngineType
 
-instance ToHeader ExecutionEngineType
+instance Prelude.ToHeader ExecutionEngineType
 
-instance ToJSON ExecutionEngineType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExecutionEngineType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExecutionEngineType where
-  parseJSON = parseJSONText "ExecutionEngineType"
+instance Prelude.FromJSON ExecutionEngineType where
+  parseJSON = Prelude.parseJSONText "ExecutionEngineType"

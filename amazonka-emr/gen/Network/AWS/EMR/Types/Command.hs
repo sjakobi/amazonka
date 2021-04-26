@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.Command where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An entity describing an executable that runs on a cluster.
 --
---
---
--- /See:/ 'command' smart constructor.
+-- /See:/ 'newCommand' smart constructor.
 data Command = Command'
-  { _comArgs :: !(Maybe [Text]),
-    _comScriptPath :: !(Maybe Text),
-    _comName :: !(Maybe Text)
+  { -- | Arguments for Amazon EMR to pass to the command for execution.
+    args :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon S3 location of the command script.
+    scriptPath :: Prelude.Maybe Prelude.Text,
+    -- | The name of the command.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Command' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Command' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'comArgs' - Arguments for Amazon EMR to pass to the command for execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'comScriptPath' - The Amazon S3 location of the command script.
+-- 'args', 'command_args' - Arguments for Amazon EMR to pass to the command for execution.
 --
--- * 'comName' - The name of the command.
-command ::
+-- 'scriptPath', 'command_scriptPath' - The Amazon S3 location of the command script.
+--
+-- 'name', 'command_name' - The name of the command.
+newCommand ::
   Command
-command =
+newCommand =
   Command'
-    { _comArgs = Nothing,
-      _comScriptPath = Nothing,
-      _comName = Nothing
+    { args = Prelude.Nothing,
+      scriptPath = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | Arguments for Amazon EMR to pass to the command for execution.
-comArgs :: Lens' Command [Text]
-comArgs = lens _comArgs (\s a -> s {_comArgs = a}) . _Default . _Coerce
+command_args :: Lens.Lens' Command (Prelude.Maybe [Prelude.Text])
+command_args = Lens.lens (\Command' {args} -> args) (\s@Command' {} a -> s {args = a} :: Command) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon S3 location of the command script.
-comScriptPath :: Lens' Command (Maybe Text)
-comScriptPath = lens _comScriptPath (\s a -> s {_comScriptPath = a})
+command_scriptPath :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_scriptPath = Lens.lens (\Command' {scriptPath} -> scriptPath) (\s@Command' {} a -> s {scriptPath = a} :: Command)
 
 -- | The name of the command.
-comName :: Lens' Command (Maybe Text)
-comName = lens _comName (\s a -> s {_comName = a})
+command_name :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_name = Lens.lens (\Command' {name} -> name) (\s@Command' {} a -> s {name = a} :: Command)
 
-instance FromJSON Command where
+instance Prelude.FromJSON Command where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Command"
       ( \x ->
           Command'
-            <$> (x .:? "Args" .!= mempty)
-            <*> (x .:? "ScriptPath")
-            <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Args" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ScriptPath")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable Command
+instance Prelude.Hashable Command
 
-instance NFData Command
+instance Prelude.NFData Command

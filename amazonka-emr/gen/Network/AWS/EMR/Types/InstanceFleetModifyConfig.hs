@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.InstanceFleetModifyConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration parameters for an instance fleet modification request.
 --
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions.
 --
---
--- /See:/ 'instanceFleetModifyConfig' smart constructor.
+-- /See:/ 'newInstanceFleetModifyConfig' smart constructor.
 data InstanceFleetModifyConfig = InstanceFleetModifyConfig'
-  { _ifmcTargetOnDemandCapacity ::
-      !(Maybe Nat),
-    _ifmcTargetSpotCapacity ::
-      !(Maybe Nat),
-    _ifmcInstanceFleetId ::
-      !Text
+  { -- | The target capacity of On-Demand units for the instance fleet. For more
+    -- information see InstanceFleetConfig$TargetOnDemandCapacity.
+    targetOnDemandCapacity :: Prelude.Maybe Prelude.Nat,
+    -- | The target capacity of Spot units for the instance fleet. For more
+    -- information, see InstanceFleetConfig$TargetSpotCapacity.
+    targetSpotCapacity :: Prelude.Maybe Prelude.Nat,
+    -- | A unique identifier for the instance fleet.
+    instanceFleetId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceFleetModifyConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceFleetModifyConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ifmcTargetOnDemandCapacity' - The target capacity of On-Demand units for the instance fleet. For more information see 'InstanceFleetConfig$TargetOnDemandCapacity' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ifmcTargetSpotCapacity' - The target capacity of Spot units for the instance fleet. For more information, see 'InstanceFleetConfig$TargetSpotCapacity' .
+-- 'targetOnDemandCapacity', 'instanceFleetModifyConfig_targetOnDemandCapacity' - The target capacity of On-Demand units for the instance fleet. For more
+-- information see InstanceFleetConfig$TargetOnDemandCapacity.
 --
--- * 'ifmcInstanceFleetId' - A unique identifier for the instance fleet.
-instanceFleetModifyConfig ::
-  -- | 'ifmcInstanceFleetId'
-  Text ->
+-- 'targetSpotCapacity', 'instanceFleetModifyConfig_targetSpotCapacity' - The target capacity of Spot units for the instance fleet. For more
+-- information, see InstanceFleetConfig$TargetSpotCapacity.
+--
+-- 'instanceFleetId', 'instanceFleetModifyConfig_instanceFleetId' - A unique identifier for the instance fleet.
+newInstanceFleetModifyConfig ::
+  -- | 'instanceFleetId'
+  Prelude.Text ->
   InstanceFleetModifyConfig
-instanceFleetModifyConfig pInstanceFleetId_ =
+newInstanceFleetModifyConfig pInstanceFleetId_ =
   InstanceFleetModifyConfig'
-    { _ifmcTargetOnDemandCapacity =
-        Nothing,
-      _ifmcTargetSpotCapacity = Nothing,
-      _ifmcInstanceFleetId = pInstanceFleetId_
+    { targetOnDemandCapacity =
+        Prelude.Nothing,
+      targetSpotCapacity = Prelude.Nothing,
+      instanceFleetId = pInstanceFleetId_
     }
 
--- | The target capacity of On-Demand units for the instance fleet. For more information see 'InstanceFleetConfig$TargetOnDemandCapacity' .
-ifmcTargetOnDemandCapacity :: Lens' InstanceFleetModifyConfig (Maybe Natural)
-ifmcTargetOnDemandCapacity = lens _ifmcTargetOnDemandCapacity (\s a -> s {_ifmcTargetOnDemandCapacity = a}) . mapping _Nat
+-- | The target capacity of On-Demand units for the instance fleet. For more
+-- information see InstanceFleetConfig$TargetOnDemandCapacity.
+instanceFleetModifyConfig_targetOnDemandCapacity :: Lens.Lens' InstanceFleetModifyConfig (Prelude.Maybe Prelude.Natural)
+instanceFleetModifyConfig_targetOnDemandCapacity = Lens.lens (\InstanceFleetModifyConfig' {targetOnDemandCapacity} -> targetOnDemandCapacity) (\s@InstanceFleetModifyConfig' {} a -> s {targetOnDemandCapacity = a} :: InstanceFleetModifyConfig) Prelude.. Lens.mapping Prelude._Nat
 
--- | The target capacity of Spot units for the instance fleet. For more information, see 'InstanceFleetConfig$TargetSpotCapacity' .
-ifmcTargetSpotCapacity :: Lens' InstanceFleetModifyConfig (Maybe Natural)
-ifmcTargetSpotCapacity = lens _ifmcTargetSpotCapacity (\s a -> s {_ifmcTargetSpotCapacity = a}) . mapping _Nat
+-- | The target capacity of Spot units for the instance fleet. For more
+-- information, see InstanceFleetConfig$TargetSpotCapacity.
+instanceFleetModifyConfig_targetSpotCapacity :: Lens.Lens' InstanceFleetModifyConfig (Prelude.Maybe Prelude.Natural)
+instanceFleetModifyConfig_targetSpotCapacity = Lens.lens (\InstanceFleetModifyConfig' {targetSpotCapacity} -> targetSpotCapacity) (\s@InstanceFleetModifyConfig' {} a -> s {targetSpotCapacity = a} :: InstanceFleetModifyConfig) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A unique identifier for the instance fleet.
-ifmcInstanceFleetId :: Lens' InstanceFleetModifyConfig Text
-ifmcInstanceFleetId = lens _ifmcInstanceFleetId (\s a -> s {_ifmcInstanceFleetId = a})
+instanceFleetModifyConfig_instanceFleetId :: Lens.Lens' InstanceFleetModifyConfig Prelude.Text
+instanceFleetModifyConfig_instanceFleetId = Lens.lens (\InstanceFleetModifyConfig' {instanceFleetId} -> instanceFleetId) (\s@InstanceFleetModifyConfig' {} a -> s {instanceFleetId = a} :: InstanceFleetModifyConfig)
 
-instance Hashable InstanceFleetModifyConfig
+instance Prelude.Hashable InstanceFleetModifyConfig
 
-instance NFData InstanceFleetModifyConfig
+instance Prelude.NFData InstanceFleetModifyConfig
 
-instance ToJSON InstanceFleetModifyConfig where
+instance Prelude.ToJSON InstanceFleetModifyConfig where
   toJSON InstanceFleetModifyConfig' {..} =
-    object
-      ( catMaybes
-          [ ("TargetOnDemandCapacity" .=)
-              <$> _ifmcTargetOnDemandCapacity,
-            ("TargetSpotCapacity" .=)
-              <$> _ifmcTargetSpotCapacity,
-            Just ("InstanceFleetId" .= _ifmcInstanceFleetId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TargetOnDemandCapacity" Prelude..=)
+              Prelude.<$> targetOnDemandCapacity,
+            ("TargetSpotCapacity" Prelude..=)
+              Prelude.<$> targetSpotCapacity,
+            Prelude.Just
+              ("InstanceFleetId" Prelude..= instanceFleetId)
           ]
       )

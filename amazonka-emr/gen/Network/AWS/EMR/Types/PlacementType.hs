@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.PlacementType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Amazon EC2 Availability Zone configuration of the cluster (job flow).
+-- | The Amazon EC2 Availability Zone configuration of the cluster (job
+-- flow).
 --
---
---
--- /See:/ 'placementType' smart constructor.
+-- /See:/ 'newPlacementType' smart constructor.
 data PlacementType = PlacementType'
-  { _ptAvailabilityZones ::
-      !(Maybe [Text]),
-    _ptAvailabilityZone :: !(Maybe Text)
+  { -- | When multiple Availability Zones are specified, Amazon EMR evaluates
+    -- them and launches instances in the optimal Availability Zone.
+    -- @AvailabilityZones@ is used for instance fleets, while
+    -- @AvailabilityZone@ (singular) is used for uniform instance groups.
+    --
+    -- The instance fleet configuration is available only in Amazon EMR
+    -- versions 4.8.0 and later, excluding 5.0.x versions.
+    availabilityZones :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon EC2 Availability Zone for the cluster. @AvailabilityZone@ is
+    -- used for uniform instance groups, while @AvailabilityZones@ (plural) is
+    -- used for instance fleets.
+    availabilityZone :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlacementType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlacementType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ptAvailabilityZones' - When multiple Availability Zones are specified, Amazon EMR evaluates them and launches instances in the optimal Availability Zone. @AvailabilityZones@ is used for instance fleets, while @AvailabilityZone@ (singular) is used for uniform instance groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ptAvailabilityZone' - The Amazon EC2 Availability Zone for the cluster. @AvailabilityZone@ is used for uniform instance groups, while @AvailabilityZones@ (plural) is used for instance fleets.
-placementType ::
+-- 'availabilityZones', 'placementType_availabilityZones' - When multiple Availability Zones are specified, Amazon EMR evaluates
+-- them and launches instances in the optimal Availability Zone.
+-- @AvailabilityZones@ is used for instance fleets, while
+-- @AvailabilityZone@ (singular) is used for uniform instance groups.
+--
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions.
+--
+-- 'availabilityZone', 'placementType_availabilityZone' - The Amazon EC2 Availability Zone for the cluster. @AvailabilityZone@ is
+-- used for uniform instance groups, while @AvailabilityZones@ (plural) is
+-- used for instance fleets.
+newPlacementType ::
   PlacementType
-placementType =
+newPlacementType =
   PlacementType'
-    { _ptAvailabilityZones = Nothing,
-      _ptAvailabilityZone = Nothing
+    { availabilityZones = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing
     }
 
--- | When multiple Availability Zones are specified, Amazon EMR evaluates them and launches instances in the optimal Availability Zone. @AvailabilityZones@ is used for instance fleets, while @AvailabilityZone@ (singular) is used for uniform instance groups.
-ptAvailabilityZones :: Lens' PlacementType [Text]
-ptAvailabilityZones = lens _ptAvailabilityZones (\s a -> s {_ptAvailabilityZones = a}) . _Default . _Coerce
+-- | When multiple Availability Zones are specified, Amazon EMR evaluates
+-- them and launches instances in the optimal Availability Zone.
+-- @AvailabilityZones@ is used for instance fleets, while
+-- @AvailabilityZone@ (singular) is used for uniform instance groups.
+--
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions.
+placementType_availabilityZones :: Lens.Lens' PlacementType (Prelude.Maybe [Prelude.Text])
+placementType_availabilityZones = Lens.lens (\PlacementType' {availabilityZones} -> availabilityZones) (\s@PlacementType' {} a -> s {availabilityZones = a} :: PlacementType) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon EC2 Availability Zone for the cluster. @AvailabilityZone@ is used for uniform instance groups, while @AvailabilityZones@ (plural) is used for instance fleets.
-ptAvailabilityZone :: Lens' PlacementType (Maybe Text)
-ptAvailabilityZone = lens _ptAvailabilityZone (\s a -> s {_ptAvailabilityZone = a})
+-- | The Amazon EC2 Availability Zone for the cluster. @AvailabilityZone@ is
+-- used for uniform instance groups, while @AvailabilityZones@ (plural) is
+-- used for instance fleets.
+placementType_availabilityZone :: Lens.Lens' PlacementType (Prelude.Maybe Prelude.Text)
+placementType_availabilityZone = Lens.lens (\PlacementType' {availabilityZone} -> availabilityZone) (\s@PlacementType' {} a -> s {availabilityZone = a} :: PlacementType)
 
-instance Hashable PlacementType
+instance Prelude.Hashable PlacementType
 
-instance NFData PlacementType
+instance Prelude.NFData PlacementType
 
-instance ToJSON PlacementType where
+instance Prelude.ToJSON PlacementType where
   toJSON PlacementType' {..} =
-    object
-      ( catMaybes
-          [ ("AvailabilityZones" .=) <$> _ptAvailabilityZones,
-            ("AvailabilityZone" .=) <$> _ptAvailabilityZone
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AvailabilityZones" Prelude..=)
+              Prelude.<$> availabilityZones,
+            ("AvailabilityZone" Prelude..=)
+              Prelude.<$> availabilityZone
           ]
       )

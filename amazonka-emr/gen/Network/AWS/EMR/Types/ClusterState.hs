@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.EMR.Types.ClusterState
   ( ClusterState
       ( ..,
-        CSBootstrapping,
-        CSRunning,
-        CSStarting,
-        CSTerminated,
-        CSTerminatedWithErrors,
-        CSTerminating,
-        CSWaiting
+        ClusterStateBOOTSTRAPPING,
+        ClusterStateRUNNING,
+        ClusterStateSTARTING,
+        ClusterStateTERMINATED,
+        ClusterStateTERMINATEDWITHERRORS,
+        ClusterStateTERMINATING,
+        ClusterStateWAITING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ClusterState = ClusterState' (CI Text)
+newtype ClusterState = ClusterState'
+  { fromClusterState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSBootstrapping :: ClusterState
-pattern CSBootstrapping = ClusterState' "BOOTSTRAPPING"
+pattern ClusterStateBOOTSTRAPPING :: ClusterState
+pattern ClusterStateBOOTSTRAPPING = ClusterState' "BOOTSTRAPPING"
 
-pattern CSRunning :: ClusterState
-pattern CSRunning = ClusterState' "RUNNING"
+pattern ClusterStateRUNNING :: ClusterState
+pattern ClusterStateRUNNING = ClusterState' "RUNNING"
 
-pattern CSStarting :: ClusterState
-pattern CSStarting = ClusterState' "STARTING"
+pattern ClusterStateSTARTING :: ClusterState
+pattern ClusterStateSTARTING = ClusterState' "STARTING"
 
-pattern CSTerminated :: ClusterState
-pattern CSTerminated = ClusterState' "TERMINATED"
+pattern ClusterStateTERMINATED :: ClusterState
+pattern ClusterStateTERMINATED = ClusterState' "TERMINATED"
 
-pattern CSTerminatedWithErrors :: ClusterState
-pattern CSTerminatedWithErrors = ClusterState' "TERMINATED_WITH_ERRORS"
+pattern ClusterStateTERMINATEDWITHERRORS :: ClusterState
+pattern ClusterStateTERMINATEDWITHERRORS = ClusterState' "TERMINATED_WITH_ERRORS"
 
-pattern CSTerminating :: ClusterState
-pattern CSTerminating = ClusterState' "TERMINATING"
+pattern ClusterStateTERMINATING :: ClusterState
+pattern ClusterStateTERMINATING = ClusterState' "TERMINATING"
 
-pattern CSWaiting :: ClusterState
-pattern CSWaiting = ClusterState' "WAITING"
+pattern ClusterStateWAITING :: ClusterState
+pattern ClusterStateWAITING = ClusterState' "WAITING"
 
 {-# COMPLETE
-  CSBootstrapping,
-  CSRunning,
-  CSStarting,
-  CSTerminated,
-  CSTerminatedWithErrors,
-  CSTerminating,
-  CSWaiting,
+  ClusterStateBOOTSTRAPPING,
+  ClusterStateRUNNING,
+  ClusterStateSTARTING,
+  ClusterStateTERMINATED,
+  ClusterStateTERMINATEDWITHERRORS,
+  ClusterStateTERMINATING,
+  ClusterStateWAITING,
   ClusterState'
   #-}
 
-instance FromText ClusterState where
-  parser = (ClusterState' . mk) <$> takeText
+instance Prelude.FromText ClusterState where
+  parser = ClusterState' Prelude.<$> Prelude.takeText
 
-instance ToText ClusterState where
-  toText (ClusterState' ci) = original ci
+instance Prelude.ToText ClusterState where
+  toText (ClusterState' x) = x
 
-instance Hashable ClusterState
+instance Prelude.Hashable ClusterState
 
-instance NFData ClusterState
+instance Prelude.NFData ClusterState
 
-instance ToByteString ClusterState
+instance Prelude.ToByteString ClusterState
 
-instance ToQuery ClusterState
+instance Prelude.ToQuery ClusterState
 
-instance ToHeader ClusterState
+instance Prelude.ToHeader ClusterState
 
-instance ToJSON ClusterState where
-  toJSON = toJSONText
+instance Prelude.ToJSON ClusterState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ClusterState where
-  parseJSON = parseJSONText "ClusterState"
+instance Prelude.FromJSON ClusterState where
+  parseJSON = Prelude.parseJSONText "ClusterState"

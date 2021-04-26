@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,133 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an Amazon EMR Studio configuration, including attributes such as name, description, and subnets.
+-- Updates an Amazon EMR Studio configuration, including attributes such as
+-- name, description, and subnets.
 module Network.AWS.EMR.UpdateStudio
   ( -- * Creating a Request
-    updateStudio,
-    UpdateStudio,
+    UpdateStudio (..),
+    newUpdateStudio,
 
     -- * Request Lenses
-    usDefaultS3Location,
-    usSubnetIds,
-    usName,
-    usDescription,
-    usStudioId,
+    updateStudio_defaultS3Location,
+    updateStudio_subnetIds,
+    updateStudio_name,
+    updateStudio_description,
+    updateStudio_studioId,
 
     -- * Destructuring the Response
-    updateStudioResponse,
-    UpdateStudioResponse,
+    UpdateStudioResponse (..),
+    newUpdateStudioResponse,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateStudio' smart constructor.
+-- | /See:/ 'newUpdateStudio' smart constructor.
 data UpdateStudio = UpdateStudio'
-  { _usDefaultS3Location ::
-      !(Maybe Text),
-    _usSubnetIds :: !(Maybe [Text]),
-    _usName :: !(Maybe Text),
-    _usDescription :: !(Maybe Text),
-    _usStudioId :: !Text
+  { -- | A default Amazon S3 location to back up Workspaces and notebook files
+    -- for the Amazon EMR Studio. A Studio user can select an alternative
+    -- Amazon S3 location when creating a Workspace.
+    defaultS3Location :: Prelude.Maybe Prelude.Text,
+    -- | A list of subnet IDs to associate with the Amazon EMR Studio. The list
+    -- can include new subnet IDs, but must also include all of the subnet IDs
+    -- previously associated with the Studio. The list order does not matter. A
+    -- Studio can have a maximum of 5 subnets. The subnets must belong to the
+    -- same VPC as the Studio.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
+    -- | A descriptive name for the Amazon EMR Studio.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A detailed description to assign to the Amazon EMR Studio.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon EMR Studio to update.
+    studioId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStudio' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateStudio' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usDefaultS3Location' - A default Amazon S3 location to back up Workspaces and notebook files for the Amazon EMR Studio. A Studio user can select an alternative Amazon S3 location when creating a Workspace.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usSubnetIds' - A list of subnet IDs to associate with the Amazon EMR Studio. The list can include new subnet IDs, but must also include all of the subnet IDs previously associated with the Studio. The list order does not matter. A Studio can have a maximum of 5 subnets. The subnets must belong to the same VPC as the Studio.
+-- 'defaultS3Location', 'updateStudio_defaultS3Location' - A default Amazon S3 location to back up Workspaces and notebook files
+-- for the Amazon EMR Studio. A Studio user can select an alternative
+-- Amazon S3 location when creating a Workspace.
 --
--- * 'usName' - A descriptive name for the Amazon EMR Studio.
+-- 'subnetIds', 'updateStudio_subnetIds' - A list of subnet IDs to associate with the Amazon EMR Studio. The list
+-- can include new subnet IDs, but must also include all of the subnet IDs
+-- previously associated with the Studio. The list order does not matter. A
+-- Studio can have a maximum of 5 subnets. The subnets must belong to the
+-- same VPC as the Studio.
 --
--- * 'usDescription' - A detailed description to assign to the Amazon EMR Studio.
+-- 'name', 'updateStudio_name' - A descriptive name for the Amazon EMR Studio.
 --
--- * 'usStudioId' - The ID of the Amazon EMR Studio to update.
-updateStudio ::
-  -- | 'usStudioId'
-  Text ->
+-- 'description', 'updateStudio_description' - A detailed description to assign to the Amazon EMR Studio.
+--
+-- 'studioId', 'updateStudio_studioId' - The ID of the Amazon EMR Studio to update.
+newUpdateStudio ::
+  -- | 'studioId'
+  Prelude.Text ->
   UpdateStudio
-updateStudio pStudioId_ =
+newUpdateStudio pStudioId_ =
   UpdateStudio'
-    { _usDefaultS3Location = Nothing,
-      _usSubnetIds = Nothing,
-      _usName = Nothing,
-      _usDescription = Nothing,
-      _usStudioId = pStudioId_
+    { defaultS3Location = Prelude.Nothing,
+      subnetIds = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      studioId = pStudioId_
     }
 
--- | A default Amazon S3 location to back up Workspaces and notebook files for the Amazon EMR Studio. A Studio user can select an alternative Amazon S3 location when creating a Workspace.
-usDefaultS3Location :: Lens' UpdateStudio (Maybe Text)
-usDefaultS3Location = lens _usDefaultS3Location (\s a -> s {_usDefaultS3Location = a})
+-- | A default Amazon S3 location to back up Workspaces and notebook files
+-- for the Amazon EMR Studio. A Studio user can select an alternative
+-- Amazon S3 location when creating a Workspace.
+updateStudio_defaultS3Location :: Lens.Lens' UpdateStudio (Prelude.Maybe Prelude.Text)
+updateStudio_defaultS3Location = Lens.lens (\UpdateStudio' {defaultS3Location} -> defaultS3Location) (\s@UpdateStudio' {} a -> s {defaultS3Location = a} :: UpdateStudio)
 
--- | A list of subnet IDs to associate with the Amazon EMR Studio. The list can include new subnet IDs, but must also include all of the subnet IDs previously associated with the Studio. The list order does not matter. A Studio can have a maximum of 5 subnets. The subnets must belong to the same VPC as the Studio.
-usSubnetIds :: Lens' UpdateStudio [Text]
-usSubnetIds = lens _usSubnetIds (\s a -> s {_usSubnetIds = a}) . _Default . _Coerce
+-- | A list of subnet IDs to associate with the Amazon EMR Studio. The list
+-- can include new subnet IDs, but must also include all of the subnet IDs
+-- previously associated with the Studio. The list order does not matter. A
+-- Studio can have a maximum of 5 subnets. The subnets must belong to the
+-- same VPC as the Studio.
+updateStudio_subnetIds :: Lens.Lens' UpdateStudio (Prelude.Maybe [Prelude.Text])
+updateStudio_subnetIds = Lens.lens (\UpdateStudio' {subnetIds} -> subnetIds) (\s@UpdateStudio' {} a -> s {subnetIds = a} :: UpdateStudio) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A descriptive name for the Amazon EMR Studio.
-usName :: Lens' UpdateStudio (Maybe Text)
-usName = lens _usName (\s a -> s {_usName = a})
+updateStudio_name :: Lens.Lens' UpdateStudio (Prelude.Maybe Prelude.Text)
+updateStudio_name = Lens.lens (\UpdateStudio' {name} -> name) (\s@UpdateStudio' {} a -> s {name = a} :: UpdateStudio)
 
 -- | A detailed description to assign to the Amazon EMR Studio.
-usDescription :: Lens' UpdateStudio (Maybe Text)
-usDescription = lens _usDescription (\s a -> s {_usDescription = a})
+updateStudio_description :: Lens.Lens' UpdateStudio (Prelude.Maybe Prelude.Text)
+updateStudio_description = Lens.lens (\UpdateStudio' {description} -> description) (\s@UpdateStudio' {} a -> s {description = a} :: UpdateStudio)
 
 -- | The ID of the Amazon EMR Studio to update.
-usStudioId :: Lens' UpdateStudio Text
-usStudioId = lens _usStudioId (\s a -> s {_usStudioId = a})
+updateStudio_studioId :: Lens.Lens' UpdateStudio Prelude.Text
+updateStudio_studioId = Lens.lens (\UpdateStudio' {studioId} -> studioId) (\s@UpdateStudio' {} a -> s {studioId = a} :: UpdateStudio)
 
-instance AWSRequest UpdateStudio where
+instance Prelude.AWSRequest UpdateStudio where
   type Rs UpdateStudio = UpdateStudioResponse
-  request = postJSON emr
-  response = receiveNull UpdateStudioResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull UpdateStudioResponse'
 
-instance Hashable UpdateStudio
+instance Prelude.Hashable UpdateStudio
 
-instance NFData UpdateStudio
+instance Prelude.NFData UpdateStudio
 
-instance ToHeaders UpdateStudio where
+instance Prelude.ToHeaders UpdateStudio where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("ElasticMapReduce.UpdateStudio" :: ByteString),
+              Prelude.=# ( "ElasticMapReduce.UpdateStudio" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateStudio where
+instance Prelude.ToJSON UpdateStudio where
   toJSON UpdateStudio' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultS3Location" .=) <$> _usDefaultS3Location,
-            ("SubnetIds" .=) <$> _usSubnetIds,
-            ("Name" .=) <$> _usName,
-            ("Description" .=) <$> _usDescription,
-            Just ("StudioId" .= _usStudioId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultS3Location" Prelude..=)
+              Prelude.<$> defaultS3Location,
+            ("SubnetIds" Prelude..=) Prelude.<$> subnetIds,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("StudioId" Prelude..= studioId)
           ]
       )
 
-instance ToPath UpdateStudio where
-  toPath = const "/"
+instance Prelude.ToPath UpdateStudio where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateStudio where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateStudio where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateStudioResponse' smart constructor.
+-- | /See:/ 'newUpdateStudioResponse' smart constructor.
 data UpdateStudioResponse = UpdateStudioResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStudioResponse' with the minimum fields required to make a request.
-updateStudioResponse ::
+-- |
+-- Create a value of 'UpdateStudioResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateStudioResponse ::
   UpdateStudioResponse
-updateStudioResponse = UpdateStudioResponse'
+newUpdateStudioResponse = UpdateStudioResponse'
 
-instance NFData UpdateStudioResponse
+instance Prelude.NFData UpdateStudioResponse

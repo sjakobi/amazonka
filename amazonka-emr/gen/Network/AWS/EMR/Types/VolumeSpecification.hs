@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.VolumeSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | EBS volume specifications such as volume type, IOPS, and size (GiB) that will be requested for the EBS volume attached to an EC2 instance in the cluster.
+-- | EBS volume specifications such as volume type, IOPS, and size (GiB) that
+-- will be requested for the EBS volume attached to an EC2 instance in the
+-- cluster.
 --
---
---
--- /See:/ 'volumeSpecification' smart constructor.
+-- /See:/ 'newVolumeSpecification' smart constructor.
 data VolumeSpecification = VolumeSpecification'
-  { _vsIOPS ::
-      !(Maybe Int),
-    _vsVolumeType :: !Text,
-    _vsSizeInGB :: !Int
+  { -- | The number of I\/O operations per second (IOPS) that the volume
+    -- supports.
+    iops :: Prelude.Maybe Prelude.Int,
+    -- | The volume type. Volume types supported are gp2, io1, standard.
+    volumeType :: Prelude.Text,
+    -- | The volume size, in gibibytes (GiB). This can be a number from 1 - 1024.
+    -- If the volume type is EBS-optimized, the minimum value is 10.
+    sizeInGB :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VolumeSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VolumeSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vsIOPS' - The number of I/O operations per second (IOPS) that the volume supports.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vsVolumeType' - The volume type. Volume types supported are gp2, io1, standard.
+-- 'iops', 'volumeSpecification_iops' - The number of I\/O operations per second (IOPS) that the volume
+-- supports.
 --
--- * 'vsSizeInGB' - The volume size, in gibibytes (GiB). This can be a number from 1 - 1024. If the volume type is EBS-optimized, the minimum value is 10.
-volumeSpecification ::
-  -- | 'vsVolumeType'
-  Text ->
-  -- | 'vsSizeInGB'
-  Int ->
+-- 'volumeType', 'volumeSpecification_volumeType' - The volume type. Volume types supported are gp2, io1, standard.
+--
+-- 'sizeInGB', 'volumeSpecification_sizeInGB' - The volume size, in gibibytes (GiB). This can be a number from 1 - 1024.
+-- If the volume type is EBS-optimized, the minimum value is 10.
+newVolumeSpecification ::
+  -- | 'volumeType'
+  Prelude.Text ->
+  -- | 'sizeInGB'
+  Prelude.Int ->
   VolumeSpecification
-volumeSpecification pVolumeType_ pSizeInGB_ =
+newVolumeSpecification pVolumeType_ pSizeInGB_ =
   VolumeSpecification'
-    { _vsIOPS = Nothing,
-      _vsVolumeType = pVolumeType_,
-      _vsSizeInGB = pSizeInGB_
+    { iops = Prelude.Nothing,
+      volumeType = pVolumeType_,
+      sizeInGB = pSizeInGB_
     }
 
--- | The number of I/O operations per second (IOPS) that the volume supports.
-vsIOPS :: Lens' VolumeSpecification (Maybe Int)
-vsIOPS = lens _vsIOPS (\s a -> s {_vsIOPS = a})
+-- | The number of I\/O operations per second (IOPS) that the volume
+-- supports.
+volumeSpecification_iops :: Lens.Lens' VolumeSpecification (Prelude.Maybe Prelude.Int)
+volumeSpecification_iops = Lens.lens (\VolumeSpecification' {iops} -> iops) (\s@VolumeSpecification' {} a -> s {iops = a} :: VolumeSpecification)
 
 -- | The volume type. Volume types supported are gp2, io1, standard.
-vsVolumeType :: Lens' VolumeSpecification Text
-vsVolumeType = lens _vsVolumeType (\s a -> s {_vsVolumeType = a})
+volumeSpecification_volumeType :: Lens.Lens' VolumeSpecification Prelude.Text
+volumeSpecification_volumeType = Lens.lens (\VolumeSpecification' {volumeType} -> volumeType) (\s@VolumeSpecification' {} a -> s {volumeType = a} :: VolumeSpecification)
 
--- | The volume size, in gibibytes (GiB). This can be a number from 1 - 1024. If the volume type is EBS-optimized, the minimum value is 10.
-vsSizeInGB :: Lens' VolumeSpecification Int
-vsSizeInGB = lens _vsSizeInGB (\s a -> s {_vsSizeInGB = a})
+-- | The volume size, in gibibytes (GiB). This can be a number from 1 - 1024.
+-- If the volume type is EBS-optimized, the minimum value is 10.
+volumeSpecification_sizeInGB :: Lens.Lens' VolumeSpecification Prelude.Int
+volumeSpecification_sizeInGB = Lens.lens (\VolumeSpecification' {sizeInGB} -> sizeInGB) (\s@VolumeSpecification' {} a -> s {sizeInGB = a} :: VolumeSpecification)
 
-instance FromJSON VolumeSpecification where
+instance Prelude.FromJSON VolumeSpecification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VolumeSpecification"
       ( \x ->
           VolumeSpecification'
-            <$> (x .:? "Iops")
-            <*> (x .: "VolumeType")
-            <*> (x .: "SizeInGB")
+            Prelude.<$> (x Prelude..:? "Iops")
+            Prelude.<*> (x Prelude..: "VolumeType")
+            Prelude.<*> (x Prelude..: "SizeInGB")
       )
 
-instance Hashable VolumeSpecification
+instance Prelude.Hashable VolumeSpecification
 
-instance NFData VolumeSpecification
+instance Prelude.NFData VolumeSpecification
 
-instance ToJSON VolumeSpecification where
+instance Prelude.ToJSON VolumeSpecification where
   toJSON VolumeSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("Iops" .=) <$> _vsIOPS,
-            Just ("VolumeType" .= _vsVolumeType),
-            Just ("SizeInGB" .= _vsSizeInGB)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Iops" Prelude..=) Prelude.<$> iops,
+            Prelude.Just ("VolumeType" Prelude..= volumeType),
+            Prelude.Just ("SizeInGB" Prelude..= sizeInGB)
           ]
       )

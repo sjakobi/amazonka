@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,58 @@
 module Network.AWS.EMR.Types.ClusterStateChangeReason where
 
 import Network.AWS.EMR.Types.ClusterStateChangeReasonCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The reason that the cluster changed to its current state.
 --
---
---
--- /See:/ 'clusterStateChangeReason' smart constructor.
+-- /See:/ 'newClusterStateChangeReason' smart constructor.
 data ClusterStateChangeReason = ClusterStateChangeReason'
-  { _cscrMessage ::
-      !(Maybe Text),
-    _cscrCode ::
-      !( Maybe
-           ClusterStateChangeReasonCode
-       )
+  { -- | The descriptive message for the state change reason.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The programmatic code for the state change reason.
+    code :: Prelude.Maybe ClusterStateChangeReasonCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterStateChangeReason' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterStateChangeReason' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cscrMessage' - The descriptive message for the state change reason.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cscrCode' - The programmatic code for the state change reason.
-clusterStateChangeReason ::
+-- 'message', 'clusterStateChangeReason_message' - The descriptive message for the state change reason.
+--
+-- 'code', 'clusterStateChangeReason_code' - The programmatic code for the state change reason.
+newClusterStateChangeReason ::
   ClusterStateChangeReason
-clusterStateChangeReason =
+newClusterStateChangeReason =
   ClusterStateChangeReason'
-    { _cscrMessage = Nothing,
-      _cscrCode = Nothing
+    { message =
+        Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The descriptive message for the state change reason.
-cscrMessage :: Lens' ClusterStateChangeReason (Maybe Text)
-cscrMessage = lens _cscrMessage (\s a -> s {_cscrMessage = a})
+clusterStateChangeReason_message :: Lens.Lens' ClusterStateChangeReason (Prelude.Maybe Prelude.Text)
+clusterStateChangeReason_message = Lens.lens (\ClusterStateChangeReason' {message} -> message) (\s@ClusterStateChangeReason' {} a -> s {message = a} :: ClusterStateChangeReason)
 
 -- | The programmatic code for the state change reason.
-cscrCode :: Lens' ClusterStateChangeReason (Maybe ClusterStateChangeReasonCode)
-cscrCode = lens _cscrCode (\s a -> s {_cscrCode = a})
+clusterStateChangeReason_code :: Lens.Lens' ClusterStateChangeReason (Prelude.Maybe ClusterStateChangeReasonCode)
+clusterStateChangeReason_code = Lens.lens (\ClusterStateChangeReason' {code} -> code) (\s@ClusterStateChangeReason' {} a -> s {code = a} :: ClusterStateChangeReason)
 
-instance FromJSON ClusterStateChangeReason where
+instance Prelude.FromJSON ClusterStateChangeReason where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClusterStateChangeReason"
       ( \x ->
           ClusterStateChangeReason'
-            <$> (x .:? "Message") <*> (x .:? "Code")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Code")
       )
 
-instance Hashable ClusterStateChangeReason
+instance Prelude.Hashable ClusterStateChangeReason
 
-instance NFData ClusterStateChangeReason
+instance Prelude.NFData ClusterStateChangeReason

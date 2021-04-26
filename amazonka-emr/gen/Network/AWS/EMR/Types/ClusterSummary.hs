@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,91 +20,115 @@
 module Network.AWS.EMR.Types.ClusterSummary where
 
 import Network.AWS.EMR.Types.ClusterStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The summary description of the cluster.
 --
---
---
--- /See:/ 'clusterSummary' smart constructor.
+-- /See:/ 'newClusterSummary' smart constructor.
 data ClusterSummary = ClusterSummary'
-  { _csClusterARN ::
-      !(Maybe Text),
-    _csStatus :: !(Maybe ClusterStatus),
-    _csOutpostARN :: !(Maybe Text),
-    _csId :: !(Maybe Text),
-    _csName :: !(Maybe Text),
-    _csNormalizedInstanceHours ::
-      !(Maybe Int)
+  { -- | The Amazon Resource Name of the cluster.
+    clusterArn :: Prelude.Maybe Prelude.Text,
+    -- | The details about the current status of the cluster.
+    status :: Prelude.Maybe ClusterStatus,
+    -- | The Amazon Resource Name (ARN) of the Outpost where the cluster is
+    -- launched.
+    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the cluster.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cluster.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | An approximation of the cost of the cluster, represented in
+    -- m1.small\/hours. This value is incremented one time for every hour an
+    -- m1.small instance runs. Larger instances are weighted more, so an EC2
+    -- instance that is roughly four times more expensive would result in the
+    -- normalized instance hours being incremented by four. This result is only
+    -- an approximation and does not reflect the actual billing rate.
+    normalizedInstanceHours :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csClusterARN' - The Amazon Resource Name of the cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csStatus' - The details about the current status of the cluster.
+-- 'clusterArn', 'clusterSummary_clusterArn' - The Amazon Resource Name of the cluster.
 --
--- * 'csOutpostARN' - The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
+-- 'status', 'clusterSummary_status' - The details about the current status of the cluster.
 --
--- * 'csId' - The unique identifier for the cluster.
+-- 'outpostArn', 'clusterSummary_outpostArn' - The Amazon Resource Name (ARN) of the Outpost where the cluster is
+-- launched.
 --
--- * 'csName' - The name of the cluster.
+-- 'id', 'clusterSummary_id' - The unique identifier for the cluster.
 --
--- * 'csNormalizedInstanceHours' - An approximation of the cost of the cluster, represented in m1.small/hours. This value is incremented one time for every hour an m1.small instance runs. Larger instances are weighted more, so an EC2 instance that is roughly four times more expensive would result in the normalized instance hours being incremented by four. This result is only an approximation and does not reflect the actual billing rate.
-clusterSummary ::
+-- 'name', 'clusterSummary_name' - The name of the cluster.
+--
+-- 'normalizedInstanceHours', 'clusterSummary_normalizedInstanceHours' - An approximation of the cost of the cluster, represented in
+-- m1.small\/hours. This value is incremented one time for every hour an
+-- m1.small instance runs. Larger instances are weighted more, so an EC2
+-- instance that is roughly four times more expensive would result in the
+-- normalized instance hours being incremented by four. This result is only
+-- an approximation and does not reflect the actual billing rate.
+newClusterSummary ::
   ClusterSummary
-clusterSummary =
+newClusterSummary =
   ClusterSummary'
-    { _csClusterARN = Nothing,
-      _csStatus = Nothing,
-      _csOutpostARN = Nothing,
-      _csId = Nothing,
-      _csName = Nothing,
-      _csNormalizedInstanceHours = Nothing
+    { clusterArn = Prelude.Nothing,
+      status = Prelude.Nothing,
+      outpostArn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      normalizedInstanceHours = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name of the cluster.
-csClusterARN :: Lens' ClusterSummary (Maybe Text)
-csClusterARN = lens _csClusterARN (\s a -> s {_csClusterARN = a})
+clusterSummary_clusterArn :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
+clusterSummary_clusterArn = Lens.lens (\ClusterSummary' {clusterArn} -> clusterArn) (\s@ClusterSummary' {} a -> s {clusterArn = a} :: ClusterSummary)
 
 -- | The details about the current status of the cluster.
-csStatus :: Lens' ClusterSummary (Maybe ClusterStatus)
-csStatus = lens _csStatus (\s a -> s {_csStatus = a})
+clusterSummary_status :: Lens.Lens' ClusterSummary (Prelude.Maybe ClusterStatus)
+clusterSummary_status = Lens.lens (\ClusterSummary' {status} -> status) (\s@ClusterSummary' {} a -> s {status = a} :: ClusterSummary)
 
--- | The Amazon Resource Name (ARN) of the Outpost where the cluster is launched.
-csOutpostARN :: Lens' ClusterSummary (Maybe Text)
-csOutpostARN = lens _csOutpostARN (\s a -> s {_csOutpostARN = a})
+-- | The Amazon Resource Name (ARN) of the Outpost where the cluster is
+-- launched.
+clusterSummary_outpostArn :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
+clusterSummary_outpostArn = Lens.lens (\ClusterSummary' {outpostArn} -> outpostArn) (\s@ClusterSummary' {} a -> s {outpostArn = a} :: ClusterSummary)
 
 -- | The unique identifier for the cluster.
-csId :: Lens' ClusterSummary (Maybe Text)
-csId = lens _csId (\s a -> s {_csId = a})
+clusterSummary_id :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
+clusterSummary_id = Lens.lens (\ClusterSummary' {id} -> id) (\s@ClusterSummary' {} a -> s {id = a} :: ClusterSummary)
 
 -- | The name of the cluster.
-csName :: Lens' ClusterSummary (Maybe Text)
-csName = lens _csName (\s a -> s {_csName = a})
+clusterSummary_name :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
+clusterSummary_name = Lens.lens (\ClusterSummary' {name} -> name) (\s@ClusterSummary' {} a -> s {name = a} :: ClusterSummary)
 
--- | An approximation of the cost of the cluster, represented in m1.small/hours. This value is incremented one time for every hour an m1.small instance runs. Larger instances are weighted more, so an EC2 instance that is roughly four times more expensive would result in the normalized instance hours being incremented by four. This result is only an approximation and does not reflect the actual billing rate.
-csNormalizedInstanceHours :: Lens' ClusterSummary (Maybe Int)
-csNormalizedInstanceHours = lens _csNormalizedInstanceHours (\s a -> s {_csNormalizedInstanceHours = a})
+-- | An approximation of the cost of the cluster, represented in
+-- m1.small\/hours. This value is incremented one time for every hour an
+-- m1.small instance runs. Larger instances are weighted more, so an EC2
+-- instance that is roughly four times more expensive would result in the
+-- normalized instance hours being incremented by four. This result is only
+-- an approximation and does not reflect the actual billing rate.
+clusterSummary_normalizedInstanceHours :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Int)
+clusterSummary_normalizedInstanceHours = Lens.lens (\ClusterSummary' {normalizedInstanceHours} -> normalizedInstanceHours) (\s@ClusterSummary' {} a -> s {normalizedInstanceHours = a} :: ClusterSummary)
 
-instance FromJSON ClusterSummary where
+instance Prelude.FromJSON ClusterSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClusterSummary"
       ( \x ->
           ClusterSummary'
-            <$> (x .:? "ClusterArn")
-            <*> (x .:? "Status")
-            <*> (x .:? "OutpostArn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Name")
-            <*> (x .:? "NormalizedInstanceHours")
+            Prelude.<$> (x Prelude..:? "ClusterArn")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "OutpostArn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "NormalizedInstanceHours")
       )
 
-instance Hashable ClusterSummary
+instance Prelude.Hashable ClusterSummary
 
-instance NFData ClusterSummary
+instance Prelude.NFData ClusterSummary

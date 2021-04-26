@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,65 @@
 module Network.AWS.EMR.Types.InstanceGroupStateChangeReason where
 
 import Network.AWS.EMR.Types.InstanceGroupStateChangeReasonCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status change reason details for the instance group.
 --
---
---
--- /See:/ 'instanceGroupStateChangeReason' smart constructor.
+-- /See:/ 'newInstanceGroupStateChangeReason' smart constructor.
 data InstanceGroupStateChangeReason = InstanceGroupStateChangeReason'
-  { _igscrMessage ::
-      !( Maybe
-           Text
-       ),
-    _igscrCode ::
-      !( Maybe
-           InstanceGroupStateChangeReasonCode
-       )
+  { -- | The status change reason description.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The programmable code for the state change reason.
+    code :: Prelude.Maybe InstanceGroupStateChangeReasonCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceGroupStateChangeReason' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceGroupStateChangeReason' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'igscrMessage' - The status change reason description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'igscrCode' - The programmable code for the state change reason.
-instanceGroupStateChangeReason ::
+-- 'message', 'instanceGroupStateChangeReason_message' - The status change reason description.
+--
+-- 'code', 'instanceGroupStateChangeReason_code' - The programmable code for the state change reason.
+newInstanceGroupStateChangeReason ::
   InstanceGroupStateChangeReason
-instanceGroupStateChangeReason =
+newInstanceGroupStateChangeReason =
   InstanceGroupStateChangeReason'
-    { _igscrMessage =
-        Nothing,
-      _igscrCode = Nothing
+    { message =
+        Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The status change reason description.
-igscrMessage :: Lens' InstanceGroupStateChangeReason (Maybe Text)
-igscrMessage = lens _igscrMessage (\s a -> s {_igscrMessage = a})
+instanceGroupStateChangeReason_message :: Lens.Lens' InstanceGroupStateChangeReason (Prelude.Maybe Prelude.Text)
+instanceGroupStateChangeReason_message = Lens.lens (\InstanceGroupStateChangeReason' {message} -> message) (\s@InstanceGroupStateChangeReason' {} a -> s {message = a} :: InstanceGroupStateChangeReason)
 
 -- | The programmable code for the state change reason.
-igscrCode :: Lens' InstanceGroupStateChangeReason (Maybe InstanceGroupStateChangeReasonCode)
-igscrCode = lens _igscrCode (\s a -> s {_igscrCode = a})
+instanceGroupStateChangeReason_code :: Lens.Lens' InstanceGroupStateChangeReason (Prelude.Maybe InstanceGroupStateChangeReasonCode)
+instanceGroupStateChangeReason_code = Lens.lens (\InstanceGroupStateChangeReason' {code} -> code) (\s@InstanceGroupStateChangeReason' {} a -> s {code = a} :: InstanceGroupStateChangeReason)
 
-instance FromJSON InstanceGroupStateChangeReason where
+instance
+  Prelude.FromJSON
+    InstanceGroupStateChangeReason
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceGroupStateChangeReason"
       ( \x ->
           InstanceGroupStateChangeReason'
-            <$> (x .:? "Message") <*> (x .:? "Code")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Code")
       )
 
-instance Hashable InstanceGroupStateChangeReason
+instance
+  Prelude.Hashable
+    InstanceGroupStateChangeReason
 
-instance NFData InstanceGroupStateChangeReason
+instance
+  Prelude.NFData
+    InstanceGroupStateChangeReason

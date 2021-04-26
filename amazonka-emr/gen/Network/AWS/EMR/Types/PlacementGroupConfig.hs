@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +21,94 @@ module Network.AWS.EMR.Types.PlacementGroupConfig where
 
 import Network.AWS.EMR.Types.InstanceRoleType
 import Network.AWS.EMR.Types.PlacementGroupStrategy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Placement group configuration for an Amazon EMR cluster. The configuration specifies the placement strategy that can be applied to instance roles during cluster creation.
+-- | Placement group configuration for an Amazon EMR cluster. The
+-- configuration specifies the placement strategy that can be applied to
+-- instance roles during cluster creation.
 --
+-- To use this configuration, consider attaching managed policy
+-- AmazonElasticMapReducePlacementGroupPolicy to the EMR role.
 --
--- To use this configuration, consider attaching managed policy AmazonElasticMapReducePlacementGroupPolicy to the EMR role.
---
---
--- /See:/ 'placementGroupConfig' smart constructor.
+-- /See:/ 'newPlacementGroupConfig' smart constructor.
 data PlacementGroupConfig = PlacementGroupConfig'
-  { _pgcPlacementStrategy ::
-      !( Maybe
-           PlacementGroupStrategy
-       ),
-    _pgcInstanceRole ::
-      !InstanceRoleType
+  { -- | EC2 Placement Group strategy associated with instance role.
+    --
+    -- Starting with Amazon EMR version 5.23.0, the only supported placement
+    -- strategy is @SPREAD@ for the @MASTER@ instance role.
+    placementStrategy :: Prelude.Maybe PlacementGroupStrategy,
+    -- | Role of the instance in the cluster.
+    --
+    -- Starting with Amazon EMR version 5.23.0, the only supported instance
+    -- role is @MASTER@.
+    instanceRole :: InstanceRoleType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlacementGroupConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlacementGroupConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pgcPlacementStrategy' - EC2 Placement Group strategy associated with instance role. Starting with Amazon EMR version 5.23.0, the only supported placement strategy is @SPREAD@ for the @MASTER@ instance role.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pgcInstanceRole' - Role of the instance in the cluster. Starting with Amazon EMR version 5.23.0, the only supported instance role is @MASTER@ .
-placementGroupConfig ::
-  -- | 'pgcInstanceRole'
+-- 'placementStrategy', 'placementGroupConfig_placementStrategy' - EC2 Placement Group strategy associated with instance role.
+--
+-- Starting with Amazon EMR version 5.23.0, the only supported placement
+-- strategy is @SPREAD@ for the @MASTER@ instance role.
+--
+-- 'instanceRole', 'placementGroupConfig_instanceRole' - Role of the instance in the cluster.
+--
+-- Starting with Amazon EMR version 5.23.0, the only supported instance
+-- role is @MASTER@.
+newPlacementGroupConfig ::
+  -- | 'instanceRole'
   InstanceRoleType ->
   PlacementGroupConfig
-placementGroupConfig pInstanceRole_ =
+newPlacementGroupConfig pInstanceRole_ =
   PlacementGroupConfig'
-    { _pgcPlacementStrategy =
-        Nothing,
-      _pgcInstanceRole = pInstanceRole_
+    { placementStrategy =
+        Prelude.Nothing,
+      instanceRole = pInstanceRole_
     }
 
--- | EC2 Placement Group strategy associated with instance role. Starting with Amazon EMR version 5.23.0, the only supported placement strategy is @SPREAD@ for the @MASTER@ instance role.
-pgcPlacementStrategy :: Lens' PlacementGroupConfig (Maybe PlacementGroupStrategy)
-pgcPlacementStrategy = lens _pgcPlacementStrategy (\s a -> s {_pgcPlacementStrategy = a})
+-- | EC2 Placement Group strategy associated with instance role.
+--
+-- Starting with Amazon EMR version 5.23.0, the only supported placement
+-- strategy is @SPREAD@ for the @MASTER@ instance role.
+placementGroupConfig_placementStrategy :: Lens.Lens' PlacementGroupConfig (Prelude.Maybe PlacementGroupStrategy)
+placementGroupConfig_placementStrategy = Lens.lens (\PlacementGroupConfig' {placementStrategy} -> placementStrategy) (\s@PlacementGroupConfig' {} a -> s {placementStrategy = a} :: PlacementGroupConfig)
 
--- | Role of the instance in the cluster. Starting with Amazon EMR version 5.23.0, the only supported instance role is @MASTER@ .
-pgcInstanceRole :: Lens' PlacementGroupConfig InstanceRoleType
-pgcInstanceRole = lens _pgcInstanceRole (\s a -> s {_pgcInstanceRole = a})
+-- | Role of the instance in the cluster.
+--
+-- Starting with Amazon EMR version 5.23.0, the only supported instance
+-- role is @MASTER@.
+placementGroupConfig_instanceRole :: Lens.Lens' PlacementGroupConfig InstanceRoleType
+placementGroupConfig_instanceRole = Lens.lens (\PlacementGroupConfig' {instanceRole} -> instanceRole) (\s@PlacementGroupConfig' {} a -> s {instanceRole = a} :: PlacementGroupConfig)
 
-instance FromJSON PlacementGroupConfig where
+instance Prelude.FromJSON PlacementGroupConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PlacementGroupConfig"
       ( \x ->
           PlacementGroupConfig'
-            <$> (x .:? "PlacementStrategy")
-            <*> (x .: "InstanceRole")
+            Prelude.<$> (x Prelude..:? "PlacementStrategy")
+            Prelude.<*> (x Prelude..: "InstanceRole")
       )
 
-instance Hashable PlacementGroupConfig
+instance Prelude.Hashable PlacementGroupConfig
 
-instance NFData PlacementGroupConfig
+instance Prelude.NFData PlacementGroupConfig
 
-instance ToJSON PlacementGroupConfig where
+instance Prelude.ToJSON PlacementGroupConfig where
   toJSON PlacementGroupConfig' {..} =
-    object
-      ( catMaybes
-          [ ("PlacementStrategy" .=) <$> _pgcPlacementStrategy,
-            Just ("InstanceRole" .= _pgcInstanceRole)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PlacementStrategy" Prelude..=)
+              Prelude.<$> placementStrategy,
+            Prelude.Just
+              ("InstanceRole" Prelude..= instanceRole)
           ]
       )

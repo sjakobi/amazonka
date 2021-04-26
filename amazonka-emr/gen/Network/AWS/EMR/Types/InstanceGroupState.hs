@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,102 +19,100 @@
 module Network.AWS.EMR.Types.InstanceGroupState
   ( InstanceGroupState
       ( ..,
-        IGSArrested,
-        IGSBootstrapping,
-        IGSEnded,
-        IGSProvisioning,
-        IGSReconfiguring,
-        IGSResizing,
-        IGSRunning,
-        IGSShuttingDown,
-        IGSSuspended,
-        IGSTerminated,
-        IGSTerminating
+        InstanceGroupStateARRESTED,
+        InstanceGroupStateBOOTSTRAPPING,
+        InstanceGroupStateENDED,
+        InstanceGroupStatePROVISIONING,
+        InstanceGroupStateRECONFIGURING,
+        InstanceGroupStateRESIZING,
+        InstanceGroupStateRUNNING,
+        InstanceGroupStateSHUTTINGDOWN,
+        InstanceGroupStateSUSPENDED,
+        InstanceGroupStateTERMINATED,
+        InstanceGroupStateTERMINATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceGroupState
-  = InstanceGroupState'
-      ( CI
-          Text
-      )
+newtype InstanceGroupState = InstanceGroupState'
+  { fromInstanceGroupState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IGSArrested :: InstanceGroupState
-pattern IGSArrested = InstanceGroupState' "ARRESTED"
+pattern InstanceGroupStateARRESTED :: InstanceGroupState
+pattern InstanceGroupStateARRESTED = InstanceGroupState' "ARRESTED"
 
-pattern IGSBootstrapping :: InstanceGroupState
-pattern IGSBootstrapping = InstanceGroupState' "BOOTSTRAPPING"
+pattern InstanceGroupStateBOOTSTRAPPING :: InstanceGroupState
+pattern InstanceGroupStateBOOTSTRAPPING = InstanceGroupState' "BOOTSTRAPPING"
 
-pattern IGSEnded :: InstanceGroupState
-pattern IGSEnded = InstanceGroupState' "ENDED"
+pattern InstanceGroupStateENDED :: InstanceGroupState
+pattern InstanceGroupStateENDED = InstanceGroupState' "ENDED"
 
-pattern IGSProvisioning :: InstanceGroupState
-pattern IGSProvisioning = InstanceGroupState' "PROVISIONING"
+pattern InstanceGroupStatePROVISIONING :: InstanceGroupState
+pattern InstanceGroupStatePROVISIONING = InstanceGroupState' "PROVISIONING"
 
-pattern IGSReconfiguring :: InstanceGroupState
-pattern IGSReconfiguring = InstanceGroupState' "RECONFIGURING"
+pattern InstanceGroupStateRECONFIGURING :: InstanceGroupState
+pattern InstanceGroupStateRECONFIGURING = InstanceGroupState' "RECONFIGURING"
 
-pattern IGSResizing :: InstanceGroupState
-pattern IGSResizing = InstanceGroupState' "RESIZING"
+pattern InstanceGroupStateRESIZING :: InstanceGroupState
+pattern InstanceGroupStateRESIZING = InstanceGroupState' "RESIZING"
 
-pattern IGSRunning :: InstanceGroupState
-pattern IGSRunning = InstanceGroupState' "RUNNING"
+pattern InstanceGroupStateRUNNING :: InstanceGroupState
+pattern InstanceGroupStateRUNNING = InstanceGroupState' "RUNNING"
 
-pattern IGSShuttingDown :: InstanceGroupState
-pattern IGSShuttingDown = InstanceGroupState' "SHUTTING_DOWN"
+pattern InstanceGroupStateSHUTTINGDOWN :: InstanceGroupState
+pattern InstanceGroupStateSHUTTINGDOWN = InstanceGroupState' "SHUTTING_DOWN"
 
-pattern IGSSuspended :: InstanceGroupState
-pattern IGSSuspended = InstanceGroupState' "SUSPENDED"
+pattern InstanceGroupStateSUSPENDED :: InstanceGroupState
+pattern InstanceGroupStateSUSPENDED = InstanceGroupState' "SUSPENDED"
 
-pattern IGSTerminated :: InstanceGroupState
-pattern IGSTerminated = InstanceGroupState' "TERMINATED"
+pattern InstanceGroupStateTERMINATED :: InstanceGroupState
+pattern InstanceGroupStateTERMINATED = InstanceGroupState' "TERMINATED"
 
-pattern IGSTerminating :: InstanceGroupState
-pattern IGSTerminating = InstanceGroupState' "TERMINATING"
+pattern InstanceGroupStateTERMINATING :: InstanceGroupState
+pattern InstanceGroupStateTERMINATING = InstanceGroupState' "TERMINATING"
 
 {-# COMPLETE
-  IGSArrested,
-  IGSBootstrapping,
-  IGSEnded,
-  IGSProvisioning,
-  IGSReconfiguring,
-  IGSResizing,
-  IGSRunning,
-  IGSShuttingDown,
-  IGSSuspended,
-  IGSTerminated,
-  IGSTerminating,
+  InstanceGroupStateARRESTED,
+  InstanceGroupStateBOOTSTRAPPING,
+  InstanceGroupStateENDED,
+  InstanceGroupStatePROVISIONING,
+  InstanceGroupStateRECONFIGURING,
+  InstanceGroupStateRESIZING,
+  InstanceGroupStateRUNNING,
+  InstanceGroupStateSHUTTINGDOWN,
+  InstanceGroupStateSUSPENDED,
+  InstanceGroupStateTERMINATED,
+  InstanceGroupStateTERMINATING,
   InstanceGroupState'
   #-}
 
-instance FromText InstanceGroupState where
-  parser = (InstanceGroupState' . mk) <$> takeText
+instance Prelude.FromText InstanceGroupState where
+  parser = InstanceGroupState' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceGroupState where
-  toText (InstanceGroupState' ci) = original ci
+instance Prelude.ToText InstanceGroupState where
+  toText (InstanceGroupState' x) = x
 
-instance Hashable InstanceGroupState
+instance Prelude.Hashable InstanceGroupState
 
-instance NFData InstanceGroupState
+instance Prelude.NFData InstanceGroupState
 
-instance ToByteString InstanceGroupState
+instance Prelude.ToByteString InstanceGroupState
 
-instance ToQuery InstanceGroupState
+instance Prelude.ToQuery InstanceGroupState
 
-instance ToHeader InstanceGroupState
+instance Prelude.ToHeader InstanceGroupState
 
-instance FromJSON InstanceGroupState where
-  parseJSON = parseJSONText "InstanceGroupState"
+instance Prelude.FromJSON InstanceGroupState where
+  parseJSON = Prelude.parseJSONText "InstanceGroupState"

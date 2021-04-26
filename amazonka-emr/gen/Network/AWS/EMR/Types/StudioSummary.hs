@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.StudioSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details for an Amazon EMR Studio, including ID, Name, VPC, and Description. The details do not include subnets, IAM roles, security groups, or tags associated with the Studio.
+-- | Details for an Amazon EMR Studio, including ID, Name, VPC, and
+-- Description. The details do not include subnets, IAM roles, security
+-- groups, or tags associated with the Studio.
 --
---
---
--- /See:/ 'studioSummary' smart constructor.
+-- /See:/ 'newStudioSummary' smart constructor.
 data StudioSummary = StudioSummary'
-  { _stuCreationTime ::
-      !(Maybe POSIX),
-    _stuName :: !(Maybe Text),
-    _stuDescription :: !(Maybe Text),
-    _stuURL :: !(Maybe Text),
-    _stuVPCId :: !(Maybe Text),
-    _stuStudioId :: !(Maybe Text)
+  { -- | The time when the Amazon EMR Studio was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the Amazon EMR Studio.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The detailed description of the Amazon EMR Studio.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The unique access URL of the Amazon EMR Studio.
+    url :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Virtual Private Cloud (Amazon VPC) associated with the
+    -- Amazon EMR Studio.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon EMR Studio.
+    studioId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StudioSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StudioSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stuCreationTime' - The time when the Amazon EMR Studio was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stuName' - The name of the Amazon EMR Studio.
+-- 'creationTime', 'studioSummary_creationTime' - The time when the Amazon EMR Studio was created.
 --
--- * 'stuDescription' - The detailed description of the Amazon EMR Studio.
+-- 'name', 'studioSummary_name' - The name of the Amazon EMR Studio.
 --
--- * 'stuURL' - The unique access URL of the Amazon EMR Studio.
+-- 'description', 'studioSummary_description' - The detailed description of the Amazon EMR Studio.
 --
--- * 'stuVPCId' - The ID of the Virtual Private Cloud (Amazon VPC) associated with the Amazon EMR Studio.
+-- 'url', 'studioSummary_url' - The unique access URL of the Amazon EMR Studio.
 --
--- * 'stuStudioId' - The ID of the Amazon EMR Studio.
-studioSummary ::
+-- 'vpcId', 'studioSummary_vpcId' - The ID of the Virtual Private Cloud (Amazon VPC) associated with the
+-- Amazon EMR Studio.
+--
+-- 'studioId', 'studioSummary_studioId' - The ID of the Amazon EMR Studio.
+newStudioSummary ::
   StudioSummary
-studioSummary =
+newStudioSummary =
   StudioSummary'
-    { _stuCreationTime = Nothing,
-      _stuName = Nothing,
-      _stuDescription = Nothing,
-      _stuURL = Nothing,
-      _stuVPCId = Nothing,
-      _stuStudioId = Nothing
+    { creationTime = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      url = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      studioId = Prelude.Nothing
     }
 
 -- | The time when the Amazon EMR Studio was created.
-stuCreationTime :: Lens' StudioSummary (Maybe UTCTime)
-stuCreationTime = lens _stuCreationTime (\s a -> s {_stuCreationTime = a}) . mapping _Time
+studioSummary_creationTime :: Lens.Lens' StudioSummary (Prelude.Maybe Prelude.UTCTime)
+studioSummary_creationTime = Lens.lens (\StudioSummary' {creationTime} -> creationTime) (\s@StudioSummary' {} a -> s {creationTime = a} :: StudioSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the Amazon EMR Studio.
-stuName :: Lens' StudioSummary (Maybe Text)
-stuName = lens _stuName (\s a -> s {_stuName = a})
+studioSummary_name :: Lens.Lens' StudioSummary (Prelude.Maybe Prelude.Text)
+studioSummary_name = Lens.lens (\StudioSummary' {name} -> name) (\s@StudioSummary' {} a -> s {name = a} :: StudioSummary)
 
 -- | The detailed description of the Amazon EMR Studio.
-stuDescription :: Lens' StudioSummary (Maybe Text)
-stuDescription = lens _stuDescription (\s a -> s {_stuDescription = a})
+studioSummary_description :: Lens.Lens' StudioSummary (Prelude.Maybe Prelude.Text)
+studioSummary_description = Lens.lens (\StudioSummary' {description} -> description) (\s@StudioSummary' {} a -> s {description = a} :: StudioSummary)
 
 -- | The unique access URL of the Amazon EMR Studio.
-stuURL :: Lens' StudioSummary (Maybe Text)
-stuURL = lens _stuURL (\s a -> s {_stuURL = a})
+studioSummary_url :: Lens.Lens' StudioSummary (Prelude.Maybe Prelude.Text)
+studioSummary_url = Lens.lens (\StudioSummary' {url} -> url) (\s@StudioSummary' {} a -> s {url = a} :: StudioSummary)
 
--- | The ID of the Virtual Private Cloud (Amazon VPC) associated with the Amazon EMR Studio.
-stuVPCId :: Lens' StudioSummary (Maybe Text)
-stuVPCId = lens _stuVPCId (\s a -> s {_stuVPCId = a})
+-- | The ID of the Virtual Private Cloud (Amazon VPC) associated with the
+-- Amazon EMR Studio.
+studioSummary_vpcId :: Lens.Lens' StudioSummary (Prelude.Maybe Prelude.Text)
+studioSummary_vpcId = Lens.lens (\StudioSummary' {vpcId} -> vpcId) (\s@StudioSummary' {} a -> s {vpcId = a} :: StudioSummary)
 
 -- | The ID of the Amazon EMR Studio.
-stuStudioId :: Lens' StudioSummary (Maybe Text)
-stuStudioId = lens _stuStudioId (\s a -> s {_stuStudioId = a})
+studioSummary_studioId :: Lens.Lens' StudioSummary (Prelude.Maybe Prelude.Text)
+studioSummary_studioId = Lens.lens (\StudioSummary' {studioId} -> studioId) (\s@StudioSummary' {} a -> s {studioId = a} :: StudioSummary)
 
-instance FromJSON StudioSummary where
+instance Prelude.FromJSON StudioSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StudioSummary"
       ( \x ->
           StudioSummary'
-            <$> (x .:? "CreationTime")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
-            <*> (x .:? "Url")
-            <*> (x .:? "VpcId")
-            <*> (x .:? "StudioId")
+            Prelude.<$> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Url")
+            Prelude.<*> (x Prelude..:? "VpcId")
+            Prelude.<*> (x Prelude..:? "StudioId")
       )
 
-instance Hashable StudioSummary
+instance Prelude.Hashable StudioSummary
 
-instance NFData StudioSummary
+instance Prelude.NFData StudioSummary

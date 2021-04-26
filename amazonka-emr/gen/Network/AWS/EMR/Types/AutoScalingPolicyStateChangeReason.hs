@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,77 @@
 module Network.AWS.EMR.Types.AutoScalingPolicyStateChangeReason where
 
 import Network.AWS.EMR.Types.AutoScalingPolicyStateChangeReasonCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The reason for an 'AutoScalingPolicyStatus' change.
+-- | The reason for an AutoScalingPolicyStatus change.
 --
---
---
--- /See:/ 'autoScalingPolicyStateChangeReason' smart constructor.
+-- /See:/ 'newAutoScalingPolicyStateChangeReason' smart constructor.
 data AutoScalingPolicyStateChangeReason = AutoScalingPolicyStateChangeReason'
-  { _aspscrMessage ::
-      !( Maybe
-           Text
-       ),
-    _aspscrCode ::
-      !( Maybe
-           AutoScalingPolicyStateChangeReasonCode
-       )
+  { -- | A friendly, more verbose message that accompanies an automatic scaling
+    -- policy state change.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The code indicating the reason for the change in status.@USER_REQUEST@
+    -- indicates that the scaling policy status was changed by a user.
+    -- @PROVISION_FAILURE@ indicates that the status change was because the
+    -- policy failed to provision. @CLEANUP_FAILURE@ indicates an error.
+    code :: Prelude.Maybe AutoScalingPolicyStateChangeReasonCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoScalingPolicyStateChangeReason' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoScalingPolicyStateChangeReason' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aspscrMessage' - A friendly, more verbose message that accompanies an automatic scaling policy state change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aspscrCode' - The code indicating the reason for the change in status.@USER_REQUEST@ indicates that the scaling policy status was changed by a user. @PROVISION_FAILURE@ indicates that the status change was because the policy failed to provision. @CLEANUP_FAILURE@ indicates an error.
-autoScalingPolicyStateChangeReason ::
+-- 'message', 'autoScalingPolicyStateChangeReason_message' - A friendly, more verbose message that accompanies an automatic scaling
+-- policy state change.
+--
+-- 'code', 'autoScalingPolicyStateChangeReason_code' - The code indicating the reason for the change in status.@USER_REQUEST@
+-- indicates that the scaling policy status was changed by a user.
+-- @PROVISION_FAILURE@ indicates that the status change was because the
+-- policy failed to provision. @CLEANUP_FAILURE@ indicates an error.
+newAutoScalingPolicyStateChangeReason ::
   AutoScalingPolicyStateChangeReason
-autoScalingPolicyStateChangeReason =
+newAutoScalingPolicyStateChangeReason =
   AutoScalingPolicyStateChangeReason'
-    { _aspscrMessage =
-        Nothing,
-      _aspscrCode = Nothing
+    { message =
+        Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
--- | A friendly, more verbose message that accompanies an automatic scaling policy state change.
-aspscrMessage :: Lens' AutoScalingPolicyStateChangeReason (Maybe Text)
-aspscrMessage = lens _aspscrMessage (\s a -> s {_aspscrMessage = a})
+-- | A friendly, more verbose message that accompanies an automatic scaling
+-- policy state change.
+autoScalingPolicyStateChangeReason_message :: Lens.Lens' AutoScalingPolicyStateChangeReason (Prelude.Maybe Prelude.Text)
+autoScalingPolicyStateChangeReason_message = Lens.lens (\AutoScalingPolicyStateChangeReason' {message} -> message) (\s@AutoScalingPolicyStateChangeReason' {} a -> s {message = a} :: AutoScalingPolicyStateChangeReason)
 
--- | The code indicating the reason for the change in status.@USER_REQUEST@ indicates that the scaling policy status was changed by a user. @PROVISION_FAILURE@ indicates that the status change was because the policy failed to provision. @CLEANUP_FAILURE@ indicates an error.
-aspscrCode :: Lens' AutoScalingPolicyStateChangeReason (Maybe AutoScalingPolicyStateChangeReasonCode)
-aspscrCode = lens _aspscrCode (\s a -> s {_aspscrCode = a})
+-- | The code indicating the reason for the change in status.@USER_REQUEST@
+-- indicates that the scaling policy status was changed by a user.
+-- @PROVISION_FAILURE@ indicates that the status change was because the
+-- policy failed to provision. @CLEANUP_FAILURE@ indicates an error.
+autoScalingPolicyStateChangeReason_code :: Lens.Lens' AutoScalingPolicyStateChangeReason (Prelude.Maybe AutoScalingPolicyStateChangeReasonCode)
+autoScalingPolicyStateChangeReason_code = Lens.lens (\AutoScalingPolicyStateChangeReason' {code} -> code) (\s@AutoScalingPolicyStateChangeReason' {} a -> s {code = a} :: AutoScalingPolicyStateChangeReason)
 
-instance FromJSON AutoScalingPolicyStateChangeReason where
+instance
+  Prelude.FromJSON
+    AutoScalingPolicyStateChangeReason
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoScalingPolicyStateChangeReason"
       ( \x ->
           AutoScalingPolicyStateChangeReason'
-            <$> (x .:? "Message") <*> (x .:? "Code")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Code")
       )
 
-instance Hashable AutoScalingPolicyStateChangeReason
+instance
+  Prelude.Hashable
+    AutoScalingPolicyStateChangeReason
 
-instance NFData AutoScalingPolicyStateChangeReason
+instance
+  Prelude.NFData
+    AutoScalingPolicyStateChangeReason

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,68 +22,68 @@ module Network.AWS.EMR.Types.InstanceGroupStatus where
 import Network.AWS.EMR.Types.InstanceGroupState
 import Network.AWS.EMR.Types.InstanceGroupStateChangeReason
 import Network.AWS.EMR.Types.InstanceGroupTimeline
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of the instance group status.
 --
---
---
--- /See:/ 'instanceGroupStatus' smart constructor.
+-- /See:/ 'newInstanceGroupStatus' smart constructor.
 data InstanceGroupStatus = InstanceGroupStatus'
-  { _igsStateChangeReason ::
-      !( Maybe
-           InstanceGroupStateChangeReason
-       ),
-    _igsState ::
-      !(Maybe InstanceGroupState),
-    _igsTimeline ::
-      !(Maybe InstanceGroupTimeline)
+  { -- | The status change reason details for the instance group.
+    stateChangeReason :: Prelude.Maybe InstanceGroupStateChangeReason,
+    -- | The current state of the instance group.
+    state :: Prelude.Maybe InstanceGroupState,
+    -- | The timeline of the instance group status over time.
+    timeline :: Prelude.Maybe InstanceGroupTimeline
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceGroupStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceGroupStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'igsStateChangeReason' - The status change reason details for the instance group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'igsState' - The current state of the instance group.
+-- 'stateChangeReason', 'instanceGroupStatus_stateChangeReason' - The status change reason details for the instance group.
 --
--- * 'igsTimeline' - The timeline of the instance group status over time.
-instanceGroupStatus ::
+-- 'state', 'instanceGroupStatus_state' - The current state of the instance group.
+--
+-- 'timeline', 'instanceGroupStatus_timeline' - The timeline of the instance group status over time.
+newInstanceGroupStatus ::
   InstanceGroupStatus
-instanceGroupStatus =
+newInstanceGroupStatus =
   InstanceGroupStatus'
-    { _igsStateChangeReason =
-        Nothing,
-      _igsState = Nothing,
-      _igsTimeline = Nothing
+    { stateChangeReason =
+        Prelude.Nothing,
+      state = Prelude.Nothing,
+      timeline = Prelude.Nothing
     }
 
 -- | The status change reason details for the instance group.
-igsStateChangeReason :: Lens' InstanceGroupStatus (Maybe InstanceGroupStateChangeReason)
-igsStateChangeReason = lens _igsStateChangeReason (\s a -> s {_igsStateChangeReason = a})
+instanceGroupStatus_stateChangeReason :: Lens.Lens' InstanceGroupStatus (Prelude.Maybe InstanceGroupStateChangeReason)
+instanceGroupStatus_stateChangeReason = Lens.lens (\InstanceGroupStatus' {stateChangeReason} -> stateChangeReason) (\s@InstanceGroupStatus' {} a -> s {stateChangeReason = a} :: InstanceGroupStatus)
 
 -- | The current state of the instance group.
-igsState :: Lens' InstanceGroupStatus (Maybe InstanceGroupState)
-igsState = lens _igsState (\s a -> s {_igsState = a})
+instanceGroupStatus_state :: Lens.Lens' InstanceGroupStatus (Prelude.Maybe InstanceGroupState)
+instanceGroupStatus_state = Lens.lens (\InstanceGroupStatus' {state} -> state) (\s@InstanceGroupStatus' {} a -> s {state = a} :: InstanceGroupStatus)
 
 -- | The timeline of the instance group status over time.
-igsTimeline :: Lens' InstanceGroupStatus (Maybe InstanceGroupTimeline)
-igsTimeline = lens _igsTimeline (\s a -> s {_igsTimeline = a})
+instanceGroupStatus_timeline :: Lens.Lens' InstanceGroupStatus (Prelude.Maybe InstanceGroupTimeline)
+instanceGroupStatus_timeline = Lens.lens (\InstanceGroupStatus' {timeline} -> timeline) (\s@InstanceGroupStatus' {} a -> s {timeline = a} :: InstanceGroupStatus)
 
-instance FromJSON InstanceGroupStatus where
+instance Prelude.FromJSON InstanceGroupStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceGroupStatus"
       ( \x ->
           InstanceGroupStatus'
-            <$> (x .:? "StateChangeReason")
-            <*> (x .:? "State")
-            <*> (x .:? "Timeline")
+            Prelude.<$> (x Prelude..:? "StateChangeReason")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Timeline")
       )
 
-instance Hashable InstanceGroupStatus
+instance Prelude.Hashable InstanceGroupStatus
 
-instance NFData InstanceGroupStatus
+instance Prelude.NFData InstanceGroupStatus

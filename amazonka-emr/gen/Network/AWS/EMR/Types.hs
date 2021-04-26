@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types
   ( -- * Service Configuration
-    emr,
+    defaultService,
 
     -- * Errors
     _InternalServerError,
@@ -125,684 +128,323 @@ module Network.AWS.EMR.Types
 
     -- * Application
     Application (..),
-    application,
-    aArgs,
-    aAdditionalInfo,
-    aVersion,
-    aName,
+    newApplication,
 
     -- * AutoScalingPolicy
     AutoScalingPolicy (..),
-    autoScalingPolicy,
-    aspConstraints,
-    aspRules,
+    newAutoScalingPolicy,
 
     -- * AutoScalingPolicyDescription
     AutoScalingPolicyDescription (..),
-    autoScalingPolicyDescription,
-    aspdStatus,
-    aspdConstraints,
-    aspdRules,
+    newAutoScalingPolicyDescription,
 
     -- * AutoScalingPolicyStateChangeReason
     AutoScalingPolicyStateChangeReason (..),
-    autoScalingPolicyStateChangeReason,
-    aspscrMessage,
-    aspscrCode,
+    newAutoScalingPolicyStateChangeReason,
 
     -- * AutoScalingPolicyStatus
     AutoScalingPolicyStatus (..),
-    autoScalingPolicyStatus,
-    aspsStateChangeReason,
-    aspsState,
+    newAutoScalingPolicyStatus,
 
     -- * BlockPublicAccessConfiguration
     BlockPublicAccessConfiguration (..),
-    blockPublicAccessConfiguration,
-    bpacPermittedPublicSecurityGroupRuleRanges,
-    bpacBlockPublicSecurityGroupRules,
+    newBlockPublicAccessConfiguration,
 
     -- * BlockPublicAccessConfigurationMetadata
     BlockPublicAccessConfigurationMetadata (..),
-    blockPublicAccessConfigurationMetadata,
-    bpacmCreationDateTime,
-    bpacmCreatedByARN,
+    newBlockPublicAccessConfigurationMetadata,
 
     -- * BootstrapActionConfig
     BootstrapActionConfig (..),
-    bootstrapActionConfig,
-    bacName,
-    bacScriptBootstrapAction,
+    newBootstrapActionConfig,
 
     -- * CancelStepsInfo
     CancelStepsInfo (..),
-    cancelStepsInfo,
-    csiStepId,
-    csiStatus,
-    csiReason,
+    newCancelStepsInfo,
 
     -- * CloudWatchAlarmDefinition
     CloudWatchAlarmDefinition (..),
-    cloudWatchAlarmDefinition,
-    cwadUnit,
-    cwadStatistic,
-    cwadDimensions,
-    cwadNamespace,
-    cwadEvaluationPeriods,
-    cwadComparisonOperator,
-    cwadMetricName,
-    cwadPeriod,
-    cwadThreshold,
+    newCloudWatchAlarmDefinition,
 
     -- * Cluster
     Cluster (..),
-    cluster,
-    cluClusterARN,
-    cluRepoUpgradeOnBoot,
-    cluServiceRole,
-    cluSecurityConfiguration,
-    cluScaleDownBehavior,
-    cluAutoScalingRole,
-    cluTerminationProtected,
-    cluConfigurations,
-    cluOutpostARN,
-    cluMasterPublicDNSName,
-    cluRunningAMIVersion,
-    cluRequestedAMIVersion,
-    cluReleaseLabel,
-    cluEBSRootVolumeSize,
-    cluInstanceCollectionType,
-    cluLogEncryptionKMSKeyId,
-    cluTags,
-    cluApplications,
-    cluStepConcurrencyLevel,
-    cluVisibleToAllUsers,
-    cluAutoTerminate,
-    cluNormalizedInstanceHours,
-    cluCustomAMIId,
-    cluPlacementGroups,
-    cluEC2InstanceAttributes,
-    cluKerberosAttributes,
-    cluLogURI,
-    cluId,
-    cluName,
-    cluStatus,
+    newCluster,
 
     -- * ClusterStateChangeReason
     ClusterStateChangeReason (..),
-    clusterStateChangeReason,
-    cscrMessage,
-    cscrCode,
+    newClusterStateChangeReason,
 
     -- * ClusterStatus
     ClusterStatus (..),
-    clusterStatus,
-    csStateChangeReason,
-    csState,
-    csTimeline,
+    newClusterStatus,
 
     -- * ClusterSummary
     ClusterSummary (..),
-    clusterSummary,
-    csClusterARN,
-    csStatus,
-    csOutpostARN,
-    csId,
-    csName,
-    csNormalizedInstanceHours,
+    newClusterSummary,
 
     -- * ClusterTimeline
     ClusterTimeline (..),
-    clusterTimeline,
-    ctEndDateTime,
-    ctCreationDateTime,
-    ctReadyDateTime,
+    newClusterTimeline,
 
     -- * Command
     Command (..),
-    command,
-    comArgs,
-    comScriptPath,
-    comName,
+    newCommand,
 
     -- * ComputeLimits
     ComputeLimits (..),
-    computeLimits,
-    clMaximumOnDemandCapacityUnits,
-    clMaximumCoreCapacityUnits,
-    clUnitType,
-    clMinimumCapacityUnits,
-    clMaximumCapacityUnits,
+    newComputeLimits,
 
     -- * Configuration
     Configuration (..),
-    configuration,
-    cConfigurations,
-    cProperties,
-    cClassification,
+    newConfiguration,
 
-    -- * EBSBlockDevice
-    EBSBlockDevice (..),
-    ebsBlockDevice,
-    ebdDevice,
-    ebdVolumeSpecification,
+    -- * EbsBlockDevice
+    EbsBlockDevice (..),
+    newEbsBlockDevice,
 
-    -- * EBSBlockDeviceConfig
-    EBSBlockDeviceConfig (..),
-    ebsBlockDeviceConfig,
-    ebdcVolumesPerInstance,
-    ebdcVolumeSpecification,
+    -- * EbsBlockDeviceConfig
+    EbsBlockDeviceConfig (..),
+    newEbsBlockDeviceConfig,
 
-    -- * EBSConfiguration
-    EBSConfiguration (..),
-    ebsConfiguration,
-    ecEBSBlockDeviceConfigs,
-    ecEBSOptimized,
+    -- * EbsConfiguration
+    EbsConfiguration (..),
+    newEbsConfiguration,
 
-    -- * EBSVolume
-    EBSVolume (..),
-    ebsVolume,
-    evDevice,
-    evVolumeId,
+    -- * EbsVolume
+    EbsVolume (..),
+    newEbsVolume,
 
-    -- * EC2InstanceAttributes
-    EC2InstanceAttributes (..),
-    ec2InstanceAttributes,
-    eiaEC2KeyName,
-    eiaAdditionalSlaveSecurityGroups,
-    eiaEC2AvailabilityZone,
-    eiaEmrManagedSlaveSecurityGroup,
-    eiaRequestedEC2AvailabilityZones,
-    eiaEC2SubnetId,
-    eiaEmrManagedMasterSecurityGroup,
-    eiaIAMInstanceProfile,
-    eiaAdditionalMasterSecurityGroups,
-    eiaRequestedEC2SubnetIds,
-    eiaServiceAccessSecurityGroup,
+    -- * Ec2InstanceAttributes
+    Ec2InstanceAttributes (..),
+    newEc2InstanceAttributes,
 
     -- * ExecutionEngineConfig
     ExecutionEngineConfig (..),
-    executionEngineConfig,
-    eecMasterInstanceSecurityGroupId,
-    eecType,
-    eecId,
+    newExecutionEngineConfig,
 
     -- * FailureDetails
     FailureDetails (..),
-    failureDetails,
-    fdMessage,
-    fdReason,
-    fdLogFile,
+    newFailureDetails,
 
-    -- * HadoopJARStepConfig
-    HadoopJARStepConfig (..),
-    hadoopJARStepConfig,
-    hjscArgs,
-    hjscProperties,
-    hjscMainClass,
-    hjscJAR,
+    -- * HadoopJarStepConfig
+    HadoopJarStepConfig (..),
+    newHadoopJarStepConfig,
 
     -- * HadoopStepConfig
     HadoopStepConfig (..),
-    hadoopStepConfig,
-    hscArgs,
-    hscJAR,
-    hscProperties,
-    hscMainClass,
+    newHadoopStepConfig,
 
     -- * Instance
     Instance (..),
-    instance',
-    iEBSVolumes,
-    iStatus,
-    iInstanceType,
-    iInstanceGroupId,
-    iId,
-    iInstanceFleetId,
-    iPublicDNSName,
-    iMarket,
-    iPublicIPAddress,
-    iPrivateDNSName,
-    iEC2InstanceId,
-    iPrivateIPAddress,
+    newInstance,
 
     -- * InstanceFleet
     InstanceFleet (..),
-    instanceFleet,
-    ifInstanceFleetType,
-    ifStatus,
-    ifTargetOnDemandCapacity,
-    ifId,
-    ifTargetSpotCapacity,
-    ifProvisionedOnDemandCapacity,
-    ifInstanceTypeSpecifications,
-    ifName,
-    ifProvisionedSpotCapacity,
-    ifLaunchSpecifications,
+    newInstanceFleet,
 
     -- * InstanceFleetConfig
     InstanceFleetConfig (..),
-    instanceFleetConfig,
-    ifcTargetOnDemandCapacity,
-    ifcTargetSpotCapacity,
-    ifcName,
-    ifcLaunchSpecifications,
-    ifcInstanceTypeConfigs,
-    ifcInstanceFleetType,
+    newInstanceFleetConfig,
 
     -- * InstanceFleetModifyConfig
     InstanceFleetModifyConfig (..),
-    instanceFleetModifyConfig,
-    ifmcTargetOnDemandCapacity,
-    ifmcTargetSpotCapacity,
-    ifmcInstanceFleetId,
+    newInstanceFleetModifyConfig,
 
     -- * InstanceFleetProvisioningSpecifications
     InstanceFleetProvisioningSpecifications (..),
-    instanceFleetProvisioningSpecifications,
-    ifpsOnDemandSpecification,
-    ifpsSpotSpecification,
+    newInstanceFleetProvisioningSpecifications,
 
     -- * InstanceFleetStateChangeReason
     InstanceFleetStateChangeReason (..),
-    instanceFleetStateChangeReason,
-    ifscrMessage,
-    ifscrCode,
+    newInstanceFleetStateChangeReason,
 
     -- * InstanceFleetStatus
     InstanceFleetStatus (..),
-    instanceFleetStatus,
-    ifsStateChangeReason,
-    ifsState,
-    ifsTimeline,
+    newInstanceFleetStatus,
 
     -- * InstanceFleetTimeline
     InstanceFleetTimeline (..),
-    instanceFleetTimeline,
-    iftEndDateTime,
-    iftCreationDateTime,
-    iftReadyDateTime,
+    newInstanceFleetTimeline,
 
     -- * InstanceGroup
     InstanceGroup (..),
-    instanceGroup,
-    igLastSuccessfullyAppliedConfigurationsVersion,
-    igStatus,
-    igInstanceType,
-    igEBSOptimized,
-    igEBSBlockDevices,
-    igInstanceGroupType,
-    igConfigurations,
-    igShrinkPolicy,
-    igId,
-    igLastSuccessfullyAppliedConfigurations,
-    igRequestedInstanceCount,
-    igAutoScalingPolicy,
-    igBidPrice,
-    igName,
-    igMarket,
-    igConfigurationsVersion,
-    igRunningInstanceCount,
+    newInstanceGroup,
 
     -- * InstanceGroupConfig
     InstanceGroupConfig (..),
-    instanceGroupConfig,
-    igcEBSConfiguration,
-    igcConfigurations,
-    igcAutoScalingPolicy,
-    igcBidPrice,
-    igcName,
-    igcMarket,
-    igcInstanceRole,
-    igcInstanceType,
-    igcInstanceCount,
+    newInstanceGroupConfig,
 
     -- * InstanceGroupModifyConfig
     InstanceGroupModifyConfig (..),
-    instanceGroupModifyConfig,
-    igmcConfigurations,
-    igmcShrinkPolicy,
-    igmcEC2InstanceIdsToTerminate,
-    igmcInstanceCount,
-    igmcInstanceGroupId,
+    newInstanceGroupModifyConfig,
 
     -- * InstanceGroupStateChangeReason
     InstanceGroupStateChangeReason (..),
-    instanceGroupStateChangeReason,
-    igscrMessage,
-    igscrCode,
+    newInstanceGroupStateChangeReason,
 
     -- * InstanceGroupStatus
     InstanceGroupStatus (..),
-    instanceGroupStatus,
-    igsStateChangeReason,
-    igsState,
-    igsTimeline,
+    newInstanceGroupStatus,
 
     -- * InstanceGroupTimeline
     InstanceGroupTimeline (..),
-    instanceGroupTimeline,
-    igtEndDateTime,
-    igtCreationDateTime,
-    igtReadyDateTime,
+    newInstanceGroupTimeline,
 
     -- * InstanceResizePolicy
     InstanceResizePolicy (..),
-    instanceResizePolicy,
-    irpInstanceTerminationTimeout,
-    irpInstancesToTerminate,
-    irpInstancesToProtect,
+    newInstanceResizePolicy,
 
     -- * InstanceStateChangeReason
     InstanceStateChangeReason (..),
-    instanceStateChangeReason,
-    iscrMessage,
-    iscrCode,
+    newInstanceStateChangeReason,
 
     -- * InstanceStatus
     InstanceStatus (..),
-    instanceStatus,
-    isStateChangeReason,
-    isState,
-    isTimeline,
+    newInstanceStatus,
 
     -- * InstanceTimeline
     InstanceTimeline (..),
-    instanceTimeline,
-    itEndDateTime,
-    itCreationDateTime,
-    itReadyDateTime,
+    newInstanceTimeline,
 
     -- * InstanceTypeConfig
     InstanceTypeConfig (..),
-    instanceTypeConfig,
-    itcEBSConfiguration,
-    itcConfigurations,
-    itcBidPriceAsPercentageOfOnDemandPrice,
-    itcBidPrice,
-    itcWeightedCapacity,
-    itcInstanceType,
+    newInstanceTypeConfig,
 
     -- * InstanceTypeSpecification
     InstanceTypeSpecification (..),
-    instanceTypeSpecification,
-    itsInstanceType,
-    itsEBSOptimized,
-    itsEBSBlockDevices,
-    itsConfigurations,
-    itsBidPriceAsPercentageOfOnDemandPrice,
-    itsBidPrice,
-    itsWeightedCapacity,
+    newInstanceTypeSpecification,
 
     -- * JobFlowInstancesConfig
     JobFlowInstancesConfig (..),
-    jobFlowInstancesConfig,
-    jficHadoopVersion,
-    jficEC2KeyName,
-    jficInstanceFleets,
-    jficEC2SubnetIds,
-    jficPlacement,
-    jficAdditionalSlaveSecurityGroups,
-    jficTerminationProtected,
-    jficEmrManagedSlaveSecurityGroup,
-    jficInstanceGroups,
-    jficMasterInstanceType,
-    jficEC2SubnetId,
-    jficEmrManagedMasterSecurityGroup,
-    jficAdditionalMasterSecurityGroups,
-    jficSlaveInstanceType,
-    jficServiceAccessSecurityGroup,
-    jficKeepJobFlowAliveWhenNoSteps,
-    jficInstanceCount,
+    newJobFlowInstancesConfig,
 
     -- * KerberosAttributes
     KerberosAttributes (..),
-    kerberosAttributes,
-    kaRealm,
-    kaADDomainJoinUser,
-    kaKdcAdminPassword,
-    kaADDomainJoinPassword,
-    kaCrossRealmTrustPrincipalPassword,
+    newKerberosAttributes,
 
     -- * KeyValue
     KeyValue (..),
-    keyValue,
-    kvKey,
-    kvValue,
+    newKeyValue,
 
     -- * ManagedScalingPolicy
     ManagedScalingPolicy (..),
-    managedScalingPolicy,
-    mspComputeLimits,
+    newManagedScalingPolicy,
 
     -- * MetricDimension
     MetricDimension (..),
-    metricDimension,
-    mdKey,
-    mdValue,
+    newMetricDimension,
 
     -- * NotebookExecution
     NotebookExecution (..),
-    notebookExecution,
-    neLastStateChangeReason,
-    neStatus,
-    neNotebookExecutionName,
-    neEditorId,
-    neNotebookExecutionId,
-    neStartTime,
-    neARN,
-    neNotebookParams,
-    neEndTime,
-    neNotebookInstanceSecurityGroupId,
-    neExecutionEngine,
-    neTags,
-    neOutputNotebookURI,
+    newNotebookExecution,
 
     -- * NotebookExecutionSummary
     NotebookExecutionSummary (..),
-    notebookExecutionSummary,
-    nesStatus,
-    nesNotebookExecutionName,
-    nesEditorId,
-    nesNotebookExecutionId,
-    nesStartTime,
-    nesEndTime,
+    newNotebookExecutionSummary,
 
     -- * OnDemandProvisioningSpecification
     OnDemandProvisioningSpecification (..),
-    onDemandProvisioningSpecification,
-    odpsAllocationStrategy,
+    newOnDemandProvisioningSpecification,
 
     -- * PlacementGroupConfig
     PlacementGroupConfig (..),
-    placementGroupConfig,
-    pgcPlacementStrategy,
-    pgcInstanceRole,
+    newPlacementGroupConfig,
 
     -- * PlacementType
     PlacementType (..),
-    placementType,
-    ptAvailabilityZones,
-    ptAvailabilityZone,
+    newPlacementType,
 
     -- * PortRange
     PortRange (..),
-    portRange,
-    prMaxRange,
-    prMinRange,
+    newPortRange,
 
     -- * ScalingAction
     ScalingAction (..),
-    scalingAction,
-    saMarket,
-    saSimpleScalingPolicyConfiguration,
+    newScalingAction,
 
     -- * ScalingConstraints
     ScalingConstraints (..),
-    scalingConstraints,
-    scMinCapacity,
-    scMaxCapacity,
+    newScalingConstraints,
 
     -- * ScalingRule
     ScalingRule (..),
-    scalingRule,
-    srDescription,
-    srName,
-    srAction,
-    srTrigger,
+    newScalingRule,
 
     -- * ScalingTrigger
     ScalingTrigger (..),
-    scalingTrigger,
-    stCloudWatchAlarmDefinition,
+    newScalingTrigger,
 
     -- * ScriptBootstrapActionConfig
     ScriptBootstrapActionConfig (..),
-    scriptBootstrapActionConfig,
-    sbacArgs,
-    sbacPath,
+    newScriptBootstrapActionConfig,
 
     -- * SecurityConfigurationSummary
     SecurityConfigurationSummary (..),
-    securityConfigurationSummary,
-    scsName,
-    scsCreationDateTime,
+    newSecurityConfigurationSummary,
 
     -- * SessionMappingDetail
     SessionMappingDetail (..),
-    sessionMappingDetail,
-    smdCreationTime,
-    smdIdentityName,
-    smdLastModifiedTime,
-    smdIdentityType,
-    smdIdentityId,
-    smdSessionPolicyARN,
-    smdStudioId,
+    newSessionMappingDetail,
 
     -- * SessionMappingSummary
     SessionMappingSummary (..),
-    sessionMappingSummary,
-    smsCreationTime,
-    smsIdentityName,
-    smsIdentityType,
-    smsIdentityId,
-    smsSessionPolicyARN,
-    smsStudioId,
+    newSessionMappingSummary,
 
     -- * ShrinkPolicy
     ShrinkPolicy (..),
-    shrinkPolicy,
-    spInstanceResizePolicy,
-    spDecommissionTimeout,
+    newShrinkPolicy,
 
     -- * SimpleScalingPolicyConfiguration
     SimpleScalingPolicyConfiguration (..),
-    simpleScalingPolicyConfiguration,
-    sspcCoolDown,
-    sspcAdjustmentType,
-    sspcScalingAdjustment,
+    newSimpleScalingPolicyConfiguration,
 
     -- * SpotProvisioningSpecification
     SpotProvisioningSpecification (..),
-    spotProvisioningSpecification,
-    spsBlockDurationMinutes,
-    spsAllocationStrategy,
-    spsTimeoutDurationMinutes,
-    spsTimeoutAction,
+    newSpotProvisioningSpecification,
 
     -- * Step
     Step (..),
-    step,
-    sStatus,
-    sId,
-    sConfig,
-    sActionOnFailure,
-    sName,
+    newStep,
 
     -- * StepConfig
     StepConfig (..),
-    stepConfig,
-    scActionOnFailure,
-    scName,
-    scHadoopJARStep,
+    newStepConfig,
 
     -- * StepStateChangeReason
     StepStateChangeReason (..),
-    stepStateChangeReason,
-    sscrMessage,
-    sscrCode,
+    newStepStateChangeReason,
 
     -- * StepStatus
     StepStatus (..),
-    stepStatus,
-    ssStateChangeReason,
-    ssFailureDetails,
-    ssState,
-    ssTimeline,
+    newStepStatus,
 
     -- * StepSummary
     StepSummary (..),
-    stepSummary,
-    ssStatus,
-    ssId,
-    ssConfig,
-    ssActionOnFailure,
-    ssName,
+    newStepSummary,
 
     -- * StepTimeline
     StepTimeline (..),
-    stepTimeline,
-    stStartDateTime,
-    stEndDateTime,
-    stCreationDateTime,
+    newStepTimeline,
 
     -- * Studio
     Studio (..),
-    studio,
-    stutCreationTime,
-    stutServiceRole,
-    stutWorkspaceSecurityGroupId,
-    stutDefaultS3Location,
-    stutAuthMode,
-    stutSubnetIds,
-    stutUserRole,
-    stutName,
-    stutTags,
-    stutDescription,
-    stutURL,
-    stutVPCId,
-    stutStudioARN,
-    stutStudioId,
-    stutEngineSecurityGroupId,
+    newStudio,
 
     -- * StudioSummary
     StudioSummary (..),
-    studioSummary,
-    stuCreationTime,
-    stuName,
-    stuDescription,
-    stuURL,
-    stuVPCId,
-    stuStudioId,
+    newStudioSummary,
 
     -- * SupportedProductConfig
     SupportedProductConfig (..),
-    supportedProductConfig,
-    spcArgs,
-    spcName,
+    newSupportedProductConfig,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * VolumeSpecification
     VolumeSpecification (..),
-    volumeSpecification,
-    vsIOPS,
-    vsVolumeType,
-    vsSizeInGB,
+    newVolumeSpecification,
   )
 where
 
@@ -834,15 +476,15 @@ import Network.AWS.EMR.Types.ComparisonOperator
 import Network.AWS.EMR.Types.ComputeLimits
 import Network.AWS.EMR.Types.ComputeLimitsUnitType
 import Network.AWS.EMR.Types.Configuration
-import Network.AWS.EMR.Types.EBSBlockDevice
-import Network.AWS.EMR.Types.EBSBlockDeviceConfig
-import Network.AWS.EMR.Types.EBSConfiguration
-import Network.AWS.EMR.Types.EBSVolume
-import Network.AWS.EMR.Types.EC2InstanceAttributes
+import Network.AWS.EMR.Types.EbsBlockDevice
+import Network.AWS.EMR.Types.EbsBlockDeviceConfig
+import Network.AWS.EMR.Types.EbsConfiguration
+import Network.AWS.EMR.Types.EbsVolume
+import Network.AWS.EMR.Types.Ec2InstanceAttributes
 import Network.AWS.EMR.Types.ExecutionEngineConfig
 import Network.AWS.EMR.Types.ExecutionEngineType
 import Network.AWS.EMR.Types.FailureDetails
-import Network.AWS.EMR.Types.HadoopJARStepConfig
+import Network.AWS.EMR.Types.HadoopJarStepConfig
 import Network.AWS.EMR.Types.HadoopStepConfig
 import Network.AWS.EMR.Types.IdentityType
 import Network.AWS.EMR.Types.Instance
@@ -921,72 +563,98 @@ import Network.AWS.EMR.Types.SupportedProductConfig
 import Network.AWS.EMR.Types.Tag
 import Network.AWS.EMR.Types.Unit
 import Network.AWS.EMR.Types.VolumeSpecification
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2009-03-31@ of the Amazon Elastic MapReduce SDK configuration.
-emr :: Service
-emr =
-  Service
-    { _svcAbbrev = "EMR",
-      _svcSigner = v4,
-      _svcPrefix = "elasticmapreduce",
-      _svcVersion = "2009-03-31",
-      _svcEndpoint = defaultEndpoint emr,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "EMR",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "EMR",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "elasticmapreduce",
+      Prelude._svcVersion = "2009-03-31",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "EMR",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | Indicates that an error occurred while processing the request and that the request was not completed.
-_InternalServerError :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that an error occurred while processing the request and that
+-- the request was not completed.
+_InternalServerError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerError =
-  _MatchServiceError emr "InternalServerError"
+  Prelude._MatchServiceError
+    defaultService
+    "InternalServerError"
 
 -- | This exception occurs when there is something wrong with user input.
-_InvalidRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRequestException =
-  _MatchServiceError emr "InvalidRequestException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidRequestException"
 
--- | This exception occurs when there is an internal failure in the Amazon EMR service.
-_InternalServerException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | This exception occurs when there is an internal failure in the Amazon
+-- EMR service.
+_InternalServerException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerException =
-  _MatchServiceError emr "InternalServerException"
+  Prelude._MatchServiceError
+    defaultService
+    "InternalServerException"

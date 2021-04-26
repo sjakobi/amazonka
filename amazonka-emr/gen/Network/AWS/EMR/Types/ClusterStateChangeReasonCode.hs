@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.EMR.Types.ClusterStateChangeReasonCode
   ( ClusterStateChangeReasonCode
       ( ..,
-        CSCRCAllStepsCompleted,
-        CSCRCBootstrapFailure,
-        CSCRCInstanceFailure,
-        CSCRCInstanceFleetTimeout,
-        CSCRCInternalError,
-        CSCRCStepFailure,
-        CSCRCUserRequest,
-        CSCRCValidationError
+        ClusterStateChangeReasonCodeALLSTEPSCOMPLETED,
+        ClusterStateChangeReasonCodeBOOTSTRAPFAILURE,
+        ClusterStateChangeReasonCodeINSTANCEFAILURE,
+        ClusterStateChangeReasonCodeINSTANCEFLEETTIMEOUT,
+        ClusterStateChangeReasonCodeINTERNALERROR,
+        ClusterStateChangeReasonCodeSTEPFAILURE,
+        ClusterStateChangeReasonCodeUSERREQUEST,
+        ClusterStateChangeReasonCodeVALIDATIONERROR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ClusterStateChangeReasonCode
-  = ClusterStateChangeReasonCode'
-      ( CI
-          Text
-      )
+newtype ClusterStateChangeReasonCode = ClusterStateChangeReasonCode'
+  { fromClusterStateChangeReasonCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCRCAllStepsCompleted :: ClusterStateChangeReasonCode
-pattern CSCRCAllStepsCompleted = ClusterStateChangeReasonCode' "ALL_STEPS_COMPLETED"
+pattern ClusterStateChangeReasonCodeALLSTEPSCOMPLETED :: ClusterStateChangeReasonCode
+pattern ClusterStateChangeReasonCodeALLSTEPSCOMPLETED = ClusterStateChangeReasonCode' "ALL_STEPS_COMPLETED"
 
-pattern CSCRCBootstrapFailure :: ClusterStateChangeReasonCode
-pattern CSCRCBootstrapFailure = ClusterStateChangeReasonCode' "BOOTSTRAP_FAILURE"
+pattern ClusterStateChangeReasonCodeBOOTSTRAPFAILURE :: ClusterStateChangeReasonCode
+pattern ClusterStateChangeReasonCodeBOOTSTRAPFAILURE = ClusterStateChangeReasonCode' "BOOTSTRAP_FAILURE"
 
-pattern CSCRCInstanceFailure :: ClusterStateChangeReasonCode
-pattern CSCRCInstanceFailure = ClusterStateChangeReasonCode' "INSTANCE_FAILURE"
+pattern ClusterStateChangeReasonCodeINSTANCEFAILURE :: ClusterStateChangeReasonCode
+pattern ClusterStateChangeReasonCodeINSTANCEFAILURE = ClusterStateChangeReasonCode' "INSTANCE_FAILURE"
 
-pattern CSCRCInstanceFleetTimeout :: ClusterStateChangeReasonCode
-pattern CSCRCInstanceFleetTimeout = ClusterStateChangeReasonCode' "INSTANCE_FLEET_TIMEOUT"
+pattern ClusterStateChangeReasonCodeINSTANCEFLEETTIMEOUT :: ClusterStateChangeReasonCode
+pattern ClusterStateChangeReasonCodeINSTANCEFLEETTIMEOUT = ClusterStateChangeReasonCode' "INSTANCE_FLEET_TIMEOUT"
 
-pattern CSCRCInternalError :: ClusterStateChangeReasonCode
-pattern CSCRCInternalError = ClusterStateChangeReasonCode' "INTERNAL_ERROR"
+pattern ClusterStateChangeReasonCodeINTERNALERROR :: ClusterStateChangeReasonCode
+pattern ClusterStateChangeReasonCodeINTERNALERROR = ClusterStateChangeReasonCode' "INTERNAL_ERROR"
 
-pattern CSCRCStepFailure :: ClusterStateChangeReasonCode
-pattern CSCRCStepFailure = ClusterStateChangeReasonCode' "STEP_FAILURE"
+pattern ClusterStateChangeReasonCodeSTEPFAILURE :: ClusterStateChangeReasonCode
+pattern ClusterStateChangeReasonCodeSTEPFAILURE = ClusterStateChangeReasonCode' "STEP_FAILURE"
 
-pattern CSCRCUserRequest :: ClusterStateChangeReasonCode
-pattern CSCRCUserRequest = ClusterStateChangeReasonCode' "USER_REQUEST"
+pattern ClusterStateChangeReasonCodeUSERREQUEST :: ClusterStateChangeReasonCode
+pattern ClusterStateChangeReasonCodeUSERREQUEST = ClusterStateChangeReasonCode' "USER_REQUEST"
 
-pattern CSCRCValidationError :: ClusterStateChangeReasonCode
-pattern CSCRCValidationError = ClusterStateChangeReasonCode' "VALIDATION_ERROR"
+pattern ClusterStateChangeReasonCodeVALIDATIONERROR :: ClusterStateChangeReasonCode
+pattern ClusterStateChangeReasonCodeVALIDATIONERROR = ClusterStateChangeReasonCode' "VALIDATION_ERROR"
 
 {-# COMPLETE
-  CSCRCAllStepsCompleted,
-  CSCRCBootstrapFailure,
-  CSCRCInstanceFailure,
-  CSCRCInstanceFleetTimeout,
-  CSCRCInternalError,
-  CSCRCStepFailure,
-  CSCRCUserRequest,
-  CSCRCValidationError,
+  ClusterStateChangeReasonCodeALLSTEPSCOMPLETED,
+  ClusterStateChangeReasonCodeBOOTSTRAPFAILURE,
+  ClusterStateChangeReasonCodeINSTANCEFAILURE,
+  ClusterStateChangeReasonCodeINSTANCEFLEETTIMEOUT,
+  ClusterStateChangeReasonCodeINTERNALERROR,
+  ClusterStateChangeReasonCodeSTEPFAILURE,
+  ClusterStateChangeReasonCodeUSERREQUEST,
+  ClusterStateChangeReasonCodeVALIDATIONERROR,
   ClusterStateChangeReasonCode'
   #-}
 
-instance FromText ClusterStateChangeReasonCode where
-  parser = (ClusterStateChangeReasonCode' . mk) <$> takeText
+instance Prelude.FromText ClusterStateChangeReasonCode where
+  parser = ClusterStateChangeReasonCode' Prelude.<$> Prelude.takeText
 
-instance ToText ClusterStateChangeReasonCode where
-  toText (ClusterStateChangeReasonCode' ci) = original ci
+instance Prelude.ToText ClusterStateChangeReasonCode where
+  toText (ClusterStateChangeReasonCode' x) = x
 
-instance Hashable ClusterStateChangeReasonCode
+instance Prelude.Hashable ClusterStateChangeReasonCode
 
-instance NFData ClusterStateChangeReasonCode
+instance Prelude.NFData ClusterStateChangeReasonCode
 
-instance ToByteString ClusterStateChangeReasonCode
+instance Prelude.ToByteString ClusterStateChangeReasonCode
 
-instance ToQuery ClusterStateChangeReasonCode
+instance Prelude.ToQuery ClusterStateChangeReasonCode
 
-instance ToHeader ClusterStateChangeReasonCode
+instance Prelude.ToHeader ClusterStateChangeReasonCode
 
-instance FromJSON ClusterStateChangeReasonCode where
-  parseJSON = parseJSONText "ClusterStateChangeReasonCode"
+instance Prelude.FromJSON ClusterStateChangeReasonCode where
+  parseJSON = Prelude.parseJSONText "ClusterStateChangeReasonCode"

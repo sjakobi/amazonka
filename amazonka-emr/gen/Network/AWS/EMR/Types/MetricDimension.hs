@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.MetricDimension where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A CloudWatch dimension, which is specified using a @Key@ (known as a @Name@ in CloudWatch), @Value@ pair. By default, Amazon EMR uses one dimension whose @Key@ is @JobFlowID@ and @Value@ is a variable representing the cluster ID, which is @> {emr.clusterId}@ . This enables the rule to bootstrap when the cluster ID becomes available.
+-- | A CloudWatch dimension, which is specified using a @Key@ (known as a
+-- @Name@ in CloudWatch), @Value@ pair. By default, Amazon EMR uses one
+-- dimension whose @Key@ is @JobFlowID@ and @Value@ is a variable
+-- representing the cluster ID, which is @${emr.clusterId}@. This enables
+-- the rule to bootstrap when the cluster ID becomes available.
 --
---
---
--- /See:/ 'metricDimension' smart constructor.
+-- /See:/ 'newMetricDimension' smart constructor.
 data MetricDimension = MetricDimension'
-  { _mdKey ::
-      !(Maybe Text),
-    _mdValue :: !(Maybe Text)
+  { -- | The dimension name.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The dimension value.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricDimension' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricDimension' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdKey' - The dimension name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdValue' - The dimension value.
-metricDimension ::
+-- 'key', 'metricDimension_key' - The dimension name.
+--
+-- 'value', 'metricDimension_value' - The dimension value.
+newMetricDimension ::
   MetricDimension
-metricDimension =
+newMetricDimension =
   MetricDimension'
-    { _mdKey = Nothing,
-      _mdValue = Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The dimension name.
-mdKey :: Lens' MetricDimension (Maybe Text)
-mdKey = lens _mdKey (\s a -> s {_mdKey = a})
+metricDimension_key :: Lens.Lens' MetricDimension (Prelude.Maybe Prelude.Text)
+metricDimension_key = Lens.lens (\MetricDimension' {key} -> key) (\s@MetricDimension' {} a -> s {key = a} :: MetricDimension)
 
 -- | The dimension value.
-mdValue :: Lens' MetricDimension (Maybe Text)
-mdValue = lens _mdValue (\s a -> s {_mdValue = a})
+metricDimension_value :: Lens.Lens' MetricDimension (Prelude.Maybe Prelude.Text)
+metricDimension_value = Lens.lens (\MetricDimension' {value} -> value) (\s@MetricDimension' {} a -> s {value = a} :: MetricDimension)
 
-instance FromJSON MetricDimension where
+instance Prelude.FromJSON MetricDimension where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MetricDimension"
       ( \x ->
           MetricDimension'
-            <$> (x .:? "Key") <*> (x .:? "Value")
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable MetricDimension
+instance Prelude.Hashable MetricDimension
 
-instance NFData MetricDimension
+instance Prelude.NFData MetricDimension
 
-instance ToJSON MetricDimension where
+instance Prelude.ToJSON MetricDimension where
   toJSON MetricDimension' {..} =
-    object
-      ( catMaybes
-          [("Key" .=) <$> _mdKey, ("Value" .=) <$> _mdValue]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Value" Prelude..=) Prelude.<$> value
+          ]
       )

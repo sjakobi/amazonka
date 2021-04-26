@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.EMR.Types.MarketType
   ( MarketType
       ( ..,
-        OnDemand,
-        Spot
+        MarketTypeONDEMAND,
+        MarketTypeSPOT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MarketType = MarketType' (CI Text)
+newtype MarketType = MarketType'
+  { fromMarketType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OnDemand :: MarketType
-pattern OnDemand = MarketType' "ON_DEMAND"
+pattern MarketTypeONDEMAND :: MarketType
+pattern MarketTypeONDEMAND = MarketType' "ON_DEMAND"
 
-pattern Spot :: MarketType
-pattern Spot = MarketType' "SPOT"
+pattern MarketTypeSPOT :: MarketType
+pattern MarketTypeSPOT = MarketType' "SPOT"
 
 {-# COMPLETE
-  OnDemand,
-  Spot,
+  MarketTypeONDEMAND,
+  MarketTypeSPOT,
   MarketType'
   #-}
 
-instance FromText MarketType where
-  parser = (MarketType' . mk) <$> takeText
+instance Prelude.FromText MarketType where
+  parser = MarketType' Prelude.<$> Prelude.takeText
 
-instance ToText MarketType where
-  toText (MarketType' ci) = original ci
+instance Prelude.ToText MarketType where
+  toText (MarketType' x) = x
 
-instance Hashable MarketType
+instance Prelude.Hashable MarketType
 
-instance NFData MarketType
+instance Prelude.NFData MarketType
 
-instance ToByteString MarketType
+instance Prelude.ToByteString MarketType
 
-instance ToQuery MarketType
+instance Prelude.ToQuery MarketType
 
-instance ToHeader MarketType
+instance Prelude.ToHeader MarketType
 
-instance ToJSON MarketType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MarketType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MarketType where
-  parseJSON = parseJSONText "MarketType"
+instance Prelude.FromJSON MarketType where
+  parseJSON = Prelude.parseJSONText "MarketType"

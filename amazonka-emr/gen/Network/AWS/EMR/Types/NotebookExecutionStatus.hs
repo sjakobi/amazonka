@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,100 +19,98 @@
 module Network.AWS.EMR.Types.NotebookExecutionStatus
   ( NotebookExecutionStatus
       ( ..,
-        NESFailed,
-        NESFailing,
-        NESFinished,
-        NESFinishing,
-        NESRunning,
-        NESStartPending,
-        NESStarting,
-        NESStopPending,
-        NESStopped,
-        NESStopping
+        NotebookExecutionStatusFAILED,
+        NotebookExecutionStatusFAILING,
+        NotebookExecutionStatusFINISHED,
+        NotebookExecutionStatusFINISHING,
+        NotebookExecutionStatusRUNNING,
+        NotebookExecutionStatusSTARTING,
+        NotebookExecutionStatusSTARTPENDING,
+        NotebookExecutionStatusSTOPPED,
+        NotebookExecutionStatusSTOPPENDING,
+        NotebookExecutionStatusSTOPPING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotebookExecutionStatus
-  = NotebookExecutionStatus'
-      ( CI
-          Text
-      )
+newtype NotebookExecutionStatus = NotebookExecutionStatus'
+  { fromNotebookExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NESFailed :: NotebookExecutionStatus
-pattern NESFailed = NotebookExecutionStatus' "FAILED"
+pattern NotebookExecutionStatusFAILED :: NotebookExecutionStatus
+pattern NotebookExecutionStatusFAILED = NotebookExecutionStatus' "FAILED"
 
-pattern NESFailing :: NotebookExecutionStatus
-pattern NESFailing = NotebookExecutionStatus' "FAILING"
+pattern NotebookExecutionStatusFAILING :: NotebookExecutionStatus
+pattern NotebookExecutionStatusFAILING = NotebookExecutionStatus' "FAILING"
 
-pattern NESFinished :: NotebookExecutionStatus
-pattern NESFinished = NotebookExecutionStatus' "FINISHED"
+pattern NotebookExecutionStatusFINISHED :: NotebookExecutionStatus
+pattern NotebookExecutionStatusFINISHED = NotebookExecutionStatus' "FINISHED"
 
-pattern NESFinishing :: NotebookExecutionStatus
-pattern NESFinishing = NotebookExecutionStatus' "FINISHING"
+pattern NotebookExecutionStatusFINISHING :: NotebookExecutionStatus
+pattern NotebookExecutionStatusFINISHING = NotebookExecutionStatus' "FINISHING"
 
-pattern NESRunning :: NotebookExecutionStatus
-pattern NESRunning = NotebookExecutionStatus' "RUNNING"
+pattern NotebookExecutionStatusRUNNING :: NotebookExecutionStatus
+pattern NotebookExecutionStatusRUNNING = NotebookExecutionStatus' "RUNNING"
 
-pattern NESStartPending :: NotebookExecutionStatus
-pattern NESStartPending = NotebookExecutionStatus' "START_PENDING"
+pattern NotebookExecutionStatusSTARTING :: NotebookExecutionStatus
+pattern NotebookExecutionStatusSTARTING = NotebookExecutionStatus' "STARTING"
 
-pattern NESStarting :: NotebookExecutionStatus
-pattern NESStarting = NotebookExecutionStatus' "STARTING"
+pattern NotebookExecutionStatusSTARTPENDING :: NotebookExecutionStatus
+pattern NotebookExecutionStatusSTARTPENDING = NotebookExecutionStatus' "START_PENDING"
 
-pattern NESStopPending :: NotebookExecutionStatus
-pattern NESStopPending = NotebookExecutionStatus' "STOP_PENDING"
+pattern NotebookExecutionStatusSTOPPED :: NotebookExecutionStatus
+pattern NotebookExecutionStatusSTOPPED = NotebookExecutionStatus' "STOPPED"
 
-pattern NESStopped :: NotebookExecutionStatus
-pattern NESStopped = NotebookExecutionStatus' "STOPPED"
+pattern NotebookExecutionStatusSTOPPENDING :: NotebookExecutionStatus
+pattern NotebookExecutionStatusSTOPPENDING = NotebookExecutionStatus' "STOP_PENDING"
 
-pattern NESStopping :: NotebookExecutionStatus
-pattern NESStopping = NotebookExecutionStatus' "STOPPING"
+pattern NotebookExecutionStatusSTOPPING :: NotebookExecutionStatus
+pattern NotebookExecutionStatusSTOPPING = NotebookExecutionStatus' "STOPPING"
 
 {-# COMPLETE
-  NESFailed,
-  NESFailing,
-  NESFinished,
-  NESFinishing,
-  NESRunning,
-  NESStartPending,
-  NESStarting,
-  NESStopPending,
-  NESStopped,
-  NESStopping,
+  NotebookExecutionStatusFAILED,
+  NotebookExecutionStatusFAILING,
+  NotebookExecutionStatusFINISHED,
+  NotebookExecutionStatusFINISHING,
+  NotebookExecutionStatusRUNNING,
+  NotebookExecutionStatusSTARTING,
+  NotebookExecutionStatusSTARTPENDING,
+  NotebookExecutionStatusSTOPPED,
+  NotebookExecutionStatusSTOPPENDING,
+  NotebookExecutionStatusSTOPPING,
   NotebookExecutionStatus'
   #-}
 
-instance FromText NotebookExecutionStatus where
-  parser = (NotebookExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText NotebookExecutionStatus where
+  parser = NotebookExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText NotebookExecutionStatus where
-  toText (NotebookExecutionStatus' ci) = original ci
+instance Prelude.ToText NotebookExecutionStatus where
+  toText (NotebookExecutionStatus' x) = x
 
-instance Hashable NotebookExecutionStatus
+instance Prelude.Hashable NotebookExecutionStatus
 
-instance NFData NotebookExecutionStatus
+instance Prelude.NFData NotebookExecutionStatus
 
-instance ToByteString NotebookExecutionStatus
+instance Prelude.ToByteString NotebookExecutionStatus
 
-instance ToQuery NotebookExecutionStatus
+instance Prelude.ToQuery NotebookExecutionStatus
 
-instance ToHeader NotebookExecutionStatus
+instance Prelude.ToHeader NotebookExecutionStatus
 
-instance ToJSON NotebookExecutionStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotebookExecutionStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NotebookExecutionStatus where
-  parseJSON = parseJSONText "NotebookExecutionStatus"
+instance Prelude.FromJSON NotebookExecutionStatus where
+  parseJSON = Prelude.parseJSONText "NotebookExecutionStatus"

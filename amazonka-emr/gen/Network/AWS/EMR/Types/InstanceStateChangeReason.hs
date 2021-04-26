@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,58 @@
 module Network.AWS.EMR.Types.InstanceStateChangeReason where
 
 import Network.AWS.EMR.Types.InstanceStateChangeReasonCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of the status change reason for the instance.
 --
---
---
--- /See:/ 'instanceStateChangeReason' smart constructor.
+-- /See:/ 'newInstanceStateChangeReason' smart constructor.
 data InstanceStateChangeReason = InstanceStateChangeReason'
-  { _iscrMessage ::
-      !(Maybe Text),
-    _iscrCode ::
-      !( Maybe
-           InstanceStateChangeReasonCode
-       )
+  { -- | The status change reason description.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The programmable code for the state change reason.
+    code :: Prelude.Maybe InstanceStateChangeReasonCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceStateChangeReason' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceStateChangeReason' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iscrMessage' - The status change reason description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iscrCode' - The programmable code for the state change reason.
-instanceStateChangeReason ::
+-- 'message', 'instanceStateChangeReason_message' - The status change reason description.
+--
+-- 'code', 'instanceStateChangeReason_code' - The programmable code for the state change reason.
+newInstanceStateChangeReason ::
   InstanceStateChangeReason
-instanceStateChangeReason =
+newInstanceStateChangeReason =
   InstanceStateChangeReason'
-    { _iscrMessage = Nothing,
-      _iscrCode = Nothing
+    { message =
+        Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The status change reason description.
-iscrMessage :: Lens' InstanceStateChangeReason (Maybe Text)
-iscrMessage = lens _iscrMessage (\s a -> s {_iscrMessage = a})
+instanceStateChangeReason_message :: Lens.Lens' InstanceStateChangeReason (Prelude.Maybe Prelude.Text)
+instanceStateChangeReason_message = Lens.lens (\InstanceStateChangeReason' {message} -> message) (\s@InstanceStateChangeReason' {} a -> s {message = a} :: InstanceStateChangeReason)
 
 -- | The programmable code for the state change reason.
-iscrCode :: Lens' InstanceStateChangeReason (Maybe InstanceStateChangeReasonCode)
-iscrCode = lens _iscrCode (\s a -> s {_iscrCode = a})
+instanceStateChangeReason_code :: Lens.Lens' InstanceStateChangeReason (Prelude.Maybe InstanceStateChangeReasonCode)
+instanceStateChangeReason_code = Lens.lens (\InstanceStateChangeReason' {code} -> code) (\s@InstanceStateChangeReason' {} a -> s {code = a} :: InstanceStateChangeReason)
 
-instance FromJSON InstanceStateChangeReason where
+instance Prelude.FromJSON InstanceStateChangeReason where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceStateChangeReason"
       ( \x ->
           InstanceStateChangeReason'
-            <$> (x .:? "Message") <*> (x .:? "Code")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Code")
       )
 
-instance Hashable InstanceStateChangeReason
+instance Prelude.Hashable InstanceStateChangeReason
 
-instance NFData InstanceStateChangeReason
+instance Prelude.NFData InstanceStateChangeReason

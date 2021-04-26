@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,60 @@
 module Network.AWS.EMR.Types.StepStateChangeReason where
 
 import Network.AWS.EMR.Types.StepStateChangeReasonCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of the step state change reason.
 --
---
---
--- /See:/ 'stepStateChangeReason' smart constructor.
+-- /See:/ 'newStepStateChangeReason' smart constructor.
 data StepStateChangeReason = StepStateChangeReason'
-  { _sscrMessage ::
-      !(Maybe Text),
-    _sscrCode ::
-      !( Maybe
-           StepStateChangeReasonCode
-       )
+  { -- | The descriptive message for the state change reason.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The programmable code for the state change reason. Note: Currently, the
+    -- service provides no code for the state change.
+    code :: Prelude.Maybe StepStateChangeReasonCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StepStateChangeReason' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StepStateChangeReason' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sscrMessage' - The descriptive message for the state change reason.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sscrCode' - The programmable code for the state change reason. Note: Currently, the service provides no code for the state change.
-stepStateChangeReason ::
+-- 'message', 'stepStateChangeReason_message' - The descriptive message for the state change reason.
+--
+-- 'code', 'stepStateChangeReason_code' - The programmable code for the state change reason. Note: Currently, the
+-- service provides no code for the state change.
+newStepStateChangeReason ::
   StepStateChangeReason
-stepStateChangeReason =
+newStepStateChangeReason =
   StepStateChangeReason'
-    { _sscrMessage = Nothing,
-      _sscrCode = Nothing
+    { message = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | The descriptive message for the state change reason.
-sscrMessage :: Lens' StepStateChangeReason (Maybe Text)
-sscrMessage = lens _sscrMessage (\s a -> s {_sscrMessage = a})
+stepStateChangeReason_message :: Lens.Lens' StepStateChangeReason (Prelude.Maybe Prelude.Text)
+stepStateChangeReason_message = Lens.lens (\StepStateChangeReason' {message} -> message) (\s@StepStateChangeReason' {} a -> s {message = a} :: StepStateChangeReason)
 
--- | The programmable code for the state change reason. Note: Currently, the service provides no code for the state change.
-sscrCode :: Lens' StepStateChangeReason (Maybe StepStateChangeReasonCode)
-sscrCode = lens _sscrCode (\s a -> s {_sscrCode = a})
+-- | The programmable code for the state change reason. Note: Currently, the
+-- service provides no code for the state change.
+stepStateChangeReason_code :: Lens.Lens' StepStateChangeReason (Prelude.Maybe StepStateChangeReasonCode)
+stepStateChangeReason_code = Lens.lens (\StepStateChangeReason' {code} -> code) (\s@StepStateChangeReason' {} a -> s {code = a} :: StepStateChangeReason)
 
-instance FromJSON StepStateChangeReason where
+instance Prelude.FromJSON StepStateChangeReason where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StepStateChangeReason"
       ( \x ->
           StepStateChangeReason'
-            <$> (x .:? "Message") <*> (x .:? "Code")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Code")
       )
 
-instance Hashable StepStateChangeReason
+instance Prelude.Hashable StepStateChangeReason
 
-instance NFData StepStateChangeReason
+instance Prelude.NFData StepStateChangeReason

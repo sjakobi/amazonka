@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,144 +24,146 @@
 -- Fetches the attached managed scaling policy for an Amazon EMR cluster.
 module Network.AWS.EMR.GetManagedScalingPolicy
   ( -- * Creating a Request
-    getManagedScalingPolicy,
-    GetManagedScalingPolicy,
+    GetManagedScalingPolicy (..),
+    newGetManagedScalingPolicy,
 
     -- * Request Lenses
-    gmspClusterId,
+    getManagedScalingPolicy_clusterId,
 
     -- * Destructuring the Response
-    getManagedScalingPolicyResponse,
-    GetManagedScalingPolicyResponse,
+    GetManagedScalingPolicyResponse (..),
+    newGetManagedScalingPolicyResponse,
 
     -- * Response Lenses
-    gmsprrsManagedScalingPolicy,
-    gmsprrsResponseStatus,
+    getManagedScalingPolicyResponse_managedScalingPolicy,
+    getManagedScalingPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.EMR.Types.ManagedScalingPolicy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getManagedScalingPolicy' smart constructor.
-newtype GetManagedScalingPolicy = GetManagedScalingPolicy'
-  { _gmspClusterId ::
-      Text
+-- | /See:/ 'newGetManagedScalingPolicy' smart constructor.
+data GetManagedScalingPolicy = GetManagedScalingPolicy'
+  { -- | Specifies the ID of the cluster for which the managed scaling policy
+    -- will be fetched.
+    clusterId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetManagedScalingPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetManagedScalingPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmspClusterId' - Specifies the ID of the cluster for which the managed scaling policy will be fetched.
-getManagedScalingPolicy ::
-  -- | 'gmspClusterId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'clusterId', 'getManagedScalingPolicy_clusterId' - Specifies the ID of the cluster for which the managed scaling policy
+-- will be fetched.
+newGetManagedScalingPolicy ::
+  -- | 'clusterId'
+  Prelude.Text ->
   GetManagedScalingPolicy
-getManagedScalingPolicy pClusterId_ =
-  GetManagedScalingPolicy'
-    { _gmspClusterId =
-        pClusterId_
-    }
+newGetManagedScalingPolicy pClusterId_ =
+  GetManagedScalingPolicy' {clusterId = pClusterId_}
 
--- | Specifies the ID of the cluster for which the managed scaling policy will be fetched.
-gmspClusterId :: Lens' GetManagedScalingPolicy Text
-gmspClusterId = lens _gmspClusterId (\s a -> s {_gmspClusterId = a})
+-- | Specifies the ID of the cluster for which the managed scaling policy
+-- will be fetched.
+getManagedScalingPolicy_clusterId :: Lens.Lens' GetManagedScalingPolicy Prelude.Text
+getManagedScalingPolicy_clusterId = Lens.lens (\GetManagedScalingPolicy' {clusterId} -> clusterId) (\s@GetManagedScalingPolicy' {} a -> s {clusterId = a} :: GetManagedScalingPolicy)
 
-instance AWSRequest GetManagedScalingPolicy where
+instance Prelude.AWSRequest GetManagedScalingPolicy where
   type
     Rs GetManagedScalingPolicy =
       GetManagedScalingPolicyResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetManagedScalingPolicyResponse'
-            <$> (x .?> "ManagedScalingPolicy")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ManagedScalingPolicy")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetManagedScalingPolicy
+instance Prelude.Hashable GetManagedScalingPolicy
 
-instance NFData GetManagedScalingPolicy
+instance Prelude.NFData GetManagedScalingPolicy
 
-instance ToHeaders GetManagedScalingPolicy where
+instance Prelude.ToHeaders GetManagedScalingPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.GetManagedScalingPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.GetManagedScalingPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetManagedScalingPolicy where
+instance Prelude.ToJSON GetManagedScalingPolicy where
   toJSON GetManagedScalingPolicy' {..} =
-    object
-      (catMaybes [Just ("ClusterId" .= _gmspClusterId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ClusterId" Prelude..= clusterId)]
+      )
 
-instance ToPath GetManagedScalingPolicy where
-  toPath = const "/"
+instance Prelude.ToPath GetManagedScalingPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetManagedScalingPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery GetManagedScalingPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getManagedScalingPolicyResponse' smart constructor.
+-- | /See:/ 'newGetManagedScalingPolicyResponse' smart constructor.
 data GetManagedScalingPolicyResponse = GetManagedScalingPolicyResponse'
-  { _gmsprrsManagedScalingPolicy ::
-      !( Maybe
-           ManagedScalingPolicy
-       ),
-    _gmsprrsResponseStatus ::
-      !Int
+  { -- | Specifies the managed scaling policy that is attached to an Amazon EMR
+    -- cluster.
+    managedScalingPolicy :: Prelude.Maybe ManagedScalingPolicy,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetManagedScalingPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetManagedScalingPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmsprrsManagedScalingPolicy' - Specifies the managed scaling policy that is attached to an Amazon EMR cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmsprrsResponseStatus' - -- | The response status code.
-getManagedScalingPolicyResponse ::
-  -- | 'gmsprrsResponseStatus'
-  Int ->
+-- 'managedScalingPolicy', 'getManagedScalingPolicyResponse_managedScalingPolicy' - Specifies the managed scaling policy that is attached to an Amazon EMR
+-- cluster.
+--
+-- 'httpStatus', 'getManagedScalingPolicyResponse_httpStatus' - The response's http status code.
+newGetManagedScalingPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetManagedScalingPolicyResponse
-getManagedScalingPolicyResponse pResponseStatus_ =
+newGetManagedScalingPolicyResponse pHttpStatus_ =
   GetManagedScalingPolicyResponse'
-    { _gmsprrsManagedScalingPolicy =
-        Nothing,
-      _gmsprrsResponseStatus = pResponseStatus_
+    { managedScalingPolicy =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Specifies the managed scaling policy that is attached to an Amazon EMR cluster.
-gmsprrsManagedScalingPolicy :: Lens' GetManagedScalingPolicyResponse (Maybe ManagedScalingPolicy)
-gmsprrsManagedScalingPolicy = lens _gmsprrsManagedScalingPolicy (\s a -> s {_gmsprrsManagedScalingPolicy = a})
+-- | Specifies the managed scaling policy that is attached to an Amazon EMR
+-- cluster.
+getManagedScalingPolicyResponse_managedScalingPolicy :: Lens.Lens' GetManagedScalingPolicyResponse (Prelude.Maybe ManagedScalingPolicy)
+getManagedScalingPolicyResponse_managedScalingPolicy = Lens.lens (\GetManagedScalingPolicyResponse' {managedScalingPolicy} -> managedScalingPolicy) (\s@GetManagedScalingPolicyResponse' {} a -> s {managedScalingPolicy = a} :: GetManagedScalingPolicyResponse)
 
--- | -- | The response status code.
-gmsprrsResponseStatus :: Lens' GetManagedScalingPolicyResponse Int
-gmsprrsResponseStatus = lens _gmsprrsResponseStatus (\s a -> s {_gmsprrsResponseStatus = a})
+-- | The response's http status code.
+getManagedScalingPolicyResponse_httpStatus :: Lens.Lens' GetManagedScalingPolicyResponse Prelude.Int
+getManagedScalingPolicyResponse_httpStatus = Lens.lens (\GetManagedScalingPolicyResponse' {httpStatus} -> httpStatus) (\s@GetManagedScalingPolicyResponse' {} a -> s {httpStatus = a} :: GetManagedScalingPolicyResponse)
 
-instance NFData GetManagedScalingPolicyResponse
+instance
+  Prelude.NFData
+    GetManagedScalingPolicyResponse

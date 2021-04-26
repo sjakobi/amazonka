@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,85 +24,100 @@
 -- Removes an Amazon EMR Studio from the Studio metadata store.
 module Network.AWS.EMR.DeleteStudio
   ( -- * Creating a Request
-    deleteStudio,
-    DeleteStudio,
+    DeleteStudio (..),
+    newDeleteStudio,
 
     -- * Request Lenses
-    dsStudioId,
+    deleteStudio_studioId,
 
     -- * Destructuring the Response
-    deleteStudioResponse,
-    DeleteStudioResponse,
+    DeleteStudioResponse (..),
+    newDeleteStudioResponse,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteStudio' smart constructor.
-newtype DeleteStudio = DeleteStudio'
-  { _dsStudioId ::
-      Text
+-- | /See:/ 'newDeleteStudio' smart constructor.
+data DeleteStudio = DeleteStudio'
+  { -- | The ID of the Amazon EMR Studio.
+    studioId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStudio' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteStudio' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsStudioId' - The ID of the Amazon EMR Studio.
-deleteStudio ::
-  -- | 'dsStudioId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'studioId', 'deleteStudio_studioId' - The ID of the Amazon EMR Studio.
+newDeleteStudio ::
+  -- | 'studioId'
+  Prelude.Text ->
   DeleteStudio
-deleteStudio pStudioId_ =
-  DeleteStudio' {_dsStudioId = pStudioId_}
+newDeleteStudio pStudioId_ =
+  DeleteStudio' {studioId = pStudioId_}
 
 -- | The ID of the Amazon EMR Studio.
-dsStudioId :: Lens' DeleteStudio Text
-dsStudioId = lens _dsStudioId (\s a -> s {_dsStudioId = a})
+deleteStudio_studioId :: Lens.Lens' DeleteStudio Prelude.Text
+deleteStudio_studioId = Lens.lens (\DeleteStudio' {studioId} -> studioId) (\s@DeleteStudio' {} a -> s {studioId = a} :: DeleteStudio)
 
-instance AWSRequest DeleteStudio where
+instance Prelude.AWSRequest DeleteStudio where
   type Rs DeleteStudio = DeleteStudioResponse
-  request = postJSON emr
-  response = receiveNull DeleteStudioResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull DeleteStudioResponse'
 
-instance Hashable DeleteStudio
+instance Prelude.Hashable DeleteStudio
 
-instance NFData DeleteStudio
+instance Prelude.NFData DeleteStudio
 
-instance ToHeaders DeleteStudio where
+instance Prelude.ToHeaders DeleteStudio where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("ElasticMapReduce.DeleteStudio" :: ByteString),
+              Prelude.=# ( "ElasticMapReduce.DeleteStudio" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteStudio where
+instance Prelude.ToJSON DeleteStudio where
   toJSON DeleteStudio' {..} =
-    object
-      (catMaybes [Just ("StudioId" .= _dsStudioId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("StudioId" Prelude..= studioId)]
+      )
 
-instance ToPath DeleteStudio where
-  toPath = const "/"
+instance Prelude.ToPath DeleteStudio where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteStudio where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteStudio where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteStudioResponse' smart constructor.
+-- | /See:/ 'newDeleteStudioResponse' smart constructor.
 data DeleteStudioResponse = DeleteStudioResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStudioResponse' with the minimum fields required to make a request.
-deleteStudioResponse ::
+-- |
+-- Create a value of 'DeleteStudioResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteStudioResponse ::
   DeleteStudioResponse
-deleteStudioResponse = DeleteStudioResponse'
+newDeleteStudioResponse = DeleteStudioResponse'
 
-instance NFData DeleteStudioResponse
+instance Prelude.NFData DeleteStudioResponse

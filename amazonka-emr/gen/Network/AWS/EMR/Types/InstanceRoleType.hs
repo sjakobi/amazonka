@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.EMR.Types.InstanceRoleType
   ( InstanceRoleType
       ( ..,
-        IRTCore,
-        IRTMaster,
-        IRTTask
+        InstanceRoleTypeCORE,
+        InstanceRoleTypeMASTER,
+        InstanceRoleTypeTASK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceRoleType = InstanceRoleType' (CI Text)
+newtype InstanceRoleType = InstanceRoleType'
+  { fromInstanceRoleType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IRTCore :: InstanceRoleType
-pattern IRTCore = InstanceRoleType' "CORE"
+pattern InstanceRoleTypeCORE :: InstanceRoleType
+pattern InstanceRoleTypeCORE = InstanceRoleType' "CORE"
 
-pattern IRTMaster :: InstanceRoleType
-pattern IRTMaster = InstanceRoleType' "MASTER"
+pattern InstanceRoleTypeMASTER :: InstanceRoleType
+pattern InstanceRoleTypeMASTER = InstanceRoleType' "MASTER"
 
-pattern IRTTask :: InstanceRoleType
-pattern IRTTask = InstanceRoleType' "TASK"
+pattern InstanceRoleTypeTASK :: InstanceRoleType
+pattern InstanceRoleTypeTASK = InstanceRoleType' "TASK"
 
 {-# COMPLETE
-  IRTCore,
-  IRTMaster,
-  IRTTask,
+  InstanceRoleTypeCORE,
+  InstanceRoleTypeMASTER,
+  InstanceRoleTypeTASK,
   InstanceRoleType'
   #-}
 
-instance FromText InstanceRoleType where
-  parser = (InstanceRoleType' . mk) <$> takeText
+instance Prelude.FromText InstanceRoleType where
+  parser = InstanceRoleType' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceRoleType where
-  toText (InstanceRoleType' ci) = original ci
+instance Prelude.ToText InstanceRoleType where
+  toText (InstanceRoleType' x) = x
 
-instance Hashable InstanceRoleType
+instance Prelude.Hashable InstanceRoleType
 
-instance NFData InstanceRoleType
+instance Prelude.NFData InstanceRoleType
 
-instance ToByteString InstanceRoleType
+instance Prelude.ToByteString InstanceRoleType
 
-instance ToQuery InstanceRoleType
+instance Prelude.ToQuery InstanceRoleType
 
-instance ToHeader InstanceRoleType
+instance Prelude.ToHeader InstanceRoleType
 
-instance ToJSON InstanceRoleType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceRoleType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InstanceRoleType where
-  parseJSON = parseJSONText "InstanceRoleType"
+instance Prelude.FromJSON InstanceRoleType where
+  parseJSON = Prelude.parseJSONText "InstanceRoleType"

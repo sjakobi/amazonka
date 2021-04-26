@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,129 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the target On-Demand and target Spot capacities for the instance fleet with the specified InstanceFleetID within the cluster specified using ClusterID. The call either succeeds or fails atomically.
+-- Modifies the target On-Demand and target Spot capacities for the
+-- instance fleet with the specified InstanceFleetID within the cluster
+-- specified using ClusterID. The call either succeeds or fails atomically.
+--
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions.
 module Network.AWS.EMR.ModifyInstanceFleet
   ( -- * Creating a Request
-    modifyInstanceFleet,
-    ModifyInstanceFleet,
+    ModifyInstanceFleet (..),
+    newModifyInstanceFleet,
 
     -- * Request Lenses
-    mifClusterId,
-    mifInstanceFleet,
+    modifyInstanceFleet_clusterId,
+    modifyInstanceFleet_instanceFleet,
 
     -- * Destructuring the Response
-    modifyInstanceFleetResponse,
-    ModifyInstanceFleetResponse,
+    ModifyInstanceFleetResponse (..),
+    newModifyInstanceFleetResponse,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyInstanceFleet' smart constructor.
+-- | /See:/ 'newModifyInstanceFleet' smart constructor.
 data ModifyInstanceFleet = ModifyInstanceFleet'
-  { _mifClusterId ::
-      !Text,
-    _mifInstanceFleet ::
-      !InstanceFleetModifyConfig
+  { -- | The unique identifier of the cluster.
+    clusterId :: Prelude.Text,
+    -- | The unique identifier of the instance fleet.
+    instanceFleet :: InstanceFleetModifyConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstanceFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mifClusterId' - The unique identifier of the cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mifInstanceFleet' - The unique identifier of the instance fleet.
-modifyInstanceFleet ::
-  -- | 'mifClusterId'
-  Text ->
-  -- | 'mifInstanceFleet'
+-- 'clusterId', 'modifyInstanceFleet_clusterId' - The unique identifier of the cluster.
+--
+-- 'instanceFleet', 'modifyInstanceFleet_instanceFleet' - The unique identifier of the instance fleet.
+newModifyInstanceFleet ::
+  -- | 'clusterId'
+  Prelude.Text ->
+  -- | 'instanceFleet'
   InstanceFleetModifyConfig ->
   ModifyInstanceFleet
-modifyInstanceFleet pClusterId_ pInstanceFleet_ =
+newModifyInstanceFleet pClusterId_ pInstanceFleet_ =
   ModifyInstanceFleet'
-    { _mifClusterId = pClusterId_,
-      _mifInstanceFleet = pInstanceFleet_
+    { clusterId = pClusterId_,
+      instanceFleet = pInstanceFleet_
     }
 
 -- | The unique identifier of the cluster.
-mifClusterId :: Lens' ModifyInstanceFleet Text
-mifClusterId = lens _mifClusterId (\s a -> s {_mifClusterId = a})
+modifyInstanceFleet_clusterId :: Lens.Lens' ModifyInstanceFleet Prelude.Text
+modifyInstanceFleet_clusterId = Lens.lens (\ModifyInstanceFleet' {clusterId} -> clusterId) (\s@ModifyInstanceFleet' {} a -> s {clusterId = a} :: ModifyInstanceFleet)
 
 -- | The unique identifier of the instance fleet.
-mifInstanceFleet :: Lens' ModifyInstanceFleet InstanceFleetModifyConfig
-mifInstanceFleet = lens _mifInstanceFleet (\s a -> s {_mifInstanceFleet = a})
+modifyInstanceFleet_instanceFleet :: Lens.Lens' ModifyInstanceFleet InstanceFleetModifyConfig
+modifyInstanceFleet_instanceFleet = Lens.lens (\ModifyInstanceFleet' {instanceFleet} -> instanceFleet) (\s@ModifyInstanceFleet' {} a -> s {instanceFleet = a} :: ModifyInstanceFleet)
 
-instance AWSRequest ModifyInstanceFleet where
+instance Prelude.AWSRequest ModifyInstanceFleet where
   type
     Rs ModifyInstanceFleet =
       ModifyInstanceFleetResponse
-  request = postJSON emr
-  response = receiveNull ModifyInstanceFleetResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull ModifyInstanceFleetResponse'
 
-instance Hashable ModifyInstanceFleet
+instance Prelude.Hashable ModifyInstanceFleet
 
-instance NFData ModifyInstanceFleet
+instance Prelude.NFData ModifyInstanceFleet
 
-instance ToHeaders ModifyInstanceFleet where
+instance Prelude.ToHeaders ModifyInstanceFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.ModifyInstanceFleet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.ModifyInstanceFleet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifyInstanceFleet where
+instance Prelude.ToJSON ModifyInstanceFleet where
   toJSON ModifyInstanceFleet' {..} =
-    object
-      ( catMaybes
-          [ Just ("ClusterId" .= _mifClusterId),
-            Just ("InstanceFleet" .= _mifInstanceFleet)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ClusterId" Prelude..= clusterId),
+            Prelude.Just
+              ("InstanceFleet" Prelude..= instanceFleet)
           ]
       )
 
-instance ToPath ModifyInstanceFleet where
-  toPath = const "/"
+instance Prelude.ToPath ModifyInstanceFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyInstanceFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery ModifyInstanceFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'modifyInstanceFleetResponse' smart constructor.
+-- | /See:/ 'newModifyInstanceFleetResponse' smart constructor.
 data ModifyInstanceFleetResponse = ModifyInstanceFleetResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceFleetResponse' with the minimum fields required to make a request.
-modifyInstanceFleetResponse ::
+-- |
+-- Create a value of 'ModifyInstanceFleetResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newModifyInstanceFleetResponse ::
   ModifyInstanceFleetResponse
-modifyInstanceFleetResponse =
+newModifyInstanceFleetResponse =
   ModifyInstanceFleetResponse'
 
-instance NFData ModifyInstanceFleetResponse
+instance Prelude.NFData ModifyInstanceFleetResponse

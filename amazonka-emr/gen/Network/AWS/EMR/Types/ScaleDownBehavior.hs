@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.EMR.Types.ScaleDownBehavior
   ( ScaleDownBehavior
       ( ..,
-        TerminateAtInstanceHour,
-        TerminateAtTaskCompletion
+        ScaleDownBehaviorTERMINATEATINSTANCEHOUR,
+        ScaleDownBehaviorTERMINATEATTASKCOMPLETION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScaleDownBehavior = ScaleDownBehavior' (CI Text)
+newtype ScaleDownBehavior = ScaleDownBehavior'
+  { fromScaleDownBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TerminateAtInstanceHour :: ScaleDownBehavior
-pattern TerminateAtInstanceHour = ScaleDownBehavior' "TERMINATE_AT_INSTANCE_HOUR"
+pattern ScaleDownBehaviorTERMINATEATINSTANCEHOUR :: ScaleDownBehavior
+pattern ScaleDownBehaviorTERMINATEATINSTANCEHOUR = ScaleDownBehavior' "TERMINATE_AT_INSTANCE_HOUR"
 
-pattern TerminateAtTaskCompletion :: ScaleDownBehavior
-pattern TerminateAtTaskCompletion = ScaleDownBehavior' "TERMINATE_AT_TASK_COMPLETION"
+pattern ScaleDownBehaviorTERMINATEATTASKCOMPLETION :: ScaleDownBehavior
+pattern ScaleDownBehaviorTERMINATEATTASKCOMPLETION = ScaleDownBehavior' "TERMINATE_AT_TASK_COMPLETION"
 
 {-# COMPLETE
-  TerminateAtInstanceHour,
-  TerminateAtTaskCompletion,
+  ScaleDownBehaviorTERMINATEATINSTANCEHOUR,
+  ScaleDownBehaviorTERMINATEATTASKCOMPLETION,
   ScaleDownBehavior'
   #-}
 
-instance FromText ScaleDownBehavior where
-  parser = (ScaleDownBehavior' . mk) <$> takeText
+instance Prelude.FromText ScaleDownBehavior where
+  parser = ScaleDownBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText ScaleDownBehavior where
-  toText (ScaleDownBehavior' ci) = original ci
+instance Prelude.ToText ScaleDownBehavior where
+  toText (ScaleDownBehavior' x) = x
 
-instance Hashable ScaleDownBehavior
+instance Prelude.Hashable ScaleDownBehavior
 
-instance NFData ScaleDownBehavior
+instance Prelude.NFData ScaleDownBehavior
 
-instance ToByteString ScaleDownBehavior
+instance Prelude.ToByteString ScaleDownBehavior
 
-instance ToQuery ScaleDownBehavior
+instance Prelude.ToQuery ScaleDownBehavior
 
-instance ToHeader ScaleDownBehavior
+instance Prelude.ToHeader ScaleDownBehavior
 
-instance ToJSON ScaleDownBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScaleDownBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScaleDownBehavior where
-  parseJSON = parseJSONText "ScaleDownBehavior"
+instance Prelude.FromJSON ScaleDownBehavior where
+  parseJSON = Prelude.parseJSONText "ScaleDownBehavior"

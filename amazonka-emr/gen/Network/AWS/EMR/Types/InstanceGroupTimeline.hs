@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.EMR.Types.InstanceGroupTimeline where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The timeline of the instance group lifecycle.
 --
---
---
--- /See:/ 'instanceGroupTimeline' smart constructor.
+-- /See:/ 'newInstanceGroupTimeline' smart constructor.
 data InstanceGroupTimeline = InstanceGroupTimeline'
-  { _igtEndDateTime ::
-      !(Maybe POSIX),
-    _igtCreationDateTime ::
-      !(Maybe POSIX),
-    _igtReadyDateTime ::
-      !(Maybe POSIX)
+  { -- | The date and time when the instance group terminated.
+    endDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The creation date and time of the instance group.
+    creationDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time when the instance group became ready to perform tasks.
+    readyDateTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceGroupTimeline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceGroupTimeline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'igtEndDateTime' - The date and time when the instance group terminated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'igtCreationDateTime' - The creation date and time of the instance group.
+-- 'endDateTime', 'instanceGroupTimeline_endDateTime' - The date and time when the instance group terminated.
 --
--- * 'igtReadyDateTime' - The date and time when the instance group became ready to perform tasks.
-instanceGroupTimeline ::
+-- 'creationDateTime', 'instanceGroupTimeline_creationDateTime' - The creation date and time of the instance group.
+--
+-- 'readyDateTime', 'instanceGroupTimeline_readyDateTime' - The date and time when the instance group became ready to perform tasks.
+newInstanceGroupTimeline ::
   InstanceGroupTimeline
-instanceGroupTimeline =
+newInstanceGroupTimeline =
   InstanceGroupTimeline'
-    { _igtEndDateTime = Nothing,
-      _igtCreationDateTime = Nothing,
-      _igtReadyDateTime = Nothing
+    { endDateTime =
+        Prelude.Nothing,
+      creationDateTime = Prelude.Nothing,
+      readyDateTime = Prelude.Nothing
     }
 
 -- | The date and time when the instance group terminated.
-igtEndDateTime :: Lens' InstanceGroupTimeline (Maybe UTCTime)
-igtEndDateTime = lens _igtEndDateTime (\s a -> s {_igtEndDateTime = a}) . mapping _Time
+instanceGroupTimeline_endDateTime :: Lens.Lens' InstanceGroupTimeline (Prelude.Maybe Prelude.UTCTime)
+instanceGroupTimeline_endDateTime = Lens.lens (\InstanceGroupTimeline' {endDateTime} -> endDateTime) (\s@InstanceGroupTimeline' {} a -> s {endDateTime = a} :: InstanceGroupTimeline) Prelude.. Lens.mapping Prelude._Time
 
 -- | The creation date and time of the instance group.
-igtCreationDateTime :: Lens' InstanceGroupTimeline (Maybe UTCTime)
-igtCreationDateTime = lens _igtCreationDateTime (\s a -> s {_igtCreationDateTime = a}) . mapping _Time
+instanceGroupTimeline_creationDateTime :: Lens.Lens' InstanceGroupTimeline (Prelude.Maybe Prelude.UTCTime)
+instanceGroupTimeline_creationDateTime = Lens.lens (\InstanceGroupTimeline' {creationDateTime} -> creationDateTime) (\s@InstanceGroupTimeline' {} a -> s {creationDateTime = a} :: InstanceGroupTimeline) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date and time when the instance group became ready to perform tasks.
-igtReadyDateTime :: Lens' InstanceGroupTimeline (Maybe UTCTime)
-igtReadyDateTime = lens _igtReadyDateTime (\s a -> s {_igtReadyDateTime = a}) . mapping _Time
+instanceGroupTimeline_readyDateTime :: Lens.Lens' InstanceGroupTimeline (Prelude.Maybe Prelude.UTCTime)
+instanceGroupTimeline_readyDateTime = Lens.lens (\InstanceGroupTimeline' {readyDateTime} -> readyDateTime) (\s@InstanceGroupTimeline' {} a -> s {readyDateTime = a} :: InstanceGroupTimeline) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON InstanceGroupTimeline where
+instance Prelude.FromJSON InstanceGroupTimeline where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceGroupTimeline"
       ( \x ->
           InstanceGroupTimeline'
-            <$> (x .:? "EndDateTime")
-            <*> (x .:? "CreationDateTime")
-            <*> (x .:? "ReadyDateTime")
+            Prelude.<$> (x Prelude..:? "EndDateTime")
+            Prelude.<*> (x Prelude..:? "CreationDateTime")
+            Prelude.<*> (x Prelude..:? "ReadyDateTime")
       )
 
-instance Hashable InstanceGroupTimeline
+instance Prelude.Hashable InstanceGroupTimeline
 
-instance NFData InstanceGroupTimeline
+instance Prelude.NFData InstanceGroupTimeline

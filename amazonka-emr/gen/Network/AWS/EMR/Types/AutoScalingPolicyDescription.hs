@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,79 +22,85 @@ module Network.AWS.EMR.Types.AutoScalingPolicyDescription where
 import Network.AWS.EMR.Types.AutoScalingPolicyStatus
 import Network.AWS.EMR.Types.ScalingConstraints
 import Network.AWS.EMR.Types.ScalingRule
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An automatic scaling policy for a core instance group or task instance group in an Amazon EMR cluster. The automatic scaling policy defines how an instance group dynamically adds and terminates EC2 instances in response to the value of a CloudWatch metric. See 'PutAutoScalingPolicy' .
+-- | An automatic scaling policy for a core instance group or task instance
+-- group in an Amazon EMR cluster. The automatic scaling policy defines how
+-- an instance group dynamically adds and terminates EC2 instances in
+-- response to the value of a CloudWatch metric. See PutAutoScalingPolicy.
 --
---
---
--- /See:/ 'autoScalingPolicyDescription' smart constructor.
+-- /See:/ 'newAutoScalingPolicyDescription' smart constructor.
 data AutoScalingPolicyDescription = AutoScalingPolicyDescription'
-  { _aspdStatus ::
-      !( Maybe
-           AutoScalingPolicyStatus
-       ),
-    _aspdConstraints ::
-      !( Maybe
-           ScalingConstraints
-       ),
-    _aspdRules ::
-      !( Maybe
-           [ScalingRule]
-       )
+  { -- | The status of an automatic scaling policy.
+    status :: Prelude.Maybe AutoScalingPolicyStatus,
+    -- | The upper and lower EC2 instance limits for an automatic scaling policy.
+    -- Automatic scaling activity will not cause an instance group to grow
+    -- above or below these limits.
+    constraints :: Prelude.Maybe ScalingConstraints,
+    -- | The scale-in and scale-out rules that comprise the automatic scaling
+    -- policy.
+    rules :: Prelude.Maybe [ScalingRule]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoScalingPolicyDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoScalingPolicyDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aspdStatus' - The status of an automatic scaling policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aspdConstraints' - The upper and lower EC2 instance limits for an automatic scaling policy. Automatic scaling activity will not cause an instance group to grow above or below these limits.
+-- 'status', 'autoScalingPolicyDescription_status' - The status of an automatic scaling policy.
 --
--- * 'aspdRules' - The scale-in and scale-out rules that comprise the automatic scaling policy.
-autoScalingPolicyDescription ::
+-- 'constraints', 'autoScalingPolicyDescription_constraints' - The upper and lower EC2 instance limits for an automatic scaling policy.
+-- Automatic scaling activity will not cause an instance group to grow
+-- above or below these limits.
+--
+-- 'rules', 'autoScalingPolicyDescription_rules' - The scale-in and scale-out rules that comprise the automatic scaling
+-- policy.
+newAutoScalingPolicyDescription ::
   AutoScalingPolicyDescription
-autoScalingPolicyDescription =
+newAutoScalingPolicyDescription =
   AutoScalingPolicyDescription'
-    { _aspdStatus =
-        Nothing,
-      _aspdConstraints = Nothing,
-      _aspdRules = Nothing
+    { status =
+        Prelude.Nothing,
+      constraints = Prelude.Nothing,
+      rules = Prelude.Nothing
     }
 
 -- | The status of an automatic scaling policy.
-aspdStatus :: Lens' AutoScalingPolicyDescription (Maybe AutoScalingPolicyStatus)
-aspdStatus = lens _aspdStatus (\s a -> s {_aspdStatus = a})
+autoScalingPolicyDescription_status :: Lens.Lens' AutoScalingPolicyDescription (Prelude.Maybe AutoScalingPolicyStatus)
+autoScalingPolicyDescription_status = Lens.lens (\AutoScalingPolicyDescription' {status} -> status) (\s@AutoScalingPolicyDescription' {} a -> s {status = a} :: AutoScalingPolicyDescription)
 
--- | The upper and lower EC2 instance limits for an automatic scaling policy. Automatic scaling activity will not cause an instance group to grow above or below these limits.
-aspdConstraints :: Lens' AutoScalingPolicyDescription (Maybe ScalingConstraints)
-aspdConstraints = lens _aspdConstraints (\s a -> s {_aspdConstraints = a})
+-- | The upper and lower EC2 instance limits for an automatic scaling policy.
+-- Automatic scaling activity will not cause an instance group to grow
+-- above or below these limits.
+autoScalingPolicyDescription_constraints :: Lens.Lens' AutoScalingPolicyDescription (Prelude.Maybe ScalingConstraints)
+autoScalingPolicyDescription_constraints = Lens.lens (\AutoScalingPolicyDescription' {constraints} -> constraints) (\s@AutoScalingPolicyDescription' {} a -> s {constraints = a} :: AutoScalingPolicyDescription)
 
--- | The scale-in and scale-out rules that comprise the automatic scaling policy.
-aspdRules :: Lens' AutoScalingPolicyDescription [ScalingRule]
-aspdRules = lens _aspdRules (\s a -> s {_aspdRules = a}) . _Default . _Coerce
+-- | The scale-in and scale-out rules that comprise the automatic scaling
+-- policy.
+autoScalingPolicyDescription_rules :: Lens.Lens' AutoScalingPolicyDescription (Prelude.Maybe [ScalingRule])
+autoScalingPolicyDescription_rules = Lens.lens (\AutoScalingPolicyDescription' {rules} -> rules) (\s@AutoScalingPolicyDescription' {} a -> s {rules = a} :: AutoScalingPolicyDescription) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON AutoScalingPolicyDescription where
+instance
+  Prelude.FromJSON
+    AutoScalingPolicyDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoScalingPolicyDescription"
       ( \x ->
           AutoScalingPolicyDescription'
-            <$> (x .:? "Status")
-            <*> (x .:? "Constraints")
-            <*> (x .:? "Rules" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "Constraints")
+            Prelude.<*> (x Prelude..:? "Rules" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable AutoScalingPolicyDescription
+instance
+  Prelude.Hashable
+    AutoScalingPolicyDescription
 
-instance NFData AutoScalingPolicyDescription
+instance Prelude.NFData AutoScalingPolicyDescription

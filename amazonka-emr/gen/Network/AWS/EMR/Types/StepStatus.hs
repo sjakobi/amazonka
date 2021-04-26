@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,72 +23,80 @@ import Network.AWS.EMR.Types.FailureDetails
 import Network.AWS.EMR.Types.StepState
 import Network.AWS.EMR.Types.StepStateChangeReason
 import Network.AWS.EMR.Types.StepTimeline
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The execution status details of the cluster step.
 --
---
---
--- /See:/ 'stepStatus' smart constructor.
+-- /See:/ 'newStepStatus' smart constructor.
 data StepStatus = StepStatus'
-  { _ssStateChangeReason ::
-      !(Maybe StepStateChangeReason),
-    _ssFailureDetails :: !(Maybe FailureDetails),
-    _ssState :: !(Maybe StepState),
-    _ssTimeline :: !(Maybe StepTimeline)
+  { -- | The reason for the step execution status change.
+    stateChangeReason :: Prelude.Maybe StepStateChangeReason,
+    -- | The details for the step failure including reason, message, and log file
+    -- path where the root cause was identified.
+    failureDetails :: Prelude.Maybe FailureDetails,
+    -- | The execution state of the cluster step.
+    state :: Prelude.Maybe StepState,
+    -- | The timeline of the cluster step status over time.
+    timeline :: Prelude.Maybe StepTimeline
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StepStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StepStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssStateChangeReason' - The reason for the step execution status change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssFailureDetails' - The details for the step failure including reason, message, and log file path where the root cause was identified.
+-- 'stateChangeReason', 'stepStatus_stateChangeReason' - The reason for the step execution status change.
 --
--- * 'ssState' - The execution state of the cluster step.
+-- 'failureDetails', 'stepStatus_failureDetails' - The details for the step failure including reason, message, and log file
+-- path where the root cause was identified.
 --
--- * 'ssTimeline' - The timeline of the cluster step status over time.
-stepStatus ::
+-- 'state', 'stepStatus_state' - The execution state of the cluster step.
+--
+-- 'timeline', 'stepStatus_timeline' - The timeline of the cluster step status over time.
+newStepStatus ::
   StepStatus
-stepStatus =
+newStepStatus =
   StepStatus'
-    { _ssStateChangeReason = Nothing,
-      _ssFailureDetails = Nothing,
-      _ssState = Nothing,
-      _ssTimeline = Nothing
+    { stateChangeReason = Prelude.Nothing,
+      failureDetails = Prelude.Nothing,
+      state = Prelude.Nothing,
+      timeline = Prelude.Nothing
     }
 
 -- | The reason for the step execution status change.
-ssStateChangeReason :: Lens' StepStatus (Maybe StepStateChangeReason)
-ssStateChangeReason = lens _ssStateChangeReason (\s a -> s {_ssStateChangeReason = a})
+stepStatus_stateChangeReason :: Lens.Lens' StepStatus (Prelude.Maybe StepStateChangeReason)
+stepStatus_stateChangeReason = Lens.lens (\StepStatus' {stateChangeReason} -> stateChangeReason) (\s@StepStatus' {} a -> s {stateChangeReason = a} :: StepStatus)
 
--- | The details for the step failure including reason, message, and log file path where the root cause was identified.
-ssFailureDetails :: Lens' StepStatus (Maybe FailureDetails)
-ssFailureDetails = lens _ssFailureDetails (\s a -> s {_ssFailureDetails = a})
+-- | The details for the step failure including reason, message, and log file
+-- path where the root cause was identified.
+stepStatus_failureDetails :: Lens.Lens' StepStatus (Prelude.Maybe FailureDetails)
+stepStatus_failureDetails = Lens.lens (\StepStatus' {failureDetails} -> failureDetails) (\s@StepStatus' {} a -> s {failureDetails = a} :: StepStatus)
 
 -- | The execution state of the cluster step.
-ssState :: Lens' StepStatus (Maybe StepState)
-ssState = lens _ssState (\s a -> s {_ssState = a})
+stepStatus_state :: Lens.Lens' StepStatus (Prelude.Maybe StepState)
+stepStatus_state = Lens.lens (\StepStatus' {state} -> state) (\s@StepStatus' {} a -> s {state = a} :: StepStatus)
 
 -- | The timeline of the cluster step status over time.
-ssTimeline :: Lens' StepStatus (Maybe StepTimeline)
-ssTimeline = lens _ssTimeline (\s a -> s {_ssTimeline = a})
+stepStatus_timeline :: Lens.Lens' StepStatus (Prelude.Maybe StepTimeline)
+stepStatus_timeline = Lens.lens (\StepStatus' {timeline} -> timeline) (\s@StepStatus' {} a -> s {timeline = a} :: StepStatus)
 
-instance FromJSON StepStatus where
+instance Prelude.FromJSON StepStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StepStatus"
       ( \x ->
           StepStatus'
-            <$> (x .:? "StateChangeReason")
-            <*> (x .:? "FailureDetails")
-            <*> (x .:? "State")
-            <*> (x .:? "Timeline")
+            Prelude.<$> (x Prelude..:? "StateChangeReason")
+            Prelude.<*> (x Prelude..:? "FailureDetails")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Timeline")
       )
 
-instance Hashable StepStatus
+instance Prelude.Hashable StepStatus
 
-instance NFData StepStatus
+instance Prelude.NFData StepStatus

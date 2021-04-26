@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,68 +22,140 @@ module Network.AWS.EMR.Types.InstanceFleetStatus where
 import Network.AWS.EMR.Types.InstanceFleetState
 import Network.AWS.EMR.Types.InstanceFleetStateChangeReason
 import Network.AWS.EMR.Types.InstanceFleetTimeline
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of the instance fleet.
 --
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions.
 --
---
--- /See:/ 'instanceFleetStatus' smart constructor.
+-- /See:/ 'newInstanceFleetStatus' smart constructor.
 data InstanceFleetStatus = InstanceFleetStatus'
-  { _ifsStateChangeReason ::
-      !( Maybe
-           InstanceFleetStateChangeReason
-       ),
-    _ifsState ::
-      !(Maybe InstanceFleetState),
-    _ifsTimeline ::
-      !(Maybe InstanceFleetTimeline)
+  { -- | Provides status change reason details for the instance fleet.
+    stateChangeReason :: Prelude.Maybe InstanceFleetStateChangeReason,
+    -- | A code representing the instance fleet status.
+    --
+    -- -   @PROVISIONING@—The instance fleet is provisioning EC2 resources and
+    --     is not yet ready to run jobs.
+    --
+    -- -   @BOOTSTRAPPING@—EC2 instances and other resources have been
+    --     provisioned and the bootstrap actions specified for the instances
+    --     are underway.
+    --
+    -- -   @RUNNING@—EC2 instances and other resources are running. They are
+    --     either executing jobs or waiting to execute jobs.
+    --
+    -- -   @RESIZING@—A resize operation is underway. EC2 instances are either
+    --     being added or removed.
+    --
+    -- -   @SUSPENDED@—A resize operation could not complete. Existing EC2
+    --     instances are running, but instances can\'t be added or removed.
+    --
+    -- -   @TERMINATING@—The instance fleet is terminating EC2 instances.
+    --
+    -- -   @TERMINATED@—The instance fleet is no longer active, and all EC2
+    --     instances have been terminated.
+    state :: Prelude.Maybe InstanceFleetState,
+    -- | Provides historical timestamps for the instance fleet, including the
+    -- time of creation, the time it became ready to run jobs, and the time of
+    -- termination.
+    timeline :: Prelude.Maybe InstanceFleetTimeline
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceFleetStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceFleetStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ifsStateChangeReason' - Provides status change reason details for the instance fleet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ifsState' - A code representing the instance fleet status.     * @PROVISIONING@ —The instance fleet is provisioning EC2 resources and is not yet ready to run jobs.     * @BOOTSTRAPPING@ —EC2 instances and other resources have been provisioned and the bootstrap actions specified for the instances are underway.     * @RUNNING@ —EC2 instances and other resources are running. They are either executing jobs or waiting to execute jobs.     * @RESIZING@ —A resize operation is underway. EC2 instances are either being added or removed.     * @SUSPENDED@ —A resize operation could not complete. Existing EC2 instances are running, but instances can't be added or removed.     * @TERMINATING@ —The instance fleet is terminating EC2 instances.     * @TERMINATED@ —The instance fleet is no longer active, and all EC2 instances have been terminated.
+-- 'stateChangeReason', 'instanceFleetStatus_stateChangeReason' - Provides status change reason details for the instance fleet.
 --
--- * 'ifsTimeline' - Provides historical timestamps for the instance fleet, including the time of creation, the time it became ready to run jobs, and the time of termination.
-instanceFleetStatus ::
+-- 'state', 'instanceFleetStatus_state' - A code representing the instance fleet status.
+--
+-- -   @PROVISIONING@—The instance fleet is provisioning EC2 resources and
+--     is not yet ready to run jobs.
+--
+-- -   @BOOTSTRAPPING@—EC2 instances and other resources have been
+--     provisioned and the bootstrap actions specified for the instances
+--     are underway.
+--
+-- -   @RUNNING@—EC2 instances and other resources are running. They are
+--     either executing jobs or waiting to execute jobs.
+--
+-- -   @RESIZING@—A resize operation is underway. EC2 instances are either
+--     being added or removed.
+--
+-- -   @SUSPENDED@—A resize operation could not complete. Existing EC2
+--     instances are running, but instances can\'t be added or removed.
+--
+-- -   @TERMINATING@—The instance fleet is terminating EC2 instances.
+--
+-- -   @TERMINATED@—The instance fleet is no longer active, and all EC2
+--     instances have been terminated.
+--
+-- 'timeline', 'instanceFleetStatus_timeline' - Provides historical timestamps for the instance fleet, including the
+-- time of creation, the time it became ready to run jobs, and the time of
+-- termination.
+newInstanceFleetStatus ::
   InstanceFleetStatus
-instanceFleetStatus =
+newInstanceFleetStatus =
   InstanceFleetStatus'
-    { _ifsStateChangeReason =
-        Nothing,
-      _ifsState = Nothing,
-      _ifsTimeline = Nothing
+    { stateChangeReason =
+        Prelude.Nothing,
+      state = Prelude.Nothing,
+      timeline = Prelude.Nothing
     }
 
 -- | Provides status change reason details for the instance fleet.
-ifsStateChangeReason :: Lens' InstanceFleetStatus (Maybe InstanceFleetStateChangeReason)
-ifsStateChangeReason = lens _ifsStateChangeReason (\s a -> s {_ifsStateChangeReason = a})
+instanceFleetStatus_stateChangeReason :: Lens.Lens' InstanceFleetStatus (Prelude.Maybe InstanceFleetStateChangeReason)
+instanceFleetStatus_stateChangeReason = Lens.lens (\InstanceFleetStatus' {stateChangeReason} -> stateChangeReason) (\s@InstanceFleetStatus' {} a -> s {stateChangeReason = a} :: InstanceFleetStatus)
 
--- | A code representing the instance fleet status.     * @PROVISIONING@ —The instance fleet is provisioning EC2 resources and is not yet ready to run jobs.     * @BOOTSTRAPPING@ —EC2 instances and other resources have been provisioned and the bootstrap actions specified for the instances are underway.     * @RUNNING@ —EC2 instances and other resources are running. They are either executing jobs or waiting to execute jobs.     * @RESIZING@ —A resize operation is underway. EC2 instances are either being added or removed.     * @SUSPENDED@ —A resize operation could not complete. Existing EC2 instances are running, but instances can't be added or removed.     * @TERMINATING@ —The instance fleet is terminating EC2 instances.     * @TERMINATED@ —The instance fleet is no longer active, and all EC2 instances have been terminated.
-ifsState :: Lens' InstanceFleetStatus (Maybe InstanceFleetState)
-ifsState = lens _ifsState (\s a -> s {_ifsState = a})
+-- | A code representing the instance fleet status.
+--
+-- -   @PROVISIONING@—The instance fleet is provisioning EC2 resources and
+--     is not yet ready to run jobs.
+--
+-- -   @BOOTSTRAPPING@—EC2 instances and other resources have been
+--     provisioned and the bootstrap actions specified for the instances
+--     are underway.
+--
+-- -   @RUNNING@—EC2 instances and other resources are running. They are
+--     either executing jobs or waiting to execute jobs.
+--
+-- -   @RESIZING@—A resize operation is underway. EC2 instances are either
+--     being added or removed.
+--
+-- -   @SUSPENDED@—A resize operation could not complete. Existing EC2
+--     instances are running, but instances can\'t be added or removed.
+--
+-- -   @TERMINATING@—The instance fleet is terminating EC2 instances.
+--
+-- -   @TERMINATED@—The instance fleet is no longer active, and all EC2
+--     instances have been terminated.
+instanceFleetStatus_state :: Lens.Lens' InstanceFleetStatus (Prelude.Maybe InstanceFleetState)
+instanceFleetStatus_state = Lens.lens (\InstanceFleetStatus' {state} -> state) (\s@InstanceFleetStatus' {} a -> s {state = a} :: InstanceFleetStatus)
 
--- | Provides historical timestamps for the instance fleet, including the time of creation, the time it became ready to run jobs, and the time of termination.
-ifsTimeline :: Lens' InstanceFleetStatus (Maybe InstanceFleetTimeline)
-ifsTimeline = lens _ifsTimeline (\s a -> s {_ifsTimeline = a})
+-- | Provides historical timestamps for the instance fleet, including the
+-- time of creation, the time it became ready to run jobs, and the time of
+-- termination.
+instanceFleetStatus_timeline :: Lens.Lens' InstanceFleetStatus (Prelude.Maybe InstanceFleetTimeline)
+instanceFleetStatus_timeline = Lens.lens (\InstanceFleetStatus' {timeline} -> timeline) (\s@InstanceFleetStatus' {} a -> s {timeline = a} :: InstanceFleetStatus)
 
-instance FromJSON InstanceFleetStatus where
+instance Prelude.FromJSON InstanceFleetStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceFleetStatus"
       ( \x ->
           InstanceFleetStatus'
-            <$> (x .:? "StateChangeReason")
-            <*> (x .:? "State")
-            <*> (x .:? "Timeline")
+            Prelude.<$> (x Prelude..:? "StateChangeReason")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Timeline")
       )
 
-instance Hashable InstanceFleetStatus
+instance Prelude.Hashable InstanceFleetStatus
 
-instance NFData InstanceFleetStatus
+instance Prelude.NFData InstanceFleetStatus

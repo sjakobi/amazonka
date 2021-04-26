@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,170 +22,179 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Adds an instance fleet to a running cluster.
+--
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x.
 module Network.AWS.EMR.AddInstanceFleet
   ( -- * Creating a Request
-    addInstanceFleet,
-    AddInstanceFleet,
+    AddInstanceFleet (..),
+    newAddInstanceFleet,
 
     -- * Request Lenses
-    aifClusterId,
-    aifInstanceFleet,
+    addInstanceFleet_clusterId,
+    addInstanceFleet_instanceFleet,
 
     -- * Destructuring the Response
-    addInstanceFleetResponse,
-    AddInstanceFleetResponse,
+    AddInstanceFleetResponse (..),
+    newAddInstanceFleetResponse,
 
     -- * Response Lenses
-    aifrrsClusterARN,
-    aifrrsClusterId,
-    aifrrsInstanceFleetId,
-    aifrrsResponseStatus,
+    addInstanceFleetResponse_clusterArn,
+    addInstanceFleetResponse_clusterId,
+    addInstanceFleetResponse_instanceFleetId,
+    addInstanceFleetResponse_httpStatus,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addInstanceFleet' smart constructor.
+-- | /See:/ 'newAddInstanceFleet' smart constructor.
 data AddInstanceFleet = AddInstanceFleet'
-  { _aifClusterId ::
-      !Text,
-    _aifInstanceFleet ::
-      !InstanceFleetConfig
+  { -- | The unique identifier of the cluster.
+    clusterId :: Prelude.Text,
+    -- | Specifies the configuration of the instance fleet.
+    instanceFleet :: InstanceFleetConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddInstanceFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddInstanceFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aifClusterId' - The unique identifier of the cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aifInstanceFleet' - Specifies the configuration of the instance fleet.
-addInstanceFleet ::
-  -- | 'aifClusterId'
-  Text ->
-  -- | 'aifInstanceFleet'
+-- 'clusterId', 'addInstanceFleet_clusterId' - The unique identifier of the cluster.
+--
+-- 'instanceFleet', 'addInstanceFleet_instanceFleet' - Specifies the configuration of the instance fleet.
+newAddInstanceFleet ::
+  -- | 'clusterId'
+  Prelude.Text ->
+  -- | 'instanceFleet'
   InstanceFleetConfig ->
   AddInstanceFleet
-addInstanceFleet pClusterId_ pInstanceFleet_ =
+newAddInstanceFleet pClusterId_ pInstanceFleet_ =
   AddInstanceFleet'
-    { _aifClusterId = pClusterId_,
-      _aifInstanceFleet = pInstanceFleet_
+    { clusterId = pClusterId_,
+      instanceFleet = pInstanceFleet_
     }
 
 -- | The unique identifier of the cluster.
-aifClusterId :: Lens' AddInstanceFleet Text
-aifClusterId = lens _aifClusterId (\s a -> s {_aifClusterId = a})
+addInstanceFleet_clusterId :: Lens.Lens' AddInstanceFleet Prelude.Text
+addInstanceFleet_clusterId = Lens.lens (\AddInstanceFleet' {clusterId} -> clusterId) (\s@AddInstanceFleet' {} a -> s {clusterId = a} :: AddInstanceFleet)
 
 -- | Specifies the configuration of the instance fleet.
-aifInstanceFleet :: Lens' AddInstanceFleet InstanceFleetConfig
-aifInstanceFleet = lens _aifInstanceFleet (\s a -> s {_aifInstanceFleet = a})
+addInstanceFleet_instanceFleet :: Lens.Lens' AddInstanceFleet InstanceFleetConfig
+addInstanceFleet_instanceFleet = Lens.lens (\AddInstanceFleet' {instanceFleet} -> instanceFleet) (\s@AddInstanceFleet' {} a -> s {instanceFleet = a} :: AddInstanceFleet)
 
-instance AWSRequest AddInstanceFleet where
+instance Prelude.AWSRequest AddInstanceFleet where
   type Rs AddInstanceFleet = AddInstanceFleetResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AddInstanceFleetResponse'
-            <$> (x .?> "ClusterArn")
-            <*> (x .?> "ClusterId")
-            <*> (x .?> "InstanceFleetId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ClusterArn")
+            Prelude.<*> (x Prelude..?> "ClusterId")
+            Prelude.<*> (x Prelude..?> "InstanceFleetId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddInstanceFleet
+instance Prelude.Hashable AddInstanceFleet
 
-instance NFData AddInstanceFleet
+instance Prelude.NFData AddInstanceFleet
 
-instance ToHeaders AddInstanceFleet where
+instance Prelude.ToHeaders AddInstanceFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("ElasticMapReduce.AddInstanceFleet" :: ByteString),
+              Prelude.=# ( "ElasticMapReduce.AddInstanceFleet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddInstanceFleet where
+instance Prelude.ToJSON AddInstanceFleet where
   toJSON AddInstanceFleet' {..} =
-    object
-      ( catMaybes
-          [ Just ("ClusterId" .= _aifClusterId),
-            Just ("InstanceFleet" .= _aifInstanceFleet)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ClusterId" Prelude..= clusterId),
+            Prelude.Just
+              ("InstanceFleet" Prelude..= instanceFleet)
           ]
       )
 
-instance ToPath AddInstanceFleet where
-  toPath = const "/"
+instance Prelude.ToPath AddInstanceFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddInstanceFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery AddInstanceFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'addInstanceFleetResponse' smart constructor.
+-- | /See:/ 'newAddInstanceFleetResponse' smart constructor.
 data AddInstanceFleetResponse = AddInstanceFleetResponse'
-  { _aifrrsClusterARN ::
-      !(Maybe Text),
-    _aifrrsClusterId ::
-      !(Maybe Text),
-    _aifrrsInstanceFleetId ::
-      !(Maybe Text),
-    _aifrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name of the cluster.
+    clusterArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the cluster.
+    clusterId :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the instance fleet.
+    instanceFleetId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddInstanceFleetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddInstanceFleetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aifrrsClusterARN' - The Amazon Resource Name of the cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aifrrsClusterId' - The unique identifier of the cluster.
+-- 'clusterArn', 'addInstanceFleetResponse_clusterArn' - The Amazon Resource Name of the cluster.
 --
--- * 'aifrrsInstanceFleetId' - The unique identifier of the instance fleet.
+-- 'clusterId', 'addInstanceFleetResponse_clusterId' - The unique identifier of the cluster.
 --
--- * 'aifrrsResponseStatus' - -- | The response status code.
-addInstanceFleetResponse ::
-  -- | 'aifrrsResponseStatus'
-  Int ->
+-- 'instanceFleetId', 'addInstanceFleetResponse_instanceFleetId' - The unique identifier of the instance fleet.
+--
+-- 'httpStatus', 'addInstanceFleetResponse_httpStatus' - The response's http status code.
+newAddInstanceFleetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddInstanceFleetResponse
-addInstanceFleetResponse pResponseStatus_ =
+newAddInstanceFleetResponse pHttpStatus_ =
   AddInstanceFleetResponse'
-    { _aifrrsClusterARN =
-        Nothing,
-      _aifrrsClusterId = Nothing,
-      _aifrrsInstanceFleetId = Nothing,
-      _aifrrsResponseStatus = pResponseStatus_
+    { clusterArn =
+        Prelude.Nothing,
+      clusterId = Prelude.Nothing,
+      instanceFleetId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name of the cluster.
-aifrrsClusterARN :: Lens' AddInstanceFleetResponse (Maybe Text)
-aifrrsClusterARN = lens _aifrrsClusterARN (\s a -> s {_aifrrsClusterARN = a})
+addInstanceFleetResponse_clusterArn :: Lens.Lens' AddInstanceFleetResponse (Prelude.Maybe Prelude.Text)
+addInstanceFleetResponse_clusterArn = Lens.lens (\AddInstanceFleetResponse' {clusterArn} -> clusterArn) (\s@AddInstanceFleetResponse' {} a -> s {clusterArn = a} :: AddInstanceFleetResponse)
 
 -- | The unique identifier of the cluster.
-aifrrsClusterId :: Lens' AddInstanceFleetResponse (Maybe Text)
-aifrrsClusterId = lens _aifrrsClusterId (\s a -> s {_aifrrsClusterId = a})
+addInstanceFleetResponse_clusterId :: Lens.Lens' AddInstanceFleetResponse (Prelude.Maybe Prelude.Text)
+addInstanceFleetResponse_clusterId = Lens.lens (\AddInstanceFleetResponse' {clusterId} -> clusterId) (\s@AddInstanceFleetResponse' {} a -> s {clusterId = a} :: AddInstanceFleetResponse)
 
 -- | The unique identifier of the instance fleet.
-aifrrsInstanceFleetId :: Lens' AddInstanceFleetResponse (Maybe Text)
-aifrrsInstanceFleetId = lens _aifrrsInstanceFleetId (\s a -> s {_aifrrsInstanceFleetId = a})
+addInstanceFleetResponse_instanceFleetId :: Lens.Lens' AddInstanceFleetResponse (Prelude.Maybe Prelude.Text)
+addInstanceFleetResponse_instanceFleetId = Lens.lens (\AddInstanceFleetResponse' {instanceFleetId} -> instanceFleetId) (\s@AddInstanceFleetResponse' {} a -> s {instanceFleetId = a} :: AddInstanceFleetResponse)
 
--- | -- | The response status code.
-aifrrsResponseStatus :: Lens' AddInstanceFleetResponse Int
-aifrrsResponseStatus = lens _aifrrsResponseStatus (\s a -> s {_aifrrsResponseStatus = a})
+-- | The response's http status code.
+addInstanceFleetResponse_httpStatus :: Lens.Lens' AddInstanceFleetResponse Prelude.Int
+addInstanceFleetResponse_httpStatus = Lens.lens (\AddInstanceFleetResponse' {httpStatus} -> httpStatus) (\s@AddInstanceFleetResponse' {} a -> s {httpStatus = a} :: AddInstanceFleetResponse)
 
-instance NFData AddInstanceFleetResponse
+instance Prelude.NFData AddInstanceFleetResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,181 +19,180 @@
 module Network.AWS.EMR.Types.Unit
   ( Unit
       ( ..,
-        UBits,
-        UBitsPerSecond,
-        UBytes,
-        UBytesPerSecond,
-        UCount,
-        UCountPerSecond,
-        UGigaBits,
-        UGigaBitsPerSecond,
-        UGigaBytes,
-        UGigaBytesPerSecond,
-        UKiloBits,
-        UKiloBitsPerSecond,
-        UKiloBytes,
-        UKiloBytesPerSecond,
-        UMegaBits,
-        UMegaBitsPerSecond,
-        UMegaBytes,
-        UMegaBytesPerSecond,
-        UMicroSeconds,
-        UMilliSeconds,
-        UNone,
-        UPercent,
-        USeconds,
-        UTeraBits,
-        UTeraBitsPerSecond,
-        UTeraBytes,
-        UTeraBytesPerSecond
+        UnitBITS,
+        UnitBITSPERSECOND,
+        UnitBYTES,
+        UnitBYTESPERSECOND,
+        UnitCOUNT,
+        UnitCOUNTPERSECOND,
+        UnitGIGABITS,
+        UnitGIGABITSPERSECOND,
+        UnitGIGABYTES,
+        UnitGIGABYTESPERSECOND,
+        UnitKILOBITS,
+        UnitKILOBITSPERSECOND,
+        UnitKILOBYTES,
+        UnitKILOBYTESPERSECOND,
+        UnitMEGABITS,
+        UnitMEGABITSPERSECOND,
+        UnitMEGABYTES,
+        UnitMEGABYTESPERSECOND,
+        UnitMICROSECONDS,
+        UnitMILLISECONDS,
+        UnitNONE,
+        UnitPERCENT,
+        UnitSECONDS,
+        UnitTERABITS,
+        UnitTERABITSPERSECOND,
+        UnitTERABYTES,
+        UnitTERABYTESPERSECOND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Unit = Unit' (CI Text)
+newtype Unit = Unit' {fromUnit :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UBits :: Unit
-pattern UBits = Unit' "BITS"
+pattern UnitBITS :: Unit
+pattern UnitBITS = Unit' "BITS"
 
-pattern UBitsPerSecond :: Unit
-pattern UBitsPerSecond = Unit' "BITS_PER_SECOND"
+pattern UnitBITSPERSECOND :: Unit
+pattern UnitBITSPERSECOND = Unit' "BITS_PER_SECOND"
 
-pattern UBytes :: Unit
-pattern UBytes = Unit' "BYTES"
+pattern UnitBYTES :: Unit
+pattern UnitBYTES = Unit' "BYTES"
 
-pattern UBytesPerSecond :: Unit
-pattern UBytesPerSecond = Unit' "BYTES_PER_SECOND"
+pattern UnitBYTESPERSECOND :: Unit
+pattern UnitBYTESPERSECOND = Unit' "BYTES_PER_SECOND"
 
-pattern UCount :: Unit
-pattern UCount = Unit' "COUNT"
+pattern UnitCOUNT :: Unit
+pattern UnitCOUNT = Unit' "COUNT"
 
-pattern UCountPerSecond :: Unit
-pattern UCountPerSecond = Unit' "COUNT_PER_SECOND"
+pattern UnitCOUNTPERSECOND :: Unit
+pattern UnitCOUNTPERSECOND = Unit' "COUNT_PER_SECOND"
 
-pattern UGigaBits :: Unit
-pattern UGigaBits = Unit' "GIGA_BITS"
+pattern UnitGIGABITS :: Unit
+pattern UnitGIGABITS = Unit' "GIGA_BITS"
 
-pattern UGigaBitsPerSecond :: Unit
-pattern UGigaBitsPerSecond = Unit' "GIGA_BITS_PER_SECOND"
+pattern UnitGIGABITSPERSECOND :: Unit
+pattern UnitGIGABITSPERSECOND = Unit' "GIGA_BITS_PER_SECOND"
 
-pattern UGigaBytes :: Unit
-pattern UGigaBytes = Unit' "GIGA_BYTES"
+pattern UnitGIGABYTES :: Unit
+pattern UnitGIGABYTES = Unit' "GIGA_BYTES"
 
-pattern UGigaBytesPerSecond :: Unit
-pattern UGigaBytesPerSecond = Unit' "GIGA_BYTES_PER_SECOND"
+pattern UnitGIGABYTESPERSECOND :: Unit
+pattern UnitGIGABYTESPERSECOND = Unit' "GIGA_BYTES_PER_SECOND"
 
-pattern UKiloBits :: Unit
-pattern UKiloBits = Unit' "KILO_BITS"
+pattern UnitKILOBITS :: Unit
+pattern UnitKILOBITS = Unit' "KILO_BITS"
 
-pattern UKiloBitsPerSecond :: Unit
-pattern UKiloBitsPerSecond = Unit' "KILO_BITS_PER_SECOND"
+pattern UnitKILOBITSPERSECOND :: Unit
+pattern UnitKILOBITSPERSECOND = Unit' "KILO_BITS_PER_SECOND"
 
-pattern UKiloBytes :: Unit
-pattern UKiloBytes = Unit' "KILO_BYTES"
+pattern UnitKILOBYTES :: Unit
+pattern UnitKILOBYTES = Unit' "KILO_BYTES"
 
-pattern UKiloBytesPerSecond :: Unit
-pattern UKiloBytesPerSecond = Unit' "KILO_BYTES_PER_SECOND"
+pattern UnitKILOBYTESPERSECOND :: Unit
+pattern UnitKILOBYTESPERSECOND = Unit' "KILO_BYTES_PER_SECOND"
 
-pattern UMegaBits :: Unit
-pattern UMegaBits = Unit' "MEGA_BITS"
+pattern UnitMEGABITS :: Unit
+pattern UnitMEGABITS = Unit' "MEGA_BITS"
 
-pattern UMegaBitsPerSecond :: Unit
-pattern UMegaBitsPerSecond = Unit' "MEGA_BITS_PER_SECOND"
+pattern UnitMEGABITSPERSECOND :: Unit
+pattern UnitMEGABITSPERSECOND = Unit' "MEGA_BITS_PER_SECOND"
 
-pattern UMegaBytes :: Unit
-pattern UMegaBytes = Unit' "MEGA_BYTES"
+pattern UnitMEGABYTES :: Unit
+pattern UnitMEGABYTES = Unit' "MEGA_BYTES"
 
-pattern UMegaBytesPerSecond :: Unit
-pattern UMegaBytesPerSecond = Unit' "MEGA_BYTES_PER_SECOND"
+pattern UnitMEGABYTESPERSECOND :: Unit
+pattern UnitMEGABYTESPERSECOND = Unit' "MEGA_BYTES_PER_SECOND"
 
-pattern UMicroSeconds :: Unit
-pattern UMicroSeconds = Unit' "MICRO_SECONDS"
+pattern UnitMICROSECONDS :: Unit
+pattern UnitMICROSECONDS = Unit' "MICRO_SECONDS"
 
-pattern UMilliSeconds :: Unit
-pattern UMilliSeconds = Unit' "MILLI_SECONDS"
+pattern UnitMILLISECONDS :: Unit
+pattern UnitMILLISECONDS = Unit' "MILLI_SECONDS"
 
-pattern UNone :: Unit
-pattern UNone = Unit' "NONE"
+pattern UnitNONE :: Unit
+pattern UnitNONE = Unit' "NONE"
 
-pattern UPercent :: Unit
-pattern UPercent = Unit' "PERCENT"
+pattern UnitPERCENT :: Unit
+pattern UnitPERCENT = Unit' "PERCENT"
 
-pattern USeconds :: Unit
-pattern USeconds = Unit' "SECONDS"
+pattern UnitSECONDS :: Unit
+pattern UnitSECONDS = Unit' "SECONDS"
 
-pattern UTeraBits :: Unit
-pattern UTeraBits = Unit' "TERA_BITS"
+pattern UnitTERABITS :: Unit
+pattern UnitTERABITS = Unit' "TERA_BITS"
 
-pattern UTeraBitsPerSecond :: Unit
-pattern UTeraBitsPerSecond = Unit' "TERA_BITS_PER_SECOND"
+pattern UnitTERABITSPERSECOND :: Unit
+pattern UnitTERABITSPERSECOND = Unit' "TERA_BITS_PER_SECOND"
 
-pattern UTeraBytes :: Unit
-pattern UTeraBytes = Unit' "TERA_BYTES"
+pattern UnitTERABYTES :: Unit
+pattern UnitTERABYTES = Unit' "TERA_BYTES"
 
-pattern UTeraBytesPerSecond :: Unit
-pattern UTeraBytesPerSecond = Unit' "TERA_BYTES_PER_SECOND"
+pattern UnitTERABYTESPERSECOND :: Unit
+pattern UnitTERABYTESPERSECOND = Unit' "TERA_BYTES_PER_SECOND"
 
 {-# COMPLETE
-  UBits,
-  UBitsPerSecond,
-  UBytes,
-  UBytesPerSecond,
-  UCount,
-  UCountPerSecond,
-  UGigaBits,
-  UGigaBitsPerSecond,
-  UGigaBytes,
-  UGigaBytesPerSecond,
-  UKiloBits,
-  UKiloBitsPerSecond,
-  UKiloBytes,
-  UKiloBytesPerSecond,
-  UMegaBits,
-  UMegaBitsPerSecond,
-  UMegaBytes,
-  UMegaBytesPerSecond,
-  UMicroSeconds,
-  UMilliSeconds,
-  UNone,
-  UPercent,
-  USeconds,
-  UTeraBits,
-  UTeraBitsPerSecond,
-  UTeraBytes,
-  UTeraBytesPerSecond,
+  UnitBITS,
+  UnitBITSPERSECOND,
+  UnitBYTES,
+  UnitBYTESPERSECOND,
+  UnitCOUNT,
+  UnitCOUNTPERSECOND,
+  UnitGIGABITS,
+  UnitGIGABITSPERSECOND,
+  UnitGIGABYTES,
+  UnitGIGABYTESPERSECOND,
+  UnitKILOBITS,
+  UnitKILOBITSPERSECOND,
+  UnitKILOBYTES,
+  UnitKILOBYTESPERSECOND,
+  UnitMEGABITS,
+  UnitMEGABITSPERSECOND,
+  UnitMEGABYTES,
+  UnitMEGABYTESPERSECOND,
+  UnitMICROSECONDS,
+  UnitMILLISECONDS,
+  UnitNONE,
+  UnitPERCENT,
+  UnitSECONDS,
+  UnitTERABITS,
+  UnitTERABITSPERSECOND,
+  UnitTERABYTES,
+  UnitTERABYTESPERSECOND,
   Unit'
   #-}
 
-instance FromText Unit where
-  parser = (Unit' . mk) <$> takeText
+instance Prelude.FromText Unit where
+  parser = Unit' Prelude.<$> Prelude.takeText
 
-instance ToText Unit where
-  toText (Unit' ci) = original ci
+instance Prelude.ToText Unit where
+  toText (Unit' x) = x
 
-instance Hashable Unit
+instance Prelude.Hashable Unit
 
-instance NFData Unit
+instance Prelude.NFData Unit
 
-instance ToByteString Unit
+instance Prelude.ToByteString Unit
 
-instance ToQuery Unit
+instance Prelude.ToQuery Unit
 
-instance ToHeader Unit
+instance Prelude.ToHeader Unit
 
-instance ToJSON Unit where
-  toJSON = toJSONText
+instance Prelude.ToJSON Unit where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Unit where
-  parseJSON = parseJSONText "Unit"
+instance Prelude.FromJSON Unit where
+  parseJSON = Prelude.parseJSONText "Unit"

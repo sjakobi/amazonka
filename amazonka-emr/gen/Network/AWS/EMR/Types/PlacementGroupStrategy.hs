@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.EMR.Types.PlacementGroupStrategy
   ( PlacementGroupStrategy
       ( ..,
-        PGSCluster,
-        PGSNone,
-        PGSPartition,
-        PGSSpread
+        PlacementGroupStrategyCLUSTER,
+        PlacementGroupStrategyNONE,
+        PlacementGroupStrategyPARTITION,
+        PlacementGroupStrategySPREAD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlacementGroupStrategy
-  = PlacementGroupStrategy'
-      ( CI
-          Text
-      )
+newtype PlacementGroupStrategy = PlacementGroupStrategy'
+  { fromPlacementGroupStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PGSCluster :: PlacementGroupStrategy
-pattern PGSCluster = PlacementGroupStrategy' "CLUSTER"
+pattern PlacementGroupStrategyCLUSTER :: PlacementGroupStrategy
+pattern PlacementGroupStrategyCLUSTER = PlacementGroupStrategy' "CLUSTER"
 
-pattern PGSNone :: PlacementGroupStrategy
-pattern PGSNone = PlacementGroupStrategy' "NONE"
+pattern PlacementGroupStrategyNONE :: PlacementGroupStrategy
+pattern PlacementGroupStrategyNONE = PlacementGroupStrategy' "NONE"
 
-pattern PGSPartition :: PlacementGroupStrategy
-pattern PGSPartition = PlacementGroupStrategy' "PARTITION"
+pattern PlacementGroupStrategyPARTITION :: PlacementGroupStrategy
+pattern PlacementGroupStrategyPARTITION = PlacementGroupStrategy' "PARTITION"
 
-pattern PGSSpread :: PlacementGroupStrategy
-pattern PGSSpread = PlacementGroupStrategy' "SPREAD"
+pattern PlacementGroupStrategySPREAD :: PlacementGroupStrategy
+pattern PlacementGroupStrategySPREAD = PlacementGroupStrategy' "SPREAD"
 
 {-# COMPLETE
-  PGSCluster,
-  PGSNone,
-  PGSPartition,
-  PGSSpread,
+  PlacementGroupStrategyCLUSTER,
+  PlacementGroupStrategyNONE,
+  PlacementGroupStrategyPARTITION,
+  PlacementGroupStrategySPREAD,
   PlacementGroupStrategy'
   #-}
 
-instance FromText PlacementGroupStrategy where
-  parser = (PlacementGroupStrategy' . mk) <$> takeText
+instance Prelude.FromText PlacementGroupStrategy where
+  parser = PlacementGroupStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText PlacementGroupStrategy where
-  toText (PlacementGroupStrategy' ci) = original ci
+instance Prelude.ToText PlacementGroupStrategy where
+  toText (PlacementGroupStrategy' x) = x
 
-instance Hashable PlacementGroupStrategy
+instance Prelude.Hashable PlacementGroupStrategy
 
-instance NFData PlacementGroupStrategy
+instance Prelude.NFData PlacementGroupStrategy
 
-instance ToByteString PlacementGroupStrategy
+instance Prelude.ToByteString PlacementGroupStrategy
 
-instance ToQuery PlacementGroupStrategy
+instance Prelude.ToQuery PlacementGroupStrategy
 
-instance ToHeader PlacementGroupStrategy
+instance Prelude.ToHeader PlacementGroupStrategy
 
-instance ToJSON PlacementGroupStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON PlacementGroupStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PlacementGroupStrategy where
-  parseJSON = parseJSONText "PlacementGroupStrategy"
+instance Prelude.FromJSON PlacementGroupStrategy where
+  parseJSON = Prelude.parseJSONText "PlacementGroupStrategy"

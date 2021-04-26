@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.EMR.Types.InstanceFleetType
   ( InstanceFleetType
       ( ..,
-        Core,
-        Master,
-        Task
+        InstanceFleetTypeCORE,
+        InstanceFleetTypeMASTER,
+        InstanceFleetTypeTASK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceFleetType = InstanceFleetType' (CI Text)
+newtype InstanceFleetType = InstanceFleetType'
+  { fromInstanceFleetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Core :: InstanceFleetType
-pattern Core = InstanceFleetType' "CORE"
+pattern InstanceFleetTypeCORE :: InstanceFleetType
+pattern InstanceFleetTypeCORE = InstanceFleetType' "CORE"
 
-pattern Master :: InstanceFleetType
-pattern Master = InstanceFleetType' "MASTER"
+pattern InstanceFleetTypeMASTER :: InstanceFleetType
+pattern InstanceFleetTypeMASTER = InstanceFleetType' "MASTER"
 
-pattern Task :: InstanceFleetType
-pattern Task = InstanceFleetType' "TASK"
+pattern InstanceFleetTypeTASK :: InstanceFleetType
+pattern InstanceFleetTypeTASK = InstanceFleetType' "TASK"
 
 {-# COMPLETE
-  Core,
-  Master,
-  Task,
+  InstanceFleetTypeCORE,
+  InstanceFleetTypeMASTER,
+  InstanceFleetTypeTASK,
   InstanceFleetType'
   #-}
 
-instance FromText InstanceFleetType where
-  parser = (InstanceFleetType' . mk) <$> takeText
+instance Prelude.FromText InstanceFleetType where
+  parser = InstanceFleetType' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceFleetType where
-  toText (InstanceFleetType' ci) = original ci
+instance Prelude.ToText InstanceFleetType where
+  toText (InstanceFleetType' x) = x
 
-instance Hashable InstanceFleetType
+instance Prelude.Hashable InstanceFleetType
 
-instance NFData InstanceFleetType
+instance Prelude.NFData InstanceFleetType
 
-instance ToByteString InstanceFleetType
+instance Prelude.ToByteString InstanceFleetType
 
-instance ToQuery InstanceFleetType
+instance Prelude.ToQuery InstanceFleetType
 
-instance ToHeader InstanceFleetType
+instance Prelude.ToHeader InstanceFleetType
 
-instance ToJSON InstanceFleetType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceFleetType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InstanceFleetType where
-  parseJSON = parseJSONText "InstanceFleetType"
+instance Prelude.FromJSON InstanceFleetType where
+  parseJSON = Prelude.parseJSONText "InstanceFleetType"

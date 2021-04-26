@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,99 +21,96 @@ module Network.AWS.EMR.Types.InstanceGroupModifyConfig where
 
 import Network.AWS.EMR.Types.Configuration
 import Network.AWS.EMR.Types.ShrinkPolicy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Modify the size or configurations of an instance group.
 --
---
---
--- /See:/ 'instanceGroupModifyConfig' smart constructor.
+-- /See:/ 'newInstanceGroupModifyConfig' smart constructor.
 data InstanceGroupModifyConfig = InstanceGroupModifyConfig'
-  { _igmcConfigurations ::
-      !( Maybe
-           [Configuration]
-       ),
-    _igmcShrinkPolicy ::
-      !( Maybe
-           ShrinkPolicy
-       ),
-    _igmcEC2InstanceIdsToTerminate ::
-      !(Maybe [Text]),
-    _igmcInstanceCount ::
-      !(Maybe Int),
-    _igmcInstanceGroupId ::
-      !Text
+  { -- | A list of new or modified configurations to apply for an instance group.
+    configurations :: Prelude.Maybe [Configuration],
+    -- | Policy for customizing shrink operations.
+    shrinkPolicy :: Prelude.Maybe ShrinkPolicy,
+    -- | The EC2 InstanceIds to terminate. After you terminate the instances, the
+    -- instance group will not return to its original requested size.
+    eC2InstanceIdsToTerminate :: Prelude.Maybe [Prelude.Text],
+    -- | Target size for the instance group.
+    instanceCount :: Prelude.Maybe Prelude.Int,
+    -- | Unique ID of the instance group to modify.
+    instanceGroupId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceGroupModifyConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceGroupModifyConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'igmcConfigurations' - A list of new or modified configurations to apply for an instance group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'igmcShrinkPolicy' - Policy for customizing shrink operations.
+-- 'configurations', 'instanceGroupModifyConfig_configurations' - A list of new or modified configurations to apply for an instance group.
 --
--- * 'igmcEC2InstanceIdsToTerminate' - The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to its original requested size.
+-- 'shrinkPolicy', 'instanceGroupModifyConfig_shrinkPolicy' - Policy for customizing shrink operations.
 --
--- * 'igmcInstanceCount' - Target size for the instance group.
+-- 'eC2InstanceIdsToTerminate', 'instanceGroupModifyConfig_eC2InstanceIdsToTerminate' - The EC2 InstanceIds to terminate. After you terminate the instances, the
+-- instance group will not return to its original requested size.
 --
--- * 'igmcInstanceGroupId' - Unique ID of the instance group to modify.
-instanceGroupModifyConfig ::
-  -- | 'igmcInstanceGroupId'
-  Text ->
+-- 'instanceCount', 'instanceGroupModifyConfig_instanceCount' - Target size for the instance group.
+--
+-- 'instanceGroupId', 'instanceGroupModifyConfig_instanceGroupId' - Unique ID of the instance group to modify.
+newInstanceGroupModifyConfig ::
+  -- | 'instanceGroupId'
+  Prelude.Text ->
   InstanceGroupModifyConfig
-instanceGroupModifyConfig pInstanceGroupId_ =
+newInstanceGroupModifyConfig pInstanceGroupId_ =
   InstanceGroupModifyConfig'
-    { _igmcConfigurations =
-        Nothing,
-      _igmcShrinkPolicy = Nothing,
-      _igmcEC2InstanceIdsToTerminate = Nothing,
-      _igmcInstanceCount = Nothing,
-      _igmcInstanceGroupId = pInstanceGroupId_
+    { configurations =
+        Prelude.Nothing,
+      shrinkPolicy = Prelude.Nothing,
+      eC2InstanceIdsToTerminate = Prelude.Nothing,
+      instanceCount = Prelude.Nothing,
+      instanceGroupId = pInstanceGroupId_
     }
 
 -- | A list of new or modified configurations to apply for an instance group.
-igmcConfigurations :: Lens' InstanceGroupModifyConfig [Configuration]
-igmcConfigurations = lens _igmcConfigurations (\s a -> s {_igmcConfigurations = a}) . _Default . _Coerce
+instanceGroupModifyConfig_configurations :: Lens.Lens' InstanceGroupModifyConfig (Prelude.Maybe [Configuration])
+instanceGroupModifyConfig_configurations = Lens.lens (\InstanceGroupModifyConfig' {configurations} -> configurations) (\s@InstanceGroupModifyConfig' {} a -> s {configurations = a} :: InstanceGroupModifyConfig) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Policy for customizing shrink operations.
-igmcShrinkPolicy :: Lens' InstanceGroupModifyConfig (Maybe ShrinkPolicy)
-igmcShrinkPolicy = lens _igmcShrinkPolicy (\s a -> s {_igmcShrinkPolicy = a})
+instanceGroupModifyConfig_shrinkPolicy :: Lens.Lens' InstanceGroupModifyConfig (Prelude.Maybe ShrinkPolicy)
+instanceGroupModifyConfig_shrinkPolicy = Lens.lens (\InstanceGroupModifyConfig' {shrinkPolicy} -> shrinkPolicy) (\s@InstanceGroupModifyConfig' {} a -> s {shrinkPolicy = a} :: InstanceGroupModifyConfig)
 
--- | The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to its original requested size.
-igmcEC2InstanceIdsToTerminate :: Lens' InstanceGroupModifyConfig [Text]
-igmcEC2InstanceIdsToTerminate = lens _igmcEC2InstanceIdsToTerminate (\s a -> s {_igmcEC2InstanceIdsToTerminate = a}) . _Default . _Coerce
+-- | The EC2 InstanceIds to terminate. After you terminate the instances, the
+-- instance group will not return to its original requested size.
+instanceGroupModifyConfig_eC2InstanceIdsToTerminate :: Lens.Lens' InstanceGroupModifyConfig (Prelude.Maybe [Prelude.Text])
+instanceGroupModifyConfig_eC2InstanceIdsToTerminate = Lens.lens (\InstanceGroupModifyConfig' {eC2InstanceIdsToTerminate} -> eC2InstanceIdsToTerminate) (\s@InstanceGroupModifyConfig' {} a -> s {eC2InstanceIdsToTerminate = a} :: InstanceGroupModifyConfig) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Target size for the instance group.
-igmcInstanceCount :: Lens' InstanceGroupModifyConfig (Maybe Int)
-igmcInstanceCount = lens _igmcInstanceCount (\s a -> s {_igmcInstanceCount = a})
+instanceGroupModifyConfig_instanceCount :: Lens.Lens' InstanceGroupModifyConfig (Prelude.Maybe Prelude.Int)
+instanceGroupModifyConfig_instanceCount = Lens.lens (\InstanceGroupModifyConfig' {instanceCount} -> instanceCount) (\s@InstanceGroupModifyConfig' {} a -> s {instanceCount = a} :: InstanceGroupModifyConfig)
 
 -- | Unique ID of the instance group to modify.
-igmcInstanceGroupId :: Lens' InstanceGroupModifyConfig Text
-igmcInstanceGroupId = lens _igmcInstanceGroupId (\s a -> s {_igmcInstanceGroupId = a})
+instanceGroupModifyConfig_instanceGroupId :: Lens.Lens' InstanceGroupModifyConfig Prelude.Text
+instanceGroupModifyConfig_instanceGroupId = Lens.lens (\InstanceGroupModifyConfig' {instanceGroupId} -> instanceGroupId) (\s@InstanceGroupModifyConfig' {} a -> s {instanceGroupId = a} :: InstanceGroupModifyConfig)
 
-instance Hashable InstanceGroupModifyConfig
+instance Prelude.Hashable InstanceGroupModifyConfig
 
-instance NFData InstanceGroupModifyConfig
+instance Prelude.NFData InstanceGroupModifyConfig
 
-instance ToJSON InstanceGroupModifyConfig where
+instance Prelude.ToJSON InstanceGroupModifyConfig where
   toJSON InstanceGroupModifyConfig' {..} =
-    object
-      ( catMaybes
-          [ ("Configurations" .=) <$> _igmcConfigurations,
-            ("ShrinkPolicy" .=) <$> _igmcShrinkPolicy,
-            ("EC2InstanceIdsToTerminate" .=)
-              <$> _igmcEC2InstanceIdsToTerminate,
-            ("InstanceCount" .=) <$> _igmcInstanceCount,
-            Just ("InstanceGroupId" .= _igmcInstanceGroupId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Configurations" Prelude..=)
+              Prelude.<$> configurations,
+            ("ShrinkPolicy" Prelude..=) Prelude.<$> shrinkPolicy,
+            ("EC2InstanceIdsToTerminate" Prelude..=)
+              Prelude.<$> eC2InstanceIdsToTerminate,
+            ("InstanceCount" Prelude..=)
+              Prelude.<$> instanceCount,
+            Prelude.Just
+              ("InstanceGroupId" Prelude..= instanceGroupId)
           ]
       )

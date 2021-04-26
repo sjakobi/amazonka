@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,161 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- SetTerminationProtection locks a cluster (job flow) so the EC2 instances in the cluster cannot be terminated by user intervention, an API call, or in the event of a job-flow error. The cluster still terminates upon successful completion of the job flow. Calling @SetTerminationProtection@ on a cluster is similar to calling the Amazon EC2 @DisableAPITermination@ API on all EC2 instances in a cluster.
+-- SetTerminationProtection locks a cluster (job flow) so the EC2 instances
+-- in the cluster cannot be terminated by user intervention, an API call,
+-- or in the event of a job-flow error. The cluster still terminates upon
+-- successful completion of the job flow. Calling
+-- @SetTerminationProtection@ on a cluster is similar to calling the Amazon
+-- EC2 @DisableAPITermination@ API on all EC2 instances in a cluster.
 --
+-- @SetTerminationProtection@ is used to prevent accidental termination of
+-- a cluster and to ensure that in the event of an error, the instances
+-- persist so that you can recover any data stored in their ephemeral
+-- instance storage.
 --
--- @SetTerminationProtection@ is used to prevent accidental termination of a cluster and to ensure that in the event of an error, the instances persist so that you can recover any data stored in their ephemeral instance storage.
+-- To terminate a cluster that has been locked by setting
+-- @SetTerminationProtection@ to @true@, you must first unlock the job flow
+-- by a subsequent call to @SetTerminationProtection@ in which you set the
+-- value to @false@.
 --
--- To terminate a cluster that has been locked by setting @SetTerminationProtection@ to @true@ , you must first unlock the job flow by a subsequent call to @SetTerminationProtection@ in which you set the value to @false@ .
---
--- For more information, see<https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html Managing Cluster Termination> in the /Amazon EMR Management Guide/ .
+-- For more information,
+-- see<https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html Managing Cluster Termination>
+-- in the /Amazon EMR Management Guide/.
 module Network.AWS.EMR.SetTerminationProtection
   ( -- * Creating a Request
-    setTerminationProtection,
-    SetTerminationProtection,
+    SetTerminationProtection (..),
+    newSetTerminationProtection,
 
     -- * Request Lenses
-    stpJobFlowIds,
-    stpTerminationProtected,
+    setTerminationProtection_jobFlowIds,
+    setTerminationProtection_terminationProtected,
 
     -- * Destructuring the Response
-    setTerminationProtectionResponse,
-    SetTerminationProtectionResponse,
+    SetTerminationProtectionResponse (..),
+    newSetTerminationProtectionResponse,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input argument to the 'TerminationProtection' operation.
+-- | The input argument to the TerminationProtection operation.
 --
---
---
--- /See:/ 'setTerminationProtection' smart constructor.
+-- /See:/ 'newSetTerminationProtection' smart constructor.
 data SetTerminationProtection = SetTerminationProtection'
-  { _stpJobFlowIds ::
-      ![Text],
-    _stpTerminationProtected ::
-      !Bool
+  { -- | A list of strings that uniquely identify the clusters to protect. This
+    -- identifier is returned by RunJobFlow and can also be obtained from
+    -- DescribeJobFlows .
+    jobFlowIds :: [Prelude.Text],
+    -- | A Boolean that indicates whether to protect the cluster and prevent the
+    -- Amazon EC2 instances in the cluster from shutting down due to API calls,
+    -- user intervention, or job-flow error.
+    terminationProtected :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetTerminationProtection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetTerminationProtection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stpJobFlowIds' - A list of strings that uniquely identify the clusters to protect. This identifier is returned by 'RunJobFlow' and can also be obtained from 'DescribeJobFlows' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stpTerminationProtected' - A Boolean that indicates whether to protect the cluster and prevent the Amazon EC2 instances in the cluster from shutting down due to API calls, user intervention, or job-flow error.
-setTerminationProtection ::
-  -- | 'stpTerminationProtected'
-  Bool ->
+-- 'jobFlowIds', 'setTerminationProtection_jobFlowIds' - A list of strings that uniquely identify the clusters to protect. This
+-- identifier is returned by RunJobFlow and can also be obtained from
+-- DescribeJobFlows .
+--
+-- 'terminationProtected', 'setTerminationProtection_terminationProtected' - A Boolean that indicates whether to protect the cluster and prevent the
+-- Amazon EC2 instances in the cluster from shutting down due to API calls,
+-- user intervention, or job-flow error.
+newSetTerminationProtection ::
+  -- | 'terminationProtected'
+  Prelude.Bool ->
   SetTerminationProtection
-setTerminationProtection pTerminationProtected_ =
+newSetTerminationProtection pTerminationProtected_ =
   SetTerminationProtection'
-    { _stpJobFlowIds = mempty,
-      _stpTerminationProtected = pTerminationProtected_
+    { jobFlowIds =
+        Prelude.mempty,
+      terminationProtected = pTerminationProtected_
     }
 
--- | A list of strings that uniquely identify the clusters to protect. This identifier is returned by 'RunJobFlow' and can also be obtained from 'DescribeJobFlows' .
-stpJobFlowIds :: Lens' SetTerminationProtection [Text]
-stpJobFlowIds = lens _stpJobFlowIds (\s a -> s {_stpJobFlowIds = a}) . _Coerce
+-- | A list of strings that uniquely identify the clusters to protect. This
+-- identifier is returned by RunJobFlow and can also be obtained from
+-- DescribeJobFlows .
+setTerminationProtection_jobFlowIds :: Lens.Lens' SetTerminationProtection [Prelude.Text]
+setTerminationProtection_jobFlowIds = Lens.lens (\SetTerminationProtection' {jobFlowIds} -> jobFlowIds) (\s@SetTerminationProtection' {} a -> s {jobFlowIds = a} :: SetTerminationProtection) Prelude.. Prelude._Coerce
 
--- | A Boolean that indicates whether to protect the cluster and prevent the Amazon EC2 instances in the cluster from shutting down due to API calls, user intervention, or job-flow error.
-stpTerminationProtected :: Lens' SetTerminationProtection Bool
-stpTerminationProtected = lens _stpTerminationProtected (\s a -> s {_stpTerminationProtected = a})
+-- | A Boolean that indicates whether to protect the cluster and prevent the
+-- Amazon EC2 instances in the cluster from shutting down due to API calls,
+-- user intervention, or job-flow error.
+setTerminationProtection_terminationProtected :: Lens.Lens' SetTerminationProtection Prelude.Bool
+setTerminationProtection_terminationProtected = Lens.lens (\SetTerminationProtection' {terminationProtected} -> terminationProtected) (\s@SetTerminationProtection' {} a -> s {terminationProtected = a} :: SetTerminationProtection)
 
-instance AWSRequest SetTerminationProtection where
+instance Prelude.AWSRequest SetTerminationProtection where
   type
     Rs SetTerminationProtection =
       SetTerminationProtectionResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveNull SetTerminationProtectionResponse'
+    Response.receiveNull
+      SetTerminationProtectionResponse'
 
-instance Hashable SetTerminationProtection
+instance Prelude.Hashable SetTerminationProtection
 
-instance NFData SetTerminationProtection
+instance Prelude.NFData SetTerminationProtection
 
-instance ToHeaders SetTerminationProtection where
+instance Prelude.ToHeaders SetTerminationProtection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.SetTerminationProtection" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.SetTerminationProtection" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SetTerminationProtection where
+instance Prelude.ToJSON SetTerminationProtection where
   toJSON SetTerminationProtection' {..} =
-    object
-      ( catMaybes
-          [ Just ("JobFlowIds" .= _stpJobFlowIds),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("JobFlowIds" Prelude..= jobFlowIds),
+            Prelude.Just
               ( "TerminationProtected"
-                  .= _stpTerminationProtected
+                  Prelude..= terminationProtected
               )
           ]
       )
 
-instance ToPath SetTerminationProtection where
-  toPath = const "/"
+instance Prelude.ToPath SetTerminationProtection where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetTerminationProtection where
-  toQuery = const mempty
+instance Prelude.ToQuery SetTerminationProtection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'setTerminationProtectionResponse' smart constructor.
+-- | /See:/ 'newSetTerminationProtectionResponse' smart constructor.
 data SetTerminationProtectionResponse = SetTerminationProtectionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetTerminationProtectionResponse' with the minimum fields required to make a request.
-setTerminationProtectionResponse ::
+-- |
+-- Create a value of 'SetTerminationProtectionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newSetTerminationProtectionResponse ::
   SetTerminationProtectionResponse
-setTerminationProtectionResponse =
+newSetTerminationProtectionResponse =
   SetTerminationProtectionResponse'
 
-instance NFData SetTerminationProtectionResponse
+instance
+  Prelude.NFData
+    SetTerminationProtectionResponse

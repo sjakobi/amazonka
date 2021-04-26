@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.EMR.Types.InstanceState
   ( InstanceState
       ( ..,
-        ISAwaitingFulfillment,
-        ISBootstrapping,
-        ISProvisioning,
-        ISRunning,
-        ISTerminated
+        InstanceStateAWAITINGFULFILLMENT,
+        InstanceStateBOOTSTRAPPING,
+        InstanceStatePROVISIONING,
+        InstanceStateRUNNING,
+        InstanceStateTERMINATED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceState = InstanceState' (CI Text)
+newtype InstanceState = InstanceState'
+  { fromInstanceState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISAwaitingFulfillment :: InstanceState
-pattern ISAwaitingFulfillment = InstanceState' "AWAITING_FULFILLMENT"
+pattern InstanceStateAWAITINGFULFILLMENT :: InstanceState
+pattern InstanceStateAWAITINGFULFILLMENT = InstanceState' "AWAITING_FULFILLMENT"
 
-pattern ISBootstrapping :: InstanceState
-pattern ISBootstrapping = InstanceState' "BOOTSTRAPPING"
+pattern InstanceStateBOOTSTRAPPING :: InstanceState
+pattern InstanceStateBOOTSTRAPPING = InstanceState' "BOOTSTRAPPING"
 
-pattern ISProvisioning :: InstanceState
-pattern ISProvisioning = InstanceState' "PROVISIONING"
+pattern InstanceStatePROVISIONING :: InstanceState
+pattern InstanceStatePROVISIONING = InstanceState' "PROVISIONING"
 
-pattern ISRunning :: InstanceState
-pattern ISRunning = InstanceState' "RUNNING"
+pattern InstanceStateRUNNING :: InstanceState
+pattern InstanceStateRUNNING = InstanceState' "RUNNING"
 
-pattern ISTerminated :: InstanceState
-pattern ISTerminated = InstanceState' "TERMINATED"
+pattern InstanceStateTERMINATED :: InstanceState
+pattern InstanceStateTERMINATED = InstanceState' "TERMINATED"
 
 {-# COMPLETE
-  ISAwaitingFulfillment,
-  ISBootstrapping,
-  ISProvisioning,
-  ISRunning,
-  ISTerminated,
+  InstanceStateAWAITINGFULFILLMENT,
+  InstanceStateBOOTSTRAPPING,
+  InstanceStatePROVISIONING,
+  InstanceStateRUNNING,
+  InstanceStateTERMINATED,
   InstanceState'
   #-}
 
-instance FromText InstanceState where
-  parser = (InstanceState' . mk) <$> takeText
+instance Prelude.FromText InstanceState where
+  parser = InstanceState' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceState where
-  toText (InstanceState' ci) = original ci
+instance Prelude.ToText InstanceState where
+  toText (InstanceState' x) = x
 
-instance Hashable InstanceState
+instance Prelude.Hashable InstanceState
 
-instance NFData InstanceState
+instance Prelude.NFData InstanceState
 
-instance ToByteString InstanceState
+instance Prelude.ToByteString InstanceState
 
-instance ToQuery InstanceState
+instance Prelude.ToQuery InstanceState
 
-instance ToHeader InstanceState
+instance Prelude.ToHeader InstanceState
 
-instance ToJSON InstanceState where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InstanceState where
-  parseJSON = parseJSONText "InstanceState"
+instance Prelude.FromJSON InstanceState where
+  parseJSON = Prelude.parseJSONText "InstanceState"

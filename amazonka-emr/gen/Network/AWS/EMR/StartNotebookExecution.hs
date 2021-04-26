@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,233 +24,277 @@
 -- Starts a notebook execution.
 module Network.AWS.EMR.StartNotebookExecution
   ( -- * Creating a Request
-    startNotebookExecution,
-    StartNotebookExecution,
+    StartNotebookExecution (..),
+    newStartNotebookExecution,
 
     -- * Request Lenses
-    sneNotebookExecutionName,
-    sneNotebookParams,
-    sneNotebookInstanceSecurityGroupId,
-    sneTags,
-    sneEditorId,
-    sneRelativePath,
-    sneExecutionEngine,
-    sneServiceRole,
+    startNotebookExecution_notebookExecutionName,
+    startNotebookExecution_notebookParams,
+    startNotebookExecution_notebookInstanceSecurityGroupId,
+    startNotebookExecution_tags,
+    startNotebookExecution_editorId,
+    startNotebookExecution_relativePath,
+    startNotebookExecution_executionEngine,
+    startNotebookExecution_serviceRole,
 
     -- * Destructuring the Response
-    startNotebookExecutionResponse,
-    StartNotebookExecutionResponse,
+    StartNotebookExecutionResponse (..),
+    newStartNotebookExecutionResponse,
 
     -- * Response Lenses
-    snerrsNotebookExecutionId,
-    snerrsResponseStatus,
+    startNotebookExecutionResponse_notebookExecutionId,
+    startNotebookExecutionResponse_httpStatus,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startNotebookExecution' smart constructor.
+-- | /See:/ 'newStartNotebookExecution' smart constructor.
 data StartNotebookExecution = StartNotebookExecution'
-  { _sneNotebookExecutionName ::
-      !(Maybe Text),
-    _sneNotebookParams ::
-      !(Maybe Text),
-    _sneNotebookInstanceSecurityGroupId ::
-      !(Maybe Text),
-    _sneTags ::
-      !(Maybe [Tag]),
-    _sneEditorId :: !Text,
-    _sneRelativePath :: !Text,
-    _sneExecutionEngine ::
-      !ExecutionEngineConfig,
-    _sneServiceRole :: !Text
+  { -- | An optional name for the notebook execution.
+    notebookExecutionName :: Prelude.Maybe Prelude.Text,
+    -- | Input parameters in JSON format passed to the EMR Notebook at runtime
+    -- for execution.
+    notebookParams :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the Amazon EC2 security group to associate with
+    -- the EMR Notebook for this notebook execution.
+    notebookInstanceSecurityGroupId :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags associated with a notebook execution. Tags are
+    -- user-defined key-value pairs that consist of a required key string with
+    -- a maximum of 128 characters and an optional value string with a maximum
+    -- of 256 characters.
+    tags :: Prelude.Maybe [Tag],
+    -- | The unique identifier of the EMR Notebook to use for notebook execution.
+    editorId :: Prelude.Text,
+    -- | The path and file name of the notebook file for this execution, relative
+    -- to the path specified for the EMR Notebook. For example, if you specify
+    -- a path of @s3:\/\/MyBucket\/MyNotebooks@ when you create an EMR Notebook
+    -- for a notebook with an ID of @e-ABCDEFGHIJK1234567890ABCD@ (the
+    -- @EditorID@ of this request), and you specify a @RelativePath@ of
+    -- @my_notebook_executions\/notebook_execution.ipynb@, the location of the
+    -- file for the notebook execution is
+    -- @s3:\/\/MyBucket\/MyNotebooks\/e-ABCDEFGHIJK1234567890ABCD\/my_notebook_executions\/notebook_execution.ipynb@.
+    relativePath :: Prelude.Text,
+    -- | Specifies the execution engine (cluster) that runs the notebook
+    -- execution.
+    executionEngine :: ExecutionEngineConfig,
+    -- | The name or ARN of the IAM role that is used as the service role for
+    -- Amazon EMR (the EMR role) for the notebook execution.
+    serviceRole :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartNotebookExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartNotebookExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sneNotebookExecutionName' - An optional name for the notebook execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sneNotebookParams' - Input parameters in JSON format passed to the EMR Notebook at runtime for execution.
+-- 'notebookExecutionName', 'startNotebookExecution_notebookExecutionName' - An optional name for the notebook execution.
 --
--- * 'sneNotebookInstanceSecurityGroupId' - The unique identifier of the Amazon EC2 security group to associate with the EMR Notebook for this notebook execution.
+-- 'notebookParams', 'startNotebookExecution_notebookParams' - Input parameters in JSON format passed to the EMR Notebook at runtime
+-- for execution.
 --
--- * 'sneTags' - A list of tags associated with a notebook execution. Tags are user-defined key-value pairs that consist of a required key string with a maximum of 128 characters and an optional value string with a maximum of 256 characters.
+-- 'notebookInstanceSecurityGroupId', 'startNotebookExecution_notebookInstanceSecurityGroupId' - The unique identifier of the Amazon EC2 security group to associate with
+-- the EMR Notebook for this notebook execution.
 --
--- * 'sneEditorId' - The unique identifier of the EMR Notebook to use for notebook execution.
+-- 'tags', 'startNotebookExecution_tags' - A list of tags associated with a notebook execution. Tags are
+-- user-defined key-value pairs that consist of a required key string with
+-- a maximum of 128 characters and an optional value string with a maximum
+-- of 256 characters.
 --
--- * 'sneRelativePath' - The path and file name of the notebook file for this execution, relative to the path specified for the EMR Notebook. For example, if you specify a path of @s3://MyBucket/MyNotebooks@ when you create an EMR Notebook for a notebook with an ID of @e-ABCDEFGHIJK1234567890ABCD@ (the @EditorID@ of this request), and you specify a @RelativePath@ of @my_notebook_executions/notebook_execution.ipynb@ , the location of the file for the notebook execution is @s3://MyBucket/MyNotebooks/e-ABCDEFGHIJK1234567890ABCD/my_notebook_executions/notebook_execution.ipynb@ .
+-- 'editorId', 'startNotebookExecution_editorId' - The unique identifier of the EMR Notebook to use for notebook execution.
 --
--- * 'sneExecutionEngine' - Specifies the execution engine (cluster) that runs the notebook execution.
+-- 'relativePath', 'startNotebookExecution_relativePath' - The path and file name of the notebook file for this execution, relative
+-- to the path specified for the EMR Notebook. For example, if you specify
+-- a path of @s3:\/\/MyBucket\/MyNotebooks@ when you create an EMR Notebook
+-- for a notebook with an ID of @e-ABCDEFGHIJK1234567890ABCD@ (the
+-- @EditorID@ of this request), and you specify a @RelativePath@ of
+-- @my_notebook_executions\/notebook_execution.ipynb@, the location of the
+-- file for the notebook execution is
+-- @s3:\/\/MyBucket\/MyNotebooks\/e-ABCDEFGHIJK1234567890ABCD\/my_notebook_executions\/notebook_execution.ipynb@.
 --
--- * 'sneServiceRole' - The name or ARN of the IAM role that is used as the service role for Amazon EMR (the EMR role) for the notebook execution.
-startNotebookExecution ::
-  -- | 'sneEditorId'
-  Text ->
-  -- | 'sneRelativePath'
-  Text ->
-  -- | 'sneExecutionEngine'
+-- 'executionEngine', 'startNotebookExecution_executionEngine' - Specifies the execution engine (cluster) that runs the notebook
+-- execution.
+--
+-- 'serviceRole', 'startNotebookExecution_serviceRole' - The name or ARN of the IAM role that is used as the service role for
+-- Amazon EMR (the EMR role) for the notebook execution.
+newStartNotebookExecution ::
+  -- | 'editorId'
+  Prelude.Text ->
+  -- | 'relativePath'
+  Prelude.Text ->
+  -- | 'executionEngine'
   ExecutionEngineConfig ->
-  -- | 'sneServiceRole'
-  Text ->
+  -- | 'serviceRole'
+  Prelude.Text ->
   StartNotebookExecution
-startNotebookExecution
+newStartNotebookExecution
   pEditorId_
   pRelativePath_
   pExecutionEngine_
   pServiceRole_ =
     StartNotebookExecution'
-      { _sneNotebookExecutionName =
-          Nothing,
-        _sneNotebookParams = Nothing,
-        _sneNotebookInstanceSecurityGroupId = Nothing,
-        _sneTags = Nothing,
-        _sneEditorId = pEditorId_,
-        _sneRelativePath = pRelativePath_,
-        _sneExecutionEngine = pExecutionEngine_,
-        _sneServiceRole = pServiceRole_
+      { notebookExecutionName =
+          Prelude.Nothing,
+        notebookParams = Prelude.Nothing,
+        notebookInstanceSecurityGroupId = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        editorId = pEditorId_,
+        relativePath = pRelativePath_,
+        executionEngine = pExecutionEngine_,
+        serviceRole = pServiceRole_
       }
 
 -- | An optional name for the notebook execution.
-sneNotebookExecutionName :: Lens' StartNotebookExecution (Maybe Text)
-sneNotebookExecutionName = lens _sneNotebookExecutionName (\s a -> s {_sneNotebookExecutionName = a})
+startNotebookExecution_notebookExecutionName :: Lens.Lens' StartNotebookExecution (Prelude.Maybe Prelude.Text)
+startNotebookExecution_notebookExecutionName = Lens.lens (\StartNotebookExecution' {notebookExecutionName} -> notebookExecutionName) (\s@StartNotebookExecution' {} a -> s {notebookExecutionName = a} :: StartNotebookExecution)
 
--- | Input parameters in JSON format passed to the EMR Notebook at runtime for execution.
-sneNotebookParams :: Lens' StartNotebookExecution (Maybe Text)
-sneNotebookParams = lens _sneNotebookParams (\s a -> s {_sneNotebookParams = a})
+-- | Input parameters in JSON format passed to the EMR Notebook at runtime
+-- for execution.
+startNotebookExecution_notebookParams :: Lens.Lens' StartNotebookExecution (Prelude.Maybe Prelude.Text)
+startNotebookExecution_notebookParams = Lens.lens (\StartNotebookExecution' {notebookParams} -> notebookParams) (\s@StartNotebookExecution' {} a -> s {notebookParams = a} :: StartNotebookExecution)
 
--- | The unique identifier of the Amazon EC2 security group to associate with the EMR Notebook for this notebook execution.
-sneNotebookInstanceSecurityGroupId :: Lens' StartNotebookExecution (Maybe Text)
-sneNotebookInstanceSecurityGroupId = lens _sneNotebookInstanceSecurityGroupId (\s a -> s {_sneNotebookInstanceSecurityGroupId = a})
+-- | The unique identifier of the Amazon EC2 security group to associate with
+-- the EMR Notebook for this notebook execution.
+startNotebookExecution_notebookInstanceSecurityGroupId :: Lens.Lens' StartNotebookExecution (Prelude.Maybe Prelude.Text)
+startNotebookExecution_notebookInstanceSecurityGroupId = Lens.lens (\StartNotebookExecution' {notebookInstanceSecurityGroupId} -> notebookInstanceSecurityGroupId) (\s@StartNotebookExecution' {} a -> s {notebookInstanceSecurityGroupId = a} :: StartNotebookExecution)
 
--- | A list of tags associated with a notebook execution. Tags are user-defined key-value pairs that consist of a required key string with a maximum of 128 characters and an optional value string with a maximum of 256 characters.
-sneTags :: Lens' StartNotebookExecution [Tag]
-sneTags = lens _sneTags (\s a -> s {_sneTags = a}) . _Default . _Coerce
+-- | A list of tags associated with a notebook execution. Tags are
+-- user-defined key-value pairs that consist of a required key string with
+-- a maximum of 128 characters and an optional value string with a maximum
+-- of 256 characters.
+startNotebookExecution_tags :: Lens.Lens' StartNotebookExecution (Prelude.Maybe [Tag])
+startNotebookExecution_tags = Lens.lens (\StartNotebookExecution' {tags} -> tags) (\s@StartNotebookExecution' {} a -> s {tags = a} :: StartNotebookExecution) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The unique identifier of the EMR Notebook to use for notebook execution.
-sneEditorId :: Lens' StartNotebookExecution Text
-sneEditorId = lens _sneEditorId (\s a -> s {_sneEditorId = a})
+startNotebookExecution_editorId :: Lens.Lens' StartNotebookExecution Prelude.Text
+startNotebookExecution_editorId = Lens.lens (\StartNotebookExecution' {editorId} -> editorId) (\s@StartNotebookExecution' {} a -> s {editorId = a} :: StartNotebookExecution)
 
--- | The path and file name of the notebook file for this execution, relative to the path specified for the EMR Notebook. For example, if you specify a path of @s3://MyBucket/MyNotebooks@ when you create an EMR Notebook for a notebook with an ID of @e-ABCDEFGHIJK1234567890ABCD@ (the @EditorID@ of this request), and you specify a @RelativePath@ of @my_notebook_executions/notebook_execution.ipynb@ , the location of the file for the notebook execution is @s3://MyBucket/MyNotebooks/e-ABCDEFGHIJK1234567890ABCD/my_notebook_executions/notebook_execution.ipynb@ .
-sneRelativePath :: Lens' StartNotebookExecution Text
-sneRelativePath = lens _sneRelativePath (\s a -> s {_sneRelativePath = a})
+-- | The path and file name of the notebook file for this execution, relative
+-- to the path specified for the EMR Notebook. For example, if you specify
+-- a path of @s3:\/\/MyBucket\/MyNotebooks@ when you create an EMR Notebook
+-- for a notebook with an ID of @e-ABCDEFGHIJK1234567890ABCD@ (the
+-- @EditorID@ of this request), and you specify a @RelativePath@ of
+-- @my_notebook_executions\/notebook_execution.ipynb@, the location of the
+-- file for the notebook execution is
+-- @s3:\/\/MyBucket\/MyNotebooks\/e-ABCDEFGHIJK1234567890ABCD\/my_notebook_executions\/notebook_execution.ipynb@.
+startNotebookExecution_relativePath :: Lens.Lens' StartNotebookExecution Prelude.Text
+startNotebookExecution_relativePath = Lens.lens (\StartNotebookExecution' {relativePath} -> relativePath) (\s@StartNotebookExecution' {} a -> s {relativePath = a} :: StartNotebookExecution)
 
--- | Specifies the execution engine (cluster) that runs the notebook execution.
-sneExecutionEngine :: Lens' StartNotebookExecution ExecutionEngineConfig
-sneExecutionEngine = lens _sneExecutionEngine (\s a -> s {_sneExecutionEngine = a})
+-- | Specifies the execution engine (cluster) that runs the notebook
+-- execution.
+startNotebookExecution_executionEngine :: Lens.Lens' StartNotebookExecution ExecutionEngineConfig
+startNotebookExecution_executionEngine = Lens.lens (\StartNotebookExecution' {executionEngine} -> executionEngine) (\s@StartNotebookExecution' {} a -> s {executionEngine = a} :: StartNotebookExecution)
 
--- | The name or ARN of the IAM role that is used as the service role for Amazon EMR (the EMR role) for the notebook execution.
-sneServiceRole :: Lens' StartNotebookExecution Text
-sneServiceRole = lens _sneServiceRole (\s a -> s {_sneServiceRole = a})
+-- | The name or ARN of the IAM role that is used as the service role for
+-- Amazon EMR (the EMR role) for the notebook execution.
+startNotebookExecution_serviceRole :: Lens.Lens' StartNotebookExecution Prelude.Text
+startNotebookExecution_serviceRole = Lens.lens (\StartNotebookExecution' {serviceRole} -> serviceRole) (\s@StartNotebookExecution' {} a -> s {serviceRole = a} :: StartNotebookExecution)
 
-instance AWSRequest StartNotebookExecution where
+instance Prelude.AWSRequest StartNotebookExecution where
   type
     Rs StartNotebookExecution =
       StartNotebookExecutionResponse
-  request = postJSON emr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartNotebookExecutionResponse'
-            <$> (x .?> "NotebookExecutionId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NotebookExecutionId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartNotebookExecution
+instance Prelude.Hashable StartNotebookExecution
 
-instance NFData StartNotebookExecution
+instance Prelude.NFData StartNotebookExecution
 
-instance ToHeaders StartNotebookExecution where
+instance Prelude.ToHeaders StartNotebookExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.StartNotebookExecution" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.StartNotebookExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartNotebookExecution where
+instance Prelude.ToJSON StartNotebookExecution where
   toJSON StartNotebookExecution' {..} =
-    object
-      ( catMaybes
-          [ ("NotebookExecutionName" .=)
-              <$> _sneNotebookExecutionName,
-            ("NotebookParams" .=) <$> _sneNotebookParams,
-            ("NotebookInstanceSecurityGroupId" .=)
-              <$> _sneNotebookInstanceSecurityGroupId,
-            ("Tags" .=) <$> _sneTags,
-            Just ("EditorId" .= _sneEditorId),
-            Just ("RelativePath" .= _sneRelativePath),
-            Just ("ExecutionEngine" .= _sneExecutionEngine),
-            Just ("ServiceRole" .= _sneServiceRole)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotebookExecutionName" Prelude..=)
+              Prelude.<$> notebookExecutionName,
+            ("NotebookParams" Prelude..=)
+              Prelude.<$> notebookParams,
+            ("NotebookInstanceSecurityGroupId" Prelude..=)
+              Prelude.<$> notebookInstanceSecurityGroupId,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("EditorId" Prelude..= editorId),
+            Prelude.Just
+              ("RelativePath" Prelude..= relativePath),
+            Prelude.Just
+              ("ExecutionEngine" Prelude..= executionEngine),
+            Prelude.Just ("ServiceRole" Prelude..= serviceRole)
           ]
       )
 
-instance ToPath StartNotebookExecution where
-  toPath = const "/"
+instance Prelude.ToPath StartNotebookExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartNotebookExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery StartNotebookExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startNotebookExecutionResponse' smart constructor.
+-- | /See:/ 'newStartNotebookExecutionResponse' smart constructor.
 data StartNotebookExecutionResponse = StartNotebookExecutionResponse'
-  { _snerrsNotebookExecutionId ::
-      !( Maybe
-           Text
-       ),
-    _snerrsResponseStatus ::
-      !Int
+  { -- | The unique identifier of the notebook execution.
+    notebookExecutionId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartNotebookExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartNotebookExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'snerrsNotebookExecutionId' - The unique identifier of the notebook execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'snerrsResponseStatus' - -- | The response status code.
-startNotebookExecutionResponse ::
-  -- | 'snerrsResponseStatus'
-  Int ->
+-- 'notebookExecutionId', 'startNotebookExecutionResponse_notebookExecutionId' - The unique identifier of the notebook execution.
+--
+-- 'httpStatus', 'startNotebookExecutionResponse_httpStatus' - The response's http status code.
+newStartNotebookExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartNotebookExecutionResponse
-startNotebookExecutionResponse pResponseStatus_ =
+newStartNotebookExecutionResponse pHttpStatus_ =
   StartNotebookExecutionResponse'
-    { _snerrsNotebookExecutionId =
-        Nothing,
-      _snerrsResponseStatus = pResponseStatus_
+    { notebookExecutionId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique identifier of the notebook execution.
-snerrsNotebookExecutionId :: Lens' StartNotebookExecutionResponse (Maybe Text)
-snerrsNotebookExecutionId = lens _snerrsNotebookExecutionId (\s a -> s {_snerrsNotebookExecutionId = a})
+startNotebookExecutionResponse_notebookExecutionId :: Lens.Lens' StartNotebookExecutionResponse (Prelude.Maybe Prelude.Text)
+startNotebookExecutionResponse_notebookExecutionId = Lens.lens (\StartNotebookExecutionResponse' {notebookExecutionId} -> notebookExecutionId) (\s@StartNotebookExecutionResponse' {} a -> s {notebookExecutionId = a} :: StartNotebookExecutionResponse)
 
--- | -- | The response status code.
-snerrsResponseStatus :: Lens' StartNotebookExecutionResponse Int
-snerrsResponseStatus = lens _snerrsResponseStatus (\s a -> s {_snerrsResponseStatus = a})
+-- | The response's http status code.
+startNotebookExecutionResponse_httpStatus :: Lens.Lens' StartNotebookExecutionResponse Prelude.Int
+startNotebookExecutionResponse_httpStatus = Lens.lens (\StartNotebookExecutionResponse' {httpStatus} -> httpStatus) (\s@StartNotebookExecutionResponse' {} a -> s {httpStatus = a} :: StartNotebookExecutionResponse)
 
-instance NFData StartNotebookExecutionResponse
+instance
+  Prelude.NFData
+    StartNotebookExecutionResponse

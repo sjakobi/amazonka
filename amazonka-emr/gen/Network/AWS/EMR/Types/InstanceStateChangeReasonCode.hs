@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.EMR.Types.InstanceStateChangeReasonCode
   ( InstanceStateChangeReasonCode
       ( ..,
-        ISCRCBootstrapFailure,
-        ISCRCClusterTerminated,
-        ISCRCInstanceFailure,
-        ISCRCInternalError,
-        ISCRCValidationError
+        InstanceStateChangeReasonCodeBOOTSTRAPFAILURE,
+        InstanceStateChangeReasonCodeCLUSTERTERMINATED,
+        InstanceStateChangeReasonCodeINSTANCEFAILURE,
+        InstanceStateChangeReasonCodeINTERNALERROR,
+        InstanceStateChangeReasonCodeVALIDATIONERROR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceStateChangeReasonCode
-  = InstanceStateChangeReasonCode'
-      ( CI
-          Text
-      )
+newtype InstanceStateChangeReasonCode = InstanceStateChangeReasonCode'
+  { fromInstanceStateChangeReasonCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISCRCBootstrapFailure :: InstanceStateChangeReasonCode
-pattern ISCRCBootstrapFailure = InstanceStateChangeReasonCode' "BOOTSTRAP_FAILURE"
+pattern InstanceStateChangeReasonCodeBOOTSTRAPFAILURE :: InstanceStateChangeReasonCode
+pattern InstanceStateChangeReasonCodeBOOTSTRAPFAILURE = InstanceStateChangeReasonCode' "BOOTSTRAP_FAILURE"
 
-pattern ISCRCClusterTerminated :: InstanceStateChangeReasonCode
-pattern ISCRCClusterTerminated = InstanceStateChangeReasonCode' "CLUSTER_TERMINATED"
+pattern InstanceStateChangeReasonCodeCLUSTERTERMINATED :: InstanceStateChangeReasonCode
+pattern InstanceStateChangeReasonCodeCLUSTERTERMINATED = InstanceStateChangeReasonCode' "CLUSTER_TERMINATED"
 
-pattern ISCRCInstanceFailure :: InstanceStateChangeReasonCode
-pattern ISCRCInstanceFailure = InstanceStateChangeReasonCode' "INSTANCE_FAILURE"
+pattern InstanceStateChangeReasonCodeINSTANCEFAILURE :: InstanceStateChangeReasonCode
+pattern InstanceStateChangeReasonCodeINSTANCEFAILURE = InstanceStateChangeReasonCode' "INSTANCE_FAILURE"
 
-pattern ISCRCInternalError :: InstanceStateChangeReasonCode
-pattern ISCRCInternalError = InstanceStateChangeReasonCode' "INTERNAL_ERROR"
+pattern InstanceStateChangeReasonCodeINTERNALERROR :: InstanceStateChangeReasonCode
+pattern InstanceStateChangeReasonCodeINTERNALERROR = InstanceStateChangeReasonCode' "INTERNAL_ERROR"
 
-pattern ISCRCValidationError :: InstanceStateChangeReasonCode
-pattern ISCRCValidationError = InstanceStateChangeReasonCode' "VALIDATION_ERROR"
+pattern InstanceStateChangeReasonCodeVALIDATIONERROR :: InstanceStateChangeReasonCode
+pattern InstanceStateChangeReasonCodeVALIDATIONERROR = InstanceStateChangeReasonCode' "VALIDATION_ERROR"
 
 {-# COMPLETE
-  ISCRCBootstrapFailure,
-  ISCRCClusterTerminated,
-  ISCRCInstanceFailure,
-  ISCRCInternalError,
-  ISCRCValidationError,
+  InstanceStateChangeReasonCodeBOOTSTRAPFAILURE,
+  InstanceStateChangeReasonCodeCLUSTERTERMINATED,
+  InstanceStateChangeReasonCodeINSTANCEFAILURE,
+  InstanceStateChangeReasonCodeINTERNALERROR,
+  InstanceStateChangeReasonCodeVALIDATIONERROR,
   InstanceStateChangeReasonCode'
   #-}
 
-instance FromText InstanceStateChangeReasonCode where
-  parser = (InstanceStateChangeReasonCode' . mk) <$> takeText
+instance Prelude.FromText InstanceStateChangeReasonCode where
+  parser = InstanceStateChangeReasonCode' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceStateChangeReasonCode where
-  toText (InstanceStateChangeReasonCode' ci) = original ci
+instance Prelude.ToText InstanceStateChangeReasonCode where
+  toText (InstanceStateChangeReasonCode' x) = x
 
-instance Hashable InstanceStateChangeReasonCode
+instance Prelude.Hashable InstanceStateChangeReasonCode
 
-instance NFData InstanceStateChangeReasonCode
+instance Prelude.NFData InstanceStateChangeReasonCode
 
-instance ToByteString InstanceStateChangeReasonCode
+instance Prelude.ToByteString InstanceStateChangeReasonCode
 
-instance ToQuery InstanceStateChangeReasonCode
+instance Prelude.ToQuery InstanceStateChangeReasonCode
 
-instance ToHeader InstanceStateChangeReasonCode
+instance Prelude.ToHeader InstanceStateChangeReasonCode
 
-instance FromJSON InstanceStateChangeReasonCode where
-  parseJSON = parseJSONText "InstanceStateChangeReasonCode"
+instance Prelude.FromJSON InstanceStateChangeReasonCode where
+  parseJSON = Prelude.parseJSONText "InstanceStateChangeReasonCode"

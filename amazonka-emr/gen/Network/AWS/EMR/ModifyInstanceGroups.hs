@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,120 +21,125 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- ModifyInstanceGroups modifies the number of nodes and configuration settings of an instance group. The input parameters include the new target instance count for the group and the instance group ID. The call will either succeed or fail atomically.
+-- ModifyInstanceGroups modifies the number of nodes and configuration
+-- settings of an instance group. The input parameters include the new
+-- target instance count for the group and the instance group ID. The call
+-- will either succeed or fail atomically.
 module Network.AWS.EMR.ModifyInstanceGroups
   ( -- * Creating a Request
-    modifyInstanceGroups,
-    ModifyInstanceGroups,
+    ModifyInstanceGroups (..),
+    newModifyInstanceGroups,
 
     -- * Request Lenses
-    migClusterId,
-    migInstanceGroups,
+    modifyInstanceGroups_clusterId,
+    modifyInstanceGroups_instanceGroups,
 
     -- * Destructuring the Response
-    modifyInstanceGroupsResponse,
-    ModifyInstanceGroupsResponse,
+    ModifyInstanceGroupsResponse (..),
+    newModifyInstanceGroupsResponse,
   )
 where
 
 import Network.AWS.EMR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Change the size of some instance groups.
 --
---
---
--- /See:/ 'modifyInstanceGroups' smart constructor.
+-- /See:/ 'newModifyInstanceGroups' smart constructor.
 data ModifyInstanceGroups = ModifyInstanceGroups'
-  { _migClusterId ::
-      !(Maybe Text),
-    _migInstanceGroups ::
-      !( Maybe
-           [InstanceGroupModifyConfig]
-       )
+  { -- | The ID of the cluster to which the instance group belongs.
+    clusterId :: Prelude.Maybe Prelude.Text,
+    -- | Instance groups to change.
+    instanceGroups :: Prelude.Maybe [InstanceGroupModifyConfig]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyInstanceGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'migClusterId' - The ID of the cluster to which the instance group belongs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'migInstanceGroups' - Instance groups to change.
-modifyInstanceGroups ::
+-- 'clusterId', 'modifyInstanceGroups_clusterId' - The ID of the cluster to which the instance group belongs.
+--
+-- 'instanceGroups', 'modifyInstanceGroups_instanceGroups' - Instance groups to change.
+newModifyInstanceGroups ::
   ModifyInstanceGroups
-modifyInstanceGroups =
+newModifyInstanceGroups =
   ModifyInstanceGroups'
-    { _migClusterId = Nothing,
-      _migInstanceGroups = Nothing
+    { clusterId = Prelude.Nothing,
+      instanceGroups = Prelude.Nothing
     }
 
 -- | The ID of the cluster to which the instance group belongs.
-migClusterId :: Lens' ModifyInstanceGroups (Maybe Text)
-migClusterId = lens _migClusterId (\s a -> s {_migClusterId = a})
+modifyInstanceGroups_clusterId :: Lens.Lens' ModifyInstanceGroups (Prelude.Maybe Prelude.Text)
+modifyInstanceGroups_clusterId = Lens.lens (\ModifyInstanceGroups' {clusterId} -> clusterId) (\s@ModifyInstanceGroups' {} a -> s {clusterId = a} :: ModifyInstanceGroups)
 
 -- | Instance groups to change.
-migInstanceGroups :: Lens' ModifyInstanceGroups [InstanceGroupModifyConfig]
-migInstanceGroups = lens _migInstanceGroups (\s a -> s {_migInstanceGroups = a}) . _Default . _Coerce
+modifyInstanceGroups_instanceGroups :: Lens.Lens' ModifyInstanceGroups (Prelude.Maybe [InstanceGroupModifyConfig])
+modifyInstanceGroups_instanceGroups = Lens.lens (\ModifyInstanceGroups' {instanceGroups} -> instanceGroups) (\s@ModifyInstanceGroups' {} a -> s {instanceGroups = a} :: ModifyInstanceGroups) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest ModifyInstanceGroups where
+instance Prelude.AWSRequest ModifyInstanceGroups where
   type
     Rs ModifyInstanceGroups =
       ModifyInstanceGroupsResponse
-  request = postJSON emr
-  response = receiveNull ModifyInstanceGroupsResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull ModifyInstanceGroupsResponse'
 
-instance Hashable ModifyInstanceGroups
+instance Prelude.Hashable ModifyInstanceGroups
 
-instance NFData ModifyInstanceGroups
+instance Prelude.NFData ModifyInstanceGroups
 
-instance ToHeaders ModifyInstanceGroups where
+instance Prelude.ToHeaders ModifyInstanceGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ElasticMapReduce.ModifyInstanceGroups" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ElasticMapReduce.ModifyInstanceGroups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifyInstanceGroups where
+instance Prelude.ToJSON ModifyInstanceGroups where
   toJSON ModifyInstanceGroups' {..} =
-    object
-      ( catMaybes
-          [ ("ClusterId" .=) <$> _migClusterId,
-            ("InstanceGroups" .=) <$> _migInstanceGroups
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClusterId" Prelude..=) Prelude.<$> clusterId,
+            ("InstanceGroups" Prelude..=)
+              Prelude.<$> instanceGroups
           ]
       )
 
-instance ToPath ModifyInstanceGroups where
-  toPath = const "/"
+instance Prelude.ToPath ModifyInstanceGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyInstanceGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery ModifyInstanceGroups where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'modifyInstanceGroupsResponse' smart constructor.
+-- | /See:/ 'newModifyInstanceGroupsResponse' smart constructor.
 data ModifyInstanceGroupsResponse = ModifyInstanceGroupsResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyInstanceGroupsResponse' with the minimum fields required to make a request.
-modifyInstanceGroupsResponse ::
+-- |
+-- Create a value of 'ModifyInstanceGroupsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newModifyInstanceGroupsResponse ::
   ModifyInstanceGroupsResponse
-modifyInstanceGroupsResponse =
+newModifyInstanceGroupsResponse =
   ModifyInstanceGroupsResponse'
 
-instance NFData ModifyInstanceGroupsResponse
+instance Prelude.NFData ModifyInstanceGroupsResponse

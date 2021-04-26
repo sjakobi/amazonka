@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.EMR.Types.CancelStepsRequestStatus
   ( CancelStepsRequestStatus
       ( ..,
-        CSRSFailed,
-        CSRSSubmitted
+        CancelStepsRequestStatusFAILED,
+        CancelStepsRequestStatusSUBMITTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CancelStepsRequestStatus
-  = CancelStepsRequestStatus'
-      ( CI
-          Text
-      )
+newtype CancelStepsRequestStatus = CancelStepsRequestStatus'
+  { fromCancelStepsRequestStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSRSFailed :: CancelStepsRequestStatus
-pattern CSRSFailed = CancelStepsRequestStatus' "FAILED"
+pattern CancelStepsRequestStatusFAILED :: CancelStepsRequestStatus
+pattern CancelStepsRequestStatusFAILED = CancelStepsRequestStatus' "FAILED"
 
-pattern CSRSSubmitted :: CancelStepsRequestStatus
-pattern CSRSSubmitted = CancelStepsRequestStatus' "SUBMITTED"
+pattern CancelStepsRequestStatusSUBMITTED :: CancelStepsRequestStatus
+pattern CancelStepsRequestStatusSUBMITTED = CancelStepsRequestStatus' "SUBMITTED"
 
 {-# COMPLETE
-  CSRSFailed,
-  CSRSSubmitted,
+  CancelStepsRequestStatusFAILED,
+  CancelStepsRequestStatusSUBMITTED,
   CancelStepsRequestStatus'
   #-}
 
-instance FromText CancelStepsRequestStatus where
-  parser = (CancelStepsRequestStatus' . mk) <$> takeText
+instance Prelude.FromText CancelStepsRequestStatus where
+  parser = CancelStepsRequestStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CancelStepsRequestStatus where
-  toText (CancelStepsRequestStatus' ci) = original ci
+instance Prelude.ToText CancelStepsRequestStatus where
+  toText (CancelStepsRequestStatus' x) = x
 
-instance Hashable CancelStepsRequestStatus
+instance Prelude.Hashable CancelStepsRequestStatus
 
-instance NFData CancelStepsRequestStatus
+instance Prelude.NFData CancelStepsRequestStatus
 
-instance ToByteString CancelStepsRequestStatus
+instance Prelude.ToByteString CancelStepsRequestStatus
 
-instance ToQuery CancelStepsRequestStatus
+instance Prelude.ToQuery CancelStepsRequestStatus
 
-instance ToHeader CancelStepsRequestStatus
+instance Prelude.ToHeader CancelStepsRequestStatus
 
-instance FromJSON CancelStepsRequestStatus where
-  parseJSON = parseJSONText "CancelStepsRequestStatus"
+instance Prelude.FromJSON CancelStepsRequestStatus where
+  parseJSON = Prelude.parseJSONText "CancelStepsRequestStatus"

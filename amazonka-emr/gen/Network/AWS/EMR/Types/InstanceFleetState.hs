@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.EMR.Types.InstanceFleetState
   ( InstanceFleetState
       ( ..,
-        IFSBootstrapping,
-        IFSProvisioning,
-        IFSResizing,
-        IFSRunning,
-        IFSSuspended,
-        IFSTerminated,
-        IFSTerminating
+        InstanceFleetStateBOOTSTRAPPING,
+        InstanceFleetStatePROVISIONING,
+        InstanceFleetStateRESIZING,
+        InstanceFleetStateRUNNING,
+        InstanceFleetStateSUSPENDED,
+        InstanceFleetStateTERMINATED,
+        InstanceFleetStateTERMINATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceFleetState
-  = InstanceFleetState'
-      ( CI
-          Text
-      )
+newtype InstanceFleetState = InstanceFleetState'
+  { fromInstanceFleetState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IFSBootstrapping :: InstanceFleetState
-pattern IFSBootstrapping = InstanceFleetState' "BOOTSTRAPPING"
+pattern InstanceFleetStateBOOTSTRAPPING :: InstanceFleetState
+pattern InstanceFleetStateBOOTSTRAPPING = InstanceFleetState' "BOOTSTRAPPING"
 
-pattern IFSProvisioning :: InstanceFleetState
-pattern IFSProvisioning = InstanceFleetState' "PROVISIONING"
+pattern InstanceFleetStatePROVISIONING :: InstanceFleetState
+pattern InstanceFleetStatePROVISIONING = InstanceFleetState' "PROVISIONING"
 
-pattern IFSResizing :: InstanceFleetState
-pattern IFSResizing = InstanceFleetState' "RESIZING"
+pattern InstanceFleetStateRESIZING :: InstanceFleetState
+pattern InstanceFleetStateRESIZING = InstanceFleetState' "RESIZING"
 
-pattern IFSRunning :: InstanceFleetState
-pattern IFSRunning = InstanceFleetState' "RUNNING"
+pattern InstanceFleetStateRUNNING :: InstanceFleetState
+pattern InstanceFleetStateRUNNING = InstanceFleetState' "RUNNING"
 
-pattern IFSSuspended :: InstanceFleetState
-pattern IFSSuspended = InstanceFleetState' "SUSPENDED"
+pattern InstanceFleetStateSUSPENDED :: InstanceFleetState
+pattern InstanceFleetStateSUSPENDED = InstanceFleetState' "SUSPENDED"
 
-pattern IFSTerminated :: InstanceFleetState
-pattern IFSTerminated = InstanceFleetState' "TERMINATED"
+pattern InstanceFleetStateTERMINATED :: InstanceFleetState
+pattern InstanceFleetStateTERMINATED = InstanceFleetState' "TERMINATED"
 
-pattern IFSTerminating :: InstanceFleetState
-pattern IFSTerminating = InstanceFleetState' "TERMINATING"
+pattern InstanceFleetStateTERMINATING :: InstanceFleetState
+pattern InstanceFleetStateTERMINATING = InstanceFleetState' "TERMINATING"
 
 {-# COMPLETE
-  IFSBootstrapping,
-  IFSProvisioning,
-  IFSResizing,
-  IFSRunning,
-  IFSSuspended,
-  IFSTerminated,
-  IFSTerminating,
+  InstanceFleetStateBOOTSTRAPPING,
+  InstanceFleetStatePROVISIONING,
+  InstanceFleetStateRESIZING,
+  InstanceFleetStateRUNNING,
+  InstanceFleetStateSUSPENDED,
+  InstanceFleetStateTERMINATED,
+  InstanceFleetStateTERMINATING,
   InstanceFleetState'
   #-}
 
-instance FromText InstanceFleetState where
-  parser = (InstanceFleetState' . mk) <$> takeText
+instance Prelude.FromText InstanceFleetState where
+  parser = InstanceFleetState' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceFleetState where
-  toText (InstanceFleetState' ci) = original ci
+instance Prelude.ToText InstanceFleetState where
+  toText (InstanceFleetState' x) = x
 
-instance Hashable InstanceFleetState
+instance Prelude.Hashable InstanceFleetState
 
-instance NFData InstanceFleetState
+instance Prelude.NFData InstanceFleetState
 
-instance ToByteString InstanceFleetState
+instance Prelude.ToByteString InstanceFleetState
 
-instance ToQuery InstanceFleetState
+instance Prelude.ToQuery InstanceFleetState
 
-instance ToHeader InstanceFleetState
+instance Prelude.ToHeader InstanceFleetState
 
-instance FromJSON InstanceFleetState where
-  parseJSON = parseJSONText "InstanceFleetState"
+instance Prelude.FromJSON InstanceFleetState where
+  parseJSON = Prelude.parseJSONText "InstanceFleetState"

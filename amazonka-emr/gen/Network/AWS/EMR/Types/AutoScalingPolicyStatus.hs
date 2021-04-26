@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +21,58 @@ module Network.AWS.EMR.Types.AutoScalingPolicyStatus where
 
 import Network.AWS.EMR.Types.AutoScalingPolicyState
 import Network.AWS.EMR.Types.AutoScalingPolicyStateChangeReason
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of an automatic scaling policy.
 --
---
---
--- /See:/ 'autoScalingPolicyStatus' smart constructor.
+-- /See:/ 'newAutoScalingPolicyStatus' smart constructor.
 data AutoScalingPolicyStatus = AutoScalingPolicyStatus'
-  { _aspsStateChangeReason ::
-      !( Maybe
-           AutoScalingPolicyStateChangeReason
-       ),
-    _aspsState ::
-      !( Maybe
-           AutoScalingPolicyState
-       )
+  { -- | The reason for a change in status.
+    stateChangeReason :: Prelude.Maybe AutoScalingPolicyStateChangeReason,
+    -- | Indicates the status of the automatic scaling policy.
+    state :: Prelude.Maybe AutoScalingPolicyState
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoScalingPolicyStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoScalingPolicyStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aspsStateChangeReason' - The reason for a change in status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aspsState' - Indicates the status of the automatic scaling policy.
-autoScalingPolicyStatus ::
+-- 'stateChangeReason', 'autoScalingPolicyStatus_stateChangeReason' - The reason for a change in status.
+--
+-- 'state', 'autoScalingPolicyStatus_state' - Indicates the status of the automatic scaling policy.
+newAutoScalingPolicyStatus ::
   AutoScalingPolicyStatus
-autoScalingPolicyStatus =
+newAutoScalingPolicyStatus =
   AutoScalingPolicyStatus'
-    { _aspsStateChangeReason =
-        Nothing,
-      _aspsState = Nothing
+    { stateChangeReason =
+        Prelude.Nothing,
+      state = Prelude.Nothing
     }
 
 -- | The reason for a change in status.
-aspsStateChangeReason :: Lens' AutoScalingPolicyStatus (Maybe AutoScalingPolicyStateChangeReason)
-aspsStateChangeReason = lens _aspsStateChangeReason (\s a -> s {_aspsStateChangeReason = a})
+autoScalingPolicyStatus_stateChangeReason :: Lens.Lens' AutoScalingPolicyStatus (Prelude.Maybe AutoScalingPolicyStateChangeReason)
+autoScalingPolicyStatus_stateChangeReason = Lens.lens (\AutoScalingPolicyStatus' {stateChangeReason} -> stateChangeReason) (\s@AutoScalingPolicyStatus' {} a -> s {stateChangeReason = a} :: AutoScalingPolicyStatus)
 
 -- | Indicates the status of the automatic scaling policy.
-aspsState :: Lens' AutoScalingPolicyStatus (Maybe AutoScalingPolicyState)
-aspsState = lens _aspsState (\s a -> s {_aspsState = a})
+autoScalingPolicyStatus_state :: Lens.Lens' AutoScalingPolicyStatus (Prelude.Maybe AutoScalingPolicyState)
+autoScalingPolicyStatus_state = Lens.lens (\AutoScalingPolicyStatus' {state} -> state) (\s@AutoScalingPolicyStatus' {} a -> s {state = a} :: AutoScalingPolicyStatus)
 
-instance FromJSON AutoScalingPolicyStatus where
+instance Prelude.FromJSON AutoScalingPolicyStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoScalingPolicyStatus"
       ( \x ->
           AutoScalingPolicyStatus'
-            <$> (x .:? "StateChangeReason") <*> (x .:? "State")
+            Prelude.<$> (x Prelude..:? "StateChangeReason")
+            Prelude.<*> (x Prelude..:? "State")
       )
 
-instance Hashable AutoScalingPolicyStatus
+instance Prelude.Hashable AutoScalingPolicyStatus
 
-instance NFData AutoScalingPolicyStatus
+instance Prelude.NFData AutoScalingPolicyStatus

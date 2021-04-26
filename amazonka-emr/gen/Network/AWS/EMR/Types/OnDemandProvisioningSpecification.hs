@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,83 @@
 module Network.AWS.EMR.Types.OnDemandProvisioningSpecification where
 
 import Network.AWS.EMR.Types.OnDemandProvisioningAllocationStrategy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The launch specification for On-Demand Instances in the instance fleet, which determines the allocation strategy.
+-- | The launch specification for On-Demand Instances in the instance fleet,
+-- which determines the allocation strategy.
 --
+-- The instance fleet configuration is available only in Amazon EMR
+-- versions 4.8.0 and later, excluding 5.0.x versions. On-Demand Instances
+-- allocation strategy is available in Amazon EMR version 5.12.1 and later.
 --
---
--- /See:/ 'onDemandProvisioningSpecification' smart constructor.
-newtype OnDemandProvisioningSpecification = OnDemandProvisioningSpecification'
-  { _odpsAllocationStrategy ::
-      OnDemandProvisioningAllocationStrategy
+-- /See:/ 'newOnDemandProvisioningSpecification' smart constructor.
+data OnDemandProvisioningSpecification = OnDemandProvisioningSpecification'
+  { -- | Specifies the strategy to use in launching On-Demand Instance fleets.
+    -- Currently, the only option is lowest-price (the default), which launches
+    -- the lowest price first.
+    allocationStrategy :: OnDemandProvisioningAllocationStrategy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OnDemandProvisioningSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OnDemandProvisioningSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'odpsAllocationStrategy' - Specifies the strategy to use in launching On-Demand Instance fleets. Currently, the only option is lowest-price (the default), which launches the lowest price first.
-onDemandProvisioningSpecification ::
-  -- | 'odpsAllocationStrategy'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'allocationStrategy', 'onDemandProvisioningSpecification_allocationStrategy' - Specifies the strategy to use in launching On-Demand Instance fleets.
+-- Currently, the only option is lowest-price (the default), which launches
+-- the lowest price first.
+newOnDemandProvisioningSpecification ::
+  -- | 'allocationStrategy'
   OnDemandProvisioningAllocationStrategy ->
   OnDemandProvisioningSpecification
-onDemandProvisioningSpecification
+newOnDemandProvisioningSpecification
   pAllocationStrategy_ =
     OnDemandProvisioningSpecification'
-      { _odpsAllocationStrategy =
+      { allocationStrategy =
           pAllocationStrategy_
       }
 
--- | Specifies the strategy to use in launching On-Demand Instance fleets. Currently, the only option is lowest-price (the default), which launches the lowest price first.
-odpsAllocationStrategy :: Lens' OnDemandProvisioningSpecification OnDemandProvisioningAllocationStrategy
-odpsAllocationStrategy = lens _odpsAllocationStrategy (\s a -> s {_odpsAllocationStrategy = a})
+-- | Specifies the strategy to use in launching On-Demand Instance fleets.
+-- Currently, the only option is lowest-price (the default), which launches
+-- the lowest price first.
+onDemandProvisioningSpecification_allocationStrategy :: Lens.Lens' OnDemandProvisioningSpecification OnDemandProvisioningAllocationStrategy
+onDemandProvisioningSpecification_allocationStrategy = Lens.lens (\OnDemandProvisioningSpecification' {allocationStrategy} -> allocationStrategy) (\s@OnDemandProvisioningSpecification' {} a -> s {allocationStrategy = a} :: OnDemandProvisioningSpecification)
 
-instance FromJSON OnDemandProvisioningSpecification where
+instance
+  Prelude.FromJSON
+    OnDemandProvisioningSpecification
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OnDemandProvisioningSpecification"
       ( \x ->
           OnDemandProvisioningSpecification'
-            <$> (x .: "AllocationStrategy")
+            Prelude.<$> (x Prelude..: "AllocationStrategy")
       )
 
-instance Hashable OnDemandProvisioningSpecification
+instance
+  Prelude.Hashable
+    OnDemandProvisioningSpecification
 
-instance NFData OnDemandProvisioningSpecification
+instance
+  Prelude.NFData
+    OnDemandProvisioningSpecification
 
-instance ToJSON OnDemandProvisioningSpecification where
+instance
+  Prelude.ToJSON
+    OnDemandProvisioningSpecification
+  where
   toJSON OnDemandProvisioningSpecification' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("AllocationStrategy" .= _odpsAllocationStrategy)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "AllocationStrategy"
+                  Prelude..= allocationStrategy
+              )
           ]
       )
