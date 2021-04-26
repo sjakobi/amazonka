@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,194 +21,215 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a paginated list of child objects that are associated with a given object.
+-- Returns a paginated list of child objects that are associated with a
+-- given object.
 module Network.AWS.CloudDirectory.ListObjectChildren
   ( -- * Creating a Request
-    listObjectChildren,
-    ListObjectChildren,
+    ListObjectChildren (..),
+    newListObjectChildren,
 
     -- * Request Lenses
-    locNextToken,
-    locMaxResults,
-    locConsistencyLevel,
-    locDirectoryARN,
-    locObjectReference,
+    listObjectChildren_nextToken,
+    listObjectChildren_maxResults,
+    listObjectChildren_consistencyLevel,
+    listObjectChildren_directoryArn,
+    listObjectChildren_objectReference,
 
     -- * Destructuring the Response
-    listObjectChildrenResponse,
-    ListObjectChildrenResponse,
+    ListObjectChildrenResponse (..),
+    newListObjectChildrenResponse,
 
     -- * Response Lenses
-    locrrsNextToken,
-    locrrsChildren,
-    locrrsResponseStatus,
+    listObjectChildrenResponse_nextToken,
+    listObjectChildrenResponse_children,
+    listObjectChildrenResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listObjectChildren' smart constructor.
+-- | /See:/ 'newListObjectChildren' smart constructor.
 data ListObjectChildren = ListObjectChildren'
-  { _locNextToken ::
-      !(Maybe Text),
-    _locMaxResults :: !(Maybe Nat),
-    _locConsistencyLevel ::
-      !(Maybe ConsistencyLevel),
-    _locDirectoryARN :: !Text,
-    _locObjectReference ::
-      !ObjectReference
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to be retrieved in a single call. This is an
+    -- approximate number.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Represents the manner and timing in which the successful write or update
+    -- of an object is reflected in a subsequent read operation of that same
+    -- object.
+    consistencyLevel :: Prelude.Maybe ConsistencyLevel,
+    -- | The Amazon Resource Name (ARN) that is associated with the Directory
+    -- where the object resides. For more information, see arns.
+    directoryArn :: Prelude.Text,
+    -- | The reference that identifies the object for which child objects are
+    -- being listed.
+    objectReference :: ObjectReference
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListObjectChildren' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListObjectChildren' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'locNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'locMaxResults' - The maximum number of items to be retrieved in a single call. This is an approximate number.
+-- 'nextToken', 'listObjectChildren_nextToken' - The pagination token.
 --
--- * 'locConsistencyLevel' - Represents the manner and timing in which the successful write or update of an object is reflected in a subsequent read operation of that same object.
+-- 'maxResults', 'listObjectChildren_maxResults' - The maximum number of items to be retrieved in a single call. This is an
+-- approximate number.
 --
--- * 'locDirectoryARN' - The Amazon Resource Name (ARN) that is associated with the 'Directory' where the object resides. For more information, see 'arns' .
+-- 'consistencyLevel', 'listObjectChildren_consistencyLevel' - Represents the manner and timing in which the successful write or update
+-- of an object is reflected in a subsequent read operation of that same
+-- object.
 --
--- * 'locObjectReference' - The reference that identifies the object for which child objects are being listed.
-listObjectChildren ::
-  -- | 'locDirectoryARN'
-  Text ->
-  -- | 'locObjectReference'
+-- 'directoryArn', 'listObjectChildren_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the object resides. For more information, see arns.
+--
+-- 'objectReference', 'listObjectChildren_objectReference' - The reference that identifies the object for which child objects are
+-- being listed.
+newListObjectChildren ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'objectReference'
   ObjectReference ->
   ListObjectChildren
-listObjectChildren pDirectoryARN_ pObjectReference_ =
-  ListObjectChildren'
-    { _locNextToken = Nothing,
-      _locMaxResults = Nothing,
-      _locConsistencyLevel = Nothing,
-      _locDirectoryARN = pDirectoryARN_,
-      _locObjectReference = pObjectReference_
-    }
+newListObjectChildren
+  pDirectoryArn_
+  pObjectReference_ =
+    ListObjectChildren'
+      { nextToken = Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        consistencyLevel = Prelude.Nothing,
+        directoryArn = pDirectoryArn_,
+        objectReference = pObjectReference_
+      }
 
 -- | The pagination token.
-locNextToken :: Lens' ListObjectChildren (Maybe Text)
-locNextToken = lens _locNextToken (\s a -> s {_locNextToken = a})
+listObjectChildren_nextToken :: Lens.Lens' ListObjectChildren (Prelude.Maybe Prelude.Text)
+listObjectChildren_nextToken = Lens.lens (\ListObjectChildren' {nextToken} -> nextToken) (\s@ListObjectChildren' {} a -> s {nextToken = a} :: ListObjectChildren)
 
--- | The maximum number of items to be retrieved in a single call. This is an approximate number.
-locMaxResults :: Lens' ListObjectChildren (Maybe Natural)
-locMaxResults = lens _locMaxResults (\s a -> s {_locMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to be retrieved in a single call. This is an
+-- approximate number.
+listObjectChildren_maxResults :: Lens.Lens' ListObjectChildren (Prelude.Maybe Prelude.Natural)
+listObjectChildren_maxResults = Lens.lens (\ListObjectChildren' {maxResults} -> maxResults) (\s@ListObjectChildren' {} a -> s {maxResults = a} :: ListObjectChildren) Prelude.. Lens.mapping Prelude._Nat
 
--- | Represents the manner and timing in which the successful write or update of an object is reflected in a subsequent read operation of that same object.
-locConsistencyLevel :: Lens' ListObjectChildren (Maybe ConsistencyLevel)
-locConsistencyLevel = lens _locConsistencyLevel (\s a -> s {_locConsistencyLevel = a})
+-- | Represents the manner and timing in which the successful write or update
+-- of an object is reflected in a subsequent read operation of that same
+-- object.
+listObjectChildren_consistencyLevel :: Lens.Lens' ListObjectChildren (Prelude.Maybe ConsistencyLevel)
+listObjectChildren_consistencyLevel = Lens.lens (\ListObjectChildren' {consistencyLevel} -> consistencyLevel) (\s@ListObjectChildren' {} a -> s {consistencyLevel = a} :: ListObjectChildren)
 
--- | The Amazon Resource Name (ARN) that is associated with the 'Directory' where the object resides. For more information, see 'arns' .
-locDirectoryARN :: Lens' ListObjectChildren Text
-locDirectoryARN = lens _locDirectoryARN (\s a -> s {_locDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the object resides. For more information, see arns.
+listObjectChildren_directoryArn :: Lens.Lens' ListObjectChildren Prelude.Text
+listObjectChildren_directoryArn = Lens.lens (\ListObjectChildren' {directoryArn} -> directoryArn) (\s@ListObjectChildren' {} a -> s {directoryArn = a} :: ListObjectChildren)
 
--- | The reference that identifies the object for which child objects are being listed.
-locObjectReference :: Lens' ListObjectChildren ObjectReference
-locObjectReference = lens _locObjectReference (\s a -> s {_locObjectReference = a})
+-- | The reference that identifies the object for which child objects are
+-- being listed.
+listObjectChildren_objectReference :: Lens.Lens' ListObjectChildren ObjectReference
+listObjectChildren_objectReference = Lens.lens (\ListObjectChildren' {objectReference} -> objectReference) (\s@ListObjectChildren' {} a -> s {objectReference = a} :: ListObjectChildren)
 
-instance AWSRequest ListObjectChildren where
+instance Prelude.AWSRequest ListObjectChildren where
   type
     Rs ListObjectChildren =
       ListObjectChildrenResponse
-  request = postJSON cloudDirectory
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListObjectChildrenResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Children" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Children" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListObjectChildren
+instance Prelude.Hashable ListObjectChildren
 
-instance NFData ListObjectChildren
+instance Prelude.NFData ListObjectChildren
 
-instance ToHeaders ListObjectChildren where
+instance Prelude.ToHeaders ListObjectChildren where
   toHeaders ListObjectChildren' {..} =
-    mconcat
-      [ "x-amz-consistency-level" =# _locConsistencyLevel,
-        "x-amz-data-partition" =# _locDirectoryARN
+    Prelude.mconcat
+      [ "x-amz-consistency-level"
+          Prelude.=# consistencyLevel,
+        "x-amz-data-partition" Prelude.=# directoryArn
       ]
 
-instance ToJSON ListObjectChildren where
+instance Prelude.ToJSON ListObjectChildren where
   toJSON ListObjectChildren' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _locNextToken,
-            ("MaxResults" .=) <$> _locMaxResults,
-            Just ("ObjectReference" .= _locObjectReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
           ]
       )
 
-instance ToPath ListObjectChildren where
+instance Prelude.ToPath ListObjectChildren where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/object/children"
 
-instance ToQuery ListObjectChildren where
-  toQuery = const mempty
+instance Prelude.ToQuery ListObjectChildren where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listObjectChildrenResponse' smart constructor.
+-- | /See:/ 'newListObjectChildrenResponse' smart constructor.
 data ListObjectChildrenResponse = ListObjectChildrenResponse'
-  { _locrrsNextToken ::
-      !(Maybe Text),
-    _locrrsChildren ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _locrrsResponseStatus ::
-      !Int
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Children structure, which is a map with key as the @LinkName@ and
+    -- @ObjectIdentifier@ as the value.
+    children :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListObjectChildrenResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListObjectChildrenResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'locrrsNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'locrrsChildren' - Children structure, which is a map with key as the @LinkName@ and @ObjectIdentifier@ as the value.
+-- 'nextToken', 'listObjectChildrenResponse_nextToken' - The pagination token.
 --
--- * 'locrrsResponseStatus' - -- | The response status code.
-listObjectChildrenResponse ::
-  -- | 'locrrsResponseStatus'
-  Int ->
+-- 'children', 'listObjectChildrenResponse_children' - Children structure, which is a map with key as the @LinkName@ and
+-- @ObjectIdentifier@ as the value.
+--
+-- 'httpStatus', 'listObjectChildrenResponse_httpStatus' - The response's http status code.
+newListObjectChildrenResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListObjectChildrenResponse
-listObjectChildrenResponse pResponseStatus_ =
+newListObjectChildrenResponse pHttpStatus_ =
   ListObjectChildrenResponse'
-    { _locrrsNextToken =
-        Nothing,
-      _locrrsChildren = Nothing,
-      _locrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      children = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The pagination token.
-locrrsNextToken :: Lens' ListObjectChildrenResponse (Maybe Text)
-locrrsNextToken = lens _locrrsNextToken (\s a -> s {_locrrsNextToken = a})
+listObjectChildrenResponse_nextToken :: Lens.Lens' ListObjectChildrenResponse (Prelude.Maybe Prelude.Text)
+listObjectChildrenResponse_nextToken = Lens.lens (\ListObjectChildrenResponse' {nextToken} -> nextToken) (\s@ListObjectChildrenResponse' {} a -> s {nextToken = a} :: ListObjectChildrenResponse)
 
--- | Children structure, which is a map with key as the @LinkName@ and @ObjectIdentifier@ as the value.
-locrrsChildren :: Lens' ListObjectChildrenResponse (HashMap Text Text)
-locrrsChildren = lens _locrrsChildren (\s a -> s {_locrrsChildren = a}) . _Default . _Map
+-- | Children structure, which is a map with key as the @LinkName@ and
+-- @ObjectIdentifier@ as the value.
+listObjectChildrenResponse_children :: Lens.Lens' ListObjectChildrenResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+listObjectChildrenResponse_children = Lens.lens (\ListObjectChildrenResponse' {children} -> children) (\s@ListObjectChildrenResponse' {} a -> s {children = a} :: ListObjectChildrenResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-locrrsResponseStatus :: Lens' ListObjectChildrenResponse Int
-locrrsResponseStatus = lens _locrrsResponseStatus (\s a -> s {_locrrsResponseStatus = a})
+-- | The response's http status code.
+listObjectChildrenResponse_httpStatus :: Lens.Lens' ListObjectChildrenResponse Prelude.Int
+listObjectChildrenResponse_httpStatus = Lens.lens (\ListObjectChildrenResponse' {httpStatus} -> httpStatus) (\s@ListObjectChildrenResponse' {} a -> s {httpStatus = a} :: ListObjectChildrenResponse)
 
-instance NFData ListObjectChildrenResponse
+instance Prelude.NFData ListObjectChildrenResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,83 +22,107 @@ module Network.AWS.CloudDirectory.Types.BatchCreateObject where
 import Network.AWS.CloudDirectory.Types.AttributeKeyAndValue
 import Network.AWS.CloudDirectory.Types.ObjectReference
 import Network.AWS.CloudDirectory.Types.SchemaFacet
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'CreateObject' operation.
+-- | Represents the output of a CreateObject operation.
 --
---
---
--- /See:/ 'batchCreateObject' smart constructor.
+-- /See:/ 'newBatchCreateObject' smart constructor.
 data BatchCreateObject = BatchCreateObject'
-  { _bcoParentReference ::
-      !(Maybe ObjectReference),
-    _bcoLinkName :: !(Maybe Text),
-    _bcoBatchReferenceName ::
-      !(Maybe Text),
-    _bcoSchemaFacet :: ![SchemaFacet],
-    _bcoObjectAttributeList ::
-      ![AttributeKeyAndValue]
+  { -- | If specified, the parent reference to which this object will be
+    -- attached.
+    parentReference :: Prelude.Maybe ObjectReference,
+    -- | The name of the link.
+    linkName :: Prelude.Maybe Prelude.Text,
+    -- | The batch reference name. See
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support>
+    -- for more information.
+    batchReferenceName :: Prelude.Maybe Prelude.Text,
+    -- | A list of @FacetArns@ that will be associated with the object. For more
+    -- information, see arns.
+    schemaFacet :: [SchemaFacet],
+    -- | An attribute map, which contains an attribute ARN as the key and
+    -- attribute value as the map value.
+    objectAttributeList :: [AttributeKeyAndValue]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchCreateObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchCreateObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bcoParentReference' - If specified, the parent reference to which this object will be attached.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bcoLinkName' - The name of the link.
+-- 'parentReference', 'batchCreateObject_parentReference' - If specified, the parent reference to which this object will be
+-- attached.
 --
--- * 'bcoBatchReferenceName' - The batch reference name. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support> for more information.
+-- 'linkName', 'batchCreateObject_linkName' - The name of the link.
 --
--- * 'bcoSchemaFacet' - A list of @FacetArns@ that will be associated with the object. For more information, see 'arns' .
+-- 'batchReferenceName', 'batchCreateObject_batchReferenceName' - The batch reference name. See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support>
+-- for more information.
 --
--- * 'bcoObjectAttributeList' - An attribute map, which contains an attribute ARN as the key and attribute value as the map value.
-batchCreateObject ::
+-- 'schemaFacet', 'batchCreateObject_schemaFacet' - A list of @FacetArns@ that will be associated with the object. For more
+-- information, see arns.
+--
+-- 'objectAttributeList', 'batchCreateObject_objectAttributeList' - An attribute map, which contains an attribute ARN as the key and
+-- attribute value as the map value.
+newBatchCreateObject ::
   BatchCreateObject
-batchCreateObject =
+newBatchCreateObject =
   BatchCreateObject'
-    { _bcoParentReference = Nothing,
-      _bcoLinkName = Nothing,
-      _bcoBatchReferenceName = Nothing,
-      _bcoSchemaFacet = mempty,
-      _bcoObjectAttributeList = mempty
+    { parentReference =
+        Prelude.Nothing,
+      linkName = Prelude.Nothing,
+      batchReferenceName = Prelude.Nothing,
+      schemaFacet = Prelude.mempty,
+      objectAttributeList = Prelude.mempty
     }
 
--- | If specified, the parent reference to which this object will be attached.
-bcoParentReference :: Lens' BatchCreateObject (Maybe ObjectReference)
-bcoParentReference = lens _bcoParentReference (\s a -> s {_bcoParentReference = a})
+-- | If specified, the parent reference to which this object will be
+-- attached.
+batchCreateObject_parentReference :: Lens.Lens' BatchCreateObject (Prelude.Maybe ObjectReference)
+batchCreateObject_parentReference = Lens.lens (\BatchCreateObject' {parentReference} -> parentReference) (\s@BatchCreateObject' {} a -> s {parentReference = a} :: BatchCreateObject)
 
 -- | The name of the link.
-bcoLinkName :: Lens' BatchCreateObject (Maybe Text)
-bcoLinkName = lens _bcoLinkName (\s a -> s {_bcoLinkName = a})
+batchCreateObject_linkName :: Lens.Lens' BatchCreateObject (Prelude.Maybe Prelude.Text)
+batchCreateObject_linkName = Lens.lens (\BatchCreateObject' {linkName} -> linkName) (\s@BatchCreateObject' {} a -> s {linkName = a} :: BatchCreateObject)
 
--- | The batch reference name. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support> for more information.
-bcoBatchReferenceName :: Lens' BatchCreateObject (Maybe Text)
-bcoBatchReferenceName = lens _bcoBatchReferenceName (\s a -> s {_bcoBatchReferenceName = a})
+-- | The batch reference name. See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support>
+-- for more information.
+batchCreateObject_batchReferenceName :: Lens.Lens' BatchCreateObject (Prelude.Maybe Prelude.Text)
+batchCreateObject_batchReferenceName = Lens.lens (\BatchCreateObject' {batchReferenceName} -> batchReferenceName) (\s@BatchCreateObject' {} a -> s {batchReferenceName = a} :: BatchCreateObject)
 
--- | A list of @FacetArns@ that will be associated with the object. For more information, see 'arns' .
-bcoSchemaFacet :: Lens' BatchCreateObject [SchemaFacet]
-bcoSchemaFacet = lens _bcoSchemaFacet (\s a -> s {_bcoSchemaFacet = a}) . _Coerce
+-- | A list of @FacetArns@ that will be associated with the object. For more
+-- information, see arns.
+batchCreateObject_schemaFacet :: Lens.Lens' BatchCreateObject [SchemaFacet]
+batchCreateObject_schemaFacet = Lens.lens (\BatchCreateObject' {schemaFacet} -> schemaFacet) (\s@BatchCreateObject' {} a -> s {schemaFacet = a} :: BatchCreateObject) Prelude.. Prelude._Coerce
 
--- | An attribute map, which contains an attribute ARN as the key and attribute value as the map value.
-bcoObjectAttributeList :: Lens' BatchCreateObject [AttributeKeyAndValue]
-bcoObjectAttributeList = lens _bcoObjectAttributeList (\s a -> s {_bcoObjectAttributeList = a}) . _Coerce
+-- | An attribute map, which contains an attribute ARN as the key and
+-- attribute value as the map value.
+batchCreateObject_objectAttributeList :: Lens.Lens' BatchCreateObject [AttributeKeyAndValue]
+batchCreateObject_objectAttributeList = Lens.lens (\BatchCreateObject' {objectAttributeList} -> objectAttributeList) (\s@BatchCreateObject' {} a -> s {objectAttributeList = a} :: BatchCreateObject) Prelude.. Prelude._Coerce
 
-instance Hashable BatchCreateObject
+instance Prelude.Hashable BatchCreateObject
 
-instance NFData BatchCreateObject
+instance Prelude.NFData BatchCreateObject
 
-instance ToJSON BatchCreateObject where
+instance Prelude.ToJSON BatchCreateObject where
   toJSON BatchCreateObject' {..} =
-    object
-      ( catMaybes
-          [ ("ParentReference" .=) <$> _bcoParentReference,
-            ("LinkName" .=) <$> _bcoLinkName,
-            ("BatchReferenceName" .=) <$> _bcoBatchReferenceName,
-            Just ("SchemaFacet" .= _bcoSchemaFacet),
-            Just
-              ("ObjectAttributeList" .= _bcoObjectAttributeList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ParentReference" Prelude..=)
+              Prelude.<$> parentReference,
+            ("LinkName" Prelude..=) Prelude.<$> linkName,
+            ("BatchReferenceName" Prelude..=)
+              Prelude.<$> batchReferenceName,
+            Prelude.Just ("SchemaFacet" Prelude..= schemaFacet),
+            Prelude.Just
+              ( "ObjectAttributeList"
+                  Prelude..= objectAttributeList
+              )
           ]
       )

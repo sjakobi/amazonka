@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,63 @@
 module Network.AWS.CloudDirectory.Types.BatchGetLinkAttributes where
 
 import Network.AWS.CloudDirectory.Types.TypedLinkSpecifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Retrieves attributes that are associated with a typed link inside a 'BatchRead' operation. For more information, see 'GetLinkAttributes' and 'BatchReadRequest$Operations' .
+-- | Retrieves attributes that are associated with a typed link inside a
+-- BatchRead operation. For more information, see GetLinkAttributes and
+-- BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchGetLinkAttributes' smart constructor.
+-- /See:/ 'newBatchGetLinkAttributes' smart constructor.
 data BatchGetLinkAttributes = BatchGetLinkAttributes'
-  { _bglaTypedLinkSpecifier ::
-      !TypedLinkSpecifier,
-    _bglaAttributeNames ::
-      ![Text]
+  { -- | Allows a typed link specifier to be accepted as input.
+    typedLinkSpecifier :: TypedLinkSpecifier,
+    -- | A list of attribute names whose values will be retrieved.
+    attributeNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetLinkAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetLinkAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bglaTypedLinkSpecifier' - Allows a typed link specifier to be accepted as input.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bglaAttributeNames' - A list of attribute names whose values will be retrieved.
-batchGetLinkAttributes ::
-  -- | 'bglaTypedLinkSpecifier'
+-- 'typedLinkSpecifier', 'batchGetLinkAttributes_typedLinkSpecifier' - Allows a typed link specifier to be accepted as input.
+--
+-- 'attributeNames', 'batchGetLinkAttributes_attributeNames' - A list of attribute names whose values will be retrieved.
+newBatchGetLinkAttributes ::
+  -- | 'typedLinkSpecifier'
   TypedLinkSpecifier ->
   BatchGetLinkAttributes
-batchGetLinkAttributes pTypedLinkSpecifier_ =
+newBatchGetLinkAttributes pTypedLinkSpecifier_ =
   BatchGetLinkAttributes'
-    { _bglaTypedLinkSpecifier =
+    { typedLinkSpecifier =
         pTypedLinkSpecifier_,
-      _bglaAttributeNames = mempty
+      attributeNames = Prelude.mempty
     }
 
 -- | Allows a typed link specifier to be accepted as input.
-bglaTypedLinkSpecifier :: Lens' BatchGetLinkAttributes TypedLinkSpecifier
-bglaTypedLinkSpecifier = lens _bglaTypedLinkSpecifier (\s a -> s {_bglaTypedLinkSpecifier = a})
+batchGetLinkAttributes_typedLinkSpecifier :: Lens.Lens' BatchGetLinkAttributes TypedLinkSpecifier
+batchGetLinkAttributes_typedLinkSpecifier = Lens.lens (\BatchGetLinkAttributes' {typedLinkSpecifier} -> typedLinkSpecifier) (\s@BatchGetLinkAttributes' {} a -> s {typedLinkSpecifier = a} :: BatchGetLinkAttributes)
 
 -- | A list of attribute names whose values will be retrieved.
-bglaAttributeNames :: Lens' BatchGetLinkAttributes [Text]
-bglaAttributeNames = lens _bglaAttributeNames (\s a -> s {_bglaAttributeNames = a}) . _Coerce
+batchGetLinkAttributes_attributeNames :: Lens.Lens' BatchGetLinkAttributes [Prelude.Text]
+batchGetLinkAttributes_attributeNames = Lens.lens (\BatchGetLinkAttributes' {attributeNames} -> attributeNames) (\s@BatchGetLinkAttributes' {} a -> s {attributeNames = a} :: BatchGetLinkAttributes) Prelude.. Prelude._Coerce
 
-instance Hashable BatchGetLinkAttributes
+instance Prelude.Hashable BatchGetLinkAttributes
 
-instance NFData BatchGetLinkAttributes
+instance Prelude.NFData BatchGetLinkAttributes
 
-instance ToJSON BatchGetLinkAttributes where
+instance Prelude.ToJSON BatchGetLinkAttributes where
   toJSON BatchGetLinkAttributes' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("TypedLinkSpecifier" .= _bglaTypedLinkSpecifier),
-            Just ("AttributeNames" .= _bglaAttributeNames)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TypedLinkSpecifier" Prelude..= typedLinkSpecifier),
+            Prelude.Just
+              ("AttributeNames" Prelude..= attributeNames)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,105 +22,116 @@ module Network.AWS.CloudDirectory.Types.TypedLinkSpecifier where
 import Network.AWS.CloudDirectory.Types.AttributeNameAndValue
 import Network.AWS.CloudDirectory.Types.ObjectReference
 import Network.AWS.CloudDirectory.Types.TypedLinkSchemaAndFacetName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains all the information that is used to uniquely identify a typed link. The parameters discussed in this topic are used to uniquely specify the typed link being operated on. The 'AttachTypedLink' API returns a typed link specifier while the 'DetachTypedLink' API accepts one as input. Similarly, the 'ListIncomingTypedLinks' and 'ListOutgoingTypedLinks' API operations provide typed link specifiers as output. You can also construct a typed link specifier from scratch.
+-- | Contains all the information that is used to uniquely identify a typed
+-- link. The parameters discussed in this topic are used to uniquely
+-- specify the typed link being operated on. The AttachTypedLink API
+-- returns a typed link specifier while the DetachTypedLink API accepts one
+-- as input. Similarly, the ListIncomingTypedLinks and
+-- ListOutgoingTypedLinks API operations provide typed link specifiers as
+-- output. You can also construct a typed link specifier from scratch.
 --
---
---
--- /See:/ 'typedLinkSpecifier' smart constructor.
+-- /See:/ 'newTypedLinkSpecifier' smart constructor.
 data TypedLinkSpecifier = TypedLinkSpecifier'
-  { _tlsTypedLinkFacet ::
-      !TypedLinkSchemaAndFacetName,
-    _tlsSourceObjectReference ::
-      !ObjectReference,
-    _tlsTargetObjectReference ::
-      !ObjectReference,
-    _tlsIdentityAttributeValues ::
-      ![AttributeNameAndValue]
+  { -- | Identifies the typed link facet that is associated with the typed link.
+    typedLinkFacet :: TypedLinkSchemaAndFacetName,
+    -- | Identifies the source object that the typed link will attach to.
+    sourceObjectReference :: ObjectReference,
+    -- | Identifies the target object that the typed link will attach to.
+    targetObjectReference :: ObjectReference,
+    -- | Identifies the attribute value to update.
+    identityAttributeValues :: [AttributeNameAndValue]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TypedLinkSpecifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TypedLinkSpecifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tlsTypedLinkFacet' - Identifies the typed link facet that is associated with the typed link.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tlsSourceObjectReference' - Identifies the source object that the typed link will attach to.
+-- 'typedLinkFacet', 'typedLinkSpecifier_typedLinkFacet' - Identifies the typed link facet that is associated with the typed link.
 --
--- * 'tlsTargetObjectReference' - Identifies the target object that the typed link will attach to.
+-- 'sourceObjectReference', 'typedLinkSpecifier_sourceObjectReference' - Identifies the source object that the typed link will attach to.
 --
--- * 'tlsIdentityAttributeValues' - Identifies the attribute value to update.
-typedLinkSpecifier ::
-  -- | 'tlsTypedLinkFacet'
+-- 'targetObjectReference', 'typedLinkSpecifier_targetObjectReference' - Identifies the target object that the typed link will attach to.
+--
+-- 'identityAttributeValues', 'typedLinkSpecifier_identityAttributeValues' - Identifies the attribute value to update.
+newTypedLinkSpecifier ::
+  -- | 'typedLinkFacet'
   TypedLinkSchemaAndFacetName ->
-  -- | 'tlsSourceObjectReference'
+  -- | 'sourceObjectReference'
   ObjectReference ->
-  -- | 'tlsTargetObjectReference'
+  -- | 'targetObjectReference'
   ObjectReference ->
   TypedLinkSpecifier
-typedLinkSpecifier
+newTypedLinkSpecifier
   pTypedLinkFacet_
   pSourceObjectReference_
   pTargetObjectReference_ =
     TypedLinkSpecifier'
-      { _tlsTypedLinkFacet =
+      { typedLinkFacet =
           pTypedLinkFacet_,
-        _tlsSourceObjectReference = pSourceObjectReference_,
-        _tlsTargetObjectReference = pTargetObjectReference_,
-        _tlsIdentityAttributeValues = mempty
+        sourceObjectReference = pSourceObjectReference_,
+        targetObjectReference = pTargetObjectReference_,
+        identityAttributeValues = Prelude.mempty
       }
 
 -- | Identifies the typed link facet that is associated with the typed link.
-tlsTypedLinkFacet :: Lens' TypedLinkSpecifier TypedLinkSchemaAndFacetName
-tlsTypedLinkFacet = lens _tlsTypedLinkFacet (\s a -> s {_tlsTypedLinkFacet = a})
+typedLinkSpecifier_typedLinkFacet :: Lens.Lens' TypedLinkSpecifier TypedLinkSchemaAndFacetName
+typedLinkSpecifier_typedLinkFacet = Lens.lens (\TypedLinkSpecifier' {typedLinkFacet} -> typedLinkFacet) (\s@TypedLinkSpecifier' {} a -> s {typedLinkFacet = a} :: TypedLinkSpecifier)
 
 -- | Identifies the source object that the typed link will attach to.
-tlsSourceObjectReference :: Lens' TypedLinkSpecifier ObjectReference
-tlsSourceObjectReference = lens _tlsSourceObjectReference (\s a -> s {_tlsSourceObjectReference = a})
+typedLinkSpecifier_sourceObjectReference :: Lens.Lens' TypedLinkSpecifier ObjectReference
+typedLinkSpecifier_sourceObjectReference = Lens.lens (\TypedLinkSpecifier' {sourceObjectReference} -> sourceObjectReference) (\s@TypedLinkSpecifier' {} a -> s {sourceObjectReference = a} :: TypedLinkSpecifier)
 
 -- | Identifies the target object that the typed link will attach to.
-tlsTargetObjectReference :: Lens' TypedLinkSpecifier ObjectReference
-tlsTargetObjectReference = lens _tlsTargetObjectReference (\s a -> s {_tlsTargetObjectReference = a})
+typedLinkSpecifier_targetObjectReference :: Lens.Lens' TypedLinkSpecifier ObjectReference
+typedLinkSpecifier_targetObjectReference = Lens.lens (\TypedLinkSpecifier' {targetObjectReference} -> targetObjectReference) (\s@TypedLinkSpecifier' {} a -> s {targetObjectReference = a} :: TypedLinkSpecifier)
 
 -- | Identifies the attribute value to update.
-tlsIdentityAttributeValues :: Lens' TypedLinkSpecifier [AttributeNameAndValue]
-tlsIdentityAttributeValues = lens _tlsIdentityAttributeValues (\s a -> s {_tlsIdentityAttributeValues = a}) . _Coerce
+typedLinkSpecifier_identityAttributeValues :: Lens.Lens' TypedLinkSpecifier [AttributeNameAndValue]
+typedLinkSpecifier_identityAttributeValues = Lens.lens (\TypedLinkSpecifier' {identityAttributeValues} -> identityAttributeValues) (\s@TypedLinkSpecifier' {} a -> s {identityAttributeValues = a} :: TypedLinkSpecifier) Prelude.. Prelude._Coerce
 
-instance FromJSON TypedLinkSpecifier where
+instance Prelude.FromJSON TypedLinkSpecifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TypedLinkSpecifier"
       ( \x ->
           TypedLinkSpecifier'
-            <$> (x .: "TypedLinkFacet")
-            <*> (x .: "SourceObjectReference")
-            <*> (x .: "TargetObjectReference")
-            <*> (x .:? "IdentityAttributeValues" .!= mempty)
+            Prelude.<$> (x Prelude..: "TypedLinkFacet")
+            Prelude.<*> (x Prelude..: "SourceObjectReference")
+            Prelude.<*> (x Prelude..: "TargetObjectReference")
+            Prelude.<*> ( x Prelude..:? "IdentityAttributeValues"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable TypedLinkSpecifier
+instance Prelude.Hashable TypedLinkSpecifier
 
-instance NFData TypedLinkSpecifier
+instance Prelude.NFData TypedLinkSpecifier
 
-instance ToJSON TypedLinkSpecifier where
+instance Prelude.ToJSON TypedLinkSpecifier where
   toJSON TypedLinkSpecifier' {..} =
-    object
-      ( catMaybes
-          [ Just ("TypedLinkFacet" .= _tlsTypedLinkFacet),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TypedLinkFacet" Prelude..= typedLinkFacet),
+            Prelude.Just
               ( "SourceObjectReference"
-                  .= _tlsSourceObjectReference
+                  Prelude..= sourceObjectReference
               ),
-            Just
+            Prelude.Just
               ( "TargetObjectReference"
-                  .= _tlsTargetObjectReference
+                  Prelude..= targetObjectReference
               ),
-            Just
+            Prelude.Just
               ( "IdentityAttributeValues"
-                  .= _tlsIdentityAttributeValues
+                  Prelude..= identityAttributeValues
               )
           ]
       )

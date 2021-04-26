@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CloudDirectory.Types.DirectoryState
   ( DirectoryState
       ( ..,
-        Deleted,
-        Disabled,
-        Enabled
+        DirectoryStateDELETED,
+        DirectoryStateDISABLED,
+        DirectoryStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectoryState = DirectoryState' (CI Text)
+newtype DirectoryState = DirectoryState'
+  { fromDirectoryState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Deleted :: DirectoryState
-pattern Deleted = DirectoryState' "DELETED"
+pattern DirectoryStateDELETED :: DirectoryState
+pattern DirectoryStateDELETED = DirectoryState' "DELETED"
 
-pattern Disabled :: DirectoryState
-pattern Disabled = DirectoryState' "DISABLED"
+pattern DirectoryStateDISABLED :: DirectoryState
+pattern DirectoryStateDISABLED = DirectoryState' "DISABLED"
 
-pattern Enabled :: DirectoryState
-pattern Enabled = DirectoryState' "ENABLED"
+pattern DirectoryStateENABLED :: DirectoryState
+pattern DirectoryStateENABLED = DirectoryState' "ENABLED"
 
 {-# COMPLETE
-  Deleted,
-  Disabled,
-  Enabled,
+  DirectoryStateDELETED,
+  DirectoryStateDISABLED,
+  DirectoryStateENABLED,
   DirectoryState'
   #-}
 
-instance FromText DirectoryState where
-  parser = (DirectoryState' . mk) <$> takeText
+instance Prelude.FromText DirectoryState where
+  parser = DirectoryState' Prelude.<$> Prelude.takeText
 
-instance ToText DirectoryState where
-  toText (DirectoryState' ci) = original ci
+instance Prelude.ToText DirectoryState where
+  toText (DirectoryState' x) = x
 
-instance Hashable DirectoryState
+instance Prelude.Hashable DirectoryState
 
-instance NFData DirectoryState
+instance Prelude.NFData DirectoryState
 
-instance ToByteString DirectoryState
+instance Prelude.ToByteString DirectoryState
 
-instance ToQuery DirectoryState
+instance Prelude.ToQuery DirectoryState
 
-instance ToHeader DirectoryState
+instance Prelude.ToHeader DirectoryState
 
-instance ToJSON DirectoryState where
-  toJSON = toJSONText
+instance Prelude.ToJSON DirectoryState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DirectoryState where
-  parseJSON = parseJSONText "DirectoryState"
+instance Prelude.FromJSON DirectoryState where
+  parseJSON = Prelude.parseJSONText "DirectoryState"

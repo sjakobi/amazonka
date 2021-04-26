@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,132 +23,126 @@ import Network.AWS.CloudDirectory.Types.FacetAttributeType
 import Network.AWS.CloudDirectory.Types.RequiredAttributeBehavior
 import Network.AWS.CloudDirectory.Types.Rule
 import Network.AWS.CloudDirectory.Types.TypedAttributeValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A typed link attribute definition.
 --
---
---
--- /See:/ 'typedLinkAttributeDefinition' smart constructor.
+-- /See:/ 'newTypedLinkAttributeDefinition' smart constructor.
 data TypedLinkAttributeDefinition = TypedLinkAttributeDefinition'
-  { _tladIsImmutable ::
-      !(Maybe Bool),
-    _tladRules ::
-      !( Maybe
-           ( Map
-               Text
-               Rule
-           )
-       ),
-    _tladDefaultValue ::
-      !( Maybe
-           TypedAttributeValue
-       ),
-    _tladName ::
-      !Text,
-    _tladType ::
-      !FacetAttributeType,
-    _tladRequiredBehavior ::
-      !RequiredAttributeBehavior
+  { -- | Whether the attribute is mutable or not.
+    isImmutable :: Prelude.Maybe Prelude.Bool,
+    -- | Validation rules that are attached to the attribute definition.
+    rules :: Prelude.Maybe (Prelude.Map Prelude.Text Rule),
+    -- | The default value of the attribute (if configured).
+    defaultValue :: Prelude.Maybe TypedAttributeValue,
+    -- | The unique name of the typed link attribute.
+    name :: Prelude.Text,
+    -- | The type of the attribute.
+    type' :: FacetAttributeType,
+    -- | The required behavior of the @TypedLinkAttributeDefinition@.
+    requiredBehavior :: RequiredAttributeBehavior
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TypedLinkAttributeDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TypedLinkAttributeDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tladIsImmutable' - Whether the attribute is mutable or not.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tladRules' - Validation rules that are attached to the attribute definition.
+-- 'isImmutable', 'typedLinkAttributeDefinition_isImmutable' - Whether the attribute is mutable or not.
 --
--- * 'tladDefaultValue' - The default value of the attribute (if configured).
+-- 'rules', 'typedLinkAttributeDefinition_rules' - Validation rules that are attached to the attribute definition.
 --
--- * 'tladName' - The unique name of the typed link attribute.
+-- 'defaultValue', 'typedLinkAttributeDefinition_defaultValue' - The default value of the attribute (if configured).
 --
--- * 'tladType' - The type of the attribute.
+-- 'name', 'typedLinkAttributeDefinition_name' - The unique name of the typed link attribute.
 --
--- * 'tladRequiredBehavior' - The required behavior of the @TypedLinkAttributeDefinition@ .
-typedLinkAttributeDefinition ::
-  -- | 'tladName'
-  Text ->
-  -- | 'tladType'
+-- 'type'', 'typedLinkAttributeDefinition_type' - The type of the attribute.
+--
+-- 'requiredBehavior', 'typedLinkAttributeDefinition_requiredBehavior' - The required behavior of the @TypedLinkAttributeDefinition@.
+newTypedLinkAttributeDefinition ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   FacetAttributeType ->
-  -- | 'tladRequiredBehavior'
+  -- | 'requiredBehavior'
   RequiredAttributeBehavior ->
   TypedLinkAttributeDefinition
-typedLinkAttributeDefinition
+newTypedLinkAttributeDefinition
   pName_
   pType_
   pRequiredBehavior_ =
     TypedLinkAttributeDefinition'
-      { _tladIsImmutable =
-          Nothing,
-        _tladRules = Nothing,
-        _tladDefaultValue = Nothing,
-        _tladName = pName_,
-        _tladType = pType_,
-        _tladRequiredBehavior = pRequiredBehavior_
+      { isImmutable =
+          Prelude.Nothing,
+        rules = Prelude.Nothing,
+        defaultValue = Prelude.Nothing,
+        name = pName_,
+        type' = pType_,
+        requiredBehavior = pRequiredBehavior_
       }
 
 -- | Whether the attribute is mutable or not.
-tladIsImmutable :: Lens' TypedLinkAttributeDefinition (Maybe Bool)
-tladIsImmutable = lens _tladIsImmutable (\s a -> s {_tladIsImmutable = a})
+typedLinkAttributeDefinition_isImmutable :: Lens.Lens' TypedLinkAttributeDefinition (Prelude.Maybe Prelude.Bool)
+typedLinkAttributeDefinition_isImmutable = Lens.lens (\TypedLinkAttributeDefinition' {isImmutable} -> isImmutable) (\s@TypedLinkAttributeDefinition' {} a -> s {isImmutable = a} :: TypedLinkAttributeDefinition)
 
 -- | Validation rules that are attached to the attribute definition.
-tladRules :: Lens' TypedLinkAttributeDefinition (HashMap Text Rule)
-tladRules = lens _tladRules (\s a -> s {_tladRules = a}) . _Default . _Map
+typedLinkAttributeDefinition_rules :: Lens.Lens' TypedLinkAttributeDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Rule))
+typedLinkAttributeDefinition_rules = Lens.lens (\TypedLinkAttributeDefinition' {rules} -> rules) (\s@TypedLinkAttributeDefinition' {} a -> s {rules = a} :: TypedLinkAttributeDefinition) Prelude.. Lens.mapping Prelude._Map
 
 -- | The default value of the attribute (if configured).
-tladDefaultValue :: Lens' TypedLinkAttributeDefinition (Maybe TypedAttributeValue)
-tladDefaultValue = lens _tladDefaultValue (\s a -> s {_tladDefaultValue = a})
+typedLinkAttributeDefinition_defaultValue :: Lens.Lens' TypedLinkAttributeDefinition (Prelude.Maybe TypedAttributeValue)
+typedLinkAttributeDefinition_defaultValue = Lens.lens (\TypedLinkAttributeDefinition' {defaultValue} -> defaultValue) (\s@TypedLinkAttributeDefinition' {} a -> s {defaultValue = a} :: TypedLinkAttributeDefinition)
 
 -- | The unique name of the typed link attribute.
-tladName :: Lens' TypedLinkAttributeDefinition Text
-tladName = lens _tladName (\s a -> s {_tladName = a})
+typedLinkAttributeDefinition_name :: Lens.Lens' TypedLinkAttributeDefinition Prelude.Text
+typedLinkAttributeDefinition_name = Lens.lens (\TypedLinkAttributeDefinition' {name} -> name) (\s@TypedLinkAttributeDefinition' {} a -> s {name = a} :: TypedLinkAttributeDefinition)
 
 -- | The type of the attribute.
-tladType :: Lens' TypedLinkAttributeDefinition FacetAttributeType
-tladType = lens _tladType (\s a -> s {_tladType = a})
+typedLinkAttributeDefinition_type :: Lens.Lens' TypedLinkAttributeDefinition FacetAttributeType
+typedLinkAttributeDefinition_type = Lens.lens (\TypedLinkAttributeDefinition' {type'} -> type') (\s@TypedLinkAttributeDefinition' {} a -> s {type' = a} :: TypedLinkAttributeDefinition)
 
--- | The required behavior of the @TypedLinkAttributeDefinition@ .
-tladRequiredBehavior :: Lens' TypedLinkAttributeDefinition RequiredAttributeBehavior
-tladRequiredBehavior = lens _tladRequiredBehavior (\s a -> s {_tladRequiredBehavior = a})
+-- | The required behavior of the @TypedLinkAttributeDefinition@.
+typedLinkAttributeDefinition_requiredBehavior :: Lens.Lens' TypedLinkAttributeDefinition RequiredAttributeBehavior
+typedLinkAttributeDefinition_requiredBehavior = Lens.lens (\TypedLinkAttributeDefinition' {requiredBehavior} -> requiredBehavior) (\s@TypedLinkAttributeDefinition' {} a -> s {requiredBehavior = a} :: TypedLinkAttributeDefinition)
 
-instance FromJSON TypedLinkAttributeDefinition where
+instance
+  Prelude.FromJSON
+    TypedLinkAttributeDefinition
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TypedLinkAttributeDefinition"
       ( \x ->
           TypedLinkAttributeDefinition'
-            <$> (x .:? "IsImmutable")
-            <*> (x .:? "Rules" .!= mempty)
-            <*> (x .:? "DefaultValue")
-            <*> (x .: "Name")
-            <*> (x .: "Type")
-            <*> (x .: "RequiredBehavior")
+            Prelude.<$> (x Prelude..:? "IsImmutable")
+            Prelude.<*> (x Prelude..:? "Rules" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "DefaultValue")
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Type")
+            Prelude.<*> (x Prelude..: "RequiredBehavior")
       )
 
-instance Hashable TypedLinkAttributeDefinition
+instance
+  Prelude.Hashable
+    TypedLinkAttributeDefinition
 
-instance NFData TypedLinkAttributeDefinition
+instance Prelude.NFData TypedLinkAttributeDefinition
 
-instance ToJSON TypedLinkAttributeDefinition where
+instance Prelude.ToJSON TypedLinkAttributeDefinition where
   toJSON TypedLinkAttributeDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("IsImmutable" .=) <$> _tladIsImmutable,
-            ("Rules" .=) <$> _tladRules,
-            ("DefaultValue" .=) <$> _tladDefaultValue,
-            Just ("Name" .= _tladName),
-            Just ("Type" .= _tladType),
-            Just ("RequiredBehavior" .= _tladRequiredBehavior)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IsImmutable" Prelude..=) Prelude.<$> isImmutable,
+            ("Rules" Prelude..=) Prelude.<$> rules,
+            ("DefaultValue" Prelude..=) Prelude.<$> defaultValue,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Type" Prelude..= type'),
+            Prelude.Just
+              ("RequiredBehavior" Prelude..= requiredBehavior)
           ]
       )

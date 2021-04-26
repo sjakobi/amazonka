@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +21,57 @@ module Network.AWS.CloudDirectory.Types.ObjectAttributeRange where
 
 import Network.AWS.CloudDirectory.Types.AttributeKey
 import Network.AWS.CloudDirectory.Types.TypedAttributeValueRange
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A range of attributes.
 --
---
---
--- /See:/ 'objectAttributeRange' smart constructor.
+-- /See:/ 'newObjectAttributeRange' smart constructor.
 data ObjectAttributeRange = ObjectAttributeRange'
-  { _oarRange ::
-      !( Maybe
-           TypedAttributeValueRange
-       ),
-    _oarAttributeKey ::
-      !(Maybe AttributeKey)
+  { -- | The range of attribute values being selected.
+    range :: Prelude.Maybe TypedAttributeValueRange,
+    -- | The key of the attribute that the attribute range covers.
+    attributeKey :: Prelude.Maybe AttributeKey
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ObjectAttributeRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ObjectAttributeRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oarRange' - The range of attribute values being selected.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oarAttributeKey' - The key of the attribute that the attribute range covers.
-objectAttributeRange ::
+-- 'range', 'objectAttributeRange_range' - The range of attribute values being selected.
+--
+-- 'attributeKey', 'objectAttributeRange_attributeKey' - The key of the attribute that the attribute range covers.
+newObjectAttributeRange ::
   ObjectAttributeRange
-objectAttributeRange =
+newObjectAttributeRange =
   ObjectAttributeRange'
-    { _oarRange = Nothing,
-      _oarAttributeKey = Nothing
+    { range = Prelude.Nothing,
+      attributeKey = Prelude.Nothing
     }
 
 -- | The range of attribute values being selected.
-oarRange :: Lens' ObjectAttributeRange (Maybe TypedAttributeValueRange)
-oarRange = lens _oarRange (\s a -> s {_oarRange = a})
+objectAttributeRange_range :: Lens.Lens' ObjectAttributeRange (Prelude.Maybe TypedAttributeValueRange)
+objectAttributeRange_range = Lens.lens (\ObjectAttributeRange' {range} -> range) (\s@ObjectAttributeRange' {} a -> s {range = a} :: ObjectAttributeRange)
 
 -- | The key of the attribute that the attribute range covers.
-oarAttributeKey :: Lens' ObjectAttributeRange (Maybe AttributeKey)
-oarAttributeKey = lens _oarAttributeKey (\s a -> s {_oarAttributeKey = a})
+objectAttributeRange_attributeKey :: Lens.Lens' ObjectAttributeRange (Prelude.Maybe AttributeKey)
+objectAttributeRange_attributeKey = Lens.lens (\ObjectAttributeRange' {attributeKey} -> attributeKey) (\s@ObjectAttributeRange' {} a -> s {attributeKey = a} :: ObjectAttributeRange)
 
-instance Hashable ObjectAttributeRange
+instance Prelude.Hashable ObjectAttributeRange
 
-instance NFData ObjectAttributeRange
+instance Prelude.NFData ObjectAttributeRange
 
-instance ToJSON ObjectAttributeRange where
+instance Prelude.ToJSON ObjectAttributeRange where
   toJSON ObjectAttributeRange' {..} =
-    object
-      ( catMaybes
-          [ ("Range" .=) <$> _oarRange,
-            ("AttributeKey" .=) <$> _oarAttributeKey
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Range" Prelude..=) Prelude.<$> range,
+            ("AttributeKey" Prelude..=)
+              Prelude.<$> attributeKey
           ]
       )

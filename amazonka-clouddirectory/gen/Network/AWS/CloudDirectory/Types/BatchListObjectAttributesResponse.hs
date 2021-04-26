@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,70 @@
 module Network.AWS.CloudDirectory.Types.BatchListObjectAttributesResponse where
 
 import Network.AWS.CloudDirectory.Types.AttributeKeyAndValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'ListObjectAttributes' response operation.
+-- | Represents the output of a ListObjectAttributes response operation.
 --
---
---
--- /See:/ 'batchListObjectAttributesResponse' smart constructor.
+-- /See:/ 'newBatchListObjectAttributesResponse' smart constructor.
 data BatchListObjectAttributesResponse = BatchListObjectAttributesResponse'
-  { _bloarNextToken ::
-      !( Maybe
-           Text
-       ),
-    _bloarAttributes ::
-      !( Maybe
-           [AttributeKeyAndValue]
-       )
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The attributes map that is associated with the object. @AttributeArn@ is
+    -- the key; attribute value is the value.
+    attributes :: Prelude.Maybe [AttributeKeyAndValue]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListObjectAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListObjectAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bloarNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bloarAttributes' - The attributes map that is associated with the object. @AttributeArn@ is the key; attribute value is the value.
-batchListObjectAttributesResponse ::
+-- 'nextToken', 'batchListObjectAttributesResponse_nextToken' - The pagination token.
+--
+-- 'attributes', 'batchListObjectAttributesResponse_attributes' - The attributes map that is associated with the object. @AttributeArn@ is
+-- the key; attribute value is the value.
+newBatchListObjectAttributesResponse ::
   BatchListObjectAttributesResponse
-batchListObjectAttributesResponse =
+newBatchListObjectAttributesResponse =
   BatchListObjectAttributesResponse'
-    { _bloarNextToken =
-        Nothing,
-      _bloarAttributes = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      attributes = Prelude.Nothing
     }
 
 -- | The pagination token.
-bloarNextToken :: Lens' BatchListObjectAttributesResponse (Maybe Text)
-bloarNextToken = lens _bloarNextToken (\s a -> s {_bloarNextToken = a})
+batchListObjectAttributesResponse_nextToken :: Lens.Lens' BatchListObjectAttributesResponse (Prelude.Maybe Prelude.Text)
+batchListObjectAttributesResponse_nextToken = Lens.lens (\BatchListObjectAttributesResponse' {nextToken} -> nextToken) (\s@BatchListObjectAttributesResponse' {} a -> s {nextToken = a} :: BatchListObjectAttributesResponse)
 
--- | The attributes map that is associated with the object. @AttributeArn@ is the key; attribute value is the value.
-bloarAttributes :: Lens' BatchListObjectAttributesResponse [AttributeKeyAndValue]
-bloarAttributes = lens _bloarAttributes (\s a -> s {_bloarAttributes = a}) . _Default . _Coerce
+-- | The attributes map that is associated with the object. @AttributeArn@ is
+-- the key; attribute value is the value.
+batchListObjectAttributesResponse_attributes :: Lens.Lens' BatchListObjectAttributesResponse (Prelude.Maybe [AttributeKeyAndValue])
+batchListObjectAttributesResponse_attributes = Lens.lens (\BatchListObjectAttributesResponse' {attributes} -> attributes) (\s@BatchListObjectAttributesResponse' {} a -> s {attributes = a} :: BatchListObjectAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON BatchListObjectAttributesResponse where
+instance
+  Prelude.FromJSON
+    BatchListObjectAttributesResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchListObjectAttributesResponse"
       ( \x ->
           BatchListObjectAttributesResponse'
-            <$> (x .:? "NextToken")
-            <*> (x .:? "Attributes" .!= mempty)
+            Prelude.<$> (x Prelude..:? "NextToken")
+            Prelude.<*> ( x Prelude..:? "Attributes"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable BatchListObjectAttributesResponse
+instance
+  Prelude.Hashable
+    BatchListObjectAttributesResponse
 
-instance NFData BatchListObjectAttributesResponse
+instance
+  Prelude.NFData
+    BatchListObjectAttributesResponse

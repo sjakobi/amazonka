@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.CloudDirectory.Types.FacetAttributeType
   ( FacetAttributeType
       ( ..,
-        Binary,
-        Boolean,
-        Datetime,
-        Number,
-        String,
-        Variant
+        FacetAttributeTypeBINARY,
+        FacetAttributeTypeBOOLEAN,
+        FacetAttributeTypeDATETIME,
+        FacetAttributeTypeNUMBER,
+        FacetAttributeTypeSTRING,
+        FacetAttributeTypeVARIANT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FacetAttributeType
-  = FacetAttributeType'
-      ( CI
-          Text
-      )
+newtype FacetAttributeType = FacetAttributeType'
+  { fromFacetAttributeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Binary :: FacetAttributeType
-pattern Binary = FacetAttributeType' "BINARY"
+pattern FacetAttributeTypeBINARY :: FacetAttributeType
+pattern FacetAttributeTypeBINARY = FacetAttributeType' "BINARY"
 
-pattern Boolean :: FacetAttributeType
-pattern Boolean = FacetAttributeType' "BOOLEAN"
+pattern FacetAttributeTypeBOOLEAN :: FacetAttributeType
+pattern FacetAttributeTypeBOOLEAN = FacetAttributeType' "BOOLEAN"
 
-pattern Datetime :: FacetAttributeType
-pattern Datetime = FacetAttributeType' "DATETIME"
+pattern FacetAttributeTypeDATETIME :: FacetAttributeType
+pattern FacetAttributeTypeDATETIME = FacetAttributeType' "DATETIME"
 
-pattern Number :: FacetAttributeType
-pattern Number = FacetAttributeType' "NUMBER"
+pattern FacetAttributeTypeNUMBER :: FacetAttributeType
+pattern FacetAttributeTypeNUMBER = FacetAttributeType' "NUMBER"
 
-pattern String :: FacetAttributeType
-pattern String = FacetAttributeType' "STRING"
+pattern FacetAttributeTypeSTRING :: FacetAttributeType
+pattern FacetAttributeTypeSTRING = FacetAttributeType' "STRING"
 
-pattern Variant :: FacetAttributeType
-pattern Variant = FacetAttributeType' "VARIANT"
+pattern FacetAttributeTypeVARIANT :: FacetAttributeType
+pattern FacetAttributeTypeVARIANT = FacetAttributeType' "VARIANT"
 
 {-# COMPLETE
-  Binary,
-  Boolean,
-  Datetime,
-  Number,
-  String,
-  Variant,
+  FacetAttributeTypeBINARY,
+  FacetAttributeTypeBOOLEAN,
+  FacetAttributeTypeDATETIME,
+  FacetAttributeTypeNUMBER,
+  FacetAttributeTypeSTRING,
+  FacetAttributeTypeVARIANT,
   FacetAttributeType'
   #-}
 
-instance FromText FacetAttributeType where
-  parser = (FacetAttributeType' . mk) <$> takeText
+instance Prelude.FromText FacetAttributeType where
+  parser = FacetAttributeType' Prelude.<$> Prelude.takeText
 
-instance ToText FacetAttributeType where
-  toText (FacetAttributeType' ci) = original ci
+instance Prelude.ToText FacetAttributeType where
+  toText (FacetAttributeType' x) = x
 
-instance Hashable FacetAttributeType
+instance Prelude.Hashable FacetAttributeType
 
-instance NFData FacetAttributeType
+instance Prelude.NFData FacetAttributeType
 
-instance ToByteString FacetAttributeType
+instance Prelude.ToByteString FacetAttributeType
 
-instance ToQuery FacetAttributeType
+instance Prelude.ToQuery FacetAttributeType
 
-instance ToHeader FacetAttributeType
+instance Prelude.ToHeader FacetAttributeType
 
-instance ToJSON FacetAttributeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FacetAttributeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FacetAttributeType where
-  parseJSON = parseJSONText "FacetAttributeType"
+instance Prelude.FromJSON FacetAttributeType where
+  parseJSON = Prelude.parseJSONText "FacetAttributeType"

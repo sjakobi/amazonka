@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,168 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a given object's attributes.
+-- Updates a given object\'s attributes.
 module Network.AWS.CloudDirectory.UpdateObjectAttributes
   ( -- * Creating a Request
-    updateObjectAttributes,
-    UpdateObjectAttributes,
+    UpdateObjectAttributes (..),
+    newUpdateObjectAttributes,
 
     -- * Request Lenses
-    uoaDirectoryARN,
-    uoaObjectReference,
-    uoaAttributeUpdates,
+    updateObjectAttributes_directoryArn,
+    updateObjectAttributes_objectReference,
+    updateObjectAttributes_attributeUpdates,
 
     -- * Destructuring the Response
-    updateObjectAttributesResponse,
-    UpdateObjectAttributesResponse,
+    UpdateObjectAttributesResponse (..),
+    newUpdateObjectAttributesResponse,
 
     -- * Response Lenses
-    uoarrsObjectIdentifier,
-    uoarrsResponseStatus,
+    updateObjectAttributesResponse_objectIdentifier,
+    updateObjectAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateObjectAttributes' smart constructor.
+-- | /See:/ 'newUpdateObjectAttributes' smart constructor.
 data UpdateObjectAttributes = UpdateObjectAttributes'
-  { _uoaDirectoryARN ::
-      !Text,
-    _uoaObjectReference ::
-      !ObjectReference,
-    _uoaAttributeUpdates ::
-      ![ObjectAttributeUpdate]
+  { -- | The Amazon Resource Name (ARN) that is associated with the Directory
+    -- where the object resides. For more information, see arns.
+    directoryArn :: Prelude.Text,
+    -- | The reference that identifies the object.
+    objectReference :: ObjectReference,
+    -- | The attributes update structure.
+    attributeUpdates :: [ObjectAttributeUpdate]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateObjectAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateObjectAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uoaDirectoryARN' - The Amazon Resource Name (ARN) that is associated with the 'Directory' where the object resides. For more information, see 'arns' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uoaObjectReference' - The reference that identifies the object.
+-- 'directoryArn', 'updateObjectAttributes_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the object resides. For more information, see arns.
 --
--- * 'uoaAttributeUpdates' - The attributes update structure.
-updateObjectAttributes ::
-  -- | 'uoaDirectoryARN'
-  Text ->
-  -- | 'uoaObjectReference'
+-- 'objectReference', 'updateObjectAttributes_objectReference' - The reference that identifies the object.
+--
+-- 'attributeUpdates', 'updateObjectAttributes_attributeUpdates' - The attributes update structure.
+newUpdateObjectAttributes ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'objectReference'
   ObjectReference ->
   UpdateObjectAttributes
-updateObjectAttributes
-  pDirectoryARN_
+newUpdateObjectAttributes
+  pDirectoryArn_
   pObjectReference_ =
     UpdateObjectAttributes'
-      { _uoaDirectoryARN =
-          pDirectoryARN_,
-        _uoaObjectReference = pObjectReference_,
-        _uoaAttributeUpdates = mempty
+      { directoryArn =
+          pDirectoryArn_,
+        objectReference = pObjectReference_,
+        attributeUpdates = Prelude.mempty
       }
 
--- | The Amazon Resource Name (ARN) that is associated with the 'Directory' where the object resides. For more information, see 'arns' .
-uoaDirectoryARN :: Lens' UpdateObjectAttributes Text
-uoaDirectoryARN = lens _uoaDirectoryARN (\s a -> s {_uoaDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the object resides. For more information, see arns.
+updateObjectAttributes_directoryArn :: Lens.Lens' UpdateObjectAttributes Prelude.Text
+updateObjectAttributes_directoryArn = Lens.lens (\UpdateObjectAttributes' {directoryArn} -> directoryArn) (\s@UpdateObjectAttributes' {} a -> s {directoryArn = a} :: UpdateObjectAttributes)
 
 -- | The reference that identifies the object.
-uoaObjectReference :: Lens' UpdateObjectAttributes ObjectReference
-uoaObjectReference = lens _uoaObjectReference (\s a -> s {_uoaObjectReference = a})
+updateObjectAttributes_objectReference :: Lens.Lens' UpdateObjectAttributes ObjectReference
+updateObjectAttributes_objectReference = Lens.lens (\UpdateObjectAttributes' {objectReference} -> objectReference) (\s@UpdateObjectAttributes' {} a -> s {objectReference = a} :: UpdateObjectAttributes)
 
 -- | The attributes update structure.
-uoaAttributeUpdates :: Lens' UpdateObjectAttributes [ObjectAttributeUpdate]
-uoaAttributeUpdates = lens _uoaAttributeUpdates (\s a -> s {_uoaAttributeUpdates = a}) . _Coerce
+updateObjectAttributes_attributeUpdates :: Lens.Lens' UpdateObjectAttributes [ObjectAttributeUpdate]
+updateObjectAttributes_attributeUpdates = Lens.lens (\UpdateObjectAttributes' {attributeUpdates} -> attributeUpdates) (\s@UpdateObjectAttributes' {} a -> s {attributeUpdates = a} :: UpdateObjectAttributes) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateObjectAttributes where
+instance Prelude.AWSRequest UpdateObjectAttributes where
   type
     Rs UpdateObjectAttributes =
       UpdateObjectAttributesResponse
-  request = putJSON cloudDirectory
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateObjectAttributesResponse'
-            <$> (x .?> "ObjectIdentifier") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ObjectIdentifier")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateObjectAttributes
+instance Prelude.Hashable UpdateObjectAttributes
 
-instance NFData UpdateObjectAttributes
+instance Prelude.NFData UpdateObjectAttributes
 
-instance ToHeaders UpdateObjectAttributes where
+instance Prelude.ToHeaders UpdateObjectAttributes where
   toHeaders UpdateObjectAttributes' {..} =
-    mconcat
-      ["x-amz-data-partition" =# _uoaDirectoryARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# directoryArn]
 
-instance ToJSON UpdateObjectAttributes where
+instance Prelude.ToJSON UpdateObjectAttributes where
   toJSON UpdateObjectAttributes' {..} =
-    object
-      ( catMaybes
-          [ Just ("ObjectReference" .= _uoaObjectReference),
-            Just ("AttributeUpdates" .= _uoaAttributeUpdates)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ObjectReference" Prelude..= objectReference),
+            Prelude.Just
+              ("AttributeUpdates" Prelude..= attributeUpdates)
           ]
       )
 
-instance ToPath UpdateObjectAttributes where
+instance Prelude.ToPath UpdateObjectAttributes where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/object/update"
 
-instance ToQuery UpdateObjectAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateObjectAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateObjectAttributesResponse' smart constructor.
+-- | /See:/ 'newUpdateObjectAttributesResponse' smart constructor.
 data UpdateObjectAttributesResponse = UpdateObjectAttributesResponse'
-  { _uoarrsObjectIdentifier ::
-      !( Maybe
-           Text
-       ),
-    _uoarrsResponseStatus ::
-      !Int
+  { -- | The @ObjectIdentifier@ of the updated object.
+    objectIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateObjectAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateObjectAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uoarrsObjectIdentifier' - The @ObjectIdentifier@ of the updated object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uoarrsResponseStatus' - -- | The response status code.
-updateObjectAttributesResponse ::
-  -- | 'uoarrsResponseStatus'
-  Int ->
+-- 'objectIdentifier', 'updateObjectAttributesResponse_objectIdentifier' - The @ObjectIdentifier@ of the updated object.
+--
+-- 'httpStatus', 'updateObjectAttributesResponse_httpStatus' - The response's http status code.
+newUpdateObjectAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateObjectAttributesResponse
-updateObjectAttributesResponse pResponseStatus_ =
+newUpdateObjectAttributesResponse pHttpStatus_ =
   UpdateObjectAttributesResponse'
-    { _uoarrsObjectIdentifier =
-        Nothing,
-      _uoarrsResponseStatus = pResponseStatus_
+    { objectIdentifier =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The @ObjectIdentifier@ of the updated object.
-uoarrsObjectIdentifier :: Lens' UpdateObjectAttributesResponse (Maybe Text)
-uoarrsObjectIdentifier = lens _uoarrsObjectIdentifier (\s a -> s {_uoarrsObjectIdentifier = a})
+updateObjectAttributesResponse_objectIdentifier :: Lens.Lens' UpdateObjectAttributesResponse (Prelude.Maybe Prelude.Text)
+updateObjectAttributesResponse_objectIdentifier = Lens.lens (\UpdateObjectAttributesResponse' {objectIdentifier} -> objectIdentifier) (\s@UpdateObjectAttributesResponse' {} a -> s {objectIdentifier = a} :: UpdateObjectAttributesResponse)
 
--- | -- | The response status code.
-uoarrsResponseStatus :: Lens' UpdateObjectAttributesResponse Int
-uoarrsResponseStatus = lens _uoarrsResponseStatus (\s a -> s {_uoarrsResponseStatus = a})
+-- | The response's http status code.
+updateObjectAttributesResponse_httpStatus :: Lens.Lens' UpdateObjectAttributesResponse Prelude.Int
+updateObjectAttributesResponse_httpStatus = Lens.lens (\UpdateObjectAttributesResponse' {httpStatus} -> httpStatus) (\s@UpdateObjectAttributesResponse' {} a -> s {httpStatus = a} :: UpdateObjectAttributesResponse)
 
-instance NFData UpdateObjectAttributesResponse
+instance
+  Prelude.NFData
+    UpdateObjectAttributesResponse

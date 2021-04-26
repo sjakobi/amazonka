@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,48 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.BatchAttachToIndexResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'AttachToIndex' response operation.
+-- | Represents the output of a AttachToIndex response operation.
 --
---
---
--- /See:/ 'batchAttachToIndexResponse' smart constructor.
-newtype BatchAttachToIndexResponse = BatchAttachToIndexResponse'
-  { _batirAttachedObjectIdentifier ::
-      Maybe Text
+-- /See:/ 'newBatchAttachToIndexResponse' smart constructor.
+data BatchAttachToIndexResponse = BatchAttachToIndexResponse'
+  { -- | The @ObjectIdentifier@ of the object that was attached to the index.
+    attachedObjectIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchAttachToIndexResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchAttachToIndexResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'batirAttachedObjectIdentifier' - The @ObjectIdentifier@ of the object that was attached to the index.
-batchAttachToIndexResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'attachedObjectIdentifier', 'batchAttachToIndexResponse_attachedObjectIdentifier' - The @ObjectIdentifier@ of the object that was attached to the index.
+newBatchAttachToIndexResponse ::
   BatchAttachToIndexResponse
-batchAttachToIndexResponse =
+newBatchAttachToIndexResponse =
   BatchAttachToIndexResponse'
-    { _batirAttachedObjectIdentifier =
-        Nothing
+    { attachedObjectIdentifier =
+        Prelude.Nothing
     }
 
 -- | The @ObjectIdentifier@ of the object that was attached to the index.
-batirAttachedObjectIdentifier :: Lens' BatchAttachToIndexResponse (Maybe Text)
-batirAttachedObjectIdentifier = lens _batirAttachedObjectIdentifier (\s a -> s {_batirAttachedObjectIdentifier = a})
+batchAttachToIndexResponse_attachedObjectIdentifier :: Lens.Lens' BatchAttachToIndexResponse (Prelude.Maybe Prelude.Text)
+batchAttachToIndexResponse_attachedObjectIdentifier = Lens.lens (\BatchAttachToIndexResponse' {attachedObjectIdentifier} -> attachedObjectIdentifier) (\s@BatchAttachToIndexResponse' {} a -> s {attachedObjectIdentifier = a} :: BatchAttachToIndexResponse)
 
-instance FromJSON BatchAttachToIndexResponse where
+instance Prelude.FromJSON BatchAttachToIndexResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchAttachToIndexResponse"
       ( \x ->
           BatchAttachToIndexResponse'
-            <$> (x .:? "AttachedObjectIdentifier")
+            Prelude.<$> (x Prelude..:? "AttachedObjectIdentifier")
       )
 
-instance Hashable BatchAttachToIndexResponse
+instance Prelude.Hashable BatchAttachToIndexResponse
 
-instance NFData BatchAttachToIndexResponse
+instance Prelude.NFData BatchAttachToIndexResponse

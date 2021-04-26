@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,201 +23,222 @@
 --
 -- Lists indices attached to the specified object.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CloudDirectory.ListAttachedIndices
   ( -- * Creating a Request
-    listAttachedIndices,
-    ListAttachedIndices,
+    ListAttachedIndices (..),
+    newListAttachedIndices,
 
     -- * Request Lenses
-    laiNextToken,
-    laiMaxResults,
-    laiConsistencyLevel,
-    laiDirectoryARN,
-    laiTargetReference,
+    listAttachedIndices_nextToken,
+    listAttachedIndices_maxResults,
+    listAttachedIndices_consistencyLevel,
+    listAttachedIndices_directoryArn,
+    listAttachedIndices_targetReference,
 
     -- * Destructuring the Response
-    listAttachedIndicesResponse,
-    ListAttachedIndicesResponse,
+    ListAttachedIndicesResponse (..),
+    newListAttachedIndicesResponse,
 
     -- * Response Lenses
-    lairrsNextToken,
-    lairrsIndexAttachments,
-    lairrsResponseStatus,
+    listAttachedIndicesResponse_nextToken,
+    listAttachedIndicesResponse_indexAttachments,
+    listAttachedIndicesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudDirectory.Types.IndexAttachment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAttachedIndices' smart constructor.
+-- | /See:/ 'newListAttachedIndices' smart constructor.
 data ListAttachedIndices = ListAttachedIndices'
-  { _laiNextToken ::
-      !(Maybe Text),
-    _laiMaxResults :: !(Maybe Nat),
-    _laiConsistencyLevel ::
-      !(Maybe ConsistencyLevel),
-    _laiDirectoryARN :: !Text,
-    _laiTargetReference ::
-      !ObjectReference
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to retrieve.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The consistency level to use for this operation.
+    consistencyLevel :: Prelude.Maybe ConsistencyLevel,
+    -- | The ARN of the directory.
+    directoryArn :: Prelude.Text,
+    -- | A reference to the object that has indices attached.
+    targetReference :: ObjectReference
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAttachedIndices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAttachedIndices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laiNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laiMaxResults' - The maximum number of results to retrieve.
+-- 'nextToken', 'listAttachedIndices_nextToken' - The pagination token.
 --
--- * 'laiConsistencyLevel' - The consistency level to use for this operation.
+-- 'maxResults', 'listAttachedIndices_maxResults' - The maximum number of results to retrieve.
 --
--- * 'laiDirectoryARN' - The ARN of the directory.
+-- 'consistencyLevel', 'listAttachedIndices_consistencyLevel' - The consistency level to use for this operation.
 --
--- * 'laiTargetReference' - A reference to the object that has indices attached.
-listAttachedIndices ::
-  -- | 'laiDirectoryARN'
-  Text ->
-  -- | 'laiTargetReference'
+-- 'directoryArn', 'listAttachedIndices_directoryArn' - The ARN of the directory.
+--
+-- 'targetReference', 'listAttachedIndices_targetReference' - A reference to the object that has indices attached.
+newListAttachedIndices ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'targetReference'
   ObjectReference ->
   ListAttachedIndices
-listAttachedIndices pDirectoryARN_ pTargetReference_ =
-  ListAttachedIndices'
-    { _laiNextToken = Nothing,
-      _laiMaxResults = Nothing,
-      _laiConsistencyLevel = Nothing,
-      _laiDirectoryARN = pDirectoryARN_,
-      _laiTargetReference = pTargetReference_
-    }
+newListAttachedIndices
+  pDirectoryArn_
+  pTargetReference_ =
+    ListAttachedIndices'
+      { nextToken = Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        consistencyLevel = Prelude.Nothing,
+        directoryArn = pDirectoryArn_,
+        targetReference = pTargetReference_
+      }
 
 -- | The pagination token.
-laiNextToken :: Lens' ListAttachedIndices (Maybe Text)
-laiNextToken = lens _laiNextToken (\s a -> s {_laiNextToken = a})
+listAttachedIndices_nextToken :: Lens.Lens' ListAttachedIndices (Prelude.Maybe Prelude.Text)
+listAttachedIndices_nextToken = Lens.lens (\ListAttachedIndices' {nextToken} -> nextToken) (\s@ListAttachedIndices' {} a -> s {nextToken = a} :: ListAttachedIndices)
 
 -- | The maximum number of results to retrieve.
-laiMaxResults :: Lens' ListAttachedIndices (Maybe Natural)
-laiMaxResults = lens _laiMaxResults (\s a -> s {_laiMaxResults = a}) . mapping _Nat
+listAttachedIndices_maxResults :: Lens.Lens' ListAttachedIndices (Prelude.Maybe Prelude.Natural)
+listAttachedIndices_maxResults = Lens.lens (\ListAttachedIndices' {maxResults} -> maxResults) (\s@ListAttachedIndices' {} a -> s {maxResults = a} :: ListAttachedIndices) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The consistency level to use for this operation.
-laiConsistencyLevel :: Lens' ListAttachedIndices (Maybe ConsistencyLevel)
-laiConsistencyLevel = lens _laiConsistencyLevel (\s a -> s {_laiConsistencyLevel = a})
+listAttachedIndices_consistencyLevel :: Lens.Lens' ListAttachedIndices (Prelude.Maybe ConsistencyLevel)
+listAttachedIndices_consistencyLevel = Lens.lens (\ListAttachedIndices' {consistencyLevel} -> consistencyLevel) (\s@ListAttachedIndices' {} a -> s {consistencyLevel = a} :: ListAttachedIndices)
 
 -- | The ARN of the directory.
-laiDirectoryARN :: Lens' ListAttachedIndices Text
-laiDirectoryARN = lens _laiDirectoryARN (\s a -> s {_laiDirectoryARN = a})
+listAttachedIndices_directoryArn :: Lens.Lens' ListAttachedIndices Prelude.Text
+listAttachedIndices_directoryArn = Lens.lens (\ListAttachedIndices' {directoryArn} -> directoryArn) (\s@ListAttachedIndices' {} a -> s {directoryArn = a} :: ListAttachedIndices)
 
 -- | A reference to the object that has indices attached.
-laiTargetReference :: Lens' ListAttachedIndices ObjectReference
-laiTargetReference = lens _laiTargetReference (\s a -> s {_laiTargetReference = a})
+listAttachedIndices_targetReference :: Lens.Lens' ListAttachedIndices ObjectReference
+listAttachedIndices_targetReference = Lens.lens (\ListAttachedIndices' {targetReference} -> targetReference) (\s@ListAttachedIndices' {} a -> s {targetReference = a} :: ListAttachedIndices)
 
-instance AWSPager ListAttachedIndices where
+instance Pager.AWSPager ListAttachedIndices where
   page rq rs
-    | stop (rs ^. lairrsNextToken) = Nothing
-    | stop (rs ^. lairrsIndexAttachments) = Nothing
-    | otherwise =
-      Just $ rq & laiNextToken .~ rs ^. lairrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAttachedIndicesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAttachedIndicesResponse_indexAttachments
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAttachedIndices_nextToken
+          Lens..~ rs
+          Lens.^? listAttachedIndicesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListAttachedIndices where
+instance Prelude.AWSRequest ListAttachedIndices where
   type
     Rs ListAttachedIndices =
       ListAttachedIndicesResponse
-  request = postJSON cloudDirectory
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAttachedIndicesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "IndexAttachments" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "IndexAttachments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAttachedIndices
+instance Prelude.Hashable ListAttachedIndices
 
-instance NFData ListAttachedIndices
+instance Prelude.NFData ListAttachedIndices
 
-instance ToHeaders ListAttachedIndices where
+instance Prelude.ToHeaders ListAttachedIndices where
   toHeaders ListAttachedIndices' {..} =
-    mconcat
-      [ "x-amz-consistency-level" =# _laiConsistencyLevel,
-        "x-amz-data-partition" =# _laiDirectoryARN
+    Prelude.mconcat
+      [ "x-amz-consistency-level"
+          Prelude.=# consistencyLevel,
+        "x-amz-data-partition" Prelude.=# directoryArn
       ]
 
-instance ToJSON ListAttachedIndices where
+instance Prelude.ToJSON ListAttachedIndices where
   toJSON ListAttachedIndices' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _laiNextToken,
-            ("MaxResults" .=) <$> _laiMaxResults,
-            Just ("TargetReference" .= _laiTargetReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("TargetReference" Prelude..= targetReference)
           ]
       )
 
-instance ToPath ListAttachedIndices where
+instance Prelude.ToPath ListAttachedIndices where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/object/indices"
 
-instance ToQuery ListAttachedIndices where
-  toQuery = const mempty
+instance Prelude.ToQuery ListAttachedIndices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listAttachedIndicesResponse' smart constructor.
+-- | /See:/ 'newListAttachedIndicesResponse' smart constructor.
 data ListAttachedIndicesResponse = ListAttachedIndicesResponse'
-  { _lairrsNextToken ::
-      !(Maybe Text),
-    _lairrsIndexAttachments ::
-      !( Maybe
-           [IndexAttachment]
-       ),
-    _lairrsResponseStatus ::
-      !Int
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The indices attached to the specified object.
+    indexAttachments :: Prelude.Maybe [IndexAttachment],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAttachedIndicesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAttachedIndicesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lairrsNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lairrsIndexAttachments' - The indices attached to the specified object.
+-- 'nextToken', 'listAttachedIndicesResponse_nextToken' - The pagination token.
 --
--- * 'lairrsResponseStatus' - -- | The response status code.
-listAttachedIndicesResponse ::
-  -- | 'lairrsResponseStatus'
-  Int ->
+-- 'indexAttachments', 'listAttachedIndicesResponse_indexAttachments' - The indices attached to the specified object.
+--
+-- 'httpStatus', 'listAttachedIndicesResponse_httpStatus' - The response's http status code.
+newListAttachedIndicesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAttachedIndicesResponse
-listAttachedIndicesResponse pResponseStatus_ =
+newListAttachedIndicesResponse pHttpStatus_ =
   ListAttachedIndicesResponse'
-    { _lairrsNextToken =
-        Nothing,
-      _lairrsIndexAttachments = Nothing,
-      _lairrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      indexAttachments = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The pagination token.
-lairrsNextToken :: Lens' ListAttachedIndicesResponse (Maybe Text)
-lairrsNextToken = lens _lairrsNextToken (\s a -> s {_lairrsNextToken = a})
+listAttachedIndicesResponse_nextToken :: Lens.Lens' ListAttachedIndicesResponse (Prelude.Maybe Prelude.Text)
+listAttachedIndicesResponse_nextToken = Lens.lens (\ListAttachedIndicesResponse' {nextToken} -> nextToken) (\s@ListAttachedIndicesResponse' {} a -> s {nextToken = a} :: ListAttachedIndicesResponse)
 
 -- | The indices attached to the specified object.
-lairrsIndexAttachments :: Lens' ListAttachedIndicesResponse [IndexAttachment]
-lairrsIndexAttachments = lens _lairrsIndexAttachments (\s a -> s {_lairrsIndexAttachments = a}) . _Default . _Coerce
+listAttachedIndicesResponse_indexAttachments :: Lens.Lens' ListAttachedIndicesResponse (Prelude.Maybe [IndexAttachment])
+listAttachedIndicesResponse_indexAttachments = Lens.lens (\ListAttachedIndicesResponse' {indexAttachments} -> indexAttachments) (\s@ListAttachedIndicesResponse' {} a -> s {indexAttachments = a} :: ListAttachedIndicesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lairrsResponseStatus :: Lens' ListAttachedIndicesResponse Int
-lairrsResponseStatus = lens _lairrsResponseStatus (\s a -> s {_lairrsResponseStatus = a})
+-- | The response's http status code.
+listAttachedIndicesResponse_httpStatus :: Lens.Lens' ListAttachedIndicesResponse Prelude.Int
+listAttachedIndicesResponse_httpStatus = Lens.lens (\ListAttachedIndicesResponse' {httpStatus} -> httpStatus) (\s@ListAttachedIndicesResponse' {} a -> s {httpStatus = a} :: ListAttachedIndicesResponse)
 
-instance NFData ListAttachedIndicesResponse
+instance Prelude.NFData ListAttachedIndicesResponse

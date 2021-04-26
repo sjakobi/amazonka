@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new 'Facet' in a schema. Facet creation is allowed only in development or applied schemas.
+-- Creates a new Facet in a schema. Facet creation is allowed only in
+-- development or applied schemas.
 module Network.AWS.CloudDirectory.CreateFacet
   ( -- * Creating a Request
-    createFacet,
-    CreateFacet,
+    CreateFacet (..),
+    newCreateFacet,
 
     -- * Request Lenses
-    cfFacetStyle,
-    cfAttributes,
-    cfObjectType,
-    cfSchemaARN,
-    cfName,
+    createFacet_facetStyle,
+    createFacet_attributes,
+    createFacet_objectType,
+    createFacet_schemaArn,
+    createFacet_name,
 
     -- * Destructuring the Response
-    createFacetResponse,
-    CreateFacetResponse,
+    CreateFacetResponse (..),
+    newCreateFacetResponse,
 
     -- * Response Lenses
-    cfrrsResponseStatus,
+    createFacetResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createFacet' smart constructor.
+-- | /See:/ 'newCreateFacet' smart constructor.
 data CreateFacet = CreateFacet'
-  { _cfFacetStyle ::
-      !(Maybe FacetStyle),
-    _cfAttributes :: !(Maybe [FacetAttribute]),
-    _cfObjectType :: !(Maybe ObjectType),
-    _cfSchemaARN :: !Text,
-    _cfName :: !Text
+  { -- | There are two different styles that you can define on any given facet,
+    -- @Static@ and @Dynamic@. For static facets, all attributes must be
+    -- defined in the schema. For dynamic facets, attributes can be defined
+    -- during data plane operations.
+    facetStyle :: Prelude.Maybe FacetStyle,
+    -- | The attributes that are associated with the Facet.
+    attributes :: Prelude.Maybe [FacetAttribute],
+    -- | Specifies whether a given object created from this facet is of type
+    -- node, leaf node, policy or index.
+    --
+    -- -   Node: Can have multiple children but one parent.
+    --
+    -- -   Leaf node: Cannot have children but can have multiple parents.
+    --
+    -- -   Policy: Allows you to store a policy document and policy type. For
+    --     more information, see
+    --     <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+    --
+    -- -   Index: Can be created with the Index API.
+    objectType :: Prelude.Maybe ObjectType,
+    -- | The schema ARN in which the new Facet will be created. For more
+    -- information, see arns.
+    schemaArn :: Prelude.Text,
+    -- | The name of the Facet, which is unique for a given schema.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFacet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFacet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfFacetStyle' - There are two different styles that you can define on any given facet, @Static@ and @Dynamic@ . For static facets, all attributes must be defined in the schema. For dynamic facets, attributes can be defined during data plane operations.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfAttributes' - The attributes that are associated with the 'Facet' .
+-- 'facetStyle', 'createFacet_facetStyle' - There are two different styles that you can define on any given facet,
+-- @Static@ and @Dynamic@. For static facets, all attributes must be
+-- defined in the schema. For dynamic facets, attributes can be defined
+-- during data plane operations.
 --
--- * 'cfObjectType' - Specifies whether a given object created from this facet is of type node, leaf node, policy or index.     * Node: Can have multiple children but one parent.     * Leaf node: Cannot have children but can have multiple parents.     * Policy: Allows you to store a policy document and policy type. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies> .     * Index: Can be created with the Index API.
+-- 'attributes', 'createFacet_attributes' - The attributes that are associated with the Facet.
 --
--- * 'cfSchemaARN' - The schema ARN in which the new 'Facet' will be created. For more information, see 'arns' .
+-- 'objectType', 'createFacet_objectType' - Specifies whether a given object created from this facet is of type
+-- node, leaf node, policy or index.
 --
--- * 'cfName' - The name of the 'Facet' , which is unique for a given schema.
-createFacet ::
-  -- | 'cfSchemaARN'
-  Text ->
-  -- | 'cfName'
-  Text ->
+-- -   Node: Can have multiple children but one parent.
+--
+-- -   Leaf node: Cannot have children but can have multiple parents.
+--
+-- -   Policy: Allows you to store a policy document and policy type. For
+--     more information, see
+--     <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+--
+-- -   Index: Can be created with the Index API.
+--
+-- 'schemaArn', 'createFacet_schemaArn' - The schema ARN in which the new Facet will be created. For more
+-- information, see arns.
+--
+-- 'name', 'createFacet_name' - The name of the Facet, which is unique for a given schema.
+newCreateFacet ::
+  -- | 'schemaArn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   CreateFacet
-createFacet pSchemaARN_ pName_ =
+newCreateFacet pSchemaArn_ pName_ =
   CreateFacet'
-    { _cfFacetStyle = Nothing,
-      _cfAttributes = Nothing,
-      _cfObjectType = Nothing,
-      _cfSchemaARN = pSchemaARN_,
-      _cfName = pName_
+    { facetStyle = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      objectType = Prelude.Nothing,
+      schemaArn = pSchemaArn_,
+      name = pName_
     }
 
--- | There are two different styles that you can define on any given facet, @Static@ and @Dynamic@ . For static facets, all attributes must be defined in the schema. For dynamic facets, attributes can be defined during data plane operations.
-cfFacetStyle :: Lens' CreateFacet (Maybe FacetStyle)
-cfFacetStyle = lens _cfFacetStyle (\s a -> s {_cfFacetStyle = a})
+-- | There are two different styles that you can define on any given facet,
+-- @Static@ and @Dynamic@. For static facets, all attributes must be
+-- defined in the schema. For dynamic facets, attributes can be defined
+-- during data plane operations.
+createFacet_facetStyle :: Lens.Lens' CreateFacet (Prelude.Maybe FacetStyle)
+createFacet_facetStyle = Lens.lens (\CreateFacet' {facetStyle} -> facetStyle) (\s@CreateFacet' {} a -> s {facetStyle = a} :: CreateFacet)
 
--- | The attributes that are associated with the 'Facet' .
-cfAttributes :: Lens' CreateFacet [FacetAttribute]
-cfAttributes = lens _cfAttributes (\s a -> s {_cfAttributes = a}) . _Default . _Coerce
+-- | The attributes that are associated with the Facet.
+createFacet_attributes :: Lens.Lens' CreateFacet (Prelude.Maybe [FacetAttribute])
+createFacet_attributes = Lens.lens (\CreateFacet' {attributes} -> attributes) (\s@CreateFacet' {} a -> s {attributes = a} :: CreateFacet) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies whether a given object created from this facet is of type node, leaf node, policy or index.     * Node: Can have multiple children but one parent.     * Leaf node: Cannot have children but can have multiple parents.     * Policy: Allows you to store a policy document and policy type. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies> .     * Index: Can be created with the Index API.
-cfObjectType :: Lens' CreateFacet (Maybe ObjectType)
-cfObjectType = lens _cfObjectType (\s a -> s {_cfObjectType = a})
+-- | Specifies whether a given object created from this facet is of type
+-- node, leaf node, policy or index.
+--
+-- -   Node: Can have multiple children but one parent.
+--
+-- -   Leaf node: Cannot have children but can have multiple parents.
+--
+-- -   Policy: Allows you to store a policy document and policy type. For
+--     more information, see
+--     <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+--
+-- -   Index: Can be created with the Index API.
+createFacet_objectType :: Lens.Lens' CreateFacet (Prelude.Maybe ObjectType)
+createFacet_objectType = Lens.lens (\CreateFacet' {objectType} -> objectType) (\s@CreateFacet' {} a -> s {objectType = a} :: CreateFacet)
 
--- | The schema ARN in which the new 'Facet' will be created. For more information, see 'arns' .
-cfSchemaARN :: Lens' CreateFacet Text
-cfSchemaARN = lens _cfSchemaARN (\s a -> s {_cfSchemaARN = a})
+-- | The schema ARN in which the new Facet will be created. For more
+-- information, see arns.
+createFacet_schemaArn :: Lens.Lens' CreateFacet Prelude.Text
+createFacet_schemaArn = Lens.lens (\CreateFacet' {schemaArn} -> schemaArn) (\s@CreateFacet' {} a -> s {schemaArn = a} :: CreateFacet)
 
--- | The name of the 'Facet' , which is unique for a given schema.
-cfName :: Lens' CreateFacet Text
-cfName = lens _cfName (\s a -> s {_cfName = a})
+-- | The name of the Facet, which is unique for a given schema.
+createFacet_name :: Lens.Lens' CreateFacet Prelude.Text
+createFacet_name = Lens.lens (\CreateFacet' {name} -> name) (\s@CreateFacet' {} a -> s {name = a} :: CreateFacet)
 
-instance AWSRequest CreateFacet where
+instance Prelude.AWSRequest CreateFacet where
   type Rs CreateFacet = CreateFacetResponse
-  request = putJSON cloudDirectory
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CreateFacetResponse' <$> (pure (fromEnum s))
+          CreateFacetResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateFacet
+instance Prelude.Hashable CreateFacet
 
-instance NFData CreateFacet
+instance Prelude.NFData CreateFacet
 
-instance ToHeaders CreateFacet where
+instance Prelude.ToHeaders CreateFacet where
   toHeaders CreateFacet' {..} =
-    mconcat ["x-amz-data-partition" =# _cfSchemaARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# schemaArn]
 
-instance ToJSON CreateFacet where
+instance Prelude.ToJSON CreateFacet where
   toJSON CreateFacet' {..} =
-    object
-      ( catMaybes
-          [ ("FacetStyle" .=) <$> _cfFacetStyle,
-            ("Attributes" .=) <$> _cfAttributes,
-            ("ObjectType" .=) <$> _cfObjectType,
-            Just ("Name" .= _cfName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FacetStyle" Prelude..=) Prelude.<$> facetStyle,
+            ("Attributes" Prelude..=) Prelude.<$> attributes,
+            ("ObjectType" Prelude..=) Prelude.<$> objectType,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateFacet where
+instance Prelude.ToPath CreateFacet where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/facet/create"
 
-instance ToQuery CreateFacet where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateFacet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createFacetResponse' smart constructor.
-newtype CreateFacetResponse = CreateFacetResponse'
-  { _cfrrsResponseStatus ::
-      Int
+-- | /See:/ 'newCreateFacetResponse' smart constructor.
+data CreateFacetResponse = CreateFacetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFacetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFacetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfrrsResponseStatus' - -- | The response status code.
-createFacetResponse ::
-  -- | 'cfrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createFacetResponse_httpStatus' - The response's http status code.
+newCreateFacetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateFacetResponse
-createFacetResponse pResponseStatus_ =
-  CreateFacetResponse'
-    { _cfrrsResponseStatus =
-        pResponseStatus_
-    }
+newCreateFacetResponse pHttpStatus_ =
+  CreateFacetResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-cfrrsResponseStatus :: Lens' CreateFacetResponse Int
-cfrrsResponseStatus = lens _cfrrsResponseStatus (\s a -> s {_cfrrsResponseStatus = a})
+-- | The response's http status code.
+createFacetResponse_httpStatus :: Lens.Lens' CreateFacetResponse Prelude.Int
+createFacetResponse_httpStatus = Lens.lens (\CreateFacetResponse' {httpStatus} -> httpStatus) (\s@CreateFacetResponse' {} a -> s {httpStatus = a} :: CreateFacetResponse)
 
-instance NFData CreateFacetResponse
+instance Prelude.NFData CreateFacetResponse

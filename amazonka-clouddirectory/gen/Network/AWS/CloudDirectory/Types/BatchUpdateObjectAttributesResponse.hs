@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,55 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.BatchUpdateObjectAttributesResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the output of a @BatchUpdate@ response operation.
 --
---
---
--- /See:/ 'batchUpdateObjectAttributesResponse' smart constructor.
-newtype BatchUpdateObjectAttributesResponse = BatchUpdateObjectAttributesResponse'
-  { _buoarObjectIdentifier ::
-      Maybe
-        Text
+-- /See:/ 'newBatchUpdateObjectAttributesResponse' smart constructor.
+data BatchUpdateObjectAttributesResponse = BatchUpdateObjectAttributesResponse'
+  { -- | ID that is associated with the object.
+    objectIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchUpdateObjectAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchUpdateObjectAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'buoarObjectIdentifier' - ID that is associated with the object.
-batchUpdateObjectAttributesResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'objectIdentifier', 'batchUpdateObjectAttributesResponse_objectIdentifier' - ID that is associated with the object.
+newBatchUpdateObjectAttributesResponse ::
   BatchUpdateObjectAttributesResponse
-batchUpdateObjectAttributesResponse =
+newBatchUpdateObjectAttributesResponse =
   BatchUpdateObjectAttributesResponse'
-    { _buoarObjectIdentifier =
-        Nothing
+    { objectIdentifier =
+        Prelude.Nothing
     }
 
 -- | ID that is associated with the object.
-buoarObjectIdentifier :: Lens' BatchUpdateObjectAttributesResponse (Maybe Text)
-buoarObjectIdentifier = lens _buoarObjectIdentifier (\s a -> s {_buoarObjectIdentifier = a})
+batchUpdateObjectAttributesResponse_objectIdentifier :: Lens.Lens' BatchUpdateObjectAttributesResponse (Prelude.Maybe Prelude.Text)
+batchUpdateObjectAttributesResponse_objectIdentifier = Lens.lens (\BatchUpdateObjectAttributesResponse' {objectIdentifier} -> objectIdentifier) (\s@BatchUpdateObjectAttributesResponse' {} a -> s {objectIdentifier = a} :: BatchUpdateObjectAttributesResponse)
 
-instance FromJSON BatchUpdateObjectAttributesResponse where
+instance
+  Prelude.FromJSON
+    BatchUpdateObjectAttributesResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchUpdateObjectAttributesResponse"
       ( \x ->
           BatchUpdateObjectAttributesResponse'
-            <$> (x .:? "ObjectIdentifier")
+            Prelude.<$> (x Prelude..:? "ObjectIdentifier")
       )
 
-instance Hashable BatchUpdateObjectAttributesResponse
+instance
+  Prelude.Hashable
+    BatchUpdateObjectAttributesResponse
 
-instance NFData BatchUpdateObjectAttributesResponse
+instance
+  Prelude.NFData
+    BatchUpdateObjectAttributesResponse

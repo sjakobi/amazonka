@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +21,82 @@ module Network.AWS.CloudDirectory.Types.Facet where
 
 import Network.AWS.CloudDirectory.Types.FacetStyle
 import Network.AWS.CloudDirectory.Types.ObjectType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A structure that contains @Name@ , @ARN@ , @Attributes@ , @'Rule' s@ , and @ObjectTypes@ . See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_whatarefacets.html Facets> for more information.
+-- | A structure that contains @Name@, @ARN@, @Attributes@, @ Rules@, and
+-- @ObjectTypes@. See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_whatarefacets.html Facets>
+-- for more information.
 --
---
---
--- /See:/ 'facet' smart constructor.
+-- /See:/ 'newFacet' smart constructor.
 data Facet = Facet'
-  { _fFacetStyle ::
-      !(Maybe FacetStyle),
-    _fName :: !(Maybe Text),
-    _fObjectType :: !(Maybe ObjectType)
+  { -- | There are two different styles that you can define on any given facet,
+    -- @Static@ and @Dynamic@. For static facets, all attributes must be
+    -- defined in the schema. For dynamic facets, attributes can be defined
+    -- during data plane operations.
+    facetStyle :: Prelude.Maybe FacetStyle,
+    -- | The name of the Facet.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The object type that is associated with the facet. See
+    -- CreateFacetRequest$ObjectType for more details.
+    objectType :: Prelude.Maybe ObjectType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Facet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Facet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fFacetStyle' - There are two different styles that you can define on any given facet, @Static@ and @Dynamic@ . For static facets, all attributes must be defined in the schema. For dynamic facets, attributes can be defined during data plane operations.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fName' - The name of the 'Facet' .
+-- 'facetStyle', 'facet_facetStyle' - There are two different styles that you can define on any given facet,
+-- @Static@ and @Dynamic@. For static facets, all attributes must be
+-- defined in the schema. For dynamic facets, attributes can be defined
+-- during data plane operations.
 --
--- * 'fObjectType' - The object type that is associated with the facet. See 'CreateFacetRequest$ObjectType' for more details.
-facet ::
+-- 'name', 'facet_name' - The name of the Facet.
+--
+-- 'objectType', 'facet_objectType' - The object type that is associated with the facet. See
+-- CreateFacetRequest$ObjectType for more details.
+newFacet ::
   Facet
-facet =
+newFacet =
   Facet'
-    { _fFacetStyle = Nothing,
-      _fName = Nothing,
-      _fObjectType = Nothing
+    { facetStyle = Prelude.Nothing,
+      name = Prelude.Nothing,
+      objectType = Prelude.Nothing
     }
 
--- | There are two different styles that you can define on any given facet, @Static@ and @Dynamic@ . For static facets, all attributes must be defined in the schema. For dynamic facets, attributes can be defined during data plane operations.
-fFacetStyle :: Lens' Facet (Maybe FacetStyle)
-fFacetStyle = lens _fFacetStyle (\s a -> s {_fFacetStyle = a})
+-- | There are two different styles that you can define on any given facet,
+-- @Static@ and @Dynamic@. For static facets, all attributes must be
+-- defined in the schema. For dynamic facets, attributes can be defined
+-- during data plane operations.
+facet_facetStyle :: Lens.Lens' Facet (Prelude.Maybe FacetStyle)
+facet_facetStyle = Lens.lens (\Facet' {facetStyle} -> facetStyle) (\s@Facet' {} a -> s {facetStyle = a} :: Facet)
 
--- | The name of the 'Facet' .
-fName :: Lens' Facet (Maybe Text)
-fName = lens _fName (\s a -> s {_fName = a})
+-- | The name of the Facet.
+facet_name :: Lens.Lens' Facet (Prelude.Maybe Prelude.Text)
+facet_name = Lens.lens (\Facet' {name} -> name) (\s@Facet' {} a -> s {name = a} :: Facet)
 
--- | The object type that is associated with the facet. See 'CreateFacetRequest$ObjectType' for more details.
-fObjectType :: Lens' Facet (Maybe ObjectType)
-fObjectType = lens _fObjectType (\s a -> s {_fObjectType = a})
+-- | The object type that is associated with the facet. See
+-- CreateFacetRequest$ObjectType for more details.
+facet_objectType :: Lens.Lens' Facet (Prelude.Maybe ObjectType)
+facet_objectType = Lens.lens (\Facet' {objectType} -> objectType) (\s@Facet' {} a -> s {objectType = a} :: Facet)
 
-instance FromJSON Facet where
+instance Prelude.FromJSON Facet where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Facet"
       ( \x ->
           Facet'
-            <$> (x .:? "FacetStyle")
-            <*> (x .:? "Name")
-            <*> (x .:? "ObjectType")
+            Prelude.<$> (x Prelude..:? "FacetStyle")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "ObjectType")
       )
 
-instance Hashable Facet
+instance Prelude.Hashable Facet
 
-instance NFData Facet
+instance Prelude.NFData Facet

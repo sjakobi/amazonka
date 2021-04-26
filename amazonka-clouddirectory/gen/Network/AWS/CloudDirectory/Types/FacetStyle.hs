@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CloudDirectory.Types.FacetStyle
   ( FacetStyle
       ( ..,
-        Dynamic,
-        Static
+        FacetStyleDYNAMIC,
+        FacetStyleSTATIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FacetStyle = FacetStyle' (CI Text)
+newtype FacetStyle = FacetStyle'
+  { fromFacetStyle ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Dynamic :: FacetStyle
-pattern Dynamic = FacetStyle' "DYNAMIC"
+pattern FacetStyleDYNAMIC :: FacetStyle
+pattern FacetStyleDYNAMIC = FacetStyle' "DYNAMIC"
 
-pattern Static :: FacetStyle
-pattern Static = FacetStyle' "STATIC"
+pattern FacetStyleSTATIC :: FacetStyle
+pattern FacetStyleSTATIC = FacetStyle' "STATIC"
 
 {-# COMPLETE
-  Dynamic,
-  Static,
+  FacetStyleDYNAMIC,
+  FacetStyleSTATIC,
   FacetStyle'
   #-}
 
-instance FromText FacetStyle where
-  parser = (FacetStyle' . mk) <$> takeText
+instance Prelude.FromText FacetStyle where
+  parser = FacetStyle' Prelude.<$> Prelude.takeText
 
-instance ToText FacetStyle where
-  toText (FacetStyle' ci) = original ci
+instance Prelude.ToText FacetStyle where
+  toText (FacetStyle' x) = x
 
-instance Hashable FacetStyle
+instance Prelude.Hashable FacetStyle
 
-instance NFData FacetStyle
+instance Prelude.NFData FacetStyle
 
-instance ToByteString FacetStyle
+instance Prelude.ToByteString FacetStyle
 
-instance ToQuery FacetStyle
+instance Prelude.ToQuery FacetStyle
 
-instance ToHeader FacetStyle
+instance Prelude.ToHeader FacetStyle
 
-instance ToJSON FacetStyle where
-  toJSON = toJSONText
+instance Prelude.ToJSON FacetStyle where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FacetStyle where
-  parseJSON = parseJSONText "FacetStyle"
+instance Prelude.FromJSON FacetStyle where
+  parseJSON = Prelude.parseJSONText "FacetStyle"

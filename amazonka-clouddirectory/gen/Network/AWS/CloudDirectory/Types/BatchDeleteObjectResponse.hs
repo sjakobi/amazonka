@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,36 +19,32 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.BatchDeleteObjectResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'DeleteObject' response operation.
+-- | Represents the output of a DeleteObject response operation.
 --
---
---
--- /See:/ 'batchDeleteObjectResponse' smart constructor.
+-- /See:/ 'newBatchDeleteObjectResponse' smart constructor.
 data BatchDeleteObjectResponse = BatchDeleteObjectResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDeleteObjectResponse' with the minimum fields required to make a request.
-batchDeleteObjectResponse ::
+-- |
+-- Create a value of 'BatchDeleteObjectResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newBatchDeleteObjectResponse ::
   BatchDeleteObjectResponse
-batchDeleteObjectResponse =
+newBatchDeleteObjectResponse =
   BatchDeleteObjectResponse'
 
-instance FromJSON BatchDeleteObjectResponse where
+instance Prelude.FromJSON BatchDeleteObjectResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchDeleteObjectResponse"
-      (\x -> pure BatchDeleteObjectResponse')
+      (\x -> Prelude.pure BatchDeleteObjectResponse')
 
-instance Hashable BatchDeleteObjectResponse
+instance Prelude.Hashable BatchDeleteObjectResponse
 
-instance NFData BatchDeleteObjectResponse
+instance Prelude.NFData BatchDeleteObjectResponse

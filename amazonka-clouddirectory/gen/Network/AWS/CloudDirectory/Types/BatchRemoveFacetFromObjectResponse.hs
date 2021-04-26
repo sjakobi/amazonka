@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,36 +19,41 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.BatchRemoveFacetFromObjectResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An empty result that represents success.
 --
---
---
--- /See:/ 'batchRemoveFacetFromObjectResponse' smart constructor.
+-- /See:/ 'newBatchRemoveFacetFromObjectResponse' smart constructor.
 data BatchRemoveFacetFromObjectResponse = BatchRemoveFacetFromObjectResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchRemoveFacetFromObjectResponse' with the minimum fields required to make a request.
-batchRemoveFacetFromObjectResponse ::
+-- |
+-- Create a value of 'BatchRemoveFacetFromObjectResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newBatchRemoveFacetFromObjectResponse ::
   BatchRemoveFacetFromObjectResponse
-batchRemoveFacetFromObjectResponse =
+newBatchRemoveFacetFromObjectResponse =
   BatchRemoveFacetFromObjectResponse'
 
-instance FromJSON BatchRemoveFacetFromObjectResponse where
+instance
+  Prelude.FromJSON
+    BatchRemoveFacetFromObjectResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchRemoveFacetFromObjectResponse"
-      (\x -> pure BatchRemoveFacetFromObjectResponse')
+      ( \x ->
+          Prelude.pure BatchRemoveFacetFromObjectResponse'
+      )
 
-instance Hashable BatchRemoveFacetFromObjectResponse
+instance
+  Prelude.Hashable
+    BatchRemoveFacetFromObjectResponse
 
-instance NFData BatchRemoveFacetFromObjectResponse
+instance
+  Prelude.NFData
+    BatchRemoveFacetFromObjectResponse

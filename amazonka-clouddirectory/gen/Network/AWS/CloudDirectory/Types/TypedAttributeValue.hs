@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.TypedAttributeValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the data for a typed attribute. You can set one, and only one, of the elements. Each attribute in an item is a name-value pair. Attributes have a single value.
+-- | Represents the data for a typed attribute. You can set one, and only
+-- one, of the elements. Each attribute in an item is a name-value pair.
+-- Attributes have a single value.
 --
---
---
--- /See:/ 'typedAttributeValue' smart constructor.
+-- /See:/ 'newTypedAttributeValue' smart constructor.
 data TypedAttributeValue = TypedAttributeValue'
-  { _tavStringValue ::
-      !(Maybe Text),
-    _tavBooleanValue ::
-      !(Maybe Bool),
-    _tavBinaryValue ::
-      !(Maybe Base64),
-    _tavNumberValue ::
-      !(Maybe Text),
-    _tavDatetimeValue ::
-      !(Maybe POSIX)
+  { -- | A string data value.
+    stringValue :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean data value.
+    booleanValue :: Prelude.Maybe Prelude.Bool,
+    -- | A binary data value.
+    binaryValue :: Prelude.Maybe Prelude.Base64,
+    -- | A number data value.
+    numberValue :: Prelude.Maybe Prelude.Text,
+    -- | A date and time value.
+    datetimeValue :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TypedAttributeValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TypedAttributeValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tavStringValue' - A string data value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tavBooleanValue' - A Boolean data value.
+-- 'stringValue', 'typedAttributeValue_stringValue' - A string data value.
 --
--- * 'tavBinaryValue' - A binary data value.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- 'booleanValue', 'typedAttributeValue_booleanValue' - A Boolean data value.
 --
--- * 'tavNumberValue' - A number data value.
+-- 'binaryValue', 'typedAttributeValue_binaryValue' - A binary data value.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
 --
--- * 'tavDatetimeValue' - A date and time value.
-typedAttributeValue ::
+-- 'numberValue', 'typedAttributeValue_numberValue' - A number data value.
+--
+-- 'datetimeValue', 'typedAttributeValue_datetimeValue' - A date and time value.
+newTypedAttributeValue ::
   TypedAttributeValue
-typedAttributeValue =
+newTypedAttributeValue =
   TypedAttributeValue'
-    { _tavStringValue = Nothing,
-      _tavBooleanValue = Nothing,
-      _tavBinaryValue = Nothing,
-      _tavNumberValue = Nothing,
-      _tavDatetimeValue = Nothing
+    { stringValue = Prelude.Nothing,
+      booleanValue = Prelude.Nothing,
+      binaryValue = Prelude.Nothing,
+      numberValue = Prelude.Nothing,
+      datetimeValue = Prelude.Nothing
     }
 
 -- | A string data value.
-tavStringValue :: Lens' TypedAttributeValue (Maybe Text)
-tavStringValue = lens _tavStringValue (\s a -> s {_tavStringValue = a})
+typedAttributeValue_stringValue :: Lens.Lens' TypedAttributeValue (Prelude.Maybe Prelude.Text)
+typedAttributeValue_stringValue = Lens.lens (\TypedAttributeValue' {stringValue} -> stringValue) (\s@TypedAttributeValue' {} a -> s {stringValue = a} :: TypedAttributeValue)
 
 -- | A Boolean data value.
-tavBooleanValue :: Lens' TypedAttributeValue (Maybe Bool)
-tavBooleanValue = lens _tavBooleanValue (\s a -> s {_tavBooleanValue = a})
+typedAttributeValue_booleanValue :: Lens.Lens' TypedAttributeValue (Prelude.Maybe Prelude.Bool)
+typedAttributeValue_booleanValue = Lens.lens (\TypedAttributeValue' {booleanValue} -> booleanValue) (\s@TypedAttributeValue' {} a -> s {booleanValue = a} :: TypedAttributeValue)
 
--- | A binary data value.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-tavBinaryValue :: Lens' TypedAttributeValue (Maybe ByteString)
-tavBinaryValue = lens _tavBinaryValue (\s a -> s {_tavBinaryValue = a}) . mapping _Base64
+-- | A binary data value.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+typedAttributeValue_binaryValue :: Lens.Lens' TypedAttributeValue (Prelude.Maybe Prelude.ByteString)
+typedAttributeValue_binaryValue = Lens.lens (\TypedAttributeValue' {binaryValue} -> binaryValue) (\s@TypedAttributeValue' {} a -> s {binaryValue = a} :: TypedAttributeValue) Prelude.. Lens.mapping Prelude._Base64
 
 -- | A number data value.
-tavNumberValue :: Lens' TypedAttributeValue (Maybe Text)
-tavNumberValue = lens _tavNumberValue (\s a -> s {_tavNumberValue = a})
+typedAttributeValue_numberValue :: Lens.Lens' TypedAttributeValue (Prelude.Maybe Prelude.Text)
+typedAttributeValue_numberValue = Lens.lens (\TypedAttributeValue' {numberValue} -> numberValue) (\s@TypedAttributeValue' {} a -> s {numberValue = a} :: TypedAttributeValue)
 
 -- | A date and time value.
-tavDatetimeValue :: Lens' TypedAttributeValue (Maybe UTCTime)
-tavDatetimeValue = lens _tavDatetimeValue (\s a -> s {_tavDatetimeValue = a}) . mapping _Time
+typedAttributeValue_datetimeValue :: Lens.Lens' TypedAttributeValue (Prelude.Maybe Prelude.UTCTime)
+typedAttributeValue_datetimeValue = Lens.lens (\TypedAttributeValue' {datetimeValue} -> datetimeValue) (\s@TypedAttributeValue' {} a -> s {datetimeValue = a} :: TypedAttributeValue) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON TypedAttributeValue where
+instance Prelude.FromJSON TypedAttributeValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TypedAttributeValue"
       ( \x ->
           TypedAttributeValue'
-            <$> (x .:? "StringValue")
-            <*> (x .:? "BooleanValue")
-            <*> (x .:? "BinaryValue")
-            <*> (x .:? "NumberValue")
-            <*> (x .:? "DatetimeValue")
+            Prelude.<$> (x Prelude..:? "StringValue")
+            Prelude.<*> (x Prelude..:? "BooleanValue")
+            Prelude.<*> (x Prelude..:? "BinaryValue")
+            Prelude.<*> (x Prelude..:? "NumberValue")
+            Prelude.<*> (x Prelude..:? "DatetimeValue")
       )
 
-instance Hashable TypedAttributeValue
+instance Prelude.Hashable TypedAttributeValue
 
-instance NFData TypedAttributeValue
+instance Prelude.NFData TypedAttributeValue
 
-instance ToJSON TypedAttributeValue where
+instance Prelude.ToJSON TypedAttributeValue where
   toJSON TypedAttributeValue' {..} =
-    object
-      ( catMaybes
-          [ ("StringValue" .=) <$> _tavStringValue,
-            ("BooleanValue" .=) <$> _tavBooleanValue,
-            ("BinaryValue" .=) <$> _tavBinaryValue,
-            ("NumberValue" .=) <$> _tavNumberValue,
-            ("DatetimeValue" .=) <$> _tavDatetimeValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StringValue" Prelude..=) Prelude.<$> stringValue,
+            ("BooleanValue" Prelude..=) Prelude.<$> booleanValue,
+            ("BinaryValue" Prelude..=) Prelude.<$> binaryValue,
+            ("NumberValue" Prelude..=) Prelude.<$> numberValue,
+            ("DatetimeValue" Prelude..=)
+              Prelude.<$> datetimeValue
           ]
       )

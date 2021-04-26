@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +21,64 @@ module Network.AWS.CloudDirectory.Types.BatchRemoveFacetFromObject where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
 import Network.AWS.CloudDirectory.Types.SchemaFacet
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A batch operation to remove a facet from an object.
 --
---
---
--- /See:/ 'batchRemoveFacetFromObject' smart constructor.
+-- /See:/ 'newBatchRemoveFacetFromObject' smart constructor.
 data BatchRemoveFacetFromObject = BatchRemoveFacetFromObject'
-  { _brffoSchemaFacet ::
-      !SchemaFacet,
-    _brffoObjectReference ::
-      !ObjectReference
+  { -- | The facet to remove from the object.
+    schemaFacet :: SchemaFacet,
+    -- | A reference to the object whose facet will be removed.
+    objectReference :: ObjectReference
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchRemoveFacetFromObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchRemoveFacetFromObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'brffoSchemaFacet' - The facet to remove from the object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'brffoObjectReference' - A reference to the object whose facet will be removed.
-batchRemoveFacetFromObject ::
-  -- | 'brffoSchemaFacet'
+-- 'schemaFacet', 'batchRemoveFacetFromObject_schemaFacet' - The facet to remove from the object.
+--
+-- 'objectReference', 'batchRemoveFacetFromObject_objectReference' - A reference to the object whose facet will be removed.
+newBatchRemoveFacetFromObject ::
+  -- | 'schemaFacet'
   SchemaFacet ->
-  -- | 'brffoObjectReference'
+  -- | 'objectReference'
   ObjectReference ->
   BatchRemoveFacetFromObject
-batchRemoveFacetFromObject
+newBatchRemoveFacetFromObject
   pSchemaFacet_
   pObjectReference_ =
     BatchRemoveFacetFromObject'
-      { _brffoSchemaFacet =
+      { schemaFacet =
           pSchemaFacet_,
-        _brffoObjectReference = pObjectReference_
+        objectReference = pObjectReference_
       }
 
 -- | The facet to remove from the object.
-brffoSchemaFacet :: Lens' BatchRemoveFacetFromObject SchemaFacet
-brffoSchemaFacet = lens _brffoSchemaFacet (\s a -> s {_brffoSchemaFacet = a})
+batchRemoveFacetFromObject_schemaFacet :: Lens.Lens' BatchRemoveFacetFromObject SchemaFacet
+batchRemoveFacetFromObject_schemaFacet = Lens.lens (\BatchRemoveFacetFromObject' {schemaFacet} -> schemaFacet) (\s@BatchRemoveFacetFromObject' {} a -> s {schemaFacet = a} :: BatchRemoveFacetFromObject)
 
 -- | A reference to the object whose facet will be removed.
-brffoObjectReference :: Lens' BatchRemoveFacetFromObject ObjectReference
-brffoObjectReference = lens _brffoObjectReference (\s a -> s {_brffoObjectReference = a})
+batchRemoveFacetFromObject_objectReference :: Lens.Lens' BatchRemoveFacetFromObject ObjectReference
+batchRemoveFacetFromObject_objectReference = Lens.lens (\BatchRemoveFacetFromObject' {objectReference} -> objectReference) (\s@BatchRemoveFacetFromObject' {} a -> s {objectReference = a} :: BatchRemoveFacetFromObject)
 
-instance Hashable BatchRemoveFacetFromObject
+instance Prelude.Hashable BatchRemoveFacetFromObject
 
-instance NFData BatchRemoveFacetFromObject
+instance Prelude.NFData BatchRemoveFacetFromObject
 
-instance ToJSON BatchRemoveFacetFromObject where
+instance Prelude.ToJSON BatchRemoveFacetFromObject where
   toJSON BatchRemoveFacetFromObject' {..} =
-    object
-      ( catMaybes
-          [ Just ("SchemaFacet" .= _brffoSchemaFacet),
-            Just ("ObjectReference" .= _brffoObjectReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("SchemaFacet" Prelude..= schemaFacet),
+            Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
           ]
       )

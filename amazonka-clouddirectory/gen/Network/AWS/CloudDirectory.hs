@@ -11,12 +11,19 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon Cloud Directory__
+-- Amazon Cloud Directory
 --
--- Amazon Cloud Directory is a component of the AWS Directory Service that simplifies the development and management of cloud-scale web, mobile, and IoT applications. This guide describes the Cloud Directory operations that you can call programmatically and includes detailed information on data types and errors. For information about Cloud Directory features, see <https://aws.amazon.com/directoryservice/ AWS Directory Service> and the <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/what_is_cloud_directory.html Amazon Cloud Directory Developer Guide> .
+-- Amazon Cloud Directory is a component of the AWS Directory Service that
+-- simplifies the development and management of cloud-scale web, mobile,
+-- and IoT applications. This guide describes the Cloud Directory
+-- operations that you can call programmatically and includes detailed
+-- information on data types and errors. For information about Cloud
+-- Directory features, see
+-- <https://aws.amazon.com/directoryservice/ AWS Directory Service> and the
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/what_is_cloud_directory.html Amazon Cloud Directory Developer Guide>.
 module Network.AWS.CloudDirectory
   ( -- * Service Configuration
-    cloudDirectory,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -36,8 +43,8 @@ module Network.AWS.CloudDirectory
     -- ** FacetInUseException
     _FacetInUseException,
 
-    -- ** InvalidARNException
-    _InvalidARNException,
+    -- ** InvalidArnException
+    _InvalidArnException,
 
     -- ** DirectoryDeletedException
     _DirectoryDeletedException,
@@ -133,202 +140,400 @@ module Network.AWS.CloudDirectory
     -- $operations
 
     -- ** GetDirectory
-    module Network.AWS.CloudDirectory.GetDirectory,
+    GetDirectory (GetDirectory'),
+    newGetDirectory,
+    GetDirectoryResponse (GetDirectoryResponse'),
+    newGetDirectoryResponse,
 
     -- ** ListTypedLinkFacetNames (Paginated)
-    module Network.AWS.CloudDirectory.ListTypedLinkFacetNames,
+    ListTypedLinkFacetNames (ListTypedLinkFacetNames'),
+    newListTypedLinkFacetNames,
+    ListTypedLinkFacetNamesResponse (ListTypedLinkFacetNamesResponse'),
+    newListTypedLinkFacetNamesResponse,
 
     -- ** GetObjectInformation
-    module Network.AWS.CloudDirectory.GetObjectInformation,
+    GetObjectInformation (GetObjectInformation'),
+    newGetObjectInformation,
+    GetObjectInformationResponse (GetObjectInformationResponse'),
+    newGetObjectInformationResponse,
 
     -- ** AttachTypedLink
-    module Network.AWS.CloudDirectory.AttachTypedLink,
+    AttachTypedLink (AttachTypedLink'),
+    newAttachTypedLink,
+    AttachTypedLinkResponse (AttachTypedLinkResponse'),
+    newAttachTypedLinkResponse,
 
     -- ** DeleteFacet
-    module Network.AWS.CloudDirectory.DeleteFacet,
+    DeleteFacet (DeleteFacet'),
+    newDeleteFacet,
+    DeleteFacetResponse (DeleteFacetResponse'),
+    newDeleteFacetResponse,
 
     -- ** UpdateFacet
-    module Network.AWS.CloudDirectory.UpdateFacet,
+    UpdateFacet (UpdateFacet'),
+    newUpdateFacet,
+    UpdateFacetResponse (UpdateFacetResponse'),
+    newUpdateFacetResponse,
 
     -- ** GetObjectAttributes
-    module Network.AWS.CloudDirectory.GetObjectAttributes,
+    GetObjectAttributes (GetObjectAttributes'),
+    newGetObjectAttributes,
+    GetObjectAttributesResponse (GetObjectAttributesResponse'),
+    newGetObjectAttributesResponse,
 
     -- ** UpgradeAppliedSchema
-    module Network.AWS.CloudDirectory.UpgradeAppliedSchema,
+    UpgradeAppliedSchema (UpgradeAppliedSchema'),
+    newUpgradeAppliedSchema,
+    UpgradeAppliedSchemaResponse (UpgradeAppliedSchemaResponse'),
+    newUpgradeAppliedSchemaResponse,
 
     -- ** DeleteObject
-    module Network.AWS.CloudDirectory.DeleteObject,
+    DeleteObject (DeleteObject'),
+    newDeleteObject,
+    DeleteObjectResponse (DeleteObjectResponse'),
+    newDeleteObjectResponse,
 
     -- ** ListTypedLinkFacetAttributes (Paginated)
-    module Network.AWS.CloudDirectory.ListTypedLinkFacetAttributes,
+    ListTypedLinkFacetAttributes (ListTypedLinkFacetAttributes'),
+    newListTypedLinkFacetAttributes,
+    ListTypedLinkFacetAttributesResponse (ListTypedLinkFacetAttributesResponse'),
+    newListTypedLinkFacetAttributesResponse,
 
     -- ** CreateObject
-    module Network.AWS.CloudDirectory.CreateObject,
+    CreateObject (CreateObject'),
+    newCreateObject,
+    CreateObjectResponse (CreateObjectResponse'),
+    newCreateObjectResponse,
 
     -- ** BatchWrite
-    module Network.AWS.CloudDirectory.BatchWrite,
+    BatchWrite (BatchWrite'),
+    newBatchWrite,
+    BatchWriteResponse (BatchWriteResponse'),
+    newBatchWriteResponse,
 
     -- ** UpgradePublishedSchema
-    module Network.AWS.CloudDirectory.UpgradePublishedSchema,
+    UpgradePublishedSchema (UpgradePublishedSchema'),
+    newUpgradePublishedSchema,
+    UpgradePublishedSchemaResponse (UpgradePublishedSchemaResponse'),
+    newUpgradePublishedSchemaResponse,
 
-    -- ** ListDevelopmentSchemaARNs (Paginated)
-    module Network.AWS.CloudDirectory.ListDevelopmentSchemaARNs,
+    -- ** ListDevelopmentSchemaArns (Paginated)
+    ListDevelopmentSchemaArns (ListDevelopmentSchemaArns'),
+    newListDevelopmentSchemaArns,
+    ListDevelopmentSchemaArnsResponse (ListDevelopmentSchemaArnsResponse'),
+    newListDevelopmentSchemaArnsResponse,
 
     -- ** UpdateLinkAttributes
-    module Network.AWS.CloudDirectory.UpdateLinkAttributes,
+    UpdateLinkAttributes (UpdateLinkAttributes'),
+    newUpdateLinkAttributes,
+    UpdateLinkAttributesResponse (UpdateLinkAttributesResponse'),
+    newUpdateLinkAttributesResponse,
 
     -- ** DetachTypedLink
-    module Network.AWS.CloudDirectory.DetachTypedLink,
+    DetachTypedLink (DetachTypedLink'),
+    newDetachTypedLink,
+    DetachTypedLinkResponse (DetachTypedLinkResponse'),
+    newDetachTypedLinkResponse,
 
     -- ** GetFacet
-    module Network.AWS.CloudDirectory.GetFacet,
+    GetFacet (GetFacet'),
+    newGetFacet,
+    GetFacetResponse (GetFacetResponse'),
+    newGetFacetResponse,
 
     -- ** GetTypedLinkFacetInformation
-    module Network.AWS.CloudDirectory.GetTypedLinkFacetInformation,
+    GetTypedLinkFacetInformation (GetTypedLinkFacetInformation'),
+    newGetTypedLinkFacetInformation,
+    GetTypedLinkFacetInformationResponse (GetTypedLinkFacetInformationResponse'),
+    newGetTypedLinkFacetInformationResponse,
 
     -- ** UntagResource
-    module Network.AWS.CloudDirectory.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** ListIncomingTypedLinks (Paginated)
-    module Network.AWS.CloudDirectory.ListIncomingTypedLinks,
+    ListIncomingTypedLinks (ListIncomingTypedLinks'),
+    newListIncomingTypedLinks,
+    ListIncomingTypedLinksResponse (ListIncomingTypedLinksResponse'),
+    newListIncomingTypedLinksResponse,
 
     -- ** PublishSchema
-    module Network.AWS.CloudDirectory.PublishSchema,
+    PublishSchema (PublishSchema'),
+    newPublishSchema,
+    PublishSchemaResponse (PublishSchemaResponse'),
+    newPublishSchemaResponse,
 
     -- ** UpdateTypedLinkFacet
-    module Network.AWS.CloudDirectory.UpdateTypedLinkFacet,
+    UpdateTypedLinkFacet (UpdateTypedLinkFacet'),
+    newUpdateTypedLinkFacet,
+    UpdateTypedLinkFacetResponse (UpdateTypedLinkFacetResponse'),
+    newUpdateTypedLinkFacetResponse,
 
     -- ** ListObjectParents
-    module Network.AWS.CloudDirectory.ListObjectParents,
+    ListObjectParents (ListObjectParents'),
+    newListObjectParents,
+    ListObjectParentsResponse (ListObjectParentsResponse'),
+    newListObjectParentsResponse,
 
     -- ** ListPolicyAttachments (Paginated)
-    module Network.AWS.CloudDirectory.ListPolicyAttachments,
+    ListPolicyAttachments (ListPolicyAttachments'),
+    newListPolicyAttachments,
+    ListPolicyAttachmentsResponse (ListPolicyAttachmentsResponse'),
+    newListPolicyAttachmentsResponse,
 
     -- ** ListObjectAttributes (Paginated)
-    module Network.AWS.CloudDirectory.ListObjectAttributes,
+    ListObjectAttributes (ListObjectAttributes'),
+    newListObjectAttributes,
+    ListObjectAttributesResponse (ListObjectAttributesResponse'),
+    newListObjectAttributesResponse,
 
     -- ** DeleteTypedLinkFacet
-    module Network.AWS.CloudDirectory.DeleteTypedLinkFacet,
+    DeleteTypedLinkFacet (DeleteTypedLinkFacet'),
+    newDeleteTypedLinkFacet,
+    DeleteTypedLinkFacetResponse (DeleteTypedLinkFacetResponse'),
+    newDeleteTypedLinkFacetResponse,
 
     -- ** TagResource
-    module Network.AWS.CloudDirectory.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** DeleteDirectory
-    module Network.AWS.CloudDirectory.DeleteDirectory,
+    DeleteDirectory (DeleteDirectory'),
+    newDeleteDirectory,
+    DeleteDirectoryResponse (DeleteDirectoryResponse'),
+    newDeleteDirectoryResponse,
 
     -- ** ListObjectParentPaths (Paginated)
-    module Network.AWS.CloudDirectory.ListObjectParentPaths,
+    ListObjectParentPaths (ListObjectParentPaths'),
+    newListObjectParentPaths,
+    ListObjectParentPathsResponse (ListObjectParentPathsResponse'),
+    newListObjectParentPathsResponse,
 
     -- ** CreateSchema
-    module Network.AWS.CloudDirectory.CreateSchema,
+    CreateSchema (CreateSchema'),
+    newCreateSchema,
+    CreateSchemaResponse (CreateSchemaResponse'),
+    newCreateSchemaResponse,
 
-    -- ** ListPublishedSchemaARNs (Paginated)
-    module Network.AWS.CloudDirectory.ListPublishedSchemaARNs,
+    -- ** ListPublishedSchemaArns (Paginated)
+    ListPublishedSchemaArns (ListPublishedSchemaArns'),
+    newListPublishedSchemaArns,
+    ListPublishedSchemaArnsResponse (ListPublishedSchemaArnsResponse'),
+    newListPublishedSchemaArnsResponse,
 
     -- ** ListDirectories (Paginated)
-    module Network.AWS.CloudDirectory.ListDirectories,
+    ListDirectories (ListDirectories'),
+    newListDirectories,
+    ListDirectoriesResponse (ListDirectoriesResponse'),
+    newListDirectoriesResponse,
 
     -- ** CreateDirectory
-    module Network.AWS.CloudDirectory.CreateDirectory,
+    CreateDirectory (CreateDirectory'),
+    newCreateDirectory,
+    CreateDirectoryResponse (CreateDirectoryResponse'),
+    newCreateDirectoryResponse,
 
     -- ** LookupPolicy (Paginated)
-    module Network.AWS.CloudDirectory.LookupPolicy,
+    LookupPolicy (LookupPolicy'),
+    newLookupPolicy,
+    LookupPolicyResponse (LookupPolicyResponse'),
+    newLookupPolicyResponse,
 
     -- ** CreateIndex
-    module Network.AWS.CloudDirectory.CreateIndex,
+    CreateIndex (CreateIndex'),
+    newCreateIndex,
+    CreateIndexResponse (CreateIndexResponse'),
+    newCreateIndexResponse,
 
     -- ** ListAttachedIndices (Paginated)
-    module Network.AWS.CloudDirectory.ListAttachedIndices,
+    ListAttachedIndices (ListAttachedIndices'),
+    newListAttachedIndices,
+    ListAttachedIndicesResponse (ListAttachedIndicesResponse'),
+    newListAttachedIndicesResponse,
 
     -- ** DetachPolicy
-    module Network.AWS.CloudDirectory.DetachPolicy,
+    DetachPolicy (DetachPolicy'),
+    newDetachPolicy,
+    DetachPolicyResponse (DetachPolicyResponse'),
+    newDetachPolicyResponse,
 
     -- ** DetachFromIndex
-    module Network.AWS.CloudDirectory.DetachFromIndex,
+    DetachFromIndex (DetachFromIndex'),
+    newDetachFromIndex,
+    DetachFromIndexResponse (DetachFromIndexResponse'),
+    newDetachFromIndexResponse,
 
     -- ** ListIndex (Paginated)
-    module Network.AWS.CloudDirectory.ListIndex,
+    ListIndex (ListIndex'),
+    newListIndex,
+    ListIndexResponse (ListIndexResponse'),
+    newListIndexResponse,
 
     -- ** ListObjectChildren
-    module Network.AWS.CloudDirectory.ListObjectChildren,
+    ListObjectChildren (ListObjectChildren'),
+    newListObjectChildren,
+    ListObjectChildrenResponse (ListObjectChildrenResponse'),
+    newListObjectChildrenResponse,
 
     -- ** ListObjectPolicies (Paginated)
-    module Network.AWS.CloudDirectory.ListObjectPolicies,
+    ListObjectPolicies (ListObjectPolicies'),
+    newListObjectPolicies,
+    ListObjectPoliciesResponse (ListObjectPoliciesResponse'),
+    newListObjectPoliciesResponse,
 
     -- ** GetLinkAttributes
-    module Network.AWS.CloudDirectory.GetLinkAttributes,
+    GetLinkAttributes (GetLinkAttributes'),
+    newGetLinkAttributes,
+    GetLinkAttributesResponse (GetLinkAttributesResponse'),
+    newGetLinkAttributesResponse,
 
     -- ** CreateFacet
-    module Network.AWS.CloudDirectory.CreateFacet,
+    CreateFacet (CreateFacet'),
+    newCreateFacet,
+    CreateFacetResponse (CreateFacetResponse'),
+    newCreateFacetResponse,
 
     -- ** BatchRead
-    module Network.AWS.CloudDirectory.BatchRead,
+    BatchRead (BatchRead'),
+    newBatchRead,
+    BatchReadResponse (BatchReadResponse'),
+    newBatchReadResponse,
 
     -- ** AttachObject
-    module Network.AWS.CloudDirectory.AttachObject,
+    AttachObject (AttachObject'),
+    newAttachObject,
+    AttachObjectResponse (AttachObjectResponse'),
+    newAttachObjectResponse,
 
     -- ** AttachToIndex
-    module Network.AWS.CloudDirectory.AttachToIndex,
+    AttachToIndex (AttachToIndex'),
+    newAttachToIndex,
+    AttachToIndexResponse (AttachToIndexResponse'),
+    newAttachToIndexResponse,
 
-    -- ** PutSchemaFromJSON
-    module Network.AWS.CloudDirectory.PutSchemaFromJSON,
+    -- ** PutSchemaFromJson
+    PutSchemaFromJson (PutSchemaFromJson'),
+    newPutSchemaFromJson,
+    PutSchemaFromJsonResponse (PutSchemaFromJsonResponse'),
+    newPutSchemaFromJsonResponse,
 
     -- ** UpdateObjectAttributes
-    module Network.AWS.CloudDirectory.UpdateObjectAttributes,
+    UpdateObjectAttributes (UpdateObjectAttributes'),
+    newUpdateObjectAttributes,
+    UpdateObjectAttributesResponse (UpdateObjectAttributesResponse'),
+    newUpdateObjectAttributesResponse,
 
     -- ** AttachPolicy
-    module Network.AWS.CloudDirectory.AttachPolicy,
+    AttachPolicy (AttachPolicy'),
+    newAttachPolicy,
+    AttachPolicyResponse (AttachPolicyResponse'),
+    newAttachPolicyResponse,
 
     -- ** ListFacetNames (Paginated)
-    module Network.AWS.CloudDirectory.ListFacetNames,
+    ListFacetNames (ListFacetNames'),
+    newListFacetNames,
+    ListFacetNamesResponse (ListFacetNamesResponse'),
+    newListFacetNamesResponse,
 
     -- ** ListOutgoingTypedLinks (Paginated)
-    module Network.AWS.CloudDirectory.ListOutgoingTypedLinks,
+    ListOutgoingTypedLinks (ListOutgoingTypedLinks'),
+    newListOutgoingTypedLinks,
+    ListOutgoingTypedLinksResponse (ListOutgoingTypedLinksResponse'),
+    newListOutgoingTypedLinksResponse,
 
     -- ** EnableDirectory
-    module Network.AWS.CloudDirectory.EnableDirectory,
+    EnableDirectory (EnableDirectory'),
+    newEnableDirectory,
+    EnableDirectoryResponse (EnableDirectoryResponse'),
+    newEnableDirectoryResponse,
 
-    -- ** ListAppliedSchemaARNs (Paginated)
-    module Network.AWS.CloudDirectory.ListAppliedSchemaARNs,
+    -- ** ListAppliedSchemaArns (Paginated)
+    ListAppliedSchemaArns (ListAppliedSchemaArns'),
+    newListAppliedSchemaArns,
+    ListAppliedSchemaArnsResponse (ListAppliedSchemaArnsResponse'),
+    newListAppliedSchemaArnsResponse,
 
-    -- ** ListManagedSchemaARNs (Paginated)
-    module Network.AWS.CloudDirectory.ListManagedSchemaARNs,
+    -- ** ListManagedSchemaArns (Paginated)
+    ListManagedSchemaArns (ListManagedSchemaArns'),
+    newListManagedSchemaArns,
+    ListManagedSchemaArnsResponse (ListManagedSchemaArnsResponse'),
+    newListManagedSchemaArnsResponse,
 
     -- ** GetAppliedSchemaVersion
-    module Network.AWS.CloudDirectory.GetAppliedSchemaVersion,
+    GetAppliedSchemaVersion (GetAppliedSchemaVersion'),
+    newGetAppliedSchemaVersion,
+    GetAppliedSchemaVersionResponse (GetAppliedSchemaVersionResponse'),
+    newGetAppliedSchemaVersionResponse,
 
     -- ** RemoveFacetFromObject
-    module Network.AWS.CloudDirectory.RemoveFacetFromObject,
+    RemoveFacetFromObject (RemoveFacetFromObject'),
+    newRemoveFacetFromObject,
+    RemoveFacetFromObjectResponse (RemoveFacetFromObjectResponse'),
+    newRemoveFacetFromObjectResponse,
 
     -- ** DeleteSchema
-    module Network.AWS.CloudDirectory.DeleteSchema,
+    DeleteSchema (DeleteSchema'),
+    newDeleteSchema,
+    DeleteSchemaResponse (DeleteSchemaResponse'),
+    newDeleteSchemaResponse,
 
     -- ** ListFacetAttributes (Paginated)
-    module Network.AWS.CloudDirectory.ListFacetAttributes,
+    ListFacetAttributes (ListFacetAttributes'),
+    newListFacetAttributes,
+    ListFacetAttributesResponse (ListFacetAttributesResponse'),
+    newListFacetAttributesResponse,
 
     -- ** UpdateSchema
-    module Network.AWS.CloudDirectory.UpdateSchema,
+    UpdateSchema (UpdateSchema'),
+    newUpdateSchema,
+    UpdateSchemaResponse (UpdateSchemaResponse'),
+    newUpdateSchemaResponse,
 
-    -- ** GetSchemaAsJSON
-    module Network.AWS.CloudDirectory.GetSchemaAsJSON,
+    -- ** GetSchemaAsJson
+    GetSchemaAsJson (GetSchemaAsJson'),
+    newGetSchemaAsJson,
+    GetSchemaAsJsonResponse (GetSchemaAsJsonResponse'),
+    newGetSchemaAsJsonResponse,
 
     -- ** ApplySchema
-    module Network.AWS.CloudDirectory.ApplySchema,
+    ApplySchema (ApplySchema'),
+    newApplySchema,
+    ApplySchemaResponse (ApplySchemaResponse'),
+    newApplySchemaResponse,
 
     -- ** DisableDirectory
-    module Network.AWS.CloudDirectory.DisableDirectory,
+    DisableDirectory (DisableDirectory'),
+    newDisableDirectory,
+    DisableDirectoryResponse (DisableDirectoryResponse'),
+    newDisableDirectoryResponse,
 
     -- ** CreateTypedLinkFacet
-    module Network.AWS.CloudDirectory.CreateTypedLinkFacet,
+    CreateTypedLinkFacet (CreateTypedLinkFacet'),
+    newCreateTypedLinkFacet,
+    CreateTypedLinkFacetResponse (CreateTypedLinkFacetResponse'),
+    newCreateTypedLinkFacetResponse,
 
     -- ** ListTagsForResource (Paginated)
-    module Network.AWS.CloudDirectory.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** AddFacetToObject
-    module Network.AWS.CloudDirectory.AddFacetToObject,
+    AddFacetToObject (AddFacetToObject'),
+    newAddFacetToObject,
+    AddFacetToObjectResponse (AddFacetToObjectResponse'),
+    newAddFacetToObjectResponse,
 
     -- ** DetachObject
-    module Network.AWS.CloudDirectory.DetachObject,
+    DetachObject (DetachObject'),
+    newDetachObject,
+    DetachObjectResponse (DetachObjectResponse'),
+    newDetachObjectResponse,
 
     -- * Types
 
@@ -363,646 +568,384 @@ module Network.AWS.CloudDirectory
     UpdateActionType (..),
 
     -- ** AttributeKey
-    AttributeKey,
-    attributeKey,
-    akSchemaARN,
-    akFacetName,
-    akName,
+    AttributeKey (AttributeKey'),
+    newAttributeKey,
 
     -- ** AttributeKeyAndValue
-    AttributeKeyAndValue,
-    attributeKeyAndValue,
-    akavKey,
-    akavValue,
+    AttributeKeyAndValue (AttributeKeyAndValue'),
+    newAttributeKeyAndValue,
 
     -- ** AttributeNameAndValue
-    AttributeNameAndValue,
-    attributeNameAndValue,
-    anavAttributeName,
-    anavValue,
+    AttributeNameAndValue (AttributeNameAndValue'),
+    newAttributeNameAndValue,
 
     -- ** BatchAddFacetToObject
-    BatchAddFacetToObject,
-    batchAddFacetToObject,
-    baftoSchemaFacet,
-    baftoObjectAttributeList,
-    baftoObjectReference,
+    BatchAddFacetToObject (BatchAddFacetToObject'),
+    newBatchAddFacetToObject,
 
     -- ** BatchAddFacetToObjectResponse
-    BatchAddFacetToObjectResponse,
-    batchAddFacetToObjectResponse,
+    BatchAddFacetToObjectResponse (BatchAddFacetToObjectResponse'),
+    newBatchAddFacetToObjectResponse,
 
     -- ** BatchAttachObject
-    BatchAttachObject,
-    batchAttachObject,
-    baoParentReference,
-    baoChildReference,
-    baoLinkName,
+    BatchAttachObject (BatchAttachObject'),
+    newBatchAttachObject,
 
     -- ** BatchAttachObjectResponse
-    BatchAttachObjectResponse,
-    batchAttachObjectResponse,
-    baorAttachedObjectIdentifier,
+    BatchAttachObjectResponse (BatchAttachObjectResponse'),
+    newBatchAttachObjectResponse,
 
     -- ** BatchAttachPolicy
-    BatchAttachPolicy,
-    batchAttachPolicy,
-    bapPolicyReference,
-    bapObjectReference,
+    BatchAttachPolicy (BatchAttachPolicy'),
+    newBatchAttachPolicy,
 
     -- ** BatchAttachPolicyResponse
-    BatchAttachPolicyResponse,
-    batchAttachPolicyResponse,
+    BatchAttachPolicyResponse (BatchAttachPolicyResponse'),
+    newBatchAttachPolicyResponse,
 
     -- ** BatchAttachToIndex
-    BatchAttachToIndex,
-    batchAttachToIndex,
-    batiIndexReference,
-    batiTargetReference,
+    BatchAttachToIndex (BatchAttachToIndex'),
+    newBatchAttachToIndex,
 
     -- ** BatchAttachToIndexResponse
-    BatchAttachToIndexResponse,
-    batchAttachToIndexResponse,
-    batirAttachedObjectIdentifier,
+    BatchAttachToIndexResponse (BatchAttachToIndexResponse'),
+    newBatchAttachToIndexResponse,
 
     -- ** BatchAttachTypedLink
-    BatchAttachTypedLink,
-    batchAttachTypedLink,
-    batlSourceObjectReference,
-    batlTargetObjectReference,
-    batlTypedLinkFacet,
-    batlAttributes,
+    BatchAttachTypedLink (BatchAttachTypedLink'),
+    newBatchAttachTypedLink,
 
     -- ** BatchAttachTypedLinkResponse
-    BatchAttachTypedLinkResponse,
-    batchAttachTypedLinkResponse,
-    batlrTypedLinkSpecifier,
+    BatchAttachTypedLinkResponse (BatchAttachTypedLinkResponse'),
+    newBatchAttachTypedLinkResponse,
 
     -- ** BatchCreateIndex
-    BatchCreateIndex,
-    batchCreateIndex,
-    bciParentReference,
-    bciLinkName,
-    bciBatchReferenceName,
-    bciOrderedIndexedAttributeList,
-    bciIsUnique,
+    BatchCreateIndex (BatchCreateIndex'),
+    newBatchCreateIndex,
 
     -- ** BatchCreateIndexResponse
-    BatchCreateIndexResponse,
-    batchCreateIndexResponse,
-    bcirObjectIdentifier,
+    BatchCreateIndexResponse (BatchCreateIndexResponse'),
+    newBatchCreateIndexResponse,
 
     -- ** BatchCreateObject
-    BatchCreateObject,
-    batchCreateObject,
-    bcoParentReference,
-    bcoLinkName,
-    bcoBatchReferenceName,
-    bcoSchemaFacet,
-    bcoObjectAttributeList,
+    BatchCreateObject (BatchCreateObject'),
+    newBatchCreateObject,
 
     -- ** BatchCreateObjectResponse
-    BatchCreateObjectResponse,
-    batchCreateObjectResponse,
-    bcorObjectIdentifier,
+    BatchCreateObjectResponse (BatchCreateObjectResponse'),
+    newBatchCreateObjectResponse,
 
     -- ** BatchDeleteObject
-    BatchDeleteObject,
-    batchDeleteObject,
-    bdoObjectReference,
+    BatchDeleteObject (BatchDeleteObject'),
+    newBatchDeleteObject,
 
     -- ** BatchDeleteObjectResponse
-    BatchDeleteObjectResponse,
-    batchDeleteObjectResponse,
+    BatchDeleteObjectResponse (BatchDeleteObjectResponse'),
+    newBatchDeleteObjectResponse,
 
     -- ** BatchDetachFromIndex
-    BatchDetachFromIndex,
-    batchDetachFromIndex,
-    bdfiIndexReference,
-    bdfiTargetReference,
+    BatchDetachFromIndex (BatchDetachFromIndex'),
+    newBatchDetachFromIndex,
 
     -- ** BatchDetachFromIndexResponse
-    BatchDetachFromIndexResponse,
-    batchDetachFromIndexResponse,
-    bdfirDetachedObjectIdentifier,
+    BatchDetachFromIndexResponse (BatchDetachFromIndexResponse'),
+    newBatchDetachFromIndexResponse,
 
     -- ** BatchDetachObject
-    BatchDetachObject,
-    batchDetachObject,
-    bdoBatchReferenceName,
-    bdoParentReference,
-    bdoLinkName,
+    BatchDetachObject (BatchDetachObject'),
+    newBatchDetachObject,
 
     -- ** BatchDetachObjectResponse
-    BatchDetachObjectResponse,
-    batchDetachObjectResponse,
-    bdorDetachedObjectIdentifier,
+    BatchDetachObjectResponse (BatchDetachObjectResponse'),
+    newBatchDetachObjectResponse,
 
     -- ** BatchDetachPolicy
-    BatchDetachPolicy,
-    batchDetachPolicy,
-    bdpPolicyReference,
-    bdpObjectReference,
+    BatchDetachPolicy (BatchDetachPolicy'),
+    newBatchDetachPolicy,
 
     -- ** BatchDetachPolicyResponse
-    BatchDetachPolicyResponse,
-    batchDetachPolicyResponse,
+    BatchDetachPolicyResponse (BatchDetachPolicyResponse'),
+    newBatchDetachPolicyResponse,
 
     -- ** BatchDetachTypedLink
-    BatchDetachTypedLink,
-    batchDetachTypedLink,
-    bdtlTypedLinkSpecifier,
+    BatchDetachTypedLink (BatchDetachTypedLink'),
+    newBatchDetachTypedLink,
 
     -- ** BatchDetachTypedLinkResponse
-    BatchDetachTypedLinkResponse,
-    batchDetachTypedLinkResponse,
+    BatchDetachTypedLinkResponse (BatchDetachTypedLinkResponse'),
+    newBatchDetachTypedLinkResponse,
 
     -- ** BatchGetLinkAttributes
-    BatchGetLinkAttributes,
-    batchGetLinkAttributes,
-    bglaTypedLinkSpecifier,
-    bglaAttributeNames,
+    BatchGetLinkAttributes (BatchGetLinkAttributes'),
+    newBatchGetLinkAttributes,
 
     -- ** BatchGetLinkAttributesResponse
-    BatchGetLinkAttributesResponse,
-    batchGetLinkAttributesResponse,
-    bglarAttributes,
+    BatchGetLinkAttributesResponse (BatchGetLinkAttributesResponse'),
+    newBatchGetLinkAttributesResponse,
 
     -- ** BatchGetObjectAttributes
-    BatchGetObjectAttributes,
-    batchGetObjectAttributes,
-    bgoaObjectReference,
-    bgoaSchemaFacet,
-    bgoaAttributeNames,
+    BatchGetObjectAttributes (BatchGetObjectAttributes'),
+    newBatchGetObjectAttributes,
 
     -- ** BatchGetObjectAttributesResponse
-    BatchGetObjectAttributesResponse,
-    batchGetObjectAttributesResponse,
-    bgoarAttributes,
+    BatchGetObjectAttributesResponse (BatchGetObjectAttributesResponse'),
+    newBatchGetObjectAttributesResponse,
 
     -- ** BatchGetObjectInformation
-    BatchGetObjectInformation,
-    batchGetObjectInformation,
-    bgoiObjectReference,
+    BatchGetObjectInformation (BatchGetObjectInformation'),
+    newBatchGetObjectInformation,
 
     -- ** BatchGetObjectInformationResponse
-    BatchGetObjectInformationResponse,
-    batchGetObjectInformationResponse,
-    bgoirSchemaFacets,
-    bgoirObjectIdentifier,
+    BatchGetObjectInformationResponse (BatchGetObjectInformationResponse'),
+    newBatchGetObjectInformationResponse,
 
     -- ** BatchListAttachedIndices
-    BatchListAttachedIndices,
-    batchListAttachedIndices,
-    blaiNextToken,
-    blaiMaxResults,
-    blaiTargetReference,
+    BatchListAttachedIndices (BatchListAttachedIndices'),
+    newBatchListAttachedIndices,
 
     -- ** BatchListAttachedIndicesResponse
-    BatchListAttachedIndicesResponse,
-    batchListAttachedIndicesResponse,
-    blairNextToken,
-    blairIndexAttachments,
+    BatchListAttachedIndicesResponse (BatchListAttachedIndicesResponse'),
+    newBatchListAttachedIndicesResponse,
 
     -- ** BatchListIncomingTypedLinks
-    BatchListIncomingTypedLinks,
-    batchListIncomingTypedLinks,
-    blitlNextToken,
-    blitlFilterTypedLink,
-    blitlMaxResults,
-    blitlFilterAttributeRanges,
-    blitlObjectReference,
+    BatchListIncomingTypedLinks (BatchListIncomingTypedLinks'),
+    newBatchListIncomingTypedLinks,
 
     -- ** BatchListIncomingTypedLinksResponse
-    BatchListIncomingTypedLinksResponse,
-    batchListIncomingTypedLinksResponse,
-    blitlrLinkSpecifiers,
-    blitlrNextToken,
+    BatchListIncomingTypedLinksResponse (BatchListIncomingTypedLinksResponse'),
+    newBatchListIncomingTypedLinksResponse,
 
     -- ** BatchListIndex
-    BatchListIndex,
-    batchListIndex,
-    bliNextToken,
-    bliMaxResults,
-    bliRangesOnIndexedValues,
-    bliIndexReference,
+    BatchListIndex (BatchListIndex'),
+    newBatchListIndex,
 
     -- ** BatchListIndexResponse
-    BatchListIndexResponse,
-    batchListIndexResponse,
-    blirNextToken,
-    blirIndexAttachments,
+    BatchListIndexResponse (BatchListIndexResponse'),
+    newBatchListIndexResponse,
 
     -- ** BatchListObjectAttributes
-    BatchListObjectAttributes,
-    batchListObjectAttributes,
-    bloaNextToken,
-    bloaMaxResults,
-    bloaFacetFilter,
-    bloaObjectReference,
+    BatchListObjectAttributes (BatchListObjectAttributes'),
+    newBatchListObjectAttributes,
 
     -- ** BatchListObjectAttributesResponse
-    BatchListObjectAttributesResponse,
-    batchListObjectAttributesResponse,
-    bloarNextToken,
-    bloarAttributes,
+    BatchListObjectAttributesResponse (BatchListObjectAttributesResponse'),
+    newBatchListObjectAttributesResponse,
 
     -- ** BatchListObjectChildren
-    BatchListObjectChildren,
-    batchListObjectChildren,
-    blocNextToken,
-    blocMaxResults,
-    blocObjectReference,
+    BatchListObjectChildren (BatchListObjectChildren'),
+    newBatchListObjectChildren,
 
     -- ** BatchListObjectChildrenResponse
-    BatchListObjectChildrenResponse,
-    batchListObjectChildrenResponse,
-    blocrNextToken,
-    blocrChildren,
+    BatchListObjectChildrenResponse (BatchListObjectChildrenResponse'),
+    newBatchListObjectChildrenResponse,
 
     -- ** BatchListObjectParentPaths
-    BatchListObjectParentPaths,
-    batchListObjectParentPaths,
-    bloppNextToken,
-    bloppMaxResults,
-    bloppObjectReference,
+    BatchListObjectParentPaths (BatchListObjectParentPaths'),
+    newBatchListObjectParentPaths,
 
     -- ** BatchListObjectParentPathsResponse
-    BatchListObjectParentPathsResponse,
-    batchListObjectParentPathsResponse,
-    blopprNextToken,
-    blopprPathToObjectIdentifiersList,
+    BatchListObjectParentPathsResponse (BatchListObjectParentPathsResponse'),
+    newBatchListObjectParentPathsResponse,
 
     -- ** BatchListObjectParents
-    BatchListObjectParents,
-    batchListObjectParents,
-    blopNextToken,
-    blopMaxResults,
-    blopObjectReference,
+    BatchListObjectParents (BatchListObjectParents'),
+    newBatchListObjectParents,
 
     -- ** BatchListObjectParentsResponse
-    BatchListObjectParentsResponse,
-    batchListObjectParentsResponse,
-    bloprParentLinks,
-    bloprNextToken,
+    BatchListObjectParentsResponse (BatchListObjectParentsResponse'),
+    newBatchListObjectParentsResponse,
 
     -- ** BatchListObjectPolicies
-    BatchListObjectPolicies,
-    batchListObjectPolicies,
-    bNextToken,
-    bMaxResults,
-    bObjectReference,
+    BatchListObjectPolicies (BatchListObjectPolicies'),
+    newBatchListObjectPolicies,
 
     -- ** BatchListObjectPoliciesResponse
-    BatchListObjectPoliciesResponse,
-    batchListObjectPoliciesResponse,
-    batNextToken,
-    batAttachedPolicyIds,
+    BatchListObjectPoliciesResponse (BatchListObjectPoliciesResponse'),
+    newBatchListObjectPoliciesResponse,
 
     -- ** BatchListOutgoingTypedLinks
-    BatchListOutgoingTypedLinks,
-    batchListOutgoingTypedLinks,
-    blotlNextToken,
-    blotlFilterTypedLink,
-    blotlMaxResults,
-    blotlFilterAttributeRanges,
-    blotlObjectReference,
+    BatchListOutgoingTypedLinks (BatchListOutgoingTypedLinks'),
+    newBatchListOutgoingTypedLinks,
 
     -- ** BatchListOutgoingTypedLinksResponse
-    BatchListOutgoingTypedLinksResponse,
-    batchListOutgoingTypedLinksResponse,
-    blotlrNextToken,
-    blotlrTypedLinkSpecifiers,
+    BatchListOutgoingTypedLinksResponse (BatchListOutgoingTypedLinksResponse'),
+    newBatchListOutgoingTypedLinksResponse,
 
     -- ** BatchListPolicyAttachments
-    BatchListPolicyAttachments,
-    batchListPolicyAttachments,
-    blpaNextToken,
-    blpaMaxResults,
-    blpaPolicyReference,
+    BatchListPolicyAttachments (BatchListPolicyAttachments'),
+    newBatchListPolicyAttachments,
 
     -- ** BatchListPolicyAttachmentsResponse
-    BatchListPolicyAttachmentsResponse,
-    batchListPolicyAttachmentsResponse,
-    blparNextToken,
-    blparObjectIdentifiers,
+    BatchListPolicyAttachmentsResponse (BatchListPolicyAttachmentsResponse'),
+    newBatchListPolicyAttachmentsResponse,
 
     -- ** BatchLookupPolicy
-    BatchLookupPolicy,
-    batchLookupPolicy,
-    blpNextToken,
-    blpMaxResults,
-    blpObjectReference,
+    BatchLookupPolicy (BatchLookupPolicy'),
+    newBatchLookupPolicy,
 
     -- ** BatchLookupPolicyResponse
-    BatchLookupPolicyResponse,
-    batchLookupPolicyResponse,
-    blprNextToken,
-    blprPolicyToPathList,
+    BatchLookupPolicyResponse (BatchLookupPolicyResponse'),
+    newBatchLookupPolicyResponse,
 
     -- ** BatchReadException
-    BatchReadException,
-    batchReadException,
-    breMessage,
-    breType,
+    BatchReadException (BatchReadException'),
+    newBatchReadException,
 
     -- ** BatchReadOperation
-    BatchReadOperation,
-    batchReadOperation,
-    broGetObjectInformation,
-    broGetObjectAttributes,
-    broListIncomingTypedLinks,
-    broListObjectParents,
-    broListPolicyAttachments,
-    broListObjectAttributes,
-    broListObjectParentPaths,
-    broLookupPolicy,
-    broListAttachedIndices,
-    broListIndex,
-    broListObjectChildren,
-    broListObjectPolicies,
-    broGetLinkAttributes,
-    broListOutgoingTypedLinks,
+    BatchReadOperation (BatchReadOperation'),
+    newBatchReadOperation,
 
     -- ** BatchReadOperationResponse
-    BatchReadOperationResponse,
-    batchReadOperationResponse,
-    brorSuccessfulResponse,
-    brorExceptionResponse,
+    BatchReadOperationResponse (BatchReadOperationResponse'),
+    newBatchReadOperationResponse,
 
     -- ** BatchReadSuccessfulResponse
-    BatchReadSuccessfulResponse,
-    batchReadSuccessfulResponse,
-    brsrGetObjectInformation,
-    brsrGetObjectAttributes,
-    brsrListIncomingTypedLinks,
-    brsrListObjectParents,
-    brsrListPolicyAttachments,
-    brsrListObjectAttributes,
-    brsrListObjectParentPaths,
-    brsrLookupPolicy,
-    brsrListAttachedIndices,
-    brsrListIndex,
-    brsrListObjectChildren,
-    brsrListObjectPolicies,
-    brsrGetLinkAttributes,
-    brsrListOutgoingTypedLinks,
+    BatchReadSuccessfulResponse (BatchReadSuccessfulResponse'),
+    newBatchReadSuccessfulResponse,
 
     -- ** BatchRemoveFacetFromObject
-    BatchRemoveFacetFromObject,
-    batchRemoveFacetFromObject,
-    brffoSchemaFacet,
-    brffoObjectReference,
+    BatchRemoveFacetFromObject (BatchRemoveFacetFromObject'),
+    newBatchRemoveFacetFromObject,
 
     -- ** BatchRemoveFacetFromObjectResponse
-    BatchRemoveFacetFromObjectResponse,
-    batchRemoveFacetFromObjectResponse,
+    BatchRemoveFacetFromObjectResponse (BatchRemoveFacetFromObjectResponse'),
+    newBatchRemoveFacetFromObjectResponse,
 
     -- ** BatchUpdateLinkAttributes
-    BatchUpdateLinkAttributes,
-    batchUpdateLinkAttributes,
-    bulaTypedLinkSpecifier,
-    bulaAttributeUpdates,
+    BatchUpdateLinkAttributes (BatchUpdateLinkAttributes'),
+    newBatchUpdateLinkAttributes,
 
     -- ** BatchUpdateLinkAttributesResponse
-    BatchUpdateLinkAttributesResponse,
-    batchUpdateLinkAttributesResponse,
+    BatchUpdateLinkAttributesResponse (BatchUpdateLinkAttributesResponse'),
+    newBatchUpdateLinkAttributesResponse,
 
     -- ** BatchUpdateObjectAttributes
-    BatchUpdateObjectAttributes,
-    batchUpdateObjectAttributes,
-    buoaObjectReference,
-    buoaAttributeUpdates,
+    BatchUpdateObjectAttributes (BatchUpdateObjectAttributes'),
+    newBatchUpdateObjectAttributes,
 
     -- ** BatchUpdateObjectAttributesResponse
-    BatchUpdateObjectAttributesResponse,
-    batchUpdateObjectAttributesResponse,
-    buoarObjectIdentifier,
+    BatchUpdateObjectAttributesResponse (BatchUpdateObjectAttributesResponse'),
+    newBatchUpdateObjectAttributesResponse,
 
     -- ** BatchWriteOperation
-    BatchWriteOperation,
-    batchWriteOperation,
-    bwoAttachTypedLink,
-    bwoDeleteObject,
-    bwoCreateObject,
-    bwoUpdateLinkAttributes,
-    bwoDetachTypedLink,
-    bwoCreateIndex,
-    bwoDetachPolicy,
-    bwoDetachFromIndex,
-    bwoAttachObject,
-    bwoAttachToIndex,
-    bwoUpdateObjectAttributes,
-    bwoAttachPolicy,
-    bwoRemoveFacetFromObject,
-    bwoAddFacetToObject,
-    bwoDetachObject,
+    BatchWriteOperation (BatchWriteOperation'),
+    newBatchWriteOperation,
 
     -- ** BatchWriteOperationResponse
-    BatchWriteOperationResponse,
-    batchWriteOperationResponse,
-    bworAttachTypedLink,
-    bworDeleteObject,
-    bworCreateObject,
-    bworUpdateLinkAttributes,
-    bworDetachTypedLink,
-    bworCreateIndex,
-    bworDetachPolicy,
-    bworDetachFromIndex,
-    bworAttachObject,
-    bworAttachToIndex,
-    bworUpdateObjectAttributes,
-    bworAttachPolicy,
-    bworRemoveFacetFromObject,
-    bworAddFacetToObject,
-    bworDetachObject,
+    BatchWriteOperationResponse (BatchWriteOperationResponse'),
+    newBatchWriteOperationResponse,
 
     -- ** Directory
-    Directory,
-    directory,
-    dDirectoryARN,
-    dState,
-    dName,
-    dCreationDateTime,
+    Directory (Directory'),
+    newDirectory,
 
     -- ** Facet
-    Facet,
-    facet,
-    fFacetStyle,
-    fName,
-    fObjectType,
+    Facet (Facet'),
+    newFacet,
 
     -- ** FacetAttribute
-    FacetAttribute,
-    facetAttribute,
-    faAttributeReference,
-    faRequiredBehavior,
-    faAttributeDefinition,
-    faName,
+    FacetAttribute (FacetAttribute'),
+    newFacetAttribute,
 
     -- ** FacetAttributeDefinition
-    FacetAttributeDefinition,
-    facetAttributeDefinition,
-    fadIsImmutable,
-    fadRules,
-    fadDefaultValue,
-    fadType,
+    FacetAttributeDefinition (FacetAttributeDefinition'),
+    newFacetAttributeDefinition,
 
     -- ** FacetAttributeReference
-    FacetAttributeReference,
-    facetAttributeReference,
-    farTargetFacetName,
-    farTargetAttributeName,
+    FacetAttributeReference (FacetAttributeReference'),
+    newFacetAttributeReference,
 
     -- ** FacetAttributeUpdate
-    FacetAttributeUpdate,
-    facetAttributeUpdate,
-    fauAttribute,
-    fauAction,
+    FacetAttributeUpdate (FacetAttributeUpdate'),
+    newFacetAttributeUpdate,
 
     -- ** IndexAttachment
-    IndexAttachment,
-    indexAttachment,
-    iaObjectIdentifier,
-    iaIndexedAttributes,
+    IndexAttachment (IndexAttachment'),
+    newIndexAttachment,
 
     -- ** LinkAttributeAction
-    LinkAttributeAction,
-    linkAttributeAction,
-    laaAttributeUpdateValue,
-    laaAttributeActionType,
+    LinkAttributeAction (LinkAttributeAction'),
+    newLinkAttributeAction,
 
     -- ** LinkAttributeUpdate
-    LinkAttributeUpdate,
-    linkAttributeUpdate,
-    lauAttributeAction,
-    lauAttributeKey,
+    LinkAttributeUpdate (LinkAttributeUpdate'),
+    newLinkAttributeUpdate,
 
     -- ** ObjectAttributeAction
-    ObjectAttributeAction,
-    objectAttributeAction,
-    oaaObjectAttributeActionType,
-    oaaObjectAttributeUpdateValue,
+    ObjectAttributeAction (ObjectAttributeAction'),
+    newObjectAttributeAction,
 
     -- ** ObjectAttributeRange
-    ObjectAttributeRange,
-    objectAttributeRange,
-    oarRange,
-    oarAttributeKey,
+    ObjectAttributeRange (ObjectAttributeRange'),
+    newObjectAttributeRange,
 
     -- ** ObjectAttributeUpdate
-    ObjectAttributeUpdate,
-    objectAttributeUpdate,
-    oauObjectAttributeAction,
-    oauObjectAttributeKey,
+    ObjectAttributeUpdate (ObjectAttributeUpdate'),
+    newObjectAttributeUpdate,
 
     -- ** ObjectIdentifierAndLinkNameTuple
-    ObjectIdentifierAndLinkNameTuple,
-    objectIdentifierAndLinkNameTuple,
-    oialntLinkName,
-    oialntObjectIdentifier,
+    ObjectIdentifierAndLinkNameTuple (ObjectIdentifierAndLinkNameTuple'),
+    newObjectIdentifierAndLinkNameTuple,
 
     -- ** ObjectReference
-    ObjectReference,
-    objectReference,
-    orSelector,
+    ObjectReference (ObjectReference'),
+    newObjectReference,
 
     -- ** PathToObjectIdentifiers
-    PathToObjectIdentifiers,
-    pathToObjectIdentifiers,
-    ptoiObjectIdentifiers,
-    ptoiPath,
+    PathToObjectIdentifiers (PathToObjectIdentifiers'),
+    newPathToObjectIdentifiers,
 
     -- ** PolicyAttachment
-    PolicyAttachment,
-    policyAttachment,
-    paPolicyType,
-    paObjectIdentifier,
-    paPolicyId,
+    PolicyAttachment (PolicyAttachment'),
+    newPolicyAttachment,
 
     -- ** PolicyToPath
-    PolicyToPath,
-    policyToPath,
-    ptpPolicies,
-    ptpPath,
+    PolicyToPath (PolicyToPath'),
+    newPolicyToPath,
 
     -- ** Rule
-    Rule,
-    rule,
-    rType,
-    rParameters,
+    Rule (Rule'),
+    newRule,
 
     -- ** SchemaFacet
-    SchemaFacet,
-    schemaFacet,
-    sfSchemaARN,
-    sfFacetName,
+    SchemaFacet (SchemaFacet'),
+    newSchemaFacet,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TypedAttributeValue
-    TypedAttributeValue,
-    typedAttributeValue,
-    tavStringValue,
-    tavBooleanValue,
-    tavBinaryValue,
-    tavNumberValue,
-    tavDatetimeValue,
+    TypedAttributeValue (TypedAttributeValue'),
+    newTypedAttributeValue,
 
     -- ** TypedAttributeValueRange
-    TypedAttributeValueRange,
-    typedAttributeValueRange,
-    tavrEndValue,
-    tavrStartValue,
-    tavrStartMode,
-    tavrEndMode,
+    TypedAttributeValueRange (TypedAttributeValueRange'),
+    newTypedAttributeValueRange,
 
     -- ** TypedLinkAttributeDefinition
-    TypedLinkAttributeDefinition,
-    typedLinkAttributeDefinition,
-    tladIsImmutable,
-    tladRules,
-    tladDefaultValue,
-    tladName,
-    tladType,
-    tladRequiredBehavior,
+    TypedLinkAttributeDefinition (TypedLinkAttributeDefinition'),
+    newTypedLinkAttributeDefinition,
 
     -- ** TypedLinkAttributeRange
-    TypedLinkAttributeRange,
-    typedLinkAttributeRange,
-    tlarAttributeName,
-    tlarRange,
+    TypedLinkAttributeRange (TypedLinkAttributeRange'),
+    newTypedLinkAttributeRange,
 
     -- ** TypedLinkFacet
-    TypedLinkFacet,
-    typedLinkFacet,
-    tlfName,
-    tlfAttributes,
-    tlfIdentityAttributeOrder,
+    TypedLinkFacet (TypedLinkFacet'),
+    newTypedLinkFacet,
 
     -- ** TypedLinkFacetAttributeUpdate
-    TypedLinkFacetAttributeUpdate,
-    typedLinkFacetAttributeUpdate,
-    tlfauAttribute,
-    tlfauAction,
+    TypedLinkFacetAttributeUpdate (TypedLinkFacetAttributeUpdate'),
+    newTypedLinkFacetAttributeUpdate,
 
     -- ** TypedLinkSchemaAndFacetName
-    TypedLinkSchemaAndFacetName,
-    typedLinkSchemaAndFacetName,
-    tlsafnSchemaARN,
-    tlsafnTypedLinkName,
+    TypedLinkSchemaAndFacetName (TypedLinkSchemaAndFacetName'),
+    newTypedLinkSchemaAndFacetName,
 
     -- ** TypedLinkSpecifier
-    TypedLinkSpecifier,
-    typedLinkSpecifier,
-    tlsTypedLinkFacet,
-    tlsSourceObjectReference,
-    tlsTargetObjectReference,
-    tlsIdentityAttributeValues,
+    TypedLinkSpecifier (TypedLinkSpecifier'),
+    newTypedLinkSpecifier,
   )
 where
 
@@ -1037,17 +980,18 @@ import Network.AWS.CloudDirectory.GetFacet
 import Network.AWS.CloudDirectory.GetLinkAttributes
 import Network.AWS.CloudDirectory.GetObjectAttributes
 import Network.AWS.CloudDirectory.GetObjectInformation
-import Network.AWS.CloudDirectory.GetSchemaAsJSON
+import Network.AWS.CloudDirectory.GetSchemaAsJson
 import Network.AWS.CloudDirectory.GetTypedLinkFacetInformation
-import Network.AWS.CloudDirectory.ListAppliedSchemaARNs
+import Network.AWS.CloudDirectory.Lens
+import Network.AWS.CloudDirectory.ListAppliedSchemaArns
 import Network.AWS.CloudDirectory.ListAttachedIndices
-import Network.AWS.CloudDirectory.ListDevelopmentSchemaARNs
+import Network.AWS.CloudDirectory.ListDevelopmentSchemaArns
 import Network.AWS.CloudDirectory.ListDirectories
 import Network.AWS.CloudDirectory.ListFacetAttributes
 import Network.AWS.CloudDirectory.ListFacetNames
 import Network.AWS.CloudDirectory.ListIncomingTypedLinks
 import Network.AWS.CloudDirectory.ListIndex
-import Network.AWS.CloudDirectory.ListManagedSchemaARNs
+import Network.AWS.CloudDirectory.ListManagedSchemaArns
 import Network.AWS.CloudDirectory.ListObjectAttributes
 import Network.AWS.CloudDirectory.ListObjectChildren
 import Network.AWS.CloudDirectory.ListObjectParentPaths
@@ -1055,13 +999,13 @@ import Network.AWS.CloudDirectory.ListObjectParents
 import Network.AWS.CloudDirectory.ListObjectPolicies
 import Network.AWS.CloudDirectory.ListOutgoingTypedLinks
 import Network.AWS.CloudDirectory.ListPolicyAttachments
-import Network.AWS.CloudDirectory.ListPublishedSchemaARNs
+import Network.AWS.CloudDirectory.ListPublishedSchemaArns
 import Network.AWS.CloudDirectory.ListTagsForResource
 import Network.AWS.CloudDirectory.ListTypedLinkFacetAttributes
 import Network.AWS.CloudDirectory.ListTypedLinkFacetNames
 import Network.AWS.CloudDirectory.LookupPolicy
 import Network.AWS.CloudDirectory.PublishSchema
-import Network.AWS.CloudDirectory.PutSchemaFromJSON
+import Network.AWS.CloudDirectory.PutSchemaFromJson
 import Network.AWS.CloudDirectory.RemoveFacetFromObject
 import Network.AWS.CloudDirectory.TagResource
 import Network.AWS.CloudDirectory.Types

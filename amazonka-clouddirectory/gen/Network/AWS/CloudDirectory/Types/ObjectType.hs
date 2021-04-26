@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.CloudDirectory.Types.ObjectType
   ( ObjectType
       ( ..,
-        Index,
-        LeafNode,
-        Node,
-        Policy
+        ObjectTypeINDEX,
+        ObjectTypeLEAFNODE,
+        ObjectTypeNODE,
+        ObjectTypePOLICY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ObjectType = ObjectType' (CI Text)
+newtype ObjectType = ObjectType'
+  { fromObjectType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Index :: ObjectType
-pattern Index = ObjectType' "INDEX"
+pattern ObjectTypeINDEX :: ObjectType
+pattern ObjectTypeINDEX = ObjectType' "INDEX"
 
-pattern LeafNode :: ObjectType
-pattern LeafNode = ObjectType' "LEAF_NODE"
+pattern ObjectTypeLEAFNODE :: ObjectType
+pattern ObjectTypeLEAFNODE = ObjectType' "LEAF_NODE"
 
-pattern Node :: ObjectType
-pattern Node = ObjectType' "NODE"
+pattern ObjectTypeNODE :: ObjectType
+pattern ObjectTypeNODE = ObjectType' "NODE"
 
-pattern Policy :: ObjectType
-pattern Policy = ObjectType' "POLICY"
+pattern ObjectTypePOLICY :: ObjectType
+pattern ObjectTypePOLICY = ObjectType' "POLICY"
 
 {-# COMPLETE
-  Index,
-  LeafNode,
-  Node,
-  Policy,
+  ObjectTypeINDEX,
+  ObjectTypeLEAFNODE,
+  ObjectTypeNODE,
+  ObjectTypePOLICY,
   ObjectType'
   #-}
 
-instance FromText ObjectType where
-  parser = (ObjectType' . mk) <$> takeText
+instance Prelude.FromText ObjectType where
+  parser = ObjectType' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectType where
-  toText (ObjectType' ci) = original ci
+instance Prelude.ToText ObjectType where
+  toText (ObjectType' x) = x
 
-instance Hashable ObjectType
+instance Prelude.Hashable ObjectType
 
-instance NFData ObjectType
+instance Prelude.NFData ObjectType
 
-instance ToByteString ObjectType
+instance Prelude.ToByteString ObjectType
 
-instance ToQuery ObjectType
+instance Prelude.ToQuery ObjectType
 
-instance ToHeader ObjectType
+instance Prelude.ToHeader ObjectType
 
-instance ToJSON ObjectType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ObjectType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ObjectType where
-  parseJSON = parseJSONText "ObjectType"
+instance Prelude.FromJSON ObjectType where
+  parseJSON = Prelude.parseJSONText "ObjectType"

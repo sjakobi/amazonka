@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.AttributeKey where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A unique identifier for an attribute.
 --
---
---
--- /See:/ 'attributeKey' smart constructor.
+-- /See:/ 'newAttributeKey' smart constructor.
 data AttributeKey = AttributeKey'
-  { _akSchemaARN ::
-      !Text,
-    _akFacetName :: !Text,
-    _akName :: !Text
+  { -- | The Amazon Resource Name (ARN) of the schema that contains the facet and
+    -- attribute.
+    schemaArn :: Prelude.Text,
+    -- | The name of the facet that the attribute exists within.
+    facetName :: Prelude.Text,
+    -- | The name of the attribute.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttributeKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttributeKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'akSchemaARN' - The Amazon Resource Name (ARN) of the schema that contains the facet and attribute.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'akFacetName' - The name of the facet that the attribute exists within.
+-- 'schemaArn', 'attributeKey_schemaArn' - The Amazon Resource Name (ARN) of the schema that contains the facet and
+-- attribute.
 --
--- * 'akName' - The name of the attribute.
-attributeKey ::
-  -- | 'akSchemaARN'
-  Text ->
-  -- | 'akFacetName'
-  Text ->
-  -- | 'akName'
-  Text ->
+-- 'facetName', 'attributeKey_facetName' - The name of the facet that the attribute exists within.
+--
+-- 'name', 'attributeKey_name' - The name of the attribute.
+newAttributeKey ::
+  -- | 'schemaArn'
+  Prelude.Text ->
+  -- | 'facetName'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   AttributeKey
-attributeKey pSchemaARN_ pFacetName_ pName_ =
+newAttributeKey pSchemaArn_ pFacetName_ pName_ =
   AttributeKey'
-    { _akSchemaARN = pSchemaARN_,
-      _akFacetName = pFacetName_,
-      _akName = pName_
+    { schemaArn = pSchemaArn_,
+      facetName = pFacetName_,
+      name = pName_
     }
 
--- | The Amazon Resource Name (ARN) of the schema that contains the facet and attribute.
-akSchemaARN :: Lens' AttributeKey Text
-akSchemaARN = lens _akSchemaARN (\s a -> s {_akSchemaARN = a})
+-- | The Amazon Resource Name (ARN) of the schema that contains the facet and
+-- attribute.
+attributeKey_schemaArn :: Lens.Lens' AttributeKey Prelude.Text
+attributeKey_schemaArn = Lens.lens (\AttributeKey' {schemaArn} -> schemaArn) (\s@AttributeKey' {} a -> s {schemaArn = a} :: AttributeKey)
 
 -- | The name of the facet that the attribute exists within.
-akFacetName :: Lens' AttributeKey Text
-akFacetName = lens _akFacetName (\s a -> s {_akFacetName = a})
+attributeKey_facetName :: Lens.Lens' AttributeKey Prelude.Text
+attributeKey_facetName = Lens.lens (\AttributeKey' {facetName} -> facetName) (\s@AttributeKey' {} a -> s {facetName = a} :: AttributeKey)
 
 -- | The name of the attribute.
-akName :: Lens' AttributeKey Text
-akName = lens _akName (\s a -> s {_akName = a})
+attributeKey_name :: Lens.Lens' AttributeKey Prelude.Text
+attributeKey_name = Lens.lens (\AttributeKey' {name} -> name) (\s@AttributeKey' {} a -> s {name = a} :: AttributeKey)
 
-instance FromJSON AttributeKey where
+instance Prelude.FromJSON AttributeKey where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttributeKey"
       ( \x ->
           AttributeKey'
-            <$> (x .: "SchemaArn")
-            <*> (x .: "FacetName")
-            <*> (x .: "Name")
+            Prelude.<$> (x Prelude..: "SchemaArn")
+            Prelude.<*> (x Prelude..: "FacetName")
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable AttributeKey
+instance Prelude.Hashable AttributeKey
 
-instance NFData AttributeKey
+instance Prelude.NFData AttributeKey
 
-instance ToJSON AttributeKey where
+instance Prelude.ToJSON AttributeKey where
   toJSON AttributeKey' {..} =
-    object
-      ( catMaybes
-          [ Just ("SchemaArn" .= _akSchemaARN),
-            Just ("FacetName" .= _akFacetName),
-            Just ("Name" .= _akName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("SchemaArn" Prelude..= schemaArn),
+            Prelude.Just ("FacetName" Prelude..= facetName),
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

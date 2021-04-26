@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,67 @@
 module Network.AWS.CloudDirectory.Types.BatchListIncomingTypedLinksResponse where
 
 import Network.AWS.CloudDirectory.Types.TypedLinkSpecifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'ListIncomingTypedLinks' response operation.
+-- | Represents the output of a ListIncomingTypedLinks response operation.
 --
---
---
--- /See:/ 'batchListIncomingTypedLinksResponse' smart constructor.
+-- /See:/ 'newBatchListIncomingTypedLinksResponse' smart constructor.
 data BatchListIncomingTypedLinksResponse = BatchListIncomingTypedLinksResponse'
-  { _blitlrLinkSpecifiers ::
-      !( Maybe
-           [TypedLinkSpecifier]
-       ),
-    _blitlrNextToken ::
-      !( Maybe
-           Text
-       )
+  { -- | Returns one or more typed link specifiers as output.
+    linkSpecifiers :: Prelude.Maybe [TypedLinkSpecifier],
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListIncomingTypedLinksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListIncomingTypedLinksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'blitlrLinkSpecifiers' - Returns one or more typed link specifiers as output.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'blitlrNextToken' - The pagination token.
-batchListIncomingTypedLinksResponse ::
+-- 'linkSpecifiers', 'batchListIncomingTypedLinksResponse_linkSpecifiers' - Returns one or more typed link specifiers as output.
+--
+-- 'nextToken', 'batchListIncomingTypedLinksResponse_nextToken' - The pagination token.
+newBatchListIncomingTypedLinksResponse ::
   BatchListIncomingTypedLinksResponse
-batchListIncomingTypedLinksResponse =
+newBatchListIncomingTypedLinksResponse =
   BatchListIncomingTypedLinksResponse'
-    { _blitlrLinkSpecifiers =
-        Nothing,
-      _blitlrNextToken = Nothing
+    { linkSpecifiers =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Returns one or more typed link specifiers as output.
-blitlrLinkSpecifiers :: Lens' BatchListIncomingTypedLinksResponse [TypedLinkSpecifier]
-blitlrLinkSpecifiers = lens _blitlrLinkSpecifiers (\s a -> s {_blitlrLinkSpecifiers = a}) . _Default . _Coerce
+batchListIncomingTypedLinksResponse_linkSpecifiers :: Lens.Lens' BatchListIncomingTypedLinksResponse (Prelude.Maybe [TypedLinkSpecifier])
+batchListIncomingTypedLinksResponse_linkSpecifiers = Lens.lens (\BatchListIncomingTypedLinksResponse' {linkSpecifiers} -> linkSpecifiers) (\s@BatchListIncomingTypedLinksResponse' {} a -> s {linkSpecifiers = a} :: BatchListIncomingTypedLinksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The pagination token.
-blitlrNextToken :: Lens' BatchListIncomingTypedLinksResponse (Maybe Text)
-blitlrNextToken = lens _blitlrNextToken (\s a -> s {_blitlrNextToken = a})
+batchListIncomingTypedLinksResponse_nextToken :: Lens.Lens' BatchListIncomingTypedLinksResponse (Prelude.Maybe Prelude.Text)
+batchListIncomingTypedLinksResponse_nextToken = Lens.lens (\BatchListIncomingTypedLinksResponse' {nextToken} -> nextToken) (\s@BatchListIncomingTypedLinksResponse' {} a -> s {nextToken = a} :: BatchListIncomingTypedLinksResponse)
 
-instance FromJSON BatchListIncomingTypedLinksResponse where
+instance
+  Prelude.FromJSON
+    BatchListIncomingTypedLinksResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchListIncomingTypedLinksResponse"
       ( \x ->
           BatchListIncomingTypedLinksResponse'
-            <$> (x .:? "LinkSpecifiers" .!= mempty)
-            <*> (x .:? "NextToken")
+            Prelude.<$> ( x Prelude..:? "LinkSpecifiers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "NextToken")
       )
 
-instance Hashable BatchListIncomingTypedLinksResponse
+instance
+  Prelude.Hashable
+    BatchListIncomingTypedLinksResponse
 
-instance NFData BatchListIncomingTypedLinksResponse
+instance
+  Prelude.NFData
+    BatchListIncomingTypedLinksResponse

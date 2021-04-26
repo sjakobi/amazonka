@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Publishes a development schema with a major version and a recommended minor version.
+-- Publishes a development schema with a major version and a recommended
+-- minor version.
 module Network.AWS.CloudDirectory.PublishSchema
   ( -- * Creating a Request
-    publishSchema,
-    PublishSchema,
+    PublishSchema (..),
+    newPublishSchema,
 
     -- * Request Lenses
-    psName,
-    psMinorVersion,
-    psDevelopmentSchemaARN,
-    psVersion,
+    publishSchema_name,
+    publishSchema_minorVersion,
+    publishSchema_developmentSchemaArn,
+    publishSchema_version,
 
     -- * Destructuring the Response
-    publishSchemaResponse,
-    PublishSchemaResponse,
+    PublishSchemaResponse (..),
+    newPublishSchemaResponse,
 
     -- * Response Lenses
-    psrrsPublishedSchemaARN,
-    psrrsResponseStatus,
+    publishSchemaResponse_publishedSchemaArn,
+    publishSchemaResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'publishSchema' smart constructor.
+-- | /See:/ 'newPublishSchema' smart constructor.
 data PublishSchema = PublishSchema'
-  { _psName ::
-      !(Maybe Text),
-    _psMinorVersion :: !(Maybe Text),
-    _psDevelopmentSchemaARN :: !Text,
-    _psVersion :: !Text
+  { -- | The new name under which the schema will be published. If this is not
+    -- provided, the development schema is considered.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The minor version under which the schema will be published. This
+    -- parameter is recommended. Schemas have both a major and minor version
+    -- associated with them.
+    minorVersion :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) that is associated with the development
+    -- schema. For more information, see arns.
+    developmentSchemaArn :: Prelude.Text,
+    -- | The major version under which the schema will be published. Schemas have
+    -- both a major and minor version associated with them.
+    version :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublishSchema' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublishSchema' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psName' - The new name under which the schema will be published. If this is not provided, the development schema is considered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psMinorVersion' - The minor version under which the schema will be published. This parameter is recommended. Schemas have both a major and minor version associated with them.
+-- 'name', 'publishSchema_name' - The new name under which the schema will be published. If this is not
+-- provided, the development schema is considered.
 --
--- * 'psDevelopmentSchemaARN' - The Amazon Resource Name (ARN) that is associated with the development schema. For more information, see 'arns' .
+-- 'minorVersion', 'publishSchema_minorVersion' - The minor version under which the schema will be published. This
+-- parameter is recommended. Schemas have both a major and minor version
+-- associated with them.
 --
--- * 'psVersion' - The major version under which the schema will be published. Schemas have both a major and minor version associated with them.
-publishSchema ::
-  -- | 'psDevelopmentSchemaARN'
-  Text ->
-  -- | 'psVersion'
-  Text ->
+-- 'developmentSchemaArn', 'publishSchema_developmentSchemaArn' - The Amazon Resource Name (ARN) that is associated with the development
+-- schema. For more information, see arns.
+--
+-- 'version', 'publishSchema_version' - The major version under which the schema will be published. Schemas have
+-- both a major and minor version associated with them.
+newPublishSchema ::
+  -- | 'developmentSchemaArn'
+  Prelude.Text ->
+  -- | 'version'
+  Prelude.Text ->
   PublishSchema
-publishSchema pDevelopmentSchemaARN_ pVersion_ =
+newPublishSchema pDevelopmentSchemaArn_ pVersion_ =
   PublishSchema'
-    { _psName = Nothing,
-      _psMinorVersion = Nothing,
-      _psDevelopmentSchemaARN = pDevelopmentSchemaARN_,
-      _psVersion = pVersion_
+    { name = Prelude.Nothing,
+      minorVersion = Prelude.Nothing,
+      developmentSchemaArn = pDevelopmentSchemaArn_,
+      version = pVersion_
     }
 
--- | The new name under which the schema will be published. If this is not provided, the development schema is considered.
-psName :: Lens' PublishSchema (Maybe Text)
-psName = lens _psName (\s a -> s {_psName = a})
+-- | The new name under which the schema will be published. If this is not
+-- provided, the development schema is considered.
+publishSchema_name :: Lens.Lens' PublishSchema (Prelude.Maybe Prelude.Text)
+publishSchema_name = Lens.lens (\PublishSchema' {name} -> name) (\s@PublishSchema' {} a -> s {name = a} :: PublishSchema)
 
--- | The minor version under which the schema will be published. This parameter is recommended. Schemas have both a major and minor version associated with them.
-psMinorVersion :: Lens' PublishSchema (Maybe Text)
-psMinorVersion = lens _psMinorVersion (\s a -> s {_psMinorVersion = a})
+-- | The minor version under which the schema will be published. This
+-- parameter is recommended. Schemas have both a major and minor version
+-- associated with them.
+publishSchema_minorVersion :: Lens.Lens' PublishSchema (Prelude.Maybe Prelude.Text)
+publishSchema_minorVersion = Lens.lens (\PublishSchema' {minorVersion} -> minorVersion) (\s@PublishSchema' {} a -> s {minorVersion = a} :: PublishSchema)
 
--- | The Amazon Resource Name (ARN) that is associated with the development schema. For more information, see 'arns' .
-psDevelopmentSchemaARN :: Lens' PublishSchema Text
-psDevelopmentSchemaARN = lens _psDevelopmentSchemaARN (\s a -> s {_psDevelopmentSchemaARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the development
+-- schema. For more information, see arns.
+publishSchema_developmentSchemaArn :: Lens.Lens' PublishSchema Prelude.Text
+publishSchema_developmentSchemaArn = Lens.lens (\PublishSchema' {developmentSchemaArn} -> developmentSchemaArn) (\s@PublishSchema' {} a -> s {developmentSchemaArn = a} :: PublishSchema)
 
--- | The major version under which the schema will be published. Schemas have both a major and minor version associated with them.
-psVersion :: Lens' PublishSchema Text
-psVersion = lens _psVersion (\s a -> s {_psVersion = a})
+-- | The major version under which the schema will be published. Schemas have
+-- both a major and minor version associated with them.
+publishSchema_version :: Lens.Lens' PublishSchema Prelude.Text
+publishSchema_version = Lens.lens (\PublishSchema' {version} -> version) (\s@PublishSchema' {} a -> s {version = a} :: PublishSchema)
 
-instance AWSRequest PublishSchema where
+instance Prelude.AWSRequest PublishSchema where
   type Rs PublishSchema = PublishSchemaResponse
-  request = putJSON cloudDirectory
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PublishSchemaResponse'
-            <$> (x .?> "PublishedSchemaArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PublishedSchemaArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PublishSchema
+instance Prelude.Hashable PublishSchema
 
-instance NFData PublishSchema
+instance Prelude.NFData PublishSchema
 
-instance ToHeaders PublishSchema where
+instance Prelude.ToHeaders PublishSchema where
   toHeaders PublishSchema' {..} =
-    mconcat
-      ["x-amz-data-partition" =# _psDevelopmentSchemaARN]
+    Prelude.mconcat
+      [ "x-amz-data-partition"
+          Prelude.=# developmentSchemaArn
+      ]
 
-instance ToJSON PublishSchema where
+instance Prelude.ToJSON PublishSchema where
   toJSON PublishSchema' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _psName,
-            ("MinorVersion" .=) <$> _psMinorVersion,
-            Just ("Version" .= _psVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("MinorVersion" Prelude..=) Prelude.<$> minorVersion,
+            Prelude.Just ("Version" Prelude..= version)
           ]
       )
 
-instance ToPath PublishSchema where
+instance Prelude.ToPath PublishSchema where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/schema/publish"
 
-instance ToQuery PublishSchema where
-  toQuery = const mempty
+instance Prelude.ToQuery PublishSchema where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'publishSchemaResponse' smart constructor.
+-- | /See:/ 'newPublishSchemaResponse' smart constructor.
 data PublishSchemaResponse = PublishSchemaResponse'
-  { _psrrsPublishedSchemaARN ::
-      !(Maybe Text),
-    _psrrsResponseStatus ::
-      !Int
+  { -- | The ARN that is associated with the published schema. For more
+    -- information, see arns.
+    publishedSchemaArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublishSchemaResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublishSchemaResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psrrsPublishedSchemaARN' - The ARN that is associated with the published schema. For more information, see 'arns' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psrrsResponseStatus' - -- | The response status code.
-publishSchemaResponse ::
-  -- | 'psrrsResponseStatus'
-  Int ->
+-- 'publishedSchemaArn', 'publishSchemaResponse_publishedSchemaArn' - The ARN that is associated with the published schema. For more
+-- information, see arns.
+--
+-- 'httpStatus', 'publishSchemaResponse_httpStatus' - The response's http status code.
+newPublishSchemaResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PublishSchemaResponse
-publishSchemaResponse pResponseStatus_ =
+newPublishSchemaResponse pHttpStatus_ =
   PublishSchemaResponse'
-    { _psrrsPublishedSchemaARN =
-        Nothing,
-      _psrrsResponseStatus = pResponseStatus_
+    { publishedSchemaArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The ARN that is associated with the published schema. For more information, see 'arns' .
-psrrsPublishedSchemaARN :: Lens' PublishSchemaResponse (Maybe Text)
-psrrsPublishedSchemaARN = lens _psrrsPublishedSchemaARN (\s a -> s {_psrrsPublishedSchemaARN = a})
+-- | The ARN that is associated with the published schema. For more
+-- information, see arns.
+publishSchemaResponse_publishedSchemaArn :: Lens.Lens' PublishSchemaResponse (Prelude.Maybe Prelude.Text)
+publishSchemaResponse_publishedSchemaArn = Lens.lens (\PublishSchemaResponse' {publishedSchemaArn} -> publishedSchemaArn) (\s@PublishSchemaResponse' {} a -> s {publishedSchemaArn = a} :: PublishSchemaResponse)
 
--- | -- | The response status code.
-psrrsResponseStatus :: Lens' PublishSchemaResponse Int
-psrrsResponseStatus = lens _psrrsResponseStatus (\s a -> s {_psrrsResponseStatus = a})
+-- | The response's http status code.
+publishSchemaResponse_httpStatus :: Lens.Lens' PublishSchemaResponse Prelude.Int
+publishSchemaResponse_httpStatus = Lens.lens (\PublishSchemaResponse' {httpStatus} -> httpStatus) (\s@PublishSchemaResponse' {} a -> s {httpStatus = a} :: PublishSchemaResponse)
 
-instance NFData PublishSchemaResponse
+instance Prelude.NFData PublishSchemaResponse

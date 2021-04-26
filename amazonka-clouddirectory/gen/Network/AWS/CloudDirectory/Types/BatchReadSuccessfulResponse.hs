@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -29,211 +33,231 @@ import Network.AWS.CloudDirectory.Types.BatchListObjectPoliciesResponse
 import Network.AWS.CloudDirectory.Types.BatchListOutgoingTypedLinksResponse
 import Network.AWS.CloudDirectory.Types.BatchListPolicyAttachmentsResponse
 import Network.AWS.CloudDirectory.Types.BatchLookupPolicyResponse
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the output of a @BatchRead@ success response operation.
 --
---
---
--- /See:/ 'batchReadSuccessfulResponse' smart constructor.
+-- /See:/ 'newBatchReadSuccessfulResponse' smart constructor.
 data BatchReadSuccessfulResponse = BatchReadSuccessfulResponse'
-  { _brsrGetObjectInformation ::
-      !( Maybe
-           BatchGetObjectInformationResponse
-       ),
-    _brsrGetObjectAttributes ::
-      !( Maybe
-           BatchGetObjectAttributesResponse
-       ),
-    _brsrListIncomingTypedLinks ::
-      !( Maybe
-           BatchListIncomingTypedLinksResponse
-       ),
-    _brsrListObjectParents ::
-      !( Maybe
-           BatchListObjectParentsResponse
-       ),
-    _brsrListPolicyAttachments ::
-      !( Maybe
-           BatchListPolicyAttachmentsResponse
-       ),
-    _brsrListObjectAttributes ::
-      !( Maybe
-           BatchListObjectAttributesResponse
-       ),
-    _brsrListObjectParentPaths ::
-      !( Maybe
-           BatchListObjectParentPathsResponse
-       ),
-    _brsrLookupPolicy ::
-      !( Maybe
-           BatchLookupPolicyResponse
-       ),
-    _brsrListAttachedIndices ::
-      !( Maybe
-           BatchListAttachedIndicesResponse
-       ),
-    _brsrListIndex ::
-      !( Maybe
-           BatchListIndexResponse
-       ),
-    _brsrListObjectChildren ::
-      !( Maybe
-           BatchListObjectChildrenResponse
-       ),
-    _brsrListObjectPolicies ::
-      !( Maybe
-           BatchListObjectPoliciesResponse
-       ),
-    _brsrGetLinkAttributes ::
-      !( Maybe
-           BatchGetLinkAttributesResponse
-       ),
-    _brsrListOutgoingTypedLinks ::
-      !( Maybe
-           BatchListOutgoingTypedLinksResponse
-       )
+  { -- | Retrieves metadata about an object.
+    getObjectInformation :: Prelude.Maybe BatchGetObjectInformationResponse,
+    -- | Retrieves attributes within a facet that are associated with an object.
+    getObjectAttributes :: Prelude.Maybe BatchGetObjectAttributesResponse,
+    -- | Returns a paginated list of all the incoming TypedLinkSpecifier
+    -- information for an object. It also supports filtering by typed link
+    -- facet and identity attributes. For more information, see
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
+    listIncomingTypedLinks :: Prelude.Maybe BatchListIncomingTypedLinksResponse,
+    listObjectParents :: Prelude.Maybe BatchListObjectParentsResponse,
+    -- | Returns all of the @ObjectIdentifiers@ to which a given policy is
+    -- attached.
+    listPolicyAttachments :: Prelude.Maybe BatchListPolicyAttachmentsResponse,
+    -- | Lists all attributes that are associated with an object.
+    listObjectAttributes :: Prelude.Maybe BatchListObjectAttributesResponse,
+    -- | Retrieves all available parent paths for any object type such as node,
+    -- leaf node, policy node, and index node objects. For more information
+    -- about objects, see
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html Directory Structure>.
+    listObjectParentPaths :: Prelude.Maybe BatchListObjectParentPathsResponse,
+    -- | Lists all policies from the root of the Directory to the object
+    -- specified. If there are no policies present, an empty list is returned.
+    -- If policies are present, and if some objects don\'t have the policies
+    -- attached, it returns the @ObjectIdentifier@ for such objects. If
+    -- policies are present, it returns @ObjectIdentifier@, @policyId@, and
+    -- @policyType@. Paths that don\'t lead to the root from the target object
+    -- are ignored. For more information, see
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+    lookupPolicy :: Prelude.Maybe BatchLookupPolicyResponse,
+    -- | Lists indices attached to an object.
+    listAttachedIndices :: Prelude.Maybe BatchListAttachedIndicesResponse,
+    -- | Lists objects attached to the specified index.
+    listIndex :: Prelude.Maybe BatchListIndexResponse,
+    -- | Returns a paginated list of child objects that are associated with a
+    -- given object.
+    listObjectChildren :: Prelude.Maybe BatchListObjectChildrenResponse,
+    -- | Returns policies attached to an object in pagination fashion.
+    listObjectPolicies :: Prelude.Maybe BatchListObjectPoliciesResponse,
+    -- | The list of attributes to retrieve from the typed link.
+    getLinkAttributes :: Prelude.Maybe BatchGetLinkAttributesResponse,
+    -- | Returns a paginated list of all the outgoing TypedLinkSpecifier
+    -- information for an object. It also supports filtering by typed link
+    -- facet and identity attributes. For more information, see
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
+    listOutgoingTypedLinks :: Prelude.Maybe BatchListOutgoingTypedLinksResponse
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchReadSuccessfulResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchReadSuccessfulResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'brsrGetObjectInformation' - Retrieves metadata about an object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'brsrGetObjectAttributes' - Retrieves attributes within a facet that are associated with an object.
+-- 'getObjectInformation', 'batchReadSuccessfulResponse_getObjectInformation' - Retrieves metadata about an object.
 --
--- * 'brsrListIncomingTypedLinks' - Returns a paginated list of all the incoming 'TypedLinkSpecifier' information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
+-- 'getObjectAttributes', 'batchReadSuccessfulResponse_getObjectAttributes' - Retrieves attributes within a facet that are associated with an object.
 --
--- * 'brsrListObjectParents' - Undocumented member.
+-- 'listIncomingTypedLinks', 'batchReadSuccessfulResponse_listIncomingTypedLinks' - Returns a paginated list of all the incoming TypedLinkSpecifier
+-- information for an object. It also supports filtering by typed link
+-- facet and identity attributes. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
 --
--- * 'brsrListPolicyAttachments' - Returns all of the @ObjectIdentifiers@ to which a given policy is attached.
+-- 'listObjectParents', 'batchReadSuccessfulResponse_listObjectParents' - Undocumented member.
 --
--- * 'brsrListObjectAttributes' - Lists all attributes that are associated with an object.
+-- 'listPolicyAttachments', 'batchReadSuccessfulResponse_listPolicyAttachments' - Returns all of the @ObjectIdentifiers@ to which a given policy is
+-- attached.
 --
--- * 'brsrListObjectParentPaths' - Retrieves all available parent paths for any object type such as node, leaf node, policy node, and index node objects. For more information about objects, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html Directory Structure> .
+-- 'listObjectAttributes', 'batchReadSuccessfulResponse_listObjectAttributes' - Lists all attributes that are associated with an object.
 --
--- * 'brsrLookupPolicy' - Lists all policies from the root of the 'Directory' to the object specified. If there are no policies present, an empty list is returned. If policies are present, and if some objects don't have the policies attached, it returns the @ObjectIdentifier@ for such objects. If policies are present, it returns @ObjectIdentifier@ , @policyId@ , and @policyType@ . Paths that don't lead to the root from the target object are ignored. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies> .
+-- 'listObjectParentPaths', 'batchReadSuccessfulResponse_listObjectParentPaths' - Retrieves all available parent paths for any object type such as node,
+-- leaf node, policy node, and index node objects. For more information
+-- about objects, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html Directory Structure>.
 --
--- * 'brsrListAttachedIndices' - Lists indices attached to an object.
+-- 'lookupPolicy', 'batchReadSuccessfulResponse_lookupPolicy' - Lists all policies from the root of the Directory to the object
+-- specified. If there are no policies present, an empty list is returned.
+-- If policies are present, and if some objects don\'t have the policies
+-- attached, it returns the @ObjectIdentifier@ for such objects. If
+-- policies are present, it returns @ObjectIdentifier@, @policyId@, and
+-- @policyType@. Paths that don\'t lead to the root from the target object
+-- are ignored. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
 --
--- * 'brsrListIndex' - Lists objects attached to the specified index.
+-- 'listAttachedIndices', 'batchReadSuccessfulResponse_listAttachedIndices' - Lists indices attached to an object.
 --
--- * 'brsrListObjectChildren' - Returns a paginated list of child objects that are associated with a given object.
+-- 'listIndex', 'batchReadSuccessfulResponse_listIndex' - Lists objects attached to the specified index.
 --
--- * 'brsrListObjectPolicies' - Returns policies attached to an object in pagination fashion.
+-- 'listObjectChildren', 'batchReadSuccessfulResponse_listObjectChildren' - Returns a paginated list of child objects that are associated with a
+-- given object.
 --
--- * 'brsrGetLinkAttributes' - The list of attributes to retrieve from the typed link.
+-- 'listObjectPolicies', 'batchReadSuccessfulResponse_listObjectPolicies' - Returns policies attached to an object in pagination fashion.
 --
--- * 'brsrListOutgoingTypedLinks' - Returns a paginated list of all the outgoing 'TypedLinkSpecifier' information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
-batchReadSuccessfulResponse ::
+-- 'getLinkAttributes', 'batchReadSuccessfulResponse_getLinkAttributes' - The list of attributes to retrieve from the typed link.
+--
+-- 'listOutgoingTypedLinks', 'batchReadSuccessfulResponse_listOutgoingTypedLinks' - Returns a paginated list of all the outgoing TypedLinkSpecifier
+-- information for an object. It also supports filtering by typed link
+-- facet and identity attributes. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
+newBatchReadSuccessfulResponse ::
   BatchReadSuccessfulResponse
-batchReadSuccessfulResponse =
+newBatchReadSuccessfulResponse =
   BatchReadSuccessfulResponse'
-    { _brsrGetObjectInformation =
-        Nothing,
-      _brsrGetObjectAttributes = Nothing,
-      _brsrListIncomingTypedLinks = Nothing,
-      _brsrListObjectParents = Nothing,
-      _brsrListPolicyAttachments = Nothing,
-      _brsrListObjectAttributes = Nothing,
-      _brsrListObjectParentPaths = Nothing,
-      _brsrLookupPolicy = Nothing,
-      _brsrListAttachedIndices = Nothing,
-      _brsrListIndex = Nothing,
-      _brsrListObjectChildren = Nothing,
-      _brsrListObjectPolicies = Nothing,
-      _brsrGetLinkAttributes = Nothing,
-      _brsrListOutgoingTypedLinks = Nothing
+    { getObjectInformation =
+        Prelude.Nothing,
+      getObjectAttributes = Prelude.Nothing,
+      listIncomingTypedLinks = Prelude.Nothing,
+      listObjectParents = Prelude.Nothing,
+      listPolicyAttachments = Prelude.Nothing,
+      listObjectAttributes = Prelude.Nothing,
+      listObjectParentPaths = Prelude.Nothing,
+      lookupPolicy = Prelude.Nothing,
+      listAttachedIndices = Prelude.Nothing,
+      listIndex = Prelude.Nothing,
+      listObjectChildren = Prelude.Nothing,
+      listObjectPolicies = Prelude.Nothing,
+      getLinkAttributes = Prelude.Nothing,
+      listOutgoingTypedLinks = Prelude.Nothing
     }
 
 -- | Retrieves metadata about an object.
-brsrGetObjectInformation :: Lens' BatchReadSuccessfulResponse (Maybe BatchGetObjectInformationResponse)
-brsrGetObjectInformation = lens _brsrGetObjectInformation (\s a -> s {_brsrGetObjectInformation = a})
+batchReadSuccessfulResponse_getObjectInformation :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchGetObjectInformationResponse)
+batchReadSuccessfulResponse_getObjectInformation = Lens.lens (\BatchReadSuccessfulResponse' {getObjectInformation} -> getObjectInformation) (\s@BatchReadSuccessfulResponse' {} a -> s {getObjectInformation = a} :: BatchReadSuccessfulResponse)
 
 -- | Retrieves attributes within a facet that are associated with an object.
-brsrGetObjectAttributes :: Lens' BatchReadSuccessfulResponse (Maybe BatchGetObjectAttributesResponse)
-brsrGetObjectAttributes = lens _brsrGetObjectAttributes (\s a -> s {_brsrGetObjectAttributes = a})
+batchReadSuccessfulResponse_getObjectAttributes :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchGetObjectAttributesResponse)
+batchReadSuccessfulResponse_getObjectAttributes = Lens.lens (\BatchReadSuccessfulResponse' {getObjectAttributes} -> getObjectAttributes) (\s@BatchReadSuccessfulResponse' {} a -> s {getObjectAttributes = a} :: BatchReadSuccessfulResponse)
 
--- | Returns a paginated list of all the incoming 'TypedLinkSpecifier' information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
-brsrListIncomingTypedLinks :: Lens' BatchReadSuccessfulResponse (Maybe BatchListIncomingTypedLinksResponse)
-brsrListIncomingTypedLinks = lens _brsrListIncomingTypedLinks (\s a -> s {_brsrListIncomingTypedLinks = a})
+-- | Returns a paginated list of all the incoming TypedLinkSpecifier
+-- information for an object. It also supports filtering by typed link
+-- facet and identity attributes. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
+batchReadSuccessfulResponse_listIncomingTypedLinks :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListIncomingTypedLinksResponse)
+batchReadSuccessfulResponse_listIncomingTypedLinks = Lens.lens (\BatchReadSuccessfulResponse' {listIncomingTypedLinks} -> listIncomingTypedLinks) (\s@BatchReadSuccessfulResponse' {} a -> s {listIncomingTypedLinks = a} :: BatchReadSuccessfulResponse)
 
 -- | Undocumented member.
-brsrListObjectParents :: Lens' BatchReadSuccessfulResponse (Maybe BatchListObjectParentsResponse)
-brsrListObjectParents = lens _brsrListObjectParents (\s a -> s {_brsrListObjectParents = a})
+batchReadSuccessfulResponse_listObjectParents :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListObjectParentsResponse)
+batchReadSuccessfulResponse_listObjectParents = Lens.lens (\BatchReadSuccessfulResponse' {listObjectParents} -> listObjectParents) (\s@BatchReadSuccessfulResponse' {} a -> s {listObjectParents = a} :: BatchReadSuccessfulResponse)
 
--- | Returns all of the @ObjectIdentifiers@ to which a given policy is attached.
-brsrListPolicyAttachments :: Lens' BatchReadSuccessfulResponse (Maybe BatchListPolicyAttachmentsResponse)
-brsrListPolicyAttachments = lens _brsrListPolicyAttachments (\s a -> s {_brsrListPolicyAttachments = a})
+-- | Returns all of the @ObjectIdentifiers@ to which a given policy is
+-- attached.
+batchReadSuccessfulResponse_listPolicyAttachments :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListPolicyAttachmentsResponse)
+batchReadSuccessfulResponse_listPolicyAttachments = Lens.lens (\BatchReadSuccessfulResponse' {listPolicyAttachments} -> listPolicyAttachments) (\s@BatchReadSuccessfulResponse' {} a -> s {listPolicyAttachments = a} :: BatchReadSuccessfulResponse)
 
 -- | Lists all attributes that are associated with an object.
-brsrListObjectAttributes :: Lens' BatchReadSuccessfulResponse (Maybe BatchListObjectAttributesResponse)
-brsrListObjectAttributes = lens _brsrListObjectAttributes (\s a -> s {_brsrListObjectAttributes = a})
+batchReadSuccessfulResponse_listObjectAttributes :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListObjectAttributesResponse)
+batchReadSuccessfulResponse_listObjectAttributes = Lens.lens (\BatchReadSuccessfulResponse' {listObjectAttributes} -> listObjectAttributes) (\s@BatchReadSuccessfulResponse' {} a -> s {listObjectAttributes = a} :: BatchReadSuccessfulResponse)
 
--- | Retrieves all available parent paths for any object type such as node, leaf node, policy node, and index node objects. For more information about objects, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html Directory Structure> .
-brsrListObjectParentPaths :: Lens' BatchReadSuccessfulResponse (Maybe BatchListObjectParentPathsResponse)
-brsrListObjectParentPaths = lens _brsrListObjectParentPaths (\s a -> s {_brsrListObjectParentPaths = a})
+-- | Retrieves all available parent paths for any object type such as node,
+-- leaf node, policy node, and index node objects. For more information
+-- about objects, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html Directory Structure>.
+batchReadSuccessfulResponse_listObjectParentPaths :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListObjectParentPathsResponse)
+batchReadSuccessfulResponse_listObjectParentPaths = Lens.lens (\BatchReadSuccessfulResponse' {listObjectParentPaths} -> listObjectParentPaths) (\s@BatchReadSuccessfulResponse' {} a -> s {listObjectParentPaths = a} :: BatchReadSuccessfulResponse)
 
--- | Lists all policies from the root of the 'Directory' to the object specified. If there are no policies present, an empty list is returned. If policies are present, and if some objects don't have the policies attached, it returns the @ObjectIdentifier@ for such objects. If policies are present, it returns @ObjectIdentifier@ , @policyId@ , and @policyType@ . Paths that don't lead to the root from the target object are ignored. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies> .
-brsrLookupPolicy :: Lens' BatchReadSuccessfulResponse (Maybe BatchLookupPolicyResponse)
-brsrLookupPolicy = lens _brsrLookupPolicy (\s a -> s {_brsrLookupPolicy = a})
+-- | Lists all policies from the root of the Directory to the object
+-- specified. If there are no policies present, an empty list is returned.
+-- If policies are present, and if some objects don\'t have the policies
+-- attached, it returns the @ObjectIdentifier@ for such objects. If
+-- policies are present, it returns @ObjectIdentifier@, @policyId@, and
+-- @policyType@. Paths that don\'t lead to the root from the target object
+-- are ignored. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+batchReadSuccessfulResponse_lookupPolicy :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchLookupPolicyResponse)
+batchReadSuccessfulResponse_lookupPolicy = Lens.lens (\BatchReadSuccessfulResponse' {lookupPolicy} -> lookupPolicy) (\s@BatchReadSuccessfulResponse' {} a -> s {lookupPolicy = a} :: BatchReadSuccessfulResponse)
 
 -- | Lists indices attached to an object.
-brsrListAttachedIndices :: Lens' BatchReadSuccessfulResponse (Maybe BatchListAttachedIndicesResponse)
-brsrListAttachedIndices = lens _brsrListAttachedIndices (\s a -> s {_brsrListAttachedIndices = a})
+batchReadSuccessfulResponse_listAttachedIndices :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListAttachedIndicesResponse)
+batchReadSuccessfulResponse_listAttachedIndices = Lens.lens (\BatchReadSuccessfulResponse' {listAttachedIndices} -> listAttachedIndices) (\s@BatchReadSuccessfulResponse' {} a -> s {listAttachedIndices = a} :: BatchReadSuccessfulResponse)
 
 -- | Lists objects attached to the specified index.
-brsrListIndex :: Lens' BatchReadSuccessfulResponse (Maybe BatchListIndexResponse)
-brsrListIndex = lens _brsrListIndex (\s a -> s {_brsrListIndex = a})
+batchReadSuccessfulResponse_listIndex :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListIndexResponse)
+batchReadSuccessfulResponse_listIndex = Lens.lens (\BatchReadSuccessfulResponse' {listIndex} -> listIndex) (\s@BatchReadSuccessfulResponse' {} a -> s {listIndex = a} :: BatchReadSuccessfulResponse)
 
--- | Returns a paginated list of child objects that are associated with a given object.
-brsrListObjectChildren :: Lens' BatchReadSuccessfulResponse (Maybe BatchListObjectChildrenResponse)
-brsrListObjectChildren = lens _brsrListObjectChildren (\s a -> s {_brsrListObjectChildren = a})
+-- | Returns a paginated list of child objects that are associated with a
+-- given object.
+batchReadSuccessfulResponse_listObjectChildren :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListObjectChildrenResponse)
+batchReadSuccessfulResponse_listObjectChildren = Lens.lens (\BatchReadSuccessfulResponse' {listObjectChildren} -> listObjectChildren) (\s@BatchReadSuccessfulResponse' {} a -> s {listObjectChildren = a} :: BatchReadSuccessfulResponse)
 
 -- | Returns policies attached to an object in pagination fashion.
-brsrListObjectPolicies :: Lens' BatchReadSuccessfulResponse (Maybe BatchListObjectPoliciesResponse)
-brsrListObjectPolicies = lens _brsrListObjectPolicies (\s a -> s {_brsrListObjectPolicies = a})
+batchReadSuccessfulResponse_listObjectPolicies :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListObjectPoliciesResponse)
+batchReadSuccessfulResponse_listObjectPolicies = Lens.lens (\BatchReadSuccessfulResponse' {listObjectPolicies} -> listObjectPolicies) (\s@BatchReadSuccessfulResponse' {} a -> s {listObjectPolicies = a} :: BatchReadSuccessfulResponse)
 
 -- | The list of attributes to retrieve from the typed link.
-brsrGetLinkAttributes :: Lens' BatchReadSuccessfulResponse (Maybe BatchGetLinkAttributesResponse)
-brsrGetLinkAttributes = lens _brsrGetLinkAttributes (\s a -> s {_brsrGetLinkAttributes = a})
+batchReadSuccessfulResponse_getLinkAttributes :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchGetLinkAttributesResponse)
+batchReadSuccessfulResponse_getLinkAttributes = Lens.lens (\BatchReadSuccessfulResponse' {getLinkAttributes} -> getLinkAttributes) (\s@BatchReadSuccessfulResponse' {} a -> s {getLinkAttributes = a} :: BatchReadSuccessfulResponse)
 
--- | Returns a paginated list of all the outgoing 'TypedLinkSpecifier' information for an object. It also supports filtering by typed link facet and identity attributes. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
-brsrListOutgoingTypedLinks :: Lens' BatchReadSuccessfulResponse (Maybe BatchListOutgoingTypedLinksResponse)
-brsrListOutgoingTypedLinks = lens _brsrListOutgoingTypedLinks (\s a -> s {_brsrListOutgoingTypedLinks = a})
+-- | Returns a paginated list of all the outgoing TypedLinkSpecifier
+-- information for an object. It also supports filtering by typed link
+-- facet and identity attributes. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
+batchReadSuccessfulResponse_listOutgoingTypedLinks :: Lens.Lens' BatchReadSuccessfulResponse (Prelude.Maybe BatchListOutgoingTypedLinksResponse)
+batchReadSuccessfulResponse_listOutgoingTypedLinks = Lens.lens (\BatchReadSuccessfulResponse' {listOutgoingTypedLinks} -> listOutgoingTypedLinks) (\s@BatchReadSuccessfulResponse' {} a -> s {listOutgoingTypedLinks = a} :: BatchReadSuccessfulResponse)
 
-instance FromJSON BatchReadSuccessfulResponse where
+instance Prelude.FromJSON BatchReadSuccessfulResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchReadSuccessfulResponse"
       ( \x ->
           BatchReadSuccessfulResponse'
-            <$> (x .:? "GetObjectInformation")
-            <*> (x .:? "GetObjectAttributes")
-            <*> (x .:? "ListIncomingTypedLinks")
-            <*> (x .:? "ListObjectParents")
-            <*> (x .:? "ListPolicyAttachments")
-            <*> (x .:? "ListObjectAttributes")
-            <*> (x .:? "ListObjectParentPaths")
-            <*> (x .:? "LookupPolicy")
-            <*> (x .:? "ListAttachedIndices")
-            <*> (x .:? "ListIndex")
-            <*> (x .:? "ListObjectChildren")
-            <*> (x .:? "ListObjectPolicies")
-            <*> (x .:? "GetLinkAttributes")
-            <*> (x .:? "ListOutgoingTypedLinks")
+            Prelude.<$> (x Prelude..:? "GetObjectInformation")
+            Prelude.<*> (x Prelude..:? "GetObjectAttributes")
+            Prelude.<*> (x Prelude..:? "ListIncomingTypedLinks")
+            Prelude.<*> (x Prelude..:? "ListObjectParents")
+            Prelude.<*> (x Prelude..:? "ListPolicyAttachments")
+            Prelude.<*> (x Prelude..:? "ListObjectAttributes")
+            Prelude.<*> (x Prelude..:? "ListObjectParentPaths")
+            Prelude.<*> (x Prelude..:? "LookupPolicy")
+            Prelude.<*> (x Prelude..:? "ListAttachedIndices")
+            Prelude.<*> (x Prelude..:? "ListIndex")
+            Prelude.<*> (x Prelude..:? "ListObjectChildren")
+            Prelude.<*> (x Prelude..:? "ListObjectPolicies")
+            Prelude.<*> (x Prelude..:? "GetLinkAttributes")
+            Prelude.<*> (x Prelude..:? "ListOutgoingTypedLinks")
       )
 
-instance Hashable BatchReadSuccessfulResponse
+instance Prelude.Hashable BatchReadSuccessfulResponse
 
-instance NFData BatchReadSuccessfulResponse
+instance Prelude.NFData BatchReadSuccessfulResponse

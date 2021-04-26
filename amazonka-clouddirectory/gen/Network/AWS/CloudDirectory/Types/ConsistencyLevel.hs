@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudDirectory.Types.ConsistencyLevel
   ( ConsistencyLevel
       ( ..,
-        Eventual,
-        Serializable
+        ConsistencyLevelEVENTUAL,
+        ConsistencyLevelSERIALIZABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConsistencyLevel = ConsistencyLevel' (CI Text)
+newtype ConsistencyLevel = ConsistencyLevel'
+  { fromConsistencyLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Eventual :: ConsistencyLevel
-pattern Eventual = ConsistencyLevel' "EVENTUAL"
+pattern ConsistencyLevelEVENTUAL :: ConsistencyLevel
+pattern ConsistencyLevelEVENTUAL = ConsistencyLevel' "EVENTUAL"
 
-pattern Serializable :: ConsistencyLevel
-pattern Serializable = ConsistencyLevel' "SERIALIZABLE"
+pattern ConsistencyLevelSERIALIZABLE :: ConsistencyLevel
+pattern ConsistencyLevelSERIALIZABLE = ConsistencyLevel' "SERIALIZABLE"
 
 {-# COMPLETE
-  Eventual,
-  Serializable,
+  ConsistencyLevelEVENTUAL,
+  ConsistencyLevelSERIALIZABLE,
   ConsistencyLevel'
   #-}
 
-instance FromText ConsistencyLevel where
-  parser = (ConsistencyLevel' . mk) <$> takeText
+instance Prelude.FromText ConsistencyLevel where
+  parser = ConsistencyLevel' Prelude.<$> Prelude.takeText
 
-instance ToText ConsistencyLevel where
-  toText (ConsistencyLevel' ci) = original ci
+instance Prelude.ToText ConsistencyLevel where
+  toText (ConsistencyLevel' x) = x
 
-instance Hashable ConsistencyLevel
+instance Prelude.Hashable ConsistencyLevel
 
-instance NFData ConsistencyLevel
+instance Prelude.NFData ConsistencyLevel
 
-instance ToByteString ConsistencyLevel
+instance Prelude.ToByteString ConsistencyLevel
 
-instance ToQuery ConsistencyLevel
+instance Prelude.ToQuery ConsistencyLevel
 
-instance ToHeader ConsistencyLevel
+instance Prelude.ToHeader ConsistencyLevel
 
-instance ToJSON ConsistencyLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConsistencyLevel where
+  toJSON = Prelude.toJSONText

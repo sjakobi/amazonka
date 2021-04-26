@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an object and its associated attributes. Only objects with no children and no parents can be deleted. The maximum number of attributes that can be deleted during an object deletion is 30. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html Amazon Cloud Directory Limits> .
+-- Deletes an object and its associated attributes. Only objects with no
+-- children and no parents can be deleted. The maximum number of attributes
+-- that can be deleted during an object deletion is 30. For more
+-- information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html Amazon Cloud Directory Limits>.
 module Network.AWS.CloudDirectory.DeleteObject
   ( -- * Creating a Request
-    deleteObject,
-    DeleteObject,
+    DeleteObject (..),
+    newDeleteObject,
 
     -- * Request Lenses
-    doDirectoryARN,
-    doObjectReference,
+    deleteObject_directoryArn,
+    deleteObject_objectReference,
 
     -- * Destructuring the Response
-    deleteObjectResponse,
-    DeleteObjectResponse,
+    DeleteObjectResponse (..),
+    newDeleteObjectResponse,
 
     -- * Response Lenses
-    dorrsResponseStatus,
+    deleteObjectResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteObject' smart constructor.
+-- | /See:/ 'newDeleteObject' smart constructor.
 data DeleteObject = DeleteObject'
-  { _doDirectoryARN ::
-      !Text,
-    _doObjectReference :: !ObjectReference
+  { -- | The Amazon Resource Name (ARN) that is associated with the Directory
+    -- where the object resides. For more information, see arns.
+    directoryArn :: Prelude.Text,
+    -- | A reference that identifies the object.
+    objectReference :: ObjectReference
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'doDirectoryARN' - The Amazon Resource Name (ARN) that is associated with the 'Directory' where the object resides. For more information, see 'arns' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'doObjectReference' - A reference that identifies the object.
-deleteObject ::
-  -- | 'doDirectoryARN'
-  Text ->
-  -- | 'doObjectReference'
+-- 'directoryArn', 'deleteObject_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the object resides. For more information, see arns.
+--
+-- 'objectReference', 'deleteObject_objectReference' - A reference that identifies the object.
+newDeleteObject ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'objectReference'
   ObjectReference ->
   DeleteObject
-deleteObject pDirectoryARN_ pObjectReference_ =
+newDeleteObject pDirectoryArn_ pObjectReference_ =
   DeleteObject'
-    { _doDirectoryARN = pDirectoryARN_,
-      _doObjectReference = pObjectReference_
+    { directoryArn = pDirectoryArn_,
+      objectReference = pObjectReference_
     }
 
--- | The Amazon Resource Name (ARN) that is associated with the 'Directory' where the object resides. For more information, see 'arns' .
-doDirectoryARN :: Lens' DeleteObject Text
-doDirectoryARN = lens _doDirectoryARN (\s a -> s {_doDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the object resides. For more information, see arns.
+deleteObject_directoryArn :: Lens.Lens' DeleteObject Prelude.Text
+deleteObject_directoryArn = Lens.lens (\DeleteObject' {directoryArn} -> directoryArn) (\s@DeleteObject' {} a -> s {directoryArn = a} :: DeleteObject)
 
 -- | A reference that identifies the object.
-doObjectReference :: Lens' DeleteObject ObjectReference
-doObjectReference = lens _doObjectReference (\s a -> s {_doObjectReference = a})
+deleteObject_objectReference :: Lens.Lens' DeleteObject ObjectReference
+deleteObject_objectReference = Lens.lens (\DeleteObject' {objectReference} -> objectReference) (\s@DeleteObject' {} a -> s {objectReference = a} :: DeleteObject)
 
-instance AWSRequest DeleteObject where
+instance Prelude.AWSRequest DeleteObject where
   type Rs DeleteObject = DeleteObjectResponse
-  request = putJSON cloudDirectory
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteObjectResponse' <$> (pure (fromEnum s))
+          DeleteObjectResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteObject
+instance Prelude.Hashable DeleteObject
 
-instance NFData DeleteObject
+instance Prelude.NFData DeleteObject
 
-instance ToHeaders DeleteObject where
+instance Prelude.ToHeaders DeleteObject where
   toHeaders DeleteObject' {..} =
-    mconcat ["x-amz-data-partition" =# _doDirectoryARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# directoryArn]
 
-instance ToJSON DeleteObject where
+instance Prelude.ToJSON DeleteObject where
   toJSON DeleteObject' {..} =
-    object
-      ( catMaybes
-          [Just ("ObjectReference" .= _doObjectReference)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
+          ]
       )
 
-instance ToPath DeleteObject where
+instance Prelude.ToPath DeleteObject where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/object/delete"
 
-instance ToQuery DeleteObject where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteObject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteObjectResponse' smart constructor.
-newtype DeleteObjectResponse = DeleteObjectResponse'
-  { _dorrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteObjectResponse' smart constructor.
+data DeleteObjectResponse = DeleteObjectResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteObjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteObjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dorrsResponseStatus' - -- | The response status code.
-deleteObjectResponse ::
-  -- | 'dorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteObjectResponse_httpStatus' - The response's http status code.
+newDeleteObjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteObjectResponse
-deleteObjectResponse pResponseStatus_ =
-  DeleteObjectResponse'
-    { _dorrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteObjectResponse pHttpStatus_ =
+  DeleteObjectResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dorrsResponseStatus :: Lens' DeleteObjectResponse Int
-dorrsResponseStatus = lens _dorrsResponseStatus (\s a -> s {_dorrsResponseStatus = a})
+-- | The response's http status code.
+deleteObjectResponse_httpStatus :: Lens.Lens' DeleteObjectResponse Prelude.Int
+deleteObjectResponse_httpStatus = Lens.lens (\DeleteObjectResponse' {httpStatus} -> httpStatus) (\s@DeleteObjectResponse' {} a -> s {httpStatus = a} :: DeleteObjectResponse)
 
-instance NFData DeleteObjectResponse
+instance Prelude.NFData DeleteObjectResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,90 +22,95 @@ module Network.AWS.CloudDirectory.Types.BatchAttachTypedLink where
 import Network.AWS.CloudDirectory.Types.AttributeNameAndValue
 import Network.AWS.CloudDirectory.Types.ObjectReference
 import Network.AWS.CloudDirectory.Types.TypedLinkSchemaAndFacetName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Attaches a typed link to a specified source and target object inside a 'BatchRead' operation. For more information, see 'AttachTypedLink' and 'BatchReadRequest$Operations' .
+-- | Attaches a typed link to a specified source and target object inside a
+-- BatchRead operation. For more information, see AttachTypedLink and
+-- BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchAttachTypedLink' smart constructor.
+-- /See:/ 'newBatchAttachTypedLink' smart constructor.
 data BatchAttachTypedLink = BatchAttachTypedLink'
-  { _batlSourceObjectReference ::
-      !ObjectReference,
-    _batlTargetObjectReference ::
-      !ObjectReference,
-    _batlTypedLinkFacet ::
-      !TypedLinkSchemaAndFacetName,
-    _batlAttributes ::
-      ![AttributeNameAndValue]
+  { -- | Identifies the source object that the typed link will attach to.
+    sourceObjectReference :: ObjectReference,
+    -- | Identifies the target object that the typed link will attach to.
+    targetObjectReference :: ObjectReference,
+    -- | Identifies the typed link facet that is associated with the typed link.
+    typedLinkFacet :: TypedLinkSchemaAndFacetName,
+    -- | A set of attributes that are associated with the typed link.
+    attributes :: [AttributeNameAndValue]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchAttachTypedLink' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchAttachTypedLink' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'batlSourceObjectReference' - Identifies the source object that the typed link will attach to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'batlTargetObjectReference' - Identifies the target object that the typed link will attach to.
+-- 'sourceObjectReference', 'batchAttachTypedLink_sourceObjectReference' - Identifies the source object that the typed link will attach to.
 --
--- * 'batlTypedLinkFacet' - Identifies the typed link facet that is associated with the typed link.
+-- 'targetObjectReference', 'batchAttachTypedLink_targetObjectReference' - Identifies the target object that the typed link will attach to.
 --
--- * 'batlAttributes' - A set of attributes that are associated with the typed link.
-batchAttachTypedLink ::
-  -- | 'batlSourceObjectReference'
+-- 'typedLinkFacet', 'batchAttachTypedLink_typedLinkFacet' - Identifies the typed link facet that is associated with the typed link.
+--
+-- 'attributes', 'batchAttachTypedLink_attributes' - A set of attributes that are associated with the typed link.
+newBatchAttachTypedLink ::
+  -- | 'sourceObjectReference'
   ObjectReference ->
-  -- | 'batlTargetObjectReference'
+  -- | 'targetObjectReference'
   ObjectReference ->
-  -- | 'batlTypedLinkFacet'
+  -- | 'typedLinkFacet'
   TypedLinkSchemaAndFacetName ->
   BatchAttachTypedLink
-batchAttachTypedLink
+newBatchAttachTypedLink
   pSourceObjectReference_
   pTargetObjectReference_
   pTypedLinkFacet_ =
     BatchAttachTypedLink'
-      { _batlSourceObjectReference =
+      { sourceObjectReference =
           pSourceObjectReference_,
-        _batlTargetObjectReference = pTargetObjectReference_,
-        _batlTypedLinkFacet = pTypedLinkFacet_,
-        _batlAttributes = mempty
+        targetObjectReference = pTargetObjectReference_,
+        typedLinkFacet = pTypedLinkFacet_,
+        attributes = Prelude.mempty
       }
 
 -- | Identifies the source object that the typed link will attach to.
-batlSourceObjectReference :: Lens' BatchAttachTypedLink ObjectReference
-batlSourceObjectReference = lens _batlSourceObjectReference (\s a -> s {_batlSourceObjectReference = a})
+batchAttachTypedLink_sourceObjectReference :: Lens.Lens' BatchAttachTypedLink ObjectReference
+batchAttachTypedLink_sourceObjectReference = Lens.lens (\BatchAttachTypedLink' {sourceObjectReference} -> sourceObjectReference) (\s@BatchAttachTypedLink' {} a -> s {sourceObjectReference = a} :: BatchAttachTypedLink)
 
 -- | Identifies the target object that the typed link will attach to.
-batlTargetObjectReference :: Lens' BatchAttachTypedLink ObjectReference
-batlTargetObjectReference = lens _batlTargetObjectReference (\s a -> s {_batlTargetObjectReference = a})
+batchAttachTypedLink_targetObjectReference :: Lens.Lens' BatchAttachTypedLink ObjectReference
+batchAttachTypedLink_targetObjectReference = Lens.lens (\BatchAttachTypedLink' {targetObjectReference} -> targetObjectReference) (\s@BatchAttachTypedLink' {} a -> s {targetObjectReference = a} :: BatchAttachTypedLink)
 
 -- | Identifies the typed link facet that is associated with the typed link.
-batlTypedLinkFacet :: Lens' BatchAttachTypedLink TypedLinkSchemaAndFacetName
-batlTypedLinkFacet = lens _batlTypedLinkFacet (\s a -> s {_batlTypedLinkFacet = a})
+batchAttachTypedLink_typedLinkFacet :: Lens.Lens' BatchAttachTypedLink TypedLinkSchemaAndFacetName
+batchAttachTypedLink_typedLinkFacet = Lens.lens (\BatchAttachTypedLink' {typedLinkFacet} -> typedLinkFacet) (\s@BatchAttachTypedLink' {} a -> s {typedLinkFacet = a} :: BatchAttachTypedLink)
 
 -- | A set of attributes that are associated with the typed link.
-batlAttributes :: Lens' BatchAttachTypedLink [AttributeNameAndValue]
-batlAttributes = lens _batlAttributes (\s a -> s {_batlAttributes = a}) . _Coerce
+batchAttachTypedLink_attributes :: Lens.Lens' BatchAttachTypedLink [AttributeNameAndValue]
+batchAttachTypedLink_attributes = Lens.lens (\BatchAttachTypedLink' {attributes} -> attributes) (\s@BatchAttachTypedLink' {} a -> s {attributes = a} :: BatchAttachTypedLink) Prelude.. Prelude._Coerce
 
-instance Hashable BatchAttachTypedLink
+instance Prelude.Hashable BatchAttachTypedLink
 
-instance NFData BatchAttachTypedLink
+instance Prelude.NFData BatchAttachTypedLink
 
-instance ToJSON BatchAttachTypedLink where
+instance Prelude.ToJSON BatchAttachTypedLink where
   toJSON BatchAttachTypedLink' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "SourceObjectReference"
-                  .= _batlSourceObjectReference
+                  Prelude..= sourceObjectReference
               ),
-            Just
+            Prelude.Just
               ( "TargetObjectReference"
-                  .= _batlTargetObjectReference
+                  Prelude..= targetObjectReference
               ),
-            Just ("TypedLinkFacet" .= _batlTypedLinkFacet),
-            Just ("Attributes" .= _batlAttributes)
+            Prelude.Just
+              ("TypedLinkFacet" Prelude..= typedLinkFacet),
+            Prelude.Just ("Attributes" Prelude..= attributes)
           ]
       )

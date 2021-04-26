@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,76 @@
 module Network.AWS.CloudDirectory.Types.BatchListObjectParentPaths where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Retrieves all available parent paths for any object type such as node, leaf node, policy node, and index node objects inside a 'BatchRead' operation. For more information, see 'ListObjectParentPaths' and 'BatchReadRequest$Operations' .
+-- | Retrieves all available parent paths for any object type such as node,
+-- leaf node, policy node, and index node objects inside a BatchRead
+-- operation. For more information, see ListObjectParentPaths and
+-- BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchListObjectParentPaths' smart constructor.
+-- /See:/ 'newBatchListObjectParentPaths' smart constructor.
 data BatchListObjectParentPaths = BatchListObjectParentPaths'
-  { _bloppNextToken ::
-      !(Maybe Text),
-    _bloppMaxResults ::
-      !(Maybe Nat),
-    _bloppObjectReference ::
-      !ObjectReference
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to retrieve.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The reference that identifies the object whose attributes will be
+    -- listed.
+    objectReference :: ObjectReference
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListObjectParentPaths' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListObjectParentPaths' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bloppNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bloppMaxResults' - The maximum number of results to retrieve.
+-- 'nextToken', 'batchListObjectParentPaths_nextToken' - The pagination token.
 --
--- * 'bloppObjectReference' - The reference that identifies the object whose attributes will be listed.
-batchListObjectParentPaths ::
-  -- | 'bloppObjectReference'
+-- 'maxResults', 'batchListObjectParentPaths_maxResults' - The maximum number of results to retrieve.
+--
+-- 'objectReference', 'batchListObjectParentPaths_objectReference' - The reference that identifies the object whose attributes will be
+-- listed.
+newBatchListObjectParentPaths ::
+  -- | 'objectReference'
   ObjectReference ->
   BatchListObjectParentPaths
-batchListObjectParentPaths pObjectReference_ =
+newBatchListObjectParentPaths pObjectReference_ =
   BatchListObjectParentPaths'
-    { _bloppNextToken =
-        Nothing,
-      _bloppMaxResults = Nothing,
-      _bloppObjectReference = pObjectReference_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      objectReference = pObjectReference_
     }
 
 -- | The pagination token.
-bloppNextToken :: Lens' BatchListObjectParentPaths (Maybe Text)
-bloppNextToken = lens _bloppNextToken (\s a -> s {_bloppNextToken = a})
+batchListObjectParentPaths_nextToken :: Lens.Lens' BatchListObjectParentPaths (Prelude.Maybe Prelude.Text)
+batchListObjectParentPaths_nextToken = Lens.lens (\BatchListObjectParentPaths' {nextToken} -> nextToken) (\s@BatchListObjectParentPaths' {} a -> s {nextToken = a} :: BatchListObjectParentPaths)
 
 -- | The maximum number of results to retrieve.
-bloppMaxResults :: Lens' BatchListObjectParentPaths (Maybe Natural)
-bloppMaxResults = lens _bloppMaxResults (\s a -> s {_bloppMaxResults = a}) . mapping _Nat
+batchListObjectParentPaths_maxResults :: Lens.Lens' BatchListObjectParentPaths (Prelude.Maybe Prelude.Natural)
+batchListObjectParentPaths_maxResults = Lens.lens (\BatchListObjectParentPaths' {maxResults} -> maxResults) (\s@BatchListObjectParentPaths' {} a -> s {maxResults = a} :: BatchListObjectParentPaths) Prelude.. Lens.mapping Prelude._Nat
 
--- | The reference that identifies the object whose attributes will be listed.
-bloppObjectReference :: Lens' BatchListObjectParentPaths ObjectReference
-bloppObjectReference = lens _bloppObjectReference (\s a -> s {_bloppObjectReference = a})
+-- | The reference that identifies the object whose attributes will be
+-- listed.
+batchListObjectParentPaths_objectReference :: Lens.Lens' BatchListObjectParentPaths ObjectReference
+batchListObjectParentPaths_objectReference = Lens.lens (\BatchListObjectParentPaths' {objectReference} -> objectReference) (\s@BatchListObjectParentPaths' {} a -> s {objectReference = a} :: BatchListObjectParentPaths)
 
-instance Hashable BatchListObjectParentPaths
+instance Prelude.Hashable BatchListObjectParentPaths
 
-instance NFData BatchListObjectParentPaths
+instance Prelude.NFData BatchListObjectParentPaths
 
-instance ToJSON BatchListObjectParentPaths where
+instance Prelude.ToJSON BatchListObjectParentPaths where
   toJSON BatchListObjectParentPaths' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _bloppNextToken,
-            ("MaxResults" .=) <$> _bloppMaxResults,
-            Just ("ObjectReference" .= _bloppObjectReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
           ]
       )

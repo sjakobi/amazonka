@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,83 @@
 module Network.AWS.CloudDirectory.Types.Directory where
 
 import Network.AWS.CloudDirectory.Types.DirectoryState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Directory structure that includes the directory name and directory ARN.
 --
---
---
--- /See:/ 'directory' smart constructor.
+-- /See:/ 'newDirectory' smart constructor.
 data Directory = Directory'
-  { _dDirectoryARN ::
-      !(Maybe Text),
-    _dState :: !(Maybe DirectoryState),
-    _dName :: !(Maybe Text),
-    _dCreationDateTime :: !(Maybe POSIX)
+  { -- | The Amazon Resource Name (ARN) that is associated with the directory.
+    -- For more information, see arns.
+    directoryArn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the directory. Can be either @Enabled@, @Disabled@, or
+    -- @Deleted@.
+    state :: Prelude.Maybe DirectoryState,
+    -- | The name of the directory.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the directory was created.
+    creationDateTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Directory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Directory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dDirectoryARN' - The Amazon Resource Name (ARN) that is associated with the directory. For more information, see 'arns' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dState' - The state of the directory. Can be either @Enabled@ , @Disabled@ , or @Deleted@ .
+-- 'directoryArn', 'directory_directoryArn' - The Amazon Resource Name (ARN) that is associated with the directory.
+-- For more information, see arns.
 --
--- * 'dName' - The name of the directory.
+-- 'state', 'directory_state' - The state of the directory. Can be either @Enabled@, @Disabled@, or
+-- @Deleted@.
 --
--- * 'dCreationDateTime' - The date and time when the directory was created.
-directory ::
+-- 'name', 'directory_name' - The name of the directory.
+--
+-- 'creationDateTime', 'directory_creationDateTime' - The date and time when the directory was created.
+newDirectory ::
   Directory
-directory =
+newDirectory =
   Directory'
-    { _dDirectoryARN = Nothing,
-      _dState = Nothing,
-      _dName = Nothing,
-      _dCreationDateTime = Nothing
+    { directoryArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      creationDateTime = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) that is associated with the directory. For more information, see 'arns' .
-dDirectoryARN :: Lens' Directory (Maybe Text)
-dDirectoryARN = lens _dDirectoryARN (\s a -> s {_dDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the directory.
+-- For more information, see arns.
+directory_directoryArn :: Lens.Lens' Directory (Prelude.Maybe Prelude.Text)
+directory_directoryArn = Lens.lens (\Directory' {directoryArn} -> directoryArn) (\s@Directory' {} a -> s {directoryArn = a} :: Directory)
 
--- | The state of the directory. Can be either @Enabled@ , @Disabled@ , or @Deleted@ .
-dState :: Lens' Directory (Maybe DirectoryState)
-dState = lens _dState (\s a -> s {_dState = a})
+-- | The state of the directory. Can be either @Enabled@, @Disabled@, or
+-- @Deleted@.
+directory_state :: Lens.Lens' Directory (Prelude.Maybe DirectoryState)
+directory_state = Lens.lens (\Directory' {state} -> state) (\s@Directory' {} a -> s {state = a} :: Directory)
 
 -- | The name of the directory.
-dName :: Lens' Directory (Maybe Text)
-dName = lens _dName (\s a -> s {_dName = a})
+directory_name :: Lens.Lens' Directory (Prelude.Maybe Prelude.Text)
+directory_name = Lens.lens (\Directory' {name} -> name) (\s@Directory' {} a -> s {name = a} :: Directory)
 
 -- | The date and time when the directory was created.
-dCreationDateTime :: Lens' Directory (Maybe UTCTime)
-dCreationDateTime = lens _dCreationDateTime (\s a -> s {_dCreationDateTime = a}) . mapping _Time
+directory_creationDateTime :: Lens.Lens' Directory (Prelude.Maybe Prelude.UTCTime)
+directory_creationDateTime = Lens.lens (\Directory' {creationDateTime} -> creationDateTime) (\s@Directory' {} a -> s {creationDateTime = a} :: Directory) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON Directory where
+instance Prelude.FromJSON Directory where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Directory"
       ( \x ->
           Directory'
-            <$> (x .:? "DirectoryArn")
-            <*> (x .:? "State")
-            <*> (x .:? "Name")
-            <*> (x .:? "CreationDateTime")
+            Prelude.<$> (x Prelude..:? "DirectoryArn")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "CreationDateTime")
       )
 
-instance Hashable Directory
+instance Prelude.Hashable Directory
 
-instance NFData Directory
+instance Prelude.NFData Directory

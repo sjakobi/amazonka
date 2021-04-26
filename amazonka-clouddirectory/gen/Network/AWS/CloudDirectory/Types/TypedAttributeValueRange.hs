@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,89 +21,82 @@ module Network.AWS.CloudDirectory.Types.TypedAttributeValueRange where
 
 import Network.AWS.CloudDirectory.Types.RangeMode
 import Network.AWS.CloudDirectory.Types.TypedAttributeValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A range of attribute values. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_range_filters.html Range Filters> .
+-- | A range of attribute values. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_range_filters.html Range Filters>.
 --
---
---
--- /See:/ 'typedAttributeValueRange' smart constructor.
+-- /See:/ 'newTypedAttributeValueRange' smart constructor.
 data TypedAttributeValueRange = TypedAttributeValueRange'
-  { _tavrEndValue ::
-      !( Maybe
-           TypedAttributeValue
-       ),
-    _tavrStartValue ::
-      !( Maybe
-           TypedAttributeValue
-       ),
-    _tavrStartMode ::
-      !RangeMode,
-    _tavrEndMode ::
-      !RangeMode
+  { -- | The attribute value to terminate the range at.
+    endValue :: Prelude.Maybe TypedAttributeValue,
+    -- | The value to start the range at.
+    startValue :: Prelude.Maybe TypedAttributeValue,
+    -- | The inclusive or exclusive range start.
+    startMode :: RangeMode,
+    -- | The inclusive or exclusive range end.
+    endMode :: RangeMode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TypedAttributeValueRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TypedAttributeValueRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tavrEndValue' - The attribute value to terminate the range at.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tavrStartValue' - The value to start the range at.
+-- 'endValue', 'typedAttributeValueRange_endValue' - The attribute value to terminate the range at.
 --
--- * 'tavrStartMode' - The inclusive or exclusive range start.
+-- 'startValue', 'typedAttributeValueRange_startValue' - The value to start the range at.
 --
--- * 'tavrEndMode' - The inclusive or exclusive range end.
-typedAttributeValueRange ::
-  -- | 'tavrStartMode'
+-- 'startMode', 'typedAttributeValueRange_startMode' - The inclusive or exclusive range start.
+--
+-- 'endMode', 'typedAttributeValueRange_endMode' - The inclusive or exclusive range end.
+newTypedAttributeValueRange ::
+  -- | 'startMode'
   RangeMode ->
-  -- | 'tavrEndMode'
+  -- | 'endMode'
   RangeMode ->
   TypedAttributeValueRange
-typedAttributeValueRange pStartMode_ pEndMode_ =
+newTypedAttributeValueRange pStartMode_ pEndMode_ =
   TypedAttributeValueRange'
-    { _tavrEndValue = Nothing,
-      _tavrStartValue = Nothing,
-      _tavrStartMode = pStartMode_,
-      _tavrEndMode = pEndMode_
+    { endValue =
+        Prelude.Nothing,
+      startValue = Prelude.Nothing,
+      startMode = pStartMode_,
+      endMode = pEndMode_
     }
 
 -- | The attribute value to terminate the range at.
-tavrEndValue :: Lens' TypedAttributeValueRange (Maybe TypedAttributeValue)
-tavrEndValue = lens _tavrEndValue (\s a -> s {_tavrEndValue = a})
+typedAttributeValueRange_endValue :: Lens.Lens' TypedAttributeValueRange (Prelude.Maybe TypedAttributeValue)
+typedAttributeValueRange_endValue = Lens.lens (\TypedAttributeValueRange' {endValue} -> endValue) (\s@TypedAttributeValueRange' {} a -> s {endValue = a} :: TypedAttributeValueRange)
 
 -- | The value to start the range at.
-tavrStartValue :: Lens' TypedAttributeValueRange (Maybe TypedAttributeValue)
-tavrStartValue = lens _tavrStartValue (\s a -> s {_tavrStartValue = a})
+typedAttributeValueRange_startValue :: Lens.Lens' TypedAttributeValueRange (Prelude.Maybe TypedAttributeValue)
+typedAttributeValueRange_startValue = Lens.lens (\TypedAttributeValueRange' {startValue} -> startValue) (\s@TypedAttributeValueRange' {} a -> s {startValue = a} :: TypedAttributeValueRange)
 
 -- | The inclusive or exclusive range start.
-tavrStartMode :: Lens' TypedAttributeValueRange RangeMode
-tavrStartMode = lens _tavrStartMode (\s a -> s {_tavrStartMode = a})
+typedAttributeValueRange_startMode :: Lens.Lens' TypedAttributeValueRange RangeMode
+typedAttributeValueRange_startMode = Lens.lens (\TypedAttributeValueRange' {startMode} -> startMode) (\s@TypedAttributeValueRange' {} a -> s {startMode = a} :: TypedAttributeValueRange)
 
 -- | The inclusive or exclusive range end.
-tavrEndMode :: Lens' TypedAttributeValueRange RangeMode
-tavrEndMode = lens _tavrEndMode (\s a -> s {_tavrEndMode = a})
+typedAttributeValueRange_endMode :: Lens.Lens' TypedAttributeValueRange RangeMode
+typedAttributeValueRange_endMode = Lens.lens (\TypedAttributeValueRange' {endMode} -> endMode) (\s@TypedAttributeValueRange' {} a -> s {endMode = a} :: TypedAttributeValueRange)
 
-instance Hashable TypedAttributeValueRange
+instance Prelude.Hashable TypedAttributeValueRange
 
-instance NFData TypedAttributeValueRange
+instance Prelude.NFData TypedAttributeValueRange
 
-instance ToJSON TypedAttributeValueRange where
+instance Prelude.ToJSON TypedAttributeValueRange where
   toJSON TypedAttributeValueRange' {..} =
-    object
-      ( catMaybes
-          [ ("EndValue" .=) <$> _tavrEndValue,
-            ("StartValue" .=) <$> _tavrStartValue,
-            Just ("StartMode" .= _tavrStartMode),
-            Just ("EndMode" .= _tavrEndMode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EndValue" Prelude..=) Prelude.<$> endValue,
+            ("StartValue" Prelude..=) Prelude.<$> startValue,
+            Prelude.Just ("StartMode" Prelude..= startMode),
+            Prelude.Just ("EndMode" Prelude..= endMode)
           ]
       )

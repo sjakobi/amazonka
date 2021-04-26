@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,72 @@
 module Network.AWS.CloudDirectory.Types.BatchListAttachedIndices where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Lists indices attached to an object inside a 'BatchRead' operation. For more information, see 'ListAttachedIndices' and 'BatchReadRequest$Operations' .
+-- | Lists indices attached to an object inside a BatchRead operation. For
+-- more information, see ListAttachedIndices and
+-- BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchListAttachedIndices' smart constructor.
+-- /See:/ 'newBatchListAttachedIndices' smart constructor.
 data BatchListAttachedIndices = BatchListAttachedIndices'
-  { _blaiNextToken ::
-      !(Maybe Text),
-    _blaiMaxResults ::
-      !(Maybe Nat),
-    _blaiTargetReference ::
-      !ObjectReference
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to retrieve.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A reference to the object that has indices attached.
+    targetReference :: ObjectReference
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListAttachedIndices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListAttachedIndices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'blaiNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'blaiMaxResults' - The maximum number of results to retrieve.
+-- 'nextToken', 'batchListAttachedIndices_nextToken' - The pagination token.
 --
--- * 'blaiTargetReference' - A reference to the object that has indices attached.
-batchListAttachedIndices ::
-  -- | 'blaiTargetReference'
+-- 'maxResults', 'batchListAttachedIndices_maxResults' - The maximum number of results to retrieve.
+--
+-- 'targetReference', 'batchListAttachedIndices_targetReference' - A reference to the object that has indices attached.
+newBatchListAttachedIndices ::
+  -- | 'targetReference'
   ObjectReference ->
   BatchListAttachedIndices
-batchListAttachedIndices pTargetReference_ =
+newBatchListAttachedIndices pTargetReference_ =
   BatchListAttachedIndices'
-    { _blaiNextToken = Nothing,
-      _blaiMaxResults = Nothing,
-      _blaiTargetReference = pTargetReference_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      targetReference = pTargetReference_
     }
 
 -- | The pagination token.
-blaiNextToken :: Lens' BatchListAttachedIndices (Maybe Text)
-blaiNextToken = lens _blaiNextToken (\s a -> s {_blaiNextToken = a})
+batchListAttachedIndices_nextToken :: Lens.Lens' BatchListAttachedIndices (Prelude.Maybe Prelude.Text)
+batchListAttachedIndices_nextToken = Lens.lens (\BatchListAttachedIndices' {nextToken} -> nextToken) (\s@BatchListAttachedIndices' {} a -> s {nextToken = a} :: BatchListAttachedIndices)
 
 -- | The maximum number of results to retrieve.
-blaiMaxResults :: Lens' BatchListAttachedIndices (Maybe Natural)
-blaiMaxResults = lens _blaiMaxResults (\s a -> s {_blaiMaxResults = a}) . mapping _Nat
+batchListAttachedIndices_maxResults :: Lens.Lens' BatchListAttachedIndices (Prelude.Maybe Prelude.Natural)
+batchListAttachedIndices_maxResults = Lens.lens (\BatchListAttachedIndices' {maxResults} -> maxResults) (\s@BatchListAttachedIndices' {} a -> s {maxResults = a} :: BatchListAttachedIndices) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A reference to the object that has indices attached.
-blaiTargetReference :: Lens' BatchListAttachedIndices ObjectReference
-blaiTargetReference = lens _blaiTargetReference (\s a -> s {_blaiTargetReference = a})
+batchListAttachedIndices_targetReference :: Lens.Lens' BatchListAttachedIndices ObjectReference
+batchListAttachedIndices_targetReference = Lens.lens (\BatchListAttachedIndices' {targetReference} -> targetReference) (\s@BatchListAttachedIndices' {} a -> s {targetReference = a} :: BatchListAttachedIndices)
 
-instance Hashable BatchListAttachedIndices
+instance Prelude.Hashable BatchListAttachedIndices
 
-instance NFData BatchListAttachedIndices
+instance Prelude.NFData BatchListAttachedIndices
 
-instance ToJSON BatchListAttachedIndices where
+instance Prelude.ToJSON BatchListAttachedIndices where
   toJSON BatchListAttachedIndices' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _blaiNextToken,
-            ("MaxResults" .=) <$> _blaiMaxResults,
-            Just ("TargetReference" .= _blaiTargetReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("TargetReference" Prelude..= targetReference)
           ]
       )

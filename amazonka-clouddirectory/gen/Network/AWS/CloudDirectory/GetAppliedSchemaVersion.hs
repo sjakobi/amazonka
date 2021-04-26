@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns current applied schema version ARN, including the minor version in use.
+-- Returns current applied schema version ARN, including the minor version
+-- in use.
 module Network.AWS.CloudDirectory.GetAppliedSchemaVersion
   ( -- * Creating a Request
-    getAppliedSchemaVersion,
-    GetAppliedSchemaVersion,
+    GetAppliedSchemaVersion (..),
+    newGetAppliedSchemaVersion,
 
     -- * Request Lenses
-    gasvSchemaARN,
+    getAppliedSchemaVersion_schemaArn,
 
     -- * Destructuring the Response
-    getAppliedSchemaVersionResponse,
-    GetAppliedSchemaVersionResponse,
+    GetAppliedSchemaVersionResponse (..),
+    newGetAppliedSchemaVersionResponse,
 
     -- * Response Lenses
-    gasvrrsAppliedSchemaARN,
-    gasvrrsResponseStatus,
+    getAppliedSchemaVersionResponse_appliedSchemaArn,
+    getAppliedSchemaVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAppliedSchemaVersion' smart constructor.
-newtype GetAppliedSchemaVersion = GetAppliedSchemaVersion'
-  { _gasvSchemaARN ::
-      Text
+-- | /See:/ 'newGetAppliedSchemaVersion' smart constructor.
+data GetAppliedSchemaVersion = GetAppliedSchemaVersion'
+  { -- | The ARN of the applied schema.
+    schemaArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppliedSchemaVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppliedSchemaVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gasvSchemaARN' - The ARN of the applied schema.
-getAppliedSchemaVersion ::
-  -- | 'gasvSchemaARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'schemaArn', 'getAppliedSchemaVersion_schemaArn' - The ARN of the applied schema.
+newGetAppliedSchemaVersion ::
+  -- | 'schemaArn'
+  Prelude.Text ->
   GetAppliedSchemaVersion
-getAppliedSchemaVersion pSchemaARN_ =
-  GetAppliedSchemaVersion'
-    { _gasvSchemaARN =
-        pSchemaARN_
-    }
+newGetAppliedSchemaVersion pSchemaArn_ =
+  GetAppliedSchemaVersion' {schemaArn = pSchemaArn_}
 
 -- | The ARN of the applied schema.
-gasvSchemaARN :: Lens' GetAppliedSchemaVersion Text
-gasvSchemaARN = lens _gasvSchemaARN (\s a -> s {_gasvSchemaARN = a})
+getAppliedSchemaVersion_schemaArn :: Lens.Lens' GetAppliedSchemaVersion Prelude.Text
+getAppliedSchemaVersion_schemaArn = Lens.lens (\GetAppliedSchemaVersion' {schemaArn} -> schemaArn) (\s@GetAppliedSchemaVersion' {} a -> s {schemaArn = a} :: GetAppliedSchemaVersion)
 
-instance AWSRequest GetAppliedSchemaVersion where
+instance Prelude.AWSRequest GetAppliedSchemaVersion where
   type
     Rs GetAppliedSchemaVersion =
       GetAppliedSchemaVersionResponse
-  request = postJSON cloudDirectory
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAppliedSchemaVersionResponse'
-            <$> (x .?> "AppliedSchemaArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AppliedSchemaArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAppliedSchemaVersion
+instance Prelude.Hashable GetAppliedSchemaVersion
 
-instance NFData GetAppliedSchemaVersion
+instance Prelude.NFData GetAppliedSchemaVersion
 
-instance ToHeaders GetAppliedSchemaVersion where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetAppliedSchemaVersion where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetAppliedSchemaVersion where
+instance Prelude.ToJSON GetAppliedSchemaVersion where
   toJSON GetAppliedSchemaVersion' {..} =
-    object
-      (catMaybes [Just ("SchemaArn" .= _gasvSchemaARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SchemaArn" Prelude..= schemaArn)]
+      )
 
-instance ToPath GetAppliedSchemaVersion where
+instance Prelude.ToPath GetAppliedSchemaVersion where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/schema/getappliedschema"
 
-instance ToQuery GetAppliedSchemaVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAppliedSchemaVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAppliedSchemaVersionResponse' smart constructor.
+-- | /See:/ 'newGetAppliedSchemaVersionResponse' smart constructor.
 data GetAppliedSchemaVersionResponse = GetAppliedSchemaVersionResponse'
-  { _gasvrrsAppliedSchemaARN ::
-      !( Maybe
-           Text
-       ),
-    _gasvrrsResponseStatus ::
-      !Int
+  { -- | Current applied schema ARN, including the minor version in use if one
+    -- was provided.
+    appliedSchemaArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppliedSchemaVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppliedSchemaVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gasvrrsAppliedSchemaARN' - Current applied schema ARN, including the minor version in use if one was provided.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gasvrrsResponseStatus' - -- | The response status code.
-getAppliedSchemaVersionResponse ::
-  -- | 'gasvrrsResponseStatus'
-  Int ->
+-- 'appliedSchemaArn', 'getAppliedSchemaVersionResponse_appliedSchemaArn' - Current applied schema ARN, including the minor version in use if one
+-- was provided.
+--
+-- 'httpStatus', 'getAppliedSchemaVersionResponse_httpStatus' - The response's http status code.
+newGetAppliedSchemaVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAppliedSchemaVersionResponse
-getAppliedSchemaVersionResponse pResponseStatus_ =
+newGetAppliedSchemaVersionResponse pHttpStatus_ =
   GetAppliedSchemaVersionResponse'
-    { _gasvrrsAppliedSchemaARN =
-        Nothing,
-      _gasvrrsResponseStatus = pResponseStatus_
+    { appliedSchemaArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Current applied schema ARN, including the minor version in use if one was provided.
-gasvrrsAppliedSchemaARN :: Lens' GetAppliedSchemaVersionResponse (Maybe Text)
-gasvrrsAppliedSchemaARN = lens _gasvrrsAppliedSchemaARN (\s a -> s {_gasvrrsAppliedSchemaARN = a})
+-- | Current applied schema ARN, including the minor version in use if one
+-- was provided.
+getAppliedSchemaVersionResponse_appliedSchemaArn :: Lens.Lens' GetAppliedSchemaVersionResponse (Prelude.Maybe Prelude.Text)
+getAppliedSchemaVersionResponse_appliedSchemaArn = Lens.lens (\GetAppliedSchemaVersionResponse' {appliedSchemaArn} -> appliedSchemaArn) (\s@GetAppliedSchemaVersionResponse' {} a -> s {appliedSchemaArn = a} :: GetAppliedSchemaVersionResponse)
 
--- | -- | The response status code.
-gasvrrsResponseStatus :: Lens' GetAppliedSchemaVersionResponse Int
-gasvrrsResponseStatus = lens _gasvrrsResponseStatus (\s a -> s {_gasvrrsResponseStatus = a})
+-- | The response's http status code.
+getAppliedSchemaVersionResponse_httpStatus :: Lens.Lens' GetAppliedSchemaVersionResponse Prelude.Int
+getAppliedSchemaVersionResponse_httpStatus = Lens.lens (\GetAppliedSchemaVersionResponse' {httpStatus} -> httpStatus) (\s@GetAppliedSchemaVersionResponse' {} a -> s {httpStatus = a} :: GetAppliedSchemaVersionResponse)
 
-instance NFData GetAppliedSchemaVersionResponse
+instance
+  Prelude.NFData
+    GetAppliedSchemaVersionResponse

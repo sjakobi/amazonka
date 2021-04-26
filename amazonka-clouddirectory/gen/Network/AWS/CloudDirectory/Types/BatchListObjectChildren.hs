@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,73 @@
 module Network.AWS.CloudDirectory.Types.BatchListObjectChildren where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'ListObjectChildren' operation.
+-- | Represents the output of a ListObjectChildren operation.
 --
---
---
--- /See:/ 'batchListObjectChildren' smart constructor.
+-- /See:/ 'newBatchListObjectChildren' smart constructor.
 data BatchListObjectChildren = BatchListObjectChildren'
-  { _blocNextToken ::
-      !(Maybe Text),
-    _blocMaxResults ::
-      !(Maybe Nat),
-    _blocObjectReference ::
-      !ObjectReference
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of items to be retrieved in a single call. This is an
+    -- approximate number.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Reference of the object for which child objects are being listed.
+    objectReference :: ObjectReference
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListObjectChildren' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListObjectChildren' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'blocNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'blocMaxResults' - Maximum number of items to be retrieved in a single call. This is an approximate number.
+-- 'nextToken', 'batchListObjectChildren_nextToken' - The pagination token.
 --
--- * 'blocObjectReference' - Reference of the object for which child objects are being listed.
-batchListObjectChildren ::
-  -- | 'blocObjectReference'
+-- 'maxResults', 'batchListObjectChildren_maxResults' - Maximum number of items to be retrieved in a single call. This is an
+-- approximate number.
+--
+-- 'objectReference', 'batchListObjectChildren_objectReference' - Reference of the object for which child objects are being listed.
+newBatchListObjectChildren ::
+  -- | 'objectReference'
   ObjectReference ->
   BatchListObjectChildren
-batchListObjectChildren pObjectReference_ =
+newBatchListObjectChildren pObjectReference_ =
   BatchListObjectChildren'
-    { _blocNextToken = Nothing,
-      _blocMaxResults = Nothing,
-      _blocObjectReference = pObjectReference_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      objectReference = pObjectReference_
     }
 
 -- | The pagination token.
-blocNextToken :: Lens' BatchListObjectChildren (Maybe Text)
-blocNextToken = lens _blocNextToken (\s a -> s {_blocNextToken = a})
+batchListObjectChildren_nextToken :: Lens.Lens' BatchListObjectChildren (Prelude.Maybe Prelude.Text)
+batchListObjectChildren_nextToken = Lens.lens (\BatchListObjectChildren' {nextToken} -> nextToken) (\s@BatchListObjectChildren' {} a -> s {nextToken = a} :: BatchListObjectChildren)
 
--- | Maximum number of items to be retrieved in a single call. This is an approximate number.
-blocMaxResults :: Lens' BatchListObjectChildren (Maybe Natural)
-blocMaxResults = lens _blocMaxResults (\s a -> s {_blocMaxResults = a}) . mapping _Nat
+-- | Maximum number of items to be retrieved in a single call. This is an
+-- approximate number.
+batchListObjectChildren_maxResults :: Lens.Lens' BatchListObjectChildren (Prelude.Maybe Prelude.Natural)
+batchListObjectChildren_maxResults = Lens.lens (\BatchListObjectChildren' {maxResults} -> maxResults) (\s@BatchListObjectChildren' {} a -> s {maxResults = a} :: BatchListObjectChildren) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Reference of the object for which child objects are being listed.
-blocObjectReference :: Lens' BatchListObjectChildren ObjectReference
-blocObjectReference = lens _blocObjectReference (\s a -> s {_blocObjectReference = a})
+batchListObjectChildren_objectReference :: Lens.Lens' BatchListObjectChildren ObjectReference
+batchListObjectChildren_objectReference = Lens.lens (\BatchListObjectChildren' {objectReference} -> objectReference) (\s@BatchListObjectChildren' {} a -> s {objectReference = a} :: BatchListObjectChildren)
 
-instance Hashable BatchListObjectChildren
+instance Prelude.Hashable BatchListObjectChildren
 
-instance NFData BatchListObjectChildren
+instance Prelude.NFData BatchListObjectChildren
 
-instance ToJSON BatchListObjectChildren where
+instance Prelude.ToJSON BatchListObjectChildren where
   toJSON BatchListObjectChildren' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _blocNextToken,
-            ("MaxResults" .=) <$> _blocMaxResults,
-            Just ("ObjectReference" .= _blocObjectReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,66 @@
 module Network.AWS.CloudDirectory.Types.BatchLookupPolicyResponse where
 
 import Network.AWS.CloudDirectory.Types.PolicyToPath
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'LookupPolicy' response operation.
+-- | Represents the output of a LookupPolicy response operation.
 --
---
---
--- /See:/ 'batchLookupPolicyResponse' smart constructor.
+-- /See:/ 'newBatchLookupPolicyResponse' smart constructor.
 data BatchLookupPolicyResponse = BatchLookupPolicyResponse'
-  { _blprNextToken ::
-      !(Maybe Text),
-    _blprPolicyToPathList ::
-      !( Maybe
-           [PolicyToPath]
-       )
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Provides list of path to policies. Policies contain @PolicyId@,
+    -- @ObjectIdentifier@, and @PolicyType@. For more information, see
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+    policyToPathList :: Prelude.Maybe [PolicyToPath]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchLookupPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchLookupPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'blprNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'blprPolicyToPathList' - Provides list of path to policies. Policies contain @PolicyId@ , @ObjectIdentifier@ , and @PolicyType@ . For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies> .
-batchLookupPolicyResponse ::
+-- 'nextToken', 'batchLookupPolicyResponse_nextToken' - The pagination token.
+--
+-- 'policyToPathList', 'batchLookupPolicyResponse_policyToPathList' - Provides list of path to policies. Policies contain @PolicyId@,
+-- @ObjectIdentifier@, and @PolicyType@. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+newBatchLookupPolicyResponse ::
   BatchLookupPolicyResponse
-batchLookupPolicyResponse =
+newBatchLookupPolicyResponse =
   BatchLookupPolicyResponse'
-    { _blprNextToken =
-        Nothing,
-      _blprPolicyToPathList = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      policyToPathList = Prelude.Nothing
     }
 
 -- | The pagination token.
-blprNextToken :: Lens' BatchLookupPolicyResponse (Maybe Text)
-blprNextToken = lens _blprNextToken (\s a -> s {_blprNextToken = a})
+batchLookupPolicyResponse_nextToken :: Lens.Lens' BatchLookupPolicyResponse (Prelude.Maybe Prelude.Text)
+batchLookupPolicyResponse_nextToken = Lens.lens (\BatchLookupPolicyResponse' {nextToken} -> nextToken) (\s@BatchLookupPolicyResponse' {} a -> s {nextToken = a} :: BatchLookupPolicyResponse)
 
--- | Provides list of path to policies. Policies contain @PolicyId@ , @ObjectIdentifier@ , and @PolicyType@ . For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies> .
-blprPolicyToPathList :: Lens' BatchLookupPolicyResponse [PolicyToPath]
-blprPolicyToPathList = lens _blprPolicyToPathList (\s a -> s {_blprPolicyToPathList = a}) . _Default . _Coerce
+-- | Provides list of path to policies. Policies contain @PolicyId@,
+-- @ObjectIdentifier@, and @PolicyType@. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+batchLookupPolicyResponse_policyToPathList :: Lens.Lens' BatchLookupPolicyResponse (Prelude.Maybe [PolicyToPath])
+batchLookupPolicyResponse_policyToPathList = Lens.lens (\BatchLookupPolicyResponse' {policyToPathList} -> policyToPathList) (\s@BatchLookupPolicyResponse' {} a -> s {policyToPathList = a} :: BatchLookupPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON BatchLookupPolicyResponse where
+instance Prelude.FromJSON BatchLookupPolicyResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchLookupPolicyResponse"
       ( \x ->
           BatchLookupPolicyResponse'
-            <$> (x .:? "NextToken")
-            <*> (x .:? "PolicyToPathList" .!= mempty)
+            Prelude.<$> (x Prelude..:? "NextToken")
+            Prelude.<*> ( x Prelude..:? "PolicyToPathList"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable BatchLookupPolicyResponse
+instance Prelude.Hashable BatchLookupPolicyResponse
 
-instance NFData BatchLookupPolicyResponse
+instance Prelude.NFData BatchLookupPolicyResponse

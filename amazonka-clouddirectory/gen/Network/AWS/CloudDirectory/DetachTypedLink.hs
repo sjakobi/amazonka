@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,109 +21,121 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Detaches a typed link from a specified source and target object. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
+-- Detaches a typed link from a specified source and target object. For
+-- more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
 module Network.AWS.CloudDirectory.DetachTypedLink
   ( -- * Creating a Request
-    detachTypedLink,
-    DetachTypedLink,
+    DetachTypedLink (..),
+    newDetachTypedLink,
 
     -- * Request Lenses
-    dtlDirectoryARN,
-    dtlTypedLinkSpecifier,
+    detachTypedLink_directoryArn,
+    detachTypedLink_typedLinkSpecifier,
 
     -- * Destructuring the Response
-    detachTypedLinkResponse,
-    DetachTypedLinkResponse,
+    DetachTypedLinkResponse (..),
+    newDetachTypedLinkResponse,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'detachTypedLink' smart constructor.
+-- | /See:/ 'newDetachTypedLink' smart constructor.
 data DetachTypedLink = DetachTypedLink'
-  { _dtlDirectoryARN ::
-      !Text,
-    _dtlTypedLinkSpecifier ::
-      !TypedLinkSpecifier
+  { -- | The Amazon Resource Name (ARN) of the directory where you want to detach
+    -- the typed link.
+    directoryArn :: Prelude.Text,
+    -- | Used to accept a typed link specifier as input.
+    typedLinkSpecifier :: TypedLinkSpecifier
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetachTypedLink' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetachTypedLink' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtlDirectoryARN' - The Amazon Resource Name (ARN) of the directory where you want to detach the typed link.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtlTypedLinkSpecifier' - Used to accept a typed link specifier as input.
-detachTypedLink ::
-  -- | 'dtlDirectoryARN'
-  Text ->
-  -- | 'dtlTypedLinkSpecifier'
+-- 'directoryArn', 'detachTypedLink_directoryArn' - The Amazon Resource Name (ARN) of the directory where you want to detach
+-- the typed link.
+--
+-- 'typedLinkSpecifier', 'detachTypedLink_typedLinkSpecifier' - Used to accept a typed link specifier as input.
+newDetachTypedLink ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'typedLinkSpecifier'
   TypedLinkSpecifier ->
   DetachTypedLink
-detachTypedLink pDirectoryARN_ pTypedLinkSpecifier_ =
-  DetachTypedLink'
-    { _dtlDirectoryARN = pDirectoryARN_,
-      _dtlTypedLinkSpecifier = pTypedLinkSpecifier_
-    }
+newDetachTypedLink
+  pDirectoryArn_
+  pTypedLinkSpecifier_ =
+    DetachTypedLink'
+      { directoryArn = pDirectoryArn_,
+        typedLinkSpecifier = pTypedLinkSpecifier_
+      }
 
--- | The Amazon Resource Name (ARN) of the directory where you want to detach the typed link.
-dtlDirectoryARN :: Lens' DetachTypedLink Text
-dtlDirectoryARN = lens _dtlDirectoryARN (\s a -> s {_dtlDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) of the directory where you want to detach
+-- the typed link.
+detachTypedLink_directoryArn :: Lens.Lens' DetachTypedLink Prelude.Text
+detachTypedLink_directoryArn = Lens.lens (\DetachTypedLink' {directoryArn} -> directoryArn) (\s@DetachTypedLink' {} a -> s {directoryArn = a} :: DetachTypedLink)
 
 -- | Used to accept a typed link specifier as input.
-dtlTypedLinkSpecifier :: Lens' DetachTypedLink TypedLinkSpecifier
-dtlTypedLinkSpecifier = lens _dtlTypedLinkSpecifier (\s a -> s {_dtlTypedLinkSpecifier = a})
+detachTypedLink_typedLinkSpecifier :: Lens.Lens' DetachTypedLink TypedLinkSpecifier
+detachTypedLink_typedLinkSpecifier = Lens.lens (\DetachTypedLink' {typedLinkSpecifier} -> typedLinkSpecifier) (\s@DetachTypedLink' {} a -> s {typedLinkSpecifier = a} :: DetachTypedLink)
 
-instance AWSRequest DetachTypedLink where
+instance Prelude.AWSRequest DetachTypedLink where
   type Rs DetachTypedLink = DetachTypedLinkResponse
-  request = putJSON cloudDirectory
-  response = receiveNull DetachTypedLinkResponse'
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveNull DetachTypedLinkResponse'
 
-instance Hashable DetachTypedLink
+instance Prelude.Hashable DetachTypedLink
 
-instance NFData DetachTypedLink
+instance Prelude.NFData DetachTypedLink
 
-instance ToHeaders DetachTypedLink where
+instance Prelude.ToHeaders DetachTypedLink where
   toHeaders DetachTypedLink' {..} =
-    mconcat
-      ["x-amz-data-partition" =# _dtlDirectoryARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# directoryArn]
 
-instance ToJSON DetachTypedLink where
+instance Prelude.ToJSON DetachTypedLink where
   toJSON DetachTypedLink' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("TypedLinkSpecifier" .= _dtlTypedLinkSpecifier)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "TypedLinkSpecifier"
+                  Prelude..= typedLinkSpecifier
+              )
           ]
       )
 
-instance ToPath DetachTypedLink where
+instance Prelude.ToPath DetachTypedLink where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/typedlink/detach"
 
-instance ToQuery DetachTypedLink where
-  toQuery = const mempty
+instance Prelude.ToQuery DetachTypedLink where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'detachTypedLinkResponse' smart constructor.
+-- | /See:/ 'newDetachTypedLinkResponse' smart constructor.
 data DetachTypedLinkResponse = DetachTypedLinkResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetachTypedLinkResponse' with the minimum fields required to make a request.
-detachTypedLinkResponse ::
+-- |
+-- Create a value of 'DetachTypedLinkResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDetachTypedLinkResponse ::
   DetachTypedLinkResponse
-detachTypedLinkResponse = DetachTypedLinkResponse'
+newDetachTypedLinkResponse = DetachTypedLinkResponse'
 
-instance NFData DetachTypedLinkResponse
+instance Prelude.NFData DetachTypedLinkResponse

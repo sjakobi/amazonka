@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.CloudDirectory.Types.RangeMode
   ( RangeMode
       ( ..,
-        Exclusive,
-        First,
-        Inclusive,
-        Last,
-        LastBeforeMissingValues
+        RangeModeEXCLUSIVE,
+        RangeModeFIRST,
+        RangeModeINCLUSIVE,
+        RangeModeLAST,
+        RangeModeLASTBEFOREMISSINGVALUES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RangeMode = RangeMode' (CI Text)
+newtype RangeMode = RangeMode'
+  { fromRangeMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Exclusive :: RangeMode
-pattern Exclusive = RangeMode' "EXCLUSIVE"
+pattern RangeModeEXCLUSIVE :: RangeMode
+pattern RangeModeEXCLUSIVE = RangeMode' "EXCLUSIVE"
 
-pattern First :: RangeMode
-pattern First = RangeMode' "FIRST"
+pattern RangeModeFIRST :: RangeMode
+pattern RangeModeFIRST = RangeMode' "FIRST"
 
-pattern Inclusive :: RangeMode
-pattern Inclusive = RangeMode' "INCLUSIVE"
+pattern RangeModeINCLUSIVE :: RangeMode
+pattern RangeModeINCLUSIVE = RangeMode' "INCLUSIVE"
 
-pattern Last :: RangeMode
-pattern Last = RangeMode' "LAST"
+pattern RangeModeLAST :: RangeMode
+pattern RangeModeLAST = RangeMode' "LAST"
 
-pattern LastBeforeMissingValues :: RangeMode
-pattern LastBeforeMissingValues = RangeMode' "LAST_BEFORE_MISSING_VALUES"
+pattern RangeModeLASTBEFOREMISSINGVALUES :: RangeMode
+pattern RangeModeLASTBEFOREMISSINGVALUES = RangeMode' "LAST_BEFORE_MISSING_VALUES"
 
 {-# COMPLETE
-  Exclusive,
-  First,
-  Inclusive,
-  Last,
-  LastBeforeMissingValues,
+  RangeModeEXCLUSIVE,
+  RangeModeFIRST,
+  RangeModeINCLUSIVE,
+  RangeModeLAST,
+  RangeModeLASTBEFOREMISSINGVALUES,
   RangeMode'
   #-}
 
-instance FromText RangeMode where
-  parser = (RangeMode' . mk) <$> takeText
+instance Prelude.FromText RangeMode where
+  parser = RangeMode' Prelude.<$> Prelude.takeText
 
-instance ToText RangeMode where
-  toText (RangeMode' ci) = original ci
+instance Prelude.ToText RangeMode where
+  toText (RangeMode' x) = x
 
-instance Hashable RangeMode
+instance Prelude.Hashable RangeMode
 
-instance NFData RangeMode
+instance Prelude.NFData RangeMode
 
-instance ToByteString RangeMode
+instance Prelude.ToByteString RangeMode
 
-instance ToQuery RangeMode
+instance Prelude.ToQuery RangeMode
 
-instance ToHeader RangeMode
+instance Prelude.ToHeader RangeMode
 
-instance ToJSON RangeMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON RangeMode where
+  toJSON = Prelude.toJSONText

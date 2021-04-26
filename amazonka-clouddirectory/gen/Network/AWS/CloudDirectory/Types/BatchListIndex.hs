@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +21,82 @@ module Network.AWS.CloudDirectory.Types.BatchListIndex where
 
 import Network.AWS.CloudDirectory.Types.ObjectAttributeRange
 import Network.AWS.CloudDirectory.Types.ObjectReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Lists objects attached to the specified index inside a 'BatchRead' operation. For more information, see 'ListIndex' and 'BatchReadRequest$Operations' .
+-- | Lists objects attached to the specified index inside a BatchRead
+-- operation. For more information, see ListIndex and
+-- BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchListIndex' smart constructor.
+-- /See:/ 'newBatchListIndex' smart constructor.
 data BatchListIndex = BatchListIndex'
-  { _bliNextToken ::
-      !(Maybe Text),
-    _bliMaxResults :: !(Maybe Nat),
-    _bliRangesOnIndexedValues ::
-      !(Maybe [ObjectAttributeRange]),
-    _bliIndexReference :: !ObjectReference
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to retrieve.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the ranges of indexed values that you want to query.
+    rangesOnIndexedValues :: Prelude.Maybe [ObjectAttributeRange],
+    -- | The reference to the index to list.
+    indexReference :: ObjectReference
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListIndex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListIndex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bliNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bliMaxResults' - The maximum number of results to retrieve.
+-- 'nextToken', 'batchListIndex_nextToken' - The pagination token.
 --
--- * 'bliRangesOnIndexedValues' - Specifies the ranges of indexed values that you want to query.
+-- 'maxResults', 'batchListIndex_maxResults' - The maximum number of results to retrieve.
 --
--- * 'bliIndexReference' - The reference to the index to list.
-batchListIndex ::
-  -- | 'bliIndexReference'
+-- 'rangesOnIndexedValues', 'batchListIndex_rangesOnIndexedValues' - Specifies the ranges of indexed values that you want to query.
+--
+-- 'indexReference', 'batchListIndex_indexReference' - The reference to the index to list.
+newBatchListIndex ::
+  -- | 'indexReference'
   ObjectReference ->
   BatchListIndex
-batchListIndex pIndexReference_ =
+newBatchListIndex pIndexReference_ =
   BatchListIndex'
-    { _bliNextToken = Nothing,
-      _bliMaxResults = Nothing,
-      _bliRangesOnIndexedValues = Nothing,
-      _bliIndexReference = pIndexReference_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      rangesOnIndexedValues = Prelude.Nothing,
+      indexReference = pIndexReference_
     }
 
 -- | The pagination token.
-bliNextToken :: Lens' BatchListIndex (Maybe Text)
-bliNextToken = lens _bliNextToken (\s a -> s {_bliNextToken = a})
+batchListIndex_nextToken :: Lens.Lens' BatchListIndex (Prelude.Maybe Prelude.Text)
+batchListIndex_nextToken = Lens.lens (\BatchListIndex' {nextToken} -> nextToken) (\s@BatchListIndex' {} a -> s {nextToken = a} :: BatchListIndex)
 
 -- | The maximum number of results to retrieve.
-bliMaxResults :: Lens' BatchListIndex (Maybe Natural)
-bliMaxResults = lens _bliMaxResults (\s a -> s {_bliMaxResults = a}) . mapping _Nat
+batchListIndex_maxResults :: Lens.Lens' BatchListIndex (Prelude.Maybe Prelude.Natural)
+batchListIndex_maxResults = Lens.lens (\BatchListIndex' {maxResults} -> maxResults) (\s@BatchListIndex' {} a -> s {maxResults = a} :: BatchListIndex) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Specifies the ranges of indexed values that you want to query.
-bliRangesOnIndexedValues :: Lens' BatchListIndex [ObjectAttributeRange]
-bliRangesOnIndexedValues = lens _bliRangesOnIndexedValues (\s a -> s {_bliRangesOnIndexedValues = a}) . _Default . _Coerce
+batchListIndex_rangesOnIndexedValues :: Lens.Lens' BatchListIndex (Prelude.Maybe [ObjectAttributeRange])
+batchListIndex_rangesOnIndexedValues = Lens.lens (\BatchListIndex' {rangesOnIndexedValues} -> rangesOnIndexedValues) (\s@BatchListIndex' {} a -> s {rangesOnIndexedValues = a} :: BatchListIndex) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The reference to the index to list.
-bliIndexReference :: Lens' BatchListIndex ObjectReference
-bliIndexReference = lens _bliIndexReference (\s a -> s {_bliIndexReference = a})
+batchListIndex_indexReference :: Lens.Lens' BatchListIndex ObjectReference
+batchListIndex_indexReference = Lens.lens (\BatchListIndex' {indexReference} -> indexReference) (\s@BatchListIndex' {} a -> s {indexReference = a} :: BatchListIndex)
 
-instance Hashable BatchListIndex
+instance Prelude.Hashable BatchListIndex
 
-instance NFData BatchListIndex
+instance Prelude.NFData BatchListIndex
 
-instance ToJSON BatchListIndex where
+instance Prelude.ToJSON BatchListIndex where
   toJSON BatchListIndex' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _bliNextToken,
-            ("MaxResults" .=) <$> _bliMaxResults,
-            ("RangesOnIndexedValues" .=)
-              <$> _bliRangesOnIndexedValues,
-            Just ("IndexReference" .= _bliIndexReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("RangesOnIndexedValues" Prelude..=)
+              Prelude.<$> rangesOnIndexedValues,
+            Prelude.Just
+              ("IndexReference" Prelude..= indexReference)
           ]
       )

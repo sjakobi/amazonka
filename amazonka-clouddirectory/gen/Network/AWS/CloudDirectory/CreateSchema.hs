@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,117 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new schema in a development state. A schema can exist in three phases:
+-- Creates a new schema in a development state. A schema can exist in three
+-- phases:
 --
+-- -   /Development:/ This is a mutable phase of the schema. All new
+--     schemas are in the development phase. Once the schema is finalized,
+--     it can be published.
 --
---     * /Development:/ This is a mutable phase of the schema. All new schemas are in the development phase. Once the schema is finalized, it can be published.
+-- -   /Published:/ Published schemas are immutable and have a version
+--     associated with them.
 --
---     * /Published:/ Published schemas are immutable and have a version associated with them.
---
---     * /Applied:/ Applied schemas are mutable in a way that allows you to add new schema facets. You can also add new, nonrequired attributes to existing schema facets. You can apply only published schemas to directories.
+-- -   /Applied:/ Applied schemas are mutable in a way that allows you to
+--     add new schema facets. You can also add new, nonrequired attributes
+--     to existing schema facets. You can apply only published schemas to
+--     directories.
 module Network.AWS.CloudDirectory.CreateSchema
   ( -- * Creating a Request
-    createSchema,
-    CreateSchema,
+    CreateSchema (..),
+    newCreateSchema,
 
     -- * Request Lenses
-    csName,
+    createSchema_name,
 
     -- * Destructuring the Response
-    createSchemaResponse,
-    CreateSchemaResponse,
+    CreateSchemaResponse (..),
+    newCreateSchemaResponse,
 
     -- * Response Lenses
-    csrrsSchemaARN,
-    csrrsResponseStatus,
+    createSchemaResponse_schemaArn,
+    createSchemaResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createSchema' smart constructor.
-newtype CreateSchema = CreateSchema' {_csName :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newCreateSchema' smart constructor.
+data CreateSchema = CreateSchema'
+  { -- | The name that is associated with the schema. This is unique to each
+    -- account and in each region.
+    name :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSchema' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSchema' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csName' - The name that is associated with the schema. This is unique to each account and in each region.
-createSchema ::
-  -- | 'csName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'createSchema_name' - The name that is associated with the schema. This is unique to each
+-- account and in each region.
+newCreateSchema ::
+  -- | 'name'
+  Prelude.Text ->
   CreateSchema
-createSchema pName_ = CreateSchema' {_csName = pName_}
+newCreateSchema pName_ = CreateSchema' {name = pName_}
 
--- | The name that is associated with the schema. This is unique to each account and in each region.
-csName :: Lens' CreateSchema Text
-csName = lens _csName (\s a -> s {_csName = a})
+-- | The name that is associated with the schema. This is unique to each
+-- account and in each region.
+createSchema_name :: Lens.Lens' CreateSchema Prelude.Text
+createSchema_name = Lens.lens (\CreateSchema' {name} -> name) (\s@CreateSchema' {} a -> s {name = a} :: CreateSchema)
 
-instance AWSRequest CreateSchema where
+instance Prelude.AWSRequest CreateSchema where
   type Rs CreateSchema = CreateSchemaResponse
-  request = putJSON cloudDirectory
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateSchemaResponse'
-            <$> (x .?> "SchemaArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SchemaArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSchema
+instance Prelude.Hashable CreateSchema
 
-instance NFData CreateSchema
+instance Prelude.NFData CreateSchema
 
-instance ToHeaders CreateSchema where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateSchema where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateSchema where
+instance Prelude.ToJSON CreateSchema where
   toJSON CreateSchema' {..} =
-    object (catMaybes [Just ("Name" .= _csName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath CreateSchema where
+instance Prelude.ToPath CreateSchema where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/schema/create"
 
-instance ToQuery CreateSchema where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateSchema where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createSchemaResponse' smart constructor.
+-- | /See:/ 'newCreateSchemaResponse' smart constructor.
 data CreateSchemaResponse = CreateSchemaResponse'
-  { _csrrsSchemaARN ::
-      !(Maybe Text),
-    _csrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) that is associated with the schema. For
+    -- more information, see arns.
+    schemaArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSchemaResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSchemaResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csrrsSchemaARN' - The Amazon Resource Name (ARN) that is associated with the schema. For more information, see 'arns' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csrrsResponseStatus' - -- | The response status code.
-createSchemaResponse ::
-  -- | 'csrrsResponseStatus'
-  Int ->
+-- 'schemaArn', 'createSchemaResponse_schemaArn' - The Amazon Resource Name (ARN) that is associated with the schema. For
+-- more information, see arns.
+--
+-- 'httpStatus', 'createSchemaResponse_httpStatus' - The response's http status code.
+newCreateSchemaResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSchemaResponse
-createSchemaResponse pResponseStatus_ =
+newCreateSchemaResponse pHttpStatus_ =
   CreateSchemaResponse'
-    { _csrrsSchemaARN = Nothing,
-      _csrrsResponseStatus = pResponseStatus_
+    { schemaArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) that is associated with the schema. For more information, see 'arns' .
-csrrsSchemaARN :: Lens' CreateSchemaResponse (Maybe Text)
-csrrsSchemaARN = lens _csrrsSchemaARN (\s a -> s {_csrrsSchemaARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the schema. For
+-- more information, see arns.
+createSchemaResponse_schemaArn :: Lens.Lens' CreateSchemaResponse (Prelude.Maybe Prelude.Text)
+createSchemaResponse_schemaArn = Lens.lens (\CreateSchemaResponse' {schemaArn} -> schemaArn) (\s@CreateSchemaResponse' {} a -> s {schemaArn = a} :: CreateSchemaResponse)
 
--- | -- | The response status code.
-csrrsResponseStatus :: Lens' CreateSchemaResponse Int
-csrrsResponseStatus = lens _csrrsResponseStatus (\s a -> s {_csrrsResponseStatus = a})
+-- | The response's http status code.
+createSchemaResponse_httpStatus :: Lens.Lens' CreateSchemaResponse Prelude.Int
+createSchemaResponse_httpStatus = Lens.lens (\CreateSchemaResponse' {httpStatus} -> httpStatus) (\s@CreateSchemaResponse' {} a -> s {httpStatus = a} :: CreateSchemaResponse)
 
-instance NFData CreateSchemaResponse
+instance Prelude.NFData CreateSchemaResponse

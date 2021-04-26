@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,164 +24,182 @@
 -- Retrieves attributes that are associated with a typed link.
 module Network.AWS.CloudDirectory.GetLinkAttributes
   ( -- * Creating a Request
-    getLinkAttributes,
-    GetLinkAttributes,
+    GetLinkAttributes (..),
+    newGetLinkAttributes,
 
     -- * Request Lenses
-    glaConsistencyLevel,
-    glaDirectoryARN,
-    glaTypedLinkSpecifier,
-    glaAttributeNames,
+    getLinkAttributes_consistencyLevel,
+    getLinkAttributes_directoryArn,
+    getLinkAttributes_typedLinkSpecifier,
+    getLinkAttributes_attributeNames,
 
     -- * Destructuring the Response
-    getLinkAttributesResponse,
-    GetLinkAttributesResponse,
+    GetLinkAttributesResponse (..),
+    newGetLinkAttributesResponse,
 
     -- * Response Lenses
-    glarrsAttributes,
-    glarrsResponseStatus,
+    getLinkAttributesResponse_attributes,
+    getLinkAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudDirectory.Types.AttributeKeyAndValue
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getLinkAttributes' smart constructor.
+-- | /See:/ 'newGetLinkAttributes' smart constructor.
 data GetLinkAttributes = GetLinkAttributes'
-  { _glaConsistencyLevel ::
-      !(Maybe ConsistencyLevel),
-    _glaDirectoryARN :: !Text,
-    _glaTypedLinkSpecifier ::
-      !TypedLinkSpecifier,
-    _glaAttributeNames :: ![Text]
+  { -- | The consistency level at which to retrieve the attributes on a typed
+    -- link.
+    consistencyLevel :: Prelude.Maybe ConsistencyLevel,
+    -- | The Amazon Resource Name (ARN) that is associated with the Directory
+    -- where the typed link resides. For more information, see arns or
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
+    directoryArn :: Prelude.Text,
+    -- | Allows a typed link specifier to be accepted as input.
+    typedLinkSpecifier :: TypedLinkSpecifier,
+    -- | A list of attribute names whose values will be retrieved.
+    attributeNames :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetLinkAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetLinkAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'glaConsistencyLevel' - The consistency level at which to retrieve the attributes on a typed link.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'glaDirectoryARN' - The Amazon Resource Name (ARN) that is associated with the Directory where the typed link resides. For more information, see 'arns' or <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
+-- 'consistencyLevel', 'getLinkAttributes_consistencyLevel' - The consistency level at which to retrieve the attributes on a typed
+-- link.
 --
--- * 'glaTypedLinkSpecifier' - Allows a typed link specifier to be accepted as input.
+-- 'directoryArn', 'getLinkAttributes_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the typed link resides. For more information, see arns or
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
 --
--- * 'glaAttributeNames' - A list of attribute names whose values will be retrieved.
-getLinkAttributes ::
-  -- | 'glaDirectoryARN'
-  Text ->
-  -- | 'glaTypedLinkSpecifier'
+-- 'typedLinkSpecifier', 'getLinkAttributes_typedLinkSpecifier' - Allows a typed link specifier to be accepted as input.
+--
+-- 'attributeNames', 'getLinkAttributes_attributeNames' - A list of attribute names whose values will be retrieved.
+newGetLinkAttributes ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'typedLinkSpecifier'
   TypedLinkSpecifier ->
   GetLinkAttributes
-getLinkAttributes pDirectoryARN_ pTypedLinkSpecifier_ =
-  GetLinkAttributes'
-    { _glaConsistencyLevel = Nothing,
-      _glaDirectoryARN = pDirectoryARN_,
-      _glaTypedLinkSpecifier = pTypedLinkSpecifier_,
-      _glaAttributeNames = mempty
-    }
+newGetLinkAttributes
+  pDirectoryArn_
+  pTypedLinkSpecifier_ =
+    GetLinkAttributes'
+      { consistencyLevel =
+          Prelude.Nothing,
+        directoryArn = pDirectoryArn_,
+        typedLinkSpecifier = pTypedLinkSpecifier_,
+        attributeNames = Prelude.mempty
+      }
 
--- | The consistency level at which to retrieve the attributes on a typed link.
-glaConsistencyLevel :: Lens' GetLinkAttributes (Maybe ConsistencyLevel)
-glaConsistencyLevel = lens _glaConsistencyLevel (\s a -> s {_glaConsistencyLevel = a})
+-- | The consistency level at which to retrieve the attributes on a typed
+-- link.
+getLinkAttributes_consistencyLevel :: Lens.Lens' GetLinkAttributes (Prelude.Maybe ConsistencyLevel)
+getLinkAttributes_consistencyLevel = Lens.lens (\GetLinkAttributes' {consistencyLevel} -> consistencyLevel) (\s@GetLinkAttributes' {} a -> s {consistencyLevel = a} :: GetLinkAttributes)
 
--- | The Amazon Resource Name (ARN) that is associated with the Directory where the typed link resides. For more information, see 'arns' or <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
-glaDirectoryARN :: Lens' GetLinkAttributes Text
-glaDirectoryARN = lens _glaDirectoryARN (\s a -> s {_glaDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the typed link resides. For more information, see arns or
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
+getLinkAttributes_directoryArn :: Lens.Lens' GetLinkAttributes Prelude.Text
+getLinkAttributes_directoryArn = Lens.lens (\GetLinkAttributes' {directoryArn} -> directoryArn) (\s@GetLinkAttributes' {} a -> s {directoryArn = a} :: GetLinkAttributes)
 
 -- | Allows a typed link specifier to be accepted as input.
-glaTypedLinkSpecifier :: Lens' GetLinkAttributes TypedLinkSpecifier
-glaTypedLinkSpecifier = lens _glaTypedLinkSpecifier (\s a -> s {_glaTypedLinkSpecifier = a})
+getLinkAttributes_typedLinkSpecifier :: Lens.Lens' GetLinkAttributes TypedLinkSpecifier
+getLinkAttributes_typedLinkSpecifier = Lens.lens (\GetLinkAttributes' {typedLinkSpecifier} -> typedLinkSpecifier) (\s@GetLinkAttributes' {} a -> s {typedLinkSpecifier = a} :: GetLinkAttributes)
 
 -- | A list of attribute names whose values will be retrieved.
-glaAttributeNames :: Lens' GetLinkAttributes [Text]
-glaAttributeNames = lens _glaAttributeNames (\s a -> s {_glaAttributeNames = a}) . _Coerce
+getLinkAttributes_attributeNames :: Lens.Lens' GetLinkAttributes [Prelude.Text]
+getLinkAttributes_attributeNames = Lens.lens (\GetLinkAttributes' {attributeNames} -> attributeNames) (\s@GetLinkAttributes' {} a -> s {attributeNames = a} :: GetLinkAttributes) Prelude.. Prelude._Coerce
 
-instance AWSRequest GetLinkAttributes where
+instance Prelude.AWSRequest GetLinkAttributes where
   type Rs GetLinkAttributes = GetLinkAttributesResponse
-  request = postJSON cloudDirectory
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetLinkAttributesResponse'
-            <$> (x .?> "Attributes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Attributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetLinkAttributes
+instance Prelude.Hashable GetLinkAttributes
 
-instance NFData GetLinkAttributes
+instance Prelude.NFData GetLinkAttributes
 
-instance ToHeaders GetLinkAttributes where
+instance Prelude.ToHeaders GetLinkAttributes where
   toHeaders GetLinkAttributes' {..} =
-    mconcat
-      ["x-amz-data-partition" =# _glaDirectoryARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# directoryArn]
 
-instance ToJSON GetLinkAttributes where
+instance Prelude.ToJSON GetLinkAttributes where
   toJSON GetLinkAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("ConsistencyLevel" .=) <$> _glaConsistencyLevel,
-            Just
-              ("TypedLinkSpecifier" .= _glaTypedLinkSpecifier),
-            Just ("AttributeNames" .= _glaAttributeNames)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ConsistencyLevel" Prelude..=)
+              Prelude.<$> consistencyLevel,
+            Prelude.Just
+              ("TypedLinkSpecifier" Prelude..= typedLinkSpecifier),
+            Prelude.Just
+              ("AttributeNames" Prelude..= attributeNames)
           ]
       )
 
-instance ToPath GetLinkAttributes where
+instance Prelude.ToPath GetLinkAttributes where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/typedlink/attributes/get"
 
-instance ToQuery GetLinkAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery GetLinkAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getLinkAttributesResponse' smart constructor.
+-- | /See:/ 'newGetLinkAttributesResponse' smart constructor.
 data GetLinkAttributesResponse = GetLinkAttributesResponse'
-  { _glarrsAttributes ::
-      !( Maybe
-           [AttributeKeyAndValue]
-       ),
-    _glarrsResponseStatus ::
-      !Int
+  { -- | The attributes that are associated with the typed link.
+    attributes :: Prelude.Maybe [AttributeKeyAndValue],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetLinkAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetLinkAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'glarrsAttributes' - The attributes that are associated with the typed link.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'glarrsResponseStatus' - -- | The response status code.
-getLinkAttributesResponse ::
-  -- | 'glarrsResponseStatus'
-  Int ->
+-- 'attributes', 'getLinkAttributesResponse_attributes' - The attributes that are associated with the typed link.
+--
+-- 'httpStatus', 'getLinkAttributesResponse_httpStatus' - The response's http status code.
+newGetLinkAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetLinkAttributesResponse
-getLinkAttributesResponse pResponseStatus_ =
+newGetLinkAttributesResponse pHttpStatus_ =
   GetLinkAttributesResponse'
-    { _glarrsAttributes =
-        Nothing,
-      _glarrsResponseStatus = pResponseStatus_
+    { attributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The attributes that are associated with the typed link.
-glarrsAttributes :: Lens' GetLinkAttributesResponse [AttributeKeyAndValue]
-glarrsAttributes = lens _glarrsAttributes (\s a -> s {_glarrsAttributes = a}) . _Default . _Coerce
+getLinkAttributesResponse_attributes :: Lens.Lens' GetLinkAttributesResponse (Prelude.Maybe [AttributeKeyAndValue])
+getLinkAttributesResponse_attributes = Lens.lens (\GetLinkAttributesResponse' {attributes} -> attributes) (\s@GetLinkAttributesResponse' {} a -> s {attributes = a} :: GetLinkAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-glarrsResponseStatus :: Lens' GetLinkAttributesResponse Int
-glarrsResponseStatus = lens _glarrsResponseStatus (\s a -> s {_glarrsResponseStatus = a})
+-- | The response's http status code.
+getLinkAttributesResponse_httpStatus :: Lens.Lens' GetLinkAttributesResponse Prelude.Int
+getLinkAttributesResponse_httpStatus = Lens.lens (\GetLinkAttributesResponse' {httpStatus} -> httpStatus) (\s@GetLinkAttributesResponse' {} a -> s {httpStatus = a} :: GetLinkAttributesResponse)
 
-instance NFData GetLinkAttributesResponse
+instance Prelude.NFData GetLinkAttributesResponse

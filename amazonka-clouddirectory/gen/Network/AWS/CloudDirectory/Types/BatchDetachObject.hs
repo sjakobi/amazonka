@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,69 +20,82 @@
 module Network.AWS.CloudDirectory.Types.BatchDetachObject where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'DetachObject' operation.
+-- | Represents the output of a DetachObject operation.
 --
---
---
--- /See:/ 'batchDetachObject' smart constructor.
+-- /See:/ 'newBatchDetachObject' smart constructor.
 data BatchDetachObject = BatchDetachObject'
-  { _bdoBatchReferenceName ::
-      !(Maybe Text),
-    _bdoParentReference ::
-      !ObjectReference,
-    _bdoLinkName :: !Text
+  { -- | The batch reference name. See
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support>
+    -- for more information.
+    batchReferenceName :: Prelude.Maybe Prelude.Text,
+    -- | Parent reference from which the object with the specified link name is
+    -- detached.
+    parentReference :: ObjectReference,
+    -- | The name of the link.
+    linkName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetachObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetachObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdoBatchReferenceName' - The batch reference name. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support> for more information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdoParentReference' - Parent reference from which the object with the specified link name is detached.
+-- 'batchReferenceName', 'batchDetachObject_batchReferenceName' - The batch reference name. See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support>
+-- for more information.
 --
--- * 'bdoLinkName' - The name of the link.
-batchDetachObject ::
-  -- | 'bdoParentReference'
+-- 'parentReference', 'batchDetachObject_parentReference' - Parent reference from which the object with the specified link name is
+-- detached.
+--
+-- 'linkName', 'batchDetachObject_linkName' - The name of the link.
+newBatchDetachObject ::
+  -- | 'parentReference'
   ObjectReference ->
-  -- | 'bdoLinkName'
-  Text ->
+  -- | 'linkName'
+  Prelude.Text ->
   BatchDetachObject
-batchDetachObject pParentReference_ pLinkName_ =
+newBatchDetachObject pParentReference_ pLinkName_ =
   BatchDetachObject'
-    { _bdoBatchReferenceName =
-        Nothing,
-      _bdoParentReference = pParentReference_,
-      _bdoLinkName = pLinkName_
+    { batchReferenceName =
+        Prelude.Nothing,
+      parentReference = pParentReference_,
+      linkName = pLinkName_
     }
 
--- | The batch reference name. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support> for more information.
-bdoBatchReferenceName :: Lens' BatchDetachObject (Maybe Text)
-bdoBatchReferenceName = lens _bdoBatchReferenceName (\s a -> s {_bdoBatchReferenceName = a})
+-- | The batch reference name. See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support>
+-- for more information.
+batchDetachObject_batchReferenceName :: Lens.Lens' BatchDetachObject (Prelude.Maybe Prelude.Text)
+batchDetachObject_batchReferenceName = Lens.lens (\BatchDetachObject' {batchReferenceName} -> batchReferenceName) (\s@BatchDetachObject' {} a -> s {batchReferenceName = a} :: BatchDetachObject)
 
--- | Parent reference from which the object with the specified link name is detached.
-bdoParentReference :: Lens' BatchDetachObject ObjectReference
-bdoParentReference = lens _bdoParentReference (\s a -> s {_bdoParentReference = a})
+-- | Parent reference from which the object with the specified link name is
+-- detached.
+batchDetachObject_parentReference :: Lens.Lens' BatchDetachObject ObjectReference
+batchDetachObject_parentReference = Lens.lens (\BatchDetachObject' {parentReference} -> parentReference) (\s@BatchDetachObject' {} a -> s {parentReference = a} :: BatchDetachObject)
 
 -- | The name of the link.
-bdoLinkName :: Lens' BatchDetachObject Text
-bdoLinkName = lens _bdoLinkName (\s a -> s {_bdoLinkName = a})
+batchDetachObject_linkName :: Lens.Lens' BatchDetachObject Prelude.Text
+batchDetachObject_linkName = Lens.lens (\BatchDetachObject' {linkName} -> linkName) (\s@BatchDetachObject' {} a -> s {linkName = a} :: BatchDetachObject)
 
-instance Hashable BatchDetachObject
+instance Prelude.Hashable BatchDetachObject
 
-instance NFData BatchDetachObject
+instance Prelude.NFData BatchDetachObject
 
-instance ToJSON BatchDetachObject where
+instance Prelude.ToJSON BatchDetachObject where
   toJSON BatchDetachObject' {..} =
-    object
-      ( catMaybes
-          [ ("BatchReferenceName" .=)
-              <$> _bdoBatchReferenceName,
-            Just ("ParentReference" .= _bdoParentReference),
-            Just ("LinkName" .= _bdoLinkName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("BatchReferenceName" Prelude..=)
+              Prelude.<$> batchReferenceName,
+            Prelude.Just
+              ("ParentReference" Prelude..= parentReference),
+            Prelude.Just ("LinkName" Prelude..= linkName)
           ]
       )

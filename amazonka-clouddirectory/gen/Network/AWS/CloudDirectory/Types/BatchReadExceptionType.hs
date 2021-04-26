@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,112 +19,110 @@
 module Network.AWS.CloudDirectory.Types.BatchReadExceptionType
   ( BatchReadExceptionType
       ( ..,
-        AccessDeniedException,
-        CannotListParentOfRootException,
-        DirectoryNotEnabledException,
-        FacetValidationException,
-        InternalServiceException,
-        InvalidARNException,
-        InvalidNextTokenException,
-        LimitExceededException,
-        NotIndexException,
-        NotNodeException,
-        NotPolicyException,
-        ResourceNotFoundException,
-        ValidationException
+        BatchReadExceptionTypeAccessDeniedException,
+        BatchReadExceptionTypeCannotListParentOfRootException,
+        BatchReadExceptionTypeDirectoryNotEnabledException,
+        BatchReadExceptionTypeFacetValidationException,
+        BatchReadExceptionTypeInternalServiceException,
+        BatchReadExceptionTypeInvalidArnException,
+        BatchReadExceptionTypeInvalidNextTokenException,
+        BatchReadExceptionTypeLimitExceededException,
+        BatchReadExceptionTypeNotIndexException,
+        BatchReadExceptionTypeNotNodeException,
+        BatchReadExceptionTypeNotPolicyException,
+        BatchReadExceptionTypeResourceNotFoundException,
+        BatchReadExceptionTypeValidationException
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BatchReadExceptionType
-  = BatchReadExceptionType'
-      ( CI
-          Text
-      )
+newtype BatchReadExceptionType = BatchReadExceptionType'
+  { fromBatchReadExceptionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccessDeniedException :: BatchReadExceptionType
-pattern AccessDeniedException = BatchReadExceptionType' "AccessDeniedException"
+pattern BatchReadExceptionTypeAccessDeniedException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeAccessDeniedException = BatchReadExceptionType' "AccessDeniedException"
 
-pattern CannotListParentOfRootException :: BatchReadExceptionType
-pattern CannotListParentOfRootException = BatchReadExceptionType' "CannotListParentOfRootException"
+pattern BatchReadExceptionTypeCannotListParentOfRootException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeCannotListParentOfRootException = BatchReadExceptionType' "CannotListParentOfRootException"
 
-pattern DirectoryNotEnabledException :: BatchReadExceptionType
-pattern DirectoryNotEnabledException = BatchReadExceptionType' "DirectoryNotEnabledException"
+pattern BatchReadExceptionTypeDirectoryNotEnabledException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeDirectoryNotEnabledException = BatchReadExceptionType' "DirectoryNotEnabledException"
 
-pattern FacetValidationException :: BatchReadExceptionType
-pattern FacetValidationException = BatchReadExceptionType' "FacetValidationException"
+pattern BatchReadExceptionTypeFacetValidationException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeFacetValidationException = BatchReadExceptionType' "FacetValidationException"
 
-pattern InternalServiceException :: BatchReadExceptionType
-pattern InternalServiceException = BatchReadExceptionType' "InternalServiceException"
+pattern BatchReadExceptionTypeInternalServiceException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeInternalServiceException = BatchReadExceptionType' "InternalServiceException"
 
-pattern InvalidARNException :: BatchReadExceptionType
-pattern InvalidARNException = BatchReadExceptionType' "InvalidArnException"
+pattern BatchReadExceptionTypeInvalidArnException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeInvalidArnException = BatchReadExceptionType' "InvalidArnException"
 
-pattern InvalidNextTokenException :: BatchReadExceptionType
-pattern InvalidNextTokenException = BatchReadExceptionType' "InvalidNextTokenException"
+pattern BatchReadExceptionTypeInvalidNextTokenException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeInvalidNextTokenException = BatchReadExceptionType' "InvalidNextTokenException"
 
-pattern LimitExceededException :: BatchReadExceptionType
-pattern LimitExceededException = BatchReadExceptionType' "LimitExceededException"
+pattern BatchReadExceptionTypeLimitExceededException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeLimitExceededException = BatchReadExceptionType' "LimitExceededException"
 
-pattern NotIndexException :: BatchReadExceptionType
-pattern NotIndexException = BatchReadExceptionType' "NotIndexException"
+pattern BatchReadExceptionTypeNotIndexException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeNotIndexException = BatchReadExceptionType' "NotIndexException"
 
-pattern NotNodeException :: BatchReadExceptionType
-pattern NotNodeException = BatchReadExceptionType' "NotNodeException"
+pattern BatchReadExceptionTypeNotNodeException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeNotNodeException = BatchReadExceptionType' "NotNodeException"
 
-pattern NotPolicyException :: BatchReadExceptionType
-pattern NotPolicyException = BatchReadExceptionType' "NotPolicyException"
+pattern BatchReadExceptionTypeNotPolicyException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeNotPolicyException = BatchReadExceptionType' "NotPolicyException"
 
-pattern ResourceNotFoundException :: BatchReadExceptionType
-pattern ResourceNotFoundException = BatchReadExceptionType' "ResourceNotFoundException"
+pattern BatchReadExceptionTypeResourceNotFoundException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeResourceNotFoundException = BatchReadExceptionType' "ResourceNotFoundException"
 
-pattern ValidationException :: BatchReadExceptionType
-pattern ValidationException = BatchReadExceptionType' "ValidationException"
+pattern BatchReadExceptionTypeValidationException :: BatchReadExceptionType
+pattern BatchReadExceptionTypeValidationException = BatchReadExceptionType' "ValidationException"
 
 {-# COMPLETE
-  AccessDeniedException,
-  CannotListParentOfRootException,
-  DirectoryNotEnabledException,
-  FacetValidationException,
-  InternalServiceException,
-  InvalidARNException,
-  InvalidNextTokenException,
-  LimitExceededException,
-  NotIndexException,
-  NotNodeException,
-  NotPolicyException,
-  ResourceNotFoundException,
-  ValidationException,
+  BatchReadExceptionTypeAccessDeniedException,
+  BatchReadExceptionTypeCannotListParentOfRootException,
+  BatchReadExceptionTypeDirectoryNotEnabledException,
+  BatchReadExceptionTypeFacetValidationException,
+  BatchReadExceptionTypeInternalServiceException,
+  BatchReadExceptionTypeInvalidArnException,
+  BatchReadExceptionTypeInvalidNextTokenException,
+  BatchReadExceptionTypeLimitExceededException,
+  BatchReadExceptionTypeNotIndexException,
+  BatchReadExceptionTypeNotNodeException,
+  BatchReadExceptionTypeNotPolicyException,
+  BatchReadExceptionTypeResourceNotFoundException,
+  BatchReadExceptionTypeValidationException,
   BatchReadExceptionType'
   #-}
 
-instance FromText BatchReadExceptionType where
-  parser = (BatchReadExceptionType' . mk) <$> takeText
+instance Prelude.FromText BatchReadExceptionType where
+  parser = BatchReadExceptionType' Prelude.<$> Prelude.takeText
 
-instance ToText BatchReadExceptionType where
-  toText (BatchReadExceptionType' ci) = original ci
+instance Prelude.ToText BatchReadExceptionType where
+  toText (BatchReadExceptionType' x) = x
 
-instance Hashable BatchReadExceptionType
+instance Prelude.Hashable BatchReadExceptionType
 
-instance NFData BatchReadExceptionType
+instance Prelude.NFData BatchReadExceptionType
 
-instance ToByteString BatchReadExceptionType
+instance Prelude.ToByteString BatchReadExceptionType
 
-instance ToQuery BatchReadExceptionType
+instance Prelude.ToQuery BatchReadExceptionType
 
-instance ToHeader BatchReadExceptionType
+instance Prelude.ToHeader BatchReadExceptionType
 
-instance FromJSON BatchReadExceptionType where
-  parseJSON = parseJSONText "BatchReadExceptionType"
+instance Prelude.FromJSON BatchReadExceptionType where
+  parseJSON = Prelude.parseJSONText "BatchReadExceptionType"

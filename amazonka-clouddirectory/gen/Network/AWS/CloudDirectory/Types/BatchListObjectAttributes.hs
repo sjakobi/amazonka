@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +21,86 @@ module Network.AWS.CloudDirectory.Types.BatchListObjectAttributes where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
 import Network.AWS.CloudDirectory.Types.SchemaFacet
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'ListObjectAttributes' operation.
+-- | Represents the output of a ListObjectAttributes operation.
 --
---
---
--- /See:/ 'batchListObjectAttributes' smart constructor.
+-- /See:/ 'newBatchListObjectAttributes' smart constructor.
 data BatchListObjectAttributes = BatchListObjectAttributes'
-  { _bloaNextToken ::
-      !(Maybe Text),
-    _bloaMaxResults ::
-      !(Maybe Nat),
-    _bloaFacetFilter ::
-      !( Maybe
-           SchemaFacet
-       ),
-    _bloaObjectReference ::
-      !ObjectReference
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to be retrieved in a single call. This is an
+    -- approximate number.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Used to filter the list of object attributes that are associated with a
+    -- certain facet.
+    facetFilter :: Prelude.Maybe SchemaFacet,
+    -- | Reference of the object whose attributes need to be listed.
+    objectReference :: ObjectReference
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListObjectAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListObjectAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bloaNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bloaMaxResults' - The maximum number of items to be retrieved in a single call. This is an approximate number.
+-- 'nextToken', 'batchListObjectAttributes_nextToken' - The pagination token.
 --
--- * 'bloaFacetFilter' - Used to filter the list of object attributes that are associated with a certain facet.
+-- 'maxResults', 'batchListObjectAttributes_maxResults' - The maximum number of items to be retrieved in a single call. This is an
+-- approximate number.
 --
--- * 'bloaObjectReference' - Reference of the object whose attributes need to be listed.
-batchListObjectAttributes ::
-  -- | 'bloaObjectReference'
+-- 'facetFilter', 'batchListObjectAttributes_facetFilter' - Used to filter the list of object attributes that are associated with a
+-- certain facet.
+--
+-- 'objectReference', 'batchListObjectAttributes_objectReference' - Reference of the object whose attributes need to be listed.
+newBatchListObjectAttributes ::
+  -- | 'objectReference'
   ObjectReference ->
   BatchListObjectAttributes
-batchListObjectAttributes pObjectReference_ =
+newBatchListObjectAttributes pObjectReference_ =
   BatchListObjectAttributes'
-    { _bloaNextToken =
-        Nothing,
-      _bloaMaxResults = Nothing,
-      _bloaFacetFilter = Nothing,
-      _bloaObjectReference = pObjectReference_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      facetFilter = Prelude.Nothing,
+      objectReference = pObjectReference_
     }
 
 -- | The pagination token.
-bloaNextToken :: Lens' BatchListObjectAttributes (Maybe Text)
-bloaNextToken = lens _bloaNextToken (\s a -> s {_bloaNextToken = a})
+batchListObjectAttributes_nextToken :: Lens.Lens' BatchListObjectAttributes (Prelude.Maybe Prelude.Text)
+batchListObjectAttributes_nextToken = Lens.lens (\BatchListObjectAttributes' {nextToken} -> nextToken) (\s@BatchListObjectAttributes' {} a -> s {nextToken = a} :: BatchListObjectAttributes)
 
--- | The maximum number of items to be retrieved in a single call. This is an approximate number.
-bloaMaxResults :: Lens' BatchListObjectAttributes (Maybe Natural)
-bloaMaxResults = lens _bloaMaxResults (\s a -> s {_bloaMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to be retrieved in a single call. This is an
+-- approximate number.
+batchListObjectAttributes_maxResults :: Lens.Lens' BatchListObjectAttributes (Prelude.Maybe Prelude.Natural)
+batchListObjectAttributes_maxResults = Lens.lens (\BatchListObjectAttributes' {maxResults} -> maxResults) (\s@BatchListObjectAttributes' {} a -> s {maxResults = a} :: BatchListObjectAttributes) Prelude.. Lens.mapping Prelude._Nat
 
--- | Used to filter the list of object attributes that are associated with a certain facet.
-bloaFacetFilter :: Lens' BatchListObjectAttributes (Maybe SchemaFacet)
-bloaFacetFilter = lens _bloaFacetFilter (\s a -> s {_bloaFacetFilter = a})
+-- | Used to filter the list of object attributes that are associated with a
+-- certain facet.
+batchListObjectAttributes_facetFilter :: Lens.Lens' BatchListObjectAttributes (Prelude.Maybe SchemaFacet)
+batchListObjectAttributes_facetFilter = Lens.lens (\BatchListObjectAttributes' {facetFilter} -> facetFilter) (\s@BatchListObjectAttributes' {} a -> s {facetFilter = a} :: BatchListObjectAttributes)
 
 -- | Reference of the object whose attributes need to be listed.
-bloaObjectReference :: Lens' BatchListObjectAttributes ObjectReference
-bloaObjectReference = lens _bloaObjectReference (\s a -> s {_bloaObjectReference = a})
+batchListObjectAttributes_objectReference :: Lens.Lens' BatchListObjectAttributes ObjectReference
+batchListObjectAttributes_objectReference = Lens.lens (\BatchListObjectAttributes' {objectReference} -> objectReference) (\s@BatchListObjectAttributes' {} a -> s {objectReference = a} :: BatchListObjectAttributes)
 
-instance Hashable BatchListObjectAttributes
+instance Prelude.Hashable BatchListObjectAttributes
 
-instance NFData BatchListObjectAttributes
+instance Prelude.NFData BatchListObjectAttributes
 
-instance ToJSON BatchListObjectAttributes where
+instance Prelude.ToJSON BatchListObjectAttributes where
   toJSON BatchListObjectAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _bloaNextToken,
-            ("MaxResults" .=) <$> _bloaMaxResults,
-            ("FacetFilter" .=) <$> _bloaFacetFilter,
-            Just ("ObjectReference" .= _bloaObjectReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("FacetFilter" Prelude..=) Prelude.<$> facetFilter,
+            Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
           ]
       )

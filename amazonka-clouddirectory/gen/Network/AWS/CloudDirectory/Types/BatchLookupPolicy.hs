@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,71 @@
 module Network.AWS.CloudDirectory.Types.BatchLookupPolicy where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Lists all policies from the root of the Directory to the object specified inside a 'BatchRead' operation. For more information, see 'LookupPolicy' and 'BatchReadRequest$Operations' .
+-- | Lists all policies from the root of the Directory to the object
+-- specified inside a BatchRead operation. For more information, see
+-- LookupPolicy and BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchLookupPolicy' smart constructor.
+-- /See:/ 'newBatchLookupPolicy' smart constructor.
 data BatchLookupPolicy = BatchLookupPolicy'
-  { _blpNextToken ::
-      !(Maybe Text),
-    _blpMaxResults :: !(Maybe Nat),
-    _blpObjectReference ::
-      !ObjectReference
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to retrieve.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Reference that identifies the object whose policies will be looked up.
+    objectReference :: ObjectReference
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchLookupPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchLookupPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'blpNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'blpMaxResults' - The maximum number of results to retrieve.
+-- 'nextToken', 'batchLookupPolicy_nextToken' - The pagination token.
 --
--- * 'blpObjectReference' - Reference that identifies the object whose policies will be looked up.
-batchLookupPolicy ::
-  -- | 'blpObjectReference'
+-- 'maxResults', 'batchLookupPolicy_maxResults' - The maximum number of results to retrieve.
+--
+-- 'objectReference', 'batchLookupPolicy_objectReference' - Reference that identifies the object whose policies will be looked up.
+newBatchLookupPolicy ::
+  -- | 'objectReference'
   ObjectReference ->
   BatchLookupPolicy
-batchLookupPolicy pObjectReference_ =
+newBatchLookupPolicy pObjectReference_ =
   BatchLookupPolicy'
-    { _blpNextToken = Nothing,
-      _blpMaxResults = Nothing,
-      _blpObjectReference = pObjectReference_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      objectReference = pObjectReference_
     }
 
 -- | The pagination token.
-blpNextToken :: Lens' BatchLookupPolicy (Maybe Text)
-blpNextToken = lens _blpNextToken (\s a -> s {_blpNextToken = a})
+batchLookupPolicy_nextToken :: Lens.Lens' BatchLookupPolicy (Prelude.Maybe Prelude.Text)
+batchLookupPolicy_nextToken = Lens.lens (\BatchLookupPolicy' {nextToken} -> nextToken) (\s@BatchLookupPolicy' {} a -> s {nextToken = a} :: BatchLookupPolicy)
 
 -- | The maximum number of results to retrieve.
-blpMaxResults :: Lens' BatchLookupPolicy (Maybe Natural)
-blpMaxResults = lens _blpMaxResults (\s a -> s {_blpMaxResults = a}) . mapping _Nat
+batchLookupPolicy_maxResults :: Lens.Lens' BatchLookupPolicy (Prelude.Maybe Prelude.Natural)
+batchLookupPolicy_maxResults = Lens.lens (\BatchLookupPolicy' {maxResults} -> maxResults) (\s@BatchLookupPolicy' {} a -> s {maxResults = a} :: BatchLookupPolicy) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Reference that identifies the object whose policies will be looked up.
-blpObjectReference :: Lens' BatchLookupPolicy ObjectReference
-blpObjectReference = lens _blpObjectReference (\s a -> s {_blpObjectReference = a})
+batchLookupPolicy_objectReference :: Lens.Lens' BatchLookupPolicy ObjectReference
+batchLookupPolicy_objectReference = Lens.lens (\BatchLookupPolicy' {objectReference} -> objectReference) (\s@BatchLookupPolicy' {} a -> s {objectReference = a} :: BatchLookupPolicy)
 
-instance Hashable BatchLookupPolicy
+instance Prelude.Hashable BatchLookupPolicy
 
-instance NFData BatchLookupPolicy
+instance Prelude.NFData BatchLookupPolicy
 
-instance ToJSON BatchLookupPolicy where
+instance Prelude.ToJSON BatchLookupPolicy where
   toJSON BatchLookupPolicy' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _blpNextToken,
-            ("MaxResults" .=) <$> _blpMaxResults,
-            Just ("ObjectReference" .= _blpObjectReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
           ]
       )

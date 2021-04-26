@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.PathToObjectIdentifiers where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns the path to the @ObjectIdentifiers@ that is associated with the directory.
+-- | Returns the path to the @ObjectIdentifiers@ that is associated with the
+-- directory.
 --
---
---
--- /See:/ 'pathToObjectIdentifiers' smart constructor.
+-- /See:/ 'newPathToObjectIdentifiers' smart constructor.
 data PathToObjectIdentifiers = PathToObjectIdentifiers'
-  { _ptoiObjectIdentifiers ::
-      !(Maybe [Text]),
-    _ptoiPath ::
-      !(Maybe Text)
+  { -- | Lists @ObjectIdentifiers@ starting from directory root to the object in
+    -- the request.
+    objectIdentifiers :: Prelude.Maybe [Prelude.Text],
+    -- | The path that is used to identify the object starting from directory
+    -- root.
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PathToObjectIdentifiers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PathToObjectIdentifiers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ptoiObjectIdentifiers' - Lists @ObjectIdentifiers@ starting from directory root to the object in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ptoiPath' - The path that is used to identify the object starting from directory root.
-pathToObjectIdentifiers ::
+-- 'objectIdentifiers', 'pathToObjectIdentifiers_objectIdentifiers' - Lists @ObjectIdentifiers@ starting from directory root to the object in
+-- the request.
+--
+-- 'path', 'pathToObjectIdentifiers_path' - The path that is used to identify the object starting from directory
+-- root.
+newPathToObjectIdentifiers ::
   PathToObjectIdentifiers
-pathToObjectIdentifiers =
+newPathToObjectIdentifiers =
   PathToObjectIdentifiers'
-    { _ptoiObjectIdentifiers =
-        Nothing,
-      _ptoiPath = Nothing
+    { objectIdentifiers =
+        Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
--- | Lists @ObjectIdentifiers@ starting from directory root to the object in the request.
-ptoiObjectIdentifiers :: Lens' PathToObjectIdentifiers [Text]
-ptoiObjectIdentifiers = lens _ptoiObjectIdentifiers (\s a -> s {_ptoiObjectIdentifiers = a}) . _Default . _Coerce
+-- | Lists @ObjectIdentifiers@ starting from directory root to the object in
+-- the request.
+pathToObjectIdentifiers_objectIdentifiers :: Lens.Lens' PathToObjectIdentifiers (Prelude.Maybe [Prelude.Text])
+pathToObjectIdentifiers_objectIdentifiers = Lens.lens (\PathToObjectIdentifiers' {objectIdentifiers} -> objectIdentifiers) (\s@PathToObjectIdentifiers' {} a -> s {objectIdentifiers = a} :: PathToObjectIdentifiers) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The path that is used to identify the object starting from directory root.
-ptoiPath :: Lens' PathToObjectIdentifiers (Maybe Text)
-ptoiPath = lens _ptoiPath (\s a -> s {_ptoiPath = a})
+-- | The path that is used to identify the object starting from directory
+-- root.
+pathToObjectIdentifiers_path :: Lens.Lens' PathToObjectIdentifiers (Prelude.Maybe Prelude.Text)
+pathToObjectIdentifiers_path = Lens.lens (\PathToObjectIdentifiers' {path} -> path) (\s@PathToObjectIdentifiers' {} a -> s {path = a} :: PathToObjectIdentifiers)
 
-instance FromJSON PathToObjectIdentifiers where
+instance Prelude.FromJSON PathToObjectIdentifiers where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PathToObjectIdentifiers"
       ( \x ->
           PathToObjectIdentifiers'
-            <$> (x .:? "ObjectIdentifiers" .!= mempty)
-            <*> (x .:? "Path")
+            Prelude.<$> ( x Prelude..:? "ObjectIdentifiers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Path")
       )
 
-instance Hashable PathToObjectIdentifiers
+instance Prelude.Hashable PathToObjectIdentifiers
 
-instance NFData PathToObjectIdentifiers
+instance Prelude.NFData PathToObjectIdentifiers

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,52 @@
 module Network.AWS.CloudDirectory.Types.BatchGetObjectInformation where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Retrieves metadata about an object inside a 'BatchRead' operation. For more information, see 'GetObjectInformation' and 'BatchReadRequest$Operations' .
+-- | Retrieves metadata about an object inside a BatchRead operation. For
+-- more information, see GetObjectInformation and
+-- BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchGetObjectInformation' smart constructor.
-newtype BatchGetObjectInformation = BatchGetObjectInformation'
-  { _bgoiObjectReference ::
-      ObjectReference
+-- /See:/ 'newBatchGetObjectInformation' smart constructor.
+data BatchGetObjectInformation = BatchGetObjectInformation'
+  { -- | A reference to the object.
+    objectReference :: ObjectReference
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetObjectInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetObjectInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgoiObjectReference' - A reference to the object.
-batchGetObjectInformation ::
-  -- | 'bgoiObjectReference'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'objectReference', 'batchGetObjectInformation_objectReference' - A reference to the object.
+newBatchGetObjectInformation ::
+  -- | 'objectReference'
   ObjectReference ->
   BatchGetObjectInformation
-batchGetObjectInformation pObjectReference_ =
+newBatchGetObjectInformation pObjectReference_ =
   BatchGetObjectInformation'
-    { _bgoiObjectReference =
+    { objectReference =
         pObjectReference_
     }
 
 -- | A reference to the object.
-bgoiObjectReference :: Lens' BatchGetObjectInformation ObjectReference
-bgoiObjectReference = lens _bgoiObjectReference (\s a -> s {_bgoiObjectReference = a})
+batchGetObjectInformation_objectReference :: Lens.Lens' BatchGetObjectInformation ObjectReference
+batchGetObjectInformation_objectReference = Lens.lens (\BatchGetObjectInformation' {objectReference} -> objectReference) (\s@BatchGetObjectInformation' {} a -> s {objectReference = a} :: BatchGetObjectInformation)
 
-instance Hashable BatchGetObjectInformation
+instance Prelude.Hashable BatchGetObjectInformation
 
-instance NFData BatchGetObjectInformation
+instance Prelude.NFData BatchGetObjectInformation
 
-instance ToJSON BatchGetObjectInformation where
+instance Prelude.ToJSON BatchGetObjectInformation where
   toJSON BatchGetObjectInformation' {..} =
-    object
-      ( catMaybes
-          [Just ("ObjectReference" .= _bgoiObjectReference)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
+          ]
       )

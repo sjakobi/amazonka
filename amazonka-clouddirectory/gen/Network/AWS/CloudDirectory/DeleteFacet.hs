@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,126 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a given 'Facet' . All attributes and 'Rule' s that are associated with the facet will be deleted. Only development schema facets are allowed deletion.
+-- Deletes a given Facet. All attributes and Rules that are associated with
+-- the facet will be deleted. Only development schema facets are allowed
+-- deletion.
 module Network.AWS.CloudDirectory.DeleteFacet
   ( -- * Creating a Request
-    deleteFacet,
-    DeleteFacet,
+    DeleteFacet (..),
+    newDeleteFacet,
 
     -- * Request Lenses
-    dfSchemaARN,
-    dfName,
+    deleteFacet_schemaArn,
+    deleteFacet_name,
 
     -- * Destructuring the Response
-    deleteFacetResponse,
-    DeleteFacetResponse,
+    DeleteFacetResponse (..),
+    newDeleteFacetResponse,
 
     -- * Response Lenses
-    dfrrsResponseStatus,
+    deleteFacetResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteFacet' smart constructor.
+-- | /See:/ 'newDeleteFacet' smart constructor.
 data DeleteFacet = DeleteFacet'
-  { _dfSchemaARN ::
-      !Text,
-    _dfName :: !Text
+  { -- | The Amazon Resource Name (ARN) that is associated with the Facet. For
+    -- more information, see arns.
+    schemaArn :: Prelude.Text,
+    -- | The name of the facet to delete.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFacet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFacet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfSchemaARN' - The Amazon Resource Name (ARN) that is associated with the 'Facet' . For more information, see 'arns' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfName' - The name of the facet to delete.
-deleteFacet ::
-  -- | 'dfSchemaARN'
-  Text ->
-  -- | 'dfName'
-  Text ->
+-- 'schemaArn', 'deleteFacet_schemaArn' - The Amazon Resource Name (ARN) that is associated with the Facet. For
+-- more information, see arns.
+--
+-- 'name', 'deleteFacet_name' - The name of the facet to delete.
+newDeleteFacet ::
+  -- | 'schemaArn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   DeleteFacet
-deleteFacet pSchemaARN_ pName_ =
+newDeleteFacet pSchemaArn_ pName_ =
   DeleteFacet'
-    { _dfSchemaARN = pSchemaARN_,
-      _dfName = pName_
+    { schemaArn = pSchemaArn_,
+      name = pName_
     }
 
--- | The Amazon Resource Name (ARN) that is associated with the 'Facet' . For more information, see 'arns' .
-dfSchemaARN :: Lens' DeleteFacet Text
-dfSchemaARN = lens _dfSchemaARN (\s a -> s {_dfSchemaARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the Facet. For
+-- more information, see arns.
+deleteFacet_schemaArn :: Lens.Lens' DeleteFacet Prelude.Text
+deleteFacet_schemaArn = Lens.lens (\DeleteFacet' {schemaArn} -> schemaArn) (\s@DeleteFacet' {} a -> s {schemaArn = a} :: DeleteFacet)
 
 -- | The name of the facet to delete.
-dfName :: Lens' DeleteFacet Text
-dfName = lens _dfName (\s a -> s {_dfName = a})
+deleteFacet_name :: Lens.Lens' DeleteFacet Prelude.Text
+deleteFacet_name = Lens.lens (\DeleteFacet' {name} -> name) (\s@DeleteFacet' {} a -> s {name = a} :: DeleteFacet)
 
-instance AWSRequest DeleteFacet where
+instance Prelude.AWSRequest DeleteFacet where
   type Rs DeleteFacet = DeleteFacetResponse
-  request = putJSON cloudDirectory
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteFacetResponse' <$> (pure (fromEnum s))
+          DeleteFacetResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteFacet
+instance Prelude.Hashable DeleteFacet
 
-instance NFData DeleteFacet
+instance Prelude.NFData DeleteFacet
 
-instance ToHeaders DeleteFacet where
+instance Prelude.ToHeaders DeleteFacet where
   toHeaders DeleteFacet' {..} =
-    mconcat ["x-amz-data-partition" =# _dfSchemaARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# schemaArn]
 
-instance ToJSON DeleteFacet where
+instance Prelude.ToJSON DeleteFacet where
   toJSON DeleteFacet' {..} =
-    object (catMaybes [Just ("Name" .= _dfName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DeleteFacet where
+instance Prelude.ToPath DeleteFacet where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/facet/delete"
 
-instance ToQuery DeleteFacet where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFacet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFacetResponse' smart constructor.
-newtype DeleteFacetResponse = DeleteFacetResponse'
-  { _dfrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteFacetResponse' smart constructor.
+data DeleteFacetResponse = DeleteFacetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFacetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFacetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfrrsResponseStatus' - -- | The response status code.
-deleteFacetResponse ::
-  -- | 'dfrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteFacetResponse_httpStatus' - The response's http status code.
+newDeleteFacetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteFacetResponse
-deleteFacetResponse pResponseStatus_ =
-  DeleteFacetResponse'
-    { _dfrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteFacetResponse pHttpStatus_ =
+  DeleteFacetResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dfrrsResponseStatus :: Lens' DeleteFacetResponse Int
-dfrrsResponseStatus = lens _dfrrsResponseStatus (\s a -> s {_dfrrsResponseStatus = a})
+-- | The response's http status code.
+deleteFacetResponse_httpStatus :: Lens.Lens' DeleteFacetResponse Prelude.Int
+deleteFacetResponse_httpStatus = Lens.lens (\DeleteFacetResponse' {httpStatus} -> httpStatus) (\s@DeleteFacetResponse' {} a -> s {httpStatus = a} :: DeleteFacetResponse)
 
-instance NFData DeleteFacetResponse
+instance Prelude.NFData DeleteFacetResponse

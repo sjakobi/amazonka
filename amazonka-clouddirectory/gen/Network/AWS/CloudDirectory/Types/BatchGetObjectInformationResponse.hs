@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,67 @@
 module Network.AWS.CloudDirectory.Types.BatchGetObjectInformationResponse where
 
 import Network.AWS.CloudDirectory.Types.SchemaFacet
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'GetObjectInformation' response operation.
+-- | Represents the output of a GetObjectInformation response operation.
 --
---
---
--- /See:/ 'batchGetObjectInformationResponse' smart constructor.
+-- /See:/ 'newBatchGetObjectInformationResponse' smart constructor.
 data BatchGetObjectInformationResponse = BatchGetObjectInformationResponse'
-  { _bgoirSchemaFacets ::
-      !( Maybe
-           [SchemaFacet]
-       ),
-    _bgoirObjectIdentifier ::
-      !( Maybe
-           Text
-       )
+  { -- | The facets attached to the specified object.
+    schemaFacets :: Prelude.Maybe [SchemaFacet],
+    -- | The @ObjectIdentifier@ of the specified object.
+    objectIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetObjectInformationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetObjectInformationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgoirSchemaFacets' - The facets attached to the specified object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgoirObjectIdentifier' - The @ObjectIdentifier@ of the specified object.
-batchGetObjectInformationResponse ::
+-- 'schemaFacets', 'batchGetObjectInformationResponse_schemaFacets' - The facets attached to the specified object.
+--
+-- 'objectIdentifier', 'batchGetObjectInformationResponse_objectIdentifier' - The @ObjectIdentifier@ of the specified object.
+newBatchGetObjectInformationResponse ::
   BatchGetObjectInformationResponse
-batchGetObjectInformationResponse =
+newBatchGetObjectInformationResponse =
   BatchGetObjectInformationResponse'
-    { _bgoirSchemaFacets =
-        Nothing,
-      _bgoirObjectIdentifier = Nothing
+    { schemaFacets =
+        Prelude.Nothing,
+      objectIdentifier = Prelude.Nothing
     }
 
 -- | The facets attached to the specified object.
-bgoirSchemaFacets :: Lens' BatchGetObjectInformationResponse [SchemaFacet]
-bgoirSchemaFacets = lens _bgoirSchemaFacets (\s a -> s {_bgoirSchemaFacets = a}) . _Default . _Coerce
+batchGetObjectInformationResponse_schemaFacets :: Lens.Lens' BatchGetObjectInformationResponse (Prelude.Maybe [SchemaFacet])
+batchGetObjectInformationResponse_schemaFacets = Lens.lens (\BatchGetObjectInformationResponse' {schemaFacets} -> schemaFacets) (\s@BatchGetObjectInformationResponse' {} a -> s {schemaFacets = a} :: BatchGetObjectInformationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The @ObjectIdentifier@ of the specified object.
-bgoirObjectIdentifier :: Lens' BatchGetObjectInformationResponse (Maybe Text)
-bgoirObjectIdentifier = lens _bgoirObjectIdentifier (\s a -> s {_bgoirObjectIdentifier = a})
+batchGetObjectInformationResponse_objectIdentifier :: Lens.Lens' BatchGetObjectInformationResponse (Prelude.Maybe Prelude.Text)
+batchGetObjectInformationResponse_objectIdentifier = Lens.lens (\BatchGetObjectInformationResponse' {objectIdentifier} -> objectIdentifier) (\s@BatchGetObjectInformationResponse' {} a -> s {objectIdentifier = a} :: BatchGetObjectInformationResponse)
 
-instance FromJSON BatchGetObjectInformationResponse where
+instance
+  Prelude.FromJSON
+    BatchGetObjectInformationResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchGetObjectInformationResponse"
       ( \x ->
           BatchGetObjectInformationResponse'
-            <$> (x .:? "SchemaFacets" .!= mempty)
-            <*> (x .:? "ObjectIdentifier")
+            Prelude.<$> ( x Prelude..:? "SchemaFacets"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ObjectIdentifier")
       )
 
-instance Hashable BatchGetObjectInformationResponse
+instance
+  Prelude.Hashable
+    BatchGetObjectInformationResponse
 
-instance NFData BatchGetObjectInformationResponse
+instance
+  Prelude.NFData
+    BatchGetObjectInformationResponse

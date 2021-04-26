@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +21,59 @@ module Network.AWS.CloudDirectory.Types.LinkAttributeUpdate where
 
 import Network.AWS.CloudDirectory.Types.AttributeKey
 import Network.AWS.CloudDirectory.Types.LinkAttributeAction
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Structure that contains attribute update information.
 --
---
---
--- /See:/ 'linkAttributeUpdate' smart constructor.
+-- /See:/ 'newLinkAttributeUpdate' smart constructor.
 data LinkAttributeUpdate = LinkAttributeUpdate'
-  { _lauAttributeAction ::
-      !(Maybe LinkAttributeAction),
-    _lauAttributeKey ::
-      !(Maybe AttributeKey)
+  { -- | The action to perform as part of the attribute update.
+    attributeAction :: Prelude.Maybe LinkAttributeAction,
+    -- | The key of the attribute being updated.
+    attributeKey :: Prelude.Maybe AttributeKey
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LinkAttributeUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LinkAttributeUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lauAttributeAction' - The action to perform as part of the attribute update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lauAttributeKey' - The key of the attribute being updated.
-linkAttributeUpdate ::
+-- 'attributeAction', 'linkAttributeUpdate_attributeAction' - The action to perform as part of the attribute update.
+--
+-- 'attributeKey', 'linkAttributeUpdate_attributeKey' - The key of the attribute being updated.
+newLinkAttributeUpdate ::
   LinkAttributeUpdate
-linkAttributeUpdate =
+newLinkAttributeUpdate =
   LinkAttributeUpdate'
-    { _lauAttributeAction = Nothing,
-      _lauAttributeKey = Nothing
+    { attributeAction =
+        Prelude.Nothing,
+      attributeKey = Prelude.Nothing
     }
 
 -- | The action to perform as part of the attribute update.
-lauAttributeAction :: Lens' LinkAttributeUpdate (Maybe LinkAttributeAction)
-lauAttributeAction = lens _lauAttributeAction (\s a -> s {_lauAttributeAction = a})
+linkAttributeUpdate_attributeAction :: Lens.Lens' LinkAttributeUpdate (Prelude.Maybe LinkAttributeAction)
+linkAttributeUpdate_attributeAction = Lens.lens (\LinkAttributeUpdate' {attributeAction} -> attributeAction) (\s@LinkAttributeUpdate' {} a -> s {attributeAction = a} :: LinkAttributeUpdate)
 
 -- | The key of the attribute being updated.
-lauAttributeKey :: Lens' LinkAttributeUpdate (Maybe AttributeKey)
-lauAttributeKey = lens _lauAttributeKey (\s a -> s {_lauAttributeKey = a})
+linkAttributeUpdate_attributeKey :: Lens.Lens' LinkAttributeUpdate (Prelude.Maybe AttributeKey)
+linkAttributeUpdate_attributeKey = Lens.lens (\LinkAttributeUpdate' {attributeKey} -> attributeKey) (\s@LinkAttributeUpdate' {} a -> s {attributeKey = a} :: LinkAttributeUpdate)
 
-instance Hashable LinkAttributeUpdate
+instance Prelude.Hashable LinkAttributeUpdate
 
-instance NFData LinkAttributeUpdate
+instance Prelude.NFData LinkAttributeUpdate
 
-instance ToJSON LinkAttributeUpdate where
+instance Prelude.ToJSON LinkAttributeUpdate where
   toJSON LinkAttributeUpdate' {..} =
-    object
-      ( catMaybes
-          [ ("AttributeAction" .=) <$> _lauAttributeAction,
-            ("AttributeKey" .=) <$> _lauAttributeKey
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AttributeAction" Prelude..=)
+              Prelude.<$> attributeAction,
+            ("AttributeKey" Prelude..=)
+              Prelude.<$> attributeKey
           ]
       )

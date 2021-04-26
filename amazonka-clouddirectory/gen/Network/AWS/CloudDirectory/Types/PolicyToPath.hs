@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,59 @@
 module Network.AWS.CloudDirectory.Types.PolicyToPath where
 
 import Network.AWS.CloudDirectory.Types.PolicyAttachment
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Used when a regular object exists in a 'Directory' and you want to find all of the policies that are associated with that object and the parent to that object.
+-- | Used when a regular object exists in a Directory and you want to find
+-- all of the policies that are associated with that object and the parent
+-- to that object.
 --
---
---
--- /See:/ 'policyToPath' smart constructor.
+-- /See:/ 'newPolicyToPath' smart constructor.
 data PolicyToPath = PolicyToPath'
-  { _ptpPolicies ::
-      !(Maybe [PolicyAttachment]),
-    _ptpPath :: !(Maybe Text)
+  { -- | List of policy objects.
+    policies :: Prelude.Maybe [PolicyAttachment],
+    -- | The path that is referenced from the root.
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyToPath' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyToPath' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ptpPolicies' - List of policy objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ptpPath' - The path that is referenced from the root.
-policyToPath ::
+-- 'policies', 'policyToPath_policies' - List of policy objects.
+--
+-- 'path', 'policyToPath_path' - The path that is referenced from the root.
+newPolicyToPath ::
   PolicyToPath
-policyToPath =
+newPolicyToPath =
   PolicyToPath'
-    { _ptpPolicies = Nothing,
-      _ptpPath = Nothing
+    { policies = Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
 -- | List of policy objects.
-ptpPolicies :: Lens' PolicyToPath [PolicyAttachment]
-ptpPolicies = lens _ptpPolicies (\s a -> s {_ptpPolicies = a}) . _Default . _Coerce
+policyToPath_policies :: Lens.Lens' PolicyToPath (Prelude.Maybe [PolicyAttachment])
+policyToPath_policies = Lens.lens (\PolicyToPath' {policies} -> policies) (\s@PolicyToPath' {} a -> s {policies = a} :: PolicyToPath) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The path that is referenced from the root.
-ptpPath :: Lens' PolicyToPath (Maybe Text)
-ptpPath = lens _ptpPath (\s a -> s {_ptpPath = a})
+policyToPath_path :: Lens.Lens' PolicyToPath (Prelude.Maybe Prelude.Text)
+policyToPath_path = Lens.lens (\PolicyToPath' {path} -> path) (\s@PolicyToPath' {} a -> s {path = a} :: PolicyToPath)
 
-instance FromJSON PolicyToPath where
+instance Prelude.FromJSON PolicyToPath where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PolicyToPath"
       ( \x ->
           PolicyToPath'
-            <$> (x .:? "Policies" .!= mempty) <*> (x .:? "Path")
+            Prelude.<$> (x Prelude..:? "Policies" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Path")
       )
 
-instance Hashable PolicyToPath
+instance Prelude.Hashable PolicyToPath
 
-instance NFData PolicyToPath
+instance Prelude.NFData PolicyToPath

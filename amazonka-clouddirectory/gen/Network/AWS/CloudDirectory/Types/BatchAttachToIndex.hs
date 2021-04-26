@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,59 +20,67 @@
 module Network.AWS.CloudDirectory.Types.BatchAttachToIndex where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Attaches the specified object to the specified index inside a 'BatchRead' operation. For more information, see 'AttachToIndex' and 'BatchReadRequest$Operations' .
+-- | Attaches the specified object to the specified index inside a BatchRead
+-- operation. For more information, see AttachToIndex and
+-- BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchAttachToIndex' smart constructor.
+-- /See:/ 'newBatchAttachToIndex' smart constructor.
 data BatchAttachToIndex = BatchAttachToIndex'
-  { _batiIndexReference ::
-      !ObjectReference,
-    _batiTargetReference ::
-      !ObjectReference
+  { -- | A reference to the index that you are attaching the object to.
+    indexReference :: ObjectReference,
+    -- | A reference to the object that you are attaching to the index.
+    targetReference :: ObjectReference
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchAttachToIndex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchAttachToIndex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'batiIndexReference' - A reference to the index that you are attaching the object to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'batiTargetReference' - A reference to the object that you are attaching to the index.
-batchAttachToIndex ::
-  -- | 'batiIndexReference'
+-- 'indexReference', 'batchAttachToIndex_indexReference' - A reference to the index that you are attaching the object to.
+--
+-- 'targetReference', 'batchAttachToIndex_targetReference' - A reference to the object that you are attaching to the index.
+newBatchAttachToIndex ::
+  -- | 'indexReference'
   ObjectReference ->
-  -- | 'batiTargetReference'
+  -- | 'targetReference'
   ObjectReference ->
   BatchAttachToIndex
-batchAttachToIndex pIndexReference_ pTargetReference_ =
-  BatchAttachToIndex'
-    { _batiIndexReference =
-        pIndexReference_,
-      _batiTargetReference = pTargetReference_
-    }
+newBatchAttachToIndex
+  pIndexReference_
+  pTargetReference_ =
+    BatchAttachToIndex'
+      { indexReference =
+          pIndexReference_,
+        targetReference = pTargetReference_
+      }
 
 -- | A reference to the index that you are attaching the object to.
-batiIndexReference :: Lens' BatchAttachToIndex ObjectReference
-batiIndexReference = lens _batiIndexReference (\s a -> s {_batiIndexReference = a})
+batchAttachToIndex_indexReference :: Lens.Lens' BatchAttachToIndex ObjectReference
+batchAttachToIndex_indexReference = Lens.lens (\BatchAttachToIndex' {indexReference} -> indexReference) (\s@BatchAttachToIndex' {} a -> s {indexReference = a} :: BatchAttachToIndex)
 
 -- | A reference to the object that you are attaching to the index.
-batiTargetReference :: Lens' BatchAttachToIndex ObjectReference
-batiTargetReference = lens _batiTargetReference (\s a -> s {_batiTargetReference = a})
+batchAttachToIndex_targetReference :: Lens.Lens' BatchAttachToIndex ObjectReference
+batchAttachToIndex_targetReference = Lens.lens (\BatchAttachToIndex' {targetReference} -> targetReference) (\s@BatchAttachToIndex' {} a -> s {targetReference = a} :: BatchAttachToIndex)
 
-instance Hashable BatchAttachToIndex
+instance Prelude.Hashable BatchAttachToIndex
 
-instance NFData BatchAttachToIndex
+instance Prelude.NFData BatchAttachToIndex
 
-instance ToJSON BatchAttachToIndex where
+instance Prelude.ToJSON BatchAttachToIndex where
   toJSON BatchAttachToIndex' {..} =
-    object
-      ( catMaybes
-          [ Just ("IndexReference" .= _batiIndexReference),
-            Just ("TargetReference" .= _batiTargetReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("IndexReference" Prelude..= indexReference),
+            Prelude.Just
+              ("TargetReference" Prelude..= targetReference)
           ]
       )

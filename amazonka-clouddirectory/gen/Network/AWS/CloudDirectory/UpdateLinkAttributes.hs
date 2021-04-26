@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,160 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a given typed link’s attributes. Attributes to be updated must not contribute to the typed link’s identity, as defined by its @IdentityAttributeOrder@ .
+-- Updates a given typed link’s attributes. Attributes to be updated must
+-- not contribute to the typed link’s identity, as defined by its
+-- @IdentityAttributeOrder@.
 module Network.AWS.CloudDirectory.UpdateLinkAttributes
   ( -- * Creating a Request
-    updateLinkAttributes,
-    UpdateLinkAttributes,
+    UpdateLinkAttributes (..),
+    newUpdateLinkAttributes,
 
     -- * Request Lenses
-    ulaDirectoryARN,
-    ulaTypedLinkSpecifier,
-    ulaAttributeUpdates,
+    updateLinkAttributes_directoryArn,
+    updateLinkAttributes_typedLinkSpecifier,
+    updateLinkAttributes_attributeUpdates,
 
     -- * Destructuring the Response
-    updateLinkAttributesResponse,
-    UpdateLinkAttributesResponse,
+    UpdateLinkAttributesResponse (..),
+    newUpdateLinkAttributesResponse,
 
     -- * Response Lenses
-    ularrsResponseStatus,
+    updateLinkAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateLinkAttributes' smart constructor.
+-- | /See:/ 'newUpdateLinkAttributes' smart constructor.
 data UpdateLinkAttributes = UpdateLinkAttributes'
-  { _ulaDirectoryARN ::
-      !Text,
-    _ulaTypedLinkSpecifier ::
-      !TypedLinkSpecifier,
-    _ulaAttributeUpdates ::
-      ![LinkAttributeUpdate]
+  { -- | The Amazon Resource Name (ARN) that is associated with the Directory
+    -- where the updated typed link resides. For more information, see arns or
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
+    directoryArn :: Prelude.Text,
+    -- | Allows a typed link specifier to be accepted as input.
+    typedLinkSpecifier :: TypedLinkSpecifier,
+    -- | The attributes update structure.
+    attributeUpdates :: [LinkAttributeUpdate]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateLinkAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateLinkAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ulaDirectoryARN' - The Amazon Resource Name (ARN) that is associated with the Directory where the updated typed link resides. For more information, see 'arns' or <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ulaTypedLinkSpecifier' - Allows a typed link specifier to be accepted as input.
+-- 'directoryArn', 'updateLinkAttributes_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the updated typed link resides. For more information, see arns or
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
 --
--- * 'ulaAttributeUpdates' - The attributes update structure.
-updateLinkAttributes ::
-  -- | 'ulaDirectoryARN'
-  Text ->
-  -- | 'ulaTypedLinkSpecifier'
+-- 'typedLinkSpecifier', 'updateLinkAttributes_typedLinkSpecifier' - Allows a typed link specifier to be accepted as input.
+--
+-- 'attributeUpdates', 'updateLinkAttributes_attributeUpdates' - The attributes update structure.
+newUpdateLinkAttributes ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'typedLinkSpecifier'
   TypedLinkSpecifier ->
   UpdateLinkAttributes
-updateLinkAttributes
-  pDirectoryARN_
+newUpdateLinkAttributes
+  pDirectoryArn_
   pTypedLinkSpecifier_ =
     UpdateLinkAttributes'
-      { _ulaDirectoryARN =
-          pDirectoryARN_,
-        _ulaTypedLinkSpecifier = pTypedLinkSpecifier_,
-        _ulaAttributeUpdates = mempty
+      { directoryArn =
+          pDirectoryArn_,
+        typedLinkSpecifier = pTypedLinkSpecifier_,
+        attributeUpdates = Prelude.mempty
       }
 
--- | The Amazon Resource Name (ARN) that is associated with the Directory where the updated typed link resides. For more information, see 'arns' or <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links> .
-ulaDirectoryARN :: Lens' UpdateLinkAttributes Text
-ulaDirectoryARN = lens _ulaDirectoryARN (\s a -> s {_ulaDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the updated typed link resides. For more information, see arns or
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink Typed Links>.
+updateLinkAttributes_directoryArn :: Lens.Lens' UpdateLinkAttributes Prelude.Text
+updateLinkAttributes_directoryArn = Lens.lens (\UpdateLinkAttributes' {directoryArn} -> directoryArn) (\s@UpdateLinkAttributes' {} a -> s {directoryArn = a} :: UpdateLinkAttributes)
 
 -- | Allows a typed link specifier to be accepted as input.
-ulaTypedLinkSpecifier :: Lens' UpdateLinkAttributes TypedLinkSpecifier
-ulaTypedLinkSpecifier = lens _ulaTypedLinkSpecifier (\s a -> s {_ulaTypedLinkSpecifier = a})
+updateLinkAttributes_typedLinkSpecifier :: Lens.Lens' UpdateLinkAttributes TypedLinkSpecifier
+updateLinkAttributes_typedLinkSpecifier = Lens.lens (\UpdateLinkAttributes' {typedLinkSpecifier} -> typedLinkSpecifier) (\s@UpdateLinkAttributes' {} a -> s {typedLinkSpecifier = a} :: UpdateLinkAttributes)
 
 -- | The attributes update structure.
-ulaAttributeUpdates :: Lens' UpdateLinkAttributes [LinkAttributeUpdate]
-ulaAttributeUpdates = lens _ulaAttributeUpdates (\s a -> s {_ulaAttributeUpdates = a}) . _Coerce
+updateLinkAttributes_attributeUpdates :: Lens.Lens' UpdateLinkAttributes [LinkAttributeUpdate]
+updateLinkAttributes_attributeUpdates = Lens.lens (\UpdateLinkAttributes' {attributeUpdates} -> attributeUpdates) (\s@UpdateLinkAttributes' {} a -> s {attributeUpdates = a} :: UpdateLinkAttributes) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateLinkAttributes where
+instance Prelude.AWSRequest UpdateLinkAttributes where
   type
     Rs UpdateLinkAttributes =
       UpdateLinkAttributesResponse
-  request = postJSON cloudDirectory
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateLinkAttributesResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateLinkAttributes
+instance Prelude.Hashable UpdateLinkAttributes
 
-instance NFData UpdateLinkAttributes
+instance Prelude.NFData UpdateLinkAttributes
 
-instance ToHeaders UpdateLinkAttributes where
+instance Prelude.ToHeaders UpdateLinkAttributes where
   toHeaders UpdateLinkAttributes' {..} =
-    mconcat
-      ["x-amz-data-partition" =# _ulaDirectoryARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# directoryArn]
 
-instance ToJSON UpdateLinkAttributes where
+instance Prelude.ToJSON UpdateLinkAttributes where
   toJSON UpdateLinkAttributes' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("TypedLinkSpecifier" .= _ulaTypedLinkSpecifier),
-            Just ("AttributeUpdates" .= _ulaAttributeUpdates)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TypedLinkSpecifier" Prelude..= typedLinkSpecifier),
+            Prelude.Just
+              ("AttributeUpdates" Prelude..= attributeUpdates)
           ]
       )
 
-instance ToPath UpdateLinkAttributes where
+instance Prelude.ToPath UpdateLinkAttributes where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/typedlink/attributes/update"
 
-instance ToQuery UpdateLinkAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateLinkAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateLinkAttributesResponse' smart constructor.
-newtype UpdateLinkAttributesResponse = UpdateLinkAttributesResponse'
-  { _ularrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateLinkAttributesResponse' smart constructor.
+data UpdateLinkAttributesResponse = UpdateLinkAttributesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateLinkAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateLinkAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ularrsResponseStatus' - -- | The response status code.
-updateLinkAttributesResponse ::
-  -- | 'ularrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateLinkAttributesResponse_httpStatus' - The response's http status code.
+newUpdateLinkAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateLinkAttributesResponse
-updateLinkAttributesResponse pResponseStatus_ =
+newUpdateLinkAttributesResponse pHttpStatus_ =
   UpdateLinkAttributesResponse'
-    { _ularrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ularrsResponseStatus :: Lens' UpdateLinkAttributesResponse Int
-ularrsResponseStatus = lens _ularrsResponseStatus (\s a -> s {_ularrsResponseStatus = a})
+-- | The response's http status code.
+updateLinkAttributesResponse_httpStatus :: Lens.Lens' UpdateLinkAttributesResponse Prelude.Int
+updateLinkAttributesResponse_httpStatus = Lens.lens (\UpdateLinkAttributesResponse' {httpStatus} -> httpStatus) (\s@UpdateLinkAttributesResponse' {} a -> s {httpStatus = a} :: UpdateLinkAttributesResponse)
 
-instance NFData UpdateLinkAttributesResponse
+instance Prelude.NFData UpdateLinkAttributesResponse

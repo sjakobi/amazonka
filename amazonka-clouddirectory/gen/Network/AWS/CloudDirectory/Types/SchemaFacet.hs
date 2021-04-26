@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.SchemaFacet where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A facet.
 --
---
---
--- /See:/ 'schemaFacet' smart constructor.
+-- /See:/ 'newSchemaFacet' smart constructor.
 data SchemaFacet = SchemaFacet'
-  { _sfSchemaARN ::
-      !(Maybe Text),
-    _sfFacetName :: !(Maybe Text)
+  { -- | The ARN of the schema that contains the facet with no minor component.
+    -- See arns and
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html In-Place Schema Upgrade>
+    -- for a description of when to provide minor versions.
+    schemaArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the facet.
+    facetName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SchemaFacet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SchemaFacet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfSchemaARN' - The ARN of the schema that contains the facet with no minor component. See 'arns' and <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html In-Place Schema Upgrade> for a description of when to provide minor versions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sfFacetName' - The name of the facet.
-schemaFacet ::
+-- 'schemaArn', 'schemaFacet_schemaArn' - The ARN of the schema that contains the facet with no minor component.
+-- See arns and
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html In-Place Schema Upgrade>
+-- for a description of when to provide minor versions.
+--
+-- 'facetName', 'schemaFacet_facetName' - The name of the facet.
+newSchemaFacet ::
   SchemaFacet
-schemaFacet =
+newSchemaFacet =
   SchemaFacet'
-    { _sfSchemaARN = Nothing,
-      _sfFacetName = Nothing
+    { schemaArn = Prelude.Nothing,
+      facetName = Prelude.Nothing
     }
 
--- | The ARN of the schema that contains the facet with no minor component. See 'arns' and <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html In-Place Schema Upgrade> for a description of when to provide minor versions.
-sfSchemaARN :: Lens' SchemaFacet (Maybe Text)
-sfSchemaARN = lens _sfSchemaARN (\s a -> s {_sfSchemaARN = a})
+-- | The ARN of the schema that contains the facet with no minor component.
+-- See arns and
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html In-Place Schema Upgrade>
+-- for a description of when to provide minor versions.
+schemaFacet_schemaArn :: Lens.Lens' SchemaFacet (Prelude.Maybe Prelude.Text)
+schemaFacet_schemaArn = Lens.lens (\SchemaFacet' {schemaArn} -> schemaArn) (\s@SchemaFacet' {} a -> s {schemaArn = a} :: SchemaFacet)
 
 -- | The name of the facet.
-sfFacetName :: Lens' SchemaFacet (Maybe Text)
-sfFacetName = lens _sfFacetName (\s a -> s {_sfFacetName = a})
+schemaFacet_facetName :: Lens.Lens' SchemaFacet (Prelude.Maybe Prelude.Text)
+schemaFacet_facetName = Lens.lens (\SchemaFacet' {facetName} -> facetName) (\s@SchemaFacet' {} a -> s {facetName = a} :: SchemaFacet)
 
-instance FromJSON SchemaFacet where
+instance Prelude.FromJSON SchemaFacet where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SchemaFacet"
       ( \x ->
           SchemaFacet'
-            <$> (x .:? "SchemaArn") <*> (x .:? "FacetName")
+            Prelude.<$> (x Prelude..:? "SchemaArn")
+            Prelude.<*> (x Prelude..:? "FacetName")
       )
 
-instance Hashable SchemaFacet
+instance Prelude.Hashable SchemaFacet
 
-instance NFData SchemaFacet
+instance Prelude.NFData SchemaFacet
 
-instance ToJSON SchemaFacet where
+instance Prelude.ToJSON SchemaFacet where
   toJSON SchemaFacet' {..} =
-    object
-      ( catMaybes
-          [ ("SchemaArn" .=) <$> _sfSchemaARN,
-            ("FacetName" .=) <$> _sfFacetName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SchemaArn" Prelude..=) Prelude.<$> schemaArn,
+            ("FacetName" Prelude..=) Prelude.<$> facetName
           ]
       )

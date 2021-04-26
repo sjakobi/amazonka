@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,113 +21,133 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a given schema. Schemas in a development and published state can only be deleted.
+-- Deletes a given schema. Schemas in a development and published state can
+-- only be deleted.
 module Network.AWS.CloudDirectory.DeleteSchema
   ( -- * Creating a Request
-    deleteSchema,
-    DeleteSchema,
+    DeleteSchema (..),
+    newDeleteSchema,
 
     -- * Request Lenses
-    dsSchemaARN,
+    deleteSchema_schemaArn,
 
     -- * Destructuring the Response
-    deleteSchemaResponse,
-    DeleteSchemaResponse,
+    DeleteSchemaResponse (..),
+    newDeleteSchemaResponse,
 
     -- * Response Lenses
-    dsrrsSchemaARN,
-    dsrrsResponseStatus,
+    deleteSchemaResponse_schemaArn,
+    deleteSchemaResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSchema' smart constructor.
-newtype DeleteSchema = DeleteSchema'
-  { _dsSchemaARN ::
-      Text
+-- | /See:/ 'newDeleteSchema' smart constructor.
+data DeleteSchema = DeleteSchema'
+  { -- | The Amazon Resource Name (ARN) of the development schema. For more
+    -- information, see arns.
+    schemaArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSchema' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSchema' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsSchemaARN' - The Amazon Resource Name (ARN) of the development schema. For more information, see 'arns' .
-deleteSchema ::
-  -- | 'dsSchemaARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'schemaArn', 'deleteSchema_schemaArn' - The Amazon Resource Name (ARN) of the development schema. For more
+-- information, see arns.
+newDeleteSchema ::
+  -- | 'schemaArn'
+  Prelude.Text ->
   DeleteSchema
-deleteSchema pSchemaARN_ =
-  DeleteSchema' {_dsSchemaARN = pSchemaARN_}
+newDeleteSchema pSchemaArn_ =
+  DeleteSchema' {schemaArn = pSchemaArn_}
 
--- | The Amazon Resource Name (ARN) of the development schema. For more information, see 'arns' .
-dsSchemaARN :: Lens' DeleteSchema Text
-dsSchemaARN = lens _dsSchemaARN (\s a -> s {_dsSchemaARN = a})
+-- | The Amazon Resource Name (ARN) of the development schema. For more
+-- information, see arns.
+deleteSchema_schemaArn :: Lens.Lens' DeleteSchema Prelude.Text
+deleteSchema_schemaArn = Lens.lens (\DeleteSchema' {schemaArn} -> schemaArn) (\s@DeleteSchema' {} a -> s {schemaArn = a} :: DeleteSchema)
 
-instance AWSRequest DeleteSchema where
+instance Prelude.AWSRequest DeleteSchema where
   type Rs DeleteSchema = DeleteSchemaResponse
-  request = putJSON cloudDirectory
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteSchemaResponse'
-            <$> (x .?> "SchemaArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SchemaArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSchema
+instance Prelude.Hashable DeleteSchema
 
-instance NFData DeleteSchema
+instance Prelude.NFData DeleteSchema
 
-instance ToHeaders DeleteSchema where
+instance Prelude.ToHeaders DeleteSchema where
   toHeaders DeleteSchema' {..} =
-    mconcat ["x-amz-data-partition" =# _dsSchemaARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# schemaArn]
 
-instance ToJSON DeleteSchema where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DeleteSchema where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DeleteSchema where
+instance Prelude.ToPath DeleteSchema where
   toPath =
-    const "/amazonclouddirectory/2017-01-11/schema"
+    Prelude.const
+      "/amazonclouddirectory/2017-01-11/schema"
 
-instance ToQuery DeleteSchema where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSchema where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSchemaResponse' smart constructor.
+-- | /See:/ 'newDeleteSchemaResponse' smart constructor.
 data DeleteSchemaResponse = DeleteSchemaResponse'
-  { _dsrrsSchemaARN ::
-      !(Maybe Text),
-    _dsrrsResponseStatus :: !Int
+  { -- | The input ARN that is returned as part of the response. For more
+    -- information, see arns.
+    schemaArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSchemaResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSchemaResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsSchemaARN' - The input ARN that is returned as part of the response. For more information, see 'arns' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-deleteSchemaResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'schemaArn', 'deleteSchemaResponse_schemaArn' - The input ARN that is returned as part of the response. For more
+-- information, see arns.
+--
+-- 'httpStatus', 'deleteSchemaResponse_httpStatus' - The response's http status code.
+newDeleteSchemaResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSchemaResponse
-deleteSchemaResponse pResponseStatus_ =
+newDeleteSchemaResponse pHttpStatus_ =
   DeleteSchemaResponse'
-    { _dsrrsSchemaARN = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { schemaArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The input ARN that is returned as part of the response. For more information, see 'arns' .
-dsrrsSchemaARN :: Lens' DeleteSchemaResponse (Maybe Text)
-dsrrsSchemaARN = lens _dsrrsSchemaARN (\s a -> s {_dsrrsSchemaARN = a})
+-- | The input ARN that is returned as part of the response. For more
+-- information, see arns.
+deleteSchemaResponse_schemaArn :: Lens.Lens' DeleteSchemaResponse (Prelude.Maybe Prelude.Text)
+deleteSchemaResponse_schemaArn = Lens.lens (\DeleteSchemaResponse' {schemaArn} -> schemaArn) (\s@DeleteSchemaResponse' {} a -> s {schemaArn = a} :: DeleteSchemaResponse)
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DeleteSchemaResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSchemaResponse_httpStatus :: Lens.Lens' DeleteSchemaResponse Prelude.Int
+deleteSchemaResponse_httpStatus = Lens.lens (\DeleteSchemaResponse' {httpStatus} -> httpStatus) (\s@DeleteSchemaResponse' {} a -> s {httpStatus = a} :: DeleteSchemaResponse)
 
-instance NFData DeleteSchemaResponse
+instance Prelude.NFData DeleteSchemaResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,99 +22,109 @@ module Network.AWS.CloudDirectory.Types.BatchListOutgoingTypedLinks where
 import Network.AWS.CloudDirectory.Types.ObjectReference
 import Network.AWS.CloudDirectory.Types.TypedLinkAttributeRange
 import Network.AWS.CloudDirectory.Types.TypedLinkSchemaAndFacetName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns a paginated list of all the outgoing 'TypedLinkSpecifier' information for an object inside a 'BatchRead' operation. For more information, see 'ListOutgoingTypedLinks' and 'BatchReadRequest$Operations' .
+-- | Returns a paginated list of all the outgoing TypedLinkSpecifier
+-- information for an object inside a BatchRead operation. For more
+-- information, see ListOutgoingTypedLinks and BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchListOutgoingTypedLinks' smart constructor.
+-- /See:/ 'newBatchListOutgoingTypedLinks' smart constructor.
 data BatchListOutgoingTypedLinks = BatchListOutgoingTypedLinks'
-  { _blotlNextToken ::
-      !(Maybe Text),
-    _blotlFilterTypedLink ::
-      !( Maybe
-           TypedLinkSchemaAndFacetName
-       ),
-    _blotlMaxResults ::
-      !(Maybe Nat),
-    _blotlFilterAttributeRanges ::
-      !( Maybe
-           [TypedLinkAttributeRange]
-       ),
-    _blotlObjectReference ::
-      !ObjectReference
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filters are interpreted in the order of the attributes defined on the
+    -- typed link facet, not the order they are supplied to any API calls.
+    filterTypedLink :: Prelude.Maybe TypedLinkSchemaAndFacetName,
+    -- | The maximum number of results to retrieve.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Provides range filters for multiple attributes. When providing ranges to
+    -- typed link selection, any inexact ranges must be specified at the end.
+    -- Any attributes that do not have a range specified are presumed to match
+    -- the entire range.
+    filterAttributeRanges :: Prelude.Maybe [TypedLinkAttributeRange],
+    -- | The reference that identifies the object whose attributes will be
+    -- listed.
+    objectReference :: ObjectReference
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListOutgoingTypedLinks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListOutgoingTypedLinks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'blotlNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'blotlFilterTypedLink' - Filters are interpreted in the order of the attributes defined on the typed link facet, not the order they are supplied to any API calls.
+-- 'nextToken', 'batchListOutgoingTypedLinks_nextToken' - The pagination token.
 --
--- * 'blotlMaxResults' - The maximum number of results to retrieve.
+-- 'filterTypedLink', 'batchListOutgoingTypedLinks_filterTypedLink' - Filters are interpreted in the order of the attributes defined on the
+-- typed link facet, not the order they are supplied to any API calls.
 --
--- * 'blotlFilterAttributeRanges' - Provides range filters for multiple attributes. When providing ranges to typed link selection, any inexact ranges must be specified at the end. Any attributes that do not have a range specified are presumed to match the entire range.
+-- 'maxResults', 'batchListOutgoingTypedLinks_maxResults' - The maximum number of results to retrieve.
 --
--- * 'blotlObjectReference' - The reference that identifies the object whose attributes will be listed.
-batchListOutgoingTypedLinks ::
-  -- | 'blotlObjectReference'
+-- 'filterAttributeRanges', 'batchListOutgoingTypedLinks_filterAttributeRanges' - Provides range filters for multiple attributes. When providing ranges to
+-- typed link selection, any inexact ranges must be specified at the end.
+-- Any attributes that do not have a range specified are presumed to match
+-- the entire range.
+--
+-- 'objectReference', 'batchListOutgoingTypedLinks_objectReference' - The reference that identifies the object whose attributes will be
+-- listed.
+newBatchListOutgoingTypedLinks ::
+  -- | 'objectReference'
   ObjectReference ->
   BatchListOutgoingTypedLinks
-batchListOutgoingTypedLinks pObjectReference_ =
+newBatchListOutgoingTypedLinks pObjectReference_ =
   BatchListOutgoingTypedLinks'
-    { _blotlNextToken =
-        Nothing,
-      _blotlFilterTypedLink = Nothing,
-      _blotlMaxResults = Nothing,
-      _blotlFilterAttributeRanges = Nothing,
-      _blotlObjectReference = pObjectReference_
+    { nextToken =
+        Prelude.Nothing,
+      filterTypedLink = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filterAttributeRanges = Prelude.Nothing,
+      objectReference = pObjectReference_
     }
 
 -- | The pagination token.
-blotlNextToken :: Lens' BatchListOutgoingTypedLinks (Maybe Text)
-blotlNextToken = lens _blotlNextToken (\s a -> s {_blotlNextToken = a})
+batchListOutgoingTypedLinks_nextToken :: Lens.Lens' BatchListOutgoingTypedLinks (Prelude.Maybe Prelude.Text)
+batchListOutgoingTypedLinks_nextToken = Lens.lens (\BatchListOutgoingTypedLinks' {nextToken} -> nextToken) (\s@BatchListOutgoingTypedLinks' {} a -> s {nextToken = a} :: BatchListOutgoingTypedLinks)
 
--- | Filters are interpreted in the order of the attributes defined on the typed link facet, not the order they are supplied to any API calls.
-blotlFilterTypedLink :: Lens' BatchListOutgoingTypedLinks (Maybe TypedLinkSchemaAndFacetName)
-blotlFilterTypedLink = lens _blotlFilterTypedLink (\s a -> s {_blotlFilterTypedLink = a})
+-- | Filters are interpreted in the order of the attributes defined on the
+-- typed link facet, not the order they are supplied to any API calls.
+batchListOutgoingTypedLinks_filterTypedLink :: Lens.Lens' BatchListOutgoingTypedLinks (Prelude.Maybe TypedLinkSchemaAndFacetName)
+batchListOutgoingTypedLinks_filterTypedLink = Lens.lens (\BatchListOutgoingTypedLinks' {filterTypedLink} -> filterTypedLink) (\s@BatchListOutgoingTypedLinks' {} a -> s {filterTypedLink = a} :: BatchListOutgoingTypedLinks)
 
 -- | The maximum number of results to retrieve.
-blotlMaxResults :: Lens' BatchListOutgoingTypedLinks (Maybe Natural)
-blotlMaxResults = lens _blotlMaxResults (\s a -> s {_blotlMaxResults = a}) . mapping _Nat
+batchListOutgoingTypedLinks_maxResults :: Lens.Lens' BatchListOutgoingTypedLinks (Prelude.Maybe Prelude.Natural)
+batchListOutgoingTypedLinks_maxResults = Lens.lens (\BatchListOutgoingTypedLinks' {maxResults} -> maxResults) (\s@BatchListOutgoingTypedLinks' {} a -> s {maxResults = a} :: BatchListOutgoingTypedLinks) Prelude.. Lens.mapping Prelude._Nat
 
--- | Provides range filters for multiple attributes. When providing ranges to typed link selection, any inexact ranges must be specified at the end. Any attributes that do not have a range specified are presumed to match the entire range.
-blotlFilterAttributeRanges :: Lens' BatchListOutgoingTypedLinks [TypedLinkAttributeRange]
-blotlFilterAttributeRanges = lens _blotlFilterAttributeRanges (\s a -> s {_blotlFilterAttributeRanges = a}) . _Default . _Coerce
+-- | Provides range filters for multiple attributes. When providing ranges to
+-- typed link selection, any inexact ranges must be specified at the end.
+-- Any attributes that do not have a range specified are presumed to match
+-- the entire range.
+batchListOutgoingTypedLinks_filterAttributeRanges :: Lens.Lens' BatchListOutgoingTypedLinks (Prelude.Maybe [TypedLinkAttributeRange])
+batchListOutgoingTypedLinks_filterAttributeRanges = Lens.lens (\BatchListOutgoingTypedLinks' {filterAttributeRanges} -> filterAttributeRanges) (\s@BatchListOutgoingTypedLinks' {} a -> s {filterAttributeRanges = a} :: BatchListOutgoingTypedLinks) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The reference that identifies the object whose attributes will be listed.
-blotlObjectReference :: Lens' BatchListOutgoingTypedLinks ObjectReference
-blotlObjectReference = lens _blotlObjectReference (\s a -> s {_blotlObjectReference = a})
+-- | The reference that identifies the object whose attributes will be
+-- listed.
+batchListOutgoingTypedLinks_objectReference :: Lens.Lens' BatchListOutgoingTypedLinks ObjectReference
+batchListOutgoingTypedLinks_objectReference = Lens.lens (\BatchListOutgoingTypedLinks' {objectReference} -> objectReference) (\s@BatchListOutgoingTypedLinks' {} a -> s {objectReference = a} :: BatchListOutgoingTypedLinks)
 
-instance Hashable BatchListOutgoingTypedLinks
+instance Prelude.Hashable BatchListOutgoingTypedLinks
 
-instance NFData BatchListOutgoingTypedLinks
+instance Prelude.NFData BatchListOutgoingTypedLinks
 
-instance ToJSON BatchListOutgoingTypedLinks where
+instance Prelude.ToJSON BatchListOutgoingTypedLinks where
   toJSON BatchListOutgoingTypedLinks' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _blotlNextToken,
-            ("FilterTypedLink" .=) <$> _blotlFilterTypedLink,
-            ("MaxResults" .=) <$> _blotlMaxResults,
-            ("FilterAttributeRanges" .=)
-              <$> _blotlFilterAttributeRanges,
-            Just ("ObjectReference" .= _blotlObjectReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("FilterTypedLink" Prelude..=)
+              Prelude.<$> filterTypedLink,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("FilterAttributeRanges" Prelude..=)
+              Prelude.<$> filterAttributeRanges,
+            Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
           ]
       )

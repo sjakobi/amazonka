@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.CloudDirectory.Types.RuleType
   ( RuleType
       ( ..,
-        BinaryLength,
-        NumberComparison,
-        StringFromSet,
-        StringLength
+        RuleTypeBINARYLENGTH,
+        RuleTypeNUMBERCOMPARISON,
+        RuleTypeSTRINGFROMSET,
+        RuleTypeSTRINGLENGTH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RuleType = RuleType' (CI Text)
+newtype RuleType = RuleType'
+  { fromRuleType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BinaryLength :: RuleType
-pattern BinaryLength = RuleType' "BINARY_LENGTH"
+pattern RuleTypeBINARYLENGTH :: RuleType
+pattern RuleTypeBINARYLENGTH = RuleType' "BINARY_LENGTH"
 
-pattern NumberComparison :: RuleType
-pattern NumberComparison = RuleType' "NUMBER_COMPARISON"
+pattern RuleTypeNUMBERCOMPARISON :: RuleType
+pattern RuleTypeNUMBERCOMPARISON = RuleType' "NUMBER_COMPARISON"
 
-pattern StringFromSet :: RuleType
-pattern StringFromSet = RuleType' "STRING_FROM_SET"
+pattern RuleTypeSTRINGFROMSET :: RuleType
+pattern RuleTypeSTRINGFROMSET = RuleType' "STRING_FROM_SET"
 
-pattern StringLength :: RuleType
-pattern StringLength = RuleType' "STRING_LENGTH"
+pattern RuleTypeSTRINGLENGTH :: RuleType
+pattern RuleTypeSTRINGLENGTH = RuleType' "STRING_LENGTH"
 
 {-# COMPLETE
-  BinaryLength,
-  NumberComparison,
-  StringFromSet,
-  StringLength,
+  RuleTypeBINARYLENGTH,
+  RuleTypeNUMBERCOMPARISON,
+  RuleTypeSTRINGFROMSET,
+  RuleTypeSTRINGLENGTH,
   RuleType'
   #-}
 
-instance FromText RuleType where
-  parser = (RuleType' . mk) <$> takeText
+instance Prelude.FromText RuleType where
+  parser = RuleType' Prelude.<$> Prelude.takeText
 
-instance ToText RuleType where
-  toText (RuleType' ci) = original ci
+instance Prelude.ToText RuleType where
+  toText (RuleType' x) = x
 
-instance Hashable RuleType
+instance Prelude.Hashable RuleType
 
-instance NFData RuleType
+instance Prelude.NFData RuleType
 
-instance ToByteString RuleType
+instance Prelude.ToByteString RuleType
 
-instance ToQuery RuleType
+instance Prelude.ToQuery RuleType
 
-instance ToHeader RuleType
+instance Prelude.ToHeader RuleType
 
-instance ToJSON RuleType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RuleType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RuleType where
-  parseJSON = parseJSONText "RuleType"
+instance Prelude.FromJSON RuleType where
+  parseJSON = Prelude.parseJSONText "RuleType"

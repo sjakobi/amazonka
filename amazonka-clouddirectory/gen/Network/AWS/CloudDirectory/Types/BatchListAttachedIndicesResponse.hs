@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,67 @@
 module Network.AWS.CloudDirectory.Types.BatchListAttachedIndicesResponse where
 
 import Network.AWS.CloudDirectory.Types.IndexAttachment
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'ListAttachedIndices' response operation.
+-- | Represents the output of a ListAttachedIndices response operation.
 --
---
---
--- /See:/ 'batchListAttachedIndicesResponse' smart constructor.
+-- /See:/ 'newBatchListAttachedIndicesResponse' smart constructor.
 data BatchListAttachedIndicesResponse = BatchListAttachedIndicesResponse'
-  { _blairNextToken ::
-      !( Maybe
-           Text
-       ),
-    _blairIndexAttachments ::
-      !( Maybe
-           [IndexAttachment]
-       )
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The indices attached to the specified object.
+    indexAttachments :: Prelude.Maybe [IndexAttachment]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListAttachedIndicesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListAttachedIndicesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'blairNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'blairIndexAttachments' - The indices attached to the specified object.
-batchListAttachedIndicesResponse ::
+-- 'nextToken', 'batchListAttachedIndicesResponse_nextToken' - The pagination token.
+--
+-- 'indexAttachments', 'batchListAttachedIndicesResponse_indexAttachments' - The indices attached to the specified object.
+newBatchListAttachedIndicesResponse ::
   BatchListAttachedIndicesResponse
-batchListAttachedIndicesResponse =
+newBatchListAttachedIndicesResponse =
   BatchListAttachedIndicesResponse'
-    { _blairNextToken =
-        Nothing,
-      _blairIndexAttachments = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      indexAttachments = Prelude.Nothing
     }
 
 -- | The pagination token.
-blairNextToken :: Lens' BatchListAttachedIndicesResponse (Maybe Text)
-blairNextToken = lens _blairNextToken (\s a -> s {_blairNextToken = a})
+batchListAttachedIndicesResponse_nextToken :: Lens.Lens' BatchListAttachedIndicesResponse (Prelude.Maybe Prelude.Text)
+batchListAttachedIndicesResponse_nextToken = Lens.lens (\BatchListAttachedIndicesResponse' {nextToken} -> nextToken) (\s@BatchListAttachedIndicesResponse' {} a -> s {nextToken = a} :: BatchListAttachedIndicesResponse)
 
 -- | The indices attached to the specified object.
-blairIndexAttachments :: Lens' BatchListAttachedIndicesResponse [IndexAttachment]
-blairIndexAttachments = lens _blairIndexAttachments (\s a -> s {_blairIndexAttachments = a}) . _Default . _Coerce
+batchListAttachedIndicesResponse_indexAttachments :: Lens.Lens' BatchListAttachedIndicesResponse (Prelude.Maybe [IndexAttachment])
+batchListAttachedIndicesResponse_indexAttachments = Lens.lens (\BatchListAttachedIndicesResponse' {indexAttachments} -> indexAttachments) (\s@BatchListAttachedIndicesResponse' {} a -> s {indexAttachments = a} :: BatchListAttachedIndicesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON BatchListAttachedIndicesResponse where
+instance
+  Prelude.FromJSON
+    BatchListAttachedIndicesResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchListAttachedIndicesResponse"
       ( \x ->
           BatchListAttachedIndicesResponse'
-            <$> (x .:? "NextToken")
-            <*> (x .:? "IndexAttachments" .!= mempty)
+            Prelude.<$> (x Prelude..:? "NextToken")
+            Prelude.<*> ( x Prelude..:? "IndexAttachments"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable BatchListAttachedIndicesResponse
+instance
+  Prelude.Hashable
+    BatchListAttachedIndicesResponse
 
-instance NFData BatchListAttachedIndicesResponse
+instance
+  Prelude.NFData
+    BatchListAttachedIndicesResponse

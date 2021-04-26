@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,78 @@
 module Network.AWS.CloudDirectory.Types.BatchAttachObject where
 
 import Network.AWS.CloudDirectory.Types.ObjectReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of an 'AttachObject' operation.
+-- | Represents the output of an AttachObject operation.
 --
---
---
--- /See:/ 'batchAttachObject' smart constructor.
+-- /See:/ 'newBatchAttachObject' smart constructor.
 data BatchAttachObject = BatchAttachObject'
-  { _baoParentReference ::
-      !ObjectReference,
-    _baoChildReference ::
-      !ObjectReference,
-    _baoLinkName :: !Text
+  { -- | The parent object reference.
+    parentReference :: ObjectReference,
+    -- | The child object reference that is to be attached to the object.
+    childReference :: ObjectReference,
+    -- | The name of the link.
+    linkName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchAttachObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchAttachObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'baoParentReference' - The parent object reference.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'baoChildReference' - The child object reference that is to be attached to the object.
+-- 'parentReference', 'batchAttachObject_parentReference' - The parent object reference.
 --
--- * 'baoLinkName' - The name of the link.
-batchAttachObject ::
-  -- | 'baoParentReference'
+-- 'childReference', 'batchAttachObject_childReference' - The child object reference that is to be attached to the object.
+--
+-- 'linkName', 'batchAttachObject_linkName' - The name of the link.
+newBatchAttachObject ::
+  -- | 'parentReference'
   ObjectReference ->
-  -- | 'baoChildReference'
+  -- | 'childReference'
   ObjectReference ->
-  -- | 'baoLinkName'
-  Text ->
+  -- | 'linkName'
+  Prelude.Text ->
   BatchAttachObject
-batchAttachObject
+newBatchAttachObject
   pParentReference_
   pChildReference_
   pLinkName_ =
     BatchAttachObject'
-      { _baoParentReference =
+      { parentReference =
           pParentReference_,
-        _baoChildReference = pChildReference_,
-        _baoLinkName = pLinkName_
+        childReference = pChildReference_,
+        linkName = pLinkName_
       }
 
 -- | The parent object reference.
-baoParentReference :: Lens' BatchAttachObject ObjectReference
-baoParentReference = lens _baoParentReference (\s a -> s {_baoParentReference = a})
+batchAttachObject_parentReference :: Lens.Lens' BatchAttachObject ObjectReference
+batchAttachObject_parentReference = Lens.lens (\BatchAttachObject' {parentReference} -> parentReference) (\s@BatchAttachObject' {} a -> s {parentReference = a} :: BatchAttachObject)
 
 -- | The child object reference that is to be attached to the object.
-baoChildReference :: Lens' BatchAttachObject ObjectReference
-baoChildReference = lens _baoChildReference (\s a -> s {_baoChildReference = a})
+batchAttachObject_childReference :: Lens.Lens' BatchAttachObject ObjectReference
+batchAttachObject_childReference = Lens.lens (\BatchAttachObject' {childReference} -> childReference) (\s@BatchAttachObject' {} a -> s {childReference = a} :: BatchAttachObject)
 
 -- | The name of the link.
-baoLinkName :: Lens' BatchAttachObject Text
-baoLinkName = lens _baoLinkName (\s a -> s {_baoLinkName = a})
+batchAttachObject_linkName :: Lens.Lens' BatchAttachObject Prelude.Text
+batchAttachObject_linkName = Lens.lens (\BatchAttachObject' {linkName} -> linkName) (\s@BatchAttachObject' {} a -> s {linkName = a} :: BatchAttachObject)
 
-instance Hashable BatchAttachObject
+instance Prelude.Hashable BatchAttachObject
 
-instance NFData BatchAttachObject
+instance Prelude.NFData BatchAttachObject
 
-instance ToJSON BatchAttachObject where
+instance Prelude.ToJSON BatchAttachObject where
   toJSON BatchAttachObject' {..} =
-    object
-      ( catMaybes
-          [ Just ("ParentReference" .= _baoParentReference),
-            Just ("ChildReference" .= _baoChildReference),
-            Just ("LinkName" .= _baoLinkName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ParentReference" Prelude..= parentReference),
+            Prelude.Just
+              ("ChildReference" Prelude..= childReference),
+            Prelude.Just ("LinkName" Prelude..= linkName)
           ]
       )

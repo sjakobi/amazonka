@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types
   ( -- * Service Configuration
-    cloudDirectory,
+    defaultService,
 
     -- * Errors
     _IncompatibleSchemaException,
@@ -19,7 +22,7 @@ module Network.AWS.CloudDirectory.Types
     _FacetValidationException,
     _BatchWriteException,
     _FacetInUseException,
-    _InvalidARNException,
+    _InvalidArnException,
     _DirectoryDeletedException,
     _InvalidRuleException,
     _InternalServiceException,
@@ -82,645 +85,383 @@ module Network.AWS.CloudDirectory.Types
 
     -- * AttributeKey
     AttributeKey (..),
-    attributeKey,
-    akSchemaARN,
-    akFacetName,
-    akName,
+    newAttributeKey,
 
     -- * AttributeKeyAndValue
     AttributeKeyAndValue (..),
-    attributeKeyAndValue,
-    akavKey,
-    akavValue,
+    newAttributeKeyAndValue,
 
     -- * AttributeNameAndValue
     AttributeNameAndValue (..),
-    attributeNameAndValue,
-    anavAttributeName,
-    anavValue,
+    newAttributeNameAndValue,
 
     -- * BatchAddFacetToObject
     BatchAddFacetToObject (..),
-    batchAddFacetToObject,
-    baftoSchemaFacet,
-    baftoObjectAttributeList,
-    baftoObjectReference,
+    newBatchAddFacetToObject,
 
     -- * BatchAddFacetToObjectResponse
     BatchAddFacetToObjectResponse (..),
-    batchAddFacetToObjectResponse,
+    newBatchAddFacetToObjectResponse,
 
     -- * BatchAttachObject
     BatchAttachObject (..),
-    batchAttachObject,
-    baoParentReference,
-    baoChildReference,
-    baoLinkName,
+    newBatchAttachObject,
 
     -- * BatchAttachObjectResponse
     BatchAttachObjectResponse (..),
-    batchAttachObjectResponse,
-    baorAttachedObjectIdentifier,
+    newBatchAttachObjectResponse,
 
     -- * BatchAttachPolicy
     BatchAttachPolicy (..),
-    batchAttachPolicy,
-    bapPolicyReference,
-    bapObjectReference,
+    newBatchAttachPolicy,
 
     -- * BatchAttachPolicyResponse
     BatchAttachPolicyResponse (..),
-    batchAttachPolicyResponse,
+    newBatchAttachPolicyResponse,
 
     -- * BatchAttachToIndex
     BatchAttachToIndex (..),
-    batchAttachToIndex,
-    batiIndexReference,
-    batiTargetReference,
+    newBatchAttachToIndex,
 
     -- * BatchAttachToIndexResponse
     BatchAttachToIndexResponse (..),
-    batchAttachToIndexResponse,
-    batirAttachedObjectIdentifier,
+    newBatchAttachToIndexResponse,
 
     -- * BatchAttachTypedLink
     BatchAttachTypedLink (..),
-    batchAttachTypedLink,
-    batlSourceObjectReference,
-    batlTargetObjectReference,
-    batlTypedLinkFacet,
-    batlAttributes,
+    newBatchAttachTypedLink,
 
     -- * BatchAttachTypedLinkResponse
     BatchAttachTypedLinkResponse (..),
-    batchAttachTypedLinkResponse,
-    batlrTypedLinkSpecifier,
+    newBatchAttachTypedLinkResponse,
 
     -- * BatchCreateIndex
     BatchCreateIndex (..),
-    batchCreateIndex,
-    bciParentReference,
-    bciLinkName,
-    bciBatchReferenceName,
-    bciOrderedIndexedAttributeList,
-    bciIsUnique,
+    newBatchCreateIndex,
 
     -- * BatchCreateIndexResponse
     BatchCreateIndexResponse (..),
-    batchCreateIndexResponse,
-    bcirObjectIdentifier,
+    newBatchCreateIndexResponse,
 
     -- * BatchCreateObject
     BatchCreateObject (..),
-    batchCreateObject,
-    bcoParentReference,
-    bcoLinkName,
-    bcoBatchReferenceName,
-    bcoSchemaFacet,
-    bcoObjectAttributeList,
+    newBatchCreateObject,
 
     -- * BatchCreateObjectResponse
     BatchCreateObjectResponse (..),
-    batchCreateObjectResponse,
-    bcorObjectIdentifier,
+    newBatchCreateObjectResponse,
 
     -- * BatchDeleteObject
     BatchDeleteObject (..),
-    batchDeleteObject,
-    bdoObjectReference,
+    newBatchDeleteObject,
 
     -- * BatchDeleteObjectResponse
     BatchDeleteObjectResponse (..),
-    batchDeleteObjectResponse,
+    newBatchDeleteObjectResponse,
 
     -- * BatchDetachFromIndex
     BatchDetachFromIndex (..),
-    batchDetachFromIndex,
-    bdfiIndexReference,
-    bdfiTargetReference,
+    newBatchDetachFromIndex,
 
     -- * BatchDetachFromIndexResponse
     BatchDetachFromIndexResponse (..),
-    batchDetachFromIndexResponse,
-    bdfirDetachedObjectIdentifier,
+    newBatchDetachFromIndexResponse,
 
     -- * BatchDetachObject
     BatchDetachObject (..),
-    batchDetachObject,
-    bdoBatchReferenceName,
-    bdoParentReference,
-    bdoLinkName,
+    newBatchDetachObject,
 
     -- * BatchDetachObjectResponse
     BatchDetachObjectResponse (..),
-    batchDetachObjectResponse,
-    bdorDetachedObjectIdentifier,
+    newBatchDetachObjectResponse,
 
     -- * BatchDetachPolicy
     BatchDetachPolicy (..),
-    batchDetachPolicy,
-    bdpPolicyReference,
-    bdpObjectReference,
+    newBatchDetachPolicy,
 
     -- * BatchDetachPolicyResponse
     BatchDetachPolicyResponse (..),
-    batchDetachPolicyResponse,
+    newBatchDetachPolicyResponse,
 
     -- * BatchDetachTypedLink
     BatchDetachTypedLink (..),
-    batchDetachTypedLink,
-    bdtlTypedLinkSpecifier,
+    newBatchDetachTypedLink,
 
     -- * BatchDetachTypedLinkResponse
     BatchDetachTypedLinkResponse (..),
-    batchDetachTypedLinkResponse,
+    newBatchDetachTypedLinkResponse,
 
     -- * BatchGetLinkAttributes
     BatchGetLinkAttributes (..),
-    batchGetLinkAttributes,
-    bglaTypedLinkSpecifier,
-    bglaAttributeNames,
+    newBatchGetLinkAttributes,
 
     -- * BatchGetLinkAttributesResponse
     BatchGetLinkAttributesResponse (..),
-    batchGetLinkAttributesResponse,
-    bglarAttributes,
+    newBatchGetLinkAttributesResponse,
 
     -- * BatchGetObjectAttributes
     BatchGetObjectAttributes (..),
-    batchGetObjectAttributes,
-    bgoaObjectReference,
-    bgoaSchemaFacet,
-    bgoaAttributeNames,
+    newBatchGetObjectAttributes,
 
     -- * BatchGetObjectAttributesResponse
     BatchGetObjectAttributesResponse (..),
-    batchGetObjectAttributesResponse,
-    bgoarAttributes,
+    newBatchGetObjectAttributesResponse,
 
     -- * BatchGetObjectInformation
     BatchGetObjectInformation (..),
-    batchGetObjectInformation,
-    bgoiObjectReference,
+    newBatchGetObjectInformation,
 
     -- * BatchGetObjectInformationResponse
     BatchGetObjectInformationResponse (..),
-    batchGetObjectInformationResponse,
-    bgoirSchemaFacets,
-    bgoirObjectIdentifier,
+    newBatchGetObjectInformationResponse,
 
     -- * BatchListAttachedIndices
     BatchListAttachedIndices (..),
-    batchListAttachedIndices,
-    blaiNextToken,
-    blaiMaxResults,
-    blaiTargetReference,
+    newBatchListAttachedIndices,
 
     -- * BatchListAttachedIndicesResponse
     BatchListAttachedIndicesResponse (..),
-    batchListAttachedIndicesResponse,
-    blairNextToken,
-    blairIndexAttachments,
+    newBatchListAttachedIndicesResponse,
 
     -- * BatchListIncomingTypedLinks
     BatchListIncomingTypedLinks (..),
-    batchListIncomingTypedLinks,
-    blitlNextToken,
-    blitlFilterTypedLink,
-    blitlMaxResults,
-    blitlFilterAttributeRanges,
-    blitlObjectReference,
+    newBatchListIncomingTypedLinks,
 
     -- * BatchListIncomingTypedLinksResponse
     BatchListIncomingTypedLinksResponse (..),
-    batchListIncomingTypedLinksResponse,
-    blitlrLinkSpecifiers,
-    blitlrNextToken,
+    newBatchListIncomingTypedLinksResponse,
 
     -- * BatchListIndex
     BatchListIndex (..),
-    batchListIndex,
-    bliNextToken,
-    bliMaxResults,
-    bliRangesOnIndexedValues,
-    bliIndexReference,
+    newBatchListIndex,
 
     -- * BatchListIndexResponse
     BatchListIndexResponse (..),
-    batchListIndexResponse,
-    blirNextToken,
-    blirIndexAttachments,
+    newBatchListIndexResponse,
 
     -- * BatchListObjectAttributes
     BatchListObjectAttributes (..),
-    batchListObjectAttributes,
-    bloaNextToken,
-    bloaMaxResults,
-    bloaFacetFilter,
-    bloaObjectReference,
+    newBatchListObjectAttributes,
 
     -- * BatchListObjectAttributesResponse
     BatchListObjectAttributesResponse (..),
-    batchListObjectAttributesResponse,
-    bloarNextToken,
-    bloarAttributes,
+    newBatchListObjectAttributesResponse,
 
     -- * BatchListObjectChildren
     BatchListObjectChildren (..),
-    batchListObjectChildren,
-    blocNextToken,
-    blocMaxResults,
-    blocObjectReference,
+    newBatchListObjectChildren,
 
     -- * BatchListObjectChildrenResponse
     BatchListObjectChildrenResponse (..),
-    batchListObjectChildrenResponse,
-    blocrNextToken,
-    blocrChildren,
+    newBatchListObjectChildrenResponse,
 
     -- * BatchListObjectParentPaths
     BatchListObjectParentPaths (..),
-    batchListObjectParentPaths,
-    bloppNextToken,
-    bloppMaxResults,
-    bloppObjectReference,
+    newBatchListObjectParentPaths,
 
     -- * BatchListObjectParentPathsResponse
     BatchListObjectParentPathsResponse (..),
-    batchListObjectParentPathsResponse,
-    blopprNextToken,
-    blopprPathToObjectIdentifiersList,
+    newBatchListObjectParentPathsResponse,
 
     -- * BatchListObjectParents
     BatchListObjectParents (..),
-    batchListObjectParents,
-    blopNextToken,
-    blopMaxResults,
-    blopObjectReference,
+    newBatchListObjectParents,
 
     -- * BatchListObjectParentsResponse
     BatchListObjectParentsResponse (..),
-    batchListObjectParentsResponse,
-    bloprParentLinks,
-    bloprNextToken,
+    newBatchListObjectParentsResponse,
 
     -- * BatchListObjectPolicies
     BatchListObjectPolicies (..),
-    batchListObjectPolicies,
-    bNextToken,
-    bMaxResults,
-    bObjectReference,
+    newBatchListObjectPolicies,
 
     -- * BatchListObjectPoliciesResponse
     BatchListObjectPoliciesResponse (..),
-    batchListObjectPoliciesResponse,
-    batNextToken,
-    batAttachedPolicyIds,
+    newBatchListObjectPoliciesResponse,
 
     -- * BatchListOutgoingTypedLinks
     BatchListOutgoingTypedLinks (..),
-    batchListOutgoingTypedLinks,
-    blotlNextToken,
-    blotlFilterTypedLink,
-    blotlMaxResults,
-    blotlFilterAttributeRanges,
-    blotlObjectReference,
+    newBatchListOutgoingTypedLinks,
 
     -- * BatchListOutgoingTypedLinksResponse
     BatchListOutgoingTypedLinksResponse (..),
-    batchListOutgoingTypedLinksResponse,
-    blotlrNextToken,
-    blotlrTypedLinkSpecifiers,
+    newBatchListOutgoingTypedLinksResponse,
 
     -- * BatchListPolicyAttachments
     BatchListPolicyAttachments (..),
-    batchListPolicyAttachments,
-    blpaNextToken,
-    blpaMaxResults,
-    blpaPolicyReference,
+    newBatchListPolicyAttachments,
 
     -- * BatchListPolicyAttachmentsResponse
     BatchListPolicyAttachmentsResponse (..),
-    batchListPolicyAttachmentsResponse,
-    blparNextToken,
-    blparObjectIdentifiers,
+    newBatchListPolicyAttachmentsResponse,
 
     -- * BatchLookupPolicy
     BatchLookupPolicy (..),
-    batchLookupPolicy,
-    blpNextToken,
-    blpMaxResults,
-    blpObjectReference,
+    newBatchLookupPolicy,
 
     -- * BatchLookupPolicyResponse
     BatchLookupPolicyResponse (..),
-    batchLookupPolicyResponse,
-    blprNextToken,
-    blprPolicyToPathList,
+    newBatchLookupPolicyResponse,
 
     -- * BatchReadException
     BatchReadException (..),
-    batchReadException,
-    breMessage,
-    breType,
+    newBatchReadException,
 
     -- * BatchReadOperation
     BatchReadOperation (..),
-    batchReadOperation,
-    broGetObjectInformation,
-    broGetObjectAttributes,
-    broListIncomingTypedLinks,
-    broListObjectParents,
-    broListPolicyAttachments,
-    broListObjectAttributes,
-    broListObjectParentPaths,
-    broLookupPolicy,
-    broListAttachedIndices,
-    broListIndex,
-    broListObjectChildren,
-    broListObjectPolicies,
-    broGetLinkAttributes,
-    broListOutgoingTypedLinks,
+    newBatchReadOperation,
 
     -- * BatchReadOperationResponse
     BatchReadOperationResponse (..),
-    batchReadOperationResponse,
-    brorSuccessfulResponse,
-    brorExceptionResponse,
+    newBatchReadOperationResponse,
 
     -- * BatchReadSuccessfulResponse
     BatchReadSuccessfulResponse (..),
-    batchReadSuccessfulResponse,
-    brsrGetObjectInformation,
-    brsrGetObjectAttributes,
-    brsrListIncomingTypedLinks,
-    brsrListObjectParents,
-    brsrListPolicyAttachments,
-    brsrListObjectAttributes,
-    brsrListObjectParentPaths,
-    brsrLookupPolicy,
-    brsrListAttachedIndices,
-    brsrListIndex,
-    brsrListObjectChildren,
-    brsrListObjectPolicies,
-    brsrGetLinkAttributes,
-    brsrListOutgoingTypedLinks,
+    newBatchReadSuccessfulResponse,
 
     -- * BatchRemoveFacetFromObject
     BatchRemoveFacetFromObject (..),
-    batchRemoveFacetFromObject,
-    brffoSchemaFacet,
-    brffoObjectReference,
+    newBatchRemoveFacetFromObject,
 
     -- * BatchRemoveFacetFromObjectResponse
     BatchRemoveFacetFromObjectResponse (..),
-    batchRemoveFacetFromObjectResponse,
+    newBatchRemoveFacetFromObjectResponse,
 
     -- * BatchUpdateLinkAttributes
     BatchUpdateLinkAttributes (..),
-    batchUpdateLinkAttributes,
-    bulaTypedLinkSpecifier,
-    bulaAttributeUpdates,
+    newBatchUpdateLinkAttributes,
 
     -- * BatchUpdateLinkAttributesResponse
     BatchUpdateLinkAttributesResponse (..),
-    batchUpdateLinkAttributesResponse,
+    newBatchUpdateLinkAttributesResponse,
 
     -- * BatchUpdateObjectAttributes
     BatchUpdateObjectAttributes (..),
-    batchUpdateObjectAttributes,
-    buoaObjectReference,
-    buoaAttributeUpdates,
+    newBatchUpdateObjectAttributes,
 
     -- * BatchUpdateObjectAttributesResponse
     BatchUpdateObjectAttributesResponse (..),
-    batchUpdateObjectAttributesResponse,
-    buoarObjectIdentifier,
+    newBatchUpdateObjectAttributesResponse,
 
     -- * BatchWriteOperation
     BatchWriteOperation (..),
-    batchWriteOperation,
-    bwoAttachTypedLink,
-    bwoDeleteObject,
-    bwoCreateObject,
-    bwoUpdateLinkAttributes,
-    bwoDetachTypedLink,
-    bwoCreateIndex,
-    bwoDetachPolicy,
-    bwoDetachFromIndex,
-    bwoAttachObject,
-    bwoAttachToIndex,
-    bwoUpdateObjectAttributes,
-    bwoAttachPolicy,
-    bwoRemoveFacetFromObject,
-    bwoAddFacetToObject,
-    bwoDetachObject,
+    newBatchWriteOperation,
 
     -- * BatchWriteOperationResponse
     BatchWriteOperationResponse (..),
-    batchWriteOperationResponse,
-    bworAttachTypedLink,
-    bworDeleteObject,
-    bworCreateObject,
-    bworUpdateLinkAttributes,
-    bworDetachTypedLink,
-    bworCreateIndex,
-    bworDetachPolicy,
-    bworDetachFromIndex,
-    bworAttachObject,
-    bworAttachToIndex,
-    bworUpdateObjectAttributes,
-    bworAttachPolicy,
-    bworRemoveFacetFromObject,
-    bworAddFacetToObject,
-    bworDetachObject,
+    newBatchWriteOperationResponse,
 
     -- * Directory
     Directory (..),
-    directory,
-    dDirectoryARN,
-    dState,
-    dName,
-    dCreationDateTime,
+    newDirectory,
 
     -- * Facet
     Facet (..),
-    facet,
-    fFacetStyle,
-    fName,
-    fObjectType,
+    newFacet,
 
     -- * FacetAttribute
     FacetAttribute (..),
-    facetAttribute,
-    faAttributeReference,
-    faRequiredBehavior,
-    faAttributeDefinition,
-    faName,
+    newFacetAttribute,
 
     -- * FacetAttributeDefinition
     FacetAttributeDefinition (..),
-    facetAttributeDefinition,
-    fadIsImmutable,
-    fadRules,
-    fadDefaultValue,
-    fadType,
+    newFacetAttributeDefinition,
 
     -- * FacetAttributeReference
     FacetAttributeReference (..),
-    facetAttributeReference,
-    farTargetFacetName,
-    farTargetAttributeName,
+    newFacetAttributeReference,
 
     -- * FacetAttributeUpdate
     FacetAttributeUpdate (..),
-    facetAttributeUpdate,
-    fauAttribute,
-    fauAction,
+    newFacetAttributeUpdate,
 
     -- * IndexAttachment
     IndexAttachment (..),
-    indexAttachment,
-    iaObjectIdentifier,
-    iaIndexedAttributes,
+    newIndexAttachment,
 
     -- * LinkAttributeAction
     LinkAttributeAction (..),
-    linkAttributeAction,
-    laaAttributeUpdateValue,
-    laaAttributeActionType,
+    newLinkAttributeAction,
 
     -- * LinkAttributeUpdate
     LinkAttributeUpdate (..),
-    linkAttributeUpdate,
-    lauAttributeAction,
-    lauAttributeKey,
+    newLinkAttributeUpdate,
 
     -- * ObjectAttributeAction
     ObjectAttributeAction (..),
-    objectAttributeAction,
-    oaaObjectAttributeActionType,
-    oaaObjectAttributeUpdateValue,
+    newObjectAttributeAction,
 
     -- * ObjectAttributeRange
     ObjectAttributeRange (..),
-    objectAttributeRange,
-    oarRange,
-    oarAttributeKey,
+    newObjectAttributeRange,
 
     -- * ObjectAttributeUpdate
     ObjectAttributeUpdate (..),
-    objectAttributeUpdate,
-    oauObjectAttributeAction,
-    oauObjectAttributeKey,
+    newObjectAttributeUpdate,
 
     -- * ObjectIdentifierAndLinkNameTuple
     ObjectIdentifierAndLinkNameTuple (..),
-    objectIdentifierAndLinkNameTuple,
-    oialntLinkName,
-    oialntObjectIdentifier,
+    newObjectIdentifierAndLinkNameTuple,
 
     -- * ObjectReference
     ObjectReference (..),
-    objectReference,
-    orSelector,
+    newObjectReference,
 
     -- * PathToObjectIdentifiers
     PathToObjectIdentifiers (..),
-    pathToObjectIdentifiers,
-    ptoiObjectIdentifiers,
-    ptoiPath,
+    newPathToObjectIdentifiers,
 
     -- * PolicyAttachment
     PolicyAttachment (..),
-    policyAttachment,
-    paPolicyType,
-    paObjectIdentifier,
-    paPolicyId,
+    newPolicyAttachment,
 
     -- * PolicyToPath
     PolicyToPath (..),
-    policyToPath,
-    ptpPolicies,
-    ptpPath,
+    newPolicyToPath,
 
     -- * Rule
     Rule (..),
-    rule,
-    rType,
-    rParameters,
+    newRule,
 
     -- * SchemaFacet
     SchemaFacet (..),
-    schemaFacet,
-    sfSchemaARN,
-    sfFacetName,
+    newSchemaFacet,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * TypedAttributeValue
     TypedAttributeValue (..),
-    typedAttributeValue,
-    tavStringValue,
-    tavBooleanValue,
-    tavBinaryValue,
-    tavNumberValue,
-    tavDatetimeValue,
+    newTypedAttributeValue,
 
     -- * TypedAttributeValueRange
     TypedAttributeValueRange (..),
-    typedAttributeValueRange,
-    tavrEndValue,
-    tavrStartValue,
-    tavrStartMode,
-    tavrEndMode,
+    newTypedAttributeValueRange,
 
     -- * TypedLinkAttributeDefinition
     TypedLinkAttributeDefinition (..),
-    typedLinkAttributeDefinition,
-    tladIsImmutable,
-    tladRules,
-    tladDefaultValue,
-    tladName,
-    tladType,
-    tladRequiredBehavior,
+    newTypedLinkAttributeDefinition,
 
     -- * TypedLinkAttributeRange
     TypedLinkAttributeRange (..),
-    typedLinkAttributeRange,
-    tlarAttributeName,
-    tlarRange,
+    newTypedLinkAttributeRange,
 
     -- * TypedLinkFacet
     TypedLinkFacet (..),
-    typedLinkFacet,
-    tlfName,
-    tlfAttributes,
-    tlfIdentityAttributeOrder,
+    newTypedLinkFacet,
 
     -- * TypedLinkFacetAttributeUpdate
     TypedLinkFacetAttributeUpdate (..),
-    typedLinkFacetAttributeUpdate,
-    tlfauAttribute,
-    tlfauAction,
+    newTypedLinkFacetAttributeUpdate,
 
     -- * TypedLinkSchemaAndFacetName
     TypedLinkSchemaAndFacetName (..),
-    typedLinkSchemaAndFacetName,
-    tlsafnSchemaARN,
-    tlsafnTypedLinkName,
+    newTypedLinkSchemaAndFacetName,
 
     -- * TypedLinkSpecifier
     TypedLinkSpecifier (..),
-    typedLinkSpecifier,
-    tlsTypedLinkFacet,
-    tlsSourceObjectReference,
-    tlsTargetObjectReference,
-    tlsIdentityAttributeValues,
+    newTypedLinkSpecifier,
   )
 where
 
@@ -829,336 +570,387 @@ import Network.AWS.CloudDirectory.Types.TypedLinkFacetAttributeUpdate
 import Network.AWS.CloudDirectory.Types.TypedLinkSchemaAndFacetName
 import Network.AWS.CloudDirectory.Types.TypedLinkSpecifier
 import Network.AWS.CloudDirectory.Types.UpdateActionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-01-11@ of the Amazon CloudDirectory SDK configuration.
-cloudDirectory :: Service
-cloudDirectory =
-  Service
-    { _svcAbbrev = "CloudDirectory",
-      _svcSigner = v4,
-      _svcPrefix = "clouddirectory",
-      _svcVersion = "2017-01-11",
-      _svcEndpoint = defaultEndpoint cloudDirectory,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "CloudDirectory",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "CloudDirectory",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "clouddirectory",
+      Prelude._svcVersion = "2017-01-11",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "CloudDirectory",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | Indicates a failure occurred while performing a check for backward compatibility between the specified schema and the schema that is currently applied to the directory.
-_IncompatibleSchemaException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates a failure occurred while performing a check for backward
+-- compatibility between the specified schema and the schema that is
+-- currently applied to the directory.
+_IncompatibleSchemaException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IncompatibleSchemaException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "IncompatibleSchemaException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Indicates that an attempt to make an attachment was invalid. For example, attaching two nodes with a link type that is not applicable to the nodes or attempting to apply a schema to a directory a second time.
-_InvalidAttachmentException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that an attempt to make an attachment was invalid. For
+-- example, attaching two nodes with a link type that is not applicable to
+-- the nodes or attempting to apply a schema to a directory a second time.
+_InvalidAttachmentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidAttachmentException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "InvalidAttachmentException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The 'Facet' that you provided was not well formed or could not be validated with the schema.
-_FacetValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The Facet that you provided was not well formed or could not be
+-- validated with the schema.
+_FacetValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FacetValidationException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "FacetValidationException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | A @BatchWrite@ exception has occurred.
-_BatchWriteException :: AsError a => Getting (First ServiceError) a ServiceError
+_BatchWriteException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BatchWriteException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "BatchWriteException"
 
--- | Occurs when deleting a facet that contains an attribute that is a target to an attribute reference in a different facet.
-_FacetInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Occurs when deleting a facet that contains an attribute that is a target
+-- to an attribute reference in a different facet.
+_FacetInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FacetInUseException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "FacetInUseException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Indicates that the provided ARN value is not valid.
-_InvalidARNException :: AsError a => Getting (First ServiceError) a ServiceError
-_InvalidARNException =
-  _MatchServiceError
-    cloudDirectory
+_InvalidArnException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_InvalidArnException =
+  Prelude._MatchServiceError
+    defaultService
     "InvalidArnException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | A directory that has been deleted and to which access has been attempted. Note: The requested resource will eventually cease to exist.
-_DirectoryDeletedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A directory that has been deleted and to which access has been
+-- attempted. Note: The requested resource will eventually cease to exist.
+_DirectoryDeletedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DirectoryDeletedException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "DirectoryDeletedException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Occurs when any of the rule parameter keys or values are invalid.
-_InvalidRuleException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRuleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRuleException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRuleException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Indicates a problem that must be resolved by Amazon Web Services. This might be a transient error in which case you can retry your request until it succeeds. Otherwise, go to the <http://status.aws.amazon.com/ AWS Service Health Dashboard> site to see if there are any operational issues with the service.
-_InternalServiceException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates a problem that must be resolved by Amazon Web Services. This
+-- might be a transient error in which case you can retry your request
+-- until it succeeds. Otherwise, go to the
+-- <http://status.aws.amazon.com/ AWS Service Health Dashboard> site to see
+-- if there are any operational issues with the service.
+_InternalServiceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServiceException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "InternalServiceException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
--- | Indicates that the requested operation can only operate on policy objects.
-_NotPolicyException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that the requested operation can only operate on policy
+-- objects.
+_NotPolicyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotPolicyException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "NotPolicyException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Indicates that the @NextToken@ value is not valid.
-_InvalidNextTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidNextTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidNextTokenException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "InvalidNextTokenException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Can occur for multiple reasons such as when you tag a resource that doesn’t exist or if you specify a higher number of tags for a resource than the allowed limit. Allowed limit is 50 tags per resource.
-_InvalidTaggingRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Can occur for multiple reasons such as when you tag a resource that
+-- doesn’t exist or if you specify a higher number of tags for a resource
+-- than the allowed limit. Allowed limit is 50 tags per resource.
+_InvalidTaggingRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTaggingRequestException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTaggingRequestException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Indicates that a link could not be created due to a naming conflict. Choose a different name and then try again.
-_LinkNameAlreadyInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that a link could not be created due to a naming conflict.
+-- Choose a different name and then try again.
+_LinkNameAlreadyInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LinkNameAlreadyInUseException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "LinkNameAlreadyInUseException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Cannot list the parents of a 'Directory' root.
-_CannotListParentOfRootException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Cannot list the parents of a Directory root.
+_CannotListParentOfRootException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CannotListParentOfRootException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "CannotListParentOfRootException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Indicates that the provided @SchemaDoc@ value is not valid.
-_InvalidSchemaDocException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidSchemaDocException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidSchemaDocException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "InvalidSchemaDocException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Access denied. Check your permissions.
-_AccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+_AccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "AccessDeniedException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
--- | Indicates that your request is malformed in some manner. See the exception message.
-_ValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that your request is malformed in some manner. See the
+-- exception message.
+_ValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ValidationException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "ValidationException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | A facet with the same name already exists.
-_FacetAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_FacetAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FacetAlreadyExistsException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "FacetAlreadyExistsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Indicates that the requested operation can only operate on index objects.
-_NotIndexException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that the requested operation can only operate on index
+-- objects.
+_NotIndexException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotIndexException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "NotIndexException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Indicates that the requested index type is not supported.
-_UnsupportedIndexTypeException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnsupportedIndexTypeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedIndexTypeException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedIndexTypeException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Indicates that limits are exceeded. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html Limits> for more information.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that limits are exceeded. See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html Limits>
+-- for more information.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Indicates that the requested operation cannot be completed because the object has not been detached from the tree.
-_ObjectNotDetachedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that the requested operation cannot be completed because the
+-- object has not been detached from the tree.
+_ObjectNotDetachedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ObjectNotDetachedException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "ObjectNotDetachedException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The object could not be deleted because links still exist. Remove the links and then try the operation again.
-_StillContainsLinksException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The object could not be deleted because links still exist. Remove the
+-- links and then try the operation again.
+_StillContainsLinksException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StillContainsLinksException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "StillContainsLinksException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified 'Facet' could not be found.
-_FacetNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified Facet could not be found.
+_FacetNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FacetNotFoundException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "FacetNotFoundException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Operations are only permitted on enabled directories.
-_DirectoryNotEnabledException :: AsError a => Getting (First ServiceError) a ServiceError
+_DirectoryNotEnabledException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DirectoryNotEnabledException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "DirectoryNotEnabledException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified resource could not be found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
 -- | An operation can only operate on a disabled directory.
-_DirectoryNotDisabledException :: AsError a => Getting (First ServiceError) a ServiceError
+_DirectoryNotDisabledException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DirectoryNotDisabledException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "DirectoryNotDisabledException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Occurs when a conflict with a previous successful write is detected. For example, if a write operation occurs on an object and then an attempt is made to read the object using “SERIALIZABLE” consistency, this exception may result. This generally occurs when the previous write did not have time to propagate to the host serving the current request. A retry (with appropriate backoff logic) is the recommended response to this exception.
-_RetryableConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Occurs when a conflict with a previous successful write is detected. For
+-- example, if a write operation occurs on an object and then an attempt is
+-- made to read the object using “SERIALIZABLE” consistency, this exception
+-- may result. This generally occurs when the previous write did not have
+-- time to propagate to the host serving the current request. A retry (with
+-- appropriate backoff logic) is the recommended response to this
+-- exception.
+_RetryableConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RetryableConflictException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "RetryableConflictException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | Indicates that a 'Directory' could not be created due to a naming conflict. Choose a different name and try again.
-_DirectoryAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that a Directory could not be created due to a naming
+-- conflict. Choose a different name and try again.
+_DirectoryAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DirectoryAlreadyExistsException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "DirectoryAlreadyExistsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | An object has been attempted to be attached to an object that does not have the appropriate attribute value.
-_IndexedAttributeMissingException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An object has been attempted to be attached to an object that does not
+-- have the appropriate attribute value.
+_IndexedAttributeMissingException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IndexedAttributeMissingException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "IndexedAttributeMissingException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Indicates that a schema could not be created due to a naming conflict. Please select a different name and then try again.
-_SchemaAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that a schema could not be created due to a naming conflict.
+-- Please select a different name and then try again.
+_SchemaAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SchemaAlreadyExistsException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "SchemaAlreadyExistsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Indicates that a schema is already published.
-_SchemaAlreadyPublishedException :: AsError a => Getting (First ServiceError) a ServiceError
+_SchemaAlreadyPublishedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SchemaAlreadyPublishedException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "SchemaAlreadyPublishedException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Occurs when any invalid operations are performed on an object that is not a node, such as calling @ListObjectChildren@ for a leaf node object.
-_NotNodeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Occurs when any invalid operations are performed on an object that is
+-- not a node, such as calling @ListObjectChildren@ for a leaf node object.
+_NotNodeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotNodeException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "NotNodeException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Indicates that the object is not attached to the index.
-_ObjectAlreadyDetachedException :: AsError a => Getting (First ServiceError) a ServiceError
+_ObjectAlreadyDetachedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ObjectAlreadyDetachedException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "ObjectAlreadyDetachedException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | An attempt to modify a 'Facet' resulted in an invalid schema exception.
-_InvalidFacetUpdateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An attempt to modify a Facet resulted in an invalid schema exception.
+_InvalidFacetUpdateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidFacetUpdateException =
-  _MatchServiceError
-    cloudDirectory
+  Prelude._MatchServiceError
+    defaultService
     "InvalidFacetUpdateException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400

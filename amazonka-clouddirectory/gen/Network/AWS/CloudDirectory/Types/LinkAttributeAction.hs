@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +21,60 @@ module Network.AWS.CloudDirectory.Types.LinkAttributeAction where
 
 import Network.AWS.CloudDirectory.Types.TypedAttributeValue
 import Network.AWS.CloudDirectory.Types.UpdateActionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The action to take on a typed link attribute value. Updates are only supported for attributes which don’t contribute to link identity.
+-- | The action to take on a typed link attribute value. Updates are only
+-- supported for attributes which don’t contribute to link identity.
 --
---
---
--- /See:/ 'linkAttributeAction' smart constructor.
+-- /See:/ 'newLinkAttributeAction' smart constructor.
 data LinkAttributeAction = LinkAttributeAction'
-  { _laaAttributeUpdateValue ::
-      !(Maybe TypedAttributeValue),
-    _laaAttributeActionType ::
-      !(Maybe UpdateActionType)
+  { -- | The value that you want to update to.
+    attributeUpdateValue :: Prelude.Maybe TypedAttributeValue,
+    -- | A type that can be either @UPDATE_OR_CREATE@ or @DELETE@.
+    attributeActionType :: Prelude.Maybe UpdateActionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LinkAttributeAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LinkAttributeAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laaAttributeUpdateValue' - The value that you want to update to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laaAttributeActionType' - A type that can be either @UPDATE_OR_CREATE@ or @DELETE@ .
-linkAttributeAction ::
+-- 'attributeUpdateValue', 'linkAttributeAction_attributeUpdateValue' - The value that you want to update to.
+--
+-- 'attributeActionType', 'linkAttributeAction_attributeActionType' - A type that can be either @UPDATE_OR_CREATE@ or @DELETE@.
+newLinkAttributeAction ::
   LinkAttributeAction
-linkAttributeAction =
+newLinkAttributeAction =
   LinkAttributeAction'
-    { _laaAttributeUpdateValue =
-        Nothing,
-      _laaAttributeActionType = Nothing
+    { attributeUpdateValue =
+        Prelude.Nothing,
+      attributeActionType = Prelude.Nothing
     }
 
 -- | The value that you want to update to.
-laaAttributeUpdateValue :: Lens' LinkAttributeAction (Maybe TypedAttributeValue)
-laaAttributeUpdateValue = lens _laaAttributeUpdateValue (\s a -> s {_laaAttributeUpdateValue = a})
+linkAttributeAction_attributeUpdateValue :: Lens.Lens' LinkAttributeAction (Prelude.Maybe TypedAttributeValue)
+linkAttributeAction_attributeUpdateValue = Lens.lens (\LinkAttributeAction' {attributeUpdateValue} -> attributeUpdateValue) (\s@LinkAttributeAction' {} a -> s {attributeUpdateValue = a} :: LinkAttributeAction)
 
--- | A type that can be either @UPDATE_OR_CREATE@ or @DELETE@ .
-laaAttributeActionType :: Lens' LinkAttributeAction (Maybe UpdateActionType)
-laaAttributeActionType = lens _laaAttributeActionType (\s a -> s {_laaAttributeActionType = a})
+-- | A type that can be either @UPDATE_OR_CREATE@ or @DELETE@.
+linkAttributeAction_attributeActionType :: Lens.Lens' LinkAttributeAction (Prelude.Maybe UpdateActionType)
+linkAttributeAction_attributeActionType = Lens.lens (\LinkAttributeAction' {attributeActionType} -> attributeActionType) (\s@LinkAttributeAction' {} a -> s {attributeActionType = a} :: LinkAttributeAction)
 
-instance Hashable LinkAttributeAction
+instance Prelude.Hashable LinkAttributeAction
 
-instance NFData LinkAttributeAction
+instance Prelude.NFData LinkAttributeAction
 
-instance ToJSON LinkAttributeAction where
+instance Prelude.ToJSON LinkAttributeAction where
   toJSON LinkAttributeAction' {..} =
-    object
-      ( catMaybes
-          [ ("AttributeUpdateValue" .=)
-              <$> _laaAttributeUpdateValue,
-            ("AttributeActionType" .=)
-              <$> _laaAttributeActionType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AttributeUpdateValue" Prelude..=)
+              Prelude.<$> attributeUpdateValue,
+            ("AttributeActionType" Prelude..=)
+              Prelude.<$> attributeActionType
           ]
       )

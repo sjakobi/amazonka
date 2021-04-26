@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,182 +24,196 @@
 -- Retrieves attributes within a facet that are associated with an object.
 module Network.AWS.CloudDirectory.GetObjectAttributes
   ( -- * Creating a Request
-    getObjectAttributes,
-    GetObjectAttributes,
+    GetObjectAttributes (..),
+    newGetObjectAttributes,
 
     -- * Request Lenses
-    goaConsistencyLevel,
-    goaDirectoryARN,
-    goaObjectReference,
-    goaSchemaFacet,
-    goaAttributeNames,
+    getObjectAttributes_consistencyLevel,
+    getObjectAttributes_directoryArn,
+    getObjectAttributes_objectReference,
+    getObjectAttributes_schemaFacet,
+    getObjectAttributes_attributeNames,
 
     -- * Destructuring the Response
-    getObjectAttributesResponse,
-    GetObjectAttributesResponse,
+    GetObjectAttributesResponse (..),
+    newGetObjectAttributesResponse,
 
     -- * Response Lenses
-    goarrsAttributes,
-    goarrsResponseStatus,
+    getObjectAttributesResponse_attributes,
+    getObjectAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudDirectory.Types.AttributeKeyAndValue
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getObjectAttributes' smart constructor.
+-- | /See:/ 'newGetObjectAttributes' smart constructor.
 data GetObjectAttributes = GetObjectAttributes'
-  { _goaConsistencyLevel ::
-      !(Maybe ConsistencyLevel),
-    _goaDirectoryARN :: !Text,
-    _goaObjectReference ::
-      !ObjectReference,
-    _goaSchemaFacet :: !SchemaFacet,
-    _goaAttributeNames :: ![Text]
+  { -- | The consistency level at which to retrieve the attributes on an object.
+    consistencyLevel :: Prelude.Maybe ConsistencyLevel,
+    -- | The Amazon Resource Name (ARN) that is associated with the Directory
+    -- where the object resides.
+    directoryArn :: Prelude.Text,
+    -- | Reference that identifies the object whose attributes will be retrieved.
+    objectReference :: ObjectReference,
+    -- | Identifier for the facet whose attributes will be retrieved. See
+    -- SchemaFacet for details.
+    schemaFacet :: SchemaFacet,
+    -- | List of attribute names whose values will be retrieved.
+    attributeNames :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetObjectAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObjectAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'goaConsistencyLevel' - The consistency level at which to retrieve the attributes on an object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'goaDirectoryARN' - The Amazon Resource Name (ARN) that is associated with the 'Directory' where the object resides.
+-- 'consistencyLevel', 'getObjectAttributes_consistencyLevel' - The consistency level at which to retrieve the attributes on an object.
 --
--- * 'goaObjectReference' - Reference that identifies the object whose attributes will be retrieved.
+-- 'directoryArn', 'getObjectAttributes_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the object resides.
 --
--- * 'goaSchemaFacet' - Identifier for the facet whose attributes will be retrieved. See 'SchemaFacet' for details.
+-- 'objectReference', 'getObjectAttributes_objectReference' - Reference that identifies the object whose attributes will be retrieved.
 --
--- * 'goaAttributeNames' - List of attribute names whose values will be retrieved.
-getObjectAttributes ::
-  -- | 'goaDirectoryARN'
-  Text ->
-  -- | 'goaObjectReference'
+-- 'schemaFacet', 'getObjectAttributes_schemaFacet' - Identifier for the facet whose attributes will be retrieved. See
+-- SchemaFacet for details.
+--
+-- 'attributeNames', 'getObjectAttributes_attributeNames' - List of attribute names whose values will be retrieved.
+newGetObjectAttributes ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'objectReference'
   ObjectReference ->
-  -- | 'goaSchemaFacet'
+  -- | 'schemaFacet'
   SchemaFacet ->
   GetObjectAttributes
-getObjectAttributes
-  pDirectoryARN_
+newGetObjectAttributes
+  pDirectoryArn_
   pObjectReference_
   pSchemaFacet_ =
     GetObjectAttributes'
-      { _goaConsistencyLevel =
-          Nothing,
-        _goaDirectoryARN = pDirectoryARN_,
-        _goaObjectReference = pObjectReference_,
-        _goaSchemaFacet = pSchemaFacet_,
-        _goaAttributeNames = mempty
+      { consistencyLevel =
+          Prelude.Nothing,
+        directoryArn = pDirectoryArn_,
+        objectReference = pObjectReference_,
+        schemaFacet = pSchemaFacet_,
+        attributeNames = Prelude.mempty
       }
 
 -- | The consistency level at which to retrieve the attributes on an object.
-goaConsistencyLevel :: Lens' GetObjectAttributes (Maybe ConsistencyLevel)
-goaConsistencyLevel = lens _goaConsistencyLevel (\s a -> s {_goaConsistencyLevel = a})
+getObjectAttributes_consistencyLevel :: Lens.Lens' GetObjectAttributes (Prelude.Maybe ConsistencyLevel)
+getObjectAttributes_consistencyLevel = Lens.lens (\GetObjectAttributes' {consistencyLevel} -> consistencyLevel) (\s@GetObjectAttributes' {} a -> s {consistencyLevel = a} :: GetObjectAttributes)
 
--- | The Amazon Resource Name (ARN) that is associated with the 'Directory' where the object resides.
-goaDirectoryARN :: Lens' GetObjectAttributes Text
-goaDirectoryARN = lens _goaDirectoryARN (\s a -> s {_goaDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the Directory
+-- where the object resides.
+getObjectAttributes_directoryArn :: Lens.Lens' GetObjectAttributes Prelude.Text
+getObjectAttributes_directoryArn = Lens.lens (\GetObjectAttributes' {directoryArn} -> directoryArn) (\s@GetObjectAttributes' {} a -> s {directoryArn = a} :: GetObjectAttributes)
 
 -- | Reference that identifies the object whose attributes will be retrieved.
-goaObjectReference :: Lens' GetObjectAttributes ObjectReference
-goaObjectReference = lens _goaObjectReference (\s a -> s {_goaObjectReference = a})
+getObjectAttributes_objectReference :: Lens.Lens' GetObjectAttributes ObjectReference
+getObjectAttributes_objectReference = Lens.lens (\GetObjectAttributes' {objectReference} -> objectReference) (\s@GetObjectAttributes' {} a -> s {objectReference = a} :: GetObjectAttributes)
 
--- | Identifier for the facet whose attributes will be retrieved. See 'SchemaFacet' for details.
-goaSchemaFacet :: Lens' GetObjectAttributes SchemaFacet
-goaSchemaFacet = lens _goaSchemaFacet (\s a -> s {_goaSchemaFacet = a})
+-- | Identifier for the facet whose attributes will be retrieved. See
+-- SchemaFacet for details.
+getObjectAttributes_schemaFacet :: Lens.Lens' GetObjectAttributes SchemaFacet
+getObjectAttributes_schemaFacet = Lens.lens (\GetObjectAttributes' {schemaFacet} -> schemaFacet) (\s@GetObjectAttributes' {} a -> s {schemaFacet = a} :: GetObjectAttributes)
 
 -- | List of attribute names whose values will be retrieved.
-goaAttributeNames :: Lens' GetObjectAttributes [Text]
-goaAttributeNames = lens _goaAttributeNames (\s a -> s {_goaAttributeNames = a}) . _Coerce
+getObjectAttributes_attributeNames :: Lens.Lens' GetObjectAttributes [Prelude.Text]
+getObjectAttributes_attributeNames = Lens.lens (\GetObjectAttributes' {attributeNames} -> attributeNames) (\s@GetObjectAttributes' {} a -> s {attributeNames = a} :: GetObjectAttributes) Prelude.. Prelude._Coerce
 
-instance AWSRequest GetObjectAttributes where
+instance Prelude.AWSRequest GetObjectAttributes where
   type
     Rs GetObjectAttributes =
       GetObjectAttributesResponse
-  request = postJSON cloudDirectory
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetObjectAttributesResponse'
-            <$> (x .?> "Attributes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Attributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetObjectAttributes
+instance Prelude.Hashable GetObjectAttributes
 
-instance NFData GetObjectAttributes
+instance Prelude.NFData GetObjectAttributes
 
-instance ToHeaders GetObjectAttributes where
+instance Prelude.ToHeaders GetObjectAttributes where
   toHeaders GetObjectAttributes' {..} =
-    mconcat
-      [ "x-amz-consistency-level" =# _goaConsistencyLevel,
-        "x-amz-data-partition" =# _goaDirectoryARN
+    Prelude.mconcat
+      [ "x-amz-consistency-level"
+          Prelude.=# consistencyLevel,
+        "x-amz-data-partition" Prelude.=# directoryArn
       ]
 
-instance ToJSON GetObjectAttributes where
+instance Prelude.ToJSON GetObjectAttributes where
   toJSON GetObjectAttributes' {..} =
-    object
-      ( catMaybes
-          [ Just ("ObjectReference" .= _goaObjectReference),
-            Just ("SchemaFacet" .= _goaSchemaFacet),
-            Just ("AttributeNames" .= _goaAttributeNames)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ObjectReference" Prelude..= objectReference),
+            Prelude.Just ("SchemaFacet" Prelude..= schemaFacet),
+            Prelude.Just
+              ("AttributeNames" Prelude..= attributeNames)
           ]
       )
 
-instance ToPath GetObjectAttributes where
+instance Prelude.ToPath GetObjectAttributes where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/object/attributes/get"
 
-instance ToQuery GetObjectAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery GetObjectAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getObjectAttributesResponse' smart constructor.
+-- | /See:/ 'newGetObjectAttributesResponse' smart constructor.
 data GetObjectAttributesResponse = GetObjectAttributesResponse'
-  { _goarrsAttributes ::
-      !( Maybe
-           [AttributeKeyAndValue]
-       ),
-    _goarrsResponseStatus ::
-      !Int
+  { -- | The attributes that are associated with the object.
+    attributes :: Prelude.Maybe [AttributeKeyAndValue],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetObjectAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObjectAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'goarrsAttributes' - The attributes that are associated with the object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'goarrsResponseStatus' - -- | The response status code.
-getObjectAttributesResponse ::
-  -- | 'goarrsResponseStatus'
-  Int ->
+-- 'attributes', 'getObjectAttributesResponse_attributes' - The attributes that are associated with the object.
+--
+-- 'httpStatus', 'getObjectAttributesResponse_httpStatus' - The response's http status code.
+newGetObjectAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetObjectAttributesResponse
-getObjectAttributesResponse pResponseStatus_ =
+newGetObjectAttributesResponse pHttpStatus_ =
   GetObjectAttributesResponse'
-    { _goarrsAttributes =
-        Nothing,
-      _goarrsResponseStatus = pResponseStatus_
+    { attributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The attributes that are associated with the object.
-goarrsAttributes :: Lens' GetObjectAttributesResponse [AttributeKeyAndValue]
-goarrsAttributes = lens _goarrsAttributes (\s a -> s {_goarrsAttributes = a}) . _Default . _Coerce
+getObjectAttributesResponse_attributes :: Lens.Lens' GetObjectAttributesResponse (Prelude.Maybe [AttributeKeyAndValue])
+getObjectAttributesResponse_attributes = Lens.lens (\GetObjectAttributesResponse' {attributes} -> attributes) (\s@GetObjectAttributesResponse' {} a -> s {attributes = a} :: GetObjectAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-goarrsResponseStatus :: Lens' GetObjectAttributesResponse Int
-goarrsResponseStatus = lens _goarrsResponseStatus (\s a -> s {_goarrsResponseStatus = a})
+-- | The response's http status code.
+getObjectAttributesResponse_httpStatus :: Lens.Lens' GetObjectAttributesResponse Prelude.Int
+getObjectAttributesResponse_httpStatus = Lens.lens (\GetObjectAttributesResponse' {httpStatus} -> httpStatus) (\s@GetObjectAttributesResponse' {} a -> s {httpStatus = a} :: GetObjectAttributesResponse)
 
-instance NFData GetObjectAttributesResponse
+instance Prelude.NFData GetObjectAttributesResponse

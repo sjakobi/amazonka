@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,58 @@
 module Network.AWS.CloudDirectory.Types.BatchReadException where
 
 import Network.AWS.CloudDirectory.Types.BatchReadExceptionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The batch read exception structure, which contains the exception type and message.
+-- | The batch read exception structure, which contains the exception type
+-- and message.
 --
---
---
--- /See:/ 'batchReadException' smart constructor.
+-- /See:/ 'newBatchReadException' smart constructor.
 data BatchReadException = BatchReadException'
-  { _breMessage ::
-      !(Maybe Text),
-    _breType ::
-      !(Maybe BatchReadExceptionType)
+  { -- | An exception message that is associated with the failure.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | A type of exception, such as @InvalidArnException@.
+    type' :: Prelude.Maybe BatchReadExceptionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchReadException' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchReadException' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'breMessage' - An exception message that is associated with the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'breType' - A type of exception, such as @InvalidArnException@ .
-batchReadException ::
+-- 'message', 'batchReadException_message' - An exception message that is associated with the failure.
+--
+-- 'type'', 'batchReadException_type' - A type of exception, such as @InvalidArnException@.
+newBatchReadException ::
   BatchReadException
-batchReadException =
+newBatchReadException =
   BatchReadException'
-    { _breMessage = Nothing,
-      _breType = Nothing
+    { message = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | An exception message that is associated with the failure.
-breMessage :: Lens' BatchReadException (Maybe Text)
-breMessage = lens _breMessage (\s a -> s {_breMessage = a})
+batchReadException_message :: Lens.Lens' BatchReadException (Prelude.Maybe Prelude.Text)
+batchReadException_message = Lens.lens (\BatchReadException' {message} -> message) (\s@BatchReadException' {} a -> s {message = a} :: BatchReadException)
 
--- | A type of exception, such as @InvalidArnException@ .
-breType :: Lens' BatchReadException (Maybe BatchReadExceptionType)
-breType = lens _breType (\s a -> s {_breType = a})
+-- | A type of exception, such as @InvalidArnException@.
+batchReadException_type :: Lens.Lens' BatchReadException (Prelude.Maybe BatchReadExceptionType)
+batchReadException_type = Lens.lens (\BatchReadException' {type'} -> type') (\s@BatchReadException' {} a -> s {type' = a} :: BatchReadException)
 
-instance FromJSON BatchReadException where
+instance Prelude.FromJSON BatchReadException where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchReadException"
       ( \x ->
           BatchReadException'
-            <$> (x .:? "Message") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable BatchReadException
+instance Prelude.Hashable BatchReadException
 
-instance NFData BatchReadException
+instance Prelude.NFData BatchReadException

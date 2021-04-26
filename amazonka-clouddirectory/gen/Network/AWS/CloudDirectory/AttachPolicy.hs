@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Attaches a policy object to a regular object. An object can have a limited number of attached policies.
+-- Attaches a policy object to a regular object. An object can have a
+-- limited number of attached policies.
 module Network.AWS.CloudDirectory.AttachPolicy
   ( -- * Creating a Request
-    attachPolicy,
-    AttachPolicy,
+    AttachPolicy (..),
+    newAttachPolicy,
 
     -- * Request Lenses
-    apDirectoryARN,
-    apPolicyReference,
-    apObjectReference,
+    attachPolicy_directoryArn,
+    attachPolicy_policyReference,
+    attachPolicy_objectReference,
 
     -- * Destructuring the Response
-    attachPolicyResponse,
-    AttachPolicyResponse,
+    AttachPolicyResponse (..),
+    newAttachPolicyResponse,
 
     -- * Response Lenses
-    aprrsResponseStatus,
+    attachPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'attachPolicy' smart constructor.
+-- | /See:/ 'newAttachPolicy' smart constructor.
 data AttachPolicy = AttachPolicy'
-  { _apDirectoryARN ::
-      !Text,
-    _apPolicyReference :: !ObjectReference,
-    _apObjectReference :: !ObjectReference
+  { -- | The Amazon Resource Name (ARN) that is associated with the Directory
+    -- where both objects reside. For more information, see arns.
+    directoryArn :: Prelude.Text,
+    -- | The reference that is associated with the policy object.
+    policyReference :: ObjectReference,
+    -- | The reference that identifies the object to which the policy will be
+    -- attached.
+    objectReference :: ObjectReference
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apDirectoryARN' - The Amazon Resource Name (ARN) that is associated with the 'Directory' where both objects reside. For more information, see 'arns' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apPolicyReference' - The reference that is associated with the policy object.
+-- 'directoryArn', 'attachPolicy_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory
+-- where both objects reside. For more information, see arns.
 --
--- * 'apObjectReference' - The reference that identifies the object to which the policy will be attached.
-attachPolicy ::
-  -- | 'apDirectoryARN'
-  Text ->
-  -- | 'apPolicyReference'
+-- 'policyReference', 'attachPolicy_policyReference' - The reference that is associated with the policy object.
+--
+-- 'objectReference', 'attachPolicy_objectReference' - The reference that identifies the object to which the policy will be
+-- attached.
+newAttachPolicy ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'policyReference'
   ObjectReference ->
-  -- | 'apObjectReference'
+  -- | 'objectReference'
   ObjectReference ->
   AttachPolicy
-attachPolicy
-  pDirectoryARN_
+newAttachPolicy
+  pDirectoryArn_
   pPolicyReference_
   pObjectReference_ =
     AttachPolicy'
-      { _apDirectoryARN = pDirectoryARN_,
-        _apPolicyReference = pPolicyReference_,
-        _apObjectReference = pObjectReference_
+      { directoryArn = pDirectoryArn_,
+        policyReference = pPolicyReference_,
+        objectReference = pObjectReference_
       }
 
--- | The Amazon Resource Name (ARN) that is associated with the 'Directory' where both objects reside. For more information, see 'arns' .
-apDirectoryARN :: Lens' AttachPolicy Text
-apDirectoryARN = lens _apDirectoryARN (\s a -> s {_apDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the Directory
+-- where both objects reside. For more information, see arns.
+attachPolicy_directoryArn :: Lens.Lens' AttachPolicy Prelude.Text
+attachPolicy_directoryArn = Lens.lens (\AttachPolicy' {directoryArn} -> directoryArn) (\s@AttachPolicy' {} a -> s {directoryArn = a} :: AttachPolicy)
 
 -- | The reference that is associated with the policy object.
-apPolicyReference :: Lens' AttachPolicy ObjectReference
-apPolicyReference = lens _apPolicyReference (\s a -> s {_apPolicyReference = a})
+attachPolicy_policyReference :: Lens.Lens' AttachPolicy ObjectReference
+attachPolicy_policyReference = Lens.lens (\AttachPolicy' {policyReference} -> policyReference) (\s@AttachPolicy' {} a -> s {policyReference = a} :: AttachPolicy)
 
--- | The reference that identifies the object to which the policy will be attached.
-apObjectReference :: Lens' AttachPolicy ObjectReference
-apObjectReference = lens _apObjectReference (\s a -> s {_apObjectReference = a})
+-- | The reference that identifies the object to which the policy will be
+-- attached.
+attachPolicy_objectReference :: Lens.Lens' AttachPolicy ObjectReference
+attachPolicy_objectReference = Lens.lens (\AttachPolicy' {objectReference} -> objectReference) (\s@AttachPolicy' {} a -> s {objectReference = a} :: AttachPolicy)
 
-instance AWSRequest AttachPolicy where
+instance Prelude.AWSRequest AttachPolicy where
   type Rs AttachPolicy = AttachPolicyResponse
-  request = putJSON cloudDirectory
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          AttachPolicyResponse' <$> (pure (fromEnum s))
+          AttachPolicyResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AttachPolicy
+instance Prelude.Hashable AttachPolicy
 
-instance NFData AttachPolicy
+instance Prelude.NFData AttachPolicy
 
-instance ToHeaders AttachPolicy where
+instance Prelude.ToHeaders AttachPolicy where
   toHeaders AttachPolicy' {..} =
-    mconcat ["x-amz-data-partition" =# _apDirectoryARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# directoryArn]
 
-instance ToJSON AttachPolicy where
+instance Prelude.ToJSON AttachPolicy where
   toJSON AttachPolicy' {..} =
-    object
-      ( catMaybes
-          [ Just ("PolicyReference" .= _apPolicyReference),
-            Just ("ObjectReference" .= _apObjectReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("PolicyReference" Prelude..= policyReference),
+            Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
           ]
       )
 
-instance ToPath AttachPolicy where
+instance Prelude.ToPath AttachPolicy where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/policy/attach"
 
-instance ToQuery AttachPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery AttachPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'attachPolicyResponse' smart constructor.
-newtype AttachPolicyResponse = AttachPolicyResponse'
-  { _aprrsResponseStatus ::
-      Int
+-- | /See:/ 'newAttachPolicyResponse' smart constructor.
+data AttachPolicyResponse = AttachPolicyResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aprrsResponseStatus' - -- | The response status code.
-attachPolicyResponse ::
-  -- | 'aprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'attachPolicyResponse_httpStatus' - The response's http status code.
+newAttachPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AttachPolicyResponse
-attachPolicyResponse pResponseStatus_ =
-  AttachPolicyResponse'
-    { _aprrsResponseStatus =
-        pResponseStatus_
-    }
+newAttachPolicyResponse pHttpStatus_ =
+  AttachPolicyResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-aprrsResponseStatus :: Lens' AttachPolicyResponse Int
-aprrsResponseStatus = lens _aprrsResponseStatus (\s a -> s {_aprrsResponseStatus = a})
+-- | The response's http status code.
+attachPolicyResponse_httpStatus :: Lens.Lens' AttachPolicyResponse Prelude.Int
+attachPolicyResponse_httpStatus = Lens.lens (\AttachPolicyResponse' {httpStatus} -> httpStatus) (\s@AttachPolicyResponse' {} a -> s {httpStatus = a} :: AttachPolicyResponse)
 
-instance NFData AttachPolicyResponse
+instance Prelude.NFData AttachPolicyResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,100 +22,93 @@ module Network.AWS.CloudDirectory.Types.FacetAttributeDefinition where
 import Network.AWS.CloudDirectory.Types.FacetAttributeType
 import Network.AWS.CloudDirectory.Types.Rule
 import Network.AWS.CloudDirectory.Types.TypedAttributeValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A facet attribute definition. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References> for more information.
+-- | A facet attribute definition. See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References>
+-- for more information.
 --
---
---
--- /See:/ 'facetAttributeDefinition' smart constructor.
+-- /See:/ 'newFacetAttributeDefinition' smart constructor.
 data FacetAttributeDefinition = FacetAttributeDefinition'
-  { _fadIsImmutable ::
-      !(Maybe Bool),
-    _fadRules ::
-      !( Maybe
-           (Map Text Rule)
-       ),
-    _fadDefaultValue ::
-      !( Maybe
-           TypedAttributeValue
-       ),
-    _fadType ::
-      !FacetAttributeType
+  { -- | Whether the attribute is mutable or not.
+    isImmutable :: Prelude.Maybe Prelude.Bool,
+    -- | Validation rules attached to the attribute definition.
+    rules :: Prelude.Maybe (Prelude.Map Prelude.Text Rule),
+    -- | The default value of the attribute (if configured).
+    defaultValue :: Prelude.Maybe TypedAttributeValue,
+    -- | The type of the attribute.
+    type' :: FacetAttributeType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FacetAttributeDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FacetAttributeDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fadIsImmutable' - Whether the attribute is mutable or not.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fadRules' - Validation rules attached to the attribute definition.
+-- 'isImmutable', 'facetAttributeDefinition_isImmutable' - Whether the attribute is mutable or not.
 --
--- * 'fadDefaultValue' - The default value of the attribute (if configured).
+-- 'rules', 'facetAttributeDefinition_rules' - Validation rules attached to the attribute definition.
 --
--- * 'fadType' - The type of the attribute.
-facetAttributeDefinition ::
-  -- | 'fadType'
+-- 'defaultValue', 'facetAttributeDefinition_defaultValue' - The default value of the attribute (if configured).
+--
+-- 'type'', 'facetAttributeDefinition_type' - The type of the attribute.
+newFacetAttributeDefinition ::
+  -- | 'type''
   FacetAttributeType ->
   FacetAttributeDefinition
-facetAttributeDefinition pType_ =
+newFacetAttributeDefinition pType_ =
   FacetAttributeDefinition'
-    { _fadIsImmutable =
-        Nothing,
-      _fadRules = Nothing,
-      _fadDefaultValue = Nothing,
-      _fadType = pType_
+    { isImmutable =
+        Prelude.Nothing,
+      rules = Prelude.Nothing,
+      defaultValue = Prelude.Nothing,
+      type' = pType_
     }
 
 -- | Whether the attribute is mutable or not.
-fadIsImmutable :: Lens' FacetAttributeDefinition (Maybe Bool)
-fadIsImmutable = lens _fadIsImmutable (\s a -> s {_fadIsImmutable = a})
+facetAttributeDefinition_isImmutable :: Lens.Lens' FacetAttributeDefinition (Prelude.Maybe Prelude.Bool)
+facetAttributeDefinition_isImmutable = Lens.lens (\FacetAttributeDefinition' {isImmutable} -> isImmutable) (\s@FacetAttributeDefinition' {} a -> s {isImmutable = a} :: FacetAttributeDefinition)
 
 -- | Validation rules attached to the attribute definition.
-fadRules :: Lens' FacetAttributeDefinition (HashMap Text Rule)
-fadRules = lens _fadRules (\s a -> s {_fadRules = a}) . _Default . _Map
+facetAttributeDefinition_rules :: Lens.Lens' FacetAttributeDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Rule))
+facetAttributeDefinition_rules = Lens.lens (\FacetAttributeDefinition' {rules} -> rules) (\s@FacetAttributeDefinition' {} a -> s {rules = a} :: FacetAttributeDefinition) Prelude.. Lens.mapping Prelude._Map
 
 -- | The default value of the attribute (if configured).
-fadDefaultValue :: Lens' FacetAttributeDefinition (Maybe TypedAttributeValue)
-fadDefaultValue = lens _fadDefaultValue (\s a -> s {_fadDefaultValue = a})
+facetAttributeDefinition_defaultValue :: Lens.Lens' FacetAttributeDefinition (Prelude.Maybe TypedAttributeValue)
+facetAttributeDefinition_defaultValue = Lens.lens (\FacetAttributeDefinition' {defaultValue} -> defaultValue) (\s@FacetAttributeDefinition' {} a -> s {defaultValue = a} :: FacetAttributeDefinition)
 
 -- | The type of the attribute.
-fadType :: Lens' FacetAttributeDefinition FacetAttributeType
-fadType = lens _fadType (\s a -> s {_fadType = a})
+facetAttributeDefinition_type :: Lens.Lens' FacetAttributeDefinition FacetAttributeType
+facetAttributeDefinition_type = Lens.lens (\FacetAttributeDefinition' {type'} -> type') (\s@FacetAttributeDefinition' {} a -> s {type' = a} :: FacetAttributeDefinition)
 
-instance FromJSON FacetAttributeDefinition where
+instance Prelude.FromJSON FacetAttributeDefinition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FacetAttributeDefinition"
       ( \x ->
           FacetAttributeDefinition'
-            <$> (x .:? "IsImmutable")
-            <*> (x .:? "Rules" .!= mempty)
-            <*> (x .:? "DefaultValue")
-            <*> (x .: "Type")
+            Prelude.<$> (x Prelude..:? "IsImmutable")
+            Prelude.<*> (x Prelude..:? "Rules" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "DefaultValue")
+            Prelude.<*> (x Prelude..: "Type")
       )
 
-instance Hashable FacetAttributeDefinition
+instance Prelude.Hashable FacetAttributeDefinition
 
-instance NFData FacetAttributeDefinition
+instance Prelude.NFData FacetAttributeDefinition
 
-instance ToJSON FacetAttributeDefinition where
+instance Prelude.ToJSON FacetAttributeDefinition where
   toJSON FacetAttributeDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("IsImmutable" .=) <$> _fadIsImmutable,
-            ("Rules" .=) <$> _fadRules,
-            ("DefaultValue" .=) <$> _fadDefaultValue,
-            Just ("Type" .= _fadType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IsImmutable" Prelude..=) Prelude.<$> isImmutable,
+            ("Rules" Prelude..=) Prelude.<$> rules,
+            ("DefaultValue" Prelude..=) Prelude.<$> defaultValue,
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )

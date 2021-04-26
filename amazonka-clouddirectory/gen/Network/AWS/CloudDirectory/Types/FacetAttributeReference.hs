@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.FacetAttributeReference where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The facet attribute reference that specifies the attribute definition that contains the attribute facet name and attribute name.
+-- | The facet attribute reference that specifies the attribute definition
+-- that contains the attribute facet name and attribute name.
 --
---
---
--- /See:/ 'facetAttributeReference' smart constructor.
+-- /See:/ 'newFacetAttributeReference' smart constructor.
 data FacetAttributeReference = FacetAttributeReference'
-  { _farTargetFacetName ::
-      !Text,
-    _farTargetAttributeName ::
-      !Text
+  { -- | The target facet name that is associated with the facet reference. See
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References>
+    -- for more information.
+    targetFacetName :: Prelude.Text,
+    -- | The target attribute name that is associated with the facet reference.
+    -- See
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References>
+    -- for more information.
+    targetAttributeName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FacetAttributeReference' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FacetAttributeReference' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'farTargetFacetName' - The target facet name that is associated with the facet reference. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References> for more information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'farTargetAttributeName' - The target attribute name that is associated with the facet reference. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References> for more information.
-facetAttributeReference ::
-  -- | 'farTargetFacetName'
-  Text ->
-  -- | 'farTargetAttributeName'
-  Text ->
+-- 'targetFacetName', 'facetAttributeReference_targetFacetName' - The target facet name that is associated with the facet reference. See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References>
+-- for more information.
+--
+-- 'targetAttributeName', 'facetAttributeReference_targetAttributeName' - The target attribute name that is associated with the facet reference.
+-- See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References>
+-- for more information.
+newFacetAttributeReference ::
+  -- | 'targetFacetName'
+  Prelude.Text ->
+  -- | 'targetAttributeName'
+  Prelude.Text ->
   FacetAttributeReference
-facetAttributeReference
+newFacetAttributeReference
   pTargetFacetName_
   pTargetAttributeName_ =
     FacetAttributeReference'
-      { _farTargetFacetName =
+      { targetFacetName =
           pTargetFacetName_,
-        _farTargetAttributeName = pTargetAttributeName_
+        targetAttributeName = pTargetAttributeName_
       }
 
--- | The target facet name that is associated with the facet reference. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References> for more information.
-farTargetFacetName :: Lens' FacetAttributeReference Text
-farTargetFacetName = lens _farTargetFacetName (\s a -> s {_farTargetFacetName = a})
+-- | The target facet name that is associated with the facet reference. See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References>
+-- for more information.
+facetAttributeReference_targetFacetName :: Lens.Lens' FacetAttributeReference Prelude.Text
+facetAttributeReference_targetFacetName = Lens.lens (\FacetAttributeReference' {targetFacetName} -> targetFacetName) (\s@FacetAttributeReference' {} a -> s {targetFacetName = a} :: FacetAttributeReference)
 
--- | The target attribute name that is associated with the facet reference. See <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References> for more information.
-farTargetAttributeName :: Lens' FacetAttributeReference Text
-farTargetAttributeName = lens _farTargetAttributeName (\s a -> s {_farTargetAttributeName = a})
+-- | The target attribute name that is associated with the facet reference.
+-- See
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html Attribute References>
+-- for more information.
+facetAttributeReference_targetAttributeName :: Lens.Lens' FacetAttributeReference Prelude.Text
+facetAttributeReference_targetAttributeName = Lens.lens (\FacetAttributeReference' {targetAttributeName} -> targetAttributeName) (\s@FacetAttributeReference' {} a -> s {targetAttributeName = a} :: FacetAttributeReference)
 
-instance FromJSON FacetAttributeReference where
+instance Prelude.FromJSON FacetAttributeReference where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FacetAttributeReference"
       ( \x ->
           FacetAttributeReference'
-            <$> (x .: "TargetFacetName")
-            <*> (x .: "TargetAttributeName")
+            Prelude.<$> (x Prelude..: "TargetFacetName")
+            Prelude.<*> (x Prelude..: "TargetAttributeName")
       )
 
-instance Hashable FacetAttributeReference
+instance Prelude.Hashable FacetAttributeReference
 
-instance NFData FacetAttributeReference
+instance Prelude.NFData FacetAttributeReference
 
-instance ToJSON FacetAttributeReference where
+instance Prelude.ToJSON FacetAttributeReference where
   toJSON FacetAttributeReference' {..} =
-    object
-      ( catMaybes
-          [ Just ("TargetFacetName" .= _farTargetFacetName),
-            Just
-              ("TargetAttributeName" .= _farTargetAttributeName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TargetFacetName" Prelude..= targetFacetName),
+            Prelude.Just
+              ( "TargetAttributeName"
+                  Prelude..= targetAttributeName
+              )
           ]
       )

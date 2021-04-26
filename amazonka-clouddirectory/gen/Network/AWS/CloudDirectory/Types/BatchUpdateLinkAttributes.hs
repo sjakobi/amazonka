@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +21,64 @@ module Network.AWS.CloudDirectory.Types.BatchUpdateLinkAttributes where
 
 import Network.AWS.CloudDirectory.Types.LinkAttributeUpdate
 import Network.AWS.CloudDirectory.Types.TypedLinkSpecifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Updates a given typed link’s attributes inside a 'BatchRead' operation. Attributes to be updated must not contribute to the typed link’s identity, as defined by its @IdentityAttributeOrder@ . For more information, see 'UpdateLinkAttributes' and 'BatchReadRequest$Operations' .
+-- | Updates a given typed link’s attributes inside a BatchRead operation.
+-- Attributes to be updated must not contribute to the typed link’s
+-- identity, as defined by its @IdentityAttributeOrder@. For more
+-- information, see UpdateLinkAttributes and BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchUpdateLinkAttributes' smart constructor.
+-- /See:/ 'newBatchUpdateLinkAttributes' smart constructor.
 data BatchUpdateLinkAttributes = BatchUpdateLinkAttributes'
-  { _bulaTypedLinkSpecifier ::
-      !TypedLinkSpecifier,
-    _bulaAttributeUpdates ::
-      ![LinkAttributeUpdate]
+  { -- | Allows a typed link specifier to be accepted as input.
+    typedLinkSpecifier :: TypedLinkSpecifier,
+    -- | The attributes update structure.
+    attributeUpdates :: [LinkAttributeUpdate]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchUpdateLinkAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchUpdateLinkAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bulaTypedLinkSpecifier' - Allows a typed link specifier to be accepted as input.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bulaAttributeUpdates' - The attributes update structure.
-batchUpdateLinkAttributes ::
-  -- | 'bulaTypedLinkSpecifier'
+-- 'typedLinkSpecifier', 'batchUpdateLinkAttributes_typedLinkSpecifier' - Allows a typed link specifier to be accepted as input.
+--
+-- 'attributeUpdates', 'batchUpdateLinkAttributes_attributeUpdates' - The attributes update structure.
+newBatchUpdateLinkAttributes ::
+  -- | 'typedLinkSpecifier'
   TypedLinkSpecifier ->
   BatchUpdateLinkAttributes
-batchUpdateLinkAttributes pTypedLinkSpecifier_ =
+newBatchUpdateLinkAttributes pTypedLinkSpecifier_ =
   BatchUpdateLinkAttributes'
-    { _bulaTypedLinkSpecifier =
+    { typedLinkSpecifier =
         pTypedLinkSpecifier_,
-      _bulaAttributeUpdates = mempty
+      attributeUpdates = Prelude.mempty
     }
 
 -- | Allows a typed link specifier to be accepted as input.
-bulaTypedLinkSpecifier :: Lens' BatchUpdateLinkAttributes TypedLinkSpecifier
-bulaTypedLinkSpecifier = lens _bulaTypedLinkSpecifier (\s a -> s {_bulaTypedLinkSpecifier = a})
+batchUpdateLinkAttributes_typedLinkSpecifier :: Lens.Lens' BatchUpdateLinkAttributes TypedLinkSpecifier
+batchUpdateLinkAttributes_typedLinkSpecifier = Lens.lens (\BatchUpdateLinkAttributes' {typedLinkSpecifier} -> typedLinkSpecifier) (\s@BatchUpdateLinkAttributes' {} a -> s {typedLinkSpecifier = a} :: BatchUpdateLinkAttributes)
 
 -- | The attributes update structure.
-bulaAttributeUpdates :: Lens' BatchUpdateLinkAttributes [LinkAttributeUpdate]
-bulaAttributeUpdates = lens _bulaAttributeUpdates (\s a -> s {_bulaAttributeUpdates = a}) . _Coerce
+batchUpdateLinkAttributes_attributeUpdates :: Lens.Lens' BatchUpdateLinkAttributes [LinkAttributeUpdate]
+batchUpdateLinkAttributes_attributeUpdates = Lens.lens (\BatchUpdateLinkAttributes' {attributeUpdates} -> attributeUpdates) (\s@BatchUpdateLinkAttributes' {} a -> s {attributeUpdates = a} :: BatchUpdateLinkAttributes) Prelude.. Prelude._Coerce
 
-instance Hashable BatchUpdateLinkAttributes
+instance Prelude.Hashable BatchUpdateLinkAttributes
 
-instance NFData BatchUpdateLinkAttributes
+instance Prelude.NFData BatchUpdateLinkAttributes
 
-instance ToJSON BatchUpdateLinkAttributes where
+instance Prelude.ToJSON BatchUpdateLinkAttributes where
   toJSON BatchUpdateLinkAttributes' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("TypedLinkSpecifier" .= _bulaTypedLinkSpecifier),
-            Just ("AttributeUpdates" .= _bulaAttributeUpdates)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TypedLinkSpecifier" Prelude..= typedLinkSpecifier),
+            Prelude.Just
+              ("AttributeUpdates" Prelude..= attributeUpdates)
           ]
       )

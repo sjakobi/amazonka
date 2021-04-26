@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CloudDirectory.Types.RequiredAttributeBehavior
   ( RequiredAttributeBehavior
       ( ..,
-        NotRequired,
-        RequiredAlways
+        RequiredAttributeBehaviorNOTREQUIRED,
+        RequiredAttributeBehaviorREQUIREDALWAYS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RequiredAttributeBehavior
-  = RequiredAttributeBehavior'
-      ( CI
-          Text
-      )
+newtype RequiredAttributeBehavior = RequiredAttributeBehavior'
+  { fromRequiredAttributeBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NotRequired :: RequiredAttributeBehavior
-pattern NotRequired = RequiredAttributeBehavior' "NOT_REQUIRED"
+pattern RequiredAttributeBehaviorNOTREQUIRED :: RequiredAttributeBehavior
+pattern RequiredAttributeBehaviorNOTREQUIRED = RequiredAttributeBehavior' "NOT_REQUIRED"
 
-pattern RequiredAlways :: RequiredAttributeBehavior
-pattern RequiredAlways = RequiredAttributeBehavior' "REQUIRED_ALWAYS"
+pattern RequiredAttributeBehaviorREQUIREDALWAYS :: RequiredAttributeBehavior
+pattern RequiredAttributeBehaviorREQUIREDALWAYS = RequiredAttributeBehavior' "REQUIRED_ALWAYS"
 
 {-# COMPLETE
-  NotRequired,
-  RequiredAlways,
+  RequiredAttributeBehaviorNOTREQUIRED,
+  RequiredAttributeBehaviorREQUIREDALWAYS,
   RequiredAttributeBehavior'
   #-}
 
-instance FromText RequiredAttributeBehavior where
-  parser = (RequiredAttributeBehavior' . mk) <$> takeText
+instance Prelude.FromText RequiredAttributeBehavior where
+  parser = RequiredAttributeBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText RequiredAttributeBehavior where
-  toText (RequiredAttributeBehavior' ci) = original ci
+instance Prelude.ToText RequiredAttributeBehavior where
+  toText (RequiredAttributeBehavior' x) = x
 
-instance Hashable RequiredAttributeBehavior
+instance Prelude.Hashable RequiredAttributeBehavior
 
-instance NFData RequiredAttributeBehavior
+instance Prelude.NFData RequiredAttributeBehavior
 
-instance ToByteString RequiredAttributeBehavior
+instance Prelude.ToByteString RequiredAttributeBehavior
 
-instance ToQuery RequiredAttributeBehavior
+instance Prelude.ToQuery RequiredAttributeBehavior
 
-instance ToHeader RequiredAttributeBehavior
+instance Prelude.ToHeader RequiredAttributeBehavior
 
-instance ToJSON RequiredAttributeBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON RequiredAttributeBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RequiredAttributeBehavior where
-  parseJSON = parseJSONText "RequiredAttributeBehavior"
+instance Prelude.FromJSON RequiredAttributeBehavior where
+  parseJSON = Prelude.parseJSONText "RequiredAttributeBehavior"

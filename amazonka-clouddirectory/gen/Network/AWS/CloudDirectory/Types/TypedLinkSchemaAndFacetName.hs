@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.TypedLinkSchemaAndFacetName where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Identifies the schema Amazon Resource Name (ARN) and facet name for the typed link.
+-- | Identifies the schema Amazon Resource Name (ARN) and facet name for the
+-- typed link.
 --
---
---
--- /See:/ 'typedLinkSchemaAndFacetName' smart constructor.
+-- /See:/ 'newTypedLinkSchemaAndFacetName' smart constructor.
 data TypedLinkSchemaAndFacetName = TypedLinkSchemaAndFacetName'
-  { _tlsafnSchemaARN ::
-      !Text,
-    _tlsafnTypedLinkName ::
-      !Text
+  { -- | The Amazon Resource Name (ARN) that is associated with the schema. For
+    -- more information, see arns.
+    schemaArn :: Prelude.Text,
+    -- | The unique name of the typed link facet.
+    typedLinkName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TypedLinkSchemaAndFacetName' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TypedLinkSchemaAndFacetName' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tlsafnSchemaARN' - The Amazon Resource Name (ARN) that is associated with the schema. For more information, see 'arns' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tlsafnTypedLinkName' - The unique name of the typed link facet.
-typedLinkSchemaAndFacetName ::
-  -- | 'tlsafnSchemaARN'
-  Text ->
-  -- | 'tlsafnTypedLinkName'
-  Text ->
+-- 'schemaArn', 'typedLinkSchemaAndFacetName_schemaArn' - The Amazon Resource Name (ARN) that is associated with the schema. For
+-- more information, see arns.
+--
+-- 'typedLinkName', 'typedLinkSchemaAndFacetName_typedLinkName' - The unique name of the typed link facet.
+newTypedLinkSchemaAndFacetName ::
+  -- | 'schemaArn'
+  Prelude.Text ->
+  -- | 'typedLinkName'
+  Prelude.Text ->
   TypedLinkSchemaAndFacetName
-typedLinkSchemaAndFacetName
-  pSchemaARN_
+newTypedLinkSchemaAndFacetName
+  pSchemaArn_
   pTypedLinkName_ =
     TypedLinkSchemaAndFacetName'
-      { _tlsafnSchemaARN =
-          pSchemaARN_,
-        _tlsafnTypedLinkName = pTypedLinkName_
+      { schemaArn =
+          pSchemaArn_,
+        typedLinkName = pTypedLinkName_
       }
 
--- | The Amazon Resource Name (ARN) that is associated with the schema. For more information, see 'arns' .
-tlsafnSchemaARN :: Lens' TypedLinkSchemaAndFacetName Text
-tlsafnSchemaARN = lens _tlsafnSchemaARN (\s a -> s {_tlsafnSchemaARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the schema. For
+-- more information, see arns.
+typedLinkSchemaAndFacetName_schemaArn :: Lens.Lens' TypedLinkSchemaAndFacetName Prelude.Text
+typedLinkSchemaAndFacetName_schemaArn = Lens.lens (\TypedLinkSchemaAndFacetName' {schemaArn} -> schemaArn) (\s@TypedLinkSchemaAndFacetName' {} a -> s {schemaArn = a} :: TypedLinkSchemaAndFacetName)
 
 -- | The unique name of the typed link facet.
-tlsafnTypedLinkName :: Lens' TypedLinkSchemaAndFacetName Text
-tlsafnTypedLinkName = lens _tlsafnTypedLinkName (\s a -> s {_tlsafnTypedLinkName = a})
+typedLinkSchemaAndFacetName_typedLinkName :: Lens.Lens' TypedLinkSchemaAndFacetName Prelude.Text
+typedLinkSchemaAndFacetName_typedLinkName = Lens.lens (\TypedLinkSchemaAndFacetName' {typedLinkName} -> typedLinkName) (\s@TypedLinkSchemaAndFacetName' {} a -> s {typedLinkName = a} :: TypedLinkSchemaAndFacetName)
 
-instance FromJSON TypedLinkSchemaAndFacetName where
+instance Prelude.FromJSON TypedLinkSchemaAndFacetName where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TypedLinkSchemaAndFacetName"
       ( \x ->
           TypedLinkSchemaAndFacetName'
-            <$> (x .: "SchemaArn") <*> (x .: "TypedLinkName")
+            Prelude.<$> (x Prelude..: "SchemaArn")
+            Prelude.<*> (x Prelude..: "TypedLinkName")
       )
 
-instance Hashable TypedLinkSchemaAndFacetName
+instance Prelude.Hashable TypedLinkSchemaAndFacetName
 
-instance NFData TypedLinkSchemaAndFacetName
+instance Prelude.NFData TypedLinkSchemaAndFacetName
 
-instance ToJSON TypedLinkSchemaAndFacetName where
+instance Prelude.ToJSON TypedLinkSchemaAndFacetName where
   toJSON TypedLinkSchemaAndFacetName' {..} =
-    object
-      ( catMaybes
-          [ Just ("SchemaArn" .= _tlsafnSchemaARN),
-            Just ("TypedLinkName" .= _tlsafnTypedLinkName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("SchemaArn" Prelude..= schemaArn),
+            Prelude.Just
+              ("TypedLinkName" Prelude..= typedLinkName)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,57 @@
 module Network.AWS.CloudDirectory.Types.BatchGetLinkAttributesResponse where
 
 import Network.AWS.CloudDirectory.Types.AttributeKeyAndValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'GetLinkAttributes' response operation.
+-- | Represents the output of a GetLinkAttributes response operation.
 --
---
---
--- /See:/ 'batchGetLinkAttributesResponse' smart constructor.
-newtype BatchGetLinkAttributesResponse = BatchGetLinkAttributesResponse'
-  { _bglarAttributes ::
-      Maybe
-        [AttributeKeyAndValue]
+-- /See:/ 'newBatchGetLinkAttributesResponse' smart constructor.
+data BatchGetLinkAttributesResponse = BatchGetLinkAttributesResponse'
+  { -- | The attributes that are associated with the typed link.
+    attributes :: Prelude.Maybe [AttributeKeyAndValue]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetLinkAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetLinkAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bglarAttributes' - The attributes that are associated with the typed link.
-batchGetLinkAttributesResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'attributes', 'batchGetLinkAttributesResponse_attributes' - The attributes that are associated with the typed link.
+newBatchGetLinkAttributesResponse ::
   BatchGetLinkAttributesResponse
-batchGetLinkAttributesResponse =
+newBatchGetLinkAttributesResponse =
   BatchGetLinkAttributesResponse'
-    { _bglarAttributes =
-        Nothing
+    { attributes =
+        Prelude.Nothing
     }
 
 -- | The attributes that are associated with the typed link.
-bglarAttributes :: Lens' BatchGetLinkAttributesResponse [AttributeKeyAndValue]
-bglarAttributes = lens _bglarAttributes (\s a -> s {_bglarAttributes = a}) . _Default . _Coerce
+batchGetLinkAttributesResponse_attributes :: Lens.Lens' BatchGetLinkAttributesResponse (Prelude.Maybe [AttributeKeyAndValue])
+batchGetLinkAttributesResponse_attributes = Lens.lens (\BatchGetLinkAttributesResponse' {attributes} -> attributes) (\s@BatchGetLinkAttributesResponse' {} a -> s {attributes = a} :: BatchGetLinkAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON BatchGetLinkAttributesResponse where
+instance
+  Prelude.FromJSON
+    BatchGetLinkAttributesResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchGetLinkAttributesResponse"
       ( \x ->
           BatchGetLinkAttributesResponse'
-            <$> (x .:? "Attributes" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "Attributes"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable BatchGetLinkAttributesResponse
+instance
+  Prelude.Hashable
+    BatchGetLinkAttributesResponse
 
-instance NFData BatchGetLinkAttributesResponse
+instance
+  Prelude.NFData
+    BatchGetLinkAttributesResponse

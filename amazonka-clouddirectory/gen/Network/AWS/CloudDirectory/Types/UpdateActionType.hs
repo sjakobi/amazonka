@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudDirectory.Types.UpdateActionType
   ( UpdateActionType
       ( ..,
-        CreateOrUpdate,
-        Delete
+        UpdateActionTypeCREATEORUPDATE,
+        UpdateActionTypeDELETE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UpdateActionType = UpdateActionType' (CI Text)
+newtype UpdateActionType = UpdateActionType'
+  { fromUpdateActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateOrUpdate :: UpdateActionType
-pattern CreateOrUpdate = UpdateActionType' "CREATE_OR_UPDATE"
+pattern UpdateActionTypeCREATEORUPDATE :: UpdateActionType
+pattern UpdateActionTypeCREATEORUPDATE = UpdateActionType' "CREATE_OR_UPDATE"
 
-pattern Delete :: UpdateActionType
-pattern Delete = UpdateActionType' "DELETE"
+pattern UpdateActionTypeDELETE :: UpdateActionType
+pattern UpdateActionTypeDELETE = UpdateActionType' "DELETE"
 
 {-# COMPLETE
-  CreateOrUpdate,
-  Delete,
+  UpdateActionTypeCREATEORUPDATE,
+  UpdateActionTypeDELETE,
   UpdateActionType'
   #-}
 
-instance FromText UpdateActionType where
-  parser = (UpdateActionType' . mk) <$> takeText
+instance Prelude.FromText UpdateActionType where
+  parser = UpdateActionType' Prelude.<$> Prelude.takeText
 
-instance ToText UpdateActionType where
-  toText (UpdateActionType' ci) = original ci
+instance Prelude.ToText UpdateActionType where
+  toText (UpdateActionType' x) = x
 
-instance Hashable UpdateActionType
+instance Prelude.Hashable UpdateActionType
 
-instance NFData UpdateActionType
+instance Prelude.NFData UpdateActionType
 
-instance ToByteString UpdateActionType
+instance Prelude.ToByteString UpdateActionType
 
-instance ToQuery UpdateActionType
+instance Prelude.ToQuery UpdateActionType
 
-instance ToHeader UpdateActionType
+instance Prelude.ToHeader UpdateActionType
 
-instance ToJSON UpdateActionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON UpdateActionType where
+  toJSON = Prelude.toJSONText

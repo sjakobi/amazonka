@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all policies from the root of the 'Directory' to the object specified. If there are no policies present, an empty list is returned. If policies are present, and if some objects don't have the policies attached, it returns the @ObjectIdentifier@ for such objects. If policies are present, it returns @ObjectIdentifier@ , @policyId@ , and @policyType@ . Paths that don't lead to the root from the target object are ignored. For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies> .
---
---
+-- Lists all policies from the root of the Directory to the object
+-- specified. If there are no policies present, an empty list is returned.
+-- If policies are present, and if some objects don\'t have the policies
+-- attached, it returns the @ObjectIdentifier@ for such objects. If
+-- policies are present, it returns @ObjectIdentifier@, @policyId@, and
+-- @policyType@. Paths that don\'t lead to the root from the target object
+-- are ignored. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudDirectory.LookupPolicy
   ( -- * Creating a Request
-    lookupPolicy,
-    LookupPolicy,
+    LookupPolicy (..),
+    newLookupPolicy,
 
     -- * Request Lenses
-    lpNextToken,
-    lpMaxResults,
-    lpDirectoryARN,
-    lpObjectReference,
+    lookupPolicy_nextToken,
+    lookupPolicy_maxResults,
+    lookupPolicy_directoryArn,
+    lookupPolicy_objectReference,
 
     -- * Destructuring the Response
-    lookupPolicyResponse,
-    LookupPolicyResponse,
+    LookupPolicyResponse (..),
+    newLookupPolicyResponse,
 
     -- * Response Lenses
-    lprrsNextToken,
-    lprrsPolicyToPathList,
-    lprrsResponseStatus,
+    lookupPolicyResponse_nextToken,
+    lookupPolicyResponse_policyToPathList,
+    lookupPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudDirectory.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudDirectory.Types.PolicyToPath
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'lookupPolicy' smart constructor.
+-- | /See:/ 'newLookupPolicy' smart constructor.
 data LookupPolicy = LookupPolicy'
-  { _lpNextToken ::
-      !(Maybe Text),
-    _lpMaxResults :: !(Maybe Nat),
-    _lpDirectoryARN :: !Text,
-    _lpObjectReference :: !ObjectReference
+  { -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to be retrieved in a single call. This is an
+    -- approximate number.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Name (ARN) that is associated with the Directory.
+    -- For more information, see arns.
+    directoryArn :: Prelude.Text,
+    -- | Reference that identifies the object whose policies will be looked up.
+    objectReference :: ObjectReference
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LookupPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LookupPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpNextToken' - The token to request the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpMaxResults' - The maximum number of items to be retrieved in a single call. This is an approximate number.
+-- 'nextToken', 'lookupPolicy_nextToken' - The token to request the next page of results.
 --
--- * 'lpDirectoryARN' - The Amazon Resource Name (ARN) that is associated with the 'Directory' . For more information, see 'arns' .
+-- 'maxResults', 'lookupPolicy_maxResults' - The maximum number of items to be retrieved in a single call. This is an
+-- approximate number.
 --
--- * 'lpObjectReference' - Reference that identifies the object whose policies will be looked up.
-lookupPolicy ::
-  -- | 'lpDirectoryARN'
-  Text ->
-  -- | 'lpObjectReference'
+-- 'directoryArn', 'lookupPolicy_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory.
+-- For more information, see arns.
+--
+-- 'objectReference', 'lookupPolicy_objectReference' - Reference that identifies the object whose policies will be looked up.
+newLookupPolicy ::
+  -- | 'directoryArn'
+  Prelude.Text ->
+  -- | 'objectReference'
   ObjectReference ->
   LookupPolicy
-lookupPolicy pDirectoryARN_ pObjectReference_ =
+newLookupPolicy pDirectoryArn_ pObjectReference_ =
   LookupPolicy'
-    { _lpNextToken = Nothing,
-      _lpMaxResults = Nothing,
-      _lpDirectoryARN = pDirectoryARN_,
-      _lpObjectReference = pObjectReference_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      directoryArn = pDirectoryArn_,
+      objectReference = pObjectReference_
     }
 
 -- | The token to request the next page of results.
-lpNextToken :: Lens' LookupPolicy (Maybe Text)
-lpNextToken = lens _lpNextToken (\s a -> s {_lpNextToken = a})
+lookupPolicy_nextToken :: Lens.Lens' LookupPolicy (Prelude.Maybe Prelude.Text)
+lookupPolicy_nextToken = Lens.lens (\LookupPolicy' {nextToken} -> nextToken) (\s@LookupPolicy' {} a -> s {nextToken = a} :: LookupPolicy)
 
--- | The maximum number of items to be retrieved in a single call. This is an approximate number.
-lpMaxResults :: Lens' LookupPolicy (Maybe Natural)
-lpMaxResults = lens _lpMaxResults (\s a -> s {_lpMaxResults = a}) . mapping _Nat
+-- | The maximum number of items to be retrieved in a single call. This is an
+-- approximate number.
+lookupPolicy_maxResults :: Lens.Lens' LookupPolicy (Prelude.Maybe Prelude.Natural)
+lookupPolicy_maxResults = Lens.lens (\LookupPolicy' {maxResults} -> maxResults) (\s@LookupPolicy' {} a -> s {maxResults = a} :: LookupPolicy) Prelude.. Lens.mapping Prelude._Nat
 
--- | The Amazon Resource Name (ARN) that is associated with the 'Directory' . For more information, see 'arns' .
-lpDirectoryARN :: Lens' LookupPolicy Text
-lpDirectoryARN = lens _lpDirectoryARN (\s a -> s {_lpDirectoryARN = a})
+-- | The Amazon Resource Name (ARN) that is associated with the Directory.
+-- For more information, see arns.
+lookupPolicy_directoryArn :: Lens.Lens' LookupPolicy Prelude.Text
+lookupPolicy_directoryArn = Lens.lens (\LookupPolicy' {directoryArn} -> directoryArn) (\s@LookupPolicy' {} a -> s {directoryArn = a} :: LookupPolicy)
 
 -- | Reference that identifies the object whose policies will be looked up.
-lpObjectReference :: Lens' LookupPolicy ObjectReference
-lpObjectReference = lens _lpObjectReference (\s a -> s {_lpObjectReference = a})
+lookupPolicy_objectReference :: Lens.Lens' LookupPolicy ObjectReference
+lookupPolicy_objectReference = Lens.lens (\LookupPolicy' {objectReference} -> objectReference) (\s@LookupPolicy' {} a -> s {objectReference = a} :: LookupPolicy)
 
-instance AWSPager LookupPolicy where
+instance Pager.AWSPager LookupPolicy where
   page rq rs
-    | stop (rs ^. lprrsNextToken) = Nothing
-    | stop (rs ^. lprrsPolicyToPathList) = Nothing
-    | otherwise =
-      Just $ rq & lpNextToken .~ rs ^. lprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? lookupPolicyResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? lookupPolicyResponse_policyToPathList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& lookupPolicy_nextToken
+          Lens..~ rs
+          Lens.^? lookupPolicyResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest LookupPolicy where
+instance Prelude.AWSRequest LookupPolicy where
   type Rs LookupPolicy = LookupPolicyResponse
-  request = postJSON cloudDirectory
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           LookupPolicyResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "PolicyToPathList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "PolicyToPathList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable LookupPolicy
+instance Prelude.Hashable LookupPolicy
 
-instance NFData LookupPolicy
+instance Prelude.NFData LookupPolicy
 
-instance ToHeaders LookupPolicy where
+instance Prelude.ToHeaders LookupPolicy where
   toHeaders LookupPolicy' {..} =
-    mconcat ["x-amz-data-partition" =# _lpDirectoryARN]
+    Prelude.mconcat
+      ["x-amz-data-partition" Prelude.=# directoryArn]
 
-instance ToJSON LookupPolicy where
+instance Prelude.ToJSON LookupPolicy where
   toJSON LookupPolicy' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lpNextToken,
-            ("MaxResults" .=) <$> _lpMaxResults,
-            Just ("ObjectReference" .= _lpObjectReference)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("ObjectReference" Prelude..= objectReference)
           ]
       )
 
-instance ToPath LookupPolicy where
+instance Prelude.ToPath LookupPolicy where
   toPath =
-    const
+    Prelude.const
       "/amazonclouddirectory/2017-01-11/policy/lookup"
 
-instance ToQuery LookupPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery LookupPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'lookupPolicyResponse' smart constructor.
+-- | /See:/ 'newLookupPolicyResponse' smart constructor.
 data LookupPolicyResponse = LookupPolicyResponse'
-  { _lprrsNextToken ::
-      !(Maybe Text),
-    _lprrsPolicyToPathList ::
-      !(Maybe [PolicyToPath]),
-    _lprrsResponseStatus :: !Int
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Provides list of path to policies. Policies contain @PolicyId@,
+    -- @ObjectIdentifier@, and @PolicyType@. For more information, see
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+    policyToPathList :: Prelude.Maybe [PolicyToPath],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LookupPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LookupPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprrsNextToken' - The pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprrsPolicyToPathList' - Provides list of path to policies. Policies contain @PolicyId@ , @ObjectIdentifier@ , and @PolicyType@ . For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies> .
+-- 'nextToken', 'lookupPolicyResponse_nextToken' - The pagination token.
 --
--- * 'lprrsResponseStatus' - -- | The response status code.
-lookupPolicyResponse ::
-  -- | 'lprrsResponseStatus'
-  Int ->
+-- 'policyToPathList', 'lookupPolicyResponse_policyToPathList' - Provides list of path to policies. Policies contain @PolicyId@,
+-- @ObjectIdentifier@, and @PolicyType@. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+--
+-- 'httpStatus', 'lookupPolicyResponse_httpStatus' - The response's http status code.
+newLookupPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   LookupPolicyResponse
-lookupPolicyResponse pResponseStatus_ =
+newLookupPolicyResponse pHttpStatus_ =
   LookupPolicyResponse'
-    { _lprrsNextToken = Nothing,
-      _lprrsPolicyToPathList = Nothing,
-      _lprrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      policyToPathList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The pagination token.
-lprrsNextToken :: Lens' LookupPolicyResponse (Maybe Text)
-lprrsNextToken = lens _lprrsNextToken (\s a -> s {_lprrsNextToken = a})
+lookupPolicyResponse_nextToken :: Lens.Lens' LookupPolicyResponse (Prelude.Maybe Prelude.Text)
+lookupPolicyResponse_nextToken = Lens.lens (\LookupPolicyResponse' {nextToken} -> nextToken) (\s@LookupPolicyResponse' {} a -> s {nextToken = a} :: LookupPolicyResponse)
 
--- | Provides list of path to policies. Policies contain @PolicyId@ , @ObjectIdentifier@ , and @PolicyType@ . For more information, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies> .
-lprrsPolicyToPathList :: Lens' LookupPolicyResponse [PolicyToPath]
-lprrsPolicyToPathList = lens _lprrsPolicyToPathList (\s a -> s {_lprrsPolicyToPathList = a}) . _Default . _Coerce
+-- | Provides list of path to policies. Policies contain @PolicyId@,
+-- @ObjectIdentifier@, and @PolicyType@. For more information, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies Policies>.
+lookupPolicyResponse_policyToPathList :: Lens.Lens' LookupPolicyResponse (Prelude.Maybe [PolicyToPath])
+lookupPolicyResponse_policyToPathList = Lens.lens (\LookupPolicyResponse' {policyToPathList} -> policyToPathList) (\s@LookupPolicyResponse' {} a -> s {policyToPathList = a} :: LookupPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lprrsResponseStatus :: Lens' LookupPolicyResponse Int
-lprrsResponseStatus = lens _lprrsResponseStatus (\s a -> s {_lprrsResponseStatus = a})
+-- | The response's http status code.
+lookupPolicyResponse_httpStatus :: Lens.Lens' LookupPolicyResponse Prelude.Int
+lookupPolicyResponse_httpStatus = Lens.lens (\LookupPolicyResponse' {httpStatus} -> httpStatus) (\s@LookupPolicyResponse' {} a -> s {httpStatus = a} :: LookupPolicyResponse)
 
-instance NFData LookupPolicyResponse
+instance Prelude.NFData LookupPolicyResponse

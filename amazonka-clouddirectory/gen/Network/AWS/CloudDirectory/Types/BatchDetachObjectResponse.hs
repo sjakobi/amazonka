@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,48 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.BatchDetachObjectResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of a 'DetachObject' response operation.
+-- | Represents the output of a DetachObject response operation.
 --
---
---
--- /See:/ 'batchDetachObjectResponse' smart constructor.
-newtype BatchDetachObjectResponse = BatchDetachObjectResponse'
-  { _bdorDetachedObjectIdentifier ::
-      Maybe Text
+-- /See:/ 'newBatchDetachObjectResponse' smart constructor.
+data BatchDetachObjectResponse = BatchDetachObjectResponse'
+  { -- | The @ObjectIdentifier@ of the detached object.
+    detachedObjectIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetachObjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetachObjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdorDetachedObjectIdentifier' - The @ObjectIdentifier@ of the detached object.
-batchDetachObjectResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'detachedObjectIdentifier', 'batchDetachObjectResponse_detachedObjectIdentifier' - The @ObjectIdentifier@ of the detached object.
+newBatchDetachObjectResponse ::
   BatchDetachObjectResponse
-batchDetachObjectResponse =
+newBatchDetachObjectResponse =
   BatchDetachObjectResponse'
-    { _bdorDetachedObjectIdentifier =
-        Nothing
+    { detachedObjectIdentifier =
+        Prelude.Nothing
     }
 
 -- | The @ObjectIdentifier@ of the detached object.
-bdorDetachedObjectIdentifier :: Lens' BatchDetachObjectResponse (Maybe Text)
-bdorDetachedObjectIdentifier = lens _bdorDetachedObjectIdentifier (\s a -> s {_bdorDetachedObjectIdentifier = a})
+batchDetachObjectResponse_detachedObjectIdentifier :: Lens.Lens' BatchDetachObjectResponse (Prelude.Maybe Prelude.Text)
+batchDetachObjectResponse_detachedObjectIdentifier = Lens.lens (\BatchDetachObjectResponse' {detachedObjectIdentifier} -> detachedObjectIdentifier) (\s@BatchDetachObjectResponse' {} a -> s {detachedObjectIdentifier = a} :: BatchDetachObjectResponse)
 
-instance FromJSON BatchDetachObjectResponse where
+instance Prelude.FromJSON BatchDetachObjectResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchDetachObjectResponse"
       ( \x ->
           BatchDetachObjectResponse'
-            <$> (x .:? "detachedObjectIdentifier")
+            Prelude.<$> (x Prelude..:? "detachedObjectIdentifier")
       )
 
-instance Hashable BatchDetachObjectResponse
+instance Prelude.Hashable BatchDetachObjectResponse
 
-instance NFData BatchDetachObjectResponse
+instance Prelude.NFData BatchDetachObjectResponse

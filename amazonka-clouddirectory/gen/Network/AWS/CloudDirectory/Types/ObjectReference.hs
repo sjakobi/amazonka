@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,45 +19,100 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.ObjectReference where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The reference that identifies an object.
 --
---
---
--- /See:/ 'objectReference' smart constructor.
-newtype ObjectReference = ObjectReference'
-  { _orSelector ::
-      Maybe Text
+-- /See:/ 'newObjectReference' smart constructor.
+data ObjectReference = ObjectReference'
+  { -- | A path selector supports easy selection of an object by the
+    -- parent\/child links leading to it from the directory root. Use the link
+    -- names from each parent\/child link to construct the path. Path selectors
+    -- start with a slash (\/) and link names are separated by slashes. For
+    -- more information about paths, see
+    -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html Access Objects>.
+    -- You can identify an object in one of the following ways:
+    --
+    -- -   /$ObjectIdentifier/ - An object identifier is an opaque string
+    --     provided by Amazon Cloud Directory. When creating objects, the
+    --     system will provide you with the identifier of the created object.
+    --     An object’s identifier is immutable and no two objects will ever
+    --     share the same object identifier
+    --
+    -- -   /\/some\/path/ - Identifies the object based on path
+    --
+    -- -   /#SomeBatchReference/ - Identifies the object in a batch call
+    selector :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ObjectReference' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ObjectReference' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'orSelector' - A path selector supports easy selection of an object by the parent/child links leading to it from the directory root. Use the link names from each parent/child link to construct the path. Path selectors start with a slash (/) and link names are separated by slashes. For more information about paths, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html Access Objects> . You can identify an object in one of the following ways:     * /> ObjectIdentifier/ - An object identifier is an opaque string provided by Amazon Cloud Directory. When creating objects, the system will provide you with the identifier of the created object. An object’s identifier is immutable and no two objects will ever share the same object identifier     * /\/some\/path/ - Identifies the object based on path     * /#SomeBatchReference/ - Identifies the object in a batch call
-objectReference ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'selector', 'objectReference_selector' - A path selector supports easy selection of an object by the
+-- parent\/child links leading to it from the directory root. Use the link
+-- names from each parent\/child link to construct the path. Path selectors
+-- start with a slash (\/) and link names are separated by slashes. For
+-- more information about paths, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html Access Objects>.
+-- You can identify an object in one of the following ways:
+--
+-- -   /$ObjectIdentifier/ - An object identifier is an opaque string
+--     provided by Amazon Cloud Directory. When creating objects, the
+--     system will provide you with the identifier of the created object.
+--     An object’s identifier is immutable and no two objects will ever
+--     share the same object identifier
+--
+-- -   /\/some\/path/ - Identifies the object based on path
+--
+-- -   /#SomeBatchReference/ - Identifies the object in a batch call
+newObjectReference ::
   ObjectReference
-objectReference =
-  ObjectReference' {_orSelector = Nothing}
+newObjectReference =
+  ObjectReference' {selector = Prelude.Nothing}
 
--- | A path selector supports easy selection of an object by the parent/child links leading to it from the directory root. Use the link names from each parent/child link to construct the path. Path selectors start with a slash (/) and link names are separated by slashes. For more information about paths, see <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html Access Objects> . You can identify an object in one of the following ways:     * /> ObjectIdentifier/ - An object identifier is an opaque string provided by Amazon Cloud Directory. When creating objects, the system will provide you with the identifier of the created object. An object’s identifier is immutable and no two objects will ever share the same object identifier     * /\/some\/path/ - Identifies the object based on path     * /#SomeBatchReference/ - Identifies the object in a batch call
-orSelector :: Lens' ObjectReference (Maybe Text)
-orSelector = lens _orSelector (\s a -> s {_orSelector = a})
+-- | A path selector supports easy selection of an object by the
+-- parent\/child links leading to it from the directory root. Use the link
+-- names from each parent\/child link to construct the path. Path selectors
+-- start with a slash (\/) and link names are separated by slashes. For
+-- more information about paths, see
+-- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html Access Objects>.
+-- You can identify an object in one of the following ways:
+--
+-- -   /$ObjectIdentifier/ - An object identifier is an opaque string
+--     provided by Amazon Cloud Directory. When creating objects, the
+--     system will provide you with the identifier of the created object.
+--     An object’s identifier is immutable and no two objects will ever
+--     share the same object identifier
+--
+-- -   /\/some\/path/ - Identifies the object based on path
+--
+-- -   /#SomeBatchReference/ - Identifies the object in a batch call
+objectReference_selector :: Lens.Lens' ObjectReference (Prelude.Maybe Prelude.Text)
+objectReference_selector = Lens.lens (\ObjectReference' {selector} -> selector) (\s@ObjectReference' {} a -> s {selector = a} :: ObjectReference)
 
-instance FromJSON ObjectReference where
+instance Prelude.FromJSON ObjectReference where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ObjectReference"
-      (\x -> ObjectReference' <$> (x .:? "Selector"))
+      ( \x ->
+          ObjectReference'
+            Prelude.<$> (x Prelude..:? "Selector")
+      )
 
-instance Hashable ObjectReference
+instance Prelude.Hashable ObjectReference
 
-instance NFData ObjectReference
+instance Prelude.NFData ObjectReference
 
-instance ToJSON ObjectReference where
+instance Prelude.ToJSON ObjectReference where
   toJSON ObjectReference' {..} =
-    object
-      (catMaybes [("Selector" .=) <$> _orSelector])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Selector" Prelude..=) Prelude.<$> selector]
+      )

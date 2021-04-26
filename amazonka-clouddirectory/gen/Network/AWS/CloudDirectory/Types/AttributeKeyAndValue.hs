@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +21,67 @@ module Network.AWS.CloudDirectory.Types.AttributeKeyAndValue where
 
 import Network.AWS.CloudDirectory.Types.AttributeKey
 import Network.AWS.CloudDirectory.Types.TypedAttributeValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The combination of an attribute key and an attribute value.
 --
---
---
--- /See:/ 'attributeKeyAndValue' smart constructor.
+-- /See:/ 'newAttributeKeyAndValue' smart constructor.
 data AttributeKeyAndValue = AttributeKeyAndValue'
-  { _akavKey ::
-      !AttributeKey,
-    _akavValue ::
-      !TypedAttributeValue
+  { -- | The key of the attribute.
+    key :: AttributeKey,
+    -- | The value of the attribute.
+    value :: TypedAttributeValue
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttributeKeyAndValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttributeKeyAndValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'akavKey' - The key of the attribute.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'akavValue' - The value of the attribute.
-attributeKeyAndValue ::
-  -- | 'akavKey'
+-- 'key', 'attributeKeyAndValue_key' - The key of the attribute.
+--
+-- 'value', 'attributeKeyAndValue_value' - The value of the attribute.
+newAttributeKeyAndValue ::
+  -- | 'key'
   AttributeKey ->
-  -- | 'akavValue'
+  -- | 'value'
   TypedAttributeValue ->
   AttributeKeyAndValue
-attributeKeyAndValue pKey_ pValue_ =
-  AttributeKeyAndValue'
-    { _akavKey = pKey_,
-      _akavValue = pValue_
-    }
+newAttributeKeyAndValue pKey_ pValue_ =
+  AttributeKeyAndValue' {key = pKey_, value = pValue_}
 
 -- | The key of the attribute.
-akavKey :: Lens' AttributeKeyAndValue AttributeKey
-akavKey = lens _akavKey (\s a -> s {_akavKey = a})
+attributeKeyAndValue_key :: Lens.Lens' AttributeKeyAndValue AttributeKey
+attributeKeyAndValue_key = Lens.lens (\AttributeKeyAndValue' {key} -> key) (\s@AttributeKeyAndValue' {} a -> s {key = a} :: AttributeKeyAndValue)
 
 -- | The value of the attribute.
-akavValue :: Lens' AttributeKeyAndValue TypedAttributeValue
-akavValue = lens _akavValue (\s a -> s {_akavValue = a})
+attributeKeyAndValue_value :: Lens.Lens' AttributeKeyAndValue TypedAttributeValue
+attributeKeyAndValue_value = Lens.lens (\AttributeKeyAndValue' {value} -> value) (\s@AttributeKeyAndValue' {} a -> s {value = a} :: AttributeKeyAndValue)
 
-instance FromJSON AttributeKeyAndValue where
+instance Prelude.FromJSON AttributeKeyAndValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttributeKeyAndValue"
       ( \x ->
           AttributeKeyAndValue'
-            <$> (x .: "Key") <*> (x .: "Value")
+            Prelude.<$> (x Prelude..: "Key")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable AttributeKeyAndValue
+instance Prelude.Hashable AttributeKeyAndValue
 
-instance NFData AttributeKeyAndValue
+instance Prelude.NFData AttributeKeyAndValue
 
-instance ToJSON AttributeKeyAndValue where
+instance Prelude.ToJSON AttributeKeyAndValue where
   toJSON AttributeKeyAndValue' {..} =
-    object
-      ( catMaybes
-          [ Just ("Key" .= _akavKey),
-            Just ("Value" .= _akavValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

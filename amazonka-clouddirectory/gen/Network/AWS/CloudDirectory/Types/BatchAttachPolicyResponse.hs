@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,36 +19,32 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudDirectory.Types.BatchAttachPolicyResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the output of an 'AttachPolicy' response operation.
+-- | Represents the output of an AttachPolicy response operation.
 --
---
---
--- /See:/ 'batchAttachPolicyResponse' smart constructor.
+-- /See:/ 'newBatchAttachPolicyResponse' smart constructor.
 data BatchAttachPolicyResponse = BatchAttachPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchAttachPolicyResponse' with the minimum fields required to make a request.
-batchAttachPolicyResponse ::
+-- |
+-- Create a value of 'BatchAttachPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newBatchAttachPolicyResponse ::
   BatchAttachPolicyResponse
-batchAttachPolicyResponse =
+newBatchAttachPolicyResponse =
   BatchAttachPolicyResponse'
 
-instance FromJSON BatchAttachPolicyResponse where
+instance Prelude.FromJSON BatchAttachPolicyResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchAttachPolicyResponse"
-      (\x -> pure BatchAttachPolicyResponse')
+      (\x -> Prelude.pure BatchAttachPolicyResponse')
 
-instance Hashable BatchAttachPolicyResponse
+instance Prelude.Hashable BatchAttachPolicyResponse
 
-instance NFData BatchAttachPolicyResponse
+instance Prelude.NFData BatchAttachPolicyResponse

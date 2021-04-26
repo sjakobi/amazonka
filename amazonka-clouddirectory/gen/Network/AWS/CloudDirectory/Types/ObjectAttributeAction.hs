@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +21,59 @@ module Network.AWS.CloudDirectory.Types.ObjectAttributeAction where
 
 import Network.AWS.CloudDirectory.Types.TypedAttributeValue
 import Network.AWS.CloudDirectory.Types.UpdateActionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The action to take on the object attribute.
 --
---
---
--- /See:/ 'objectAttributeAction' smart constructor.
+-- /See:/ 'newObjectAttributeAction' smart constructor.
 data ObjectAttributeAction = ObjectAttributeAction'
-  { _oaaObjectAttributeActionType ::
-      !(Maybe UpdateActionType),
-    _oaaObjectAttributeUpdateValue ::
-      !( Maybe
-           TypedAttributeValue
-       )
+  { -- | A type that can be either @Update@ or @Delete@.
+    objectAttributeActionType :: Prelude.Maybe UpdateActionType,
+    -- | The value that you want to update to.
+    objectAttributeUpdateValue :: Prelude.Maybe TypedAttributeValue
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ObjectAttributeAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ObjectAttributeAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oaaObjectAttributeActionType' - A type that can be either @Update@ or @Delete@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oaaObjectAttributeUpdateValue' - The value that you want to update to.
-objectAttributeAction ::
+-- 'objectAttributeActionType', 'objectAttributeAction_objectAttributeActionType' - A type that can be either @Update@ or @Delete@.
+--
+-- 'objectAttributeUpdateValue', 'objectAttributeAction_objectAttributeUpdateValue' - The value that you want to update to.
+newObjectAttributeAction ::
   ObjectAttributeAction
-objectAttributeAction =
+newObjectAttributeAction =
   ObjectAttributeAction'
-    { _oaaObjectAttributeActionType =
-        Nothing,
-      _oaaObjectAttributeUpdateValue = Nothing
+    { objectAttributeActionType =
+        Prelude.Nothing,
+      objectAttributeUpdateValue = Prelude.Nothing
     }
 
--- | A type that can be either @Update@ or @Delete@ .
-oaaObjectAttributeActionType :: Lens' ObjectAttributeAction (Maybe UpdateActionType)
-oaaObjectAttributeActionType = lens _oaaObjectAttributeActionType (\s a -> s {_oaaObjectAttributeActionType = a})
+-- | A type that can be either @Update@ or @Delete@.
+objectAttributeAction_objectAttributeActionType :: Lens.Lens' ObjectAttributeAction (Prelude.Maybe UpdateActionType)
+objectAttributeAction_objectAttributeActionType = Lens.lens (\ObjectAttributeAction' {objectAttributeActionType} -> objectAttributeActionType) (\s@ObjectAttributeAction' {} a -> s {objectAttributeActionType = a} :: ObjectAttributeAction)
 
 -- | The value that you want to update to.
-oaaObjectAttributeUpdateValue :: Lens' ObjectAttributeAction (Maybe TypedAttributeValue)
-oaaObjectAttributeUpdateValue = lens _oaaObjectAttributeUpdateValue (\s a -> s {_oaaObjectAttributeUpdateValue = a})
+objectAttributeAction_objectAttributeUpdateValue :: Lens.Lens' ObjectAttributeAction (Prelude.Maybe TypedAttributeValue)
+objectAttributeAction_objectAttributeUpdateValue = Lens.lens (\ObjectAttributeAction' {objectAttributeUpdateValue} -> objectAttributeUpdateValue) (\s@ObjectAttributeAction' {} a -> s {objectAttributeUpdateValue = a} :: ObjectAttributeAction)
 
-instance Hashable ObjectAttributeAction
+instance Prelude.Hashable ObjectAttributeAction
 
-instance NFData ObjectAttributeAction
+instance Prelude.NFData ObjectAttributeAction
 
-instance ToJSON ObjectAttributeAction where
+instance Prelude.ToJSON ObjectAttributeAction where
   toJSON ObjectAttributeAction' {..} =
-    object
-      ( catMaybes
-          [ ("ObjectAttributeActionType" .=)
-              <$> _oaaObjectAttributeActionType,
-            ("ObjectAttributeUpdateValue" .=)
-              <$> _oaaObjectAttributeUpdateValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ObjectAttributeActionType" Prelude..=)
+              Prelude.<$> objectAttributeActionType,
+            ("ObjectAttributeUpdateValue" Prelude..=)
+              Prelude.<$> objectAttributeUpdateValue
           ]
       )

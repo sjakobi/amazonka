@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,55 +20,54 @@
 module Network.AWS.CloudDirectory.Types.BatchDetachTypedLink where
 
 import Network.AWS.CloudDirectory.Types.TypedLinkSpecifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Detaches a typed link from a specified source and target object inside a 'BatchRead' operation. For more information, see 'DetachTypedLink' and 'BatchReadRequest$Operations' .
+-- | Detaches a typed link from a specified source and target object inside a
+-- BatchRead operation. For more information, see DetachTypedLink and
+-- BatchReadRequest$Operations.
 --
---
---
--- /See:/ 'batchDetachTypedLink' smart constructor.
-newtype BatchDetachTypedLink = BatchDetachTypedLink'
-  { _bdtlTypedLinkSpecifier ::
-      TypedLinkSpecifier
+-- /See:/ 'newBatchDetachTypedLink' smart constructor.
+data BatchDetachTypedLink = BatchDetachTypedLink'
+  { -- | Used to accept a typed link specifier as input.
+    typedLinkSpecifier :: TypedLinkSpecifier
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetachTypedLink' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetachTypedLink' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdtlTypedLinkSpecifier' - Used to accept a typed link specifier as input.
-batchDetachTypedLink ::
-  -- | 'bdtlTypedLinkSpecifier'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'typedLinkSpecifier', 'batchDetachTypedLink_typedLinkSpecifier' - Used to accept a typed link specifier as input.
+newBatchDetachTypedLink ::
+  -- | 'typedLinkSpecifier'
   TypedLinkSpecifier ->
   BatchDetachTypedLink
-batchDetachTypedLink pTypedLinkSpecifier_ =
+newBatchDetachTypedLink pTypedLinkSpecifier_ =
   BatchDetachTypedLink'
-    { _bdtlTypedLinkSpecifier =
+    { typedLinkSpecifier =
         pTypedLinkSpecifier_
     }
 
 -- | Used to accept a typed link specifier as input.
-bdtlTypedLinkSpecifier :: Lens' BatchDetachTypedLink TypedLinkSpecifier
-bdtlTypedLinkSpecifier = lens _bdtlTypedLinkSpecifier (\s a -> s {_bdtlTypedLinkSpecifier = a})
+batchDetachTypedLink_typedLinkSpecifier :: Lens.Lens' BatchDetachTypedLink TypedLinkSpecifier
+batchDetachTypedLink_typedLinkSpecifier = Lens.lens (\BatchDetachTypedLink' {typedLinkSpecifier} -> typedLinkSpecifier) (\s@BatchDetachTypedLink' {} a -> s {typedLinkSpecifier = a} :: BatchDetachTypedLink)
 
-instance Hashable BatchDetachTypedLink
+instance Prelude.Hashable BatchDetachTypedLink
 
-instance NFData BatchDetachTypedLink
+instance Prelude.NFData BatchDetachTypedLink
 
-instance ToJSON BatchDetachTypedLink where
+instance Prelude.ToJSON BatchDetachTypedLink where
   toJSON BatchDetachTypedLink' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("TypedLinkSpecifier" .= _bdtlTypedLinkSpecifier)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "TypedLinkSpecifier"
+                  Prelude..= typedLinkSpecifier
+              )
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,63 @@
 module Network.AWS.CloudDirectory.Types.BatchListObjectParentsResponse where
 
 import Network.AWS.CloudDirectory.Types.ObjectIdentifierAndLinkNameTuple
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'batchListObjectParentsResponse' smart constructor.
+-- | /See:/ 'newBatchListObjectParentsResponse' smart constructor.
 data BatchListObjectParentsResponse = BatchListObjectParentsResponse'
-  { _bloprParentLinks ::
-      !( Maybe
-           [ObjectIdentifierAndLinkNameTuple]
-       ),
-    _bloprNextToken ::
-      !( Maybe
-           Text
-       )
+  { parentLinks :: Prelude.Maybe [ObjectIdentifierAndLinkNameTuple],
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchListObjectParentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchListObjectParentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bloprParentLinks' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bloprNextToken' - Undocumented member.
-batchListObjectParentsResponse ::
+-- 'parentLinks', 'batchListObjectParentsResponse_parentLinks' - Undocumented member.
+--
+-- 'nextToken', 'batchListObjectParentsResponse_nextToken' - Undocumented member.
+newBatchListObjectParentsResponse ::
   BatchListObjectParentsResponse
-batchListObjectParentsResponse =
+newBatchListObjectParentsResponse =
   BatchListObjectParentsResponse'
-    { _bloprParentLinks =
-        Nothing,
-      _bloprNextToken = Nothing
+    { parentLinks =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Undocumented member.
-bloprParentLinks :: Lens' BatchListObjectParentsResponse [ObjectIdentifierAndLinkNameTuple]
-bloprParentLinks = lens _bloprParentLinks (\s a -> s {_bloprParentLinks = a}) . _Default . _Coerce
+batchListObjectParentsResponse_parentLinks :: Lens.Lens' BatchListObjectParentsResponse (Prelude.Maybe [ObjectIdentifierAndLinkNameTuple])
+batchListObjectParentsResponse_parentLinks = Lens.lens (\BatchListObjectParentsResponse' {parentLinks} -> parentLinks) (\s@BatchListObjectParentsResponse' {} a -> s {parentLinks = a} :: BatchListObjectParentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-bloprNextToken :: Lens' BatchListObjectParentsResponse (Maybe Text)
-bloprNextToken = lens _bloprNextToken (\s a -> s {_bloprNextToken = a})
+batchListObjectParentsResponse_nextToken :: Lens.Lens' BatchListObjectParentsResponse (Prelude.Maybe Prelude.Text)
+batchListObjectParentsResponse_nextToken = Lens.lens (\BatchListObjectParentsResponse' {nextToken} -> nextToken) (\s@BatchListObjectParentsResponse' {} a -> s {nextToken = a} :: BatchListObjectParentsResponse)
 
-instance FromJSON BatchListObjectParentsResponse where
+instance
+  Prelude.FromJSON
+    BatchListObjectParentsResponse
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchListObjectParentsResponse"
       ( \x ->
           BatchListObjectParentsResponse'
-            <$> (x .:? "ParentLinks" .!= mempty)
-            <*> (x .:? "NextToken")
+            Prelude.<$> ( x Prelude..:? "ParentLinks"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "NextToken")
       )
 
-instance Hashable BatchListObjectParentsResponse
+instance
+  Prelude.Hashable
+    BatchListObjectParentsResponse
 
-instance NFData BatchListObjectParentsResponse
+instance
+  Prelude.NFData
+    BatchListObjectParentsResponse
