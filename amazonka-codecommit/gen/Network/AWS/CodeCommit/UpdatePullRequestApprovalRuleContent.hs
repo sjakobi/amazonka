@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,208 +21,309 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the structure of an approval rule created specifically for a pull request. For example, you can change the number of required approvers and the approval pool for approvers.
+-- Updates the structure of an approval rule created specifically for a
+-- pull request. For example, you can change the number of required
+-- approvers and the approval pool for approvers.
 module Network.AWS.CodeCommit.UpdatePullRequestApprovalRuleContent
   ( -- * Creating a Request
-    updatePullRequestApprovalRuleContent,
-    UpdatePullRequestApprovalRuleContent,
+    UpdatePullRequestApprovalRuleContent (..),
+    newUpdatePullRequestApprovalRuleContent,
 
     -- * Request Lenses
-    uprarcExistingRuleContentSha256,
-    uprarcPullRequestId,
-    uprarcApprovalRuleName,
-    uprarcNewRuleContent,
+    updatePullRequestApprovalRuleContent_existingRuleContentSha256,
+    updatePullRequestApprovalRuleContent_pullRequestId,
+    updatePullRequestApprovalRuleContent_approvalRuleName,
+    updatePullRequestApprovalRuleContent_newRuleContent,
 
     -- * Destructuring the Response
-    updatePullRequestApprovalRuleContentResponse,
-    UpdatePullRequestApprovalRuleContentResponse,
+    UpdatePullRequestApprovalRuleContentResponse (..),
+    newUpdatePullRequestApprovalRuleContentResponse,
 
     -- * Response Lenses
-    uprarcrrsResponseStatus,
-    uprarcrrsApprovalRule,
+    updatePullRequestApprovalRuleContentResponse_httpStatus,
+    updatePullRequestApprovalRuleContentResponse_approvalRule,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.ApprovalRule
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updatePullRequestApprovalRuleContent' smart constructor.
+-- | /See:/ 'newUpdatePullRequestApprovalRuleContent' smart constructor.
 data UpdatePullRequestApprovalRuleContent = UpdatePullRequestApprovalRuleContent'
-  { _uprarcExistingRuleContentSha256 ::
-      !( Maybe
-           Text
-       ),
-    _uprarcPullRequestId ::
-      !Text,
-    _uprarcApprovalRuleName ::
-      !Text,
-    _uprarcNewRuleContent ::
-      !Text
+  { -- | The SHA-256 hash signature for the content of the approval rule. You can
+    -- retrieve this information by using GetPullRequest.
+    existingRuleContentSha256 :: Prelude.Maybe Prelude.Text,
+    -- | The system-generated ID of the pull request.
+    pullRequestId :: Prelude.Text,
+    -- | The name of the approval rule you want to update.
+    approvalRuleName :: Prelude.Text,
+    -- | The updated content for the approval rule.
+    --
+    -- When you update the content of the approval rule, you can specify
+    -- approvers in an approval pool in one of two ways:
+    --
+    -- -   __CodeCommitApprovers__: This option only requires an AWS account
+    --     and a resource. It can be used for both IAM users and federated
+    --     access users whose name matches the provided resource name. This is
+    --     a very powerful option that offers a great deal of flexibility. For
+    --     example, if you specify the AWS account /123456789012/ and
+    --     /Mary_Major/, all of the following are counted as approvals coming
+    --     from that user:
+    --
+    --     -   An IAM user in the account
+    --         (arn:aws:iam::/123456789012/:user\//Mary_Major/)
+    --
+    --     -   A federated user identified in IAM as Mary_Major
+    --         (arn:aws:sts::/123456789012/:federated-user\//Mary_Major/)
+    --
+    --     This option does not recognize an active session of someone assuming
+    --     the role of CodeCommitReview with a role session name of
+    --     /Mary_Major/
+    --     (arn:aws:sts::/123456789012/:assumed-role\/CodeCommitReview\//Mary_Major/)
+    --     unless you include a wildcard (*Mary_Major).
+    --
+    -- -   __Fully qualified ARN__: This option allows you to specify the fully
+    --     qualified Amazon Resource Name (ARN) of the IAM user or role.
+    --
+    -- For more information about IAM ARNs, wildcards, and formats, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers>
+    -- in the /IAM User Guide/.
+    newRuleContent' :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePullRequestApprovalRuleContent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePullRequestApprovalRuleContent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uprarcExistingRuleContentSha256' - The SHA-256 hash signature for the content of the approval rule. You can retrieve this information by using 'GetPullRequest' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uprarcPullRequestId' - The system-generated ID of the pull request.
+-- 'existingRuleContentSha256', 'updatePullRequestApprovalRuleContent_existingRuleContentSha256' - The SHA-256 hash signature for the content of the approval rule. You can
+-- retrieve this information by using GetPullRequest.
 --
--- * 'uprarcApprovalRuleName' - The name of the approval rule you want to update.
+-- 'pullRequestId', 'updatePullRequestApprovalRuleContent_pullRequestId' - The system-generated ID of the pull request.
 --
--- * 'uprarcNewRuleContent' - The updated content for the approval rule.
-updatePullRequestApprovalRuleContent ::
-  -- | 'uprarcPullRequestId'
-  Text ->
-  -- | 'uprarcApprovalRuleName'
-  Text ->
-  -- | 'uprarcNewRuleContent'
-  Text ->
+-- 'approvalRuleName', 'updatePullRequestApprovalRuleContent_approvalRuleName' - The name of the approval rule you want to update.
+--
+-- 'newRuleContent'', 'updatePullRequestApprovalRuleContent_newRuleContent' - The updated content for the approval rule.
+--
+-- When you update the content of the approval rule, you can specify
+-- approvers in an approval pool in one of two ways:
+--
+-- -   __CodeCommitApprovers__: This option only requires an AWS account
+--     and a resource. It can be used for both IAM users and federated
+--     access users whose name matches the provided resource name. This is
+--     a very powerful option that offers a great deal of flexibility. For
+--     example, if you specify the AWS account /123456789012/ and
+--     /Mary_Major/, all of the following are counted as approvals coming
+--     from that user:
+--
+--     -   An IAM user in the account
+--         (arn:aws:iam::/123456789012/:user\//Mary_Major/)
+--
+--     -   A federated user identified in IAM as Mary_Major
+--         (arn:aws:sts::/123456789012/:federated-user\//Mary_Major/)
+--
+--     This option does not recognize an active session of someone assuming
+--     the role of CodeCommitReview with a role session name of
+--     /Mary_Major/
+--     (arn:aws:sts::/123456789012/:assumed-role\/CodeCommitReview\//Mary_Major/)
+--     unless you include a wildcard (*Mary_Major).
+--
+-- -   __Fully qualified ARN__: This option allows you to specify the fully
+--     qualified Amazon Resource Name (ARN) of the IAM user or role.
+--
+-- For more information about IAM ARNs, wildcards, and formats, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers>
+-- in the /IAM User Guide/.
+newUpdatePullRequestApprovalRuleContent ::
+  -- | 'pullRequestId'
+  Prelude.Text ->
+  -- | 'approvalRuleName'
+  Prelude.Text ->
+  -- | 'newRuleContent''
+  Prelude.Text ->
   UpdatePullRequestApprovalRuleContent
-updatePullRequestApprovalRuleContent
+newUpdatePullRequestApprovalRuleContent
   pPullRequestId_
   pApprovalRuleName_
   pNewRuleContent_ =
     UpdatePullRequestApprovalRuleContent'
-      { _uprarcExistingRuleContentSha256 =
-          Nothing,
-        _uprarcPullRequestId =
-          pPullRequestId_,
-        _uprarcApprovalRuleName =
-          pApprovalRuleName_,
-        _uprarcNewRuleContent =
-          pNewRuleContent_
+      { existingRuleContentSha256 =
+          Prelude.Nothing,
+        pullRequestId = pPullRequestId_,
+        approvalRuleName = pApprovalRuleName_,
+        newRuleContent' = pNewRuleContent_
       }
 
--- | The SHA-256 hash signature for the content of the approval rule. You can retrieve this information by using 'GetPullRequest' .
-uprarcExistingRuleContentSha256 :: Lens' UpdatePullRequestApprovalRuleContent (Maybe Text)
-uprarcExistingRuleContentSha256 = lens _uprarcExistingRuleContentSha256 (\s a -> s {_uprarcExistingRuleContentSha256 = a})
+-- | The SHA-256 hash signature for the content of the approval rule. You can
+-- retrieve this information by using GetPullRequest.
+updatePullRequestApprovalRuleContent_existingRuleContentSha256 :: Lens.Lens' UpdatePullRequestApprovalRuleContent (Prelude.Maybe Prelude.Text)
+updatePullRequestApprovalRuleContent_existingRuleContentSha256 = Lens.lens (\UpdatePullRequestApprovalRuleContent' {existingRuleContentSha256} -> existingRuleContentSha256) (\s@UpdatePullRequestApprovalRuleContent' {} a -> s {existingRuleContentSha256 = a} :: UpdatePullRequestApprovalRuleContent)
 
 -- | The system-generated ID of the pull request.
-uprarcPullRequestId :: Lens' UpdatePullRequestApprovalRuleContent Text
-uprarcPullRequestId = lens _uprarcPullRequestId (\s a -> s {_uprarcPullRequestId = a})
+updatePullRequestApprovalRuleContent_pullRequestId :: Lens.Lens' UpdatePullRequestApprovalRuleContent Prelude.Text
+updatePullRequestApprovalRuleContent_pullRequestId = Lens.lens (\UpdatePullRequestApprovalRuleContent' {pullRequestId} -> pullRequestId) (\s@UpdatePullRequestApprovalRuleContent' {} a -> s {pullRequestId = a} :: UpdatePullRequestApprovalRuleContent)
 
 -- | The name of the approval rule you want to update.
-uprarcApprovalRuleName :: Lens' UpdatePullRequestApprovalRuleContent Text
-uprarcApprovalRuleName = lens _uprarcApprovalRuleName (\s a -> s {_uprarcApprovalRuleName = a})
+updatePullRequestApprovalRuleContent_approvalRuleName :: Lens.Lens' UpdatePullRequestApprovalRuleContent Prelude.Text
+updatePullRequestApprovalRuleContent_approvalRuleName = Lens.lens (\UpdatePullRequestApprovalRuleContent' {approvalRuleName} -> approvalRuleName) (\s@UpdatePullRequestApprovalRuleContent' {} a -> s {approvalRuleName = a} :: UpdatePullRequestApprovalRuleContent)
 
 -- | The updated content for the approval rule.
-uprarcNewRuleContent :: Lens' UpdatePullRequestApprovalRuleContent Text
-uprarcNewRuleContent = lens _uprarcNewRuleContent (\s a -> s {_uprarcNewRuleContent = a})
+--
+-- When you update the content of the approval rule, you can specify
+-- approvers in an approval pool in one of two ways:
+--
+-- -   __CodeCommitApprovers__: This option only requires an AWS account
+--     and a resource. It can be used for both IAM users and federated
+--     access users whose name matches the provided resource name. This is
+--     a very powerful option that offers a great deal of flexibility. For
+--     example, if you specify the AWS account /123456789012/ and
+--     /Mary_Major/, all of the following are counted as approvals coming
+--     from that user:
+--
+--     -   An IAM user in the account
+--         (arn:aws:iam::/123456789012/:user\//Mary_Major/)
+--
+--     -   A federated user identified in IAM as Mary_Major
+--         (arn:aws:sts::/123456789012/:federated-user\//Mary_Major/)
+--
+--     This option does not recognize an active session of someone assuming
+--     the role of CodeCommitReview with a role session name of
+--     /Mary_Major/
+--     (arn:aws:sts::/123456789012/:assumed-role\/CodeCommitReview\//Mary_Major/)
+--     unless you include a wildcard (*Mary_Major).
+--
+-- -   __Fully qualified ARN__: This option allows you to specify the fully
+--     qualified Amazon Resource Name (ARN) of the IAM user or role.
+--
+-- For more information about IAM ARNs, wildcards, and formats, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers>
+-- in the /IAM User Guide/.
+updatePullRequestApprovalRuleContent_newRuleContent :: Lens.Lens' UpdatePullRequestApprovalRuleContent Prelude.Text
+updatePullRequestApprovalRuleContent_newRuleContent = Lens.lens (\UpdatePullRequestApprovalRuleContent' {newRuleContent'} -> newRuleContent') (\s@UpdatePullRequestApprovalRuleContent' {} a -> s {newRuleContent' = a} :: UpdatePullRequestApprovalRuleContent)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     UpdatePullRequestApprovalRuleContent
   where
   type
     Rs UpdatePullRequestApprovalRuleContent =
       UpdatePullRequestApprovalRuleContentResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdatePullRequestApprovalRuleContentResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "approvalRule")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (x Prelude..:> "approvalRule")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     UpdatePullRequestApprovalRuleContent
 
-instance NFData UpdatePullRequestApprovalRuleContent
+instance
+  Prelude.NFData
+    UpdatePullRequestApprovalRuleContent
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     UpdatePullRequestApprovalRuleContent
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.UpdatePullRequestApprovalRuleContent" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.UpdatePullRequestApprovalRuleContent" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
-
-instance ToJSON UpdatePullRequestApprovalRuleContent where
-  toJSON UpdatePullRequestApprovalRuleContent' {..} =
-    object
-      ( catMaybes
-          [ ("existingRuleContentSha256" .=)
-              <$> _uprarcExistingRuleContentSha256,
-            Just ("pullRequestId" .= _uprarcPullRequestId),
-            Just ("approvalRuleName" .= _uprarcApprovalRuleName),
-            Just ("newRuleContent" .= _uprarcNewRuleContent)
-          ]
-      )
-
-instance ToPath UpdatePullRequestApprovalRuleContent where
-  toPath = const "/"
-
-instance ToQuery UpdatePullRequestApprovalRuleContent where
-  toQuery = const mempty
-
--- | /See:/ 'updatePullRequestApprovalRuleContentResponse' smart constructor.
-data UpdatePullRequestApprovalRuleContentResponse = UpdatePullRequestApprovalRuleContentResponse'
-  { _uprarcrrsResponseStatus ::
-      !Int,
-    _uprarcrrsApprovalRule ::
-      !ApprovalRule
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'UpdatePullRequestApprovalRuleContentResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'uprarcrrsResponseStatus' - -- | The response status code.
---
--- * 'uprarcrrsApprovalRule' - Information about the updated approval rule.
-updatePullRequestApprovalRuleContentResponse ::
-  -- | 'uprarcrrsResponseStatus'
-  Int ->
-  -- | 'uprarcrrsApprovalRule'
-  ApprovalRule ->
-  UpdatePullRequestApprovalRuleContentResponse
-updatePullRequestApprovalRuleContentResponse
-  pResponseStatus_
-  pApprovalRule_ =
-    UpdatePullRequestApprovalRuleContentResponse'
-      { _uprarcrrsResponseStatus =
-          pResponseStatus_,
-        _uprarcrrsApprovalRule =
-          pApprovalRule_
-      }
-
--- | -- | The response status code.
-uprarcrrsResponseStatus :: Lens' UpdatePullRequestApprovalRuleContentResponse Int
-uprarcrrsResponseStatus = lens _uprarcrrsResponseStatus (\s a -> s {_uprarcrrsResponseStatus = a})
-
--- | Information about the updated approval rule.
-uprarcrrsApprovalRule :: Lens' UpdatePullRequestApprovalRuleContentResponse ApprovalRule
-uprarcrrsApprovalRule = lens _uprarcrrsApprovalRule (\s a -> s {_uprarcrrsApprovalRule = a})
 
 instance
-  NFData
+  Prelude.ToJSON
+    UpdatePullRequestApprovalRuleContent
+  where
+  toJSON UpdatePullRequestApprovalRuleContent' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("existingRuleContentSha256" Prelude..=)
+              Prelude.<$> existingRuleContentSha256,
+            Prelude.Just
+              ("pullRequestId" Prelude..= pullRequestId),
+            Prelude.Just
+              ("approvalRuleName" Prelude..= approvalRuleName),
+            Prelude.Just
+              ("newRuleContent" Prelude..= newRuleContent')
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    UpdatePullRequestApprovalRuleContent
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    UpdatePullRequestApprovalRuleContent
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newUpdatePullRequestApprovalRuleContentResponse' smart constructor.
+data UpdatePullRequestApprovalRuleContentResponse = UpdatePullRequestApprovalRuleContentResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about the updated approval rule.
+    approvalRule :: ApprovalRule
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'UpdatePullRequestApprovalRuleContentResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updatePullRequestApprovalRuleContentResponse_httpStatus' - The response's http status code.
+--
+-- 'approvalRule', 'updatePullRequestApprovalRuleContentResponse_approvalRule' - Information about the updated approval rule.
+newUpdatePullRequestApprovalRuleContentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'approvalRule'
+  ApprovalRule ->
+  UpdatePullRequestApprovalRuleContentResponse
+newUpdatePullRequestApprovalRuleContentResponse
+  pHttpStatus_
+  pApprovalRule_ =
+    UpdatePullRequestApprovalRuleContentResponse'
+      { httpStatus =
+          pHttpStatus_,
+        approvalRule = pApprovalRule_
+      }
+
+-- | The response's http status code.
+updatePullRequestApprovalRuleContentResponse_httpStatus :: Lens.Lens' UpdatePullRequestApprovalRuleContentResponse Prelude.Int
+updatePullRequestApprovalRuleContentResponse_httpStatus = Lens.lens (\UpdatePullRequestApprovalRuleContentResponse' {httpStatus} -> httpStatus) (\s@UpdatePullRequestApprovalRuleContentResponse' {} a -> s {httpStatus = a} :: UpdatePullRequestApprovalRuleContentResponse)
+
+-- | Information about the updated approval rule.
+updatePullRequestApprovalRuleContentResponse_approvalRule :: Lens.Lens' UpdatePullRequestApprovalRuleContentResponse ApprovalRule
+updatePullRequestApprovalRuleContentResponse_approvalRule = Lens.lens (\UpdatePullRequestApprovalRuleContentResponse' {approvalRule} -> approvalRule) (\s@UpdatePullRequestApprovalRuleContentResponse' {} a -> s {approvalRule = a} :: UpdatePullRequestApprovalRuleContentResponse)
+
+instance
+  Prelude.NFData
     UpdatePullRequestApprovalRuleContentResponse

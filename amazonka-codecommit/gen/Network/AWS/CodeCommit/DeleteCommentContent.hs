@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the content of a comment made on a change, file, or commit in a repository.
+-- Deletes the content of a comment made on a change, file, or commit in a
+-- repository.
 module Network.AWS.CodeCommit.DeleteCommentContent
   ( -- * Creating a Request
-    deleteCommentContent,
-    DeleteCommentContent,
+    DeleteCommentContent (..),
+    newDeleteCommentContent,
 
     -- * Request Lenses
-    dccCommentId,
+    deleteCommentContent_commentId,
 
     -- * Destructuring the Response
-    deleteCommentContentResponse,
-    DeleteCommentContentResponse,
+    DeleteCommentContentResponse (..),
+    newDeleteCommentContentResponse,
 
     -- * Response Lenses
-    dccrrsComment,
-    dccrrsResponseStatus,
+    deleteCommentContentResponse_comment,
+    deleteCommentContentResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.Comment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteCommentContent' smart constructor.
-newtype DeleteCommentContent = DeleteCommentContent'
-  { _dccCommentId ::
-      Text
+-- | /See:/ 'newDeleteCommentContent' smart constructor.
+data DeleteCommentContent = DeleteCommentContent'
+  { -- | The unique, system-generated ID of the comment. To get this ID, use
+    -- GetCommentsForComparedCommit or GetCommentsForPullRequest.
+    commentId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCommentContent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCommentContent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dccCommentId' - The unique, system-generated ID of the comment. To get this ID, use 'GetCommentsForComparedCommit' or 'GetCommentsForPullRequest' .
-deleteCommentContent ::
-  -- | 'dccCommentId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'commentId', 'deleteCommentContent_commentId' - The unique, system-generated ID of the comment. To get this ID, use
+-- GetCommentsForComparedCommit or GetCommentsForPullRequest.
+newDeleteCommentContent ::
+  -- | 'commentId'
+  Prelude.Text ->
   DeleteCommentContent
-deleteCommentContent pCommentId_ =
-  DeleteCommentContent' {_dccCommentId = pCommentId_}
+newDeleteCommentContent pCommentId_ =
+  DeleteCommentContent' {commentId = pCommentId_}
 
--- | The unique, system-generated ID of the comment. To get this ID, use 'GetCommentsForComparedCommit' or 'GetCommentsForPullRequest' .
-dccCommentId :: Lens' DeleteCommentContent Text
-dccCommentId = lens _dccCommentId (\s a -> s {_dccCommentId = a})
+-- | The unique, system-generated ID of the comment. To get this ID, use
+-- GetCommentsForComparedCommit or GetCommentsForPullRequest.
+deleteCommentContent_commentId :: Lens.Lens' DeleteCommentContent Prelude.Text
+deleteCommentContent_commentId = Lens.lens (\DeleteCommentContent' {commentId} -> commentId) (\s@DeleteCommentContent' {} a -> s {commentId = a} :: DeleteCommentContent)
 
-instance AWSRequest DeleteCommentContent where
+instance Prelude.AWSRequest DeleteCommentContent where
   type
     Rs DeleteCommentContent =
       DeleteCommentContentResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteCommentContentResponse'
-            <$> (x .?> "comment") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "comment")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteCommentContent
+instance Prelude.Hashable DeleteCommentContent
 
-instance NFData DeleteCommentContent
+instance Prelude.NFData DeleteCommentContent
 
-instance ToHeaders DeleteCommentContent where
+instance Prelude.ToHeaders DeleteCommentContent where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.DeleteCommentContent" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.DeleteCommentContent" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteCommentContent where
+instance Prelude.ToJSON DeleteCommentContent where
   toJSON DeleteCommentContent' {..} =
-    object
-      (catMaybes [Just ("commentId" .= _dccCommentId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("commentId" Prelude..= commentId)]
+      )
 
-instance ToPath DeleteCommentContent where
-  toPath = const "/"
+instance Prelude.ToPath DeleteCommentContent where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteCommentContent where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteCommentContent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteCommentContentResponse' smart constructor.
+-- | /See:/ 'newDeleteCommentContentResponse' smart constructor.
 data DeleteCommentContentResponse = DeleteCommentContentResponse'
-  { _dccrrsComment ::
-      !( Maybe
-           Comment
-       ),
-    _dccrrsResponseStatus ::
-      !Int
+  { -- | Information about the comment you just deleted.
+    comment :: Prelude.Maybe Comment,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCommentContentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCommentContentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dccrrsComment' - Information about the comment you just deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dccrrsResponseStatus' - -- | The response status code.
-deleteCommentContentResponse ::
-  -- | 'dccrrsResponseStatus'
-  Int ->
+-- 'comment', 'deleteCommentContentResponse_comment' - Information about the comment you just deleted.
+--
+-- 'httpStatus', 'deleteCommentContentResponse_httpStatus' - The response's http status code.
+newDeleteCommentContentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteCommentContentResponse
-deleteCommentContentResponse pResponseStatus_ =
+newDeleteCommentContentResponse pHttpStatus_ =
   DeleteCommentContentResponse'
-    { _dccrrsComment =
-        Nothing,
-      _dccrrsResponseStatus = pResponseStatus_
+    { comment =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the comment you just deleted.
-dccrrsComment :: Lens' DeleteCommentContentResponse (Maybe Comment)
-dccrrsComment = lens _dccrrsComment (\s a -> s {_dccrrsComment = a})
+deleteCommentContentResponse_comment :: Lens.Lens' DeleteCommentContentResponse (Prelude.Maybe Comment)
+deleteCommentContentResponse_comment = Lens.lens (\DeleteCommentContentResponse' {comment} -> comment) (\s@DeleteCommentContentResponse' {} a -> s {comment = a} :: DeleteCommentContentResponse)
 
--- | -- | The response status code.
-dccrrsResponseStatus :: Lens' DeleteCommentContentResponse Int
-dccrrsResponseStatus = lens _dccrrsResponseStatus (\s a -> s {_dccrrsResponseStatus = a})
+-- | The response's http status code.
+deleteCommentContentResponse_httpStatus :: Lens.Lens' DeleteCommentContentResponse Prelude.Int
+deleteCommentContentResponse_httpStatus = Lens.lens (\DeleteCommentContentResponse' {httpStatus} -> httpStatus) (\s@DeleteCommentContentResponse' {} a -> s {httpStatus = a} :: DeleteCommentContentResponse)
 
-instance NFData DeleteCommentContentResponse
+instance Prelude.NFData DeleteCommentContentResponse

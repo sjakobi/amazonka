@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.CodeCommit.Types.ObjectTypeEnum
   ( ObjectTypeEnum
       ( ..,
-        Directory,
-        File,
-        GitLink,
-        SymbolicLink
+        ObjectTypeEnumDIRECTORY,
+        ObjectTypeEnumFILE,
+        ObjectTypeEnumGITLINK,
+        ObjectTypeEnumSYMBOLICLINK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ObjectTypeEnum = ObjectTypeEnum' (CI Text)
+newtype ObjectTypeEnum = ObjectTypeEnum'
+  { fromObjectTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Directory :: ObjectTypeEnum
-pattern Directory = ObjectTypeEnum' "DIRECTORY"
+pattern ObjectTypeEnumDIRECTORY :: ObjectTypeEnum
+pattern ObjectTypeEnumDIRECTORY = ObjectTypeEnum' "DIRECTORY"
 
-pattern File :: ObjectTypeEnum
-pattern File = ObjectTypeEnum' "FILE"
+pattern ObjectTypeEnumFILE :: ObjectTypeEnum
+pattern ObjectTypeEnumFILE = ObjectTypeEnum' "FILE"
 
-pattern GitLink :: ObjectTypeEnum
-pattern GitLink = ObjectTypeEnum' "GIT_LINK"
+pattern ObjectTypeEnumGITLINK :: ObjectTypeEnum
+pattern ObjectTypeEnumGITLINK = ObjectTypeEnum' "GIT_LINK"
 
-pattern SymbolicLink :: ObjectTypeEnum
-pattern SymbolicLink = ObjectTypeEnum' "SYMBOLIC_LINK"
+pattern ObjectTypeEnumSYMBOLICLINK :: ObjectTypeEnum
+pattern ObjectTypeEnumSYMBOLICLINK = ObjectTypeEnum' "SYMBOLIC_LINK"
 
 {-# COMPLETE
-  Directory,
-  File,
-  GitLink,
-  SymbolicLink,
+  ObjectTypeEnumDIRECTORY,
+  ObjectTypeEnumFILE,
+  ObjectTypeEnumGITLINK,
+  ObjectTypeEnumSYMBOLICLINK,
   ObjectTypeEnum'
   #-}
 
-instance FromText ObjectTypeEnum where
-  parser = (ObjectTypeEnum' . mk) <$> takeText
+instance Prelude.FromText ObjectTypeEnum where
+  parser = ObjectTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectTypeEnum where
-  toText (ObjectTypeEnum' ci) = original ci
+instance Prelude.ToText ObjectTypeEnum where
+  toText (ObjectTypeEnum' x) = x
 
-instance Hashable ObjectTypeEnum
+instance Prelude.Hashable ObjectTypeEnum
 
-instance NFData ObjectTypeEnum
+instance Prelude.NFData ObjectTypeEnum
 
-instance ToByteString ObjectTypeEnum
+instance Prelude.ToByteString ObjectTypeEnum
 
-instance ToQuery ObjectTypeEnum
+instance Prelude.ToQuery ObjectTypeEnum
 
-instance ToHeader ObjectTypeEnum
+instance Prelude.ToHeader ObjectTypeEnum
 
-instance FromJSON ObjectTypeEnum where
-  parseJSON = parseJSONText "ObjectTypeEnum"
+instance Prelude.FromJSON ObjectTypeEnum where
+  parseJSON = Prelude.parseJSONText "ObjectTypeEnum"

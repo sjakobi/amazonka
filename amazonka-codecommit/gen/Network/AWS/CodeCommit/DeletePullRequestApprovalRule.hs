@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,167 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an approval rule from a specified pull request. Approval rules can be deleted from a pull request only if the pull request is open, and if the approval rule was created specifically for a pull request and not generated from an approval rule template associated with the repository where the pull request was created. You cannot delete an approval rule from a merged or closed pull request.
+-- Deletes an approval rule from a specified pull request. Approval rules
+-- can be deleted from a pull request only if the pull request is open, and
+-- if the approval rule was created specifically for a pull request and not
+-- generated from an approval rule template associated with the repository
+-- where the pull request was created. You cannot delete an approval rule
+-- from a merged or closed pull request.
 module Network.AWS.CodeCommit.DeletePullRequestApprovalRule
   ( -- * Creating a Request
-    deletePullRequestApprovalRule,
-    DeletePullRequestApprovalRule,
+    DeletePullRequestApprovalRule (..),
+    newDeletePullRequestApprovalRule,
 
     -- * Request Lenses
-    dprarPullRequestId,
-    dprarApprovalRuleName,
+    deletePullRequestApprovalRule_pullRequestId,
+    deletePullRequestApprovalRule_approvalRuleName,
 
     -- * Destructuring the Response
-    deletePullRequestApprovalRuleResponse,
-    DeletePullRequestApprovalRuleResponse,
+    DeletePullRequestApprovalRuleResponse (..),
+    newDeletePullRequestApprovalRuleResponse,
 
     -- * Response Lenses
-    dprarrrsResponseStatus,
-    dprarrrsApprovalRuleId,
+    deletePullRequestApprovalRuleResponse_httpStatus,
+    deletePullRequestApprovalRuleResponse_approvalRuleId,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deletePullRequestApprovalRule' smart constructor.
+-- | /See:/ 'newDeletePullRequestApprovalRule' smart constructor.
 data DeletePullRequestApprovalRule = DeletePullRequestApprovalRule'
-  { _dprarPullRequestId ::
-      !Text,
-    _dprarApprovalRuleName ::
-      !Text
+  { -- | The system-generated ID of the pull request that contains the approval
+    -- rule you want to delete.
+    pullRequestId :: Prelude.Text,
+    -- | The name of the approval rule you want to delete.
+    approvalRuleName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePullRequestApprovalRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePullRequestApprovalRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dprarPullRequestId' - The system-generated ID of the pull request that contains the approval rule you want to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dprarApprovalRuleName' - The name of the approval rule you want to delete.
-deletePullRequestApprovalRule ::
-  -- | 'dprarPullRequestId'
-  Text ->
-  -- | 'dprarApprovalRuleName'
-  Text ->
+-- 'pullRequestId', 'deletePullRequestApprovalRule_pullRequestId' - The system-generated ID of the pull request that contains the approval
+-- rule you want to delete.
+--
+-- 'approvalRuleName', 'deletePullRequestApprovalRule_approvalRuleName' - The name of the approval rule you want to delete.
+newDeletePullRequestApprovalRule ::
+  -- | 'pullRequestId'
+  Prelude.Text ->
+  -- | 'approvalRuleName'
+  Prelude.Text ->
   DeletePullRequestApprovalRule
-deletePullRequestApprovalRule
+newDeletePullRequestApprovalRule
   pPullRequestId_
   pApprovalRuleName_ =
     DeletePullRequestApprovalRule'
-      { _dprarPullRequestId =
+      { pullRequestId =
           pPullRequestId_,
-        _dprarApprovalRuleName = pApprovalRuleName_
+        approvalRuleName = pApprovalRuleName_
       }
 
--- | The system-generated ID of the pull request that contains the approval rule you want to delete.
-dprarPullRequestId :: Lens' DeletePullRequestApprovalRule Text
-dprarPullRequestId = lens _dprarPullRequestId (\s a -> s {_dprarPullRequestId = a})
+-- | The system-generated ID of the pull request that contains the approval
+-- rule you want to delete.
+deletePullRequestApprovalRule_pullRequestId :: Lens.Lens' DeletePullRequestApprovalRule Prelude.Text
+deletePullRequestApprovalRule_pullRequestId = Lens.lens (\DeletePullRequestApprovalRule' {pullRequestId} -> pullRequestId) (\s@DeletePullRequestApprovalRule' {} a -> s {pullRequestId = a} :: DeletePullRequestApprovalRule)
 
 -- | The name of the approval rule you want to delete.
-dprarApprovalRuleName :: Lens' DeletePullRequestApprovalRule Text
-dprarApprovalRuleName = lens _dprarApprovalRuleName (\s a -> s {_dprarApprovalRuleName = a})
+deletePullRequestApprovalRule_approvalRuleName :: Lens.Lens' DeletePullRequestApprovalRule Prelude.Text
+deletePullRequestApprovalRule_approvalRuleName = Lens.lens (\DeletePullRequestApprovalRule' {approvalRuleName} -> approvalRuleName) (\s@DeletePullRequestApprovalRule' {} a -> s {approvalRuleName = a} :: DeletePullRequestApprovalRule)
 
-instance AWSRequest DeletePullRequestApprovalRule where
+instance
+  Prelude.AWSRequest
+    DeletePullRequestApprovalRule
+  where
   type
     Rs DeletePullRequestApprovalRule =
       DeletePullRequestApprovalRuleResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeletePullRequestApprovalRuleResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "approvalRuleId")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "approvalRuleId")
       )
 
-instance Hashable DeletePullRequestApprovalRule
+instance
+  Prelude.Hashable
+    DeletePullRequestApprovalRule
 
-instance NFData DeletePullRequestApprovalRule
+instance Prelude.NFData DeletePullRequestApprovalRule
 
-instance ToHeaders DeletePullRequestApprovalRule where
+instance
+  Prelude.ToHeaders
+    DeletePullRequestApprovalRule
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.DeletePullRequestApprovalRule" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.DeletePullRequestApprovalRule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeletePullRequestApprovalRule where
+instance Prelude.ToJSON DeletePullRequestApprovalRule where
   toJSON DeletePullRequestApprovalRule' {..} =
-    object
-      ( catMaybes
-          [ Just ("pullRequestId" .= _dprarPullRequestId),
-            Just ("approvalRuleName" .= _dprarApprovalRuleName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("pullRequestId" Prelude..= pullRequestId),
+            Prelude.Just
+              ("approvalRuleName" Prelude..= approvalRuleName)
           ]
       )
 
-instance ToPath DeletePullRequestApprovalRule where
-  toPath = const "/"
+instance Prelude.ToPath DeletePullRequestApprovalRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeletePullRequestApprovalRule where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DeletePullRequestApprovalRule
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deletePullRequestApprovalRuleResponse' smart constructor.
+-- | /See:/ 'newDeletePullRequestApprovalRuleResponse' smart constructor.
 data DeletePullRequestApprovalRuleResponse = DeletePullRequestApprovalRuleResponse'
-  { _dprarrrsResponseStatus ::
-      !Int,
-    _dprarrrsApprovalRuleId ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ID of the deleted approval rule.
+    --
+    -- If the approval rule was deleted in an earlier API call, the response is
+    -- 200 OK without content.
+    approvalRuleId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePullRequestApprovalRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePullRequestApprovalRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dprarrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dprarrrsApprovalRuleId' - The ID of the deleted approval rule.
-deletePullRequestApprovalRuleResponse ::
-  -- | 'dprarrrsResponseStatus'
-  Int ->
-  -- | 'dprarrrsApprovalRuleId'
-  Text ->
+-- 'httpStatus', 'deletePullRequestApprovalRuleResponse_httpStatus' - The response's http status code.
+--
+-- 'approvalRuleId', 'deletePullRequestApprovalRuleResponse_approvalRuleId' - The ID of the deleted approval rule.
+--
+-- If the approval rule was deleted in an earlier API call, the response is
+-- 200 OK without content.
+newDeletePullRequestApprovalRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'approvalRuleId'
+  Prelude.Text ->
   DeletePullRequestApprovalRuleResponse
-deletePullRequestApprovalRuleResponse
-  pResponseStatus_
+newDeletePullRequestApprovalRuleResponse
+  pHttpStatus_
   pApprovalRuleId_ =
     DeletePullRequestApprovalRuleResponse'
-      { _dprarrrsResponseStatus =
-          pResponseStatus_,
-        _dprarrrsApprovalRuleId =
-          pApprovalRuleId_
+      { httpStatus =
+          pHttpStatus_,
+        approvalRuleId = pApprovalRuleId_
       }
 
--- | -- | The response status code.
-dprarrrsResponseStatus :: Lens' DeletePullRequestApprovalRuleResponse Int
-dprarrrsResponseStatus = lens _dprarrrsResponseStatus (\s a -> s {_dprarrrsResponseStatus = a})
+-- | The response's http status code.
+deletePullRequestApprovalRuleResponse_httpStatus :: Lens.Lens' DeletePullRequestApprovalRuleResponse Prelude.Int
+deletePullRequestApprovalRuleResponse_httpStatus = Lens.lens (\DeletePullRequestApprovalRuleResponse' {httpStatus} -> httpStatus) (\s@DeletePullRequestApprovalRuleResponse' {} a -> s {httpStatus = a} :: DeletePullRequestApprovalRuleResponse)
 
 -- | The ID of the deleted approval rule.
-dprarrrsApprovalRuleId :: Lens' DeletePullRequestApprovalRuleResponse Text
-dprarrrsApprovalRuleId = lens _dprarrrsApprovalRuleId (\s a -> s {_dprarrrsApprovalRuleId = a})
+--
+-- If the approval rule was deleted in an earlier API call, the response is
+-- 200 OK without content.
+deletePullRequestApprovalRuleResponse_approvalRuleId :: Lens.Lens' DeletePullRequestApprovalRuleResponse Prelude.Text
+deletePullRequestApprovalRuleResponse_approvalRuleId = Lens.lens (\DeletePullRequestApprovalRuleResponse' {approvalRuleId} -> approvalRuleId) (\s@DeletePullRequestApprovalRuleResponse' {} a -> s {approvalRuleId = a} :: DeletePullRequestApprovalRuleResponse)
 
-instance NFData DeletePullRequestApprovalRuleResponse
+instance
+  Prelude.NFData
+    DeletePullRequestApprovalRuleResponse

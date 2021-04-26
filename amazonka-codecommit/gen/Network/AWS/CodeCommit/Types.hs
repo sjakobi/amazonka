@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types
   ( -- * Service Configuration
-    codeCommit,
+    defaultService,
 
     -- * Errors
     _ActorDoesNotExistException,
@@ -67,7 +70,7 @@ module Network.AWS.CodeCommit.Types
     _InvalidRepositoryTriggerEventsException,
     _InvalidPathException,
     _InvalidTargetBranchException,
-    _InvalidActorARNException,
+    _InvalidActorArnException,
     _RevisionIdRequiredException,
     _InvalidBlobIdException,
     _MaximumFileEntriesExceededException,
@@ -89,9 +92,9 @@ module Network.AWS.CodeCommit.Types
     _RepositoryTriggerBranchNameListRequiredException,
     _InvalidClientRequestTokenException,
     _IdempotencyParameterMismatchException,
-    _InvalidRepositoryTriggerDestinationARNException,
+    _InvalidRepositoryTriggerDestinationArnException,
     _BranchNameRequiredException,
-    _RepositoryTriggerDestinationARNRequiredException,
+    _RepositoryTriggerDestinationArnRequiredException,
     _EncryptionKeyUnavailableException,
     _InvalidConflictResolutionStrategyException,
     _MultipleConflictResolutionEntriesException,
@@ -125,10 +128,10 @@ module Network.AWS.CodeCommit.Types
     _TipsDivergenceExceededException,
     _EncryptionKeyAccessDeniedException,
     _ReactionValueRequiredException,
-    _ResourceARNRequiredException,
+    _ResourceArnRequiredException,
     _PathDoesNotExistException,
     _ReplacementContentRequiredException,
-    _InvalidResourceARNException,
+    _InvalidResourceArnException,
     _ParentCommitIdOutdatedException,
     _InvalidMaxMergeHunksException,
     _RestrictedSourceFileException,
@@ -143,7 +146,7 @@ module Network.AWS.CodeCommit.Types
     _InvalidApprovalRuleTemplateContentException,
     _CommitIdsLimitExceededException,
     _ApprovalStateRequiredException,
-    _InvalidAuthorARNException,
+    _InvalidAuthorArnException,
     _MaximumConflictResolutionEntriesExceededException,
     _InvalidParentCommitIdException,
     _RepositoryNotAssociatedWithPullRequestException,
@@ -159,7 +162,7 @@ module Network.AWS.CodeCommit.Types
     _RepositoryLimitExceededException,
     _NumberOfRulesExceededException,
     _InvalidDeletionParameterException,
-    _InvalidReactionUserARNException,
+    _InvalidReactionUserArnException,
     _DefaultBranchCannotBeDeletedException,
     _BranchNameIsTagNameException,
     _PathRequiredException,
@@ -247,455 +250,227 @@ module Network.AWS.CodeCommit.Types
 
     -- * Approval
     Approval (..),
-    approval,
-    aUserARN,
-    aApprovalState,
+    newApproval,
 
     -- * ApprovalRule
     ApprovalRule (..),
-    approvalRule,
-    arLastModifiedDate,
-    arApprovalRuleContent,
-    arOriginApprovalRuleTemplate,
-    arCreationDate,
-    arRuleContentSha256,
-    arApprovalRuleId,
-    arApprovalRuleName,
-    arLastModifiedUser,
+    newApprovalRule,
 
     -- * ApprovalRuleEventMetadata
     ApprovalRuleEventMetadata (..),
-    approvalRuleEventMetadata,
-    aremApprovalRuleContent,
-    aremApprovalRuleId,
-    aremApprovalRuleName,
+    newApprovalRuleEventMetadata,
 
     -- * ApprovalRuleOverriddenEventMetadata
     ApprovalRuleOverriddenEventMetadata (..),
-    approvalRuleOverriddenEventMetadata,
-    aroemRevisionId,
-    aroemOverrideStatus,
+    newApprovalRuleOverriddenEventMetadata,
 
     -- * ApprovalRuleTemplate
     ApprovalRuleTemplate (..),
-    approvalRuleTemplate,
-    artLastModifiedDate,
-    artApprovalRuleTemplateId,
-    artApprovalRuleTemplateName,
-    artCreationDate,
-    artApprovalRuleTemplateDescription,
-    artRuleContentSha256,
-    artApprovalRuleTemplateContent,
-    artLastModifiedUser,
+    newApprovalRuleTemplate,
 
     -- * ApprovalStateChangedEventMetadata
     ApprovalStateChangedEventMetadata (..),
-    approvalStateChangedEventMetadata,
-    ascemRevisionId,
-    ascemApprovalStatus,
+    newApprovalStateChangedEventMetadata,
 
     -- * BatchAssociateApprovalRuleTemplateWithRepositoriesError
     BatchAssociateApprovalRuleTemplateWithRepositoriesError (..),
-    batchAssociateApprovalRuleTemplateWithRepositoriesError,
-    baartwreRepositoryName,
-    baartwreErrorMessage,
-    baartwreErrorCode,
+    newBatchAssociateApprovalRuleTemplateWithRepositoriesError,
 
     -- * BatchDescribeMergeConflictsError
     BatchDescribeMergeConflictsError (..),
-    batchDescribeMergeConflictsError,
-    bdmceFilePath,
-    bdmceExceptionName,
-    bdmceMessage,
+    newBatchDescribeMergeConflictsError,
 
     -- * BatchDisassociateApprovalRuleTemplateFromRepositoriesError
     BatchDisassociateApprovalRuleTemplateFromRepositoriesError (..),
-    batchDisassociateApprovalRuleTemplateFromRepositoriesError,
-    bdartfreRepositoryName,
-    bdartfreErrorMessage,
-    bdartfreErrorCode,
+    newBatchDisassociateApprovalRuleTemplateFromRepositoriesError,
 
     -- * BatchGetCommitsError
     BatchGetCommitsError (..),
-    batchGetCommitsError,
-    bgceCommitId,
-    bgceErrorMessage,
-    bgceErrorCode,
+    newBatchGetCommitsError,
 
     -- * BlobMetadata
     BlobMetadata (..),
-    blobMetadata,
-    bmMode,
-    bmBlobId,
-    bmPath,
+    newBlobMetadata,
 
     -- * BranchInfo
     BranchInfo (..),
-    branchInfo,
-    biCommitId,
-    biBranchName,
+    newBranchInfo,
 
     -- * Comment
     Comment (..),
-    comment,
-    cCallerReactions,
-    cLastModifiedDate,
-    cCreationDate,
-    cReactionCounts,
-    cContent,
-    cCommentId,
-    cInReplyTo,
-    cClientRequestToken,
-    cAuthorARN,
-    cDeleted,
+    newComment,
 
     -- * CommentsForComparedCommit
     CommentsForComparedCommit (..),
-    commentsForComparedCommit,
-    cfccBeforeBlobId,
-    cfccRepositoryName,
-    cfccBeforeCommitId,
-    cfccAfterBlobId,
-    cfccComments,
-    cfccAfterCommitId,
-    cfccLocation,
+    newCommentsForComparedCommit,
 
     -- * CommentsForPullRequest
     CommentsForPullRequest (..),
-    commentsForPullRequest,
-    cfprBeforeBlobId,
-    cfprRepositoryName,
-    cfprBeforeCommitId,
-    cfprAfterBlobId,
-    cfprPullRequestId,
-    cfprComments,
-    cfprAfterCommitId,
-    cfprLocation,
+    newCommentsForPullRequest,
 
     -- * Commit
     Commit (..),
-    commit,
-    cParents,
-    cCommitId,
-    cAdditionalData,
-    cMessage,
-    cTreeId,
-    cAuthor,
-    cCommitter,
+    newCommit,
 
     -- * Conflict
     Conflict (..),
-    conflict,
-    cMergeHunks,
-    cConflictMetadata,
+    newConflict,
 
     -- * ConflictMetadata
     ConflictMetadata (..),
-    conflictMetadata,
-    cmMergeOperations,
-    cmFileModeConflict,
-    cmFilePath,
-    cmIsBinaryFile,
-    cmObjectTypeConflict,
-    cmNumberOfConflicts,
-    cmContentConflict,
-    cmObjectTypes,
-    cmFileModes,
-    cmFileSizes,
+    newConflictMetadata,
 
     -- * ConflictResolution
     ConflictResolution (..),
-    conflictResolution,
-    crDeleteFiles,
-    crSetFileModes,
-    crReplaceContents,
+    newConflictResolution,
 
     -- * DeleteFileEntry
     DeleteFileEntry (..),
-    deleteFileEntry,
-    dfeFilePath,
+    newDeleteFileEntry,
 
     -- * Difference
     Difference (..),
-    difference,
-    dChangeType,
-    dAfterBlob,
-    dBeforeBlob,
+    newDifference,
 
     -- * Evaluation
     Evaluation (..),
-    evaluation,
-    eOverridden,
-    eApprovalRulesSatisfied,
-    eApproved,
-    eApprovalRulesNotSatisfied,
+    newEvaluation,
 
     -- * File
     File (..),
-    file,
-    fAbsolutePath,
-    fRelativePath,
-    fBlobId,
-    fFileMode,
+    newFile,
 
     -- * FileMetadata
     FileMetadata (..),
-    fileMetadata,
-    fmAbsolutePath,
-    fmBlobId,
-    fmFileMode,
+    newFileMetadata,
 
     -- * FileModes
     FileModes (..),
-    fileModes,
-    fmSource,
-    fmDestination,
-    fmBase,
+    newFileModes,
 
     -- * FileSizes
     FileSizes (..),
-    fileSizes,
-    fsSource,
-    fsDestination,
-    fsBase,
+    newFileSizes,
 
     -- * Folder
     Folder (..),
-    folder,
-    folTreeId,
-    folAbsolutePath,
-    folRelativePath,
+    newFolder,
 
     -- * IsBinaryFile
     IsBinaryFile (..),
-    isBinaryFile,
-    ibfSource,
-    ibfDestination,
-    ibfBase,
+    newIsBinaryFile,
 
     -- * Location
     Location (..),
-    location,
-    lFilePath,
-    lFilePosition,
-    lRelativeFileVersion,
+    newLocation,
 
     -- * MergeHunk
     MergeHunk (..),
-    mergeHunk,
-    mhSource,
-    mhIsConflict,
-    mhDestination,
-    mhBase,
+    newMergeHunk,
 
     -- * MergeHunkDetail
     MergeHunkDetail (..),
-    mergeHunkDetail,
-    mhdHunkContent,
-    mhdStartLine,
-    mhdEndLine,
+    newMergeHunkDetail,
 
     -- * MergeMetadata
     MergeMetadata (..),
-    mergeMetadata,
-    mmMergedBy,
-    mmMergeCommitId,
-    mmIsMerged,
-    mmMergeOption,
+    newMergeMetadata,
 
     -- * MergeOperations
     MergeOperations (..),
-    mergeOperations,
-    moSource,
-    moDestination,
+    newMergeOperations,
 
     -- * ObjectTypes
     ObjectTypes (..),
-    objectTypes,
-    otSource,
-    otDestination,
-    otBase,
+    newObjectTypes,
 
     -- * OriginApprovalRuleTemplate
     OriginApprovalRuleTemplate (..),
-    originApprovalRuleTemplate,
-    oartApprovalRuleTemplateId,
-    oartApprovalRuleTemplateName,
+    newOriginApprovalRuleTemplate,
 
     -- * PullRequest
     PullRequest (..),
-    pullRequest,
-    prRevisionId,
-    prPullRequestTargets,
-    prTitle,
-    prPullRequestStatus,
-    prCreationDate,
-    prPullRequestId,
-    prDescription,
-    prClientRequestToken,
-    prLastActivityDate,
-    prAuthorARN,
-    prApprovalRules,
+    newPullRequest,
 
     -- * PullRequestCreatedEventMetadata
     PullRequestCreatedEventMetadata (..),
-    pullRequestCreatedEventMetadata,
-    prcemRepositoryName,
-    prcemSourceCommitId,
-    prcemDestinationCommitId,
-    prcemMergeBase,
+    newPullRequestCreatedEventMetadata,
 
     -- * PullRequestEvent
     PullRequestEvent (..),
-    pullRequestEvent,
-    prePullRequestMergedStateChangedEventMetadata,
-    prePullRequestSourceReferenceUpdatedEventMetadata,
-    preApprovalStateChangedEventMetadata,
-    prePullRequestEventType,
-    preEventDate,
-    prePullRequestCreatedEventMetadata,
-    prePullRequestId,
-    preApprovalRuleOverriddenEventMetadata,
-    preActorARN,
-    prePullRequestStatusChangedEventMetadata,
-    preApprovalRuleEventMetadata,
+    newPullRequestEvent,
 
     -- * PullRequestMergedStateChangedEventMetadata
     PullRequestMergedStateChangedEventMetadata (..),
-    pullRequestMergedStateChangedEventMetadata,
-    prmscemDestinationReference,
-    prmscemMergeMetadata,
-    prmscemRepositoryName,
+    newPullRequestMergedStateChangedEventMetadata,
 
     -- * PullRequestSourceReferenceUpdatedEventMetadata
     PullRequestSourceReferenceUpdatedEventMetadata (..),
-    pullRequestSourceReferenceUpdatedEventMetadata,
-    prsruemRepositoryName,
-    prsruemBeforeCommitId,
-    prsruemAfterCommitId,
-    prsruemMergeBase,
+    newPullRequestSourceReferenceUpdatedEventMetadata,
 
     -- * PullRequestStatusChangedEventMetadata
     PullRequestStatusChangedEventMetadata (..),
-    pullRequestStatusChangedEventMetadata,
-    prscemPullRequestStatus,
+    newPullRequestStatusChangedEventMetadata,
 
     -- * PullRequestTarget
     PullRequestTarget (..),
-    pullRequestTarget,
-    prtDestinationReference,
-    prtSourceCommit,
-    prtMergeMetadata,
-    prtRepositoryName,
-    prtSourceReference,
-    prtDestinationCommit,
-    prtMergeBase,
+    newPullRequestTarget,
 
     -- * PutFileEntry
     PutFileEntry (..),
-    putFileEntry,
-    pfeFileContent,
-    pfeSourceFile,
-    pfeFileMode,
-    pfeFilePath,
+    newPutFileEntry,
 
     -- * ReactionForComment
     ReactionForComment (..),
-    reactionForComment,
-    rfcReaction,
-    rfcReactionUsers,
-    rfcReactionsFromDeletedUsersCount,
+    newReactionForComment,
 
     -- * ReactionValueFormats
     ReactionValueFormats (..),
-    reactionValueFormats,
-    rvfUnicode,
-    rvfShortCode,
-    rvfEmoji,
+    newReactionValueFormats,
 
     -- * ReplaceContentEntry
     ReplaceContentEntry (..),
-    replaceContentEntry,
-    rceContent,
-    rceFileMode,
-    rceFilePath,
-    rceReplacementType,
+    newReplaceContentEntry,
 
     -- * RepositoryMetadata
     RepositoryMetadata (..),
-    repositoryMetadata,
-    rmLastModifiedDate,
-    rmDefaultBranch,
-    rmAccountId,
-    rmCloneURLSSH,
-    rmCloneURLHTTP,
-    rmARN,
-    rmCreationDate,
-    rmRepositoryName,
-    rmRepositoryId,
-    rmRepositoryDescription,
+    newRepositoryMetadata,
 
     -- * RepositoryNameIdPair
     RepositoryNameIdPair (..),
-    repositoryNameIdPair,
-    rnipRepositoryName,
-    rnipRepositoryId,
+    newRepositoryNameIdPair,
 
     -- * RepositoryTrigger
     RepositoryTrigger (..),
-    repositoryTrigger,
-    rtCustomData,
-    rtBranches,
-    rtName,
-    rtDestinationARN,
-    rtEvents,
+    newRepositoryTrigger,
 
     -- * RepositoryTriggerExecutionFailure
     RepositoryTriggerExecutionFailure (..),
-    repositoryTriggerExecutionFailure,
-    rtefFailureMessage,
-    rtefTrigger,
+    newRepositoryTriggerExecutionFailure,
 
     -- * SetFileModeEntry
     SetFileModeEntry (..),
-    setFileModeEntry,
-    sfmeFilePath,
-    sfmeFileMode,
+    newSetFileModeEntry,
 
     -- * SourceFileSpecifier
     SourceFileSpecifier (..),
-    sourceFileSpecifier,
-    sfsIsMove,
-    sfsFilePath,
+    newSourceFileSpecifier,
 
     -- * SubModule
     SubModule (..),
-    subModule,
-    smCommitId,
-    smAbsolutePath,
-    smRelativePath,
+    newSubModule,
 
     -- * SymbolicLink
     SymbolicLink (..),
-    symbolicLink,
-    slAbsolutePath,
-    slRelativePath,
-    slBlobId,
-    slFileMode,
+    newSymbolicLink,
 
     -- * Target
     Target (..),
-    target,
-    tDestinationReference,
-    tRepositoryName,
-    tSourceReference,
+    newTarget,
 
     -- * UserInfo
     UserInfo (..),
-    userInfo,
-    uiName,
-    uiDate,
-    uiEmail,
+    newUserInfo,
   )
 where
 
@@ -770,1348 +545,1552 @@ import Network.AWS.CodeCommit.Types.SubModule
 import Network.AWS.CodeCommit.Types.SymbolicLink
 import Network.AWS.CodeCommit.Types.Target
 import Network.AWS.CodeCommit.Types.UserInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2015-04-13@ of the Amazon CodeCommit SDK configuration.
-codeCommit :: Service
-codeCommit =
-  Service
-    { _svcAbbrev = "CodeCommit",
-      _svcSigner = v4,
-      _svcPrefix = "codecommit",
-      _svcVersion = "2015-04-13",
-      _svcEndpoint = defaultEndpoint codeCommit,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "CodeCommit",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "CodeCommit",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "codecommit",
+      Prelude._svcVersion = "2015-04-13",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "CodeCommit",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The specified Amazon Resource Name (ARN) does not exist in the AWS account.
-_ActorDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified Amazon Resource Name (ARN) does not exist in the AWS
+-- account.
+_ActorDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ActorDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ActorDoesNotExistException"
 
--- | The pull request status update is not valid. The only valid update is from @OPEN@ to @CLOSED@ .
-_InvalidPullRequestStatusUpdateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The pull request status update is not valid. The only valid update is
+-- from @OPEN@ to @CLOSED@.
+_InvalidPullRequestStatusUpdateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidPullRequestStatusUpdateException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidPullRequestStatusUpdateException"
 
--- | The user name is not valid because it has exceeded the character limit for author names.
-_NameLengthExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The user name is not valid because it has exceeded the character limit
+-- for author names.
+_NameLengthExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NameLengthExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "NameLengthExceededException"
 
--- | An approval rule with that name already exists. Approval rule names must be unique within the scope of a pull request.
-_ApprovalRuleNameAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An approval rule with that name already exists. Approval rule names must
+-- be unique within the scope of a pull request.
+_ApprovalRuleNameAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalRuleNameAlreadyExistsException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalRuleNameAlreadyExistsException"
 
 -- | A pull request ID is required, but none was provided.
-_PullRequestIdRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_PullRequestIdRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PullRequestIdRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "PullRequestIdRequiredException"
 
 -- | The specified conflict detail level is not valid.
-_InvalidConflictDetailLevelException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidConflictDetailLevelException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidConflictDetailLevelException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidConflictDetailLevelException"
 
--- | The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request is in the specified repository, and then try again.
-_InvalidPullRequestIdException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The pull request ID is not valid. Make sure that you have provided the
+-- full ID and that the pull request is in the specified repository, and
+-- then try again.
+_InvalidPullRequestIdException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidPullRequestIdException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidPullRequestIdException"
 
--- | A pull request target is required. It cannot be empty or null. A pull request target must contain the full values for the repository name, source branch, and destination branch for the pull request.
-_TargetRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A pull request target is required. It cannot be empty or null. A pull
+-- request target must contain the full values for the repository name,
+-- source branch, and destination branch for the pull request.
+_TargetRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TargetRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "TargetRequiredException"
 
 -- | A commit was not specified.
-_CommitRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_CommitRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommitRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommitRequiredException"
 
--- | A file cannot be added to the repository because the specified file name has the same name as a directory in this repository. Either provide another name for the file, or add the file in a directory that does not match the file name.
-_FileNameConflictsWithDirectoryNameException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A file cannot be added to the repository because the specified file name
+-- has the same name as a directory in this repository. Either provide
+-- another name for the file, or add the file in a directory that does not
+-- match the file name.
+_FileNameConflictsWithDirectoryNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FileNameConflictsWithDirectoryNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FileNameConflictsWithDirectoryNameException"
 
--- | The specified reference does not exist. You must provide a full commit ID.
-_ReferenceDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified reference does not exist. You must provide a full commit
+-- ID.
+_ReferenceDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReferenceDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ReferenceDoesNotExistException"
 
 -- | No encryption key was found.
-_EncryptionKeyNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_EncryptionKeyNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EncryptionKeyNotFoundException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "EncryptionKeyNotFoundException"
 
 -- | An array of target objects is required. It cannot be empty or null.
-_TargetsRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_TargetsRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TargetsRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "TargetsRequiredException"
 
--- | The comment is empty. You must provide some content for a comment. The content cannot be null.
-_CommentContentRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The comment is empty. You must provide some content for a comment. The
+-- content cannot be null.
+_CommentContentRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommentContentRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommentContentRequiredException"
 
 -- | The specified tag is not valid. Key names cannot be prefixed with aws:.
-_InvalidSystemTagUsageException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidSystemTagUsageException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidSystemTagUsageException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidSystemTagUsageException"
 
--- | The commit cannot be created because no files have been specified as added, updated, or changed (PutFile or DeleteFile) for the commit.
-_FileEntryRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because no files have been specified as
+-- added, updated, or changed (PutFile or DeleteFile) for the commit.
+_FileEntryRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FileEntryRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FileEntryRequiredException"
 
--- | The targets for the pull request is not valid or not in a valid format. Targets are a list of target objects. Each target object must contain the full values for the repository name, source branch, and destination branch for a pull request.
-_InvalidTargetsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The targets for the pull request is not valid or not in a valid format.
+-- Targets are a list of target objects. Each target object must contain
+-- the full values for the repository name, source branch, and destination
+-- branch for a pull request.
+_InvalidTargetsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTargetsException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTargetsException"
 
--- | The pull request cannot be merged automatically into the destination branch. You must manually merge the branches and resolve any conflicts.
-_ManualMergeRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The pull request cannot be merged automatically into the destination
+-- branch. You must manually merge the branches and resolve any conflicts.
+_ManualMergeRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ManualMergeRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ManualMergeRequiredException"
 
--- | Cannot create the branch with the specified name because the commit conflicts with an existing branch with the same name. Branch names must be unique.
-_BranchNameExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Cannot create the branch with the specified name because the commit
+-- conflicts with an existing branch with the same name. Branch names must
+-- be unique.
+_BranchNameExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BranchNameExistsException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "BranchNameExistsException"
 
--- | The parent commit ID is not valid because it does not exist. The specified parent commit ID does not exist in the specified branch of the repository.
-_ParentCommitDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The parent commit ID is not valid because it does not exist. The
+-- specified parent commit ID does not exist in the specified branch of the
+-- repository.
+_ParentCommitDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ParentCommitDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ParentCommitDoesNotExistException"
 
--- | The commit cannot be created because one or more changes in this commit duplicate actions in the same file path. For example, you cannot make the same delete request to the same file in the same file path twice, or make a delete request and a move request to the same file as part of the same commit.
-_SamePathRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because one or more changes in this commit
+-- duplicate actions in the same file path. For example, you cannot make
+-- the same delete request to the same file in the same file path twice, or
+-- make a delete request and a move request to the same file as part of the
+-- same commit.
+_SamePathRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SamePathRequestException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "SamePathRequestException"
 
--- | The specified Amazon Resource Name (ARN) does not exist in the AWS account.
-_AuthorDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified Amazon Resource Name (ARN) does not exist in the AWS
+-- account.
+_AuthorDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AuthorDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "AuthorDoesNotExistException"
 
--- | The maximum number of tags for an AWS CodeCommit resource has been exceeded.
-_TooManyTagsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The maximum number of tags for an AWS CodeCommit resource has been
+-- exceeded.
+_TooManyTagsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyTagsException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "TooManyTagsException"
 
--- | The source branch and destination branch for the pull request are the same. You must specify different branches for the source and destination.
-_SourceAndDestinationAreSameException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The source branch and destination branch for the pull request are the
+-- same. You must specify different branches for the source and
+-- destination.
+_SourceAndDestinationAreSameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SourceAndDestinationAreSameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "SourceAndDestinationAreSameException"
 
 -- | An encryption integrity check failed.
-_EncryptionIntegrityChecksFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+_EncryptionIntegrityChecksFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EncryptionIntegrityChecksFailedException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "EncryptionIntegrityChecksFailedException"
 
--- | The description for the approval rule template is not valid because it exceeds the maximum characters allowed for a description. For more information about limits in AWS CodeCommit, see <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html AWS CodeCommit User Guide> .
-_InvalidApprovalRuleTemplateDescriptionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The description for the approval rule template is not valid because it
+-- exceeds the maximum characters allowed for a description. For more
+-- information about limits in AWS CodeCommit, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html AWS CodeCommit User Guide>.
+_InvalidApprovalRuleTemplateDescriptionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidApprovalRuleTemplateDescriptionException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidApprovalRuleTemplateDescriptionException"
 
--- | This comment has already been deleted. You cannot edit or delete a deleted comment.
-_CommentDeletedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | This comment has already been deleted. You cannot edit or delete a
+-- deleted comment.
+_CommentDeletedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommentDeletedException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommentDeletedException"
 
--- | Automerge was specified for resolving the conflict, but the replacement type is not valid or content is missing.
-_InvalidReplacementContentException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Automerge was specified for resolving the conflict, but the replacement
+-- type is not valid or content is missing.
+_InvalidReplacementContentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidReplacementContentException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidReplacementContentException"
 
 -- | At least one event for the trigger is required, but was not specified.
-_RepositoryTriggerEventsListRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_RepositoryTriggerEventsListRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryTriggerEventsListRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryTriggerEventsListRequiredException"
 
--- | The file cannot be added because it is empty. Empty files cannot be added to the repository with this API.
-_FileContentRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The file cannot be added because it is empty. Empty files cannot be
+-- added to the repository with this API.
+_FileContentRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FileContentRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FileContentRequiredException"
 
--- | The commit cannot be created because no source files or file content have been specified for the commit.
-_SourceFileOrContentRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because no source files or file content
+-- have been specified for the commit.
+_SourceFileOrContentRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SourceFileOrContentRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "SourceFileOrContentRequiredException"
 
--- | The title of the pull request is not valid. Pull request titles cannot exceed 100 characters in length.
-_InvalidTitleException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The title of the pull request is not valid. Pull request titles cannot
+-- exceed 100 characters in length.
+_InvalidTitleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTitleException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTitleException"
 
 -- | The content for the approval rule is not valid.
-_InvalidApprovalRuleContentException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidApprovalRuleContentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidApprovalRuleContentException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidApprovalRuleContentException"
 
--- | The source commit specifier is not valid. You must provide a valid branch name, tag, or full commit ID.
-_InvalidSourceCommitSpecifierException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The source commit specifier is not valid. You must provide a valid
+-- branch name, tag, or full commit ID.
+_InvalidSourceCommitSpecifierException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidSourceCommitSpecifierException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidSourceCommitSpecifierException"
 
 -- | The specified conflict resolution list is not valid.
-_InvalidConflictResolutionException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidConflictResolutionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidConflictResolutionException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidConflictResolutionException"
 
--- | The override status is not valid. Valid statuses are OVERRIDE and REVOKE.
-_InvalidOverrideStatusException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The override status is not valid. Valid statuses are OVERRIDE and
+-- REVOKE.
+_InvalidOverrideStatusException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidOverrideStatusException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidOverrideStatusException"
 
 -- | A pull request status is required, but none was provided.
-_PullRequestStatusRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_PullRequestStatusRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PullRequestStatusRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "PullRequestStatusRequiredException"
 
--- | The number of items to compare between the source or destination branches and the merge base has exceeded the maximum allowed.
-_MaximumItemsToCompareExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The number of items to compare between the source or destination
+-- branches and the merge base has exceeded the maximum allowed.
+_MaximumItemsToCompareExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumItemsToCompareExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumItemsToCompareExceededException"
 
--- | The pull request status is not valid. The only valid values are @OPEN@ and @CLOSED@ .
-_InvalidPullRequestStatusException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The pull request status is not valid. The only valid values are @OPEN@
+-- and @CLOSED@.
+_InvalidPullRequestStatusException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidPullRequestStatusException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidPullRequestStatusException"
 
--- | A parent commit ID is required. To view the full commit ID of a branch in a repository, use 'GetBranch' or a Git command (for example, git pull or git log).
-_ParentCommitIdRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A parent commit ID is required. To view the full commit ID of a branch
+-- in a repository, use GetBranch or a Git command (for example, git pull
+-- or git log).
+_ParentCommitIdRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ParentCommitIdRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ParentCommitIdRequiredException"
 
 -- | The specified repository does not exist.
-_RepositoryDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+_RepositoryDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryDoesNotExistException"
 
--- | The pull request cannot be merged because one or more approval rules applied to the pull request have conditions that have not been met.
-_PullRequestApprovalRulesNotSatisfiedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The pull request cannot be merged because one or more approval rules
+-- applied to the pull request have conditions that have not been met.
+_PullRequestApprovalRulesNotSatisfiedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PullRequestApprovalRulesNotSatisfiedException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "PullRequestApprovalRulesNotSatisfiedException"
 
--- | The content for the approval rule is empty. You must provide some content for an approval rule. The content cannot be null.
-_ApprovalRuleContentRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The content for the approval rule is empty. You must provide some
+-- content for an approval rule. The content cannot be null.
+_ApprovalRuleContentRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalRuleContentRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalRuleContentRequiredException"
 
 -- | A pull request title is required. It cannot be empty or null.
-_TitleRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_TitleRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TitleRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "TitleRequiredException"
 
--- | The file cannot be added because it is too large. The maximum file size is 6 MB, and the combined file content change size is 7 MB. Consider making these changes using a Git client.
-_FileContentSizeLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The file cannot be added because it is too large. The maximum file size
+-- is 6 MB, and the combined file content change size is 7 MB. Consider
+-- making these changes using a Git client.
+_FileContentSizeLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FileContentSizeLimitExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FileContentSizeLimitExceededException"
 
 -- | The name of the trigger is not valid.
-_InvalidRepositoryTriggerNameException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRepositoryTriggerNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRepositoryTriggerNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRepositoryTriggerNameException"
 
 -- | A name for the trigger is required, but was not specified.
-_RepositoryTriggerNameRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_RepositoryTriggerNameRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryTriggerNameRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryTriggerNameRequiredException"
 
--- | The maximum number of approval rule templates has been exceeded for this AWS Region.
-_NumberOfRuleTemplatesExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The maximum number of approval rule templates has been exceeded for this
+-- AWS Region.
+_NumberOfRuleTemplatesExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NumberOfRuleTemplatesExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "NumberOfRuleTemplatesExceededException"
 
 -- | A repository name is required, but was not specified.
-_RepositoryNameRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_RepositoryNameRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryNameRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryNameRequiredException"
 
--- | The specified file mode permission is not valid. For a list of valid file mode permissions, see 'PutFile' .
-_InvalidFileModeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified file mode permission is not valid. For a list of valid
+-- file mode permissions, see PutFile.
+_InvalidFileModeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidFileModeException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidFileModeException"
 
--- | One or more events specified for the trigger is not valid. Check to make sure that all events specified match the requirements for allowed events.
-_InvalidRepositoryTriggerEventsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | One or more events specified for the trigger is not valid. Check to make
+-- sure that all events specified match the requirements for allowed
+-- events.
+_InvalidRepositoryTriggerEventsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRepositoryTriggerEventsException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRepositoryTriggerEventsException"
 
 -- | The specified path is not valid.
-_InvalidPathException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidPathException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidPathException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidPathException"
 
 -- | The specified target branch is not valid.
-_InvalidTargetBranchException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidTargetBranchException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTargetBranchException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTargetBranchException"
 
--- | The Amazon Resource Name (ARN) is not valid. Make sure that you have provided the full ARN for the user who initiated the change for the pull request, and then try again.
-_InvalidActorARNException :: AsError a => Getting (First ServiceError) a ServiceError
-_InvalidActorARNException =
-  _MatchServiceError
-    codeCommit
+-- | The Amazon Resource Name (ARN) is not valid. Make sure that you have
+-- provided the full ARN for the user who initiated the change for the pull
+-- request, and then try again.
+_InvalidActorArnException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_InvalidActorArnException =
+  Prelude._MatchServiceError
+    defaultService
     "InvalidActorArnException"
 
 -- | A revision ID is required, but was not provided.
-_RevisionIdRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_RevisionIdRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RevisionIdRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RevisionIdRequiredException"
 
 -- | The specified blob is not valid.
-_InvalidBlobIdException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidBlobIdException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidBlobIdException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidBlobIdException"
 
--- | The number of specified files to change as part of this commit exceeds the maximum number of files that can be changed in a single commit. Consider using a Git client for these changes.
-_MaximumFileEntriesExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The number of specified files to change as part of this commit exceeds
+-- the maximum number of files that can be changed in a single commit.
+-- Consider using a Git client for these changes.
+_MaximumFileEntriesExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumFileEntriesExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumFileEntriesExceededException"
 
 -- | An approval rule template name is required, but was not specified.
-_ApprovalRuleTemplateNameRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_ApprovalRuleTemplateNameRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalRuleTemplateNameRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalRuleTemplateNameRequiredException"
 
 -- | At least one repository name object is required, but was not specified.
-_RepositoryNamesRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_RepositoryNamesRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryNamesRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryNamesRequiredException"
 
--- | The pull request ID could not be found. Make sure that you have specified the correct repository name and pull request ID, and then try again.
-_PullRequestDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The pull request ID could not be found. Make sure that you have
+-- specified the correct repository name and pull request ID, and then try
+-- again.
+_PullRequestDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PullRequestDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "PullRequestDoesNotExistException"
 
 -- | A replacement type is required.
-_ReplacementTypeRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReplacementTypeRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReplacementTypeRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ReplacementTypeRequiredException"
 
--- | Automerge was specified for resolving the conflict, but the specified replacement type is not valid.
-_InvalidReplacementTypeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Automerge was specified for resolving the conflict, but the specified
+-- replacement type is not valid.
+_InvalidReplacementTypeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidReplacementTypeException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidReplacementTypeException"
 
--- | The specified file exceeds the file size limit for AWS CodeCommit. For more information about limits in AWS CodeCommit, see <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html AWS CodeCommit User Guide> .
-_FileTooLargeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified file exceeds the file size limit for AWS CodeCommit. For
+-- more information about limits in AWS CodeCommit, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html AWS CodeCommit User Guide>.
+_FileTooLargeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FileTooLargeException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FileTooLargeException"
 
--- | The approval rule cannot be deleted from the pull request because it was created by an approval rule template and applied to the pull request automatically.
-_CannotDeleteApprovalRuleFromTemplateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The approval rule cannot be deleted from the pull request because it was
+-- created by an approval rule template and applied to the pull request
+-- automatically.
+_CannotDeleteApprovalRuleFromTemplateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CannotDeleteApprovalRuleFromTemplateException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CannotDeleteApprovalRuleFromTemplateException"
 
--- | The number of reactions has been exceeded. Reactions are limited to one reaction per user for each individual comment ID.
-_ReactionLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The number of reactions has been exceeded. Reactions are limited to one
+-- reaction per user for each individual comment ID.
+_ReactionLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReactionLimitExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ReactionLimitExceededException"
 
--- | The revision ID provided in the request does not match the current revision ID. Use GetPullRequest to retrieve the current revision ID.
-_RevisionNotCurrentException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The revision ID provided in the request does not match the current
+-- revision ID. Use GetPullRequest to retrieve the current revision ID.
+_RevisionNotCurrentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RevisionNotCurrentException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RevisionNotCurrentException"
 
 -- | The name for the approval rule is not valid.
-_InvalidApprovalRuleNameException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidApprovalRuleNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidApprovalRuleNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidApprovalRuleNameException"
 
 -- | The specified commit ID does not exist.
-_CommitIdDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+_CommitIdDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommitIdDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommitIdDoesNotExistException"
 
--- | The list of triggers for the repository is required, but was not specified.
-_RepositoryTriggersListRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The list of triggers for the repository is required, but was not
+-- specified.
+_RepositoryTriggersListRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryTriggersListRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryTriggersListRequiredException"
 
--- | Either the enum is not in a valid format, or the specified file version enum is not valid in respect to the current file version.
-_InvalidRelativeFileVersionEnumException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Either the enum is not in a valid format, or the specified file version
+-- enum is not valid in respect to the current file version.
+_InvalidRelativeFileVersionEnumException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRelativeFileVersionEnumException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRelativeFileVersionEnumException"
 
 -- | The tag policy is not valid.
-_TagPolicyException :: AsError a => Getting (First ServiceError) a ServiceError
+_TagPolicyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TagPolicyException =
-  _MatchServiceError codeCommit "TagPolicyException"
+  Prelude._MatchServiceError
+    defaultService
+    "TagPolicyException"
 
 -- | The specified approval rule does not exist.
-_ApprovalRuleDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+_ApprovalRuleDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalRuleDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalRuleDoesNotExistException"
 
--- | At least one branch name is required, but was not specified in the trigger configuration.
-_RepositoryTriggerBranchNameListRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | At least one branch name is required, but was not specified in the
+-- trigger configuration.
+_RepositoryTriggerBranchNameListRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryTriggerBranchNameListRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryTriggerBranchNameListRequiredException"
 
 -- | The client request token is not valid.
-_InvalidClientRequestTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidClientRequestTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidClientRequestTokenException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidClientRequestTokenException"
 
--- | The client request token is not valid. Either the token is not in a valid format, or the token has been used in a previous request and cannot be reused.
-_IdempotencyParameterMismatchException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The client request token is not valid. Either the token is not in a
+-- valid format, or the token has been used in a previous request and
+-- cannot be reused.
+_IdempotencyParameterMismatchException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IdempotencyParameterMismatchException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "IdempotencyParameterMismatchException"
 
--- | The Amazon Resource Name (ARN) for the trigger is not valid for the specified destination. The most common reason for this error is that the ARN does not meet the requirements for the service type.
-_InvalidRepositoryTriggerDestinationARNException :: AsError a => Getting (First ServiceError) a ServiceError
-_InvalidRepositoryTriggerDestinationARNException =
-  _MatchServiceError
-    codeCommit
+-- | The Amazon Resource Name (ARN) for the trigger is not valid for the
+-- specified destination. The most common reason for this error is that the
+-- ARN does not meet the requirements for the service type.
+_InvalidRepositoryTriggerDestinationArnException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_InvalidRepositoryTriggerDestinationArnException =
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRepositoryTriggerDestinationArnException"
 
 -- | A branch name is required, but was not specified.
-_BranchNameRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_BranchNameRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BranchNameRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "BranchNameRequiredException"
 
--- | A destination ARN for the target service for the trigger is required, but was not specified.
-_RepositoryTriggerDestinationARNRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
-_RepositoryTriggerDestinationARNRequiredException =
-  _MatchServiceError
-    codeCommit
+-- | A destination ARN for the target service for the trigger is required,
+-- but was not specified.
+_RepositoryTriggerDestinationArnRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_RepositoryTriggerDestinationArnRequiredException =
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryTriggerDestinationArnRequiredException"
 
 -- | The encryption key is not available.
-_EncryptionKeyUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_EncryptionKeyUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EncryptionKeyUnavailableException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "EncryptionKeyUnavailableException"
 
 -- | The specified conflict resolution strategy is not valid.
-_InvalidConflictResolutionStrategyException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidConflictResolutionStrategyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidConflictResolutionStrategyException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidConflictResolutionStrategyException"
 
--- | More than one conflict resolution entries exists for the conflict. A conflict can have only one conflict resolution entry.
-_MultipleConflictResolutionEntriesException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | More than one conflict resolution entries exists for the conflict. A
+-- conflict can have only one conflict resolution entry.
+_MultipleConflictResolutionEntriesException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MultipleConflictResolutionEntriesException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MultipleConflictResolutionEntriesException"
 
--- | The specified file does not exist. Verify that you have used the correct file name, full path, and extension.
-_FileDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified file does not exist. Verify that you have used the correct
+-- file name, full path, and extension.
+_FileDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FileDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FileDoesNotExistException"
 
 -- | A list of tag keys is required. The list cannot be empty or null.
-_TagKeysListRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_TagKeysListRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TagKeysListRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "TagKeysListRequiredException"
 
--- | The specified reference name format is not valid. Reference names must conform to the Git references format (for example, refs/heads/master). For more information, see <https://git-scm.com/book/en/v2/Git-Internals-Git-References Git Internals - Git References> or consult your Git documentation.
-_InvalidReferenceNameException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified reference name format is not valid. Reference names must
+-- conform to the Git references format (for example, refs\/heads\/master).
+-- For more information, see
+-- <https://git-scm.com/book/en/v2/Git-Internals-Git-References Git Internals - Git References>
+-- or consult your Git documentation.
+_InvalidReferenceNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidReferenceNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidReferenceNameException"
 
 -- | A commit ID was not specified.
-_CommitIdRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_CommitIdRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommitIdRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommitIdRequiredException"
 
 -- | A reference name is required, but none was provided.
-_ReferenceNameRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReferenceNameRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReferenceNameRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ReferenceNameRequiredException"
 
--- | The maximum number of approval rule templates for a repository has been exceeded. You cannot associate more than 25 approval rule templates with a repository.
-_MaximumRuleTemplatesAssociatedWithRepositoryException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The maximum number of approval rule templates for a repository has been
+-- exceeded. You cannot associate more than 25 approval rule templates with
+-- a repository.
+_MaximumRuleTemplatesAssociatedWithRepositoryException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumRuleTemplatesAssociatedWithRepositoryException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumRuleTemplatesAssociatedWithRepositoryException"
 
 -- | The commit message is too long. Provide a shorter string.
-_CommitMessageLengthExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_CommitMessageLengthExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommitMessageLengthExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommitMessageLengthExceededException"
 
--- | The number of approvals required for the approval rule exceeds the maximum number allowed.
-_MaximumNumberOfApprovalsExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The number of approvals required for the approval rule exceeds the
+-- maximum number allowed.
+_MaximumNumberOfApprovalsExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumNumberOfApprovalsExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumNumberOfApprovalsExceededException"
 
 -- | The list of tags is not valid.
-_InvalidTagKeysListException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidTagKeysListException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTagKeysListException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTagKeysListException"
 
 -- | The encryption key is disabled.
-_EncryptionKeyDisabledException :: AsError a => Getting (First ServiceError) a ServiceError
+_EncryptionKeyDisabledException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EncryptionKeyDisabledException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "EncryptionKeyDisabledException"
 
--- | A file cannot be added to the repository because the specified path name has the same name as a file that already exists in this repository. Either provide a different name for the file, or specify a different path for the file.
-_DirectoryNameConflictsWithFileNameException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A file cannot be added to the repository because the specified path name
+-- has the same name as a file that already exists in this repository.
+-- Either provide a different name for the file, or specify a different
+-- path for the file.
+_DirectoryNameConflictsWithFileNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DirectoryNameConflictsWithFileNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "DirectoryNameConflictsWithFileNameException"
 
 -- | The specified sort by value is not valid.
-_InvalidSortByException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidSortByException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidSortByException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidSortByException"
 
--- | The destination commit specifier is not valid. You must provide a valid branch name, tag, or full commit ID.
-_InvalidDestinationCommitSpecifierException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The destination commit specifier is not valid. You must provide a valid
+-- branch name, tag, or full commit ID.
+_InvalidDestinationCommitSpecifierException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDestinationCommitSpecifierException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDestinationCommitSpecifierException"
 
--- | No comment exists with the provided ID. Verify that you have used the correct ID, and then try again.
-_CommentDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | No comment exists with the provided ID. Verify that you have used the
+-- correct ID, and then try again.
+_CommentDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommentDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommentDoesNotExistException"
 
--- | You cannot create an approval rule template with that name because a template with that name already exists in this AWS Region for your AWS account. Approval rule template names must be unique.
-_ApprovalRuleTemplateNameAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You cannot create an approval rule template with that name because a
+-- template with that name already exists in this AWS Region for your AWS
+-- account. Approval rule template names must be unique.
+_ApprovalRuleTemplateNameAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalRuleTemplateNameAlreadyExistsException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalRuleTemplateNameAlreadyExistsException"
 
 -- | One or more branch names specified for the trigger is not valid.
-_InvalidRepositoryTriggerBranchNameException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRepositoryTriggerBranchNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRepositoryTriggerBranchNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRepositoryTriggerBranchNameException"
 
--- | You cannot create the pull request because the repository has too many open pull requests. The maximum number of open pull requests for a repository is 1,000. Close one or more open pull requests, and then try again.
-_MaximumOpenPullRequestsExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You cannot create the pull request because the repository has too many
+-- open pull requests. The maximum number of open pull requests for a
+-- repository is 1,000. Close one or more open pull requests, and then try
+-- again.
+_MaximumOpenPullRequestsExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumOpenPullRequestsExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumOpenPullRequestsExceededException"
 
 -- | The pull request status cannot be updated because it is already closed.
-_PullRequestAlreadyClosedException :: AsError a => Getting (First ServiceError) a ServiceError
+_PullRequestAlreadyClosedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PullRequestAlreadyClosedException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "PullRequestAlreadyClosedException"
 
 -- | The specified commit is not valid.
-_InvalidCommitException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidCommitException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidCommitException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidCommitException"
 
 -- | The specified reference is not a supported type.
-_ReferenceTypeNotSupportedException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReferenceTypeNotSupportedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReferenceTypeNotSupportedException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ReferenceTypeNotSupportedException"
 
--- | You cannot modify or delete this comment. Only comment authors can modify or delete their comments.
-_CommentNotCreatedByCallerException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You cannot modify or delete this comment. Only comment authors can
+-- modify or delete their comments.
+_CommentNotCreatedByCallerException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommentNotCreatedByCallerException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommentNotCreatedByCallerException"
 
--- | The target for the pull request is not valid. A target must contain the full values for the repository name, source branch, and destination branch for the pull request.
-_InvalidTargetException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The target for the pull request is not valid. A target must contain the
+-- full values for the repository name, source branch, and destination
+-- branch for the pull request.
+_InvalidTargetException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTargetException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTargetException"
 
 -- | The custom data provided for the trigger is not valid.
-_InvalidRepositoryTriggerCustomDataException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRepositoryTriggerCustomDataException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRepositoryTriggerCustomDataException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRepositoryTriggerCustomDataException"
 
 -- | The pull request has already had its approval rules set to override.
-_OverrideAlreadySetException :: AsError a => Getting (First ServiceError) a ServiceError
+_OverrideAlreadySetException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OverrideAlreadySetException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "OverrideAlreadySetException"
 
 -- | The specified continuation token is not valid.
-_InvalidContinuationTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidContinuationTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidContinuationTokenException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidContinuationTokenException"
 
--- | The AWS Region for the trigger target does not match the AWS Region for the repository. Triggers must be created in the same Region as the target for the trigger.
-_InvalidRepositoryTriggerRegionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The AWS Region for the trigger target does not match the AWS Region for
+-- the repository. Triggers must be created in the same Region as the
+-- target for the trigger.
+_InvalidRepositoryTriggerRegionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRepositoryTriggerRegionException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRepositoryTriggerRegionException"
 
--- | The value of the reaction is not valid. For more information, see the <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit User Guide> .
-_InvalidReactionValueException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The value of the reaction is not valid. For more information, see the
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit User Guide>.
+_InvalidReactionValueException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidReactionValueException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidReactionValueException"
 
--- | The divergence between the tips of the provided commit specifiers is too great to determine whether there might be any merge conflicts. Locally compare the specifiers using @git diff@ or a diff tool.
-_TipsDivergenceExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The divergence between the tips of the provided commit specifiers is too
+-- great to determine whether there might be any merge conflicts. Locally
+-- compare the specifiers using @git diff@ or a diff tool.
+_TipsDivergenceExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TipsDivergenceExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "TipsDivergenceExceededException"
 
 -- | An encryption key could not be accessed.
-_EncryptionKeyAccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+_EncryptionKeyAccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EncryptionKeyAccessDeniedException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "EncryptionKeyAccessDeniedException"
 
 -- | A reaction value is required.
-_ReactionValueRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReactionValueRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReactionValueRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ReactionValueRequiredException"
 
--- | A valid Amazon Resource Name (ARN) for an AWS CodeCommit resource is required. For a list of valid resources in AWS CodeCommit, see <https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats CodeCommit Resources and Operations> in the AWS CodeCommit User Guide.
-_ResourceARNRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
-_ResourceARNRequiredException =
-  _MatchServiceError
-    codeCommit
+-- | A valid Amazon Resource Name (ARN) for an AWS CodeCommit resource is
+-- required. For a list of valid resources in AWS CodeCommit, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats CodeCommit Resources and Operations>
+-- in the AWS CodeCommit User Guide.
+_ResourceArnRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_ResourceArnRequiredException =
+  Prelude._MatchServiceError
+    defaultService
     "ResourceArnRequiredException"
 
 -- | The specified path does not exist.
-_PathDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+_PathDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PathDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "PathDoesNotExistException"
 
--- | USE_NEW_CONTENT was specified, but no replacement content has been provided.
-_ReplacementContentRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | USE_NEW_CONTENT was specified, but no replacement content has been
+-- provided.
+_ReplacementContentRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReplacementContentRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ReplacementContentRequiredException"
 
--- | The value for the resource ARN is not valid. For more information about resources in AWS CodeCommit, see <https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats CodeCommit Resources and Operations> in the AWS CodeCommit User Guide.
-_InvalidResourceARNException :: AsError a => Getting (First ServiceError) a ServiceError
-_InvalidResourceARNException =
-  _MatchServiceError
-    codeCommit
+-- | The value for the resource ARN is not valid. For more information about
+-- resources in AWS CodeCommit, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats CodeCommit Resources and Operations>
+-- in the AWS CodeCommit User Guide.
+_InvalidResourceArnException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_InvalidResourceArnException =
+  Prelude._MatchServiceError
+    defaultService
     "InvalidResourceArnException"
 
--- | The file could not be added because the provided parent commit ID is not the current tip of the specified branch. To view the full commit ID of the current head of the branch, use 'GetBranch' .
-_ParentCommitIdOutdatedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The file could not be added because the provided parent commit ID is not
+-- the current tip of the specified branch. To view the full commit ID of
+-- the current head of the branch, use GetBranch.
+_ParentCommitIdOutdatedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ParentCommitIdOutdatedException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ParentCommitIdOutdatedException"
 
--- | The specified value for the number of merge hunks to return is not valid.
-_InvalidMaxMergeHunksException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified value for the number of merge hunks to return is not
+-- valid.
+_InvalidMaxMergeHunksException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidMaxMergeHunksException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidMaxMergeHunksException"
 
--- | The commit cannot be created because one of the changes specifies copying or moving a .gitkeep file.
-_RestrictedSourceFileException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because one of the changes specifies
+-- copying or moving a .gitkeep file.
+_RestrictedSourceFileException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RestrictedSourceFileException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RestrictedSourceFileException"
 
--- | The position is not valid. Make sure that the line number exists in the version of the file you want to comment on.
-_InvalidFilePositionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The position is not valid. Make sure that the line number exists in the
+-- version of the file you want to comment on.
+_InvalidFilePositionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidFilePositionException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidFilePositionException"
 
--- | The approval rule cannot be modified for the pull request because it was created by an approval rule template and applied to the pull request automatically.
-_CannotModifyApprovalRuleFromTemplateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The approval rule cannot be modified for the pull request because it was
+-- created by an approval rule template and applied to the pull request
+-- automatically.
+_CannotModifyApprovalRuleFromTemplateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CannotModifyApprovalRuleFromTemplateException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CannotModifyApprovalRuleFromTemplateException"
 
--- | The specified value for the number of conflict files to return is not valid.
-_InvalidMaxConflictFilesException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified value for the number of conflict files to return is not
+-- valid.
+_InvalidMaxConflictFilesException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidMaxConflictFilesException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidMaxConflictFilesException"
 
 -- | The comment is too large. Comments are limited to 1,000 characters.
-_CommentContentSizeLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_CommentContentSizeLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommentContentSizeLimitExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommentContentSizeLimitExceededException"
 
--- | The state for the approval is not valid. Valid values include APPROVE and REVOKE.
-_InvalidApprovalStateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The state for the approval is not valid. Valid values include APPROVE
+-- and REVOKE.
+_InvalidApprovalStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidApprovalStateException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidApprovalStateException"
 
 -- | The number of branches for the trigger was exceeded.
-_MaximumBranchesExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_MaximumBranchesExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumBranchesExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumBranchesExceededException"
 
--- | An override status is required, but no value was provided. Valid values include OVERRIDE and REVOKE.
-_OverrideStatusRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An override status is required, but no value was provided. Valid values
+-- include OVERRIDE and REVOKE.
+_OverrideStatusRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OverrideStatusRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "OverrideStatusRequiredException"
 
 -- | The pull request event type is not valid.
-_InvalidPullRequestEventTypeException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidPullRequestEventTypeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidPullRequestEventTypeException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidPullRequestEventTypeException"
 
 -- | The content of the approval rule template is not valid.
-_InvalidApprovalRuleTemplateContentException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidApprovalRuleTemplateContentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidApprovalRuleTemplateContentException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidApprovalRuleTemplateContentException"
 
--- | The maximum number of allowed commit IDs in a batch request is 100. Verify that your batch requests contains no more than 100 commit IDs, and then try again.
-_CommitIdsLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The maximum number of allowed commit IDs in a batch request is 100.
+-- Verify that your batch requests contains no more than 100 commit IDs,
+-- and then try again.
+_CommitIdsLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommitIdsLimitExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommitIdsLimitExceededException"
 
 -- | An approval state is required, but was not specified.
-_ApprovalStateRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_ApprovalStateRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalStateRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalStateRequiredException"
 
--- | The Amazon Resource Name (ARN) is not valid. Make sure that you have provided the full ARN for the author of the pull request, and then try again.
-_InvalidAuthorARNException :: AsError a => Getting (First ServiceError) a ServiceError
-_InvalidAuthorARNException =
-  _MatchServiceError
-    codeCommit
+-- | The Amazon Resource Name (ARN) is not valid. Make sure that you have
+-- provided the full ARN for the author of the pull request, and then try
+-- again.
+_InvalidAuthorArnException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_InvalidAuthorArnException =
+  Prelude._MatchServiceError
+    defaultService
     "InvalidAuthorArnException"
 
 -- | The number of allowed conflict resolution entries was exceeded.
-_MaximumConflictResolutionEntriesExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_MaximumConflictResolutionEntriesExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumConflictResolutionEntriesExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumConflictResolutionEntriesExceededException"
 
--- | The parent commit ID is not valid. The commit ID cannot be empty, and must match the head commit ID for the branch of the repository where you want to add or update a file.
-_InvalidParentCommitIdException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The parent commit ID is not valid. The commit ID cannot be empty, and
+-- must match the head commit ID for the branch of the repository where you
+-- want to add or update a file.
+_InvalidParentCommitIdException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParentCommitIdException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParentCommitIdException"
 
--- | The repository does not contain any pull requests with that pull request ID. Use GetPullRequest to verify the correct repository name for the pull request ID.
-_RepositoryNotAssociatedWithPullRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The repository does not contain any pull requests with that pull request
+-- ID. Use GetPullRequest to verify the correct repository name for the
+-- pull request ID.
+_RepositoryNotAssociatedWithPullRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryNotAssociatedWithPullRequestException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryNotAssociatedWithPullRequestException"
 
--- | The content for the approval rule template is empty. You must provide some content for an approval rule template. The content cannot be null.
-_ApprovalRuleTemplateContentRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The content for the approval rule template is empty. You must provide
+-- some content for an approval rule template. The content cannot be null.
+_ApprovalRuleTemplateContentRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalRuleTemplateContentRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalRuleTemplateContentRequiredException"
 
--- | The merge cannot be completed because the target branch has been modified. Another user might have modified the target branch while the merge was in progress. Wait a few minutes, and then try again.
-_ConcurrentReferenceUpdateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The merge cannot be completed because the target branch has been
+-- modified. Another user might have modified the target branch while the
+-- merge was in progress. Wait a few minutes, and then try again.
+_ConcurrentReferenceUpdateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentReferenceUpdateException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentReferenceUpdateException"
 
 -- | The number of files to load exceeds the allowed limit.
-_MaximumFileContentToLoadExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_MaximumFileContentToLoadExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumFileContentToLoadExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumFileContentToLoadExceededException"
 
 -- | A map of tags is required.
-_TagsMapRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_TagsMapRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TagsMapRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "TagsMapRequiredException"
 
 -- | A specified repository name is not valid.
-_InvalidRepositoryNameException :: AsError a => Getting (First ServiceError) a ServiceError
+--
+-- This exception occurs only when a specified repository name is not
+-- valid. Other exceptions occur when a required repository parameter is
+-- missing, or when a specified repository does not exist.
+_InvalidRepositoryNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRepositoryNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRepositoryNameException"
 
--- | The commit cannot be created because at least one of the overall changes in the commit results in a folder whose contents exceed the limit of 6 MB. Either reduce the number and size of your changes, or split the changes across multiple folders.
-_FolderContentSizeLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because at least one of the overall changes
+-- in the commit results in a folder whose contents exceed the limit of 6
+-- MB. Either reduce the number and size of your changes, or split the
+-- changes across multiple folders.
+_FolderContentSizeLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FolderContentSizeLimitExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FolderContentSizeLimitExceededException"
 
--- | A list of commit IDs is required, but was either not specified or the list was empty.
-_CommitIdsListRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A list of commit IDs is required, but was either not specified or the
+-- list was empty.
+_CommitIdsListRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommitIdsListRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommitIdsListRequiredException"
 
--- | The commit cannot be created because no file mode has been specified. A file mode is required to update mode permissions for a file.
-_FileModeRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because no file mode has been specified. A
+-- file mode is required to update mode permissions for a file.
+_FileModeRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FileModeRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FileModeRequiredException"
 
 -- | The map of tags is not valid.
-_InvalidTagsMapException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidTagsMapException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTagsMapException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTagsMapException"
 
 -- | A repository resource limit was exceeded.
-_RepositoryLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_RepositoryLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryLimitExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryLimitExceededException"
 
--- | The approval rule cannot be added. The pull request has the maximum number of approval rules associated with it.
-_NumberOfRulesExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The approval rule cannot be added. The pull request has the maximum
+-- number of approval rules associated with it.
+_NumberOfRulesExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NumberOfRulesExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "NumberOfRulesExceededException"
 
 -- | The specified deletion parameter is not valid.
-_InvalidDeletionParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidDeletionParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDeletionParameterException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDeletionParameterException"
 
 -- | The Amazon Resource Name (ARN) of the user or identity is not valid.
-_InvalidReactionUserARNException :: AsError a => Getting (First ServiceError) a ServiceError
-_InvalidReactionUserARNException =
-  _MatchServiceError
-    codeCommit
+_InvalidReactionUserArnException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_InvalidReactionUserArnException =
+  Prelude._MatchServiceError
+    defaultService
     "InvalidReactionUserArnException"
 
--- | The specified branch is the default branch for the repository, and cannot be deleted. To delete this branch, you must first set another branch as the default branch.
-_DefaultBranchCannotBeDeletedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified branch is the default branch for the repository, and
+-- cannot be deleted. To delete this branch, you must first set another
+-- branch as the default branch.
+_DefaultBranchCannotBeDeletedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DefaultBranchCannotBeDeletedException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "DefaultBranchCannotBeDeletedException"
 
--- | The specified branch name is not valid because it is a tag name. Enter the name of a branch in the repository. For a list of valid branch names, use 'ListBranches' .
-_BranchNameIsTagNameException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified branch name is not valid because it is a tag name. Enter
+-- the name of a branch in the repository. For a list of valid branch
+-- names, use ListBranches.
+_BranchNameIsTagNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BranchNameIsTagNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "BranchNameIsTagNameException"
 
 -- | The folderPath for a location cannot be null.
-_PathRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_PathRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PathRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "PathRequiredException"
 
--- | The commit cannot be created because a specified file path points to a submodule. Verify that the destination files have valid file paths that do not point to a submodule.
-_FilePathConflictsWithSubmodulePathException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because a specified file path points to a
+-- submodule. Verify that the destination files have valid file paths that
+-- do not point to a submodule.
+_FilePathConflictsWithSubmodulePathException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FilePathConflictsWithSubmodulePathException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FilePathConflictsWithSubmodulePathException"
 
 -- | The specified branch does not exist.
-_BranchDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+_BranchDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BranchDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "BranchDoesNotExistException"
 
--- | The comment ID is not in a valid format. Make sure that you have provided the full comment ID.
-_InvalidCommentIdException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The comment ID is not in a valid format. Make sure that you have
+-- provided the full comment ID.
+_InvalidCommentIdException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidCommentIdException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidCommentIdException"
 
 -- | The specified number of maximum results is not valid.
-_InvalidMaxResultsException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidMaxResultsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidMaxResultsException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidMaxResultsException"
 
 -- | The revision ID is not valid. Use GetPullRequest to determine the value.
-_InvalidRevisionIdException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRevisionIdException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRevisionIdException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRevisionIdException"
 
--- | The approval cannot be applied because the user approving the pull request matches the user who created the pull request. You cannot approve a pull request that you created.
-_PullRequestCannotBeApprovedByAuthorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The approval cannot be applied because the user approving the pull
+-- request matches the user who created the pull request. You cannot
+-- approve a pull request that you created.
+_PullRequestCannotBeApprovedByAuthorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PullRequestCannotBeApprovedByAuthorException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "PullRequestCannotBeApprovedByAuthorException"
 
 -- | An approval rule name is required, but was not specified.
-_ApprovalRuleNameRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_ApprovalRuleNameRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalRuleNameRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalRuleNameRequiredException"
 
 -- | A blob ID is required, but was not specified.
-_BlobIdRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_BlobIdRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BlobIdRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "BlobIdRequiredException"
 
--- | The name of the approval rule template is not valid. Template names must be between 1 and 100 valid characters in length. For more information about limits in AWS CodeCommit, see <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html AWS CodeCommit User Guide> .
-_InvalidApprovalRuleTemplateNameException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The name of the approval rule template is not valid. Template names must
+-- be between 1 and 100 valid characters in length. For more information
+-- about limits in AWS CodeCommit, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html AWS CodeCommit User Guide>.
+_InvalidApprovalRuleTemplateNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidApprovalRuleTemplateNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidApprovalRuleTemplateNameException"
 
--- | The pull request description is not valid. Descriptions cannot be more than 1,000 characters.
-_InvalidDescriptionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The pull request description is not valid. Descriptions cannot be more
+-- than 1,000 characters.
+_InvalidDescriptionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDescriptionException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDescriptionException"
 
--- | The commit cannot be created because no changes will be made to the repository as a result of this commit. A commit must contain at least one change.
-_NoChangeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because no changes will be made to the
+-- repository as a result of this commit. A commit must contain at least
+-- one change.
+_NoChangeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoChangeException =
-  _MatchServiceError codeCommit "NoChangeException"
+  Prelude._MatchServiceError
+    defaultService
+    "NoChangeException"
 
 -- | The comment ID is missing or null. A comment ID is required.
-_CommentIdRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_CommentIdRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommentIdRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommentIdRequiredException"
 
--- | You cannot include more than one repository in a pull request. Make sure you have specified only one repository name in your request, and then try again.
-_MultipleRepositoriesInPullRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You cannot include more than one repository in a pull request. Make sure
+-- you have specified only one repository name in your request, and then
+-- try again.
+_MultipleRepositoriesInPullRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MultipleRepositoriesInPullRequestException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MultipleRepositoriesInPullRequestException"
 
 -- | The specified sort order is not valid.
-_InvalidOrderException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidOrderException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidOrderException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidOrderException"
 
--- | A client request token is required. A client request token is an unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be repeated with a changed parameter. If a request is received with the same parameters and a token is included, the request returns information about the initial request that used that token.
-_ClientRequestTokenRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A client request token is required. A client request token is an unique,
+-- client-generated idempotency token that, when provided in a request,
+-- ensures the request cannot be repeated with a changed parameter. If a
+-- request is received with the same parameters and a token is included,
+-- the request returns information about the initial request that used that
+-- token.
+_ClientRequestTokenRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ClientRequestTokenRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ClientRequestTokenRequiredException"
 
--- | The specified merge option is not valid for this operation. Not all merge strategies are supported for all operations.
-_InvalidMergeOptionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified merge option is not valid for this operation. Not all
+-- merge strategies are supported for all operations.
+_InvalidMergeOptionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidMergeOptionException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidMergeOptionException"
 
 -- | A merge option or stategy is required, and none was provided.
-_MergeOptionRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_MergeOptionRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MergeOptionRequiredException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MergeOptionRequiredException"
 
 -- | The specified reference name is not valid.
-_InvalidBranchNameException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidBranchNameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidBranchNameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidBranchNameException"
 
--- | The location of the file is not valid. Make sure that you include the file name and extension.
-_InvalidFileLocationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The location of the file is not valid. Make sure that you include the
+-- file name and extension.
+_InvalidFileLocationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidFileLocationException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidFileLocationException"
 
--- | The specified approval rule template does not exist. Verify that the name is correct and that you are signed in to the AWS Region where the template was created, and then try again.
-_ApprovalRuleTemplateDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified approval rule template does not exist. Verify that the
+-- name is correct and that you are signed in to the AWS Region where the
+-- template was created, and then try again.
+_ApprovalRuleTemplateDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalRuleTemplateDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalRuleTemplateDoesNotExistException"
 
 -- | The number of triggers allowed for the repository was exceeded.
-_MaximumRepositoryTriggersExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_MaximumRepositoryTriggersExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumRepositoryTriggersExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumRepositoryTriggersExceededException"
 
--- | The specified commit does not exist or no commit was specified, and the specified repository has no default branch.
-_CommitDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified commit does not exist or no commit was specified, and the
+-- specified repository has no default branch.
+_CommitDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CommitDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "CommitDoesNotExistException"
 
--- | The before commit ID and the after commit ID are the same, which is not valid. The before commit ID and the after commit ID must be different commit IDs.
-_BeforeCommitIdAndAfterCommitIdAreSameException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The before commit ID and the after commit ID are the same, which is not
+-- valid. The before commit ID and the after commit ID must be different
+-- commit IDs.
+_BeforeCommitIdAndAfterCommitIdAreSameException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BeforeCommitIdAndAfterCommitIdAreSameException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "BeforeCommitIdAndAfterCommitIdAreSameException"
 
 -- | The specified repository name already exists.
-_RepositoryNameExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_RepositoryNameExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryNameExistsException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryNameExistsException"
 
 -- | The specified commit ID is not valid.
-_InvalidCommitIdException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidCommitIdException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidCommitIdException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidCommitIdException"
 
 -- | The specified repository description is not valid.
-_InvalidRepositoryDescriptionException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRepositoryDescriptionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRepositoryDescriptionException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRepositoryDescriptionException"
 
--- | The maximum number of allowed repository names was exceeded. Currently, this number is 100.
-_MaximumRepositoryNamesExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The maximum number of allowed repository names was exceeded. Currently,
+-- this number is 100.
+_MaximumRepositoryNamesExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MaximumRepositoryNamesExceededException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "MaximumRepositoryNamesExceededException"
 
--- | The file was not added or updated because the content of the file is exactly the same as the content of that file in the repository and branch that you specified.
-_SameFileContentException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The file was not added or updated because the content of the file is
+-- exactly the same as the content of that file in the repository and
+-- branch that you specified.
+_SameFileContentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SameFileContentException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "SameFileContentException"
 
--- | The approval rule template is associated with one or more repositories. You cannot delete a template that is associated with a repository. Remove all associations, and then try again.
-_ApprovalRuleTemplateInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The approval rule template is associated with one or more repositories.
+-- You cannot delete a template that is associated with a repository.
+-- Remove all associations, and then try again.
+_ApprovalRuleTemplateInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ApprovalRuleTemplateInUseException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "ApprovalRuleTemplateInUseException"
 
--- | The specified email address either contains one or more characters that are not allowed, or it exceeds the maximum number of characters allowed for an email address.
-_InvalidEmailException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified email address either contains one or more characters that
+-- are not allowed, or it exceeds the maximum number of characters allowed
+-- for an email address.
+_InvalidEmailException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidEmailException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidEmailException"
 
--- | The tip of the source branch in the destination repository does not match the tip of the source branch specified in your request. The pull request might have been updated. Make sure that you have the latest changes.
-_TipOfSourceReferenceIsDifferentException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The tip of the source branch in the destination repository does not
+-- match the tip of the source branch specified in your request. The pull
+-- request might have been updated. Make sure that you have the latest
+-- changes.
+_TipOfSourceReferenceIsDifferentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TipOfSourceReferenceIsDifferentException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "TipOfSourceReferenceIsDifferentException"
 
--- | The specified folder does not exist. Either the folder name is not correct, or you did not enter the full path to the folder.
-_FolderDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified folder does not exist. Either the folder name is not
+-- correct, or you did not enter the full path to the folder.
+_FolderDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FolderDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FolderDoesNotExistException"
 
 -- | The SHA-256 hash signature for the rule content is not valid.
-_InvalidRuleContentSha256Exception :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRuleContentSha256Exception :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRuleContentSha256Exception =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRuleContentSha256Exception"
 
 -- | The specified blob does not exist.
-_BlobIdDoesNotExistException :: AsError a => Getting (First ServiceError) a ServiceError
+_BlobIdDoesNotExistException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BlobIdDoesNotExistException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "BlobIdDoesNotExistException"
 
--- | The commit cannot be created because one or more files specified in the commit reference both a file and a folder.
-_PutFileEntryConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because one or more files specified in the
+-- commit reference both a file and a folder.
+_PutFileEntryConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PutFileEntryConflictException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "PutFileEntryConflictException"
 
--- | The commit cannot be created because both a source file and file content have been specified for the same file. You cannot provide both. Either specify a source file or provide the file content directly.
-_FileContentAndSourceFileSpecifiedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The commit cannot be created because both a source file and file content
+-- have been specified for the same file. You cannot provide both. Either
+-- specify a source file or provide the file content directly.
+_FileContentAndSourceFileSpecifiedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FileContentAndSourceFileSpecifiedException =
-  _MatchServiceError
-    codeCommit
+  Prelude._MatchServiceError
+    defaultService
     "FileContentAndSourceFileSpecifiedException"

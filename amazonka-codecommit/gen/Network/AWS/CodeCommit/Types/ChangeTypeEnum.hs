@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CodeCommit.Types.ChangeTypeEnum
   ( ChangeTypeEnum
       ( ..,
-        A,
-        D,
-        M
+        ChangeTypeEnumA,
+        ChangeTypeEnumD,
+        ChangeTypeEnumM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChangeTypeEnum = ChangeTypeEnum' (CI Text)
+newtype ChangeTypeEnum = ChangeTypeEnum'
+  { fromChangeTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern A :: ChangeTypeEnum
-pattern A = ChangeTypeEnum' "A"
+pattern ChangeTypeEnumA :: ChangeTypeEnum
+pattern ChangeTypeEnumA = ChangeTypeEnum' "A"
 
-pattern D :: ChangeTypeEnum
-pattern D = ChangeTypeEnum' "D"
+pattern ChangeTypeEnumD :: ChangeTypeEnum
+pattern ChangeTypeEnumD = ChangeTypeEnum' "D"
 
-pattern M :: ChangeTypeEnum
-pattern M = ChangeTypeEnum' "M"
+pattern ChangeTypeEnumM :: ChangeTypeEnum
+pattern ChangeTypeEnumM = ChangeTypeEnum' "M"
 
 {-# COMPLETE
-  A,
-  D,
-  M,
+  ChangeTypeEnumA,
+  ChangeTypeEnumD,
+  ChangeTypeEnumM,
   ChangeTypeEnum'
   #-}
 
-instance FromText ChangeTypeEnum where
-  parser = (ChangeTypeEnum' . mk) <$> takeText
+instance Prelude.FromText ChangeTypeEnum where
+  parser = ChangeTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ChangeTypeEnum where
-  toText (ChangeTypeEnum' ci) = original ci
+instance Prelude.ToText ChangeTypeEnum where
+  toText (ChangeTypeEnum' x) = x
 
-instance Hashable ChangeTypeEnum
+instance Prelude.Hashable ChangeTypeEnum
 
-instance NFData ChangeTypeEnum
+instance Prelude.NFData ChangeTypeEnum
 
-instance ToByteString ChangeTypeEnum
+instance Prelude.ToByteString ChangeTypeEnum
 
-instance ToQuery ChangeTypeEnum
+instance Prelude.ToQuery ChangeTypeEnum
 
-instance ToHeader ChangeTypeEnum
+instance Prelude.ToHeader ChangeTypeEnum
 
-instance FromJSON ChangeTypeEnum where
-  parseJSON = parseJSONText "ChangeTypeEnum"
+instance Prelude.FromJSON ChangeTypeEnum where
+  parseJSON = Prelude.parseJSONText "ChangeTypeEnum"

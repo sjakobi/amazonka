@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,129 +22,147 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Sets or changes the comment or description for a repository.
+--
+-- The description field for a repository accepts all HTML characters and
+-- all valid Unicode characters. Applications that do not HTML-encode the
+-- description and display it in a webpage can expose users to potentially
+-- malicious code. Make sure that you HTML-encode the description field in
+-- any application that uses this API to display the repository description
+-- on a webpage.
 module Network.AWS.CodeCommit.UpdateRepositoryDescription
   ( -- * Creating a Request
-    updateRepositoryDescription,
-    UpdateRepositoryDescription,
+    UpdateRepositoryDescription (..),
+    newUpdateRepositoryDescription,
 
     -- * Request Lenses
-    urdRepositoryDescription,
-    urdRepositoryName,
+    updateRepositoryDescription_repositoryDescription,
+    updateRepositoryDescription_repositoryName,
 
     -- * Destructuring the Response
-    updateRepositoryDescriptionResponse,
-    UpdateRepositoryDescriptionResponse,
+    UpdateRepositoryDescriptionResponse (..),
+    newUpdateRepositoryDescriptionResponse,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of an update repository description operation.
 --
---
---
--- /See:/ 'updateRepositoryDescription' smart constructor.
+-- /See:/ 'newUpdateRepositoryDescription' smart constructor.
 data UpdateRepositoryDescription = UpdateRepositoryDescription'
-  { _urdRepositoryDescription ::
-      !(Maybe Text),
-    _urdRepositoryName ::
-      !Text
+  { -- | The new comment or description for the specified repository. Repository
+    -- descriptions are limited to 1,000 characters.
+    repositoryDescription :: Prelude.Maybe Prelude.Text,
+    -- | The name of the repository to set or change the comment or description
+    -- for.
+    repositoryName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRepositoryDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRepositoryDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urdRepositoryDescription' - The new comment or description for the specified repository. Repository descriptions are limited to 1,000 characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urdRepositoryName' - The name of the repository to set or change the comment or description for.
-updateRepositoryDescription ::
-  -- | 'urdRepositoryName'
-  Text ->
+-- 'repositoryDescription', 'updateRepositoryDescription_repositoryDescription' - The new comment or description for the specified repository. Repository
+-- descriptions are limited to 1,000 characters.
+--
+-- 'repositoryName', 'updateRepositoryDescription_repositoryName' - The name of the repository to set or change the comment or description
+-- for.
+newUpdateRepositoryDescription ::
+  -- | 'repositoryName'
+  Prelude.Text ->
   UpdateRepositoryDescription
-updateRepositoryDescription pRepositoryName_ =
+newUpdateRepositoryDescription pRepositoryName_ =
   UpdateRepositoryDescription'
-    { _urdRepositoryDescription =
-        Nothing,
-      _urdRepositoryName = pRepositoryName_
+    { repositoryDescription =
+        Prelude.Nothing,
+      repositoryName = pRepositoryName_
     }
 
--- | The new comment or description for the specified repository. Repository descriptions are limited to 1,000 characters.
-urdRepositoryDescription :: Lens' UpdateRepositoryDescription (Maybe Text)
-urdRepositoryDescription = lens _urdRepositoryDescription (\s a -> s {_urdRepositoryDescription = a})
+-- | The new comment or description for the specified repository. Repository
+-- descriptions are limited to 1,000 characters.
+updateRepositoryDescription_repositoryDescription :: Lens.Lens' UpdateRepositoryDescription (Prelude.Maybe Prelude.Text)
+updateRepositoryDescription_repositoryDescription = Lens.lens (\UpdateRepositoryDescription' {repositoryDescription} -> repositoryDescription) (\s@UpdateRepositoryDescription' {} a -> s {repositoryDescription = a} :: UpdateRepositoryDescription)
 
--- | The name of the repository to set or change the comment or description for.
-urdRepositoryName :: Lens' UpdateRepositoryDescription Text
-urdRepositoryName = lens _urdRepositoryName (\s a -> s {_urdRepositoryName = a})
+-- | The name of the repository to set or change the comment or description
+-- for.
+updateRepositoryDescription_repositoryName :: Lens.Lens' UpdateRepositoryDescription Prelude.Text
+updateRepositoryDescription_repositoryName = Lens.lens (\UpdateRepositoryDescription' {repositoryName} -> repositoryName) (\s@UpdateRepositoryDescription' {} a -> s {repositoryName = a} :: UpdateRepositoryDescription)
 
-instance AWSRequest UpdateRepositoryDescription where
+instance
+  Prelude.AWSRequest
+    UpdateRepositoryDescription
+  where
   type
     Rs UpdateRepositoryDescription =
       UpdateRepositoryDescriptionResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateRepositoryDescriptionResponse'
+    Response.receiveNull
+      UpdateRepositoryDescriptionResponse'
 
-instance Hashable UpdateRepositoryDescription
+instance Prelude.Hashable UpdateRepositoryDescription
 
-instance NFData UpdateRepositoryDescription
+instance Prelude.NFData UpdateRepositoryDescription
 
-instance ToHeaders UpdateRepositoryDescription where
+instance
+  Prelude.ToHeaders
+    UpdateRepositoryDescription
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.UpdateRepositoryDescription" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.UpdateRepositoryDescription" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateRepositoryDescription where
+instance Prelude.ToJSON UpdateRepositoryDescription where
   toJSON UpdateRepositoryDescription' {..} =
-    object
-      ( catMaybes
-          [ ("repositoryDescription" .=)
-              <$> _urdRepositoryDescription,
-            Just ("repositoryName" .= _urdRepositoryName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("repositoryDescription" Prelude..=)
+              Prelude.<$> repositoryDescription,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName)
           ]
       )
 
-instance ToPath UpdateRepositoryDescription where
-  toPath = const "/"
+instance Prelude.ToPath UpdateRepositoryDescription where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateRepositoryDescription where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateRepositoryDescription where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRepositoryDescriptionResponse' smart constructor.
+-- | /See:/ 'newUpdateRepositoryDescriptionResponse' smart constructor.
 data UpdateRepositoryDescriptionResponse = UpdateRepositoryDescriptionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRepositoryDescriptionResponse' with the minimum fields required to make a request.
-updateRepositoryDescriptionResponse ::
+-- |
+-- Create a value of 'UpdateRepositoryDescriptionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateRepositoryDescriptionResponse ::
   UpdateRepositoryDescriptionResponse
-updateRepositoryDescriptionResponse =
+newUpdateRepositoryDescriptionResponse =
   UpdateRepositoryDescriptionResponse'
 
-instance NFData UpdateRepositoryDescriptionResponse
+instance
+  Prelude.NFData
+    UpdateRepositoryDescriptionResponse

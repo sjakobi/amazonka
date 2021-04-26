@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,166 +24,210 @@
 -- Creates a new, empty repository.
 module Network.AWS.CodeCommit.CreateRepository
   ( -- * Creating a Request
-    createRepository,
-    CreateRepository,
+    CreateRepository (..),
+    newCreateRepository,
 
     -- * Request Lenses
-    crRepositoryDescription,
-    crTags,
-    crRepositoryName,
+    createRepository_repositoryDescription,
+    createRepository_tags,
+    createRepository_repositoryName,
 
     -- * Destructuring the Response
-    createRepositoryResponse,
-    CreateRepositoryResponse,
+    CreateRepositoryResponse (..),
+    newCreateRepositoryResponse,
 
     -- * Response Lenses
-    crrrsRepositoryMetadata,
-    crrrsResponseStatus,
+    createRepositoryResponse_repositoryMetadata,
+    createRepositoryResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.RepositoryMetadata
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a create repository operation.
 --
---
---
--- /See:/ 'createRepository' smart constructor.
+-- /See:/ 'newCreateRepository' smart constructor.
 data CreateRepository = CreateRepository'
-  { _crRepositoryDescription ::
-      !(Maybe Text),
-    _crTags :: !(Maybe (Map Text Text)),
-    _crRepositoryName :: !Text
+  { -- | A comment or description about the new repository.
+    --
+    -- The description field for a repository accepts all HTML characters and
+    -- all valid Unicode characters. Applications that do not HTML-encode the
+    -- description and display it in a webpage can expose users to potentially
+    -- malicious code. Make sure that you HTML-encode the description field in
+    -- any application that uses this API to display the repository description
+    -- on a webpage.
+    repositoryDescription :: Prelude.Maybe Prelude.Text,
+    -- | One or more tag key-value pairs to use when tagging this repository.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the new repository to be created.
+    --
+    -- The repository name must be unique across the calling AWS account.
+    -- Repository names are limited to 100 alphanumeric, dash, and underscore
+    -- characters, and cannot include certain characters. For more information
+    -- about the limits on repository names, see
+    -- <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html Limits>
+    -- in the /AWS CodeCommit User Guide/. The suffix .git is prohibited.
+    repositoryName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRepository' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRepository' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crRepositoryDescription' - A comment or description about the new repository.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crTags' - One or more tag key-value pairs to use when tagging this repository.
+-- 'repositoryDescription', 'createRepository_repositoryDescription' - A comment or description about the new repository.
 --
--- * 'crRepositoryName' - The name of the new repository to be created.
-createRepository ::
-  -- | 'crRepositoryName'
-  Text ->
+-- The description field for a repository accepts all HTML characters and
+-- all valid Unicode characters. Applications that do not HTML-encode the
+-- description and display it in a webpage can expose users to potentially
+-- malicious code. Make sure that you HTML-encode the description field in
+-- any application that uses this API to display the repository description
+-- on a webpage.
+--
+-- 'tags', 'createRepository_tags' - One or more tag key-value pairs to use when tagging this repository.
+--
+-- 'repositoryName', 'createRepository_repositoryName' - The name of the new repository to be created.
+--
+-- The repository name must be unique across the calling AWS account.
+-- Repository names are limited to 100 alphanumeric, dash, and underscore
+-- characters, and cannot include certain characters. For more information
+-- about the limits on repository names, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html Limits>
+-- in the /AWS CodeCommit User Guide/. The suffix .git is prohibited.
+newCreateRepository ::
+  -- | 'repositoryName'
+  Prelude.Text ->
   CreateRepository
-createRepository pRepositoryName_ =
+newCreateRepository pRepositoryName_ =
   CreateRepository'
-    { _crRepositoryDescription =
-        Nothing,
-      _crTags = Nothing,
-      _crRepositoryName = pRepositoryName_
+    { repositoryDescription =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
+      repositoryName = pRepositoryName_
     }
 
 -- | A comment or description about the new repository.
-crRepositoryDescription :: Lens' CreateRepository (Maybe Text)
-crRepositoryDescription = lens _crRepositoryDescription (\s a -> s {_crRepositoryDescription = a})
+--
+-- The description field for a repository accepts all HTML characters and
+-- all valid Unicode characters. Applications that do not HTML-encode the
+-- description and display it in a webpage can expose users to potentially
+-- malicious code. Make sure that you HTML-encode the description field in
+-- any application that uses this API to display the repository description
+-- on a webpage.
+createRepository_repositoryDescription :: Lens.Lens' CreateRepository (Prelude.Maybe Prelude.Text)
+createRepository_repositoryDescription = Lens.lens (\CreateRepository' {repositoryDescription} -> repositoryDescription) (\s@CreateRepository' {} a -> s {repositoryDescription = a} :: CreateRepository)
 
 -- | One or more tag key-value pairs to use when tagging this repository.
-crTags :: Lens' CreateRepository (HashMap Text Text)
-crTags = lens _crTags (\s a -> s {_crTags = a}) . _Default . _Map
+createRepository_tags :: Lens.Lens' CreateRepository (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createRepository_tags = Lens.lens (\CreateRepository' {tags} -> tags) (\s@CreateRepository' {} a -> s {tags = a} :: CreateRepository) Prelude.. Lens.mapping Prelude._Map
 
 -- | The name of the new repository to be created.
-crRepositoryName :: Lens' CreateRepository Text
-crRepositoryName = lens _crRepositoryName (\s a -> s {_crRepositoryName = a})
+--
+-- The repository name must be unique across the calling AWS account.
+-- Repository names are limited to 100 alphanumeric, dash, and underscore
+-- characters, and cannot include certain characters. For more information
+-- about the limits on repository names, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html Limits>
+-- in the /AWS CodeCommit User Guide/. The suffix .git is prohibited.
+createRepository_repositoryName :: Lens.Lens' CreateRepository Prelude.Text
+createRepository_repositoryName = Lens.lens (\CreateRepository' {repositoryName} -> repositoryName) (\s@CreateRepository' {} a -> s {repositoryName = a} :: CreateRepository)
 
-instance AWSRequest CreateRepository where
+instance Prelude.AWSRequest CreateRepository where
   type Rs CreateRepository = CreateRepositoryResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateRepositoryResponse'
-            <$> (x .?> "repositoryMetadata") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "repositoryMetadata")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateRepository
+instance Prelude.Hashable CreateRepository
 
-instance NFData CreateRepository
+instance Prelude.NFData CreateRepository
 
-instance ToHeaders CreateRepository where
+instance Prelude.ToHeaders CreateRepository where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.CreateRepository" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.CreateRepository" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateRepository where
+instance Prelude.ToJSON CreateRepository where
   toJSON CreateRepository' {..} =
-    object
-      ( catMaybes
-          [ ("repositoryDescription" .=)
-              <$> _crRepositoryDescription,
-            ("tags" .=) <$> _crTags,
-            Just ("repositoryName" .= _crRepositoryName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("repositoryDescription" Prelude..=)
+              Prelude.<$> repositoryDescription,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName)
           ]
       )
 
-instance ToPath CreateRepository where
-  toPath = const "/"
+instance Prelude.ToPath CreateRepository where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateRepository where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateRepository where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a create repository operation.
 --
---
---
--- /See:/ 'createRepositoryResponse' smart constructor.
+-- /See:/ 'newCreateRepositoryResponse' smart constructor.
 data CreateRepositoryResponse = CreateRepositoryResponse'
-  { _crrrsRepositoryMetadata ::
-      !( Maybe
-           RepositoryMetadata
-       ),
-    _crrrsResponseStatus ::
-      !Int
+  { -- | Information about the newly created repository.
+    repositoryMetadata :: Prelude.Maybe RepositoryMetadata,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRepositoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRepositoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crrrsRepositoryMetadata' - Information about the newly created repository.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crrrsResponseStatus' - -- | The response status code.
-createRepositoryResponse ::
-  -- | 'crrrsResponseStatus'
-  Int ->
+-- 'repositoryMetadata', 'createRepositoryResponse_repositoryMetadata' - Information about the newly created repository.
+--
+-- 'httpStatus', 'createRepositoryResponse_httpStatus' - The response's http status code.
+newCreateRepositoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateRepositoryResponse
-createRepositoryResponse pResponseStatus_ =
+newCreateRepositoryResponse pHttpStatus_ =
   CreateRepositoryResponse'
-    { _crrrsRepositoryMetadata =
-        Nothing,
-      _crrrsResponseStatus = pResponseStatus_
+    { repositoryMetadata =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the newly created repository.
-crrrsRepositoryMetadata :: Lens' CreateRepositoryResponse (Maybe RepositoryMetadata)
-crrrsRepositoryMetadata = lens _crrrsRepositoryMetadata (\s a -> s {_crrrsRepositoryMetadata = a})
+createRepositoryResponse_repositoryMetadata :: Lens.Lens' CreateRepositoryResponse (Prelude.Maybe RepositoryMetadata)
+createRepositoryResponse_repositoryMetadata = Lens.lens (\CreateRepositoryResponse' {repositoryMetadata} -> repositoryMetadata) (\s@CreateRepositoryResponse' {} a -> s {repositoryMetadata = a} :: CreateRepositoryResponse)
 
--- | -- | The response status code.
-crrrsResponseStatus :: Lens' CreateRepositoryResponse Int
-crrrsResponseStatus = lens _crrrsResponseStatus (\s a -> s {_crrrsResponseStatus = a})
+-- | The response's http status code.
+createRepositoryResponse_httpStatus :: Lens.Lens' CreateRepositoryResponse Prelude.Int
+createRepositoryResponse_httpStatus = Lens.lens (\CreateRepositoryResponse' {httpStatus} -> httpStatus) (\s@CreateRepositoryResponse' {} a -> s {httpStatus = a} :: CreateRepositoryResponse)
 
-instance NFData CreateRepositoryResponse
+instance Prelude.NFData CreateRepositoryResponse

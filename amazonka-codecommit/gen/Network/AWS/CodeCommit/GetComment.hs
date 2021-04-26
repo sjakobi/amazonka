@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,146 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the content of a comment made on a change, file, or commit in a repository.
+-- Returns the content of a comment made on a change, file, or commit in a
+-- repository.
+--
+-- Reaction counts might include numbers from user identities who were
+-- deleted after the reaction was made. For a count of reactions from
+-- active identities, use GetCommentReactions.
 module Network.AWS.CodeCommit.GetComment
   ( -- * Creating a Request
-    getComment,
-    GetComment,
+    GetComment (..),
+    newGetComment,
 
     -- * Request Lenses
-    gcCommentId,
+    getComment_commentId,
 
     -- * Destructuring the Response
-    getCommentResponse,
-    GetCommentResponse,
+    GetCommentResponse (..),
+    newGetCommentResponse,
 
     -- * Response Lenses
-    gcrrsComment,
-    gcrrsResponseStatus,
+    getCommentResponse_comment,
+    getCommentResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.Comment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getComment' smart constructor.
-newtype GetComment = GetComment'
-  { _gcCommentId ::
-      Text
+-- | /See:/ 'newGetComment' smart constructor.
+data GetComment = GetComment'
+  { -- | The unique, system-generated ID of the comment. To get this ID, use
+    -- GetCommentsForComparedCommit or GetCommentsForPullRequest.
+    commentId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetComment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetComment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcCommentId' - The unique, system-generated ID of the comment. To get this ID, use 'GetCommentsForComparedCommit' or 'GetCommentsForPullRequest' .
-getComment ::
-  -- | 'gcCommentId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'commentId', 'getComment_commentId' - The unique, system-generated ID of the comment. To get this ID, use
+-- GetCommentsForComparedCommit or GetCommentsForPullRequest.
+newGetComment ::
+  -- | 'commentId'
+  Prelude.Text ->
   GetComment
-getComment pCommentId_ =
-  GetComment' {_gcCommentId = pCommentId_}
+newGetComment pCommentId_ =
+  GetComment' {commentId = pCommentId_}
 
--- | The unique, system-generated ID of the comment. To get this ID, use 'GetCommentsForComparedCommit' or 'GetCommentsForPullRequest' .
-gcCommentId :: Lens' GetComment Text
-gcCommentId = lens _gcCommentId (\s a -> s {_gcCommentId = a})
+-- | The unique, system-generated ID of the comment. To get this ID, use
+-- GetCommentsForComparedCommit or GetCommentsForPullRequest.
+getComment_commentId :: Lens.Lens' GetComment Prelude.Text
+getComment_commentId = Lens.lens (\GetComment' {commentId} -> commentId) (\s@GetComment' {} a -> s {commentId = a} :: GetComment)
 
-instance AWSRequest GetComment where
+instance Prelude.AWSRequest GetComment where
   type Rs GetComment = GetCommentResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCommentResponse'
-            <$> (x .?> "comment") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "comment")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetComment
+instance Prelude.Hashable GetComment
 
-instance NFData GetComment
+instance Prelude.NFData GetComment
 
-instance ToHeaders GetComment where
+instance Prelude.ToHeaders GetComment where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeCommit_20150413.GetComment" :: ByteString),
+              Prelude.=# ( "CodeCommit_20150413.GetComment" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetComment where
+instance Prelude.ToJSON GetComment where
   toJSON GetComment' {..} =
-    object
-      (catMaybes [Just ("commentId" .= _gcCommentId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("commentId" Prelude..= commentId)]
+      )
 
-instance ToPath GetComment where
-  toPath = const "/"
+instance Prelude.ToPath GetComment where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetComment where
-  toQuery = const mempty
+instance Prelude.ToQuery GetComment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCommentResponse' smart constructor.
+-- | /See:/ 'newGetCommentResponse' smart constructor.
 data GetCommentResponse = GetCommentResponse'
-  { _gcrrsComment ::
-      !(Maybe Comment),
-    _gcrrsResponseStatus :: !Int
+  { -- | The contents of the comment.
+    comment :: Prelude.Maybe Comment,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCommentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCommentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrrsComment' - The contents of the comment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrrsResponseStatus' - -- | The response status code.
-getCommentResponse ::
-  -- | 'gcrrsResponseStatus'
-  Int ->
+-- 'comment', 'getCommentResponse_comment' - The contents of the comment.
+--
+-- 'httpStatus', 'getCommentResponse_httpStatus' - The response's http status code.
+newGetCommentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCommentResponse
-getCommentResponse pResponseStatus_ =
+newGetCommentResponse pHttpStatus_ =
   GetCommentResponse'
-    { _gcrrsComment = Nothing,
-      _gcrrsResponseStatus = pResponseStatus_
+    { comment = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The contents of the comment.
-gcrrsComment :: Lens' GetCommentResponse (Maybe Comment)
-gcrrsComment = lens _gcrrsComment (\s a -> s {_gcrrsComment = a})
+getCommentResponse_comment :: Lens.Lens' GetCommentResponse (Prelude.Maybe Comment)
+getCommentResponse_comment = Lens.lens (\GetCommentResponse' {comment} -> comment) (\s@GetCommentResponse' {} a -> s {comment = a} :: GetCommentResponse)
 
--- | -- | The response status code.
-gcrrsResponseStatus :: Lens' GetCommentResponse Int
-gcrrsResponseStatus = lens _gcrrsResponseStatus (\s a -> s {_gcrrsResponseStatus = a})
+-- | The response's http status code.
+getCommentResponse_httpStatus :: Lens.Lens' GetCommentResponse Prelude.Int
+getCommentResponse_httpStatus = Lens.lens (\GetCommentResponse' {httpStatus} -> httpStatus) (\s@GetCommentResponse' {} a -> s {httpStatus = a} :: GetCommentResponse)
 
-instance NFData GetCommentResponse
+instance Prelude.NFData GetCommentResponse

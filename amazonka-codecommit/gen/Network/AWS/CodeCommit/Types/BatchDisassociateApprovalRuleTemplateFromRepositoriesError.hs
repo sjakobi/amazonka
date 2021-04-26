@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.BatchDisassociateApprovalRuleTemplateFromRepositoriesError where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns information about errors in a BatchDisassociateApprovalRuleTemplateFromRepositories operation.
+-- | Returns information about errors in a
+-- BatchDisassociateApprovalRuleTemplateFromRepositories operation.
 --
---
---
--- /See:/ 'batchDisassociateApprovalRuleTemplateFromRepositoriesError' smart constructor.
+-- /See:/ 'newBatchDisassociateApprovalRuleTemplateFromRepositoriesError' smart constructor.
 data BatchDisassociateApprovalRuleTemplateFromRepositoriesError = BatchDisassociateApprovalRuleTemplateFromRepositoriesError'
-  { _bdartfreRepositoryName ::
-      !( Maybe
-           Text
-       ),
-    _bdartfreErrorMessage ::
-      !( Maybe
-           Text
-       ),
-    _bdartfreErrorCode ::
-      !( Maybe
-           Text
-       )
+  { -- | The name of the repository where the association with the template was
+    -- not able to be removed.
+    repositoryName :: Prelude.Maybe Prelude.Text,
+    -- | An error message that provides details about why the repository name was
+    -- either not found or not valid.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | An error code that specifies whether the repository name was not valid
+    -- or not found.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDisassociateApprovalRuleTemplateFromRepositoriesError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDisassociateApprovalRuleTemplateFromRepositoriesError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdartfreRepositoryName' - The name of the repository where the association with the template was not able to be removed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdartfreErrorMessage' - An error message that provides details about why the repository name was either not found or not valid.
+-- 'repositoryName', 'batchDisassociateApprovalRuleTemplateFromRepositoriesError_repositoryName' - The name of the repository where the association with the template was
+-- not able to be removed.
 --
--- * 'bdartfreErrorCode' - An error code that specifies whether the repository name was not valid or not found.
-batchDisassociateApprovalRuleTemplateFromRepositoriesError ::
+-- 'errorMessage', 'batchDisassociateApprovalRuleTemplateFromRepositoriesError_errorMessage' - An error message that provides details about why the repository name was
+-- either not found or not valid.
+--
+-- 'errorCode', 'batchDisassociateApprovalRuleTemplateFromRepositoriesError_errorCode' - An error code that specifies whether the repository name was not valid
+-- or not found.
+newBatchDisassociateApprovalRuleTemplateFromRepositoriesError ::
   BatchDisassociateApprovalRuleTemplateFromRepositoriesError
-batchDisassociateApprovalRuleTemplateFromRepositoriesError =
+newBatchDisassociateApprovalRuleTemplateFromRepositoriesError =
   BatchDisassociateApprovalRuleTemplateFromRepositoriesError'
-    { _bdartfreRepositoryName =
-        Nothing,
-      _bdartfreErrorMessage =
-        Nothing,
-      _bdartfreErrorCode =
-        Nothing
+    { repositoryName =
+        Prelude.Nothing,
+      errorMessage =
+        Prelude.Nothing,
+      errorCode =
+        Prelude.Nothing
     }
 
--- | The name of the repository where the association with the template was not able to be removed.
-bdartfreRepositoryName :: Lens' BatchDisassociateApprovalRuleTemplateFromRepositoriesError (Maybe Text)
-bdartfreRepositoryName = lens _bdartfreRepositoryName (\s a -> s {_bdartfreRepositoryName = a})
+-- | The name of the repository where the association with the template was
+-- not able to be removed.
+batchDisassociateApprovalRuleTemplateFromRepositoriesError_repositoryName :: Lens.Lens' BatchDisassociateApprovalRuleTemplateFromRepositoriesError (Prelude.Maybe Prelude.Text)
+batchDisassociateApprovalRuleTemplateFromRepositoriesError_repositoryName = Lens.lens (\BatchDisassociateApprovalRuleTemplateFromRepositoriesError' {repositoryName} -> repositoryName) (\s@BatchDisassociateApprovalRuleTemplateFromRepositoriesError' {} a -> s {repositoryName = a} :: BatchDisassociateApprovalRuleTemplateFromRepositoriesError)
 
--- | An error message that provides details about why the repository name was either not found or not valid.
-bdartfreErrorMessage :: Lens' BatchDisassociateApprovalRuleTemplateFromRepositoriesError (Maybe Text)
-bdartfreErrorMessage = lens _bdartfreErrorMessage (\s a -> s {_bdartfreErrorMessage = a})
+-- | An error message that provides details about why the repository name was
+-- either not found or not valid.
+batchDisassociateApprovalRuleTemplateFromRepositoriesError_errorMessage :: Lens.Lens' BatchDisassociateApprovalRuleTemplateFromRepositoriesError (Prelude.Maybe Prelude.Text)
+batchDisassociateApprovalRuleTemplateFromRepositoriesError_errorMessage = Lens.lens (\BatchDisassociateApprovalRuleTemplateFromRepositoriesError' {errorMessage} -> errorMessage) (\s@BatchDisassociateApprovalRuleTemplateFromRepositoriesError' {} a -> s {errorMessage = a} :: BatchDisassociateApprovalRuleTemplateFromRepositoriesError)
 
--- | An error code that specifies whether the repository name was not valid or not found.
-bdartfreErrorCode :: Lens' BatchDisassociateApprovalRuleTemplateFromRepositoriesError (Maybe Text)
-bdartfreErrorCode = lens _bdartfreErrorCode (\s a -> s {_bdartfreErrorCode = a})
+-- | An error code that specifies whether the repository name was not valid
+-- or not found.
+batchDisassociateApprovalRuleTemplateFromRepositoriesError_errorCode :: Lens.Lens' BatchDisassociateApprovalRuleTemplateFromRepositoriesError (Prelude.Maybe Prelude.Text)
+batchDisassociateApprovalRuleTemplateFromRepositoriesError_errorCode = Lens.lens (\BatchDisassociateApprovalRuleTemplateFromRepositoriesError' {errorCode} -> errorCode) (\s@BatchDisassociateApprovalRuleTemplateFromRepositoriesError' {} a -> s {errorCode = a} :: BatchDisassociateApprovalRuleTemplateFromRepositoriesError)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     BatchDisassociateApprovalRuleTemplateFromRepositoriesError
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchDisassociateApprovalRuleTemplateFromRepositoriesError"
       ( \x ->
           BatchDisassociateApprovalRuleTemplateFromRepositoriesError'
-            <$> (x .:? "repositoryName") <*> (x .:? "errorMessage")
-              <*> (x .:? "errorCode")
+            Prelude.<$> (x Prelude..:? "repositoryName")
+              Prelude.<*> (x Prelude..:? "errorMessage")
+              Prelude.<*> (x Prelude..:? "errorCode")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     BatchDisassociateApprovalRuleTemplateFromRepositoriesError
 
 instance
-  NFData
+  Prelude.NFData
     BatchDisassociateApprovalRuleTemplateFromRepositoriesError

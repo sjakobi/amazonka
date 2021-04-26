@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,66 @@
 module Network.AWS.CodeCommit.Types.ApprovalRuleOverriddenEventMetadata where
 
 import Network.AWS.CodeCommit.Types.OverrideStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns information about an override event for approval rules for a pull request.
+-- | Returns information about an override event for approval rules for a
+-- pull request.
 --
---
---
--- /See:/ 'approvalRuleOverriddenEventMetadata' smart constructor.
+-- /See:/ 'newApprovalRuleOverriddenEventMetadata' smart constructor.
 data ApprovalRuleOverriddenEventMetadata = ApprovalRuleOverriddenEventMetadata'
-  { _aroemRevisionId ::
-      !( Maybe
-           Text
-       ),
-    _aroemOverrideStatus ::
-      !( Maybe
-           OverrideStatus
-       )
+  { -- | The revision ID of the pull request when the override event occurred.
+    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the override event.
+    overrideStatus :: Prelude.Maybe OverrideStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApprovalRuleOverriddenEventMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApprovalRuleOverriddenEventMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aroemRevisionId' - The revision ID of the pull request when the override event occurred.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aroemOverrideStatus' - The status of the override event.
-approvalRuleOverriddenEventMetadata ::
+-- 'revisionId', 'approvalRuleOverriddenEventMetadata_revisionId' - The revision ID of the pull request when the override event occurred.
+--
+-- 'overrideStatus', 'approvalRuleOverriddenEventMetadata_overrideStatus' - The status of the override event.
+newApprovalRuleOverriddenEventMetadata ::
   ApprovalRuleOverriddenEventMetadata
-approvalRuleOverriddenEventMetadata =
+newApprovalRuleOverriddenEventMetadata =
   ApprovalRuleOverriddenEventMetadata'
-    { _aroemRevisionId =
-        Nothing,
-      _aroemOverrideStatus = Nothing
+    { revisionId =
+        Prelude.Nothing,
+      overrideStatus = Prelude.Nothing
     }
 
 -- | The revision ID of the pull request when the override event occurred.
-aroemRevisionId :: Lens' ApprovalRuleOverriddenEventMetadata (Maybe Text)
-aroemRevisionId = lens _aroemRevisionId (\s a -> s {_aroemRevisionId = a})
+approvalRuleOverriddenEventMetadata_revisionId :: Lens.Lens' ApprovalRuleOverriddenEventMetadata (Prelude.Maybe Prelude.Text)
+approvalRuleOverriddenEventMetadata_revisionId = Lens.lens (\ApprovalRuleOverriddenEventMetadata' {revisionId} -> revisionId) (\s@ApprovalRuleOverriddenEventMetadata' {} a -> s {revisionId = a} :: ApprovalRuleOverriddenEventMetadata)
 
 -- | The status of the override event.
-aroemOverrideStatus :: Lens' ApprovalRuleOverriddenEventMetadata (Maybe OverrideStatus)
-aroemOverrideStatus = lens _aroemOverrideStatus (\s a -> s {_aroemOverrideStatus = a})
+approvalRuleOverriddenEventMetadata_overrideStatus :: Lens.Lens' ApprovalRuleOverriddenEventMetadata (Prelude.Maybe OverrideStatus)
+approvalRuleOverriddenEventMetadata_overrideStatus = Lens.lens (\ApprovalRuleOverriddenEventMetadata' {overrideStatus} -> overrideStatus) (\s@ApprovalRuleOverriddenEventMetadata' {} a -> s {overrideStatus = a} :: ApprovalRuleOverriddenEventMetadata)
 
-instance FromJSON ApprovalRuleOverriddenEventMetadata where
+instance
+  Prelude.FromJSON
+    ApprovalRuleOverriddenEventMetadata
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ApprovalRuleOverriddenEventMetadata"
       ( \x ->
           ApprovalRuleOverriddenEventMetadata'
-            <$> (x .:? "revisionId") <*> (x .:? "overrideStatus")
+            Prelude.<$> (x Prelude..:? "revisionId")
+            Prelude.<*> (x Prelude..:? "overrideStatus")
       )
 
-instance Hashable ApprovalRuleOverriddenEventMetadata
+instance
+  Prelude.Hashable
+    ApprovalRuleOverriddenEventMetadata
 
-instance NFData ApprovalRuleOverriddenEventMetadata
+instance
+  Prelude.NFData
+    ApprovalRuleOverriddenEventMetadata

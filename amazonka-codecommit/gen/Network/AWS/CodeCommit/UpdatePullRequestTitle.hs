@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,160 +24,165 @@
 -- Replaces the title of a pull request.
 module Network.AWS.CodeCommit.UpdatePullRequestTitle
   ( -- * Creating a Request
-    updatePullRequestTitle,
-    UpdatePullRequestTitle,
+    UpdatePullRequestTitle (..),
+    newUpdatePullRequestTitle,
 
     -- * Request Lenses
-    uprtPullRequestId,
-    uprtTitle,
+    updatePullRequestTitle_pullRequestId,
+    updatePullRequestTitle_title,
 
     -- * Destructuring the Response
-    updatePullRequestTitleResponse,
-    UpdatePullRequestTitleResponse,
+    UpdatePullRequestTitleResponse (..),
+    newUpdatePullRequestTitleResponse,
 
     -- * Response Lenses
-    uprtrrsResponseStatus,
-    uprtrrsPullRequest,
+    updatePullRequestTitleResponse_httpStatus,
+    updatePullRequestTitleResponse_pullRequest,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.PullRequest
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updatePullRequestTitle' smart constructor.
+-- | /See:/ 'newUpdatePullRequestTitle' smart constructor.
 data UpdatePullRequestTitle = UpdatePullRequestTitle'
-  { _uprtPullRequestId ::
-      !Text,
-    _uprtTitle :: !Text
+  { -- | The system-generated ID of the pull request. To get this ID, use
+    -- ListPullRequests.
+    pullRequestId :: Prelude.Text,
+    -- | The updated title of the pull request. This replaces the existing title.
+    title :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePullRequestTitle' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePullRequestTitle' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uprtPullRequestId' - The system-generated ID of the pull request. To get this ID, use 'ListPullRequests' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uprtTitle' - The updated title of the pull request. This replaces the existing title.
-updatePullRequestTitle ::
-  -- | 'uprtPullRequestId'
-  Text ->
-  -- | 'uprtTitle'
-  Text ->
+-- 'pullRequestId', 'updatePullRequestTitle_pullRequestId' - The system-generated ID of the pull request. To get this ID, use
+-- ListPullRequests.
+--
+-- 'title', 'updatePullRequestTitle_title' - The updated title of the pull request. This replaces the existing title.
+newUpdatePullRequestTitle ::
+  -- | 'pullRequestId'
+  Prelude.Text ->
+  -- | 'title'
+  Prelude.Text ->
   UpdatePullRequestTitle
-updatePullRequestTitle pPullRequestId_ pTitle_ =
+newUpdatePullRequestTitle pPullRequestId_ pTitle_ =
   UpdatePullRequestTitle'
-    { _uprtPullRequestId =
+    { pullRequestId =
         pPullRequestId_,
-      _uprtTitle = pTitle_
+      title = pTitle_
     }
 
--- | The system-generated ID of the pull request. To get this ID, use 'ListPullRequests' .
-uprtPullRequestId :: Lens' UpdatePullRequestTitle Text
-uprtPullRequestId = lens _uprtPullRequestId (\s a -> s {_uprtPullRequestId = a})
+-- | The system-generated ID of the pull request. To get this ID, use
+-- ListPullRequests.
+updatePullRequestTitle_pullRequestId :: Lens.Lens' UpdatePullRequestTitle Prelude.Text
+updatePullRequestTitle_pullRequestId = Lens.lens (\UpdatePullRequestTitle' {pullRequestId} -> pullRequestId) (\s@UpdatePullRequestTitle' {} a -> s {pullRequestId = a} :: UpdatePullRequestTitle)
 
 -- | The updated title of the pull request. This replaces the existing title.
-uprtTitle :: Lens' UpdatePullRequestTitle Text
-uprtTitle = lens _uprtTitle (\s a -> s {_uprtTitle = a})
+updatePullRequestTitle_title :: Lens.Lens' UpdatePullRequestTitle Prelude.Text
+updatePullRequestTitle_title = Lens.lens (\UpdatePullRequestTitle' {title} -> title) (\s@UpdatePullRequestTitle' {} a -> s {title = a} :: UpdatePullRequestTitle)
 
-instance AWSRequest UpdatePullRequestTitle where
+instance Prelude.AWSRequest UpdatePullRequestTitle where
   type
     Rs UpdatePullRequestTitle =
       UpdatePullRequestTitleResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdatePullRequestTitleResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "pullRequest")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "pullRequest")
       )
 
-instance Hashable UpdatePullRequestTitle
+instance Prelude.Hashable UpdatePullRequestTitle
 
-instance NFData UpdatePullRequestTitle
+instance Prelude.NFData UpdatePullRequestTitle
 
-instance ToHeaders UpdatePullRequestTitle where
+instance Prelude.ToHeaders UpdatePullRequestTitle where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.UpdatePullRequestTitle" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.UpdatePullRequestTitle" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdatePullRequestTitle where
+instance Prelude.ToJSON UpdatePullRequestTitle where
   toJSON UpdatePullRequestTitle' {..} =
-    object
-      ( catMaybes
-          [ Just ("pullRequestId" .= _uprtPullRequestId),
-            Just ("title" .= _uprtTitle)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("pullRequestId" Prelude..= pullRequestId),
+            Prelude.Just ("title" Prelude..= title)
           ]
       )
 
-instance ToPath UpdatePullRequestTitle where
-  toPath = const "/"
+instance Prelude.ToPath UpdatePullRequestTitle where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdatePullRequestTitle where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdatePullRequestTitle where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updatePullRequestTitleResponse' smart constructor.
+-- | /See:/ 'newUpdatePullRequestTitleResponse' smart constructor.
 data UpdatePullRequestTitleResponse = UpdatePullRequestTitleResponse'
-  { _uprtrrsResponseStatus ::
-      !Int,
-    _uprtrrsPullRequest ::
-      !PullRequest
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about the updated pull request.
+    pullRequest :: PullRequest
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePullRequestTitleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePullRequestTitleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uprtrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uprtrrsPullRequest' - Information about the updated pull request.
-updatePullRequestTitleResponse ::
-  -- | 'uprtrrsResponseStatus'
-  Int ->
-  -- | 'uprtrrsPullRequest'
+-- 'httpStatus', 'updatePullRequestTitleResponse_httpStatus' - The response's http status code.
+--
+-- 'pullRequest', 'updatePullRequestTitleResponse_pullRequest' - Information about the updated pull request.
+newUpdatePullRequestTitleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'pullRequest'
   PullRequest ->
   UpdatePullRequestTitleResponse
-updatePullRequestTitleResponse
-  pResponseStatus_
+newUpdatePullRequestTitleResponse
+  pHttpStatus_
   pPullRequest_ =
     UpdatePullRequestTitleResponse'
-      { _uprtrrsResponseStatus =
-          pResponseStatus_,
-        _uprtrrsPullRequest = pPullRequest_
+      { httpStatus =
+          pHttpStatus_,
+        pullRequest = pPullRequest_
       }
 
--- | -- | The response status code.
-uprtrrsResponseStatus :: Lens' UpdatePullRequestTitleResponse Int
-uprtrrsResponseStatus = lens _uprtrrsResponseStatus (\s a -> s {_uprtrrsResponseStatus = a})
+-- | The response's http status code.
+updatePullRequestTitleResponse_httpStatus :: Lens.Lens' UpdatePullRequestTitleResponse Prelude.Int
+updatePullRequestTitleResponse_httpStatus = Lens.lens (\UpdatePullRequestTitleResponse' {httpStatus} -> httpStatus) (\s@UpdatePullRequestTitleResponse' {} a -> s {httpStatus = a} :: UpdatePullRequestTitleResponse)
 
 -- | Information about the updated pull request.
-uprtrrsPullRequest :: Lens' UpdatePullRequestTitleResponse PullRequest
-uprtrrsPullRequest = lens _uprtrrsPullRequest (\s a -> s {_uprtrrsPullRequest = a})
+updatePullRequestTitleResponse_pullRequest :: Lens.Lens' UpdatePullRequestTitleResponse PullRequest
+updatePullRequestTitleResponse_pullRequest = Lens.lens (\UpdatePullRequestTitleResponse' {pullRequest} -> pullRequest) (\s@UpdatePullRequestTitleResponse' {} a -> s {pullRequest = a} :: UpdatePullRequestTitleResponse)
 
-instance NFData UpdatePullRequestTitleResponse
+instance
+  Prelude.NFData
+    UpdatePullRequestTitleResponse

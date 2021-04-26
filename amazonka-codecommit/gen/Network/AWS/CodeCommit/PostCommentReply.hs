@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,187 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Posts a comment in reply to an existing comment on a comparison between commits or a pull request.
+-- Posts a comment in reply to an existing comment on a comparison between
+-- commits or a pull request.
 module Network.AWS.CodeCommit.PostCommentReply
   ( -- * Creating a Request
-    postCommentReply,
-    PostCommentReply,
+    PostCommentReply (..),
+    newPostCommentReply,
 
     -- * Request Lenses
-    pcrClientRequestToken,
-    pcrInReplyTo,
-    pcrContent,
+    postCommentReply_clientRequestToken,
+    postCommentReply_inReplyTo,
+    postCommentReply_content,
 
     -- * Destructuring the Response
-    postCommentReplyResponse,
-    PostCommentReplyResponse,
+    PostCommentReplyResponse (..),
+    newPostCommentReplyResponse,
 
     -- * Response Lenses
-    pcrrrsComment,
-    pcrrrsResponseStatus,
+    postCommentReplyResponse_comment,
+    postCommentReplyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.Comment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'postCommentReply' smart constructor.
+-- | /See:/ 'newPostCommentReply' smart constructor.
 data PostCommentReply = PostCommentReply'
-  { _pcrClientRequestToken ::
-      !(Maybe Text),
-    _pcrInReplyTo :: !Text,
-    _pcrContent :: !Text
+  { -- | A unique, client-generated idempotency token that, when provided in a
+    -- request, ensures the request cannot be repeated with a changed
+    -- parameter. If a request is received with the same parameters and a token
+    -- is included, the request returns information about the initial request
+    -- that used that token.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The system-generated ID of the comment to which you want to reply. To
+    -- get this ID, use GetCommentsForComparedCommit or
+    -- GetCommentsForPullRequest.
+    inReplyTo :: Prelude.Text,
+    -- | The contents of your reply to a comment.
+    content :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PostCommentReply' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PostCommentReply' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcrClientRequestToken' - A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be repeated with a changed parameter. If a request is received with the same parameters and a token is included, the request returns information about the initial request that used that token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcrInReplyTo' - The system-generated ID of the comment to which you want to reply. To get this ID, use 'GetCommentsForComparedCommit' or 'GetCommentsForPullRequest' .
+-- 'clientRequestToken', 'postCommentReply_clientRequestToken' - A unique, client-generated idempotency token that, when provided in a
+-- request, ensures the request cannot be repeated with a changed
+-- parameter. If a request is received with the same parameters and a token
+-- is included, the request returns information about the initial request
+-- that used that token.
 --
--- * 'pcrContent' - The contents of your reply to a comment.
-postCommentReply ::
-  -- | 'pcrInReplyTo'
-  Text ->
-  -- | 'pcrContent'
-  Text ->
+-- 'inReplyTo', 'postCommentReply_inReplyTo' - The system-generated ID of the comment to which you want to reply. To
+-- get this ID, use GetCommentsForComparedCommit or
+-- GetCommentsForPullRequest.
+--
+-- 'content', 'postCommentReply_content' - The contents of your reply to a comment.
+newPostCommentReply ::
+  -- | 'inReplyTo'
+  Prelude.Text ->
+  -- | 'content'
+  Prelude.Text ->
   PostCommentReply
-postCommentReply pInReplyTo_ pContent_ =
+newPostCommentReply pInReplyTo_ pContent_ =
   PostCommentReply'
-    { _pcrClientRequestToken = Nothing,
-      _pcrInReplyTo = pInReplyTo_,
-      _pcrContent = pContent_
+    { clientRequestToken =
+        Prelude.Nothing,
+      inReplyTo = pInReplyTo_,
+      content = pContent_
     }
 
--- | A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be repeated with a changed parameter. If a request is received with the same parameters and a token is included, the request returns information about the initial request that used that token.
-pcrClientRequestToken :: Lens' PostCommentReply (Maybe Text)
-pcrClientRequestToken = lens _pcrClientRequestToken (\s a -> s {_pcrClientRequestToken = a})
+-- | A unique, client-generated idempotency token that, when provided in a
+-- request, ensures the request cannot be repeated with a changed
+-- parameter. If a request is received with the same parameters and a token
+-- is included, the request returns information about the initial request
+-- that used that token.
+postCommentReply_clientRequestToken :: Lens.Lens' PostCommentReply (Prelude.Maybe Prelude.Text)
+postCommentReply_clientRequestToken = Lens.lens (\PostCommentReply' {clientRequestToken} -> clientRequestToken) (\s@PostCommentReply' {} a -> s {clientRequestToken = a} :: PostCommentReply)
 
--- | The system-generated ID of the comment to which you want to reply. To get this ID, use 'GetCommentsForComparedCommit' or 'GetCommentsForPullRequest' .
-pcrInReplyTo :: Lens' PostCommentReply Text
-pcrInReplyTo = lens _pcrInReplyTo (\s a -> s {_pcrInReplyTo = a})
+-- | The system-generated ID of the comment to which you want to reply. To
+-- get this ID, use GetCommentsForComparedCommit or
+-- GetCommentsForPullRequest.
+postCommentReply_inReplyTo :: Lens.Lens' PostCommentReply Prelude.Text
+postCommentReply_inReplyTo = Lens.lens (\PostCommentReply' {inReplyTo} -> inReplyTo) (\s@PostCommentReply' {} a -> s {inReplyTo = a} :: PostCommentReply)
 
 -- | The contents of your reply to a comment.
-pcrContent :: Lens' PostCommentReply Text
-pcrContent = lens _pcrContent (\s a -> s {_pcrContent = a})
+postCommentReply_content :: Lens.Lens' PostCommentReply Prelude.Text
+postCommentReply_content = Lens.lens (\PostCommentReply' {content} -> content) (\s@PostCommentReply' {} a -> s {content = a} :: PostCommentReply)
 
-instance AWSRequest PostCommentReply where
+instance Prelude.AWSRequest PostCommentReply where
   type Rs PostCommentReply = PostCommentReplyResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PostCommentReplyResponse'
-            <$> (x .?> "comment") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "comment")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PostCommentReply
+instance Prelude.Hashable PostCommentReply
 
-instance NFData PostCommentReply
+instance Prelude.NFData PostCommentReply
 
-instance ToHeaders PostCommentReply where
+instance Prelude.ToHeaders PostCommentReply where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.PostCommentReply" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.PostCommentReply" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PostCommentReply where
+instance Prelude.ToJSON PostCommentReply where
   toJSON PostCommentReply' {..} =
-    object
-      ( catMaybes
-          [ ("clientRequestToken" .=)
-              <$> _pcrClientRequestToken,
-            Just ("inReplyTo" .= _pcrInReplyTo),
-            Just ("content" .= _pcrContent)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("clientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            Prelude.Just ("inReplyTo" Prelude..= inReplyTo),
+            Prelude.Just ("content" Prelude..= content)
           ]
       )
 
-instance ToPath PostCommentReply where
-  toPath = const "/"
+instance Prelude.ToPath PostCommentReply where
+  toPath = Prelude.const "/"
 
-instance ToQuery PostCommentReply where
-  toQuery = const mempty
+instance Prelude.ToQuery PostCommentReply where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'postCommentReplyResponse' smart constructor.
+-- | /See:/ 'newPostCommentReplyResponse' smart constructor.
 data PostCommentReplyResponse = PostCommentReplyResponse'
-  { _pcrrrsComment ::
-      !(Maybe Comment),
-    _pcrrrsResponseStatus ::
-      !Int
+  { -- | Information about the reply to a comment.
+    comment :: Prelude.Maybe Comment,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PostCommentReplyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PostCommentReplyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcrrrsComment' - Information about the reply to a comment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcrrrsResponseStatus' - -- | The response status code.
-postCommentReplyResponse ::
-  -- | 'pcrrrsResponseStatus'
-  Int ->
+-- 'comment', 'postCommentReplyResponse_comment' - Information about the reply to a comment.
+--
+-- 'httpStatus', 'postCommentReplyResponse_httpStatus' - The response's http status code.
+newPostCommentReplyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PostCommentReplyResponse
-postCommentReplyResponse pResponseStatus_ =
+newPostCommentReplyResponse pHttpStatus_ =
   PostCommentReplyResponse'
-    { _pcrrrsComment = Nothing,
-      _pcrrrsResponseStatus = pResponseStatus_
+    { comment =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the reply to a comment.
-pcrrrsComment :: Lens' PostCommentReplyResponse (Maybe Comment)
-pcrrrsComment = lens _pcrrrsComment (\s a -> s {_pcrrrsComment = a})
+postCommentReplyResponse_comment :: Lens.Lens' PostCommentReplyResponse (Prelude.Maybe Comment)
+postCommentReplyResponse_comment = Lens.lens (\PostCommentReplyResponse' {comment} -> comment) (\s@PostCommentReplyResponse' {} a -> s {comment = a} :: PostCommentReplyResponse)
 
--- | -- | The response status code.
-pcrrrsResponseStatus :: Lens' PostCommentReplyResponse Int
-pcrrrsResponseStatus = lens _pcrrrsResponseStatus (\s a -> s {_pcrrrsResponseStatus = a})
+-- | The response's http status code.
+postCommentReplyResponse_httpStatus :: Lens.Lens' PostCommentReplyResponse Prelude.Int
+postCommentReplyResponse_httpStatus = Lens.lens (\PostCommentReplyResponse' {httpStatus} -> httpStatus) (\s@PostCommentReplyResponse' {} a -> s {httpStatus = a} :: PostCommentReplyResponse)
 
-instance NFData PostCommentReplyResponse
+instance Prelude.NFData PostCommentReplyResponse

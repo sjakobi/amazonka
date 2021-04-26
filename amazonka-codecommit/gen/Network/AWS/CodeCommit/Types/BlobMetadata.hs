@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,94 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.BlobMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about a specific Git blob object.
 --
---
---
--- /See:/ 'blobMetadata' smart constructor.
+-- /See:/ 'newBlobMetadata' smart constructor.
 data BlobMetadata = BlobMetadata'
-  { _bmMode ::
-      !(Maybe Text),
-    _bmBlobId :: !(Maybe Text),
-    _bmPath :: !(Maybe Text)
+  { -- | The file mode permissions of the blob. File mode permission codes
+    -- include:
+    --
+    -- -   @100644@ indicates read\/write
+    --
+    -- -   @100755@ indicates read\/write\/execute
+    --
+    -- -   @160000@ indicates a submodule
+    --
+    -- -   @120000@ indicates a symlink
+    mode :: Prelude.Maybe Prelude.Text,
+    -- | The full ID of the blob.
+    blobId :: Prelude.Maybe Prelude.Text,
+    -- | The path to the blob and associated file name, if any.
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BlobMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BlobMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bmMode' - The file mode permissions of the blob. File mode permission codes include:     * @100644@ indicates read/write     * @100755@ indicates read/write/execute     * @160000@ indicates a submodule     * @120000@ indicates a symlink
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bmBlobId' - The full ID of the blob.
+-- 'mode', 'blobMetadata_mode' - The file mode permissions of the blob. File mode permission codes
+-- include:
 --
--- * 'bmPath' - The path to the blob and associated file name, if any.
-blobMetadata ::
+-- -   @100644@ indicates read\/write
+--
+-- -   @100755@ indicates read\/write\/execute
+--
+-- -   @160000@ indicates a submodule
+--
+-- -   @120000@ indicates a symlink
+--
+-- 'blobId', 'blobMetadata_blobId' - The full ID of the blob.
+--
+-- 'path', 'blobMetadata_path' - The path to the blob and associated file name, if any.
+newBlobMetadata ::
   BlobMetadata
-blobMetadata =
+newBlobMetadata =
   BlobMetadata'
-    { _bmMode = Nothing,
-      _bmBlobId = Nothing,
-      _bmPath = Nothing
+    { mode = Prelude.Nothing,
+      blobId = Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
--- | The file mode permissions of the blob. File mode permission codes include:     * @100644@ indicates read/write     * @100755@ indicates read/write/execute     * @160000@ indicates a submodule     * @120000@ indicates a symlink
-bmMode :: Lens' BlobMetadata (Maybe Text)
-bmMode = lens _bmMode (\s a -> s {_bmMode = a})
+-- | The file mode permissions of the blob. File mode permission codes
+-- include:
+--
+-- -   @100644@ indicates read\/write
+--
+-- -   @100755@ indicates read\/write\/execute
+--
+-- -   @160000@ indicates a submodule
+--
+-- -   @120000@ indicates a symlink
+blobMetadata_mode :: Lens.Lens' BlobMetadata (Prelude.Maybe Prelude.Text)
+blobMetadata_mode = Lens.lens (\BlobMetadata' {mode} -> mode) (\s@BlobMetadata' {} a -> s {mode = a} :: BlobMetadata)
 
 -- | The full ID of the blob.
-bmBlobId :: Lens' BlobMetadata (Maybe Text)
-bmBlobId = lens _bmBlobId (\s a -> s {_bmBlobId = a})
+blobMetadata_blobId :: Lens.Lens' BlobMetadata (Prelude.Maybe Prelude.Text)
+blobMetadata_blobId = Lens.lens (\BlobMetadata' {blobId} -> blobId) (\s@BlobMetadata' {} a -> s {blobId = a} :: BlobMetadata)
 
 -- | The path to the blob and associated file name, if any.
-bmPath :: Lens' BlobMetadata (Maybe Text)
-bmPath = lens _bmPath (\s a -> s {_bmPath = a})
+blobMetadata_path :: Lens.Lens' BlobMetadata (Prelude.Maybe Prelude.Text)
+blobMetadata_path = Lens.lens (\BlobMetadata' {path} -> path) (\s@BlobMetadata' {} a -> s {path = a} :: BlobMetadata)
 
-instance FromJSON BlobMetadata where
+instance Prelude.FromJSON BlobMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BlobMetadata"
       ( \x ->
           BlobMetadata'
-            <$> (x .:? "mode")
-            <*> (x .:? "blobId")
-            <*> (x .:? "path")
+            Prelude.<$> (x Prelude..:? "mode")
+            Prelude.<*> (x Prelude..:? "blobId")
+            Prelude.<*> (x Prelude..:? "path")
       )
 
-instance Hashable BlobMetadata
+instance Prelude.Hashable BlobMetadata
 
-instance NFData BlobMetadata
+instance Prelude.NFData BlobMetadata

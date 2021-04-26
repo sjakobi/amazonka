@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,187 +23,220 @@
 --
 -- Gets information about one or more repositories.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CodeCommit.ListRepositories
   ( -- * Creating a Request
-    listRepositories,
-    ListRepositories,
+    ListRepositories (..),
+    newListRepositories,
 
     -- * Request Lenses
-    lrNextToken,
-    lrSortBy,
-    lrOrder,
+    listRepositories_nextToken,
+    listRepositories_sortBy,
+    listRepositories_order,
 
     -- * Destructuring the Response
-    listRepositoriesResponse,
-    ListRepositoriesResponse,
+    ListRepositoriesResponse (..),
+    newListRepositoriesResponse,
 
     -- * Response Lenses
-    lrrrsNextToken,
-    lrrrsRepositories,
-    lrrrsResponseStatus,
+    listRepositoriesResponse_nextToken,
+    listRepositoriesResponse_repositories,
+    listRepositoriesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.RepositoryNameIdPair
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a list repositories operation.
 --
---
---
--- /See:/ 'listRepositories' smart constructor.
+-- /See:/ 'newListRepositories' smart constructor.
 data ListRepositories = ListRepositories'
-  { _lrNextToken ::
-      !(Maybe Text),
-    _lrSortBy :: !(Maybe SortByEnum),
-    _lrOrder :: !(Maybe OrderEnum)
+  { -- | An enumeration token that allows the operation to batch the results of
+    -- the operation. Batch sizes are 1,000 for list repository operations.
+    -- When the client sends the token back to AWS CodeCommit, another page of
+    -- 1,000 records is retrieved.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The criteria used to sort the results of a list repositories operation.
+    sortBy :: Prelude.Maybe SortByEnum,
+    -- | The order in which to sort the results of a list repositories operation.
+    order :: Prelude.Maybe OrderEnum
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRepositories' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRepositories' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrNextToken' - An enumeration token that allows the operation to batch the results of the operation. Batch sizes are 1,000 for list repository operations. When the client sends the token back to AWS CodeCommit, another page of 1,000 records is retrieved.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrSortBy' - The criteria used to sort the results of a list repositories operation.
+-- 'nextToken', 'listRepositories_nextToken' - An enumeration token that allows the operation to batch the results of
+-- the operation. Batch sizes are 1,000 for list repository operations.
+-- When the client sends the token back to AWS CodeCommit, another page of
+-- 1,000 records is retrieved.
 --
--- * 'lrOrder' - The order in which to sort the results of a list repositories operation.
-listRepositories ::
+-- 'sortBy', 'listRepositories_sortBy' - The criteria used to sort the results of a list repositories operation.
+--
+-- 'order', 'listRepositories_order' - The order in which to sort the results of a list repositories operation.
+newListRepositories ::
   ListRepositories
-listRepositories =
+newListRepositories =
   ListRepositories'
-    { _lrNextToken = Nothing,
-      _lrSortBy = Nothing,
-      _lrOrder = Nothing
+    { nextToken = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      order = Prelude.Nothing
     }
 
--- | An enumeration token that allows the operation to batch the results of the operation. Batch sizes are 1,000 for list repository operations. When the client sends the token back to AWS CodeCommit, another page of 1,000 records is retrieved.
-lrNextToken :: Lens' ListRepositories (Maybe Text)
-lrNextToken = lens _lrNextToken (\s a -> s {_lrNextToken = a})
+-- | An enumeration token that allows the operation to batch the results of
+-- the operation. Batch sizes are 1,000 for list repository operations.
+-- When the client sends the token back to AWS CodeCommit, another page of
+-- 1,000 records is retrieved.
+listRepositories_nextToken :: Lens.Lens' ListRepositories (Prelude.Maybe Prelude.Text)
+listRepositories_nextToken = Lens.lens (\ListRepositories' {nextToken} -> nextToken) (\s@ListRepositories' {} a -> s {nextToken = a} :: ListRepositories)
 
 -- | The criteria used to sort the results of a list repositories operation.
-lrSortBy :: Lens' ListRepositories (Maybe SortByEnum)
-lrSortBy = lens _lrSortBy (\s a -> s {_lrSortBy = a})
+listRepositories_sortBy :: Lens.Lens' ListRepositories (Prelude.Maybe SortByEnum)
+listRepositories_sortBy = Lens.lens (\ListRepositories' {sortBy} -> sortBy) (\s@ListRepositories' {} a -> s {sortBy = a} :: ListRepositories)
 
 -- | The order in which to sort the results of a list repositories operation.
-lrOrder :: Lens' ListRepositories (Maybe OrderEnum)
-lrOrder = lens _lrOrder (\s a -> s {_lrOrder = a})
+listRepositories_order :: Lens.Lens' ListRepositories (Prelude.Maybe OrderEnum)
+listRepositories_order = Lens.lens (\ListRepositories' {order} -> order) (\s@ListRepositories' {} a -> s {order = a} :: ListRepositories)
 
-instance AWSPager ListRepositories where
+instance Pager.AWSPager ListRepositories where
   page rq rs
-    | stop (rs ^. lrrrsNextToken) = Nothing
-    | stop (rs ^. lrrrsRepositories) = Nothing
-    | otherwise =
-      Just $ rq & lrNextToken .~ rs ^. lrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listRepositoriesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listRepositoriesResponse_repositories
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listRepositories_nextToken
+          Lens..~ rs
+          Lens.^? listRepositoriesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListRepositories where
+instance Prelude.AWSRequest ListRepositories where
   type Rs ListRepositories = ListRepositoriesResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListRepositoriesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "repositories" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "repositories"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListRepositories
+instance Prelude.Hashable ListRepositories
 
-instance NFData ListRepositories
+instance Prelude.NFData ListRepositories
 
-instance ToHeaders ListRepositories where
+instance Prelude.ToHeaders ListRepositories where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.ListRepositories" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.ListRepositories" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListRepositories where
+instance Prelude.ToJSON ListRepositories where
   toJSON ListRepositories' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lrNextToken,
-            ("sortBy" .=) <$> _lrSortBy,
-            ("order" .=) <$> _lrOrder
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("sortBy" Prelude..=) Prelude.<$> sortBy,
+            ("order" Prelude..=) Prelude.<$> order
           ]
       )
 
-instance ToPath ListRepositories where
-  toPath = const "/"
+instance Prelude.ToPath ListRepositories where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListRepositories where
-  toQuery = const mempty
+instance Prelude.ToQuery ListRepositories where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a list repositories operation.
 --
---
---
--- /See:/ 'listRepositoriesResponse' smart constructor.
+-- /See:/ 'newListRepositoriesResponse' smart constructor.
 data ListRepositoriesResponse = ListRepositoriesResponse'
-  { _lrrrsNextToken ::
-      !(Maybe Text),
-    _lrrrsRepositories ::
-      !( Maybe
-           [RepositoryNameIdPair]
-       ),
-    _lrrrsResponseStatus ::
-      !Int
+  { -- | An enumeration token that allows the operation to batch the results of
+    -- the operation. Batch sizes are 1,000 for list repository operations.
+    -- When the client sends the token back to AWS CodeCommit, another page of
+    -- 1,000 records is retrieved.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Lists the repositories called by the list repositories operation.
+    repositories :: Prelude.Maybe [RepositoryNameIdPair],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRepositoriesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRepositoriesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrrrsNextToken' - An enumeration token that allows the operation to batch the results of the operation. Batch sizes are 1,000 for list repository operations. When the client sends the token back to AWS CodeCommit, another page of 1,000 records is retrieved.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrrrsRepositories' - Lists the repositories called by the list repositories operation.
+-- 'nextToken', 'listRepositoriesResponse_nextToken' - An enumeration token that allows the operation to batch the results of
+-- the operation. Batch sizes are 1,000 for list repository operations.
+-- When the client sends the token back to AWS CodeCommit, another page of
+-- 1,000 records is retrieved.
 --
--- * 'lrrrsResponseStatus' - -- | The response status code.
-listRepositoriesResponse ::
-  -- | 'lrrrsResponseStatus'
-  Int ->
+-- 'repositories', 'listRepositoriesResponse_repositories' - Lists the repositories called by the list repositories operation.
+--
+-- 'httpStatus', 'listRepositoriesResponse_httpStatus' - The response's http status code.
+newListRepositoriesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListRepositoriesResponse
-listRepositoriesResponse pResponseStatus_ =
+newListRepositoriesResponse pHttpStatus_ =
   ListRepositoriesResponse'
-    { _lrrrsNextToken =
-        Nothing,
-      _lrrrsRepositories = Nothing,
-      _lrrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      repositories = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An enumeration token that allows the operation to batch the results of the operation. Batch sizes are 1,000 for list repository operations. When the client sends the token back to AWS CodeCommit, another page of 1,000 records is retrieved.
-lrrrsNextToken :: Lens' ListRepositoriesResponse (Maybe Text)
-lrrrsNextToken = lens _lrrrsNextToken (\s a -> s {_lrrrsNextToken = a})
+-- | An enumeration token that allows the operation to batch the results of
+-- the operation. Batch sizes are 1,000 for list repository operations.
+-- When the client sends the token back to AWS CodeCommit, another page of
+-- 1,000 records is retrieved.
+listRepositoriesResponse_nextToken :: Lens.Lens' ListRepositoriesResponse (Prelude.Maybe Prelude.Text)
+listRepositoriesResponse_nextToken = Lens.lens (\ListRepositoriesResponse' {nextToken} -> nextToken) (\s@ListRepositoriesResponse' {} a -> s {nextToken = a} :: ListRepositoriesResponse)
 
 -- | Lists the repositories called by the list repositories operation.
-lrrrsRepositories :: Lens' ListRepositoriesResponse [RepositoryNameIdPair]
-lrrrsRepositories = lens _lrrrsRepositories (\s a -> s {_lrrrsRepositories = a}) . _Default . _Coerce
+listRepositoriesResponse_repositories :: Lens.Lens' ListRepositoriesResponse (Prelude.Maybe [RepositoryNameIdPair])
+listRepositoriesResponse_repositories = Lens.lens (\ListRepositoriesResponse' {repositories} -> repositories) (\s@ListRepositoriesResponse' {} a -> s {repositories = a} :: ListRepositoriesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrrrsResponseStatus :: Lens' ListRepositoriesResponse Int
-lrrrsResponseStatus = lens _lrrrsResponseStatus (\s a -> s {_lrrrsResponseStatus = a})
+-- | The response's http status code.
+listRepositoriesResponse_httpStatus :: Lens.Lens' ListRepositoriesResponse Prelude.Int
+listRepositoriesResponse_httpStatus = Lens.lens (\ListRepositoriesResponse' {httpStatus} -> httpStatus) (\s@ListRepositoriesResponse' {} a -> s {httpStatus = a} :: ListRepositoriesResponse)
 
-instance NFData ListRepositoriesResponse
+instance Prelude.NFData ListRepositoriesResponse

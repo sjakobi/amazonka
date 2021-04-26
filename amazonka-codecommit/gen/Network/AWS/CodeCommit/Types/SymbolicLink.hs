@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,83 @@
 module Network.AWS.CodeCommit.Types.SymbolicLink where
 
 import Network.AWS.CodeCommit.Types.FileModeTypeEnum
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about a symbolic link in a repository folder.
 --
---
---
--- /See:/ 'symbolicLink' smart constructor.
+-- /See:/ 'newSymbolicLink' smart constructor.
 data SymbolicLink = SymbolicLink'
-  { _slAbsolutePath ::
-      !(Maybe Text),
-    _slRelativePath :: !(Maybe Text),
-    _slBlobId :: !(Maybe Text),
-    _slFileMode :: !(Maybe FileModeTypeEnum)
+  { -- | The fully qualified path to the folder that contains the symbolic link.
+    absolutePath :: Prelude.Maybe Prelude.Text,
+    -- | The relative path of the symbolic link from the folder where the query
+    -- originated.
+    relativePath :: Prelude.Maybe Prelude.Text,
+    -- | The blob ID that contains the information about the symbolic link.
+    blobId :: Prelude.Maybe Prelude.Text,
+    -- | The file mode permissions of the blob that cotains information about the
+    -- symbolic link.
+    fileMode :: Prelude.Maybe FileModeTypeEnum
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SymbolicLink' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SymbolicLink' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slAbsolutePath' - The fully qualified path to the folder that contains the symbolic link.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slRelativePath' - The relative path of the symbolic link from the folder where the query originated.
+-- 'absolutePath', 'symbolicLink_absolutePath' - The fully qualified path to the folder that contains the symbolic link.
 --
--- * 'slBlobId' - The blob ID that contains the information about the symbolic link.
+-- 'relativePath', 'symbolicLink_relativePath' - The relative path of the symbolic link from the folder where the query
+-- originated.
 --
--- * 'slFileMode' - The file mode permissions of the blob that cotains information about the symbolic link.
-symbolicLink ::
+-- 'blobId', 'symbolicLink_blobId' - The blob ID that contains the information about the symbolic link.
+--
+-- 'fileMode', 'symbolicLink_fileMode' - The file mode permissions of the blob that cotains information about the
+-- symbolic link.
+newSymbolicLink ::
   SymbolicLink
-symbolicLink =
+newSymbolicLink =
   SymbolicLink'
-    { _slAbsolutePath = Nothing,
-      _slRelativePath = Nothing,
-      _slBlobId = Nothing,
-      _slFileMode = Nothing
+    { absolutePath = Prelude.Nothing,
+      relativePath = Prelude.Nothing,
+      blobId = Prelude.Nothing,
+      fileMode = Prelude.Nothing
     }
 
 -- | The fully qualified path to the folder that contains the symbolic link.
-slAbsolutePath :: Lens' SymbolicLink (Maybe Text)
-slAbsolutePath = lens _slAbsolutePath (\s a -> s {_slAbsolutePath = a})
+symbolicLink_absolutePath :: Lens.Lens' SymbolicLink (Prelude.Maybe Prelude.Text)
+symbolicLink_absolutePath = Lens.lens (\SymbolicLink' {absolutePath} -> absolutePath) (\s@SymbolicLink' {} a -> s {absolutePath = a} :: SymbolicLink)
 
--- | The relative path of the symbolic link from the folder where the query originated.
-slRelativePath :: Lens' SymbolicLink (Maybe Text)
-slRelativePath = lens _slRelativePath (\s a -> s {_slRelativePath = a})
+-- | The relative path of the symbolic link from the folder where the query
+-- originated.
+symbolicLink_relativePath :: Lens.Lens' SymbolicLink (Prelude.Maybe Prelude.Text)
+symbolicLink_relativePath = Lens.lens (\SymbolicLink' {relativePath} -> relativePath) (\s@SymbolicLink' {} a -> s {relativePath = a} :: SymbolicLink)
 
 -- | The blob ID that contains the information about the symbolic link.
-slBlobId :: Lens' SymbolicLink (Maybe Text)
-slBlobId = lens _slBlobId (\s a -> s {_slBlobId = a})
+symbolicLink_blobId :: Lens.Lens' SymbolicLink (Prelude.Maybe Prelude.Text)
+symbolicLink_blobId = Lens.lens (\SymbolicLink' {blobId} -> blobId) (\s@SymbolicLink' {} a -> s {blobId = a} :: SymbolicLink)
 
--- | The file mode permissions of the blob that cotains information about the symbolic link.
-slFileMode :: Lens' SymbolicLink (Maybe FileModeTypeEnum)
-slFileMode = lens _slFileMode (\s a -> s {_slFileMode = a})
+-- | The file mode permissions of the blob that cotains information about the
+-- symbolic link.
+symbolicLink_fileMode :: Lens.Lens' SymbolicLink (Prelude.Maybe FileModeTypeEnum)
+symbolicLink_fileMode = Lens.lens (\SymbolicLink' {fileMode} -> fileMode) (\s@SymbolicLink' {} a -> s {fileMode = a} :: SymbolicLink)
 
-instance FromJSON SymbolicLink where
+instance Prelude.FromJSON SymbolicLink where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SymbolicLink"
       ( \x ->
           SymbolicLink'
-            <$> (x .:? "absolutePath")
-            <*> (x .:? "relativePath")
-            <*> (x .:? "blobId")
-            <*> (x .:? "fileMode")
+            Prelude.<$> (x Prelude..:? "absolutePath")
+            Prelude.<*> (x Prelude..:? "relativePath")
+            Prelude.<*> (x Prelude..:? "blobId")
+            Prelude.<*> (x Prelude..:? "fileMode")
       )
 
-instance Hashable SymbolicLink
+instance Prelude.Hashable SymbolicLink
 
-instance NFData SymbolicLink
+instance Prelude.NFData SymbolicLink

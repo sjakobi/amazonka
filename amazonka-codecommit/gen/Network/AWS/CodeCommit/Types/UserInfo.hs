@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.UserInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the user who made a specified commit.
 --
---
---
--- /See:/ 'userInfo' smart constructor.
+-- /See:/ 'newUserInfo' smart constructor.
 data UserInfo = UserInfo'
-  { _uiName :: !(Maybe Text),
-    _uiDate :: !(Maybe Text),
-    _uiEmail :: !(Maybe Text)
+  { -- | The name of the user who made the specified commit.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The date when the specified commit was commited, in timestamp format
+    -- with GMT offset.
+    date :: Prelude.Maybe Prelude.Text,
+    -- | The email address associated with the user who made the commit, if any.
+    email :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uiName' - The name of the user who made the specified commit.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uiDate' - The date when the specified commit was commited, in timestamp format with GMT offset.
+-- 'name', 'userInfo_name' - The name of the user who made the specified commit.
 --
--- * 'uiEmail' - The email address associated with the user who made the commit, if any.
-userInfo ::
+-- 'date', 'userInfo_date' - The date when the specified commit was commited, in timestamp format
+-- with GMT offset.
+--
+-- 'email', 'userInfo_email' - The email address associated with the user who made the commit, if any.
+newUserInfo ::
   UserInfo
-userInfo =
+newUserInfo =
   UserInfo'
-    { _uiName = Nothing,
-      _uiDate = Nothing,
-      _uiEmail = Nothing
+    { name = Prelude.Nothing,
+      date = Prelude.Nothing,
+      email = Prelude.Nothing
     }
 
 -- | The name of the user who made the specified commit.
-uiName :: Lens' UserInfo (Maybe Text)
-uiName = lens _uiName (\s a -> s {_uiName = a})
+userInfo_name :: Lens.Lens' UserInfo (Prelude.Maybe Prelude.Text)
+userInfo_name = Lens.lens (\UserInfo' {name} -> name) (\s@UserInfo' {} a -> s {name = a} :: UserInfo)
 
--- | The date when the specified commit was commited, in timestamp format with GMT offset.
-uiDate :: Lens' UserInfo (Maybe Text)
-uiDate = lens _uiDate (\s a -> s {_uiDate = a})
+-- | The date when the specified commit was commited, in timestamp format
+-- with GMT offset.
+userInfo_date :: Lens.Lens' UserInfo (Prelude.Maybe Prelude.Text)
+userInfo_date = Lens.lens (\UserInfo' {date} -> date) (\s@UserInfo' {} a -> s {date = a} :: UserInfo)
 
 -- | The email address associated with the user who made the commit, if any.
-uiEmail :: Lens' UserInfo (Maybe Text)
-uiEmail = lens _uiEmail (\s a -> s {_uiEmail = a})
+userInfo_email :: Lens.Lens' UserInfo (Prelude.Maybe Prelude.Text)
+userInfo_email = Lens.lens (\UserInfo' {email} -> email) (\s@UserInfo' {} a -> s {email = a} :: UserInfo)
 
-instance FromJSON UserInfo where
+instance Prelude.FromJSON UserInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserInfo"
       ( \x ->
           UserInfo'
-            <$> (x .:? "name")
-            <*> (x .:? "date")
-            <*> (x .:? "email")
+            Prelude.<$> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "date")
+            Prelude.<*> (x Prelude..:? "email")
       )
 
-instance Hashable UserInfo
+instance Prelude.Hashable UserInfo
 
-instance NFData UserInfo
+instance Prelude.NFData UserInfo

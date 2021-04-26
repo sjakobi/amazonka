@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,98 +20,140 @@
 module Network.AWS.CodeCommit.Types.Commit where
 
 import Network.AWS.CodeCommit.Types.UserInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about a specific commit.
 --
---
---
--- /See:/ 'commit' smart constructor.
+-- /See:/ 'newCommit' smart constructor.
 data Commit = Commit'
-  { _cParents :: !(Maybe [Text]),
-    _cCommitId :: !(Maybe Text),
-    _cAdditionalData :: !(Maybe Text),
-    _cMessage :: !(Maybe Text),
-    _cTreeId :: !(Maybe Text),
-    _cAuthor :: !(Maybe UserInfo),
-    _cCommitter :: !(Maybe UserInfo)
+  { -- | A list of parent commits for the specified commit. Each parent commit ID
+    -- is the full commit ID.
+    parents :: Prelude.Maybe [Prelude.Text],
+    -- | The full SHA ID of the specified commit.
+    commitId :: Prelude.Maybe Prelude.Text,
+    -- | Any other data associated with the specified commit.
+    additionalData :: Prelude.Maybe Prelude.Text,
+    -- | The commit message associated with the specified commit.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | Tree information for the specified commit.
+    treeId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the author of the specified commit. Information
+    -- includes the date in timestamp format with GMT offset, the name of the
+    -- author, and the email address for the author, as configured in Git.
+    author :: Prelude.Maybe UserInfo,
+    -- | Information about the person who committed the specified commit, also
+    -- known as the committer. Information includes the date in timestamp
+    -- format with GMT offset, the name of the committer, and the email address
+    -- for the committer, as configured in Git.
+    --
+    -- For more information about the difference between an author and a
+    -- committer in Git, see
+    -- <http://git-scm.com/book/ch2-3.html Viewing the Commit History> in Pro
+    -- Git by Scott Chacon and Ben Straub.
+    committer :: Prelude.Maybe UserInfo
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Commit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Commit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cParents' - A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cCommitId' - The full SHA ID of the specified commit.
+-- 'parents', 'commit_parents' - A list of parent commits for the specified commit. Each parent commit ID
+-- is the full commit ID.
 --
--- * 'cAdditionalData' - Any other data associated with the specified commit.
+-- 'commitId', 'commit_commitId' - The full SHA ID of the specified commit.
 --
--- * 'cMessage' - The commit message associated with the specified commit.
+-- 'additionalData', 'commit_additionalData' - Any other data associated with the specified commit.
 --
--- * 'cTreeId' - Tree information for the specified commit.
+-- 'message', 'commit_message' - The commit message associated with the specified commit.
 --
--- * 'cAuthor' - Information about the author of the specified commit. Information includes the date in timestamp format with GMT offset, the name of the author, and the email address for the author, as configured in Git.
+-- 'treeId', 'commit_treeId' - Tree information for the specified commit.
 --
--- * 'cCommitter' - Information about the person who committed the specified commit, also known as the committer. Information includes the date in timestamp format with GMT offset, the name of the committer, and the email address for the committer, as configured in Git. For more information about the difference between an author and a committer in Git, see <http://git-scm.com/book/ch2-3.html Viewing the Commit History> in Pro Git by Scott Chacon and Ben Straub.
-commit ::
+-- 'author', 'commit_author' - Information about the author of the specified commit. Information
+-- includes the date in timestamp format with GMT offset, the name of the
+-- author, and the email address for the author, as configured in Git.
+--
+-- 'committer', 'commit_committer' - Information about the person who committed the specified commit, also
+-- known as the committer. Information includes the date in timestamp
+-- format with GMT offset, the name of the committer, and the email address
+-- for the committer, as configured in Git.
+--
+-- For more information about the difference between an author and a
+-- committer in Git, see
+-- <http://git-scm.com/book/ch2-3.html Viewing the Commit History> in Pro
+-- Git by Scott Chacon and Ben Straub.
+newCommit ::
   Commit
-commit =
+newCommit =
   Commit'
-    { _cParents = Nothing,
-      _cCommitId = Nothing,
-      _cAdditionalData = Nothing,
-      _cMessage = Nothing,
-      _cTreeId = Nothing,
-      _cAuthor = Nothing,
-      _cCommitter = Nothing
+    { parents = Prelude.Nothing,
+      commitId = Prelude.Nothing,
+      additionalData = Prelude.Nothing,
+      message = Prelude.Nothing,
+      treeId = Prelude.Nothing,
+      author = Prelude.Nothing,
+      committer = Prelude.Nothing
     }
 
--- | A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
-cParents :: Lens' Commit [Text]
-cParents = lens _cParents (\s a -> s {_cParents = a}) . _Default . _Coerce
+-- | A list of parent commits for the specified commit. Each parent commit ID
+-- is the full commit ID.
+commit_parents :: Lens.Lens' Commit (Prelude.Maybe [Prelude.Text])
+commit_parents = Lens.lens (\Commit' {parents} -> parents) (\s@Commit' {} a -> s {parents = a} :: Commit) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The full SHA ID of the specified commit.
-cCommitId :: Lens' Commit (Maybe Text)
-cCommitId = lens _cCommitId (\s a -> s {_cCommitId = a})
+commit_commitId :: Lens.Lens' Commit (Prelude.Maybe Prelude.Text)
+commit_commitId = Lens.lens (\Commit' {commitId} -> commitId) (\s@Commit' {} a -> s {commitId = a} :: Commit)
 
 -- | Any other data associated with the specified commit.
-cAdditionalData :: Lens' Commit (Maybe Text)
-cAdditionalData = lens _cAdditionalData (\s a -> s {_cAdditionalData = a})
+commit_additionalData :: Lens.Lens' Commit (Prelude.Maybe Prelude.Text)
+commit_additionalData = Lens.lens (\Commit' {additionalData} -> additionalData) (\s@Commit' {} a -> s {additionalData = a} :: Commit)
 
 -- | The commit message associated with the specified commit.
-cMessage :: Lens' Commit (Maybe Text)
-cMessage = lens _cMessage (\s a -> s {_cMessage = a})
+commit_message :: Lens.Lens' Commit (Prelude.Maybe Prelude.Text)
+commit_message = Lens.lens (\Commit' {message} -> message) (\s@Commit' {} a -> s {message = a} :: Commit)
 
 -- | Tree information for the specified commit.
-cTreeId :: Lens' Commit (Maybe Text)
-cTreeId = lens _cTreeId (\s a -> s {_cTreeId = a})
+commit_treeId :: Lens.Lens' Commit (Prelude.Maybe Prelude.Text)
+commit_treeId = Lens.lens (\Commit' {treeId} -> treeId) (\s@Commit' {} a -> s {treeId = a} :: Commit)
 
--- | Information about the author of the specified commit. Information includes the date in timestamp format with GMT offset, the name of the author, and the email address for the author, as configured in Git.
-cAuthor :: Lens' Commit (Maybe UserInfo)
-cAuthor = lens _cAuthor (\s a -> s {_cAuthor = a})
+-- | Information about the author of the specified commit. Information
+-- includes the date in timestamp format with GMT offset, the name of the
+-- author, and the email address for the author, as configured in Git.
+commit_author :: Lens.Lens' Commit (Prelude.Maybe UserInfo)
+commit_author = Lens.lens (\Commit' {author} -> author) (\s@Commit' {} a -> s {author = a} :: Commit)
 
--- | Information about the person who committed the specified commit, also known as the committer. Information includes the date in timestamp format with GMT offset, the name of the committer, and the email address for the committer, as configured in Git. For more information about the difference between an author and a committer in Git, see <http://git-scm.com/book/ch2-3.html Viewing the Commit History> in Pro Git by Scott Chacon and Ben Straub.
-cCommitter :: Lens' Commit (Maybe UserInfo)
-cCommitter = lens _cCommitter (\s a -> s {_cCommitter = a})
+-- | Information about the person who committed the specified commit, also
+-- known as the committer. Information includes the date in timestamp
+-- format with GMT offset, the name of the committer, and the email address
+-- for the committer, as configured in Git.
+--
+-- For more information about the difference between an author and a
+-- committer in Git, see
+-- <http://git-scm.com/book/ch2-3.html Viewing the Commit History> in Pro
+-- Git by Scott Chacon and Ben Straub.
+commit_committer :: Lens.Lens' Commit (Prelude.Maybe UserInfo)
+commit_committer = Lens.lens (\Commit' {committer} -> committer) (\s@Commit' {} a -> s {committer = a} :: Commit)
 
-instance FromJSON Commit where
+instance Prelude.FromJSON Commit where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Commit"
       ( \x ->
           Commit'
-            <$> (x .:? "parents" .!= mempty)
-            <*> (x .:? "commitId")
-            <*> (x .:? "additionalData")
-            <*> (x .:? "message")
-            <*> (x .:? "treeId")
-            <*> (x .:? "author")
-            <*> (x .:? "committer")
+            Prelude.<$> (x Prelude..:? "parents" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "commitId")
+            Prelude.<*> (x Prelude..:? "additionalData")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "treeId")
+            Prelude.<*> (x Prelude..:? "author")
+            Prelude.<*> (x Prelude..:? "committer")
       )
 
-instance Hashable Commit
+instance Prelude.Hashable Commit
 
-instance NFData Commit
+instance Prelude.NFData Commit

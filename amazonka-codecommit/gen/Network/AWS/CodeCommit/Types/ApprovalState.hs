@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CodeCommit.Types.ApprovalState
   ( ApprovalState
       ( ..,
-        Approve,
-        Revoke
+        ApprovalStateAPPROVE,
+        ApprovalStateREVOKE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ApprovalState = ApprovalState' (CI Text)
+newtype ApprovalState = ApprovalState'
+  { fromApprovalState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Approve :: ApprovalState
-pattern Approve = ApprovalState' "APPROVE"
+pattern ApprovalStateAPPROVE :: ApprovalState
+pattern ApprovalStateAPPROVE = ApprovalState' "APPROVE"
 
-pattern Revoke :: ApprovalState
-pattern Revoke = ApprovalState' "REVOKE"
+pattern ApprovalStateREVOKE :: ApprovalState
+pattern ApprovalStateREVOKE = ApprovalState' "REVOKE"
 
 {-# COMPLETE
-  Approve,
-  Revoke,
+  ApprovalStateAPPROVE,
+  ApprovalStateREVOKE,
   ApprovalState'
   #-}
 
-instance FromText ApprovalState where
-  parser = (ApprovalState' . mk) <$> takeText
+instance Prelude.FromText ApprovalState where
+  parser = ApprovalState' Prelude.<$> Prelude.takeText
 
-instance ToText ApprovalState where
-  toText (ApprovalState' ci) = original ci
+instance Prelude.ToText ApprovalState where
+  toText (ApprovalState' x) = x
 
-instance Hashable ApprovalState
+instance Prelude.Hashable ApprovalState
 
-instance NFData ApprovalState
+instance Prelude.NFData ApprovalState
 
-instance ToByteString ApprovalState
+instance Prelude.ToByteString ApprovalState
 
-instance ToQuery ApprovalState
+instance Prelude.ToQuery ApprovalState
 
-instance ToHeader ApprovalState
+instance Prelude.ToHeader ApprovalState
 
-instance ToJSON ApprovalState where
-  toJSON = toJSONText
+instance Prelude.ToJSON ApprovalState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ApprovalState where
-  parseJSON = parseJSONText "ApprovalState"
+instance Prelude.FromJSON ApprovalState where
+  parseJSON = Prelude.parseJSONText "ApprovalState"

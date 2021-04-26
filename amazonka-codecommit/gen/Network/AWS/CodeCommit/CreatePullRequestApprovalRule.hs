@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,182 +24,295 @@
 -- Creates an approval rule for a pull request.
 module Network.AWS.CodeCommit.CreatePullRequestApprovalRule
   ( -- * Creating a Request
-    createPullRequestApprovalRule,
-    CreatePullRequestApprovalRule,
+    CreatePullRequestApprovalRule (..),
+    newCreatePullRequestApprovalRule,
 
     -- * Request Lenses
-    cprarPullRequestId,
-    cprarApprovalRuleName,
-    cprarApprovalRuleContent,
+    createPullRequestApprovalRule_pullRequestId,
+    createPullRequestApprovalRule_approvalRuleName,
+    createPullRequestApprovalRule_approvalRuleContent,
 
     -- * Destructuring the Response
-    createPullRequestApprovalRuleResponse,
-    CreatePullRequestApprovalRuleResponse,
+    CreatePullRequestApprovalRuleResponse (..),
+    newCreatePullRequestApprovalRuleResponse,
 
     -- * Response Lenses
-    cprarrrsResponseStatus,
-    cprarrrsApprovalRule,
+    createPullRequestApprovalRuleResponse_httpStatus,
+    createPullRequestApprovalRuleResponse_approvalRule,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.ApprovalRule
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createPullRequestApprovalRule' smart constructor.
+-- | /See:/ 'newCreatePullRequestApprovalRule' smart constructor.
 data CreatePullRequestApprovalRule = CreatePullRequestApprovalRule'
-  { _cprarPullRequestId ::
-      !Text,
-    _cprarApprovalRuleName ::
-      !Text,
-    _cprarApprovalRuleContent ::
-      !Text
+  { -- | The system-generated ID of the pull request for which you want to create
+    -- the approval rule.
+    pullRequestId :: Prelude.Text,
+    -- | The name for the approval rule.
+    approvalRuleName :: Prelude.Text,
+    -- | The content of the approval rule, including the number of approvals
+    -- needed and the structure of an approval pool defined for approvals, if
+    -- any. For more information about approval pools, see the AWS CodeCommit
+    -- User Guide.
+    --
+    -- When you create the content of the approval rule, you can specify
+    -- approvers in an approval pool in one of two ways:
+    --
+    -- -   __CodeCommitApprovers__: This option only requires an AWS account
+    --     and a resource. It can be used for both IAM users and federated
+    --     access users whose name matches the provided resource name. This is
+    --     a very powerful option that offers a great deal of flexibility. For
+    --     example, if you specify the AWS account /123456789012/ and
+    --     /Mary_Major/, all of the following would be counted as approvals
+    --     coming from that user:
+    --
+    --     -   An IAM user in the account
+    --         (arn:aws:iam::/123456789012/:user\//Mary_Major/)
+    --
+    --     -   A federated user identified in IAM as Mary_Major
+    --         (arn:aws:sts::/123456789012/:federated-user\//Mary_Major/)
+    --
+    --     This option does not recognize an active session of someone assuming
+    --     the role of CodeCommitReview with a role session name of
+    --     /Mary_Major/
+    --     (arn:aws:sts::/123456789012/:assumed-role\/CodeCommitReview\//Mary_Major/)
+    --     unless you include a wildcard (*Mary_Major).
+    --
+    -- -   __Fully qualified ARN__: This option allows you to specify the fully
+    --     qualified Amazon Resource Name (ARN) of the IAM user or role.
+    --
+    -- For more information about IAM ARNs, wildcards, and formats, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers>
+    -- in the /IAM User Guide/.
+    approvalRuleContent :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePullRequestApprovalRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePullRequestApprovalRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprarPullRequestId' - The system-generated ID of the pull request for which you want to create the approval rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprarApprovalRuleName' - The name for the approval rule.
+-- 'pullRequestId', 'createPullRequestApprovalRule_pullRequestId' - The system-generated ID of the pull request for which you want to create
+-- the approval rule.
 --
--- * 'cprarApprovalRuleContent' - The content of the approval rule, including the number of approvals needed and the structure of an approval pool defined for approvals, if any. For more information about approval pools, see the AWS CodeCommit User Guide.
-createPullRequestApprovalRule ::
-  -- | 'cprarPullRequestId'
-  Text ->
-  -- | 'cprarApprovalRuleName'
-  Text ->
-  -- | 'cprarApprovalRuleContent'
-  Text ->
+-- 'approvalRuleName', 'createPullRequestApprovalRule_approvalRuleName' - The name for the approval rule.
+--
+-- 'approvalRuleContent', 'createPullRequestApprovalRule_approvalRuleContent' - The content of the approval rule, including the number of approvals
+-- needed and the structure of an approval pool defined for approvals, if
+-- any. For more information about approval pools, see the AWS CodeCommit
+-- User Guide.
+--
+-- When you create the content of the approval rule, you can specify
+-- approvers in an approval pool in one of two ways:
+--
+-- -   __CodeCommitApprovers__: This option only requires an AWS account
+--     and a resource. It can be used for both IAM users and federated
+--     access users whose name matches the provided resource name. This is
+--     a very powerful option that offers a great deal of flexibility. For
+--     example, if you specify the AWS account /123456789012/ and
+--     /Mary_Major/, all of the following would be counted as approvals
+--     coming from that user:
+--
+--     -   An IAM user in the account
+--         (arn:aws:iam::/123456789012/:user\//Mary_Major/)
+--
+--     -   A federated user identified in IAM as Mary_Major
+--         (arn:aws:sts::/123456789012/:federated-user\//Mary_Major/)
+--
+--     This option does not recognize an active session of someone assuming
+--     the role of CodeCommitReview with a role session name of
+--     /Mary_Major/
+--     (arn:aws:sts::/123456789012/:assumed-role\/CodeCommitReview\//Mary_Major/)
+--     unless you include a wildcard (*Mary_Major).
+--
+-- -   __Fully qualified ARN__: This option allows you to specify the fully
+--     qualified Amazon Resource Name (ARN) of the IAM user or role.
+--
+-- For more information about IAM ARNs, wildcards, and formats, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers>
+-- in the /IAM User Guide/.
+newCreatePullRequestApprovalRule ::
+  -- | 'pullRequestId'
+  Prelude.Text ->
+  -- | 'approvalRuleName'
+  Prelude.Text ->
+  -- | 'approvalRuleContent'
+  Prelude.Text ->
   CreatePullRequestApprovalRule
-createPullRequestApprovalRule
+newCreatePullRequestApprovalRule
   pPullRequestId_
   pApprovalRuleName_
   pApprovalRuleContent_ =
     CreatePullRequestApprovalRule'
-      { _cprarPullRequestId =
+      { pullRequestId =
           pPullRequestId_,
-        _cprarApprovalRuleName = pApprovalRuleName_,
-        _cprarApprovalRuleContent =
-          pApprovalRuleContent_
+        approvalRuleName = pApprovalRuleName_,
+        approvalRuleContent = pApprovalRuleContent_
       }
 
--- | The system-generated ID of the pull request for which you want to create the approval rule.
-cprarPullRequestId :: Lens' CreatePullRequestApprovalRule Text
-cprarPullRequestId = lens _cprarPullRequestId (\s a -> s {_cprarPullRequestId = a})
+-- | The system-generated ID of the pull request for which you want to create
+-- the approval rule.
+createPullRequestApprovalRule_pullRequestId :: Lens.Lens' CreatePullRequestApprovalRule Prelude.Text
+createPullRequestApprovalRule_pullRequestId = Lens.lens (\CreatePullRequestApprovalRule' {pullRequestId} -> pullRequestId) (\s@CreatePullRequestApprovalRule' {} a -> s {pullRequestId = a} :: CreatePullRequestApprovalRule)
 
 -- | The name for the approval rule.
-cprarApprovalRuleName :: Lens' CreatePullRequestApprovalRule Text
-cprarApprovalRuleName = lens _cprarApprovalRuleName (\s a -> s {_cprarApprovalRuleName = a})
+createPullRequestApprovalRule_approvalRuleName :: Lens.Lens' CreatePullRequestApprovalRule Prelude.Text
+createPullRequestApprovalRule_approvalRuleName = Lens.lens (\CreatePullRequestApprovalRule' {approvalRuleName} -> approvalRuleName) (\s@CreatePullRequestApprovalRule' {} a -> s {approvalRuleName = a} :: CreatePullRequestApprovalRule)
 
--- | The content of the approval rule, including the number of approvals needed and the structure of an approval pool defined for approvals, if any. For more information about approval pools, see the AWS CodeCommit User Guide.
-cprarApprovalRuleContent :: Lens' CreatePullRequestApprovalRule Text
-cprarApprovalRuleContent = lens _cprarApprovalRuleContent (\s a -> s {_cprarApprovalRuleContent = a})
+-- | The content of the approval rule, including the number of approvals
+-- needed and the structure of an approval pool defined for approvals, if
+-- any. For more information about approval pools, see the AWS CodeCommit
+-- User Guide.
+--
+-- When you create the content of the approval rule, you can specify
+-- approvers in an approval pool in one of two ways:
+--
+-- -   __CodeCommitApprovers__: This option only requires an AWS account
+--     and a resource. It can be used for both IAM users and federated
+--     access users whose name matches the provided resource name. This is
+--     a very powerful option that offers a great deal of flexibility. For
+--     example, if you specify the AWS account /123456789012/ and
+--     /Mary_Major/, all of the following would be counted as approvals
+--     coming from that user:
+--
+--     -   An IAM user in the account
+--         (arn:aws:iam::/123456789012/:user\//Mary_Major/)
+--
+--     -   A federated user identified in IAM as Mary_Major
+--         (arn:aws:sts::/123456789012/:federated-user\//Mary_Major/)
+--
+--     This option does not recognize an active session of someone assuming
+--     the role of CodeCommitReview with a role session name of
+--     /Mary_Major/
+--     (arn:aws:sts::/123456789012/:assumed-role\/CodeCommitReview\//Mary_Major/)
+--     unless you include a wildcard (*Mary_Major).
+--
+-- -   __Fully qualified ARN__: This option allows you to specify the fully
+--     qualified Amazon Resource Name (ARN) of the IAM user or role.
+--
+-- For more information about IAM ARNs, wildcards, and formats, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers>
+-- in the /IAM User Guide/.
+createPullRequestApprovalRule_approvalRuleContent :: Lens.Lens' CreatePullRequestApprovalRule Prelude.Text
+createPullRequestApprovalRule_approvalRuleContent = Lens.lens (\CreatePullRequestApprovalRule' {approvalRuleContent} -> approvalRuleContent) (\s@CreatePullRequestApprovalRule' {} a -> s {approvalRuleContent = a} :: CreatePullRequestApprovalRule)
 
-instance AWSRequest CreatePullRequestApprovalRule where
+instance
+  Prelude.AWSRequest
+    CreatePullRequestApprovalRule
+  where
   type
     Rs CreatePullRequestApprovalRule =
       CreatePullRequestApprovalRuleResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreatePullRequestApprovalRuleResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "approvalRule")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "approvalRule")
       )
 
-instance Hashable CreatePullRequestApprovalRule
+instance
+  Prelude.Hashable
+    CreatePullRequestApprovalRule
 
-instance NFData CreatePullRequestApprovalRule
+instance Prelude.NFData CreatePullRequestApprovalRule
 
-instance ToHeaders CreatePullRequestApprovalRule where
+instance
+  Prelude.ToHeaders
+    CreatePullRequestApprovalRule
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.CreatePullRequestApprovalRule" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.CreatePullRequestApprovalRule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePullRequestApprovalRule where
+instance Prelude.ToJSON CreatePullRequestApprovalRule where
   toJSON CreatePullRequestApprovalRule' {..} =
-    object
-      ( catMaybes
-          [ Just ("pullRequestId" .= _cprarPullRequestId),
-            Just ("approvalRuleName" .= _cprarApprovalRuleName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("pullRequestId" Prelude..= pullRequestId),
+            Prelude.Just
+              ("approvalRuleName" Prelude..= approvalRuleName),
+            Prelude.Just
               ( "approvalRuleContent"
-                  .= _cprarApprovalRuleContent
+                  Prelude..= approvalRuleContent
               )
           ]
       )
 
-instance ToPath CreatePullRequestApprovalRule where
-  toPath = const "/"
+instance Prelude.ToPath CreatePullRequestApprovalRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreatePullRequestApprovalRule where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CreatePullRequestApprovalRule
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createPullRequestApprovalRuleResponse' smart constructor.
+-- | /See:/ 'newCreatePullRequestApprovalRuleResponse' smart constructor.
 data CreatePullRequestApprovalRuleResponse = CreatePullRequestApprovalRuleResponse'
-  { _cprarrrsResponseStatus ::
-      !Int,
-    _cprarrrsApprovalRule ::
-      !ApprovalRule
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about the created approval rule.
+    approvalRule :: ApprovalRule
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePullRequestApprovalRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePullRequestApprovalRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprarrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprarrrsApprovalRule' - Information about the created approval rule.
-createPullRequestApprovalRuleResponse ::
-  -- | 'cprarrrsResponseStatus'
-  Int ->
-  -- | 'cprarrrsApprovalRule'
+-- 'httpStatus', 'createPullRequestApprovalRuleResponse_httpStatus' - The response's http status code.
+--
+-- 'approvalRule', 'createPullRequestApprovalRuleResponse_approvalRule' - Information about the created approval rule.
+newCreatePullRequestApprovalRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'approvalRule'
   ApprovalRule ->
   CreatePullRequestApprovalRuleResponse
-createPullRequestApprovalRuleResponse
-  pResponseStatus_
+newCreatePullRequestApprovalRuleResponse
+  pHttpStatus_
   pApprovalRule_ =
     CreatePullRequestApprovalRuleResponse'
-      { _cprarrrsResponseStatus =
-          pResponseStatus_,
-        _cprarrrsApprovalRule =
-          pApprovalRule_
+      { httpStatus =
+          pHttpStatus_,
+        approvalRule = pApprovalRule_
       }
 
--- | -- | The response status code.
-cprarrrsResponseStatus :: Lens' CreatePullRequestApprovalRuleResponse Int
-cprarrrsResponseStatus = lens _cprarrrsResponseStatus (\s a -> s {_cprarrrsResponseStatus = a})
+-- | The response's http status code.
+createPullRequestApprovalRuleResponse_httpStatus :: Lens.Lens' CreatePullRequestApprovalRuleResponse Prelude.Int
+createPullRequestApprovalRuleResponse_httpStatus = Lens.lens (\CreatePullRequestApprovalRuleResponse' {httpStatus} -> httpStatus) (\s@CreatePullRequestApprovalRuleResponse' {} a -> s {httpStatus = a} :: CreatePullRequestApprovalRuleResponse)
 
 -- | Information about the created approval rule.
-cprarrrsApprovalRule :: Lens' CreatePullRequestApprovalRuleResponse ApprovalRule
-cprarrrsApprovalRule = lens _cprarrrsApprovalRule (\s a -> s {_cprarrrsApprovalRule = a})
+createPullRequestApprovalRuleResponse_approvalRule :: Lens.Lens' CreatePullRequestApprovalRuleResponse ApprovalRule
+createPullRequestApprovalRuleResponse_approvalRule = Lens.lens (\CreatePullRequestApprovalRuleResponse' {approvalRule} -> approvalRule) (\s@CreatePullRequestApprovalRuleResponse' {} a -> s {approvalRule = a} :: CreatePullRequestApprovalRuleResponse)
 
-instance NFData CreatePullRequestApprovalRuleResponse
+instance
+  Prelude.NFData
+    CreatePullRequestApprovalRuleResponse

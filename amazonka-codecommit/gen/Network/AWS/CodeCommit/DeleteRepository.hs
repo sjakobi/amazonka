@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,152 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a repository. If a specified repository was already deleted, a null repository ID is returned.
+-- Deletes a repository. If a specified repository was already deleted, a
+-- null repository ID is returned.
 --
---
--- /Important:/ Deleting a repository also deletes all associated objects and metadata. After a repository is deleted, all future push calls to the deleted repository fail.
+-- Deleting a repository also deletes all associated objects and metadata.
+-- After a repository is deleted, all future push calls to the deleted
+-- repository fail.
 module Network.AWS.CodeCommit.DeleteRepository
   ( -- * Creating a Request
-    deleteRepository,
-    DeleteRepository,
+    DeleteRepository (..),
+    newDeleteRepository,
 
     -- * Request Lenses
-    drRepositoryName,
+    deleteRepository_repositoryName,
 
     -- * Destructuring the Response
-    deleteRepositoryResponse,
-    DeleteRepositoryResponse,
+    DeleteRepositoryResponse (..),
+    newDeleteRepositoryResponse,
 
     -- * Response Lenses
-    drrrsRepositoryId,
-    drrrsResponseStatus,
+    deleteRepositoryResponse_repositoryId,
+    deleteRepositoryResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a delete repository operation.
 --
---
---
--- /See:/ 'deleteRepository' smart constructor.
-newtype DeleteRepository = DeleteRepository'
-  { _drRepositoryName ::
-      Text
+-- /See:/ 'newDeleteRepository' smart constructor.
+data DeleteRepository = DeleteRepository'
+  { -- | The name of the repository to delete.
+    repositoryName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRepository' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRepository' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drRepositoryName' - The name of the repository to delete.
-deleteRepository ::
-  -- | 'drRepositoryName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'repositoryName', 'deleteRepository_repositoryName' - The name of the repository to delete.
+newDeleteRepository ::
+  -- | 'repositoryName'
+  Prelude.Text ->
   DeleteRepository
-deleteRepository pRepositoryName_ =
+newDeleteRepository pRepositoryName_ =
   DeleteRepository'
-    { _drRepositoryName =
+    { repositoryName =
         pRepositoryName_
     }
 
 -- | The name of the repository to delete.
-drRepositoryName :: Lens' DeleteRepository Text
-drRepositoryName = lens _drRepositoryName (\s a -> s {_drRepositoryName = a})
+deleteRepository_repositoryName :: Lens.Lens' DeleteRepository Prelude.Text
+deleteRepository_repositoryName = Lens.lens (\DeleteRepository' {repositoryName} -> repositoryName) (\s@DeleteRepository' {} a -> s {repositoryName = a} :: DeleteRepository)
 
-instance AWSRequest DeleteRepository where
+instance Prelude.AWSRequest DeleteRepository where
   type Rs DeleteRepository = DeleteRepositoryResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteRepositoryResponse'
-            <$> (x .?> "repositoryId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "repositoryId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteRepository
+instance Prelude.Hashable DeleteRepository
 
-instance NFData DeleteRepository
+instance Prelude.NFData DeleteRepository
 
-instance ToHeaders DeleteRepository where
+instance Prelude.ToHeaders DeleteRepository where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.DeleteRepository" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.DeleteRepository" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteRepository where
+instance Prelude.ToJSON DeleteRepository where
   toJSON DeleteRepository' {..} =
-    object
-      ( catMaybes
-          [Just ("repositoryName" .= _drRepositoryName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("repositoryName" Prelude..= repositoryName)
+          ]
       )
 
-instance ToPath DeleteRepository where
-  toPath = const "/"
+instance Prelude.ToPath DeleteRepository where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteRepository where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteRepository where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a delete repository operation.
 --
---
---
--- /See:/ 'deleteRepositoryResponse' smart constructor.
+-- /See:/ 'newDeleteRepositoryResponse' smart constructor.
 data DeleteRepositoryResponse = DeleteRepositoryResponse'
-  { _drrrsRepositoryId ::
-      !(Maybe Text),
-    _drrrsResponseStatus ::
-      !Int
+  { -- | The ID of the repository that was deleted.
+    repositoryId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRepositoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRepositoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drrrsRepositoryId' - The ID of the repository that was deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drrrsResponseStatus' - -- | The response status code.
-deleteRepositoryResponse ::
-  -- | 'drrrsResponseStatus'
-  Int ->
+-- 'repositoryId', 'deleteRepositoryResponse_repositoryId' - The ID of the repository that was deleted.
+--
+-- 'httpStatus', 'deleteRepositoryResponse_httpStatus' - The response's http status code.
+newDeleteRepositoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteRepositoryResponse
-deleteRepositoryResponse pResponseStatus_ =
+newDeleteRepositoryResponse pHttpStatus_ =
   DeleteRepositoryResponse'
-    { _drrrsRepositoryId =
-        Nothing,
-      _drrrsResponseStatus = pResponseStatus_
+    { repositoryId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the repository that was deleted.
-drrrsRepositoryId :: Lens' DeleteRepositoryResponse (Maybe Text)
-drrrsRepositoryId = lens _drrrsRepositoryId (\s a -> s {_drrrsRepositoryId = a})
+deleteRepositoryResponse_repositoryId :: Lens.Lens' DeleteRepositoryResponse (Prelude.Maybe Prelude.Text)
+deleteRepositoryResponse_repositoryId = Lens.lens (\DeleteRepositoryResponse' {repositoryId} -> repositoryId) (\s@DeleteRepositoryResponse' {} a -> s {repositoryId = a} :: DeleteRepositoryResponse)
 
--- | -- | The response status code.
-drrrsResponseStatus :: Lens' DeleteRepositoryResponse Int
-drrrsResponseStatus = lens _drrrsResponseStatus (\s a -> s {_drrrsResponseStatus = a})
+-- | The response's http status code.
+deleteRepositoryResponse_httpStatus :: Lens.Lens' DeleteRepositoryResponse Prelude.Int
+deleteRepositoryResponse_httpStatus = Lens.lens (\DeleteRepositoryResponse' {httpStatus} -> httpStatus) (\s@DeleteRepositoryResponse' {} a -> s {httpStatus = a} :: DeleteRepositoryResponse)
 
-instance NFData DeleteRepositoryResponse
+instance Prelude.NFData DeleteRepositoryResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CodeCommit.Types.ConflictDetailLevelTypeEnum
   ( ConflictDetailLevelTypeEnum
       ( ..,
-        FileLevel,
-        LineLevel
+        ConflictDetailLevelTypeEnumFILELEVEL,
+        ConflictDetailLevelTypeEnumLINELEVEL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConflictDetailLevelTypeEnum
-  = ConflictDetailLevelTypeEnum'
-      ( CI
-          Text
-      )
+newtype ConflictDetailLevelTypeEnum = ConflictDetailLevelTypeEnum'
+  { fromConflictDetailLevelTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FileLevel :: ConflictDetailLevelTypeEnum
-pattern FileLevel = ConflictDetailLevelTypeEnum' "FILE_LEVEL"
+pattern ConflictDetailLevelTypeEnumFILELEVEL :: ConflictDetailLevelTypeEnum
+pattern ConflictDetailLevelTypeEnumFILELEVEL = ConflictDetailLevelTypeEnum' "FILE_LEVEL"
 
-pattern LineLevel :: ConflictDetailLevelTypeEnum
-pattern LineLevel = ConflictDetailLevelTypeEnum' "LINE_LEVEL"
+pattern ConflictDetailLevelTypeEnumLINELEVEL :: ConflictDetailLevelTypeEnum
+pattern ConflictDetailLevelTypeEnumLINELEVEL = ConflictDetailLevelTypeEnum' "LINE_LEVEL"
 
 {-# COMPLETE
-  FileLevel,
-  LineLevel,
+  ConflictDetailLevelTypeEnumFILELEVEL,
+  ConflictDetailLevelTypeEnumLINELEVEL,
   ConflictDetailLevelTypeEnum'
   #-}
 
-instance FromText ConflictDetailLevelTypeEnum where
-  parser = (ConflictDetailLevelTypeEnum' . mk) <$> takeText
+instance Prelude.FromText ConflictDetailLevelTypeEnum where
+  parser = ConflictDetailLevelTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ConflictDetailLevelTypeEnum where
-  toText (ConflictDetailLevelTypeEnum' ci) = original ci
+instance Prelude.ToText ConflictDetailLevelTypeEnum where
+  toText (ConflictDetailLevelTypeEnum' x) = x
 
-instance Hashable ConflictDetailLevelTypeEnum
+instance Prelude.Hashable ConflictDetailLevelTypeEnum
 
-instance NFData ConflictDetailLevelTypeEnum
+instance Prelude.NFData ConflictDetailLevelTypeEnum
 
-instance ToByteString ConflictDetailLevelTypeEnum
+instance Prelude.ToByteString ConflictDetailLevelTypeEnum
 
-instance ToQuery ConflictDetailLevelTypeEnum
+instance Prelude.ToQuery ConflictDetailLevelTypeEnum
 
-instance ToHeader ConflictDetailLevelTypeEnum
+instance Prelude.ToHeader ConflictDetailLevelTypeEnum
 
-instance ToJSON ConflictDetailLevelTypeEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConflictDetailLevelTypeEnum where
+  toJSON = Prelude.toJSONText

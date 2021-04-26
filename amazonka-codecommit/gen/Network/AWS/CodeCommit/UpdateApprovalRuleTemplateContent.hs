@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,188 +21,213 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the content of an approval rule template. You can change the number of required approvals, the membership of the approval rule, and whether an approval pool is defined.
+-- Updates the content of an approval rule template. You can change the
+-- number of required approvals, the membership of the approval rule, and
+-- whether an approval pool is defined.
 module Network.AWS.CodeCommit.UpdateApprovalRuleTemplateContent
   ( -- * Creating a Request
-    updateApprovalRuleTemplateContent,
-    UpdateApprovalRuleTemplateContent,
+    UpdateApprovalRuleTemplateContent (..),
+    newUpdateApprovalRuleTemplateContent,
 
     -- * Request Lenses
-    uartcExistingRuleContentSha256,
-    uartcApprovalRuleTemplateName,
-    uartcNewRuleContent,
+    updateApprovalRuleTemplateContent_existingRuleContentSha256,
+    updateApprovalRuleTemplateContent_approvalRuleTemplateName,
+    updateApprovalRuleTemplateContent_newRuleContent,
 
     -- * Destructuring the Response
-    updateApprovalRuleTemplateContentResponse,
-    UpdateApprovalRuleTemplateContentResponse,
+    UpdateApprovalRuleTemplateContentResponse (..),
+    newUpdateApprovalRuleTemplateContentResponse,
 
     -- * Response Lenses
-    uartcrrsResponseStatus,
-    uartcrrsApprovalRuleTemplate,
+    updateApprovalRuleTemplateContentResponse_httpStatus,
+    updateApprovalRuleTemplateContentResponse_approvalRuleTemplate,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.ApprovalRuleTemplate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateApprovalRuleTemplateContent' smart constructor.
+-- | /See:/ 'newUpdateApprovalRuleTemplateContent' smart constructor.
 data UpdateApprovalRuleTemplateContent = UpdateApprovalRuleTemplateContent'
-  { _uartcExistingRuleContentSha256 ::
-      !( Maybe
-           Text
-       ),
-    _uartcApprovalRuleTemplateName ::
-      !Text,
-    _uartcNewRuleContent ::
-      !Text
+  { -- | The SHA-256 hash signature for the content of the approval rule. You can
+    -- retrieve this information by using GetPullRequest.
+    existingRuleContentSha256 :: Prelude.Maybe Prelude.Text,
+    -- | The name of the approval rule template where you want to update the
+    -- content of the rule.
+    approvalRuleTemplateName :: Prelude.Text,
+    -- | The content that replaces the existing content of the rule. Content
+    -- statements must be complete. You cannot provide only the changes.
+    newRuleContent' :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApprovalRuleTemplateContent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApprovalRuleTemplateContent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uartcExistingRuleContentSha256' - The SHA-256 hash signature for the content of the approval rule. You can retrieve this information by using 'GetPullRequest' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uartcApprovalRuleTemplateName' - The name of the approval rule template where you want to update the content of the rule.
+-- 'existingRuleContentSha256', 'updateApprovalRuleTemplateContent_existingRuleContentSha256' - The SHA-256 hash signature for the content of the approval rule. You can
+-- retrieve this information by using GetPullRequest.
 --
--- * 'uartcNewRuleContent' - The content that replaces the existing content of the rule. Content statements must be complete. You cannot provide only the changes.
-updateApprovalRuleTemplateContent ::
-  -- | 'uartcApprovalRuleTemplateName'
-  Text ->
-  -- | 'uartcNewRuleContent'
-  Text ->
+-- 'approvalRuleTemplateName', 'updateApprovalRuleTemplateContent_approvalRuleTemplateName' - The name of the approval rule template where you want to update the
+-- content of the rule.
+--
+-- 'newRuleContent'', 'updateApprovalRuleTemplateContent_newRuleContent' - The content that replaces the existing content of the rule. Content
+-- statements must be complete. You cannot provide only the changes.
+newUpdateApprovalRuleTemplateContent ::
+  -- | 'approvalRuleTemplateName'
+  Prelude.Text ->
+  -- | 'newRuleContent''
+  Prelude.Text ->
   UpdateApprovalRuleTemplateContent
-updateApprovalRuleTemplateContent
+newUpdateApprovalRuleTemplateContent
   pApprovalRuleTemplateName_
   pNewRuleContent_ =
     UpdateApprovalRuleTemplateContent'
-      { _uartcExistingRuleContentSha256 =
-          Nothing,
-        _uartcApprovalRuleTemplateName =
+      { existingRuleContentSha256 =
+          Prelude.Nothing,
+        approvalRuleTemplateName =
           pApprovalRuleTemplateName_,
-        _uartcNewRuleContent = pNewRuleContent_
+        newRuleContent' = pNewRuleContent_
       }
 
--- | The SHA-256 hash signature for the content of the approval rule. You can retrieve this information by using 'GetPullRequest' .
-uartcExistingRuleContentSha256 :: Lens' UpdateApprovalRuleTemplateContent (Maybe Text)
-uartcExistingRuleContentSha256 = lens _uartcExistingRuleContentSha256 (\s a -> s {_uartcExistingRuleContentSha256 = a})
+-- | The SHA-256 hash signature for the content of the approval rule. You can
+-- retrieve this information by using GetPullRequest.
+updateApprovalRuleTemplateContent_existingRuleContentSha256 :: Lens.Lens' UpdateApprovalRuleTemplateContent (Prelude.Maybe Prelude.Text)
+updateApprovalRuleTemplateContent_existingRuleContentSha256 = Lens.lens (\UpdateApprovalRuleTemplateContent' {existingRuleContentSha256} -> existingRuleContentSha256) (\s@UpdateApprovalRuleTemplateContent' {} a -> s {existingRuleContentSha256 = a} :: UpdateApprovalRuleTemplateContent)
 
--- | The name of the approval rule template where you want to update the content of the rule.
-uartcApprovalRuleTemplateName :: Lens' UpdateApprovalRuleTemplateContent Text
-uartcApprovalRuleTemplateName = lens _uartcApprovalRuleTemplateName (\s a -> s {_uartcApprovalRuleTemplateName = a})
+-- | The name of the approval rule template where you want to update the
+-- content of the rule.
+updateApprovalRuleTemplateContent_approvalRuleTemplateName :: Lens.Lens' UpdateApprovalRuleTemplateContent Prelude.Text
+updateApprovalRuleTemplateContent_approvalRuleTemplateName = Lens.lens (\UpdateApprovalRuleTemplateContent' {approvalRuleTemplateName} -> approvalRuleTemplateName) (\s@UpdateApprovalRuleTemplateContent' {} a -> s {approvalRuleTemplateName = a} :: UpdateApprovalRuleTemplateContent)
 
--- | The content that replaces the existing content of the rule. Content statements must be complete. You cannot provide only the changes.
-uartcNewRuleContent :: Lens' UpdateApprovalRuleTemplateContent Text
-uartcNewRuleContent = lens _uartcNewRuleContent (\s a -> s {_uartcNewRuleContent = a})
+-- | The content that replaces the existing content of the rule. Content
+-- statements must be complete. You cannot provide only the changes.
+updateApprovalRuleTemplateContent_newRuleContent :: Lens.Lens' UpdateApprovalRuleTemplateContent Prelude.Text
+updateApprovalRuleTemplateContent_newRuleContent = Lens.lens (\UpdateApprovalRuleTemplateContent' {newRuleContent'} -> newRuleContent') (\s@UpdateApprovalRuleTemplateContent' {} a -> s {newRuleContent' = a} :: UpdateApprovalRuleTemplateContent)
 
-instance AWSRequest UpdateApprovalRuleTemplateContent where
+instance
+  Prelude.AWSRequest
+    UpdateApprovalRuleTemplateContent
+  where
   type
     Rs UpdateApprovalRuleTemplateContent =
       UpdateApprovalRuleTemplateContentResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateApprovalRuleTemplateContentResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "approvalRuleTemplate")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (x Prelude..:> "approvalRuleTemplate")
       )
 
-instance Hashable UpdateApprovalRuleTemplateContent
+instance
+  Prelude.Hashable
+    UpdateApprovalRuleTemplateContent
 
-instance NFData UpdateApprovalRuleTemplateContent
+instance
+  Prelude.NFData
+    UpdateApprovalRuleTemplateContent
 
-instance ToHeaders UpdateApprovalRuleTemplateContent where
+instance
+  Prelude.ToHeaders
+    UpdateApprovalRuleTemplateContent
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.UpdateApprovalRuleTemplateContent" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.UpdateApprovalRuleTemplateContent" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateApprovalRuleTemplateContent where
+instance
+  Prelude.ToJSON
+    UpdateApprovalRuleTemplateContent
+  where
   toJSON UpdateApprovalRuleTemplateContent' {..} =
-    object
-      ( catMaybes
-          [ ("existingRuleContentSha256" .=)
-              <$> _uartcExistingRuleContentSha256,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("existingRuleContentSha256" Prelude..=)
+              Prelude.<$> existingRuleContentSha256,
+            Prelude.Just
               ( "approvalRuleTemplateName"
-                  .= _uartcApprovalRuleTemplateName
+                  Prelude..= approvalRuleTemplateName
               ),
-            Just ("newRuleContent" .= _uartcNewRuleContent)
+            Prelude.Just
+              ("newRuleContent" Prelude..= newRuleContent')
           ]
       )
 
-instance ToPath UpdateApprovalRuleTemplateContent where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    UpdateApprovalRuleTemplateContent
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateApprovalRuleTemplateContent where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdateApprovalRuleTemplateContent
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateApprovalRuleTemplateContentResponse' smart constructor.
+-- | /See:/ 'newUpdateApprovalRuleTemplateContentResponse' smart constructor.
 data UpdateApprovalRuleTemplateContentResponse = UpdateApprovalRuleTemplateContentResponse'
-  { _uartcrrsResponseStatus ::
-      !Int,
-    _uartcrrsApprovalRuleTemplate ::
-      !ApprovalRuleTemplate
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    approvalRuleTemplate :: ApprovalRuleTemplate
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApprovalRuleTemplateContentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApprovalRuleTemplateContentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uartcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uartcrrsApprovalRuleTemplate' - Undocumented member.
-updateApprovalRuleTemplateContentResponse ::
-  -- | 'uartcrrsResponseStatus'
-  Int ->
-  -- | 'uartcrrsApprovalRuleTemplate'
+-- 'httpStatus', 'updateApprovalRuleTemplateContentResponse_httpStatus' - The response's http status code.
+--
+-- 'approvalRuleTemplate', 'updateApprovalRuleTemplateContentResponse_approvalRuleTemplate' - Undocumented member.
+newUpdateApprovalRuleTemplateContentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'approvalRuleTemplate'
   ApprovalRuleTemplate ->
   UpdateApprovalRuleTemplateContentResponse
-updateApprovalRuleTemplateContentResponse
-  pResponseStatus_
+newUpdateApprovalRuleTemplateContentResponse
+  pHttpStatus_
   pApprovalRuleTemplate_ =
     UpdateApprovalRuleTemplateContentResponse'
-      { _uartcrrsResponseStatus =
-          pResponseStatus_,
-        _uartcrrsApprovalRuleTemplate =
+      { httpStatus =
+          pHttpStatus_,
+        approvalRuleTemplate =
           pApprovalRuleTemplate_
       }
 
--- | -- | The response status code.
-uartcrrsResponseStatus :: Lens' UpdateApprovalRuleTemplateContentResponse Int
-uartcrrsResponseStatus = lens _uartcrrsResponseStatus (\s a -> s {_uartcrrsResponseStatus = a})
+-- | The response's http status code.
+updateApprovalRuleTemplateContentResponse_httpStatus :: Lens.Lens' UpdateApprovalRuleTemplateContentResponse Prelude.Int
+updateApprovalRuleTemplateContentResponse_httpStatus = Lens.lens (\UpdateApprovalRuleTemplateContentResponse' {httpStatus} -> httpStatus) (\s@UpdateApprovalRuleTemplateContentResponse' {} a -> s {httpStatus = a} :: UpdateApprovalRuleTemplateContentResponse)
 
 -- | Undocumented member.
-uartcrrsApprovalRuleTemplate :: Lens' UpdateApprovalRuleTemplateContentResponse ApprovalRuleTemplate
-uartcrrsApprovalRuleTemplate = lens _uartcrrsApprovalRuleTemplate (\s a -> s {_uartcrrsApprovalRuleTemplate = a})
+updateApprovalRuleTemplateContentResponse_approvalRuleTemplate :: Lens.Lens' UpdateApprovalRuleTemplateContentResponse ApprovalRuleTemplate
+updateApprovalRuleTemplateContentResponse_approvalRuleTemplate = Lens.lens (\UpdateApprovalRuleTemplateContentResponse' {approvalRuleTemplate} -> approvalRuleTemplate) (\s@UpdateApprovalRuleTemplateContentResponse' {} a -> s {approvalRuleTemplate = a} :: UpdateApprovalRuleTemplateContentResponse)
 
 instance
-  NFData
+  Prelude.NFData
     UpdateApprovalRuleTemplateContentResponse

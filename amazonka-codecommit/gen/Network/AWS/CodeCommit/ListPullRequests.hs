@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,202 +21,241 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of pull requests for a specified repository. The return list can be refined by pull request status or pull request author ARN.
---
---
+-- Returns a list of pull requests for a specified repository. The return
+-- list can be refined by pull request status or pull request author ARN.
 --
 -- This operation returns paginated results.
 module Network.AWS.CodeCommit.ListPullRequests
   ( -- * Creating a Request
-    listPullRequests,
-    ListPullRequests,
+    ListPullRequests (..),
+    newListPullRequests,
 
     -- * Request Lenses
-    lprNextToken,
-    lprMaxResults,
-    lprPullRequestStatus,
-    lprAuthorARN,
-    lprRepositoryName,
+    listPullRequests_nextToken,
+    listPullRequests_maxResults,
+    listPullRequests_pullRequestStatus,
+    listPullRequests_authorArn,
+    listPullRequests_repositoryName,
 
     -- * Destructuring the Response
-    listPullRequestsResponse,
-    ListPullRequestsResponse,
+    ListPullRequestsResponse (..),
+    newListPullRequestsResponse,
 
     -- * Response Lenses
-    lprrrsNextToken,
-    lprrrsResponseStatus,
-    lprrrsPullRequestIds,
+    listPullRequestsResponse_nextToken,
+    listPullRequestsResponse_httpStatus,
+    listPullRequestsResponse_pullRequestIds,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listPullRequests' smart constructor.
+-- | /See:/ 'newListPullRequests' smart constructor.
 data ListPullRequests = ListPullRequests'
-  { _lprNextToken ::
-      !(Maybe Text),
-    _lprMaxResults :: !(Maybe Int),
-    _lprPullRequestStatus ::
-      !(Maybe PullRequestStatusEnum),
-    _lprAuthorARN :: !(Maybe Text),
-    _lprRepositoryName :: !Text
+  { -- | An enumeration token that, when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A non-zero, non-negative integer used to limit the number of returned
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Optional. The status of the pull request. If used, this refines the
+    -- results to the pull requests that match the specified status.
+    pullRequestStatus :: Prelude.Maybe PullRequestStatusEnum,
+    -- | Optional. The Amazon Resource Name (ARN) of the user who created the
+    -- pull request. If used, this filters the results to pull requests created
+    -- by that user.
+    authorArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the repository for which you want to list pull requests.
+    repositoryName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPullRequests' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPullRequests' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprNextToken' - An enumeration token that, when provided in a request, returns the next batch of the results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprMaxResults' - A non-zero, non-negative integer used to limit the number of returned results.
+-- 'nextToken', 'listPullRequests_nextToken' - An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
 --
--- * 'lprPullRequestStatus' - Optional. The status of the pull request. If used, this refines the results to the pull requests that match the specified status.
+-- 'maxResults', 'listPullRequests_maxResults' - A non-zero, non-negative integer used to limit the number of returned
+-- results.
 --
--- * 'lprAuthorARN' - Optional. The Amazon Resource Name (ARN) of the user who created the pull request. If used, this filters the results to pull requests created by that user.
+-- 'pullRequestStatus', 'listPullRequests_pullRequestStatus' - Optional. The status of the pull request. If used, this refines the
+-- results to the pull requests that match the specified status.
 --
--- * 'lprRepositoryName' - The name of the repository for which you want to list pull requests.
-listPullRequests ::
-  -- | 'lprRepositoryName'
-  Text ->
+-- 'authorArn', 'listPullRequests_authorArn' - Optional. The Amazon Resource Name (ARN) of the user who created the
+-- pull request. If used, this filters the results to pull requests created
+-- by that user.
+--
+-- 'repositoryName', 'listPullRequests_repositoryName' - The name of the repository for which you want to list pull requests.
+newListPullRequests ::
+  -- | 'repositoryName'
+  Prelude.Text ->
   ListPullRequests
-listPullRequests pRepositoryName_ =
+newListPullRequests pRepositoryName_ =
   ListPullRequests'
-    { _lprNextToken = Nothing,
-      _lprMaxResults = Nothing,
-      _lprPullRequestStatus = Nothing,
-      _lprAuthorARN = Nothing,
-      _lprRepositoryName = pRepositoryName_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      pullRequestStatus = Prelude.Nothing,
+      authorArn = Prelude.Nothing,
+      repositoryName = pRepositoryName_
     }
 
--- | An enumeration token that, when provided in a request, returns the next batch of the results.
-lprNextToken :: Lens' ListPullRequests (Maybe Text)
-lprNextToken = lens _lprNextToken (\s a -> s {_lprNextToken = a})
+-- | An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+listPullRequests_nextToken :: Lens.Lens' ListPullRequests (Prelude.Maybe Prelude.Text)
+listPullRequests_nextToken = Lens.lens (\ListPullRequests' {nextToken} -> nextToken) (\s@ListPullRequests' {} a -> s {nextToken = a} :: ListPullRequests)
 
--- | A non-zero, non-negative integer used to limit the number of returned results.
-lprMaxResults :: Lens' ListPullRequests (Maybe Int)
-lprMaxResults = lens _lprMaxResults (\s a -> s {_lprMaxResults = a})
+-- | A non-zero, non-negative integer used to limit the number of returned
+-- results.
+listPullRequests_maxResults :: Lens.Lens' ListPullRequests (Prelude.Maybe Prelude.Int)
+listPullRequests_maxResults = Lens.lens (\ListPullRequests' {maxResults} -> maxResults) (\s@ListPullRequests' {} a -> s {maxResults = a} :: ListPullRequests)
 
--- | Optional. The status of the pull request. If used, this refines the results to the pull requests that match the specified status.
-lprPullRequestStatus :: Lens' ListPullRequests (Maybe PullRequestStatusEnum)
-lprPullRequestStatus = lens _lprPullRequestStatus (\s a -> s {_lprPullRequestStatus = a})
+-- | Optional. The status of the pull request. If used, this refines the
+-- results to the pull requests that match the specified status.
+listPullRequests_pullRequestStatus :: Lens.Lens' ListPullRequests (Prelude.Maybe PullRequestStatusEnum)
+listPullRequests_pullRequestStatus = Lens.lens (\ListPullRequests' {pullRequestStatus} -> pullRequestStatus) (\s@ListPullRequests' {} a -> s {pullRequestStatus = a} :: ListPullRequests)
 
--- | Optional. The Amazon Resource Name (ARN) of the user who created the pull request. If used, this filters the results to pull requests created by that user.
-lprAuthorARN :: Lens' ListPullRequests (Maybe Text)
-lprAuthorARN = lens _lprAuthorARN (\s a -> s {_lprAuthorARN = a})
+-- | Optional. The Amazon Resource Name (ARN) of the user who created the
+-- pull request. If used, this filters the results to pull requests created
+-- by that user.
+listPullRequests_authorArn :: Lens.Lens' ListPullRequests (Prelude.Maybe Prelude.Text)
+listPullRequests_authorArn = Lens.lens (\ListPullRequests' {authorArn} -> authorArn) (\s@ListPullRequests' {} a -> s {authorArn = a} :: ListPullRequests)
 
 -- | The name of the repository for which you want to list pull requests.
-lprRepositoryName :: Lens' ListPullRequests Text
-lprRepositoryName = lens _lprRepositoryName (\s a -> s {_lprRepositoryName = a})
+listPullRequests_repositoryName :: Lens.Lens' ListPullRequests Prelude.Text
+listPullRequests_repositoryName = Lens.lens (\ListPullRequests' {repositoryName} -> repositoryName) (\s@ListPullRequests' {} a -> s {repositoryName = a} :: ListPullRequests)
 
-instance AWSPager ListPullRequests where
+instance Pager.AWSPager ListPullRequests where
   page rq rs
-    | stop (rs ^. lprrrsNextToken) = Nothing
-    | stop (rs ^. lprrrsPullRequestIds) = Nothing
-    | otherwise =
-      Just $ rq & lprNextToken .~ rs ^. lprrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listPullRequestsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listPullRequestsResponse_pullRequestIds) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listPullRequests_nextToken
+          Lens..~ rs
+          Lens.^? listPullRequestsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListPullRequests where
+instance Prelude.AWSRequest ListPullRequests where
   type Rs ListPullRequests = ListPullRequestsResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListPullRequestsResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "pullRequestIds" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "pullRequestIds"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListPullRequests
+instance Prelude.Hashable ListPullRequests
 
-instance NFData ListPullRequests
+instance Prelude.NFData ListPullRequests
 
-instance ToHeaders ListPullRequests where
+instance Prelude.ToHeaders ListPullRequests where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.ListPullRequests" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.ListPullRequests" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListPullRequests where
+instance Prelude.ToJSON ListPullRequests where
   toJSON ListPullRequests' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lprNextToken,
-            ("maxResults" .=) <$> _lprMaxResults,
-            ("pullRequestStatus" .=) <$> _lprPullRequestStatus,
-            ("authorArn" .=) <$> _lprAuthorARN,
-            Just ("repositoryName" .= _lprRepositoryName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("pullRequestStatus" Prelude..=)
+              Prelude.<$> pullRequestStatus,
+            ("authorArn" Prelude..=) Prelude.<$> authorArn,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName)
           ]
       )
 
-instance ToPath ListPullRequests where
-  toPath = const "/"
+instance Prelude.ToPath ListPullRequests where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListPullRequests where
-  toQuery = const mempty
+instance Prelude.ToQuery ListPullRequests where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listPullRequestsResponse' smart constructor.
+-- | /See:/ 'newListPullRequestsResponse' smart constructor.
 data ListPullRequestsResponse = ListPullRequestsResponse'
-  { _lprrrsNextToken ::
-      !(Maybe Text),
-    _lprrrsResponseStatus ::
-      !Int,
-    _lprrrsPullRequestIds ::
-      ![Text]
+  { -- | An enumeration token that allows the operation to batch the next results
+    -- of the operation.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The system-generated IDs of the pull requests.
+    pullRequestIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPullRequestsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPullRequestsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprrrsNextToken' - An enumeration token that allows the operation to batch the next results of the operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listPullRequestsResponse_nextToken' - An enumeration token that allows the operation to batch the next results
+-- of the operation.
 --
--- * 'lprrrsPullRequestIds' - The system-generated IDs of the pull requests.
-listPullRequestsResponse ::
-  -- | 'lprrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listPullRequestsResponse_httpStatus' - The response's http status code.
+--
+-- 'pullRequestIds', 'listPullRequestsResponse_pullRequestIds' - The system-generated IDs of the pull requests.
+newListPullRequestsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPullRequestsResponse
-listPullRequestsResponse pResponseStatus_ =
+newListPullRequestsResponse pHttpStatus_ =
   ListPullRequestsResponse'
-    { _lprrrsNextToken =
-        Nothing,
-      _lprrrsResponseStatus = pResponseStatus_,
-      _lprrrsPullRequestIds = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      pullRequestIds = Prelude.mempty
     }
 
--- | An enumeration token that allows the operation to batch the next results of the operation.
-lprrrsNextToken :: Lens' ListPullRequestsResponse (Maybe Text)
-lprrrsNextToken = lens _lprrrsNextToken (\s a -> s {_lprrrsNextToken = a})
+-- | An enumeration token that allows the operation to batch the next results
+-- of the operation.
+listPullRequestsResponse_nextToken :: Lens.Lens' ListPullRequestsResponse (Prelude.Maybe Prelude.Text)
+listPullRequestsResponse_nextToken = Lens.lens (\ListPullRequestsResponse' {nextToken} -> nextToken) (\s@ListPullRequestsResponse' {} a -> s {nextToken = a} :: ListPullRequestsResponse)
 
--- | -- | The response status code.
-lprrrsResponseStatus :: Lens' ListPullRequestsResponse Int
-lprrrsResponseStatus = lens _lprrrsResponseStatus (\s a -> s {_lprrrsResponseStatus = a})
+-- | The response's http status code.
+listPullRequestsResponse_httpStatus :: Lens.Lens' ListPullRequestsResponse Prelude.Int
+listPullRequestsResponse_httpStatus = Lens.lens (\ListPullRequestsResponse' {httpStatus} -> httpStatus) (\s@ListPullRequestsResponse' {} a -> s {httpStatus = a} :: ListPullRequestsResponse)
 
 -- | The system-generated IDs of the pull requests.
-lprrrsPullRequestIds :: Lens' ListPullRequestsResponse [Text]
-lprrrsPullRequestIds = lens _lprrrsPullRequestIds (\s a -> s {_lprrrsPullRequestIds = a}) . _Coerce
+listPullRequestsResponse_pullRequestIds :: Lens.Lens' ListPullRequestsResponse [Prelude.Text]
+listPullRequestsResponse_pullRequestIds = Lens.lens (\ListPullRequestsResponse' {pullRequestIds} -> pullRequestIds) (\s@ListPullRequestsResponse' {} a -> s {pullRequestIds = a} :: ListPullRequestsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListPullRequestsResponse
+instance Prelude.NFData ListPullRequestsResponse

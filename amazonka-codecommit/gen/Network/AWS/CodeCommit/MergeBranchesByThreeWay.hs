@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,294 +24,326 @@
 -- Merges two specified branches using the three-way merge strategy.
 module Network.AWS.CodeCommit.MergeBranchesByThreeWay
   ( -- * Creating a Request
-    mergeBranchesByThreeWay,
-    MergeBranchesByThreeWay,
+    MergeBranchesByThreeWay (..),
+    newMergeBranchesByThreeWay,
 
     -- * Request Lenses
-    mbbtwCommitMessage,
-    mbbtwAuthorName,
-    mbbtwEmail,
-    mbbtwConflictDetailLevel,
-    mbbtwConflictResolutionStrategy,
-    mbbtwKeepEmptyFolders,
-    mbbtwConflictResolution,
-    mbbtwTargetBranch,
-    mbbtwRepositoryName,
-    mbbtwSourceCommitSpecifier,
-    mbbtwDestinationCommitSpecifier,
+    mergeBranchesByThreeWay_commitMessage,
+    mergeBranchesByThreeWay_authorName,
+    mergeBranchesByThreeWay_email,
+    mergeBranchesByThreeWay_conflictDetailLevel,
+    mergeBranchesByThreeWay_conflictResolutionStrategy,
+    mergeBranchesByThreeWay_keepEmptyFolders,
+    mergeBranchesByThreeWay_conflictResolution,
+    mergeBranchesByThreeWay_targetBranch,
+    mergeBranchesByThreeWay_repositoryName,
+    mergeBranchesByThreeWay_sourceCommitSpecifier,
+    mergeBranchesByThreeWay_destinationCommitSpecifier,
 
     -- * Destructuring the Response
-    mergeBranchesByThreeWayResponse,
-    MergeBranchesByThreeWayResponse,
+    MergeBranchesByThreeWayResponse (..),
+    newMergeBranchesByThreeWayResponse,
 
     -- * Response Lenses
-    mbbtwrrsCommitId,
-    mbbtwrrsTreeId,
-    mbbtwrrsResponseStatus,
+    mergeBranchesByThreeWayResponse_commitId,
+    mergeBranchesByThreeWayResponse_treeId,
+    mergeBranchesByThreeWayResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'mergeBranchesByThreeWay' smart constructor.
+-- | /See:/ 'newMergeBranchesByThreeWay' smart constructor.
 data MergeBranchesByThreeWay = MergeBranchesByThreeWay'
-  { _mbbtwCommitMessage ::
-      !(Maybe Text),
-    _mbbtwAuthorName ::
-      !(Maybe Text),
-    _mbbtwEmail ::
-      !(Maybe Text),
-    _mbbtwConflictDetailLevel ::
-      !( Maybe
-           ConflictDetailLevelTypeEnum
-       ),
-    _mbbtwConflictResolutionStrategy ::
-      !( Maybe
-           ConflictResolutionStrategyTypeEnum
-       ),
-    _mbbtwKeepEmptyFolders ::
-      !(Maybe Bool),
-    _mbbtwConflictResolution ::
-      !( Maybe
-           ConflictResolution
-       ),
-    _mbbtwTargetBranch ::
-      !(Maybe Text),
-    _mbbtwRepositoryName ::
-      !Text,
-    _mbbtwSourceCommitSpecifier ::
-      !Text,
-    _mbbtwDestinationCommitSpecifier ::
-      !Text
+  { -- | The commit message to include in the commit information for the merge.
+    commitMessage :: Prelude.Maybe Prelude.Text,
+    -- | The name of the author who created the commit. This information is used
+    -- as both the author and committer for the commit.
+    authorName :: Prelude.Maybe Prelude.Text,
+    -- | The email address of the person merging the branches. This information
+    -- is used in the commit information for the merge.
+    email :: Prelude.Maybe Prelude.Text,
+    -- | The level of conflict detail to use. If unspecified, the default
+    -- FILE_LEVEL is used, which returns a not-mergeable result if the same
+    -- file has differences in both branches. If LINE_LEVEL is specified, a
+    -- conflict is considered not mergeable if the same file in both branches
+    -- has differences on the same line.
+    conflictDetailLevel :: Prelude.Maybe ConflictDetailLevelTypeEnum,
+    -- | Specifies which branch to use when resolving conflicts, or whether to
+    -- attempt automatically merging two versions of a file. The default is
+    -- NONE, which requires any conflicts to be resolved manually before the
+    -- merge operation is successful.
+    conflictResolutionStrategy :: Prelude.Maybe ConflictResolutionStrategyTypeEnum,
+    -- | If the commit contains deletions, whether to keep a folder or folder
+    -- structure if the changes leave the folders empty. If true, a .gitkeep
+    -- file is created for empty folders. The default is false.
+    keepEmptyFolders :: Prelude.Maybe Prelude.Bool,
+    -- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
+    -- use when resolving conflicts during a merge.
+    conflictResolution :: Prelude.Maybe ConflictResolution,
+    -- | The branch where the merge is applied.
+    targetBranch :: Prelude.Maybe Prelude.Text,
+    -- | The name of the repository where you want to merge two branches.
+    repositoryName :: Prelude.Text,
+    -- | The branch, tag, HEAD, or other fully qualified reference used to
+    -- identify a commit (for example, a branch name or a full commit ID).
+    sourceCommitSpecifier :: Prelude.Text,
+    -- | The branch, tag, HEAD, or other fully qualified reference used to
+    -- identify a commit (for example, a branch name or a full commit ID).
+    destinationCommitSpecifier :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MergeBranchesByThreeWay' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MergeBranchesByThreeWay' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mbbtwCommitMessage' - The commit message to include in the commit information for the merge.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mbbtwAuthorName' - The name of the author who created the commit. This information is used as both the author and committer for the commit.
+-- 'commitMessage', 'mergeBranchesByThreeWay_commitMessage' - The commit message to include in the commit information for the merge.
 --
--- * 'mbbtwEmail' - The email address of the person merging the branches. This information is used in the commit information for the merge.
+-- 'authorName', 'mergeBranchesByThreeWay_authorName' - The name of the author who created the commit. This information is used
+-- as both the author and committer for the commit.
 --
--- * 'mbbtwConflictDetailLevel' - The level of conflict detail to use. If unspecified, the default FILE_LEVEL is used, which returns a not-mergeable result if the same file has differences in both branches. If LINE_LEVEL is specified, a conflict is considered not mergeable if the same file in both branches has differences on the same line.
+-- 'email', 'mergeBranchesByThreeWay_email' - The email address of the person merging the branches. This information
+-- is used in the commit information for the merge.
 --
--- * 'mbbtwConflictResolutionStrategy' - Specifies which branch to use when resolving conflicts, or whether to attempt automatically merging two versions of a file. The default is NONE, which requires any conflicts to be resolved manually before the merge operation is successful.
+-- 'conflictDetailLevel', 'mergeBranchesByThreeWay_conflictDetailLevel' - The level of conflict detail to use. If unspecified, the default
+-- FILE_LEVEL is used, which returns a not-mergeable result if the same
+-- file has differences in both branches. If LINE_LEVEL is specified, a
+-- conflict is considered not mergeable if the same file in both branches
+-- has differences on the same line.
 --
--- * 'mbbtwKeepEmptyFolders' - If the commit contains deletions, whether to keep a folder or folder structure if the changes leave the folders empty. If true, a .gitkeep file is created for empty folders. The default is false.
+-- 'conflictResolutionStrategy', 'mergeBranchesByThreeWay_conflictResolutionStrategy' - Specifies which branch to use when resolving conflicts, or whether to
+-- attempt automatically merging two versions of a file. The default is
+-- NONE, which requires any conflicts to be resolved manually before the
+-- merge operation is successful.
 --
--- * 'mbbtwConflictResolution' - If AUTOMERGE is the conflict resolution strategy, a list of inputs to use when resolving conflicts during a merge.
+-- 'keepEmptyFolders', 'mergeBranchesByThreeWay_keepEmptyFolders' - If the commit contains deletions, whether to keep a folder or folder
+-- structure if the changes leave the folders empty. If true, a .gitkeep
+-- file is created for empty folders. The default is false.
 --
--- * 'mbbtwTargetBranch' - The branch where the merge is applied.
+-- 'conflictResolution', 'mergeBranchesByThreeWay_conflictResolution' - If AUTOMERGE is the conflict resolution strategy, a list of inputs to
+-- use when resolving conflicts during a merge.
 --
--- * 'mbbtwRepositoryName' - The name of the repository where you want to merge two branches.
+-- 'targetBranch', 'mergeBranchesByThreeWay_targetBranch' - The branch where the merge is applied.
 --
--- * 'mbbtwSourceCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).
+-- 'repositoryName', 'mergeBranchesByThreeWay_repositoryName' - The name of the repository where you want to merge two branches.
 --
--- * 'mbbtwDestinationCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).
-mergeBranchesByThreeWay ::
-  -- | 'mbbtwRepositoryName'
-  Text ->
-  -- | 'mbbtwSourceCommitSpecifier'
-  Text ->
-  -- | 'mbbtwDestinationCommitSpecifier'
-  Text ->
+-- 'sourceCommitSpecifier', 'mergeBranchesByThreeWay_sourceCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, a branch name or a full commit ID).
+--
+-- 'destinationCommitSpecifier', 'mergeBranchesByThreeWay_destinationCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, a branch name or a full commit ID).
+newMergeBranchesByThreeWay ::
+  -- | 'repositoryName'
+  Prelude.Text ->
+  -- | 'sourceCommitSpecifier'
+  Prelude.Text ->
+  -- | 'destinationCommitSpecifier'
+  Prelude.Text ->
   MergeBranchesByThreeWay
-mergeBranchesByThreeWay
+newMergeBranchesByThreeWay
   pRepositoryName_
   pSourceCommitSpecifier_
   pDestinationCommitSpecifier_ =
     MergeBranchesByThreeWay'
-      { _mbbtwCommitMessage =
-          Nothing,
-        _mbbtwAuthorName = Nothing,
-        _mbbtwEmail = Nothing,
-        _mbbtwConflictDetailLevel = Nothing,
-        _mbbtwConflictResolutionStrategy = Nothing,
-        _mbbtwKeepEmptyFolders = Nothing,
-        _mbbtwConflictResolution = Nothing,
-        _mbbtwTargetBranch = Nothing,
-        _mbbtwRepositoryName = pRepositoryName_,
-        _mbbtwSourceCommitSpecifier =
-          pSourceCommitSpecifier_,
-        _mbbtwDestinationCommitSpecifier =
+      { commitMessage =
+          Prelude.Nothing,
+        authorName = Prelude.Nothing,
+        email = Prelude.Nothing,
+        conflictDetailLevel = Prelude.Nothing,
+        conflictResolutionStrategy = Prelude.Nothing,
+        keepEmptyFolders = Prelude.Nothing,
+        conflictResolution = Prelude.Nothing,
+        targetBranch = Prelude.Nothing,
+        repositoryName = pRepositoryName_,
+        sourceCommitSpecifier = pSourceCommitSpecifier_,
+        destinationCommitSpecifier =
           pDestinationCommitSpecifier_
       }
 
 -- | The commit message to include in the commit information for the merge.
-mbbtwCommitMessage :: Lens' MergeBranchesByThreeWay (Maybe Text)
-mbbtwCommitMessage = lens _mbbtwCommitMessage (\s a -> s {_mbbtwCommitMessage = a})
+mergeBranchesByThreeWay_commitMessage :: Lens.Lens' MergeBranchesByThreeWay (Prelude.Maybe Prelude.Text)
+mergeBranchesByThreeWay_commitMessage = Lens.lens (\MergeBranchesByThreeWay' {commitMessage} -> commitMessage) (\s@MergeBranchesByThreeWay' {} a -> s {commitMessage = a} :: MergeBranchesByThreeWay)
 
--- | The name of the author who created the commit. This information is used as both the author and committer for the commit.
-mbbtwAuthorName :: Lens' MergeBranchesByThreeWay (Maybe Text)
-mbbtwAuthorName = lens _mbbtwAuthorName (\s a -> s {_mbbtwAuthorName = a})
+-- | The name of the author who created the commit. This information is used
+-- as both the author and committer for the commit.
+mergeBranchesByThreeWay_authorName :: Lens.Lens' MergeBranchesByThreeWay (Prelude.Maybe Prelude.Text)
+mergeBranchesByThreeWay_authorName = Lens.lens (\MergeBranchesByThreeWay' {authorName} -> authorName) (\s@MergeBranchesByThreeWay' {} a -> s {authorName = a} :: MergeBranchesByThreeWay)
 
--- | The email address of the person merging the branches. This information is used in the commit information for the merge.
-mbbtwEmail :: Lens' MergeBranchesByThreeWay (Maybe Text)
-mbbtwEmail = lens _mbbtwEmail (\s a -> s {_mbbtwEmail = a})
+-- | The email address of the person merging the branches. This information
+-- is used in the commit information for the merge.
+mergeBranchesByThreeWay_email :: Lens.Lens' MergeBranchesByThreeWay (Prelude.Maybe Prelude.Text)
+mergeBranchesByThreeWay_email = Lens.lens (\MergeBranchesByThreeWay' {email} -> email) (\s@MergeBranchesByThreeWay' {} a -> s {email = a} :: MergeBranchesByThreeWay)
 
--- | The level of conflict detail to use. If unspecified, the default FILE_LEVEL is used, which returns a not-mergeable result if the same file has differences in both branches. If LINE_LEVEL is specified, a conflict is considered not mergeable if the same file in both branches has differences on the same line.
-mbbtwConflictDetailLevel :: Lens' MergeBranchesByThreeWay (Maybe ConflictDetailLevelTypeEnum)
-mbbtwConflictDetailLevel = lens _mbbtwConflictDetailLevel (\s a -> s {_mbbtwConflictDetailLevel = a})
+-- | The level of conflict detail to use. If unspecified, the default
+-- FILE_LEVEL is used, which returns a not-mergeable result if the same
+-- file has differences in both branches. If LINE_LEVEL is specified, a
+-- conflict is considered not mergeable if the same file in both branches
+-- has differences on the same line.
+mergeBranchesByThreeWay_conflictDetailLevel :: Lens.Lens' MergeBranchesByThreeWay (Prelude.Maybe ConflictDetailLevelTypeEnum)
+mergeBranchesByThreeWay_conflictDetailLevel = Lens.lens (\MergeBranchesByThreeWay' {conflictDetailLevel} -> conflictDetailLevel) (\s@MergeBranchesByThreeWay' {} a -> s {conflictDetailLevel = a} :: MergeBranchesByThreeWay)
 
--- | Specifies which branch to use when resolving conflicts, or whether to attempt automatically merging two versions of a file. The default is NONE, which requires any conflicts to be resolved manually before the merge operation is successful.
-mbbtwConflictResolutionStrategy :: Lens' MergeBranchesByThreeWay (Maybe ConflictResolutionStrategyTypeEnum)
-mbbtwConflictResolutionStrategy = lens _mbbtwConflictResolutionStrategy (\s a -> s {_mbbtwConflictResolutionStrategy = a})
+-- | Specifies which branch to use when resolving conflicts, or whether to
+-- attempt automatically merging two versions of a file. The default is
+-- NONE, which requires any conflicts to be resolved manually before the
+-- merge operation is successful.
+mergeBranchesByThreeWay_conflictResolutionStrategy :: Lens.Lens' MergeBranchesByThreeWay (Prelude.Maybe ConflictResolutionStrategyTypeEnum)
+mergeBranchesByThreeWay_conflictResolutionStrategy = Lens.lens (\MergeBranchesByThreeWay' {conflictResolutionStrategy} -> conflictResolutionStrategy) (\s@MergeBranchesByThreeWay' {} a -> s {conflictResolutionStrategy = a} :: MergeBranchesByThreeWay)
 
--- | If the commit contains deletions, whether to keep a folder or folder structure if the changes leave the folders empty. If true, a .gitkeep file is created for empty folders. The default is false.
-mbbtwKeepEmptyFolders :: Lens' MergeBranchesByThreeWay (Maybe Bool)
-mbbtwKeepEmptyFolders = lens _mbbtwKeepEmptyFolders (\s a -> s {_mbbtwKeepEmptyFolders = a})
+-- | If the commit contains deletions, whether to keep a folder or folder
+-- structure if the changes leave the folders empty. If true, a .gitkeep
+-- file is created for empty folders. The default is false.
+mergeBranchesByThreeWay_keepEmptyFolders :: Lens.Lens' MergeBranchesByThreeWay (Prelude.Maybe Prelude.Bool)
+mergeBranchesByThreeWay_keepEmptyFolders = Lens.lens (\MergeBranchesByThreeWay' {keepEmptyFolders} -> keepEmptyFolders) (\s@MergeBranchesByThreeWay' {} a -> s {keepEmptyFolders = a} :: MergeBranchesByThreeWay)
 
--- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to use when resolving conflicts during a merge.
-mbbtwConflictResolution :: Lens' MergeBranchesByThreeWay (Maybe ConflictResolution)
-mbbtwConflictResolution = lens _mbbtwConflictResolution (\s a -> s {_mbbtwConflictResolution = a})
+-- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
+-- use when resolving conflicts during a merge.
+mergeBranchesByThreeWay_conflictResolution :: Lens.Lens' MergeBranchesByThreeWay (Prelude.Maybe ConflictResolution)
+mergeBranchesByThreeWay_conflictResolution = Lens.lens (\MergeBranchesByThreeWay' {conflictResolution} -> conflictResolution) (\s@MergeBranchesByThreeWay' {} a -> s {conflictResolution = a} :: MergeBranchesByThreeWay)
 
 -- | The branch where the merge is applied.
-mbbtwTargetBranch :: Lens' MergeBranchesByThreeWay (Maybe Text)
-mbbtwTargetBranch = lens _mbbtwTargetBranch (\s a -> s {_mbbtwTargetBranch = a})
+mergeBranchesByThreeWay_targetBranch :: Lens.Lens' MergeBranchesByThreeWay (Prelude.Maybe Prelude.Text)
+mergeBranchesByThreeWay_targetBranch = Lens.lens (\MergeBranchesByThreeWay' {targetBranch} -> targetBranch) (\s@MergeBranchesByThreeWay' {} a -> s {targetBranch = a} :: MergeBranchesByThreeWay)
 
 -- | The name of the repository where you want to merge two branches.
-mbbtwRepositoryName :: Lens' MergeBranchesByThreeWay Text
-mbbtwRepositoryName = lens _mbbtwRepositoryName (\s a -> s {_mbbtwRepositoryName = a})
+mergeBranchesByThreeWay_repositoryName :: Lens.Lens' MergeBranchesByThreeWay Prelude.Text
+mergeBranchesByThreeWay_repositoryName = Lens.lens (\MergeBranchesByThreeWay' {repositoryName} -> repositoryName) (\s@MergeBranchesByThreeWay' {} a -> s {repositoryName = a} :: MergeBranchesByThreeWay)
 
--- | The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).
-mbbtwSourceCommitSpecifier :: Lens' MergeBranchesByThreeWay Text
-mbbtwSourceCommitSpecifier = lens _mbbtwSourceCommitSpecifier (\s a -> s {_mbbtwSourceCommitSpecifier = a})
+-- | The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, a branch name or a full commit ID).
+mergeBranchesByThreeWay_sourceCommitSpecifier :: Lens.Lens' MergeBranchesByThreeWay Prelude.Text
+mergeBranchesByThreeWay_sourceCommitSpecifier = Lens.lens (\MergeBranchesByThreeWay' {sourceCommitSpecifier} -> sourceCommitSpecifier) (\s@MergeBranchesByThreeWay' {} a -> s {sourceCommitSpecifier = a} :: MergeBranchesByThreeWay)
 
--- | The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).
-mbbtwDestinationCommitSpecifier :: Lens' MergeBranchesByThreeWay Text
-mbbtwDestinationCommitSpecifier = lens _mbbtwDestinationCommitSpecifier (\s a -> s {_mbbtwDestinationCommitSpecifier = a})
+-- | The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, a branch name or a full commit ID).
+mergeBranchesByThreeWay_destinationCommitSpecifier :: Lens.Lens' MergeBranchesByThreeWay Prelude.Text
+mergeBranchesByThreeWay_destinationCommitSpecifier = Lens.lens (\MergeBranchesByThreeWay' {destinationCommitSpecifier} -> destinationCommitSpecifier) (\s@MergeBranchesByThreeWay' {} a -> s {destinationCommitSpecifier = a} :: MergeBranchesByThreeWay)
 
-instance AWSRequest MergeBranchesByThreeWay where
+instance Prelude.AWSRequest MergeBranchesByThreeWay where
   type
     Rs MergeBranchesByThreeWay =
       MergeBranchesByThreeWayResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           MergeBranchesByThreeWayResponse'
-            <$> (x .?> "commitId")
-            <*> (x .?> "treeId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "commitId")
+            Prelude.<*> (x Prelude..?> "treeId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable MergeBranchesByThreeWay
+instance Prelude.Hashable MergeBranchesByThreeWay
 
-instance NFData MergeBranchesByThreeWay
+instance Prelude.NFData MergeBranchesByThreeWay
 
-instance ToHeaders MergeBranchesByThreeWay where
+instance Prelude.ToHeaders MergeBranchesByThreeWay where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.MergeBranchesByThreeWay" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.MergeBranchesByThreeWay" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON MergeBranchesByThreeWay where
+instance Prelude.ToJSON MergeBranchesByThreeWay where
   toJSON MergeBranchesByThreeWay' {..} =
-    object
-      ( catMaybes
-          [ ("commitMessage" .=) <$> _mbbtwCommitMessage,
-            ("authorName" .=) <$> _mbbtwAuthorName,
-            ("email" .=) <$> _mbbtwEmail,
-            ("conflictDetailLevel" .=)
-              <$> _mbbtwConflictDetailLevel,
-            ("conflictResolutionStrategy" .=)
-              <$> _mbbtwConflictResolutionStrategy,
-            ("keepEmptyFolders" .=) <$> _mbbtwKeepEmptyFolders,
-            ("conflictResolution" .=)
-              <$> _mbbtwConflictResolution,
-            ("targetBranch" .=) <$> _mbbtwTargetBranch,
-            Just ("repositoryName" .= _mbbtwRepositoryName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("commitMessage" Prelude..=)
+              Prelude.<$> commitMessage,
+            ("authorName" Prelude..=) Prelude.<$> authorName,
+            ("email" Prelude..=) Prelude.<$> email,
+            ("conflictDetailLevel" Prelude..=)
+              Prelude.<$> conflictDetailLevel,
+            ("conflictResolutionStrategy" Prelude..=)
+              Prelude.<$> conflictResolutionStrategy,
+            ("keepEmptyFolders" Prelude..=)
+              Prelude.<$> keepEmptyFolders,
+            ("conflictResolution" Prelude..=)
+              Prelude.<$> conflictResolution,
+            ("targetBranch" Prelude..=) Prelude.<$> targetBranch,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName),
+            Prelude.Just
               ( "sourceCommitSpecifier"
-                  .= _mbbtwSourceCommitSpecifier
+                  Prelude..= sourceCommitSpecifier
               ),
-            Just
+            Prelude.Just
               ( "destinationCommitSpecifier"
-                  .= _mbbtwDestinationCommitSpecifier
+                  Prelude..= destinationCommitSpecifier
               )
           ]
       )
 
-instance ToPath MergeBranchesByThreeWay where
-  toPath = const "/"
+instance Prelude.ToPath MergeBranchesByThreeWay where
+  toPath = Prelude.const "/"
 
-instance ToQuery MergeBranchesByThreeWay where
-  toQuery = const mempty
+instance Prelude.ToQuery MergeBranchesByThreeWay where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'mergeBranchesByThreeWayResponse' smart constructor.
+-- | /See:/ 'newMergeBranchesByThreeWayResponse' smart constructor.
 data MergeBranchesByThreeWayResponse = MergeBranchesByThreeWayResponse'
-  { _mbbtwrrsCommitId ::
-      !( Maybe
-           Text
-       ),
-    _mbbtwrrsTreeId ::
-      !( Maybe
-           Text
-       ),
-    _mbbtwrrsResponseStatus ::
-      !Int
+  { -- | The commit ID of the merge in the destination or target branch.
+    commitId :: Prelude.Maybe Prelude.Text,
+    -- | The tree ID of the merge in the destination or target branch.
+    treeId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MergeBranchesByThreeWayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MergeBranchesByThreeWayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mbbtwrrsCommitId' - The commit ID of the merge in the destination or target branch.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mbbtwrrsTreeId' - The tree ID of the merge in the destination or target branch.
+-- 'commitId', 'mergeBranchesByThreeWayResponse_commitId' - The commit ID of the merge in the destination or target branch.
 --
--- * 'mbbtwrrsResponseStatus' - -- | The response status code.
-mergeBranchesByThreeWayResponse ::
-  -- | 'mbbtwrrsResponseStatus'
-  Int ->
+-- 'treeId', 'mergeBranchesByThreeWayResponse_treeId' - The tree ID of the merge in the destination or target branch.
+--
+-- 'httpStatus', 'mergeBranchesByThreeWayResponse_httpStatus' - The response's http status code.
+newMergeBranchesByThreeWayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   MergeBranchesByThreeWayResponse
-mergeBranchesByThreeWayResponse pResponseStatus_ =
+newMergeBranchesByThreeWayResponse pHttpStatus_ =
   MergeBranchesByThreeWayResponse'
-    { _mbbtwrrsCommitId =
-        Nothing,
-      _mbbtwrrsTreeId = Nothing,
-      _mbbtwrrsResponseStatus = pResponseStatus_
+    { commitId =
+        Prelude.Nothing,
+      treeId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The commit ID of the merge in the destination or target branch.
-mbbtwrrsCommitId :: Lens' MergeBranchesByThreeWayResponse (Maybe Text)
-mbbtwrrsCommitId = lens _mbbtwrrsCommitId (\s a -> s {_mbbtwrrsCommitId = a})
+mergeBranchesByThreeWayResponse_commitId :: Lens.Lens' MergeBranchesByThreeWayResponse (Prelude.Maybe Prelude.Text)
+mergeBranchesByThreeWayResponse_commitId = Lens.lens (\MergeBranchesByThreeWayResponse' {commitId} -> commitId) (\s@MergeBranchesByThreeWayResponse' {} a -> s {commitId = a} :: MergeBranchesByThreeWayResponse)
 
 -- | The tree ID of the merge in the destination or target branch.
-mbbtwrrsTreeId :: Lens' MergeBranchesByThreeWayResponse (Maybe Text)
-mbbtwrrsTreeId = lens _mbbtwrrsTreeId (\s a -> s {_mbbtwrrsTreeId = a})
+mergeBranchesByThreeWayResponse_treeId :: Lens.Lens' MergeBranchesByThreeWayResponse (Prelude.Maybe Prelude.Text)
+mergeBranchesByThreeWayResponse_treeId = Lens.lens (\MergeBranchesByThreeWayResponse' {treeId} -> treeId) (\s@MergeBranchesByThreeWayResponse' {} a -> s {treeId = a} :: MergeBranchesByThreeWayResponse)
 
--- | -- | The response status code.
-mbbtwrrsResponseStatus :: Lens' MergeBranchesByThreeWayResponse Int
-mbbtwrrsResponseStatus = lens _mbbtwrrsResponseStatus (\s a -> s {_mbbtwrrsResponseStatus = a})
+-- | The response's http status code.
+mergeBranchesByThreeWayResponse_httpStatus :: Lens.Lens' MergeBranchesByThreeWayResponse Prelude.Int
+mergeBranchesByThreeWayResponse_httpStatus = Lens.lens (\MergeBranchesByThreeWayResponse' {httpStatus} -> httpStatus) (\s@MergeBranchesByThreeWayResponse' {} a -> s {httpStatus = a} :: MergeBranchesByThreeWayResponse)
 
-instance NFData MergeBranchesByThreeWayResponse
+instance
+  Prelude.NFData
+    MergeBranchesByThreeWayResponse

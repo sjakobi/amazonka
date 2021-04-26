@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,78 @@
 module Network.AWS.CodeCommit.Types.MergeMetadata where
 
 import Network.AWS.CodeCommit.Types.MergeOptionTypeEnum
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns information about a merge or potential merge between a source reference and a destination reference in a pull request.
+-- | Returns information about a merge or potential merge between a source
+-- reference and a destination reference in a pull request.
 --
---
---
--- /See:/ 'mergeMetadata' smart constructor.
+-- /See:/ 'newMergeMetadata' smart constructor.
 data MergeMetadata = MergeMetadata'
-  { _mmMergedBy ::
-      !(Maybe Text),
-    _mmMergeCommitId :: !(Maybe Text),
-    _mmIsMerged :: !(Maybe Bool),
-    _mmMergeOption ::
-      !(Maybe MergeOptionTypeEnum)
+  { -- | The Amazon Resource Name (ARN) of the user who merged the branches.
+    mergedBy :: Prelude.Maybe Prelude.Text,
+    -- | The commit ID for the merge commit, if any.
+    mergeCommitId :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value indicating whether the merge has been made.
+    isMerged :: Prelude.Maybe Prelude.Bool,
+    -- | The merge strategy used in the merge.
+    mergeOption :: Prelude.Maybe MergeOptionTypeEnum
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MergeMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MergeMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mmMergedBy' - The Amazon Resource Name (ARN) of the user who merged the branches.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mmMergeCommitId' - The commit ID for the merge commit, if any.
+-- 'mergedBy', 'mergeMetadata_mergedBy' - The Amazon Resource Name (ARN) of the user who merged the branches.
 --
--- * 'mmIsMerged' - A Boolean value indicating whether the merge has been made.
+-- 'mergeCommitId', 'mergeMetadata_mergeCommitId' - The commit ID for the merge commit, if any.
 --
--- * 'mmMergeOption' - The merge strategy used in the merge.
-mergeMetadata ::
+-- 'isMerged', 'mergeMetadata_isMerged' - A Boolean value indicating whether the merge has been made.
+--
+-- 'mergeOption', 'mergeMetadata_mergeOption' - The merge strategy used in the merge.
+newMergeMetadata ::
   MergeMetadata
-mergeMetadata =
+newMergeMetadata =
   MergeMetadata'
-    { _mmMergedBy = Nothing,
-      _mmMergeCommitId = Nothing,
-      _mmIsMerged = Nothing,
-      _mmMergeOption = Nothing
+    { mergedBy = Prelude.Nothing,
+      mergeCommitId = Prelude.Nothing,
+      isMerged = Prelude.Nothing,
+      mergeOption = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the user who merged the branches.
-mmMergedBy :: Lens' MergeMetadata (Maybe Text)
-mmMergedBy = lens _mmMergedBy (\s a -> s {_mmMergedBy = a})
+mergeMetadata_mergedBy :: Lens.Lens' MergeMetadata (Prelude.Maybe Prelude.Text)
+mergeMetadata_mergedBy = Lens.lens (\MergeMetadata' {mergedBy} -> mergedBy) (\s@MergeMetadata' {} a -> s {mergedBy = a} :: MergeMetadata)
 
 -- | The commit ID for the merge commit, if any.
-mmMergeCommitId :: Lens' MergeMetadata (Maybe Text)
-mmMergeCommitId = lens _mmMergeCommitId (\s a -> s {_mmMergeCommitId = a})
+mergeMetadata_mergeCommitId :: Lens.Lens' MergeMetadata (Prelude.Maybe Prelude.Text)
+mergeMetadata_mergeCommitId = Lens.lens (\MergeMetadata' {mergeCommitId} -> mergeCommitId) (\s@MergeMetadata' {} a -> s {mergeCommitId = a} :: MergeMetadata)
 
 -- | A Boolean value indicating whether the merge has been made.
-mmIsMerged :: Lens' MergeMetadata (Maybe Bool)
-mmIsMerged = lens _mmIsMerged (\s a -> s {_mmIsMerged = a})
+mergeMetadata_isMerged :: Lens.Lens' MergeMetadata (Prelude.Maybe Prelude.Bool)
+mergeMetadata_isMerged = Lens.lens (\MergeMetadata' {isMerged} -> isMerged) (\s@MergeMetadata' {} a -> s {isMerged = a} :: MergeMetadata)
 
 -- | The merge strategy used in the merge.
-mmMergeOption :: Lens' MergeMetadata (Maybe MergeOptionTypeEnum)
-mmMergeOption = lens _mmMergeOption (\s a -> s {_mmMergeOption = a})
+mergeMetadata_mergeOption :: Lens.Lens' MergeMetadata (Prelude.Maybe MergeOptionTypeEnum)
+mergeMetadata_mergeOption = Lens.lens (\MergeMetadata' {mergeOption} -> mergeOption) (\s@MergeMetadata' {} a -> s {mergeOption = a} :: MergeMetadata)
 
-instance FromJSON MergeMetadata where
+instance Prelude.FromJSON MergeMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MergeMetadata"
       ( \x ->
           MergeMetadata'
-            <$> (x .:? "mergedBy")
-            <*> (x .:? "mergeCommitId")
-            <*> (x .:? "isMerged")
-            <*> (x .:? "mergeOption")
+            Prelude.<$> (x Prelude..:? "mergedBy")
+            Prelude.<*> (x Prelude..:? "mergeCommitId")
+            Prelude.<*> (x Prelude..:? "isMerged")
+            Prelude.<*> (x Prelude..:? "mergeOption")
       )
 
-instance Hashable MergeMetadata
+instance Prelude.Hashable MergeMetadata
 
-instance NFData MergeMetadata
+instance Prelude.NFData MergeMetadata

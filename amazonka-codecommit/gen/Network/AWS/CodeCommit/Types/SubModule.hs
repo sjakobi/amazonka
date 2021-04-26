@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.SubModule where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about a submodule reference in a repository folder.
 --
---
---
--- /See:/ 'subModule' smart constructor.
+-- /See:/ 'newSubModule' smart constructor.
 data SubModule = SubModule'
-  { _smCommitId ::
-      !(Maybe Text),
-    _smAbsolutePath :: !(Maybe Text),
-    _smRelativePath :: !(Maybe Text)
+  { -- | The commit ID that contains the reference to the submodule.
+    commitId :: Prelude.Maybe Prelude.Text,
+    -- | The fully qualified path to the folder that contains the reference to
+    -- the submodule.
+    absolutePath :: Prelude.Maybe Prelude.Text,
+    -- | The relative path of the submodule from the folder where the query
+    -- originated.
+    relativePath :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubModule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubModule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smCommitId' - The commit ID that contains the reference to the submodule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smAbsolutePath' - The fully qualified path to the folder that contains the reference to the submodule.
+-- 'commitId', 'subModule_commitId' - The commit ID that contains the reference to the submodule.
 --
--- * 'smRelativePath' - The relative path of the submodule from the folder where the query originated.
-subModule ::
+-- 'absolutePath', 'subModule_absolutePath' - The fully qualified path to the folder that contains the reference to
+-- the submodule.
+--
+-- 'relativePath', 'subModule_relativePath' - The relative path of the submodule from the folder where the query
+-- originated.
+newSubModule ::
   SubModule
-subModule =
+newSubModule =
   SubModule'
-    { _smCommitId = Nothing,
-      _smAbsolutePath = Nothing,
-      _smRelativePath = Nothing
+    { commitId = Prelude.Nothing,
+      absolutePath = Prelude.Nothing,
+      relativePath = Prelude.Nothing
     }
 
 -- | The commit ID that contains the reference to the submodule.
-smCommitId :: Lens' SubModule (Maybe Text)
-smCommitId = lens _smCommitId (\s a -> s {_smCommitId = a})
+subModule_commitId :: Lens.Lens' SubModule (Prelude.Maybe Prelude.Text)
+subModule_commitId = Lens.lens (\SubModule' {commitId} -> commitId) (\s@SubModule' {} a -> s {commitId = a} :: SubModule)
 
--- | The fully qualified path to the folder that contains the reference to the submodule.
-smAbsolutePath :: Lens' SubModule (Maybe Text)
-smAbsolutePath = lens _smAbsolutePath (\s a -> s {_smAbsolutePath = a})
+-- | The fully qualified path to the folder that contains the reference to
+-- the submodule.
+subModule_absolutePath :: Lens.Lens' SubModule (Prelude.Maybe Prelude.Text)
+subModule_absolutePath = Lens.lens (\SubModule' {absolutePath} -> absolutePath) (\s@SubModule' {} a -> s {absolutePath = a} :: SubModule)
 
--- | The relative path of the submodule from the folder where the query originated.
-smRelativePath :: Lens' SubModule (Maybe Text)
-smRelativePath = lens _smRelativePath (\s a -> s {_smRelativePath = a})
+-- | The relative path of the submodule from the folder where the query
+-- originated.
+subModule_relativePath :: Lens.Lens' SubModule (Prelude.Maybe Prelude.Text)
+subModule_relativePath = Lens.lens (\SubModule' {relativePath} -> relativePath) (\s@SubModule' {} a -> s {relativePath = a} :: SubModule)
 
-instance FromJSON SubModule where
+instance Prelude.FromJSON SubModule where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SubModule"
       ( \x ->
           SubModule'
-            <$> (x .:? "commitId")
-            <*> (x .:? "absolutePath")
-            <*> (x .:? "relativePath")
+            Prelude.<$> (x Prelude..:? "commitId")
+            Prelude.<*> (x Prelude..:? "absolutePath")
+            Prelude.<*> (x Prelude..:? "relativePath")
       )
 
-instance Hashable SubModule
+instance Prelude.Hashable SubModule
 
-instance NFData SubModule
+instance Prelude.NFData SubModule

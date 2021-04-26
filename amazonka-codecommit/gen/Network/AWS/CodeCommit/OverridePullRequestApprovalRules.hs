@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,183 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets aside (overrides) all approval rule requirements for a specified pull request.
+-- Sets aside (overrides) all approval rule requirements for a specified
+-- pull request.
 module Network.AWS.CodeCommit.OverridePullRequestApprovalRules
   ( -- * Creating a Request
-    overridePullRequestApprovalRules,
-    OverridePullRequestApprovalRules,
+    OverridePullRequestApprovalRules (..),
+    newOverridePullRequestApprovalRules,
 
     -- * Request Lenses
-    oprarPullRequestId,
-    oprarRevisionId,
-    oprarOverrideStatus,
+    overridePullRequestApprovalRules_pullRequestId,
+    overridePullRequestApprovalRules_revisionId,
+    overridePullRequestApprovalRules_overrideStatus,
 
     -- * Destructuring the Response
-    overridePullRequestApprovalRulesResponse,
-    OverridePullRequestApprovalRulesResponse,
+    OverridePullRequestApprovalRulesResponse (..),
+    newOverridePullRequestApprovalRulesResponse,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'overridePullRequestApprovalRules' smart constructor.
+-- | /See:/ 'newOverridePullRequestApprovalRules' smart constructor.
 data OverridePullRequestApprovalRules = OverridePullRequestApprovalRules'
-  { _oprarPullRequestId ::
-      !Text,
-    _oprarRevisionId ::
-      !Text,
-    _oprarOverrideStatus ::
-      !OverrideStatus
+  { -- | The system-generated ID of the pull request for which you want to
+    -- override all approval rule requirements. To get this information, use
+    -- GetPullRequest.
+    pullRequestId :: Prelude.Text,
+    -- | The system-generated ID of the most recent revision of the pull request.
+    -- You cannot override approval rules for anything but the most recent
+    -- revision of a pull request. To get the revision ID, use GetPullRequest.
+    revisionId :: Prelude.Text,
+    -- | Whether you want to set aside approval rule requirements for the pull
+    -- request (OVERRIDE) or revoke a previous override and apply approval rule
+    -- requirements (REVOKE). REVOKE status is not stored.
+    overrideStatus :: OverrideStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OverridePullRequestApprovalRules' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OverridePullRequestApprovalRules' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oprarPullRequestId' - The system-generated ID of the pull request for which you want to override all approval rule requirements. To get this information, use 'GetPullRequest' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oprarRevisionId' - The system-generated ID of the most recent revision of the pull request. You cannot override approval rules for anything but the most recent revision of a pull request. To get the revision ID, use GetPullRequest.
+-- 'pullRequestId', 'overridePullRequestApprovalRules_pullRequestId' - The system-generated ID of the pull request for which you want to
+-- override all approval rule requirements. To get this information, use
+-- GetPullRequest.
 --
--- * 'oprarOverrideStatus' - Whether you want to set aside approval rule requirements for the pull request (OVERRIDE) or revoke a previous override and apply approval rule requirements (REVOKE). REVOKE status is not stored.
-overridePullRequestApprovalRules ::
-  -- | 'oprarPullRequestId'
-  Text ->
-  -- | 'oprarRevisionId'
-  Text ->
-  -- | 'oprarOverrideStatus'
+-- 'revisionId', 'overridePullRequestApprovalRules_revisionId' - The system-generated ID of the most recent revision of the pull request.
+-- You cannot override approval rules for anything but the most recent
+-- revision of a pull request. To get the revision ID, use GetPullRequest.
+--
+-- 'overrideStatus', 'overridePullRequestApprovalRules_overrideStatus' - Whether you want to set aside approval rule requirements for the pull
+-- request (OVERRIDE) or revoke a previous override and apply approval rule
+-- requirements (REVOKE). REVOKE status is not stored.
+newOverridePullRequestApprovalRules ::
+  -- | 'pullRequestId'
+  Prelude.Text ->
+  -- | 'revisionId'
+  Prelude.Text ->
+  -- | 'overrideStatus'
   OverrideStatus ->
   OverridePullRequestApprovalRules
-overridePullRequestApprovalRules
+newOverridePullRequestApprovalRules
   pPullRequestId_
   pRevisionId_
   pOverrideStatus_ =
     OverridePullRequestApprovalRules'
-      { _oprarPullRequestId =
+      { pullRequestId =
           pPullRequestId_,
-        _oprarRevisionId = pRevisionId_,
-        _oprarOverrideStatus = pOverrideStatus_
+        revisionId = pRevisionId_,
+        overrideStatus = pOverrideStatus_
       }
 
--- | The system-generated ID of the pull request for which you want to override all approval rule requirements. To get this information, use 'GetPullRequest' .
-oprarPullRequestId :: Lens' OverridePullRequestApprovalRules Text
-oprarPullRequestId = lens _oprarPullRequestId (\s a -> s {_oprarPullRequestId = a})
+-- | The system-generated ID of the pull request for which you want to
+-- override all approval rule requirements. To get this information, use
+-- GetPullRequest.
+overridePullRequestApprovalRules_pullRequestId :: Lens.Lens' OverridePullRequestApprovalRules Prelude.Text
+overridePullRequestApprovalRules_pullRequestId = Lens.lens (\OverridePullRequestApprovalRules' {pullRequestId} -> pullRequestId) (\s@OverridePullRequestApprovalRules' {} a -> s {pullRequestId = a} :: OverridePullRequestApprovalRules)
 
--- | The system-generated ID of the most recent revision of the pull request. You cannot override approval rules for anything but the most recent revision of a pull request. To get the revision ID, use GetPullRequest.
-oprarRevisionId :: Lens' OverridePullRequestApprovalRules Text
-oprarRevisionId = lens _oprarRevisionId (\s a -> s {_oprarRevisionId = a})
+-- | The system-generated ID of the most recent revision of the pull request.
+-- You cannot override approval rules for anything but the most recent
+-- revision of a pull request. To get the revision ID, use GetPullRequest.
+overridePullRequestApprovalRules_revisionId :: Lens.Lens' OverridePullRequestApprovalRules Prelude.Text
+overridePullRequestApprovalRules_revisionId = Lens.lens (\OverridePullRequestApprovalRules' {revisionId} -> revisionId) (\s@OverridePullRequestApprovalRules' {} a -> s {revisionId = a} :: OverridePullRequestApprovalRules)
 
--- | Whether you want to set aside approval rule requirements for the pull request (OVERRIDE) or revoke a previous override and apply approval rule requirements (REVOKE). REVOKE status is not stored.
-oprarOverrideStatus :: Lens' OverridePullRequestApprovalRules OverrideStatus
-oprarOverrideStatus = lens _oprarOverrideStatus (\s a -> s {_oprarOverrideStatus = a})
+-- | Whether you want to set aside approval rule requirements for the pull
+-- request (OVERRIDE) or revoke a previous override and apply approval rule
+-- requirements (REVOKE). REVOKE status is not stored.
+overridePullRequestApprovalRules_overrideStatus :: Lens.Lens' OverridePullRequestApprovalRules OverrideStatus
+overridePullRequestApprovalRules_overrideStatus = Lens.lens (\OverridePullRequestApprovalRules' {overrideStatus} -> overrideStatus) (\s@OverridePullRequestApprovalRules' {} a -> s {overrideStatus = a} :: OverridePullRequestApprovalRules)
 
-instance AWSRequest OverridePullRequestApprovalRules where
+instance
+  Prelude.AWSRequest
+    OverridePullRequestApprovalRules
+  where
   type
     Rs OverridePullRequestApprovalRules =
       OverridePullRequestApprovalRulesResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveNull
+    Response.receiveNull
       OverridePullRequestApprovalRulesResponse'
 
-instance Hashable OverridePullRequestApprovalRules
+instance
+  Prelude.Hashable
+    OverridePullRequestApprovalRules
 
-instance NFData OverridePullRequestApprovalRules
+instance
+  Prelude.NFData
+    OverridePullRequestApprovalRules
 
-instance ToHeaders OverridePullRequestApprovalRules where
+instance
+  Prelude.ToHeaders
+    OverridePullRequestApprovalRules
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.OverridePullRequestApprovalRules" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.OverridePullRequestApprovalRules" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON OverridePullRequestApprovalRules where
+instance
+  Prelude.ToJSON
+    OverridePullRequestApprovalRules
+  where
   toJSON OverridePullRequestApprovalRules' {..} =
-    object
-      ( catMaybes
-          [ Just ("pullRequestId" .= _oprarPullRequestId),
-            Just ("revisionId" .= _oprarRevisionId),
-            Just ("overrideStatus" .= _oprarOverrideStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("pullRequestId" Prelude..= pullRequestId),
+            Prelude.Just ("revisionId" Prelude..= revisionId),
+            Prelude.Just
+              ("overrideStatus" Prelude..= overrideStatus)
           ]
       )
 
-instance ToPath OverridePullRequestApprovalRules where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    OverridePullRequestApprovalRules
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery OverridePullRequestApprovalRules where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    OverridePullRequestApprovalRules
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'overridePullRequestApprovalRulesResponse' smart constructor.
+-- | /See:/ 'newOverridePullRequestApprovalRulesResponse' smart constructor.
 data OverridePullRequestApprovalRulesResponse = OverridePullRequestApprovalRulesResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OverridePullRequestApprovalRulesResponse' with the minimum fields required to make a request.
-overridePullRequestApprovalRulesResponse ::
+-- |
+-- Create a value of 'OverridePullRequestApprovalRulesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newOverridePullRequestApprovalRulesResponse ::
   OverridePullRequestApprovalRulesResponse
-overridePullRequestApprovalRulesResponse =
+newOverridePullRequestApprovalRulesResponse =
   OverridePullRequestApprovalRulesResponse'
 
 instance
-  NFData
+  Prelude.NFData
     OverridePullRequestApprovalRulesResponse

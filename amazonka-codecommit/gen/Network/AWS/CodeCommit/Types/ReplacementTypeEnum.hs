@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.CodeCommit.Types.ReplacementTypeEnum
   ( ReplacementTypeEnum
       ( ..,
-        KeepBase,
-        KeepDestination,
-        KeepSource,
-        UseNewContent
+        ReplacementTypeEnumKEEPBASE,
+        ReplacementTypeEnumKEEPDESTINATION,
+        ReplacementTypeEnumKEEPSOURCE,
+        ReplacementTypeEnumUSENEWCONTENT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReplacementTypeEnum
-  = ReplacementTypeEnum'
-      ( CI
-          Text
-      )
+newtype ReplacementTypeEnum = ReplacementTypeEnum'
+  { fromReplacementTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern KeepBase :: ReplacementTypeEnum
-pattern KeepBase = ReplacementTypeEnum' "KEEP_BASE"
+pattern ReplacementTypeEnumKEEPBASE :: ReplacementTypeEnum
+pattern ReplacementTypeEnumKEEPBASE = ReplacementTypeEnum' "KEEP_BASE"
 
-pattern KeepDestination :: ReplacementTypeEnum
-pattern KeepDestination = ReplacementTypeEnum' "KEEP_DESTINATION"
+pattern ReplacementTypeEnumKEEPDESTINATION :: ReplacementTypeEnum
+pattern ReplacementTypeEnumKEEPDESTINATION = ReplacementTypeEnum' "KEEP_DESTINATION"
 
-pattern KeepSource :: ReplacementTypeEnum
-pattern KeepSource = ReplacementTypeEnum' "KEEP_SOURCE"
+pattern ReplacementTypeEnumKEEPSOURCE :: ReplacementTypeEnum
+pattern ReplacementTypeEnumKEEPSOURCE = ReplacementTypeEnum' "KEEP_SOURCE"
 
-pattern UseNewContent :: ReplacementTypeEnum
-pattern UseNewContent = ReplacementTypeEnum' "USE_NEW_CONTENT"
+pattern ReplacementTypeEnumUSENEWCONTENT :: ReplacementTypeEnum
+pattern ReplacementTypeEnumUSENEWCONTENT = ReplacementTypeEnum' "USE_NEW_CONTENT"
 
 {-# COMPLETE
-  KeepBase,
-  KeepDestination,
-  KeepSource,
-  UseNewContent,
+  ReplacementTypeEnumKEEPBASE,
+  ReplacementTypeEnumKEEPDESTINATION,
+  ReplacementTypeEnumKEEPSOURCE,
+  ReplacementTypeEnumUSENEWCONTENT,
   ReplacementTypeEnum'
   #-}
 
-instance FromText ReplacementTypeEnum where
-  parser = (ReplacementTypeEnum' . mk) <$> takeText
+instance Prelude.FromText ReplacementTypeEnum where
+  parser = ReplacementTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ReplacementTypeEnum where
-  toText (ReplacementTypeEnum' ci) = original ci
+instance Prelude.ToText ReplacementTypeEnum where
+  toText (ReplacementTypeEnum' x) = x
 
-instance Hashable ReplacementTypeEnum
+instance Prelude.Hashable ReplacementTypeEnum
 
-instance NFData ReplacementTypeEnum
+instance Prelude.NFData ReplacementTypeEnum
 
-instance ToByteString ReplacementTypeEnum
+instance Prelude.ToByteString ReplacementTypeEnum
 
-instance ToQuery ReplacementTypeEnum
+instance Prelude.ToQuery ReplacementTypeEnum
 
-instance ToHeader ReplacementTypeEnum
+instance Prelude.ToHeader ReplacementTypeEnum
 
-instance ToJSON ReplacementTypeEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReplacementTypeEnum where
+  toJSON = Prelude.toJSONText

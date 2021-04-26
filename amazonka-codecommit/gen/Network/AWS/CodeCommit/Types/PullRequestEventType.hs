@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,95 +19,93 @@
 module Network.AWS.CodeCommit.Types.PullRequestEventType
   ( PullRequestEventType
       ( ..,
-        PullRequestApprovalRuleCreated,
-        PullRequestApprovalRuleDeleted,
-        PullRequestApprovalRuleOverridden,
-        PullRequestApprovalRuleUpdated,
-        PullRequestApprovalStateChanged,
-        PullRequestCreated,
-        PullRequestMergeStateChanged,
-        PullRequestSourceReferenceUpdated,
-        PullRequestStatusChanged
+        PullRequestEventTypePULLREQUESTAPPROVALRULECREATED,
+        PullRequestEventTypePULLREQUESTAPPROVALRULEDELETED,
+        PullRequestEventTypePULLREQUESTAPPROVALRULEOVERRIDDEN,
+        PullRequestEventTypePULLREQUESTAPPROVALRULEUPDATED,
+        PullRequestEventTypePULLREQUESTAPPROVALSTATECHANGED,
+        PullRequestEventTypePULLREQUESTCREATED,
+        PullRequestEventTypePULLREQUESTMERGESTATECHANGED,
+        PullRequestEventTypePULLREQUESTSOURCEREFERENCEUPDATED,
+        PullRequestEventTypePULLREQUESTSTATUSCHANGED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PullRequestEventType
-  = PullRequestEventType'
-      ( CI
-          Text
-      )
+newtype PullRequestEventType = PullRequestEventType'
+  { fromPullRequestEventType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PullRequestApprovalRuleCreated :: PullRequestEventType
-pattern PullRequestApprovalRuleCreated = PullRequestEventType' "PULL_REQUEST_APPROVAL_RULE_CREATED"
+pattern PullRequestEventTypePULLREQUESTAPPROVALRULECREATED :: PullRequestEventType
+pattern PullRequestEventTypePULLREQUESTAPPROVALRULECREATED = PullRequestEventType' "PULL_REQUEST_APPROVAL_RULE_CREATED"
 
-pattern PullRequestApprovalRuleDeleted :: PullRequestEventType
-pattern PullRequestApprovalRuleDeleted = PullRequestEventType' "PULL_REQUEST_APPROVAL_RULE_DELETED"
+pattern PullRequestEventTypePULLREQUESTAPPROVALRULEDELETED :: PullRequestEventType
+pattern PullRequestEventTypePULLREQUESTAPPROVALRULEDELETED = PullRequestEventType' "PULL_REQUEST_APPROVAL_RULE_DELETED"
 
-pattern PullRequestApprovalRuleOverridden :: PullRequestEventType
-pattern PullRequestApprovalRuleOverridden = PullRequestEventType' "PULL_REQUEST_APPROVAL_RULE_OVERRIDDEN"
+pattern PullRequestEventTypePULLREQUESTAPPROVALRULEOVERRIDDEN :: PullRequestEventType
+pattern PullRequestEventTypePULLREQUESTAPPROVALRULEOVERRIDDEN = PullRequestEventType' "PULL_REQUEST_APPROVAL_RULE_OVERRIDDEN"
 
-pattern PullRequestApprovalRuleUpdated :: PullRequestEventType
-pattern PullRequestApprovalRuleUpdated = PullRequestEventType' "PULL_REQUEST_APPROVAL_RULE_UPDATED"
+pattern PullRequestEventTypePULLREQUESTAPPROVALRULEUPDATED :: PullRequestEventType
+pattern PullRequestEventTypePULLREQUESTAPPROVALRULEUPDATED = PullRequestEventType' "PULL_REQUEST_APPROVAL_RULE_UPDATED"
 
-pattern PullRequestApprovalStateChanged :: PullRequestEventType
-pattern PullRequestApprovalStateChanged = PullRequestEventType' "PULL_REQUEST_APPROVAL_STATE_CHANGED"
+pattern PullRequestEventTypePULLREQUESTAPPROVALSTATECHANGED :: PullRequestEventType
+pattern PullRequestEventTypePULLREQUESTAPPROVALSTATECHANGED = PullRequestEventType' "PULL_REQUEST_APPROVAL_STATE_CHANGED"
 
-pattern PullRequestCreated :: PullRequestEventType
-pattern PullRequestCreated = PullRequestEventType' "PULL_REQUEST_CREATED"
+pattern PullRequestEventTypePULLREQUESTCREATED :: PullRequestEventType
+pattern PullRequestEventTypePULLREQUESTCREATED = PullRequestEventType' "PULL_REQUEST_CREATED"
 
-pattern PullRequestMergeStateChanged :: PullRequestEventType
-pattern PullRequestMergeStateChanged = PullRequestEventType' "PULL_REQUEST_MERGE_STATE_CHANGED"
+pattern PullRequestEventTypePULLREQUESTMERGESTATECHANGED :: PullRequestEventType
+pattern PullRequestEventTypePULLREQUESTMERGESTATECHANGED = PullRequestEventType' "PULL_REQUEST_MERGE_STATE_CHANGED"
 
-pattern PullRequestSourceReferenceUpdated :: PullRequestEventType
-pattern PullRequestSourceReferenceUpdated = PullRequestEventType' "PULL_REQUEST_SOURCE_REFERENCE_UPDATED"
+pattern PullRequestEventTypePULLREQUESTSOURCEREFERENCEUPDATED :: PullRequestEventType
+pattern PullRequestEventTypePULLREQUESTSOURCEREFERENCEUPDATED = PullRequestEventType' "PULL_REQUEST_SOURCE_REFERENCE_UPDATED"
 
-pattern PullRequestStatusChanged :: PullRequestEventType
-pattern PullRequestStatusChanged = PullRequestEventType' "PULL_REQUEST_STATUS_CHANGED"
+pattern PullRequestEventTypePULLREQUESTSTATUSCHANGED :: PullRequestEventType
+pattern PullRequestEventTypePULLREQUESTSTATUSCHANGED = PullRequestEventType' "PULL_REQUEST_STATUS_CHANGED"
 
 {-# COMPLETE
-  PullRequestApprovalRuleCreated,
-  PullRequestApprovalRuleDeleted,
-  PullRequestApprovalRuleOverridden,
-  PullRequestApprovalRuleUpdated,
-  PullRequestApprovalStateChanged,
-  PullRequestCreated,
-  PullRequestMergeStateChanged,
-  PullRequestSourceReferenceUpdated,
-  PullRequestStatusChanged,
+  PullRequestEventTypePULLREQUESTAPPROVALRULECREATED,
+  PullRequestEventTypePULLREQUESTAPPROVALRULEDELETED,
+  PullRequestEventTypePULLREQUESTAPPROVALRULEOVERRIDDEN,
+  PullRequestEventTypePULLREQUESTAPPROVALRULEUPDATED,
+  PullRequestEventTypePULLREQUESTAPPROVALSTATECHANGED,
+  PullRequestEventTypePULLREQUESTCREATED,
+  PullRequestEventTypePULLREQUESTMERGESTATECHANGED,
+  PullRequestEventTypePULLREQUESTSOURCEREFERENCEUPDATED,
+  PullRequestEventTypePULLREQUESTSTATUSCHANGED,
   PullRequestEventType'
   #-}
 
-instance FromText PullRequestEventType where
-  parser = (PullRequestEventType' . mk) <$> takeText
+instance Prelude.FromText PullRequestEventType where
+  parser = PullRequestEventType' Prelude.<$> Prelude.takeText
 
-instance ToText PullRequestEventType where
-  toText (PullRequestEventType' ci) = original ci
+instance Prelude.ToText PullRequestEventType where
+  toText (PullRequestEventType' x) = x
 
-instance Hashable PullRequestEventType
+instance Prelude.Hashable PullRequestEventType
 
-instance NFData PullRequestEventType
+instance Prelude.NFData PullRequestEventType
 
-instance ToByteString PullRequestEventType
+instance Prelude.ToByteString PullRequestEventType
 
-instance ToQuery PullRequestEventType
+instance Prelude.ToQuery PullRequestEventType
 
-instance ToHeader PullRequestEventType
+instance Prelude.ToHeader PullRequestEventType
 
-instance ToJSON PullRequestEventType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PullRequestEventType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PullRequestEventType where
-  parseJSON = parseJSONText "PullRequestEventType"
+instance Prelude.FromJSON PullRequestEventType where
+  parseJSON = Prelude.parseJSONText "PullRequestEventType"

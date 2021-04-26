@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CodeCommit.Types.PullRequestStatusEnum
   ( PullRequestStatusEnum
       ( ..,
-        Closed,
-        Open
+        PullRequestStatusEnumCLOSED,
+        PullRequestStatusEnumOPEN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PullRequestStatusEnum
-  = PullRequestStatusEnum'
-      ( CI
-          Text
-      )
+newtype PullRequestStatusEnum = PullRequestStatusEnum'
+  { fromPullRequestStatusEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Closed :: PullRequestStatusEnum
-pattern Closed = PullRequestStatusEnum' "CLOSED"
+pattern PullRequestStatusEnumCLOSED :: PullRequestStatusEnum
+pattern PullRequestStatusEnumCLOSED = PullRequestStatusEnum' "CLOSED"
 
-pattern Open :: PullRequestStatusEnum
-pattern Open = PullRequestStatusEnum' "OPEN"
+pattern PullRequestStatusEnumOPEN :: PullRequestStatusEnum
+pattern PullRequestStatusEnumOPEN = PullRequestStatusEnum' "OPEN"
 
 {-# COMPLETE
-  Closed,
-  Open,
+  PullRequestStatusEnumCLOSED,
+  PullRequestStatusEnumOPEN,
   PullRequestStatusEnum'
   #-}
 
-instance FromText PullRequestStatusEnum where
-  parser = (PullRequestStatusEnum' . mk) <$> takeText
+instance Prelude.FromText PullRequestStatusEnum where
+  parser = PullRequestStatusEnum' Prelude.<$> Prelude.takeText
 
-instance ToText PullRequestStatusEnum where
-  toText (PullRequestStatusEnum' ci) = original ci
+instance Prelude.ToText PullRequestStatusEnum where
+  toText (PullRequestStatusEnum' x) = x
 
-instance Hashable PullRequestStatusEnum
+instance Prelude.Hashable PullRequestStatusEnum
 
-instance NFData PullRequestStatusEnum
+instance Prelude.NFData PullRequestStatusEnum
 
-instance ToByteString PullRequestStatusEnum
+instance Prelude.ToByteString PullRequestStatusEnum
 
-instance ToQuery PullRequestStatusEnum
+instance Prelude.ToQuery PullRequestStatusEnum
 
-instance ToHeader PullRequestStatusEnum
+instance Prelude.ToHeader PullRequestStatusEnum
 
-instance ToJSON PullRequestStatusEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON PullRequestStatusEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PullRequestStatusEnum where
-  parseJSON = parseJSONText "PullRequestStatusEnum"
+instance Prelude.FromJSON PullRequestStatusEnum where
+  parseJSON = Prelude.parseJSONText "PullRequestStatusEnum"

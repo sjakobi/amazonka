@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CodeCommit.Types.OverrideStatus
   ( OverrideStatus
       ( ..,
-        OSOverride,
-        OSRevoke
+        OverrideStatusOVERRIDE,
+        OverrideStatusREVOKE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OverrideStatus = OverrideStatus' (CI Text)
+newtype OverrideStatus = OverrideStatus'
+  { fromOverrideStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OSOverride :: OverrideStatus
-pattern OSOverride = OverrideStatus' "OVERRIDE"
+pattern OverrideStatusOVERRIDE :: OverrideStatus
+pattern OverrideStatusOVERRIDE = OverrideStatus' "OVERRIDE"
 
-pattern OSRevoke :: OverrideStatus
-pattern OSRevoke = OverrideStatus' "REVOKE"
+pattern OverrideStatusREVOKE :: OverrideStatus
+pattern OverrideStatusREVOKE = OverrideStatus' "REVOKE"
 
 {-# COMPLETE
-  OSOverride,
-  OSRevoke,
+  OverrideStatusOVERRIDE,
+  OverrideStatusREVOKE,
   OverrideStatus'
   #-}
 
-instance FromText OverrideStatus where
-  parser = (OverrideStatus' . mk) <$> takeText
+instance Prelude.FromText OverrideStatus where
+  parser = OverrideStatus' Prelude.<$> Prelude.takeText
 
-instance ToText OverrideStatus where
-  toText (OverrideStatus' ci) = original ci
+instance Prelude.ToText OverrideStatus where
+  toText (OverrideStatus' x) = x
 
-instance Hashable OverrideStatus
+instance Prelude.Hashable OverrideStatus
 
-instance NFData OverrideStatus
+instance Prelude.NFData OverrideStatus
 
-instance ToByteString OverrideStatus
+instance Prelude.ToByteString OverrideStatus
 
-instance ToQuery OverrideStatus
+instance Prelude.ToQuery OverrideStatus
 
-instance ToHeader OverrideStatus
+instance Prelude.ToHeader OverrideStatus
 
-instance ToJSON OverrideStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON OverrideStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OverrideStatus where
-  parseJSON = parseJSONText "OverrideStatus"
+instance Prelude.FromJSON OverrideStatus where
+  parseJSON = Prelude.parseJSONText "OverrideStatus"

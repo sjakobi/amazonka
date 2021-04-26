@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a repository branch, including its name and the last commit ID.
+-- Returns information about a repository branch, including its name and
+-- the last commit ID.
 module Network.AWS.CodeCommit.GetBranch
   ( -- * Creating a Request
-    getBranch,
-    GetBranch,
+    GetBranch (..),
+    newGetBranch,
 
     -- * Request Lenses
-    gbbBranchName,
-    gbbRepositoryName,
+    getBranch_branchName,
+    getBranch_repositoryName,
 
     -- * Destructuring the Response
-    getBranchResponse,
-    GetBranchResponse,
+    GetBranchResponse (..),
+    newGetBranchResponse,
 
     -- * Response Lenses
-    gbrbrsBranch,
-    gbrbrsResponseStatus,
+    getBranchResponse_branch,
+    getBranchResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.BranchInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a get branch operation.
 --
---
---
--- /See:/ 'getBranch' smart constructor.
+-- /See:/ 'newGetBranch' smart constructor.
 data GetBranch = GetBranch'
-  { _gbbBranchName ::
-      !(Maybe Text),
-    _gbbRepositoryName :: !(Maybe Text)
+  { -- | The name of the branch for which you want to retrieve information.
+    branchName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the repository that contains the branch for which you want
+    -- to retrieve information.
+    repositoryName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBranch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBranch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbbBranchName' - The name of the branch for which you want to retrieve information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbbRepositoryName' - The name of the repository that contains the branch for which you want to retrieve information.
-getBranch ::
+-- 'branchName', 'getBranch_branchName' - The name of the branch for which you want to retrieve information.
+--
+-- 'repositoryName', 'getBranch_repositoryName' - The name of the repository that contains the branch for which you want
+-- to retrieve information.
+newGetBranch ::
   GetBranch
-getBranch =
+newGetBranch =
   GetBranch'
-    { _gbbBranchName = Nothing,
-      _gbbRepositoryName = Nothing
+    { branchName = Prelude.Nothing,
+      repositoryName = Prelude.Nothing
     }
 
 -- | The name of the branch for which you want to retrieve information.
-gbbBranchName :: Lens' GetBranch (Maybe Text)
-gbbBranchName = lens _gbbBranchName (\s a -> s {_gbbBranchName = a})
+getBranch_branchName :: Lens.Lens' GetBranch (Prelude.Maybe Prelude.Text)
+getBranch_branchName = Lens.lens (\GetBranch' {branchName} -> branchName) (\s@GetBranch' {} a -> s {branchName = a} :: GetBranch)
 
--- | The name of the repository that contains the branch for which you want to retrieve information.
-gbbRepositoryName :: Lens' GetBranch (Maybe Text)
-gbbRepositoryName = lens _gbbRepositoryName (\s a -> s {_gbbRepositoryName = a})
+-- | The name of the repository that contains the branch for which you want
+-- to retrieve information.
+getBranch_repositoryName :: Lens.Lens' GetBranch (Prelude.Maybe Prelude.Text)
+getBranch_repositoryName = Lens.lens (\GetBranch' {repositoryName} -> repositoryName) (\s@GetBranch' {} a -> s {repositoryName = a} :: GetBranch)
 
-instance AWSRequest GetBranch where
+instance Prelude.AWSRequest GetBranch where
   type Rs GetBranch = GetBranchResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBranchResponse'
-            <$> (x .?> "branch") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "branch")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBranch
+instance Prelude.Hashable GetBranch
 
-instance NFData GetBranch
+instance Prelude.NFData GetBranch
 
-instance ToHeaders GetBranch where
+instance Prelude.ToHeaders GetBranch where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeCommit_20150413.GetBranch" :: ByteString),
+              Prelude.=# ( "CodeCommit_20150413.GetBranch" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetBranch where
+instance Prelude.ToJSON GetBranch where
   toJSON GetBranch' {..} =
-    object
-      ( catMaybes
-          [ ("branchName" .=) <$> _gbbBranchName,
-            ("repositoryName" .=) <$> _gbbRepositoryName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("branchName" Prelude..=) Prelude.<$> branchName,
+            ("repositoryName" Prelude..=)
+              Prelude.<$> repositoryName
           ]
       )
 
-instance ToPath GetBranch where
-  toPath = const "/"
+instance Prelude.ToPath GetBranch where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetBranch where
-  toQuery = const mempty
+instance Prelude.ToQuery GetBranch where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a get branch operation.
 --
---
---
--- /See:/ 'getBranchResponse' smart constructor.
+-- /See:/ 'newGetBranchResponse' smart constructor.
 data GetBranchResponse = GetBranchResponse'
-  { _gbrbrsBranch ::
-      !(Maybe BranchInfo),
-    _gbrbrsResponseStatus :: !Int
+  { -- | The name of the branch.
+    branch :: Prelude.Maybe BranchInfo,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBranchResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBranchResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbrbrsBranch' - The name of the branch.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbrbrsResponseStatus' - -- | The response status code.
-getBranchResponse ::
-  -- | 'gbrbrsResponseStatus'
-  Int ->
+-- 'branch', 'getBranchResponse_branch' - The name of the branch.
+--
+-- 'httpStatus', 'getBranchResponse_httpStatus' - The response's http status code.
+newGetBranchResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBranchResponse
-getBranchResponse pResponseStatus_ =
+newGetBranchResponse pHttpStatus_ =
   GetBranchResponse'
-    { _gbrbrsBranch = Nothing,
-      _gbrbrsResponseStatus = pResponseStatus_
+    { branch = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the branch.
-gbrbrsBranch :: Lens' GetBranchResponse (Maybe BranchInfo)
-gbrbrsBranch = lens _gbrbrsBranch (\s a -> s {_gbrbrsBranch = a})
+getBranchResponse_branch :: Lens.Lens' GetBranchResponse (Prelude.Maybe BranchInfo)
+getBranchResponse_branch = Lens.lens (\GetBranchResponse' {branch} -> branch) (\s@GetBranchResponse' {} a -> s {branch = a} :: GetBranchResponse)
 
--- | -- | The response status code.
-gbrbrsResponseStatus :: Lens' GetBranchResponse Int
-gbrbrsResponseStatus = lens _gbrbrsResponseStatus (\s a -> s {_gbrbrsResponseStatus = a})
+-- | The response's http status code.
+getBranchResponse_httpStatus :: Lens.Lens' GetBranchResponse Prelude.Int
+getBranchResponse_httpStatus = Lens.lens (\GetBranchResponse' {httpStatus} -> httpStatus) (\s@GetBranchResponse' {} a -> s {httpStatus = a} :: GetBranchResponse)
 
-instance NFData GetBranchResponse
+instance Prelude.NFData GetBranchResponse

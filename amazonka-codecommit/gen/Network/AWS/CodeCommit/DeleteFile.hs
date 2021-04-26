@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,251 +21,336 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified file from a specified branch. A commit is created on the branch that contains the revision. The file still exists in the commits earlier to the commit that contains the deletion.
+-- Deletes a specified file from a specified branch. A commit is created on
+-- the branch that contains the revision. The file still exists in the
+-- commits earlier to the commit that contains the deletion.
 module Network.AWS.CodeCommit.DeleteFile
   ( -- * Creating a Request
-    deleteFile,
-    DeleteFile,
+    DeleteFile (..),
+    newDeleteFile,
 
     -- * Request Lenses
-    dfCommitMessage,
-    dfName,
-    dfEmail,
-    dfKeepEmptyFolders,
-    dfRepositoryName,
-    dfBranchName,
-    dfFilePath,
-    dfParentCommitId,
+    deleteFile_commitMessage,
+    deleteFile_name,
+    deleteFile_email,
+    deleteFile_keepEmptyFolders,
+    deleteFile_repositoryName,
+    deleteFile_branchName,
+    deleteFile_filePath,
+    deleteFile_parentCommitId,
 
     -- * Destructuring the Response
-    deleteFileResponse,
-    DeleteFileResponse,
+    DeleteFileResponse (..),
+    newDeleteFileResponse,
 
     -- * Response Lenses
-    dfrrsResponseStatus,
-    dfrrsCommitId,
-    dfrrsBlobId,
-    dfrrsTreeId,
-    dfrrsFilePath,
+    deleteFileResponse_httpStatus,
+    deleteFileResponse_commitId,
+    deleteFileResponse_blobId,
+    deleteFileResponse_treeId,
+    deleteFileResponse_filePath,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteFile' smart constructor.
+-- | /See:/ 'newDeleteFile' smart constructor.
 data DeleteFile = DeleteFile'
-  { _dfCommitMessage ::
-      !(Maybe Text),
-    _dfName :: !(Maybe Text),
-    _dfEmail :: !(Maybe Text),
-    _dfKeepEmptyFolders :: !(Maybe Bool),
-    _dfRepositoryName :: !Text,
-    _dfBranchName :: !Text,
-    _dfFilePath :: !Text,
-    _dfParentCommitId :: !Text
+  { -- | The commit message you want to include as part of deleting the file.
+    -- Commit messages are limited to 256 KB. If no message is specified, a
+    -- default message is used.
+    commitMessage :: Prelude.Maybe Prelude.Text,
+    -- | The name of the author of the commit that deletes the file. If no name
+    -- is specified, the user\'s ARN is used as the author name and committer
+    -- name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The email address for the commit that deletes the file. If no email
+    -- address is specified, the email address is left blank.
+    email :: Prelude.Maybe Prelude.Text,
+    -- | If a file is the only object in the folder or directory, specifies
+    -- whether to delete the folder or directory that contains the file. By
+    -- default, empty folders are deleted. This includes empty folders that are
+    -- part of the directory structure. For example, if the path to a file is
+    -- dir1\/dir2\/dir3\/dir4, and dir2 and dir3 are empty, deleting the last
+    -- file in dir4 also deletes the empty folders dir4, dir3, and dir2.
+    keepEmptyFolders :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the repository that contains the file to delete.
+    repositoryName :: Prelude.Text,
+    -- | The name of the branch where the commit that deletes the file is made.
+    branchName :: Prelude.Text,
+    -- | The fully qualified path to the file that to be deleted, including the
+    -- full name and extension of that file. For example, \/examples\/file.md
+    -- is a fully qualified path to a file named file.md in a folder named
+    -- examples.
+    filePath :: Prelude.Text,
+    -- | The ID of the commit that is the tip of the branch where you want to
+    -- create the commit that deletes the file. This must be the HEAD commit
+    -- for the branch. The commit that deletes the file is created from this
+    -- commit ID.
+    parentCommitId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfCommitMessage' - The commit message you want to include as part of deleting the file. Commit messages are limited to 256 KB. If no message is specified, a default message is used.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfName' - The name of the author of the commit that deletes the file. If no name is specified, the user's ARN is used as the author name and committer name.
+-- 'commitMessage', 'deleteFile_commitMessage' - The commit message you want to include as part of deleting the file.
+-- Commit messages are limited to 256 KB. If no message is specified, a
+-- default message is used.
 --
--- * 'dfEmail' - The email address for the commit that deletes the file. If no email address is specified, the email address is left blank.
+-- 'name', 'deleteFile_name' - The name of the author of the commit that deletes the file. If no name
+-- is specified, the user\'s ARN is used as the author name and committer
+-- name.
 --
--- * 'dfKeepEmptyFolders' - If a file is the only object in the folder or directory, specifies whether to delete the folder or directory that contains the file. By default, empty folders are deleted. This includes empty folders that are part of the directory structure. For example, if the path to a file is dir1/dir2/dir3/dir4, and dir2 and dir3 are empty, deleting the last file in dir4 also deletes the empty folders dir4, dir3, and dir2.
+-- 'email', 'deleteFile_email' - The email address for the commit that deletes the file. If no email
+-- address is specified, the email address is left blank.
 --
--- * 'dfRepositoryName' - The name of the repository that contains the file to delete.
+-- 'keepEmptyFolders', 'deleteFile_keepEmptyFolders' - If a file is the only object in the folder or directory, specifies
+-- whether to delete the folder or directory that contains the file. By
+-- default, empty folders are deleted. This includes empty folders that are
+-- part of the directory structure. For example, if the path to a file is
+-- dir1\/dir2\/dir3\/dir4, and dir2 and dir3 are empty, deleting the last
+-- file in dir4 also deletes the empty folders dir4, dir3, and dir2.
 --
--- * 'dfBranchName' - The name of the branch where the commit that deletes the file is made.
+-- 'repositoryName', 'deleteFile_repositoryName' - The name of the repository that contains the file to delete.
 --
--- * 'dfFilePath' - The fully qualified path to the file that to be deleted, including the full name and extension of that file. For example, /examples/file.md is a fully qualified path to a file named file.md in a folder named examples.
+-- 'branchName', 'deleteFile_branchName' - The name of the branch where the commit that deletes the file is made.
 --
--- * 'dfParentCommitId' - The ID of the commit that is the tip of the branch where you want to create the commit that deletes the file. This must be the HEAD commit for the branch. The commit that deletes the file is created from this commit ID.
-deleteFile ::
-  -- | 'dfRepositoryName'
-  Text ->
-  -- | 'dfBranchName'
-  Text ->
-  -- | 'dfFilePath'
-  Text ->
-  -- | 'dfParentCommitId'
-  Text ->
+-- 'filePath', 'deleteFile_filePath' - The fully qualified path to the file that to be deleted, including the
+-- full name and extension of that file. For example, \/examples\/file.md
+-- is a fully qualified path to a file named file.md in a folder named
+-- examples.
+--
+-- 'parentCommitId', 'deleteFile_parentCommitId' - The ID of the commit that is the tip of the branch where you want to
+-- create the commit that deletes the file. This must be the HEAD commit
+-- for the branch. The commit that deletes the file is created from this
+-- commit ID.
+newDeleteFile ::
+  -- | 'repositoryName'
+  Prelude.Text ->
+  -- | 'branchName'
+  Prelude.Text ->
+  -- | 'filePath'
+  Prelude.Text ->
+  -- | 'parentCommitId'
+  Prelude.Text ->
   DeleteFile
-deleteFile
+newDeleteFile
   pRepositoryName_
   pBranchName_
   pFilePath_
   pParentCommitId_ =
     DeleteFile'
-      { _dfCommitMessage = Nothing,
-        _dfName = Nothing,
-        _dfEmail = Nothing,
-        _dfKeepEmptyFolders = Nothing,
-        _dfRepositoryName = pRepositoryName_,
-        _dfBranchName = pBranchName_,
-        _dfFilePath = pFilePath_,
-        _dfParentCommitId = pParentCommitId_
+      { commitMessage = Prelude.Nothing,
+        name = Prelude.Nothing,
+        email = Prelude.Nothing,
+        keepEmptyFolders = Prelude.Nothing,
+        repositoryName = pRepositoryName_,
+        branchName = pBranchName_,
+        filePath = pFilePath_,
+        parentCommitId = pParentCommitId_
       }
 
--- | The commit message you want to include as part of deleting the file. Commit messages are limited to 256 KB. If no message is specified, a default message is used.
-dfCommitMessage :: Lens' DeleteFile (Maybe Text)
-dfCommitMessage = lens _dfCommitMessage (\s a -> s {_dfCommitMessage = a})
+-- | The commit message you want to include as part of deleting the file.
+-- Commit messages are limited to 256 KB. If no message is specified, a
+-- default message is used.
+deleteFile_commitMessage :: Lens.Lens' DeleteFile (Prelude.Maybe Prelude.Text)
+deleteFile_commitMessage = Lens.lens (\DeleteFile' {commitMessage} -> commitMessage) (\s@DeleteFile' {} a -> s {commitMessage = a} :: DeleteFile)
 
--- | The name of the author of the commit that deletes the file. If no name is specified, the user's ARN is used as the author name and committer name.
-dfName :: Lens' DeleteFile (Maybe Text)
-dfName = lens _dfName (\s a -> s {_dfName = a})
+-- | The name of the author of the commit that deletes the file. If no name
+-- is specified, the user\'s ARN is used as the author name and committer
+-- name.
+deleteFile_name :: Lens.Lens' DeleteFile (Prelude.Maybe Prelude.Text)
+deleteFile_name = Lens.lens (\DeleteFile' {name} -> name) (\s@DeleteFile' {} a -> s {name = a} :: DeleteFile)
 
--- | The email address for the commit that deletes the file. If no email address is specified, the email address is left blank.
-dfEmail :: Lens' DeleteFile (Maybe Text)
-dfEmail = lens _dfEmail (\s a -> s {_dfEmail = a})
+-- | The email address for the commit that deletes the file. If no email
+-- address is specified, the email address is left blank.
+deleteFile_email :: Lens.Lens' DeleteFile (Prelude.Maybe Prelude.Text)
+deleteFile_email = Lens.lens (\DeleteFile' {email} -> email) (\s@DeleteFile' {} a -> s {email = a} :: DeleteFile)
 
--- | If a file is the only object in the folder or directory, specifies whether to delete the folder or directory that contains the file. By default, empty folders are deleted. This includes empty folders that are part of the directory structure. For example, if the path to a file is dir1/dir2/dir3/dir4, and dir2 and dir3 are empty, deleting the last file in dir4 also deletes the empty folders dir4, dir3, and dir2.
-dfKeepEmptyFolders :: Lens' DeleteFile (Maybe Bool)
-dfKeepEmptyFolders = lens _dfKeepEmptyFolders (\s a -> s {_dfKeepEmptyFolders = a})
+-- | If a file is the only object in the folder or directory, specifies
+-- whether to delete the folder or directory that contains the file. By
+-- default, empty folders are deleted. This includes empty folders that are
+-- part of the directory structure. For example, if the path to a file is
+-- dir1\/dir2\/dir3\/dir4, and dir2 and dir3 are empty, deleting the last
+-- file in dir4 also deletes the empty folders dir4, dir3, and dir2.
+deleteFile_keepEmptyFolders :: Lens.Lens' DeleteFile (Prelude.Maybe Prelude.Bool)
+deleteFile_keepEmptyFolders = Lens.lens (\DeleteFile' {keepEmptyFolders} -> keepEmptyFolders) (\s@DeleteFile' {} a -> s {keepEmptyFolders = a} :: DeleteFile)
 
 -- | The name of the repository that contains the file to delete.
-dfRepositoryName :: Lens' DeleteFile Text
-dfRepositoryName = lens _dfRepositoryName (\s a -> s {_dfRepositoryName = a})
+deleteFile_repositoryName :: Lens.Lens' DeleteFile Prelude.Text
+deleteFile_repositoryName = Lens.lens (\DeleteFile' {repositoryName} -> repositoryName) (\s@DeleteFile' {} a -> s {repositoryName = a} :: DeleteFile)
 
 -- | The name of the branch where the commit that deletes the file is made.
-dfBranchName :: Lens' DeleteFile Text
-dfBranchName = lens _dfBranchName (\s a -> s {_dfBranchName = a})
+deleteFile_branchName :: Lens.Lens' DeleteFile Prelude.Text
+deleteFile_branchName = Lens.lens (\DeleteFile' {branchName} -> branchName) (\s@DeleteFile' {} a -> s {branchName = a} :: DeleteFile)
 
--- | The fully qualified path to the file that to be deleted, including the full name and extension of that file. For example, /examples/file.md is a fully qualified path to a file named file.md in a folder named examples.
-dfFilePath :: Lens' DeleteFile Text
-dfFilePath = lens _dfFilePath (\s a -> s {_dfFilePath = a})
+-- | The fully qualified path to the file that to be deleted, including the
+-- full name and extension of that file. For example, \/examples\/file.md
+-- is a fully qualified path to a file named file.md in a folder named
+-- examples.
+deleteFile_filePath :: Lens.Lens' DeleteFile Prelude.Text
+deleteFile_filePath = Lens.lens (\DeleteFile' {filePath} -> filePath) (\s@DeleteFile' {} a -> s {filePath = a} :: DeleteFile)
 
--- | The ID of the commit that is the tip of the branch where you want to create the commit that deletes the file. This must be the HEAD commit for the branch. The commit that deletes the file is created from this commit ID.
-dfParentCommitId :: Lens' DeleteFile Text
-dfParentCommitId = lens _dfParentCommitId (\s a -> s {_dfParentCommitId = a})
+-- | The ID of the commit that is the tip of the branch where you want to
+-- create the commit that deletes the file. This must be the HEAD commit
+-- for the branch. The commit that deletes the file is created from this
+-- commit ID.
+deleteFile_parentCommitId :: Lens.Lens' DeleteFile Prelude.Text
+deleteFile_parentCommitId = Lens.lens (\DeleteFile' {parentCommitId} -> parentCommitId) (\s@DeleteFile' {} a -> s {parentCommitId = a} :: DeleteFile)
 
-instance AWSRequest DeleteFile where
+instance Prelude.AWSRequest DeleteFile where
   type Rs DeleteFile = DeleteFileResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteFileResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "commitId")
-            <*> (x .:> "blobId")
-            <*> (x .:> "treeId")
-            <*> (x .:> "filePath")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "commitId")
+            Prelude.<*> (x Prelude..:> "blobId")
+            Prelude.<*> (x Prelude..:> "treeId")
+            Prelude.<*> (x Prelude..:> "filePath")
       )
 
-instance Hashable DeleteFile
+instance Prelude.Hashable DeleteFile
 
-instance NFData DeleteFile
+instance Prelude.NFData DeleteFile
 
-instance ToHeaders DeleteFile where
+instance Prelude.ToHeaders DeleteFile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeCommit_20150413.DeleteFile" :: ByteString),
+              Prelude.=# ( "CodeCommit_20150413.DeleteFile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteFile where
+instance Prelude.ToJSON DeleteFile where
   toJSON DeleteFile' {..} =
-    object
-      ( catMaybes
-          [ ("commitMessage" .=) <$> _dfCommitMessage,
-            ("name" .=) <$> _dfName,
-            ("email" .=) <$> _dfEmail,
-            ("keepEmptyFolders" .=) <$> _dfKeepEmptyFolders,
-            Just ("repositoryName" .= _dfRepositoryName),
-            Just ("branchName" .= _dfBranchName),
-            Just ("filePath" .= _dfFilePath),
-            Just ("parentCommitId" .= _dfParentCommitId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("commitMessage" Prelude..=)
+              Prelude.<$> commitMessage,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("email" Prelude..=) Prelude.<$> email,
+            ("keepEmptyFolders" Prelude..=)
+              Prelude.<$> keepEmptyFolders,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName),
+            Prelude.Just ("branchName" Prelude..= branchName),
+            Prelude.Just ("filePath" Prelude..= filePath),
+            Prelude.Just
+              ("parentCommitId" Prelude..= parentCommitId)
           ]
       )
 
-instance ToPath DeleteFile where
-  toPath = const "/"
+instance Prelude.ToPath DeleteFile where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteFile where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFileResponse' smart constructor.
+-- | /See:/ 'newDeleteFileResponse' smart constructor.
 data DeleteFileResponse = DeleteFileResponse'
-  { _dfrrsResponseStatus ::
-      !Int,
-    _dfrrsCommitId :: !Text,
-    _dfrrsBlobId :: !Text,
-    _dfrrsTreeId :: !Text,
-    _dfrrsFilePath :: !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The full commit ID of the commit that contains the change that deletes
+    -- the file.
+    commitId :: Prelude.Text,
+    -- | The blob ID removed from the tree as part of deleting the file.
+    blobId :: Prelude.Text,
+    -- | The full SHA-1 pointer of the tree information for the commit that
+    -- contains the delete file change.
+    treeId :: Prelude.Text,
+    -- | The fully qualified path to the file to be deleted, including the full
+    -- name and extension of that file.
+    filePath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfrrsCommitId' - The full commit ID of the commit that contains the change that deletes the file.
+-- 'httpStatus', 'deleteFileResponse_httpStatus' - The response's http status code.
 --
--- * 'dfrrsBlobId' - The blob ID removed from the tree as part of deleting the file.
+-- 'commitId', 'deleteFileResponse_commitId' - The full commit ID of the commit that contains the change that deletes
+-- the file.
 --
--- * 'dfrrsTreeId' - The full SHA-1 pointer of the tree information for the commit that contains the delete file change.
+-- 'blobId', 'deleteFileResponse_blobId' - The blob ID removed from the tree as part of deleting the file.
 --
--- * 'dfrrsFilePath' - The fully qualified path to the file to be deleted, including the full name and extension of that file.
-deleteFileResponse ::
-  -- | 'dfrrsResponseStatus'
-  Int ->
-  -- | 'dfrrsCommitId'
-  Text ->
-  -- | 'dfrrsBlobId'
-  Text ->
-  -- | 'dfrrsTreeId'
-  Text ->
-  -- | 'dfrrsFilePath'
-  Text ->
+-- 'treeId', 'deleteFileResponse_treeId' - The full SHA-1 pointer of the tree information for the commit that
+-- contains the delete file change.
+--
+-- 'filePath', 'deleteFileResponse_filePath' - The fully qualified path to the file to be deleted, including the full
+-- name and extension of that file.
+newDeleteFileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'commitId'
+  Prelude.Text ->
+  -- | 'blobId'
+  Prelude.Text ->
+  -- | 'treeId'
+  Prelude.Text ->
+  -- | 'filePath'
+  Prelude.Text ->
   DeleteFileResponse
-deleteFileResponse
-  pResponseStatus_
+newDeleteFileResponse
+  pHttpStatus_
   pCommitId_
   pBlobId_
   pTreeId_
   pFilePath_ =
     DeleteFileResponse'
-      { _dfrrsResponseStatus =
-          pResponseStatus_,
-        _dfrrsCommitId = pCommitId_,
-        _dfrrsBlobId = pBlobId_,
-        _dfrrsTreeId = pTreeId_,
-        _dfrrsFilePath = pFilePath_
+      { httpStatus = pHttpStatus_,
+        commitId = pCommitId_,
+        blobId = pBlobId_,
+        treeId = pTreeId_,
+        filePath = pFilePath_
       }
 
--- | -- | The response status code.
-dfrrsResponseStatus :: Lens' DeleteFileResponse Int
-dfrrsResponseStatus = lens _dfrrsResponseStatus (\s a -> s {_dfrrsResponseStatus = a})
+-- | The response's http status code.
+deleteFileResponse_httpStatus :: Lens.Lens' DeleteFileResponse Prelude.Int
+deleteFileResponse_httpStatus = Lens.lens (\DeleteFileResponse' {httpStatus} -> httpStatus) (\s@DeleteFileResponse' {} a -> s {httpStatus = a} :: DeleteFileResponse)
 
--- | The full commit ID of the commit that contains the change that deletes the file.
-dfrrsCommitId :: Lens' DeleteFileResponse Text
-dfrrsCommitId = lens _dfrrsCommitId (\s a -> s {_dfrrsCommitId = a})
+-- | The full commit ID of the commit that contains the change that deletes
+-- the file.
+deleteFileResponse_commitId :: Lens.Lens' DeleteFileResponse Prelude.Text
+deleteFileResponse_commitId = Lens.lens (\DeleteFileResponse' {commitId} -> commitId) (\s@DeleteFileResponse' {} a -> s {commitId = a} :: DeleteFileResponse)
 
 -- | The blob ID removed from the tree as part of deleting the file.
-dfrrsBlobId :: Lens' DeleteFileResponse Text
-dfrrsBlobId = lens _dfrrsBlobId (\s a -> s {_dfrrsBlobId = a})
+deleteFileResponse_blobId :: Lens.Lens' DeleteFileResponse Prelude.Text
+deleteFileResponse_blobId = Lens.lens (\DeleteFileResponse' {blobId} -> blobId) (\s@DeleteFileResponse' {} a -> s {blobId = a} :: DeleteFileResponse)
 
--- | The full SHA-1 pointer of the tree information for the commit that contains the delete file change.
-dfrrsTreeId :: Lens' DeleteFileResponse Text
-dfrrsTreeId = lens _dfrrsTreeId (\s a -> s {_dfrrsTreeId = a})
+-- | The full SHA-1 pointer of the tree information for the commit that
+-- contains the delete file change.
+deleteFileResponse_treeId :: Lens.Lens' DeleteFileResponse Prelude.Text
+deleteFileResponse_treeId = Lens.lens (\DeleteFileResponse' {treeId} -> treeId) (\s@DeleteFileResponse' {} a -> s {treeId = a} :: DeleteFileResponse)
 
--- | The fully qualified path to the file to be deleted, including the full name and extension of that file.
-dfrrsFilePath :: Lens' DeleteFileResponse Text
-dfrrsFilePath = lens _dfrrsFilePath (\s a -> s {_dfrrsFilePath = a})
+-- | The fully qualified path to the file to be deleted, including the full
+-- name and extension of that file.
+deleteFileResponse_filePath :: Lens.Lens' DeleteFileResponse Prelude.Text
+deleteFileResponse_filePath = Lens.lens (\DeleteFileResponse' {filePath} -> filePath) (\s@DeleteFileResponse' {} a -> s {filePath = a} :: DeleteFileResponse)
 
-instance NFData DeleteFileResponse
+instance Prelude.NFData DeleteFileResponse

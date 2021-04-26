@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,103 +20,135 @@
 module Network.AWS.CodeCommit.Types.PullRequestTarget where
 
 import Network.AWS.CodeCommit.Types.MergeMetadata
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about a pull request target.
 --
---
---
--- /See:/ 'pullRequestTarget' smart constructor.
+-- /See:/ 'newPullRequestTarget' smart constructor.
 data PullRequestTarget = PullRequestTarget'
-  { _prtDestinationReference ::
-      !(Maybe Text),
-    _prtSourceCommit :: !(Maybe Text),
-    _prtMergeMetadata ::
-      !(Maybe MergeMetadata),
-    _prtRepositoryName :: !(Maybe Text),
-    _prtSourceReference ::
-      !(Maybe Text),
-    _prtDestinationCommit ::
-      !(Maybe Text),
-    _prtMergeBase :: !(Maybe Text)
+  { -- | The branch of the repository where the pull request changes are merged.
+    -- Also known as the destination branch.
+    destinationReference :: Prelude.Maybe Prelude.Text,
+    -- | The full commit ID of the tip of the source branch used to create the
+    -- pull request. If the pull request branch is updated by a push while the
+    -- pull request is open, the commit ID changes to reflect the new tip of
+    -- the branch.
+    sourceCommit :: Prelude.Maybe Prelude.Text,
+    -- | Returns metadata about the state of the merge, including whether the
+    -- merge has been made.
+    mergeMetadata :: Prelude.Maybe MergeMetadata,
+    -- | The name of the repository that contains the pull request source and
+    -- destination branches.
+    repositoryName :: Prelude.Maybe Prelude.Text,
+    -- | The branch of the repository that contains the changes for the pull
+    -- request. Also known as the source branch.
+    sourceReference :: Prelude.Maybe Prelude.Text,
+    -- | The full commit ID that is the tip of the destination branch. This is
+    -- the commit where the pull request was or will be merged.
+    destinationCommit :: Prelude.Maybe Prelude.Text,
+    -- | The commit ID of the most recent commit that the source branch and the
+    -- destination branch have in common.
+    mergeBase :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PullRequestTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PullRequestTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prtDestinationReference' - The branch of the repository where the pull request changes are merged. Also known as the destination branch.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prtSourceCommit' - The full commit ID of the tip of the source branch used to create the pull request. If the pull request branch is updated by a push while the pull request is open, the commit ID changes to reflect the new tip of the branch.
+-- 'destinationReference', 'pullRequestTarget_destinationReference' - The branch of the repository where the pull request changes are merged.
+-- Also known as the destination branch.
 --
--- * 'prtMergeMetadata' - Returns metadata about the state of the merge, including whether the merge has been made.
+-- 'sourceCommit', 'pullRequestTarget_sourceCommit' - The full commit ID of the tip of the source branch used to create the
+-- pull request. If the pull request branch is updated by a push while the
+-- pull request is open, the commit ID changes to reflect the new tip of
+-- the branch.
 --
--- * 'prtRepositoryName' - The name of the repository that contains the pull request source and destination branches.
+-- 'mergeMetadata', 'pullRequestTarget_mergeMetadata' - Returns metadata about the state of the merge, including whether the
+-- merge has been made.
 --
--- * 'prtSourceReference' - The branch of the repository that contains the changes for the pull request. Also known as the source branch.
+-- 'repositoryName', 'pullRequestTarget_repositoryName' - The name of the repository that contains the pull request source and
+-- destination branches.
 --
--- * 'prtDestinationCommit' - The full commit ID that is the tip of the destination branch. This is the commit where the pull request was or will be merged.
+-- 'sourceReference', 'pullRequestTarget_sourceReference' - The branch of the repository that contains the changes for the pull
+-- request. Also known as the source branch.
 --
--- * 'prtMergeBase' - The commit ID of the most recent commit that the source branch and the destination branch have in common.
-pullRequestTarget ::
+-- 'destinationCommit', 'pullRequestTarget_destinationCommit' - The full commit ID that is the tip of the destination branch. This is
+-- the commit where the pull request was or will be merged.
+--
+-- 'mergeBase', 'pullRequestTarget_mergeBase' - The commit ID of the most recent commit that the source branch and the
+-- destination branch have in common.
+newPullRequestTarget ::
   PullRequestTarget
-pullRequestTarget =
+newPullRequestTarget =
   PullRequestTarget'
-    { _prtDestinationReference =
-        Nothing,
-      _prtSourceCommit = Nothing,
-      _prtMergeMetadata = Nothing,
-      _prtRepositoryName = Nothing,
-      _prtSourceReference = Nothing,
-      _prtDestinationCommit = Nothing,
-      _prtMergeBase = Nothing
+    { destinationReference =
+        Prelude.Nothing,
+      sourceCommit = Prelude.Nothing,
+      mergeMetadata = Prelude.Nothing,
+      repositoryName = Prelude.Nothing,
+      sourceReference = Prelude.Nothing,
+      destinationCommit = Prelude.Nothing,
+      mergeBase = Prelude.Nothing
     }
 
--- | The branch of the repository where the pull request changes are merged. Also known as the destination branch.
-prtDestinationReference :: Lens' PullRequestTarget (Maybe Text)
-prtDestinationReference = lens _prtDestinationReference (\s a -> s {_prtDestinationReference = a})
+-- | The branch of the repository where the pull request changes are merged.
+-- Also known as the destination branch.
+pullRequestTarget_destinationReference :: Lens.Lens' PullRequestTarget (Prelude.Maybe Prelude.Text)
+pullRequestTarget_destinationReference = Lens.lens (\PullRequestTarget' {destinationReference} -> destinationReference) (\s@PullRequestTarget' {} a -> s {destinationReference = a} :: PullRequestTarget)
 
--- | The full commit ID of the tip of the source branch used to create the pull request. If the pull request branch is updated by a push while the pull request is open, the commit ID changes to reflect the new tip of the branch.
-prtSourceCommit :: Lens' PullRequestTarget (Maybe Text)
-prtSourceCommit = lens _prtSourceCommit (\s a -> s {_prtSourceCommit = a})
+-- | The full commit ID of the tip of the source branch used to create the
+-- pull request. If the pull request branch is updated by a push while the
+-- pull request is open, the commit ID changes to reflect the new tip of
+-- the branch.
+pullRequestTarget_sourceCommit :: Lens.Lens' PullRequestTarget (Prelude.Maybe Prelude.Text)
+pullRequestTarget_sourceCommit = Lens.lens (\PullRequestTarget' {sourceCommit} -> sourceCommit) (\s@PullRequestTarget' {} a -> s {sourceCommit = a} :: PullRequestTarget)
 
--- | Returns metadata about the state of the merge, including whether the merge has been made.
-prtMergeMetadata :: Lens' PullRequestTarget (Maybe MergeMetadata)
-prtMergeMetadata = lens _prtMergeMetadata (\s a -> s {_prtMergeMetadata = a})
+-- | Returns metadata about the state of the merge, including whether the
+-- merge has been made.
+pullRequestTarget_mergeMetadata :: Lens.Lens' PullRequestTarget (Prelude.Maybe MergeMetadata)
+pullRequestTarget_mergeMetadata = Lens.lens (\PullRequestTarget' {mergeMetadata} -> mergeMetadata) (\s@PullRequestTarget' {} a -> s {mergeMetadata = a} :: PullRequestTarget)
 
--- | The name of the repository that contains the pull request source and destination branches.
-prtRepositoryName :: Lens' PullRequestTarget (Maybe Text)
-prtRepositoryName = lens _prtRepositoryName (\s a -> s {_prtRepositoryName = a})
+-- | The name of the repository that contains the pull request source and
+-- destination branches.
+pullRequestTarget_repositoryName :: Lens.Lens' PullRequestTarget (Prelude.Maybe Prelude.Text)
+pullRequestTarget_repositoryName = Lens.lens (\PullRequestTarget' {repositoryName} -> repositoryName) (\s@PullRequestTarget' {} a -> s {repositoryName = a} :: PullRequestTarget)
 
--- | The branch of the repository that contains the changes for the pull request. Also known as the source branch.
-prtSourceReference :: Lens' PullRequestTarget (Maybe Text)
-prtSourceReference = lens _prtSourceReference (\s a -> s {_prtSourceReference = a})
+-- | The branch of the repository that contains the changes for the pull
+-- request. Also known as the source branch.
+pullRequestTarget_sourceReference :: Lens.Lens' PullRequestTarget (Prelude.Maybe Prelude.Text)
+pullRequestTarget_sourceReference = Lens.lens (\PullRequestTarget' {sourceReference} -> sourceReference) (\s@PullRequestTarget' {} a -> s {sourceReference = a} :: PullRequestTarget)
 
--- | The full commit ID that is the tip of the destination branch. This is the commit where the pull request was or will be merged.
-prtDestinationCommit :: Lens' PullRequestTarget (Maybe Text)
-prtDestinationCommit = lens _prtDestinationCommit (\s a -> s {_prtDestinationCommit = a})
+-- | The full commit ID that is the tip of the destination branch. This is
+-- the commit where the pull request was or will be merged.
+pullRequestTarget_destinationCommit :: Lens.Lens' PullRequestTarget (Prelude.Maybe Prelude.Text)
+pullRequestTarget_destinationCommit = Lens.lens (\PullRequestTarget' {destinationCommit} -> destinationCommit) (\s@PullRequestTarget' {} a -> s {destinationCommit = a} :: PullRequestTarget)
 
--- | The commit ID of the most recent commit that the source branch and the destination branch have in common.
-prtMergeBase :: Lens' PullRequestTarget (Maybe Text)
-prtMergeBase = lens _prtMergeBase (\s a -> s {_prtMergeBase = a})
+-- | The commit ID of the most recent commit that the source branch and the
+-- destination branch have in common.
+pullRequestTarget_mergeBase :: Lens.Lens' PullRequestTarget (Prelude.Maybe Prelude.Text)
+pullRequestTarget_mergeBase = Lens.lens (\PullRequestTarget' {mergeBase} -> mergeBase) (\s@PullRequestTarget' {} a -> s {mergeBase = a} :: PullRequestTarget)
 
-instance FromJSON PullRequestTarget where
+instance Prelude.FromJSON PullRequestTarget where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PullRequestTarget"
       ( \x ->
           PullRequestTarget'
-            <$> (x .:? "destinationReference")
-            <*> (x .:? "sourceCommit")
-            <*> (x .:? "mergeMetadata")
-            <*> (x .:? "repositoryName")
-            <*> (x .:? "sourceReference")
-            <*> (x .:? "destinationCommit")
-            <*> (x .:? "mergeBase")
+            Prelude.<$> (x Prelude..:? "destinationReference")
+            Prelude.<*> (x Prelude..:? "sourceCommit")
+            Prelude.<*> (x Prelude..:? "mergeMetadata")
+            Prelude.<*> (x Prelude..:? "repositoryName")
+            Prelude.<*> (x Prelude..:? "sourceReference")
+            Prelude.<*> (x Prelude..:? "destinationCommit")
+            Prelude.<*> (x Prelude..:? "mergeBase")
       )
 
-instance Hashable PullRequestTarget
+instance Prelude.Hashable PullRequestTarget
 
-instance NFData PullRequestTarget
+instance Prelude.NFData PullRequestTarget

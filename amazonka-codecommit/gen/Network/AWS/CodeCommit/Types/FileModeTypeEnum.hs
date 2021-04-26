@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodeCommit.Types.FileModeTypeEnum
   ( FileModeTypeEnum
       ( ..,
-        Executable,
-        Normal,
-        Symlink
+        FileModeTypeEnumEXECUTABLE,
+        FileModeTypeEnumNORMAL,
+        FileModeTypeEnumSYMLINK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FileModeTypeEnum = FileModeTypeEnum' (CI Text)
+newtype FileModeTypeEnum = FileModeTypeEnum'
+  { fromFileModeTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Executable :: FileModeTypeEnum
-pattern Executable = FileModeTypeEnum' "EXECUTABLE"
+pattern FileModeTypeEnumEXECUTABLE :: FileModeTypeEnum
+pattern FileModeTypeEnumEXECUTABLE = FileModeTypeEnum' "EXECUTABLE"
 
-pattern Normal :: FileModeTypeEnum
-pattern Normal = FileModeTypeEnum' "NORMAL"
+pattern FileModeTypeEnumNORMAL :: FileModeTypeEnum
+pattern FileModeTypeEnumNORMAL = FileModeTypeEnum' "NORMAL"
 
-pattern Symlink :: FileModeTypeEnum
-pattern Symlink = FileModeTypeEnum' "SYMLINK"
+pattern FileModeTypeEnumSYMLINK :: FileModeTypeEnum
+pattern FileModeTypeEnumSYMLINK = FileModeTypeEnum' "SYMLINK"
 
 {-# COMPLETE
-  Executable,
-  Normal,
-  Symlink,
+  FileModeTypeEnumEXECUTABLE,
+  FileModeTypeEnumNORMAL,
+  FileModeTypeEnumSYMLINK,
   FileModeTypeEnum'
   #-}
 
-instance FromText FileModeTypeEnum where
-  parser = (FileModeTypeEnum' . mk) <$> takeText
+instance Prelude.FromText FileModeTypeEnum where
+  parser = FileModeTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText FileModeTypeEnum where
-  toText (FileModeTypeEnum' ci) = original ci
+instance Prelude.ToText FileModeTypeEnum where
+  toText (FileModeTypeEnum' x) = x
 
-instance Hashable FileModeTypeEnum
+instance Prelude.Hashable FileModeTypeEnum
 
-instance NFData FileModeTypeEnum
+instance Prelude.NFData FileModeTypeEnum
 
-instance ToByteString FileModeTypeEnum
+instance Prelude.ToByteString FileModeTypeEnum
 
-instance ToQuery FileModeTypeEnum
+instance Prelude.ToQuery FileModeTypeEnum
 
-instance ToHeader FileModeTypeEnum
+instance Prelude.ToHeader FileModeTypeEnum
 
-instance ToJSON FileModeTypeEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON FileModeTypeEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FileModeTypeEnum where
-  parseJSON = parseJSONText "FileModeTypeEnum"
+instance Prelude.FromJSON FileModeTypeEnum where
+  parseJSON = Prelude.parseJSONText "FileModeTypeEnum"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,185 +24,190 @@
 -- Updates the description for a specified approval rule template.
 module Network.AWS.CodeCommit.UpdateApprovalRuleTemplateDescription
   ( -- * Creating a Request
-    updateApprovalRuleTemplateDescription,
-    UpdateApprovalRuleTemplateDescription,
+    UpdateApprovalRuleTemplateDescription (..),
+    newUpdateApprovalRuleTemplateDescription,
 
     -- * Request Lenses
-    uartdApprovalRuleTemplateName,
-    uartdApprovalRuleTemplateDescription,
+    updateApprovalRuleTemplateDescription_approvalRuleTemplateName,
+    updateApprovalRuleTemplateDescription_approvalRuleTemplateDescription,
 
     -- * Destructuring the Response
-    updateApprovalRuleTemplateDescriptionResponse,
-    UpdateApprovalRuleTemplateDescriptionResponse,
+    UpdateApprovalRuleTemplateDescriptionResponse (..),
+    newUpdateApprovalRuleTemplateDescriptionResponse,
 
     -- * Response Lenses
-    uartdrrsResponseStatus,
-    uartdrrsApprovalRuleTemplate,
+    updateApprovalRuleTemplateDescriptionResponse_httpStatus,
+    updateApprovalRuleTemplateDescriptionResponse_approvalRuleTemplate,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.ApprovalRuleTemplate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateApprovalRuleTemplateDescription' smart constructor.
+-- | /See:/ 'newUpdateApprovalRuleTemplateDescription' smart constructor.
 data UpdateApprovalRuleTemplateDescription = UpdateApprovalRuleTemplateDescription'
-  { _uartdApprovalRuleTemplateName ::
-      !Text,
-    _uartdApprovalRuleTemplateDescription ::
-      !Text
+  { -- | The name of the template for which you want to update the description.
+    approvalRuleTemplateName :: Prelude.Text,
+    -- | The updated description of the approval rule template.
+    approvalRuleTemplateDescription :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApprovalRuleTemplateDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApprovalRuleTemplateDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uartdApprovalRuleTemplateName' - The name of the template for which you want to update the description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uartdApprovalRuleTemplateDescription' - The updated description of the approval rule template.
-updateApprovalRuleTemplateDescription ::
-  -- | 'uartdApprovalRuleTemplateName'
-  Text ->
-  -- | 'uartdApprovalRuleTemplateDescription'
-  Text ->
+-- 'approvalRuleTemplateName', 'updateApprovalRuleTemplateDescription_approvalRuleTemplateName' - The name of the template for which you want to update the description.
+--
+-- 'approvalRuleTemplateDescription', 'updateApprovalRuleTemplateDescription_approvalRuleTemplateDescription' - The updated description of the approval rule template.
+newUpdateApprovalRuleTemplateDescription ::
+  -- | 'approvalRuleTemplateName'
+  Prelude.Text ->
+  -- | 'approvalRuleTemplateDescription'
+  Prelude.Text ->
   UpdateApprovalRuleTemplateDescription
-updateApprovalRuleTemplateDescription
+newUpdateApprovalRuleTemplateDescription
   pApprovalRuleTemplateName_
   pApprovalRuleTemplateDescription_ =
     UpdateApprovalRuleTemplateDescription'
-      { _uartdApprovalRuleTemplateName =
+      { approvalRuleTemplateName =
           pApprovalRuleTemplateName_,
-        _uartdApprovalRuleTemplateDescription =
+        approvalRuleTemplateDescription =
           pApprovalRuleTemplateDescription_
       }
 
 -- | The name of the template for which you want to update the description.
-uartdApprovalRuleTemplateName :: Lens' UpdateApprovalRuleTemplateDescription Text
-uartdApprovalRuleTemplateName = lens _uartdApprovalRuleTemplateName (\s a -> s {_uartdApprovalRuleTemplateName = a})
+updateApprovalRuleTemplateDescription_approvalRuleTemplateName :: Lens.Lens' UpdateApprovalRuleTemplateDescription Prelude.Text
+updateApprovalRuleTemplateDescription_approvalRuleTemplateName = Lens.lens (\UpdateApprovalRuleTemplateDescription' {approvalRuleTemplateName} -> approvalRuleTemplateName) (\s@UpdateApprovalRuleTemplateDescription' {} a -> s {approvalRuleTemplateName = a} :: UpdateApprovalRuleTemplateDescription)
 
 -- | The updated description of the approval rule template.
-uartdApprovalRuleTemplateDescription :: Lens' UpdateApprovalRuleTemplateDescription Text
-uartdApprovalRuleTemplateDescription = lens _uartdApprovalRuleTemplateDescription (\s a -> s {_uartdApprovalRuleTemplateDescription = a})
+updateApprovalRuleTemplateDescription_approvalRuleTemplateDescription :: Lens.Lens' UpdateApprovalRuleTemplateDescription Prelude.Text
+updateApprovalRuleTemplateDescription_approvalRuleTemplateDescription = Lens.lens (\UpdateApprovalRuleTemplateDescription' {approvalRuleTemplateDescription} -> approvalRuleTemplateDescription) (\s@UpdateApprovalRuleTemplateDescription' {} a -> s {approvalRuleTemplateDescription = a} :: UpdateApprovalRuleTemplateDescription)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     UpdateApprovalRuleTemplateDescription
   where
   type
     Rs UpdateApprovalRuleTemplateDescription =
       UpdateApprovalRuleTemplateDescriptionResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateApprovalRuleTemplateDescriptionResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "approvalRuleTemplate")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (x Prelude..:> "approvalRuleTemplate")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     UpdateApprovalRuleTemplateDescription
 
-instance NFData UpdateApprovalRuleTemplateDescription
+instance
+  Prelude.NFData
+    UpdateApprovalRuleTemplateDescription
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     UpdateApprovalRuleTemplateDescription
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.UpdateApprovalRuleTemplateDescription" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.UpdateApprovalRuleTemplateDescription" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateApprovalRuleTemplateDescription where
+instance
+  Prelude.ToJSON
+    UpdateApprovalRuleTemplateDescription
+  where
   toJSON UpdateApprovalRuleTemplateDescription' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "approvalRuleTemplateName"
-                  .= _uartdApprovalRuleTemplateName
+                  Prelude..= approvalRuleTemplateName
               ),
-            Just
+            Prelude.Just
               ( "approvalRuleTemplateDescription"
-                  .= _uartdApprovalRuleTemplateDescription
+                  Prelude..= approvalRuleTemplateDescription
               )
           ]
       )
 
-instance ToPath UpdateApprovalRuleTemplateDescription where
-  toPath = const "/"
-
 instance
-  ToQuery
+  Prelude.ToPath
     UpdateApprovalRuleTemplateDescription
   where
-  toQuery = const mempty
+  toPath = Prelude.const "/"
 
--- | /See:/ 'updateApprovalRuleTemplateDescriptionResponse' smart constructor.
+instance
+  Prelude.ToQuery
+    UpdateApprovalRuleTemplateDescription
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newUpdateApprovalRuleTemplateDescriptionResponse' smart constructor.
 data UpdateApprovalRuleTemplateDescriptionResponse = UpdateApprovalRuleTemplateDescriptionResponse'
-  { _uartdrrsResponseStatus ::
-      !Int,
-    _uartdrrsApprovalRuleTemplate ::
-      !ApprovalRuleTemplate
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The structure and content of the updated approval rule template.
+    approvalRuleTemplate :: ApprovalRuleTemplate
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApprovalRuleTemplateDescriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApprovalRuleTemplateDescriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uartdrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uartdrrsApprovalRuleTemplate' - The structure and content of the updated approval rule template.
-updateApprovalRuleTemplateDescriptionResponse ::
-  -- | 'uartdrrsResponseStatus'
-  Int ->
-  -- | 'uartdrrsApprovalRuleTemplate'
+-- 'httpStatus', 'updateApprovalRuleTemplateDescriptionResponse_httpStatus' - The response's http status code.
+--
+-- 'approvalRuleTemplate', 'updateApprovalRuleTemplateDescriptionResponse_approvalRuleTemplate' - The structure and content of the updated approval rule template.
+newUpdateApprovalRuleTemplateDescriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'approvalRuleTemplate'
   ApprovalRuleTemplate ->
   UpdateApprovalRuleTemplateDescriptionResponse
-updateApprovalRuleTemplateDescriptionResponse
-  pResponseStatus_
+newUpdateApprovalRuleTemplateDescriptionResponse
+  pHttpStatus_
   pApprovalRuleTemplate_ =
     UpdateApprovalRuleTemplateDescriptionResponse'
-      { _uartdrrsResponseStatus =
-          pResponseStatus_,
-        _uartdrrsApprovalRuleTemplate =
+      { httpStatus =
+          pHttpStatus_,
+        approvalRuleTemplate =
           pApprovalRuleTemplate_
       }
 
--- | -- | The response status code.
-uartdrrsResponseStatus :: Lens' UpdateApprovalRuleTemplateDescriptionResponse Int
-uartdrrsResponseStatus = lens _uartdrrsResponseStatus (\s a -> s {_uartdrrsResponseStatus = a})
+-- | The response's http status code.
+updateApprovalRuleTemplateDescriptionResponse_httpStatus :: Lens.Lens' UpdateApprovalRuleTemplateDescriptionResponse Prelude.Int
+updateApprovalRuleTemplateDescriptionResponse_httpStatus = Lens.lens (\UpdateApprovalRuleTemplateDescriptionResponse' {httpStatus} -> httpStatus) (\s@UpdateApprovalRuleTemplateDescriptionResponse' {} a -> s {httpStatus = a} :: UpdateApprovalRuleTemplateDescriptionResponse)
 
 -- | The structure and content of the updated approval rule template.
-uartdrrsApprovalRuleTemplate :: Lens' UpdateApprovalRuleTemplateDescriptionResponse ApprovalRuleTemplate
-uartdrrsApprovalRuleTemplate = lens _uartdrrsApprovalRuleTemplate (\s a -> s {_uartdrrsApprovalRuleTemplate = a})
+updateApprovalRuleTemplateDescriptionResponse_approvalRuleTemplate :: Lens.Lens' UpdateApprovalRuleTemplateDescriptionResponse ApprovalRuleTemplate
+updateApprovalRuleTemplateDescriptionResponse_approvalRuleTemplate = Lens.lens (\UpdateApprovalRuleTemplateDescriptionResponse' {approvalRuleTemplate} -> approvalRuleTemplate) (\s@UpdateApprovalRuleTemplateDescriptionResponse' {} a -> s {approvalRuleTemplate = a} :: UpdateApprovalRuleTemplateDescriptionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     UpdateApprovalRuleTemplateDescriptionResponse

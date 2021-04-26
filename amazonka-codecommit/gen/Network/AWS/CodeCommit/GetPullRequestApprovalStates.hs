@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about the approval states for a specified pull request. Approval states only apply to pull requests that have one or more approval rules applied to them.
+-- Gets information about the approval states for a specified pull request.
+-- Approval states only apply to pull requests that have one or more
+-- approval rules applied to them.
 module Network.AWS.CodeCommit.GetPullRequestApprovalStates
   ( -- * Creating a Request
-    getPullRequestApprovalStates,
-    GetPullRequestApprovalStates,
+    GetPullRequestApprovalStates (..),
+    newGetPullRequestApprovalStates,
 
     -- * Request Lenses
-    gprasPullRequestId,
-    gprasRevisionId,
+    getPullRequestApprovalStates_pullRequestId,
+    getPullRequestApprovalStates_revisionId,
 
     -- * Destructuring the Response
-    getPullRequestApprovalStatesResponse,
-    GetPullRequestApprovalStatesResponse,
+    GetPullRequestApprovalStatesResponse (..),
+    newGetPullRequestApprovalStatesResponse,
 
     -- * Response Lenses
-    gprasrrsApprovals,
-    gprasrrsResponseStatus,
+    getPullRequestApprovalStatesResponse_approvals,
+    getPullRequestApprovalStatesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.Approval
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getPullRequestApprovalStates' smart constructor.
+-- | /See:/ 'newGetPullRequestApprovalStates' smart constructor.
 data GetPullRequestApprovalStates = GetPullRequestApprovalStates'
-  { _gprasPullRequestId ::
-      !Text,
-    _gprasRevisionId ::
-      !Text
+  { -- | The system-generated ID for the pull request.
+    pullRequestId :: Prelude.Text,
+    -- | The system-generated ID for the pull request revision.
+    revisionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPullRequestApprovalStates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPullRequestApprovalStates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gprasPullRequestId' - The system-generated ID for the pull request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gprasRevisionId' - The system-generated ID for the pull request revision.
-getPullRequestApprovalStates ::
-  -- | 'gprasPullRequestId'
-  Text ->
-  -- | 'gprasRevisionId'
-  Text ->
+-- 'pullRequestId', 'getPullRequestApprovalStates_pullRequestId' - The system-generated ID for the pull request.
+--
+-- 'revisionId', 'getPullRequestApprovalStates_revisionId' - The system-generated ID for the pull request revision.
+newGetPullRequestApprovalStates ::
+  -- | 'pullRequestId'
+  Prelude.Text ->
+  -- | 'revisionId'
+  Prelude.Text ->
   GetPullRequestApprovalStates
-getPullRequestApprovalStates
+newGetPullRequestApprovalStates
   pPullRequestId_
   pRevisionId_ =
     GetPullRequestApprovalStates'
-      { _gprasPullRequestId =
+      { pullRequestId =
           pPullRequestId_,
-        _gprasRevisionId = pRevisionId_
+        revisionId = pRevisionId_
       }
 
 -- | The system-generated ID for the pull request.
-gprasPullRequestId :: Lens' GetPullRequestApprovalStates Text
-gprasPullRequestId = lens _gprasPullRequestId (\s a -> s {_gprasPullRequestId = a})
+getPullRequestApprovalStates_pullRequestId :: Lens.Lens' GetPullRequestApprovalStates Prelude.Text
+getPullRequestApprovalStates_pullRequestId = Lens.lens (\GetPullRequestApprovalStates' {pullRequestId} -> pullRequestId) (\s@GetPullRequestApprovalStates' {} a -> s {pullRequestId = a} :: GetPullRequestApprovalStates)
 
 -- | The system-generated ID for the pull request revision.
-gprasRevisionId :: Lens' GetPullRequestApprovalStates Text
-gprasRevisionId = lens _gprasRevisionId (\s a -> s {_gprasRevisionId = a})
+getPullRequestApprovalStates_revisionId :: Lens.Lens' GetPullRequestApprovalStates Prelude.Text
+getPullRequestApprovalStates_revisionId = Lens.lens (\GetPullRequestApprovalStates' {revisionId} -> revisionId) (\s@GetPullRequestApprovalStates' {} a -> s {revisionId = a} :: GetPullRequestApprovalStates)
 
-instance AWSRequest GetPullRequestApprovalStates where
+instance
+  Prelude.AWSRequest
+    GetPullRequestApprovalStates
+  where
   type
     Rs GetPullRequestApprovalStates =
       GetPullRequestApprovalStatesResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetPullRequestApprovalStatesResponse'
-            <$> (x .?> "approvals" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "approvals"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPullRequestApprovalStates
+instance
+  Prelude.Hashable
+    GetPullRequestApprovalStates
 
-instance NFData GetPullRequestApprovalStates
+instance Prelude.NFData GetPullRequestApprovalStates
 
-instance ToHeaders GetPullRequestApprovalStates where
+instance
+  Prelude.ToHeaders
+    GetPullRequestApprovalStates
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.GetPullRequestApprovalStates" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.GetPullRequestApprovalStates" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetPullRequestApprovalStates where
+instance Prelude.ToJSON GetPullRequestApprovalStates where
   toJSON GetPullRequestApprovalStates' {..} =
-    object
-      ( catMaybes
-          [ Just ("pullRequestId" .= _gprasPullRequestId),
-            Just ("revisionId" .= _gprasRevisionId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("pullRequestId" Prelude..= pullRequestId),
+            Prelude.Just ("revisionId" Prelude..= revisionId)
           ]
       )
 
-instance ToPath GetPullRequestApprovalStates where
-  toPath = const "/"
+instance Prelude.ToPath GetPullRequestApprovalStates where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetPullRequestApprovalStates where
-  toQuery = const mempty
+instance Prelude.ToQuery GetPullRequestApprovalStates where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getPullRequestApprovalStatesResponse' smart constructor.
+-- | /See:/ 'newGetPullRequestApprovalStatesResponse' smart constructor.
 data GetPullRequestApprovalStatesResponse = GetPullRequestApprovalStatesResponse'
-  { _gprasrrsApprovals ::
-      !( Maybe
-           [Approval]
-       ),
-    _gprasrrsResponseStatus ::
-      !Int
+  { -- | Information about users who have approved the pull request.
+    approvals :: Prelude.Maybe [Approval],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPullRequestApprovalStatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPullRequestApprovalStatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gprasrrsApprovals' - Information about users who have approved the pull request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gprasrrsResponseStatus' - -- | The response status code.
-getPullRequestApprovalStatesResponse ::
-  -- | 'gprasrrsResponseStatus'
-  Int ->
+-- 'approvals', 'getPullRequestApprovalStatesResponse_approvals' - Information about users who have approved the pull request.
+--
+-- 'httpStatus', 'getPullRequestApprovalStatesResponse_httpStatus' - The response's http status code.
+newGetPullRequestApprovalStatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPullRequestApprovalStatesResponse
-getPullRequestApprovalStatesResponse pResponseStatus_ =
+newGetPullRequestApprovalStatesResponse pHttpStatus_ =
   GetPullRequestApprovalStatesResponse'
-    { _gprasrrsApprovals =
-        Nothing,
-      _gprasrrsResponseStatus =
-        pResponseStatus_
+    { approvals =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about users who have approved the pull request.
-gprasrrsApprovals :: Lens' GetPullRequestApprovalStatesResponse [Approval]
-gprasrrsApprovals = lens _gprasrrsApprovals (\s a -> s {_gprasrrsApprovals = a}) . _Default . _Coerce
+getPullRequestApprovalStatesResponse_approvals :: Lens.Lens' GetPullRequestApprovalStatesResponse (Prelude.Maybe [Approval])
+getPullRequestApprovalStatesResponse_approvals = Lens.lens (\GetPullRequestApprovalStatesResponse' {approvals} -> approvals) (\s@GetPullRequestApprovalStatesResponse' {} a -> s {approvals = a} :: GetPullRequestApprovalStatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gprasrrsResponseStatus :: Lens' GetPullRequestApprovalStatesResponse Int
-gprasrrsResponseStatus = lens _gprasrrsResponseStatus (\s a -> s {_gprasrrsResponseStatus = a})
+-- | The response's http status code.
+getPullRequestApprovalStatesResponse_httpStatus :: Lens.Lens' GetPullRequestApprovalStatesResponse Prelude.Int
+getPullRequestApprovalStatesResponse_httpStatus = Lens.lens (\GetPullRequestApprovalStatesResponse' {httpStatus} -> httpStatus) (\s@GetPullRequestApprovalStatesResponse' {} a -> s {httpStatus = a} :: GetPullRequestApprovalStatesResponse)
 
-instance NFData GetPullRequestApprovalStatesResponse
+instance
+  Prelude.NFData
+    GetPullRequestApprovalStatesResponse

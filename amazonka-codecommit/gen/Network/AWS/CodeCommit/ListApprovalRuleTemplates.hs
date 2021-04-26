@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,183 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all approval rule templates in the specified AWS Region in your AWS account. If an AWS Region is not specified, the AWS Region where you are signed in is used.
+-- Lists all approval rule templates in the specified AWS Region in your
+-- AWS account. If an AWS Region is not specified, the AWS Region where you
+-- are signed in is used.
 module Network.AWS.CodeCommit.ListApprovalRuleTemplates
   ( -- * Creating a Request
-    listApprovalRuleTemplates,
-    ListApprovalRuleTemplates,
+    ListApprovalRuleTemplates (..),
+    newListApprovalRuleTemplates,
 
     -- * Request Lenses
-    lartNextToken,
-    lartMaxResults,
+    listApprovalRuleTemplates_nextToken,
+    listApprovalRuleTemplates_maxResults,
 
     -- * Destructuring the Response
-    listApprovalRuleTemplatesResponse,
-    ListApprovalRuleTemplatesResponse,
+    ListApprovalRuleTemplatesResponse (..),
+    newListApprovalRuleTemplatesResponse,
 
     -- * Response Lenses
-    lartrrsNextToken,
-    lartrrsApprovalRuleTemplateNames,
-    lartrrsResponseStatus,
+    listApprovalRuleTemplatesResponse_nextToken,
+    listApprovalRuleTemplatesResponse_approvalRuleTemplateNames,
+    listApprovalRuleTemplatesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listApprovalRuleTemplates' smart constructor.
+-- | /See:/ 'newListApprovalRuleTemplates' smart constructor.
 data ListApprovalRuleTemplates = ListApprovalRuleTemplates'
-  { _lartNextToken ::
-      !(Maybe Text),
-    _lartMaxResults ::
-      !(Maybe Int)
+  { -- | An enumeration token that, when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A non-zero, non-negative integer used to limit the number of returned
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListApprovalRuleTemplates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListApprovalRuleTemplates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lartNextToken' - An enumeration token that, when provided in a request, returns the next batch of the results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lartMaxResults' - A non-zero, non-negative integer used to limit the number of returned results.
-listApprovalRuleTemplates ::
+-- 'nextToken', 'listApprovalRuleTemplates_nextToken' - An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+--
+-- 'maxResults', 'listApprovalRuleTemplates_maxResults' - A non-zero, non-negative integer used to limit the number of returned
+-- results.
+newListApprovalRuleTemplates ::
   ListApprovalRuleTemplates
-listApprovalRuleTemplates =
+newListApprovalRuleTemplates =
   ListApprovalRuleTemplates'
-    { _lartNextToken =
-        Nothing,
-      _lartMaxResults = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | An enumeration token that, when provided in a request, returns the next batch of the results.
-lartNextToken :: Lens' ListApprovalRuleTemplates (Maybe Text)
-lartNextToken = lens _lartNextToken (\s a -> s {_lartNextToken = a})
+-- | An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+listApprovalRuleTemplates_nextToken :: Lens.Lens' ListApprovalRuleTemplates (Prelude.Maybe Prelude.Text)
+listApprovalRuleTemplates_nextToken = Lens.lens (\ListApprovalRuleTemplates' {nextToken} -> nextToken) (\s@ListApprovalRuleTemplates' {} a -> s {nextToken = a} :: ListApprovalRuleTemplates)
 
--- | A non-zero, non-negative integer used to limit the number of returned results.
-lartMaxResults :: Lens' ListApprovalRuleTemplates (Maybe Int)
-lartMaxResults = lens _lartMaxResults (\s a -> s {_lartMaxResults = a})
+-- | A non-zero, non-negative integer used to limit the number of returned
+-- results.
+listApprovalRuleTemplates_maxResults :: Lens.Lens' ListApprovalRuleTemplates (Prelude.Maybe Prelude.Int)
+listApprovalRuleTemplates_maxResults = Lens.lens (\ListApprovalRuleTemplates' {maxResults} -> maxResults) (\s@ListApprovalRuleTemplates' {} a -> s {maxResults = a} :: ListApprovalRuleTemplates)
 
-instance AWSRequest ListApprovalRuleTemplates where
+instance Prelude.AWSRequest ListApprovalRuleTemplates where
   type
     Rs ListApprovalRuleTemplates =
       ListApprovalRuleTemplatesResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListApprovalRuleTemplatesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "approvalRuleTemplateNames" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "approvalRuleTemplateNames"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListApprovalRuleTemplates
+instance Prelude.Hashable ListApprovalRuleTemplates
 
-instance NFData ListApprovalRuleTemplates
+instance Prelude.NFData ListApprovalRuleTemplates
 
-instance ToHeaders ListApprovalRuleTemplates where
+instance Prelude.ToHeaders ListApprovalRuleTemplates where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.ListApprovalRuleTemplates" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.ListApprovalRuleTemplates" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListApprovalRuleTemplates where
+instance Prelude.ToJSON ListApprovalRuleTemplates where
   toJSON ListApprovalRuleTemplates' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lartNextToken,
-            ("maxResults" .=) <$> _lartMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListApprovalRuleTemplates where
-  toPath = const "/"
+instance Prelude.ToPath ListApprovalRuleTemplates where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListApprovalRuleTemplates where
-  toQuery = const mempty
+instance Prelude.ToQuery ListApprovalRuleTemplates where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listApprovalRuleTemplatesResponse' smart constructor.
+-- | /See:/ 'newListApprovalRuleTemplatesResponse' smart constructor.
 data ListApprovalRuleTemplatesResponse = ListApprovalRuleTemplatesResponse'
-  { _lartrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lartrrsApprovalRuleTemplateNames ::
-      !( Maybe
-           [Text]
-       ),
-    _lartrrsResponseStatus ::
-      !Int
+  { -- | An enumeration token that allows the operation to batch the next results
+    -- of the operation.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The names of all the approval rule templates found in the AWS Region for
+    -- your AWS account.
+    approvalRuleTemplateNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListApprovalRuleTemplatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListApprovalRuleTemplatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lartrrsNextToken' - An enumeration token that allows the operation to batch the next results of the operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lartrrsApprovalRuleTemplateNames' - The names of all the approval rule templates found in the AWS Region for your AWS account.
+-- 'nextToken', 'listApprovalRuleTemplatesResponse_nextToken' - An enumeration token that allows the operation to batch the next results
+-- of the operation.
 --
--- * 'lartrrsResponseStatus' - -- | The response status code.
-listApprovalRuleTemplatesResponse ::
-  -- | 'lartrrsResponseStatus'
-  Int ->
+-- 'approvalRuleTemplateNames', 'listApprovalRuleTemplatesResponse_approvalRuleTemplateNames' - The names of all the approval rule templates found in the AWS Region for
+-- your AWS account.
+--
+-- 'httpStatus', 'listApprovalRuleTemplatesResponse_httpStatus' - The response's http status code.
+newListApprovalRuleTemplatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListApprovalRuleTemplatesResponse
-listApprovalRuleTemplatesResponse pResponseStatus_ =
+newListApprovalRuleTemplatesResponse pHttpStatus_ =
   ListApprovalRuleTemplatesResponse'
-    { _lartrrsNextToken =
-        Nothing,
-      _lartrrsApprovalRuleTemplateNames =
-        Nothing,
-      _lartrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      approvalRuleTemplateNames =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An enumeration token that allows the operation to batch the next results of the operation.
-lartrrsNextToken :: Lens' ListApprovalRuleTemplatesResponse (Maybe Text)
-lartrrsNextToken = lens _lartrrsNextToken (\s a -> s {_lartrrsNextToken = a})
+-- | An enumeration token that allows the operation to batch the next results
+-- of the operation.
+listApprovalRuleTemplatesResponse_nextToken :: Lens.Lens' ListApprovalRuleTemplatesResponse (Prelude.Maybe Prelude.Text)
+listApprovalRuleTemplatesResponse_nextToken = Lens.lens (\ListApprovalRuleTemplatesResponse' {nextToken} -> nextToken) (\s@ListApprovalRuleTemplatesResponse' {} a -> s {nextToken = a} :: ListApprovalRuleTemplatesResponse)
 
--- | The names of all the approval rule templates found in the AWS Region for your AWS account.
-lartrrsApprovalRuleTemplateNames :: Lens' ListApprovalRuleTemplatesResponse [Text]
-lartrrsApprovalRuleTemplateNames = lens _lartrrsApprovalRuleTemplateNames (\s a -> s {_lartrrsApprovalRuleTemplateNames = a}) . _Default . _Coerce
+-- | The names of all the approval rule templates found in the AWS Region for
+-- your AWS account.
+listApprovalRuleTemplatesResponse_approvalRuleTemplateNames :: Lens.Lens' ListApprovalRuleTemplatesResponse (Prelude.Maybe [Prelude.Text])
+listApprovalRuleTemplatesResponse_approvalRuleTemplateNames = Lens.lens (\ListApprovalRuleTemplatesResponse' {approvalRuleTemplateNames} -> approvalRuleTemplateNames) (\s@ListApprovalRuleTemplatesResponse' {} a -> s {approvalRuleTemplateNames = a} :: ListApprovalRuleTemplatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lartrrsResponseStatus :: Lens' ListApprovalRuleTemplatesResponse Int
-lartrrsResponseStatus = lens _lartrrsResponseStatus (\s a -> s {_lartrrsResponseStatus = a})
+-- | The response's http status code.
+listApprovalRuleTemplatesResponse_httpStatus :: Lens.Lens' ListApprovalRuleTemplatesResponse Prelude.Int
+listApprovalRuleTemplatesResponse_httpStatus = Lens.lens (\ListApprovalRuleTemplatesResponse' {httpStatus} -> httpStatus) (\s@ListApprovalRuleTemplatesResponse' {} a -> s {httpStatus = a} :: ListApprovalRuleTemplatesResponse)
 
-instance NFData ListApprovalRuleTemplatesResponse
+instance
+  Prelude.NFData
+    ListApprovalRuleTemplatesResponse

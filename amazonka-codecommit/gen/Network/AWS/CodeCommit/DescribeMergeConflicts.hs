@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,332 +21,372 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about one or more merge conflicts in the attempted merge of two commit specifiers using the squash or three-way merge strategy. If the merge option for the attempted merge is specified as FAST_FORWARD_MERGE, an exception is thrown.
+-- Returns information about one or more merge conflicts in the attempted
+-- merge of two commit specifiers using the squash or three-way merge
+-- strategy. If the merge option for the attempted merge is specified as
+-- FAST_FORWARD_MERGE, an exception is thrown.
 module Network.AWS.CodeCommit.DescribeMergeConflicts
   ( -- * Creating a Request
-    describeMergeConflicts,
-    DescribeMergeConflicts,
+    DescribeMergeConflicts (..),
+    newDescribeMergeConflicts,
 
     -- * Request Lenses
-    dmcMaxMergeHunks,
-    dmcNextToken,
-    dmcConflictDetailLevel,
-    dmcConflictResolutionStrategy,
-    dmcRepositoryName,
-    dmcDestinationCommitSpecifier,
-    dmcSourceCommitSpecifier,
-    dmcMergeOption,
-    dmcFilePath,
+    describeMergeConflicts_maxMergeHunks,
+    describeMergeConflicts_nextToken,
+    describeMergeConflicts_conflictDetailLevel,
+    describeMergeConflicts_conflictResolutionStrategy,
+    describeMergeConflicts_repositoryName,
+    describeMergeConflicts_destinationCommitSpecifier,
+    describeMergeConflicts_sourceCommitSpecifier,
+    describeMergeConflicts_mergeOption,
+    describeMergeConflicts_filePath,
 
     -- * Destructuring the Response
-    describeMergeConflictsResponse,
-    DescribeMergeConflictsResponse,
+    DescribeMergeConflictsResponse (..),
+    newDescribeMergeConflictsResponse,
 
     -- * Response Lenses
-    dmcrrsNextToken,
-    dmcrrsBaseCommitId,
-    dmcrrsResponseStatus,
-    dmcrrsConflictMetadata,
-    dmcrrsMergeHunks,
-    dmcrrsDestinationCommitId,
-    dmcrrsSourceCommitId,
+    describeMergeConflictsResponse_nextToken,
+    describeMergeConflictsResponse_baseCommitId,
+    describeMergeConflictsResponse_httpStatus,
+    describeMergeConflictsResponse_conflictMetadata,
+    describeMergeConflictsResponse_mergeHunks,
+    describeMergeConflictsResponse_destinationCommitId,
+    describeMergeConflictsResponse_sourceCommitId,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.ConflictMetadata
+import Network.AWS.CodeCommit.Types.MergeHunk
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeMergeConflicts' smart constructor.
+-- | /See:/ 'newDescribeMergeConflicts' smart constructor.
 data DescribeMergeConflicts = DescribeMergeConflicts'
-  { _dmcMaxMergeHunks ::
-      !(Maybe Int),
-    _dmcNextToken ::
-      !(Maybe Text),
-    _dmcConflictDetailLevel ::
-      !( Maybe
-           ConflictDetailLevelTypeEnum
-       ),
-    _dmcConflictResolutionStrategy ::
-      !( Maybe
-           ConflictResolutionStrategyTypeEnum
-       ),
-    _dmcRepositoryName ::
-      !Text,
-    _dmcDestinationCommitSpecifier ::
-      !Text,
-    _dmcSourceCommitSpecifier ::
-      !Text,
-    _dmcMergeOption ::
-      !MergeOptionTypeEnum,
-    _dmcFilePath :: !Text
+  { -- | The maximum number of merge hunks to include in the output.
+    maxMergeHunks :: Prelude.Maybe Prelude.Int,
+    -- | An enumeration token that, when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The level of conflict detail to use. If unspecified, the default
+    -- FILE_LEVEL is used, which returns a not-mergeable result if the same
+    -- file has differences in both branches. If LINE_LEVEL is specified, a
+    -- conflict is considered not mergeable if the same file in both branches
+    -- has differences on the same line.
+    conflictDetailLevel :: Prelude.Maybe ConflictDetailLevelTypeEnum,
+    -- | Specifies which branch to use when resolving conflicts, or whether to
+    -- attempt automatically merging two versions of a file. The default is
+    -- NONE, which requires any conflicts to be resolved manually before the
+    -- merge operation is successful.
+    conflictResolutionStrategy :: Prelude.Maybe ConflictResolutionStrategyTypeEnum,
+    -- | The name of the repository where you want to get information about a
+    -- merge conflict.
+    repositoryName :: Prelude.Text,
+    -- | The branch, tag, HEAD, or other fully qualified reference used to
+    -- identify a commit (for example, a branch name or a full commit ID).
+    destinationCommitSpecifier :: Prelude.Text,
+    -- | The branch, tag, HEAD, or other fully qualified reference used to
+    -- identify a commit (for example, a branch name or a full commit ID).
+    sourceCommitSpecifier :: Prelude.Text,
+    -- | The merge option or strategy you want to use to merge the code.
+    mergeOption :: MergeOptionTypeEnum,
+    -- | The path of the target files used to describe the conflicts.
+    filePath :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeMergeConflicts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeMergeConflicts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmcMaxMergeHunks' - The maximum number of merge hunks to include in the output.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmcNextToken' - An enumeration token that, when provided in a request, returns the next batch of the results.
+-- 'maxMergeHunks', 'describeMergeConflicts_maxMergeHunks' - The maximum number of merge hunks to include in the output.
 --
--- * 'dmcConflictDetailLevel' - The level of conflict detail to use. If unspecified, the default FILE_LEVEL is used, which returns a not-mergeable result if the same file has differences in both branches. If LINE_LEVEL is specified, a conflict is considered not mergeable if the same file in both branches has differences on the same line.
+-- 'nextToken', 'describeMergeConflicts_nextToken' - An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
 --
--- * 'dmcConflictResolutionStrategy' - Specifies which branch to use when resolving conflicts, or whether to attempt automatically merging two versions of a file. The default is NONE, which requires any conflicts to be resolved manually before the merge operation is successful.
+-- 'conflictDetailLevel', 'describeMergeConflicts_conflictDetailLevel' - The level of conflict detail to use. If unspecified, the default
+-- FILE_LEVEL is used, which returns a not-mergeable result if the same
+-- file has differences in both branches. If LINE_LEVEL is specified, a
+-- conflict is considered not mergeable if the same file in both branches
+-- has differences on the same line.
 --
--- * 'dmcRepositoryName' - The name of the repository where you want to get information about a merge conflict.
+-- 'conflictResolutionStrategy', 'describeMergeConflicts_conflictResolutionStrategy' - Specifies which branch to use when resolving conflicts, or whether to
+-- attempt automatically merging two versions of a file. The default is
+-- NONE, which requires any conflicts to be resolved manually before the
+-- merge operation is successful.
 --
--- * 'dmcDestinationCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).
+-- 'repositoryName', 'describeMergeConflicts_repositoryName' - The name of the repository where you want to get information about a
+-- merge conflict.
 --
--- * 'dmcSourceCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).
+-- 'destinationCommitSpecifier', 'describeMergeConflicts_destinationCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, a branch name or a full commit ID).
 --
--- * 'dmcMergeOption' - The merge option or strategy you want to use to merge the code.
+-- 'sourceCommitSpecifier', 'describeMergeConflicts_sourceCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, a branch name or a full commit ID).
 --
--- * 'dmcFilePath' - The path of the target files used to describe the conflicts.
-describeMergeConflicts ::
-  -- | 'dmcRepositoryName'
-  Text ->
-  -- | 'dmcDestinationCommitSpecifier'
-  Text ->
-  -- | 'dmcSourceCommitSpecifier'
-  Text ->
-  -- | 'dmcMergeOption'
+-- 'mergeOption', 'describeMergeConflicts_mergeOption' - The merge option or strategy you want to use to merge the code.
+--
+-- 'filePath', 'describeMergeConflicts_filePath' - The path of the target files used to describe the conflicts.
+newDescribeMergeConflicts ::
+  -- | 'repositoryName'
+  Prelude.Text ->
+  -- | 'destinationCommitSpecifier'
+  Prelude.Text ->
+  -- | 'sourceCommitSpecifier'
+  Prelude.Text ->
+  -- | 'mergeOption'
   MergeOptionTypeEnum ->
-  -- | 'dmcFilePath'
-  Text ->
+  -- | 'filePath'
+  Prelude.Text ->
   DescribeMergeConflicts
-describeMergeConflicts
+newDescribeMergeConflicts
   pRepositoryName_
   pDestinationCommitSpecifier_
   pSourceCommitSpecifier_
   pMergeOption_
   pFilePath_ =
     DescribeMergeConflicts'
-      { _dmcMaxMergeHunks =
-          Nothing,
-        _dmcNextToken = Nothing,
-        _dmcConflictDetailLevel = Nothing,
-        _dmcConflictResolutionStrategy = Nothing,
-        _dmcRepositoryName = pRepositoryName_,
-        _dmcDestinationCommitSpecifier =
+      { maxMergeHunks =
+          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
+        conflictDetailLevel = Prelude.Nothing,
+        conflictResolutionStrategy = Prelude.Nothing,
+        repositoryName = pRepositoryName_,
+        destinationCommitSpecifier =
           pDestinationCommitSpecifier_,
-        _dmcSourceCommitSpecifier = pSourceCommitSpecifier_,
-        _dmcMergeOption = pMergeOption_,
-        _dmcFilePath = pFilePath_
+        sourceCommitSpecifier = pSourceCommitSpecifier_,
+        mergeOption = pMergeOption_,
+        filePath = pFilePath_
       }
 
 -- | The maximum number of merge hunks to include in the output.
-dmcMaxMergeHunks :: Lens' DescribeMergeConflicts (Maybe Int)
-dmcMaxMergeHunks = lens _dmcMaxMergeHunks (\s a -> s {_dmcMaxMergeHunks = a})
+describeMergeConflicts_maxMergeHunks :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe Prelude.Int)
+describeMergeConflicts_maxMergeHunks = Lens.lens (\DescribeMergeConflicts' {maxMergeHunks} -> maxMergeHunks) (\s@DescribeMergeConflicts' {} a -> s {maxMergeHunks = a} :: DescribeMergeConflicts)
 
--- | An enumeration token that, when provided in a request, returns the next batch of the results.
-dmcNextToken :: Lens' DescribeMergeConflicts (Maybe Text)
-dmcNextToken = lens _dmcNextToken (\s a -> s {_dmcNextToken = a})
+-- | An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+describeMergeConflicts_nextToken :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe Prelude.Text)
+describeMergeConflicts_nextToken = Lens.lens (\DescribeMergeConflicts' {nextToken} -> nextToken) (\s@DescribeMergeConflicts' {} a -> s {nextToken = a} :: DescribeMergeConflicts)
 
--- | The level of conflict detail to use. If unspecified, the default FILE_LEVEL is used, which returns a not-mergeable result if the same file has differences in both branches. If LINE_LEVEL is specified, a conflict is considered not mergeable if the same file in both branches has differences on the same line.
-dmcConflictDetailLevel :: Lens' DescribeMergeConflicts (Maybe ConflictDetailLevelTypeEnum)
-dmcConflictDetailLevel = lens _dmcConflictDetailLevel (\s a -> s {_dmcConflictDetailLevel = a})
+-- | The level of conflict detail to use. If unspecified, the default
+-- FILE_LEVEL is used, which returns a not-mergeable result if the same
+-- file has differences in both branches. If LINE_LEVEL is specified, a
+-- conflict is considered not mergeable if the same file in both branches
+-- has differences on the same line.
+describeMergeConflicts_conflictDetailLevel :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe ConflictDetailLevelTypeEnum)
+describeMergeConflicts_conflictDetailLevel = Lens.lens (\DescribeMergeConflicts' {conflictDetailLevel} -> conflictDetailLevel) (\s@DescribeMergeConflicts' {} a -> s {conflictDetailLevel = a} :: DescribeMergeConflicts)
 
--- | Specifies which branch to use when resolving conflicts, or whether to attempt automatically merging two versions of a file. The default is NONE, which requires any conflicts to be resolved manually before the merge operation is successful.
-dmcConflictResolutionStrategy :: Lens' DescribeMergeConflicts (Maybe ConflictResolutionStrategyTypeEnum)
-dmcConflictResolutionStrategy = lens _dmcConflictResolutionStrategy (\s a -> s {_dmcConflictResolutionStrategy = a})
+-- | Specifies which branch to use when resolving conflicts, or whether to
+-- attempt automatically merging two versions of a file. The default is
+-- NONE, which requires any conflicts to be resolved manually before the
+-- merge operation is successful.
+describeMergeConflicts_conflictResolutionStrategy :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe ConflictResolutionStrategyTypeEnum)
+describeMergeConflicts_conflictResolutionStrategy = Lens.lens (\DescribeMergeConflicts' {conflictResolutionStrategy} -> conflictResolutionStrategy) (\s@DescribeMergeConflicts' {} a -> s {conflictResolutionStrategy = a} :: DescribeMergeConflicts)
 
--- | The name of the repository where you want to get information about a merge conflict.
-dmcRepositoryName :: Lens' DescribeMergeConflicts Text
-dmcRepositoryName = lens _dmcRepositoryName (\s a -> s {_dmcRepositoryName = a})
+-- | The name of the repository where you want to get information about a
+-- merge conflict.
+describeMergeConflicts_repositoryName :: Lens.Lens' DescribeMergeConflicts Prelude.Text
+describeMergeConflicts_repositoryName = Lens.lens (\DescribeMergeConflicts' {repositoryName} -> repositoryName) (\s@DescribeMergeConflicts' {} a -> s {repositoryName = a} :: DescribeMergeConflicts)
 
--- | The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).
-dmcDestinationCommitSpecifier :: Lens' DescribeMergeConflicts Text
-dmcDestinationCommitSpecifier = lens _dmcDestinationCommitSpecifier (\s a -> s {_dmcDestinationCommitSpecifier = a})
+-- | The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, a branch name or a full commit ID).
+describeMergeConflicts_destinationCommitSpecifier :: Lens.Lens' DescribeMergeConflicts Prelude.Text
+describeMergeConflicts_destinationCommitSpecifier = Lens.lens (\DescribeMergeConflicts' {destinationCommitSpecifier} -> destinationCommitSpecifier) (\s@DescribeMergeConflicts' {} a -> s {destinationCommitSpecifier = a} :: DescribeMergeConflicts)
 
--- | The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).
-dmcSourceCommitSpecifier :: Lens' DescribeMergeConflicts Text
-dmcSourceCommitSpecifier = lens _dmcSourceCommitSpecifier (\s a -> s {_dmcSourceCommitSpecifier = a})
+-- | The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, a branch name or a full commit ID).
+describeMergeConflicts_sourceCommitSpecifier :: Lens.Lens' DescribeMergeConflicts Prelude.Text
+describeMergeConflicts_sourceCommitSpecifier = Lens.lens (\DescribeMergeConflicts' {sourceCommitSpecifier} -> sourceCommitSpecifier) (\s@DescribeMergeConflicts' {} a -> s {sourceCommitSpecifier = a} :: DescribeMergeConflicts)
 
 -- | The merge option or strategy you want to use to merge the code.
-dmcMergeOption :: Lens' DescribeMergeConflicts MergeOptionTypeEnum
-dmcMergeOption = lens _dmcMergeOption (\s a -> s {_dmcMergeOption = a})
+describeMergeConflicts_mergeOption :: Lens.Lens' DescribeMergeConflicts MergeOptionTypeEnum
+describeMergeConflicts_mergeOption = Lens.lens (\DescribeMergeConflicts' {mergeOption} -> mergeOption) (\s@DescribeMergeConflicts' {} a -> s {mergeOption = a} :: DescribeMergeConflicts)
 
 -- | The path of the target files used to describe the conflicts.
-dmcFilePath :: Lens' DescribeMergeConflicts Text
-dmcFilePath = lens _dmcFilePath (\s a -> s {_dmcFilePath = a})
+describeMergeConflicts_filePath :: Lens.Lens' DescribeMergeConflicts Prelude.Text
+describeMergeConflicts_filePath = Lens.lens (\DescribeMergeConflicts' {filePath} -> filePath) (\s@DescribeMergeConflicts' {} a -> s {filePath = a} :: DescribeMergeConflicts)
 
-instance AWSRequest DescribeMergeConflicts where
+instance Prelude.AWSRequest DescribeMergeConflicts where
   type
     Rs DescribeMergeConflicts =
       DescribeMergeConflictsResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeMergeConflictsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "baseCommitId")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "conflictMetadata")
-            <*> (x .?> "mergeHunks" .!@ mempty)
-            <*> (x .:> "destinationCommitId")
-            <*> (x .:> "sourceCommitId")
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "baseCommitId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "conflictMetadata")
+            Prelude.<*> ( x Prelude..?> "mergeHunks"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:> "destinationCommitId")
+            Prelude.<*> (x Prelude..:> "sourceCommitId")
       )
 
-instance Hashable DescribeMergeConflicts
+instance Prelude.Hashable DescribeMergeConflicts
 
-instance NFData DescribeMergeConflicts
+instance Prelude.NFData DescribeMergeConflicts
 
-instance ToHeaders DescribeMergeConflicts where
+instance Prelude.ToHeaders DescribeMergeConflicts where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.DescribeMergeConflicts" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.DescribeMergeConflicts" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeMergeConflicts where
+instance Prelude.ToJSON DescribeMergeConflicts where
   toJSON DescribeMergeConflicts' {..} =
-    object
-      ( catMaybes
-          [ ("maxMergeHunks" .=) <$> _dmcMaxMergeHunks,
-            ("nextToken" .=) <$> _dmcNextToken,
-            ("conflictDetailLevel" .=)
-              <$> _dmcConflictDetailLevel,
-            ("conflictResolutionStrategy" .=)
-              <$> _dmcConflictResolutionStrategy,
-            Just ("repositoryName" .= _dmcRepositoryName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("maxMergeHunks" Prelude..=)
+              Prelude.<$> maxMergeHunks,
+            ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("conflictDetailLevel" Prelude..=)
+              Prelude.<$> conflictDetailLevel,
+            ("conflictResolutionStrategy" Prelude..=)
+              Prelude.<$> conflictResolutionStrategy,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName),
+            Prelude.Just
               ( "destinationCommitSpecifier"
-                  .= _dmcDestinationCommitSpecifier
+                  Prelude..= destinationCommitSpecifier
               ),
-            Just
+            Prelude.Just
               ( "sourceCommitSpecifier"
-                  .= _dmcSourceCommitSpecifier
+                  Prelude..= sourceCommitSpecifier
               ),
-            Just ("mergeOption" .= _dmcMergeOption),
-            Just ("filePath" .= _dmcFilePath)
+            Prelude.Just ("mergeOption" Prelude..= mergeOption),
+            Prelude.Just ("filePath" Prelude..= filePath)
           ]
       )
 
-instance ToPath DescribeMergeConflicts where
-  toPath = const "/"
+instance Prelude.ToPath DescribeMergeConflicts where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeMergeConflicts where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeMergeConflicts where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeMergeConflictsResponse' smart constructor.
+-- | /See:/ 'newDescribeMergeConflictsResponse' smart constructor.
 data DescribeMergeConflictsResponse = DescribeMergeConflictsResponse'
-  { _dmcrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dmcrrsBaseCommitId ::
-      !( Maybe
-           Text
-       ),
-    _dmcrrsResponseStatus ::
-      !Int,
-    _dmcrrsConflictMetadata ::
-      !ConflictMetadata,
-    _dmcrrsMergeHunks ::
-      ![MergeHunk],
-    _dmcrrsDestinationCommitId ::
-      !Text,
-    _dmcrrsSourceCommitId ::
-      !Text
+  { -- | An enumeration token that can be used in a request to return the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The commit ID of the merge base.
+    baseCommitId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Contains metadata about the conflicts found in the merge.
+    conflictMetadata :: ConflictMetadata,
+    -- | A list of merge hunks of the differences between the files or lines.
+    mergeHunks :: [MergeHunk],
+    -- | The commit ID of the destination commit specifier that was used in the
+    -- merge evaluation.
+    destinationCommitId :: Prelude.Text,
+    -- | The commit ID of the source commit specifier that was used in the merge
+    -- evaluation.
+    sourceCommitId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeMergeConflictsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeMergeConflictsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmcrrsNextToken' - An enumeration token that can be used in a request to return the next batch of the results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmcrrsBaseCommitId' - The commit ID of the merge base.
+-- 'nextToken', 'describeMergeConflictsResponse_nextToken' - An enumeration token that can be used in a request to return the next
+-- batch of the results.
 --
--- * 'dmcrrsResponseStatus' - -- | The response status code.
+-- 'baseCommitId', 'describeMergeConflictsResponse_baseCommitId' - The commit ID of the merge base.
 --
--- * 'dmcrrsConflictMetadata' - Contains metadata about the conflicts found in the merge.
+-- 'httpStatus', 'describeMergeConflictsResponse_httpStatus' - The response's http status code.
 --
--- * 'dmcrrsMergeHunks' - A list of merge hunks of the differences between the files or lines.
+-- 'conflictMetadata', 'describeMergeConflictsResponse_conflictMetadata' - Contains metadata about the conflicts found in the merge.
 --
--- * 'dmcrrsDestinationCommitId' - The commit ID of the destination commit specifier that was used in the merge evaluation.
+-- 'mergeHunks', 'describeMergeConflictsResponse_mergeHunks' - A list of merge hunks of the differences between the files or lines.
 --
--- * 'dmcrrsSourceCommitId' - The commit ID of the source commit specifier that was used in the merge evaluation.
-describeMergeConflictsResponse ::
-  -- | 'dmcrrsResponseStatus'
-  Int ->
-  -- | 'dmcrrsConflictMetadata'
+-- 'destinationCommitId', 'describeMergeConflictsResponse_destinationCommitId' - The commit ID of the destination commit specifier that was used in the
+-- merge evaluation.
+--
+-- 'sourceCommitId', 'describeMergeConflictsResponse_sourceCommitId' - The commit ID of the source commit specifier that was used in the merge
+-- evaluation.
+newDescribeMergeConflictsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'conflictMetadata'
   ConflictMetadata ->
-  -- | 'dmcrrsDestinationCommitId'
-  Text ->
-  -- | 'dmcrrsSourceCommitId'
-  Text ->
+  -- | 'destinationCommitId'
+  Prelude.Text ->
+  -- | 'sourceCommitId'
+  Prelude.Text ->
   DescribeMergeConflictsResponse
-describeMergeConflictsResponse
-  pResponseStatus_
+newDescribeMergeConflictsResponse
+  pHttpStatus_
   pConflictMetadata_
   pDestinationCommitId_
   pSourceCommitId_ =
     DescribeMergeConflictsResponse'
-      { _dmcrrsNextToken =
-          Nothing,
-        _dmcrrsBaseCommitId = Nothing,
-        _dmcrrsResponseStatus = pResponseStatus_,
-        _dmcrrsConflictMetadata =
-          pConflictMetadata_,
-        _dmcrrsMergeHunks = mempty,
-        _dmcrrsDestinationCommitId =
-          pDestinationCommitId_,
-        _dmcrrsSourceCommitId = pSourceCommitId_
+      { nextToken =
+          Prelude.Nothing,
+        baseCommitId = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        conflictMetadata = pConflictMetadata_,
+        mergeHunks = Prelude.mempty,
+        destinationCommitId = pDestinationCommitId_,
+        sourceCommitId = pSourceCommitId_
       }
 
--- | An enumeration token that can be used in a request to return the next batch of the results.
-dmcrrsNextToken :: Lens' DescribeMergeConflictsResponse (Maybe Text)
-dmcrrsNextToken = lens _dmcrrsNextToken (\s a -> s {_dmcrrsNextToken = a})
+-- | An enumeration token that can be used in a request to return the next
+-- batch of the results.
+describeMergeConflictsResponse_nextToken :: Lens.Lens' DescribeMergeConflictsResponse (Prelude.Maybe Prelude.Text)
+describeMergeConflictsResponse_nextToken = Lens.lens (\DescribeMergeConflictsResponse' {nextToken} -> nextToken) (\s@DescribeMergeConflictsResponse' {} a -> s {nextToken = a} :: DescribeMergeConflictsResponse)
 
 -- | The commit ID of the merge base.
-dmcrrsBaseCommitId :: Lens' DescribeMergeConflictsResponse (Maybe Text)
-dmcrrsBaseCommitId = lens _dmcrrsBaseCommitId (\s a -> s {_dmcrrsBaseCommitId = a})
+describeMergeConflictsResponse_baseCommitId :: Lens.Lens' DescribeMergeConflictsResponse (Prelude.Maybe Prelude.Text)
+describeMergeConflictsResponse_baseCommitId = Lens.lens (\DescribeMergeConflictsResponse' {baseCommitId} -> baseCommitId) (\s@DescribeMergeConflictsResponse' {} a -> s {baseCommitId = a} :: DescribeMergeConflictsResponse)
 
--- | -- | The response status code.
-dmcrrsResponseStatus :: Lens' DescribeMergeConflictsResponse Int
-dmcrrsResponseStatus = lens _dmcrrsResponseStatus (\s a -> s {_dmcrrsResponseStatus = a})
+-- | The response's http status code.
+describeMergeConflictsResponse_httpStatus :: Lens.Lens' DescribeMergeConflictsResponse Prelude.Int
+describeMergeConflictsResponse_httpStatus = Lens.lens (\DescribeMergeConflictsResponse' {httpStatus} -> httpStatus) (\s@DescribeMergeConflictsResponse' {} a -> s {httpStatus = a} :: DescribeMergeConflictsResponse)
 
 -- | Contains metadata about the conflicts found in the merge.
-dmcrrsConflictMetadata :: Lens' DescribeMergeConflictsResponse ConflictMetadata
-dmcrrsConflictMetadata = lens _dmcrrsConflictMetadata (\s a -> s {_dmcrrsConflictMetadata = a})
+describeMergeConflictsResponse_conflictMetadata :: Lens.Lens' DescribeMergeConflictsResponse ConflictMetadata
+describeMergeConflictsResponse_conflictMetadata = Lens.lens (\DescribeMergeConflictsResponse' {conflictMetadata} -> conflictMetadata) (\s@DescribeMergeConflictsResponse' {} a -> s {conflictMetadata = a} :: DescribeMergeConflictsResponse)
 
 -- | A list of merge hunks of the differences between the files or lines.
-dmcrrsMergeHunks :: Lens' DescribeMergeConflictsResponse [MergeHunk]
-dmcrrsMergeHunks = lens _dmcrrsMergeHunks (\s a -> s {_dmcrrsMergeHunks = a}) . _Coerce
+describeMergeConflictsResponse_mergeHunks :: Lens.Lens' DescribeMergeConflictsResponse [MergeHunk]
+describeMergeConflictsResponse_mergeHunks = Lens.lens (\DescribeMergeConflictsResponse' {mergeHunks} -> mergeHunks) (\s@DescribeMergeConflictsResponse' {} a -> s {mergeHunks = a} :: DescribeMergeConflictsResponse) Prelude.. Prelude._Coerce
 
--- | The commit ID of the destination commit specifier that was used in the merge evaluation.
-dmcrrsDestinationCommitId :: Lens' DescribeMergeConflictsResponse Text
-dmcrrsDestinationCommitId = lens _dmcrrsDestinationCommitId (\s a -> s {_dmcrrsDestinationCommitId = a})
+-- | The commit ID of the destination commit specifier that was used in the
+-- merge evaluation.
+describeMergeConflictsResponse_destinationCommitId :: Lens.Lens' DescribeMergeConflictsResponse Prelude.Text
+describeMergeConflictsResponse_destinationCommitId = Lens.lens (\DescribeMergeConflictsResponse' {destinationCommitId} -> destinationCommitId) (\s@DescribeMergeConflictsResponse' {} a -> s {destinationCommitId = a} :: DescribeMergeConflictsResponse)
 
--- | The commit ID of the source commit specifier that was used in the merge evaluation.
-dmcrrsSourceCommitId :: Lens' DescribeMergeConflictsResponse Text
-dmcrrsSourceCommitId = lens _dmcrrsSourceCommitId (\s a -> s {_dmcrrsSourceCommitId = a})
+-- | The commit ID of the source commit specifier that was used in the merge
+-- evaluation.
+describeMergeConflictsResponse_sourceCommitId :: Lens.Lens' DescribeMergeConflictsResponse Prelude.Text
+describeMergeConflictsResponse_sourceCommitId = Lens.lens (\DescribeMergeConflictsResponse' {sourceCommitId} -> sourceCommitId) (\s@DescribeMergeConflictsResponse' {} a -> s {sourceCommitId = a} :: DescribeMergeConflictsResponse)
 
-instance NFData DescribeMergeConflictsResponse
+instance
+  Prelude.NFData
+    DescribeMergeConflictsResponse

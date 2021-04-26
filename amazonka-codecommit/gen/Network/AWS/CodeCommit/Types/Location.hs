@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,75 +20,85 @@
 module Network.AWS.CodeCommit.Types.Location where
 
 import Network.AWS.CodeCommit.Types.RelativeFileVersionEnum
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns information about the location of a change or comment in the comparison between two commits or a pull request.
+-- | Returns information about the location of a change or comment in the
+-- comparison between two commits or a pull request.
 --
---
---
--- /See:/ 'location' smart constructor.
+-- /See:/ 'newLocation' smart constructor.
 data Location = Location'
-  { _lFilePath ::
-      !(Maybe Text),
-    _lFilePosition :: !(Maybe Integer),
-    _lRelativeFileVersion ::
-      !(Maybe RelativeFileVersionEnum)
+  { -- | The name of the file being compared, including its extension and
+    -- subdirectory, if any.
+    filePath :: Prelude.Maybe Prelude.Text,
+    -- | The position of a change in a compared file, in line number format.
+    filePosition :: Prelude.Maybe Prelude.Integer,
+    -- | In a comparison of commits or a pull request, whether the change is in
+    -- the before or after of that comparison.
+    relativeFileVersion :: Prelude.Maybe RelativeFileVersionEnum
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Location' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Location' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lFilePath' - The name of the file being compared, including its extension and subdirectory, if any.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lFilePosition' - The position of a change in a compared file, in line number format.
+-- 'filePath', 'location_filePath' - The name of the file being compared, including its extension and
+-- subdirectory, if any.
 --
--- * 'lRelativeFileVersion' - In a comparison of commits or a pull request, whether the change is in the before or after of that comparison.
-location ::
+-- 'filePosition', 'location_filePosition' - The position of a change in a compared file, in line number format.
+--
+-- 'relativeFileVersion', 'location_relativeFileVersion' - In a comparison of commits or a pull request, whether the change is in
+-- the before or after of that comparison.
+newLocation ::
   Location
-location =
+newLocation =
   Location'
-    { _lFilePath = Nothing,
-      _lFilePosition = Nothing,
-      _lRelativeFileVersion = Nothing
+    { filePath = Prelude.Nothing,
+      filePosition = Prelude.Nothing,
+      relativeFileVersion = Prelude.Nothing
     }
 
--- | The name of the file being compared, including its extension and subdirectory, if any.
-lFilePath :: Lens' Location (Maybe Text)
-lFilePath = lens _lFilePath (\s a -> s {_lFilePath = a})
+-- | The name of the file being compared, including its extension and
+-- subdirectory, if any.
+location_filePath :: Lens.Lens' Location (Prelude.Maybe Prelude.Text)
+location_filePath = Lens.lens (\Location' {filePath} -> filePath) (\s@Location' {} a -> s {filePath = a} :: Location)
 
 -- | The position of a change in a compared file, in line number format.
-lFilePosition :: Lens' Location (Maybe Integer)
-lFilePosition = lens _lFilePosition (\s a -> s {_lFilePosition = a})
+location_filePosition :: Lens.Lens' Location (Prelude.Maybe Prelude.Integer)
+location_filePosition = Lens.lens (\Location' {filePosition} -> filePosition) (\s@Location' {} a -> s {filePosition = a} :: Location)
 
--- | In a comparison of commits or a pull request, whether the change is in the before or after of that comparison.
-lRelativeFileVersion :: Lens' Location (Maybe RelativeFileVersionEnum)
-lRelativeFileVersion = lens _lRelativeFileVersion (\s a -> s {_lRelativeFileVersion = a})
+-- | In a comparison of commits or a pull request, whether the change is in
+-- the before or after of that comparison.
+location_relativeFileVersion :: Lens.Lens' Location (Prelude.Maybe RelativeFileVersionEnum)
+location_relativeFileVersion = Lens.lens (\Location' {relativeFileVersion} -> relativeFileVersion) (\s@Location' {} a -> s {relativeFileVersion = a} :: Location)
 
-instance FromJSON Location where
+instance Prelude.FromJSON Location where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Location"
       ( \x ->
           Location'
-            <$> (x .:? "filePath")
-            <*> (x .:? "filePosition")
-            <*> (x .:? "relativeFileVersion")
+            Prelude.<$> (x Prelude..:? "filePath")
+            Prelude.<*> (x Prelude..:? "filePosition")
+            Prelude.<*> (x Prelude..:? "relativeFileVersion")
       )
 
-instance Hashable Location
+instance Prelude.Hashable Location
 
-instance NFData Location
+instance Prelude.NFData Location
 
-instance ToJSON Location where
+instance Prelude.ToJSON Location where
   toJSON Location' {..} =
-    object
-      ( catMaybes
-          [ ("filePath" .=) <$> _lFilePath,
-            ("filePosition" .=) <$> _lFilePosition,
-            ("relativeFileVersion" .=)
-              <$> _lRelativeFileVersion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("filePath" Prelude..=) Prelude.<$> filePath,
+            ("filePosition" Prelude..=) Prelude.<$> filePosition,
+            ("relativeFileVersion" Prelude..=)
+              Prelude.<$> relativeFileVersion
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CodeCommit.Types.MergeOptionTypeEnum
   ( MergeOptionTypeEnum
       ( ..,
-        FastForwardMerge,
-        SquashMerge,
-        ThreeWayMerge
+        MergeOptionTypeEnumFASTFORWARDMERGE,
+        MergeOptionTypeEnumSQUASHMERGE,
+        MergeOptionTypeEnumTHREEWAYMERGE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MergeOptionTypeEnum
-  = MergeOptionTypeEnum'
-      ( CI
-          Text
-      )
+newtype MergeOptionTypeEnum = MergeOptionTypeEnum'
+  { fromMergeOptionTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FastForwardMerge :: MergeOptionTypeEnum
-pattern FastForwardMerge = MergeOptionTypeEnum' "FAST_FORWARD_MERGE"
+pattern MergeOptionTypeEnumFASTFORWARDMERGE :: MergeOptionTypeEnum
+pattern MergeOptionTypeEnumFASTFORWARDMERGE = MergeOptionTypeEnum' "FAST_FORWARD_MERGE"
 
-pattern SquashMerge :: MergeOptionTypeEnum
-pattern SquashMerge = MergeOptionTypeEnum' "SQUASH_MERGE"
+pattern MergeOptionTypeEnumSQUASHMERGE :: MergeOptionTypeEnum
+pattern MergeOptionTypeEnumSQUASHMERGE = MergeOptionTypeEnum' "SQUASH_MERGE"
 
-pattern ThreeWayMerge :: MergeOptionTypeEnum
-pattern ThreeWayMerge = MergeOptionTypeEnum' "THREE_WAY_MERGE"
+pattern MergeOptionTypeEnumTHREEWAYMERGE :: MergeOptionTypeEnum
+pattern MergeOptionTypeEnumTHREEWAYMERGE = MergeOptionTypeEnum' "THREE_WAY_MERGE"
 
 {-# COMPLETE
-  FastForwardMerge,
-  SquashMerge,
-  ThreeWayMerge,
+  MergeOptionTypeEnumFASTFORWARDMERGE,
+  MergeOptionTypeEnumSQUASHMERGE,
+  MergeOptionTypeEnumTHREEWAYMERGE,
   MergeOptionTypeEnum'
   #-}
 
-instance FromText MergeOptionTypeEnum where
-  parser = (MergeOptionTypeEnum' . mk) <$> takeText
+instance Prelude.FromText MergeOptionTypeEnum where
+  parser = MergeOptionTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText MergeOptionTypeEnum where
-  toText (MergeOptionTypeEnum' ci) = original ci
+instance Prelude.ToText MergeOptionTypeEnum where
+  toText (MergeOptionTypeEnum' x) = x
 
-instance Hashable MergeOptionTypeEnum
+instance Prelude.Hashable MergeOptionTypeEnum
 
-instance NFData MergeOptionTypeEnum
+instance Prelude.NFData MergeOptionTypeEnum
 
-instance ToByteString MergeOptionTypeEnum
+instance Prelude.ToByteString MergeOptionTypeEnum
 
-instance ToQuery MergeOptionTypeEnum
+instance Prelude.ToQuery MergeOptionTypeEnum
 
-instance ToHeader MergeOptionTypeEnum
+instance Prelude.ToHeader MergeOptionTypeEnum
 
-instance ToJSON MergeOptionTypeEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON MergeOptionTypeEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MergeOptionTypeEnum where
-  parseJSON = parseJSONText "MergeOptionTypeEnum"
+instance Prelude.FromJSON MergeOptionTypeEnum where
+  parseJSON = Prelude.parseJSONText "MergeOptionTypeEnum"

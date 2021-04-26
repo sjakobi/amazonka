@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,134 +24,142 @@
 -- Gets information about a pull request in a specified repository.
 module Network.AWS.CodeCommit.GetPullRequest
   ( -- * Creating a Request
-    getPullRequest,
-    GetPullRequest,
+    GetPullRequest (..),
+    newGetPullRequest,
 
     -- * Request Lenses
-    gprPullRequestId,
+    getPullRequest_pullRequestId,
 
     -- * Destructuring the Response
-    getPullRequestResponse,
-    GetPullRequestResponse,
+    GetPullRequestResponse (..),
+    newGetPullRequestResponse,
 
     -- * Response Lenses
-    gprrrsResponseStatus,
-    gprrrsPullRequest,
+    getPullRequestResponse_httpStatus,
+    getPullRequestResponse_pullRequest,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.PullRequest
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getPullRequest' smart constructor.
-newtype GetPullRequest = GetPullRequest'
-  { _gprPullRequestId ::
-      Text
+-- | /See:/ 'newGetPullRequest' smart constructor.
+data GetPullRequest = GetPullRequest'
+  { -- | The system-generated ID of the pull request. To get this ID, use
+    -- ListPullRequests.
+    pullRequestId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPullRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPullRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gprPullRequestId' - The system-generated ID of the pull request. To get this ID, use 'ListPullRequests' .
-getPullRequest ::
-  -- | 'gprPullRequestId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pullRequestId', 'getPullRequest_pullRequestId' - The system-generated ID of the pull request. To get this ID, use
+-- ListPullRequests.
+newGetPullRequest ::
+  -- | 'pullRequestId'
+  Prelude.Text ->
   GetPullRequest
-getPullRequest pPullRequestId_ =
-  GetPullRequest'
-    { _gprPullRequestId =
-        pPullRequestId_
-    }
+newGetPullRequest pPullRequestId_ =
+  GetPullRequest' {pullRequestId = pPullRequestId_}
 
--- | The system-generated ID of the pull request. To get this ID, use 'ListPullRequests' .
-gprPullRequestId :: Lens' GetPullRequest Text
-gprPullRequestId = lens _gprPullRequestId (\s a -> s {_gprPullRequestId = a})
+-- | The system-generated ID of the pull request. To get this ID, use
+-- ListPullRequests.
+getPullRequest_pullRequestId :: Lens.Lens' GetPullRequest Prelude.Text
+getPullRequest_pullRequestId = Lens.lens (\GetPullRequest' {pullRequestId} -> pullRequestId) (\s@GetPullRequest' {} a -> s {pullRequestId = a} :: GetPullRequest)
 
-instance AWSRequest GetPullRequest where
+instance Prelude.AWSRequest GetPullRequest where
   type Rs GetPullRequest = GetPullRequestResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetPullRequestResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "pullRequest")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "pullRequest")
       )
 
-instance Hashable GetPullRequest
+instance Prelude.Hashable GetPullRequest
 
-instance NFData GetPullRequest
+instance Prelude.NFData GetPullRequest
 
-instance ToHeaders GetPullRequest where
+instance Prelude.ToHeaders GetPullRequest where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeCommit_20150413.GetPullRequest" :: ByteString),
+              Prelude.=# ( "CodeCommit_20150413.GetPullRequest" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetPullRequest where
+instance Prelude.ToJSON GetPullRequest where
   toJSON GetPullRequest' {..} =
-    object
-      ( catMaybes
-          [Just ("pullRequestId" .= _gprPullRequestId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("pullRequestId" Prelude..= pullRequestId)
+          ]
       )
 
-instance ToPath GetPullRequest where
-  toPath = const "/"
+instance Prelude.ToPath GetPullRequest where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetPullRequest where
-  toQuery = const mempty
+instance Prelude.ToQuery GetPullRequest where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getPullRequestResponse' smart constructor.
+-- | /See:/ 'newGetPullRequestResponse' smart constructor.
 data GetPullRequestResponse = GetPullRequestResponse'
-  { _gprrrsResponseStatus ::
-      !Int,
-    _gprrrsPullRequest ::
-      !PullRequest
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about the specified pull request.
+    pullRequest :: PullRequest
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPullRequestResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPullRequestResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gprrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gprrrsPullRequest' - Information about the specified pull request.
-getPullRequestResponse ::
-  -- | 'gprrrsResponseStatus'
-  Int ->
-  -- | 'gprrrsPullRequest'
+-- 'httpStatus', 'getPullRequestResponse_httpStatus' - The response's http status code.
+--
+-- 'pullRequest', 'getPullRequestResponse_pullRequest' - Information about the specified pull request.
+newGetPullRequestResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'pullRequest'
   PullRequest ->
   GetPullRequestResponse
-getPullRequestResponse pResponseStatus_ pPullRequest_ =
+newGetPullRequestResponse pHttpStatus_ pPullRequest_ =
   GetPullRequestResponse'
-    { _gprrrsResponseStatus =
-        pResponseStatus_,
-      _gprrrsPullRequest = pPullRequest_
+    { httpStatus = pHttpStatus_,
+      pullRequest = pPullRequest_
     }
 
--- | -- | The response status code.
-gprrrsResponseStatus :: Lens' GetPullRequestResponse Int
-gprrrsResponseStatus = lens _gprrrsResponseStatus (\s a -> s {_gprrrsResponseStatus = a})
+-- | The response's http status code.
+getPullRequestResponse_httpStatus :: Lens.Lens' GetPullRequestResponse Prelude.Int
+getPullRequestResponse_httpStatus = Lens.lens (\GetPullRequestResponse' {httpStatus} -> httpStatus) (\s@GetPullRequestResponse' {} a -> s {httpStatus = a} :: GetPullRequestResponse)
 
 -- | Information about the specified pull request.
-gprrrsPullRequest :: Lens' GetPullRequestResponse PullRequest
-gprrrsPullRequest = lens _gprrrsPullRequest (\s a -> s {_gprrrsPullRequest = a})
+getPullRequestResponse_pullRequest :: Lens.Lens' GetPullRequestResponse PullRequest
+getPullRequestResponse_pullRequest = Lens.lens (\GetPullRequestResponse' {pullRequest} -> pullRequest) (\s@GetPullRequestResponse' {} a -> s {pullRequest = a} :: GetPullRequestResponse)
 
-instance NFData GetPullRequestResponse
+instance Prelude.NFData GetPullRequestResponse

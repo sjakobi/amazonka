@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.CodeCommit.Types.ConflictResolutionStrategyTypeEnum
   ( ConflictResolutionStrategyTypeEnum
       ( ..,
-        AcceptDestination,
-        AcceptSource,
-        Automerge,
-        None
+        ConflictResolutionStrategyTypeEnumACCEPTDESTINATION,
+        ConflictResolutionStrategyTypeEnumACCEPTSOURCE,
+        ConflictResolutionStrategyTypeEnumAUTOMERGE,
+        ConflictResolutionStrategyTypeEnumNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConflictResolutionStrategyTypeEnum
-  = ConflictResolutionStrategyTypeEnum'
-      ( CI
-          Text
-      )
+newtype ConflictResolutionStrategyTypeEnum = ConflictResolutionStrategyTypeEnum'
+  { fromConflictResolutionStrategyTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AcceptDestination :: ConflictResolutionStrategyTypeEnum
-pattern AcceptDestination = ConflictResolutionStrategyTypeEnum' "ACCEPT_DESTINATION"
+pattern ConflictResolutionStrategyTypeEnumACCEPTDESTINATION :: ConflictResolutionStrategyTypeEnum
+pattern ConflictResolutionStrategyTypeEnumACCEPTDESTINATION = ConflictResolutionStrategyTypeEnum' "ACCEPT_DESTINATION"
 
-pattern AcceptSource :: ConflictResolutionStrategyTypeEnum
-pattern AcceptSource = ConflictResolutionStrategyTypeEnum' "ACCEPT_SOURCE"
+pattern ConflictResolutionStrategyTypeEnumACCEPTSOURCE :: ConflictResolutionStrategyTypeEnum
+pattern ConflictResolutionStrategyTypeEnumACCEPTSOURCE = ConflictResolutionStrategyTypeEnum' "ACCEPT_SOURCE"
 
-pattern Automerge :: ConflictResolutionStrategyTypeEnum
-pattern Automerge = ConflictResolutionStrategyTypeEnum' "AUTOMERGE"
+pattern ConflictResolutionStrategyTypeEnumAUTOMERGE :: ConflictResolutionStrategyTypeEnum
+pattern ConflictResolutionStrategyTypeEnumAUTOMERGE = ConflictResolutionStrategyTypeEnum' "AUTOMERGE"
 
-pattern None :: ConflictResolutionStrategyTypeEnum
-pattern None = ConflictResolutionStrategyTypeEnum' "NONE"
+pattern ConflictResolutionStrategyTypeEnumNONE :: ConflictResolutionStrategyTypeEnum
+pattern ConflictResolutionStrategyTypeEnumNONE = ConflictResolutionStrategyTypeEnum' "NONE"
 
 {-# COMPLETE
-  AcceptDestination,
-  AcceptSource,
-  Automerge,
-  None,
+  ConflictResolutionStrategyTypeEnumACCEPTDESTINATION,
+  ConflictResolutionStrategyTypeEnumACCEPTSOURCE,
+  ConflictResolutionStrategyTypeEnumAUTOMERGE,
+  ConflictResolutionStrategyTypeEnumNONE,
   ConflictResolutionStrategyTypeEnum'
   #-}
 
-instance FromText ConflictResolutionStrategyTypeEnum where
-  parser = (ConflictResolutionStrategyTypeEnum' . mk) <$> takeText
+instance Prelude.FromText ConflictResolutionStrategyTypeEnum where
+  parser = ConflictResolutionStrategyTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ConflictResolutionStrategyTypeEnum where
-  toText (ConflictResolutionStrategyTypeEnum' ci) = original ci
+instance Prelude.ToText ConflictResolutionStrategyTypeEnum where
+  toText (ConflictResolutionStrategyTypeEnum' x) = x
 
-instance Hashable ConflictResolutionStrategyTypeEnum
+instance Prelude.Hashable ConflictResolutionStrategyTypeEnum
 
-instance NFData ConflictResolutionStrategyTypeEnum
+instance Prelude.NFData ConflictResolutionStrategyTypeEnum
 
-instance ToByteString ConflictResolutionStrategyTypeEnum
+instance Prelude.ToByteString ConflictResolutionStrategyTypeEnum
 
-instance ToQuery ConflictResolutionStrategyTypeEnum
+instance Prelude.ToQuery ConflictResolutionStrategyTypeEnum
 
-instance ToHeader ConflictResolutionStrategyTypeEnum
+instance Prelude.ToHeader ConflictResolutionStrategyTypeEnum
 
-instance ToJSON ConflictResolutionStrategyTypeEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConflictResolutionStrategyTypeEnum where
+  toJSON = Prelude.toJSONText

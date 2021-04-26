@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,131 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Renames a repository. The repository name must be unique across the calling AWS account. Repository names are limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters. The suffix .git is prohibited. For more information about the limits on repository names, see <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html Limits> in the AWS CodeCommit User Guide.
+-- Renames a repository. The repository name must be unique across the
+-- calling AWS account. Repository names are limited to 100 alphanumeric,
+-- dash, and underscore characters, and cannot include certain characters.
+-- The suffix .git is prohibited. For more information about the limits on
+-- repository names, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html Limits>
+-- in the AWS CodeCommit User Guide.
 module Network.AWS.CodeCommit.UpdateRepositoryName
   ( -- * Creating a Request
-    updateRepositoryName,
-    UpdateRepositoryName,
+    UpdateRepositoryName (..),
+    newUpdateRepositoryName,
 
     -- * Request Lenses
-    urnOldName,
-    urnNewName,
+    updateRepositoryName_oldName,
+    updateRepositoryName_newName,
 
     -- * Destructuring the Response
-    updateRepositoryNameResponse,
-    UpdateRepositoryNameResponse,
+    UpdateRepositoryNameResponse (..),
+    newUpdateRepositoryNameResponse,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of an update repository description operation.
 --
---
---
--- /See:/ 'updateRepositoryName' smart constructor.
+-- /See:/ 'newUpdateRepositoryName' smart constructor.
 data UpdateRepositoryName = UpdateRepositoryName'
-  { _urnOldName ::
-      !Text,
-    _urnNewName :: !Text
+  { -- | The current name of the repository.
+    oldName :: Prelude.Text,
+    -- | The new name for the repository.
+    newName' :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRepositoryName' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRepositoryName' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urnOldName' - The current name of the repository.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urnNewName' - The new name for the repository.
-updateRepositoryName ::
-  -- | 'urnOldName'
-  Text ->
-  -- | 'urnNewName'
-  Text ->
+-- 'oldName', 'updateRepositoryName_oldName' - The current name of the repository.
+--
+-- 'newName'', 'updateRepositoryName_newName' - The new name for the repository.
+newUpdateRepositoryName ::
+  -- | 'oldName'
+  Prelude.Text ->
+  -- | 'newName''
+  Prelude.Text ->
   UpdateRepositoryName
-updateRepositoryName pOldName_ pNewName_ =
+newUpdateRepositoryName pOldName_ pNewName_ =
   UpdateRepositoryName'
-    { _urnOldName = pOldName_,
-      _urnNewName = pNewName_
+    { oldName = pOldName_,
+      newName' = pNewName_
     }
 
 -- | The current name of the repository.
-urnOldName :: Lens' UpdateRepositoryName Text
-urnOldName = lens _urnOldName (\s a -> s {_urnOldName = a})
+updateRepositoryName_oldName :: Lens.Lens' UpdateRepositoryName Prelude.Text
+updateRepositoryName_oldName = Lens.lens (\UpdateRepositoryName' {oldName} -> oldName) (\s@UpdateRepositoryName' {} a -> s {oldName = a} :: UpdateRepositoryName)
 
 -- | The new name for the repository.
-urnNewName :: Lens' UpdateRepositoryName Text
-urnNewName = lens _urnNewName (\s a -> s {_urnNewName = a})
+updateRepositoryName_newName :: Lens.Lens' UpdateRepositoryName Prelude.Text
+updateRepositoryName_newName = Lens.lens (\UpdateRepositoryName' {newName'} -> newName') (\s@UpdateRepositoryName' {} a -> s {newName' = a} :: UpdateRepositoryName)
 
-instance AWSRequest UpdateRepositoryName where
+instance Prelude.AWSRequest UpdateRepositoryName where
   type
     Rs UpdateRepositoryName =
       UpdateRepositoryNameResponse
-  request = postJSON codeCommit
-  response = receiveNull UpdateRepositoryNameResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull UpdateRepositoryNameResponse'
 
-instance Hashable UpdateRepositoryName
+instance Prelude.Hashable UpdateRepositoryName
 
-instance NFData UpdateRepositoryName
+instance Prelude.NFData UpdateRepositoryName
 
-instance ToHeaders UpdateRepositoryName where
+instance Prelude.ToHeaders UpdateRepositoryName where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.UpdateRepositoryName" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.UpdateRepositoryName" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateRepositoryName where
+instance Prelude.ToJSON UpdateRepositoryName where
   toJSON UpdateRepositoryName' {..} =
-    object
-      ( catMaybes
-          [ Just ("oldName" .= _urnOldName),
-            Just ("newName" .= _urnNewName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("oldName" Prelude..= oldName),
+            Prelude.Just ("newName" Prelude..= newName')
           ]
       )
 
-instance ToPath UpdateRepositoryName where
-  toPath = const "/"
+instance Prelude.ToPath UpdateRepositoryName where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateRepositoryName where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateRepositoryName where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRepositoryNameResponse' smart constructor.
+-- | /See:/ 'newUpdateRepositoryNameResponse' smart constructor.
 data UpdateRepositoryNameResponse = UpdateRepositoryNameResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRepositoryNameResponse' with the minimum fields required to make a request.
-updateRepositoryNameResponse ::
+-- |
+-- Create a value of 'UpdateRepositoryNameResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateRepositoryNameResponse ::
   UpdateRepositoryNameResponse
-updateRepositoryNameResponse =
+newUpdateRepositoryNameResponse =
   UpdateRepositoryNameResponse'
 
-instance NFData UpdateRepositoryNameResponse
+instance Prelude.NFData UpdateRepositoryNameResponse

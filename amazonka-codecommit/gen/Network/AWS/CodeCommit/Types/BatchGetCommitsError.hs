@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.BatchGetCommitsError where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about errors in a BatchGetCommits operation.
 --
---
---
--- /See:/ 'batchGetCommitsError' smart constructor.
+-- /See:/ 'newBatchGetCommitsError' smart constructor.
 data BatchGetCommitsError = BatchGetCommitsError'
-  { _bgceCommitId ::
-      !(Maybe Text),
-    _bgceErrorMessage ::
-      !(Maybe Text),
-    _bgceErrorCode ::
-      !(Maybe Text)
+  { -- | A commit ID that either could not be found or was not in a valid format.
+    commitId :: Prelude.Maybe Prelude.Text,
+    -- | An error message that provides detail about why the commit ID either was
+    -- not found or was not valid.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | An error code that specifies whether the commit ID was not valid or not
+    -- found.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetCommitsError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetCommitsError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgceCommitId' - A commit ID that either could not be found or was not in a valid format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgceErrorMessage' - An error message that provides detail about why the commit ID either was not found or was not valid.
+-- 'commitId', 'batchGetCommitsError_commitId' - A commit ID that either could not be found or was not in a valid format.
 --
--- * 'bgceErrorCode' - An error code that specifies whether the commit ID was not valid or not found.
-batchGetCommitsError ::
+-- 'errorMessage', 'batchGetCommitsError_errorMessage' - An error message that provides detail about why the commit ID either was
+-- not found or was not valid.
+--
+-- 'errorCode', 'batchGetCommitsError_errorCode' - An error code that specifies whether the commit ID was not valid or not
+-- found.
+newBatchGetCommitsError ::
   BatchGetCommitsError
-batchGetCommitsError =
+newBatchGetCommitsError =
   BatchGetCommitsError'
-    { _bgceCommitId = Nothing,
-      _bgceErrorMessage = Nothing,
-      _bgceErrorCode = Nothing
+    { commitId = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | A commit ID that either could not be found or was not in a valid format.
-bgceCommitId :: Lens' BatchGetCommitsError (Maybe Text)
-bgceCommitId = lens _bgceCommitId (\s a -> s {_bgceCommitId = a})
+batchGetCommitsError_commitId :: Lens.Lens' BatchGetCommitsError (Prelude.Maybe Prelude.Text)
+batchGetCommitsError_commitId = Lens.lens (\BatchGetCommitsError' {commitId} -> commitId) (\s@BatchGetCommitsError' {} a -> s {commitId = a} :: BatchGetCommitsError)
 
--- | An error message that provides detail about why the commit ID either was not found or was not valid.
-bgceErrorMessage :: Lens' BatchGetCommitsError (Maybe Text)
-bgceErrorMessage = lens _bgceErrorMessage (\s a -> s {_bgceErrorMessage = a})
+-- | An error message that provides detail about why the commit ID either was
+-- not found or was not valid.
+batchGetCommitsError_errorMessage :: Lens.Lens' BatchGetCommitsError (Prelude.Maybe Prelude.Text)
+batchGetCommitsError_errorMessage = Lens.lens (\BatchGetCommitsError' {errorMessage} -> errorMessage) (\s@BatchGetCommitsError' {} a -> s {errorMessage = a} :: BatchGetCommitsError)
 
--- | An error code that specifies whether the commit ID was not valid or not found.
-bgceErrorCode :: Lens' BatchGetCommitsError (Maybe Text)
-bgceErrorCode = lens _bgceErrorCode (\s a -> s {_bgceErrorCode = a})
+-- | An error code that specifies whether the commit ID was not valid or not
+-- found.
+batchGetCommitsError_errorCode :: Lens.Lens' BatchGetCommitsError (Prelude.Maybe Prelude.Text)
+batchGetCommitsError_errorCode = Lens.lens (\BatchGetCommitsError' {errorCode} -> errorCode) (\s@BatchGetCommitsError' {} a -> s {errorCode = a} :: BatchGetCommitsError)
 
-instance FromJSON BatchGetCommitsError where
+instance Prelude.FromJSON BatchGetCommitsError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchGetCommitsError"
       ( \x ->
           BatchGetCommitsError'
-            <$> (x .:? "commitId")
-            <*> (x .:? "errorMessage")
-            <*> (x .:? "errorCode")
+            Prelude.<$> (x Prelude..:? "commitId")
+            Prelude.<*> (x Prelude..:? "errorMessage")
+            Prelude.<*> (x Prelude..:? "errorCode")
       )
 
-instance Hashable BatchGetCommitsError
+instance Prelude.Hashable BatchGetCommitsError
 
-instance NFData BatchGetCommitsError
+instance Prelude.NFData BatchGetCommitsError

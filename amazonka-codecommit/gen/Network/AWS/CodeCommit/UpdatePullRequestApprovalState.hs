@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the state of a user's approval on a pull request. The user is derived from the signed-in account when the request is made.
+-- Updates the state of a user\'s approval on a pull request. The user is
+-- derived from the signed-in account when the request is made.
 module Network.AWS.CodeCommit.UpdatePullRequestApprovalState
   ( -- * Creating a Request
-    updatePullRequestApprovalState,
-    UpdatePullRequestApprovalState,
+    UpdatePullRequestApprovalState (..),
+    newUpdatePullRequestApprovalState,
 
     -- * Request Lenses
-    uprasPullRequestId,
-    uprasRevisionId,
-    uprasApprovalState,
+    updatePullRequestApprovalState_pullRequestId,
+    updatePullRequestApprovalState_revisionId,
+    updatePullRequestApprovalState_approvalState,
 
     -- * Destructuring the Response
-    updatePullRequestApprovalStateResponse,
-    UpdatePullRequestApprovalStateResponse,
+    UpdatePullRequestApprovalStateResponse (..),
+    newUpdatePullRequestApprovalStateResponse,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updatePullRequestApprovalState' smart constructor.
+-- | /See:/ 'newUpdatePullRequestApprovalState' smart constructor.
 data UpdatePullRequestApprovalState = UpdatePullRequestApprovalState'
-  { _uprasPullRequestId ::
-      !Text,
-    _uprasRevisionId ::
-      !Text,
-    _uprasApprovalState ::
-      !ApprovalState
+  { -- | The system-generated ID of the pull request.
+    pullRequestId :: Prelude.Text,
+    -- | The system-generated ID of the revision.
+    revisionId :: Prelude.Text,
+    -- | The approval state to associate with the user on the pull request.
+    approvalState :: ApprovalState
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePullRequestApprovalState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePullRequestApprovalState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uprasPullRequestId' - The system-generated ID of the pull request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uprasRevisionId' - The system-generated ID of the revision.
+-- 'pullRequestId', 'updatePullRequestApprovalState_pullRequestId' - The system-generated ID of the pull request.
 --
--- * 'uprasApprovalState' - The approval state to associate with the user on the pull request.
-updatePullRequestApprovalState ::
-  -- | 'uprasPullRequestId'
-  Text ->
-  -- | 'uprasRevisionId'
-  Text ->
-  -- | 'uprasApprovalState'
+-- 'revisionId', 'updatePullRequestApprovalState_revisionId' - The system-generated ID of the revision.
+--
+-- 'approvalState', 'updatePullRequestApprovalState_approvalState' - The approval state to associate with the user on the pull request.
+newUpdatePullRequestApprovalState ::
+  -- | 'pullRequestId'
+  Prelude.Text ->
+  -- | 'revisionId'
+  Prelude.Text ->
+  -- | 'approvalState'
   ApprovalState ->
   UpdatePullRequestApprovalState
-updatePullRequestApprovalState
+newUpdatePullRequestApprovalState
   pPullRequestId_
   pRevisionId_
   pApprovalState_ =
     UpdatePullRequestApprovalState'
-      { _uprasPullRequestId =
+      { pullRequestId =
           pPullRequestId_,
-        _uprasRevisionId = pRevisionId_,
-        _uprasApprovalState = pApprovalState_
+        revisionId = pRevisionId_,
+        approvalState = pApprovalState_
       }
 
 -- | The system-generated ID of the pull request.
-uprasPullRequestId :: Lens' UpdatePullRequestApprovalState Text
-uprasPullRequestId = lens _uprasPullRequestId (\s a -> s {_uprasPullRequestId = a})
+updatePullRequestApprovalState_pullRequestId :: Lens.Lens' UpdatePullRequestApprovalState Prelude.Text
+updatePullRequestApprovalState_pullRequestId = Lens.lens (\UpdatePullRequestApprovalState' {pullRequestId} -> pullRequestId) (\s@UpdatePullRequestApprovalState' {} a -> s {pullRequestId = a} :: UpdatePullRequestApprovalState)
 
 -- | The system-generated ID of the revision.
-uprasRevisionId :: Lens' UpdatePullRequestApprovalState Text
-uprasRevisionId = lens _uprasRevisionId (\s a -> s {_uprasRevisionId = a})
+updatePullRequestApprovalState_revisionId :: Lens.Lens' UpdatePullRequestApprovalState Prelude.Text
+updatePullRequestApprovalState_revisionId = Lens.lens (\UpdatePullRequestApprovalState' {revisionId} -> revisionId) (\s@UpdatePullRequestApprovalState' {} a -> s {revisionId = a} :: UpdatePullRequestApprovalState)
 
 -- | The approval state to associate with the user on the pull request.
-uprasApprovalState :: Lens' UpdatePullRequestApprovalState ApprovalState
-uprasApprovalState = lens _uprasApprovalState (\s a -> s {_uprasApprovalState = a})
+updatePullRequestApprovalState_approvalState :: Lens.Lens' UpdatePullRequestApprovalState ApprovalState
+updatePullRequestApprovalState_approvalState = Lens.lens (\UpdatePullRequestApprovalState' {approvalState} -> approvalState) (\s@UpdatePullRequestApprovalState' {} a -> s {approvalState = a} :: UpdatePullRequestApprovalState)
 
-instance AWSRequest UpdatePullRequestApprovalState where
+instance
+  Prelude.AWSRequest
+    UpdatePullRequestApprovalState
+  where
   type
     Rs UpdatePullRequestApprovalState =
       UpdatePullRequestApprovalStateResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdatePullRequestApprovalStateResponse'
+    Response.receiveNull
+      UpdatePullRequestApprovalStateResponse'
 
-instance Hashable UpdatePullRequestApprovalState
+instance
+  Prelude.Hashable
+    UpdatePullRequestApprovalState
 
-instance NFData UpdatePullRequestApprovalState
+instance
+  Prelude.NFData
+    UpdatePullRequestApprovalState
 
-instance ToHeaders UpdatePullRequestApprovalState where
+instance
+  Prelude.ToHeaders
+    UpdatePullRequestApprovalState
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.UpdatePullRequestApprovalState" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.UpdatePullRequestApprovalState" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdatePullRequestApprovalState where
+instance
+  Prelude.ToJSON
+    UpdatePullRequestApprovalState
+  where
   toJSON UpdatePullRequestApprovalState' {..} =
-    object
-      ( catMaybes
-          [ Just ("pullRequestId" .= _uprasPullRequestId),
-            Just ("revisionId" .= _uprasRevisionId),
-            Just ("approvalState" .= _uprasApprovalState)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("pullRequestId" Prelude..= pullRequestId),
+            Prelude.Just ("revisionId" Prelude..= revisionId),
+            Prelude.Just
+              ("approvalState" Prelude..= approvalState)
           ]
       )
 
-instance ToPath UpdatePullRequestApprovalState where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    UpdatePullRequestApprovalState
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdatePullRequestApprovalState where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdatePullRequestApprovalState
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updatePullRequestApprovalStateResponse' smart constructor.
+-- | /See:/ 'newUpdatePullRequestApprovalStateResponse' smart constructor.
 data UpdatePullRequestApprovalStateResponse = UpdatePullRequestApprovalStateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePullRequestApprovalStateResponse' with the minimum fields required to make a request.
-updatePullRequestApprovalStateResponse ::
+-- |
+-- Create a value of 'UpdatePullRequestApprovalStateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdatePullRequestApprovalStateResponse ::
   UpdatePullRequestApprovalStateResponse
-updatePullRequestApprovalStateResponse =
+newUpdatePullRequestApprovalStateResponse =
   UpdatePullRequestApprovalStateResponse'
 
 instance
-  NFData
+  Prelude.NFData
     UpdatePullRequestApprovalStateResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CodeCommit.Types.SortByEnum
   ( SortByEnum
       ( ..,
-        LastModifiedDate,
-        RepositoryName
+        SortByEnumLastModifiedDate,
+        SortByEnumRepositoryName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortByEnum = SortByEnum' (CI Text)
+newtype SortByEnum = SortByEnum'
+  { fromSortByEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LastModifiedDate :: SortByEnum
-pattern LastModifiedDate = SortByEnum' "lastModifiedDate"
+pattern SortByEnumLastModifiedDate :: SortByEnum
+pattern SortByEnumLastModifiedDate = SortByEnum' "lastModifiedDate"
 
-pattern RepositoryName :: SortByEnum
-pattern RepositoryName = SortByEnum' "repositoryName"
+pattern SortByEnumRepositoryName :: SortByEnum
+pattern SortByEnumRepositoryName = SortByEnum' "repositoryName"
 
 {-# COMPLETE
-  LastModifiedDate,
-  RepositoryName,
+  SortByEnumLastModifiedDate,
+  SortByEnumRepositoryName,
   SortByEnum'
   #-}
 
-instance FromText SortByEnum where
-  parser = (SortByEnum' . mk) <$> takeText
+instance Prelude.FromText SortByEnum where
+  parser = SortByEnum' Prelude.<$> Prelude.takeText
 
-instance ToText SortByEnum where
-  toText (SortByEnum' ci) = original ci
+instance Prelude.ToText SortByEnum where
+  toText (SortByEnum' x) = x
 
-instance Hashable SortByEnum
+instance Prelude.Hashable SortByEnum
 
-instance NFData SortByEnum
+instance Prelude.NFData SortByEnum
 
-instance ToByteString SortByEnum
+instance Prelude.ToByteString SortByEnum
 
-instance ToQuery SortByEnum
+instance Prelude.ToQuery SortByEnum
 
-instance ToHeader SortByEnum
+instance Prelude.ToHeader SortByEnum
 
-instance ToJSON SortByEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortByEnum where
+  toJSON = Prelude.toJSONText

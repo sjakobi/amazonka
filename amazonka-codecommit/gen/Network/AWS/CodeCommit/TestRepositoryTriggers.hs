@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,190 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Tests the functionality of repository triggers by sending information to the trigger target. If real data is available in the repository, the test sends data from the last commit. If no data is available, sample data is generated.
+-- Tests the functionality of repository triggers by sending information to
+-- the trigger target. If real data is available in the repository, the
+-- test sends data from the last commit. If no data is available, sample
+-- data is generated.
 module Network.AWS.CodeCommit.TestRepositoryTriggers
   ( -- * Creating a Request
-    testRepositoryTriggers,
-    TestRepositoryTriggers,
+    TestRepositoryTriggers (..),
+    newTestRepositoryTriggers,
 
     -- * Request Lenses
-    trtRepositoryName,
-    trtTriggers,
+    testRepositoryTriggers_repositoryName,
+    testRepositoryTriggers_triggers,
 
     -- * Destructuring the Response
-    testRepositoryTriggersResponse,
-    TestRepositoryTriggersResponse,
+    TestRepositoryTriggersResponse (..),
+    newTestRepositoryTriggersResponse,
 
     -- * Response Lenses
-    trtrrsSuccessfulExecutions,
-    trtrrsFailedExecutions,
-    trtrrsResponseStatus,
+    testRepositoryTriggersResponse_successfulExecutions,
+    testRepositoryTriggersResponse_failedExecutions,
+    testRepositoryTriggersResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.RepositoryTriggerExecutionFailure
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a test repository triggers operation.
 --
---
---
--- /See:/ 'testRepositoryTriggers' smart constructor.
+-- /See:/ 'newTestRepositoryTriggers' smart constructor.
 data TestRepositoryTriggers = TestRepositoryTriggers'
-  { _trtRepositoryName ::
-      !Text,
-    _trtTriggers ::
-      ![RepositoryTrigger]
+  { -- | The name of the repository in which to test the triggers.
+    repositoryName :: Prelude.Text,
+    -- | The list of triggers to test.
+    triggers :: [RepositoryTrigger]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestRepositoryTriggers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestRepositoryTriggers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trtRepositoryName' - The name of the repository in which to test the triggers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trtTriggers' - The list of triggers to test.
-testRepositoryTriggers ::
-  -- | 'trtRepositoryName'
-  Text ->
+-- 'repositoryName', 'testRepositoryTriggers_repositoryName' - The name of the repository in which to test the triggers.
+--
+-- 'triggers', 'testRepositoryTriggers_triggers' - The list of triggers to test.
+newTestRepositoryTriggers ::
+  -- | 'repositoryName'
+  Prelude.Text ->
   TestRepositoryTriggers
-testRepositoryTriggers pRepositoryName_ =
+newTestRepositoryTriggers pRepositoryName_ =
   TestRepositoryTriggers'
-    { _trtRepositoryName =
+    { repositoryName =
         pRepositoryName_,
-      _trtTriggers = mempty
+      triggers = Prelude.mempty
     }
 
 -- | The name of the repository in which to test the triggers.
-trtRepositoryName :: Lens' TestRepositoryTriggers Text
-trtRepositoryName = lens _trtRepositoryName (\s a -> s {_trtRepositoryName = a})
+testRepositoryTriggers_repositoryName :: Lens.Lens' TestRepositoryTriggers Prelude.Text
+testRepositoryTriggers_repositoryName = Lens.lens (\TestRepositoryTriggers' {repositoryName} -> repositoryName) (\s@TestRepositoryTriggers' {} a -> s {repositoryName = a} :: TestRepositoryTriggers)
 
 -- | The list of triggers to test.
-trtTriggers :: Lens' TestRepositoryTriggers [RepositoryTrigger]
-trtTriggers = lens _trtTriggers (\s a -> s {_trtTriggers = a}) . _Coerce
+testRepositoryTriggers_triggers :: Lens.Lens' TestRepositoryTriggers [RepositoryTrigger]
+testRepositoryTriggers_triggers = Lens.lens (\TestRepositoryTriggers' {triggers} -> triggers) (\s@TestRepositoryTriggers' {} a -> s {triggers = a} :: TestRepositoryTriggers) Prelude.. Prelude._Coerce
 
-instance AWSRequest TestRepositoryTriggers where
+instance Prelude.AWSRequest TestRepositoryTriggers where
   type
     Rs TestRepositoryTriggers =
       TestRepositoryTriggersResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TestRepositoryTriggersResponse'
-            <$> (x .?> "successfulExecutions" .!@ mempty)
-            <*> (x .?> "failedExecutions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "successfulExecutions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "failedExecutions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TestRepositoryTriggers
+instance Prelude.Hashable TestRepositoryTriggers
 
-instance NFData TestRepositoryTriggers
+instance Prelude.NFData TestRepositoryTriggers
 
-instance ToHeaders TestRepositoryTriggers where
+instance Prelude.ToHeaders TestRepositoryTriggers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.TestRepositoryTriggers" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.TestRepositoryTriggers" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TestRepositoryTriggers where
+instance Prelude.ToJSON TestRepositoryTriggers where
   toJSON TestRepositoryTriggers' {..} =
-    object
-      ( catMaybes
-          [ Just ("repositoryName" .= _trtRepositoryName),
-            Just ("triggers" .= _trtTriggers)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("repositoryName" Prelude..= repositoryName),
+            Prelude.Just ("triggers" Prelude..= triggers)
           ]
       )
 
-instance ToPath TestRepositoryTriggers where
-  toPath = const "/"
+instance Prelude.ToPath TestRepositoryTriggers where
+  toPath = Prelude.const "/"
 
-instance ToQuery TestRepositoryTriggers where
-  toQuery = const mempty
+instance Prelude.ToQuery TestRepositoryTriggers where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a test repository triggers operation.
 --
---
---
--- /See:/ 'testRepositoryTriggersResponse' smart constructor.
+-- /See:/ 'newTestRepositoryTriggersResponse' smart constructor.
 data TestRepositoryTriggersResponse = TestRepositoryTriggersResponse'
-  { _trtrrsSuccessfulExecutions ::
-      !( Maybe
-           [Text]
-       ),
-    _trtrrsFailedExecutions ::
-      !( Maybe
-           [RepositoryTriggerExecutionFailure]
-       ),
-    _trtrrsResponseStatus ::
-      !Int
+  { -- | The list of triggers that were successfully tested. This list provides
+    -- the names of the triggers that were successfully tested, separated by
+    -- commas.
+    successfulExecutions :: Prelude.Maybe [Prelude.Text],
+    -- | The list of triggers that were not tested. This list provides the names
+    -- of the triggers that could not be tested, separated by commas.
+    failedExecutions :: Prelude.Maybe [RepositoryTriggerExecutionFailure],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestRepositoryTriggersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestRepositoryTriggersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trtrrsSuccessfulExecutions' - The list of triggers that were successfully tested. This list provides the names of the triggers that were successfully tested, separated by commas.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trtrrsFailedExecutions' - The list of triggers that were not tested. This list provides the names of the triggers that could not be tested, separated by commas.
+-- 'successfulExecutions', 'testRepositoryTriggersResponse_successfulExecutions' - The list of triggers that were successfully tested. This list provides
+-- the names of the triggers that were successfully tested, separated by
+-- commas.
 --
--- * 'trtrrsResponseStatus' - -- | The response status code.
-testRepositoryTriggersResponse ::
-  -- | 'trtrrsResponseStatus'
-  Int ->
+-- 'failedExecutions', 'testRepositoryTriggersResponse_failedExecutions' - The list of triggers that were not tested. This list provides the names
+-- of the triggers that could not be tested, separated by commas.
+--
+-- 'httpStatus', 'testRepositoryTriggersResponse_httpStatus' - The response's http status code.
+newTestRepositoryTriggersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TestRepositoryTriggersResponse
-testRepositoryTriggersResponse pResponseStatus_ =
+newTestRepositoryTriggersResponse pHttpStatus_ =
   TestRepositoryTriggersResponse'
-    { _trtrrsSuccessfulExecutions =
-        Nothing,
-      _trtrrsFailedExecutions = Nothing,
-      _trtrrsResponseStatus = pResponseStatus_
+    { successfulExecutions =
+        Prelude.Nothing,
+      failedExecutions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The list of triggers that were successfully tested. This list provides the names of the triggers that were successfully tested, separated by commas.
-trtrrsSuccessfulExecutions :: Lens' TestRepositoryTriggersResponse [Text]
-trtrrsSuccessfulExecutions = lens _trtrrsSuccessfulExecutions (\s a -> s {_trtrrsSuccessfulExecutions = a}) . _Default . _Coerce
+-- | The list of triggers that were successfully tested. This list provides
+-- the names of the triggers that were successfully tested, separated by
+-- commas.
+testRepositoryTriggersResponse_successfulExecutions :: Lens.Lens' TestRepositoryTriggersResponse (Prelude.Maybe [Prelude.Text])
+testRepositoryTriggersResponse_successfulExecutions = Lens.lens (\TestRepositoryTriggersResponse' {successfulExecutions} -> successfulExecutions) (\s@TestRepositoryTriggersResponse' {} a -> s {successfulExecutions = a} :: TestRepositoryTriggersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The list of triggers that were not tested. This list provides the names of the triggers that could not be tested, separated by commas.
-trtrrsFailedExecutions :: Lens' TestRepositoryTriggersResponse [RepositoryTriggerExecutionFailure]
-trtrrsFailedExecutions = lens _trtrrsFailedExecutions (\s a -> s {_trtrrsFailedExecutions = a}) . _Default . _Coerce
+-- | The list of triggers that were not tested. This list provides the names
+-- of the triggers that could not be tested, separated by commas.
+testRepositoryTriggersResponse_failedExecutions :: Lens.Lens' TestRepositoryTriggersResponse (Prelude.Maybe [RepositoryTriggerExecutionFailure])
+testRepositoryTriggersResponse_failedExecutions = Lens.lens (\TestRepositoryTriggersResponse' {failedExecutions} -> failedExecutions) (\s@TestRepositoryTriggersResponse' {} a -> s {failedExecutions = a} :: TestRepositoryTriggersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-trtrrsResponseStatus :: Lens' TestRepositoryTriggersResponse Int
-trtrrsResponseStatus = lens _trtrrsResponseStatus (\s a -> s {_trtrrsResponseStatus = a})
+-- | The response's http status code.
+testRepositoryTriggersResponse_httpStatus :: Lens.Lens' TestRepositoryTriggersResponse Prelude.Int
+testRepositoryTriggersResponse_httpStatus = Lens.lens (\TestRepositoryTriggersResponse' {httpStatus} -> httpStatus) (\s@TestRepositoryTriggersResponse' {} a -> s {httpStatus = a} :: TestRepositoryTriggersResponse)
 
-instance NFData TestRepositoryTriggersResponse
+instance
+  Prelude.NFData
+    TestRepositoryTriggersResponse

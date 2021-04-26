@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.CodeCommit.Types.RepositoryTriggerEventEnum
   ( RepositoryTriggerEventEnum
       ( ..,
-        All,
-        CreateReference,
-        DeleteReference,
-        UpdateReference
+        RepositoryTriggerEventEnumAll,
+        RepositoryTriggerEventEnumCreateReference,
+        RepositoryTriggerEventEnumDeleteReference,
+        RepositoryTriggerEventEnumUpdateReference
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RepositoryTriggerEventEnum
-  = RepositoryTriggerEventEnum'
-      ( CI
-          Text
-      )
+newtype RepositoryTriggerEventEnum = RepositoryTriggerEventEnum'
+  { fromRepositoryTriggerEventEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: RepositoryTriggerEventEnum
-pattern All = RepositoryTriggerEventEnum' "all"
+pattern RepositoryTriggerEventEnumAll :: RepositoryTriggerEventEnum
+pattern RepositoryTriggerEventEnumAll = RepositoryTriggerEventEnum' "all"
 
-pattern CreateReference :: RepositoryTriggerEventEnum
-pattern CreateReference = RepositoryTriggerEventEnum' "createReference"
+pattern RepositoryTriggerEventEnumCreateReference :: RepositoryTriggerEventEnum
+pattern RepositoryTriggerEventEnumCreateReference = RepositoryTriggerEventEnum' "createReference"
 
-pattern DeleteReference :: RepositoryTriggerEventEnum
-pattern DeleteReference = RepositoryTriggerEventEnum' "deleteReference"
+pattern RepositoryTriggerEventEnumDeleteReference :: RepositoryTriggerEventEnum
+pattern RepositoryTriggerEventEnumDeleteReference = RepositoryTriggerEventEnum' "deleteReference"
 
-pattern UpdateReference :: RepositoryTriggerEventEnum
-pattern UpdateReference = RepositoryTriggerEventEnum' "updateReference"
+pattern RepositoryTriggerEventEnumUpdateReference :: RepositoryTriggerEventEnum
+pattern RepositoryTriggerEventEnumUpdateReference = RepositoryTriggerEventEnum' "updateReference"
 
 {-# COMPLETE
-  All,
-  CreateReference,
-  DeleteReference,
-  UpdateReference,
+  RepositoryTriggerEventEnumAll,
+  RepositoryTriggerEventEnumCreateReference,
+  RepositoryTriggerEventEnumDeleteReference,
+  RepositoryTriggerEventEnumUpdateReference,
   RepositoryTriggerEventEnum'
   #-}
 
-instance FromText RepositoryTriggerEventEnum where
-  parser = (RepositoryTriggerEventEnum' . mk) <$> takeText
+instance Prelude.FromText RepositoryTriggerEventEnum where
+  parser = RepositoryTriggerEventEnum' Prelude.<$> Prelude.takeText
 
-instance ToText RepositoryTriggerEventEnum where
-  toText (RepositoryTriggerEventEnum' ci) = original ci
+instance Prelude.ToText RepositoryTriggerEventEnum where
+  toText (RepositoryTriggerEventEnum' x) = x
 
-instance Hashable RepositoryTriggerEventEnum
+instance Prelude.Hashable RepositoryTriggerEventEnum
 
-instance NFData RepositoryTriggerEventEnum
+instance Prelude.NFData RepositoryTriggerEventEnum
 
-instance ToByteString RepositoryTriggerEventEnum
+instance Prelude.ToByteString RepositoryTriggerEventEnum
 
-instance ToQuery RepositoryTriggerEventEnum
+instance Prelude.ToQuery RepositoryTriggerEventEnum
 
-instance ToHeader RepositoryTriggerEventEnum
+instance Prelude.ToHeader RepositoryTriggerEventEnum
 
-instance ToJSON RepositoryTriggerEventEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON RepositoryTriggerEventEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RepositoryTriggerEventEnum where
-  parseJSON = parseJSONText "RepositoryTriggerEventEnum"
+instance Prelude.FromJSON RepositoryTriggerEventEnum where
+  parseJSON = Prelude.parseJSONText "RepositoryTriggerEventEnum"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CodeCommit.Types.OrderEnum
   ( OrderEnum
       ( ..,
-        Ascending,
-        Descending
+        OrderEnumAscending,
+        OrderEnumDescending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrderEnum = OrderEnum' (CI Text)
+newtype OrderEnum = OrderEnum'
+  { fromOrderEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ascending :: OrderEnum
-pattern Ascending = OrderEnum' "ascending"
+pattern OrderEnumAscending :: OrderEnum
+pattern OrderEnumAscending = OrderEnum' "ascending"
 
-pattern Descending :: OrderEnum
-pattern Descending = OrderEnum' "descending"
+pattern OrderEnumDescending :: OrderEnum
+pattern OrderEnumDescending = OrderEnum' "descending"
 
 {-# COMPLETE
-  Ascending,
-  Descending,
+  OrderEnumAscending,
+  OrderEnumDescending,
   OrderEnum'
   #-}
 
-instance FromText OrderEnum where
-  parser = (OrderEnum' . mk) <$> takeText
+instance Prelude.FromText OrderEnum where
+  parser = OrderEnum' Prelude.<$> Prelude.takeText
 
-instance ToText OrderEnum where
-  toText (OrderEnum' ci) = original ci
+instance Prelude.ToText OrderEnum where
+  toText (OrderEnum' x) = x
 
-instance Hashable OrderEnum
+instance Prelude.Hashable OrderEnum
 
-instance NFData OrderEnum
+instance Prelude.NFData OrderEnum
 
-instance ToByteString OrderEnum
+instance Prelude.ToByteString OrderEnum
 
-instance ToQuery OrderEnum
+instance Prelude.ToQuery OrderEnum
 
-instance ToHeader OrderEnum
+instance Prelude.ToHeader OrderEnum
 
-instance ToJSON OrderEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON OrderEnum where
+  toJSON = Prelude.toJSONText

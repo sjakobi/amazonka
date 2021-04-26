@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CodeCommit.Types.RelativeFileVersionEnum
   ( RelativeFileVersionEnum
       ( ..,
-        After,
-        Before
+        RelativeFileVersionEnumAFTER,
+        RelativeFileVersionEnumBEFORE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RelativeFileVersionEnum
-  = RelativeFileVersionEnum'
-      ( CI
-          Text
-      )
+newtype RelativeFileVersionEnum = RelativeFileVersionEnum'
+  { fromRelativeFileVersionEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern After :: RelativeFileVersionEnum
-pattern After = RelativeFileVersionEnum' "AFTER"
+pattern RelativeFileVersionEnumAFTER :: RelativeFileVersionEnum
+pattern RelativeFileVersionEnumAFTER = RelativeFileVersionEnum' "AFTER"
 
-pattern Before :: RelativeFileVersionEnum
-pattern Before = RelativeFileVersionEnum' "BEFORE"
+pattern RelativeFileVersionEnumBEFORE :: RelativeFileVersionEnum
+pattern RelativeFileVersionEnumBEFORE = RelativeFileVersionEnum' "BEFORE"
 
 {-# COMPLETE
-  After,
-  Before,
+  RelativeFileVersionEnumAFTER,
+  RelativeFileVersionEnumBEFORE,
   RelativeFileVersionEnum'
   #-}
 
-instance FromText RelativeFileVersionEnum where
-  parser = (RelativeFileVersionEnum' . mk) <$> takeText
+instance Prelude.FromText RelativeFileVersionEnum where
+  parser = RelativeFileVersionEnum' Prelude.<$> Prelude.takeText
 
-instance ToText RelativeFileVersionEnum where
-  toText (RelativeFileVersionEnum' ci) = original ci
+instance Prelude.ToText RelativeFileVersionEnum where
+  toText (RelativeFileVersionEnum' x) = x
 
-instance Hashable RelativeFileVersionEnum
+instance Prelude.Hashable RelativeFileVersionEnum
 
-instance NFData RelativeFileVersionEnum
+instance Prelude.NFData RelativeFileVersionEnum
 
-instance ToByteString RelativeFileVersionEnum
+instance Prelude.ToByteString RelativeFileVersionEnum
 
-instance ToQuery RelativeFileVersionEnum
+instance Prelude.ToQuery RelativeFileVersionEnum
 
-instance ToHeader RelativeFileVersionEnum
+instance Prelude.ToHeader RelativeFileVersionEnum
 
-instance ToJSON RelativeFileVersionEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON RelativeFileVersionEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RelativeFileVersionEnum where
-  parseJSON = parseJSONText "RelativeFileVersionEnum"
+instance Prelude.FromJSON RelativeFileVersionEnum where
+  parseJSON = Prelude.parseJSONText "RelativeFileVersionEnum"

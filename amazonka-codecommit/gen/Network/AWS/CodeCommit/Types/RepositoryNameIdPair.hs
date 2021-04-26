@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.RepositoryNameIdPair where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a repository name and ID.
 --
---
---
--- /See:/ 'repositoryNameIdPair' smart constructor.
+-- /See:/ 'newRepositoryNameIdPair' smart constructor.
 data RepositoryNameIdPair = RepositoryNameIdPair'
-  { _rnipRepositoryName ::
-      !(Maybe Text),
-    _rnipRepositoryId ::
-      !(Maybe Text)
+  { -- | The name associated with the repository.
+    repositoryName :: Prelude.Maybe Prelude.Text,
+    -- | The ID associated with the repository.
+    repositoryId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RepositoryNameIdPair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RepositoryNameIdPair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rnipRepositoryName' - The name associated with the repository.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rnipRepositoryId' - The ID associated with the repository.
-repositoryNameIdPair ::
+-- 'repositoryName', 'repositoryNameIdPair_repositoryName' - The name associated with the repository.
+--
+-- 'repositoryId', 'repositoryNameIdPair_repositoryId' - The ID associated with the repository.
+newRepositoryNameIdPair ::
   RepositoryNameIdPair
-repositoryNameIdPair =
+newRepositoryNameIdPair =
   RepositoryNameIdPair'
-    { _rnipRepositoryName =
-        Nothing,
-      _rnipRepositoryId = Nothing
+    { repositoryName =
+        Prelude.Nothing,
+      repositoryId = Prelude.Nothing
     }
 
 -- | The name associated with the repository.
-rnipRepositoryName :: Lens' RepositoryNameIdPair (Maybe Text)
-rnipRepositoryName = lens _rnipRepositoryName (\s a -> s {_rnipRepositoryName = a})
+repositoryNameIdPair_repositoryName :: Lens.Lens' RepositoryNameIdPair (Prelude.Maybe Prelude.Text)
+repositoryNameIdPair_repositoryName = Lens.lens (\RepositoryNameIdPair' {repositoryName} -> repositoryName) (\s@RepositoryNameIdPair' {} a -> s {repositoryName = a} :: RepositoryNameIdPair)
 
 -- | The ID associated with the repository.
-rnipRepositoryId :: Lens' RepositoryNameIdPair (Maybe Text)
-rnipRepositoryId = lens _rnipRepositoryId (\s a -> s {_rnipRepositoryId = a})
+repositoryNameIdPair_repositoryId :: Lens.Lens' RepositoryNameIdPair (Prelude.Maybe Prelude.Text)
+repositoryNameIdPair_repositoryId = Lens.lens (\RepositoryNameIdPair' {repositoryId} -> repositoryId) (\s@RepositoryNameIdPair' {} a -> s {repositoryId = a} :: RepositoryNameIdPair)
 
-instance FromJSON RepositoryNameIdPair where
+instance Prelude.FromJSON RepositoryNameIdPair where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RepositoryNameIdPair"
       ( \x ->
           RepositoryNameIdPair'
-            <$> (x .:? "repositoryName") <*> (x .:? "repositoryId")
+            Prelude.<$> (x Prelude..:? "repositoryName")
+            Prelude.<*> (x Prelude..:? "repositoryId")
       )
 
-instance Hashable RepositoryNameIdPair
+instance Prelude.Hashable RepositoryNameIdPair
 
-instance NFData RepositoryNameIdPair
+instance Prelude.NFData RepositoryNameIdPair

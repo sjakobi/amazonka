@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,262 +21,308 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Attempts to merge the source commit of a pull request into the specified destination branch for that pull request at the specified commit using the squash merge strategy. If the merge is successful, it closes the pull request.
+-- Attempts to merge the source commit of a pull request into the specified
+-- destination branch for that pull request at the specified commit using
+-- the squash merge strategy. If the merge is successful, it closes the
+-- pull request.
 module Network.AWS.CodeCommit.MergePullRequestBySquash
   ( -- * Creating a Request
-    mergePullRequestBySquash,
-    MergePullRequestBySquash,
+    MergePullRequestBySquash (..),
+    newMergePullRequestBySquash,
 
     -- * Request Lenses
-    mprbsCommitMessage,
-    mprbsAuthorName,
-    mprbsEmail,
-    mprbsSourceCommitId,
-    mprbsConflictDetailLevel,
-    mprbsConflictResolutionStrategy,
-    mprbsKeepEmptyFolders,
-    mprbsConflictResolution,
-    mprbsPullRequestId,
-    mprbsRepositoryName,
+    mergePullRequestBySquash_commitMessage,
+    mergePullRequestBySquash_authorName,
+    mergePullRequestBySquash_email,
+    mergePullRequestBySquash_sourceCommitId,
+    mergePullRequestBySquash_conflictDetailLevel,
+    mergePullRequestBySquash_conflictResolutionStrategy,
+    mergePullRequestBySquash_keepEmptyFolders,
+    mergePullRequestBySquash_conflictResolution,
+    mergePullRequestBySquash_pullRequestId,
+    mergePullRequestBySquash_repositoryName,
 
     -- * Destructuring the Response
-    mergePullRequestBySquashResponse,
-    MergePullRequestBySquashResponse,
+    MergePullRequestBySquashResponse (..),
+    newMergePullRequestBySquashResponse,
 
     -- * Response Lenses
-    mprbsrrsPullRequest,
-    mprbsrrsResponseStatus,
+    mergePullRequestBySquashResponse_pullRequest,
+    mergePullRequestBySquashResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.PullRequest
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'mergePullRequestBySquash' smart constructor.
+-- | /See:/ 'newMergePullRequestBySquash' smart constructor.
 data MergePullRequestBySquash = MergePullRequestBySquash'
-  { _mprbsCommitMessage ::
-      !(Maybe Text),
-    _mprbsAuthorName ::
-      !(Maybe Text),
-    _mprbsEmail ::
-      !(Maybe Text),
-    _mprbsSourceCommitId ::
-      !(Maybe Text),
-    _mprbsConflictDetailLevel ::
-      !( Maybe
-           ConflictDetailLevelTypeEnum
-       ),
-    _mprbsConflictResolutionStrategy ::
-      !( Maybe
-           ConflictResolutionStrategyTypeEnum
-       ),
-    _mprbsKeepEmptyFolders ::
-      !(Maybe Bool),
-    _mprbsConflictResolution ::
-      !( Maybe
-           ConflictResolution
-       ),
-    _mprbsPullRequestId ::
-      !Text,
-    _mprbsRepositoryName ::
-      !Text
+  { -- | The commit message to include in the commit information for the merge.
+    commitMessage :: Prelude.Maybe Prelude.Text,
+    -- | The name of the author who created the commit. This information is used
+    -- as both the author and committer for the commit.
+    authorName :: Prelude.Maybe Prelude.Text,
+    -- | The email address of the person merging the branches. This information
+    -- is used in the commit information for the merge.
+    email :: Prelude.Maybe Prelude.Text,
+    -- | The full commit ID of the original or updated commit in the pull request
+    -- source branch. Pass this value if you want an exception thrown if the
+    -- current commit ID of the tip of the source branch does not match this
+    -- commit ID.
+    sourceCommitId :: Prelude.Maybe Prelude.Text,
+    -- | The level of conflict detail to use. If unspecified, the default
+    -- FILE_LEVEL is used, which returns a not-mergeable result if the same
+    -- file has differences in both branches. If LINE_LEVEL is specified, a
+    -- conflict is considered not mergeable if the same file in both branches
+    -- has differences on the same line.
+    conflictDetailLevel :: Prelude.Maybe ConflictDetailLevelTypeEnum,
+    -- | Specifies which branch to use when resolving conflicts, or whether to
+    -- attempt automatically merging two versions of a file. The default is
+    -- NONE, which requires any conflicts to be resolved manually before the
+    -- merge operation is successful.
+    conflictResolutionStrategy :: Prelude.Maybe ConflictResolutionStrategyTypeEnum,
+    -- | If the commit contains deletions, whether to keep a folder or folder
+    -- structure if the changes leave the folders empty. If true, a .gitkeep
+    -- file is created for empty folders. The default is false.
+    keepEmptyFolders :: Prelude.Maybe Prelude.Bool,
+    -- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
+    -- use when resolving conflicts during a merge.
+    conflictResolution :: Prelude.Maybe ConflictResolution,
+    -- | The system-generated ID of the pull request. To get this ID, use
+    -- ListPullRequests.
+    pullRequestId :: Prelude.Text,
+    -- | The name of the repository where the pull request was created.
+    repositoryName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MergePullRequestBySquash' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MergePullRequestBySquash' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mprbsCommitMessage' - The commit message to include in the commit information for the merge.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mprbsAuthorName' - The name of the author who created the commit. This information is used as both the author and committer for the commit.
+-- 'commitMessage', 'mergePullRequestBySquash_commitMessage' - The commit message to include in the commit information for the merge.
 --
--- * 'mprbsEmail' - The email address of the person merging the branches. This information is used in the commit information for the merge.
+-- 'authorName', 'mergePullRequestBySquash_authorName' - The name of the author who created the commit. This information is used
+-- as both the author and committer for the commit.
 --
--- * 'mprbsSourceCommitId' - The full commit ID of the original or updated commit in the pull request source branch. Pass this value if you want an exception thrown if the current commit ID of the tip of the source branch does not match this commit ID.
+-- 'email', 'mergePullRequestBySquash_email' - The email address of the person merging the branches. This information
+-- is used in the commit information for the merge.
 --
--- * 'mprbsConflictDetailLevel' - The level of conflict detail to use. If unspecified, the default FILE_LEVEL is used, which returns a not-mergeable result if the same file has differences in both branches. If LINE_LEVEL is specified, a conflict is considered not mergeable if the same file in both branches has differences on the same line.
+-- 'sourceCommitId', 'mergePullRequestBySquash_sourceCommitId' - The full commit ID of the original or updated commit in the pull request
+-- source branch. Pass this value if you want an exception thrown if the
+-- current commit ID of the tip of the source branch does not match this
+-- commit ID.
 --
--- * 'mprbsConflictResolutionStrategy' - Specifies which branch to use when resolving conflicts, or whether to attempt automatically merging two versions of a file. The default is NONE, which requires any conflicts to be resolved manually before the merge operation is successful.
+-- 'conflictDetailLevel', 'mergePullRequestBySquash_conflictDetailLevel' - The level of conflict detail to use. If unspecified, the default
+-- FILE_LEVEL is used, which returns a not-mergeable result if the same
+-- file has differences in both branches. If LINE_LEVEL is specified, a
+-- conflict is considered not mergeable if the same file in both branches
+-- has differences on the same line.
 --
--- * 'mprbsKeepEmptyFolders' - If the commit contains deletions, whether to keep a folder or folder structure if the changes leave the folders empty. If true, a .gitkeep file is created for empty folders. The default is false.
+-- 'conflictResolutionStrategy', 'mergePullRequestBySquash_conflictResolutionStrategy' - Specifies which branch to use when resolving conflicts, or whether to
+-- attempt automatically merging two versions of a file. The default is
+-- NONE, which requires any conflicts to be resolved manually before the
+-- merge operation is successful.
 --
--- * 'mprbsConflictResolution' - If AUTOMERGE is the conflict resolution strategy, a list of inputs to use when resolving conflicts during a merge.
+-- 'keepEmptyFolders', 'mergePullRequestBySquash_keepEmptyFolders' - If the commit contains deletions, whether to keep a folder or folder
+-- structure if the changes leave the folders empty. If true, a .gitkeep
+-- file is created for empty folders. The default is false.
 --
--- * 'mprbsPullRequestId' - The system-generated ID of the pull request. To get this ID, use 'ListPullRequests' .
+-- 'conflictResolution', 'mergePullRequestBySquash_conflictResolution' - If AUTOMERGE is the conflict resolution strategy, a list of inputs to
+-- use when resolving conflicts during a merge.
 --
--- * 'mprbsRepositoryName' - The name of the repository where the pull request was created.
-mergePullRequestBySquash ::
-  -- | 'mprbsPullRequestId'
-  Text ->
-  -- | 'mprbsRepositoryName'
-  Text ->
+-- 'pullRequestId', 'mergePullRequestBySquash_pullRequestId' - The system-generated ID of the pull request. To get this ID, use
+-- ListPullRequests.
+--
+-- 'repositoryName', 'mergePullRequestBySquash_repositoryName' - The name of the repository where the pull request was created.
+newMergePullRequestBySquash ::
+  -- | 'pullRequestId'
+  Prelude.Text ->
+  -- | 'repositoryName'
+  Prelude.Text ->
   MergePullRequestBySquash
-mergePullRequestBySquash
+newMergePullRequestBySquash
   pPullRequestId_
   pRepositoryName_ =
     MergePullRequestBySquash'
-      { _mprbsCommitMessage =
-          Nothing,
-        _mprbsAuthorName = Nothing,
-        _mprbsEmail = Nothing,
-        _mprbsSourceCommitId = Nothing,
-        _mprbsConflictDetailLevel = Nothing,
-        _mprbsConflictResolutionStrategy = Nothing,
-        _mprbsKeepEmptyFolders = Nothing,
-        _mprbsConflictResolution = Nothing,
-        _mprbsPullRequestId = pPullRequestId_,
-        _mprbsRepositoryName = pRepositoryName_
+      { commitMessage =
+          Prelude.Nothing,
+        authorName = Prelude.Nothing,
+        email = Prelude.Nothing,
+        sourceCommitId = Prelude.Nothing,
+        conflictDetailLevel = Prelude.Nothing,
+        conflictResolutionStrategy = Prelude.Nothing,
+        keepEmptyFolders = Prelude.Nothing,
+        conflictResolution = Prelude.Nothing,
+        pullRequestId = pPullRequestId_,
+        repositoryName = pRepositoryName_
       }
 
 -- | The commit message to include in the commit information for the merge.
-mprbsCommitMessage :: Lens' MergePullRequestBySquash (Maybe Text)
-mprbsCommitMessage = lens _mprbsCommitMessage (\s a -> s {_mprbsCommitMessage = a})
+mergePullRequestBySquash_commitMessage :: Lens.Lens' MergePullRequestBySquash (Prelude.Maybe Prelude.Text)
+mergePullRequestBySquash_commitMessage = Lens.lens (\MergePullRequestBySquash' {commitMessage} -> commitMessage) (\s@MergePullRequestBySquash' {} a -> s {commitMessage = a} :: MergePullRequestBySquash)
 
--- | The name of the author who created the commit. This information is used as both the author and committer for the commit.
-mprbsAuthorName :: Lens' MergePullRequestBySquash (Maybe Text)
-mprbsAuthorName = lens _mprbsAuthorName (\s a -> s {_mprbsAuthorName = a})
+-- | The name of the author who created the commit. This information is used
+-- as both the author and committer for the commit.
+mergePullRequestBySquash_authorName :: Lens.Lens' MergePullRequestBySquash (Prelude.Maybe Prelude.Text)
+mergePullRequestBySquash_authorName = Lens.lens (\MergePullRequestBySquash' {authorName} -> authorName) (\s@MergePullRequestBySquash' {} a -> s {authorName = a} :: MergePullRequestBySquash)
 
--- | The email address of the person merging the branches. This information is used in the commit information for the merge.
-mprbsEmail :: Lens' MergePullRequestBySquash (Maybe Text)
-mprbsEmail = lens _mprbsEmail (\s a -> s {_mprbsEmail = a})
+-- | The email address of the person merging the branches. This information
+-- is used in the commit information for the merge.
+mergePullRequestBySquash_email :: Lens.Lens' MergePullRequestBySquash (Prelude.Maybe Prelude.Text)
+mergePullRequestBySquash_email = Lens.lens (\MergePullRequestBySquash' {email} -> email) (\s@MergePullRequestBySquash' {} a -> s {email = a} :: MergePullRequestBySquash)
 
--- | The full commit ID of the original or updated commit in the pull request source branch. Pass this value if you want an exception thrown if the current commit ID of the tip of the source branch does not match this commit ID.
-mprbsSourceCommitId :: Lens' MergePullRequestBySquash (Maybe Text)
-mprbsSourceCommitId = lens _mprbsSourceCommitId (\s a -> s {_mprbsSourceCommitId = a})
+-- | The full commit ID of the original or updated commit in the pull request
+-- source branch. Pass this value if you want an exception thrown if the
+-- current commit ID of the tip of the source branch does not match this
+-- commit ID.
+mergePullRequestBySquash_sourceCommitId :: Lens.Lens' MergePullRequestBySquash (Prelude.Maybe Prelude.Text)
+mergePullRequestBySquash_sourceCommitId = Lens.lens (\MergePullRequestBySquash' {sourceCommitId} -> sourceCommitId) (\s@MergePullRequestBySquash' {} a -> s {sourceCommitId = a} :: MergePullRequestBySquash)
 
--- | The level of conflict detail to use. If unspecified, the default FILE_LEVEL is used, which returns a not-mergeable result if the same file has differences in both branches. If LINE_LEVEL is specified, a conflict is considered not mergeable if the same file in both branches has differences on the same line.
-mprbsConflictDetailLevel :: Lens' MergePullRequestBySquash (Maybe ConflictDetailLevelTypeEnum)
-mprbsConflictDetailLevel = lens _mprbsConflictDetailLevel (\s a -> s {_mprbsConflictDetailLevel = a})
+-- | The level of conflict detail to use. If unspecified, the default
+-- FILE_LEVEL is used, which returns a not-mergeable result if the same
+-- file has differences in both branches. If LINE_LEVEL is specified, a
+-- conflict is considered not mergeable if the same file in both branches
+-- has differences on the same line.
+mergePullRequestBySquash_conflictDetailLevel :: Lens.Lens' MergePullRequestBySquash (Prelude.Maybe ConflictDetailLevelTypeEnum)
+mergePullRequestBySquash_conflictDetailLevel = Lens.lens (\MergePullRequestBySquash' {conflictDetailLevel} -> conflictDetailLevel) (\s@MergePullRequestBySquash' {} a -> s {conflictDetailLevel = a} :: MergePullRequestBySquash)
 
--- | Specifies which branch to use when resolving conflicts, or whether to attempt automatically merging two versions of a file. The default is NONE, which requires any conflicts to be resolved manually before the merge operation is successful.
-mprbsConflictResolutionStrategy :: Lens' MergePullRequestBySquash (Maybe ConflictResolutionStrategyTypeEnum)
-mprbsConflictResolutionStrategy = lens _mprbsConflictResolutionStrategy (\s a -> s {_mprbsConflictResolutionStrategy = a})
+-- | Specifies which branch to use when resolving conflicts, or whether to
+-- attempt automatically merging two versions of a file. The default is
+-- NONE, which requires any conflicts to be resolved manually before the
+-- merge operation is successful.
+mergePullRequestBySquash_conflictResolutionStrategy :: Lens.Lens' MergePullRequestBySquash (Prelude.Maybe ConflictResolutionStrategyTypeEnum)
+mergePullRequestBySquash_conflictResolutionStrategy = Lens.lens (\MergePullRequestBySquash' {conflictResolutionStrategy} -> conflictResolutionStrategy) (\s@MergePullRequestBySquash' {} a -> s {conflictResolutionStrategy = a} :: MergePullRequestBySquash)
 
--- | If the commit contains deletions, whether to keep a folder or folder structure if the changes leave the folders empty. If true, a .gitkeep file is created for empty folders. The default is false.
-mprbsKeepEmptyFolders :: Lens' MergePullRequestBySquash (Maybe Bool)
-mprbsKeepEmptyFolders = lens _mprbsKeepEmptyFolders (\s a -> s {_mprbsKeepEmptyFolders = a})
+-- | If the commit contains deletions, whether to keep a folder or folder
+-- structure if the changes leave the folders empty. If true, a .gitkeep
+-- file is created for empty folders. The default is false.
+mergePullRequestBySquash_keepEmptyFolders :: Lens.Lens' MergePullRequestBySquash (Prelude.Maybe Prelude.Bool)
+mergePullRequestBySquash_keepEmptyFolders = Lens.lens (\MergePullRequestBySquash' {keepEmptyFolders} -> keepEmptyFolders) (\s@MergePullRequestBySquash' {} a -> s {keepEmptyFolders = a} :: MergePullRequestBySquash)
 
--- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to use when resolving conflicts during a merge.
-mprbsConflictResolution :: Lens' MergePullRequestBySquash (Maybe ConflictResolution)
-mprbsConflictResolution = lens _mprbsConflictResolution (\s a -> s {_mprbsConflictResolution = a})
+-- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
+-- use when resolving conflicts during a merge.
+mergePullRequestBySquash_conflictResolution :: Lens.Lens' MergePullRequestBySquash (Prelude.Maybe ConflictResolution)
+mergePullRequestBySquash_conflictResolution = Lens.lens (\MergePullRequestBySquash' {conflictResolution} -> conflictResolution) (\s@MergePullRequestBySquash' {} a -> s {conflictResolution = a} :: MergePullRequestBySquash)
 
--- | The system-generated ID of the pull request. To get this ID, use 'ListPullRequests' .
-mprbsPullRequestId :: Lens' MergePullRequestBySquash Text
-mprbsPullRequestId = lens _mprbsPullRequestId (\s a -> s {_mprbsPullRequestId = a})
+-- | The system-generated ID of the pull request. To get this ID, use
+-- ListPullRequests.
+mergePullRequestBySquash_pullRequestId :: Lens.Lens' MergePullRequestBySquash Prelude.Text
+mergePullRequestBySquash_pullRequestId = Lens.lens (\MergePullRequestBySquash' {pullRequestId} -> pullRequestId) (\s@MergePullRequestBySquash' {} a -> s {pullRequestId = a} :: MergePullRequestBySquash)
 
 -- | The name of the repository where the pull request was created.
-mprbsRepositoryName :: Lens' MergePullRequestBySquash Text
-mprbsRepositoryName = lens _mprbsRepositoryName (\s a -> s {_mprbsRepositoryName = a})
+mergePullRequestBySquash_repositoryName :: Lens.Lens' MergePullRequestBySquash Prelude.Text
+mergePullRequestBySquash_repositoryName = Lens.lens (\MergePullRequestBySquash' {repositoryName} -> repositoryName) (\s@MergePullRequestBySquash' {} a -> s {repositoryName = a} :: MergePullRequestBySquash)
 
-instance AWSRequest MergePullRequestBySquash where
+instance Prelude.AWSRequest MergePullRequestBySquash where
   type
     Rs MergePullRequestBySquash =
       MergePullRequestBySquashResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           MergePullRequestBySquashResponse'
-            <$> (x .?> "pullRequest") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "pullRequest")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable MergePullRequestBySquash
+instance Prelude.Hashable MergePullRequestBySquash
 
-instance NFData MergePullRequestBySquash
+instance Prelude.NFData MergePullRequestBySquash
 
-instance ToHeaders MergePullRequestBySquash where
+instance Prelude.ToHeaders MergePullRequestBySquash where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.MergePullRequestBySquash" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.MergePullRequestBySquash" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON MergePullRequestBySquash where
+instance Prelude.ToJSON MergePullRequestBySquash where
   toJSON MergePullRequestBySquash' {..} =
-    object
-      ( catMaybes
-          [ ("commitMessage" .=) <$> _mprbsCommitMessage,
-            ("authorName" .=) <$> _mprbsAuthorName,
-            ("email" .=) <$> _mprbsEmail,
-            ("sourceCommitId" .=) <$> _mprbsSourceCommitId,
-            ("conflictDetailLevel" .=)
-              <$> _mprbsConflictDetailLevel,
-            ("conflictResolutionStrategy" .=)
-              <$> _mprbsConflictResolutionStrategy,
-            ("keepEmptyFolders" .=) <$> _mprbsKeepEmptyFolders,
-            ("conflictResolution" .=)
-              <$> _mprbsConflictResolution,
-            Just ("pullRequestId" .= _mprbsPullRequestId),
-            Just ("repositoryName" .= _mprbsRepositoryName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("commitMessage" Prelude..=)
+              Prelude.<$> commitMessage,
+            ("authorName" Prelude..=) Prelude.<$> authorName,
+            ("email" Prelude..=) Prelude.<$> email,
+            ("sourceCommitId" Prelude..=)
+              Prelude.<$> sourceCommitId,
+            ("conflictDetailLevel" Prelude..=)
+              Prelude.<$> conflictDetailLevel,
+            ("conflictResolutionStrategy" Prelude..=)
+              Prelude.<$> conflictResolutionStrategy,
+            ("keepEmptyFolders" Prelude..=)
+              Prelude.<$> keepEmptyFolders,
+            ("conflictResolution" Prelude..=)
+              Prelude.<$> conflictResolution,
+            Prelude.Just
+              ("pullRequestId" Prelude..= pullRequestId),
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName)
           ]
       )
 
-instance ToPath MergePullRequestBySquash where
-  toPath = const "/"
+instance Prelude.ToPath MergePullRequestBySquash where
+  toPath = Prelude.const "/"
 
-instance ToQuery MergePullRequestBySquash where
-  toQuery = const mempty
+instance Prelude.ToQuery MergePullRequestBySquash where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'mergePullRequestBySquashResponse' smart constructor.
+-- | /See:/ 'newMergePullRequestBySquashResponse' smart constructor.
 data MergePullRequestBySquashResponse = MergePullRequestBySquashResponse'
-  { _mprbsrrsPullRequest ::
-      !( Maybe
-           PullRequest
-       ),
-    _mprbsrrsResponseStatus ::
-      !Int
+  { pullRequest :: Prelude.Maybe PullRequest,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MergePullRequestBySquashResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MergePullRequestBySquashResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mprbsrrsPullRequest' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mprbsrrsResponseStatus' - -- | The response status code.
-mergePullRequestBySquashResponse ::
-  -- | 'mprbsrrsResponseStatus'
-  Int ->
+-- 'pullRequest', 'mergePullRequestBySquashResponse_pullRequest' - Undocumented member.
+--
+-- 'httpStatus', 'mergePullRequestBySquashResponse_httpStatus' - The response's http status code.
+newMergePullRequestBySquashResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   MergePullRequestBySquashResponse
-mergePullRequestBySquashResponse pResponseStatus_ =
+newMergePullRequestBySquashResponse pHttpStatus_ =
   MergePullRequestBySquashResponse'
-    { _mprbsrrsPullRequest =
-        Nothing,
-      _mprbsrrsResponseStatus =
-        pResponseStatus_
+    { pullRequest =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-mprbsrrsPullRequest :: Lens' MergePullRequestBySquashResponse (Maybe PullRequest)
-mprbsrrsPullRequest = lens _mprbsrrsPullRequest (\s a -> s {_mprbsrrsPullRequest = a})
+mergePullRequestBySquashResponse_pullRequest :: Lens.Lens' MergePullRequestBySquashResponse (Prelude.Maybe PullRequest)
+mergePullRequestBySquashResponse_pullRequest = Lens.lens (\MergePullRequestBySquashResponse' {pullRequest} -> pullRequest) (\s@MergePullRequestBySquashResponse' {} a -> s {pullRequest = a} :: MergePullRequestBySquashResponse)
 
--- | -- | The response status code.
-mprbsrrsResponseStatus :: Lens' MergePullRequestBySquashResponse Int
-mprbsrrsResponseStatus = lens _mprbsrrsResponseStatus (\s a -> s {_mprbsrrsResponseStatus = a})
+-- | The response's http status code.
+mergePullRequestBySquashResponse_httpStatus :: Lens.Lens' MergePullRequestBySquashResponse Prelude.Int
+mergePullRequestBySquashResponse_httpStatus = Lens.lens (\MergePullRequestBySquashResponse' {httpStatus} -> httpStatus) (\s@MergePullRequestBySquashResponse' {} a -> s {httpStatus = a} :: MergePullRequestBySquashResponse)
 
-instance NFData MergePullRequestBySquashResponse
+instance
+  Prelude.NFData
+    MergePullRequestBySquashResponse

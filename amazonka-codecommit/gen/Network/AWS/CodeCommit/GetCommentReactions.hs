@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about reactions to a specified comment ID. Reactions from users who have been deleted will not be included in the count.
+-- Returns information about reactions to a specified comment ID. Reactions
+-- from users who have been deleted will not be included in the count.
 module Network.AWS.CodeCommit.GetCommentReactions
   ( -- * Creating a Request
-    getCommentReactions,
-    GetCommentReactions,
+    GetCommentReactions (..),
+    newGetCommentReactions,
 
     -- * Request Lenses
-    gcrNextToken,
-    gcrMaxResults,
-    gcrReactionUserARN,
-    gcrCommentId,
+    getCommentReactions_nextToken,
+    getCommentReactions_maxResults,
+    getCommentReactions_reactionUserArn,
+    getCommentReactions_commentId,
 
     -- * Destructuring the Response
-    getCommentReactionsResponse,
-    GetCommentReactionsResponse,
+    GetCommentReactionsResponse (..),
+    newGetCommentReactionsResponse,
 
     -- * Response Lenses
-    gcrrrsNextToken,
-    gcrrrsResponseStatus,
-    gcrrrsReactionsForComment,
+    getCommentReactionsResponse_nextToken,
+    getCommentReactionsResponse_httpStatus,
+    getCommentReactionsResponse_reactionsForComment,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.ReactionForComment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCommentReactions' smart constructor.
+-- | /See:/ 'newGetCommentReactions' smart constructor.
 data GetCommentReactions = GetCommentReactions'
-  { _gcrNextToken ::
-      !(Maybe Text),
-    _gcrMaxResults :: !(Maybe Int),
-    _gcrReactionUserARN ::
-      !(Maybe Text),
-    _gcrCommentId :: !Text
+  { -- | An enumeration token that, when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A non-zero, non-negative integer used to limit the number of returned
+    -- results. The default is the same as the allowed maximum, 1,000.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Optional. The Amazon Resource Name (ARN) of the user or identity for
+    -- which you want to get reaction information.
+    reactionUserArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the comment for which you want to get reactions information.
+    commentId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCommentReactions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCommentReactions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrNextToken' - An enumeration token that, when provided in a request, returns the next batch of the results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrMaxResults' - A non-zero, non-negative integer used to limit the number of returned results. The default is the same as the allowed maximum, 1,000.
+-- 'nextToken', 'getCommentReactions_nextToken' - An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
 --
--- * 'gcrReactionUserARN' - Optional. The Amazon Resource Name (ARN) of the user or identity for which you want to get reaction information.
+-- 'maxResults', 'getCommentReactions_maxResults' - A non-zero, non-negative integer used to limit the number of returned
+-- results. The default is the same as the allowed maximum, 1,000.
 --
--- * 'gcrCommentId' - The ID of the comment for which you want to get reactions information.
-getCommentReactions ::
-  -- | 'gcrCommentId'
-  Text ->
+-- 'reactionUserArn', 'getCommentReactions_reactionUserArn' - Optional. The Amazon Resource Name (ARN) of the user or identity for
+-- which you want to get reaction information.
+--
+-- 'commentId', 'getCommentReactions_commentId' - The ID of the comment for which you want to get reactions information.
+newGetCommentReactions ::
+  -- | 'commentId'
+  Prelude.Text ->
   GetCommentReactions
-getCommentReactions pCommentId_ =
+newGetCommentReactions pCommentId_ =
   GetCommentReactions'
-    { _gcrNextToken = Nothing,
-      _gcrMaxResults = Nothing,
-      _gcrReactionUserARN = Nothing,
-      _gcrCommentId = pCommentId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      reactionUserArn = Prelude.Nothing,
+      commentId = pCommentId_
     }
 
--- | An enumeration token that, when provided in a request, returns the next batch of the results.
-gcrNextToken :: Lens' GetCommentReactions (Maybe Text)
-gcrNextToken = lens _gcrNextToken (\s a -> s {_gcrNextToken = a})
+-- | An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+getCommentReactions_nextToken :: Lens.Lens' GetCommentReactions (Prelude.Maybe Prelude.Text)
+getCommentReactions_nextToken = Lens.lens (\GetCommentReactions' {nextToken} -> nextToken) (\s@GetCommentReactions' {} a -> s {nextToken = a} :: GetCommentReactions)
 
--- | A non-zero, non-negative integer used to limit the number of returned results. The default is the same as the allowed maximum, 1,000.
-gcrMaxResults :: Lens' GetCommentReactions (Maybe Int)
-gcrMaxResults = lens _gcrMaxResults (\s a -> s {_gcrMaxResults = a})
+-- | A non-zero, non-negative integer used to limit the number of returned
+-- results. The default is the same as the allowed maximum, 1,000.
+getCommentReactions_maxResults :: Lens.Lens' GetCommentReactions (Prelude.Maybe Prelude.Int)
+getCommentReactions_maxResults = Lens.lens (\GetCommentReactions' {maxResults} -> maxResults) (\s@GetCommentReactions' {} a -> s {maxResults = a} :: GetCommentReactions)
 
--- | Optional. The Amazon Resource Name (ARN) of the user or identity for which you want to get reaction information.
-gcrReactionUserARN :: Lens' GetCommentReactions (Maybe Text)
-gcrReactionUserARN = lens _gcrReactionUserARN (\s a -> s {_gcrReactionUserARN = a})
+-- | Optional. The Amazon Resource Name (ARN) of the user or identity for
+-- which you want to get reaction information.
+getCommentReactions_reactionUserArn :: Lens.Lens' GetCommentReactions (Prelude.Maybe Prelude.Text)
+getCommentReactions_reactionUserArn = Lens.lens (\GetCommentReactions' {reactionUserArn} -> reactionUserArn) (\s@GetCommentReactions' {} a -> s {reactionUserArn = a} :: GetCommentReactions)
 
 -- | The ID of the comment for which you want to get reactions information.
-gcrCommentId :: Lens' GetCommentReactions Text
-gcrCommentId = lens _gcrCommentId (\s a -> s {_gcrCommentId = a})
+getCommentReactions_commentId :: Lens.Lens' GetCommentReactions Prelude.Text
+getCommentReactions_commentId = Lens.lens (\GetCommentReactions' {commentId} -> commentId) (\s@GetCommentReactions' {} a -> s {commentId = a} :: GetCommentReactions)
 
-instance AWSRequest GetCommentReactions where
+instance Prelude.AWSRequest GetCommentReactions where
   type
     Rs GetCommentReactions =
       GetCommentReactionsResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCommentReactionsResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "reactionsForComment" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "reactionsForComment"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable GetCommentReactions
+instance Prelude.Hashable GetCommentReactions
 
-instance NFData GetCommentReactions
+instance Prelude.NFData GetCommentReactions
 
-instance ToHeaders GetCommentReactions where
+instance Prelude.ToHeaders GetCommentReactions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.GetCommentReactions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.GetCommentReactions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCommentReactions where
+instance Prelude.ToJSON GetCommentReactions where
   toJSON GetCommentReactions' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _gcrNextToken,
-            ("maxResults" .=) <$> _gcrMaxResults,
-            ("reactionUserArn" .=) <$> _gcrReactionUserARN,
-            Just ("commentId" .= _gcrCommentId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("reactionUserArn" Prelude..=)
+              Prelude.<$> reactionUserArn,
+            Prelude.Just ("commentId" Prelude..= commentId)
           ]
       )
 
-instance ToPath GetCommentReactions where
-  toPath = const "/"
+instance Prelude.ToPath GetCommentReactions where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCommentReactions where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCommentReactions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCommentReactionsResponse' smart constructor.
+-- | /See:/ 'newGetCommentReactionsResponse' smart constructor.
 data GetCommentReactionsResponse = GetCommentReactionsResponse'
-  { _gcrrrsNextToken ::
-      !(Maybe Text),
-    _gcrrrsResponseStatus ::
-      !Int,
-    _gcrrrsReactionsForComment ::
-      ![ReactionForComment]
+  { -- | An enumeration token that can be used in a request to return the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of reactions to the specified comment.
+    reactionsForComment :: [ReactionForComment]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCommentReactionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCommentReactionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrrrsNextToken' - An enumeration token that can be used in a request to return the next batch of the results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'getCommentReactionsResponse_nextToken' - An enumeration token that can be used in a request to return the next
+-- batch of the results.
 --
--- * 'gcrrrsReactionsForComment' - An array of reactions to the specified comment.
-getCommentReactionsResponse ::
-  -- | 'gcrrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getCommentReactionsResponse_httpStatus' - The response's http status code.
+--
+-- 'reactionsForComment', 'getCommentReactionsResponse_reactionsForComment' - An array of reactions to the specified comment.
+newGetCommentReactionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCommentReactionsResponse
-getCommentReactionsResponse pResponseStatus_ =
+newGetCommentReactionsResponse pHttpStatus_ =
   GetCommentReactionsResponse'
-    { _gcrrrsNextToken =
-        Nothing,
-      _gcrrrsResponseStatus = pResponseStatus_,
-      _gcrrrsReactionsForComment = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      reactionsForComment = Prelude.mempty
     }
 
--- | An enumeration token that can be used in a request to return the next batch of the results.
-gcrrrsNextToken :: Lens' GetCommentReactionsResponse (Maybe Text)
-gcrrrsNextToken = lens _gcrrrsNextToken (\s a -> s {_gcrrrsNextToken = a})
+-- | An enumeration token that can be used in a request to return the next
+-- batch of the results.
+getCommentReactionsResponse_nextToken :: Lens.Lens' GetCommentReactionsResponse (Prelude.Maybe Prelude.Text)
+getCommentReactionsResponse_nextToken = Lens.lens (\GetCommentReactionsResponse' {nextToken} -> nextToken) (\s@GetCommentReactionsResponse' {} a -> s {nextToken = a} :: GetCommentReactionsResponse)
 
--- | -- | The response status code.
-gcrrrsResponseStatus :: Lens' GetCommentReactionsResponse Int
-gcrrrsResponseStatus = lens _gcrrrsResponseStatus (\s a -> s {_gcrrrsResponseStatus = a})
+-- | The response's http status code.
+getCommentReactionsResponse_httpStatus :: Lens.Lens' GetCommentReactionsResponse Prelude.Int
+getCommentReactionsResponse_httpStatus = Lens.lens (\GetCommentReactionsResponse' {httpStatus} -> httpStatus) (\s@GetCommentReactionsResponse' {} a -> s {httpStatus = a} :: GetCommentReactionsResponse)
 
 -- | An array of reactions to the specified comment.
-gcrrrsReactionsForComment :: Lens' GetCommentReactionsResponse [ReactionForComment]
-gcrrrsReactionsForComment = lens _gcrrrsReactionsForComment (\s a -> s {_gcrrrsReactionsForComment = a}) . _Coerce
+getCommentReactionsResponse_reactionsForComment :: Lens.Lens' GetCommentReactionsResponse [ReactionForComment]
+getCommentReactionsResponse_reactionsForComment = Lens.lens (\GetCommentReactionsResponse' {reactionsForComment} -> reactionsForComment) (\s@GetCommentReactionsResponse' {} a -> s {reactionsForComment = a} :: GetCommentReactionsResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetCommentReactionsResponse
+instance Prelude.NFData GetCommentReactionsResponse

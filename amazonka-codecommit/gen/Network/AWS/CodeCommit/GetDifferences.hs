@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,224 +21,304 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the differences in a valid commit specifier (such as a branch, tag, HEAD, commit ID, or other fully qualified reference). Results can be limited to a specified path.
---
---
+-- Returns information about the differences in a valid commit specifier
+-- (such as a branch, tag, HEAD, commit ID, or other fully qualified
+-- reference). Results can be limited to a specified path.
 --
 -- This operation returns paginated results.
 module Network.AWS.CodeCommit.GetDifferences
   ( -- * Creating a Request
-    getDifferences,
-    GetDifferences,
+    GetDifferences (..),
+    newGetDifferences,
 
     -- * Request Lenses
-    gdNextToken,
-    gdBeforeCommitSpecifier,
-    gdMaxResults,
-    gdBeforePath,
-    gdAfterPath,
-    gdRepositoryName,
-    gdAfterCommitSpecifier,
+    getDifferences_nextToken,
+    getDifferences_beforeCommitSpecifier,
+    getDifferences_maxResults,
+    getDifferences_beforePath,
+    getDifferences_afterPath,
+    getDifferences_repositoryName,
+    getDifferences_afterCommitSpecifier,
 
     -- * Destructuring the Response
-    getDifferencesResponse,
-    GetDifferencesResponse,
+    GetDifferencesResponse (..),
+    newGetDifferencesResponse,
 
     -- * Response Lenses
-    gdrrsNextToken,
-    gdrrsDifferences,
-    gdrrsResponseStatus,
+    getDifferencesResponse_nextToken,
+    getDifferencesResponse_differences,
+    getDifferencesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.Difference
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDifferences' smart constructor.
+-- | /See:/ 'newGetDifferences' smart constructor.
 data GetDifferences = GetDifferences'
-  { _gdNextToken ::
-      !(Maybe Text),
-    _gdBeforeCommitSpecifier :: !(Maybe Text),
-    _gdMaxResults :: !(Maybe Int),
-    _gdBeforePath :: !(Maybe Text),
-    _gdAfterPath :: !(Maybe Text),
-    _gdRepositoryName :: !Text,
-    _gdAfterCommitSpecifier :: !Text
+  { -- | An enumeration token that, when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The branch, tag, HEAD, or other fully qualified reference used to
+    -- identify a commit (for example, the full commit ID). Optional. If not
+    -- specified, all changes before the @afterCommitSpecifier@ value are
+    -- shown. If you do not use @beforeCommitSpecifier@ in your request,
+    -- consider limiting the results with @maxResults@.
+    beforeCommitSpecifier :: Prelude.Maybe Prelude.Text,
+    -- | A non-zero, non-negative integer used to limit the number of returned
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The file path in which to check for differences. Limits the results to
+    -- this path. Can also be used to specify the previous name of a directory
+    -- or folder. If @beforePath@ and @afterPath@ are not specified,
+    -- differences are shown for all paths.
+    beforePath :: Prelude.Maybe Prelude.Text,
+    -- | The file path in which to check differences. Limits the results to this
+    -- path. Can also be used to specify the changed name of a directory or
+    -- folder, if it has changed. If not specified, differences are shown for
+    -- all paths.
+    afterPath :: Prelude.Maybe Prelude.Text,
+    -- | The name of the repository where you want to get differences.
+    repositoryName :: Prelude.Text,
+    -- | The branch, tag, HEAD, or other fully qualified reference used to
+    -- identify a commit.
+    afterCommitSpecifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDifferences' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDifferences' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdNextToken' - An enumeration token that, when provided in a request, returns the next batch of the results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdBeforeCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, the full commit ID). Optional. If not specified, all changes before the @afterCommitSpecifier@ value are shown. If you do not use @beforeCommitSpecifier@ in your request, consider limiting the results with @maxResults@ .
+-- 'nextToken', 'getDifferences_nextToken' - An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
 --
--- * 'gdMaxResults' - A non-zero, non-negative integer used to limit the number of returned results.
+-- 'beforeCommitSpecifier', 'getDifferences_beforeCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, the full commit ID). Optional. If not
+-- specified, all changes before the @afterCommitSpecifier@ value are
+-- shown. If you do not use @beforeCommitSpecifier@ in your request,
+-- consider limiting the results with @maxResults@.
 --
--- * 'gdBeforePath' - The file path in which to check for differences. Limits the results to this path. Can also be used to specify the previous name of a directory or folder. If @beforePath@ and @afterPath@ are not specified, differences are shown for all paths.
+-- 'maxResults', 'getDifferences_maxResults' - A non-zero, non-negative integer used to limit the number of returned
+-- results.
 --
--- * 'gdAfterPath' - The file path in which to check differences. Limits the results to this path. Can also be used to specify the changed name of a directory or folder, if it has changed. If not specified, differences are shown for all paths.
+-- 'beforePath', 'getDifferences_beforePath' - The file path in which to check for differences. Limits the results to
+-- this path. Can also be used to specify the previous name of a directory
+-- or folder. If @beforePath@ and @afterPath@ are not specified,
+-- differences are shown for all paths.
 --
--- * 'gdRepositoryName' - The name of the repository where you want to get differences.
+-- 'afterPath', 'getDifferences_afterPath' - The file path in which to check differences. Limits the results to this
+-- path. Can also be used to specify the changed name of a directory or
+-- folder, if it has changed. If not specified, differences are shown for
+-- all paths.
 --
--- * 'gdAfterCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to identify a commit.
-getDifferences ::
-  -- | 'gdRepositoryName'
-  Text ->
-  -- | 'gdAfterCommitSpecifier'
-  Text ->
+-- 'repositoryName', 'getDifferences_repositoryName' - The name of the repository where you want to get differences.
+--
+-- 'afterCommitSpecifier', 'getDifferences_afterCommitSpecifier' - The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit.
+newGetDifferences ::
+  -- | 'repositoryName'
+  Prelude.Text ->
+  -- | 'afterCommitSpecifier'
+  Prelude.Text ->
   GetDifferences
-getDifferences
+newGetDifferences
   pRepositoryName_
   pAfterCommitSpecifier_ =
     GetDifferences'
-      { _gdNextToken = Nothing,
-        _gdBeforeCommitSpecifier = Nothing,
-        _gdMaxResults = Nothing,
-        _gdBeforePath = Nothing,
-        _gdAfterPath = Nothing,
-        _gdRepositoryName = pRepositoryName_,
-        _gdAfterCommitSpecifier = pAfterCommitSpecifier_
+      { nextToken = Prelude.Nothing,
+        beforeCommitSpecifier = Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        beforePath = Prelude.Nothing,
+        afterPath = Prelude.Nothing,
+        repositoryName = pRepositoryName_,
+        afterCommitSpecifier = pAfterCommitSpecifier_
       }
 
--- | An enumeration token that, when provided in a request, returns the next batch of the results.
-gdNextToken :: Lens' GetDifferences (Maybe Text)
-gdNextToken = lens _gdNextToken (\s a -> s {_gdNextToken = a})
+-- | An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+getDifferences_nextToken :: Lens.Lens' GetDifferences (Prelude.Maybe Prelude.Text)
+getDifferences_nextToken = Lens.lens (\GetDifferences' {nextToken} -> nextToken) (\s@GetDifferences' {} a -> s {nextToken = a} :: GetDifferences)
 
--- | The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, the full commit ID). Optional. If not specified, all changes before the @afterCommitSpecifier@ value are shown. If you do not use @beforeCommitSpecifier@ in your request, consider limiting the results with @maxResults@ .
-gdBeforeCommitSpecifier :: Lens' GetDifferences (Maybe Text)
-gdBeforeCommitSpecifier = lens _gdBeforeCommitSpecifier (\s a -> s {_gdBeforeCommitSpecifier = a})
+-- | The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit (for example, the full commit ID). Optional. If not
+-- specified, all changes before the @afterCommitSpecifier@ value are
+-- shown. If you do not use @beforeCommitSpecifier@ in your request,
+-- consider limiting the results with @maxResults@.
+getDifferences_beforeCommitSpecifier :: Lens.Lens' GetDifferences (Prelude.Maybe Prelude.Text)
+getDifferences_beforeCommitSpecifier = Lens.lens (\GetDifferences' {beforeCommitSpecifier} -> beforeCommitSpecifier) (\s@GetDifferences' {} a -> s {beforeCommitSpecifier = a} :: GetDifferences)
 
--- | A non-zero, non-negative integer used to limit the number of returned results.
-gdMaxResults :: Lens' GetDifferences (Maybe Int)
-gdMaxResults = lens _gdMaxResults (\s a -> s {_gdMaxResults = a})
+-- | A non-zero, non-negative integer used to limit the number of returned
+-- results.
+getDifferences_maxResults :: Lens.Lens' GetDifferences (Prelude.Maybe Prelude.Int)
+getDifferences_maxResults = Lens.lens (\GetDifferences' {maxResults} -> maxResults) (\s@GetDifferences' {} a -> s {maxResults = a} :: GetDifferences)
 
--- | The file path in which to check for differences. Limits the results to this path. Can also be used to specify the previous name of a directory or folder. If @beforePath@ and @afterPath@ are not specified, differences are shown for all paths.
-gdBeforePath :: Lens' GetDifferences (Maybe Text)
-gdBeforePath = lens _gdBeforePath (\s a -> s {_gdBeforePath = a})
+-- | The file path in which to check for differences. Limits the results to
+-- this path. Can also be used to specify the previous name of a directory
+-- or folder. If @beforePath@ and @afterPath@ are not specified,
+-- differences are shown for all paths.
+getDifferences_beforePath :: Lens.Lens' GetDifferences (Prelude.Maybe Prelude.Text)
+getDifferences_beforePath = Lens.lens (\GetDifferences' {beforePath} -> beforePath) (\s@GetDifferences' {} a -> s {beforePath = a} :: GetDifferences)
 
--- | The file path in which to check differences. Limits the results to this path. Can also be used to specify the changed name of a directory or folder, if it has changed. If not specified, differences are shown for all paths.
-gdAfterPath :: Lens' GetDifferences (Maybe Text)
-gdAfterPath = lens _gdAfterPath (\s a -> s {_gdAfterPath = a})
+-- | The file path in which to check differences. Limits the results to this
+-- path. Can also be used to specify the changed name of a directory or
+-- folder, if it has changed. If not specified, differences are shown for
+-- all paths.
+getDifferences_afterPath :: Lens.Lens' GetDifferences (Prelude.Maybe Prelude.Text)
+getDifferences_afterPath = Lens.lens (\GetDifferences' {afterPath} -> afterPath) (\s@GetDifferences' {} a -> s {afterPath = a} :: GetDifferences)
 
 -- | The name of the repository where you want to get differences.
-gdRepositoryName :: Lens' GetDifferences Text
-gdRepositoryName = lens _gdRepositoryName (\s a -> s {_gdRepositoryName = a})
+getDifferences_repositoryName :: Lens.Lens' GetDifferences Prelude.Text
+getDifferences_repositoryName = Lens.lens (\GetDifferences' {repositoryName} -> repositoryName) (\s@GetDifferences' {} a -> s {repositoryName = a} :: GetDifferences)
 
--- | The branch, tag, HEAD, or other fully qualified reference used to identify a commit.
-gdAfterCommitSpecifier :: Lens' GetDifferences Text
-gdAfterCommitSpecifier = lens _gdAfterCommitSpecifier (\s a -> s {_gdAfterCommitSpecifier = a})
+-- | The branch, tag, HEAD, or other fully qualified reference used to
+-- identify a commit.
+getDifferences_afterCommitSpecifier :: Lens.Lens' GetDifferences Prelude.Text
+getDifferences_afterCommitSpecifier = Lens.lens (\GetDifferences' {afterCommitSpecifier} -> afterCommitSpecifier) (\s@GetDifferences' {} a -> s {afterCommitSpecifier = a} :: GetDifferences)
 
-instance AWSPager GetDifferences where
+instance Pager.AWSPager GetDifferences where
   page rq rs
-    | stop (rs ^. gdrrsNextToken) = Nothing
-    | stop (rs ^. gdrrsDifferences) = Nothing
-    | otherwise =
-      Just $ rq & gdNextToken .~ rs ^. gdrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getDifferencesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getDifferencesResponse_differences
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getDifferences_nextToken
+          Lens..~ rs
+          Lens.^? getDifferencesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest GetDifferences where
+instance Prelude.AWSRequest GetDifferences where
   type Rs GetDifferences = GetDifferencesResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDifferencesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "differences" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "differences"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDifferences
+instance Prelude.Hashable GetDifferences
 
-instance NFData GetDifferences
+instance Prelude.NFData GetDifferences
 
-instance ToHeaders GetDifferences where
+instance Prelude.ToHeaders GetDifferences where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeCommit_20150413.GetDifferences" :: ByteString),
+              Prelude.=# ( "CodeCommit_20150413.GetDifferences" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDifferences where
+instance Prelude.ToJSON GetDifferences where
   toJSON GetDifferences' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gdNextToken,
-            ("beforeCommitSpecifier" .=)
-              <$> _gdBeforeCommitSpecifier,
-            ("MaxResults" .=) <$> _gdMaxResults,
-            ("beforePath" .=) <$> _gdBeforePath,
-            ("afterPath" .=) <$> _gdAfterPath,
-            Just ("repositoryName" .= _gdRepositoryName),
-            Just
-              ("afterCommitSpecifier" .= _gdAfterCommitSpecifier)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("beforeCommitSpecifier" Prelude..=)
+              Prelude.<$> beforeCommitSpecifier,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("beforePath" Prelude..=) Prelude.<$> beforePath,
+            ("afterPath" Prelude..=) Prelude.<$> afterPath,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName),
+            Prelude.Just
+              ( "afterCommitSpecifier"
+                  Prelude..= afterCommitSpecifier
+              )
           ]
       )
 
-instance ToPath GetDifferences where
-  toPath = const "/"
+instance Prelude.ToPath GetDifferences where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDifferences where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDifferences where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDifferencesResponse' smart constructor.
+-- | /See:/ 'newGetDifferencesResponse' smart constructor.
 data GetDifferencesResponse = GetDifferencesResponse'
-  { _gdrrsNextToken ::
-      !(Maybe Text),
-    _gdrrsDifferences ::
-      !(Maybe [Difference]),
-    _gdrrsResponseStatus ::
-      !Int
+  { -- | An enumeration token that can be used in a request to return the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A data type object that contains information about the differences,
+    -- including whether the difference is added, modified, or deleted (A, D,
+    -- M).
+    differences :: Prelude.Maybe [Difference],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDifferencesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDifferencesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdrrsNextToken' - An enumeration token that can be used in a request to return the next batch of the results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdrrsDifferences' - A data type object that contains information about the differences, including whether the difference is added, modified, or deleted (A, D, M).
+-- 'nextToken', 'getDifferencesResponse_nextToken' - An enumeration token that can be used in a request to return the next
+-- batch of the results.
 --
--- * 'gdrrsResponseStatus' - -- | The response status code.
-getDifferencesResponse ::
-  -- | 'gdrrsResponseStatus'
-  Int ->
+-- 'differences', 'getDifferencesResponse_differences' - A data type object that contains information about the differences,
+-- including whether the difference is added, modified, or deleted (A, D,
+-- M).
+--
+-- 'httpStatus', 'getDifferencesResponse_httpStatus' - The response's http status code.
+newGetDifferencesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDifferencesResponse
-getDifferencesResponse pResponseStatus_ =
+newGetDifferencesResponse pHttpStatus_ =
   GetDifferencesResponse'
-    { _gdrrsNextToken = Nothing,
-      _gdrrsDifferences = Nothing,
-      _gdrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      differences = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An enumeration token that can be used in a request to return the next batch of the results.
-gdrrsNextToken :: Lens' GetDifferencesResponse (Maybe Text)
-gdrrsNextToken = lens _gdrrsNextToken (\s a -> s {_gdrrsNextToken = a})
+-- | An enumeration token that can be used in a request to return the next
+-- batch of the results.
+getDifferencesResponse_nextToken :: Lens.Lens' GetDifferencesResponse (Prelude.Maybe Prelude.Text)
+getDifferencesResponse_nextToken = Lens.lens (\GetDifferencesResponse' {nextToken} -> nextToken) (\s@GetDifferencesResponse' {} a -> s {nextToken = a} :: GetDifferencesResponse)
 
--- | A data type object that contains information about the differences, including whether the difference is added, modified, or deleted (A, D, M).
-gdrrsDifferences :: Lens' GetDifferencesResponse [Difference]
-gdrrsDifferences = lens _gdrrsDifferences (\s a -> s {_gdrrsDifferences = a}) . _Default . _Coerce
+-- | A data type object that contains information about the differences,
+-- including whether the difference is added, modified, or deleted (A, D,
+-- M).
+getDifferencesResponse_differences :: Lens.Lens' GetDifferencesResponse (Prelude.Maybe [Difference])
+getDifferencesResponse_differences = Lens.lens (\GetDifferencesResponse' {differences} -> differences) (\s@GetDifferencesResponse' {} a -> s {differences = a} :: GetDifferencesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gdrrsResponseStatus :: Lens' GetDifferencesResponse Int
-gdrrsResponseStatus = lens _gdrrsResponseStatus (\s a -> s {_gdrrsResponseStatus = a})
+-- | The response's http status code.
+getDifferencesResponse_httpStatus :: Lens.Lens' GetDifferencesResponse Prelude.Int
+getDifferencesResponse_httpStatus = Lens.lens (\GetDifferencesResponse' {httpStatus} -> httpStatus) (\s@GetDifferencesResponse' {} a -> s {httpStatus = a} :: GetDifferencesResponse)
 
-instance NFData GetDifferencesResponse
+instance Prelude.NFData GetDifferencesResponse

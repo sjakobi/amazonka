@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.SourceFileSpecifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a source file that is part of changes made in a commit.
+-- | Information about a source file that is part of changes made in a
+-- commit.
 --
---
---
--- /See:/ 'sourceFileSpecifier' smart constructor.
+-- /See:/ 'newSourceFileSpecifier' smart constructor.
 data SourceFileSpecifier = SourceFileSpecifier'
-  { _sfsIsMove ::
-      !(Maybe Bool),
-    _sfsFilePath :: !Text
+  { -- | Whether to remove the source file from the parent commit.
+    isMove :: Prelude.Maybe Prelude.Bool,
+    -- | The full path to the file, including the name of the file.
+    filePath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceFileSpecifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceFileSpecifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfsIsMove' - Whether to remove the source file from the parent commit.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sfsFilePath' - The full path to the file, including the name of the file.
-sourceFileSpecifier ::
-  -- | 'sfsFilePath'
-  Text ->
+-- 'isMove', 'sourceFileSpecifier_isMove' - Whether to remove the source file from the parent commit.
+--
+-- 'filePath', 'sourceFileSpecifier_filePath' - The full path to the file, including the name of the file.
+newSourceFileSpecifier ::
+  -- | 'filePath'
+  Prelude.Text ->
   SourceFileSpecifier
-sourceFileSpecifier pFilePath_ =
+newSourceFileSpecifier pFilePath_ =
   SourceFileSpecifier'
-    { _sfsIsMove = Nothing,
-      _sfsFilePath = pFilePath_
+    { isMove = Prelude.Nothing,
+      filePath = pFilePath_
     }
 
 -- | Whether to remove the source file from the parent commit.
-sfsIsMove :: Lens' SourceFileSpecifier (Maybe Bool)
-sfsIsMove = lens _sfsIsMove (\s a -> s {_sfsIsMove = a})
+sourceFileSpecifier_isMove :: Lens.Lens' SourceFileSpecifier (Prelude.Maybe Prelude.Bool)
+sourceFileSpecifier_isMove = Lens.lens (\SourceFileSpecifier' {isMove} -> isMove) (\s@SourceFileSpecifier' {} a -> s {isMove = a} :: SourceFileSpecifier)
 
 -- | The full path to the file, including the name of the file.
-sfsFilePath :: Lens' SourceFileSpecifier Text
-sfsFilePath = lens _sfsFilePath (\s a -> s {_sfsFilePath = a})
+sourceFileSpecifier_filePath :: Lens.Lens' SourceFileSpecifier Prelude.Text
+sourceFileSpecifier_filePath = Lens.lens (\SourceFileSpecifier' {filePath} -> filePath) (\s@SourceFileSpecifier' {} a -> s {filePath = a} :: SourceFileSpecifier)
 
-instance Hashable SourceFileSpecifier
+instance Prelude.Hashable SourceFileSpecifier
 
-instance NFData SourceFileSpecifier
+instance Prelude.NFData SourceFileSpecifier
 
-instance ToJSON SourceFileSpecifier where
+instance Prelude.ToJSON SourceFileSpecifier where
   toJSON SourceFileSpecifier' {..} =
-    object
-      ( catMaybes
-          [ ("isMove" .=) <$> _sfsIsMove,
-            Just ("filePath" .= _sfsFilePath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("isMove" Prelude..=) Prelude.<$> isMove,
+            Prelude.Just ("filePath" Prelude..= filePath)
           ]
       )

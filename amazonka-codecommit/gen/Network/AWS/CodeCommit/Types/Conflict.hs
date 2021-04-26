@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +21,62 @@ module Network.AWS.CodeCommit.Types.Conflict where
 
 import Network.AWS.CodeCommit.Types.ConflictMetadata
 import Network.AWS.CodeCommit.Types.MergeHunk
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about conflicts in a merge operation.
 --
---
---
--- /See:/ 'conflict' smart constructor.
+-- /See:/ 'newConflict' smart constructor.
 data Conflict = Conflict'
-  { _cMergeHunks ::
-      !(Maybe [MergeHunk]),
-    _cConflictMetadata :: !(Maybe ConflictMetadata)
+  { -- | A list of hunks that contain the differences between files or lines
+    -- causing the conflict.
+    mergeHunks :: Prelude.Maybe [MergeHunk],
+    -- | Metadata about a conflict in a merge operation.
+    conflictMetadata :: Prelude.Maybe ConflictMetadata
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Conflict' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Conflict' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cMergeHunks' - A list of hunks that contain the differences between files or lines causing the conflict.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cConflictMetadata' - Metadata about a conflict in a merge operation.
-conflict ::
+-- 'mergeHunks', 'conflict_mergeHunks' - A list of hunks that contain the differences between files or lines
+-- causing the conflict.
+--
+-- 'conflictMetadata', 'conflict_conflictMetadata' - Metadata about a conflict in a merge operation.
+newConflict ::
   Conflict
-conflict =
+newConflict =
   Conflict'
-    { _cMergeHunks = Nothing,
-      _cConflictMetadata = Nothing
+    { mergeHunks = Prelude.Nothing,
+      conflictMetadata = Prelude.Nothing
     }
 
--- | A list of hunks that contain the differences between files or lines causing the conflict.
-cMergeHunks :: Lens' Conflict [MergeHunk]
-cMergeHunks = lens _cMergeHunks (\s a -> s {_cMergeHunks = a}) . _Default . _Coerce
+-- | A list of hunks that contain the differences between files or lines
+-- causing the conflict.
+conflict_mergeHunks :: Lens.Lens' Conflict (Prelude.Maybe [MergeHunk])
+conflict_mergeHunks = Lens.lens (\Conflict' {mergeHunks} -> mergeHunks) (\s@Conflict' {} a -> s {mergeHunks = a} :: Conflict) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Metadata about a conflict in a merge operation.
-cConflictMetadata :: Lens' Conflict (Maybe ConflictMetadata)
-cConflictMetadata = lens _cConflictMetadata (\s a -> s {_cConflictMetadata = a})
+conflict_conflictMetadata :: Lens.Lens' Conflict (Prelude.Maybe ConflictMetadata)
+conflict_conflictMetadata = Lens.lens (\Conflict' {conflictMetadata} -> conflictMetadata) (\s@Conflict' {} a -> s {conflictMetadata = a} :: Conflict)
 
-instance FromJSON Conflict where
+instance Prelude.FromJSON Conflict where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Conflict"
       ( \x ->
           Conflict'
-            <$> (x .:? "mergeHunks" .!= mempty)
-            <*> (x .:? "conflictMetadata")
+            Prelude.<$> ( x Prelude..:? "mergeHunks"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "conflictMetadata")
       )
 
-instance Hashable Conflict
+instance Prelude.Hashable Conflict
 
-instance NFData Conflict
+instance Prelude.NFData Conflict

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,117 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or updates a reaction to a specified comment for the user whose identity is used to make the request. You can only add or update a reaction for yourself. You cannot add, modify, or delete a reaction for another user.
+-- Adds or updates a reaction to a specified comment for the user whose
+-- identity is used to make the request. You can only add or update a
+-- reaction for yourself. You cannot add, modify, or delete a reaction for
+-- another user.
 module Network.AWS.CodeCommit.PutCommentReaction
   ( -- * Creating a Request
-    putCommentReaction,
-    PutCommentReaction,
+    PutCommentReaction (..),
+    newPutCommentReaction,
 
     -- * Request Lenses
-    pcrCommentId,
-    pcrReactionValue,
+    putCommentReaction_commentId,
+    putCommentReaction_reactionValue,
 
     -- * Destructuring the Response
-    putCommentReactionResponse,
-    PutCommentReactionResponse,
+    PutCommentReactionResponse (..),
+    newPutCommentReactionResponse,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putCommentReaction' smart constructor.
+-- | /See:/ 'newPutCommentReaction' smart constructor.
 data PutCommentReaction = PutCommentReaction'
-  { _pcrCommentId ::
-      !Text,
-    _pcrReactionValue :: !Text
+  { -- | The ID of the comment to which you want to add or update a reaction.
+    commentId :: Prelude.Text,
+    -- | The emoji reaction you want to add or update. To remove a reaction,
+    -- provide a value of blank or null. You can also provide the value of
+    -- none. For information about emoji reaction values supported in AWS
+    -- CodeCommit, see the
+    -- <https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-commit-comment.html#emoji-reaction-table AWS CodeCommit User Guide>.
+    reactionValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutCommentReaction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutCommentReaction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcrCommentId' - The ID of the comment to which you want to add or update a reaction.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcrReactionValue' - The emoji reaction you want to add or update. To remove a reaction, provide a value of blank or null. You can also provide the value of none. For information about emoji reaction values supported in AWS CodeCommit, see the <https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-commit-comment.html#emoji-reaction-table AWS CodeCommit User Guide> .
-putCommentReaction ::
-  -- | 'pcrCommentId'
-  Text ->
-  -- | 'pcrReactionValue'
-  Text ->
+-- 'commentId', 'putCommentReaction_commentId' - The ID of the comment to which you want to add or update a reaction.
+--
+-- 'reactionValue', 'putCommentReaction_reactionValue' - The emoji reaction you want to add or update. To remove a reaction,
+-- provide a value of blank or null. You can also provide the value of
+-- none. For information about emoji reaction values supported in AWS
+-- CodeCommit, see the
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-commit-comment.html#emoji-reaction-table AWS CodeCommit User Guide>.
+newPutCommentReaction ::
+  -- | 'commentId'
+  Prelude.Text ->
+  -- | 'reactionValue'
+  Prelude.Text ->
   PutCommentReaction
-putCommentReaction pCommentId_ pReactionValue_ =
+newPutCommentReaction pCommentId_ pReactionValue_ =
   PutCommentReaction'
-    { _pcrCommentId = pCommentId_,
-      _pcrReactionValue = pReactionValue_
+    { commentId = pCommentId_,
+      reactionValue = pReactionValue_
     }
 
 -- | The ID of the comment to which you want to add or update a reaction.
-pcrCommentId :: Lens' PutCommentReaction Text
-pcrCommentId = lens _pcrCommentId (\s a -> s {_pcrCommentId = a})
+putCommentReaction_commentId :: Lens.Lens' PutCommentReaction Prelude.Text
+putCommentReaction_commentId = Lens.lens (\PutCommentReaction' {commentId} -> commentId) (\s@PutCommentReaction' {} a -> s {commentId = a} :: PutCommentReaction)
 
--- | The emoji reaction you want to add or update. To remove a reaction, provide a value of blank or null. You can also provide the value of none. For information about emoji reaction values supported in AWS CodeCommit, see the <https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-commit-comment.html#emoji-reaction-table AWS CodeCommit User Guide> .
-pcrReactionValue :: Lens' PutCommentReaction Text
-pcrReactionValue = lens _pcrReactionValue (\s a -> s {_pcrReactionValue = a})
+-- | The emoji reaction you want to add or update. To remove a reaction,
+-- provide a value of blank or null. You can also provide the value of
+-- none. For information about emoji reaction values supported in AWS
+-- CodeCommit, see the
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-commit-comment.html#emoji-reaction-table AWS CodeCommit User Guide>.
+putCommentReaction_reactionValue :: Lens.Lens' PutCommentReaction Prelude.Text
+putCommentReaction_reactionValue = Lens.lens (\PutCommentReaction' {reactionValue} -> reactionValue) (\s@PutCommentReaction' {} a -> s {reactionValue = a} :: PutCommentReaction)
 
-instance AWSRequest PutCommentReaction where
+instance Prelude.AWSRequest PutCommentReaction where
   type
     Rs PutCommentReaction =
       PutCommentReactionResponse
-  request = postJSON codeCommit
-  response = receiveNull PutCommentReactionResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull PutCommentReactionResponse'
 
-instance Hashable PutCommentReaction
+instance Prelude.Hashable PutCommentReaction
 
-instance NFData PutCommentReaction
+instance Prelude.NFData PutCommentReaction
 
-instance ToHeaders PutCommentReaction where
+instance Prelude.ToHeaders PutCommentReaction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.PutCommentReaction" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.PutCommentReaction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutCommentReaction where
+instance Prelude.ToJSON PutCommentReaction where
   toJSON PutCommentReaction' {..} =
-    object
-      ( catMaybes
-          [ Just ("commentId" .= _pcrCommentId),
-            Just ("reactionValue" .= _pcrReactionValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("commentId" Prelude..= commentId),
+            Prelude.Just
+              ("reactionValue" Prelude..= reactionValue)
           ]
       )
 
-instance ToPath PutCommentReaction where
-  toPath = const "/"
+instance Prelude.ToPath PutCommentReaction where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutCommentReaction where
-  toQuery = const mempty
+instance Prelude.ToQuery PutCommentReaction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putCommentReactionResponse' smart constructor.
+-- | /See:/ 'newPutCommentReactionResponse' smart constructor.
 data PutCommentReactionResponse = PutCommentReactionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutCommentReactionResponse' with the minimum fields required to make a request.
-putCommentReactionResponse ::
+-- |
+-- Create a value of 'PutCommentReactionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPutCommentReactionResponse ::
   PutCommentReactionResponse
-putCommentReactionResponse =
+newPutCommentReactionResponse =
   PutCommentReactionResponse'
 
-instance NFData PutCommentReactionResponse
+instance Prelude.NFData PutCommentReactionResponse

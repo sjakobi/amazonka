@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a commit, including commit message and committer information.
+-- Returns information about a commit, including commit message and
+-- committer information.
 module Network.AWS.CodeCommit.GetCommit
   ( -- * Creating a Request
-    getCommit,
-    GetCommit,
+    GetCommit (..),
+    newGetCommit,
 
     -- * Request Lenses
-    gcRepositoryName,
-    gcCommitId,
+    getCommit_repositoryName,
+    getCommit_commitId,
 
     -- * Destructuring the Response
-    getCommitResponse,
-    GetCommitResponse,
+    GetCommitResponse (..),
+    newGetCommitResponse,
 
     -- * Response Lenses
-    getrsResponseStatus,
-    getrsCommit,
+    getCommitResponse_httpStatus,
+    getCommitResponse_commit,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.Commit
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a get commit operation.
 --
---
---
--- /See:/ 'getCommit' smart constructor.
+-- /See:/ 'newGetCommit' smart constructor.
 data GetCommit = GetCommit'
-  { _gcRepositoryName ::
-      !Text,
-    _gcCommitId :: !Text
+  { -- | The name of the repository to which the commit was made.
+    repositoryName :: Prelude.Text,
+    -- | The commit ID. Commit IDs are the full SHA ID of the commit.
+    commitId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCommit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCommit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcRepositoryName' - The name of the repository to which the commit was made.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcCommitId' - The commit ID. Commit IDs are the full SHA ID of the commit.
-getCommit ::
-  -- | 'gcRepositoryName'
-  Text ->
-  -- | 'gcCommitId'
-  Text ->
+-- 'repositoryName', 'getCommit_repositoryName' - The name of the repository to which the commit was made.
+--
+-- 'commitId', 'getCommit_commitId' - The commit ID. Commit IDs are the full SHA ID of the commit.
+newGetCommit ::
+  -- | 'repositoryName'
+  Prelude.Text ->
+  -- | 'commitId'
+  Prelude.Text ->
   GetCommit
-getCommit pRepositoryName_ pCommitId_ =
+newGetCommit pRepositoryName_ pCommitId_ =
   GetCommit'
-    { _gcRepositoryName = pRepositoryName_,
-      _gcCommitId = pCommitId_
+    { repositoryName = pRepositoryName_,
+      commitId = pCommitId_
     }
 
 -- | The name of the repository to which the commit was made.
-gcRepositoryName :: Lens' GetCommit Text
-gcRepositoryName = lens _gcRepositoryName (\s a -> s {_gcRepositoryName = a})
+getCommit_repositoryName :: Lens.Lens' GetCommit Prelude.Text
+getCommit_repositoryName = Lens.lens (\GetCommit' {repositoryName} -> repositoryName) (\s@GetCommit' {} a -> s {repositoryName = a} :: GetCommit)
 
 -- | The commit ID. Commit IDs are the full SHA ID of the commit.
-gcCommitId :: Lens' GetCommit Text
-gcCommitId = lens _gcCommitId (\s a -> s {_gcCommitId = a})
+getCommit_commitId :: Lens.Lens' GetCommit Prelude.Text
+getCommit_commitId = Lens.lens (\GetCommit' {commitId} -> commitId) (\s@GetCommit' {} a -> s {commitId = a} :: GetCommit)
 
-instance AWSRequest GetCommit where
+instance Prelude.AWSRequest GetCommit where
   type Rs GetCommit = GetCommitResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCommitResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "commit")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "commit")
       )
 
-instance Hashable GetCommit
+instance Prelude.Hashable GetCommit
 
-instance NFData GetCommit
+instance Prelude.NFData GetCommit
 
-instance ToHeaders GetCommit where
+instance Prelude.ToHeaders GetCommit where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeCommit_20150413.GetCommit" :: ByteString),
+              Prelude.=# ( "CodeCommit_20150413.GetCommit" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCommit where
+instance Prelude.ToJSON GetCommit where
   toJSON GetCommit' {..} =
-    object
-      ( catMaybes
-          [ Just ("repositoryName" .= _gcRepositoryName),
-            Just ("commitId" .= _gcCommitId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("repositoryName" Prelude..= repositoryName),
+            Prelude.Just ("commitId" Prelude..= commitId)
           ]
       )
 
-instance ToPath GetCommit where
-  toPath = const "/"
+instance Prelude.ToPath GetCommit where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCommit where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCommit where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a get commit operation.
 --
---
---
--- /See:/ 'getCommitResponse' smart constructor.
+-- /See:/ 'newGetCommitResponse' smart constructor.
 data GetCommitResponse = GetCommitResponse'
-  { _getrsResponseStatus ::
-      !Int,
-    _getrsCommit :: !Commit
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A commit data type object that contains information about the specified
+    -- commit.
+    commit :: Commit
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCommitResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCommitResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'getrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'getrsCommit' - A commit data type object that contains information about the specified commit.
-getCommitResponse ::
-  -- | 'getrsResponseStatus'
-  Int ->
-  -- | 'getrsCommit'
+-- 'httpStatus', 'getCommitResponse_httpStatus' - The response's http status code.
+--
+-- 'commit', 'getCommitResponse_commit' - A commit data type object that contains information about the specified
+-- commit.
+newGetCommitResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'commit'
   Commit ->
   GetCommitResponse
-getCommitResponse pResponseStatus_ pCommit_ =
+newGetCommitResponse pHttpStatus_ pCommit_ =
   GetCommitResponse'
-    { _getrsResponseStatus =
-        pResponseStatus_,
-      _getrsCommit = pCommit_
+    { httpStatus = pHttpStatus_,
+      commit = pCommit_
     }
 
--- | -- | The response status code.
-getrsResponseStatus :: Lens' GetCommitResponse Int
-getrsResponseStatus = lens _getrsResponseStatus (\s a -> s {_getrsResponseStatus = a})
+-- | The response's http status code.
+getCommitResponse_httpStatus :: Lens.Lens' GetCommitResponse Prelude.Int
+getCommitResponse_httpStatus = Lens.lens (\GetCommitResponse' {httpStatus} -> httpStatus) (\s@GetCommitResponse' {} a -> s {httpStatus = a} :: GetCommitResponse)
 
--- | A commit data type object that contains information about the specified commit.
-getrsCommit :: Lens' GetCommitResponse Commit
-getrsCommit = lens _getrsCommit (\s a -> s {_getrsCommit = a})
+-- | A commit data type object that contains information about the specified
+-- commit.
+getCommitResponse_commit :: Lens.Lens' GetCommitResponse Commit
+getCommitResponse_commit = Lens.lens (\GetCommitResponse' {commit} -> commit) (\s@GetCommitResponse' {} a -> s {commit = a} :: GetCommitResponse)
 
-instance NFData GetCommitResponse
+instance Prelude.NFData GetCommitResponse

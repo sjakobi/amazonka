@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,128 +19,138 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.RepositoryMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a repository.
 --
---
---
--- /See:/ 'repositoryMetadata' smart constructor.
+-- /See:/ 'newRepositoryMetadata' smart constructor.
 data RepositoryMetadata = RepositoryMetadata'
-  { _rmLastModifiedDate ::
-      !(Maybe POSIX),
-    _rmDefaultBranch :: !(Maybe Text),
-    _rmAccountId :: !(Maybe Text),
-    _rmCloneURLSSH :: !(Maybe Text),
-    _rmCloneURLHTTP :: !(Maybe Text),
-    _rmARN :: !(Maybe Text),
-    _rmCreationDate :: !(Maybe POSIX),
-    _rmRepositoryName ::
-      !(Maybe Text),
-    _rmRepositoryId :: !(Maybe Text),
-    _rmRepositoryDescription ::
-      !(Maybe Text)
+  { -- | The date and time the repository was last modified, in timestamp format.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The repository\'s default branch name.
+    defaultBranch :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the AWS account associated with the repository.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The URL to use for cloning the repository over SSH.
+    cloneUrlSsh :: Prelude.Maybe Prelude.Text,
+    -- | The URL to use for cloning the repository over HTTPS.
+    cloneUrlHttp :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the repository.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the repository was created, in timestamp format.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The repository\'s name.
+    repositoryName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the repository.
+    repositoryId :: Prelude.Maybe Prelude.Text,
+    -- | A comment or description about the repository.
+    repositoryDescription :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RepositoryMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RepositoryMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rmLastModifiedDate' - The date and time the repository was last modified, in timestamp format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rmDefaultBranch' - The repository's default branch name.
+-- 'lastModifiedDate', 'repositoryMetadata_lastModifiedDate' - The date and time the repository was last modified, in timestamp format.
 --
--- * 'rmAccountId' - The ID of the AWS account associated with the repository.
+-- 'defaultBranch', 'repositoryMetadata_defaultBranch' - The repository\'s default branch name.
 --
--- * 'rmCloneURLSSH' - The URL to use for cloning the repository over SSH.
+-- 'accountId', 'repositoryMetadata_accountId' - The ID of the AWS account associated with the repository.
 --
--- * 'rmCloneURLHTTP' - The URL to use for cloning the repository over HTTPS.
+-- 'cloneUrlSsh', 'repositoryMetadata_cloneUrlSsh' - The URL to use for cloning the repository over SSH.
 --
--- * 'rmARN' - The Amazon Resource Name (ARN) of the repository.
+-- 'cloneUrlHttp', 'repositoryMetadata_cloneUrlHttp' - The URL to use for cloning the repository over HTTPS.
 --
--- * 'rmCreationDate' - The date and time the repository was created, in timestamp format.
+-- 'arn', 'repositoryMetadata_arn' - The Amazon Resource Name (ARN) of the repository.
 --
--- * 'rmRepositoryName' - The repository's name.
+-- 'creationDate', 'repositoryMetadata_creationDate' - The date and time the repository was created, in timestamp format.
 --
--- * 'rmRepositoryId' - The ID of the repository.
+-- 'repositoryName', 'repositoryMetadata_repositoryName' - The repository\'s name.
 --
--- * 'rmRepositoryDescription' - A comment or description about the repository.
-repositoryMetadata ::
+-- 'repositoryId', 'repositoryMetadata_repositoryId' - The ID of the repository.
+--
+-- 'repositoryDescription', 'repositoryMetadata_repositoryDescription' - A comment or description about the repository.
+newRepositoryMetadata ::
   RepositoryMetadata
-repositoryMetadata =
+newRepositoryMetadata =
   RepositoryMetadata'
-    { _rmLastModifiedDate = Nothing,
-      _rmDefaultBranch = Nothing,
-      _rmAccountId = Nothing,
-      _rmCloneURLSSH = Nothing,
-      _rmCloneURLHTTP = Nothing,
-      _rmARN = Nothing,
-      _rmCreationDate = Nothing,
-      _rmRepositoryName = Nothing,
-      _rmRepositoryId = Nothing,
-      _rmRepositoryDescription = Nothing
+    { lastModifiedDate =
+        Prelude.Nothing,
+      defaultBranch = Prelude.Nothing,
+      accountId = Prelude.Nothing,
+      cloneUrlSsh = Prelude.Nothing,
+      cloneUrlHttp = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      repositoryName = Prelude.Nothing,
+      repositoryId = Prelude.Nothing,
+      repositoryDescription = Prelude.Nothing
     }
 
 -- | The date and time the repository was last modified, in timestamp format.
-rmLastModifiedDate :: Lens' RepositoryMetadata (Maybe UTCTime)
-rmLastModifiedDate = lens _rmLastModifiedDate (\s a -> s {_rmLastModifiedDate = a}) . mapping _Time
+repositoryMetadata_lastModifiedDate :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.UTCTime)
+repositoryMetadata_lastModifiedDate = Lens.lens (\RepositoryMetadata' {lastModifiedDate} -> lastModifiedDate) (\s@RepositoryMetadata' {} a -> s {lastModifiedDate = a} :: RepositoryMetadata) Prelude.. Lens.mapping Prelude._Time
 
--- | The repository's default branch name.
-rmDefaultBranch :: Lens' RepositoryMetadata (Maybe Text)
-rmDefaultBranch = lens _rmDefaultBranch (\s a -> s {_rmDefaultBranch = a})
+-- | The repository\'s default branch name.
+repositoryMetadata_defaultBranch :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.Text)
+repositoryMetadata_defaultBranch = Lens.lens (\RepositoryMetadata' {defaultBranch} -> defaultBranch) (\s@RepositoryMetadata' {} a -> s {defaultBranch = a} :: RepositoryMetadata)
 
 -- | The ID of the AWS account associated with the repository.
-rmAccountId :: Lens' RepositoryMetadata (Maybe Text)
-rmAccountId = lens _rmAccountId (\s a -> s {_rmAccountId = a})
+repositoryMetadata_accountId :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.Text)
+repositoryMetadata_accountId = Lens.lens (\RepositoryMetadata' {accountId} -> accountId) (\s@RepositoryMetadata' {} a -> s {accountId = a} :: RepositoryMetadata)
 
 -- | The URL to use for cloning the repository over SSH.
-rmCloneURLSSH :: Lens' RepositoryMetadata (Maybe Text)
-rmCloneURLSSH = lens _rmCloneURLSSH (\s a -> s {_rmCloneURLSSH = a})
+repositoryMetadata_cloneUrlSsh :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.Text)
+repositoryMetadata_cloneUrlSsh = Lens.lens (\RepositoryMetadata' {cloneUrlSsh} -> cloneUrlSsh) (\s@RepositoryMetadata' {} a -> s {cloneUrlSsh = a} :: RepositoryMetadata)
 
 -- | The URL to use for cloning the repository over HTTPS.
-rmCloneURLHTTP :: Lens' RepositoryMetadata (Maybe Text)
-rmCloneURLHTTP = lens _rmCloneURLHTTP (\s a -> s {_rmCloneURLHTTP = a})
+repositoryMetadata_cloneUrlHttp :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.Text)
+repositoryMetadata_cloneUrlHttp = Lens.lens (\RepositoryMetadata' {cloneUrlHttp} -> cloneUrlHttp) (\s@RepositoryMetadata' {} a -> s {cloneUrlHttp = a} :: RepositoryMetadata)
 
 -- | The Amazon Resource Name (ARN) of the repository.
-rmARN :: Lens' RepositoryMetadata (Maybe Text)
-rmARN = lens _rmARN (\s a -> s {_rmARN = a})
+repositoryMetadata_arn :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.Text)
+repositoryMetadata_arn = Lens.lens (\RepositoryMetadata' {arn} -> arn) (\s@RepositoryMetadata' {} a -> s {arn = a} :: RepositoryMetadata)
 
 -- | The date and time the repository was created, in timestamp format.
-rmCreationDate :: Lens' RepositoryMetadata (Maybe UTCTime)
-rmCreationDate = lens _rmCreationDate (\s a -> s {_rmCreationDate = a}) . mapping _Time
+repositoryMetadata_creationDate :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.UTCTime)
+repositoryMetadata_creationDate = Lens.lens (\RepositoryMetadata' {creationDate} -> creationDate) (\s@RepositoryMetadata' {} a -> s {creationDate = a} :: RepositoryMetadata) Prelude.. Lens.mapping Prelude._Time
 
--- | The repository's name.
-rmRepositoryName :: Lens' RepositoryMetadata (Maybe Text)
-rmRepositoryName = lens _rmRepositoryName (\s a -> s {_rmRepositoryName = a})
+-- | The repository\'s name.
+repositoryMetadata_repositoryName :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.Text)
+repositoryMetadata_repositoryName = Lens.lens (\RepositoryMetadata' {repositoryName} -> repositoryName) (\s@RepositoryMetadata' {} a -> s {repositoryName = a} :: RepositoryMetadata)
 
 -- | The ID of the repository.
-rmRepositoryId :: Lens' RepositoryMetadata (Maybe Text)
-rmRepositoryId = lens _rmRepositoryId (\s a -> s {_rmRepositoryId = a})
+repositoryMetadata_repositoryId :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.Text)
+repositoryMetadata_repositoryId = Lens.lens (\RepositoryMetadata' {repositoryId} -> repositoryId) (\s@RepositoryMetadata' {} a -> s {repositoryId = a} :: RepositoryMetadata)
 
 -- | A comment or description about the repository.
-rmRepositoryDescription :: Lens' RepositoryMetadata (Maybe Text)
-rmRepositoryDescription = lens _rmRepositoryDescription (\s a -> s {_rmRepositoryDescription = a})
+repositoryMetadata_repositoryDescription :: Lens.Lens' RepositoryMetadata (Prelude.Maybe Prelude.Text)
+repositoryMetadata_repositoryDescription = Lens.lens (\RepositoryMetadata' {repositoryDescription} -> repositoryDescription) (\s@RepositoryMetadata' {} a -> s {repositoryDescription = a} :: RepositoryMetadata)
 
-instance FromJSON RepositoryMetadata where
+instance Prelude.FromJSON RepositoryMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RepositoryMetadata"
       ( \x ->
           RepositoryMetadata'
-            <$> (x .:? "lastModifiedDate")
-            <*> (x .:? "defaultBranch")
-            <*> (x .:? "accountId")
-            <*> (x .:? "cloneUrlSsh")
-            <*> (x .:? "cloneUrlHttp")
-            <*> (x .:? "Arn")
-            <*> (x .:? "creationDate")
-            <*> (x .:? "repositoryName")
-            <*> (x .:? "repositoryId")
-            <*> (x .:? "repositoryDescription")
+            Prelude.<$> (x Prelude..:? "lastModifiedDate")
+            Prelude.<*> (x Prelude..:? "defaultBranch")
+            Prelude.<*> (x Prelude..:? "accountId")
+            Prelude.<*> (x Prelude..:? "cloneUrlSsh")
+            Prelude.<*> (x Prelude..:? "cloneUrlHttp")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "creationDate")
+            Prelude.<*> (x Prelude..:? "repositoryName")
+            Prelude.<*> (x Prelude..:? "repositoryId")
+            Prelude.<*> (x Prelude..:? "repositoryDescription")
       )
 
-instance Hashable RepositoryMetadata
+instance Prelude.Hashable RepositoryMetadata
 
-instance NFData RepositoryMetadata
+instance Prelude.NFData RepositoryMetadata

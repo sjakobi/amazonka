@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.OriginApprovalRuleTemplate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns information about the template that created the approval rule for a pull request.
+-- | Returns information about the template that created the approval rule
+-- for a pull request.
 --
---
---
--- /See:/ 'originApprovalRuleTemplate' smart constructor.
+-- /See:/ 'newOriginApprovalRuleTemplate' smart constructor.
 data OriginApprovalRuleTemplate = OriginApprovalRuleTemplate'
-  { _oartApprovalRuleTemplateId ::
-      !(Maybe Text),
-    _oartApprovalRuleTemplateName ::
-      !(Maybe Text)
+  { -- | The ID of the template that created the approval rule.
+    approvalRuleTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the template that created the approval rule.
+    approvalRuleTemplateName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OriginApprovalRuleTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OriginApprovalRuleTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oartApprovalRuleTemplateId' - The ID of the template that created the approval rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oartApprovalRuleTemplateName' - The name of the template that created the approval rule.
-originApprovalRuleTemplate ::
+-- 'approvalRuleTemplateId', 'originApprovalRuleTemplate_approvalRuleTemplateId' - The ID of the template that created the approval rule.
+--
+-- 'approvalRuleTemplateName', 'originApprovalRuleTemplate_approvalRuleTemplateName' - The name of the template that created the approval rule.
+newOriginApprovalRuleTemplate ::
   OriginApprovalRuleTemplate
-originApprovalRuleTemplate =
+newOriginApprovalRuleTemplate =
   OriginApprovalRuleTemplate'
-    { _oartApprovalRuleTemplateId =
-        Nothing,
-      _oartApprovalRuleTemplateName = Nothing
+    { approvalRuleTemplateId =
+        Prelude.Nothing,
+      approvalRuleTemplateName = Prelude.Nothing
     }
 
 -- | The ID of the template that created the approval rule.
-oartApprovalRuleTemplateId :: Lens' OriginApprovalRuleTemplate (Maybe Text)
-oartApprovalRuleTemplateId = lens _oartApprovalRuleTemplateId (\s a -> s {_oartApprovalRuleTemplateId = a})
+originApprovalRuleTemplate_approvalRuleTemplateId :: Lens.Lens' OriginApprovalRuleTemplate (Prelude.Maybe Prelude.Text)
+originApprovalRuleTemplate_approvalRuleTemplateId = Lens.lens (\OriginApprovalRuleTemplate' {approvalRuleTemplateId} -> approvalRuleTemplateId) (\s@OriginApprovalRuleTemplate' {} a -> s {approvalRuleTemplateId = a} :: OriginApprovalRuleTemplate)
 
 -- | The name of the template that created the approval rule.
-oartApprovalRuleTemplateName :: Lens' OriginApprovalRuleTemplate (Maybe Text)
-oartApprovalRuleTemplateName = lens _oartApprovalRuleTemplateName (\s a -> s {_oartApprovalRuleTemplateName = a})
+originApprovalRuleTemplate_approvalRuleTemplateName :: Lens.Lens' OriginApprovalRuleTemplate (Prelude.Maybe Prelude.Text)
+originApprovalRuleTemplate_approvalRuleTemplateName = Lens.lens (\OriginApprovalRuleTemplate' {approvalRuleTemplateName} -> approvalRuleTemplateName) (\s@OriginApprovalRuleTemplate' {} a -> s {approvalRuleTemplateName = a} :: OriginApprovalRuleTemplate)
 
-instance FromJSON OriginApprovalRuleTemplate where
+instance Prelude.FromJSON OriginApprovalRuleTemplate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OriginApprovalRuleTemplate"
       ( \x ->
           OriginApprovalRuleTemplate'
-            <$> (x .:? "approvalRuleTemplateId")
-            <*> (x .:? "approvalRuleTemplateName")
+            Prelude.<$> (x Prelude..:? "approvalRuleTemplateId")
+            Prelude.<*> (x Prelude..:? "approvalRuleTemplateName")
       )
 
-instance Hashable OriginApprovalRuleTemplate
+instance Prelude.Hashable OriginApprovalRuleTemplate
 
-instance NFData OriginApprovalRuleTemplate
+instance Prelude.NFData OriginApprovalRuleTemplate

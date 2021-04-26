@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,188 +21,309 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a template for approval rules that can then be associated with one or more repositories in your AWS account. When you associate a template with a repository, AWS CodeCommit creates an approval rule that matches the conditions of the template for all pull requests that meet the conditions of the template. For more information, see 'AssociateApprovalRuleTemplateWithRepository' .
+-- Creates a template for approval rules that can then be associated with
+-- one or more repositories in your AWS account. When you associate a
+-- template with a repository, AWS CodeCommit creates an approval rule that
+-- matches the conditions of the template for all pull requests that meet
+-- the conditions of the template. For more information, see
+-- AssociateApprovalRuleTemplateWithRepository.
 module Network.AWS.CodeCommit.CreateApprovalRuleTemplate
   ( -- * Creating a Request
-    createApprovalRuleTemplate,
-    CreateApprovalRuleTemplate,
+    CreateApprovalRuleTemplate (..),
+    newCreateApprovalRuleTemplate,
 
     -- * Request Lenses
-    cartApprovalRuleTemplateDescription,
-    cartApprovalRuleTemplateName,
-    cartApprovalRuleTemplateContent,
+    createApprovalRuleTemplate_approvalRuleTemplateDescription,
+    createApprovalRuleTemplate_approvalRuleTemplateName,
+    createApprovalRuleTemplate_approvalRuleTemplateContent,
 
     -- * Destructuring the Response
-    createApprovalRuleTemplateResponse,
-    CreateApprovalRuleTemplateResponse,
+    CreateApprovalRuleTemplateResponse (..),
+    newCreateApprovalRuleTemplateResponse,
 
     -- * Response Lenses
-    cartrrsResponseStatus,
-    cartrrsApprovalRuleTemplate,
+    createApprovalRuleTemplateResponse_httpStatus,
+    createApprovalRuleTemplateResponse_approvalRuleTemplate,
   )
 where
 
 import Network.AWS.CodeCommit.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeCommit.Types.ApprovalRuleTemplate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createApprovalRuleTemplate' smart constructor.
+-- | /See:/ 'newCreateApprovalRuleTemplate' smart constructor.
 data CreateApprovalRuleTemplate = CreateApprovalRuleTemplate'
-  { _cartApprovalRuleTemplateDescription ::
-      !(Maybe Text),
-    _cartApprovalRuleTemplateName ::
-      !Text,
-    _cartApprovalRuleTemplateContent ::
-      !Text
+  { -- | The description of the approval rule template. Consider providing a
+    -- description that explains what this template does and when it might be
+    -- appropriate to associate it with repositories.
+    approvalRuleTemplateDescription :: Prelude.Maybe Prelude.Text,
+    -- | The name of the approval rule template. Provide descriptive names,
+    -- because this name is applied to the approval rules created automatically
+    -- in associated repositories.
+    approvalRuleTemplateName :: Prelude.Text,
+    -- | The content of the approval rule that is created on pull requests in
+    -- associated repositories. If you specify one or more destination
+    -- references (branches), approval rules are created in an associated
+    -- repository only if their destination references (branches) match those
+    -- specified in the template.
+    --
+    -- When you create the content of the approval rule template, you can
+    -- specify approvers in an approval pool in one of two ways:
+    --
+    -- -   __CodeCommitApprovers__: This option only requires an AWS account
+    --     and a resource. It can be used for both IAM users and federated
+    --     access users whose name matches the provided resource name. This is
+    --     a very powerful option that offers a great deal of flexibility. For
+    --     example, if you specify the AWS account /123456789012/ and
+    --     /Mary_Major/, all of the following are counted as approvals coming
+    --     from that user:
+    --
+    --     -   An IAM user in the account
+    --         (arn:aws:iam::/123456789012/:user\//Mary_Major/)
+    --
+    --     -   A federated user identified in IAM as Mary_Major
+    --         (arn:aws:sts::/123456789012/:federated-user\//Mary_Major/)
+    --
+    --     This option does not recognize an active session of someone assuming
+    --     the role of CodeCommitReview with a role session name of
+    --     /Mary_Major/
+    --     (arn:aws:sts::/123456789012/:assumed-role\/CodeCommitReview\//Mary_Major/)
+    --     unless you include a wildcard (*Mary_Major).
+    --
+    -- -   __Fully qualified ARN__: This option allows you to specify the fully
+    --     qualified Amazon Resource Name (ARN) of the IAM user or role.
+    --
+    -- For more information about IAM ARNs, wildcards, and formats, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers>
+    -- in the /IAM User Guide/.
+    approvalRuleTemplateContent :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateApprovalRuleTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateApprovalRuleTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cartApprovalRuleTemplateDescription' - The description of the approval rule template. Consider providing a description that explains what this template does and when it might be appropriate to associate it with repositories.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cartApprovalRuleTemplateName' - The name of the approval rule template. Provide descriptive names, because this name is applied to the approval rules created automatically in associated repositories.
+-- 'approvalRuleTemplateDescription', 'createApprovalRuleTemplate_approvalRuleTemplateDescription' - The description of the approval rule template. Consider providing a
+-- description that explains what this template does and when it might be
+-- appropriate to associate it with repositories.
 --
--- * 'cartApprovalRuleTemplateContent' - The content of the approval rule that is created on pull requests in associated repositories. If you specify one or more destination references (branches), approval rules are created in an associated repository only if their destination references (branches) match those specified in the template.
-createApprovalRuleTemplate ::
-  -- | 'cartApprovalRuleTemplateName'
-  Text ->
-  -- | 'cartApprovalRuleTemplateContent'
-  Text ->
+-- 'approvalRuleTemplateName', 'createApprovalRuleTemplate_approvalRuleTemplateName' - The name of the approval rule template. Provide descriptive names,
+-- because this name is applied to the approval rules created automatically
+-- in associated repositories.
+--
+-- 'approvalRuleTemplateContent', 'createApprovalRuleTemplate_approvalRuleTemplateContent' - The content of the approval rule that is created on pull requests in
+-- associated repositories. If you specify one or more destination
+-- references (branches), approval rules are created in an associated
+-- repository only if their destination references (branches) match those
+-- specified in the template.
+--
+-- When you create the content of the approval rule template, you can
+-- specify approvers in an approval pool in one of two ways:
+--
+-- -   __CodeCommitApprovers__: This option only requires an AWS account
+--     and a resource. It can be used for both IAM users and federated
+--     access users whose name matches the provided resource name. This is
+--     a very powerful option that offers a great deal of flexibility. For
+--     example, if you specify the AWS account /123456789012/ and
+--     /Mary_Major/, all of the following are counted as approvals coming
+--     from that user:
+--
+--     -   An IAM user in the account
+--         (arn:aws:iam::/123456789012/:user\//Mary_Major/)
+--
+--     -   A federated user identified in IAM as Mary_Major
+--         (arn:aws:sts::/123456789012/:federated-user\//Mary_Major/)
+--
+--     This option does not recognize an active session of someone assuming
+--     the role of CodeCommitReview with a role session name of
+--     /Mary_Major/
+--     (arn:aws:sts::/123456789012/:assumed-role\/CodeCommitReview\//Mary_Major/)
+--     unless you include a wildcard (*Mary_Major).
+--
+-- -   __Fully qualified ARN__: This option allows you to specify the fully
+--     qualified Amazon Resource Name (ARN) of the IAM user or role.
+--
+-- For more information about IAM ARNs, wildcards, and formats, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers>
+-- in the /IAM User Guide/.
+newCreateApprovalRuleTemplate ::
+  -- | 'approvalRuleTemplateName'
+  Prelude.Text ->
+  -- | 'approvalRuleTemplateContent'
+  Prelude.Text ->
   CreateApprovalRuleTemplate
-createApprovalRuleTemplate
+newCreateApprovalRuleTemplate
   pApprovalRuleTemplateName_
   pApprovalRuleTemplateContent_ =
     CreateApprovalRuleTemplate'
-      { _cartApprovalRuleTemplateDescription =
-          Nothing,
-        _cartApprovalRuleTemplateName =
+      { approvalRuleTemplateDescription =
+          Prelude.Nothing,
+        approvalRuleTemplateName =
           pApprovalRuleTemplateName_,
-        _cartApprovalRuleTemplateContent =
+        approvalRuleTemplateContent =
           pApprovalRuleTemplateContent_
       }
 
--- | The description of the approval rule template. Consider providing a description that explains what this template does and when it might be appropriate to associate it with repositories.
-cartApprovalRuleTemplateDescription :: Lens' CreateApprovalRuleTemplate (Maybe Text)
-cartApprovalRuleTemplateDescription = lens _cartApprovalRuleTemplateDescription (\s a -> s {_cartApprovalRuleTemplateDescription = a})
+-- | The description of the approval rule template. Consider providing a
+-- description that explains what this template does and when it might be
+-- appropriate to associate it with repositories.
+createApprovalRuleTemplate_approvalRuleTemplateDescription :: Lens.Lens' CreateApprovalRuleTemplate (Prelude.Maybe Prelude.Text)
+createApprovalRuleTemplate_approvalRuleTemplateDescription = Lens.lens (\CreateApprovalRuleTemplate' {approvalRuleTemplateDescription} -> approvalRuleTemplateDescription) (\s@CreateApprovalRuleTemplate' {} a -> s {approvalRuleTemplateDescription = a} :: CreateApprovalRuleTemplate)
 
--- | The name of the approval rule template. Provide descriptive names, because this name is applied to the approval rules created automatically in associated repositories.
-cartApprovalRuleTemplateName :: Lens' CreateApprovalRuleTemplate Text
-cartApprovalRuleTemplateName = lens _cartApprovalRuleTemplateName (\s a -> s {_cartApprovalRuleTemplateName = a})
+-- | The name of the approval rule template. Provide descriptive names,
+-- because this name is applied to the approval rules created automatically
+-- in associated repositories.
+createApprovalRuleTemplate_approvalRuleTemplateName :: Lens.Lens' CreateApprovalRuleTemplate Prelude.Text
+createApprovalRuleTemplate_approvalRuleTemplateName = Lens.lens (\CreateApprovalRuleTemplate' {approvalRuleTemplateName} -> approvalRuleTemplateName) (\s@CreateApprovalRuleTemplate' {} a -> s {approvalRuleTemplateName = a} :: CreateApprovalRuleTemplate)
 
--- | The content of the approval rule that is created on pull requests in associated repositories. If you specify one or more destination references (branches), approval rules are created in an associated repository only if their destination references (branches) match those specified in the template.
-cartApprovalRuleTemplateContent :: Lens' CreateApprovalRuleTemplate Text
-cartApprovalRuleTemplateContent = lens _cartApprovalRuleTemplateContent (\s a -> s {_cartApprovalRuleTemplateContent = a})
+-- | The content of the approval rule that is created on pull requests in
+-- associated repositories. If you specify one or more destination
+-- references (branches), approval rules are created in an associated
+-- repository only if their destination references (branches) match those
+-- specified in the template.
+--
+-- When you create the content of the approval rule template, you can
+-- specify approvers in an approval pool in one of two ways:
+--
+-- -   __CodeCommitApprovers__: This option only requires an AWS account
+--     and a resource. It can be used for both IAM users and federated
+--     access users whose name matches the provided resource name. This is
+--     a very powerful option that offers a great deal of flexibility. For
+--     example, if you specify the AWS account /123456789012/ and
+--     /Mary_Major/, all of the following are counted as approvals coming
+--     from that user:
+--
+--     -   An IAM user in the account
+--         (arn:aws:iam::/123456789012/:user\//Mary_Major/)
+--
+--     -   A federated user identified in IAM as Mary_Major
+--         (arn:aws:sts::/123456789012/:federated-user\//Mary_Major/)
+--
+--     This option does not recognize an active session of someone assuming
+--     the role of CodeCommitReview with a role session name of
+--     /Mary_Major/
+--     (arn:aws:sts::/123456789012/:assumed-role\/CodeCommitReview\//Mary_Major/)
+--     unless you include a wildcard (*Mary_Major).
+--
+-- -   __Fully qualified ARN__: This option allows you to specify the fully
+--     qualified Amazon Resource Name (ARN) of the IAM user or role.
+--
+-- For more information about IAM ARNs, wildcards, and formats, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers>
+-- in the /IAM User Guide/.
+createApprovalRuleTemplate_approvalRuleTemplateContent :: Lens.Lens' CreateApprovalRuleTemplate Prelude.Text
+createApprovalRuleTemplate_approvalRuleTemplateContent = Lens.lens (\CreateApprovalRuleTemplate' {approvalRuleTemplateContent} -> approvalRuleTemplateContent) (\s@CreateApprovalRuleTemplate' {} a -> s {approvalRuleTemplateContent = a} :: CreateApprovalRuleTemplate)
 
-instance AWSRequest CreateApprovalRuleTemplate where
+instance
+  Prelude.AWSRequest
+    CreateApprovalRuleTemplate
+  where
   type
     Rs CreateApprovalRuleTemplate =
       CreateApprovalRuleTemplateResponse
-  request = postJSON codeCommit
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateApprovalRuleTemplateResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "approvalRuleTemplate")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "approvalRuleTemplate")
       )
 
-instance Hashable CreateApprovalRuleTemplate
+instance Prelude.Hashable CreateApprovalRuleTemplate
 
-instance NFData CreateApprovalRuleTemplate
+instance Prelude.NFData CreateApprovalRuleTemplate
 
-instance ToHeaders CreateApprovalRuleTemplate where
+instance Prelude.ToHeaders CreateApprovalRuleTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeCommit_20150413.CreateApprovalRuleTemplate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeCommit_20150413.CreateApprovalRuleTemplate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateApprovalRuleTemplate where
+instance Prelude.ToJSON CreateApprovalRuleTemplate where
   toJSON CreateApprovalRuleTemplate' {..} =
-    object
-      ( catMaybes
-          [ ("approvalRuleTemplateDescription" .=)
-              <$> _cartApprovalRuleTemplateDescription,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("approvalRuleTemplateDescription" Prelude..=)
+              Prelude.<$> approvalRuleTemplateDescription,
+            Prelude.Just
               ( "approvalRuleTemplateName"
-                  .= _cartApprovalRuleTemplateName
+                  Prelude..= approvalRuleTemplateName
               ),
-            Just
+            Prelude.Just
               ( "approvalRuleTemplateContent"
-                  .= _cartApprovalRuleTemplateContent
+                  Prelude..= approvalRuleTemplateContent
               )
           ]
       )
 
-instance ToPath CreateApprovalRuleTemplate where
-  toPath = const "/"
+instance Prelude.ToPath CreateApprovalRuleTemplate where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateApprovalRuleTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateApprovalRuleTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createApprovalRuleTemplateResponse' smart constructor.
+-- | /See:/ 'newCreateApprovalRuleTemplateResponse' smart constructor.
 data CreateApprovalRuleTemplateResponse = CreateApprovalRuleTemplateResponse'
-  { _cartrrsResponseStatus ::
-      !Int,
-    _cartrrsApprovalRuleTemplate ::
-      !ApprovalRuleTemplate
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The content and structure of the created approval rule template.
+    approvalRuleTemplate :: ApprovalRuleTemplate
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateApprovalRuleTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateApprovalRuleTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cartrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cartrrsApprovalRuleTemplate' - The content and structure of the created approval rule template.
-createApprovalRuleTemplateResponse ::
-  -- | 'cartrrsResponseStatus'
-  Int ->
-  -- | 'cartrrsApprovalRuleTemplate'
+-- 'httpStatus', 'createApprovalRuleTemplateResponse_httpStatus' - The response's http status code.
+--
+-- 'approvalRuleTemplate', 'createApprovalRuleTemplateResponse_approvalRuleTemplate' - The content and structure of the created approval rule template.
+newCreateApprovalRuleTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'approvalRuleTemplate'
   ApprovalRuleTemplate ->
   CreateApprovalRuleTemplateResponse
-createApprovalRuleTemplateResponse
-  pResponseStatus_
+newCreateApprovalRuleTemplateResponse
+  pHttpStatus_
   pApprovalRuleTemplate_ =
     CreateApprovalRuleTemplateResponse'
-      { _cartrrsResponseStatus =
-          pResponseStatus_,
-        _cartrrsApprovalRuleTemplate =
+      { httpStatus =
+          pHttpStatus_,
+        approvalRuleTemplate =
           pApprovalRuleTemplate_
       }
 
--- | -- | The response status code.
-cartrrsResponseStatus :: Lens' CreateApprovalRuleTemplateResponse Int
-cartrrsResponseStatus = lens _cartrrsResponseStatus (\s a -> s {_cartrrsResponseStatus = a})
+-- | The response's http status code.
+createApprovalRuleTemplateResponse_httpStatus :: Lens.Lens' CreateApprovalRuleTemplateResponse Prelude.Int
+createApprovalRuleTemplateResponse_httpStatus = Lens.lens (\CreateApprovalRuleTemplateResponse' {httpStatus} -> httpStatus) (\s@CreateApprovalRuleTemplateResponse' {} a -> s {httpStatus = a} :: CreateApprovalRuleTemplateResponse)
 
 -- | The content and structure of the created approval rule template.
-cartrrsApprovalRuleTemplate :: Lens' CreateApprovalRuleTemplateResponse ApprovalRuleTemplate
-cartrrsApprovalRuleTemplate = lens _cartrrsApprovalRuleTemplate (\s a -> s {_cartrrsApprovalRuleTemplate = a})
+createApprovalRuleTemplateResponse_approvalRuleTemplate :: Lens.Lens' CreateApprovalRuleTemplateResponse ApprovalRuleTemplate
+createApprovalRuleTemplateResponse_approvalRuleTemplate = Lens.lens (\CreateApprovalRuleTemplateResponse' {approvalRuleTemplate} -> approvalRuleTemplate) (\s@CreateApprovalRuleTemplateResponse' {} a -> s {approvalRuleTemplate = a} :: CreateApprovalRuleTemplateResponse)
 
-instance NFData CreateApprovalRuleTemplateResponse
+instance
+  Prelude.NFData
+    CreateApprovalRuleTemplateResponse

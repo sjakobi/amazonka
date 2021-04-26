@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,67 @@
 module Network.AWS.CodeCommit.Types.ObjectTypes where
 
 import Network.AWS.CodeCommit.Types.ObjectTypeEnum
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the type of an object in a merge operation.
 --
---
---
--- /See:/ 'objectTypes' smart constructor.
+-- /See:/ 'newObjectTypes' smart constructor.
 data ObjectTypes = ObjectTypes'
-  { _otSource ::
-      !(Maybe ObjectTypeEnum),
-    _otDestination :: !(Maybe ObjectTypeEnum),
-    _otBase :: !(Maybe ObjectTypeEnum)
+  { -- | The type of the object in the source branch.
+    source :: Prelude.Maybe ObjectTypeEnum,
+    -- | The type of the object in the destination branch.
+    destination :: Prelude.Maybe ObjectTypeEnum,
+    -- | The type of the object in the base commit of the merge.
+    base :: Prelude.Maybe ObjectTypeEnum
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ObjectTypes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ObjectTypes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'otSource' - The type of the object in the source branch.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'otDestination' - The type of the object in the destination branch.
+-- 'source', 'objectTypes_source' - The type of the object in the source branch.
 --
--- * 'otBase' - The type of the object in the base commit of the merge.
-objectTypes ::
+-- 'destination', 'objectTypes_destination' - The type of the object in the destination branch.
+--
+-- 'base', 'objectTypes_base' - The type of the object in the base commit of the merge.
+newObjectTypes ::
   ObjectTypes
-objectTypes =
+newObjectTypes =
   ObjectTypes'
-    { _otSource = Nothing,
-      _otDestination = Nothing,
-      _otBase = Nothing
+    { source = Prelude.Nothing,
+      destination = Prelude.Nothing,
+      base = Prelude.Nothing
     }
 
 -- | The type of the object in the source branch.
-otSource :: Lens' ObjectTypes (Maybe ObjectTypeEnum)
-otSource = lens _otSource (\s a -> s {_otSource = a})
+objectTypes_source :: Lens.Lens' ObjectTypes (Prelude.Maybe ObjectTypeEnum)
+objectTypes_source = Lens.lens (\ObjectTypes' {source} -> source) (\s@ObjectTypes' {} a -> s {source = a} :: ObjectTypes)
 
 -- | The type of the object in the destination branch.
-otDestination :: Lens' ObjectTypes (Maybe ObjectTypeEnum)
-otDestination = lens _otDestination (\s a -> s {_otDestination = a})
+objectTypes_destination :: Lens.Lens' ObjectTypes (Prelude.Maybe ObjectTypeEnum)
+objectTypes_destination = Lens.lens (\ObjectTypes' {destination} -> destination) (\s@ObjectTypes' {} a -> s {destination = a} :: ObjectTypes)
 
 -- | The type of the object in the base commit of the merge.
-otBase :: Lens' ObjectTypes (Maybe ObjectTypeEnum)
-otBase = lens _otBase (\s a -> s {_otBase = a})
+objectTypes_base :: Lens.Lens' ObjectTypes (Prelude.Maybe ObjectTypeEnum)
+objectTypes_base = Lens.lens (\ObjectTypes' {base} -> base) (\s@ObjectTypes' {} a -> s {base = a} :: ObjectTypes)
 
-instance FromJSON ObjectTypes where
+instance Prelude.FromJSON ObjectTypes where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ObjectTypes"
       ( \x ->
           ObjectTypes'
-            <$> (x .:? "source")
-            <*> (x .:? "destination")
-            <*> (x .:? "base")
+            Prelude.<$> (x Prelude..:? "source")
+            Prelude.<*> (x Prelude..:? "destination")
+            Prelude.<*> (x Prelude..:? "base")
       )
 
-instance Hashable ObjectTypes
+instance Prelude.Hashable ObjectTypes
 
-instance NFData ObjectTypes
+instance Prelude.NFData ObjectTypes

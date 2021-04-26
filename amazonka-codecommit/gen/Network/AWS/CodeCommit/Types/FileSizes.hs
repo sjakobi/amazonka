@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.FileSizes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the size of files in a merge or pull request.
 --
---
---
--- /See:/ 'fileSizes' smart constructor.
+-- /See:/ 'newFileSizes' smart constructor.
 data FileSizes = FileSizes'
-  { _fsSource ::
-      !(Maybe Integer),
-    _fsDestination :: !(Maybe Integer),
-    _fsBase :: !(Maybe Integer)
+  { -- | The size of a file in the source of a merge or pull request.
+    source :: Prelude.Maybe Prelude.Integer,
+    -- | The size of a file in the destination of a merge or pull request.
+    destination :: Prelude.Maybe Prelude.Integer,
+    -- | The size of a file in the base of a merge or pull request.
+    base :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileSizes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileSizes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fsSource' - The size of a file in the source of a merge or pull request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fsDestination' - The size of a file in the destination of a merge or pull request.
+-- 'source', 'fileSizes_source' - The size of a file in the source of a merge or pull request.
 --
--- * 'fsBase' - The size of a file in the base of a merge or pull request.
-fileSizes ::
+-- 'destination', 'fileSizes_destination' - The size of a file in the destination of a merge or pull request.
+--
+-- 'base', 'fileSizes_base' - The size of a file in the base of a merge or pull request.
+newFileSizes ::
   FileSizes
-fileSizes =
+newFileSizes =
   FileSizes'
-    { _fsSource = Nothing,
-      _fsDestination = Nothing,
-      _fsBase = Nothing
+    { source = Prelude.Nothing,
+      destination = Prelude.Nothing,
+      base = Prelude.Nothing
     }
 
 -- | The size of a file in the source of a merge or pull request.
-fsSource :: Lens' FileSizes (Maybe Integer)
-fsSource = lens _fsSource (\s a -> s {_fsSource = a})
+fileSizes_source :: Lens.Lens' FileSizes (Prelude.Maybe Prelude.Integer)
+fileSizes_source = Lens.lens (\FileSizes' {source} -> source) (\s@FileSizes' {} a -> s {source = a} :: FileSizes)
 
 -- | The size of a file in the destination of a merge or pull request.
-fsDestination :: Lens' FileSizes (Maybe Integer)
-fsDestination = lens _fsDestination (\s a -> s {_fsDestination = a})
+fileSizes_destination :: Lens.Lens' FileSizes (Prelude.Maybe Prelude.Integer)
+fileSizes_destination = Lens.lens (\FileSizes' {destination} -> destination) (\s@FileSizes' {} a -> s {destination = a} :: FileSizes)
 
 -- | The size of a file in the base of a merge or pull request.
-fsBase :: Lens' FileSizes (Maybe Integer)
-fsBase = lens _fsBase (\s a -> s {_fsBase = a})
+fileSizes_base :: Lens.Lens' FileSizes (Prelude.Maybe Prelude.Integer)
+fileSizes_base = Lens.lens (\FileSizes' {base} -> base) (\s@FileSizes' {} a -> s {base = a} :: FileSizes)
 
-instance FromJSON FileSizes where
+instance Prelude.FromJSON FileSizes where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileSizes"
       ( \x ->
           FileSizes'
-            <$> (x .:? "source")
-            <*> (x .:? "destination")
-            <*> (x .:? "base")
+            Prelude.<$> (x Prelude..:? "source")
+            Prelude.<*> (x Prelude..:? "destination")
+            Prelude.<*> (x Prelude..:? "base")
       )
 
-instance Hashable FileSizes
+instance Prelude.Hashable FileSizes
 
-instance NFData FileSizes
+instance Prelude.NFData FileSizes

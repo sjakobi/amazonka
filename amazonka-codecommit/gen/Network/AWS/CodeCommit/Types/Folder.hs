@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeCommit.Types.Folder where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about a folder in a repository.
 --
---
---
--- /See:/ 'folder' smart constructor.
+-- /See:/ 'newFolder' smart constructor.
 data Folder = Folder'
-  { _folTreeId :: !(Maybe Text),
-    _folAbsolutePath :: !(Maybe Text),
-    _folRelativePath :: !(Maybe Text)
+  { -- | The full SHA-1 pointer of the tree information for the commit that
+    -- contains the folder.
+    treeId :: Prelude.Maybe Prelude.Text,
+    -- | The fully qualified path of the folder in the repository.
+    absolutePath :: Prelude.Maybe Prelude.Text,
+    -- | The relative path of the specified folder from the folder where the
+    -- query originated.
+    relativePath :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Folder' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Folder' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'folTreeId' - The full SHA-1 pointer of the tree information for the commit that contains the folder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'folAbsolutePath' - The fully qualified path of the folder in the repository.
+-- 'treeId', 'folder_treeId' - The full SHA-1 pointer of the tree information for the commit that
+-- contains the folder.
 --
--- * 'folRelativePath' - The relative path of the specified folder from the folder where the query originated.
-folder ::
+-- 'absolutePath', 'folder_absolutePath' - The fully qualified path of the folder in the repository.
+--
+-- 'relativePath', 'folder_relativePath' - The relative path of the specified folder from the folder where the
+-- query originated.
+newFolder ::
   Folder
-folder =
+newFolder =
   Folder'
-    { _folTreeId = Nothing,
-      _folAbsolutePath = Nothing,
-      _folRelativePath = Nothing
+    { treeId = Prelude.Nothing,
+      absolutePath = Prelude.Nothing,
+      relativePath = Prelude.Nothing
     }
 
--- | The full SHA-1 pointer of the tree information for the commit that contains the folder.
-folTreeId :: Lens' Folder (Maybe Text)
-folTreeId = lens _folTreeId (\s a -> s {_folTreeId = a})
+-- | The full SHA-1 pointer of the tree information for the commit that
+-- contains the folder.
+folder_treeId :: Lens.Lens' Folder (Prelude.Maybe Prelude.Text)
+folder_treeId = Lens.lens (\Folder' {treeId} -> treeId) (\s@Folder' {} a -> s {treeId = a} :: Folder)
 
 -- | The fully qualified path of the folder in the repository.
-folAbsolutePath :: Lens' Folder (Maybe Text)
-folAbsolutePath = lens _folAbsolutePath (\s a -> s {_folAbsolutePath = a})
+folder_absolutePath :: Lens.Lens' Folder (Prelude.Maybe Prelude.Text)
+folder_absolutePath = Lens.lens (\Folder' {absolutePath} -> absolutePath) (\s@Folder' {} a -> s {absolutePath = a} :: Folder)
 
--- | The relative path of the specified folder from the folder where the query originated.
-folRelativePath :: Lens' Folder (Maybe Text)
-folRelativePath = lens _folRelativePath (\s a -> s {_folRelativePath = a})
+-- | The relative path of the specified folder from the folder where the
+-- query originated.
+folder_relativePath :: Lens.Lens' Folder (Prelude.Maybe Prelude.Text)
+folder_relativePath = Lens.lens (\Folder' {relativePath} -> relativePath) (\s@Folder' {} a -> s {relativePath = a} :: Folder)
 
-instance FromJSON Folder where
+instance Prelude.FromJSON Folder where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Folder"
       ( \x ->
           Folder'
-            <$> (x .:? "treeId")
-            <*> (x .:? "absolutePath")
-            <*> (x .:? "relativePath")
+            Prelude.<$> (x Prelude..:? "treeId")
+            Prelude.<*> (x Prelude..:? "absolutePath")
+            Prelude.<*> (x Prelude..:? "relativePath")
       )
 
-instance Hashable Folder
+instance Prelude.Hashable Folder
 
-instance NFData Folder
+instance Prelude.NFData Folder

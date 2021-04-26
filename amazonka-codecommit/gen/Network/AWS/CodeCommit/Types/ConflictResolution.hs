@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,64 +22,68 @@ module Network.AWS.CodeCommit.Types.ConflictResolution where
 import Network.AWS.CodeCommit.Types.DeleteFileEntry
 import Network.AWS.CodeCommit.Types.ReplaceContentEntry
 import Network.AWS.CodeCommit.Types.SetFileModeEntry
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to use when resolving conflicts during a merge.
+-- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
+-- use when resolving conflicts during a merge.
 --
---
---
--- /See:/ 'conflictResolution' smart constructor.
+-- /See:/ 'newConflictResolution' smart constructor.
 data ConflictResolution = ConflictResolution'
-  { _crDeleteFiles ::
-      !(Maybe [DeleteFileEntry]),
-    _crSetFileModes ::
-      !(Maybe [SetFileModeEntry]),
-    _crReplaceContents ::
-      !(Maybe [ReplaceContentEntry])
+  { -- | Files to be deleted as part of the merge conflict resolution.
+    deleteFiles :: Prelude.Maybe [DeleteFileEntry],
+    -- | File modes that are set as part of the merge conflict resolution.
+    setFileModes :: Prelude.Maybe [SetFileModeEntry],
+    -- | Files to have content replaced as part of the merge conflict resolution.
+    replaceContents :: Prelude.Maybe [ReplaceContentEntry]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConflictResolution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConflictResolution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crDeleteFiles' - Files to be deleted as part of the merge conflict resolution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crSetFileModes' - File modes that are set as part of the merge conflict resolution.
+-- 'deleteFiles', 'conflictResolution_deleteFiles' - Files to be deleted as part of the merge conflict resolution.
 --
--- * 'crReplaceContents' - Files to have content replaced as part of the merge conflict resolution.
-conflictResolution ::
+-- 'setFileModes', 'conflictResolution_setFileModes' - File modes that are set as part of the merge conflict resolution.
+--
+-- 'replaceContents', 'conflictResolution_replaceContents' - Files to have content replaced as part of the merge conflict resolution.
+newConflictResolution ::
   ConflictResolution
-conflictResolution =
+newConflictResolution =
   ConflictResolution'
-    { _crDeleteFiles = Nothing,
-      _crSetFileModes = Nothing,
-      _crReplaceContents = Nothing
+    { deleteFiles = Prelude.Nothing,
+      setFileModes = Prelude.Nothing,
+      replaceContents = Prelude.Nothing
     }
 
 -- | Files to be deleted as part of the merge conflict resolution.
-crDeleteFiles :: Lens' ConflictResolution [DeleteFileEntry]
-crDeleteFiles = lens _crDeleteFiles (\s a -> s {_crDeleteFiles = a}) . _Default . _Coerce
+conflictResolution_deleteFiles :: Lens.Lens' ConflictResolution (Prelude.Maybe [DeleteFileEntry])
+conflictResolution_deleteFiles = Lens.lens (\ConflictResolution' {deleteFiles} -> deleteFiles) (\s@ConflictResolution' {} a -> s {deleteFiles = a} :: ConflictResolution) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | File modes that are set as part of the merge conflict resolution.
-crSetFileModes :: Lens' ConflictResolution [SetFileModeEntry]
-crSetFileModes = lens _crSetFileModes (\s a -> s {_crSetFileModes = a}) . _Default . _Coerce
+conflictResolution_setFileModes :: Lens.Lens' ConflictResolution (Prelude.Maybe [SetFileModeEntry])
+conflictResolution_setFileModes = Lens.lens (\ConflictResolution' {setFileModes} -> setFileModes) (\s@ConflictResolution' {} a -> s {setFileModes = a} :: ConflictResolution) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Files to have content replaced as part of the merge conflict resolution.
-crReplaceContents :: Lens' ConflictResolution [ReplaceContentEntry]
-crReplaceContents = lens _crReplaceContents (\s a -> s {_crReplaceContents = a}) . _Default . _Coerce
+conflictResolution_replaceContents :: Lens.Lens' ConflictResolution (Prelude.Maybe [ReplaceContentEntry])
+conflictResolution_replaceContents = Lens.lens (\ConflictResolution' {replaceContents} -> replaceContents) (\s@ConflictResolution' {} a -> s {replaceContents = a} :: ConflictResolution) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable ConflictResolution
+instance Prelude.Hashable ConflictResolution
 
-instance NFData ConflictResolution
+instance Prelude.NFData ConflictResolution
 
-instance ToJSON ConflictResolution where
+instance Prelude.ToJSON ConflictResolution where
   toJSON ConflictResolution' {..} =
-    object
-      ( catMaybes
-          [ ("deleteFiles" .=) <$> _crDeleteFiles,
-            ("setFileModes" .=) <$> _crSetFileModes,
-            ("replaceContents" .=) <$> _crReplaceContents
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("deleteFiles" Prelude..=) Prelude.<$> deleteFiles,
+            ("setFileModes" Prelude..=) Prelude.<$> setFileModes,
+            ("replaceContents" Prelude..=)
+              Prelude.<$> replaceContents
           ]
       )
