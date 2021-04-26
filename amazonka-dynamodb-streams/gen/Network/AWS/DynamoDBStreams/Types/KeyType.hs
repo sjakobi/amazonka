@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.DynamoDBStreams.Types.KeyType
   ( KeyType
       ( ..,
-        Hash,
-        Range
+        KeyTypeHASH,
+        KeyTypeRANGE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data KeyType = KeyType' (CI Text)
+newtype KeyType = KeyType'
+  { fromKeyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Hash :: KeyType
-pattern Hash = KeyType' "HASH"
+pattern KeyTypeHASH :: KeyType
+pattern KeyTypeHASH = KeyType' "HASH"
 
-pattern Range :: KeyType
-pattern Range = KeyType' "RANGE"
+pattern KeyTypeRANGE :: KeyType
+pattern KeyTypeRANGE = KeyType' "RANGE"
 
 {-# COMPLETE
-  Hash,
-  Range,
+  KeyTypeHASH,
+  KeyTypeRANGE,
   KeyType'
   #-}
 
-instance FromText KeyType where
-  parser = (KeyType' . mk) <$> takeText
+instance Prelude.FromText KeyType where
+  parser = KeyType' Prelude.<$> Prelude.takeText
 
-instance ToText KeyType where
-  toText (KeyType' ci) = original ci
+instance Prelude.ToText KeyType where
+  toText (KeyType' x) = x
 
-instance Hashable KeyType
+instance Prelude.Hashable KeyType
 
-instance NFData KeyType
+instance Prelude.NFData KeyType
 
-instance ToByteString KeyType
+instance Prelude.ToByteString KeyType
 
-instance ToQuery KeyType
+instance Prelude.ToQuery KeyType
 
-instance ToHeader KeyType
+instance Prelude.ToHeader KeyType
 
-instance FromJSON KeyType where
-  parseJSON = parseJSONText "KeyType"
+instance Prelude.FromJSON KeyType where
+  parseJSON = Prelude.parseJSONText "KeyType"

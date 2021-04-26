@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DynamoDBStreams.Types.StreamStatus
   ( StreamStatus
       ( ..,
-        Disabled,
-        Disabling,
-        Enabled,
-        Enabling
+        StreamStatusDISABLED,
+        StreamStatusDISABLING,
+        StreamStatusENABLED,
+        StreamStatusENABLING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StreamStatus = StreamStatus' (CI Text)
+newtype StreamStatus = StreamStatus'
+  { fromStreamStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: StreamStatus
-pattern Disabled = StreamStatus' "DISABLED"
+pattern StreamStatusDISABLED :: StreamStatus
+pattern StreamStatusDISABLED = StreamStatus' "DISABLED"
 
-pattern Disabling :: StreamStatus
-pattern Disabling = StreamStatus' "DISABLING"
+pattern StreamStatusDISABLING :: StreamStatus
+pattern StreamStatusDISABLING = StreamStatus' "DISABLING"
 
-pattern Enabled :: StreamStatus
-pattern Enabled = StreamStatus' "ENABLED"
+pattern StreamStatusENABLED :: StreamStatus
+pattern StreamStatusENABLED = StreamStatus' "ENABLED"
 
-pattern Enabling :: StreamStatus
-pattern Enabling = StreamStatus' "ENABLING"
+pattern StreamStatusENABLING :: StreamStatus
+pattern StreamStatusENABLING = StreamStatus' "ENABLING"
 
 {-# COMPLETE
-  Disabled,
-  Disabling,
-  Enabled,
-  Enabling,
+  StreamStatusDISABLED,
+  StreamStatusDISABLING,
+  StreamStatusENABLED,
+  StreamStatusENABLING,
   StreamStatus'
   #-}
 
-instance FromText StreamStatus where
-  parser = (StreamStatus' . mk) <$> takeText
+instance Prelude.FromText StreamStatus where
+  parser = StreamStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StreamStatus where
-  toText (StreamStatus' ci) = original ci
+instance Prelude.ToText StreamStatus where
+  toText (StreamStatus' x) = x
 
-instance Hashable StreamStatus
+instance Prelude.Hashable StreamStatus
 
-instance NFData StreamStatus
+instance Prelude.NFData StreamStatus
 
-instance ToByteString StreamStatus
+instance Prelude.ToByteString StreamStatus
 
-instance ToQuery StreamStatus
+instance Prelude.ToQuery StreamStatus
 
-instance ToHeader StreamStatus
+instance Prelude.ToHeader StreamStatus
 
-instance FromJSON StreamStatus where
-  parseJSON = parseJSONText "StreamStatus"
+instance Prelude.FromJSON StreamStatus where
+  parseJSON = Prelude.parseJSONText "StreamStatus"

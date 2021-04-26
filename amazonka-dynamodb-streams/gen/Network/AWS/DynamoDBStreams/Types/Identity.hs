@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DynamoDBStreams.Types.Identity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains details about the type of identity that made the request.
 --
---
---
--- /See:/ 'identity' smart constructor.
+-- /See:/ 'newIdentity' smart constructor.
 data Identity = Identity'
-  { _iPrincipalId ::
-      !(Maybe Text),
-    _iType :: !(Maybe Text)
+  { -- | A unique identifier for the entity that made the call. For Time To Live,
+    -- the principalId is \"dynamodb.amazonaws.com\".
+    principalId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the identity. For Time To Live, the type is \"Service\".
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Identity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Identity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iPrincipalId' - A unique identifier for the entity that made the call. For Time To Live, the principalId is "dynamodb.amazonaws.com".
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iType' - The type of the identity. For Time To Live, the type is "Service".
-identity ::
+-- 'principalId', 'identity_principalId' - A unique identifier for the entity that made the call. For Time To Live,
+-- the principalId is \"dynamodb.amazonaws.com\".
+--
+-- 'type'', 'identity_type' - The type of the identity. For Time To Live, the type is \"Service\".
+newIdentity ::
   Identity
-identity =
+newIdentity =
   Identity'
-    { _iPrincipalId = Nothing,
-      _iType = Nothing
+    { principalId = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | A unique identifier for the entity that made the call. For Time To Live, the principalId is "dynamodb.amazonaws.com".
-iPrincipalId :: Lens' Identity (Maybe Text)
-iPrincipalId = lens _iPrincipalId (\s a -> s {_iPrincipalId = a})
+-- | A unique identifier for the entity that made the call. For Time To Live,
+-- the principalId is \"dynamodb.amazonaws.com\".
+identity_principalId :: Lens.Lens' Identity (Prelude.Maybe Prelude.Text)
+identity_principalId = Lens.lens (\Identity' {principalId} -> principalId) (\s@Identity' {} a -> s {principalId = a} :: Identity)
 
--- | The type of the identity. For Time To Live, the type is "Service".
-iType :: Lens' Identity (Maybe Text)
-iType = lens _iType (\s a -> s {_iType = a})
+-- | The type of the identity. For Time To Live, the type is \"Service\".
+identity_type :: Lens.Lens' Identity (Prelude.Maybe Prelude.Text)
+identity_type = Lens.lens (\Identity' {type'} -> type') (\s@Identity' {} a -> s {type' = a} :: Identity)
 
-instance FromJSON Identity where
+instance Prelude.FromJSON Identity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Identity"
       ( \x ->
           Identity'
-            <$> (x .:? "PrincipalId") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "PrincipalId")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable Identity
+instance Prelude.Hashable Identity
 
-instance NFData Identity
+instance Prelude.NFData Identity

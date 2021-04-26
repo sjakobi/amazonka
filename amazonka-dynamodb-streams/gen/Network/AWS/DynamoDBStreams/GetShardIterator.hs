@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,256 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a shard iterator. A shard iterator provides information about how to retrieve the stream records from within a shard. Use the shard iterator in a subsequent @GetRecords@ request to read the stream records from the shard.
+-- Returns a shard iterator. A shard iterator provides information about
+-- how to retrieve the stream records from within a shard. Use the shard
+-- iterator in a subsequent @GetRecords@ request to read the stream records
+-- from the shard.
+--
+-- A shard iterator expires 15 minutes after it is returned to the
+-- requester.
 module Network.AWS.DynamoDBStreams.GetShardIterator
   ( -- * Creating a Request
-    getShardIterator,
-    GetShardIterator,
+    GetShardIterator (..),
+    newGetShardIterator,
 
     -- * Request Lenses
-    gsiSequenceNumber,
-    gsiStreamARN,
-    gsiShardId,
-    gsiShardIteratorType,
+    getShardIterator_sequenceNumber,
+    getShardIterator_streamArn,
+    getShardIterator_shardId,
+    getShardIterator_shardIteratorType,
 
     -- * Destructuring the Response
-    getShardIteratorResponse,
-    GetShardIteratorResponse,
+    GetShardIteratorResponse (..),
+    newGetShardIteratorResponse,
 
     -- * Response Lenses
-    gsirrsShardIterator,
-    gsirrsResponseStatus,
+    getShardIteratorResponse_shardIterator,
+    getShardIteratorResponse_httpStatus,
   )
 where
 
 import Network.AWS.DynamoDBStreams.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @GetShardIterator@ operation.
 --
---
---
--- /See:/ 'getShardIterator' smart constructor.
+-- /See:/ 'newGetShardIterator' smart constructor.
 data GetShardIterator = GetShardIterator'
-  { _gsiSequenceNumber ::
-      !(Maybe Text),
-    _gsiStreamARN :: !Text,
-    _gsiShardId :: !Text,
-    _gsiShardIteratorType ::
-      !ShardIteratorType
+  { -- | The sequence number of a stream record in the shard from which to start
+    -- reading.
+    sequenceNumber :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the stream.
+    streamArn :: Prelude.Text,
+    -- | The identifier of the shard. The iterator will be returned for this
+    -- shard ID.
+    shardId :: Prelude.Text,
+    -- | Determines how the shard iterator is used to start reading stream
+    -- records from the shard:
+    --
+    -- -   @AT_SEQUENCE_NUMBER@ - Start reading exactly from the position
+    --     denoted by a specific sequence number.
+    --
+    -- -   @AFTER_SEQUENCE_NUMBER@ - Start reading right after the position
+    --     denoted by a specific sequence number.
+    --
+    -- -   @TRIM_HORIZON@ - Start reading at the last (untrimmed) stream
+    --     record, which is the oldest record in the shard. In DynamoDB
+    --     Streams, there is a 24 hour limit on data retention. Stream records
+    --     whose age exceeds this limit are subject to removal (trimming) from
+    --     the stream.
+    --
+    -- -   @LATEST@ - Start reading just after the most recent stream record in
+    --     the shard, so that you always read the most recent data in the
+    --     shard.
+    shardIteratorType :: ShardIteratorType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetShardIterator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetShardIterator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsiSequenceNumber' - The sequence number of a stream record in the shard from which to start reading.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsiStreamARN' - The Amazon Resource Name (ARN) for the stream.
+-- 'sequenceNumber', 'getShardIterator_sequenceNumber' - The sequence number of a stream record in the shard from which to start
+-- reading.
 --
--- * 'gsiShardId' - The identifier of the shard. The iterator will be returned for this shard ID.
+-- 'streamArn', 'getShardIterator_streamArn' - The Amazon Resource Name (ARN) for the stream.
 --
--- * 'gsiShardIteratorType' - Determines how the shard iterator is used to start reading stream records from the shard:     * @AT_SEQUENCE_NUMBER@ - Start reading exactly from the position denoted by a specific sequence number.     * @AFTER_SEQUENCE_NUMBER@ - Start reading right after the position denoted by a specific sequence number.     * @TRIM_HORIZON@ - Start reading at the last (untrimmed) stream record, which is the oldest record in the shard. In DynamoDB Streams, there is a 24 hour limit on data retention. Stream records whose age exceeds this limit are subject to removal (trimming) from the stream.     * @LATEST@ - Start reading just after the most recent stream record in the shard, so that you always read the most recent data in the shard.
-getShardIterator ::
-  -- | 'gsiStreamARN'
-  Text ->
-  -- | 'gsiShardId'
-  Text ->
-  -- | 'gsiShardIteratorType'
+-- 'shardId', 'getShardIterator_shardId' - The identifier of the shard. The iterator will be returned for this
+-- shard ID.
+--
+-- 'shardIteratorType', 'getShardIterator_shardIteratorType' - Determines how the shard iterator is used to start reading stream
+-- records from the shard:
+--
+-- -   @AT_SEQUENCE_NUMBER@ - Start reading exactly from the position
+--     denoted by a specific sequence number.
+--
+-- -   @AFTER_SEQUENCE_NUMBER@ - Start reading right after the position
+--     denoted by a specific sequence number.
+--
+-- -   @TRIM_HORIZON@ - Start reading at the last (untrimmed) stream
+--     record, which is the oldest record in the shard. In DynamoDB
+--     Streams, there is a 24 hour limit on data retention. Stream records
+--     whose age exceeds this limit are subject to removal (trimming) from
+--     the stream.
+--
+-- -   @LATEST@ - Start reading just after the most recent stream record in
+--     the shard, so that you always read the most recent data in the
+--     shard.
+newGetShardIterator ::
+  -- | 'streamArn'
+  Prelude.Text ->
+  -- | 'shardId'
+  Prelude.Text ->
+  -- | 'shardIteratorType'
   ShardIteratorType ->
   GetShardIterator
-getShardIterator
-  pStreamARN_
+newGetShardIterator
+  pStreamArn_
   pShardId_
   pShardIteratorType_ =
     GetShardIterator'
-      { _gsiSequenceNumber = Nothing,
-        _gsiStreamARN = pStreamARN_,
-        _gsiShardId = pShardId_,
-        _gsiShardIteratorType = pShardIteratorType_
+      { sequenceNumber = Prelude.Nothing,
+        streamArn = pStreamArn_,
+        shardId = pShardId_,
+        shardIteratorType = pShardIteratorType_
       }
 
--- | The sequence number of a stream record in the shard from which to start reading.
-gsiSequenceNumber :: Lens' GetShardIterator (Maybe Text)
-gsiSequenceNumber = lens _gsiSequenceNumber (\s a -> s {_gsiSequenceNumber = a})
+-- | The sequence number of a stream record in the shard from which to start
+-- reading.
+getShardIterator_sequenceNumber :: Lens.Lens' GetShardIterator (Prelude.Maybe Prelude.Text)
+getShardIterator_sequenceNumber = Lens.lens (\GetShardIterator' {sequenceNumber} -> sequenceNumber) (\s@GetShardIterator' {} a -> s {sequenceNumber = a} :: GetShardIterator)
 
 -- | The Amazon Resource Name (ARN) for the stream.
-gsiStreamARN :: Lens' GetShardIterator Text
-gsiStreamARN = lens _gsiStreamARN (\s a -> s {_gsiStreamARN = a})
+getShardIterator_streamArn :: Lens.Lens' GetShardIterator Prelude.Text
+getShardIterator_streamArn = Lens.lens (\GetShardIterator' {streamArn} -> streamArn) (\s@GetShardIterator' {} a -> s {streamArn = a} :: GetShardIterator)
 
--- | The identifier of the shard. The iterator will be returned for this shard ID.
-gsiShardId :: Lens' GetShardIterator Text
-gsiShardId = lens _gsiShardId (\s a -> s {_gsiShardId = a})
+-- | The identifier of the shard. The iterator will be returned for this
+-- shard ID.
+getShardIterator_shardId :: Lens.Lens' GetShardIterator Prelude.Text
+getShardIterator_shardId = Lens.lens (\GetShardIterator' {shardId} -> shardId) (\s@GetShardIterator' {} a -> s {shardId = a} :: GetShardIterator)
 
--- | Determines how the shard iterator is used to start reading stream records from the shard:     * @AT_SEQUENCE_NUMBER@ - Start reading exactly from the position denoted by a specific sequence number.     * @AFTER_SEQUENCE_NUMBER@ - Start reading right after the position denoted by a specific sequence number.     * @TRIM_HORIZON@ - Start reading at the last (untrimmed) stream record, which is the oldest record in the shard. In DynamoDB Streams, there is a 24 hour limit on data retention. Stream records whose age exceeds this limit are subject to removal (trimming) from the stream.     * @LATEST@ - Start reading just after the most recent stream record in the shard, so that you always read the most recent data in the shard.
-gsiShardIteratorType :: Lens' GetShardIterator ShardIteratorType
-gsiShardIteratorType = lens _gsiShardIteratorType (\s a -> s {_gsiShardIteratorType = a})
+-- | Determines how the shard iterator is used to start reading stream
+-- records from the shard:
+--
+-- -   @AT_SEQUENCE_NUMBER@ - Start reading exactly from the position
+--     denoted by a specific sequence number.
+--
+-- -   @AFTER_SEQUENCE_NUMBER@ - Start reading right after the position
+--     denoted by a specific sequence number.
+--
+-- -   @TRIM_HORIZON@ - Start reading at the last (untrimmed) stream
+--     record, which is the oldest record in the shard. In DynamoDB
+--     Streams, there is a 24 hour limit on data retention. Stream records
+--     whose age exceeds this limit are subject to removal (trimming) from
+--     the stream.
+--
+-- -   @LATEST@ - Start reading just after the most recent stream record in
+--     the shard, so that you always read the most recent data in the
+--     shard.
+getShardIterator_shardIteratorType :: Lens.Lens' GetShardIterator ShardIteratorType
+getShardIterator_shardIteratorType = Lens.lens (\GetShardIterator' {shardIteratorType} -> shardIteratorType) (\s@GetShardIterator' {} a -> s {shardIteratorType = a} :: GetShardIterator)
 
-instance AWSRequest GetShardIterator where
+instance Prelude.AWSRequest GetShardIterator where
   type Rs GetShardIterator = GetShardIteratorResponse
-  request = postJSON dynamoDBStreams
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetShardIteratorResponse'
-            <$> (x .?> "ShardIterator") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ShardIterator")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetShardIterator
+instance Prelude.Hashable GetShardIterator
 
-instance NFData GetShardIterator
+instance Prelude.NFData GetShardIterator
 
-instance ToHeaders GetShardIterator where
+instance Prelude.ToHeaders GetShardIterator where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DynamoDBStreams_20120810.GetShardIterator" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DynamoDBStreams_20120810.GetShardIterator" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetShardIterator where
+instance Prelude.ToJSON GetShardIterator where
   toJSON GetShardIterator' {..} =
-    object
-      ( catMaybes
-          [ ("SequenceNumber" .=) <$> _gsiSequenceNumber,
-            Just ("StreamArn" .= _gsiStreamARN),
-            Just ("ShardId" .= _gsiShardId),
-            Just ("ShardIteratorType" .= _gsiShardIteratorType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SequenceNumber" Prelude..=)
+              Prelude.<$> sequenceNumber,
+            Prelude.Just ("StreamArn" Prelude..= streamArn),
+            Prelude.Just ("ShardId" Prelude..= shardId),
+            Prelude.Just
+              ("ShardIteratorType" Prelude..= shardIteratorType)
           ]
       )
 
-instance ToPath GetShardIterator where
-  toPath = const "/"
+instance Prelude.ToPath GetShardIterator where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetShardIterator where
-  toQuery = const mempty
+instance Prelude.ToQuery GetShardIterator where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetShardIterator@ operation.
 --
---
---
--- /See:/ 'getShardIteratorResponse' smart constructor.
+-- /See:/ 'newGetShardIteratorResponse' smart constructor.
 data GetShardIteratorResponse = GetShardIteratorResponse'
-  { _gsirrsShardIterator ::
-      !(Maybe Text),
-    _gsirrsResponseStatus ::
-      !Int
+  { -- | The position in the shard from which to start reading stream records
+    -- sequentially. A shard iterator specifies this position using the
+    -- sequence number of a stream record in a shard.
+    shardIterator :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetShardIteratorResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetShardIteratorResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsirrsShardIterator' - The position in the shard from which to start reading stream records sequentially. A shard iterator specifies this position using the sequence number of a stream record in a shard.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsirrsResponseStatus' - -- | The response status code.
-getShardIteratorResponse ::
-  -- | 'gsirrsResponseStatus'
-  Int ->
+-- 'shardIterator', 'getShardIteratorResponse_shardIterator' - The position in the shard from which to start reading stream records
+-- sequentially. A shard iterator specifies this position using the
+-- sequence number of a stream record in a shard.
+--
+-- 'httpStatus', 'getShardIteratorResponse_httpStatus' - The response's http status code.
+newGetShardIteratorResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetShardIteratorResponse
-getShardIteratorResponse pResponseStatus_ =
+newGetShardIteratorResponse pHttpStatus_ =
   GetShardIteratorResponse'
-    { _gsirrsShardIterator =
-        Nothing,
-      _gsirrsResponseStatus = pResponseStatus_
+    { shardIterator =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The position in the shard from which to start reading stream records sequentially. A shard iterator specifies this position using the sequence number of a stream record in a shard.
-gsirrsShardIterator :: Lens' GetShardIteratorResponse (Maybe Text)
-gsirrsShardIterator = lens _gsirrsShardIterator (\s a -> s {_gsirrsShardIterator = a})
+-- | The position in the shard from which to start reading stream records
+-- sequentially. A shard iterator specifies this position using the
+-- sequence number of a stream record in a shard.
+getShardIteratorResponse_shardIterator :: Lens.Lens' GetShardIteratorResponse (Prelude.Maybe Prelude.Text)
+getShardIteratorResponse_shardIterator = Lens.lens (\GetShardIteratorResponse' {shardIterator} -> shardIterator) (\s@GetShardIteratorResponse' {} a -> s {shardIterator = a} :: GetShardIteratorResponse)
 
--- | -- | The response status code.
-gsirrsResponseStatus :: Lens' GetShardIteratorResponse Int
-gsirrsResponseStatus = lens _gsirrsResponseStatus (\s a -> s {_gsirrsResponseStatus = a})
+-- | The response's http status code.
+getShardIteratorResponse_httpStatus :: Lens.Lens' GetShardIteratorResponse Prelude.Int
+getShardIteratorResponse_httpStatus = Lens.lens (\GetShardIteratorResponse' {httpStatus} -> httpStatus) (\s@GetShardIteratorResponse' {} a -> s {httpStatus = a} :: GetShardIteratorResponse)
 
-instance NFData GetShardIteratorResponse
+instance Prelude.NFData GetShardIteratorResponse

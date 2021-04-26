@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DynamoDBStreams.Types
   ( -- * Service Configuration
-    dynamoDBStreams,
+    defaultService,
 
     -- * Errors
     _TrimmedDataAccessException,
@@ -37,84 +40,39 @@ module Network.AWS.DynamoDBStreams.Types
 
     -- * AttributeValue
     AttributeValue (..),
-    attributeValue,
-    avBS,
-    avBOOL,
-    avN,
-    avS,
-    avNULL,
-    avM,
-    avB,
-    avL,
-    avSS,
-    avNS,
+    newAttributeValue,
 
     -- * Identity
     Identity (..),
-    identity,
-    iPrincipalId,
-    iType,
+    newIdentity,
 
     -- * KeySchemaElement
     KeySchemaElement (..),
-    keySchemaElement,
-    kseAttributeName,
-    kseKeyType,
+    newKeySchemaElement,
 
     -- * Record
     Record (..),
-    record,
-    rUserIdentity,
-    rEventId,
-    rEventSource,
-    rEventName,
-    rEventVersion,
-    rDynamodb,
-    rAwsRegion,
+    newRecord,
 
     -- * SequenceNumberRange
     SequenceNumberRange (..),
-    sequenceNumberRange,
-    snrStartingSequenceNumber,
-    snrEndingSequenceNumber,
+    newSequenceNumberRange,
 
     -- * Shard
     Shard (..),
-    shard,
-    sShardId,
-    sSequenceNumberRange,
-    sParentShardId,
+    newShard,
 
     -- * Stream
     Stream (..),
-    stream,
-    sTableName,
-    sStreamARN,
-    sStreamLabel,
+    newStream,
 
     -- * StreamDescription
     StreamDescription (..),
-    streamDescription,
-    sdLastEvaluatedShardId,
-    sdStreamViewType,
-    sdTableName,
-    sdCreationRequestDateTime,
-    sdKeySchema,
-    sdStreamStatus,
-    sdShards,
-    sdStreamARN,
-    sdStreamLabel,
+    newStreamDescription,
 
     -- * StreamRecord
     StreamRecord (..),
-    streamRecord,
-    srSequenceNumber,
-    srStreamViewType,
-    srKeys,
-    srSizeBytes,
-    srNewImage,
-    srOldImage,
-    srApproximateCreationDateTime,
+    newStreamRecord,
   )
 where
 
@@ -132,106 +90,141 @@ import Network.AWS.DynamoDBStreams.Types.StreamDescription
 import Network.AWS.DynamoDBStreams.Types.StreamRecord
 import Network.AWS.DynamoDBStreams.Types.StreamStatus
 import Network.AWS.DynamoDBStreams.Types.StreamViewType
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2012-08-10@ of the Amazon DynamoDB Streams SDK configuration.
-dynamoDBStreams :: Service
-dynamoDBStreams =
-  Service
-    { _svcAbbrev = "DynamoDBStreams",
-      _svcSigner = v4,
-      _svcPrefix = "streams.dynamodb",
-      _svcVersion = "2012-08-10",
-      _svcEndpoint = defaultEndpoint dynamoDBStreams,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "DynamoDBStreams",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "DynamoDBStreams",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "streams.dynamodb",
+      Prelude._svcVersion = "2012-08-10",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "DynamoDBStreams",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The operation attempted to read past the oldest stream record in a shard.
+-- | The operation attempted to read past the oldest stream record in a
+-- shard.
 --
+-- In DynamoDB Streams, there is a 24 hour limit on data retention. Stream
+-- records whose age exceeds this limit are subject to removal (trimming)
+-- from the stream. You might receive a TrimmedDataAccessException if:
 --
--- In DynamoDB Streams, there is a 24 hour limit on data retention. Stream records whose age exceeds this limit are subject to removal (trimming) from the stream. You might receive a TrimmedDataAccessException if:
+-- -   You request a shard iterator with a sequence number older than the
+--     trim point (24 hours).
 --
---     * You request a shard iterator with a sequence number older than the trim point (24 hours).
---
---     * You obtain a shard iterator, but before you use the iterator in a @GetRecords@ request, a stream record in the shard exceeds the 24 hour period and is trimmed. This causes the iterator to access a record that no longer exists.
-_TrimmedDataAccessException :: AsError a => Getting (First ServiceError) a ServiceError
+-- -   You obtain a shard iterator, but before you use the iterator in a
+--     @GetRecords@ request, a stream record in the shard exceeds the 24
+--     hour period and is trimmed. This causes the iterator to access a
+--     record that no longer exists.
+_TrimmedDataAccessException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TrimmedDataAccessException =
-  _MatchServiceError
-    dynamoDBStreams
+  Prelude._MatchServiceError
+    defaultService
     "TrimmedDataAccessException"
 
--- | The shard iterator has expired and can no longer be used to retrieve stream records. A shard iterator expires 15 minutes after it is retrieved using the @GetShardIterator@ action.
-_ExpiredIteratorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The shard iterator has expired and can no longer be used to retrieve
+-- stream records. A shard iterator expires 15 minutes after it is
+-- retrieved using the @GetShardIterator@ action.
+_ExpiredIteratorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ExpiredIteratorException =
-  _MatchServiceError
-    dynamoDBStreams
+  Prelude._MatchServiceError
+    defaultService
     "ExpiredIteratorException"
 
 -- | An error occurred on the server side.
-_InternalServerError :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalServerError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerError =
-  _MatchServiceError
-    dynamoDBStreams
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerError"
 
--- | There is no limit to the number of daily on-demand backups that can be taken.
+-- | There is no limit to the number of daily on-demand backups that can be
+-- taken.
 --
+-- Up to 50 simultaneous table operations are allowed per account. These
+-- operations include @CreateTable@, @UpdateTable@,
+-- @DeleteTable@,@UpdateTimeToLive@, @RestoreTableFromBackup@, and
+-- @RestoreTableToPointInTime@.
 --
--- Up to 50 simultaneous table operations are allowed per account. These operations include @CreateTable@ , @UpdateTable@ , @DeleteTable@ ,@UpdateTimeToLive@ , @RestoreTableFromBackup@ , and @RestoreTableToPointInTime@ .
---
--- The only exception is when you are creating a table with one or more secondary indexes. You can have up to 25 such requests running at a time; however, if the table or index specifications are complex, DynamoDB might temporarily reduce the number of concurrent operations.
+-- The only exception is when you are creating a table with one or more
+-- secondary indexes. You can have up to 25 such requests running at a
+-- time; however, if the table or index specifications are complex,
+-- DynamoDB might temporarily reduce the number of concurrent operations.
 --
 -- There is a soft account quota of 256 tables.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    dynamoDBStreams
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | The operation tried to access a nonexistent table or index. The resource might not be specified correctly, or its status might not be @ACTIVE@ .
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The operation tried to access a nonexistent table or index. The resource
+-- might not be specified correctly, or its status might not be @ACTIVE@.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    dynamoDBStreams
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"

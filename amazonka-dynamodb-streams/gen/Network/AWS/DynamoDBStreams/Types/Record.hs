@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,99 +22,182 @@ module Network.AWS.DynamoDBStreams.Types.Record where
 import Network.AWS.DynamoDBStreams.Types.Identity
 import Network.AWS.DynamoDBStreams.Types.OperationType
 import Network.AWS.DynamoDBStreams.Types.StreamRecord
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A description of a unique event within a stream.
 --
---
---
--- /See:/ 'record' smart constructor.
+-- /See:/ 'newRecord' smart constructor.
 data Record = Record'
-  { _rUserIdentity ::
-      !(Maybe Identity),
-    _rEventId :: !(Maybe Text),
-    _rEventSource :: !(Maybe Text),
-    _rEventName :: !(Maybe OperationType),
-    _rEventVersion :: !(Maybe Text),
-    _rDynamodb :: !(Maybe StreamRecord),
-    _rAwsRegion :: !(Maybe Text)
+  { -- | Items that are deleted by the Time to Live process after expiration have
+    -- the following fields:
+    --
+    -- -   Records[].userIdentity.type
+    --
+    --     \"Service\"
+    --
+    -- -   Records[].userIdentity.principalId
+    --
+    --     \"dynamodb.amazonaws.com\"
+    userIdentity :: Prelude.Maybe Identity,
+    -- | A globally unique identifier for the event that was recorded in this
+    -- stream record.
+    eventID :: Prelude.Maybe Prelude.Text,
+    -- | The AWS service from which the stream record originated. For DynamoDB
+    -- Streams, this is @aws:dynamodb@.
+    eventSource :: Prelude.Maybe Prelude.Text,
+    -- | The type of data modification that was performed on the DynamoDB table:
+    --
+    -- -   @INSERT@ - a new item was added to the table.
+    --
+    -- -   @MODIFY@ - one or more of an existing item\'s attributes were
+    --     modified.
+    --
+    -- -   @REMOVE@ - the item was deleted from the table
+    eventName :: Prelude.Maybe OperationType,
+    -- | The version number of the stream record format. This number is updated
+    -- whenever the structure of @Record@ is modified.
+    --
+    -- Client applications must not assume that @eventVersion@ will remain at a
+    -- particular value, as this number is subject to change at any time. In
+    -- general, @eventVersion@ will only increase as the low-level DynamoDB
+    -- Streams API evolves.
+    eventVersion :: Prelude.Maybe Prelude.Text,
+    -- | The main body of the stream record, containing all of the
+    -- DynamoDB-specific fields.
+    dynamodb :: Prelude.Maybe StreamRecord,
+    -- | The region in which the @GetRecords@ request was received.
+    awsRegion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Record' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Record' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rUserIdentity' - Items that are deleted by the Time to Live process after expiration have the following fields:      * Records[].userIdentity.type "Service"     * Records[].userIdentity.principalId "dynamodb.amazonaws.com"
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rEventId' - A globally unique identifier for the event that was recorded in this stream record.
+-- 'userIdentity', 'record_userIdentity' - Items that are deleted by the Time to Live process after expiration have
+-- the following fields:
 --
--- * 'rEventSource' - The AWS service from which the stream record originated. For DynamoDB Streams, this is @aws:dynamodb@ .
+-- -   Records[].userIdentity.type
 --
--- * 'rEventName' - The type of data modification that was performed on the DynamoDB table:     * @INSERT@ - a new item was added to the table.     * @MODIFY@ - one or more of an existing item's attributes were modified.     * @REMOVE@ - the item was deleted from the table
+--     \"Service\"
 --
--- * 'rEventVersion' - The version number of the stream record format. This number is updated whenever the structure of @Record@ is modified. Client applications must not assume that @eventVersion@ will remain at a particular value, as this number is subject to change at any time. In general, @eventVersion@ will only increase as the low-level DynamoDB Streams API evolves.
+-- -   Records[].userIdentity.principalId
 --
--- * 'rDynamodb' - The main body of the stream record, containing all of the DynamoDB-specific fields.
+--     \"dynamodb.amazonaws.com\"
 --
--- * 'rAwsRegion' - The region in which the @GetRecords@ request was received.
-record ::
+-- 'eventID', 'record_eventID' - A globally unique identifier for the event that was recorded in this
+-- stream record.
+--
+-- 'eventSource', 'record_eventSource' - The AWS service from which the stream record originated. For DynamoDB
+-- Streams, this is @aws:dynamodb@.
+--
+-- 'eventName', 'record_eventName' - The type of data modification that was performed on the DynamoDB table:
+--
+-- -   @INSERT@ - a new item was added to the table.
+--
+-- -   @MODIFY@ - one or more of an existing item\'s attributes were
+--     modified.
+--
+-- -   @REMOVE@ - the item was deleted from the table
+--
+-- 'eventVersion', 'record_eventVersion' - The version number of the stream record format. This number is updated
+-- whenever the structure of @Record@ is modified.
+--
+-- Client applications must not assume that @eventVersion@ will remain at a
+-- particular value, as this number is subject to change at any time. In
+-- general, @eventVersion@ will only increase as the low-level DynamoDB
+-- Streams API evolves.
+--
+-- 'dynamodb', 'record_dynamodb' - The main body of the stream record, containing all of the
+-- DynamoDB-specific fields.
+--
+-- 'awsRegion', 'record_awsRegion' - The region in which the @GetRecords@ request was received.
+newRecord ::
   Record
-record =
+newRecord =
   Record'
-    { _rUserIdentity = Nothing,
-      _rEventId = Nothing,
-      _rEventSource = Nothing,
-      _rEventName = Nothing,
-      _rEventVersion = Nothing,
-      _rDynamodb = Nothing,
-      _rAwsRegion = Nothing
+    { userIdentity = Prelude.Nothing,
+      eventID = Prelude.Nothing,
+      eventSource = Prelude.Nothing,
+      eventName = Prelude.Nothing,
+      eventVersion = Prelude.Nothing,
+      dynamodb = Prelude.Nothing,
+      awsRegion = Prelude.Nothing
     }
 
--- | Items that are deleted by the Time to Live process after expiration have the following fields:      * Records[].userIdentity.type "Service"     * Records[].userIdentity.principalId "dynamodb.amazonaws.com"
-rUserIdentity :: Lens' Record (Maybe Identity)
-rUserIdentity = lens _rUserIdentity (\s a -> s {_rUserIdentity = a})
+-- | Items that are deleted by the Time to Live process after expiration have
+-- the following fields:
+--
+-- -   Records[].userIdentity.type
+--
+--     \"Service\"
+--
+-- -   Records[].userIdentity.principalId
+--
+--     \"dynamodb.amazonaws.com\"
+record_userIdentity :: Lens.Lens' Record (Prelude.Maybe Identity)
+record_userIdentity = Lens.lens (\Record' {userIdentity} -> userIdentity) (\s@Record' {} a -> s {userIdentity = a} :: Record)
 
--- | A globally unique identifier for the event that was recorded in this stream record.
-rEventId :: Lens' Record (Maybe Text)
-rEventId = lens _rEventId (\s a -> s {_rEventId = a})
+-- | A globally unique identifier for the event that was recorded in this
+-- stream record.
+record_eventID :: Lens.Lens' Record (Prelude.Maybe Prelude.Text)
+record_eventID = Lens.lens (\Record' {eventID} -> eventID) (\s@Record' {} a -> s {eventID = a} :: Record)
 
--- | The AWS service from which the stream record originated. For DynamoDB Streams, this is @aws:dynamodb@ .
-rEventSource :: Lens' Record (Maybe Text)
-rEventSource = lens _rEventSource (\s a -> s {_rEventSource = a})
+-- | The AWS service from which the stream record originated. For DynamoDB
+-- Streams, this is @aws:dynamodb@.
+record_eventSource :: Lens.Lens' Record (Prelude.Maybe Prelude.Text)
+record_eventSource = Lens.lens (\Record' {eventSource} -> eventSource) (\s@Record' {} a -> s {eventSource = a} :: Record)
 
--- | The type of data modification that was performed on the DynamoDB table:     * @INSERT@ - a new item was added to the table.     * @MODIFY@ - one or more of an existing item's attributes were modified.     * @REMOVE@ - the item was deleted from the table
-rEventName :: Lens' Record (Maybe OperationType)
-rEventName = lens _rEventName (\s a -> s {_rEventName = a})
+-- | The type of data modification that was performed on the DynamoDB table:
+--
+-- -   @INSERT@ - a new item was added to the table.
+--
+-- -   @MODIFY@ - one or more of an existing item\'s attributes were
+--     modified.
+--
+-- -   @REMOVE@ - the item was deleted from the table
+record_eventName :: Lens.Lens' Record (Prelude.Maybe OperationType)
+record_eventName = Lens.lens (\Record' {eventName} -> eventName) (\s@Record' {} a -> s {eventName = a} :: Record)
 
--- | The version number of the stream record format. This number is updated whenever the structure of @Record@ is modified. Client applications must not assume that @eventVersion@ will remain at a particular value, as this number is subject to change at any time. In general, @eventVersion@ will only increase as the low-level DynamoDB Streams API evolves.
-rEventVersion :: Lens' Record (Maybe Text)
-rEventVersion = lens _rEventVersion (\s a -> s {_rEventVersion = a})
+-- | The version number of the stream record format. This number is updated
+-- whenever the structure of @Record@ is modified.
+--
+-- Client applications must not assume that @eventVersion@ will remain at a
+-- particular value, as this number is subject to change at any time. In
+-- general, @eventVersion@ will only increase as the low-level DynamoDB
+-- Streams API evolves.
+record_eventVersion :: Lens.Lens' Record (Prelude.Maybe Prelude.Text)
+record_eventVersion = Lens.lens (\Record' {eventVersion} -> eventVersion) (\s@Record' {} a -> s {eventVersion = a} :: Record)
 
--- | The main body of the stream record, containing all of the DynamoDB-specific fields.
-rDynamodb :: Lens' Record (Maybe StreamRecord)
-rDynamodb = lens _rDynamodb (\s a -> s {_rDynamodb = a})
+-- | The main body of the stream record, containing all of the
+-- DynamoDB-specific fields.
+record_dynamodb :: Lens.Lens' Record (Prelude.Maybe StreamRecord)
+record_dynamodb = Lens.lens (\Record' {dynamodb} -> dynamodb) (\s@Record' {} a -> s {dynamodb = a} :: Record)
 
 -- | The region in which the @GetRecords@ request was received.
-rAwsRegion :: Lens' Record (Maybe Text)
-rAwsRegion = lens _rAwsRegion (\s a -> s {_rAwsRegion = a})
+record_awsRegion :: Lens.Lens' Record (Prelude.Maybe Prelude.Text)
+record_awsRegion = Lens.lens (\Record' {awsRegion} -> awsRegion) (\s@Record' {} a -> s {awsRegion = a} :: Record)
 
-instance FromJSON Record where
+instance Prelude.FromJSON Record where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Record"
       ( \x ->
           Record'
-            <$> (x .:? "userIdentity")
-            <*> (x .:? "eventID")
-            <*> (x .:? "eventSource")
-            <*> (x .:? "eventName")
-            <*> (x .:? "eventVersion")
-            <*> (x .:? "dynamodb")
-            <*> (x .:? "awsRegion")
+            Prelude.<$> (x Prelude..:? "userIdentity")
+            Prelude.<*> (x Prelude..:? "eventID")
+            Prelude.<*> (x Prelude..:? "eventSource")
+            Prelude.<*> (x Prelude..:? "eventName")
+            Prelude.<*> (x Prelude..:? "eventVersion")
+            Prelude.<*> (x Prelude..:? "dynamodb")
+            Prelude.<*> (x Prelude..:? "awsRegion")
       )
 
-instance Hashable Record
+instance Prelude.Hashable Record
 
-instance NFData Record
+instance Prelude.NFData Record

@@ -11,12 +11,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon DynamoDB__
+-- Amazon DynamoDB
 --
--- Amazon DynamoDB Streams provides API actions for accessing streams and processing stream records. To learn more about application development with Streams, see <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html Capturing Table Activity with DynamoDB Streams> in the Amazon DynamoDB Developer Guide.
+-- Amazon DynamoDB Streams provides API actions for accessing streams and
+-- processing stream records. To learn more about application development
+-- with Streams, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html Capturing Table Activity with DynamoDB Streams>
+-- in the Amazon DynamoDB Developer Guide.
 module Network.AWS.DynamoDBStreams
   ( -- * Service Configuration
-    dynamoDBStreams,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -43,16 +47,28 @@ module Network.AWS.DynamoDBStreams
     -- $operations
 
     -- ** GetRecords
-    module Network.AWS.DynamoDBStreams.GetRecords,
+    GetRecords (GetRecords'),
+    newGetRecords,
+    GetRecordsResponse (GetRecordsResponse'),
+    newGetRecordsResponse,
 
     -- ** GetShardIterator
-    module Network.AWS.DynamoDBStreams.GetShardIterator,
+    GetShardIterator (GetShardIterator'),
+    newGetShardIterator,
+    GetShardIteratorResponse (GetShardIteratorResponse'),
+    newGetShardIteratorResponse,
 
     -- ** DescribeStream
-    module Network.AWS.DynamoDBStreams.DescribeStream,
+    DescribeStream (DescribeStream'),
+    newDescribeStream,
+    DescribeStreamResponse (DescribeStreamResponse'),
+    newDescribeStreamResponse,
 
     -- ** ListStreams
-    module Network.AWS.DynamoDBStreams.ListStreams,
+    ListStreams (ListStreams'),
+    newListStreams,
+    ListStreamsResponse (ListStreamsResponse'),
+    newListStreamsResponse,
 
     -- * Types
 
@@ -72,91 +88,47 @@ module Network.AWS.DynamoDBStreams
     StreamViewType (..),
 
     -- ** AttributeValue
-    AttributeValue,
-    attributeValue,
-    avBS,
-    avBOOL,
-    avN,
-    avS,
-    avNULL,
-    avM,
-    avB,
-    avL,
-    avSS,
-    avNS,
+    AttributeValue (AttributeValue'),
+    newAttributeValue,
 
     -- ** Identity
-    Identity,
-    identity,
-    iPrincipalId,
-    iType,
+    Identity (Identity'),
+    newIdentity,
 
     -- ** KeySchemaElement
-    KeySchemaElement,
-    keySchemaElement,
-    kseAttributeName,
-    kseKeyType,
+    KeySchemaElement (KeySchemaElement'),
+    newKeySchemaElement,
 
     -- ** Record
-    Record,
-    record,
-    rUserIdentity,
-    rEventId,
-    rEventSource,
-    rEventName,
-    rEventVersion,
-    rDynamodb,
-    rAwsRegion,
+    Record (Record'),
+    newRecord,
 
     -- ** SequenceNumberRange
-    SequenceNumberRange,
-    sequenceNumberRange,
-    snrStartingSequenceNumber,
-    snrEndingSequenceNumber,
+    SequenceNumberRange (SequenceNumberRange'),
+    newSequenceNumberRange,
 
     -- ** Shard
-    Shard,
-    shard,
-    sShardId,
-    sSequenceNumberRange,
-    sParentShardId,
+    Shard (Shard'),
+    newShard,
 
     -- ** Stream
-    Stream,
-    stream,
-    sTableName,
-    sStreamARN,
-    sStreamLabel,
+    Stream (Stream'),
+    newStream,
 
     -- ** StreamDescription
-    StreamDescription,
-    streamDescription,
-    sdLastEvaluatedShardId,
-    sdStreamViewType,
-    sdTableName,
-    sdCreationRequestDateTime,
-    sdKeySchema,
-    sdStreamStatus,
-    sdShards,
-    sdStreamARN,
-    sdStreamLabel,
+    StreamDescription (StreamDescription'),
+    newStreamDescription,
 
     -- ** StreamRecord
-    StreamRecord,
-    streamRecord,
-    srSequenceNumber,
-    srStreamViewType,
-    srKeys,
-    srSizeBytes,
-    srNewImage,
-    srOldImage,
-    srApproximateCreationDateTime,
+    StreamRecord (StreamRecord'),
+    newStreamRecord,
   )
 where
 
 import Network.AWS.DynamoDBStreams.DescribeStream
 import Network.AWS.DynamoDBStreams.GetRecords
 import Network.AWS.DynamoDBStreams.GetShardIterator
+import Network.AWS.DynamoDBStreams.Lens
 import Network.AWS.DynamoDBStreams.ListStreams
 import Network.AWS.DynamoDBStreams.Types
 import Network.AWS.DynamoDBStreams.Waiters

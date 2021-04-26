@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.DynamoDBStreams.Types.OperationType
   ( OperationType
       ( ..,
-        Insert,
-        Modify,
-        Remove
+        OperationTypeINSERT,
+        OperationTypeMODIFY,
+        OperationTypeREMOVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationType = OperationType' (CI Text)
+newtype OperationType = OperationType'
+  { fromOperationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Insert :: OperationType
-pattern Insert = OperationType' "INSERT"
+pattern OperationTypeINSERT :: OperationType
+pattern OperationTypeINSERT = OperationType' "INSERT"
 
-pattern Modify :: OperationType
-pattern Modify = OperationType' "MODIFY"
+pattern OperationTypeMODIFY :: OperationType
+pattern OperationTypeMODIFY = OperationType' "MODIFY"
 
-pattern Remove :: OperationType
-pattern Remove = OperationType' "REMOVE"
+pattern OperationTypeREMOVE :: OperationType
+pattern OperationTypeREMOVE = OperationType' "REMOVE"
 
 {-# COMPLETE
-  Insert,
-  Modify,
-  Remove,
+  OperationTypeINSERT,
+  OperationTypeMODIFY,
+  OperationTypeREMOVE,
   OperationType'
   #-}
 
-instance FromText OperationType where
-  parser = (OperationType' . mk) <$> takeText
+instance Prelude.FromText OperationType where
+  parser = OperationType' Prelude.<$> Prelude.takeText
 
-instance ToText OperationType where
-  toText (OperationType' ci) = original ci
+instance Prelude.ToText OperationType where
+  toText (OperationType' x) = x
 
-instance Hashable OperationType
+instance Prelude.Hashable OperationType
 
-instance NFData OperationType
+instance Prelude.NFData OperationType
 
-instance ToByteString OperationType
+instance Prelude.ToByteString OperationType
 
-instance ToQuery OperationType
+instance Prelude.ToQuery OperationType
 
-instance ToHeader OperationType
+instance Prelude.ToHeader OperationType
 
-instance FromJSON OperationType where
-  parseJSON = parseJSONText "OperationType"
+instance Prelude.FromJSON OperationType where
+  parseJSON = Prelude.parseJSONText "OperationType"

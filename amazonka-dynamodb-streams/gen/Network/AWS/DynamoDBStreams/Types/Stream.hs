@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,100 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DynamoDBStreams.Types.Stream where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents all of the data describing a particular stream.
 --
---
---
--- /See:/ 'stream' smart constructor.
+-- /See:/ 'newStream' smart constructor.
 data Stream = Stream'
-  { _sTableName :: !(Maybe Text),
-    _sStreamARN :: !(Maybe Text),
-    _sStreamLabel :: !(Maybe Text)
+  { -- | The DynamoDB table with which the stream is associated.
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the stream.
+    streamArn :: Prelude.Maybe Prelude.Text,
+    -- | A timestamp, in ISO 8601 format, for this stream.
+    --
+    -- Note that @LatestStreamLabel@ is not a unique identifier for the stream,
+    -- because it is possible that a stream from another table might have the
+    -- same timestamp. However, the combination of the following three elements
+    -- is guaranteed to be unique:
+    --
+    -- -   the AWS customer ID.
+    --
+    -- -   the table name
+    --
+    -- -   the @StreamLabel@
+    streamLabel :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Stream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Stream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sTableName' - The DynamoDB table with which the stream is associated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sStreamARN' - The Amazon Resource Name (ARN) for the stream.
+-- 'tableName', 'stream_tableName' - The DynamoDB table with which the stream is associated.
 --
--- * 'sStreamLabel' - A timestamp, in ISO 8601 format, for this stream. Note that @LatestStreamLabel@ is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:     * the AWS customer ID.     * the table name     * the @StreamLabel@
-stream ::
+-- 'streamArn', 'stream_streamArn' - The Amazon Resource Name (ARN) for the stream.
+--
+-- 'streamLabel', 'stream_streamLabel' - A timestamp, in ISO 8601 format, for this stream.
+--
+-- Note that @LatestStreamLabel@ is not a unique identifier for the stream,
+-- because it is possible that a stream from another table might have the
+-- same timestamp. However, the combination of the following three elements
+-- is guaranteed to be unique:
+--
+-- -   the AWS customer ID.
+--
+-- -   the table name
+--
+-- -   the @StreamLabel@
+newStream ::
   Stream
-stream =
+newStream =
   Stream'
-    { _sTableName = Nothing,
-      _sStreamARN = Nothing,
-      _sStreamLabel = Nothing
+    { tableName = Prelude.Nothing,
+      streamArn = Prelude.Nothing,
+      streamLabel = Prelude.Nothing
     }
 
 -- | The DynamoDB table with which the stream is associated.
-sTableName :: Lens' Stream (Maybe Text)
-sTableName = lens _sTableName (\s a -> s {_sTableName = a})
+stream_tableName :: Lens.Lens' Stream (Prelude.Maybe Prelude.Text)
+stream_tableName = Lens.lens (\Stream' {tableName} -> tableName) (\s@Stream' {} a -> s {tableName = a} :: Stream)
 
 -- | The Amazon Resource Name (ARN) for the stream.
-sStreamARN :: Lens' Stream (Maybe Text)
-sStreamARN = lens _sStreamARN (\s a -> s {_sStreamARN = a})
+stream_streamArn :: Lens.Lens' Stream (Prelude.Maybe Prelude.Text)
+stream_streamArn = Lens.lens (\Stream' {streamArn} -> streamArn) (\s@Stream' {} a -> s {streamArn = a} :: Stream)
 
--- | A timestamp, in ISO 8601 format, for this stream. Note that @LatestStreamLabel@ is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:     * the AWS customer ID.     * the table name     * the @StreamLabel@
-sStreamLabel :: Lens' Stream (Maybe Text)
-sStreamLabel = lens _sStreamLabel (\s a -> s {_sStreamLabel = a})
+-- | A timestamp, in ISO 8601 format, for this stream.
+--
+-- Note that @LatestStreamLabel@ is not a unique identifier for the stream,
+-- because it is possible that a stream from another table might have the
+-- same timestamp. However, the combination of the following three elements
+-- is guaranteed to be unique:
+--
+-- -   the AWS customer ID.
+--
+-- -   the table name
+--
+-- -   the @StreamLabel@
+stream_streamLabel :: Lens.Lens' Stream (Prelude.Maybe Prelude.Text)
+stream_streamLabel = Lens.lens (\Stream' {streamLabel} -> streamLabel) (\s@Stream' {} a -> s {streamLabel = a} :: Stream)
 
-instance FromJSON Stream where
+instance Prelude.FromJSON Stream where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Stream"
       ( \x ->
           Stream'
-            <$> (x .:? "TableName")
-            <*> (x .:? "StreamArn")
-            <*> (x .:? "StreamLabel")
+            Prelude.<$> (x Prelude..:? "TableName")
+            Prelude.<*> (x Prelude..:? "StreamArn")
+            Prelude.<*> (x Prelude..:? "StreamLabel")
       )
 
-instance Hashable Stream
+instance Prelude.Hashable Stream
 
-instance NFData Stream
+instance Prelude.NFData Stream

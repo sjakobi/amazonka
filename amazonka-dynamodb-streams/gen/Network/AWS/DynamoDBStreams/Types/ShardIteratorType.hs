@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DynamoDBStreams.Types.ShardIteratorType
   ( ShardIteratorType
       ( ..,
-        AfterSequenceNumber,
-        AtSequenceNumber,
-        Latest,
-        TrimHorizon
+        ShardIteratorTypeAFTERSEQUENCENUMBER,
+        ShardIteratorTypeATSEQUENCENUMBER,
+        ShardIteratorTypeLATEST,
+        ShardIteratorTypeTRIMHORIZON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ShardIteratorType = ShardIteratorType' (CI Text)
+newtype ShardIteratorType = ShardIteratorType'
+  { fromShardIteratorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AfterSequenceNumber :: ShardIteratorType
-pattern AfterSequenceNumber = ShardIteratorType' "AFTER_SEQUENCE_NUMBER"
+pattern ShardIteratorTypeAFTERSEQUENCENUMBER :: ShardIteratorType
+pattern ShardIteratorTypeAFTERSEQUENCENUMBER = ShardIteratorType' "AFTER_SEQUENCE_NUMBER"
 
-pattern AtSequenceNumber :: ShardIteratorType
-pattern AtSequenceNumber = ShardIteratorType' "AT_SEQUENCE_NUMBER"
+pattern ShardIteratorTypeATSEQUENCENUMBER :: ShardIteratorType
+pattern ShardIteratorTypeATSEQUENCENUMBER = ShardIteratorType' "AT_SEQUENCE_NUMBER"
 
-pattern Latest :: ShardIteratorType
-pattern Latest = ShardIteratorType' "LATEST"
+pattern ShardIteratorTypeLATEST :: ShardIteratorType
+pattern ShardIteratorTypeLATEST = ShardIteratorType' "LATEST"
 
-pattern TrimHorizon :: ShardIteratorType
-pattern TrimHorizon = ShardIteratorType' "TRIM_HORIZON"
+pattern ShardIteratorTypeTRIMHORIZON :: ShardIteratorType
+pattern ShardIteratorTypeTRIMHORIZON = ShardIteratorType' "TRIM_HORIZON"
 
 {-# COMPLETE
-  AfterSequenceNumber,
-  AtSequenceNumber,
-  Latest,
-  TrimHorizon,
+  ShardIteratorTypeAFTERSEQUENCENUMBER,
+  ShardIteratorTypeATSEQUENCENUMBER,
+  ShardIteratorTypeLATEST,
+  ShardIteratorTypeTRIMHORIZON,
   ShardIteratorType'
   #-}
 
-instance FromText ShardIteratorType where
-  parser = (ShardIteratorType' . mk) <$> takeText
+instance Prelude.FromText ShardIteratorType where
+  parser = ShardIteratorType' Prelude.<$> Prelude.takeText
 
-instance ToText ShardIteratorType where
-  toText (ShardIteratorType' ci) = original ci
+instance Prelude.ToText ShardIteratorType where
+  toText (ShardIteratorType' x) = x
 
-instance Hashable ShardIteratorType
+instance Prelude.Hashable ShardIteratorType
 
-instance NFData ShardIteratorType
+instance Prelude.NFData ShardIteratorType
 
-instance ToByteString ShardIteratorType
+instance Prelude.ToByteString ShardIteratorType
 
-instance ToQuery ShardIteratorType
+instance Prelude.ToQuery ShardIteratorType
 
-instance ToHeader ShardIteratorType
+instance Prelude.ToHeader ShardIteratorType
 
-instance ToJSON ShardIteratorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ShardIteratorType where
+  toJSON = Prelude.toJSONText
