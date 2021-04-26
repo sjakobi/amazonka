@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.WorkDocs.Types.RoleType
   ( RoleType
       ( ..,
-        Contributor,
-        Coowner,
-        Owner,
-        Viewer
+        RoleTypeCONTRIBUTOR,
+        RoleTypeCOOWNER,
+        RoleTypeOWNER,
+        RoleTypeVIEWER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RoleType = RoleType' (CI Text)
+newtype RoleType = RoleType'
+  { fromRoleType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Contributor :: RoleType
-pattern Contributor = RoleType' "CONTRIBUTOR"
+pattern RoleTypeCONTRIBUTOR :: RoleType
+pattern RoleTypeCONTRIBUTOR = RoleType' "CONTRIBUTOR"
 
-pattern Coowner :: RoleType
-pattern Coowner = RoleType' "COOWNER"
+pattern RoleTypeCOOWNER :: RoleType
+pattern RoleTypeCOOWNER = RoleType' "COOWNER"
 
-pattern Owner :: RoleType
-pattern Owner = RoleType' "OWNER"
+pattern RoleTypeOWNER :: RoleType
+pattern RoleTypeOWNER = RoleType' "OWNER"
 
-pattern Viewer :: RoleType
-pattern Viewer = RoleType' "VIEWER"
+pattern RoleTypeVIEWER :: RoleType
+pattern RoleTypeVIEWER = RoleType' "VIEWER"
 
 {-# COMPLETE
-  Contributor,
-  Coowner,
-  Owner,
-  Viewer,
+  RoleTypeCONTRIBUTOR,
+  RoleTypeCOOWNER,
+  RoleTypeOWNER,
+  RoleTypeVIEWER,
   RoleType'
   #-}
 
-instance FromText RoleType where
-  parser = (RoleType' . mk) <$> takeText
+instance Prelude.FromText RoleType where
+  parser = RoleType' Prelude.<$> Prelude.takeText
 
-instance ToText RoleType where
-  toText (RoleType' ci) = original ci
+instance Prelude.ToText RoleType where
+  toText (RoleType' x) = x
 
-instance Hashable RoleType
+instance Prelude.Hashable RoleType
 
-instance NFData RoleType
+instance Prelude.NFData RoleType
 
-instance ToByteString RoleType
+instance Prelude.ToByteString RoleType
 
-instance ToQuery RoleType
+instance Prelude.ToQuery RoleType
 
-instance ToHeader RoleType
+instance Prelude.ToHeader RoleType
 
-instance ToJSON RoleType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RoleType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RoleType where
-  parseJSON = parseJSONText "RoleType"
+instance Prelude.FromJSON RoleType where
+  parseJSON = Prelude.parseJSONText "RoleType"

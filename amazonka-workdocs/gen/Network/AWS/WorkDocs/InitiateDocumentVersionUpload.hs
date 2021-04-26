@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,256 +23,252 @@
 --
 -- Creates a new document object and version object.
 --
+-- The client specifies the parent folder ID and name of the document to
+-- upload. The ID is optionally specified when creating a new version of an
+-- existing document. This is the first step to upload a document. Next,
+-- upload the document to the URL returned from the call, and then call
+-- UpdateDocumentVersion.
 --
--- The client specifies the parent folder ID and name of the document to upload. The ID is optionally specified when creating a new version of an existing document. This is the first step to upload a document. Next, upload the document to the URL returned from the call, and then call 'UpdateDocumentVersion' .
---
--- To cancel the document upload, call 'AbortDocumentVersionUpload' .
+-- To cancel the document upload, call AbortDocumentVersionUpload.
 module Network.AWS.WorkDocs.InitiateDocumentVersionUpload
   ( -- * Creating a Request
-    initiateDocumentVersionUpload,
-    InitiateDocumentVersionUpload,
+    InitiateDocumentVersionUpload (..),
+    newInitiateDocumentVersionUpload,
 
     -- * Request Lenses
-    idvuContentType,
-    idvuContentModifiedTimestamp,
-    idvuId,
-    idvuContentCreatedTimestamp,
-    idvuName,
-    idvuDocumentSizeInBytes,
-    idvuAuthenticationToken,
-    idvuParentFolderId,
+    initiateDocumentVersionUpload_contentType,
+    initiateDocumentVersionUpload_contentModifiedTimestamp,
+    initiateDocumentVersionUpload_id,
+    initiateDocumentVersionUpload_contentCreatedTimestamp,
+    initiateDocumentVersionUpload_name,
+    initiateDocumentVersionUpload_documentSizeInBytes,
+    initiateDocumentVersionUpload_authenticationToken,
+    initiateDocumentVersionUpload_parentFolderId,
 
     -- * Destructuring the Response
-    initiateDocumentVersionUploadResponse,
-    InitiateDocumentVersionUploadResponse,
+    InitiateDocumentVersionUploadResponse (..),
+    newInitiateDocumentVersionUploadResponse,
 
     -- * Response Lenses
-    idvurrsUploadMetadata,
-    idvurrsMetadata,
-    idvurrsResponseStatus,
+    initiateDocumentVersionUploadResponse_uploadMetadata,
+    initiateDocumentVersionUploadResponse_metadata,
+    initiateDocumentVersionUploadResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.DocumentMetadata
+import Network.AWS.WorkDocs.Types.UploadMetadata
 
--- | /See:/ 'initiateDocumentVersionUpload' smart constructor.
+-- | /See:/ 'newInitiateDocumentVersionUpload' smart constructor.
 data InitiateDocumentVersionUpload = InitiateDocumentVersionUpload'
-  { _idvuContentType ::
-      !( Maybe
-           Text
-       ),
-    _idvuContentModifiedTimestamp ::
-      !( Maybe
-           POSIX
-       ),
-    _idvuId ::
-      !( Maybe
-           Text
-       ),
-    _idvuContentCreatedTimestamp ::
-      !( Maybe
-           POSIX
-       ),
-    _idvuName ::
-      !( Maybe
-           Text
-       ),
-    _idvuDocumentSizeInBytes ::
-      !( Maybe
-           Integer
-       ),
-    _idvuAuthenticationToken ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _idvuParentFolderId ::
-      !Text
+  { -- | The content type of the document.
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the content of the document was modified.
+    contentModifiedTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the document.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the content of the document was originally created.
+    contentCreatedTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the document.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The size of the document, in bytes.
+    documentSizeInBytes :: Prelude.Maybe Prelude.Integer,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the parent folder.
+    parentFolderId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InitiateDocumentVersionUpload' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InitiateDocumentVersionUpload' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'idvuContentType' - The content type of the document.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'idvuContentModifiedTimestamp' - The timestamp when the content of the document was modified.
+-- 'contentType', 'initiateDocumentVersionUpload_contentType' - The content type of the document.
 --
--- * 'idvuId' - The ID of the document.
+-- 'contentModifiedTimestamp', 'initiateDocumentVersionUpload_contentModifiedTimestamp' - The timestamp when the content of the document was modified.
 --
--- * 'idvuContentCreatedTimestamp' - The timestamp when the content of the document was originally created.
+-- 'id', 'initiateDocumentVersionUpload_id' - The ID of the document.
 --
--- * 'idvuName' - The name of the document.
+-- 'contentCreatedTimestamp', 'initiateDocumentVersionUpload_contentCreatedTimestamp' - The timestamp when the content of the document was originally created.
 --
--- * 'idvuDocumentSizeInBytes' - The size of the document, in bytes.
+-- 'name', 'initiateDocumentVersionUpload_name' - The name of the document.
 --
--- * 'idvuAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'documentSizeInBytes', 'initiateDocumentVersionUpload_documentSizeInBytes' - The size of the document, in bytes.
 --
--- * 'idvuParentFolderId' - The ID of the parent folder.
-initiateDocumentVersionUpload ::
-  -- | 'idvuParentFolderId'
-  Text ->
+-- 'authenticationToken', 'initiateDocumentVersionUpload_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+--
+-- 'parentFolderId', 'initiateDocumentVersionUpload_parentFolderId' - The ID of the parent folder.
+newInitiateDocumentVersionUpload ::
+  -- | 'parentFolderId'
+  Prelude.Text ->
   InitiateDocumentVersionUpload
-initiateDocumentVersionUpload pParentFolderId_ =
+newInitiateDocumentVersionUpload pParentFolderId_ =
   InitiateDocumentVersionUpload'
-    { _idvuContentType =
-        Nothing,
-      _idvuContentModifiedTimestamp = Nothing,
-      _idvuId = Nothing,
-      _idvuContentCreatedTimestamp = Nothing,
-      _idvuName = Nothing,
-      _idvuDocumentSizeInBytes = Nothing,
-      _idvuAuthenticationToken = Nothing,
-      _idvuParentFolderId = pParentFolderId_
+    { contentType =
+        Prelude.Nothing,
+      contentModifiedTimestamp = Prelude.Nothing,
+      id = Prelude.Nothing,
+      contentCreatedTimestamp = Prelude.Nothing,
+      name = Prelude.Nothing,
+      documentSizeInBytes = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      parentFolderId = pParentFolderId_
     }
 
 -- | The content type of the document.
-idvuContentType :: Lens' InitiateDocumentVersionUpload (Maybe Text)
-idvuContentType = lens _idvuContentType (\s a -> s {_idvuContentType = a})
+initiateDocumentVersionUpload_contentType :: Lens.Lens' InitiateDocumentVersionUpload (Prelude.Maybe Prelude.Text)
+initiateDocumentVersionUpload_contentType = Lens.lens (\InitiateDocumentVersionUpload' {contentType} -> contentType) (\s@InitiateDocumentVersionUpload' {} a -> s {contentType = a} :: InitiateDocumentVersionUpload)
 
 -- | The timestamp when the content of the document was modified.
-idvuContentModifiedTimestamp :: Lens' InitiateDocumentVersionUpload (Maybe UTCTime)
-idvuContentModifiedTimestamp = lens _idvuContentModifiedTimestamp (\s a -> s {_idvuContentModifiedTimestamp = a}) . mapping _Time
+initiateDocumentVersionUpload_contentModifiedTimestamp :: Lens.Lens' InitiateDocumentVersionUpload (Prelude.Maybe Prelude.UTCTime)
+initiateDocumentVersionUpload_contentModifiedTimestamp = Lens.lens (\InitiateDocumentVersionUpload' {contentModifiedTimestamp} -> contentModifiedTimestamp) (\s@InitiateDocumentVersionUpload' {} a -> s {contentModifiedTimestamp = a} :: InitiateDocumentVersionUpload) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the document.
-idvuId :: Lens' InitiateDocumentVersionUpload (Maybe Text)
-idvuId = lens _idvuId (\s a -> s {_idvuId = a})
+initiateDocumentVersionUpload_id :: Lens.Lens' InitiateDocumentVersionUpload (Prelude.Maybe Prelude.Text)
+initiateDocumentVersionUpload_id = Lens.lens (\InitiateDocumentVersionUpload' {id} -> id) (\s@InitiateDocumentVersionUpload' {} a -> s {id = a} :: InitiateDocumentVersionUpload)
 
 -- | The timestamp when the content of the document was originally created.
-idvuContentCreatedTimestamp :: Lens' InitiateDocumentVersionUpload (Maybe UTCTime)
-idvuContentCreatedTimestamp = lens _idvuContentCreatedTimestamp (\s a -> s {_idvuContentCreatedTimestamp = a}) . mapping _Time
+initiateDocumentVersionUpload_contentCreatedTimestamp :: Lens.Lens' InitiateDocumentVersionUpload (Prelude.Maybe Prelude.UTCTime)
+initiateDocumentVersionUpload_contentCreatedTimestamp = Lens.lens (\InitiateDocumentVersionUpload' {contentCreatedTimestamp} -> contentCreatedTimestamp) (\s@InitiateDocumentVersionUpload' {} a -> s {contentCreatedTimestamp = a} :: InitiateDocumentVersionUpload) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the document.
-idvuName :: Lens' InitiateDocumentVersionUpload (Maybe Text)
-idvuName = lens _idvuName (\s a -> s {_idvuName = a})
+initiateDocumentVersionUpload_name :: Lens.Lens' InitiateDocumentVersionUpload (Prelude.Maybe Prelude.Text)
+initiateDocumentVersionUpload_name = Lens.lens (\InitiateDocumentVersionUpload' {name} -> name) (\s@InitiateDocumentVersionUpload' {} a -> s {name = a} :: InitiateDocumentVersionUpload)
 
 -- | The size of the document, in bytes.
-idvuDocumentSizeInBytes :: Lens' InitiateDocumentVersionUpload (Maybe Integer)
-idvuDocumentSizeInBytes = lens _idvuDocumentSizeInBytes (\s a -> s {_idvuDocumentSizeInBytes = a})
+initiateDocumentVersionUpload_documentSizeInBytes :: Lens.Lens' InitiateDocumentVersionUpload (Prelude.Maybe Prelude.Integer)
+initiateDocumentVersionUpload_documentSizeInBytes = Lens.lens (\InitiateDocumentVersionUpload' {documentSizeInBytes} -> documentSizeInBytes) (\s@InitiateDocumentVersionUpload' {} a -> s {documentSizeInBytes = a} :: InitiateDocumentVersionUpload)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-idvuAuthenticationToken :: Lens' InitiateDocumentVersionUpload (Maybe Text)
-idvuAuthenticationToken = lens _idvuAuthenticationToken (\s a -> s {_idvuAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+initiateDocumentVersionUpload_authenticationToken :: Lens.Lens' InitiateDocumentVersionUpload (Prelude.Maybe Prelude.Text)
+initiateDocumentVersionUpload_authenticationToken = Lens.lens (\InitiateDocumentVersionUpload' {authenticationToken} -> authenticationToken) (\s@InitiateDocumentVersionUpload' {} a -> s {authenticationToken = a} :: InitiateDocumentVersionUpload) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the parent folder.
-idvuParentFolderId :: Lens' InitiateDocumentVersionUpload Text
-idvuParentFolderId = lens _idvuParentFolderId (\s a -> s {_idvuParentFolderId = a})
+initiateDocumentVersionUpload_parentFolderId :: Lens.Lens' InitiateDocumentVersionUpload Prelude.Text
+initiateDocumentVersionUpload_parentFolderId = Lens.lens (\InitiateDocumentVersionUpload' {parentFolderId} -> parentFolderId) (\s@InitiateDocumentVersionUpload' {} a -> s {parentFolderId = a} :: InitiateDocumentVersionUpload)
 
-instance AWSRequest InitiateDocumentVersionUpload where
+instance
+  Prelude.AWSRequest
+    InitiateDocumentVersionUpload
+  where
   type
     Rs InitiateDocumentVersionUpload =
       InitiateDocumentVersionUploadResponse
-  request = postJSON workDocs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           InitiateDocumentVersionUploadResponse'
-            <$> (x .?> "UploadMetadata")
-            <*> (x .?> "Metadata")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UploadMetadata")
+            Prelude.<*> (x Prelude..?> "Metadata")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable InitiateDocumentVersionUpload
+instance
+  Prelude.Hashable
+    InitiateDocumentVersionUpload
 
-instance NFData InitiateDocumentVersionUpload
+instance Prelude.NFData InitiateDocumentVersionUpload
 
-instance ToHeaders InitiateDocumentVersionUpload where
+instance
+  Prelude.ToHeaders
+    InitiateDocumentVersionUpload
+  where
   toHeaders InitiateDocumentVersionUpload' {..} =
-    mconcat
-      [ "Authentication" =# _idvuAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON InitiateDocumentVersionUpload where
+instance Prelude.ToJSON InitiateDocumentVersionUpload where
   toJSON InitiateDocumentVersionUpload' {..} =
-    object
-      ( catMaybes
-          [ ("ContentType" .=) <$> _idvuContentType,
-            ("ContentModifiedTimestamp" .=)
-              <$> _idvuContentModifiedTimestamp,
-            ("Id" .=) <$> _idvuId,
-            ("ContentCreatedTimestamp" .=)
-              <$> _idvuContentCreatedTimestamp,
-            ("Name" .=) <$> _idvuName,
-            ("DocumentSizeInBytes" .=)
-              <$> _idvuDocumentSizeInBytes,
-            Just ("ParentFolderId" .= _idvuParentFolderId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ContentType" Prelude..=) Prelude.<$> contentType,
+            ("ContentModifiedTimestamp" Prelude..=)
+              Prelude.<$> contentModifiedTimestamp,
+            ("Id" Prelude..=) Prelude.<$> id,
+            ("ContentCreatedTimestamp" Prelude..=)
+              Prelude.<$> contentCreatedTimestamp,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("DocumentSizeInBytes" Prelude..=)
+              Prelude.<$> documentSizeInBytes,
+            Prelude.Just
+              ("ParentFolderId" Prelude..= parentFolderId)
           ]
       )
 
-instance ToPath InitiateDocumentVersionUpload where
-  toPath = const "/api/v1/documents"
+instance Prelude.ToPath InitiateDocumentVersionUpload where
+  toPath = Prelude.const "/api/v1/documents"
 
-instance ToQuery InitiateDocumentVersionUpload where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    InitiateDocumentVersionUpload
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'initiateDocumentVersionUploadResponse' smart constructor.
+-- | /See:/ 'newInitiateDocumentVersionUploadResponse' smart constructor.
 data InitiateDocumentVersionUploadResponse = InitiateDocumentVersionUploadResponse'
-  { _idvurrsUploadMetadata ::
-      !( Maybe
-           UploadMetadata
-       ),
-    _idvurrsMetadata ::
-      !( Maybe
-           DocumentMetadata
-       ),
-    _idvurrsResponseStatus ::
-      !Int
+  { -- | The upload metadata.
+    uploadMetadata :: Prelude.Maybe UploadMetadata,
+    -- | The document metadata.
+    metadata :: Prelude.Maybe DocumentMetadata,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InitiateDocumentVersionUploadResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InitiateDocumentVersionUploadResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'idvurrsUploadMetadata' - The upload metadata.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'idvurrsMetadata' - The document metadata.
+-- 'uploadMetadata', 'initiateDocumentVersionUploadResponse_uploadMetadata' - The upload metadata.
 --
--- * 'idvurrsResponseStatus' - -- | The response status code.
-initiateDocumentVersionUploadResponse ::
-  -- | 'idvurrsResponseStatus'
-  Int ->
+-- 'metadata', 'initiateDocumentVersionUploadResponse_metadata' - The document metadata.
+--
+-- 'httpStatus', 'initiateDocumentVersionUploadResponse_httpStatus' - The response's http status code.
+newInitiateDocumentVersionUploadResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   InitiateDocumentVersionUploadResponse
-initiateDocumentVersionUploadResponse
-  pResponseStatus_ =
-    InitiateDocumentVersionUploadResponse'
-      { _idvurrsUploadMetadata =
-          Nothing,
-        _idvurrsMetadata = Nothing,
-        _idvurrsResponseStatus =
-          pResponseStatus_
-      }
+newInitiateDocumentVersionUploadResponse pHttpStatus_ =
+  InitiateDocumentVersionUploadResponse'
+    { uploadMetadata =
+        Prelude.Nothing,
+      metadata = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | The upload metadata.
-idvurrsUploadMetadata :: Lens' InitiateDocumentVersionUploadResponse (Maybe UploadMetadata)
-idvurrsUploadMetadata = lens _idvurrsUploadMetadata (\s a -> s {_idvurrsUploadMetadata = a})
+initiateDocumentVersionUploadResponse_uploadMetadata :: Lens.Lens' InitiateDocumentVersionUploadResponse (Prelude.Maybe UploadMetadata)
+initiateDocumentVersionUploadResponse_uploadMetadata = Lens.lens (\InitiateDocumentVersionUploadResponse' {uploadMetadata} -> uploadMetadata) (\s@InitiateDocumentVersionUploadResponse' {} a -> s {uploadMetadata = a} :: InitiateDocumentVersionUploadResponse)
 
 -- | The document metadata.
-idvurrsMetadata :: Lens' InitiateDocumentVersionUploadResponse (Maybe DocumentMetadata)
-idvurrsMetadata = lens _idvurrsMetadata (\s a -> s {_idvurrsMetadata = a})
+initiateDocumentVersionUploadResponse_metadata :: Lens.Lens' InitiateDocumentVersionUploadResponse (Prelude.Maybe DocumentMetadata)
+initiateDocumentVersionUploadResponse_metadata = Lens.lens (\InitiateDocumentVersionUploadResponse' {metadata} -> metadata) (\s@InitiateDocumentVersionUploadResponse' {} a -> s {metadata = a} :: InitiateDocumentVersionUploadResponse)
 
--- | -- | The response status code.
-idvurrsResponseStatus :: Lens' InitiateDocumentVersionUploadResponse Int
-idvurrsResponseStatus = lens _idvurrsResponseStatus (\s a -> s {_idvurrsResponseStatus = a})
+-- | The response's http status code.
+initiateDocumentVersionUploadResponse_httpStatus :: Lens.Lens' InitiateDocumentVersionUploadResponse Prelude.Int
+initiateDocumentVersionUploadResponse_httpStatus = Lens.lens (\InitiateDocumentVersionUploadResponse' {httpStatus} -> httpStatus) (\s@InitiateDocumentVersionUploadResponse' {} a -> s {httpStatus = a} :: InitiateDocumentVersionUploadResponse)
 
-instance NFData InitiateDocumentVersionUploadResponse
+instance
+  Prelude.NFData
+    InitiateDocumentVersionUploadResponse

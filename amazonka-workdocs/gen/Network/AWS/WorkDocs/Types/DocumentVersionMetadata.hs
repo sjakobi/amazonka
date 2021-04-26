@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,184 +19,173 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.DocumentVersionMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkDocs.Types.DocumentSourceType
 import Network.AWS.WorkDocs.Types.DocumentStatusType
 import Network.AWS.WorkDocs.Types.DocumentThumbnailType
 
 -- | Describes a version of a document.
 --
---
---
--- /See:/ 'documentVersionMetadata' smart constructor.
+-- /See:/ 'newDocumentVersionMetadata' smart constructor.
 data DocumentVersionMetadata = DocumentVersionMetadata'
-  { _dvmModifiedTimestamp ::
-      !(Maybe POSIX),
-    _dvmStatus ::
-      !( Maybe
-           DocumentStatusType
-       ),
-    _dvmCreatorId ::
-      !(Maybe Text),
-    _dvmContentType ::
-      !(Maybe Text),
-    _dvmCreatedTimestamp ::
-      !(Maybe POSIX),
-    _dvmContentModifiedTimestamp ::
-      !(Maybe POSIX),
-    _dvmId :: !(Maybe Text),
-    _dvmSource ::
-      !( Maybe
-           ( Map
-               DocumentSourceType
-               ( Sensitive
-                   Text
-               )
-           )
-       ),
-    _dvmContentCreatedTimestamp ::
-      !(Maybe POSIX),
-    _dvmName ::
-      !(Maybe Text),
-    _dvmSignature ::
-      !(Maybe Text),
-    _dvmThumbnail ::
-      !( Maybe
-           ( Map
-               DocumentThumbnailType
-               ( Sensitive
-                   Text
-               )
-           )
-       ),
-    _dvmSize ::
-      !(Maybe Integer)
+  { -- | The timestamp when the document was last uploaded.
+    modifiedTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the document.
+    status :: Prelude.Maybe DocumentStatusType,
+    -- | The ID of the creator.
+    creatorId :: Prelude.Maybe Prelude.Text,
+    -- | The content type of the document.
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the document was first uploaded.
+    createdTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The timestamp when the content of the document was modified.
+    contentModifiedTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the version.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The source of the document.
+    source :: Prelude.Maybe (Prelude.Map DocumentSourceType (Prelude.Sensitive Prelude.Text)),
+    -- | The timestamp when the content of the document was originally created.
+    contentCreatedTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the version.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The signature of the document.
+    signature :: Prelude.Maybe Prelude.Text,
+    -- | The thumbnail of the document.
+    thumbnail :: Prelude.Maybe (Prelude.Map DocumentThumbnailType (Prelude.Sensitive Prelude.Text)),
+    -- | The size of the document, in bytes.
+    size :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentVersionMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentVersionMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvmModifiedTimestamp' - The timestamp when the document was last uploaded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvmStatus' - The status of the document.
+-- 'modifiedTimestamp', 'documentVersionMetadata_modifiedTimestamp' - The timestamp when the document was last uploaded.
 --
--- * 'dvmCreatorId' - The ID of the creator.
+-- 'status', 'documentVersionMetadata_status' - The status of the document.
 --
--- * 'dvmContentType' - The content type of the document.
+-- 'creatorId', 'documentVersionMetadata_creatorId' - The ID of the creator.
 --
--- * 'dvmCreatedTimestamp' - The timestamp when the document was first uploaded.
+-- 'contentType', 'documentVersionMetadata_contentType' - The content type of the document.
 --
--- * 'dvmContentModifiedTimestamp' - The timestamp when the content of the document was modified.
+-- 'createdTimestamp', 'documentVersionMetadata_createdTimestamp' - The timestamp when the document was first uploaded.
 --
--- * 'dvmId' - The ID of the version.
+-- 'contentModifiedTimestamp', 'documentVersionMetadata_contentModifiedTimestamp' - The timestamp when the content of the document was modified.
 --
--- * 'dvmSource' - The source of the document.
+-- 'id', 'documentVersionMetadata_id' - The ID of the version.
 --
--- * 'dvmContentCreatedTimestamp' - The timestamp when the content of the document was originally created.
+-- 'source', 'documentVersionMetadata_source' - The source of the document.
 --
--- * 'dvmName' - The name of the version.
+-- 'contentCreatedTimestamp', 'documentVersionMetadata_contentCreatedTimestamp' - The timestamp when the content of the document was originally created.
 --
--- * 'dvmSignature' - The signature of the document.
+-- 'name', 'documentVersionMetadata_name' - The name of the version.
 --
--- * 'dvmThumbnail' - The thumbnail of the document.
+-- 'signature', 'documentVersionMetadata_signature' - The signature of the document.
 --
--- * 'dvmSize' - The size of the document, in bytes.
-documentVersionMetadata ::
+-- 'thumbnail', 'documentVersionMetadata_thumbnail' - The thumbnail of the document.
+--
+-- 'size', 'documentVersionMetadata_size' - The size of the document, in bytes.
+newDocumentVersionMetadata ::
   DocumentVersionMetadata
-documentVersionMetadata =
+newDocumentVersionMetadata =
   DocumentVersionMetadata'
-    { _dvmModifiedTimestamp =
-        Nothing,
-      _dvmStatus = Nothing,
-      _dvmCreatorId = Nothing,
-      _dvmContentType = Nothing,
-      _dvmCreatedTimestamp = Nothing,
-      _dvmContentModifiedTimestamp = Nothing,
-      _dvmId = Nothing,
-      _dvmSource = Nothing,
-      _dvmContentCreatedTimestamp = Nothing,
-      _dvmName = Nothing,
-      _dvmSignature = Nothing,
-      _dvmThumbnail = Nothing,
-      _dvmSize = Nothing
+    { modifiedTimestamp =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      creatorId = Prelude.Nothing,
+      contentType = Prelude.Nothing,
+      createdTimestamp = Prelude.Nothing,
+      contentModifiedTimestamp = Prelude.Nothing,
+      id = Prelude.Nothing,
+      source = Prelude.Nothing,
+      contentCreatedTimestamp = Prelude.Nothing,
+      name = Prelude.Nothing,
+      signature = Prelude.Nothing,
+      thumbnail = Prelude.Nothing,
+      size = Prelude.Nothing
     }
 
 -- | The timestamp when the document was last uploaded.
-dvmModifiedTimestamp :: Lens' DocumentVersionMetadata (Maybe UTCTime)
-dvmModifiedTimestamp = lens _dvmModifiedTimestamp (\s a -> s {_dvmModifiedTimestamp = a}) . mapping _Time
+documentVersionMetadata_modifiedTimestamp :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.UTCTime)
+documentVersionMetadata_modifiedTimestamp = Lens.lens (\DocumentVersionMetadata' {modifiedTimestamp} -> modifiedTimestamp) (\s@DocumentVersionMetadata' {} a -> s {modifiedTimestamp = a} :: DocumentVersionMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the document.
-dvmStatus :: Lens' DocumentVersionMetadata (Maybe DocumentStatusType)
-dvmStatus = lens _dvmStatus (\s a -> s {_dvmStatus = a})
+documentVersionMetadata_status :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe DocumentStatusType)
+documentVersionMetadata_status = Lens.lens (\DocumentVersionMetadata' {status} -> status) (\s@DocumentVersionMetadata' {} a -> s {status = a} :: DocumentVersionMetadata)
 
 -- | The ID of the creator.
-dvmCreatorId :: Lens' DocumentVersionMetadata (Maybe Text)
-dvmCreatorId = lens _dvmCreatorId (\s a -> s {_dvmCreatorId = a})
+documentVersionMetadata_creatorId :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.Text)
+documentVersionMetadata_creatorId = Lens.lens (\DocumentVersionMetadata' {creatorId} -> creatorId) (\s@DocumentVersionMetadata' {} a -> s {creatorId = a} :: DocumentVersionMetadata)
 
 -- | The content type of the document.
-dvmContentType :: Lens' DocumentVersionMetadata (Maybe Text)
-dvmContentType = lens _dvmContentType (\s a -> s {_dvmContentType = a})
+documentVersionMetadata_contentType :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.Text)
+documentVersionMetadata_contentType = Lens.lens (\DocumentVersionMetadata' {contentType} -> contentType) (\s@DocumentVersionMetadata' {} a -> s {contentType = a} :: DocumentVersionMetadata)
 
 -- | The timestamp when the document was first uploaded.
-dvmCreatedTimestamp :: Lens' DocumentVersionMetadata (Maybe UTCTime)
-dvmCreatedTimestamp = lens _dvmCreatedTimestamp (\s a -> s {_dvmCreatedTimestamp = a}) . mapping _Time
+documentVersionMetadata_createdTimestamp :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.UTCTime)
+documentVersionMetadata_createdTimestamp = Lens.lens (\DocumentVersionMetadata' {createdTimestamp} -> createdTimestamp) (\s@DocumentVersionMetadata' {} a -> s {createdTimestamp = a} :: DocumentVersionMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The timestamp when the content of the document was modified.
-dvmContentModifiedTimestamp :: Lens' DocumentVersionMetadata (Maybe UTCTime)
-dvmContentModifiedTimestamp = lens _dvmContentModifiedTimestamp (\s a -> s {_dvmContentModifiedTimestamp = a}) . mapping _Time
+documentVersionMetadata_contentModifiedTimestamp :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.UTCTime)
+documentVersionMetadata_contentModifiedTimestamp = Lens.lens (\DocumentVersionMetadata' {contentModifiedTimestamp} -> contentModifiedTimestamp) (\s@DocumentVersionMetadata' {} a -> s {contentModifiedTimestamp = a} :: DocumentVersionMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the version.
-dvmId :: Lens' DocumentVersionMetadata (Maybe Text)
-dvmId = lens _dvmId (\s a -> s {_dvmId = a})
+documentVersionMetadata_id :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.Text)
+documentVersionMetadata_id = Lens.lens (\DocumentVersionMetadata' {id} -> id) (\s@DocumentVersionMetadata' {} a -> s {id = a} :: DocumentVersionMetadata)
 
 -- | The source of the document.
-dvmSource :: Lens' DocumentVersionMetadata (HashMap DocumentSourceType Text)
-dvmSource = lens _dvmSource (\s a -> s {_dvmSource = a}) . _Default . _Map
+documentVersionMetadata_source :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe (Prelude.HashMap DocumentSourceType Prelude.Text))
+documentVersionMetadata_source = Lens.lens (\DocumentVersionMetadata' {source} -> source) (\s@DocumentVersionMetadata' {} a -> s {source = a} :: DocumentVersionMetadata) Prelude.. Lens.mapping Prelude._Map
 
 -- | The timestamp when the content of the document was originally created.
-dvmContentCreatedTimestamp :: Lens' DocumentVersionMetadata (Maybe UTCTime)
-dvmContentCreatedTimestamp = lens _dvmContentCreatedTimestamp (\s a -> s {_dvmContentCreatedTimestamp = a}) . mapping _Time
+documentVersionMetadata_contentCreatedTimestamp :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.UTCTime)
+documentVersionMetadata_contentCreatedTimestamp = Lens.lens (\DocumentVersionMetadata' {contentCreatedTimestamp} -> contentCreatedTimestamp) (\s@DocumentVersionMetadata' {} a -> s {contentCreatedTimestamp = a} :: DocumentVersionMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the version.
-dvmName :: Lens' DocumentVersionMetadata (Maybe Text)
-dvmName = lens _dvmName (\s a -> s {_dvmName = a})
+documentVersionMetadata_name :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.Text)
+documentVersionMetadata_name = Lens.lens (\DocumentVersionMetadata' {name} -> name) (\s@DocumentVersionMetadata' {} a -> s {name = a} :: DocumentVersionMetadata)
 
 -- | The signature of the document.
-dvmSignature :: Lens' DocumentVersionMetadata (Maybe Text)
-dvmSignature = lens _dvmSignature (\s a -> s {_dvmSignature = a})
+documentVersionMetadata_signature :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.Text)
+documentVersionMetadata_signature = Lens.lens (\DocumentVersionMetadata' {signature} -> signature) (\s@DocumentVersionMetadata' {} a -> s {signature = a} :: DocumentVersionMetadata)
 
 -- | The thumbnail of the document.
-dvmThumbnail :: Lens' DocumentVersionMetadata (HashMap DocumentThumbnailType Text)
-dvmThumbnail = lens _dvmThumbnail (\s a -> s {_dvmThumbnail = a}) . _Default . _Map
+documentVersionMetadata_thumbnail :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe (Prelude.HashMap DocumentThumbnailType Prelude.Text))
+documentVersionMetadata_thumbnail = Lens.lens (\DocumentVersionMetadata' {thumbnail} -> thumbnail) (\s@DocumentVersionMetadata' {} a -> s {thumbnail = a} :: DocumentVersionMetadata) Prelude.. Lens.mapping Prelude._Map
 
 -- | The size of the document, in bytes.
-dvmSize :: Lens' DocumentVersionMetadata (Maybe Integer)
-dvmSize = lens _dvmSize (\s a -> s {_dvmSize = a})
+documentVersionMetadata_size :: Lens.Lens' DocumentVersionMetadata (Prelude.Maybe Prelude.Integer)
+documentVersionMetadata_size = Lens.lens (\DocumentVersionMetadata' {size} -> size) (\s@DocumentVersionMetadata' {} a -> s {size = a} :: DocumentVersionMetadata)
 
-instance FromJSON DocumentVersionMetadata where
+instance Prelude.FromJSON DocumentVersionMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DocumentVersionMetadata"
       ( \x ->
           DocumentVersionMetadata'
-            <$> (x .:? "ModifiedTimestamp")
-            <*> (x .:? "Status")
-            <*> (x .:? "CreatorId")
-            <*> (x .:? "ContentType")
-            <*> (x .:? "CreatedTimestamp")
-            <*> (x .:? "ContentModifiedTimestamp")
-            <*> (x .:? "Id")
-            <*> (x .:? "Source" .!= mempty)
-            <*> (x .:? "ContentCreatedTimestamp")
-            <*> (x .:? "Name")
-            <*> (x .:? "Signature")
-            <*> (x .:? "Thumbnail" .!= mempty)
-            <*> (x .:? "Size")
+            Prelude.<$> (x Prelude..:? "ModifiedTimestamp")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "CreatorId")
+            Prelude.<*> (x Prelude..:? "ContentType")
+            Prelude.<*> (x Prelude..:? "CreatedTimestamp")
+            Prelude.<*> (x Prelude..:? "ContentModifiedTimestamp")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Source" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ContentCreatedTimestamp")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Signature")
+            Prelude.<*> ( x Prelude..:? "Thumbnail"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Size")
       )
 
-instance Hashable DocumentVersionMetadata
+instance Prelude.Hashable DocumentVersionMetadata
 
-instance NFData DocumentVersionMetadata
+instance Prelude.NFData DocumentVersionMetadata

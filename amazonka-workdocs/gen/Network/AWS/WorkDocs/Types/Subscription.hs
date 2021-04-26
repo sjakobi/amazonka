@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.Subscription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkDocs.Types.SubscriptionProtocolType
 
 -- | Describes a subscription.
 --
---
---
--- /See:/ 'subscription' smart constructor.
+-- /See:/ 'newSubscription' smart constructor.
 data Subscription = Subscription'
-  { _sSubscriptionId ::
-      !(Maybe Text),
-    _sProtocol ::
-      !(Maybe SubscriptionProtocolType),
-    _sEndPoint :: !(Maybe Text)
+  { -- | The ID of the subscription.
+    subscriptionId :: Prelude.Maybe Prelude.Text,
+    -- | The protocol of the subscription.
+    protocol :: Prelude.Maybe SubscriptionProtocolType,
+    -- | The endpoint of the subscription.
+    endPoint :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Subscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Subscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sSubscriptionId' - The ID of the subscription.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sProtocol' - The protocol of the subscription.
+-- 'subscriptionId', 'subscription_subscriptionId' - The ID of the subscription.
 --
--- * 'sEndPoint' - The endpoint of the subscription.
-subscription ::
+-- 'protocol', 'subscription_protocol' - The protocol of the subscription.
+--
+-- 'endPoint', 'subscription_endPoint' - The endpoint of the subscription.
+newSubscription ::
   Subscription
-subscription =
+newSubscription =
   Subscription'
-    { _sSubscriptionId = Nothing,
-      _sProtocol = Nothing,
-      _sEndPoint = Nothing
+    { subscriptionId = Prelude.Nothing,
+      protocol = Prelude.Nothing,
+      endPoint = Prelude.Nothing
     }
 
 -- | The ID of the subscription.
-sSubscriptionId :: Lens' Subscription (Maybe Text)
-sSubscriptionId = lens _sSubscriptionId (\s a -> s {_sSubscriptionId = a})
+subscription_subscriptionId :: Lens.Lens' Subscription (Prelude.Maybe Prelude.Text)
+subscription_subscriptionId = Lens.lens (\Subscription' {subscriptionId} -> subscriptionId) (\s@Subscription' {} a -> s {subscriptionId = a} :: Subscription)
 
 -- | The protocol of the subscription.
-sProtocol :: Lens' Subscription (Maybe SubscriptionProtocolType)
-sProtocol = lens _sProtocol (\s a -> s {_sProtocol = a})
+subscription_protocol :: Lens.Lens' Subscription (Prelude.Maybe SubscriptionProtocolType)
+subscription_protocol = Lens.lens (\Subscription' {protocol} -> protocol) (\s@Subscription' {} a -> s {protocol = a} :: Subscription)
 
 -- | The endpoint of the subscription.
-sEndPoint :: Lens' Subscription (Maybe Text)
-sEndPoint = lens _sEndPoint (\s a -> s {_sEndPoint = a})
+subscription_endPoint :: Lens.Lens' Subscription (Prelude.Maybe Prelude.Text)
+subscription_endPoint = Lens.lens (\Subscription' {endPoint} -> endPoint) (\s@Subscription' {} a -> s {endPoint = a} :: Subscription)
 
-instance FromJSON Subscription where
+instance Prelude.FromJSON Subscription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Subscription"
       ( \x ->
           Subscription'
-            <$> (x .:? "SubscriptionId")
-            <*> (x .:? "Protocol")
-            <*> (x .:? "EndPoint")
+            Prelude.<$> (x Prelude..:? "SubscriptionId")
+            Prelude.<*> (x Prelude..:? "Protocol")
+            Prelude.<*> (x Prelude..:? "EndPoint")
       )
 
-instance Hashable Subscription
+instance Prelude.Hashable Subscription
 
-instance NFData Subscription
+instance Prelude.NFData Subscription

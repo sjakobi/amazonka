@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.SharePrincipal where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkDocs.Types.PrincipalType
 import Network.AWS.WorkDocs.Types.RoleType
 
 -- | Describes the recipient type and ID, if available.
 --
---
---
--- /See:/ 'sharePrincipal' smart constructor.
+-- /See:/ 'newSharePrincipal' smart constructor.
 data SharePrincipal = SharePrincipal'
-  { _spId :: !Text,
-    _spType :: !PrincipalType,
-    _spRole :: !RoleType
+  { -- | The ID of the recipient.
+    id :: Prelude.Text,
+    -- | The type of the recipient.
+    type' :: PrincipalType,
+    -- | The role of the recipient.
+    role' :: RoleType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SharePrincipal' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SharePrincipal' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spId' - The ID of the recipient.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spType' - The type of the recipient.
+-- 'id', 'sharePrincipal_id' - The ID of the recipient.
 --
--- * 'spRole' - The role of the recipient.
-sharePrincipal ::
-  -- | 'spId'
-  Text ->
-  -- | 'spType'
+-- 'type'', 'sharePrincipal_type' - The type of the recipient.
+--
+-- 'role'', 'sharePrincipal_role' - The role of the recipient.
+newSharePrincipal ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'type''
   PrincipalType ->
-  -- | 'spRole'
+  -- | 'role''
   RoleType ->
   SharePrincipal
-sharePrincipal pId_ pType_ pRole_ =
+newSharePrincipal pId_ pType_ pRole_ =
   SharePrincipal'
-    { _spId = pId_,
-      _spType = pType_,
-      _spRole = pRole_
+    { id = pId_,
+      type' = pType_,
+      role' = pRole_
     }
 
 -- | The ID of the recipient.
-spId :: Lens' SharePrincipal Text
-spId = lens _spId (\s a -> s {_spId = a})
+sharePrincipal_id :: Lens.Lens' SharePrincipal Prelude.Text
+sharePrincipal_id = Lens.lens (\SharePrincipal' {id} -> id) (\s@SharePrincipal' {} a -> s {id = a} :: SharePrincipal)
 
 -- | The type of the recipient.
-spType :: Lens' SharePrincipal PrincipalType
-spType = lens _spType (\s a -> s {_spType = a})
+sharePrincipal_type :: Lens.Lens' SharePrincipal PrincipalType
+sharePrincipal_type = Lens.lens (\SharePrincipal' {type'} -> type') (\s@SharePrincipal' {} a -> s {type' = a} :: SharePrincipal)
 
 -- | The role of the recipient.
-spRole :: Lens' SharePrincipal RoleType
-spRole = lens _spRole (\s a -> s {_spRole = a})
+sharePrincipal_role :: Lens.Lens' SharePrincipal RoleType
+sharePrincipal_role = Lens.lens (\SharePrincipal' {role'} -> role') (\s@SharePrincipal' {} a -> s {role' = a} :: SharePrincipal)
 
-instance Hashable SharePrincipal
+instance Prelude.Hashable SharePrincipal
 
-instance NFData SharePrincipal
+instance Prelude.NFData SharePrincipal
 
-instance ToJSON SharePrincipal where
+instance Prelude.ToJSON SharePrincipal where
   toJSON SharePrincipal' {..} =
-    object
-      ( catMaybes
-          [ Just ("Id" .= _spId),
-            Just ("Type" .= _spType),
-            Just ("Role" .= _spRole)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Id" Prelude..= id),
+            Prelude.Just ("Type" Prelude..= type'),
+            Prelude.Just ("Role" Prelude..= role')
           ]
       )

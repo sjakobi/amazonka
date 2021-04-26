@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,208 +19,210 @@
 module Network.AWS.WorkDocs.Types.ActivityType
   ( ActivityType
       ( ..,
-        DocumentAnnotationAdded,
-        DocumentAnnotationDeleted,
-        DocumentCheckedIn,
-        DocumentCheckedOut,
-        DocumentCommentAdded,
-        DocumentCommentDeleted,
-        DocumentMoved,
-        DocumentRecycled,
-        DocumentRenamed,
-        DocumentRestored,
-        DocumentReverted,
-        DocumentSharePermissionChanged,
-        DocumentShareableLinkCreated,
-        DocumentShareableLinkPermissionChanged,
-        DocumentShareableLinkRemoved,
-        DocumentShared,
-        DocumentUnshared,
-        DocumentVersionDeleted,
-        DocumentVersionDownloaded,
-        DocumentVersionUploaded,
-        DocumentVersionViewed,
-        FolderCreated,
-        FolderDeleted,
-        FolderMoved,
-        FolderRecycled,
-        FolderRenamed,
-        FolderRestored,
-        FolderSharePermissionChanged,
-        FolderShareableLinkCreated,
-        FolderShareableLinkPermissionChanged,
-        FolderShareableLinkRemoved,
-        FolderShared,
-        FolderUnshared
+        ActivityTypeDOCUMENTANNOTATIONADDED,
+        ActivityTypeDOCUMENTANNOTATIONDELETED,
+        ActivityTypeDOCUMENTCHECKEDIN,
+        ActivityTypeDOCUMENTCHECKEDOUT,
+        ActivityTypeDOCUMENTCOMMENTADDED,
+        ActivityTypeDOCUMENTCOMMENTDELETED,
+        ActivityTypeDOCUMENTMOVED,
+        ActivityTypeDOCUMENTRECYCLED,
+        ActivityTypeDOCUMENTRENAMED,
+        ActivityTypeDOCUMENTRESTORED,
+        ActivityTypeDOCUMENTREVERTED,
+        ActivityTypeDOCUMENTSHAREABLELINKCREATED,
+        ActivityTypeDOCUMENTSHAREABLELINKPERMISSIONCHANGED,
+        ActivityTypeDOCUMENTSHAREABLELINKREMOVED,
+        ActivityTypeDOCUMENTSHARED,
+        ActivityTypeDOCUMENTSHAREPERMISSIONCHANGED,
+        ActivityTypeDOCUMENTUNSHARED,
+        ActivityTypeDOCUMENTVERSIONDELETED,
+        ActivityTypeDOCUMENTVERSIONDOWNLOADED,
+        ActivityTypeDOCUMENTVERSIONUPLOADED,
+        ActivityTypeDOCUMENTVERSIONVIEWED,
+        ActivityTypeFOLDERCREATED,
+        ActivityTypeFOLDERDELETED,
+        ActivityTypeFOLDERMOVED,
+        ActivityTypeFOLDERRECYCLED,
+        ActivityTypeFOLDERRENAMED,
+        ActivityTypeFOLDERRESTORED,
+        ActivityTypeFOLDERSHAREABLELINKCREATED,
+        ActivityTypeFOLDERSHAREABLELINKPERMISSIONCHANGED,
+        ActivityTypeFOLDERSHAREABLELINKREMOVED,
+        ActivityTypeFOLDERSHARED,
+        ActivityTypeFOLDERSHAREPERMISSIONCHANGED,
+        ActivityTypeFOLDERUNSHARED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActivityType = ActivityType' (CI Text)
+newtype ActivityType = ActivityType'
+  { fromActivityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DocumentAnnotationAdded :: ActivityType
-pattern DocumentAnnotationAdded = ActivityType' "DOCUMENT_ANNOTATION_ADDED"
+pattern ActivityTypeDOCUMENTANNOTATIONADDED :: ActivityType
+pattern ActivityTypeDOCUMENTANNOTATIONADDED = ActivityType' "DOCUMENT_ANNOTATION_ADDED"
 
-pattern DocumentAnnotationDeleted :: ActivityType
-pattern DocumentAnnotationDeleted = ActivityType' "DOCUMENT_ANNOTATION_DELETED"
+pattern ActivityTypeDOCUMENTANNOTATIONDELETED :: ActivityType
+pattern ActivityTypeDOCUMENTANNOTATIONDELETED = ActivityType' "DOCUMENT_ANNOTATION_DELETED"
 
-pattern DocumentCheckedIn :: ActivityType
-pattern DocumentCheckedIn = ActivityType' "DOCUMENT_CHECKED_IN"
+pattern ActivityTypeDOCUMENTCHECKEDIN :: ActivityType
+pattern ActivityTypeDOCUMENTCHECKEDIN = ActivityType' "DOCUMENT_CHECKED_IN"
 
-pattern DocumentCheckedOut :: ActivityType
-pattern DocumentCheckedOut = ActivityType' "DOCUMENT_CHECKED_OUT"
+pattern ActivityTypeDOCUMENTCHECKEDOUT :: ActivityType
+pattern ActivityTypeDOCUMENTCHECKEDOUT = ActivityType' "DOCUMENT_CHECKED_OUT"
 
-pattern DocumentCommentAdded :: ActivityType
-pattern DocumentCommentAdded = ActivityType' "DOCUMENT_COMMENT_ADDED"
+pattern ActivityTypeDOCUMENTCOMMENTADDED :: ActivityType
+pattern ActivityTypeDOCUMENTCOMMENTADDED = ActivityType' "DOCUMENT_COMMENT_ADDED"
 
-pattern DocumentCommentDeleted :: ActivityType
-pattern DocumentCommentDeleted = ActivityType' "DOCUMENT_COMMENT_DELETED"
+pattern ActivityTypeDOCUMENTCOMMENTDELETED :: ActivityType
+pattern ActivityTypeDOCUMENTCOMMENTDELETED = ActivityType' "DOCUMENT_COMMENT_DELETED"
 
-pattern DocumentMoved :: ActivityType
-pattern DocumentMoved = ActivityType' "DOCUMENT_MOVED"
+pattern ActivityTypeDOCUMENTMOVED :: ActivityType
+pattern ActivityTypeDOCUMENTMOVED = ActivityType' "DOCUMENT_MOVED"
 
-pattern DocumentRecycled :: ActivityType
-pattern DocumentRecycled = ActivityType' "DOCUMENT_RECYCLED"
+pattern ActivityTypeDOCUMENTRECYCLED :: ActivityType
+pattern ActivityTypeDOCUMENTRECYCLED = ActivityType' "DOCUMENT_RECYCLED"
 
-pattern DocumentRenamed :: ActivityType
-pattern DocumentRenamed = ActivityType' "DOCUMENT_RENAMED"
+pattern ActivityTypeDOCUMENTRENAMED :: ActivityType
+pattern ActivityTypeDOCUMENTRENAMED = ActivityType' "DOCUMENT_RENAMED"
 
-pattern DocumentRestored :: ActivityType
-pattern DocumentRestored = ActivityType' "DOCUMENT_RESTORED"
+pattern ActivityTypeDOCUMENTRESTORED :: ActivityType
+pattern ActivityTypeDOCUMENTRESTORED = ActivityType' "DOCUMENT_RESTORED"
 
-pattern DocumentReverted :: ActivityType
-pattern DocumentReverted = ActivityType' "DOCUMENT_REVERTED"
+pattern ActivityTypeDOCUMENTREVERTED :: ActivityType
+pattern ActivityTypeDOCUMENTREVERTED = ActivityType' "DOCUMENT_REVERTED"
 
-pattern DocumentSharePermissionChanged :: ActivityType
-pattern DocumentSharePermissionChanged = ActivityType' "DOCUMENT_SHARE_PERMISSION_CHANGED"
+pattern ActivityTypeDOCUMENTSHAREABLELINKCREATED :: ActivityType
+pattern ActivityTypeDOCUMENTSHAREABLELINKCREATED = ActivityType' "DOCUMENT_SHAREABLE_LINK_CREATED"
 
-pattern DocumentShareableLinkCreated :: ActivityType
-pattern DocumentShareableLinkCreated = ActivityType' "DOCUMENT_SHAREABLE_LINK_CREATED"
+pattern ActivityTypeDOCUMENTSHAREABLELINKPERMISSIONCHANGED :: ActivityType
+pattern ActivityTypeDOCUMENTSHAREABLELINKPERMISSIONCHANGED = ActivityType' "DOCUMENT_SHAREABLE_LINK_PERMISSION_CHANGED"
 
-pattern DocumentShareableLinkPermissionChanged :: ActivityType
-pattern DocumentShareableLinkPermissionChanged = ActivityType' "DOCUMENT_SHAREABLE_LINK_PERMISSION_CHANGED"
+pattern ActivityTypeDOCUMENTSHAREABLELINKREMOVED :: ActivityType
+pattern ActivityTypeDOCUMENTSHAREABLELINKREMOVED = ActivityType' "DOCUMENT_SHAREABLE_LINK_REMOVED"
 
-pattern DocumentShareableLinkRemoved :: ActivityType
-pattern DocumentShareableLinkRemoved = ActivityType' "DOCUMENT_SHAREABLE_LINK_REMOVED"
+pattern ActivityTypeDOCUMENTSHARED :: ActivityType
+pattern ActivityTypeDOCUMENTSHARED = ActivityType' "DOCUMENT_SHARED"
 
-pattern DocumentShared :: ActivityType
-pattern DocumentShared = ActivityType' "DOCUMENT_SHARED"
+pattern ActivityTypeDOCUMENTSHAREPERMISSIONCHANGED :: ActivityType
+pattern ActivityTypeDOCUMENTSHAREPERMISSIONCHANGED = ActivityType' "DOCUMENT_SHARE_PERMISSION_CHANGED"
 
-pattern DocumentUnshared :: ActivityType
-pattern DocumentUnshared = ActivityType' "DOCUMENT_UNSHARED"
+pattern ActivityTypeDOCUMENTUNSHARED :: ActivityType
+pattern ActivityTypeDOCUMENTUNSHARED = ActivityType' "DOCUMENT_UNSHARED"
 
-pattern DocumentVersionDeleted :: ActivityType
-pattern DocumentVersionDeleted = ActivityType' "DOCUMENT_VERSION_DELETED"
+pattern ActivityTypeDOCUMENTVERSIONDELETED :: ActivityType
+pattern ActivityTypeDOCUMENTVERSIONDELETED = ActivityType' "DOCUMENT_VERSION_DELETED"
 
-pattern DocumentVersionDownloaded :: ActivityType
-pattern DocumentVersionDownloaded = ActivityType' "DOCUMENT_VERSION_DOWNLOADED"
+pattern ActivityTypeDOCUMENTVERSIONDOWNLOADED :: ActivityType
+pattern ActivityTypeDOCUMENTVERSIONDOWNLOADED = ActivityType' "DOCUMENT_VERSION_DOWNLOADED"
 
-pattern DocumentVersionUploaded :: ActivityType
-pattern DocumentVersionUploaded = ActivityType' "DOCUMENT_VERSION_UPLOADED"
+pattern ActivityTypeDOCUMENTVERSIONUPLOADED :: ActivityType
+pattern ActivityTypeDOCUMENTVERSIONUPLOADED = ActivityType' "DOCUMENT_VERSION_UPLOADED"
 
-pattern DocumentVersionViewed :: ActivityType
-pattern DocumentVersionViewed = ActivityType' "DOCUMENT_VERSION_VIEWED"
+pattern ActivityTypeDOCUMENTVERSIONVIEWED :: ActivityType
+pattern ActivityTypeDOCUMENTVERSIONVIEWED = ActivityType' "DOCUMENT_VERSION_VIEWED"
 
-pattern FolderCreated :: ActivityType
-pattern FolderCreated = ActivityType' "FOLDER_CREATED"
+pattern ActivityTypeFOLDERCREATED :: ActivityType
+pattern ActivityTypeFOLDERCREATED = ActivityType' "FOLDER_CREATED"
 
-pattern FolderDeleted :: ActivityType
-pattern FolderDeleted = ActivityType' "FOLDER_DELETED"
+pattern ActivityTypeFOLDERDELETED :: ActivityType
+pattern ActivityTypeFOLDERDELETED = ActivityType' "FOLDER_DELETED"
 
-pattern FolderMoved :: ActivityType
-pattern FolderMoved = ActivityType' "FOLDER_MOVED"
+pattern ActivityTypeFOLDERMOVED :: ActivityType
+pattern ActivityTypeFOLDERMOVED = ActivityType' "FOLDER_MOVED"
 
-pattern FolderRecycled :: ActivityType
-pattern FolderRecycled = ActivityType' "FOLDER_RECYCLED"
+pattern ActivityTypeFOLDERRECYCLED :: ActivityType
+pattern ActivityTypeFOLDERRECYCLED = ActivityType' "FOLDER_RECYCLED"
 
-pattern FolderRenamed :: ActivityType
-pattern FolderRenamed = ActivityType' "FOLDER_RENAMED"
+pattern ActivityTypeFOLDERRENAMED :: ActivityType
+pattern ActivityTypeFOLDERRENAMED = ActivityType' "FOLDER_RENAMED"
 
-pattern FolderRestored :: ActivityType
-pattern FolderRestored = ActivityType' "FOLDER_RESTORED"
+pattern ActivityTypeFOLDERRESTORED :: ActivityType
+pattern ActivityTypeFOLDERRESTORED = ActivityType' "FOLDER_RESTORED"
 
-pattern FolderSharePermissionChanged :: ActivityType
-pattern FolderSharePermissionChanged = ActivityType' "FOLDER_SHARE_PERMISSION_CHANGED"
+pattern ActivityTypeFOLDERSHAREABLELINKCREATED :: ActivityType
+pattern ActivityTypeFOLDERSHAREABLELINKCREATED = ActivityType' "FOLDER_SHAREABLE_LINK_CREATED"
 
-pattern FolderShareableLinkCreated :: ActivityType
-pattern FolderShareableLinkCreated = ActivityType' "FOLDER_SHAREABLE_LINK_CREATED"
+pattern ActivityTypeFOLDERSHAREABLELINKPERMISSIONCHANGED :: ActivityType
+pattern ActivityTypeFOLDERSHAREABLELINKPERMISSIONCHANGED = ActivityType' "FOLDER_SHAREABLE_LINK_PERMISSION_CHANGED"
 
-pattern FolderShareableLinkPermissionChanged :: ActivityType
-pattern FolderShareableLinkPermissionChanged = ActivityType' "FOLDER_SHAREABLE_LINK_PERMISSION_CHANGED"
+pattern ActivityTypeFOLDERSHAREABLELINKREMOVED :: ActivityType
+pattern ActivityTypeFOLDERSHAREABLELINKREMOVED = ActivityType' "FOLDER_SHAREABLE_LINK_REMOVED"
 
-pattern FolderShareableLinkRemoved :: ActivityType
-pattern FolderShareableLinkRemoved = ActivityType' "FOLDER_SHAREABLE_LINK_REMOVED"
+pattern ActivityTypeFOLDERSHARED :: ActivityType
+pattern ActivityTypeFOLDERSHARED = ActivityType' "FOLDER_SHARED"
 
-pattern FolderShared :: ActivityType
-pattern FolderShared = ActivityType' "FOLDER_SHARED"
+pattern ActivityTypeFOLDERSHAREPERMISSIONCHANGED :: ActivityType
+pattern ActivityTypeFOLDERSHAREPERMISSIONCHANGED = ActivityType' "FOLDER_SHARE_PERMISSION_CHANGED"
 
-pattern FolderUnshared :: ActivityType
-pattern FolderUnshared = ActivityType' "FOLDER_UNSHARED"
+pattern ActivityTypeFOLDERUNSHARED :: ActivityType
+pattern ActivityTypeFOLDERUNSHARED = ActivityType' "FOLDER_UNSHARED"
 
 {-# COMPLETE
-  DocumentAnnotationAdded,
-  DocumentAnnotationDeleted,
-  DocumentCheckedIn,
-  DocumentCheckedOut,
-  DocumentCommentAdded,
-  DocumentCommentDeleted,
-  DocumentMoved,
-  DocumentRecycled,
-  DocumentRenamed,
-  DocumentRestored,
-  DocumentReverted,
-  DocumentSharePermissionChanged,
-  DocumentShareableLinkCreated,
-  DocumentShareableLinkPermissionChanged,
-  DocumentShareableLinkRemoved,
-  DocumentShared,
-  DocumentUnshared,
-  DocumentVersionDeleted,
-  DocumentVersionDownloaded,
-  DocumentVersionUploaded,
-  DocumentVersionViewed,
-  FolderCreated,
-  FolderDeleted,
-  FolderMoved,
-  FolderRecycled,
-  FolderRenamed,
-  FolderRestored,
-  FolderSharePermissionChanged,
-  FolderShareableLinkCreated,
-  FolderShareableLinkPermissionChanged,
-  FolderShareableLinkRemoved,
-  FolderShared,
-  FolderUnshared,
+  ActivityTypeDOCUMENTANNOTATIONADDED,
+  ActivityTypeDOCUMENTANNOTATIONDELETED,
+  ActivityTypeDOCUMENTCHECKEDIN,
+  ActivityTypeDOCUMENTCHECKEDOUT,
+  ActivityTypeDOCUMENTCOMMENTADDED,
+  ActivityTypeDOCUMENTCOMMENTDELETED,
+  ActivityTypeDOCUMENTMOVED,
+  ActivityTypeDOCUMENTRECYCLED,
+  ActivityTypeDOCUMENTRENAMED,
+  ActivityTypeDOCUMENTRESTORED,
+  ActivityTypeDOCUMENTREVERTED,
+  ActivityTypeDOCUMENTSHAREABLELINKCREATED,
+  ActivityTypeDOCUMENTSHAREABLELINKPERMISSIONCHANGED,
+  ActivityTypeDOCUMENTSHAREABLELINKREMOVED,
+  ActivityTypeDOCUMENTSHARED,
+  ActivityTypeDOCUMENTSHAREPERMISSIONCHANGED,
+  ActivityTypeDOCUMENTUNSHARED,
+  ActivityTypeDOCUMENTVERSIONDELETED,
+  ActivityTypeDOCUMENTVERSIONDOWNLOADED,
+  ActivityTypeDOCUMENTVERSIONUPLOADED,
+  ActivityTypeDOCUMENTVERSIONVIEWED,
+  ActivityTypeFOLDERCREATED,
+  ActivityTypeFOLDERDELETED,
+  ActivityTypeFOLDERMOVED,
+  ActivityTypeFOLDERRECYCLED,
+  ActivityTypeFOLDERRENAMED,
+  ActivityTypeFOLDERRESTORED,
+  ActivityTypeFOLDERSHAREABLELINKCREATED,
+  ActivityTypeFOLDERSHAREABLELINKPERMISSIONCHANGED,
+  ActivityTypeFOLDERSHAREABLELINKREMOVED,
+  ActivityTypeFOLDERSHARED,
+  ActivityTypeFOLDERSHAREPERMISSIONCHANGED,
+  ActivityTypeFOLDERUNSHARED,
   ActivityType'
   #-}
 
-instance FromText ActivityType where
-  parser = (ActivityType' . mk) <$> takeText
+instance Prelude.FromText ActivityType where
+  parser = ActivityType' Prelude.<$> Prelude.takeText
 
-instance ToText ActivityType where
-  toText (ActivityType' ci) = original ci
+instance Prelude.ToText ActivityType where
+  toText (ActivityType' x) = x
 
-instance Hashable ActivityType
+instance Prelude.Hashable ActivityType
 
-instance NFData ActivityType
+instance Prelude.NFData ActivityType
 
-instance ToByteString ActivityType
+instance Prelude.ToByteString ActivityType
 
-instance ToQuery ActivityType
+instance Prelude.ToQuery ActivityType
 
-instance ToHeader ActivityType
+instance Prelude.ToHeader ActivityType
 
-instance FromJSON ActivityType where
-  parseJSON = parseJSONText "ActivityType"
+instance Prelude.FromJSON ActivityType where
+  parseJSON = Prelude.parseJSONText "ActivityType"

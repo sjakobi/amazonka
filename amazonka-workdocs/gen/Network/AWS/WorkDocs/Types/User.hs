@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.User where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkDocs.Types.LocaleType
 import Network.AWS.WorkDocs.Types.UserStatusType
 import Network.AWS.WorkDocs.Types.UserStorageMetadata
@@ -24,166 +28,182 @@ import Network.AWS.WorkDocs.Types.UserType
 
 -- | Describes a user.
 --
---
---
--- /See:/ 'user' smart constructor.
+-- /See:/ 'newUser' smart constructor.
 data User = User'
-  { _uModifiedTimestamp ::
-      !(Maybe POSIX),
-    _uStatus :: !(Maybe UserStatusType),
-    _uOrganizationId :: !(Maybe Text),
-    _uCreatedTimestamp :: !(Maybe POSIX),
-    _uTimeZoneId :: !(Maybe Text),
-    _uSurname :: !(Maybe Text),
-    _uLocale :: !(Maybe LocaleType),
-    _uId :: !(Maybe Text),
-    _uRootFolderId :: !(Maybe Text),
-    _uGivenName :: !(Maybe Text),
-    _uRecycleBinFolderId :: !(Maybe Text),
-    _uStorage :: !(Maybe UserStorageMetadata),
-    _uUsername :: !(Maybe Text),
-    _uType :: !(Maybe UserType),
-    _uEmailAddress :: !(Maybe Text)
+  { -- | The time when the user was modified.
+    modifiedTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the user.
+    status :: Prelude.Maybe UserStatusType,
+    -- | The ID of the organization.
+    organizationId :: Prelude.Maybe Prelude.Text,
+    -- | The time when the user was created.
+    createdTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The time zone ID of the user.
+    timeZoneId :: Prelude.Maybe Prelude.Text,
+    -- | The surname of the user.
+    surname :: Prelude.Maybe Prelude.Text,
+    -- | The locale of the user.
+    locale :: Prelude.Maybe LocaleType,
+    -- | The ID of the user.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the root folder.
+    rootFolderId :: Prelude.Maybe Prelude.Text,
+    -- | The given name of the user.
+    givenName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the recycle bin folder.
+    recycleBinFolderId :: Prelude.Maybe Prelude.Text,
+    -- | The storage for the user.
+    storage :: Prelude.Maybe UserStorageMetadata,
+    -- | The login name of the user.
+    username :: Prelude.Maybe Prelude.Text,
+    -- | The type of user.
+    type' :: Prelude.Maybe UserType,
+    -- | The email address of the user.
+    emailAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'User' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'User' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uModifiedTimestamp' - The time when the user was modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uStatus' - The status of the user.
+-- 'modifiedTimestamp', 'user_modifiedTimestamp' - The time when the user was modified.
 --
--- * 'uOrganizationId' - The ID of the organization.
+-- 'status', 'user_status' - The status of the user.
 --
--- * 'uCreatedTimestamp' - The time when the user was created.
+-- 'organizationId', 'user_organizationId' - The ID of the organization.
 --
--- * 'uTimeZoneId' - The time zone ID of the user.
+-- 'createdTimestamp', 'user_createdTimestamp' - The time when the user was created.
 --
--- * 'uSurname' - The surname of the user.
+-- 'timeZoneId', 'user_timeZoneId' - The time zone ID of the user.
 --
--- * 'uLocale' - The locale of the user.
+-- 'surname', 'user_surname' - The surname of the user.
 --
--- * 'uId' - The ID of the user.
+-- 'locale', 'user_locale' - The locale of the user.
 --
--- * 'uRootFolderId' - The ID of the root folder.
+-- 'id', 'user_id' - The ID of the user.
 --
--- * 'uGivenName' - The given name of the user.
+-- 'rootFolderId', 'user_rootFolderId' - The ID of the root folder.
 --
--- * 'uRecycleBinFolderId' - The ID of the recycle bin folder.
+-- 'givenName', 'user_givenName' - The given name of the user.
 --
--- * 'uStorage' - The storage for the user.
+-- 'recycleBinFolderId', 'user_recycleBinFolderId' - The ID of the recycle bin folder.
 --
--- * 'uUsername' - The login name of the user.
+-- 'storage', 'user_storage' - The storage for the user.
 --
--- * 'uType' - The type of user.
+-- 'username', 'user_username' - The login name of the user.
 --
--- * 'uEmailAddress' - The email address of the user.
-user ::
+-- 'type'', 'user_type' - The type of user.
+--
+-- 'emailAddress', 'user_emailAddress' - The email address of the user.
+newUser ::
   User
-user =
+newUser =
   User'
-    { _uModifiedTimestamp = Nothing,
-      _uStatus = Nothing,
-      _uOrganizationId = Nothing,
-      _uCreatedTimestamp = Nothing,
-      _uTimeZoneId = Nothing,
-      _uSurname = Nothing,
-      _uLocale = Nothing,
-      _uId = Nothing,
-      _uRootFolderId = Nothing,
-      _uGivenName = Nothing,
-      _uRecycleBinFolderId = Nothing,
-      _uStorage = Nothing,
-      _uUsername = Nothing,
-      _uType = Nothing,
-      _uEmailAddress = Nothing
+    { modifiedTimestamp = Prelude.Nothing,
+      status = Prelude.Nothing,
+      organizationId = Prelude.Nothing,
+      createdTimestamp = Prelude.Nothing,
+      timeZoneId = Prelude.Nothing,
+      surname = Prelude.Nothing,
+      locale = Prelude.Nothing,
+      id = Prelude.Nothing,
+      rootFolderId = Prelude.Nothing,
+      givenName = Prelude.Nothing,
+      recycleBinFolderId = Prelude.Nothing,
+      storage = Prelude.Nothing,
+      username = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      emailAddress = Prelude.Nothing
     }
 
 -- | The time when the user was modified.
-uModifiedTimestamp :: Lens' User (Maybe UTCTime)
-uModifiedTimestamp = lens _uModifiedTimestamp (\s a -> s {_uModifiedTimestamp = a}) . mapping _Time
+user_modifiedTimestamp :: Lens.Lens' User (Prelude.Maybe Prelude.UTCTime)
+user_modifiedTimestamp = Lens.lens (\User' {modifiedTimestamp} -> modifiedTimestamp) (\s@User' {} a -> s {modifiedTimestamp = a} :: User) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the user.
-uStatus :: Lens' User (Maybe UserStatusType)
-uStatus = lens _uStatus (\s a -> s {_uStatus = a})
+user_status :: Lens.Lens' User (Prelude.Maybe UserStatusType)
+user_status = Lens.lens (\User' {status} -> status) (\s@User' {} a -> s {status = a} :: User)
 
 -- | The ID of the organization.
-uOrganizationId :: Lens' User (Maybe Text)
-uOrganizationId = lens _uOrganizationId (\s a -> s {_uOrganizationId = a})
+user_organizationId :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_organizationId = Lens.lens (\User' {organizationId} -> organizationId) (\s@User' {} a -> s {organizationId = a} :: User)
 
 -- | The time when the user was created.
-uCreatedTimestamp :: Lens' User (Maybe UTCTime)
-uCreatedTimestamp = lens _uCreatedTimestamp (\s a -> s {_uCreatedTimestamp = a}) . mapping _Time
+user_createdTimestamp :: Lens.Lens' User (Prelude.Maybe Prelude.UTCTime)
+user_createdTimestamp = Lens.lens (\User' {createdTimestamp} -> createdTimestamp) (\s@User' {} a -> s {createdTimestamp = a} :: User) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time zone ID of the user.
-uTimeZoneId :: Lens' User (Maybe Text)
-uTimeZoneId = lens _uTimeZoneId (\s a -> s {_uTimeZoneId = a})
+user_timeZoneId :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_timeZoneId = Lens.lens (\User' {timeZoneId} -> timeZoneId) (\s@User' {} a -> s {timeZoneId = a} :: User)
 
 -- | The surname of the user.
-uSurname :: Lens' User (Maybe Text)
-uSurname = lens _uSurname (\s a -> s {_uSurname = a})
+user_surname :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_surname = Lens.lens (\User' {surname} -> surname) (\s@User' {} a -> s {surname = a} :: User)
 
 -- | The locale of the user.
-uLocale :: Lens' User (Maybe LocaleType)
-uLocale = lens _uLocale (\s a -> s {_uLocale = a})
+user_locale :: Lens.Lens' User (Prelude.Maybe LocaleType)
+user_locale = Lens.lens (\User' {locale} -> locale) (\s@User' {} a -> s {locale = a} :: User)
 
 -- | The ID of the user.
-uId :: Lens' User (Maybe Text)
-uId = lens _uId (\s a -> s {_uId = a})
+user_id :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_id = Lens.lens (\User' {id} -> id) (\s@User' {} a -> s {id = a} :: User)
 
 -- | The ID of the root folder.
-uRootFolderId :: Lens' User (Maybe Text)
-uRootFolderId = lens _uRootFolderId (\s a -> s {_uRootFolderId = a})
+user_rootFolderId :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_rootFolderId = Lens.lens (\User' {rootFolderId} -> rootFolderId) (\s@User' {} a -> s {rootFolderId = a} :: User)
 
 -- | The given name of the user.
-uGivenName :: Lens' User (Maybe Text)
-uGivenName = lens _uGivenName (\s a -> s {_uGivenName = a})
+user_givenName :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_givenName = Lens.lens (\User' {givenName} -> givenName) (\s@User' {} a -> s {givenName = a} :: User)
 
 -- | The ID of the recycle bin folder.
-uRecycleBinFolderId :: Lens' User (Maybe Text)
-uRecycleBinFolderId = lens _uRecycleBinFolderId (\s a -> s {_uRecycleBinFolderId = a})
+user_recycleBinFolderId :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_recycleBinFolderId = Lens.lens (\User' {recycleBinFolderId} -> recycleBinFolderId) (\s@User' {} a -> s {recycleBinFolderId = a} :: User)
 
 -- | The storage for the user.
-uStorage :: Lens' User (Maybe UserStorageMetadata)
-uStorage = lens _uStorage (\s a -> s {_uStorage = a})
+user_storage :: Lens.Lens' User (Prelude.Maybe UserStorageMetadata)
+user_storage = Lens.lens (\User' {storage} -> storage) (\s@User' {} a -> s {storage = a} :: User)
 
 -- | The login name of the user.
-uUsername :: Lens' User (Maybe Text)
-uUsername = lens _uUsername (\s a -> s {_uUsername = a})
+user_username :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_username = Lens.lens (\User' {username} -> username) (\s@User' {} a -> s {username = a} :: User)
 
 -- | The type of user.
-uType :: Lens' User (Maybe UserType)
-uType = lens _uType (\s a -> s {_uType = a})
+user_type :: Lens.Lens' User (Prelude.Maybe UserType)
+user_type = Lens.lens (\User' {type'} -> type') (\s@User' {} a -> s {type' = a} :: User)
 
 -- | The email address of the user.
-uEmailAddress :: Lens' User (Maybe Text)
-uEmailAddress = lens _uEmailAddress (\s a -> s {_uEmailAddress = a})
+user_emailAddress :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_emailAddress = Lens.lens (\User' {emailAddress} -> emailAddress) (\s@User' {} a -> s {emailAddress = a} :: User)
 
-instance FromJSON User where
+instance Prelude.FromJSON User where
   parseJSON =
-    withObject
+    Prelude.withObject
       "User"
       ( \x ->
           User'
-            <$> (x .:? "ModifiedTimestamp")
-            <*> (x .:? "Status")
-            <*> (x .:? "OrganizationId")
-            <*> (x .:? "CreatedTimestamp")
-            <*> (x .:? "TimeZoneId")
-            <*> (x .:? "Surname")
-            <*> (x .:? "Locale")
-            <*> (x .:? "Id")
-            <*> (x .:? "RootFolderId")
-            <*> (x .:? "GivenName")
-            <*> (x .:? "RecycleBinFolderId")
-            <*> (x .:? "Storage")
-            <*> (x .:? "Username")
-            <*> (x .:? "Type")
-            <*> (x .:? "EmailAddress")
+            Prelude.<$> (x Prelude..:? "ModifiedTimestamp")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "OrganizationId")
+            Prelude.<*> (x Prelude..:? "CreatedTimestamp")
+            Prelude.<*> (x Prelude..:? "TimeZoneId")
+            Prelude.<*> (x Prelude..:? "Surname")
+            Prelude.<*> (x Prelude..:? "Locale")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "RootFolderId")
+            Prelude.<*> (x Prelude..:? "GivenName")
+            Prelude.<*> (x Prelude..:? "RecycleBinFolderId")
+            Prelude.<*> (x Prelude..:? "Storage")
+            Prelude.<*> (x Prelude..:? "Username")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "EmailAddress")
       )
 
-instance Hashable User
+instance Prelude.Hashable User
 
-instance NFData User
+instance Prelude.NFData User

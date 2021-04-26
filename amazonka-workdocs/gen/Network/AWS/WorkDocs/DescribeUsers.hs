@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,252 +21,287 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified users. You can describe all users or filter the results (for example, by status or organization).
+-- Describes the specified users. You can describe all users or filter the
+-- results (for example, by status or organization).
 --
---
--- By default, Amazon WorkDocs returns the first 24 active or pending users. If there are more results, the response includes a marker that you can use to request the next set of results.
---
+-- By default, Amazon WorkDocs returns the first 24 active or pending
+-- users. If there are more results, the response includes a marker that
+-- you can use to request the next set of results.
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkDocs.DescribeUsers
   ( -- * Creating a Request
-    describeUsers,
-    DescribeUsers,
+    DescribeUsers (..),
+    newDescribeUsers,
 
     -- * Request Lenses
-    dOrganizationId,
-    dQuery,
-    dUserIds,
-    dInclude,
-    dFields,
-    dOrder,
-    dAuthenticationToken,
-    dLimit,
-    dSort,
-    dMarker,
+    describeUsers_organizationId,
+    describeUsers_query,
+    describeUsers_userIds,
+    describeUsers_include,
+    describeUsers_fields,
+    describeUsers_order,
+    describeUsers_authenticationToken,
+    describeUsers_limit,
+    describeUsers_sort,
+    describeUsers_marker,
 
     -- * Destructuring the Response
-    describeUsersResponse,
-    DescribeUsersResponse,
+    DescribeUsersResponse (..),
+    newDescribeUsersResponse,
 
     -- * Response Lenses
-    durrsTotalNumberOfUsers,
-    durrsUsers,
-    durrsMarker,
-    durrsResponseStatus,
+    describeUsersResponse_totalNumberOfUsers,
+    describeUsersResponse_users,
+    describeUsersResponse_marker,
+    describeUsersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.User
 
--- | /See:/ 'describeUsers' smart constructor.
+-- | /See:/ 'newDescribeUsers' smart constructor.
 data DescribeUsers = DescribeUsers'
-  { _dOrganizationId ::
-      !(Maybe Text),
-    _dQuery :: !(Maybe (Sensitive Text)),
-    _dUserIds :: !(Maybe Text),
-    _dInclude :: !(Maybe UserFilterType),
-    _dFields :: !(Maybe Text),
-    _dOrder :: !(Maybe OrderType),
-    _dAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _dLimit :: !(Maybe Nat),
-    _dSort :: !(Maybe UserSortType),
-    _dMarker :: !(Maybe Text)
+  { -- | The ID of the organization.
+    organizationId :: Prelude.Maybe Prelude.Text,
+    -- | A query to filter users by user name.
+    query :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The IDs of the users.
+    userIds :: Prelude.Maybe Prelude.Text,
+    -- | The state of the users. Specify \"ALL\" to include inactive users.
+    include :: Prelude.Maybe UserFilterType,
+    -- | A comma-separated list of values. Specify \"STORAGE_METADATA\" to
+    -- include the user storage quota and utilization information.
+    fields :: Prelude.Maybe Prelude.Text,
+    -- | The order for the results.
+    order :: Prelude.Maybe OrderType,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The maximum number of items to return.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The sorting criteria.
+    sort :: Prelude.Maybe UserSortType,
+    -- | The marker for the next set of results. (You received this marker from a
+    -- previous call.)
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUsers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUsers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dOrganizationId' - The ID of the organization.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dQuery' - A query to filter users by user name.
+-- 'organizationId', 'describeUsers_organizationId' - The ID of the organization.
 --
--- * 'dUserIds' - The IDs of the users.
+-- 'query', 'describeUsers_query' - A query to filter users by user name.
 --
--- * 'dInclude' - The state of the users. Specify "ALL" to include inactive users.
+-- 'userIds', 'describeUsers_userIds' - The IDs of the users.
 --
--- * 'dFields' - A comma-separated list of values. Specify "STORAGE_METADATA" to include the user storage quota and utilization information.
+-- 'include', 'describeUsers_include' - The state of the users. Specify \"ALL\" to include inactive users.
 --
--- * 'dOrder' - The order for the results.
+-- 'fields', 'describeUsers_fields' - A comma-separated list of values. Specify \"STORAGE_METADATA\" to
+-- include the user storage quota and utilization information.
 --
--- * 'dAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'order', 'describeUsers_order' - The order for the results.
 --
--- * 'dLimit' - The maximum number of items to return.
+-- 'authenticationToken', 'describeUsers_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'dSort' - The sorting criteria.
+-- 'limit', 'describeUsers_limit' - The maximum number of items to return.
 --
--- * 'dMarker' - The marker for the next set of results. (You received this marker from a previous call.)
-describeUsers ::
+-- 'sort', 'describeUsers_sort' - The sorting criteria.
+--
+-- 'marker', 'describeUsers_marker' - The marker for the next set of results. (You received this marker from a
+-- previous call.)
+newDescribeUsers ::
   DescribeUsers
-describeUsers =
+newDescribeUsers =
   DescribeUsers'
-    { _dOrganizationId = Nothing,
-      _dQuery = Nothing,
-      _dUserIds = Nothing,
-      _dInclude = Nothing,
-      _dFields = Nothing,
-      _dOrder = Nothing,
-      _dAuthenticationToken = Nothing,
-      _dLimit = Nothing,
-      _dSort = Nothing,
-      _dMarker = Nothing
+    { organizationId = Prelude.Nothing,
+      query = Prelude.Nothing,
+      userIds = Prelude.Nothing,
+      include = Prelude.Nothing,
+      fields = Prelude.Nothing,
+      order = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      sort = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The ID of the organization.
-dOrganizationId :: Lens' DescribeUsers (Maybe Text)
-dOrganizationId = lens _dOrganizationId (\s a -> s {_dOrganizationId = a})
+describeUsers_organizationId :: Lens.Lens' DescribeUsers (Prelude.Maybe Prelude.Text)
+describeUsers_organizationId = Lens.lens (\DescribeUsers' {organizationId} -> organizationId) (\s@DescribeUsers' {} a -> s {organizationId = a} :: DescribeUsers)
 
 -- | A query to filter users by user name.
-dQuery :: Lens' DescribeUsers (Maybe Text)
-dQuery = lens _dQuery (\s a -> s {_dQuery = a}) . mapping _Sensitive
+describeUsers_query :: Lens.Lens' DescribeUsers (Prelude.Maybe Prelude.Text)
+describeUsers_query = Lens.lens (\DescribeUsers' {query} -> query) (\s@DescribeUsers' {} a -> s {query = a} :: DescribeUsers) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The IDs of the users.
-dUserIds :: Lens' DescribeUsers (Maybe Text)
-dUserIds = lens _dUserIds (\s a -> s {_dUserIds = a})
+describeUsers_userIds :: Lens.Lens' DescribeUsers (Prelude.Maybe Prelude.Text)
+describeUsers_userIds = Lens.lens (\DescribeUsers' {userIds} -> userIds) (\s@DescribeUsers' {} a -> s {userIds = a} :: DescribeUsers)
 
--- | The state of the users. Specify "ALL" to include inactive users.
-dInclude :: Lens' DescribeUsers (Maybe UserFilterType)
-dInclude = lens _dInclude (\s a -> s {_dInclude = a})
+-- | The state of the users. Specify \"ALL\" to include inactive users.
+describeUsers_include :: Lens.Lens' DescribeUsers (Prelude.Maybe UserFilterType)
+describeUsers_include = Lens.lens (\DescribeUsers' {include} -> include) (\s@DescribeUsers' {} a -> s {include = a} :: DescribeUsers)
 
--- | A comma-separated list of values. Specify "STORAGE_METADATA" to include the user storage quota and utilization information.
-dFields :: Lens' DescribeUsers (Maybe Text)
-dFields = lens _dFields (\s a -> s {_dFields = a})
+-- | A comma-separated list of values. Specify \"STORAGE_METADATA\" to
+-- include the user storage quota and utilization information.
+describeUsers_fields :: Lens.Lens' DescribeUsers (Prelude.Maybe Prelude.Text)
+describeUsers_fields = Lens.lens (\DescribeUsers' {fields} -> fields) (\s@DescribeUsers' {} a -> s {fields = a} :: DescribeUsers)
 
 -- | The order for the results.
-dOrder :: Lens' DescribeUsers (Maybe OrderType)
-dOrder = lens _dOrder (\s a -> s {_dOrder = a})
+describeUsers_order :: Lens.Lens' DescribeUsers (Prelude.Maybe OrderType)
+describeUsers_order = Lens.lens (\DescribeUsers' {order} -> order) (\s@DescribeUsers' {} a -> s {order = a} :: DescribeUsers)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-dAuthenticationToken :: Lens' DescribeUsers (Maybe Text)
-dAuthenticationToken = lens _dAuthenticationToken (\s a -> s {_dAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+describeUsers_authenticationToken :: Lens.Lens' DescribeUsers (Prelude.Maybe Prelude.Text)
+describeUsers_authenticationToken = Lens.lens (\DescribeUsers' {authenticationToken} -> authenticationToken) (\s@DescribeUsers' {} a -> s {authenticationToken = a} :: DescribeUsers) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The maximum number of items to return.
-dLimit :: Lens' DescribeUsers (Maybe Natural)
-dLimit = lens _dLimit (\s a -> s {_dLimit = a}) . mapping _Nat
+describeUsers_limit :: Lens.Lens' DescribeUsers (Prelude.Maybe Prelude.Natural)
+describeUsers_limit = Lens.lens (\DescribeUsers' {limit} -> limit) (\s@DescribeUsers' {} a -> s {limit = a} :: DescribeUsers) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The sorting criteria.
-dSort :: Lens' DescribeUsers (Maybe UserSortType)
-dSort = lens _dSort (\s a -> s {_dSort = a})
+describeUsers_sort :: Lens.Lens' DescribeUsers (Prelude.Maybe UserSortType)
+describeUsers_sort = Lens.lens (\DescribeUsers' {sort} -> sort) (\s@DescribeUsers' {} a -> s {sort = a} :: DescribeUsers)
 
--- | The marker for the next set of results. (You received this marker from a previous call.)
-dMarker :: Lens' DescribeUsers (Maybe Text)
-dMarker = lens _dMarker (\s a -> s {_dMarker = a})
+-- | The marker for the next set of results. (You received this marker from a
+-- previous call.)
+describeUsers_marker :: Lens.Lens' DescribeUsers (Prelude.Maybe Prelude.Text)
+describeUsers_marker = Lens.lens (\DescribeUsers' {marker} -> marker) (\s@DescribeUsers' {} a -> s {marker = a} :: DescribeUsers)
 
-instance AWSPager DescribeUsers where
+instance Pager.AWSPager DescribeUsers where
   page rq rs
-    | stop (rs ^. durrsMarker) = Nothing
-    | stop (rs ^. durrsUsers) = Nothing
-    | otherwise =
-      Just $ rq & dMarker .~ rs ^. durrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeUsersResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeUsersResponse_users Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeUsers_marker
+          Lens..~ rs
+          Lens.^? describeUsersResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest DescribeUsers where
+instance Prelude.AWSRequest DescribeUsers where
   type Rs DescribeUsers = DescribeUsersResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeUsersResponse'
-            <$> (x .?> "TotalNumberOfUsers")
-            <*> (x .?> "Users" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TotalNumberOfUsers")
+            Prelude.<*> (x Prelude..?> "Users" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeUsers
+instance Prelude.Hashable DescribeUsers
 
-instance NFData DescribeUsers
+instance Prelude.NFData DescribeUsers
 
-instance ToHeaders DescribeUsers where
+instance Prelude.ToHeaders DescribeUsers where
   toHeaders DescribeUsers' {..} =
-    mconcat
-      [ "Authentication" =# _dAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DescribeUsers where
-  toPath = const "/api/v1/users"
+instance Prelude.ToPath DescribeUsers where
+  toPath = Prelude.const "/api/v1/users"
 
-instance ToQuery DescribeUsers where
+instance Prelude.ToQuery DescribeUsers where
   toQuery DescribeUsers' {..} =
-    mconcat
-      [ "organizationId" =: _dOrganizationId,
-        "query" =: _dQuery,
-        "userIds" =: _dUserIds,
-        "include" =: _dInclude,
-        "fields" =: _dFields,
-        "order" =: _dOrder,
-        "limit" =: _dLimit,
-        "sort" =: _dSort,
-        "marker" =: _dMarker
+    Prelude.mconcat
+      [ "organizationId" Prelude.=: organizationId,
+        "query" Prelude.=: query,
+        "userIds" Prelude.=: userIds,
+        "include" Prelude.=: include,
+        "fields" Prelude.=: fields,
+        "order" Prelude.=: order,
+        "limit" Prelude.=: limit,
+        "sort" Prelude.=: sort,
+        "marker" Prelude.=: marker
       ]
 
--- | /See:/ 'describeUsersResponse' smart constructor.
+-- | /See:/ 'newDescribeUsersResponse' smart constructor.
 data DescribeUsersResponse = DescribeUsersResponse'
-  { _durrsTotalNumberOfUsers ::
-      !(Maybe Integer),
-    _durrsUsers ::
-      !(Maybe [User]),
-    _durrsMarker ::
-      !(Maybe Text),
-    _durrsResponseStatus ::
-      !Int
+  { -- | The total number of users included in the results.
+    totalNumberOfUsers :: Prelude.Maybe Prelude.Integer,
+    -- | The users.
+    users :: Prelude.Maybe [User],
+    -- | The marker to use when requesting the next set of results. If there are
+    -- no additional results, the string is empty.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUsersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUsersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'durrsTotalNumberOfUsers' - The total number of users included in the results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'durrsUsers' - The users.
+-- 'totalNumberOfUsers', 'describeUsersResponse_totalNumberOfUsers' - The total number of users included in the results.
 --
--- * 'durrsMarker' - The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
+-- 'users', 'describeUsersResponse_users' - The users.
 --
--- * 'durrsResponseStatus' - -- | The response status code.
-describeUsersResponse ::
-  -- | 'durrsResponseStatus'
-  Int ->
+-- 'marker', 'describeUsersResponse_marker' - The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+--
+-- 'httpStatus', 'describeUsersResponse_httpStatus' - The response's http status code.
+newDescribeUsersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeUsersResponse
-describeUsersResponse pResponseStatus_ =
+newDescribeUsersResponse pHttpStatus_ =
   DescribeUsersResponse'
-    { _durrsTotalNumberOfUsers =
-        Nothing,
-      _durrsUsers = Nothing,
-      _durrsMarker = Nothing,
-      _durrsResponseStatus = pResponseStatus_
+    { totalNumberOfUsers =
+        Prelude.Nothing,
+      users = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The total number of users included in the results.
-durrsTotalNumberOfUsers :: Lens' DescribeUsersResponse (Maybe Integer)
-durrsTotalNumberOfUsers = lens _durrsTotalNumberOfUsers (\s a -> s {_durrsTotalNumberOfUsers = a})
+describeUsersResponse_totalNumberOfUsers :: Lens.Lens' DescribeUsersResponse (Prelude.Maybe Prelude.Integer)
+describeUsersResponse_totalNumberOfUsers = Lens.lens (\DescribeUsersResponse' {totalNumberOfUsers} -> totalNumberOfUsers) (\s@DescribeUsersResponse' {} a -> s {totalNumberOfUsers = a} :: DescribeUsersResponse)
 
 -- | The users.
-durrsUsers :: Lens' DescribeUsersResponse [User]
-durrsUsers = lens _durrsUsers (\s a -> s {_durrsUsers = a}) . _Default . _Coerce
+describeUsersResponse_users :: Lens.Lens' DescribeUsersResponse (Prelude.Maybe [User])
+describeUsersResponse_users = Lens.lens (\DescribeUsersResponse' {users} -> users) (\s@DescribeUsersResponse' {} a -> s {users = a} :: DescribeUsersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
-durrsMarker :: Lens' DescribeUsersResponse (Maybe Text)
-durrsMarker = lens _durrsMarker (\s a -> s {_durrsMarker = a})
+-- | The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+describeUsersResponse_marker :: Lens.Lens' DescribeUsersResponse (Prelude.Maybe Prelude.Text)
+describeUsersResponse_marker = Lens.lens (\DescribeUsersResponse' {marker} -> marker) (\s@DescribeUsersResponse' {} a -> s {marker = a} :: DescribeUsersResponse)
 
--- | -- | The response status code.
-durrsResponseStatus :: Lens' DescribeUsersResponse Int
-durrsResponseStatus = lens _durrsResponseStatus (\s a -> s {_durrsResponseStatus = a})
+-- | The response's http status code.
+describeUsersResponse_httpStatus :: Lens.Lens' DescribeUsersResponse Prelude.Int
+describeUsersResponse_httpStatus = Lens.lens (\DescribeUsersResponse' {httpStatus} -> httpStatus) (\s@DescribeUsersResponse' {} a -> s {httpStatus = a} :: DescribeUsersResponse)
 
-instance NFData DescribeUsersResponse
+instance Prelude.NFData DescribeUsersResponse

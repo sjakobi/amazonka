@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,100 +21,112 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deactivates the specified user, which revokes the user's access to Amazon WorkDocs.
+-- Deactivates the specified user, which revokes the user\'s access to
+-- Amazon WorkDocs.
 module Network.AWS.WorkDocs.DeactivateUser
   ( -- * Creating a Request
-    deactivateUser,
-    DeactivateUser,
+    DeactivateUser (..),
+    newDeactivateUser,
 
     -- * Request Lenses
-    duAuthenticationToken,
-    duUserId,
+    deactivateUser_authenticationToken,
+    deactivateUser_userId,
 
     -- * Destructuring the Response
-    deactivateUserResponse,
-    DeactivateUserResponse,
+    DeactivateUserResponse (..),
+    newDeactivateUserResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
 
--- | /See:/ 'deactivateUser' smart constructor.
+-- | /See:/ 'newDeactivateUser' smart constructor.
 data DeactivateUser = DeactivateUser'
-  { _duAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _duUserId :: !Text
+  { -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the user.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeactivateUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeactivateUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duUserId' - The ID of the user.
-deactivateUser ::
-  -- | 'duUserId'
-  Text ->
+-- 'authenticationToken', 'deactivateUser_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+--
+-- 'userId', 'deactivateUser_userId' - The ID of the user.
+newDeactivateUser ::
+  -- | 'userId'
+  Prelude.Text ->
   DeactivateUser
-deactivateUser pUserId_ =
+newDeactivateUser pUserId_ =
   DeactivateUser'
-    { _duAuthenticationToken = Nothing,
-      _duUserId = pUserId_
+    { authenticationToken =
+        Prelude.Nothing,
+      userId = pUserId_
     }
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-duAuthenticationToken :: Lens' DeactivateUser (Maybe Text)
-duAuthenticationToken = lens _duAuthenticationToken (\s a -> s {_duAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+deactivateUser_authenticationToken :: Lens.Lens' DeactivateUser (Prelude.Maybe Prelude.Text)
+deactivateUser_authenticationToken = Lens.lens (\DeactivateUser' {authenticationToken} -> authenticationToken) (\s@DeactivateUser' {} a -> s {authenticationToken = a} :: DeactivateUser) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the user.
-duUserId :: Lens' DeactivateUser Text
-duUserId = lens _duUserId (\s a -> s {_duUserId = a})
+deactivateUser_userId :: Lens.Lens' DeactivateUser Prelude.Text
+deactivateUser_userId = Lens.lens (\DeactivateUser' {userId} -> userId) (\s@DeactivateUser' {} a -> s {userId = a} :: DeactivateUser)
 
-instance AWSRequest DeactivateUser where
+instance Prelude.AWSRequest DeactivateUser where
   type Rs DeactivateUser = DeactivateUserResponse
-  request = delete workDocs
-  response = receiveNull DeactivateUserResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeactivateUserResponse'
 
-instance Hashable DeactivateUser
+instance Prelude.Hashable DeactivateUser
 
-instance NFData DeactivateUser
+instance Prelude.NFData DeactivateUser
 
-instance ToHeaders DeactivateUser where
+instance Prelude.ToHeaders DeactivateUser where
   toHeaders DeactivateUser' {..} =
-    mconcat
-      [ "Authentication" =# _duAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DeactivateUser where
+instance Prelude.ToPath DeactivateUser where
   toPath DeactivateUser' {..} =
-    mconcat
-      ["/api/v1/users/", toBS _duUserId, "/activation"]
+    Prelude.mconcat
+      [ "/api/v1/users/",
+        Prelude.toBS userId,
+        "/activation"
+      ]
 
-instance ToQuery DeactivateUser where
-  toQuery = const mempty
+instance Prelude.ToQuery DeactivateUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deactivateUserResponse' smart constructor.
+-- | /See:/ 'newDeactivateUserResponse' smart constructor.
 data DeactivateUserResponse = DeactivateUserResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeactivateUserResponse' with the minimum fields required to make a request.
-deactivateUserResponse ::
+-- |
+-- Create a value of 'DeactivateUserResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeactivateUserResponse ::
   DeactivateUserResponse
-deactivateUserResponse = DeactivateUserResponse'
+newDeactivateUserResponse = DeactivateUserResponse'
 
-instance NFData DeactivateUserResponse
+instance Prelude.NFData DeactivateUserResponse

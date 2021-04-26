@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.WorkDocs.Types.BooleanEnumType
   ( BooleanEnumType
       ( ..,
-        False',
-        True'
+        BooleanEnumTypeFALSE,
+        BooleanEnumTypeTRUE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BooleanEnumType = BooleanEnumType' (CI Text)
+newtype BooleanEnumType = BooleanEnumType'
+  { fromBooleanEnumType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern False' :: BooleanEnumType
-pattern False' = BooleanEnumType' "FALSE"
+pattern BooleanEnumTypeFALSE :: BooleanEnumType
+pattern BooleanEnumTypeFALSE = BooleanEnumType' "FALSE"
 
-pattern True' :: BooleanEnumType
-pattern True' = BooleanEnumType' "TRUE"
+pattern BooleanEnumTypeTRUE :: BooleanEnumType
+pattern BooleanEnumTypeTRUE = BooleanEnumType' "TRUE"
 
 {-# COMPLETE
-  False',
-  True',
+  BooleanEnumTypeFALSE,
+  BooleanEnumTypeTRUE,
   BooleanEnumType'
   #-}
 
-instance FromText BooleanEnumType where
-  parser = (BooleanEnumType' . mk) <$> takeText
+instance Prelude.FromText BooleanEnumType where
+  parser = BooleanEnumType' Prelude.<$> Prelude.takeText
 
-instance ToText BooleanEnumType where
-  toText (BooleanEnumType' ci) = original ci
+instance Prelude.ToText BooleanEnumType where
+  toText (BooleanEnumType' x) = x
 
-instance Hashable BooleanEnumType
+instance Prelude.Hashable BooleanEnumType
 
-instance NFData BooleanEnumType
+instance Prelude.NFData BooleanEnumType
 
-instance ToByteString BooleanEnumType
+instance Prelude.ToByteString BooleanEnumType
 
-instance ToQuery BooleanEnumType
+instance Prelude.ToQuery BooleanEnumType
 
-instance ToHeader BooleanEnumType
+instance Prelude.ToHeader BooleanEnumType
 
-instance ToJSON BooleanEnumType where
-  toJSON = toJSONText
+instance Prelude.ToJSON BooleanEnumType where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.WorkDocs.Types.ResourceSortType
   ( ResourceSortType
       ( ..,
-        Date,
-        Name
+        ResourceSortTypeDATE,
+        ResourceSortTypeNAME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceSortType = ResourceSortType' (CI Text)
+newtype ResourceSortType = ResourceSortType'
+  { fromResourceSortType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Date :: ResourceSortType
-pattern Date = ResourceSortType' "DATE"
+pattern ResourceSortTypeDATE :: ResourceSortType
+pattern ResourceSortTypeDATE = ResourceSortType' "DATE"
 
-pattern Name :: ResourceSortType
-pattern Name = ResourceSortType' "NAME"
+pattern ResourceSortTypeNAME :: ResourceSortType
+pattern ResourceSortTypeNAME = ResourceSortType' "NAME"
 
 {-# COMPLETE
-  Date,
-  Name,
+  ResourceSortTypeDATE,
+  ResourceSortTypeNAME,
   ResourceSortType'
   #-}
 
-instance FromText ResourceSortType where
-  parser = (ResourceSortType' . mk) <$> takeText
+instance Prelude.FromText ResourceSortType where
+  parser = ResourceSortType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceSortType where
-  toText (ResourceSortType' ci) = original ci
+instance Prelude.ToText ResourceSortType where
+  toText (ResourceSortType' x) = x
 
-instance Hashable ResourceSortType
+instance Prelude.Hashable ResourceSortType
 
-instance NFData ResourceSortType
+instance Prelude.NFData ResourceSortType
 
-instance ToByteString ResourceSortType
+instance Prelude.ToByteString ResourceSortType
 
-instance ToQuery ResourceSortType
+instance Prelude.ToQuery ResourceSortType
 
-instance ToHeader ResourceSortType
+instance Prelude.ToHeader ResourceSortType
 
-instance ToJSON ResourceSortType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceSortType where
+  toJSON = Prelude.toJSONText

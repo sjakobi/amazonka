@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.WorkDocs.Types.FolderContentType
   ( FolderContentType
       ( ..,
-        FCTAll,
-        FCTDocument,
-        FCTFolder
+        FolderContentTypeALL,
+        FolderContentTypeDOCUMENT,
+        FolderContentTypeFOLDER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FolderContentType = FolderContentType' (CI Text)
+newtype FolderContentType = FolderContentType'
+  { fromFolderContentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FCTAll :: FolderContentType
-pattern FCTAll = FolderContentType' "ALL"
+pattern FolderContentTypeALL :: FolderContentType
+pattern FolderContentTypeALL = FolderContentType' "ALL"
 
-pattern FCTDocument :: FolderContentType
-pattern FCTDocument = FolderContentType' "DOCUMENT"
+pattern FolderContentTypeDOCUMENT :: FolderContentType
+pattern FolderContentTypeDOCUMENT = FolderContentType' "DOCUMENT"
 
-pattern FCTFolder :: FolderContentType
-pattern FCTFolder = FolderContentType' "FOLDER"
+pattern FolderContentTypeFOLDER :: FolderContentType
+pattern FolderContentTypeFOLDER = FolderContentType' "FOLDER"
 
 {-# COMPLETE
-  FCTAll,
-  FCTDocument,
-  FCTFolder,
+  FolderContentTypeALL,
+  FolderContentTypeDOCUMENT,
+  FolderContentTypeFOLDER,
   FolderContentType'
   #-}
 
-instance FromText FolderContentType where
-  parser = (FolderContentType' . mk) <$> takeText
+instance Prelude.FromText FolderContentType where
+  parser = FolderContentType' Prelude.<$> Prelude.takeText
 
-instance ToText FolderContentType where
-  toText (FolderContentType' ci) = original ci
+instance Prelude.ToText FolderContentType where
+  toText (FolderContentType' x) = x
 
-instance Hashable FolderContentType
+instance Prelude.Hashable FolderContentType
 
-instance NFData FolderContentType
+instance Prelude.NFData FolderContentType
 
-instance ToByteString FolderContentType
+instance Prelude.ToByteString FolderContentType
 
-instance ToQuery FolderContentType
+instance Prelude.ToQuery FolderContentType
 
-instance ToHeader FolderContentType
+instance Prelude.ToHeader FolderContentType
 
-instance ToJSON FolderContentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FolderContentType where
+  toJSON = Prelude.toJSONText

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,125 +24,135 @@
 -- Deletes the specified comment from the document version.
 module Network.AWS.WorkDocs.DeleteComment
   ( -- * Creating a Request
-    deleteComment,
-    DeleteComment,
+    DeleteComment (..),
+    newDeleteComment,
 
     -- * Request Lenses
-    dcAuthenticationToken,
-    dcDocumentId,
-    dcVersionId,
-    dcCommentId,
+    deleteComment_authenticationToken,
+    deleteComment_documentId,
+    deleteComment_versionId,
+    deleteComment_commentId,
 
     -- * Destructuring the Response
-    deleteCommentResponse,
-    DeleteCommentResponse,
+    DeleteCommentResponse (..),
+    newDeleteCommentResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
 
--- | /See:/ 'deleteComment' smart constructor.
+-- | /See:/ 'newDeleteComment' smart constructor.
 data DeleteComment = DeleteComment'
-  { _dcAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _dcDocumentId :: !Text,
-    _dcVersionId :: !Text,
-    _dcCommentId :: !Text
+  { -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the document.
+    documentId :: Prelude.Text,
+    -- | The ID of the document version.
+    versionId :: Prelude.Text,
+    -- | The ID of the comment.
+    commentId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteComment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteComment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcDocumentId' - The ID of the document.
+-- 'authenticationToken', 'deleteComment_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'dcVersionId' - The ID of the document version.
+-- 'documentId', 'deleteComment_documentId' - The ID of the document.
 --
--- * 'dcCommentId' - The ID of the comment.
-deleteComment ::
-  -- | 'dcDocumentId'
-  Text ->
-  -- | 'dcVersionId'
-  Text ->
-  -- | 'dcCommentId'
-  Text ->
+-- 'versionId', 'deleteComment_versionId' - The ID of the document version.
+--
+-- 'commentId', 'deleteComment_commentId' - The ID of the comment.
+newDeleteComment ::
+  -- | 'documentId'
+  Prelude.Text ->
+  -- | 'versionId'
+  Prelude.Text ->
+  -- | 'commentId'
+  Prelude.Text ->
   DeleteComment
-deleteComment pDocumentId_ pVersionId_ pCommentId_ =
+newDeleteComment pDocumentId_ pVersionId_ pCommentId_ =
   DeleteComment'
-    { _dcAuthenticationToken = Nothing,
-      _dcDocumentId = pDocumentId_,
-      _dcVersionId = pVersionId_,
-      _dcCommentId = pCommentId_
+    { authenticationToken =
+        Prelude.Nothing,
+      documentId = pDocumentId_,
+      versionId = pVersionId_,
+      commentId = pCommentId_
     }
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-dcAuthenticationToken :: Lens' DeleteComment (Maybe Text)
-dcAuthenticationToken = lens _dcAuthenticationToken (\s a -> s {_dcAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+deleteComment_authenticationToken :: Lens.Lens' DeleteComment (Prelude.Maybe Prelude.Text)
+deleteComment_authenticationToken = Lens.lens (\DeleteComment' {authenticationToken} -> authenticationToken) (\s@DeleteComment' {} a -> s {authenticationToken = a} :: DeleteComment) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the document.
-dcDocumentId :: Lens' DeleteComment Text
-dcDocumentId = lens _dcDocumentId (\s a -> s {_dcDocumentId = a})
+deleteComment_documentId :: Lens.Lens' DeleteComment Prelude.Text
+deleteComment_documentId = Lens.lens (\DeleteComment' {documentId} -> documentId) (\s@DeleteComment' {} a -> s {documentId = a} :: DeleteComment)
 
 -- | The ID of the document version.
-dcVersionId :: Lens' DeleteComment Text
-dcVersionId = lens _dcVersionId (\s a -> s {_dcVersionId = a})
+deleteComment_versionId :: Lens.Lens' DeleteComment Prelude.Text
+deleteComment_versionId = Lens.lens (\DeleteComment' {versionId} -> versionId) (\s@DeleteComment' {} a -> s {versionId = a} :: DeleteComment)
 
 -- | The ID of the comment.
-dcCommentId :: Lens' DeleteComment Text
-dcCommentId = lens _dcCommentId (\s a -> s {_dcCommentId = a})
+deleteComment_commentId :: Lens.Lens' DeleteComment Prelude.Text
+deleteComment_commentId = Lens.lens (\DeleteComment' {commentId} -> commentId) (\s@DeleteComment' {} a -> s {commentId = a} :: DeleteComment)
 
-instance AWSRequest DeleteComment where
+instance Prelude.AWSRequest DeleteComment where
   type Rs DeleteComment = DeleteCommentResponse
-  request = delete workDocs
-  response = receiveNull DeleteCommentResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteCommentResponse'
 
-instance Hashable DeleteComment
+instance Prelude.Hashable DeleteComment
 
-instance NFData DeleteComment
+instance Prelude.NFData DeleteComment
 
-instance ToHeaders DeleteComment where
+instance Prelude.ToHeaders DeleteComment where
   toHeaders DeleteComment' {..} =
-    mconcat
-      [ "Authentication" =# _dcAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DeleteComment where
+instance Prelude.ToPath DeleteComment where
   toPath DeleteComment' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/api/v1/documents/",
-        toBS _dcDocumentId,
+        Prelude.toBS documentId,
         "/versions/",
-        toBS _dcVersionId,
+        Prelude.toBS versionId,
         "/comment/",
-        toBS _dcCommentId
+        Prelude.toBS commentId
       ]
 
-instance ToQuery DeleteComment where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteComment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteCommentResponse' smart constructor.
+-- | /See:/ 'newDeleteCommentResponse' smart constructor.
 data DeleteCommentResponse = DeleteCommentResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCommentResponse' with the minimum fields required to make a request.
-deleteCommentResponse ::
+-- |
+-- Create a value of 'DeleteCommentResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteCommentResponse ::
   DeleteCommentResponse
-deleteCommentResponse = DeleteCommentResponse'
+newDeleteCommentResponse = DeleteCommentResponse'
 
-instance NFData DeleteCommentResponse
+instance Prelude.NFData DeleteCommentResponse

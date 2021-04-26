@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.WorkDocs.Types.UserType
   ( UserType
       ( ..,
-        UTAdmin,
-        UTMinimaluser,
-        UTPoweruser,
-        UTUser,
-        UTWorkspacesuser
+        UserTypeADMIN,
+        UserTypeMINIMALUSER,
+        UserTypePOWERUSER,
+        UserTypeUSER,
+        UserTypeWORKSPACESUSER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UserType = UserType' (CI Text)
+newtype UserType = UserType'
+  { fromUserType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UTAdmin :: UserType
-pattern UTAdmin = UserType' "ADMIN"
+pattern UserTypeADMIN :: UserType
+pattern UserTypeADMIN = UserType' "ADMIN"
 
-pattern UTMinimaluser :: UserType
-pattern UTMinimaluser = UserType' "MINIMALUSER"
+pattern UserTypeMINIMALUSER :: UserType
+pattern UserTypeMINIMALUSER = UserType' "MINIMALUSER"
 
-pattern UTPoweruser :: UserType
-pattern UTPoweruser = UserType' "POWERUSER"
+pattern UserTypePOWERUSER :: UserType
+pattern UserTypePOWERUSER = UserType' "POWERUSER"
 
-pattern UTUser :: UserType
-pattern UTUser = UserType' "USER"
+pattern UserTypeUSER :: UserType
+pattern UserTypeUSER = UserType' "USER"
 
-pattern UTWorkspacesuser :: UserType
-pattern UTWorkspacesuser = UserType' "WORKSPACESUSER"
+pattern UserTypeWORKSPACESUSER :: UserType
+pattern UserTypeWORKSPACESUSER = UserType' "WORKSPACESUSER"
 
 {-# COMPLETE
-  UTAdmin,
-  UTMinimaluser,
-  UTPoweruser,
-  UTUser,
-  UTWorkspacesuser,
+  UserTypeADMIN,
+  UserTypeMINIMALUSER,
+  UserTypePOWERUSER,
+  UserTypeUSER,
+  UserTypeWORKSPACESUSER,
   UserType'
   #-}
 
-instance FromText UserType where
-  parser = (UserType' . mk) <$> takeText
+instance Prelude.FromText UserType where
+  parser = UserType' Prelude.<$> Prelude.takeText
 
-instance ToText UserType where
-  toText (UserType' ci) = original ci
+instance Prelude.ToText UserType where
+  toText (UserType' x) = x
 
-instance Hashable UserType
+instance Prelude.Hashable UserType
 
-instance NFData UserType
+instance Prelude.NFData UserType
 
-instance ToByteString UserType
+instance Prelude.ToByteString UserType
 
-instance ToQuery UserType
+instance Prelude.ToQuery UserType
 
-instance ToHeader UserType
+instance Prelude.ToHeader UserType
 
-instance ToJSON UserType where
-  toJSON = toJSONText
+instance Prelude.ToJSON UserType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON UserType where
-  parseJSON = parseJSONText "UserType"
+instance Prelude.FromJSON UserType where
+  parseJSON = Prelude.parseJSONText "UserType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,140 +24,156 @@
 -- Creates a folder with the specified name and parent folder.
 module Network.AWS.WorkDocs.CreateFolder
   ( -- * Creating a Request
-    createFolder,
-    CreateFolder,
+    CreateFolder (..),
+    newCreateFolder,
 
     -- * Request Lenses
-    cfName,
-    cfAuthenticationToken,
-    cfParentFolderId,
+    createFolder_name,
+    createFolder_authenticationToken,
+    createFolder_parentFolderId,
 
     -- * Destructuring the Response
-    createFolderResponse,
-    CreateFolderResponse,
+    CreateFolderResponse (..),
+    newCreateFolderResponse,
 
     -- * Response Lenses
-    cfrrsMetadata,
-    cfrrsResponseStatus,
+    createFolderResponse_metadata,
+    createFolderResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.FolderMetadata
 
--- | /See:/ 'createFolder' smart constructor.
+-- | /See:/ 'newCreateFolder' smart constructor.
 data CreateFolder = CreateFolder'
-  { _cfName ::
-      !(Maybe Text),
-    _cfAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _cfParentFolderId :: !Text
+  { -- | The name of the new folder.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the parent folder.
+    parentFolderId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFolder' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFolder' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfName' - The name of the new folder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'name', 'createFolder_name' - The name of the new folder.
 --
--- * 'cfParentFolderId' - The ID of the parent folder.
-createFolder ::
-  -- | 'cfParentFolderId'
-  Text ->
+-- 'authenticationToken', 'createFolder_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+--
+-- 'parentFolderId', 'createFolder_parentFolderId' - The ID of the parent folder.
+newCreateFolder ::
+  -- | 'parentFolderId'
+  Prelude.Text ->
   CreateFolder
-createFolder pParentFolderId_ =
+newCreateFolder pParentFolderId_ =
   CreateFolder'
-    { _cfName = Nothing,
-      _cfAuthenticationToken = Nothing,
-      _cfParentFolderId = pParentFolderId_
+    { name = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      parentFolderId = pParentFolderId_
     }
 
 -- | The name of the new folder.
-cfName :: Lens' CreateFolder (Maybe Text)
-cfName = lens _cfName (\s a -> s {_cfName = a})
+createFolder_name :: Lens.Lens' CreateFolder (Prelude.Maybe Prelude.Text)
+createFolder_name = Lens.lens (\CreateFolder' {name} -> name) (\s@CreateFolder' {} a -> s {name = a} :: CreateFolder)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-cfAuthenticationToken :: Lens' CreateFolder (Maybe Text)
-cfAuthenticationToken = lens _cfAuthenticationToken (\s a -> s {_cfAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+createFolder_authenticationToken :: Lens.Lens' CreateFolder (Prelude.Maybe Prelude.Text)
+createFolder_authenticationToken = Lens.lens (\CreateFolder' {authenticationToken} -> authenticationToken) (\s@CreateFolder' {} a -> s {authenticationToken = a} :: CreateFolder) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the parent folder.
-cfParentFolderId :: Lens' CreateFolder Text
-cfParentFolderId = lens _cfParentFolderId (\s a -> s {_cfParentFolderId = a})
+createFolder_parentFolderId :: Lens.Lens' CreateFolder Prelude.Text
+createFolder_parentFolderId = Lens.lens (\CreateFolder' {parentFolderId} -> parentFolderId) (\s@CreateFolder' {} a -> s {parentFolderId = a} :: CreateFolder)
 
-instance AWSRequest CreateFolder where
+instance Prelude.AWSRequest CreateFolder where
   type Rs CreateFolder = CreateFolderResponse
-  request = postJSON workDocs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateFolderResponse'
-            <$> (x .?> "Metadata") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Metadata")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateFolder
+instance Prelude.Hashable CreateFolder
 
-instance NFData CreateFolder
+instance Prelude.NFData CreateFolder
 
-instance ToHeaders CreateFolder where
+instance Prelude.ToHeaders CreateFolder where
   toHeaders CreateFolder' {..} =
-    mconcat
-      [ "Authentication" =# _cfAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON CreateFolder where
+instance Prelude.ToJSON CreateFolder where
   toJSON CreateFolder' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _cfName,
-            Just ("ParentFolderId" .= _cfParentFolderId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            Prelude.Just
+              ("ParentFolderId" Prelude..= parentFolderId)
           ]
       )
 
-instance ToPath CreateFolder where
-  toPath = const "/api/v1/folders"
+instance Prelude.ToPath CreateFolder where
+  toPath = Prelude.const "/api/v1/folders"
 
-instance ToQuery CreateFolder where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateFolder where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createFolderResponse' smart constructor.
+-- | /See:/ 'newCreateFolderResponse' smart constructor.
 data CreateFolderResponse = CreateFolderResponse'
-  { _cfrrsMetadata ::
-      !(Maybe FolderMetadata),
-    _cfrrsResponseStatus :: !Int
+  { -- | The metadata of the folder.
+    metadata :: Prelude.Maybe FolderMetadata,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFolderResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFolderResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfrrsMetadata' - The metadata of the folder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfrrsResponseStatus' - -- | The response status code.
-createFolderResponse ::
-  -- | 'cfrrsResponseStatus'
-  Int ->
+-- 'metadata', 'createFolderResponse_metadata' - The metadata of the folder.
+--
+-- 'httpStatus', 'createFolderResponse_httpStatus' - The response's http status code.
+newCreateFolderResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateFolderResponse
-createFolderResponse pResponseStatus_ =
+newCreateFolderResponse pHttpStatus_ =
   CreateFolderResponse'
-    { _cfrrsMetadata = Nothing,
-      _cfrrsResponseStatus = pResponseStatus_
+    { metadata = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The metadata of the folder.
-cfrrsMetadata :: Lens' CreateFolderResponse (Maybe FolderMetadata)
-cfrrsMetadata = lens _cfrrsMetadata (\s a -> s {_cfrrsMetadata = a})
+createFolderResponse_metadata :: Lens.Lens' CreateFolderResponse (Prelude.Maybe FolderMetadata)
+createFolderResponse_metadata = Lens.lens (\CreateFolderResponse' {metadata} -> metadata) (\s@CreateFolderResponse' {} a -> s {metadata = a} :: CreateFolderResponse)
 
--- | -- | The response status code.
-cfrrsResponseStatus :: Lens' CreateFolderResponse Int
-cfrrsResponseStatus = lens _cfrrsResponseStatus (\s a -> s {_cfrrsResponseStatus = a})
+-- | The response's http status code.
+createFolderResponse_httpStatus :: Lens.Lens' CreateFolderResponse Prelude.Int
+createFolderResponse_httpStatus = Lens.lens (\CreateFolderResponse' {httpStatus} -> httpStatus) (\s@CreateFolderResponse' {} a -> s {httpStatus = a} :: CreateFolderResponse)
 
-instance NFData CreateFolderResponse
+instance Prelude.NFData CreateFolderResponse

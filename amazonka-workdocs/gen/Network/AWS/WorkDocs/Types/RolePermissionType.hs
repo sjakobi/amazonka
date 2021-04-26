@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.WorkDocs.Types.RolePermissionType
   ( RolePermissionType
       ( ..,
-        Direct,
-        Inherited
+        RolePermissionTypeDIRECT,
+        RolePermissionTypeINHERITED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RolePermissionType
-  = RolePermissionType'
-      ( CI
-          Text
-      )
+newtype RolePermissionType = RolePermissionType'
+  { fromRolePermissionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Direct :: RolePermissionType
-pattern Direct = RolePermissionType' "DIRECT"
+pattern RolePermissionTypeDIRECT :: RolePermissionType
+pattern RolePermissionTypeDIRECT = RolePermissionType' "DIRECT"
 
-pattern Inherited :: RolePermissionType
-pattern Inherited = RolePermissionType' "INHERITED"
+pattern RolePermissionTypeINHERITED :: RolePermissionType
+pattern RolePermissionTypeINHERITED = RolePermissionType' "INHERITED"
 
 {-# COMPLETE
-  Direct,
-  Inherited,
+  RolePermissionTypeDIRECT,
+  RolePermissionTypeINHERITED,
   RolePermissionType'
   #-}
 
-instance FromText RolePermissionType where
-  parser = (RolePermissionType' . mk) <$> takeText
+instance Prelude.FromText RolePermissionType where
+  parser = RolePermissionType' Prelude.<$> Prelude.takeText
 
-instance ToText RolePermissionType where
-  toText (RolePermissionType' ci) = original ci
+instance Prelude.ToText RolePermissionType where
+  toText (RolePermissionType' x) = x
 
-instance Hashable RolePermissionType
+instance Prelude.Hashable RolePermissionType
 
-instance NFData RolePermissionType
+instance Prelude.NFData RolePermissionType
 
-instance ToByteString RolePermissionType
+instance Prelude.ToByteString RolePermissionType
 
-instance ToQuery RolePermissionType
+instance Prelude.ToQuery RolePermissionType
 
-instance ToHeader RolePermissionType
+instance Prelude.ToHeader RolePermissionType
 
-instance FromJSON RolePermissionType where
-  parseJSON = parseJSONText "RolePermissionType"
+instance Prelude.FromJSON RolePermissionType where
+  parseJSON = Prelude.parseJSONText "RolePermissionType"

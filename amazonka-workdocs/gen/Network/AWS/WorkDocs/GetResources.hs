@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a collection of resources, including folders and documents. The only @CollectionType@ supported is @SHARED_WITH_ME@ .
+-- Retrieves a collection of resources, including folders and documents.
+-- The only @CollectionType@ supported is @SHARED_WITH_ME@.
 module Network.AWS.WorkDocs.GetResources
   ( -- * Creating a Request
-    getResources,
-    GetResources,
+    GetResources (..),
+    newGetResources,
 
     -- * Request Lenses
-    grCollectionType,
-    grUserId,
-    grAuthenticationToken,
-    grLimit,
-    grMarker,
+    getResources_collectionType,
+    getResources_userId,
+    getResources_authenticationToken,
+    getResources_limit,
+    getResources_marker,
 
     -- * Destructuring the Response
-    getResourcesResponse,
-    GetResourcesResponse,
+    GetResourcesResponse (..),
+    newGetResourcesResponse,
 
     -- * Response Lenses
-    grrrsDocuments,
-    grrrsFolders,
-    grrrsMarker,
-    grrrsResponseStatus,
+    getResourcesResponse_documents,
+    getResourcesResponse_folders,
+    getResourcesResponse_marker,
+    getResourcesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.DocumentMetadata
+import Network.AWS.WorkDocs.Types.FolderMetadata
 
--- | /See:/ 'getResources' smart constructor.
+-- | /See:/ 'newGetResources' smart constructor.
 data GetResources = GetResources'
-  { _grCollectionType ::
-      !(Maybe ResourceCollectionType),
-    _grUserId :: !(Maybe Text),
-    _grAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _grLimit :: !(Maybe Nat),
-    _grMarker :: !(Maybe Text)
+  { -- | The collection type.
+    collectionType :: Prelude.Maybe ResourceCollectionType,
+    -- | The user ID for the resource collection. This is a required field for
+    -- accessing the API operation using IAM credentials.
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The maximum number of resources to return.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The marker for the next set of results. This marker was received from a
+    -- previous call.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResources' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResources' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grCollectionType' - The collection type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grUserId' - The user ID for the resource collection. This is a required field for accessing the API operation using IAM credentials.
+-- 'collectionType', 'getResources_collectionType' - The collection type.
 --
--- * 'grAuthenticationToken' - The Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'userId', 'getResources_userId' - The user ID for the resource collection. This is a required field for
+-- accessing the API operation using IAM credentials.
 --
--- * 'grLimit' - The maximum number of resources to return.
+-- 'authenticationToken', 'getResources_authenticationToken' - The Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'grMarker' - The marker for the next set of results. This marker was received from a previous call.
-getResources ::
+-- 'limit', 'getResources_limit' - The maximum number of resources to return.
+--
+-- 'marker', 'getResources_marker' - The marker for the next set of results. This marker was received from a
+-- previous call.
+newGetResources ::
   GetResources
-getResources =
+newGetResources =
   GetResources'
-    { _grCollectionType = Nothing,
-      _grUserId = Nothing,
-      _grAuthenticationToken = Nothing,
-      _grLimit = Nothing,
-      _grMarker = Nothing
+    { collectionType = Prelude.Nothing,
+      userId = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The collection type.
-grCollectionType :: Lens' GetResources (Maybe ResourceCollectionType)
-grCollectionType = lens _grCollectionType (\s a -> s {_grCollectionType = a})
+getResources_collectionType :: Lens.Lens' GetResources (Prelude.Maybe ResourceCollectionType)
+getResources_collectionType = Lens.lens (\GetResources' {collectionType} -> collectionType) (\s@GetResources' {} a -> s {collectionType = a} :: GetResources)
 
--- | The user ID for the resource collection. This is a required field for accessing the API operation using IAM credentials.
-grUserId :: Lens' GetResources (Maybe Text)
-grUserId = lens _grUserId (\s a -> s {_grUserId = a})
+-- | The user ID for the resource collection. This is a required field for
+-- accessing the API operation using IAM credentials.
+getResources_userId :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Text)
+getResources_userId = Lens.lens (\GetResources' {userId} -> userId) (\s@GetResources' {} a -> s {userId = a} :: GetResources)
 
--- | The Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-grAuthenticationToken :: Lens' GetResources (Maybe Text)
-grAuthenticationToken = lens _grAuthenticationToken (\s a -> s {_grAuthenticationToken = a}) . mapping _Sensitive
+-- | The Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+getResources_authenticationToken :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Text)
+getResources_authenticationToken = Lens.lens (\GetResources' {authenticationToken} -> authenticationToken) (\s@GetResources' {} a -> s {authenticationToken = a} :: GetResources) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The maximum number of resources to return.
-grLimit :: Lens' GetResources (Maybe Natural)
-grLimit = lens _grLimit (\s a -> s {_grLimit = a}) . mapping _Nat
+getResources_limit :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Natural)
+getResources_limit = Lens.lens (\GetResources' {limit} -> limit) (\s@GetResources' {} a -> s {limit = a} :: GetResources) Prelude.. Lens.mapping Prelude._Nat
 
--- | The marker for the next set of results. This marker was received from a previous call.
-grMarker :: Lens' GetResources (Maybe Text)
-grMarker = lens _grMarker (\s a -> s {_grMarker = a})
+-- | The marker for the next set of results. This marker was received from a
+-- previous call.
+getResources_marker :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Text)
+getResources_marker = Lens.lens (\GetResources' {marker} -> marker) (\s@GetResources' {} a -> s {marker = a} :: GetResources)
 
-instance AWSRequest GetResources where
+instance Prelude.AWSRequest GetResources where
   type Rs GetResources = GetResourcesResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetResourcesResponse'
-            <$> (x .?> "Documents" .!@ mempty)
-            <*> (x .?> "Folders" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Documents"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Folders" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetResources
+instance Prelude.Hashable GetResources
 
-instance NFData GetResources
+instance Prelude.NFData GetResources
 
-instance ToHeaders GetResources where
+instance Prelude.ToHeaders GetResources where
   toHeaders GetResources' {..} =
-    mconcat
-      [ "Authentication" =# _grAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath GetResources where
-  toPath = const "/api/v1/resources"
+instance Prelude.ToPath GetResources where
+  toPath = Prelude.const "/api/v1/resources"
 
-instance ToQuery GetResources where
+instance Prelude.ToQuery GetResources where
   toQuery GetResources' {..} =
-    mconcat
-      [ "collectionType" =: _grCollectionType,
-        "userId" =: _grUserId,
-        "limit" =: _grLimit,
-        "marker" =: _grMarker
+    Prelude.mconcat
+      [ "collectionType" Prelude.=: collectionType,
+        "userId" Prelude.=: userId,
+        "limit" Prelude.=: limit,
+        "marker" Prelude.=: marker
       ]
 
--- | /See:/ 'getResourcesResponse' smart constructor.
+-- | /See:/ 'newGetResourcesResponse' smart constructor.
 data GetResourcesResponse = GetResourcesResponse'
-  { _grrrsDocuments ::
-      !(Maybe [DocumentMetadata]),
-    _grrrsFolders ::
-      !(Maybe [FolderMetadata]),
-    _grrrsMarker :: !(Maybe Text),
-    _grrrsResponseStatus :: !Int
+  { -- | The documents in the specified collection.
+    documents :: Prelude.Maybe [DocumentMetadata],
+    -- | The folders in the specified folder.
+    folders :: Prelude.Maybe [FolderMetadata],
+    -- | The marker to use when requesting the next set of results. If there are
+    -- no additional results, the string is empty.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResourcesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResourcesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grrrsDocuments' - The documents in the specified collection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grrrsFolders' - The folders in the specified folder.
+-- 'documents', 'getResourcesResponse_documents' - The documents in the specified collection.
 --
--- * 'grrrsMarker' - The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
+-- 'folders', 'getResourcesResponse_folders' - The folders in the specified folder.
 --
--- * 'grrrsResponseStatus' - -- | The response status code.
-getResourcesResponse ::
-  -- | 'grrrsResponseStatus'
-  Int ->
+-- 'marker', 'getResourcesResponse_marker' - The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+--
+-- 'httpStatus', 'getResourcesResponse_httpStatus' - The response's http status code.
+newGetResourcesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetResourcesResponse
-getResourcesResponse pResponseStatus_ =
+newGetResourcesResponse pHttpStatus_ =
   GetResourcesResponse'
-    { _grrrsDocuments = Nothing,
-      _grrrsFolders = Nothing,
-      _grrrsMarker = Nothing,
-      _grrrsResponseStatus = pResponseStatus_
+    { documents = Prelude.Nothing,
+      folders = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The documents in the specified collection.
-grrrsDocuments :: Lens' GetResourcesResponse [DocumentMetadata]
-grrrsDocuments = lens _grrrsDocuments (\s a -> s {_grrrsDocuments = a}) . _Default . _Coerce
+getResourcesResponse_documents :: Lens.Lens' GetResourcesResponse (Prelude.Maybe [DocumentMetadata])
+getResourcesResponse_documents = Lens.lens (\GetResourcesResponse' {documents} -> documents) (\s@GetResourcesResponse' {} a -> s {documents = a} :: GetResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The folders in the specified folder.
-grrrsFolders :: Lens' GetResourcesResponse [FolderMetadata]
-grrrsFolders = lens _grrrsFolders (\s a -> s {_grrrsFolders = a}) . _Default . _Coerce
+getResourcesResponse_folders :: Lens.Lens' GetResourcesResponse (Prelude.Maybe [FolderMetadata])
+getResourcesResponse_folders = Lens.lens (\GetResourcesResponse' {folders} -> folders) (\s@GetResourcesResponse' {} a -> s {folders = a} :: GetResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
-grrrsMarker :: Lens' GetResourcesResponse (Maybe Text)
-grrrsMarker = lens _grrrsMarker (\s a -> s {_grrrsMarker = a})
+-- | The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+getResourcesResponse_marker :: Lens.Lens' GetResourcesResponse (Prelude.Maybe Prelude.Text)
+getResourcesResponse_marker = Lens.lens (\GetResourcesResponse' {marker} -> marker) (\s@GetResourcesResponse' {} a -> s {marker = a} :: GetResourcesResponse)
 
--- | -- | The response status code.
-grrrsResponseStatus :: Lens' GetResourcesResponse Int
-grrrsResponseStatus = lens _grrrsResponseStatus (\s a -> s {_grrrsResponseStatus = a})
+-- | The response's http status code.
+getResourcesResponse_httpStatus :: Lens.Lens' GetResourcesResponse Prelude.Int
+getResourcesResponse_httpStatus = Lens.lens (\GetResourcesResponse' {httpStatus} -> httpStatus) (\s@GetResourcesResponse' {} a -> s {httpStatus = a} :: GetResourcesResponse)
 
-instance NFData GetResourcesResponse
+instance Prelude.NFData GetResourcesResponse

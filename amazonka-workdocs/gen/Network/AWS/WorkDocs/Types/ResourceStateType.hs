@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.WorkDocs.Types.ResourceStateType
   ( ResourceStateType
       ( ..,
-        Active,
-        Recycled,
-        Recycling,
-        Restoring
+        ResourceStateTypeACTIVE,
+        ResourceStateTypeRECYCLED,
+        ResourceStateTypeRECYCLING,
+        ResourceStateTypeRESTORING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceStateType = ResourceStateType' (CI Text)
+newtype ResourceStateType = ResourceStateType'
+  { fromResourceStateType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ResourceStateType
-pattern Active = ResourceStateType' "ACTIVE"
+pattern ResourceStateTypeACTIVE :: ResourceStateType
+pattern ResourceStateTypeACTIVE = ResourceStateType' "ACTIVE"
 
-pattern Recycled :: ResourceStateType
-pattern Recycled = ResourceStateType' "RECYCLED"
+pattern ResourceStateTypeRECYCLED :: ResourceStateType
+pattern ResourceStateTypeRECYCLED = ResourceStateType' "RECYCLED"
 
-pattern Recycling :: ResourceStateType
-pattern Recycling = ResourceStateType' "RECYCLING"
+pattern ResourceStateTypeRECYCLING :: ResourceStateType
+pattern ResourceStateTypeRECYCLING = ResourceStateType' "RECYCLING"
 
-pattern Restoring :: ResourceStateType
-pattern Restoring = ResourceStateType' "RESTORING"
+pattern ResourceStateTypeRESTORING :: ResourceStateType
+pattern ResourceStateTypeRESTORING = ResourceStateType' "RESTORING"
 
 {-# COMPLETE
-  Active,
-  Recycled,
-  Recycling,
-  Restoring,
+  ResourceStateTypeACTIVE,
+  ResourceStateTypeRECYCLED,
+  ResourceStateTypeRECYCLING,
+  ResourceStateTypeRESTORING,
   ResourceStateType'
   #-}
 
-instance FromText ResourceStateType where
-  parser = (ResourceStateType' . mk) <$> takeText
+instance Prelude.FromText ResourceStateType where
+  parser = ResourceStateType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceStateType where
-  toText (ResourceStateType' ci) = original ci
+instance Prelude.ToText ResourceStateType where
+  toText (ResourceStateType' x) = x
 
-instance Hashable ResourceStateType
+instance Prelude.Hashable ResourceStateType
 
-instance NFData ResourceStateType
+instance Prelude.NFData ResourceStateType
 
-instance ToByteString ResourceStateType
+instance Prelude.ToByteString ResourceStateType
 
-instance ToQuery ResourceStateType
+instance Prelude.ToQuery ResourceStateType
 
-instance ToHeader ResourceStateType
+instance Prelude.ToHeader ResourceStateType
 
-instance ToJSON ResourceStateType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceStateType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ResourceStateType where
-  parseJSON = parseJSONText "ResourceStateType"
+instance Prelude.FromJSON ResourceStateType where
+  parseJSON = Prelude.parseJSONText "ResourceStateType"

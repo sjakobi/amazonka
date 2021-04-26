@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.WorkDocs.Types.CommentStatusType
   ( CommentStatusType
       ( ..,
-        Deleted,
-        Draft,
-        Published
+        CommentStatusTypeDELETED,
+        CommentStatusTypeDRAFT,
+        CommentStatusTypePUBLISHED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CommentStatusType = CommentStatusType' (CI Text)
+newtype CommentStatusType = CommentStatusType'
+  { fromCommentStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Deleted :: CommentStatusType
-pattern Deleted = CommentStatusType' "DELETED"
+pattern CommentStatusTypeDELETED :: CommentStatusType
+pattern CommentStatusTypeDELETED = CommentStatusType' "DELETED"
 
-pattern Draft :: CommentStatusType
-pattern Draft = CommentStatusType' "DRAFT"
+pattern CommentStatusTypeDRAFT :: CommentStatusType
+pattern CommentStatusTypeDRAFT = CommentStatusType' "DRAFT"
 
-pattern Published :: CommentStatusType
-pattern Published = CommentStatusType' "PUBLISHED"
+pattern CommentStatusTypePUBLISHED :: CommentStatusType
+pattern CommentStatusTypePUBLISHED = CommentStatusType' "PUBLISHED"
 
 {-# COMPLETE
-  Deleted,
-  Draft,
-  Published,
+  CommentStatusTypeDELETED,
+  CommentStatusTypeDRAFT,
+  CommentStatusTypePUBLISHED,
   CommentStatusType'
   #-}
 
-instance FromText CommentStatusType where
-  parser = (CommentStatusType' . mk) <$> takeText
+instance Prelude.FromText CommentStatusType where
+  parser = CommentStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText CommentStatusType where
-  toText (CommentStatusType' ci) = original ci
+instance Prelude.ToText CommentStatusType where
+  toText (CommentStatusType' x) = x
 
-instance Hashable CommentStatusType
+instance Prelude.Hashable CommentStatusType
 
-instance NFData CommentStatusType
+instance Prelude.NFData CommentStatusType
 
-instance ToByteString CommentStatusType
+instance Prelude.ToByteString CommentStatusType
 
-instance ToQuery CommentStatusType
+instance Prelude.ToQuery CommentStatusType
 
-instance ToHeader CommentStatusType
+instance Prelude.ToHeader CommentStatusType
 
-instance FromJSON CommentStatusType where
-  parseJSON = parseJSONText "CommentStatusType"
+instance Prelude.FromJSON CommentStatusType where
+  parseJSON = Prelude.parseJSONText "CommentStatusType"

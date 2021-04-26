@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,186 +23,222 @@
 --
 -- List all the comments for the specified document version.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.WorkDocs.DescribeComments
   ( -- * Creating a Request
-    describeComments,
-    DescribeComments,
+    DescribeComments (..),
+    newDescribeComments,
 
     -- * Request Lenses
-    dcsAuthenticationToken,
-    dcsLimit,
-    dcsMarker,
-    dcsDocumentId,
-    dcsVersionId,
+    describeComments_authenticationToken,
+    describeComments_limit,
+    describeComments_marker,
+    describeComments_documentId,
+    describeComments_versionId,
 
     -- * Destructuring the Response
-    describeCommentsResponse,
-    DescribeCommentsResponse,
+    DescribeCommentsResponse (..),
+    newDescribeCommentsResponse,
 
     -- * Response Lenses
-    dcrrsComments,
-    dcrrsMarker,
-    dcrrsResponseStatus,
+    describeCommentsResponse_comments,
+    describeCommentsResponse_marker,
+    describeCommentsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.Comment
 
--- | /See:/ 'describeComments' smart constructor.
+-- | /See:/ 'newDescribeComments' smart constructor.
 data DescribeComments = DescribeComments'
-  { _dcsAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _dcsLimit :: !(Maybe Nat),
-    _dcsMarker :: !(Maybe Text),
-    _dcsDocumentId :: !Text,
-    _dcsVersionId :: !Text
+  { -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The maximum number of items to return.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The marker for the next set of results. This marker was received from a
+    -- previous call.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the document.
+    documentId :: Prelude.Text,
+    -- | The ID of the document version.
+    versionId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeComments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeComments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsLimit' - The maximum number of items to return.
+-- 'authenticationToken', 'describeComments_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'dcsMarker' - The marker for the next set of results. This marker was received from a previous call.
+-- 'limit', 'describeComments_limit' - The maximum number of items to return.
 --
--- * 'dcsDocumentId' - The ID of the document.
+-- 'marker', 'describeComments_marker' - The marker for the next set of results. This marker was received from a
+-- previous call.
 --
--- * 'dcsVersionId' - The ID of the document version.
-describeComments ::
-  -- | 'dcsDocumentId'
-  Text ->
-  -- | 'dcsVersionId'
-  Text ->
+-- 'documentId', 'describeComments_documentId' - The ID of the document.
+--
+-- 'versionId', 'describeComments_versionId' - The ID of the document version.
+newDescribeComments ::
+  -- | 'documentId'
+  Prelude.Text ->
+  -- | 'versionId'
+  Prelude.Text ->
   DescribeComments
-describeComments pDocumentId_ pVersionId_ =
+newDescribeComments pDocumentId_ pVersionId_ =
   DescribeComments'
-    { _dcsAuthenticationToken =
-        Nothing,
-      _dcsLimit = Nothing,
-      _dcsMarker = Nothing,
-      _dcsDocumentId = pDocumentId_,
-      _dcsVersionId = pVersionId_
+    { authenticationToken =
+        Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      documentId = pDocumentId_,
+      versionId = pVersionId_
     }
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-dcsAuthenticationToken :: Lens' DescribeComments (Maybe Text)
-dcsAuthenticationToken = lens _dcsAuthenticationToken (\s a -> s {_dcsAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+describeComments_authenticationToken :: Lens.Lens' DescribeComments (Prelude.Maybe Prelude.Text)
+describeComments_authenticationToken = Lens.lens (\DescribeComments' {authenticationToken} -> authenticationToken) (\s@DescribeComments' {} a -> s {authenticationToken = a} :: DescribeComments) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The maximum number of items to return.
-dcsLimit :: Lens' DescribeComments (Maybe Natural)
-dcsLimit = lens _dcsLimit (\s a -> s {_dcsLimit = a}) . mapping _Nat
+describeComments_limit :: Lens.Lens' DescribeComments (Prelude.Maybe Prelude.Natural)
+describeComments_limit = Lens.lens (\DescribeComments' {limit} -> limit) (\s@DescribeComments' {} a -> s {limit = a} :: DescribeComments) Prelude.. Lens.mapping Prelude._Nat
 
--- | The marker for the next set of results. This marker was received from a previous call.
-dcsMarker :: Lens' DescribeComments (Maybe Text)
-dcsMarker = lens _dcsMarker (\s a -> s {_dcsMarker = a})
+-- | The marker for the next set of results. This marker was received from a
+-- previous call.
+describeComments_marker :: Lens.Lens' DescribeComments (Prelude.Maybe Prelude.Text)
+describeComments_marker = Lens.lens (\DescribeComments' {marker} -> marker) (\s@DescribeComments' {} a -> s {marker = a} :: DescribeComments)
 
 -- | The ID of the document.
-dcsDocumentId :: Lens' DescribeComments Text
-dcsDocumentId = lens _dcsDocumentId (\s a -> s {_dcsDocumentId = a})
+describeComments_documentId :: Lens.Lens' DescribeComments Prelude.Text
+describeComments_documentId = Lens.lens (\DescribeComments' {documentId} -> documentId) (\s@DescribeComments' {} a -> s {documentId = a} :: DescribeComments)
 
 -- | The ID of the document version.
-dcsVersionId :: Lens' DescribeComments Text
-dcsVersionId = lens _dcsVersionId (\s a -> s {_dcsVersionId = a})
+describeComments_versionId :: Lens.Lens' DescribeComments Prelude.Text
+describeComments_versionId = Lens.lens (\DescribeComments' {versionId} -> versionId) (\s@DescribeComments' {} a -> s {versionId = a} :: DescribeComments)
 
-instance AWSPager DescribeComments where
+instance Pager.AWSPager DescribeComments where
   page rq rs
-    | stop (rs ^. dcrrsMarker) = Nothing
-    | stop (rs ^. dcrrsComments) = Nothing
-    | otherwise =
-      Just $ rq & dcsMarker .~ rs ^. dcrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeCommentsResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeCommentsResponse_comments
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeComments_marker
+          Lens..~ rs
+          Lens.^? describeCommentsResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest DescribeComments where
+instance Prelude.AWSRequest DescribeComments where
   type Rs DescribeComments = DescribeCommentsResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCommentsResponse'
-            <$> (x .?> "Comments" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Comments" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeComments
+instance Prelude.Hashable DescribeComments
 
-instance NFData DescribeComments
+instance Prelude.NFData DescribeComments
 
-instance ToHeaders DescribeComments where
+instance Prelude.ToHeaders DescribeComments where
   toHeaders DescribeComments' {..} =
-    mconcat
-      [ "Authentication" =# _dcsAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DescribeComments where
+instance Prelude.ToPath DescribeComments where
   toPath DescribeComments' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/api/v1/documents/",
-        toBS _dcsDocumentId,
+        Prelude.toBS documentId,
         "/versions/",
-        toBS _dcsVersionId,
+        Prelude.toBS versionId,
         "/comments"
       ]
 
-instance ToQuery DescribeComments where
+instance Prelude.ToQuery DescribeComments where
   toQuery DescribeComments' {..} =
-    mconcat
-      ["limit" =: _dcsLimit, "marker" =: _dcsMarker]
+    Prelude.mconcat
+      [ "limit" Prelude.=: limit,
+        "marker" Prelude.=: marker
+      ]
 
--- | /See:/ 'describeCommentsResponse' smart constructor.
+-- | /See:/ 'newDescribeCommentsResponse' smart constructor.
 data DescribeCommentsResponse = DescribeCommentsResponse'
-  { _dcrrsComments ::
-      !(Maybe [Comment]),
-    _dcrrsMarker ::
-      !(Maybe Text),
-    _dcrrsResponseStatus ::
-      !Int
+  { -- | The list of comments for the specified document version.
+    comments :: Prelude.Maybe [Comment],
+    -- | The marker for the next set of results. This marker was received from a
+    -- previous call.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCommentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCommentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsComments' - The list of comments for the specified document version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrsMarker' - The marker for the next set of results. This marker was received from a previous call.
+-- 'comments', 'describeCommentsResponse_comments' - The list of comments for the specified document version.
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-describeCommentsResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeCommentsResponse_marker' - The marker for the next set of results. This marker was received from a
+-- previous call.
+--
+-- 'httpStatus', 'describeCommentsResponse_httpStatus' - The response's http status code.
+newDescribeCommentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCommentsResponse
-describeCommentsResponse pResponseStatus_ =
+newDescribeCommentsResponse pHttpStatus_ =
   DescribeCommentsResponse'
-    { _dcrrsComments = Nothing,
-      _dcrrsMarker = Nothing,
-      _dcrrsResponseStatus = pResponseStatus_
+    { comments =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of comments for the specified document version.
-dcrrsComments :: Lens' DescribeCommentsResponse [Comment]
-dcrrsComments = lens _dcrrsComments (\s a -> s {_dcrrsComments = a}) . _Default . _Coerce
+describeCommentsResponse_comments :: Lens.Lens' DescribeCommentsResponse (Prelude.Maybe [Comment])
+describeCommentsResponse_comments = Lens.lens (\DescribeCommentsResponse' {comments} -> comments) (\s@DescribeCommentsResponse' {} a -> s {comments = a} :: DescribeCommentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The marker for the next set of results. This marker was received from a previous call.
-dcrrsMarker :: Lens' DescribeCommentsResponse (Maybe Text)
-dcrrsMarker = lens _dcrrsMarker (\s a -> s {_dcrrsMarker = a})
+-- | The marker for the next set of results. This marker was received from a
+-- previous call.
+describeCommentsResponse_marker :: Lens.Lens' DescribeCommentsResponse (Prelude.Maybe Prelude.Text)
+describeCommentsResponse_marker = Lens.lens (\DescribeCommentsResponse' {marker} -> marker) (\s@DescribeCommentsResponse' {} a -> s {marker = a} :: DescribeCommentsResponse)
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DescribeCommentsResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+describeCommentsResponse_httpStatus :: Lens.Lens' DescribeCommentsResponse Prelude.Int
+describeCommentsResponse_httpStatus = Lens.lens (\DescribeCommentsResponse' {httpStatus} -> httpStatus) (\s@DescribeCommentsResponse' {} a -> s {httpStatus = a} :: DescribeCommentsResponse)
 
-instance NFData DescribeCommentsResponse
+instance Prelude.NFData DescribeCommentsResponse

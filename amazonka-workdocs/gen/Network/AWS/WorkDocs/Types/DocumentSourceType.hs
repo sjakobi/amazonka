@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.WorkDocs.Types.DocumentSourceType
   ( DocumentSourceType
       ( ..,
-        Original,
-        WithComments
+        DocumentSourceTypeORIGINAL,
+        DocumentSourceTypeWITHCOMMENTS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentSourceType
-  = DocumentSourceType'
-      ( CI
-          Text
-      )
+newtype DocumentSourceType = DocumentSourceType'
+  { fromDocumentSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Original :: DocumentSourceType
-pattern Original = DocumentSourceType' "ORIGINAL"
+pattern DocumentSourceTypeORIGINAL :: DocumentSourceType
+pattern DocumentSourceTypeORIGINAL = DocumentSourceType' "ORIGINAL"
 
-pattern WithComments :: DocumentSourceType
-pattern WithComments = DocumentSourceType' "WITH_COMMENTS"
+pattern DocumentSourceTypeWITHCOMMENTS :: DocumentSourceType
+pattern DocumentSourceTypeWITHCOMMENTS = DocumentSourceType' "WITH_COMMENTS"
 
 {-# COMPLETE
-  Original,
-  WithComments,
+  DocumentSourceTypeORIGINAL,
+  DocumentSourceTypeWITHCOMMENTS,
   DocumentSourceType'
   #-}
 
-instance FromText DocumentSourceType where
-  parser = (DocumentSourceType' . mk) <$> takeText
+instance Prelude.FromText DocumentSourceType where
+  parser = DocumentSourceType' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentSourceType where
-  toText (DocumentSourceType' ci) = original ci
+instance Prelude.ToText DocumentSourceType where
+  toText (DocumentSourceType' x) = x
 
-instance Hashable DocumentSourceType
+instance Prelude.Hashable DocumentSourceType
 
-instance NFData DocumentSourceType
+instance Prelude.NFData DocumentSourceType
 
-instance ToByteString DocumentSourceType
+instance Prelude.ToByteString DocumentSourceType
 
-instance ToQuery DocumentSourceType
+instance Prelude.ToQuery DocumentSourceType
 
-instance ToHeader DocumentSourceType
+instance Prelude.ToHeader DocumentSourceType
 
-instance FromJSON DocumentSourceType where
-  parseJSON = parseJSONText "DocumentSourceType"
+instance Prelude.FromJSON DocumentSourceType where
+  parseJSON = Prelude.parseJSONText "DocumentSourceType"

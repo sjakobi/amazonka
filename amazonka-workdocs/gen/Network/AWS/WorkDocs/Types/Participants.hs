@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.Participants where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkDocs.Types.GroupMetadata
 import Network.AWS.WorkDocs.Types.UserMetadata
 
 -- | Describes the users or user groups.
 --
---
---
--- /See:/ 'participants' smart constructor.
+-- /See:/ 'newParticipants' smart constructor.
 data Participants = Participants'
-  { _pGroups ::
-      !(Maybe [GroupMetadata]),
-    _pUsers :: !(Maybe [UserMetadata])
+  { -- | The list of user groups.
+    groups :: Prelude.Maybe [GroupMetadata],
+    -- | The list of users.
+    users :: Prelude.Maybe [UserMetadata]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Participants' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Participants' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pGroups' - The list of user groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pUsers' - The list of users.
-participants ::
+-- 'groups', 'participants_groups' - The list of user groups.
+--
+-- 'users', 'participants_users' - The list of users.
+newParticipants ::
   Participants
-participants =
+newParticipants =
   Participants'
-    { _pGroups = Nothing,
-      _pUsers = Nothing
+    { groups = Prelude.Nothing,
+      users = Prelude.Nothing
     }
 
 -- | The list of user groups.
-pGroups :: Lens' Participants [GroupMetadata]
-pGroups = lens _pGroups (\s a -> s {_pGroups = a}) . _Default . _Coerce
+participants_groups :: Lens.Lens' Participants (Prelude.Maybe [GroupMetadata])
+participants_groups = Lens.lens (\Participants' {groups} -> groups) (\s@Participants' {} a -> s {groups = a} :: Participants) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The list of users.
-pUsers :: Lens' Participants [UserMetadata]
-pUsers = lens _pUsers (\s a -> s {_pUsers = a}) . _Default . _Coerce
+participants_users :: Lens.Lens' Participants (Prelude.Maybe [UserMetadata])
+participants_users = Lens.lens (\Participants' {users} -> users) (\s@Participants' {} a -> s {users = a} :: Participants) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Participants where
+instance Prelude.FromJSON Participants where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Participants"
       ( \x ->
           Participants'
-            <$> (x .:? "Groups" .!= mempty)
-            <*> (x .:? "Users" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Groups" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Users" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable Participants
+instance Prelude.Hashable Participants
 
-instance NFData Participants
+instance Prelude.NFData Participants

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.UserMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the metadata of the user.
 --
---
---
--- /See:/ 'userMetadata' smart constructor.
+-- /See:/ 'newUserMetadata' smart constructor.
 data UserMetadata = UserMetadata'
-  { _umSurname ::
-      !(Maybe Text),
-    _umId :: !(Maybe Text),
-    _umGivenName :: !(Maybe Text),
-    _umUsername :: !(Maybe Text),
-    _umEmailAddress :: !(Maybe Text)
+  { -- | The surname of the user.
+    surname :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the user.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The given name of the user before a rename operation.
+    givenName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the user.
+    username :: Prelude.Maybe Prelude.Text,
+    -- | The email address of the user.
+    emailAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umSurname' - The surname of the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umId' - The ID of the user.
+-- 'surname', 'userMetadata_surname' - The surname of the user.
 --
--- * 'umGivenName' - The given name of the user before a rename operation.
+-- 'id', 'userMetadata_id' - The ID of the user.
 --
--- * 'umUsername' - The name of the user.
+-- 'givenName', 'userMetadata_givenName' - The given name of the user before a rename operation.
 --
--- * 'umEmailAddress' - The email address of the user.
-userMetadata ::
+-- 'username', 'userMetadata_username' - The name of the user.
+--
+-- 'emailAddress', 'userMetadata_emailAddress' - The email address of the user.
+newUserMetadata ::
   UserMetadata
-userMetadata =
+newUserMetadata =
   UserMetadata'
-    { _umSurname = Nothing,
-      _umId = Nothing,
-      _umGivenName = Nothing,
-      _umUsername = Nothing,
-      _umEmailAddress = Nothing
+    { surname = Prelude.Nothing,
+      id = Prelude.Nothing,
+      givenName = Prelude.Nothing,
+      username = Prelude.Nothing,
+      emailAddress = Prelude.Nothing
     }
 
 -- | The surname of the user.
-umSurname :: Lens' UserMetadata (Maybe Text)
-umSurname = lens _umSurname (\s a -> s {_umSurname = a})
+userMetadata_surname :: Lens.Lens' UserMetadata (Prelude.Maybe Prelude.Text)
+userMetadata_surname = Lens.lens (\UserMetadata' {surname} -> surname) (\s@UserMetadata' {} a -> s {surname = a} :: UserMetadata)
 
 -- | The ID of the user.
-umId :: Lens' UserMetadata (Maybe Text)
-umId = lens _umId (\s a -> s {_umId = a})
+userMetadata_id :: Lens.Lens' UserMetadata (Prelude.Maybe Prelude.Text)
+userMetadata_id = Lens.lens (\UserMetadata' {id} -> id) (\s@UserMetadata' {} a -> s {id = a} :: UserMetadata)
 
 -- | The given name of the user before a rename operation.
-umGivenName :: Lens' UserMetadata (Maybe Text)
-umGivenName = lens _umGivenName (\s a -> s {_umGivenName = a})
+userMetadata_givenName :: Lens.Lens' UserMetadata (Prelude.Maybe Prelude.Text)
+userMetadata_givenName = Lens.lens (\UserMetadata' {givenName} -> givenName) (\s@UserMetadata' {} a -> s {givenName = a} :: UserMetadata)
 
 -- | The name of the user.
-umUsername :: Lens' UserMetadata (Maybe Text)
-umUsername = lens _umUsername (\s a -> s {_umUsername = a})
+userMetadata_username :: Lens.Lens' UserMetadata (Prelude.Maybe Prelude.Text)
+userMetadata_username = Lens.lens (\UserMetadata' {username} -> username) (\s@UserMetadata' {} a -> s {username = a} :: UserMetadata)
 
 -- | The email address of the user.
-umEmailAddress :: Lens' UserMetadata (Maybe Text)
-umEmailAddress = lens _umEmailAddress (\s a -> s {_umEmailAddress = a})
+userMetadata_emailAddress :: Lens.Lens' UserMetadata (Prelude.Maybe Prelude.Text)
+userMetadata_emailAddress = Lens.lens (\UserMetadata' {emailAddress} -> emailAddress) (\s@UserMetadata' {} a -> s {emailAddress = a} :: UserMetadata)
 
-instance FromJSON UserMetadata where
+instance Prelude.FromJSON UserMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserMetadata"
       ( \x ->
           UserMetadata'
-            <$> (x .:? "Surname")
-            <*> (x .:? "Id")
-            <*> (x .:? "GivenName")
-            <*> (x .:? "Username")
-            <*> (x .:? "EmailAddress")
+            Prelude.<$> (x Prelude..:? "Surname")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "GivenName")
+            Prelude.<*> (x Prelude..:? "Username")
+            Prelude.<*> (x Prelude..:? "EmailAddress")
       )
 
-instance Hashable UserMetadata
+instance Prelude.Hashable UserMetadata
 
-instance NFData UserMetadata
+instance Prelude.NFData UserMetadata

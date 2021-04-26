@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.WorkDocs.Types.UserFilterType
   ( UserFilterType
       ( ..,
-        ActivePending,
-        All
+        UserFilterTypeACTIVEPENDING,
+        UserFilterTypeALL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UserFilterType = UserFilterType' (CI Text)
+newtype UserFilterType = UserFilterType'
+  { fromUserFilterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ActivePending :: UserFilterType
-pattern ActivePending = UserFilterType' "ACTIVE_PENDING"
+pattern UserFilterTypeACTIVEPENDING :: UserFilterType
+pattern UserFilterTypeACTIVEPENDING = UserFilterType' "ACTIVE_PENDING"
 
-pattern All :: UserFilterType
-pattern All = UserFilterType' "ALL"
+pattern UserFilterTypeALL :: UserFilterType
+pattern UserFilterTypeALL = UserFilterType' "ALL"
 
 {-# COMPLETE
-  ActivePending,
-  All,
+  UserFilterTypeACTIVEPENDING,
+  UserFilterTypeALL,
   UserFilterType'
   #-}
 
-instance FromText UserFilterType where
-  parser = (UserFilterType' . mk) <$> takeText
+instance Prelude.FromText UserFilterType where
+  parser = UserFilterType' Prelude.<$> Prelude.takeText
 
-instance ToText UserFilterType where
-  toText (UserFilterType' ci) = original ci
+instance Prelude.ToText UserFilterType where
+  toText (UserFilterType' x) = x
 
-instance Hashable UserFilterType
+instance Prelude.Hashable UserFilterType
 
-instance NFData UserFilterType
+instance Prelude.NFData UserFilterType
 
-instance ToByteString UserFilterType
+instance Prelude.ToByteString UserFilterType
 
-instance ToQuery UserFilterType
+instance Prelude.ToQuery UserFilterType
 
-instance ToHeader UserFilterType
+instance Prelude.ToHeader UserFilterType
 
-instance ToJSON UserFilterType where
-  toJSON = toJSONText
+instance Prelude.ToJSON UserFilterType where
+  toJSON = Prelude.toJSONText

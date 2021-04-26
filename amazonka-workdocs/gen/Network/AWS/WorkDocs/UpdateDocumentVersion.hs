@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,138 +23,148 @@
 --
 -- Changes the status of the document version to ACTIVE.
 --
---
--- Amazon WorkDocs also sets its document container to ACTIVE. This is the last step in a document upload, after the client uploads the document to an S3-presigned URL returned by 'InitiateDocumentVersionUpload' .
+-- Amazon WorkDocs also sets its document container to ACTIVE. This is the
+-- last step in a document upload, after the client uploads the document to
+-- an S3-presigned URL returned by InitiateDocumentVersionUpload.
 module Network.AWS.WorkDocs.UpdateDocumentVersion
   ( -- * Creating a Request
-    updateDocumentVersion,
-    UpdateDocumentVersion,
+    UpdateDocumentVersion (..),
+    newUpdateDocumentVersion,
 
     -- * Request Lenses
-    udvVersionStatus,
-    udvAuthenticationToken,
-    udvDocumentId,
-    udvVersionId,
+    updateDocumentVersion_versionStatus,
+    updateDocumentVersion_authenticationToken,
+    updateDocumentVersion_documentId,
+    updateDocumentVersion_versionId,
 
     -- * Destructuring the Response
-    updateDocumentVersionResponse,
-    UpdateDocumentVersionResponse,
+    UpdateDocumentVersionResponse (..),
+    newUpdateDocumentVersionResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
 
--- | /See:/ 'updateDocumentVersion' smart constructor.
+-- | /See:/ 'newUpdateDocumentVersion' smart constructor.
 data UpdateDocumentVersion = UpdateDocumentVersion'
-  { _udvVersionStatus ::
-      !( Maybe
-           DocumentVersionStatus
-       ),
-    _udvAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _udvDocumentId :: !Text,
-    _udvVersionId :: !Text
+  { -- | The status of the version.
+    versionStatus :: Prelude.Maybe DocumentVersionStatus,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the document.
+    documentId :: Prelude.Text,
+    -- | The version ID of the document.
+    versionId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDocumentVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDocumentVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udvVersionStatus' - The status of the version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udvAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'versionStatus', 'updateDocumentVersion_versionStatus' - The status of the version.
 --
--- * 'udvDocumentId' - The ID of the document.
+-- 'authenticationToken', 'updateDocumentVersion_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'udvVersionId' - The version ID of the document.
-updateDocumentVersion ::
-  -- | 'udvDocumentId'
-  Text ->
-  -- | 'udvVersionId'
-  Text ->
+-- 'documentId', 'updateDocumentVersion_documentId' - The ID of the document.
+--
+-- 'versionId', 'updateDocumentVersion_versionId' - The version ID of the document.
+newUpdateDocumentVersion ::
+  -- | 'documentId'
+  Prelude.Text ->
+  -- | 'versionId'
+  Prelude.Text ->
   UpdateDocumentVersion
-updateDocumentVersion pDocumentId_ pVersionId_ =
+newUpdateDocumentVersion pDocumentId_ pVersionId_ =
   UpdateDocumentVersion'
-    { _udvVersionStatus = Nothing,
-      _udvAuthenticationToken = Nothing,
-      _udvDocumentId = pDocumentId_,
-      _udvVersionId = pVersionId_
+    { versionStatus =
+        Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      documentId = pDocumentId_,
+      versionId = pVersionId_
     }
 
 -- | The status of the version.
-udvVersionStatus :: Lens' UpdateDocumentVersion (Maybe DocumentVersionStatus)
-udvVersionStatus = lens _udvVersionStatus (\s a -> s {_udvVersionStatus = a})
+updateDocumentVersion_versionStatus :: Lens.Lens' UpdateDocumentVersion (Prelude.Maybe DocumentVersionStatus)
+updateDocumentVersion_versionStatus = Lens.lens (\UpdateDocumentVersion' {versionStatus} -> versionStatus) (\s@UpdateDocumentVersion' {} a -> s {versionStatus = a} :: UpdateDocumentVersion)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-udvAuthenticationToken :: Lens' UpdateDocumentVersion (Maybe Text)
-udvAuthenticationToken = lens _udvAuthenticationToken (\s a -> s {_udvAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+updateDocumentVersion_authenticationToken :: Lens.Lens' UpdateDocumentVersion (Prelude.Maybe Prelude.Text)
+updateDocumentVersion_authenticationToken = Lens.lens (\UpdateDocumentVersion' {authenticationToken} -> authenticationToken) (\s@UpdateDocumentVersion' {} a -> s {authenticationToken = a} :: UpdateDocumentVersion) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the document.
-udvDocumentId :: Lens' UpdateDocumentVersion Text
-udvDocumentId = lens _udvDocumentId (\s a -> s {_udvDocumentId = a})
+updateDocumentVersion_documentId :: Lens.Lens' UpdateDocumentVersion Prelude.Text
+updateDocumentVersion_documentId = Lens.lens (\UpdateDocumentVersion' {documentId} -> documentId) (\s@UpdateDocumentVersion' {} a -> s {documentId = a} :: UpdateDocumentVersion)
 
 -- | The version ID of the document.
-udvVersionId :: Lens' UpdateDocumentVersion Text
-udvVersionId = lens _udvVersionId (\s a -> s {_udvVersionId = a})
+updateDocumentVersion_versionId :: Lens.Lens' UpdateDocumentVersion Prelude.Text
+updateDocumentVersion_versionId = Lens.lens (\UpdateDocumentVersion' {versionId} -> versionId) (\s@UpdateDocumentVersion' {} a -> s {versionId = a} :: UpdateDocumentVersion)
 
-instance AWSRequest UpdateDocumentVersion where
+instance Prelude.AWSRequest UpdateDocumentVersion where
   type
     Rs UpdateDocumentVersion =
       UpdateDocumentVersionResponse
-  request = patchJSON workDocs
-  response = receiveNull UpdateDocumentVersionResponse'
+  request = Request.patchJSON defaultService
+  response =
+    Response.receiveNull UpdateDocumentVersionResponse'
 
-instance Hashable UpdateDocumentVersion
+instance Prelude.Hashable UpdateDocumentVersion
 
-instance NFData UpdateDocumentVersion
+instance Prelude.NFData UpdateDocumentVersion
 
-instance ToHeaders UpdateDocumentVersion where
+instance Prelude.ToHeaders UpdateDocumentVersion where
   toHeaders UpdateDocumentVersion' {..} =
-    mconcat
-      [ "Authentication" =# _udvAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON UpdateDocumentVersion where
+instance Prelude.ToJSON UpdateDocumentVersion where
   toJSON UpdateDocumentVersion' {..} =
-    object
-      ( catMaybes
-          [("VersionStatus" .=) <$> _udvVersionStatus]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VersionStatus" Prelude..=)
+              Prelude.<$> versionStatus
+          ]
       )
 
-instance ToPath UpdateDocumentVersion where
+instance Prelude.ToPath UpdateDocumentVersion where
   toPath UpdateDocumentVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/api/v1/documents/",
-        toBS _udvDocumentId,
+        Prelude.toBS documentId,
         "/versions/",
-        toBS _udvVersionId
+        Prelude.toBS versionId
       ]
 
-instance ToQuery UpdateDocumentVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDocumentVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDocumentVersionResponse' smart constructor.
+-- | /See:/ 'newUpdateDocumentVersionResponse' smart constructor.
 data UpdateDocumentVersionResponse = UpdateDocumentVersionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDocumentVersionResponse' with the minimum fields required to make a request.
-updateDocumentVersionResponse ::
+-- |
+-- Create a value of 'UpdateDocumentVersionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateDocumentVersionResponse ::
   UpdateDocumentVersionResponse
-updateDocumentVersionResponse =
+newUpdateDocumentVersionResponse =
   UpdateDocumentVersionResponse'
 
-instance NFData UpdateDocumentVersionResponse
+instance Prelude.NFData UpdateDocumentVersionResponse

@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types
   ( -- * Service Configuration
-    workDocs,
+    defaultService,
 
     -- * Errors
     _IllegalUserStateException,
@@ -120,211 +123,97 @@ module Network.AWS.WorkDocs.Types
 
     -- * Activity
     Activity (..),
-    activity,
-    aResourceMetadata,
-    aOrganizationId,
-    aOriginalParent,
-    aParticipants,
-    aCommentMetadata,
-    aTimeStamp,
-    aInitiator,
-    aType,
-    aIsIndirectActivity,
+    newActivity,
 
     -- * Comment
     Comment (..),
-    comment,
-    cStatus,
-    cCreatedTimestamp,
-    cContributor,
-    cParentId,
-    cRecipientId,
-    cVisibility,
-    cThreadId,
-    cText,
-    cCommentId,
+    newComment,
 
     -- * CommentMetadata
     CommentMetadata (..),
-    commentMetadata,
-    cmCommentStatus,
-    cmCreatedTimestamp,
-    cmContributor,
-    cmRecipientId,
-    cmCommentId,
+    newCommentMetadata,
 
     -- * DocumentMetadata
     DocumentMetadata (..),
-    documentMetadata,
-    dmModifiedTimestamp,
-    dmParentFolderId,
-    dmCreatorId,
-    dmCreatedTimestamp,
-    dmId,
-    dmLabels,
-    dmLatestVersionMetadata,
-    dmResourceState,
+    newDocumentMetadata,
 
     -- * DocumentVersionMetadata
     DocumentVersionMetadata (..),
-    documentVersionMetadata,
-    dvmModifiedTimestamp,
-    dvmStatus,
-    dvmCreatorId,
-    dvmContentType,
-    dvmCreatedTimestamp,
-    dvmContentModifiedTimestamp,
-    dvmId,
-    dvmSource,
-    dvmContentCreatedTimestamp,
-    dvmName,
-    dvmSignature,
-    dvmThumbnail,
-    dvmSize,
+    newDocumentVersionMetadata,
 
     -- * FolderMetadata
     FolderMetadata (..),
-    folderMetadata,
-    fmModifiedTimestamp,
-    fmParentFolderId,
-    fmLatestVersionSize,
-    fmCreatorId,
-    fmCreatedTimestamp,
-    fmId,
-    fmLabels,
-    fmName,
-    fmSignature,
-    fmResourceState,
-    fmSize,
+    newFolderMetadata,
 
     -- * GroupMetadata
     GroupMetadata (..),
-    groupMetadata,
-    gmId,
-    gmName,
+    newGroupMetadata,
 
     -- * NotificationOptions
     NotificationOptions (..),
-    notificationOptions,
-    noSendEmail,
-    noEmailMessage,
+    newNotificationOptions,
 
     -- * Participants
     Participants (..),
-    participants,
-    pGroups,
-    pUsers,
+    newParticipants,
 
     -- * PermissionInfo
     PermissionInfo (..),
-    permissionInfo,
-    piRole,
-    piType,
+    newPermissionInfo,
 
     -- * Principal
     Principal (..),
-    principal,
-    pId,
-    pRoles,
-    pType,
+    newPrincipal,
 
     -- * ResourceMetadata
     ResourceMetadata (..),
-    resourceMetadata,
-    rmOriginalName,
-    rmId,
-    rmVersionId,
-    rmName,
-    rmParentId,
-    rmOwner,
-    rmType,
+    newResourceMetadata,
 
     -- * ResourcePath
     ResourcePath (..),
-    resourcePath,
-    rpComponents,
+    newResourcePath,
 
     -- * ResourcePathComponent
     ResourcePathComponent (..),
-    resourcePathComponent,
-    rpcId,
-    rpcName,
+    newResourcePathComponent,
 
     -- * SharePrincipal
     SharePrincipal (..),
-    sharePrincipal,
-    spId,
-    spType,
-    spRole,
+    newSharePrincipal,
 
     -- * ShareResult
     ShareResult (..),
-    shareResult,
-    srStatusMessage,
-    srStatus,
-    srInviteePrincipalId,
-    srShareId,
-    srPrincipalId,
-    srRole,
+    newShareResult,
 
     -- * StorageRuleType
     StorageRuleType (..),
-    storageRuleType,
-    srtStorageType,
-    srtStorageAllocatedInBytes,
+    newStorageRuleType,
 
     -- * Subscription
     Subscription (..),
-    subscription,
-    sSubscriptionId,
-    sProtocol,
-    sEndPoint,
+    newSubscription,
 
     -- * UploadMetadata
     UploadMetadata (..),
-    uploadMetadata,
-    umSignedHeaders,
-    umUploadURL,
+    newUploadMetadata,
 
     -- * User
     User (..),
-    user,
-    uModifiedTimestamp,
-    uStatus,
-    uOrganizationId,
-    uCreatedTimestamp,
-    uTimeZoneId,
-    uSurname,
-    uLocale,
-    uId,
-    uRootFolderId,
-    uGivenName,
-    uRecycleBinFolderId,
-    uStorage,
-    uUsername,
-    uType,
-    uEmailAddress,
+    newUser,
 
     -- * UserMetadata
     UserMetadata (..),
-    userMetadata,
-    umSurname,
-    umId,
-    umGivenName,
-    umUsername,
-    umEmailAddress,
+    newUserMetadata,
 
     -- * UserStorageMetadata
     UserStorageMetadata (..),
-    userStorageMetadata,
-    usmStorageRule,
-    usmStorageUtilizedInBytes,
+    newUserStorageMetadata,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 import Network.AWS.WorkDocs.Types.Activity
 import Network.AWS.WorkDocs.Types.ActivityType
 import Network.AWS.WorkDocs.Types.BooleanEnumType
@@ -375,252 +264,282 @@ import Network.AWS.WorkDocs.Types.UserStorageMetadata
 import Network.AWS.WorkDocs.Types.UserType
 
 -- | API version @2016-05-01@ of the Amazon WorkDocs SDK configuration.
-workDocs :: Service
-workDocs =
-  Service
-    { _svcAbbrev = "WorkDocs",
-      _svcSigner = v4,
-      _svcPrefix = "workdocs",
-      _svcVersion = "2016-05-01",
-      _svcEndpoint = defaultEndpoint workDocs,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "WorkDocs",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "WorkDocs",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "workdocs",
+      Prelude._svcVersion = "2016-05-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "WorkDocs",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The user is undergoing transfer of ownership.
-_IllegalUserStateException :: AsError a => Getting (First ServiceError) a ServiceError
+_IllegalUserStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IllegalUserStateException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "IllegalUserStateException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The storage limit will be exceeded.
-_StorageLimitWillExceedException :: AsError a => Getting (First ServiceError) a ServiceError
+_StorageLimitWillExceedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StorageLimitWillExceedException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "StorageLimitWillExceedException"
-    . hasStatus 413
+    Prelude.. Prelude.hasStatus 413
 
--- | The limit has been reached on the number of custom properties for the specified resource.
-_CustomMetadataLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The limit has been reached on the number of custom properties for the
+-- specified resource.
+_CustomMetadataLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CustomMetadataLimitExceededException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "CustomMetadataLimitExceededException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
--- | Another operation is in progress on the resource that conflicts with the current operation.
-_ConflictingOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Another operation is in progress on the resource that conflicts with the
+-- current operation.
+_ConflictingOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictingOperationException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "ConflictingOperationException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The last user in the organization is being deactivated.
-_DeactivatingLastSystemUserException :: AsError a => Getting (First ServiceError) a ServiceError
+_DeactivatingLastSystemUserException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DeactivatingLastSystemUserException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "DeactivatingLastSystemUserException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | This exception is thrown when a valid checkout ID is not presented on document version upload calls for a document that has been checked out from Web client.
-_DraftUploadOutOfSyncException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | This exception is thrown when a valid checkout ID is not presented on
+-- document version upload calls for a document that has been checked out
+-- from Web client.
+_DraftUploadOutOfSyncException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DraftUploadOutOfSyncException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "DraftUploadOutOfSyncException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | This exception is thrown when the document is locked for comments and user tries to create or delete a comment on that document.
-_DocumentLockedForCommentsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | This exception is thrown when the document is locked for comments and
+-- user tries to create or delete a comment on that document.
+_DocumentLockedForCommentsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DocumentLockedForCommentsException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "DocumentLockedForCommentsException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The resource does not exist.
-_EntityNotExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_EntityNotExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EntityNotExistsException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "EntityNotExistsException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
 -- | The operation is not permitted.
-_UnauthorizedOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnauthorizedOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedOperationException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "UnauthorizedOperationException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
 -- | The operation is invalid.
-_InvalidOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidOperationException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "InvalidOperationException"
-    . hasStatus 405
+    Prelude.. Prelude.hasStatus 405
 
 -- | The storage limit has been exceeded.
-_StorageLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_StorageLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StorageLimitExceededException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "StorageLimitExceededException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | One or more of the dependencies is unavailable.
-_ServiceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableException"
-    . hasStatus 503
+    Prelude.. Prelude.hasStatus 503
 
 -- | The caller does not have access to perform the action on the resource.
-_UnauthorizedResourceAccessException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnauthorizedResourceAccessException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedResourceAccessException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "UnauthorizedResourceAccessException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | The response is too large to return. The request must include a filter to reduce the size of the response.
-_RequestedEntityTooLargeException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The response is too large to return. The request must include a filter
+-- to reduce the size of the response.
+_RequestedEntityTooLargeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RequestedEntityTooLargeException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "RequestedEntityTooLargeException"
-    . hasStatus 413
+    Prelude.. Prelude.hasStatus 413
 
 -- | The specified document version is not in the INITIALIZED state.
-_ProhibitedStateException :: AsError a => Getting (First ServiceError) a ServiceError
+_ProhibitedStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ProhibitedStateException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "ProhibitedStateException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The resource already exists.
-_EntityAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_EntityAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EntityAlreadyExistsException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "EntityAlreadyExistsException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The resource hierarchy is changing.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The resource is already checked out.
-_ResourceAlreadyCheckedOutException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceAlreadyCheckedOutException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAlreadyCheckedOutException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAlreadyCheckedOutException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | The maximum of 100,000 folders under the parent folder has been exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The maximum of 100,000 folders under the parent folder has been
+-- exceeded.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The password is invalid.
-_InvalidPasswordException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidPasswordException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidPasswordException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "InvalidPasswordException"
-    . hasStatus 401
+    Prelude.. Prelude.hasStatus 401
 
--- | The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the organization is failing, such as a connected Active Directory.
-_FailedDependencyException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The AWS Directory Service cannot reach an on-premises instance. Or a
+-- dependency under the control of the organization is failing, such as a
+-- connected Active Directory.
+_FailedDependencyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _FailedDependencyException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "FailedDependencyException"
-    . hasStatus 424
+    Prelude.. Prelude.hasStatus 424
 
 -- | The requested operation is not allowed on the specified comment object.
-_InvalidCommentOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidCommentOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidCommentOperationException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "InvalidCommentOperationException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
--- | You've reached the limit on the number of subscriptions for the WorkDocs instance.
-_TooManySubscriptionsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You\'ve reached the limit on the number of subscriptions for the
+-- WorkDocs instance.
+_TooManySubscriptionsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManySubscriptionsException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "TooManySubscriptionsException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
--- | The limit has been reached on the number of labels for the specified resource.
-_TooManyLabelsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The limit has been reached on the number of labels for the specified
+-- resource.
+_TooManyLabelsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyLabelsException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "TooManyLabelsException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
 -- | The pagination marker or limit fields are not valid.
-_InvalidArgumentException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidArgumentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidArgumentException =
-  _MatchServiceError
-    workDocs
+  Prelude._MatchServiceError
+    defaultService
     "InvalidArgumentException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400

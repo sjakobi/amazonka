@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds one or more custom properties to the specified resource (a folder, document, or version).
+-- Adds one or more custom properties to the specified resource (a folder,
+-- document, or version).
 module Network.AWS.WorkDocs.CreateCustomMetadata
   ( -- * Creating a Request
-    createCustomMetadata,
-    CreateCustomMetadata,
+    CreateCustomMetadata (..),
+    newCreateCustomMetadata,
 
     -- * Request Lenses
-    ccmVersionId,
-    ccmAuthenticationToken,
-    ccmResourceId,
-    ccmCustomMetadata,
+    createCustomMetadata_versionId,
+    createCustomMetadata_authenticationToken,
+    createCustomMetadata_resourceId,
+    createCustomMetadata_customMetadata,
 
     -- * Destructuring the Response
-    createCustomMetadataResponse,
-    CreateCustomMetadataResponse,
+    CreateCustomMetadataResponse (..),
+    newCreateCustomMetadataResponse,
 
     -- * Response Lenses
-    ccmrrsResponseStatus,
+    createCustomMetadataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
 
--- | /See:/ 'createCustomMetadata' smart constructor.
+-- | /See:/ 'newCreateCustomMetadata' smart constructor.
 data CreateCustomMetadata = CreateCustomMetadata'
-  { _ccmVersionId ::
-      !(Maybe Text),
-    _ccmAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _ccmResourceId :: !Text,
-    _ccmCustomMetadata ::
-      !(Map Text Text)
+  { -- | The ID of the version, if the custom metadata is being added to a
+    -- document version.
+    versionId :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the resource.
+    resourceId :: Prelude.Text,
+    -- | Custom metadata in the form of name-value pairs.
+    customMetadata :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCustomMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCustomMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccmVersionId' - The ID of the version, if the custom metadata is being added to a document version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccmAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'versionId', 'createCustomMetadata_versionId' - The ID of the version, if the custom metadata is being added to a
+-- document version.
 --
--- * 'ccmResourceId' - The ID of the resource.
+-- 'authenticationToken', 'createCustomMetadata_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'ccmCustomMetadata' - Custom metadata in the form of name-value pairs.
-createCustomMetadata ::
-  -- | 'ccmResourceId'
-  Text ->
+-- 'resourceId', 'createCustomMetadata_resourceId' - The ID of the resource.
+--
+-- 'customMetadata', 'createCustomMetadata_customMetadata' - Custom metadata in the form of name-value pairs.
+newCreateCustomMetadata ::
+  -- | 'resourceId'
+  Prelude.Text ->
   CreateCustomMetadata
-createCustomMetadata pResourceId_ =
+newCreateCustomMetadata pResourceId_ =
   CreateCustomMetadata'
-    { _ccmVersionId = Nothing,
-      _ccmAuthenticationToken = Nothing,
-      _ccmResourceId = pResourceId_,
-      _ccmCustomMetadata = mempty
+    { versionId = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      resourceId = pResourceId_,
+      customMetadata = Prelude.mempty
     }
 
--- | The ID of the version, if the custom metadata is being added to a document version.
-ccmVersionId :: Lens' CreateCustomMetadata (Maybe Text)
-ccmVersionId = lens _ccmVersionId (\s a -> s {_ccmVersionId = a})
+-- | The ID of the version, if the custom metadata is being added to a
+-- document version.
+createCustomMetadata_versionId :: Lens.Lens' CreateCustomMetadata (Prelude.Maybe Prelude.Text)
+createCustomMetadata_versionId = Lens.lens (\CreateCustomMetadata' {versionId} -> versionId) (\s@CreateCustomMetadata' {} a -> s {versionId = a} :: CreateCustomMetadata)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-ccmAuthenticationToken :: Lens' CreateCustomMetadata (Maybe Text)
-ccmAuthenticationToken = lens _ccmAuthenticationToken (\s a -> s {_ccmAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+createCustomMetadata_authenticationToken :: Lens.Lens' CreateCustomMetadata (Prelude.Maybe Prelude.Text)
+createCustomMetadata_authenticationToken = Lens.lens (\CreateCustomMetadata' {authenticationToken} -> authenticationToken) (\s@CreateCustomMetadata' {} a -> s {authenticationToken = a} :: CreateCustomMetadata) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the resource.
-ccmResourceId :: Lens' CreateCustomMetadata Text
-ccmResourceId = lens _ccmResourceId (\s a -> s {_ccmResourceId = a})
+createCustomMetadata_resourceId :: Lens.Lens' CreateCustomMetadata Prelude.Text
+createCustomMetadata_resourceId = Lens.lens (\CreateCustomMetadata' {resourceId} -> resourceId) (\s@CreateCustomMetadata' {} a -> s {resourceId = a} :: CreateCustomMetadata)
 
 -- | Custom metadata in the form of name-value pairs.
-ccmCustomMetadata :: Lens' CreateCustomMetadata (HashMap Text Text)
-ccmCustomMetadata = lens _ccmCustomMetadata (\s a -> s {_ccmCustomMetadata = a}) . _Map
+createCustomMetadata_customMetadata :: Lens.Lens' CreateCustomMetadata (Prelude.HashMap Prelude.Text Prelude.Text)
+createCustomMetadata_customMetadata = Lens.lens (\CreateCustomMetadata' {customMetadata} -> customMetadata) (\s@CreateCustomMetadata' {} a -> s {customMetadata = a} :: CreateCustomMetadata) Prelude.. Prelude._Map
 
-instance AWSRequest CreateCustomMetadata where
+instance Prelude.AWSRequest CreateCustomMetadata where
   type
     Rs CreateCustomMetadata =
       CreateCustomMetadataResponse
-  request = putJSON workDocs
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           CreateCustomMetadataResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateCustomMetadata
+instance Prelude.Hashable CreateCustomMetadata
 
-instance NFData CreateCustomMetadata
+instance Prelude.NFData CreateCustomMetadata
 
-instance ToHeaders CreateCustomMetadata where
+instance Prelude.ToHeaders CreateCustomMetadata where
   toHeaders CreateCustomMetadata' {..} =
-    mconcat
-      [ "Authentication" =# _ccmAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON CreateCustomMetadata where
+instance Prelude.ToJSON CreateCustomMetadata where
   toJSON CreateCustomMetadata' {..} =
-    object
-      ( catMaybes
-          [Just ("CustomMetadata" .= _ccmCustomMetadata)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CustomMetadata" Prelude..= customMetadata)
+          ]
       )
 
-instance ToPath CreateCustomMetadata where
+instance Prelude.ToPath CreateCustomMetadata where
   toPath CreateCustomMetadata' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/api/v1/resources/",
-        toBS _ccmResourceId,
+        Prelude.toBS resourceId,
         "/customMetadata"
       ]
 
-instance ToQuery CreateCustomMetadata where
+instance Prelude.ToQuery CreateCustomMetadata where
   toQuery CreateCustomMetadata' {..} =
-    mconcat ["versionid" =: _ccmVersionId]
+    Prelude.mconcat ["versionid" Prelude.=: versionId]
 
--- | /See:/ 'createCustomMetadataResponse' smart constructor.
-newtype CreateCustomMetadataResponse = CreateCustomMetadataResponse'
-  { _ccmrrsResponseStatus ::
-      Int
+-- | /See:/ 'newCreateCustomMetadataResponse' smart constructor.
+data CreateCustomMetadataResponse = CreateCustomMetadataResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCustomMetadataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCustomMetadataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccmrrsResponseStatus' - -- | The response status code.
-createCustomMetadataResponse ::
-  -- | 'ccmrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createCustomMetadataResponse_httpStatus' - The response's http status code.
+newCreateCustomMetadataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateCustomMetadataResponse
-createCustomMetadataResponse pResponseStatus_ =
+newCreateCustomMetadataResponse pHttpStatus_ =
   CreateCustomMetadataResponse'
-    { _ccmrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ccmrrsResponseStatus :: Lens' CreateCustomMetadataResponse Int
-ccmrrsResponseStatus = lens _ccmrrsResponseStatus (\s a -> s {_ccmrrsResponseStatus = a})
+-- | The response's http status code.
+createCustomMetadataResponse_httpStatus :: Lens.Lens' CreateCustomMetadataResponse Prelude.Int
+createCustomMetadataResponse_httpStatus = Lens.lens (\CreateCustomMetadataResponse' {httpStatus} -> httpStatus) (\s@CreateCustomMetadataResponse' {} a -> s {httpStatus = a} :: CreateCustomMetadataResponse)
 
-instance NFData CreateCustomMetadataResponse
+instance Prelude.NFData CreateCustomMetadataResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.WorkDocs.Types.DocumentStatusType
   ( DocumentStatusType
       ( ..,
-        DSTActive,
-        DSTInitialized
+        DocumentStatusTypeACTIVE,
+        DocumentStatusTypeINITIALIZED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentStatusType
-  = DocumentStatusType'
-      ( CI
-          Text
-      )
+newtype DocumentStatusType = DocumentStatusType'
+  { fromDocumentStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSTActive :: DocumentStatusType
-pattern DSTActive = DocumentStatusType' "ACTIVE"
+pattern DocumentStatusTypeACTIVE :: DocumentStatusType
+pattern DocumentStatusTypeACTIVE = DocumentStatusType' "ACTIVE"
 
-pattern DSTInitialized :: DocumentStatusType
-pattern DSTInitialized = DocumentStatusType' "INITIALIZED"
+pattern DocumentStatusTypeINITIALIZED :: DocumentStatusType
+pattern DocumentStatusTypeINITIALIZED = DocumentStatusType' "INITIALIZED"
 
 {-# COMPLETE
-  DSTActive,
-  DSTInitialized,
+  DocumentStatusTypeACTIVE,
+  DocumentStatusTypeINITIALIZED,
   DocumentStatusType'
   #-}
 
-instance FromText DocumentStatusType where
-  parser = (DocumentStatusType' . mk) <$> takeText
+instance Prelude.FromText DocumentStatusType where
+  parser = DocumentStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentStatusType where
-  toText (DocumentStatusType' ci) = original ci
+instance Prelude.ToText DocumentStatusType where
+  toText (DocumentStatusType' x) = x
 
-instance Hashable DocumentStatusType
+instance Prelude.Hashable DocumentStatusType
 
-instance NFData DocumentStatusType
+instance Prelude.NFData DocumentStatusType
 
-instance ToByteString DocumentStatusType
+instance Prelude.ToByteString DocumentStatusType
 
-instance ToQuery DocumentStatusType
+instance Prelude.ToQuery DocumentStatusType
 
-instance ToHeader DocumentStatusType
+instance Prelude.ToHeader DocumentStatusType
 
-instance FromJSON DocumentStatusType where
-  parseJSON = parseJSONText "DocumentStatusType"
+instance Prelude.FromJSON DocumentStatusType where
+  parseJSON = Prelude.parseJSONText "DocumentStatusType"

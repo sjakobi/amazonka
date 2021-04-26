@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.WorkDocs.Types.SubscriptionProtocolType
   ( SubscriptionProtocolType
       ( ..,
-        HTTPS
+        SubscriptionProtocolTypeHTTPS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SubscriptionProtocolType
-  = SubscriptionProtocolType'
-      ( CI
-          Text
-      )
+newtype SubscriptionProtocolType = SubscriptionProtocolType'
+  { fromSubscriptionProtocolType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTTPS :: SubscriptionProtocolType
-pattern HTTPS = SubscriptionProtocolType' "HTTPS"
+pattern SubscriptionProtocolTypeHTTPS :: SubscriptionProtocolType
+pattern SubscriptionProtocolTypeHTTPS = SubscriptionProtocolType' "HTTPS"
 
 {-# COMPLETE
-  HTTPS,
+  SubscriptionProtocolTypeHTTPS,
   SubscriptionProtocolType'
   #-}
 
-instance FromText SubscriptionProtocolType where
-  parser = (SubscriptionProtocolType' . mk) <$> takeText
+instance Prelude.FromText SubscriptionProtocolType where
+  parser = SubscriptionProtocolType' Prelude.<$> Prelude.takeText
 
-instance ToText SubscriptionProtocolType where
-  toText (SubscriptionProtocolType' ci) = original ci
+instance Prelude.ToText SubscriptionProtocolType where
+  toText (SubscriptionProtocolType' x) = x
 
-instance Hashable SubscriptionProtocolType
+instance Prelude.Hashable SubscriptionProtocolType
 
-instance NFData SubscriptionProtocolType
+instance Prelude.NFData SubscriptionProtocolType
 
-instance ToByteString SubscriptionProtocolType
+instance Prelude.ToByteString SubscriptionProtocolType
 
-instance ToQuery SubscriptionProtocolType
+instance Prelude.ToQuery SubscriptionProtocolType
 
-instance ToHeader SubscriptionProtocolType
+instance Prelude.ToHeader SubscriptionProtocolType
 
-instance ToJSON SubscriptionProtocolType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SubscriptionProtocolType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SubscriptionProtocolType where
-  parseJSON = parseJSONText "SubscriptionProtocolType"
+instance Prelude.FromJSON SubscriptionProtocolType where
+  parseJSON = Prelude.parseJSONText "SubscriptionProtocolType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.WorkDocs.Types.DocumentThumbnailType
   ( DocumentThumbnailType
       ( ..,
-        Large,
-        Small,
-        SmallHq
+        DocumentThumbnailTypeLARGE,
+        DocumentThumbnailTypeSMALL,
+        DocumentThumbnailTypeSMALLHQ
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentThumbnailType
-  = DocumentThumbnailType'
-      ( CI
-          Text
-      )
+newtype DocumentThumbnailType = DocumentThumbnailType'
+  { fromDocumentThumbnailType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Large :: DocumentThumbnailType
-pattern Large = DocumentThumbnailType' "LARGE"
+pattern DocumentThumbnailTypeLARGE :: DocumentThumbnailType
+pattern DocumentThumbnailTypeLARGE = DocumentThumbnailType' "LARGE"
 
-pattern Small :: DocumentThumbnailType
-pattern Small = DocumentThumbnailType' "SMALL"
+pattern DocumentThumbnailTypeSMALL :: DocumentThumbnailType
+pattern DocumentThumbnailTypeSMALL = DocumentThumbnailType' "SMALL"
 
-pattern SmallHq :: DocumentThumbnailType
-pattern SmallHq = DocumentThumbnailType' "SMALL_HQ"
+pattern DocumentThumbnailTypeSMALLHQ :: DocumentThumbnailType
+pattern DocumentThumbnailTypeSMALLHQ = DocumentThumbnailType' "SMALL_HQ"
 
 {-# COMPLETE
-  Large,
-  Small,
-  SmallHq,
+  DocumentThumbnailTypeLARGE,
+  DocumentThumbnailTypeSMALL,
+  DocumentThumbnailTypeSMALLHQ,
   DocumentThumbnailType'
   #-}
 
-instance FromText DocumentThumbnailType where
-  parser = (DocumentThumbnailType' . mk) <$> takeText
+instance Prelude.FromText DocumentThumbnailType where
+  parser = DocumentThumbnailType' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentThumbnailType where
-  toText (DocumentThumbnailType' ci) = original ci
+instance Prelude.ToText DocumentThumbnailType where
+  toText (DocumentThumbnailType' x) = x
 
-instance Hashable DocumentThumbnailType
+instance Prelude.Hashable DocumentThumbnailType
 
-instance NFData DocumentThumbnailType
+instance Prelude.NFData DocumentThumbnailType
 
-instance ToByteString DocumentThumbnailType
+instance Prelude.ToByteString DocumentThumbnailType
 
-instance ToQuery DocumentThumbnailType
+instance Prelude.ToQuery DocumentThumbnailType
 
-instance ToHeader DocumentThumbnailType
+instance Prelude.ToHeader DocumentThumbnailType
 
-instance FromJSON DocumentThumbnailType where
-  parseJSON = parseJSONText "DocumentThumbnailType"
+instance Prelude.FromJSON DocumentThumbnailType where
+  parseJSON = Prelude.parseJSONText "DocumentThumbnailType"

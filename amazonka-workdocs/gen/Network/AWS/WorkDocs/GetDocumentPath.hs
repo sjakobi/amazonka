@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the path information (the hierarchy from the root folder) for the requested document.
+-- Retrieves the path information (the hierarchy from the root folder) for
+-- the requested document.
 --
---
--- By default, Amazon WorkDocs returns a maximum of 100 levels upwards from the requested document and only includes the IDs of the parent folders in the path. You can limit the maximum number of levels. You can also request the names of the parent folders.
+-- By default, Amazon WorkDocs returns a maximum of 100 levels upwards from
+-- the requested document and only includes the IDs of the parent folders
+-- in the path. You can limit the maximum number of levels. You can also
+-- request the names of the parent folders.
 module Network.AWS.WorkDocs.GetDocumentPath
   ( -- * Creating a Request
-    getDocumentPath,
-    GetDocumentPath,
+    GetDocumentPath (..),
+    newGetDocumentPath,
 
     -- * Request Lenses
-    gdpFields,
-    gdpAuthenticationToken,
-    gdpLimit,
-    gdpMarker,
-    gdpDocumentId,
+    getDocumentPath_fields,
+    getDocumentPath_authenticationToken,
+    getDocumentPath_limit,
+    getDocumentPath_marker,
+    getDocumentPath_documentId,
 
     -- * Destructuring the Response
-    getDocumentPathResponse,
-    GetDocumentPathResponse,
+    GetDocumentPathResponse (..),
+    newGetDocumentPathResponse,
 
     -- * Response Lenses
-    gdprrsPath,
-    gdprrsResponseStatus,
+    getDocumentPathResponse_path,
+    getDocumentPathResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.ResourcePath
 
--- | /See:/ 'getDocumentPath' smart constructor.
+-- | /See:/ 'newGetDocumentPath' smart constructor.
 data GetDocumentPath = GetDocumentPath'
-  { _gdpFields ::
-      !(Maybe Text),
-    _gdpAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _gdpLimit :: !(Maybe Nat),
-    _gdpMarker :: !(Maybe Text),
-    _gdpDocumentId :: !Text
+  { -- | A comma-separated list of values. Specify @NAME@ to include the names of
+    -- the parent folders.
+    fields :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The maximum number of levels in the hierarchy to return.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | This value is not supported.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the document.
+    documentId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDocumentPath' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDocumentPath' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdpFields' - A comma-separated list of values. Specify @NAME@ to include the names of the parent folders.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdpAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'fields', 'getDocumentPath_fields' - A comma-separated list of values. Specify @NAME@ to include the names of
+-- the parent folders.
 --
--- * 'gdpLimit' - The maximum number of levels in the hierarchy to return.
+-- 'authenticationToken', 'getDocumentPath_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'gdpMarker' - This value is not supported.
+-- 'limit', 'getDocumentPath_limit' - The maximum number of levels in the hierarchy to return.
 --
--- * 'gdpDocumentId' - The ID of the document.
-getDocumentPath ::
-  -- | 'gdpDocumentId'
-  Text ->
+-- 'marker', 'getDocumentPath_marker' - This value is not supported.
+--
+-- 'documentId', 'getDocumentPath_documentId' - The ID of the document.
+newGetDocumentPath ::
+  -- | 'documentId'
+  Prelude.Text ->
   GetDocumentPath
-getDocumentPath pDocumentId_ =
+newGetDocumentPath pDocumentId_ =
   GetDocumentPath'
-    { _gdpFields = Nothing,
-      _gdpAuthenticationToken = Nothing,
-      _gdpLimit = Nothing,
-      _gdpMarker = Nothing,
-      _gdpDocumentId = pDocumentId_
+    { fields = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      documentId = pDocumentId_
     }
 
--- | A comma-separated list of values. Specify @NAME@ to include the names of the parent folders.
-gdpFields :: Lens' GetDocumentPath (Maybe Text)
-gdpFields = lens _gdpFields (\s a -> s {_gdpFields = a})
+-- | A comma-separated list of values. Specify @NAME@ to include the names of
+-- the parent folders.
+getDocumentPath_fields :: Lens.Lens' GetDocumentPath (Prelude.Maybe Prelude.Text)
+getDocumentPath_fields = Lens.lens (\GetDocumentPath' {fields} -> fields) (\s@GetDocumentPath' {} a -> s {fields = a} :: GetDocumentPath)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-gdpAuthenticationToken :: Lens' GetDocumentPath (Maybe Text)
-gdpAuthenticationToken = lens _gdpAuthenticationToken (\s a -> s {_gdpAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+getDocumentPath_authenticationToken :: Lens.Lens' GetDocumentPath (Prelude.Maybe Prelude.Text)
+getDocumentPath_authenticationToken = Lens.lens (\GetDocumentPath' {authenticationToken} -> authenticationToken) (\s@GetDocumentPath' {} a -> s {authenticationToken = a} :: GetDocumentPath) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The maximum number of levels in the hierarchy to return.
-gdpLimit :: Lens' GetDocumentPath (Maybe Natural)
-gdpLimit = lens _gdpLimit (\s a -> s {_gdpLimit = a}) . mapping _Nat
+getDocumentPath_limit :: Lens.Lens' GetDocumentPath (Prelude.Maybe Prelude.Natural)
+getDocumentPath_limit = Lens.lens (\GetDocumentPath' {limit} -> limit) (\s@GetDocumentPath' {} a -> s {limit = a} :: GetDocumentPath) Prelude.. Lens.mapping Prelude._Nat
 
 -- | This value is not supported.
-gdpMarker :: Lens' GetDocumentPath (Maybe Text)
-gdpMarker = lens _gdpMarker (\s a -> s {_gdpMarker = a})
+getDocumentPath_marker :: Lens.Lens' GetDocumentPath (Prelude.Maybe Prelude.Text)
+getDocumentPath_marker = Lens.lens (\GetDocumentPath' {marker} -> marker) (\s@GetDocumentPath' {} a -> s {marker = a} :: GetDocumentPath)
 
 -- | The ID of the document.
-gdpDocumentId :: Lens' GetDocumentPath Text
-gdpDocumentId = lens _gdpDocumentId (\s a -> s {_gdpDocumentId = a})
+getDocumentPath_documentId :: Lens.Lens' GetDocumentPath Prelude.Text
+getDocumentPath_documentId = Lens.lens (\GetDocumentPath' {documentId} -> documentId) (\s@GetDocumentPath' {} a -> s {documentId = a} :: GetDocumentPath)
 
-instance AWSRequest GetDocumentPath where
+instance Prelude.AWSRequest GetDocumentPath where
   type Rs GetDocumentPath = GetDocumentPathResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDocumentPathResponse'
-            <$> (x .?> "Path") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Path")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDocumentPath
+instance Prelude.Hashable GetDocumentPath
 
-instance NFData GetDocumentPath
+instance Prelude.NFData GetDocumentPath
 
-instance ToHeaders GetDocumentPath where
+instance Prelude.ToHeaders GetDocumentPath where
   toHeaders GetDocumentPath' {..} =
-    mconcat
-      [ "Authentication" =# _gdpAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath GetDocumentPath where
+instance Prelude.ToPath GetDocumentPath where
   toPath GetDocumentPath' {..} =
-    mconcat
-      ["/api/v1/documents/", toBS _gdpDocumentId, "/path"]
-
-instance ToQuery GetDocumentPath where
-  toQuery GetDocumentPath' {..} =
-    mconcat
-      [ "fields" =: _gdpFields,
-        "limit" =: _gdpLimit,
-        "marker" =: _gdpMarker
+    Prelude.mconcat
+      [ "/api/v1/documents/",
+        Prelude.toBS documentId,
+        "/path"
       ]
 
--- | /See:/ 'getDocumentPathResponse' smart constructor.
-data GetDocumentPathResponse = GetDocumentPathResponse'
-  { _gdprrsPath ::
-      !(Maybe ResourcePath),
-    _gdprrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+instance Prelude.ToQuery GetDocumentPath where
+  toQuery GetDocumentPath' {..} =
+    Prelude.mconcat
+      [ "fields" Prelude.=: fields,
+        "limit" Prelude.=: limit,
+        "marker" Prelude.=: marker
+      ]
 
--- | Creates a value of 'GetDocumentPathResponse' with the minimum fields required to make a request.
+-- | /See:/ 'newGetDocumentPathResponse' smart constructor.
+data GetDocumentPathResponse = GetDocumentPathResponse'
+  { -- | The path information.
+    path :: Prelude.Maybe ResourcePath,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'GetDocumentPathResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdprrsPath' - The path information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdprrsResponseStatus' - -- | The response status code.
-getDocumentPathResponse ::
-  -- | 'gdprrsResponseStatus'
-  Int ->
+-- 'path', 'getDocumentPathResponse_path' - The path information.
+--
+-- 'httpStatus', 'getDocumentPathResponse_httpStatus' - The response's http status code.
+newGetDocumentPathResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDocumentPathResponse
-getDocumentPathResponse pResponseStatus_ =
+newGetDocumentPathResponse pHttpStatus_ =
   GetDocumentPathResponse'
-    { _gdprrsPath = Nothing,
-      _gdprrsResponseStatus = pResponseStatus_
+    { path = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The path information.
-gdprrsPath :: Lens' GetDocumentPathResponse (Maybe ResourcePath)
-gdprrsPath = lens _gdprrsPath (\s a -> s {_gdprrsPath = a})
+getDocumentPathResponse_path :: Lens.Lens' GetDocumentPathResponse (Prelude.Maybe ResourcePath)
+getDocumentPathResponse_path = Lens.lens (\GetDocumentPathResponse' {path} -> path) (\s@GetDocumentPathResponse' {} a -> s {path = a} :: GetDocumentPathResponse)
 
--- | -- | The response status code.
-gdprrsResponseStatus :: Lens' GetDocumentPathResponse Int
-gdprrsResponseStatus = lens _gdprrsResponseStatus (\s a -> s {_gdprrsResponseStatus = a})
+-- | The response's http status code.
+getDocumentPathResponse_httpStatus :: Lens.Lens' GetDocumentPathResponse Prelude.Int
+getDocumentPathResponse_httpStatus = Lens.lens (\GetDocumentPathResponse' {httpStatus} -> httpStatus) (\s@GetDocumentPathResponse' {} a -> s {httpStatus = a} :: GetDocumentPathResponse)
 
-instance NFData GetDocumentPathResponse
+instance Prelude.NFData GetDocumentPathResponse

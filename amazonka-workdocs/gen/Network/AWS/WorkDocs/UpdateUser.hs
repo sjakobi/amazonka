@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,205 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the specified attributes of the specified user, and grants or revokes administrative privileges to the Amazon WorkDocs site.
+-- Updates the specified attributes of the specified user, and grants or
+-- revokes administrative privileges to the Amazon WorkDocs site.
 module Network.AWS.WorkDocs.UpdateUser
   ( -- * Creating a Request
-    updateUser,
-    UpdateUser,
+    UpdateUser (..),
+    newUpdateUser,
 
     -- * Request Lenses
-    uuStorageRule,
-    uuGrantPoweruserPrivileges,
-    uuTimeZoneId,
-    uuSurname,
-    uuLocale,
-    uuGivenName,
-    uuAuthenticationToken,
-    uuType,
-    uuUserId,
+    updateUser_storageRule,
+    updateUser_grantPoweruserPrivileges,
+    updateUser_timeZoneId,
+    updateUser_surname,
+    updateUser_locale,
+    updateUser_givenName,
+    updateUser_authenticationToken,
+    updateUser_type,
+    updateUser_userId,
 
     -- * Destructuring the Response
-    updateUserResponse,
-    UpdateUserResponse,
+    UpdateUserResponse (..),
+    newUpdateUserResponse,
 
     -- * Response Lenses
-    uurrsUser,
-    uurrsResponseStatus,
+    updateUserResponse_user,
+    updateUserResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.User
 
--- | /See:/ 'updateUser' smart constructor.
+-- | /See:/ 'newUpdateUser' smart constructor.
 data UpdateUser = UpdateUser'
-  { _uuStorageRule ::
-      !(Maybe StorageRuleType),
-    _uuGrantPoweruserPrivileges ::
-      !(Maybe BooleanEnumType),
-    _uuTimeZoneId :: !(Maybe Text),
-    _uuSurname :: !(Maybe Text),
-    _uuLocale :: !(Maybe LocaleType),
-    _uuGivenName :: !(Maybe Text),
-    _uuAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _uuType :: !(Maybe UserType),
-    _uuUserId :: !Text
+  { -- | The amount of storage for the user.
+    storageRule :: Prelude.Maybe StorageRuleType,
+    -- | Boolean value to determine whether the user is granted Poweruser
+    -- privileges.
+    grantPoweruserPrivileges :: Prelude.Maybe BooleanEnumType,
+    -- | The time zone ID of the user.
+    timeZoneId :: Prelude.Maybe Prelude.Text,
+    -- | The surname of the user.
+    surname :: Prelude.Maybe Prelude.Text,
+    -- | The locale of the user.
+    locale :: Prelude.Maybe LocaleType,
+    -- | The given name of the user.
+    givenName :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The type of the user.
+    type' :: Prelude.Maybe UserType,
+    -- | The ID of the user.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uuStorageRule' - The amount of storage for the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uuGrantPoweruserPrivileges' - Boolean value to determine whether the user is granted Poweruser privileges.
+-- 'storageRule', 'updateUser_storageRule' - The amount of storage for the user.
 --
--- * 'uuTimeZoneId' - The time zone ID of the user.
+-- 'grantPoweruserPrivileges', 'updateUser_grantPoweruserPrivileges' - Boolean value to determine whether the user is granted Poweruser
+-- privileges.
 --
--- * 'uuSurname' - The surname of the user.
+-- 'timeZoneId', 'updateUser_timeZoneId' - The time zone ID of the user.
 --
--- * 'uuLocale' - The locale of the user.
+-- 'surname', 'updateUser_surname' - The surname of the user.
 --
--- * 'uuGivenName' - The given name of the user.
+-- 'locale', 'updateUser_locale' - The locale of the user.
 --
--- * 'uuAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'givenName', 'updateUser_givenName' - The given name of the user.
 --
--- * 'uuType' - The type of the user.
+-- 'authenticationToken', 'updateUser_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'uuUserId' - The ID of the user.
-updateUser ::
-  -- | 'uuUserId'
-  Text ->
+-- 'type'', 'updateUser_type' - The type of the user.
+--
+-- 'userId', 'updateUser_userId' - The ID of the user.
+newUpdateUser ::
+  -- | 'userId'
+  Prelude.Text ->
   UpdateUser
-updateUser pUserId_ =
+newUpdateUser pUserId_ =
   UpdateUser'
-    { _uuStorageRule = Nothing,
-      _uuGrantPoweruserPrivileges = Nothing,
-      _uuTimeZoneId = Nothing,
-      _uuSurname = Nothing,
-      _uuLocale = Nothing,
-      _uuGivenName = Nothing,
-      _uuAuthenticationToken = Nothing,
-      _uuType = Nothing,
-      _uuUserId = pUserId_
+    { storageRule = Prelude.Nothing,
+      grantPoweruserPrivileges = Prelude.Nothing,
+      timeZoneId = Prelude.Nothing,
+      surname = Prelude.Nothing,
+      locale = Prelude.Nothing,
+      givenName = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      userId = pUserId_
     }
 
 -- | The amount of storage for the user.
-uuStorageRule :: Lens' UpdateUser (Maybe StorageRuleType)
-uuStorageRule = lens _uuStorageRule (\s a -> s {_uuStorageRule = a})
+updateUser_storageRule :: Lens.Lens' UpdateUser (Prelude.Maybe StorageRuleType)
+updateUser_storageRule = Lens.lens (\UpdateUser' {storageRule} -> storageRule) (\s@UpdateUser' {} a -> s {storageRule = a} :: UpdateUser)
 
--- | Boolean value to determine whether the user is granted Poweruser privileges.
-uuGrantPoweruserPrivileges :: Lens' UpdateUser (Maybe BooleanEnumType)
-uuGrantPoweruserPrivileges = lens _uuGrantPoweruserPrivileges (\s a -> s {_uuGrantPoweruserPrivileges = a})
+-- | Boolean value to determine whether the user is granted Poweruser
+-- privileges.
+updateUser_grantPoweruserPrivileges :: Lens.Lens' UpdateUser (Prelude.Maybe BooleanEnumType)
+updateUser_grantPoweruserPrivileges = Lens.lens (\UpdateUser' {grantPoweruserPrivileges} -> grantPoweruserPrivileges) (\s@UpdateUser' {} a -> s {grantPoweruserPrivileges = a} :: UpdateUser)
 
 -- | The time zone ID of the user.
-uuTimeZoneId :: Lens' UpdateUser (Maybe Text)
-uuTimeZoneId = lens _uuTimeZoneId (\s a -> s {_uuTimeZoneId = a})
+updateUser_timeZoneId :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Text)
+updateUser_timeZoneId = Lens.lens (\UpdateUser' {timeZoneId} -> timeZoneId) (\s@UpdateUser' {} a -> s {timeZoneId = a} :: UpdateUser)
 
 -- | The surname of the user.
-uuSurname :: Lens' UpdateUser (Maybe Text)
-uuSurname = lens _uuSurname (\s a -> s {_uuSurname = a})
+updateUser_surname :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Text)
+updateUser_surname = Lens.lens (\UpdateUser' {surname} -> surname) (\s@UpdateUser' {} a -> s {surname = a} :: UpdateUser)
 
 -- | The locale of the user.
-uuLocale :: Lens' UpdateUser (Maybe LocaleType)
-uuLocale = lens _uuLocale (\s a -> s {_uuLocale = a})
+updateUser_locale :: Lens.Lens' UpdateUser (Prelude.Maybe LocaleType)
+updateUser_locale = Lens.lens (\UpdateUser' {locale} -> locale) (\s@UpdateUser' {} a -> s {locale = a} :: UpdateUser)
 
 -- | The given name of the user.
-uuGivenName :: Lens' UpdateUser (Maybe Text)
-uuGivenName = lens _uuGivenName (\s a -> s {_uuGivenName = a})
+updateUser_givenName :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Text)
+updateUser_givenName = Lens.lens (\UpdateUser' {givenName} -> givenName) (\s@UpdateUser' {} a -> s {givenName = a} :: UpdateUser)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-uuAuthenticationToken :: Lens' UpdateUser (Maybe Text)
-uuAuthenticationToken = lens _uuAuthenticationToken (\s a -> s {_uuAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+updateUser_authenticationToken :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Text)
+updateUser_authenticationToken = Lens.lens (\UpdateUser' {authenticationToken} -> authenticationToken) (\s@UpdateUser' {} a -> s {authenticationToken = a} :: UpdateUser) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The type of the user.
-uuType :: Lens' UpdateUser (Maybe UserType)
-uuType = lens _uuType (\s a -> s {_uuType = a})
+updateUser_type :: Lens.Lens' UpdateUser (Prelude.Maybe UserType)
+updateUser_type = Lens.lens (\UpdateUser' {type'} -> type') (\s@UpdateUser' {} a -> s {type' = a} :: UpdateUser)
 
 -- | The ID of the user.
-uuUserId :: Lens' UpdateUser Text
-uuUserId = lens _uuUserId (\s a -> s {_uuUserId = a})
+updateUser_userId :: Lens.Lens' UpdateUser Prelude.Text
+updateUser_userId = Lens.lens (\UpdateUser' {userId} -> userId) (\s@UpdateUser' {} a -> s {userId = a} :: UpdateUser)
 
-instance AWSRequest UpdateUser where
+instance Prelude.AWSRequest UpdateUser where
   type Rs UpdateUser = UpdateUserResponse
-  request = patchJSON workDocs
+  request = Request.patchJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateUserResponse'
-            <$> (x .?> "User") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "User")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateUser
+instance Prelude.Hashable UpdateUser
 
-instance NFData UpdateUser
+instance Prelude.NFData UpdateUser
 
-instance ToHeaders UpdateUser where
+instance Prelude.ToHeaders UpdateUser where
   toHeaders UpdateUser' {..} =
-    mconcat
-      [ "Authentication" =# _uuAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON UpdateUser where
+instance Prelude.ToJSON UpdateUser where
   toJSON UpdateUser' {..} =
-    object
-      ( catMaybes
-          [ ("StorageRule" .=) <$> _uuStorageRule,
-            ("GrantPoweruserPrivileges" .=)
-              <$> _uuGrantPoweruserPrivileges,
-            ("TimeZoneId" .=) <$> _uuTimeZoneId,
-            ("Surname" .=) <$> _uuSurname,
-            ("Locale" .=) <$> _uuLocale,
-            ("GivenName" .=) <$> _uuGivenName,
-            ("Type" .=) <$> _uuType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StorageRule" Prelude..=) Prelude.<$> storageRule,
+            ("GrantPoweruserPrivileges" Prelude..=)
+              Prelude.<$> grantPoweruserPrivileges,
+            ("TimeZoneId" Prelude..=) Prelude.<$> timeZoneId,
+            ("Surname" Prelude..=) Prelude.<$> surname,
+            ("Locale" Prelude..=) Prelude.<$> locale,
+            ("GivenName" Prelude..=) Prelude.<$> givenName,
+            ("Type" Prelude..=) Prelude.<$> type'
           ]
       )
 
-instance ToPath UpdateUser where
+instance Prelude.ToPath UpdateUser where
   toPath UpdateUser' {..} =
-    mconcat ["/api/v1/users/", toBS _uuUserId]
+    Prelude.mconcat
+      ["/api/v1/users/", Prelude.toBS userId]
 
-instance ToQuery UpdateUser where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateUserResponse' smart constructor.
+-- | /See:/ 'newUpdateUserResponse' smart constructor.
 data UpdateUserResponse = UpdateUserResponse'
-  { _uurrsUser ::
-      !(Maybe User),
-    _uurrsResponseStatus :: !Int
+  { -- | The user information.
+    user :: Prelude.Maybe User,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uurrsUser' - The user information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uurrsResponseStatus' - -- | The response status code.
-updateUserResponse ::
-  -- | 'uurrsResponseStatus'
-  Int ->
+-- 'user', 'updateUserResponse_user' - The user information.
+--
+-- 'httpStatus', 'updateUserResponse_httpStatus' - The response's http status code.
+newUpdateUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateUserResponse
-updateUserResponse pResponseStatus_ =
+newUpdateUserResponse pHttpStatus_ =
   UpdateUserResponse'
-    { _uurrsUser = Nothing,
-      _uurrsResponseStatus = pResponseStatus_
+    { user = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The user information.
-uurrsUser :: Lens' UpdateUserResponse (Maybe User)
-uurrsUser = lens _uurrsUser (\s a -> s {_uurrsUser = a})
+updateUserResponse_user :: Lens.Lens' UpdateUserResponse (Prelude.Maybe User)
+updateUserResponse_user = Lens.lens (\UpdateUserResponse' {user} -> user) (\s@UpdateUserResponse' {} a -> s {user = a} :: UpdateUserResponse)
 
--- | -- | The response status code.
-uurrsResponseStatus :: Lens' UpdateUserResponse Int
-uurrsResponseStatus = lens _uurrsResponseStatus (\s a -> s {_uurrsResponseStatus = a})
+-- | The response's http status code.
+updateUserResponse_httpStatus :: Lens.Lens' UpdateUserResponse Prelude.Int
+updateUserResponse_httpStatus = Lens.lens (\UpdateUserResponse' {httpStatus} -> httpStatus) (\s@UpdateUserResponse' {} a -> s {httpStatus = a} :: UpdateUserResponse)
 
-instance NFData UpdateUserResponse
+instance Prelude.NFData UpdateUserResponse

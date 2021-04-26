@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,213 +21,236 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a user in a Simple AD or Microsoft AD directory. The status of a newly created user is "ACTIVE". New users can access Amazon WorkDocs.
+-- Creates a user in a Simple AD or Microsoft AD directory. The status of a
+-- newly created user is \"ACTIVE\". New users can access Amazon WorkDocs.
 module Network.AWS.WorkDocs.CreateUser
   ( -- * Creating a Request
-    createUser,
-    CreateUser,
+    CreateUser (..),
+    newCreateUser,
 
     -- * Request Lenses
-    cuStorageRule,
-    cuOrganizationId,
-    cuTimeZoneId,
-    cuAuthenticationToken,
-    cuEmailAddress,
-    cuUsername,
-    cuGivenName,
-    cuSurname,
-    cuPassword,
+    createUser_storageRule,
+    createUser_organizationId,
+    createUser_timeZoneId,
+    createUser_authenticationToken,
+    createUser_emailAddress,
+    createUser_username,
+    createUser_givenName,
+    createUser_surname,
+    createUser_password,
 
     -- * Destructuring the Response
-    createUserResponse,
-    CreateUserResponse,
+    CreateUserResponse (..),
+    newCreateUserResponse,
 
     -- * Response Lenses
-    currsUser,
-    currsResponseStatus,
+    createUserResponse_user,
+    createUserResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.User
 
--- | /See:/ 'createUser' smart constructor.
+-- | /See:/ 'newCreateUser' smart constructor.
 data CreateUser = CreateUser'
-  { _cuStorageRule ::
-      !(Maybe StorageRuleType),
-    _cuOrganizationId :: !(Maybe Text),
-    _cuTimeZoneId :: !(Maybe Text),
-    _cuAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _cuEmailAddress :: !(Maybe Text),
-    _cuUsername :: !Text,
-    _cuGivenName :: !Text,
-    _cuSurname :: !Text,
-    _cuPassword :: !(Sensitive Text)
+  { -- | The amount of storage for the user.
+    storageRule :: Prelude.Maybe StorageRuleType,
+    -- | The ID of the organization.
+    organizationId :: Prelude.Maybe Prelude.Text,
+    -- | The time zone ID of the user.
+    timeZoneId :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The email address of the user.
+    emailAddress :: Prelude.Maybe Prelude.Text,
+    -- | The login name of the user.
+    username :: Prelude.Text,
+    -- | The given name of the user.
+    givenName :: Prelude.Text,
+    -- | The surname of the user.
+    surname :: Prelude.Text,
+    -- | The password of the user.
+    password :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cuStorageRule' - The amount of storage for the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cuOrganizationId' - The ID of the organization.
+-- 'storageRule', 'createUser_storageRule' - The amount of storage for the user.
 --
--- * 'cuTimeZoneId' - The time zone ID of the user.
+-- 'organizationId', 'createUser_organizationId' - The ID of the organization.
 --
--- * 'cuAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'timeZoneId', 'createUser_timeZoneId' - The time zone ID of the user.
 --
--- * 'cuEmailAddress' - The email address of the user.
+-- 'authenticationToken', 'createUser_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'cuUsername' - The login name of the user.
+-- 'emailAddress', 'createUser_emailAddress' - The email address of the user.
 --
--- * 'cuGivenName' - The given name of the user.
+-- 'username', 'createUser_username' - The login name of the user.
 --
--- * 'cuSurname' - The surname of the user.
+-- 'givenName', 'createUser_givenName' - The given name of the user.
 --
--- * 'cuPassword' - The password of the user.
-createUser ::
-  -- | 'cuUsername'
-  Text ->
-  -- | 'cuGivenName'
-  Text ->
-  -- | 'cuSurname'
-  Text ->
-  -- | 'cuPassword'
-  Text ->
+-- 'surname', 'createUser_surname' - The surname of the user.
+--
+-- 'password', 'createUser_password' - The password of the user.
+newCreateUser ::
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'givenName'
+  Prelude.Text ->
+  -- | 'surname'
+  Prelude.Text ->
+  -- | 'password'
+  Prelude.Text ->
   CreateUser
-createUser
+newCreateUser
   pUsername_
   pGivenName_
   pSurname_
   pPassword_ =
     CreateUser'
-      { _cuStorageRule = Nothing,
-        _cuOrganizationId = Nothing,
-        _cuTimeZoneId = Nothing,
-        _cuAuthenticationToken = Nothing,
-        _cuEmailAddress = Nothing,
-        _cuUsername = pUsername_,
-        _cuGivenName = pGivenName_,
-        _cuSurname = pSurname_,
-        _cuPassword = _Sensitive # pPassword_
+      { storageRule = Prelude.Nothing,
+        organizationId = Prelude.Nothing,
+        timeZoneId = Prelude.Nothing,
+        authenticationToken = Prelude.Nothing,
+        emailAddress = Prelude.Nothing,
+        username = pUsername_,
+        givenName = pGivenName_,
+        surname = pSurname_,
+        password = Prelude._Sensitive Lens.# pPassword_
       }
 
 -- | The amount of storage for the user.
-cuStorageRule :: Lens' CreateUser (Maybe StorageRuleType)
-cuStorageRule = lens _cuStorageRule (\s a -> s {_cuStorageRule = a})
+createUser_storageRule :: Lens.Lens' CreateUser (Prelude.Maybe StorageRuleType)
+createUser_storageRule = Lens.lens (\CreateUser' {storageRule} -> storageRule) (\s@CreateUser' {} a -> s {storageRule = a} :: CreateUser)
 
 -- | The ID of the organization.
-cuOrganizationId :: Lens' CreateUser (Maybe Text)
-cuOrganizationId = lens _cuOrganizationId (\s a -> s {_cuOrganizationId = a})
+createUser_organizationId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_organizationId = Lens.lens (\CreateUser' {organizationId} -> organizationId) (\s@CreateUser' {} a -> s {organizationId = a} :: CreateUser)
 
 -- | The time zone ID of the user.
-cuTimeZoneId :: Lens' CreateUser (Maybe Text)
-cuTimeZoneId = lens _cuTimeZoneId (\s a -> s {_cuTimeZoneId = a})
+createUser_timeZoneId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_timeZoneId = Lens.lens (\CreateUser' {timeZoneId} -> timeZoneId) (\s@CreateUser' {} a -> s {timeZoneId = a} :: CreateUser)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-cuAuthenticationToken :: Lens' CreateUser (Maybe Text)
-cuAuthenticationToken = lens _cuAuthenticationToken (\s a -> s {_cuAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+createUser_authenticationToken :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_authenticationToken = Lens.lens (\CreateUser' {authenticationToken} -> authenticationToken) (\s@CreateUser' {} a -> s {authenticationToken = a} :: CreateUser) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The email address of the user.
-cuEmailAddress :: Lens' CreateUser (Maybe Text)
-cuEmailAddress = lens _cuEmailAddress (\s a -> s {_cuEmailAddress = a})
+createUser_emailAddress :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_emailAddress = Lens.lens (\CreateUser' {emailAddress} -> emailAddress) (\s@CreateUser' {} a -> s {emailAddress = a} :: CreateUser)
 
 -- | The login name of the user.
-cuUsername :: Lens' CreateUser Text
-cuUsername = lens _cuUsername (\s a -> s {_cuUsername = a})
+createUser_username :: Lens.Lens' CreateUser Prelude.Text
+createUser_username = Lens.lens (\CreateUser' {username} -> username) (\s@CreateUser' {} a -> s {username = a} :: CreateUser)
 
 -- | The given name of the user.
-cuGivenName :: Lens' CreateUser Text
-cuGivenName = lens _cuGivenName (\s a -> s {_cuGivenName = a})
+createUser_givenName :: Lens.Lens' CreateUser Prelude.Text
+createUser_givenName = Lens.lens (\CreateUser' {givenName} -> givenName) (\s@CreateUser' {} a -> s {givenName = a} :: CreateUser)
 
 -- | The surname of the user.
-cuSurname :: Lens' CreateUser Text
-cuSurname = lens _cuSurname (\s a -> s {_cuSurname = a})
+createUser_surname :: Lens.Lens' CreateUser Prelude.Text
+createUser_surname = Lens.lens (\CreateUser' {surname} -> surname) (\s@CreateUser' {} a -> s {surname = a} :: CreateUser)
 
 -- | The password of the user.
-cuPassword :: Lens' CreateUser Text
-cuPassword = lens _cuPassword (\s a -> s {_cuPassword = a}) . _Sensitive
+createUser_password :: Lens.Lens' CreateUser Prelude.Text
+createUser_password = Lens.lens (\CreateUser' {password} -> password) (\s@CreateUser' {} a -> s {password = a} :: CreateUser) Prelude.. Prelude._Sensitive
 
-instance AWSRequest CreateUser where
+instance Prelude.AWSRequest CreateUser where
   type Rs CreateUser = CreateUserResponse
-  request = postJSON workDocs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateUserResponse'
-            <$> (x .?> "User") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "User")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateUser
+instance Prelude.Hashable CreateUser
 
-instance NFData CreateUser
+instance Prelude.NFData CreateUser
 
-instance ToHeaders CreateUser where
+instance Prelude.ToHeaders CreateUser where
   toHeaders CreateUser' {..} =
-    mconcat
-      [ "Authentication" =# _cuAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON CreateUser where
+instance Prelude.ToJSON CreateUser where
   toJSON CreateUser' {..} =
-    object
-      ( catMaybes
-          [ ("StorageRule" .=) <$> _cuStorageRule,
-            ("OrganizationId" .=) <$> _cuOrganizationId,
-            ("TimeZoneId" .=) <$> _cuTimeZoneId,
-            ("EmailAddress" .=) <$> _cuEmailAddress,
-            Just ("Username" .= _cuUsername),
-            Just ("GivenName" .= _cuGivenName),
-            Just ("Surname" .= _cuSurname),
-            Just ("Password" .= _cuPassword)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StorageRule" Prelude..=) Prelude.<$> storageRule,
+            ("OrganizationId" Prelude..=)
+              Prelude.<$> organizationId,
+            ("TimeZoneId" Prelude..=) Prelude.<$> timeZoneId,
+            ("EmailAddress" Prelude..=) Prelude.<$> emailAddress,
+            Prelude.Just ("Username" Prelude..= username),
+            Prelude.Just ("GivenName" Prelude..= givenName),
+            Prelude.Just ("Surname" Prelude..= surname),
+            Prelude.Just ("Password" Prelude..= password)
           ]
       )
 
-instance ToPath CreateUser where
-  toPath = const "/api/v1/users"
+instance Prelude.ToPath CreateUser where
+  toPath = Prelude.const "/api/v1/users"
 
-instance ToQuery CreateUser where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createUserResponse' smart constructor.
+-- | /See:/ 'newCreateUserResponse' smart constructor.
 data CreateUserResponse = CreateUserResponse'
-  { _currsUser ::
-      !(Maybe User),
-    _currsResponseStatus :: !Int
+  { -- | The user information.
+    user :: Prelude.Maybe User,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'currsUser' - The user information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'currsResponseStatus' - -- | The response status code.
-createUserResponse ::
-  -- | 'currsResponseStatus'
-  Int ->
+-- 'user', 'createUserResponse_user' - The user information.
+--
+-- 'httpStatus', 'createUserResponse_httpStatus' - The response's http status code.
+newCreateUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateUserResponse
-createUserResponse pResponseStatus_ =
+newCreateUserResponse pHttpStatus_ =
   CreateUserResponse'
-    { _currsUser = Nothing,
-      _currsResponseStatus = pResponseStatus_
+    { user = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The user information.
-currsUser :: Lens' CreateUserResponse (Maybe User)
-currsUser = lens _currsUser (\s a -> s {_currsUser = a})
+createUserResponse_user :: Lens.Lens' CreateUserResponse (Prelude.Maybe User)
+createUserResponse_user = Lens.lens (\CreateUserResponse' {user} -> user) (\s@CreateUserResponse' {} a -> s {user = a} :: CreateUserResponse)
 
--- | -- | The response status code.
-currsResponseStatus :: Lens' CreateUserResponse Int
-currsResponseStatus = lens _currsResponseStatus (\s a -> s {_currsResponseStatus = a})
+-- | The response's http status code.
+createUserResponse_httpStatus :: Lens.Lens' CreateUserResponse Prelude.Int
+createUserResponse_httpStatus = Lens.lens (\CreateUserResponse' {httpStatus} -> httpStatus) (\s@CreateUserResponse' {} a -> s {httpStatus = a} :: CreateUserResponse)
 
-instance NFData CreateUserResponse
+instance Prelude.NFData CreateUserResponse

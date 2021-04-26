@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.WorkDocs.Types.ResourceCollectionType
   ( ResourceCollectionType
       ( ..,
-        SharedWithMe
+        ResourceCollectionTypeSHAREDWITHME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceCollectionType
-  = ResourceCollectionType'
-      ( CI
-          Text
-      )
+newtype ResourceCollectionType = ResourceCollectionType'
+  { fromResourceCollectionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SharedWithMe :: ResourceCollectionType
-pattern SharedWithMe = ResourceCollectionType' "SHARED_WITH_ME"
+pattern ResourceCollectionTypeSHAREDWITHME :: ResourceCollectionType
+pattern ResourceCollectionTypeSHAREDWITHME = ResourceCollectionType' "SHARED_WITH_ME"
 
 {-# COMPLETE
-  SharedWithMe,
+  ResourceCollectionTypeSHAREDWITHME,
   ResourceCollectionType'
   #-}
 
-instance FromText ResourceCollectionType where
-  parser = (ResourceCollectionType' . mk) <$> takeText
+instance Prelude.FromText ResourceCollectionType where
+  parser = ResourceCollectionType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceCollectionType where
-  toText (ResourceCollectionType' ci) = original ci
+instance Prelude.ToText ResourceCollectionType where
+  toText (ResourceCollectionType' x) = x
 
-instance Hashable ResourceCollectionType
+instance Prelude.Hashable ResourceCollectionType
 
-instance NFData ResourceCollectionType
+instance Prelude.NFData ResourceCollectionType
 
-instance ToByteString ResourceCollectionType
+instance Prelude.ToByteString ResourceCollectionType
 
-instance ToQuery ResourceCollectionType
+instance Prelude.ToQuery ResourceCollectionType
 
-instance ToHeader ResourceCollectionType
+instance Prelude.ToHeader ResourceCollectionType
 
-instance ToJSON ResourceCollectionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceCollectionType where
+  toJSON = Prelude.toJSONText

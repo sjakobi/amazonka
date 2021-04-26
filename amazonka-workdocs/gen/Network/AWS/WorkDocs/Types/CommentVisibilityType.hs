@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.WorkDocs.Types.CommentVisibilityType
   ( CommentVisibilityType
       ( ..,
-        Private,
-        Public
+        CommentVisibilityTypePRIVATE,
+        CommentVisibilityTypePUBLIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CommentVisibilityType
-  = CommentVisibilityType'
-      ( CI
-          Text
-      )
+newtype CommentVisibilityType = CommentVisibilityType'
+  { fromCommentVisibilityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Private :: CommentVisibilityType
-pattern Private = CommentVisibilityType' "PRIVATE"
+pattern CommentVisibilityTypePRIVATE :: CommentVisibilityType
+pattern CommentVisibilityTypePRIVATE = CommentVisibilityType' "PRIVATE"
 
-pattern Public :: CommentVisibilityType
-pattern Public = CommentVisibilityType' "PUBLIC"
+pattern CommentVisibilityTypePUBLIC :: CommentVisibilityType
+pattern CommentVisibilityTypePUBLIC = CommentVisibilityType' "PUBLIC"
 
 {-# COMPLETE
-  Private,
-  Public,
+  CommentVisibilityTypePRIVATE,
+  CommentVisibilityTypePUBLIC,
   CommentVisibilityType'
   #-}
 
-instance FromText CommentVisibilityType where
-  parser = (CommentVisibilityType' . mk) <$> takeText
+instance Prelude.FromText CommentVisibilityType where
+  parser = CommentVisibilityType' Prelude.<$> Prelude.takeText
 
-instance ToText CommentVisibilityType where
-  toText (CommentVisibilityType' ci) = original ci
+instance Prelude.ToText CommentVisibilityType where
+  toText (CommentVisibilityType' x) = x
 
-instance Hashable CommentVisibilityType
+instance Prelude.Hashable CommentVisibilityType
 
-instance NFData CommentVisibilityType
+instance Prelude.NFData CommentVisibilityType
 
-instance ToByteString CommentVisibilityType
+instance Prelude.ToByteString CommentVisibilityType
 
-instance ToQuery CommentVisibilityType
+instance Prelude.ToQuery CommentVisibilityType
 
-instance ToHeader CommentVisibilityType
+instance Prelude.ToHeader CommentVisibilityType
 
-instance ToJSON CommentVisibilityType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CommentVisibilityType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CommentVisibilityType where
-  parseJSON = parseJSONText "CommentVisibilityType"
+instance Prelude.FromJSON CommentVisibilityType where
+  parseJSON = Prelude.parseJSONText "CommentVisibilityType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,150 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Activates the specified user. Only active users can access Amazon WorkDocs.
+-- Activates the specified user. Only active users can access Amazon
+-- WorkDocs.
 module Network.AWS.WorkDocs.ActivateUser
   ( -- * Creating a Request
-    activateUser,
-    ActivateUser,
+    ActivateUser (..),
+    newActivateUser,
 
     -- * Request Lenses
-    auAuthenticationToken,
-    auUserId,
+    activateUser_authenticationToken,
+    activateUser_userId,
 
     -- * Destructuring the Response
-    activateUserResponse,
-    ActivateUserResponse,
+    ActivateUserResponse (..),
+    newActivateUserResponse,
 
     -- * Response Lenses
-    aurrsUser,
-    aurrsResponseStatus,
+    activateUserResponse_user,
+    activateUserResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.User
 
--- | /See:/ 'activateUser' smart constructor.
+-- | /See:/ 'newActivateUser' smart constructor.
 data ActivateUser = ActivateUser'
-  { _auAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _auUserId :: !Text
+  { -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the user.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivateUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivateUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'auAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'auUserId' - The ID of the user.
-activateUser ::
-  -- | 'auUserId'
-  Text ->
+-- 'authenticationToken', 'activateUser_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+--
+-- 'userId', 'activateUser_userId' - The ID of the user.
+newActivateUser ::
+  -- | 'userId'
+  Prelude.Text ->
   ActivateUser
-activateUser pUserId_ =
+newActivateUser pUserId_ =
   ActivateUser'
-    { _auAuthenticationToken = Nothing,
-      _auUserId = pUserId_
+    { authenticationToken =
+        Prelude.Nothing,
+      userId = pUserId_
     }
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-auAuthenticationToken :: Lens' ActivateUser (Maybe Text)
-auAuthenticationToken = lens _auAuthenticationToken (\s a -> s {_auAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+activateUser_authenticationToken :: Lens.Lens' ActivateUser (Prelude.Maybe Prelude.Text)
+activateUser_authenticationToken = Lens.lens (\ActivateUser' {authenticationToken} -> authenticationToken) (\s@ActivateUser' {} a -> s {authenticationToken = a} :: ActivateUser) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the user.
-auUserId :: Lens' ActivateUser Text
-auUserId = lens _auUserId (\s a -> s {_auUserId = a})
+activateUser_userId :: Lens.Lens' ActivateUser Prelude.Text
+activateUser_userId = Lens.lens (\ActivateUser' {userId} -> userId) (\s@ActivateUser' {} a -> s {userId = a} :: ActivateUser)
 
-instance AWSRequest ActivateUser where
+instance Prelude.AWSRequest ActivateUser where
   type Rs ActivateUser = ActivateUserResponse
-  request = postJSON workDocs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ActivateUserResponse'
-            <$> (x .?> "User") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "User")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ActivateUser
+instance Prelude.Hashable ActivateUser
 
-instance NFData ActivateUser
+instance Prelude.NFData ActivateUser
 
-instance ToHeaders ActivateUser where
+instance Prelude.ToHeaders ActivateUser where
   toHeaders ActivateUser' {..} =
-    mconcat
-      [ "Authentication" =# _auAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON ActivateUser where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON ActivateUser where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath ActivateUser where
+instance Prelude.ToPath ActivateUser where
   toPath ActivateUser' {..} =
-    mconcat
-      ["/api/v1/users/", toBS _auUserId, "/activation"]
+    Prelude.mconcat
+      [ "/api/v1/users/",
+        Prelude.toBS userId,
+        "/activation"
+      ]
 
-instance ToQuery ActivateUser where
-  toQuery = const mempty
+instance Prelude.ToQuery ActivateUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'activateUserResponse' smart constructor.
+-- | /See:/ 'newActivateUserResponse' smart constructor.
 data ActivateUserResponse = ActivateUserResponse'
-  { _aurrsUser ::
-      !(Maybe User),
-    _aurrsResponseStatus :: !Int
+  { -- | The user information.
+    user :: Prelude.Maybe User,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivateUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivateUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aurrsUser' - The user information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aurrsResponseStatus' - -- | The response status code.
-activateUserResponse ::
-  -- | 'aurrsResponseStatus'
-  Int ->
+-- 'user', 'activateUserResponse_user' - The user information.
+--
+-- 'httpStatus', 'activateUserResponse_httpStatus' - The response's http status code.
+newActivateUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ActivateUserResponse
-activateUserResponse pResponseStatus_ =
+newActivateUserResponse pHttpStatus_ =
   ActivateUserResponse'
-    { _aurrsUser = Nothing,
-      _aurrsResponseStatus = pResponseStatus_
+    { user = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The user information.
-aurrsUser :: Lens' ActivateUserResponse (Maybe User)
-aurrsUser = lens _aurrsUser (\s a -> s {_aurrsUser = a})
+activateUserResponse_user :: Lens.Lens' ActivateUserResponse (Prelude.Maybe User)
+activateUserResponse_user = Lens.lens (\ActivateUserResponse' {user} -> user) (\s@ActivateUserResponse' {} a -> s {user = a} :: ActivateUserResponse)
 
--- | -- | The response status code.
-aurrsResponseStatus :: Lens' ActivateUserResponse Int
-aurrsResponseStatus = lens _aurrsResponseStatus (\s a -> s {_aurrsResponseStatus = a})
+-- | The response's http status code.
+activateUserResponse_httpStatus :: Lens.Lens' ActivateUserResponse Prelude.Int
+activateUserResponse_httpStatus = Lens.lens (\ActivateUserResponse' {httpStatus} -> httpStatus) (\s@ActivateUserResponse' {} a -> s {httpStatus = a} :: ActivateUserResponse)
 
-instance NFData ActivateUserResponse
+instance Prelude.NFData ActivateUserResponse

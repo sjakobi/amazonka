@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,101 +24,111 @@
 -- Deletes the contents of the specified folder.
 module Network.AWS.WorkDocs.DeleteFolderContents
   ( -- * Creating a Request
-    deleteFolderContents,
-    DeleteFolderContents,
+    DeleteFolderContents (..),
+    newDeleteFolderContents,
 
     -- * Request Lenses
-    dfcsAuthenticationToken,
-    dfcsFolderId,
+    deleteFolderContents_authenticationToken,
+    deleteFolderContents_folderId,
 
     -- * Destructuring the Response
-    deleteFolderContentsResponse,
-    DeleteFolderContentsResponse,
+    DeleteFolderContentsResponse (..),
+    newDeleteFolderContentsResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
 
--- | /See:/ 'deleteFolderContents' smart constructor.
+-- | /See:/ 'newDeleteFolderContents' smart constructor.
 data DeleteFolderContents = DeleteFolderContents'
-  { _dfcsAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _dfcsFolderId :: !Text
+  { -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the folder.
+    folderId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFolderContents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFolderContents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfcsAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfcsFolderId' - The ID of the folder.
-deleteFolderContents ::
-  -- | 'dfcsFolderId'
-  Text ->
+-- 'authenticationToken', 'deleteFolderContents_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+--
+-- 'folderId', 'deleteFolderContents_folderId' - The ID of the folder.
+newDeleteFolderContents ::
+  -- | 'folderId'
+  Prelude.Text ->
   DeleteFolderContents
-deleteFolderContents pFolderId_ =
+newDeleteFolderContents pFolderId_ =
   DeleteFolderContents'
-    { _dfcsAuthenticationToken =
-        Nothing,
-      _dfcsFolderId = pFolderId_
+    { authenticationToken =
+        Prelude.Nothing,
+      folderId = pFolderId_
     }
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-dfcsAuthenticationToken :: Lens' DeleteFolderContents (Maybe Text)
-dfcsAuthenticationToken = lens _dfcsAuthenticationToken (\s a -> s {_dfcsAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+deleteFolderContents_authenticationToken :: Lens.Lens' DeleteFolderContents (Prelude.Maybe Prelude.Text)
+deleteFolderContents_authenticationToken = Lens.lens (\DeleteFolderContents' {authenticationToken} -> authenticationToken) (\s@DeleteFolderContents' {} a -> s {authenticationToken = a} :: DeleteFolderContents) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the folder.
-dfcsFolderId :: Lens' DeleteFolderContents Text
-dfcsFolderId = lens _dfcsFolderId (\s a -> s {_dfcsFolderId = a})
+deleteFolderContents_folderId :: Lens.Lens' DeleteFolderContents Prelude.Text
+deleteFolderContents_folderId = Lens.lens (\DeleteFolderContents' {folderId} -> folderId) (\s@DeleteFolderContents' {} a -> s {folderId = a} :: DeleteFolderContents)
 
-instance AWSRequest DeleteFolderContents where
+instance Prelude.AWSRequest DeleteFolderContents where
   type
     Rs DeleteFolderContents =
       DeleteFolderContentsResponse
-  request = delete workDocs
-  response = receiveNull DeleteFolderContentsResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteFolderContentsResponse'
 
-instance Hashable DeleteFolderContents
+instance Prelude.Hashable DeleteFolderContents
 
-instance NFData DeleteFolderContents
+instance Prelude.NFData DeleteFolderContents
 
-instance ToHeaders DeleteFolderContents where
+instance Prelude.ToHeaders DeleteFolderContents where
   toHeaders DeleteFolderContents' {..} =
-    mconcat
-      [ "Authentication" =# _dfcsAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DeleteFolderContents where
+instance Prelude.ToPath DeleteFolderContents where
   toPath DeleteFolderContents' {..} =
-    mconcat
-      ["/api/v1/folders/", toBS _dfcsFolderId, "/contents"]
+    Prelude.mconcat
+      [ "/api/v1/folders/",
+        Prelude.toBS folderId,
+        "/contents"
+      ]
 
-instance ToQuery DeleteFolderContents where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFolderContents where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFolderContentsResponse' smart constructor.
+-- | /See:/ 'newDeleteFolderContentsResponse' smart constructor.
 data DeleteFolderContentsResponse = DeleteFolderContentsResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFolderContentsResponse' with the minimum fields required to make a request.
-deleteFolderContentsResponse ::
+-- |
+-- Create a value of 'DeleteFolderContentsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteFolderContentsResponse ::
   DeleteFolderContentsResponse
-deleteFolderContentsResponse =
+newDeleteFolderContentsResponse =
   DeleteFolderContentsResponse'
 
-instance NFData DeleteFolderContentsResponse
+instance Prelude.NFData DeleteFolderContentsResponse

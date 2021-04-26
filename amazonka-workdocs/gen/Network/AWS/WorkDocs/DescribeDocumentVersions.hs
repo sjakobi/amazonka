@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,216 +23,246 @@
 --
 -- Retrieves the document versions for the specified document.
 --
---
 -- By default, only active versions are returned.
---
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkDocs.DescribeDocumentVersions
   ( -- * Creating a Request
-    describeDocumentVersions,
-    DescribeDocumentVersions,
+    DescribeDocumentVersions (..),
+    newDescribeDocumentVersions,
 
     -- * Request Lenses
-    ddvInclude,
-    ddvFields,
-    ddvAuthenticationToken,
-    ddvLimit,
-    ddvMarker,
-    ddvDocumentId,
+    describeDocumentVersions_include,
+    describeDocumentVersions_fields,
+    describeDocumentVersions_authenticationToken,
+    describeDocumentVersions_limit,
+    describeDocumentVersions_marker,
+    describeDocumentVersions_documentId,
 
     -- * Destructuring the Response
-    describeDocumentVersionsResponse,
-    DescribeDocumentVersionsResponse,
+    DescribeDocumentVersionsResponse (..),
+    newDescribeDocumentVersionsResponse,
 
     -- * Response Lenses
-    ddvrrsDocumentVersions,
-    ddvrrsMarker,
-    ddvrrsResponseStatus,
+    describeDocumentVersionsResponse_documentVersions,
+    describeDocumentVersionsResponse_marker,
+    describeDocumentVersionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.DocumentVersionMetadata
 
--- | /See:/ 'describeDocumentVersions' smart constructor.
+-- | /See:/ 'newDescribeDocumentVersions' smart constructor.
 data DescribeDocumentVersions = DescribeDocumentVersions'
-  { _ddvInclude ::
-      !(Maybe Text),
-    _ddvFields ::
-      !(Maybe Text),
-    _ddvAuthenticationToken ::
-      !( Maybe
-           (Sensitive Text)
-       ),
-    _ddvLimit ::
-      !(Maybe Nat),
-    _ddvMarker ::
-      !(Maybe Text),
-    _ddvDocumentId ::
-      !Text
+  { -- | A comma-separated list of values. Specify \"INITIALIZED\" to include
+    -- incomplete versions.
+    include :: Prelude.Maybe Prelude.Text,
+    -- | Specify \"SOURCE\" to include initialized versions and a URL for the
+    -- source document.
+    fields :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The maximum number of versions to return with this call.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The marker for the next set of results. (You received this marker from a
+    -- previous call.)
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the document.
+    documentId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDocumentVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDocumentVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddvInclude' - A comma-separated list of values. Specify "INITIALIZED" to include incomplete versions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddvFields' - Specify "SOURCE" to include initialized versions and a URL for the source document.
+-- 'include', 'describeDocumentVersions_include' - A comma-separated list of values. Specify \"INITIALIZED\" to include
+-- incomplete versions.
 --
--- * 'ddvAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'fields', 'describeDocumentVersions_fields' - Specify \"SOURCE\" to include initialized versions and a URL for the
+-- source document.
 --
--- * 'ddvLimit' - The maximum number of versions to return with this call.
+-- 'authenticationToken', 'describeDocumentVersions_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'ddvMarker' - The marker for the next set of results. (You received this marker from a previous call.)
+-- 'limit', 'describeDocumentVersions_limit' - The maximum number of versions to return with this call.
 --
--- * 'ddvDocumentId' - The ID of the document.
-describeDocumentVersions ::
-  -- | 'ddvDocumentId'
-  Text ->
+-- 'marker', 'describeDocumentVersions_marker' - The marker for the next set of results. (You received this marker from a
+-- previous call.)
+--
+-- 'documentId', 'describeDocumentVersions_documentId' - The ID of the document.
+newDescribeDocumentVersions ::
+  -- | 'documentId'
+  Prelude.Text ->
   DescribeDocumentVersions
-describeDocumentVersions pDocumentId_ =
+newDescribeDocumentVersions pDocumentId_ =
   DescribeDocumentVersions'
-    { _ddvInclude = Nothing,
-      _ddvFields = Nothing,
-      _ddvAuthenticationToken = Nothing,
-      _ddvLimit = Nothing,
-      _ddvMarker = Nothing,
-      _ddvDocumentId = pDocumentId_
+    { include =
+        Prelude.Nothing,
+      fields = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      documentId = pDocumentId_
     }
 
--- | A comma-separated list of values. Specify "INITIALIZED" to include incomplete versions.
-ddvInclude :: Lens' DescribeDocumentVersions (Maybe Text)
-ddvInclude = lens _ddvInclude (\s a -> s {_ddvInclude = a})
+-- | A comma-separated list of values. Specify \"INITIALIZED\" to include
+-- incomplete versions.
+describeDocumentVersions_include :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
+describeDocumentVersions_include = Lens.lens (\DescribeDocumentVersions' {include} -> include) (\s@DescribeDocumentVersions' {} a -> s {include = a} :: DescribeDocumentVersions)
 
--- | Specify "SOURCE" to include initialized versions and a URL for the source document.
-ddvFields :: Lens' DescribeDocumentVersions (Maybe Text)
-ddvFields = lens _ddvFields (\s a -> s {_ddvFields = a})
+-- | Specify \"SOURCE\" to include initialized versions and a URL for the
+-- source document.
+describeDocumentVersions_fields :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
+describeDocumentVersions_fields = Lens.lens (\DescribeDocumentVersions' {fields} -> fields) (\s@DescribeDocumentVersions' {} a -> s {fields = a} :: DescribeDocumentVersions)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-ddvAuthenticationToken :: Lens' DescribeDocumentVersions (Maybe Text)
-ddvAuthenticationToken = lens _ddvAuthenticationToken (\s a -> s {_ddvAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+describeDocumentVersions_authenticationToken :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
+describeDocumentVersions_authenticationToken = Lens.lens (\DescribeDocumentVersions' {authenticationToken} -> authenticationToken) (\s@DescribeDocumentVersions' {} a -> s {authenticationToken = a} :: DescribeDocumentVersions) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The maximum number of versions to return with this call.
-ddvLimit :: Lens' DescribeDocumentVersions (Maybe Natural)
-ddvLimit = lens _ddvLimit (\s a -> s {_ddvLimit = a}) . mapping _Nat
+describeDocumentVersions_limit :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Natural)
+describeDocumentVersions_limit = Lens.lens (\DescribeDocumentVersions' {limit} -> limit) (\s@DescribeDocumentVersions' {} a -> s {limit = a} :: DescribeDocumentVersions) Prelude.. Lens.mapping Prelude._Nat
 
--- | The marker for the next set of results. (You received this marker from a previous call.)
-ddvMarker :: Lens' DescribeDocumentVersions (Maybe Text)
-ddvMarker = lens _ddvMarker (\s a -> s {_ddvMarker = a})
+-- | The marker for the next set of results. (You received this marker from a
+-- previous call.)
+describeDocumentVersions_marker :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
+describeDocumentVersions_marker = Lens.lens (\DescribeDocumentVersions' {marker} -> marker) (\s@DescribeDocumentVersions' {} a -> s {marker = a} :: DescribeDocumentVersions)
 
 -- | The ID of the document.
-ddvDocumentId :: Lens' DescribeDocumentVersions Text
-ddvDocumentId = lens _ddvDocumentId (\s a -> s {_ddvDocumentId = a})
+describeDocumentVersions_documentId :: Lens.Lens' DescribeDocumentVersions Prelude.Text
+describeDocumentVersions_documentId = Lens.lens (\DescribeDocumentVersions' {documentId} -> documentId) (\s@DescribeDocumentVersions' {} a -> s {documentId = a} :: DescribeDocumentVersions)
 
-instance AWSPager DescribeDocumentVersions where
+instance Pager.AWSPager DescribeDocumentVersions where
   page rq rs
-    | stop (rs ^. ddvrrsMarker) = Nothing
-    | stop (rs ^. ddvrrsDocumentVersions) = Nothing
-    | otherwise =
-      Just $ rq & ddvMarker .~ rs ^. ddvrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeDocumentVersionsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeDocumentVersionsResponse_documentVersions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeDocumentVersions_marker
+          Lens..~ rs
+          Lens.^? describeDocumentVersionsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeDocumentVersions where
+instance Prelude.AWSRequest DescribeDocumentVersions where
   type
     Rs DescribeDocumentVersions =
       DescribeDocumentVersionsResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDocumentVersionsResponse'
-            <$> (x .?> "DocumentVersions" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "DocumentVersions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDocumentVersions
+instance Prelude.Hashable DescribeDocumentVersions
 
-instance NFData DescribeDocumentVersions
+instance Prelude.NFData DescribeDocumentVersions
 
-instance ToHeaders DescribeDocumentVersions where
+instance Prelude.ToHeaders DescribeDocumentVersions where
   toHeaders DescribeDocumentVersions' {..} =
-    mconcat
-      [ "Authentication" =# _ddvAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DescribeDocumentVersions where
+instance Prelude.ToPath DescribeDocumentVersions where
   toPath DescribeDocumentVersions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/api/v1/documents/",
-        toBS _ddvDocumentId,
+        Prelude.toBS documentId,
         "/versions"
       ]
 
-instance ToQuery DescribeDocumentVersions where
+instance Prelude.ToQuery DescribeDocumentVersions where
   toQuery DescribeDocumentVersions' {..} =
-    mconcat
-      [ "include" =: _ddvInclude,
-        "fields" =: _ddvFields,
-        "limit" =: _ddvLimit,
-        "marker" =: _ddvMarker
+    Prelude.mconcat
+      [ "include" Prelude.=: include,
+        "fields" Prelude.=: fields,
+        "limit" Prelude.=: limit,
+        "marker" Prelude.=: marker
       ]
 
--- | /See:/ 'describeDocumentVersionsResponse' smart constructor.
+-- | /See:/ 'newDescribeDocumentVersionsResponse' smart constructor.
 data DescribeDocumentVersionsResponse = DescribeDocumentVersionsResponse'
-  { _ddvrrsDocumentVersions ::
-      !( Maybe
-           [DocumentVersionMetadata]
-       ),
-    _ddvrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _ddvrrsResponseStatus ::
-      !Int
+  { -- | The document versions.
+    documentVersions :: Prelude.Maybe [DocumentVersionMetadata],
+    -- | The marker to use when requesting the next set of results. If there are
+    -- no additional results, the string is empty.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDocumentVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDocumentVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddvrrsDocumentVersions' - The document versions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddvrrsMarker' - The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
+-- 'documentVersions', 'describeDocumentVersionsResponse_documentVersions' - The document versions.
 --
--- * 'ddvrrsResponseStatus' - -- | The response status code.
-describeDocumentVersionsResponse ::
-  -- | 'ddvrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeDocumentVersionsResponse_marker' - The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+--
+-- 'httpStatus', 'describeDocumentVersionsResponse_httpStatus' - The response's http status code.
+newDescribeDocumentVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDocumentVersionsResponse
-describeDocumentVersionsResponse pResponseStatus_ =
+newDescribeDocumentVersionsResponse pHttpStatus_ =
   DescribeDocumentVersionsResponse'
-    { _ddvrrsDocumentVersions =
-        Nothing,
-      _ddvrrsMarker = Nothing,
-      _ddvrrsResponseStatus = pResponseStatus_
+    { documentVersions =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The document versions.
-ddvrrsDocumentVersions :: Lens' DescribeDocumentVersionsResponse [DocumentVersionMetadata]
-ddvrrsDocumentVersions = lens _ddvrrsDocumentVersions (\s a -> s {_ddvrrsDocumentVersions = a}) . _Default . _Coerce
+describeDocumentVersionsResponse_documentVersions :: Lens.Lens' DescribeDocumentVersionsResponse (Prelude.Maybe [DocumentVersionMetadata])
+describeDocumentVersionsResponse_documentVersions = Lens.lens (\DescribeDocumentVersionsResponse' {documentVersions} -> documentVersions) (\s@DescribeDocumentVersionsResponse' {} a -> s {documentVersions = a} :: DescribeDocumentVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
-ddvrrsMarker :: Lens' DescribeDocumentVersionsResponse (Maybe Text)
-ddvrrsMarker = lens _ddvrrsMarker (\s a -> s {_ddvrrsMarker = a})
+-- | The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+describeDocumentVersionsResponse_marker :: Lens.Lens' DescribeDocumentVersionsResponse (Prelude.Maybe Prelude.Text)
+describeDocumentVersionsResponse_marker = Lens.lens (\DescribeDocumentVersionsResponse' {marker} -> marker) (\s@DescribeDocumentVersionsResponse' {} a -> s {marker = a} :: DescribeDocumentVersionsResponse)
 
--- | -- | The response status code.
-ddvrrsResponseStatus :: Lens' DescribeDocumentVersionsResponse Int
-ddvrrsResponseStatus = lens _ddvrrsResponseStatus (\s a -> s {_ddvrrsResponseStatus = a})
+-- | The response's http status code.
+describeDocumentVersionsResponse_httpStatus :: Lens.Lens' DescribeDocumentVersionsResponse Prelude.Int
+describeDocumentVersionsResponse_httpStatus = Lens.lens (\DescribeDocumentVersionsResponse' {httpStatus} -> httpStatus) (\s@DescribeDocumentVersionsResponse' {} a -> s {httpStatus = a} :: DescribeDocumentVersionsResponse)
 
-instance NFData DescribeDocumentVersionsResponse
+instance
+  Prelude.NFData
+    DescribeDocumentVersionsResponse

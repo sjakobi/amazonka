@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.WorkDocs.Types.DocumentVersionStatus
   ( DocumentVersionStatus
       ( ..,
-        DVSActive
+        DocumentVersionStatusACTIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentVersionStatus
-  = DocumentVersionStatus'
-      ( CI
-          Text
-      )
+newtype DocumentVersionStatus = DocumentVersionStatus'
+  { fromDocumentVersionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DVSActive :: DocumentVersionStatus
-pattern DVSActive = DocumentVersionStatus' "ACTIVE"
+pattern DocumentVersionStatusACTIVE :: DocumentVersionStatus
+pattern DocumentVersionStatusACTIVE = DocumentVersionStatus' "ACTIVE"
 
 {-# COMPLETE
-  DVSActive,
+  DocumentVersionStatusACTIVE,
   DocumentVersionStatus'
   #-}
 
-instance FromText DocumentVersionStatus where
-  parser = (DocumentVersionStatus' . mk) <$> takeText
+instance Prelude.FromText DocumentVersionStatus where
+  parser = DocumentVersionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentVersionStatus where
-  toText (DocumentVersionStatus' ci) = original ci
+instance Prelude.ToText DocumentVersionStatus where
+  toText (DocumentVersionStatus' x) = x
 
-instance Hashable DocumentVersionStatus
+instance Prelude.Hashable DocumentVersionStatus
 
-instance NFData DocumentVersionStatus
+instance Prelude.NFData DocumentVersionStatus
 
-instance ToByteString DocumentVersionStatus
+instance Prelude.ToByteString DocumentVersionStatus
 
-instance ToQuery DocumentVersionStatus
+instance Prelude.ToQuery DocumentVersionStatus
 
-instance ToHeader DocumentVersionStatus
+instance Prelude.ToHeader DocumentVersionStatus
 
-instance ToJSON DocumentVersionStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentVersionStatus where
+  toJSON = Prelude.toJSONText

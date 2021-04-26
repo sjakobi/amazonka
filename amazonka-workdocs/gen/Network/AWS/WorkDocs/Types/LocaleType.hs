@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,101 +19,103 @@
 module Network.AWS.WorkDocs.Types.LocaleType
   ( LocaleType
       ( ..,
-        DE,
-        Default,
-        EN,
-        ES,
-        FR,
-        JA,
-        KO,
-        PtBr,
-        RU,
-        ZhCn,
-        ZhTw
+        LocaleTypeDE,
+        LocaleTypeDefault,
+        LocaleTypeEN,
+        LocaleTypeES,
+        LocaleTypeFR,
+        LocaleTypeJA,
+        LocaleTypeKO,
+        LocaleTypePtBR,
+        LocaleTypeRU,
+        LocaleTypeZhCN,
+        LocaleTypeZhTW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LocaleType = LocaleType' (CI Text)
+newtype LocaleType = LocaleType'
+  { fromLocaleType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DE :: LocaleType
-pattern DE = LocaleType' "de"
+pattern LocaleTypeDE :: LocaleType
+pattern LocaleTypeDE = LocaleType' "de"
 
-pattern Default :: LocaleType
-pattern Default = LocaleType' "default"
+pattern LocaleTypeDefault :: LocaleType
+pattern LocaleTypeDefault = LocaleType' "default"
 
-pattern EN :: LocaleType
-pattern EN = LocaleType' "en"
+pattern LocaleTypeEN :: LocaleType
+pattern LocaleTypeEN = LocaleType' "en"
 
-pattern ES :: LocaleType
-pattern ES = LocaleType' "es"
+pattern LocaleTypeES :: LocaleType
+pattern LocaleTypeES = LocaleType' "es"
 
-pattern FR :: LocaleType
-pattern FR = LocaleType' "fr"
+pattern LocaleTypeFR :: LocaleType
+pattern LocaleTypeFR = LocaleType' "fr"
 
-pattern JA :: LocaleType
-pattern JA = LocaleType' "ja"
+pattern LocaleTypeJA :: LocaleType
+pattern LocaleTypeJA = LocaleType' "ja"
 
-pattern KO :: LocaleType
-pattern KO = LocaleType' "ko"
+pattern LocaleTypeKO :: LocaleType
+pattern LocaleTypeKO = LocaleType' "ko"
 
-pattern PtBr :: LocaleType
-pattern PtBr = LocaleType' "pt_BR"
+pattern LocaleTypePtBR :: LocaleType
+pattern LocaleTypePtBR = LocaleType' "pt_BR"
 
-pattern RU :: LocaleType
-pattern RU = LocaleType' "ru"
+pattern LocaleTypeRU :: LocaleType
+pattern LocaleTypeRU = LocaleType' "ru"
 
-pattern ZhCn :: LocaleType
-pattern ZhCn = LocaleType' "zh_CN"
+pattern LocaleTypeZhCN :: LocaleType
+pattern LocaleTypeZhCN = LocaleType' "zh_CN"
 
-pattern ZhTw :: LocaleType
-pattern ZhTw = LocaleType' "zh_TW"
+pattern LocaleTypeZhTW :: LocaleType
+pattern LocaleTypeZhTW = LocaleType' "zh_TW"
 
 {-# COMPLETE
-  DE,
-  Default,
-  EN,
-  ES,
-  FR,
-  JA,
-  KO,
-  PtBr,
-  RU,
-  ZhCn,
-  ZhTw,
+  LocaleTypeDE,
+  LocaleTypeDefault,
+  LocaleTypeEN,
+  LocaleTypeES,
+  LocaleTypeFR,
+  LocaleTypeJA,
+  LocaleTypeKO,
+  LocaleTypePtBR,
+  LocaleTypeRU,
+  LocaleTypeZhCN,
+  LocaleTypeZhTW,
   LocaleType'
   #-}
 
-instance FromText LocaleType where
-  parser = (LocaleType' . mk) <$> takeText
+instance Prelude.FromText LocaleType where
+  parser = LocaleType' Prelude.<$> Prelude.takeText
 
-instance ToText LocaleType where
-  toText (LocaleType' ci) = original ci
+instance Prelude.ToText LocaleType where
+  toText (LocaleType' x) = x
 
-instance Hashable LocaleType
+instance Prelude.Hashable LocaleType
 
-instance NFData LocaleType
+instance Prelude.NFData LocaleType
 
-instance ToByteString LocaleType
+instance Prelude.ToByteString LocaleType
 
-instance ToQuery LocaleType
+instance Prelude.ToQuery LocaleType
 
-instance ToHeader LocaleType
+instance Prelude.ToHeader LocaleType
 
-instance ToJSON LocaleType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LocaleType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LocaleType where
-  parseJSON = parseJSONText "LocaleType"
+instance Prelude.FromJSON LocaleType where
+  parseJSON = Prelude.parseJSONText "LocaleType"

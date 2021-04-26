@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.GroupMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the metadata of a user group.
 --
---
---
--- /See:/ 'groupMetadata' smart constructor.
+-- /See:/ 'newGroupMetadata' smart constructor.
 data GroupMetadata = GroupMetadata'
-  { _gmId ::
-      !(Maybe Text),
-    _gmName :: !(Maybe Text)
+  { -- | The ID of the user group.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the group.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GroupMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GroupMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmId' - The ID of the user group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmName' - The name of the group.
-groupMetadata ::
+-- 'id', 'groupMetadata_id' - The ID of the user group.
+--
+-- 'name', 'groupMetadata_name' - The name of the group.
+newGroupMetadata ::
   GroupMetadata
-groupMetadata =
-  GroupMetadata' {_gmId = Nothing, _gmName = Nothing}
+newGroupMetadata =
+  GroupMetadata'
+    { id = Prelude.Nothing,
+      name = Prelude.Nothing
+    }
 
 -- | The ID of the user group.
-gmId :: Lens' GroupMetadata (Maybe Text)
-gmId = lens _gmId (\s a -> s {_gmId = a})
+groupMetadata_id :: Lens.Lens' GroupMetadata (Prelude.Maybe Prelude.Text)
+groupMetadata_id = Lens.lens (\GroupMetadata' {id} -> id) (\s@GroupMetadata' {} a -> s {id = a} :: GroupMetadata)
 
 -- | The name of the group.
-gmName :: Lens' GroupMetadata (Maybe Text)
-gmName = lens _gmName (\s a -> s {_gmName = a})
+groupMetadata_name :: Lens.Lens' GroupMetadata (Prelude.Maybe Prelude.Text)
+groupMetadata_name = Lens.lens (\GroupMetadata' {name} -> name) (\s@GroupMetadata' {} a -> s {name = a} :: GroupMetadata)
 
-instance FromJSON GroupMetadata where
+instance Prelude.FromJSON GroupMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GroupMetadata"
       ( \x ->
-          GroupMetadata' <$> (x .:? "Id") <*> (x .:? "Name")
+          GroupMetadata'
+            Prelude.<$> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable GroupMetadata
+instance Prelude.Hashable GroupMetadata
 
-instance NFData GroupMetadata
+instance Prelude.NFData GroupMetadata

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.WorkDocs.Types.StorageType
   ( StorageType
       ( ..,
-        Quota,
-        Unlimited
+        StorageTypeQUOTA,
+        StorageTypeUNLIMITED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StorageType = StorageType' (CI Text)
+newtype StorageType = StorageType'
+  { fromStorageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Quota :: StorageType
-pattern Quota = StorageType' "QUOTA"
+pattern StorageTypeQUOTA :: StorageType
+pattern StorageTypeQUOTA = StorageType' "QUOTA"
 
-pattern Unlimited :: StorageType
-pattern Unlimited = StorageType' "UNLIMITED"
+pattern StorageTypeUNLIMITED :: StorageType
+pattern StorageTypeUNLIMITED = StorageType' "UNLIMITED"
 
 {-# COMPLETE
-  Quota,
-  Unlimited,
+  StorageTypeQUOTA,
+  StorageTypeUNLIMITED,
   StorageType'
   #-}
 
-instance FromText StorageType where
-  parser = (StorageType' . mk) <$> takeText
+instance Prelude.FromText StorageType where
+  parser = StorageType' Prelude.<$> Prelude.takeText
 
-instance ToText StorageType where
-  toText (StorageType' ci) = original ci
+instance Prelude.ToText StorageType where
+  toText (StorageType' x) = x
 
-instance Hashable StorageType
+instance Prelude.Hashable StorageType
 
-instance NFData StorageType
+instance Prelude.NFData StorageType
 
-instance ToByteString StorageType
+instance Prelude.ToByteString StorageType
 
-instance ToQuery StorageType
+instance Prelude.ToQuery StorageType
 
-instance ToHeader StorageType
+instance Prelude.ToHeader StorageType
 
-instance ToJSON StorageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StorageType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StorageType where
-  parseJSON = parseJSONText "StorageType"
+instance Prelude.FromJSON StorageType where
+  parseJSON = Prelude.parseJSONText "StorageType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,244 +23,301 @@
 --
 -- Describes the user activities in a specified time period.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.WorkDocs.DescribeActivities
   ( -- * Creating a Request
-    describeActivities,
-    DescribeActivities,
+    DescribeActivities (..),
+    newDescribeActivities,
 
     -- * Request Lenses
-    daResourceId,
-    daOrganizationId,
-    daStartTime,
-    daIncludeIndirectActivities,
-    daEndTime,
-    daUserId,
-    daActivityTypes,
-    daAuthenticationToken,
-    daLimit,
-    daMarker,
+    describeActivities_resourceId,
+    describeActivities_organizationId,
+    describeActivities_startTime,
+    describeActivities_includeIndirectActivities,
+    describeActivities_endTime,
+    describeActivities_userId,
+    describeActivities_activityTypes,
+    describeActivities_authenticationToken,
+    describeActivities_limit,
+    describeActivities_marker,
 
     -- * Destructuring the Response
-    describeActivitiesResponse,
-    DescribeActivitiesResponse,
+    DescribeActivitiesResponse (..),
+    newDescribeActivitiesResponse,
 
     -- * Response Lenses
-    darrsUserActivities,
-    darrsMarker,
-    darrsResponseStatus,
+    describeActivitiesResponse_userActivities,
+    describeActivitiesResponse_marker,
+    describeActivitiesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.Activity
 
--- | /See:/ 'describeActivities' smart constructor.
+-- | /See:/ 'newDescribeActivities' smart constructor.
 data DescribeActivities = DescribeActivities'
-  { _daResourceId ::
-      !(Maybe Text),
-    _daOrganizationId ::
-      !(Maybe Text),
-    _daStartTime :: !(Maybe POSIX),
-    _daIncludeIndirectActivities ::
-      !(Maybe Bool),
-    _daEndTime :: !(Maybe POSIX),
-    _daUserId :: !(Maybe Text),
-    _daActivityTypes :: !(Maybe Text),
-    _daAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _daLimit :: !(Maybe Nat),
-    _daMarker :: !(Maybe Text)
+  { -- | The document or folder ID for which to describe activity types.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the organization. This is a mandatory parameter when using
+    -- administrative API (SigV4) requests.
+    organizationId :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp that determines the starting time of the activities. The
+    -- response includes the activities performed after the specified
+    -- timestamp.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Includes indirect activities. An indirect activity results from a direct
+    -- activity performed on a parent resource. For example, sharing a parent
+    -- folder (the direct activity) shares all of the subfolders and documents
+    -- within the parent folder (the indirect activity).
+    includeIndirectActivities :: Prelude.Maybe Prelude.Bool,
+    -- | The timestamp that determines the end time of the activities. The
+    -- response includes the activities performed before the specified
+    -- timestamp.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the user who performed the action. The response includes
+    -- activities pertaining to this user. This is an optional parameter and is
+    -- only applicable for administrative API (SigV4) requests.
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies which activity types to include in the response. If this field
+    -- is left empty, all activity types are returned.
+    activityTypes :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The maximum number of items to return.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The marker for the next set of results.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeActivities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeActivities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daResourceId' - The document or folder ID for which to describe activity types.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daOrganizationId' - The ID of the organization. This is a mandatory parameter when using administrative API (SigV4) requests.
+-- 'resourceId', 'describeActivities_resourceId' - The document or folder ID for which to describe activity types.
 --
--- * 'daStartTime' - The timestamp that determines the starting time of the activities. The response includes the activities performed after the specified timestamp.
+-- 'organizationId', 'describeActivities_organizationId' - The ID of the organization. This is a mandatory parameter when using
+-- administrative API (SigV4) requests.
 --
--- * 'daIncludeIndirectActivities' - Includes indirect activities. An indirect activity results from a direct activity performed on a parent resource. For example, sharing a parent folder (the direct activity) shares all of the subfolders and documents within the parent folder (the indirect activity).
+-- 'startTime', 'describeActivities_startTime' - The timestamp that determines the starting time of the activities. The
+-- response includes the activities performed after the specified
+-- timestamp.
 --
--- * 'daEndTime' - The timestamp that determines the end time of the activities. The response includes the activities performed before the specified timestamp.
+-- 'includeIndirectActivities', 'describeActivities_includeIndirectActivities' - Includes indirect activities. An indirect activity results from a direct
+-- activity performed on a parent resource. For example, sharing a parent
+-- folder (the direct activity) shares all of the subfolders and documents
+-- within the parent folder (the indirect activity).
 --
--- * 'daUserId' - The ID of the user who performed the action. The response includes activities pertaining to this user. This is an optional parameter and is only applicable for administrative API (SigV4) requests.
+-- 'endTime', 'describeActivities_endTime' - The timestamp that determines the end time of the activities. The
+-- response includes the activities performed before the specified
+-- timestamp.
 --
--- * 'daActivityTypes' - Specifies which activity types to include in the response. If this field is left empty, all activity types are returned.
+-- 'userId', 'describeActivities_userId' - The ID of the user who performed the action. The response includes
+-- activities pertaining to this user. This is an optional parameter and is
+-- only applicable for administrative API (SigV4) requests.
 --
--- * 'daAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'activityTypes', 'describeActivities_activityTypes' - Specifies which activity types to include in the response. If this field
+-- is left empty, all activity types are returned.
 --
--- * 'daLimit' - The maximum number of items to return.
+-- 'authenticationToken', 'describeActivities_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'daMarker' - The marker for the next set of results.
-describeActivities ::
+-- 'limit', 'describeActivities_limit' - The maximum number of items to return.
+--
+-- 'marker', 'describeActivities_marker' - The marker for the next set of results.
+newDescribeActivities ::
   DescribeActivities
-describeActivities =
+newDescribeActivities =
   DescribeActivities'
-    { _daResourceId = Nothing,
-      _daOrganizationId = Nothing,
-      _daStartTime = Nothing,
-      _daIncludeIndirectActivities = Nothing,
-      _daEndTime = Nothing,
-      _daUserId = Nothing,
-      _daActivityTypes = Nothing,
-      _daAuthenticationToken = Nothing,
-      _daLimit = Nothing,
-      _daMarker = Nothing
+    { resourceId = Prelude.Nothing,
+      organizationId = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      includeIndirectActivities = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      userId = Prelude.Nothing,
+      activityTypes = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The document or folder ID for which to describe activity types.
-daResourceId :: Lens' DescribeActivities (Maybe Text)
-daResourceId = lens _daResourceId (\s a -> s {_daResourceId = a})
+describeActivities_resourceId :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.Text)
+describeActivities_resourceId = Lens.lens (\DescribeActivities' {resourceId} -> resourceId) (\s@DescribeActivities' {} a -> s {resourceId = a} :: DescribeActivities)
 
--- | The ID of the organization. This is a mandatory parameter when using administrative API (SigV4) requests.
-daOrganizationId :: Lens' DescribeActivities (Maybe Text)
-daOrganizationId = lens _daOrganizationId (\s a -> s {_daOrganizationId = a})
+-- | The ID of the organization. This is a mandatory parameter when using
+-- administrative API (SigV4) requests.
+describeActivities_organizationId :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.Text)
+describeActivities_organizationId = Lens.lens (\DescribeActivities' {organizationId} -> organizationId) (\s@DescribeActivities' {} a -> s {organizationId = a} :: DescribeActivities)
 
--- | The timestamp that determines the starting time of the activities. The response includes the activities performed after the specified timestamp.
-daStartTime :: Lens' DescribeActivities (Maybe UTCTime)
-daStartTime = lens _daStartTime (\s a -> s {_daStartTime = a}) . mapping _Time
+-- | The timestamp that determines the starting time of the activities. The
+-- response includes the activities performed after the specified
+-- timestamp.
+describeActivities_startTime :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.UTCTime)
+describeActivities_startTime = Lens.lens (\DescribeActivities' {startTime} -> startTime) (\s@DescribeActivities' {} a -> s {startTime = a} :: DescribeActivities) Prelude.. Lens.mapping Prelude._Time
 
--- | Includes indirect activities. An indirect activity results from a direct activity performed on a parent resource. For example, sharing a parent folder (the direct activity) shares all of the subfolders and documents within the parent folder (the indirect activity).
-daIncludeIndirectActivities :: Lens' DescribeActivities (Maybe Bool)
-daIncludeIndirectActivities = lens _daIncludeIndirectActivities (\s a -> s {_daIncludeIndirectActivities = a})
+-- | Includes indirect activities. An indirect activity results from a direct
+-- activity performed on a parent resource. For example, sharing a parent
+-- folder (the direct activity) shares all of the subfolders and documents
+-- within the parent folder (the indirect activity).
+describeActivities_includeIndirectActivities :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.Bool)
+describeActivities_includeIndirectActivities = Lens.lens (\DescribeActivities' {includeIndirectActivities} -> includeIndirectActivities) (\s@DescribeActivities' {} a -> s {includeIndirectActivities = a} :: DescribeActivities)
 
--- | The timestamp that determines the end time of the activities. The response includes the activities performed before the specified timestamp.
-daEndTime :: Lens' DescribeActivities (Maybe UTCTime)
-daEndTime = lens _daEndTime (\s a -> s {_daEndTime = a}) . mapping _Time
+-- | The timestamp that determines the end time of the activities. The
+-- response includes the activities performed before the specified
+-- timestamp.
+describeActivities_endTime :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.UTCTime)
+describeActivities_endTime = Lens.lens (\DescribeActivities' {endTime} -> endTime) (\s@DescribeActivities' {} a -> s {endTime = a} :: DescribeActivities) Prelude.. Lens.mapping Prelude._Time
 
--- | The ID of the user who performed the action. The response includes activities pertaining to this user. This is an optional parameter and is only applicable for administrative API (SigV4) requests.
-daUserId :: Lens' DescribeActivities (Maybe Text)
-daUserId = lens _daUserId (\s a -> s {_daUserId = a})
+-- | The ID of the user who performed the action. The response includes
+-- activities pertaining to this user. This is an optional parameter and is
+-- only applicable for administrative API (SigV4) requests.
+describeActivities_userId :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.Text)
+describeActivities_userId = Lens.lens (\DescribeActivities' {userId} -> userId) (\s@DescribeActivities' {} a -> s {userId = a} :: DescribeActivities)
 
--- | Specifies which activity types to include in the response. If this field is left empty, all activity types are returned.
-daActivityTypes :: Lens' DescribeActivities (Maybe Text)
-daActivityTypes = lens _daActivityTypes (\s a -> s {_daActivityTypes = a})
+-- | Specifies which activity types to include in the response. If this field
+-- is left empty, all activity types are returned.
+describeActivities_activityTypes :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.Text)
+describeActivities_activityTypes = Lens.lens (\DescribeActivities' {activityTypes} -> activityTypes) (\s@DescribeActivities' {} a -> s {activityTypes = a} :: DescribeActivities)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-daAuthenticationToken :: Lens' DescribeActivities (Maybe Text)
-daAuthenticationToken = lens _daAuthenticationToken (\s a -> s {_daAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+describeActivities_authenticationToken :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.Text)
+describeActivities_authenticationToken = Lens.lens (\DescribeActivities' {authenticationToken} -> authenticationToken) (\s@DescribeActivities' {} a -> s {authenticationToken = a} :: DescribeActivities) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The maximum number of items to return.
-daLimit :: Lens' DescribeActivities (Maybe Natural)
-daLimit = lens _daLimit (\s a -> s {_daLimit = a}) . mapping _Nat
+describeActivities_limit :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.Natural)
+describeActivities_limit = Lens.lens (\DescribeActivities' {limit} -> limit) (\s@DescribeActivities' {} a -> s {limit = a} :: DescribeActivities) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The marker for the next set of results.
-daMarker :: Lens' DescribeActivities (Maybe Text)
-daMarker = lens _daMarker (\s a -> s {_daMarker = a})
+describeActivities_marker :: Lens.Lens' DescribeActivities (Prelude.Maybe Prelude.Text)
+describeActivities_marker = Lens.lens (\DescribeActivities' {marker} -> marker) (\s@DescribeActivities' {} a -> s {marker = a} :: DescribeActivities)
 
-instance AWSPager DescribeActivities where
+instance Pager.AWSPager DescribeActivities where
   page rq rs
-    | stop (rs ^. darrsMarker) = Nothing
-    | stop (rs ^. darrsUserActivities) = Nothing
-    | otherwise =
-      Just $ rq & daMarker .~ rs ^. darrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeActivitiesResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeActivitiesResponse_userActivities
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeActivities_marker
+          Lens..~ rs
+          Lens.^? describeActivitiesResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeActivities where
+instance Prelude.AWSRequest DescribeActivities where
   type
     Rs DescribeActivities =
       DescribeActivitiesResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeActivitiesResponse'
-            <$> (x .?> "UserActivities" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "UserActivities"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeActivities
+instance Prelude.Hashable DescribeActivities
 
-instance NFData DescribeActivities
+instance Prelude.NFData DescribeActivities
 
-instance ToHeaders DescribeActivities where
+instance Prelude.ToHeaders DescribeActivities where
   toHeaders DescribeActivities' {..} =
-    mconcat
-      [ "Authentication" =# _daAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DescribeActivities where
-  toPath = const "/api/v1/activities"
+instance Prelude.ToPath DescribeActivities where
+  toPath = Prelude.const "/api/v1/activities"
 
-instance ToQuery DescribeActivities where
+instance Prelude.ToQuery DescribeActivities where
   toQuery DescribeActivities' {..} =
-    mconcat
-      [ "resourceId" =: _daResourceId,
-        "organizationId" =: _daOrganizationId,
-        "startTime" =: _daStartTime,
+    Prelude.mconcat
+      [ "resourceId" Prelude.=: resourceId,
+        "organizationId" Prelude.=: organizationId,
+        "startTime" Prelude.=: startTime,
         "includeIndirectActivities"
-          =: _daIncludeIndirectActivities,
-        "endTime" =: _daEndTime,
-        "userId" =: _daUserId,
-        "activityTypes" =: _daActivityTypes,
-        "limit" =: _daLimit,
-        "marker" =: _daMarker
+          Prelude.=: includeIndirectActivities,
+        "endTime" Prelude.=: endTime,
+        "userId" Prelude.=: userId,
+        "activityTypes" Prelude.=: activityTypes,
+        "limit" Prelude.=: limit,
+        "marker" Prelude.=: marker
       ]
 
--- | /See:/ 'describeActivitiesResponse' smart constructor.
+-- | /See:/ 'newDescribeActivitiesResponse' smart constructor.
 data DescribeActivitiesResponse = DescribeActivitiesResponse'
-  { _darrsUserActivities ::
-      !( Maybe
-           [Activity]
-       ),
-    _darrsMarker ::
-      !(Maybe Text),
-    _darrsResponseStatus ::
-      !Int
+  { -- | The list of activities for the specified user and time period.
+    userActivities :: Prelude.Maybe [Activity],
+    -- | The marker for the next set of results.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeActivitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeActivitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsUserActivities' - The list of activities for the specified user and time period.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsMarker' - The marker for the next set of results.
+-- 'userActivities', 'describeActivitiesResponse_userActivities' - The list of activities for the specified user and time period.
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-describeActivitiesResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'marker', 'describeActivitiesResponse_marker' - The marker for the next set of results.
+--
+-- 'httpStatus', 'describeActivitiesResponse_httpStatus' - The response's http status code.
+newDescribeActivitiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeActivitiesResponse
-describeActivitiesResponse pResponseStatus_ =
+newDescribeActivitiesResponse pHttpStatus_ =
   DescribeActivitiesResponse'
-    { _darrsUserActivities =
-        Nothing,
-      _darrsMarker = Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { userActivities =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of activities for the specified user and time period.
-darrsUserActivities :: Lens' DescribeActivitiesResponse [Activity]
-darrsUserActivities = lens _darrsUserActivities (\s a -> s {_darrsUserActivities = a}) . _Default . _Coerce
+describeActivitiesResponse_userActivities :: Lens.Lens' DescribeActivitiesResponse (Prelude.Maybe [Activity])
+describeActivitiesResponse_userActivities = Lens.lens (\DescribeActivitiesResponse' {userActivities} -> userActivities) (\s@DescribeActivitiesResponse' {} a -> s {userActivities = a} :: DescribeActivitiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The marker for the next set of results.
-darrsMarker :: Lens' DescribeActivitiesResponse (Maybe Text)
-darrsMarker = lens _darrsMarker (\s a -> s {_darrsMarker = a})
+describeActivitiesResponse_marker :: Lens.Lens' DescribeActivitiesResponse (Prelude.Maybe Prelude.Text)
+describeActivitiesResponse_marker = Lens.lens (\DescribeActivitiesResponse' {marker} -> marker) (\s@DescribeActivitiesResponse' {} a -> s {marker = a} :: DescribeActivitiesResponse)
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DescribeActivitiesResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+describeActivitiesResponse_httpStatus :: Lens.Lens' DescribeActivitiesResponse Prelude.Int
+describeActivitiesResponse_httpStatus = Lens.lens (\DescribeActivitiesResponse' {httpStatus} -> httpStatus) (\s@DescribeActivitiesResponse' {} a -> s {httpStatus = a} :: DescribeActivitiesResponse)
 
-instance NFData DescribeActivitiesResponse
+instance Prelude.NFData DescribeActivitiesResponse

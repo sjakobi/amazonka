@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,186 +24,199 @@
 -- Retrieves version metadata for the specified document.
 module Network.AWS.WorkDocs.GetDocumentVersion
   ( -- * Creating a Request
-    getDocumentVersion,
-    GetDocumentVersion,
+    GetDocumentVersion (..),
+    newGetDocumentVersion,
 
     -- * Request Lenses
-    gdvIncludeCustomMetadata,
-    gdvFields,
-    gdvAuthenticationToken,
-    gdvDocumentId,
-    gdvVersionId,
+    getDocumentVersion_includeCustomMetadata,
+    getDocumentVersion_fields,
+    getDocumentVersion_authenticationToken,
+    getDocumentVersion_documentId,
+    getDocumentVersion_versionId,
 
     -- * Destructuring the Response
-    getDocumentVersionResponse,
-    GetDocumentVersionResponse,
+    GetDocumentVersionResponse (..),
+    newGetDocumentVersionResponse,
 
     -- * Response Lenses
-    gdvrrsMetadata,
-    gdvrrsCustomMetadata,
-    gdvrrsResponseStatus,
+    getDocumentVersionResponse_metadata,
+    getDocumentVersionResponse_customMetadata,
+    getDocumentVersionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.DocumentVersionMetadata
 
--- | /See:/ 'getDocumentVersion' smart constructor.
+-- | /See:/ 'newGetDocumentVersion' smart constructor.
 data GetDocumentVersion = GetDocumentVersion'
-  { _gdvIncludeCustomMetadata ::
-      !(Maybe Bool),
-    _gdvFields :: !(Maybe Text),
-    _gdvAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _gdvDocumentId :: !Text,
-    _gdvVersionId :: !Text
+  { -- | Set this to TRUE to include custom metadata in the response.
+    includeCustomMetadata :: Prelude.Maybe Prelude.Bool,
+    -- | A comma-separated list of values. Specify \"SOURCE\" to include a URL
+    -- for the source document.
+    fields :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the document.
+    documentId :: Prelude.Text,
+    -- | The version ID of the document.
+    versionId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDocumentVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDocumentVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdvIncludeCustomMetadata' - Set this to TRUE to include custom metadata in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdvFields' - A comma-separated list of values. Specify "SOURCE" to include a URL for the source document.
+-- 'includeCustomMetadata', 'getDocumentVersion_includeCustomMetadata' - Set this to TRUE to include custom metadata in the response.
 --
--- * 'gdvAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'fields', 'getDocumentVersion_fields' - A comma-separated list of values. Specify \"SOURCE\" to include a URL
+-- for the source document.
 --
--- * 'gdvDocumentId' - The ID of the document.
+-- 'authenticationToken', 'getDocumentVersion_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'gdvVersionId' - The version ID of the document.
-getDocumentVersion ::
-  -- | 'gdvDocumentId'
-  Text ->
-  -- | 'gdvVersionId'
-  Text ->
+-- 'documentId', 'getDocumentVersion_documentId' - The ID of the document.
+--
+-- 'versionId', 'getDocumentVersion_versionId' - The version ID of the document.
+newGetDocumentVersion ::
+  -- | 'documentId'
+  Prelude.Text ->
+  -- | 'versionId'
+  Prelude.Text ->
   GetDocumentVersion
-getDocumentVersion pDocumentId_ pVersionId_ =
+newGetDocumentVersion pDocumentId_ pVersionId_ =
   GetDocumentVersion'
-    { _gdvIncludeCustomMetadata =
-        Nothing,
-      _gdvFields = Nothing,
-      _gdvAuthenticationToken = Nothing,
-      _gdvDocumentId = pDocumentId_,
-      _gdvVersionId = pVersionId_
+    { includeCustomMetadata =
+        Prelude.Nothing,
+      fields = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      documentId = pDocumentId_,
+      versionId = pVersionId_
     }
 
 -- | Set this to TRUE to include custom metadata in the response.
-gdvIncludeCustomMetadata :: Lens' GetDocumentVersion (Maybe Bool)
-gdvIncludeCustomMetadata = lens _gdvIncludeCustomMetadata (\s a -> s {_gdvIncludeCustomMetadata = a})
+getDocumentVersion_includeCustomMetadata :: Lens.Lens' GetDocumentVersion (Prelude.Maybe Prelude.Bool)
+getDocumentVersion_includeCustomMetadata = Lens.lens (\GetDocumentVersion' {includeCustomMetadata} -> includeCustomMetadata) (\s@GetDocumentVersion' {} a -> s {includeCustomMetadata = a} :: GetDocumentVersion)
 
--- | A comma-separated list of values. Specify "SOURCE" to include a URL for the source document.
-gdvFields :: Lens' GetDocumentVersion (Maybe Text)
-gdvFields = lens _gdvFields (\s a -> s {_gdvFields = a})
+-- | A comma-separated list of values. Specify \"SOURCE\" to include a URL
+-- for the source document.
+getDocumentVersion_fields :: Lens.Lens' GetDocumentVersion (Prelude.Maybe Prelude.Text)
+getDocumentVersion_fields = Lens.lens (\GetDocumentVersion' {fields} -> fields) (\s@GetDocumentVersion' {} a -> s {fields = a} :: GetDocumentVersion)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-gdvAuthenticationToken :: Lens' GetDocumentVersion (Maybe Text)
-gdvAuthenticationToken = lens _gdvAuthenticationToken (\s a -> s {_gdvAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+getDocumentVersion_authenticationToken :: Lens.Lens' GetDocumentVersion (Prelude.Maybe Prelude.Text)
+getDocumentVersion_authenticationToken = Lens.lens (\GetDocumentVersion' {authenticationToken} -> authenticationToken) (\s@GetDocumentVersion' {} a -> s {authenticationToken = a} :: GetDocumentVersion) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the document.
-gdvDocumentId :: Lens' GetDocumentVersion Text
-gdvDocumentId = lens _gdvDocumentId (\s a -> s {_gdvDocumentId = a})
+getDocumentVersion_documentId :: Lens.Lens' GetDocumentVersion Prelude.Text
+getDocumentVersion_documentId = Lens.lens (\GetDocumentVersion' {documentId} -> documentId) (\s@GetDocumentVersion' {} a -> s {documentId = a} :: GetDocumentVersion)
 
 -- | The version ID of the document.
-gdvVersionId :: Lens' GetDocumentVersion Text
-gdvVersionId = lens _gdvVersionId (\s a -> s {_gdvVersionId = a})
+getDocumentVersion_versionId :: Lens.Lens' GetDocumentVersion Prelude.Text
+getDocumentVersion_versionId = Lens.lens (\GetDocumentVersion' {versionId} -> versionId) (\s@GetDocumentVersion' {} a -> s {versionId = a} :: GetDocumentVersion)
 
-instance AWSRequest GetDocumentVersion where
+instance Prelude.AWSRequest GetDocumentVersion where
   type
     Rs GetDocumentVersion =
       GetDocumentVersionResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDocumentVersionResponse'
-            <$> (x .?> "Metadata")
-            <*> (x .?> "CustomMetadata" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Metadata")
+            Prelude.<*> ( x Prelude..?> "CustomMetadata"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDocumentVersion
+instance Prelude.Hashable GetDocumentVersion
 
-instance NFData GetDocumentVersion
+instance Prelude.NFData GetDocumentVersion
 
-instance ToHeaders GetDocumentVersion where
+instance Prelude.ToHeaders GetDocumentVersion where
   toHeaders GetDocumentVersion' {..} =
-    mconcat
-      [ "Authentication" =# _gdvAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath GetDocumentVersion where
+instance Prelude.ToPath GetDocumentVersion where
   toPath GetDocumentVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/api/v1/documents/",
-        toBS _gdvDocumentId,
+        Prelude.toBS documentId,
         "/versions/",
-        toBS _gdvVersionId
+        Prelude.toBS versionId
       ]
 
-instance ToQuery GetDocumentVersion where
+instance Prelude.ToQuery GetDocumentVersion where
   toQuery GetDocumentVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "includeCustomMetadata"
-          =: _gdvIncludeCustomMetadata,
-        "fields" =: _gdvFields
+          Prelude.=: includeCustomMetadata,
+        "fields" Prelude.=: fields
       ]
 
--- | /See:/ 'getDocumentVersionResponse' smart constructor.
+-- | /See:/ 'newGetDocumentVersionResponse' smart constructor.
 data GetDocumentVersionResponse = GetDocumentVersionResponse'
-  { _gdvrrsMetadata ::
-      !( Maybe
-           DocumentVersionMetadata
-       ),
-    _gdvrrsCustomMetadata ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _gdvrrsResponseStatus ::
-      !Int
+  { -- | The version metadata.
+    metadata :: Prelude.Maybe DocumentVersionMetadata,
+    -- | The custom metadata on the document version.
+    customMetadata :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDocumentVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDocumentVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdvrrsMetadata' - The version metadata.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdvrrsCustomMetadata' - The custom metadata on the document version.
+-- 'metadata', 'getDocumentVersionResponse_metadata' - The version metadata.
 --
--- * 'gdvrrsResponseStatus' - -- | The response status code.
-getDocumentVersionResponse ::
-  -- | 'gdvrrsResponseStatus'
-  Int ->
+-- 'customMetadata', 'getDocumentVersionResponse_customMetadata' - The custom metadata on the document version.
+--
+-- 'httpStatus', 'getDocumentVersionResponse_httpStatus' - The response's http status code.
+newGetDocumentVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDocumentVersionResponse
-getDocumentVersionResponse pResponseStatus_ =
+newGetDocumentVersionResponse pHttpStatus_ =
   GetDocumentVersionResponse'
-    { _gdvrrsMetadata =
-        Nothing,
-      _gdvrrsCustomMetadata = Nothing,
-      _gdvrrsResponseStatus = pResponseStatus_
+    { metadata =
+        Prelude.Nothing,
+      customMetadata = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The version metadata.
-gdvrrsMetadata :: Lens' GetDocumentVersionResponse (Maybe DocumentVersionMetadata)
-gdvrrsMetadata = lens _gdvrrsMetadata (\s a -> s {_gdvrrsMetadata = a})
+getDocumentVersionResponse_metadata :: Lens.Lens' GetDocumentVersionResponse (Prelude.Maybe DocumentVersionMetadata)
+getDocumentVersionResponse_metadata = Lens.lens (\GetDocumentVersionResponse' {metadata} -> metadata) (\s@GetDocumentVersionResponse' {} a -> s {metadata = a} :: GetDocumentVersionResponse)
 
 -- | The custom metadata on the document version.
-gdvrrsCustomMetadata :: Lens' GetDocumentVersionResponse (HashMap Text Text)
-gdvrrsCustomMetadata = lens _gdvrrsCustomMetadata (\s a -> s {_gdvrrsCustomMetadata = a}) . _Default . _Map
+getDocumentVersionResponse_customMetadata :: Lens.Lens' GetDocumentVersionResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getDocumentVersionResponse_customMetadata = Lens.lens (\GetDocumentVersionResponse' {customMetadata} -> customMetadata) (\s@GetDocumentVersionResponse' {} a -> s {customMetadata = a} :: GetDocumentVersionResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gdvrrsResponseStatus :: Lens' GetDocumentVersionResponse Int
-gdvrrsResponseStatus = lens _gdvrrsResponseStatus (\s a -> s {_gdvrrsResponseStatus = a})
+-- | The response's http status code.
+getDocumentVersionResponse_httpStatus :: Lens.Lens' GetDocumentVersionResponse Prelude.Int
+getDocumentVersionResponse_httpStatus = Lens.lens (\GetDocumentVersionResponse' {httpStatus} -> httpStatus) (\s@GetDocumentVersionResponse' {} a -> s {httpStatus = a} :: GetDocumentVersionResponse)
 
-instance NFData GetDocumentVersionResponse
+instance Prelude.NFData GetDocumentVersionResponse

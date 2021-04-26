@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,216 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the groups specified by the query. Groups are defined by the underlying Active Directory.
---
---
+-- Describes the groups specified by the query. Groups are defined by the
+-- underlying Active Directory.
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkDocs.DescribeGroups
   ( -- * Creating a Request
-    describeGroups,
-    DescribeGroups,
+    DescribeGroups (..),
+    newDescribeGroups,
 
     -- * Request Lenses
-    dgOrganizationId,
-    dgAuthenticationToken,
-    dgLimit,
-    dgMarker,
-    dgSearchQuery,
+    describeGroups_organizationId,
+    describeGroups_authenticationToken,
+    describeGroups_limit,
+    describeGroups_marker,
+    describeGroups_searchQuery,
 
     -- * Destructuring the Response
-    describeGroupsResponse,
-    DescribeGroupsResponse,
+    DescribeGroupsResponse (..),
+    newDescribeGroupsResponse,
 
     -- * Response Lenses
-    dgrrsGroups,
-    dgrrsMarker,
-    dgrrsResponseStatus,
+    describeGroupsResponse_groups,
+    describeGroupsResponse_marker,
+    describeGroupsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.GroupMetadata
 
--- | /See:/ 'describeGroups' smart constructor.
+-- | /See:/ 'newDescribeGroups' smart constructor.
 data DescribeGroups = DescribeGroups'
-  { _dgOrganizationId ::
-      !(Maybe Text),
-    _dgAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _dgLimit :: !(Maybe Nat),
-    _dgMarker :: !(Maybe Text),
-    _dgSearchQuery :: !(Sensitive Text)
+  { -- | The ID of the organization.
+    organizationId :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The maximum number of items to return with this call.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The marker for the next set of results. (You received this marker from a
+    -- previous call.)
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | A query to describe groups by group name.
+    searchQuery :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgOrganizationId' - The ID of the organization.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'organizationId', 'describeGroups_organizationId' - The ID of the organization.
 --
--- * 'dgLimit' - The maximum number of items to return with this call.
+-- 'authenticationToken', 'describeGroups_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'dgMarker' - The marker for the next set of results. (You received this marker from a previous call.)
+-- 'limit', 'describeGroups_limit' - The maximum number of items to return with this call.
 --
--- * 'dgSearchQuery' - A query to describe groups by group name.
-describeGroups ::
-  -- | 'dgSearchQuery'
-  Text ->
+-- 'marker', 'describeGroups_marker' - The marker for the next set of results. (You received this marker from a
+-- previous call.)
+--
+-- 'searchQuery', 'describeGroups_searchQuery' - A query to describe groups by group name.
+newDescribeGroups ::
+  -- | 'searchQuery'
+  Prelude.Text ->
   DescribeGroups
-describeGroups pSearchQuery_ =
+newDescribeGroups pSearchQuery_ =
   DescribeGroups'
-    { _dgOrganizationId = Nothing,
-      _dgAuthenticationToken = Nothing,
-      _dgLimit = Nothing,
-      _dgMarker = Nothing,
-      _dgSearchQuery = _Sensitive # pSearchQuery_
+    { organizationId = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      searchQuery =
+        Prelude._Sensitive Lens.# pSearchQuery_
     }
 
 -- | The ID of the organization.
-dgOrganizationId :: Lens' DescribeGroups (Maybe Text)
-dgOrganizationId = lens _dgOrganizationId (\s a -> s {_dgOrganizationId = a})
+describeGroups_organizationId :: Lens.Lens' DescribeGroups (Prelude.Maybe Prelude.Text)
+describeGroups_organizationId = Lens.lens (\DescribeGroups' {organizationId} -> organizationId) (\s@DescribeGroups' {} a -> s {organizationId = a} :: DescribeGroups)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-dgAuthenticationToken :: Lens' DescribeGroups (Maybe Text)
-dgAuthenticationToken = lens _dgAuthenticationToken (\s a -> s {_dgAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+describeGroups_authenticationToken :: Lens.Lens' DescribeGroups (Prelude.Maybe Prelude.Text)
+describeGroups_authenticationToken = Lens.lens (\DescribeGroups' {authenticationToken} -> authenticationToken) (\s@DescribeGroups' {} a -> s {authenticationToken = a} :: DescribeGroups) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The maximum number of items to return with this call.
-dgLimit :: Lens' DescribeGroups (Maybe Natural)
-dgLimit = lens _dgLimit (\s a -> s {_dgLimit = a}) . mapping _Nat
+describeGroups_limit :: Lens.Lens' DescribeGroups (Prelude.Maybe Prelude.Natural)
+describeGroups_limit = Lens.lens (\DescribeGroups' {limit} -> limit) (\s@DescribeGroups' {} a -> s {limit = a} :: DescribeGroups) Prelude.. Lens.mapping Prelude._Nat
 
--- | The marker for the next set of results. (You received this marker from a previous call.)
-dgMarker :: Lens' DescribeGroups (Maybe Text)
-dgMarker = lens _dgMarker (\s a -> s {_dgMarker = a})
+-- | The marker for the next set of results. (You received this marker from a
+-- previous call.)
+describeGroups_marker :: Lens.Lens' DescribeGroups (Prelude.Maybe Prelude.Text)
+describeGroups_marker = Lens.lens (\DescribeGroups' {marker} -> marker) (\s@DescribeGroups' {} a -> s {marker = a} :: DescribeGroups)
 
 -- | A query to describe groups by group name.
-dgSearchQuery :: Lens' DescribeGroups Text
-dgSearchQuery = lens _dgSearchQuery (\s a -> s {_dgSearchQuery = a}) . _Sensitive
+describeGroups_searchQuery :: Lens.Lens' DescribeGroups Prelude.Text
+describeGroups_searchQuery = Lens.lens (\DescribeGroups' {searchQuery} -> searchQuery) (\s@DescribeGroups' {} a -> s {searchQuery = a} :: DescribeGroups) Prelude.. Prelude._Sensitive
 
-instance AWSPager DescribeGroups where
+instance Pager.AWSPager DescribeGroups where
   page rq rs
-    | stop (rs ^. dgrrsMarker) = Nothing
-    | stop (rs ^. dgrrsGroups) = Nothing
-    | otherwise =
-      Just $ rq & dgMarker .~ rs ^. dgrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeGroupsResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeGroupsResponse_groups Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeGroups_marker
+          Lens..~ rs
+          Lens.^? describeGroupsResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest DescribeGroups where
+instance Prelude.AWSRequest DescribeGroups where
   type Rs DescribeGroups = DescribeGroupsResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeGroupsResponse'
-            <$> (x .?> "Groups" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Groups" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeGroups
+instance Prelude.Hashable DescribeGroups
 
-instance NFData DescribeGroups
+instance Prelude.NFData DescribeGroups
 
-instance ToHeaders DescribeGroups where
+instance Prelude.ToHeaders DescribeGroups where
   toHeaders DescribeGroups' {..} =
-    mconcat
-      [ "Authentication" =# _dgAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DescribeGroups where
-  toPath = const "/api/v1/groups"
+instance Prelude.ToPath DescribeGroups where
+  toPath = Prelude.const "/api/v1/groups"
 
-instance ToQuery DescribeGroups where
+instance Prelude.ToQuery DescribeGroups where
   toQuery DescribeGroups' {..} =
-    mconcat
-      [ "organizationId" =: _dgOrganizationId,
-        "limit" =: _dgLimit,
-        "marker" =: _dgMarker,
-        "searchQuery" =: _dgSearchQuery
+    Prelude.mconcat
+      [ "organizationId" Prelude.=: organizationId,
+        "limit" Prelude.=: limit,
+        "marker" Prelude.=: marker,
+        "searchQuery" Prelude.=: searchQuery
       ]
 
--- | /See:/ 'describeGroupsResponse' smart constructor.
+-- | /See:/ 'newDescribeGroupsResponse' smart constructor.
 data DescribeGroupsResponse = DescribeGroupsResponse'
-  { _dgrrsGroups ::
-      !(Maybe [GroupMetadata]),
-    _dgrrsMarker ::
-      !(Maybe Text),
-    _dgrrsResponseStatus ::
-      !Int
+  { -- | The list of groups.
+    groups :: Prelude.Maybe [GroupMetadata],
+    -- | The marker to use when requesting the next set of results. If there are
+    -- no additional results, the string is empty.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgrrsGroups' - The list of groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgrrsMarker' - The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
+-- 'groups', 'describeGroupsResponse_groups' - The list of groups.
 --
--- * 'dgrrsResponseStatus' - -- | The response status code.
-describeGroupsResponse ::
-  -- | 'dgrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeGroupsResponse_marker' - The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+--
+-- 'httpStatus', 'describeGroupsResponse_httpStatus' - The response's http status code.
+newDescribeGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeGroupsResponse
-describeGroupsResponse pResponseStatus_ =
+newDescribeGroupsResponse pHttpStatus_ =
   DescribeGroupsResponse'
-    { _dgrrsGroups = Nothing,
-      _dgrrsMarker = Nothing,
-      _dgrrsResponseStatus = pResponseStatus_
+    { groups = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of groups.
-dgrrsGroups :: Lens' DescribeGroupsResponse [GroupMetadata]
-dgrrsGroups = lens _dgrrsGroups (\s a -> s {_dgrrsGroups = a}) . _Default . _Coerce
+describeGroupsResponse_groups :: Lens.Lens' DescribeGroupsResponse (Prelude.Maybe [GroupMetadata])
+describeGroupsResponse_groups = Lens.lens (\DescribeGroupsResponse' {groups} -> groups) (\s@DescribeGroupsResponse' {} a -> s {groups = a} :: DescribeGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
-dgrrsMarker :: Lens' DescribeGroupsResponse (Maybe Text)
-dgrrsMarker = lens _dgrrsMarker (\s a -> s {_dgrrsMarker = a})
+-- | The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+describeGroupsResponse_marker :: Lens.Lens' DescribeGroupsResponse (Prelude.Maybe Prelude.Text)
+describeGroupsResponse_marker = Lens.lens (\DescribeGroupsResponse' {marker} -> marker) (\s@DescribeGroupsResponse' {} a -> s {marker = a} :: DescribeGroupsResponse)
 
--- | -- | The response status code.
-dgrrsResponseStatus :: Lens' DescribeGroupsResponse Int
-dgrrsResponseStatus = lens _dgrrsResponseStatus (\s a -> s {_dgrrsResponseStatus = a})
+-- | The response's http status code.
+describeGroupsResponse_httpStatus :: Lens.Lens' DescribeGroupsResponse Prelude.Int
+describeGroupsResponse_httpStatus = Lens.lens (\DescribeGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeGroupsResponse' {} a -> s {httpStatus = a} :: DescribeGroupsResponse)
 
-instance NFData DescribeGroupsResponse
+instance Prelude.NFData DescribeGroupsResponse

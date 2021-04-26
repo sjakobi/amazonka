@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.NotificationOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Set of options which defines notification preferences of given action.
 --
---
---
--- /See:/ 'notificationOptions' smart constructor.
+-- /See:/ 'newNotificationOptions' smart constructor.
 data NotificationOptions = NotificationOptions'
-  { _noSendEmail ::
-      !(Maybe Bool),
-    _noEmailMessage ::
-      !(Maybe (Sensitive Text))
+  { -- | Boolean value to indicate an email notification should be sent to the
+    -- receipients.
+    sendEmail :: Prelude.Maybe Prelude.Bool,
+    -- | Text value to be included in the email body.
+    emailMessage :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotificationOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotificationOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'noSendEmail' - Boolean value to indicate an email notification should be sent to the receipients.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'noEmailMessage' - Text value to be included in the email body.
-notificationOptions ::
+-- 'sendEmail', 'notificationOptions_sendEmail' - Boolean value to indicate an email notification should be sent to the
+-- receipients.
+--
+-- 'emailMessage', 'notificationOptions_emailMessage' - Text value to be included in the email body.
+newNotificationOptions ::
   NotificationOptions
-notificationOptions =
+newNotificationOptions =
   NotificationOptions'
-    { _noSendEmail = Nothing,
-      _noEmailMessage = Nothing
+    { sendEmail = Prelude.Nothing,
+      emailMessage = Prelude.Nothing
     }
 
--- | Boolean value to indicate an email notification should be sent to the receipients.
-noSendEmail :: Lens' NotificationOptions (Maybe Bool)
-noSendEmail = lens _noSendEmail (\s a -> s {_noSendEmail = a})
+-- | Boolean value to indicate an email notification should be sent to the
+-- receipients.
+notificationOptions_sendEmail :: Lens.Lens' NotificationOptions (Prelude.Maybe Prelude.Bool)
+notificationOptions_sendEmail = Lens.lens (\NotificationOptions' {sendEmail} -> sendEmail) (\s@NotificationOptions' {} a -> s {sendEmail = a} :: NotificationOptions)
 
 -- | Text value to be included in the email body.
-noEmailMessage :: Lens' NotificationOptions (Maybe Text)
-noEmailMessage = lens _noEmailMessage (\s a -> s {_noEmailMessage = a}) . mapping _Sensitive
+notificationOptions_emailMessage :: Lens.Lens' NotificationOptions (Prelude.Maybe Prelude.Text)
+notificationOptions_emailMessage = Lens.lens (\NotificationOptions' {emailMessage} -> emailMessage) (\s@NotificationOptions' {} a -> s {emailMessage = a} :: NotificationOptions) Prelude.. Lens.mapping Prelude._Sensitive
 
-instance Hashable NotificationOptions
+instance Prelude.Hashable NotificationOptions
 
-instance NFData NotificationOptions
+instance Prelude.NFData NotificationOptions
 
-instance ToJSON NotificationOptions where
+instance Prelude.ToJSON NotificationOptions where
   toJSON NotificationOptions' {..} =
-    object
-      ( catMaybes
-          [ ("SendEmail" .=) <$> _noSendEmail,
-            ("EmailMessage" .=) <$> _noEmailMessage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SendEmail" Prelude..=) Prelude.<$> sendEmail,
+            ("EmailMessage" Prelude..=)
+              Prelude.<$> emailMessage
           ]
       )

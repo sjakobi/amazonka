@@ -13,19 +13,40 @@
 --
 -- The WorkDocs API is designed for the following use cases:
 --
+-- -   File Migration: File migration applications are supported for users
+--     who want to migrate their files from an on-premises or off-premises
+--     file system or service. Users can insert files into a user directory
+--     structure, as well as allow for basic metadata changes, such as
+--     modifications to the permissions of files.
 --
---     * File Migration: File migration applications are supported for users who want to migrate their files from an on-premises or off-premises file system or service. Users can insert files into a user directory structure, as well as allow for basic metadata changes, such as modifications to the permissions of files.
+-- -   Security: Support security applications are supported for users who
+--     have additional security needs, such as antivirus or data loss
+--     prevention. The API actions, along with AWS CloudTrail, allow these
+--     applications to detect when changes occur in Amazon WorkDocs. Then,
+--     the application can take the necessary actions and replace the
+--     target file. If the target file violates the policy, the application
+--     can also choose to email the user.
 --
---     * Security: Support security applications are supported for users who have additional security needs, such as antivirus or data loss prevention. The API actions, along with AWS CloudTrail, allow these applications to detect when changes occur in Amazon WorkDocs. Then, the application can take the necessary actions and replace the target file. If the target file violates the policy, the application can also choose to email the user.
+-- -   eDiscovery\/Analytics: General administrative applications are
+--     supported, such as eDiscovery and analytics. These applications can
+--     choose to mimic or record the actions in an Amazon WorkDocs site,
+--     along with AWS CloudTrail, to replicate data for eDiscovery, backup,
+--     or analytical applications.
 --
---     * eDiscovery/Analytics: General administrative applications are supported, such as eDiscovery and analytics. These applications can choose to mimic or record the actions in an Amazon WorkDocs site, along with AWS CloudTrail, to replicate data for eDiscovery, backup, or analytical applications.
---
---
---
--- All Amazon WorkDocs API actions are Amazon authenticated and certificate-signed. They not only require the use of the AWS SDK, but also allow for the exclusive use of IAM users and roles to help facilitate access, trust, and permission policies. By creating a role and allowing an IAM user to access the Amazon WorkDocs site, the IAM user gains full administrative visibility into the entire Amazon WorkDocs site (or as set in the IAM policy). This includes, but is not limited to, the ability to modify file permissions and upload any file to any user. This allows developers to perform the three use cases above, as well as give users the ability to grant access on a selective basis using the IAM model.
+-- All Amazon WorkDocs API actions are Amazon authenticated and
+-- certificate-signed. They not only require the use of the AWS SDK, but
+-- also allow for the exclusive use of IAM users and roles to help
+-- facilitate access, trust, and permission policies. By creating a role
+-- and allowing an IAM user to access the Amazon WorkDocs site, the IAM
+-- user gains full administrative visibility into the entire Amazon
+-- WorkDocs site (or as set in the IAM policy). This includes, but is not
+-- limited to, the ability to modify file permissions and upload any file
+-- to any user. This allows developers to perform the three use cases
+-- above, as well as give users the ability to grant access on a selective
+-- basis using the IAM model.
 module Network.AWS.WorkDocs
   ( -- * Service Configuration
-    workDocs,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -112,127 +133,250 @@ module Network.AWS.WorkDocs
     -- $operations
 
     -- ** DeleteFolder
-    module Network.AWS.WorkDocs.DeleteFolder,
+    DeleteFolder (DeleteFolder'),
+    newDeleteFolder,
+    DeleteFolderResponse (DeleteFolderResponse'),
+    newDeleteFolderResponse,
 
     -- ** UpdateFolder
-    module Network.AWS.WorkDocs.UpdateFolder,
+    UpdateFolder (UpdateFolder'),
+    newUpdateFolder,
+    UpdateFolderResponse (UpdateFolderResponse'),
+    newUpdateFolderResponse,
 
     -- ** DeleteCustomMetadata
-    module Network.AWS.WorkDocs.DeleteCustomMetadata,
+    DeleteCustomMetadata (DeleteCustomMetadata'),
+    newDeleteCustomMetadata,
+    DeleteCustomMetadataResponse (DeleteCustomMetadataResponse'),
+    newDeleteCustomMetadataResponse,
 
     -- ** DeleteNotificationSubscription
-    module Network.AWS.WorkDocs.DeleteNotificationSubscription,
+    DeleteNotificationSubscription (DeleteNotificationSubscription'),
+    newDeleteNotificationSubscription,
+    DeleteNotificationSubscriptionResponse (DeleteNotificationSubscriptionResponse'),
+    newDeleteNotificationSubscriptionResponse,
 
     -- ** UpdateDocumentVersion
-    module Network.AWS.WorkDocs.UpdateDocumentVersion,
+    UpdateDocumentVersion (UpdateDocumentVersion'),
+    newUpdateDocumentVersion,
+    UpdateDocumentVersionResponse (UpdateDocumentVersionResponse'),
+    newUpdateDocumentVersionResponse,
 
     -- ** DeleteLabels
-    module Network.AWS.WorkDocs.DeleteLabels,
+    DeleteLabels (DeleteLabels'),
+    newDeleteLabels,
+    DeleteLabelsResponse (DeleteLabelsResponse'),
+    newDeleteLabelsResponse,
 
     -- ** AbortDocumentVersionUpload
-    module Network.AWS.WorkDocs.AbortDocumentVersionUpload,
+    AbortDocumentVersionUpload (AbortDocumentVersionUpload'),
+    newAbortDocumentVersionUpload,
+    AbortDocumentVersionUploadResponse (AbortDocumentVersionUploadResponse'),
+    newAbortDocumentVersionUploadResponse,
 
     -- ** DescribeFolderContents (Paginated)
-    module Network.AWS.WorkDocs.DescribeFolderContents,
+    DescribeFolderContents (DescribeFolderContents'),
+    newDescribeFolderContents,
+    DescribeFolderContentsResponse (DescribeFolderContentsResponse'),
+    newDescribeFolderContentsResponse,
 
     -- ** CreateLabels
-    module Network.AWS.WorkDocs.CreateLabels,
+    CreateLabels (CreateLabels'),
+    newCreateLabels,
+    CreateLabelsResponse (CreateLabelsResponse'),
+    newCreateLabelsResponse,
 
     -- ** DeactivateUser
-    module Network.AWS.WorkDocs.DeactivateUser,
+    DeactivateUser (DeactivateUser'),
+    newDeactivateUser,
+    DeactivateUserResponse (DeactivateUserResponse'),
+    newDeactivateUserResponse,
 
     -- ** DescribeRootFolders (Paginated)
-    module Network.AWS.WorkDocs.DescribeRootFolders,
+    DescribeRootFolders (DescribeRootFolders'),
+    newDescribeRootFolders,
+    DescribeRootFoldersResponse (DescribeRootFoldersResponse'),
+    newDescribeRootFoldersResponse,
 
     -- ** UpdateDocument
-    module Network.AWS.WorkDocs.UpdateDocument,
+    UpdateDocument (UpdateDocument'),
+    newUpdateDocument,
+    UpdateDocumentResponse (UpdateDocumentResponse'),
+    newUpdateDocumentResponse,
 
     -- ** DeleteDocument
-    module Network.AWS.WorkDocs.DeleteDocument,
+    DeleteDocument (DeleteDocument'),
+    newDeleteDocument,
+    DeleteDocumentResponse (DeleteDocumentResponse'),
+    newDeleteDocumentResponse,
 
     -- ** GetDocumentVersion
-    module Network.AWS.WorkDocs.GetDocumentVersion,
+    GetDocumentVersion (GetDocumentVersion'),
+    newGetDocumentVersion,
+    GetDocumentVersionResponse (GetDocumentVersionResponse'),
+    newGetDocumentVersionResponse,
 
     -- ** DescribeDocumentVersions (Paginated)
-    module Network.AWS.WorkDocs.DescribeDocumentVersions,
+    DescribeDocumentVersions (DescribeDocumentVersions'),
+    newDescribeDocumentVersions,
+    DescribeDocumentVersionsResponse (DescribeDocumentVersionsResponse'),
+    newDescribeDocumentVersionsResponse,
 
     -- ** ActivateUser
-    module Network.AWS.WorkDocs.ActivateUser,
+    ActivateUser (ActivateUser'),
+    newActivateUser,
+    ActivateUserResponse (ActivateUserResponse'),
+    newActivateUserResponse,
 
     -- ** GetFolderPath
-    module Network.AWS.WorkDocs.GetFolderPath,
+    GetFolderPath (GetFolderPath'),
+    newGetFolderPath,
+    GetFolderPathResponse (GetFolderPathResponse'),
+    newGetFolderPathResponse,
 
     -- ** CreateUser
-    module Network.AWS.WorkDocs.CreateUser,
+    CreateUser (CreateUser'),
+    newCreateUser,
+    CreateUserResponse (CreateUserResponse'),
+    newCreateUserResponse,
 
     -- ** CreateCustomMetadata
-    module Network.AWS.WorkDocs.CreateCustomMetadata,
+    CreateCustomMetadata (CreateCustomMetadata'),
+    newCreateCustomMetadata,
+    CreateCustomMetadataResponse (CreateCustomMetadataResponse'),
+    newCreateCustomMetadataResponse,
 
     -- ** DeleteComment
-    module Network.AWS.WorkDocs.DeleteComment,
+    DeleteComment (DeleteComment'),
+    newDeleteComment,
+    DeleteCommentResponse (DeleteCommentResponse'),
+    newDeleteCommentResponse,
 
     -- ** CreateFolder
-    module Network.AWS.WorkDocs.CreateFolder,
+    CreateFolder (CreateFolder'),
+    newCreateFolder,
+    CreateFolderResponse (CreateFolderResponse'),
+    newCreateFolderResponse,
 
     -- ** CreateNotificationSubscription
-    module Network.AWS.WorkDocs.CreateNotificationSubscription,
+    CreateNotificationSubscription (CreateNotificationSubscription'),
+    newCreateNotificationSubscription,
+    CreateNotificationSubscriptionResponse (CreateNotificationSubscriptionResponse'),
+    newCreateNotificationSubscriptionResponse,
 
     -- ** CreateComment
-    module Network.AWS.WorkDocs.CreateComment,
+    CreateComment (CreateComment'),
+    newCreateComment,
+    CreateCommentResponse (CreateCommentResponse'),
+    newCreateCommentResponse,
 
     -- ** DescribeResourcePermissions (Paginated)
-    module Network.AWS.WorkDocs.DescribeResourcePermissions,
+    DescribeResourcePermissions (DescribeResourcePermissions'),
+    newDescribeResourcePermissions,
+    DescribeResourcePermissionsResponse (DescribeResourcePermissionsResponse'),
+    newDescribeResourcePermissionsResponse,
 
     -- ** RemoveResourcePermission
-    module Network.AWS.WorkDocs.RemoveResourcePermission,
+    RemoveResourcePermission (RemoveResourcePermission'),
+    newRemoveResourcePermission,
+    RemoveResourcePermissionResponse (RemoveResourcePermissionResponse'),
+    newRemoveResourcePermissionResponse,
 
     -- ** DescribeUsers (Paginated)
-    module Network.AWS.WorkDocs.DescribeUsers,
+    DescribeUsers (DescribeUsers'),
+    newDescribeUsers,
+    DescribeUsersResponse (DescribeUsersResponse'),
+    newDescribeUsersResponse,
 
     -- ** GetResources
-    module Network.AWS.WorkDocs.GetResources,
+    GetResources (GetResources'),
+    newGetResources,
+    GetResourcesResponse (GetResourcesResponse'),
+    newGetResourcesResponse,
 
     -- ** GetDocumentPath
-    module Network.AWS.WorkDocs.GetDocumentPath,
+    GetDocumentPath (GetDocumentPath'),
+    newGetDocumentPath,
+    GetDocumentPathResponse (GetDocumentPathResponse'),
+    newGetDocumentPathResponse,
 
     -- ** DescribeGroups (Paginated)
-    module Network.AWS.WorkDocs.DescribeGroups,
+    DescribeGroups (DescribeGroups'),
+    newDescribeGroups,
+    DescribeGroupsResponse (DescribeGroupsResponse'),
+    newDescribeGroupsResponse,
 
     -- ** GetDocument
-    module Network.AWS.WorkDocs.GetDocument,
+    GetDocument (GetDocument'),
+    newGetDocument,
+    GetDocumentResponse (GetDocumentResponse'),
+    newGetDocumentResponse,
 
     -- ** DescribeActivities (Paginated)
-    module Network.AWS.WorkDocs.DescribeActivities,
+    DescribeActivities (DescribeActivities'),
+    newDescribeActivities,
+    DescribeActivitiesResponse (DescribeActivitiesResponse'),
+    newDescribeActivitiesResponse,
 
     -- ** GetCurrentUser
-    module Network.AWS.WorkDocs.GetCurrentUser,
+    GetCurrentUser (GetCurrentUser'),
+    newGetCurrentUser,
+    GetCurrentUserResponse (GetCurrentUserResponse'),
+    newGetCurrentUserResponse,
 
     -- ** AddResourcePermissions
-    module Network.AWS.WorkDocs.AddResourcePermissions,
+    AddResourcePermissions (AddResourcePermissions'),
+    newAddResourcePermissions,
+    AddResourcePermissionsResponse (AddResourcePermissionsResponse'),
+    newAddResourcePermissionsResponse,
 
     -- ** DeleteUser
-    module Network.AWS.WorkDocs.DeleteUser,
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    DeleteUserResponse (DeleteUserResponse'),
+    newDeleteUserResponse,
 
     -- ** GetFolder
-    module Network.AWS.WorkDocs.GetFolder,
+    GetFolder (GetFolder'),
+    newGetFolder,
+    GetFolderResponse (GetFolderResponse'),
+    newGetFolderResponse,
 
     -- ** UpdateUser
-    module Network.AWS.WorkDocs.UpdateUser,
+    UpdateUser (UpdateUser'),
+    newUpdateUser,
+    UpdateUserResponse (UpdateUserResponse'),
+    newUpdateUserResponse,
 
     -- ** DescribeNotificationSubscriptions (Paginated)
-    module Network.AWS.WorkDocs.DescribeNotificationSubscriptions,
+    DescribeNotificationSubscriptions (DescribeNotificationSubscriptions'),
+    newDescribeNotificationSubscriptions,
+    DescribeNotificationSubscriptionsResponse (DescribeNotificationSubscriptionsResponse'),
+    newDescribeNotificationSubscriptionsResponse,
 
     -- ** RemoveAllResourcePermissions
-    module Network.AWS.WorkDocs.RemoveAllResourcePermissions,
+    RemoveAllResourcePermissions (RemoveAllResourcePermissions'),
+    newRemoveAllResourcePermissions,
+    RemoveAllResourcePermissionsResponse (RemoveAllResourcePermissionsResponse'),
+    newRemoveAllResourcePermissionsResponse,
 
     -- ** DeleteFolderContents
-    module Network.AWS.WorkDocs.DeleteFolderContents,
+    DeleteFolderContents (DeleteFolderContents'),
+    newDeleteFolderContents,
+    DeleteFolderContentsResponse (DeleteFolderContentsResponse'),
+    newDeleteFolderContentsResponse,
 
     -- ** DescribeComments (Paginated)
-    module Network.AWS.WorkDocs.DescribeComments,
+    DescribeComments (DescribeComments'),
+    newDescribeComments,
+    DescribeCommentsResponse (DescribeCommentsResponse'),
+    newDescribeCommentsResponse,
 
     -- ** InitiateDocumentVersionUpload
-    module Network.AWS.WorkDocs.InitiateDocumentVersionUpload,
+    InitiateDocumentVersionUpload (InitiateDocumentVersionUpload'),
+    newInitiateDocumentVersionUpload,
+    InitiateDocumentVersionUploadResponse (InitiateDocumentVersionUploadResponse'),
+    newInitiateDocumentVersionUploadResponse,
 
     -- * Types
 
@@ -315,206 +459,92 @@ module Network.AWS.WorkDocs
     UserType (..),
 
     -- ** Activity
-    Activity,
-    activity,
-    aResourceMetadata,
-    aOrganizationId,
-    aOriginalParent,
-    aParticipants,
-    aCommentMetadata,
-    aTimeStamp,
-    aInitiator,
-    aType,
-    aIsIndirectActivity,
+    Activity (Activity'),
+    newActivity,
 
     -- ** Comment
-    Comment,
-    comment,
-    cStatus,
-    cCreatedTimestamp,
-    cContributor,
-    cParentId,
-    cRecipientId,
-    cVisibility,
-    cThreadId,
-    cText,
-    cCommentId,
+    Comment (Comment'),
+    newComment,
 
     -- ** CommentMetadata
-    CommentMetadata,
-    commentMetadata,
-    cmCommentStatus,
-    cmCreatedTimestamp,
-    cmContributor,
-    cmRecipientId,
-    cmCommentId,
+    CommentMetadata (CommentMetadata'),
+    newCommentMetadata,
 
     -- ** DocumentMetadata
-    DocumentMetadata,
-    documentMetadata,
-    dmModifiedTimestamp,
-    dmParentFolderId,
-    dmCreatorId,
-    dmCreatedTimestamp,
-    dmId,
-    dmLabels,
-    dmLatestVersionMetadata,
-    dmResourceState,
+    DocumentMetadata (DocumentMetadata'),
+    newDocumentMetadata,
 
     -- ** DocumentVersionMetadata
-    DocumentVersionMetadata,
-    documentVersionMetadata,
-    dvmModifiedTimestamp,
-    dvmStatus,
-    dvmCreatorId,
-    dvmContentType,
-    dvmCreatedTimestamp,
-    dvmContentModifiedTimestamp,
-    dvmId,
-    dvmSource,
-    dvmContentCreatedTimestamp,
-    dvmName,
-    dvmSignature,
-    dvmThumbnail,
-    dvmSize,
+    DocumentVersionMetadata (DocumentVersionMetadata'),
+    newDocumentVersionMetadata,
 
     -- ** FolderMetadata
-    FolderMetadata,
-    folderMetadata,
-    fmModifiedTimestamp,
-    fmParentFolderId,
-    fmLatestVersionSize,
-    fmCreatorId,
-    fmCreatedTimestamp,
-    fmId,
-    fmLabels,
-    fmName,
-    fmSignature,
-    fmResourceState,
-    fmSize,
+    FolderMetadata (FolderMetadata'),
+    newFolderMetadata,
 
     -- ** GroupMetadata
-    GroupMetadata,
-    groupMetadata,
-    gmId,
-    gmName,
+    GroupMetadata (GroupMetadata'),
+    newGroupMetadata,
 
     -- ** NotificationOptions
-    NotificationOptions,
-    notificationOptions,
-    noSendEmail,
-    noEmailMessage,
+    NotificationOptions (NotificationOptions'),
+    newNotificationOptions,
 
     -- ** Participants
-    Participants,
-    participants,
-    pGroups,
-    pUsers,
+    Participants (Participants'),
+    newParticipants,
 
     -- ** PermissionInfo
-    PermissionInfo,
-    permissionInfo,
-    piRole,
-    piType,
+    PermissionInfo (PermissionInfo'),
+    newPermissionInfo,
 
     -- ** Principal
-    Principal,
-    principal,
-    pId,
-    pRoles,
-    pType,
+    Principal (Principal'),
+    newPrincipal,
 
     -- ** ResourceMetadata
-    ResourceMetadata,
-    resourceMetadata,
-    rmOriginalName,
-    rmId,
-    rmVersionId,
-    rmName,
-    rmParentId,
-    rmOwner,
-    rmType,
+    ResourceMetadata (ResourceMetadata'),
+    newResourceMetadata,
 
     -- ** ResourcePath
-    ResourcePath,
-    resourcePath,
-    rpComponents,
+    ResourcePath (ResourcePath'),
+    newResourcePath,
 
     -- ** ResourcePathComponent
-    ResourcePathComponent,
-    resourcePathComponent,
-    rpcId,
-    rpcName,
+    ResourcePathComponent (ResourcePathComponent'),
+    newResourcePathComponent,
 
     -- ** SharePrincipal
-    SharePrincipal,
-    sharePrincipal,
-    spId,
-    spType,
-    spRole,
+    SharePrincipal (SharePrincipal'),
+    newSharePrincipal,
 
     -- ** ShareResult
-    ShareResult,
-    shareResult,
-    srStatusMessage,
-    srStatus,
-    srInviteePrincipalId,
-    srShareId,
-    srPrincipalId,
-    srRole,
+    ShareResult (ShareResult'),
+    newShareResult,
 
     -- ** StorageRuleType
-    StorageRuleType,
-    storageRuleType,
-    srtStorageType,
-    srtStorageAllocatedInBytes,
+    StorageRuleType (StorageRuleType'),
+    newStorageRuleType,
 
     -- ** Subscription
-    Subscription,
-    subscription,
-    sSubscriptionId,
-    sProtocol,
-    sEndPoint,
+    Subscription (Subscription'),
+    newSubscription,
 
     -- ** UploadMetadata
-    UploadMetadata,
-    uploadMetadata,
-    umSignedHeaders,
-    umUploadURL,
+    UploadMetadata (UploadMetadata'),
+    newUploadMetadata,
 
     -- ** User
-    User,
-    user,
-    uModifiedTimestamp,
-    uStatus,
-    uOrganizationId,
-    uCreatedTimestamp,
-    uTimeZoneId,
-    uSurname,
-    uLocale,
-    uId,
-    uRootFolderId,
-    uGivenName,
-    uRecycleBinFolderId,
-    uStorage,
-    uUsername,
-    uType,
-    uEmailAddress,
+    User (User'),
+    newUser,
 
     -- ** UserMetadata
-    UserMetadata,
-    userMetadata,
-    umSurname,
-    umId,
-    umGivenName,
-    umUsername,
-    umEmailAddress,
+    UserMetadata (UserMetadata'),
+    newUserMetadata,
 
     -- ** UserStorageMetadata
-    UserStorageMetadata,
-    userStorageMetadata,
-    usmStorageRule,
-    usmStorageUtilizedInBytes,
+    UserStorageMetadata (UserStorageMetadata'),
+    newUserStorageMetadata,
   )
 where
 
@@ -553,6 +583,7 @@ import Network.AWS.WorkDocs.GetFolder
 import Network.AWS.WorkDocs.GetFolderPath
 import Network.AWS.WorkDocs.GetResources
 import Network.AWS.WorkDocs.InitiateDocumentVersionUpload
+import Network.AWS.WorkDocs.Lens
 import Network.AWS.WorkDocs.RemoveAllResourcePermissions
 import Network.AWS.WorkDocs.RemoveResourcePermission
 import Network.AWS.WorkDocs.Types

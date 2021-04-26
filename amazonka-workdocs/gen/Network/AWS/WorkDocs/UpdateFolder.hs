@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,131 +21,152 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the specified attributes of the specified folder. The user must have access to both the folder and its parent folder, if applicable.
+-- Updates the specified attributes of the specified folder. The user must
+-- have access to both the folder and its parent folder, if applicable.
 module Network.AWS.WorkDocs.UpdateFolder
   ( -- * Creating a Request
-    updateFolder,
-    UpdateFolder,
+    UpdateFolder (..),
+    newUpdateFolder,
 
     -- * Request Lenses
-    ufParentFolderId,
-    ufName,
-    ufAuthenticationToken,
-    ufResourceState,
-    ufFolderId,
+    updateFolder_parentFolderId,
+    updateFolder_name,
+    updateFolder_authenticationToken,
+    updateFolder_resourceState,
+    updateFolder_folderId,
 
     -- * Destructuring the Response
-    updateFolderResponse,
-    UpdateFolderResponse,
+    UpdateFolderResponse (..),
+    newUpdateFolderResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
 
--- | /See:/ 'updateFolder' smart constructor.
+-- | /See:/ 'newUpdateFolder' smart constructor.
 data UpdateFolder = UpdateFolder'
-  { _ufParentFolderId ::
-      !(Maybe Text),
-    _ufName :: !(Maybe Text),
-    _ufAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _ufResourceState ::
-      !(Maybe ResourceStateType),
-    _ufFolderId :: !Text
+  { -- | The ID of the parent folder.
+    parentFolderId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the folder.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The resource state of the folder. Only ACTIVE and RECYCLED are accepted
+    -- values from the API.
+    resourceState :: Prelude.Maybe ResourceStateType,
+    -- | The ID of the folder.
+    folderId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFolder' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFolder' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufParentFolderId' - The ID of the parent folder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufName' - The name of the folder.
+-- 'parentFolderId', 'updateFolder_parentFolderId' - The ID of the parent folder.
 --
--- * 'ufAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'name', 'updateFolder_name' - The name of the folder.
 --
--- * 'ufResourceState' - The resource state of the folder. Only ACTIVE and RECYCLED are accepted values from the API.
+-- 'authenticationToken', 'updateFolder_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'ufFolderId' - The ID of the folder.
-updateFolder ::
-  -- | 'ufFolderId'
-  Text ->
+-- 'resourceState', 'updateFolder_resourceState' - The resource state of the folder. Only ACTIVE and RECYCLED are accepted
+-- values from the API.
+--
+-- 'folderId', 'updateFolder_folderId' - The ID of the folder.
+newUpdateFolder ::
+  -- | 'folderId'
+  Prelude.Text ->
   UpdateFolder
-updateFolder pFolderId_ =
+newUpdateFolder pFolderId_ =
   UpdateFolder'
-    { _ufParentFolderId = Nothing,
-      _ufName = Nothing,
-      _ufAuthenticationToken = Nothing,
-      _ufResourceState = Nothing,
-      _ufFolderId = pFolderId_
+    { parentFolderId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      resourceState = Prelude.Nothing,
+      folderId = pFolderId_
     }
 
 -- | The ID of the parent folder.
-ufParentFolderId :: Lens' UpdateFolder (Maybe Text)
-ufParentFolderId = lens _ufParentFolderId (\s a -> s {_ufParentFolderId = a})
+updateFolder_parentFolderId :: Lens.Lens' UpdateFolder (Prelude.Maybe Prelude.Text)
+updateFolder_parentFolderId = Lens.lens (\UpdateFolder' {parentFolderId} -> parentFolderId) (\s@UpdateFolder' {} a -> s {parentFolderId = a} :: UpdateFolder)
 
 -- | The name of the folder.
-ufName :: Lens' UpdateFolder (Maybe Text)
-ufName = lens _ufName (\s a -> s {_ufName = a})
+updateFolder_name :: Lens.Lens' UpdateFolder (Prelude.Maybe Prelude.Text)
+updateFolder_name = Lens.lens (\UpdateFolder' {name} -> name) (\s@UpdateFolder' {} a -> s {name = a} :: UpdateFolder)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-ufAuthenticationToken :: Lens' UpdateFolder (Maybe Text)
-ufAuthenticationToken = lens _ufAuthenticationToken (\s a -> s {_ufAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+updateFolder_authenticationToken :: Lens.Lens' UpdateFolder (Prelude.Maybe Prelude.Text)
+updateFolder_authenticationToken = Lens.lens (\UpdateFolder' {authenticationToken} -> authenticationToken) (\s@UpdateFolder' {} a -> s {authenticationToken = a} :: UpdateFolder) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The resource state of the folder. Only ACTIVE and RECYCLED are accepted values from the API.
-ufResourceState :: Lens' UpdateFolder (Maybe ResourceStateType)
-ufResourceState = lens _ufResourceState (\s a -> s {_ufResourceState = a})
+-- | The resource state of the folder. Only ACTIVE and RECYCLED are accepted
+-- values from the API.
+updateFolder_resourceState :: Lens.Lens' UpdateFolder (Prelude.Maybe ResourceStateType)
+updateFolder_resourceState = Lens.lens (\UpdateFolder' {resourceState} -> resourceState) (\s@UpdateFolder' {} a -> s {resourceState = a} :: UpdateFolder)
 
 -- | The ID of the folder.
-ufFolderId :: Lens' UpdateFolder Text
-ufFolderId = lens _ufFolderId (\s a -> s {_ufFolderId = a})
+updateFolder_folderId :: Lens.Lens' UpdateFolder Prelude.Text
+updateFolder_folderId = Lens.lens (\UpdateFolder' {folderId} -> folderId) (\s@UpdateFolder' {} a -> s {folderId = a} :: UpdateFolder)
 
-instance AWSRequest UpdateFolder where
+instance Prelude.AWSRequest UpdateFolder where
   type Rs UpdateFolder = UpdateFolderResponse
-  request = patchJSON workDocs
-  response = receiveNull UpdateFolderResponse'
+  request = Request.patchJSON defaultService
+  response = Response.receiveNull UpdateFolderResponse'
 
-instance Hashable UpdateFolder
+instance Prelude.Hashable UpdateFolder
 
-instance NFData UpdateFolder
+instance Prelude.NFData UpdateFolder
 
-instance ToHeaders UpdateFolder where
+instance Prelude.ToHeaders UpdateFolder where
   toHeaders UpdateFolder' {..} =
-    mconcat
-      [ "Authentication" =# _ufAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON UpdateFolder where
+instance Prelude.ToJSON UpdateFolder where
   toJSON UpdateFolder' {..} =
-    object
-      ( catMaybes
-          [ ("ParentFolderId" .=) <$> _ufParentFolderId,
-            ("Name" .=) <$> _ufName,
-            ("ResourceState" .=) <$> _ufResourceState
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ParentFolderId" Prelude..=)
+              Prelude.<$> parentFolderId,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("ResourceState" Prelude..=)
+              Prelude.<$> resourceState
           ]
       )
 
-instance ToPath UpdateFolder where
+instance Prelude.ToPath UpdateFolder where
   toPath UpdateFolder' {..} =
-    mconcat ["/api/v1/folders/", toBS _ufFolderId]
+    Prelude.mconcat
+      ["/api/v1/folders/", Prelude.toBS folderId]
 
-instance ToQuery UpdateFolder where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFolder where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateFolderResponse' smart constructor.
+-- | /See:/ 'newUpdateFolderResponse' smart constructor.
 data UpdateFolderResponse = UpdateFolderResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFolderResponse' with the minimum fields required to make a request.
-updateFolderResponse ::
+-- |
+-- Create a value of 'UpdateFolderResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateFolderResponse ::
   UpdateFolderResponse
-updateFolderResponse = UpdateFolderResponse'
+newUpdateFolderResponse = UpdateFolderResponse'
 
-instance NFData UpdateFolderResponse
+instance Prelude.NFData UpdateFolderResponse

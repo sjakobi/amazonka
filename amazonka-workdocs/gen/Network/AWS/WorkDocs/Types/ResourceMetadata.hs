@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,101 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.ResourceMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkDocs.Types.ResourceType
 import Network.AWS.WorkDocs.Types.UserMetadata
 
 -- | Describes the metadata of a resource.
 --
---
---
--- /See:/ 'resourceMetadata' smart constructor.
+-- /See:/ 'newResourceMetadata' smart constructor.
 data ResourceMetadata = ResourceMetadata'
-  { _rmOriginalName ::
-      !(Maybe Text),
-    _rmId :: !(Maybe Text),
-    _rmVersionId :: !(Maybe Text),
-    _rmName :: !(Maybe Text),
-    _rmParentId :: !(Maybe Text),
-    _rmOwner :: !(Maybe UserMetadata),
-    _rmType :: !(Maybe ResourceType)
+  { -- | The original name of the resource before a rename operation.
+    originalName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the resource.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The version ID of the resource. This is an optional field and is filled
+    -- for action on document version.
+    versionId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the resource.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The parent ID of the resource before a rename operation.
+    parentId :: Prelude.Maybe Prelude.Text,
+    -- | The owner of the resource.
+    owner :: Prelude.Maybe UserMetadata,
+    -- | The type of resource.
+    type' :: Prelude.Maybe ResourceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rmOriginalName' - The original name of the resource before a rename operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rmId' - The ID of the resource.
+-- 'originalName', 'resourceMetadata_originalName' - The original name of the resource before a rename operation.
 --
--- * 'rmVersionId' - The version ID of the resource. This is an optional field and is filled for action on document version.
+-- 'id', 'resourceMetadata_id' - The ID of the resource.
 --
--- * 'rmName' - The name of the resource.
+-- 'versionId', 'resourceMetadata_versionId' - The version ID of the resource. This is an optional field and is filled
+-- for action on document version.
 --
--- * 'rmParentId' - The parent ID of the resource before a rename operation.
+-- 'name', 'resourceMetadata_name' - The name of the resource.
 --
--- * 'rmOwner' - The owner of the resource.
+-- 'parentId', 'resourceMetadata_parentId' - The parent ID of the resource before a rename operation.
 --
--- * 'rmType' - The type of resource.
-resourceMetadata ::
+-- 'owner', 'resourceMetadata_owner' - The owner of the resource.
+--
+-- 'type'', 'resourceMetadata_type' - The type of resource.
+newResourceMetadata ::
   ResourceMetadata
-resourceMetadata =
+newResourceMetadata =
   ResourceMetadata'
-    { _rmOriginalName = Nothing,
-      _rmId = Nothing,
-      _rmVersionId = Nothing,
-      _rmName = Nothing,
-      _rmParentId = Nothing,
-      _rmOwner = Nothing,
-      _rmType = Nothing
+    { originalName = Prelude.Nothing,
+      id = Prelude.Nothing,
+      versionId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      parentId = Prelude.Nothing,
+      owner = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The original name of the resource before a rename operation.
-rmOriginalName :: Lens' ResourceMetadata (Maybe Text)
-rmOriginalName = lens _rmOriginalName (\s a -> s {_rmOriginalName = a})
+resourceMetadata_originalName :: Lens.Lens' ResourceMetadata (Prelude.Maybe Prelude.Text)
+resourceMetadata_originalName = Lens.lens (\ResourceMetadata' {originalName} -> originalName) (\s@ResourceMetadata' {} a -> s {originalName = a} :: ResourceMetadata)
 
 -- | The ID of the resource.
-rmId :: Lens' ResourceMetadata (Maybe Text)
-rmId = lens _rmId (\s a -> s {_rmId = a})
+resourceMetadata_id :: Lens.Lens' ResourceMetadata (Prelude.Maybe Prelude.Text)
+resourceMetadata_id = Lens.lens (\ResourceMetadata' {id} -> id) (\s@ResourceMetadata' {} a -> s {id = a} :: ResourceMetadata)
 
--- | The version ID of the resource. This is an optional field and is filled for action on document version.
-rmVersionId :: Lens' ResourceMetadata (Maybe Text)
-rmVersionId = lens _rmVersionId (\s a -> s {_rmVersionId = a})
+-- | The version ID of the resource. This is an optional field and is filled
+-- for action on document version.
+resourceMetadata_versionId :: Lens.Lens' ResourceMetadata (Prelude.Maybe Prelude.Text)
+resourceMetadata_versionId = Lens.lens (\ResourceMetadata' {versionId} -> versionId) (\s@ResourceMetadata' {} a -> s {versionId = a} :: ResourceMetadata)
 
 -- | The name of the resource.
-rmName :: Lens' ResourceMetadata (Maybe Text)
-rmName = lens _rmName (\s a -> s {_rmName = a})
+resourceMetadata_name :: Lens.Lens' ResourceMetadata (Prelude.Maybe Prelude.Text)
+resourceMetadata_name = Lens.lens (\ResourceMetadata' {name} -> name) (\s@ResourceMetadata' {} a -> s {name = a} :: ResourceMetadata)
 
 -- | The parent ID of the resource before a rename operation.
-rmParentId :: Lens' ResourceMetadata (Maybe Text)
-rmParentId = lens _rmParentId (\s a -> s {_rmParentId = a})
+resourceMetadata_parentId :: Lens.Lens' ResourceMetadata (Prelude.Maybe Prelude.Text)
+resourceMetadata_parentId = Lens.lens (\ResourceMetadata' {parentId} -> parentId) (\s@ResourceMetadata' {} a -> s {parentId = a} :: ResourceMetadata)
 
 -- | The owner of the resource.
-rmOwner :: Lens' ResourceMetadata (Maybe UserMetadata)
-rmOwner = lens _rmOwner (\s a -> s {_rmOwner = a})
+resourceMetadata_owner :: Lens.Lens' ResourceMetadata (Prelude.Maybe UserMetadata)
+resourceMetadata_owner = Lens.lens (\ResourceMetadata' {owner} -> owner) (\s@ResourceMetadata' {} a -> s {owner = a} :: ResourceMetadata)
 
 -- | The type of resource.
-rmType :: Lens' ResourceMetadata (Maybe ResourceType)
-rmType = lens _rmType (\s a -> s {_rmType = a})
+resourceMetadata_type :: Lens.Lens' ResourceMetadata (Prelude.Maybe ResourceType)
+resourceMetadata_type = Lens.lens (\ResourceMetadata' {type'} -> type') (\s@ResourceMetadata' {} a -> s {type' = a} :: ResourceMetadata)
 
-instance FromJSON ResourceMetadata where
+instance Prelude.FromJSON ResourceMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceMetadata"
       ( \x ->
           ResourceMetadata'
-            <$> (x .:? "OriginalName")
-            <*> (x .:? "Id")
-            <*> (x .:? "VersionId")
-            <*> (x .:? "Name")
-            <*> (x .:? "ParentId")
-            <*> (x .:? "Owner")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "OriginalName")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "VersionId")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "ParentId")
+            Prelude.<*> (x Prelude..:? "Owner")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable ResourceMetadata
+instance Prelude.Hashable ResourceMetadata
 
-instance NFData ResourceMetadata
+instance Prelude.NFData ResourceMetadata

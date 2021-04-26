@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,249 +21,288 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the contents of the specified folder, including its documents and subfolders.
+-- Describes the contents of the specified folder, including its documents
+-- and subfolders.
 --
---
--- By default, Amazon WorkDocs returns the first 100 active document and folder metadata items. If there are more results, the response includes a marker that you can use to request the next set of results. You can also request initialized documents.
---
+-- By default, Amazon WorkDocs returns the first 100 active document and
+-- folder metadata items. If there are more results, the response includes
+-- a marker that you can use to request the next set of results. You can
+-- also request initialized documents.
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkDocs.DescribeFolderContents
   ( -- * Creating a Request
-    describeFolderContents,
-    DescribeFolderContents,
+    DescribeFolderContents (..),
+    newDescribeFolderContents,
 
     -- * Request Lenses
-    dfcInclude,
-    dfcOrder,
-    dfcAuthenticationToken,
-    dfcType,
-    dfcLimit,
-    dfcSort,
-    dfcMarker,
-    dfcFolderId,
+    describeFolderContents_include,
+    describeFolderContents_order,
+    describeFolderContents_authenticationToken,
+    describeFolderContents_type,
+    describeFolderContents_limit,
+    describeFolderContents_sort,
+    describeFolderContents_marker,
+    describeFolderContents_folderId,
 
     -- * Destructuring the Response
-    describeFolderContentsResponse,
-    DescribeFolderContentsResponse,
+    DescribeFolderContentsResponse (..),
+    newDescribeFolderContentsResponse,
 
     -- * Response Lenses
-    dfcrrsDocuments,
-    dfcrrsFolders,
-    dfcrrsMarker,
-    dfcrrsResponseStatus,
+    describeFolderContentsResponse_documents,
+    describeFolderContentsResponse_folders,
+    describeFolderContentsResponse_marker,
+    describeFolderContentsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.DocumentMetadata
+import Network.AWS.WorkDocs.Types.FolderMetadata
 
--- | /See:/ 'describeFolderContents' smart constructor.
+-- | /See:/ 'newDescribeFolderContents' smart constructor.
 data DescribeFolderContents = DescribeFolderContents'
-  { _dfcInclude ::
-      !(Maybe Text),
-    _dfcOrder ::
-      !(Maybe OrderType),
-    _dfcAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _dfcType ::
-      !( Maybe
-           FolderContentType
-       ),
-    _dfcLimit :: !(Maybe Nat),
-    _dfcSort ::
-      !(Maybe ResourceSortType),
-    _dfcMarker ::
-      !(Maybe Text),
-    _dfcFolderId :: !Text
+  { -- | The contents to include. Specify \"INITIALIZED\" to include initialized
+    -- documents.
+    include :: Prelude.Maybe Prelude.Text,
+    -- | The order for the contents of the folder.
+    order :: Prelude.Maybe OrderType,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The type of items.
+    type' :: Prelude.Maybe FolderContentType,
+    -- | The maximum number of items to return with this call.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The sorting criteria.
+    sort :: Prelude.Maybe ResourceSortType,
+    -- | The marker for the next set of results. This marker was received from a
+    -- previous call.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the folder.
+    folderId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFolderContents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFolderContents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfcInclude' - The contents to include. Specify "INITIALIZED" to include initialized documents.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfcOrder' - The order for the contents of the folder.
+-- 'include', 'describeFolderContents_include' - The contents to include. Specify \"INITIALIZED\" to include initialized
+-- documents.
 --
--- * 'dfcAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'order', 'describeFolderContents_order' - The order for the contents of the folder.
 --
--- * 'dfcType' - The type of items.
+-- 'authenticationToken', 'describeFolderContents_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'dfcLimit' - The maximum number of items to return with this call.
+-- 'type'', 'describeFolderContents_type' - The type of items.
 --
--- * 'dfcSort' - The sorting criteria.
+-- 'limit', 'describeFolderContents_limit' - The maximum number of items to return with this call.
 --
--- * 'dfcMarker' - The marker for the next set of results. This marker was received from a previous call.
+-- 'sort', 'describeFolderContents_sort' - The sorting criteria.
 --
--- * 'dfcFolderId' - The ID of the folder.
-describeFolderContents ::
-  -- | 'dfcFolderId'
-  Text ->
+-- 'marker', 'describeFolderContents_marker' - The marker for the next set of results. This marker was received from a
+-- previous call.
+--
+-- 'folderId', 'describeFolderContents_folderId' - The ID of the folder.
+newDescribeFolderContents ::
+  -- | 'folderId'
+  Prelude.Text ->
   DescribeFolderContents
-describeFolderContents pFolderId_ =
+newDescribeFolderContents pFolderId_ =
   DescribeFolderContents'
-    { _dfcInclude = Nothing,
-      _dfcOrder = Nothing,
-      _dfcAuthenticationToken = Nothing,
-      _dfcType = Nothing,
-      _dfcLimit = Nothing,
-      _dfcSort = Nothing,
-      _dfcMarker = Nothing,
-      _dfcFolderId = pFolderId_
+    { include = Prelude.Nothing,
+      order = Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      sort = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      folderId = pFolderId_
     }
 
--- | The contents to include. Specify "INITIALIZED" to include initialized documents.
-dfcInclude :: Lens' DescribeFolderContents (Maybe Text)
-dfcInclude = lens _dfcInclude (\s a -> s {_dfcInclude = a})
+-- | The contents to include. Specify \"INITIALIZED\" to include initialized
+-- documents.
+describeFolderContents_include :: Lens.Lens' DescribeFolderContents (Prelude.Maybe Prelude.Text)
+describeFolderContents_include = Lens.lens (\DescribeFolderContents' {include} -> include) (\s@DescribeFolderContents' {} a -> s {include = a} :: DescribeFolderContents)
 
 -- | The order for the contents of the folder.
-dfcOrder :: Lens' DescribeFolderContents (Maybe OrderType)
-dfcOrder = lens _dfcOrder (\s a -> s {_dfcOrder = a})
+describeFolderContents_order :: Lens.Lens' DescribeFolderContents (Prelude.Maybe OrderType)
+describeFolderContents_order = Lens.lens (\DescribeFolderContents' {order} -> order) (\s@DescribeFolderContents' {} a -> s {order = a} :: DescribeFolderContents)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-dfcAuthenticationToken :: Lens' DescribeFolderContents (Maybe Text)
-dfcAuthenticationToken = lens _dfcAuthenticationToken (\s a -> s {_dfcAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+describeFolderContents_authenticationToken :: Lens.Lens' DescribeFolderContents (Prelude.Maybe Prelude.Text)
+describeFolderContents_authenticationToken = Lens.lens (\DescribeFolderContents' {authenticationToken} -> authenticationToken) (\s@DescribeFolderContents' {} a -> s {authenticationToken = a} :: DescribeFolderContents) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The type of items.
-dfcType :: Lens' DescribeFolderContents (Maybe FolderContentType)
-dfcType = lens _dfcType (\s a -> s {_dfcType = a})
+describeFolderContents_type :: Lens.Lens' DescribeFolderContents (Prelude.Maybe FolderContentType)
+describeFolderContents_type = Lens.lens (\DescribeFolderContents' {type'} -> type') (\s@DescribeFolderContents' {} a -> s {type' = a} :: DescribeFolderContents)
 
 -- | The maximum number of items to return with this call.
-dfcLimit :: Lens' DescribeFolderContents (Maybe Natural)
-dfcLimit = lens _dfcLimit (\s a -> s {_dfcLimit = a}) . mapping _Nat
+describeFolderContents_limit :: Lens.Lens' DescribeFolderContents (Prelude.Maybe Prelude.Natural)
+describeFolderContents_limit = Lens.lens (\DescribeFolderContents' {limit} -> limit) (\s@DescribeFolderContents' {} a -> s {limit = a} :: DescribeFolderContents) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The sorting criteria.
-dfcSort :: Lens' DescribeFolderContents (Maybe ResourceSortType)
-dfcSort = lens _dfcSort (\s a -> s {_dfcSort = a})
+describeFolderContents_sort :: Lens.Lens' DescribeFolderContents (Prelude.Maybe ResourceSortType)
+describeFolderContents_sort = Lens.lens (\DescribeFolderContents' {sort} -> sort) (\s@DescribeFolderContents' {} a -> s {sort = a} :: DescribeFolderContents)
 
--- | The marker for the next set of results. This marker was received from a previous call.
-dfcMarker :: Lens' DescribeFolderContents (Maybe Text)
-dfcMarker = lens _dfcMarker (\s a -> s {_dfcMarker = a})
+-- | The marker for the next set of results. This marker was received from a
+-- previous call.
+describeFolderContents_marker :: Lens.Lens' DescribeFolderContents (Prelude.Maybe Prelude.Text)
+describeFolderContents_marker = Lens.lens (\DescribeFolderContents' {marker} -> marker) (\s@DescribeFolderContents' {} a -> s {marker = a} :: DescribeFolderContents)
 
 -- | The ID of the folder.
-dfcFolderId :: Lens' DescribeFolderContents Text
-dfcFolderId = lens _dfcFolderId (\s a -> s {_dfcFolderId = a})
+describeFolderContents_folderId :: Lens.Lens' DescribeFolderContents Prelude.Text
+describeFolderContents_folderId = Lens.lens (\DescribeFolderContents' {folderId} -> folderId) (\s@DescribeFolderContents' {} a -> s {folderId = a} :: DescribeFolderContents)
 
-instance AWSPager DescribeFolderContents where
+instance Pager.AWSPager DescribeFolderContents where
   page rq rs
-    | stop (rs ^. dfcrrsMarker) = Nothing
-    | stop (rs ^. dfcrrsFolders) = Nothing
-    | stop (rs ^. dfcrrsDocuments) = Nothing
-    | otherwise =
-      Just $ rq & dfcMarker .~ rs ^. dfcrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeFolderContentsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeFolderContentsResponse_folders
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeFolderContentsResponse_documents
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeFolderContents_marker
+          Lens..~ rs
+          Lens.^? describeFolderContentsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeFolderContents where
+instance Prelude.AWSRequest DescribeFolderContents where
   type
     Rs DescribeFolderContents =
       DescribeFolderContentsResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeFolderContentsResponse'
-            <$> (x .?> "Documents" .!@ mempty)
-            <*> (x .?> "Folders" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Documents"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Folders" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeFolderContents
+instance Prelude.Hashable DescribeFolderContents
 
-instance NFData DescribeFolderContents
+instance Prelude.NFData DescribeFolderContents
 
-instance ToHeaders DescribeFolderContents where
+instance Prelude.ToHeaders DescribeFolderContents where
   toHeaders DescribeFolderContents' {..} =
-    mconcat
-      [ "Authentication" =# _dfcAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DescribeFolderContents where
+instance Prelude.ToPath DescribeFolderContents where
   toPath DescribeFolderContents' {..} =
-    mconcat
-      ["/api/v1/folders/", toBS _dfcFolderId, "/contents"]
-
-instance ToQuery DescribeFolderContents where
-  toQuery DescribeFolderContents' {..} =
-    mconcat
-      [ "include" =: _dfcInclude,
-        "order" =: _dfcOrder,
-        "type" =: _dfcType,
-        "limit" =: _dfcLimit,
-        "sort" =: _dfcSort,
-        "marker" =: _dfcMarker
+    Prelude.mconcat
+      [ "/api/v1/folders/",
+        Prelude.toBS folderId,
+        "/contents"
       ]
 
--- | /See:/ 'describeFolderContentsResponse' smart constructor.
-data DescribeFolderContentsResponse = DescribeFolderContentsResponse'
-  { _dfcrrsDocuments ::
-      !( Maybe
-           [DocumentMetadata]
-       ),
-    _dfcrrsFolders ::
-      !( Maybe
-           [FolderMetadata]
-       ),
-    _dfcrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dfcrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+instance Prelude.ToQuery DescribeFolderContents where
+  toQuery DescribeFolderContents' {..} =
+    Prelude.mconcat
+      [ "include" Prelude.=: include,
+        "order" Prelude.=: order,
+        "type" Prelude.=: type',
+        "limit" Prelude.=: limit,
+        "sort" Prelude.=: sort,
+        "marker" Prelude.=: marker
+      ]
 
--- | Creates a value of 'DescribeFolderContentsResponse' with the minimum fields required to make a request.
+-- | /See:/ 'newDescribeFolderContentsResponse' smart constructor.
+data DescribeFolderContentsResponse = DescribeFolderContentsResponse'
+  { -- | The documents in the specified folder.
+    documents :: Prelude.Maybe [DocumentMetadata],
+    -- | The subfolders in the specified folder.
+    folders :: Prelude.Maybe [FolderMetadata],
+    -- | The marker to use when requesting the next set of results. If there are
+    -- no additional results, the string is empty.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeFolderContentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfcrrsDocuments' - The documents in the specified folder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfcrrsFolders' - The subfolders in the specified folder.
+-- 'documents', 'describeFolderContentsResponse_documents' - The documents in the specified folder.
 --
--- * 'dfcrrsMarker' - The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
+-- 'folders', 'describeFolderContentsResponse_folders' - The subfolders in the specified folder.
 --
--- * 'dfcrrsResponseStatus' - -- | The response status code.
-describeFolderContentsResponse ::
-  -- | 'dfcrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeFolderContentsResponse_marker' - The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+--
+-- 'httpStatus', 'describeFolderContentsResponse_httpStatus' - The response's http status code.
+newDescribeFolderContentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeFolderContentsResponse
-describeFolderContentsResponse pResponseStatus_ =
+newDescribeFolderContentsResponse pHttpStatus_ =
   DescribeFolderContentsResponse'
-    { _dfcrrsDocuments =
-        Nothing,
-      _dfcrrsFolders = Nothing,
-      _dfcrrsMarker = Nothing,
-      _dfcrrsResponseStatus = pResponseStatus_
+    { documents =
+        Prelude.Nothing,
+      folders = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The documents in the specified folder.
-dfcrrsDocuments :: Lens' DescribeFolderContentsResponse [DocumentMetadata]
-dfcrrsDocuments = lens _dfcrrsDocuments (\s a -> s {_dfcrrsDocuments = a}) . _Default . _Coerce
+describeFolderContentsResponse_documents :: Lens.Lens' DescribeFolderContentsResponse (Prelude.Maybe [DocumentMetadata])
+describeFolderContentsResponse_documents = Lens.lens (\DescribeFolderContentsResponse' {documents} -> documents) (\s@DescribeFolderContentsResponse' {} a -> s {documents = a} :: DescribeFolderContentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The subfolders in the specified folder.
-dfcrrsFolders :: Lens' DescribeFolderContentsResponse [FolderMetadata]
-dfcrrsFolders = lens _dfcrrsFolders (\s a -> s {_dfcrrsFolders = a}) . _Default . _Coerce
+describeFolderContentsResponse_folders :: Lens.Lens' DescribeFolderContentsResponse (Prelude.Maybe [FolderMetadata])
+describeFolderContentsResponse_folders = Lens.lens (\DescribeFolderContentsResponse' {folders} -> folders) (\s@DescribeFolderContentsResponse' {} a -> s {folders = a} :: DescribeFolderContentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The marker to use when requesting the next set of results. If there are no additional results, the string is empty.
-dfcrrsMarker :: Lens' DescribeFolderContentsResponse (Maybe Text)
-dfcrrsMarker = lens _dfcrrsMarker (\s a -> s {_dfcrrsMarker = a})
+-- | The marker to use when requesting the next set of results. If there are
+-- no additional results, the string is empty.
+describeFolderContentsResponse_marker :: Lens.Lens' DescribeFolderContentsResponse (Prelude.Maybe Prelude.Text)
+describeFolderContentsResponse_marker = Lens.lens (\DescribeFolderContentsResponse' {marker} -> marker) (\s@DescribeFolderContentsResponse' {} a -> s {marker = a} :: DescribeFolderContentsResponse)
 
--- | -- | The response status code.
-dfcrrsResponseStatus :: Lens' DescribeFolderContentsResponse Int
-dfcrrsResponseStatus = lens _dfcrrsResponseStatus (\s a -> s {_dfcrrsResponseStatus = a})
+-- | The response's http status code.
+describeFolderContentsResponse_httpStatus :: Lens.Lens' DescribeFolderContentsResponse Prelude.Int
+describeFolderContentsResponse_httpStatus = Lens.lens (\DescribeFolderContentsResponse' {httpStatus} -> httpStatus) (\s@DescribeFolderContentsResponse' {} a -> s {httpStatus = a} :: DescribeFolderContentsResponse)
 
-instance NFData DescribeFolderContentsResponse
+instance
+  Prelude.NFData
+    DescribeFolderContentsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkDocs.Types.PermissionInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkDocs.Types.RolePermissionType
 import Network.AWS.WorkDocs.Types.RoleType
 
 -- | Describes the permissions.
 --
---
---
--- /See:/ 'permissionInfo' smart constructor.
+-- /See:/ 'newPermissionInfo' smart constructor.
 data PermissionInfo = PermissionInfo'
-  { _piRole ::
-      !(Maybe RoleType),
-    _piType :: !(Maybe RolePermissionType)
+  { -- | The role of the user.
+    role' :: Prelude.Maybe RoleType,
+    -- | The type of permissions.
+    type' :: Prelude.Maybe RolePermissionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PermissionInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PermissionInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'piRole' - The role of the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'piType' - The type of permissions.
-permissionInfo ::
+-- 'role'', 'permissionInfo_role' - The role of the user.
+--
+-- 'type'', 'permissionInfo_type' - The type of permissions.
+newPermissionInfo ::
   PermissionInfo
-permissionInfo =
+newPermissionInfo =
   PermissionInfo'
-    { _piRole = Nothing,
-      _piType = Nothing
+    { role' = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The role of the user.
-piRole :: Lens' PermissionInfo (Maybe RoleType)
-piRole = lens _piRole (\s a -> s {_piRole = a})
+permissionInfo_role :: Lens.Lens' PermissionInfo (Prelude.Maybe RoleType)
+permissionInfo_role = Lens.lens (\PermissionInfo' {role'} -> role') (\s@PermissionInfo' {} a -> s {role' = a} :: PermissionInfo)
 
 -- | The type of permissions.
-piType :: Lens' PermissionInfo (Maybe RolePermissionType)
-piType = lens _piType (\s a -> s {_piType = a})
+permissionInfo_type :: Lens.Lens' PermissionInfo (Prelude.Maybe RolePermissionType)
+permissionInfo_type = Lens.lens (\PermissionInfo' {type'} -> type') (\s@PermissionInfo' {} a -> s {type' = a} :: PermissionInfo)
 
-instance FromJSON PermissionInfo where
+instance Prelude.FromJSON PermissionInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PermissionInfo"
       ( \x ->
           PermissionInfo'
-            <$> (x .:? "Role") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Role")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable PermissionInfo
+instance Prelude.Hashable PermissionInfo
 
-instance NFData PermissionInfo
+instance Prelude.NFData PermissionInfo

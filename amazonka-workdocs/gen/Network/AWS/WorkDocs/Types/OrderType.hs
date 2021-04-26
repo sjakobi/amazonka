@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.WorkDocs.Types.OrderType
   ( OrderType
       ( ..,
-        Ascending,
-        Descending
+        OrderTypeASCENDING,
+        OrderTypeDESCENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrderType = OrderType' (CI Text)
+newtype OrderType = OrderType'
+  { fromOrderType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ascending :: OrderType
-pattern Ascending = OrderType' "ASCENDING"
+pattern OrderTypeASCENDING :: OrderType
+pattern OrderTypeASCENDING = OrderType' "ASCENDING"
 
-pattern Descending :: OrderType
-pattern Descending = OrderType' "DESCENDING"
+pattern OrderTypeDESCENDING :: OrderType
+pattern OrderTypeDESCENDING = OrderType' "DESCENDING"
 
 {-# COMPLETE
-  Ascending,
-  Descending,
+  OrderTypeASCENDING,
+  OrderTypeDESCENDING,
   OrderType'
   #-}
 
-instance FromText OrderType where
-  parser = (OrderType' . mk) <$> takeText
+instance Prelude.FromText OrderType where
+  parser = OrderType' Prelude.<$> Prelude.takeText
 
-instance ToText OrderType where
-  toText (OrderType' ci) = original ci
+instance Prelude.ToText OrderType where
+  toText (OrderType' x) = x
 
-instance Hashable OrderType
+instance Prelude.Hashable OrderType
 
-instance NFData OrderType
+instance Prelude.NFData OrderType
 
-instance ToByteString OrderType
+instance Prelude.ToByteString OrderType
 
-instance ToQuery OrderType
+instance Prelude.ToQuery OrderType
 
-instance ToHeader OrderType
+instance Prelude.ToHeader OrderType
 
-instance ToJSON OrderType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OrderType where
+  toJSON = Prelude.toJSONText

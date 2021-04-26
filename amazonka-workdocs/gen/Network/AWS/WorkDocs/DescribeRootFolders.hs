@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the current user's special folders; the @RootFolder@ and the @RecycleBin@ . @RootFolder@ is the root of user's files and folders and @RecycleBin@ is the root of recycled items. This is not a valid action for SigV4 (administrative API) clients.
+-- Describes the current user\'s special folders; the @RootFolder@ and the
+-- @RecycleBin@. @RootFolder@ is the root of user\'s files and folders and
+-- @RecycleBin@ is the root of recycled items. This is not a valid action
+-- for SigV4 (administrative API) clients.
 --
---
--- This action requires an authentication token. To get an authentication token, register an application with Amazon WorkDocs. For more information, see <https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html Authentication and Access Control for User Applications> in the /Amazon WorkDocs Developer Guide/ .
---
+-- This action requires an authentication token. To get an authentication
+-- token, register an application with Amazon WorkDocs. For more
+-- information, see
+-- <https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html Authentication and Access Control for User Applications>
+-- in the /Amazon WorkDocs Developer Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkDocs.DescribeRootFolders
   ( -- * Creating a Request
-    describeRootFolders,
-    DescribeRootFolders,
+    DescribeRootFolders (..),
+    newDescribeRootFolders,
 
     -- * Request Lenses
-    drfLimit,
-    drfMarker,
-    drfAuthenticationToken,
+    describeRootFolders_limit,
+    describeRootFolders_marker,
+    describeRootFolders_authenticationToken,
 
     -- * Destructuring the Response
-    describeRootFoldersResponse,
-    DescribeRootFoldersResponse,
+    DescribeRootFoldersResponse (..),
+    newDescribeRootFoldersResponse,
 
     -- * Response Lenses
-    drfrrsFolders,
-    drfrrsMarker,
-    drfrrsResponseStatus,
+    describeRootFoldersResponse_folders,
+    describeRootFoldersResponse_marker,
+    describeRootFoldersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.FolderMetadata
 
--- | /See:/ 'describeRootFolders' smart constructor.
+-- | /See:/ 'newDescribeRootFolders' smart constructor.
 data DescribeRootFolders = DescribeRootFolders'
-  { _drfLimit ::
-      !(Maybe Nat),
-    _drfMarker :: !(Maybe Text),
-    _drfAuthenticationToken ::
-      !(Sensitive Text)
+  { -- | The maximum number of items to return.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The marker for the next set of results. (You received this marker from a
+    -- previous call.)
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | Amazon WorkDocs authentication token.
+    authenticationToken :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRootFolders' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRootFolders' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drfLimit' - The maximum number of items to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drfMarker' - The marker for the next set of results. (You received this marker from a previous call.)
+-- 'limit', 'describeRootFolders_limit' - The maximum number of items to return.
 --
--- * 'drfAuthenticationToken' - Amazon WorkDocs authentication token.
-describeRootFolders ::
-  -- | 'drfAuthenticationToken'
-  Text ->
+-- 'marker', 'describeRootFolders_marker' - The marker for the next set of results. (You received this marker from a
+-- previous call.)
+--
+-- 'authenticationToken', 'describeRootFolders_authenticationToken' - Amazon WorkDocs authentication token.
+newDescribeRootFolders ::
+  -- | 'authenticationToken'
+  Prelude.Text ->
   DescribeRootFolders
-describeRootFolders pAuthenticationToken_ =
+newDescribeRootFolders pAuthenticationToken_ =
   DescribeRootFolders'
-    { _drfLimit = Nothing,
-      _drfMarker = Nothing,
-      _drfAuthenticationToken =
-        _Sensitive # pAuthenticationToken_
+    { limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      authenticationToken =
+        Prelude._Sensitive Lens.# pAuthenticationToken_
     }
 
 -- | The maximum number of items to return.
-drfLimit :: Lens' DescribeRootFolders (Maybe Natural)
-drfLimit = lens _drfLimit (\s a -> s {_drfLimit = a}) . mapping _Nat
+describeRootFolders_limit :: Lens.Lens' DescribeRootFolders (Prelude.Maybe Prelude.Natural)
+describeRootFolders_limit = Lens.lens (\DescribeRootFolders' {limit} -> limit) (\s@DescribeRootFolders' {} a -> s {limit = a} :: DescribeRootFolders) Prelude.. Lens.mapping Prelude._Nat
 
--- | The marker for the next set of results. (You received this marker from a previous call.)
-drfMarker :: Lens' DescribeRootFolders (Maybe Text)
-drfMarker = lens _drfMarker (\s a -> s {_drfMarker = a})
+-- | The marker for the next set of results. (You received this marker from a
+-- previous call.)
+describeRootFolders_marker :: Lens.Lens' DescribeRootFolders (Prelude.Maybe Prelude.Text)
+describeRootFolders_marker = Lens.lens (\DescribeRootFolders' {marker} -> marker) (\s@DescribeRootFolders' {} a -> s {marker = a} :: DescribeRootFolders)
 
 -- | Amazon WorkDocs authentication token.
-drfAuthenticationToken :: Lens' DescribeRootFolders Text
-drfAuthenticationToken = lens _drfAuthenticationToken (\s a -> s {_drfAuthenticationToken = a}) . _Sensitive
+describeRootFolders_authenticationToken :: Lens.Lens' DescribeRootFolders Prelude.Text
+describeRootFolders_authenticationToken = Lens.lens (\DescribeRootFolders' {authenticationToken} -> authenticationToken) (\s@DescribeRootFolders' {} a -> s {authenticationToken = a} :: DescribeRootFolders) Prelude.. Prelude._Sensitive
 
-instance AWSPager DescribeRootFolders where
+instance Pager.AWSPager DescribeRootFolders where
   page rq rs
-    | stop (rs ^. drfrrsMarker) = Nothing
-    | stop (rs ^. drfrrsFolders) = Nothing
-    | otherwise =
-      Just $ rq & drfMarker .~ rs ^. drfrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeRootFoldersResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeRootFoldersResponse_folders
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeRootFolders_marker
+          Lens..~ rs
+          Lens.^? describeRootFoldersResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeRootFolders where
+instance Prelude.AWSRequest DescribeRootFolders where
   type
     Rs DescribeRootFolders =
       DescribeRootFoldersResponse
-  request = get workDocs
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeRootFoldersResponse'
-            <$> (x .?> "Folders" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Folders" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeRootFolders
+instance Prelude.Hashable DescribeRootFolders
 
-instance NFData DescribeRootFolders
+instance Prelude.NFData DescribeRootFolders
 
-instance ToHeaders DescribeRootFolders where
+instance Prelude.ToHeaders DescribeRootFolders where
   toHeaders DescribeRootFolders' {..} =
-    mconcat
-      [ "Authentication" =# _drfAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DescribeRootFolders where
-  toPath = const "/api/v1/me/root"
+instance Prelude.ToPath DescribeRootFolders where
+  toPath = Prelude.const "/api/v1/me/root"
 
-instance ToQuery DescribeRootFolders where
+instance Prelude.ToQuery DescribeRootFolders where
   toQuery DescribeRootFolders' {..} =
-    mconcat
-      ["limit" =: _drfLimit, "marker" =: _drfMarker]
+    Prelude.mconcat
+      [ "limit" Prelude.=: limit,
+        "marker" Prelude.=: marker
+      ]
 
--- | /See:/ 'describeRootFoldersResponse' smart constructor.
+-- | /See:/ 'newDescribeRootFoldersResponse' smart constructor.
 data DescribeRootFoldersResponse = DescribeRootFoldersResponse'
-  { _drfrrsFolders ::
-      !( Maybe
-           [FolderMetadata]
-       ),
-    _drfrrsMarker ::
-      !(Maybe Text),
-    _drfrrsResponseStatus ::
-      !Int
+  { -- | The user\'s special folders.
+    folders :: Prelude.Maybe [FolderMetadata],
+    -- | The marker for the next set of results.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRootFoldersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRootFoldersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drfrrsFolders' - The user's special folders.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drfrrsMarker' - The marker for the next set of results.
+-- 'folders', 'describeRootFoldersResponse_folders' - The user\'s special folders.
 --
--- * 'drfrrsResponseStatus' - -- | The response status code.
-describeRootFoldersResponse ::
-  -- | 'drfrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeRootFoldersResponse_marker' - The marker for the next set of results.
+--
+-- 'httpStatus', 'describeRootFoldersResponse_httpStatus' - The response's http status code.
+newDescribeRootFoldersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeRootFoldersResponse
-describeRootFoldersResponse pResponseStatus_ =
+newDescribeRootFoldersResponse pHttpStatus_ =
   DescribeRootFoldersResponse'
-    { _drfrrsFolders =
-        Nothing,
-      _drfrrsMarker = Nothing,
-      _drfrrsResponseStatus = pResponseStatus_
+    { folders =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The user's special folders.
-drfrrsFolders :: Lens' DescribeRootFoldersResponse [FolderMetadata]
-drfrrsFolders = lens _drfrrsFolders (\s a -> s {_drfrrsFolders = a}) . _Default . _Coerce
+-- | The user\'s special folders.
+describeRootFoldersResponse_folders :: Lens.Lens' DescribeRootFoldersResponse (Prelude.Maybe [FolderMetadata])
+describeRootFoldersResponse_folders = Lens.lens (\DescribeRootFoldersResponse' {folders} -> folders) (\s@DescribeRootFoldersResponse' {} a -> s {folders = a} :: DescribeRootFoldersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The marker for the next set of results.
-drfrrsMarker :: Lens' DescribeRootFoldersResponse (Maybe Text)
-drfrrsMarker = lens _drfrrsMarker (\s a -> s {_drfrrsMarker = a})
+describeRootFoldersResponse_marker :: Lens.Lens' DescribeRootFoldersResponse (Prelude.Maybe Prelude.Text)
+describeRootFoldersResponse_marker = Lens.lens (\DescribeRootFoldersResponse' {marker} -> marker) (\s@DescribeRootFoldersResponse' {} a -> s {marker = a} :: DescribeRootFoldersResponse)
 
--- | -- | The response status code.
-drfrrsResponseStatus :: Lens' DescribeRootFoldersResponse Int
-drfrrsResponseStatus = lens _drfrrsResponseStatus (\s a -> s {_drfrrsResponseStatus = a})
+-- | The response's http status code.
+describeRootFoldersResponse_httpStatus :: Lens.Lens' DescribeRootFoldersResponse Prelude.Int
+describeRootFoldersResponse_httpStatus = Lens.lens (\DescribeRootFoldersResponse' {httpStatus} -> httpStatus) (\s@DescribeRootFoldersResponse' {} a -> s {httpStatus = a} :: DescribeRootFoldersResponse)
 
-instance NFData DescribeRootFoldersResponse
+instance Prelude.NFData DescribeRootFoldersResponse

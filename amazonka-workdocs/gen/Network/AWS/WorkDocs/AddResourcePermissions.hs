@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,184 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a set of permissions for the specified folder or document. The resource permissions are overwritten if the principals already have different permissions.
+-- Creates a set of permissions for the specified folder or document. The
+-- resource permissions are overwritten if the principals already have
+-- different permissions.
 module Network.AWS.WorkDocs.AddResourcePermissions
   ( -- * Creating a Request
-    addResourcePermissions,
-    AddResourcePermissions,
+    AddResourcePermissions (..),
+    newAddResourcePermissions,
 
     -- * Request Lenses
-    arpNotificationOptions,
-    arpAuthenticationToken,
-    arpResourceId,
-    arpPrincipals,
+    addResourcePermissions_notificationOptions,
+    addResourcePermissions_authenticationToken,
+    addResourcePermissions_resourceId,
+    addResourcePermissions_principals,
 
     -- * Destructuring the Response
-    addResourcePermissionsResponse,
-    AddResourcePermissionsResponse,
+    AddResourcePermissionsResponse (..),
+    newAddResourcePermissionsResponse,
 
     -- * Response Lenses
-    arprrsShareResults,
-    arprrsResponseStatus,
+    addResourcePermissionsResponse_shareResults,
+    addResourcePermissionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkDocs.Types
+import Network.AWS.WorkDocs.Types.ShareResult
 
--- | /See:/ 'addResourcePermissions' smart constructor.
+-- | /See:/ 'newAddResourcePermissions' smart constructor.
 data AddResourcePermissions = AddResourcePermissions'
-  { _arpNotificationOptions ::
-      !( Maybe
-           NotificationOptions
-       ),
-    _arpAuthenticationToken ::
-      !(Maybe (Sensitive Text)),
-    _arpResourceId :: !Text,
-    _arpPrincipals ::
-      ![SharePrincipal]
+  { -- | The notification options.
+    notificationOptions :: Prelude.Maybe NotificationOptions,
+    -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ID of the resource.
+    resourceId :: Prelude.Text,
+    -- | The users, groups, or organization being granted permission.
+    principals :: [SharePrincipal]
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddResourcePermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddResourcePermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'arpNotificationOptions' - The notification options.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'arpAuthenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
+-- 'notificationOptions', 'addResourcePermissions_notificationOptions' - The notification options.
 --
--- * 'arpResourceId' - The ID of the resource.
+-- 'authenticationToken', 'addResourcePermissions_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
 --
--- * 'arpPrincipals' - The users, groups, or organization being granted permission.
-addResourcePermissions ::
-  -- | 'arpResourceId'
-  Text ->
+-- 'resourceId', 'addResourcePermissions_resourceId' - The ID of the resource.
+--
+-- 'principals', 'addResourcePermissions_principals' - The users, groups, or organization being granted permission.
+newAddResourcePermissions ::
+  -- | 'resourceId'
+  Prelude.Text ->
   AddResourcePermissions
-addResourcePermissions pResourceId_ =
+newAddResourcePermissions pResourceId_ =
   AddResourcePermissions'
-    { _arpNotificationOptions =
-        Nothing,
-      _arpAuthenticationToken = Nothing,
-      _arpResourceId = pResourceId_,
-      _arpPrincipals = mempty
+    { notificationOptions =
+        Prelude.Nothing,
+      authenticationToken = Prelude.Nothing,
+      resourceId = pResourceId_,
+      principals = Prelude.mempty
     }
 
 -- | The notification options.
-arpNotificationOptions :: Lens' AddResourcePermissions (Maybe NotificationOptions)
-arpNotificationOptions = lens _arpNotificationOptions (\s a -> s {_arpNotificationOptions = a})
+addResourcePermissions_notificationOptions :: Lens.Lens' AddResourcePermissions (Prelude.Maybe NotificationOptions)
+addResourcePermissions_notificationOptions = Lens.lens (\AddResourcePermissions' {notificationOptions} -> notificationOptions) (\s@AddResourcePermissions' {} a -> s {notificationOptions = a} :: AddResourcePermissions)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS administrator credentials to access the API.
-arpAuthenticationToken :: Lens' AddResourcePermissions (Maybe Text)
-arpAuthenticationToken = lens _arpAuthenticationToken (\s a -> s {_arpAuthenticationToken = a}) . mapping _Sensitive
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+addResourcePermissions_authenticationToken :: Lens.Lens' AddResourcePermissions (Prelude.Maybe Prelude.Text)
+addResourcePermissions_authenticationToken = Lens.lens (\AddResourcePermissions' {authenticationToken} -> authenticationToken) (\s@AddResourcePermissions' {} a -> s {authenticationToken = a} :: AddResourcePermissions) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ID of the resource.
-arpResourceId :: Lens' AddResourcePermissions Text
-arpResourceId = lens _arpResourceId (\s a -> s {_arpResourceId = a})
+addResourcePermissions_resourceId :: Lens.Lens' AddResourcePermissions Prelude.Text
+addResourcePermissions_resourceId = Lens.lens (\AddResourcePermissions' {resourceId} -> resourceId) (\s@AddResourcePermissions' {} a -> s {resourceId = a} :: AddResourcePermissions)
 
 -- | The users, groups, or organization being granted permission.
-arpPrincipals :: Lens' AddResourcePermissions [SharePrincipal]
-arpPrincipals = lens _arpPrincipals (\s a -> s {_arpPrincipals = a}) . _Coerce
+addResourcePermissions_principals :: Lens.Lens' AddResourcePermissions [SharePrincipal]
+addResourcePermissions_principals = Lens.lens (\AddResourcePermissions' {principals} -> principals) (\s@AddResourcePermissions' {} a -> s {principals = a} :: AddResourcePermissions) Prelude.. Prelude._Coerce
 
-instance AWSRequest AddResourcePermissions where
+instance Prelude.AWSRequest AddResourcePermissions where
   type
     Rs AddResourcePermissions =
       AddResourcePermissionsResponse
-  request = postJSON workDocs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AddResourcePermissionsResponse'
-            <$> (x .?> "ShareResults" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ShareResults"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddResourcePermissions
+instance Prelude.Hashable AddResourcePermissions
 
-instance NFData AddResourcePermissions
+instance Prelude.NFData AddResourcePermissions
 
-instance ToHeaders AddResourcePermissions where
+instance Prelude.ToHeaders AddResourcePermissions where
   toHeaders AddResourcePermissions' {..} =
-    mconcat
-      [ "Authentication" =# _arpAuthenticationToken,
+    Prelude.mconcat
+      [ "Authentication" Prelude.=# authenticationToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON AddResourcePermissions where
+instance Prelude.ToJSON AddResourcePermissions where
   toJSON AddResourcePermissions' {..} =
-    object
-      ( catMaybes
-          [ ("NotificationOptions" .=)
-              <$> _arpNotificationOptions,
-            Just ("Principals" .= _arpPrincipals)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotificationOptions" Prelude..=)
+              Prelude.<$> notificationOptions,
+            Prelude.Just ("Principals" Prelude..= principals)
           ]
       )
 
-instance ToPath AddResourcePermissions where
+instance Prelude.ToPath AddResourcePermissions where
   toPath AddResourcePermissions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/api/v1/resources/",
-        toBS _arpResourceId,
+        Prelude.toBS resourceId,
         "/permissions"
       ]
 
-instance ToQuery AddResourcePermissions where
-  toQuery = const mempty
+instance Prelude.ToQuery AddResourcePermissions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'addResourcePermissionsResponse' smart constructor.
+-- | /See:/ 'newAddResourcePermissionsResponse' smart constructor.
 data AddResourcePermissionsResponse = AddResourcePermissionsResponse'
-  { _arprrsShareResults ::
-      !( Maybe
-           [ShareResult]
-       ),
-    _arprrsResponseStatus ::
-      !Int
+  { -- | The share results.
+    shareResults :: Prelude.Maybe [ShareResult],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddResourcePermissionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddResourcePermissionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'arprrsShareResults' - The share results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'arprrsResponseStatus' - -- | The response status code.
-addResourcePermissionsResponse ::
-  -- | 'arprrsResponseStatus'
-  Int ->
+-- 'shareResults', 'addResourcePermissionsResponse_shareResults' - The share results.
+--
+-- 'httpStatus', 'addResourcePermissionsResponse_httpStatus' - The response's http status code.
+newAddResourcePermissionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddResourcePermissionsResponse
-addResourcePermissionsResponse pResponseStatus_ =
+newAddResourcePermissionsResponse pHttpStatus_ =
   AddResourcePermissionsResponse'
-    { _arprrsShareResults =
-        Nothing,
-      _arprrsResponseStatus = pResponseStatus_
+    { shareResults =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The share results.
-arprrsShareResults :: Lens' AddResourcePermissionsResponse [ShareResult]
-arprrsShareResults = lens _arprrsShareResults (\s a -> s {_arprrsShareResults = a}) . _Default . _Coerce
+addResourcePermissionsResponse_shareResults :: Lens.Lens' AddResourcePermissionsResponse (Prelude.Maybe [ShareResult])
+addResourcePermissionsResponse_shareResults = Lens.lens (\AddResourcePermissionsResponse' {shareResults} -> shareResults) (\s@AddResourcePermissionsResponse' {} a -> s {shareResults = a} :: AddResourcePermissionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-arprrsResponseStatus :: Lens' AddResourcePermissionsResponse Int
-arprrsResponseStatus = lens _arprrsResponseStatus (\s a -> s {_arprrsResponseStatus = a})
+-- | The response's http status code.
+addResourcePermissionsResponse_httpStatus :: Lens.Lens' AddResourcePermissionsResponse Prelude.Int
+addResourcePermissionsResponse_httpStatus = Lens.lens (\AddResourcePermissionsResponse' {httpStatus} -> httpStatus) (\s@AddResourcePermissionsResponse' {} a -> s {httpStatus = a} :: AddResourcePermissionsResponse)
 
-instance NFData AddResourcePermissionsResponse
+instance
+  Prelude.NFData
+    AddResourcePermissionsResponse
