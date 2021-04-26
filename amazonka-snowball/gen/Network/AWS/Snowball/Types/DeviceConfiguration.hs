@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.DeviceConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Snowball.Types.SnowconeDeviceConfiguration
 
--- | The container for @SnowconeDeviceConfiguration@ .
+-- | The container for @SnowconeDeviceConfiguration@.
 --
---
---
--- /See:/ 'deviceConfiguration' smart constructor.
-newtype DeviceConfiguration = DeviceConfiguration'
-  { _dcSnowconeDeviceConfiguration ::
-      Maybe
-        SnowconeDeviceConfiguration
+-- /See:/ 'newDeviceConfiguration' smart constructor.
+data DeviceConfiguration = DeviceConfiguration'
+  { -- | Returns information about the device configuration for an AWS Snowcone
+    -- job.
+    snowconeDeviceConfiguration :: Prelude.Maybe SnowconeDeviceConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcSnowconeDeviceConfiguration' - Returns information about the device configuration for an AWS Snowcone job.
-deviceConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'snowconeDeviceConfiguration', 'deviceConfiguration_snowconeDeviceConfiguration' - Returns information about the device configuration for an AWS Snowcone
+-- job.
+newDeviceConfiguration ::
   DeviceConfiguration
-deviceConfiguration =
+newDeviceConfiguration =
   DeviceConfiguration'
-    { _dcSnowconeDeviceConfiguration =
-        Nothing
+    { snowconeDeviceConfiguration =
+        Prelude.Nothing
     }
 
--- | Returns information about the device configuration for an AWS Snowcone job.
-dcSnowconeDeviceConfiguration :: Lens' DeviceConfiguration (Maybe SnowconeDeviceConfiguration)
-dcSnowconeDeviceConfiguration = lens _dcSnowconeDeviceConfiguration (\s a -> s {_dcSnowconeDeviceConfiguration = a})
+-- | Returns information about the device configuration for an AWS Snowcone
+-- job.
+deviceConfiguration_snowconeDeviceConfiguration :: Lens.Lens' DeviceConfiguration (Prelude.Maybe SnowconeDeviceConfiguration)
+deviceConfiguration_snowconeDeviceConfiguration = Lens.lens (\DeviceConfiguration' {snowconeDeviceConfiguration} -> snowconeDeviceConfiguration) (\s@DeviceConfiguration' {} a -> s {snowconeDeviceConfiguration = a} :: DeviceConfiguration)
 
-instance FromJSON DeviceConfiguration where
+instance Prelude.FromJSON DeviceConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceConfiguration"
       ( \x ->
           DeviceConfiguration'
-            <$> (x .:? "SnowconeDeviceConfiguration")
+            Prelude.<$> (x Prelude..:? "SnowconeDeviceConfiguration")
       )
 
-instance Hashable DeviceConfiguration
+instance Prelude.Hashable DeviceConfiguration
 
-instance NFData DeviceConfiguration
+instance Prelude.NFData DeviceConfiguration
 
-instance ToJSON DeviceConfiguration where
+instance Prelude.ToJSON DeviceConfiguration where
   toJSON DeviceConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("SnowconeDeviceConfiguration" .=)
-              <$> _dcSnowconeDeviceConfiguration
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SnowconeDeviceConfiguration" Prelude..=)
+              Prelude.<$> snowconeDeviceConfiguration
           ]
       )

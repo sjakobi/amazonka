@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a shipping label that will be used to return the Snow device to AWS.
+-- Creates a shipping label that will be used to return the Snow device to
+-- AWS.
 module Network.AWS.Snowball.CreateReturnShippingLabel
   ( -- * Creating a Request
-    createReturnShippingLabel,
-    CreateReturnShippingLabel,
+    CreateReturnShippingLabel (..),
+    newCreateReturnShippingLabel,
 
     -- * Request Lenses
-    crslShippingOption,
-    crslJobId,
+    createReturnShippingLabel_shippingOption,
+    createReturnShippingLabel_jobId,
 
     -- * Destructuring the Response
-    createReturnShippingLabelResponse,
-    CreateReturnShippingLabelResponse,
+    CreateReturnShippingLabelResponse (..),
+    newCreateReturnShippingLabelResponse,
 
     -- * Response Lenses
-    crslrrsStatus,
-    crslrrsResponseStatus,
+    createReturnShippingLabelResponse_status,
+    createReturnShippingLabelResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Snowball.Types
+import Network.AWS.Snowball.Types.ShippingLabelStatus
 
--- | /See:/ 'createReturnShippingLabel' smart constructor.
+-- | /See:/ 'newCreateReturnShippingLabel' smart constructor.
 data CreateReturnShippingLabel = CreateReturnShippingLabel'
-  { _crslShippingOption ::
-      !( Maybe
-           ShippingOption
-       ),
-    _crslJobId :: !Text
+  { -- | The shipping speed for a particular job. This speed doesn\'t dictate how
+    -- soon the device is returned to AWS. This speed represents how quickly it
+    -- moves to its destination while in transit. Regional shipping speeds are
+    -- as follows:
+    shippingOption :: Prelude.Maybe ShippingOption,
+    -- | The ID for a job that you want to create the return shipping label for.
+    -- For example @JID123e4567-e89b-12d3-a456-426655440000@.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReturnShippingLabel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReturnShippingLabel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crslShippingOption' - The shipping speed for a particular job. This speed doesn't dictate how soon the device is returned to AWS. This speed represents how quickly it moves to its destination while in transit. Regional shipping speeds are as follows:
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crslJobId' - The ID for a job that you want to create the return shipping label for. For example @JID123e4567-e89b-12d3-a456-426655440000@ .
-createReturnShippingLabel ::
-  -- | 'crslJobId'
-  Text ->
+-- 'shippingOption', 'createReturnShippingLabel_shippingOption' - The shipping speed for a particular job. This speed doesn\'t dictate how
+-- soon the device is returned to AWS. This speed represents how quickly it
+-- moves to its destination while in transit. Regional shipping speeds are
+-- as follows:
+--
+-- 'jobId', 'createReturnShippingLabel_jobId' - The ID for a job that you want to create the return shipping label for.
+-- For example @JID123e4567-e89b-12d3-a456-426655440000@.
+newCreateReturnShippingLabel ::
+  -- | 'jobId'
+  Prelude.Text ->
   CreateReturnShippingLabel
-createReturnShippingLabel pJobId_ =
+newCreateReturnShippingLabel pJobId_ =
   CreateReturnShippingLabel'
-    { _crslShippingOption =
-        Nothing,
-      _crslJobId = pJobId_
+    { shippingOption =
+        Prelude.Nothing,
+      jobId = pJobId_
     }
 
--- | The shipping speed for a particular job. This speed doesn't dictate how soon the device is returned to AWS. This speed represents how quickly it moves to its destination while in transit. Regional shipping speeds are as follows:
-crslShippingOption :: Lens' CreateReturnShippingLabel (Maybe ShippingOption)
-crslShippingOption = lens _crslShippingOption (\s a -> s {_crslShippingOption = a})
+-- | The shipping speed for a particular job. This speed doesn\'t dictate how
+-- soon the device is returned to AWS. This speed represents how quickly it
+-- moves to its destination while in transit. Regional shipping speeds are
+-- as follows:
+createReturnShippingLabel_shippingOption :: Lens.Lens' CreateReturnShippingLabel (Prelude.Maybe ShippingOption)
+createReturnShippingLabel_shippingOption = Lens.lens (\CreateReturnShippingLabel' {shippingOption} -> shippingOption) (\s@CreateReturnShippingLabel' {} a -> s {shippingOption = a} :: CreateReturnShippingLabel)
 
--- | The ID for a job that you want to create the return shipping label for. For example @JID123e4567-e89b-12d3-a456-426655440000@ .
-crslJobId :: Lens' CreateReturnShippingLabel Text
-crslJobId = lens _crslJobId (\s a -> s {_crslJobId = a})
+-- | The ID for a job that you want to create the return shipping label for.
+-- For example @JID123e4567-e89b-12d3-a456-426655440000@.
+createReturnShippingLabel_jobId :: Lens.Lens' CreateReturnShippingLabel Prelude.Text
+createReturnShippingLabel_jobId = Lens.lens (\CreateReturnShippingLabel' {jobId} -> jobId) (\s@CreateReturnShippingLabel' {} a -> s {jobId = a} :: CreateReturnShippingLabel)
 
-instance AWSRequest CreateReturnShippingLabel where
+instance Prelude.AWSRequest CreateReturnShippingLabel where
   type
     Rs CreateReturnShippingLabel =
       CreateReturnShippingLabelResponse
-  request = postJSON snowball
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateReturnShippingLabelResponse'
-            <$> (x .?> "Status") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateReturnShippingLabel
+instance Prelude.Hashable CreateReturnShippingLabel
 
-instance NFData CreateReturnShippingLabel
+instance Prelude.NFData CreateReturnShippingLabel
 
-instance ToHeaders CreateReturnShippingLabel where
+instance Prelude.ToHeaders CreateReturnShippingLabel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSIESnowballJobManagementService.CreateReturnShippingLabel" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSIESnowballJobManagementService.CreateReturnShippingLabel" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateReturnShippingLabel where
+instance Prelude.ToJSON CreateReturnShippingLabel where
   toJSON CreateReturnShippingLabel' {..} =
-    object
-      ( catMaybes
-          [ ("ShippingOption" .=) <$> _crslShippingOption,
-            Just ("JobId" .= _crslJobId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ShippingOption" Prelude..=)
+              Prelude.<$> shippingOption,
+            Prelude.Just ("JobId" Prelude..= jobId)
           ]
       )
 
-instance ToPath CreateReturnShippingLabel where
-  toPath = const "/"
+instance Prelude.ToPath CreateReturnShippingLabel where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateReturnShippingLabel where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateReturnShippingLabel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createReturnShippingLabelResponse' smart constructor.
+-- | /See:/ 'newCreateReturnShippingLabelResponse' smart constructor.
 data CreateReturnShippingLabelResponse = CreateReturnShippingLabelResponse'
-  { _crslrrsStatus ::
-      !( Maybe
-           ShippingLabelStatus
-       ),
-    _crslrrsResponseStatus ::
-      !Int
+  { -- | The status information of the task on a Snow device that is being
+    -- returned to AWS.
+    status :: Prelude.Maybe ShippingLabelStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReturnShippingLabelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReturnShippingLabelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crslrrsStatus' - The status information of the task on a Snow device that is being returned to AWS.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crslrrsResponseStatus' - -- | The response status code.
-createReturnShippingLabelResponse ::
-  -- | 'crslrrsResponseStatus'
-  Int ->
+-- 'status', 'createReturnShippingLabelResponse_status' - The status information of the task on a Snow device that is being
+-- returned to AWS.
+--
+-- 'httpStatus', 'createReturnShippingLabelResponse_httpStatus' - The response's http status code.
+newCreateReturnShippingLabelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateReturnShippingLabelResponse
-createReturnShippingLabelResponse pResponseStatus_ =
+newCreateReturnShippingLabelResponse pHttpStatus_ =
   CreateReturnShippingLabelResponse'
-    { _crslrrsStatus =
-        Nothing,
-      _crslrrsResponseStatus =
-        pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The status information of the task on a Snow device that is being returned to AWS.
-crslrrsStatus :: Lens' CreateReturnShippingLabelResponse (Maybe ShippingLabelStatus)
-crslrrsStatus = lens _crslrrsStatus (\s a -> s {_crslrrsStatus = a})
+-- | The status information of the task on a Snow device that is being
+-- returned to AWS.
+createReturnShippingLabelResponse_status :: Lens.Lens' CreateReturnShippingLabelResponse (Prelude.Maybe ShippingLabelStatus)
+createReturnShippingLabelResponse_status = Lens.lens (\CreateReturnShippingLabelResponse' {status} -> status) (\s@CreateReturnShippingLabelResponse' {} a -> s {status = a} :: CreateReturnShippingLabelResponse)
 
--- | -- | The response status code.
-crslrrsResponseStatus :: Lens' CreateReturnShippingLabelResponse Int
-crslrrsResponseStatus = lens _crslrrsResponseStatus (\s a -> s {_crslrrsResponseStatus = a})
+-- | The response's http status code.
+createReturnShippingLabelResponse_httpStatus :: Lens.Lens' CreateReturnShippingLabelResponse Prelude.Int
+createReturnShippingLabelResponse_httpStatus = Lens.lens (\CreateReturnShippingLabelResponse' {httpStatus} -> httpStatus) (\s@CreateReturnShippingLabelResponse' {} a -> s {httpStatus = a} :: CreateReturnShippingLabelResponse)
 
-instance NFData CreateReturnShippingLabelResponse
+instance
+  Prelude.NFData
+    CreateReturnShippingLabelResponse

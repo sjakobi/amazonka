@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Snowball.Types.ShippingOption
   ( ShippingOption
       ( ..,
-        SOExpress,
-        SONextDay,
-        SOSecondDay,
-        SOStandard
+        ShippingOptionEXPRESS,
+        ShippingOptionNEXTDAY,
+        ShippingOptionSECONDDAY,
+        ShippingOptionSTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ShippingOption = ShippingOption' (CI Text)
+newtype ShippingOption = ShippingOption'
+  { fromShippingOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SOExpress :: ShippingOption
-pattern SOExpress = ShippingOption' "EXPRESS"
+pattern ShippingOptionEXPRESS :: ShippingOption
+pattern ShippingOptionEXPRESS = ShippingOption' "EXPRESS"
 
-pattern SONextDay :: ShippingOption
-pattern SONextDay = ShippingOption' "NEXT_DAY"
+pattern ShippingOptionNEXTDAY :: ShippingOption
+pattern ShippingOptionNEXTDAY = ShippingOption' "NEXT_DAY"
 
-pattern SOSecondDay :: ShippingOption
-pattern SOSecondDay = ShippingOption' "SECOND_DAY"
+pattern ShippingOptionSECONDDAY :: ShippingOption
+pattern ShippingOptionSECONDDAY = ShippingOption' "SECOND_DAY"
 
-pattern SOStandard :: ShippingOption
-pattern SOStandard = ShippingOption' "STANDARD"
+pattern ShippingOptionSTANDARD :: ShippingOption
+pattern ShippingOptionSTANDARD = ShippingOption' "STANDARD"
 
 {-# COMPLETE
-  SOExpress,
-  SONextDay,
-  SOSecondDay,
-  SOStandard,
+  ShippingOptionEXPRESS,
+  ShippingOptionNEXTDAY,
+  ShippingOptionSECONDDAY,
+  ShippingOptionSTANDARD,
   ShippingOption'
   #-}
 
-instance FromText ShippingOption where
-  parser = (ShippingOption' . mk) <$> takeText
+instance Prelude.FromText ShippingOption where
+  parser = ShippingOption' Prelude.<$> Prelude.takeText
 
-instance ToText ShippingOption where
-  toText (ShippingOption' ci) = original ci
+instance Prelude.ToText ShippingOption where
+  toText (ShippingOption' x) = x
 
-instance Hashable ShippingOption
+instance Prelude.Hashable ShippingOption
 
-instance NFData ShippingOption
+instance Prelude.NFData ShippingOption
 
-instance ToByteString ShippingOption
+instance Prelude.ToByteString ShippingOption
 
-instance ToQuery ShippingOption
+instance Prelude.ToQuery ShippingOption
 
-instance ToHeader ShippingOption
+instance Prelude.ToHeader ShippingOption
 
-instance ToJSON ShippingOption where
-  toJSON = toJSONText
+instance Prelude.ToJSON ShippingOption where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ShippingOption where
-  parseJSON = parseJSONText "ShippingOption"
+instance Prelude.FromJSON ShippingOption where
+  parseJSON = Prelude.parseJSONText "ShippingOption"

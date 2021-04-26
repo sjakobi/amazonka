@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.CompatibleImage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A JSON-formatted object that describes a compatible Amazon Machine Image (AMI), including the ID and name for a Snow device AMI. This AMI is compatible with the device's physical hardware requirements, and it should be able to be run in an SBE1 instance on the device.
+-- | A JSON-formatted object that describes a compatible Amazon Machine Image
+-- (AMI), including the ID and name for a Snow device AMI. This AMI is
+-- compatible with the device\'s physical hardware requirements, and it
+-- should be able to be run in an SBE1 instance on the device.
 --
---
---
--- /See:/ 'compatibleImage' smart constructor.
+-- /See:/ 'newCompatibleImage' smart constructor.
 data CompatibleImage = CompatibleImage'
-  { _ciAMIId ::
-      !(Maybe Text),
-    _ciName :: !(Maybe Text)
+  { -- | The unique identifier for an individual Snow device AMI.
+    amiId :: Prelude.Maybe Prelude.Text,
+    -- | The optional name of a compatible image.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompatibleImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompatibleImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciAMIId' - The unique identifier for an individual Snow device AMI.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciName' - The optional name of a compatible image.
-compatibleImage ::
+-- 'amiId', 'compatibleImage_amiId' - The unique identifier for an individual Snow device AMI.
+--
+-- 'name', 'compatibleImage_name' - The optional name of a compatible image.
+newCompatibleImage ::
   CompatibleImage
-compatibleImage =
+newCompatibleImage =
   CompatibleImage'
-    { _ciAMIId = Nothing,
-      _ciName = Nothing
+    { amiId = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The unique identifier for an individual Snow device AMI.
-ciAMIId :: Lens' CompatibleImage (Maybe Text)
-ciAMIId = lens _ciAMIId (\s a -> s {_ciAMIId = a})
+compatibleImage_amiId :: Lens.Lens' CompatibleImage (Prelude.Maybe Prelude.Text)
+compatibleImage_amiId = Lens.lens (\CompatibleImage' {amiId} -> amiId) (\s@CompatibleImage' {} a -> s {amiId = a} :: CompatibleImage)
 
 -- | The optional name of a compatible image.
-ciName :: Lens' CompatibleImage (Maybe Text)
-ciName = lens _ciName (\s a -> s {_ciName = a})
+compatibleImage_name :: Lens.Lens' CompatibleImage (Prelude.Maybe Prelude.Text)
+compatibleImage_name = Lens.lens (\CompatibleImage' {name} -> name) (\s@CompatibleImage' {} a -> s {name = a} :: CompatibleImage)
 
-instance FromJSON CompatibleImage where
+instance Prelude.FromJSON CompatibleImage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CompatibleImage"
       ( \x ->
           CompatibleImage'
-            <$> (x .:? "AmiId") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "AmiId")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable CompatibleImage
+instance Prelude.Hashable CompatibleImage
 
-instance NFData CompatibleImage
+instance Prelude.NFData CompatibleImage

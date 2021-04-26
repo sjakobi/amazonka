@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,102 +19,136 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.JobListEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Snowball.Types.JobState
 import Network.AWS.Snowball.Types.JobType
 import Network.AWS.Snowball.Types.SnowballType
 
--- | Each @JobListEntry@ object contains a job's state, a job's ID, and a value that indicates whether the job is a job part, in the case of an export job.
+-- | Each @JobListEntry@ object contains a job\'s state, a job\'s ID, and a
+-- value that indicates whether the job is a job part, in the case of an
+-- export job.
 --
---
---
--- /See:/ 'jobListEntry' smart constructor.
+-- /See:/ 'newJobListEntry' smart constructor.
 data JobListEntry = JobListEntry'
-  { _jleIsMaster ::
-      !(Maybe Bool),
-    _jleJobState :: !(Maybe JobState),
-    _jleCreationDate :: !(Maybe POSIX),
-    _jleJobType :: !(Maybe JobType),
-    _jleSnowballType :: !(Maybe SnowballType),
-    _jleDescription :: !(Maybe Text),
-    _jleJobId :: !(Maybe Text)
+  { -- | A value that indicates that this job is a main job. A main job
+    -- represents a successful request to create an export job. Main jobs
+    -- aren\'t associated with any Snowballs. Instead, each main job will have
+    -- at least one job part, and each job part is associated with a Snowball.
+    -- It might take some time before the job parts associated with a
+    -- particular main job are listed, because they are created after the main
+    -- job is created.
+    isMaster :: Prelude.Maybe Prelude.Bool,
+    -- | The current state of this job.
+    jobState :: Prelude.Maybe JobState,
+    -- | The creation date for this job.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The type of job.
+    jobType :: Prelude.Maybe JobType,
+    -- | The type of device used with this job.
+    snowballType :: Prelude.Maybe SnowballType,
+    -- | The optional description of this specific job, for example
+    -- @Important Photos 2016-08-11@.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The automatically generated ID for a job, for example
+    -- @JID123e4567-e89b-12d3-a456-426655440000@.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobListEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobListEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jleIsMaster' - A value that indicates that this job is a main job. A main job represents a successful request to create an export job. Main jobs aren't associated with any Snowballs. Instead, each main job will have at least one job part, and each job part is associated with a Snowball. It might take some time before the job parts associated with a particular main job are listed, because they are created after the main job is created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jleJobState' - The current state of this job.
+-- 'isMaster', 'jobListEntry_isMaster' - A value that indicates that this job is a main job. A main job
+-- represents a successful request to create an export job. Main jobs
+-- aren\'t associated with any Snowballs. Instead, each main job will have
+-- at least one job part, and each job part is associated with a Snowball.
+-- It might take some time before the job parts associated with a
+-- particular main job are listed, because they are created after the main
+-- job is created.
 --
--- * 'jleCreationDate' - The creation date for this job.
+-- 'jobState', 'jobListEntry_jobState' - The current state of this job.
 --
--- * 'jleJobType' - The type of job.
+-- 'creationDate', 'jobListEntry_creationDate' - The creation date for this job.
 --
--- * 'jleSnowballType' - The type of device used with this job.
+-- 'jobType', 'jobListEntry_jobType' - The type of job.
 --
--- * 'jleDescription' - The optional description of this specific job, for example @Important Photos 2016-08-11@ .
+-- 'snowballType', 'jobListEntry_snowballType' - The type of device used with this job.
 --
--- * 'jleJobId' - The automatically generated ID for a job, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
-jobListEntry ::
+-- 'description', 'jobListEntry_description' - The optional description of this specific job, for example
+-- @Important Photos 2016-08-11@.
+--
+-- 'jobId', 'jobListEntry_jobId' - The automatically generated ID for a job, for example
+-- @JID123e4567-e89b-12d3-a456-426655440000@.
+newJobListEntry ::
   JobListEntry
-jobListEntry =
+newJobListEntry =
   JobListEntry'
-    { _jleIsMaster = Nothing,
-      _jleJobState = Nothing,
-      _jleCreationDate = Nothing,
-      _jleJobType = Nothing,
-      _jleSnowballType = Nothing,
-      _jleDescription = Nothing,
-      _jleJobId = Nothing
+    { isMaster = Prelude.Nothing,
+      jobState = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      jobType = Prelude.Nothing,
+      snowballType = Prelude.Nothing,
+      description = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
--- | A value that indicates that this job is a main job. A main job represents a successful request to create an export job. Main jobs aren't associated with any Snowballs. Instead, each main job will have at least one job part, and each job part is associated with a Snowball. It might take some time before the job parts associated with a particular main job are listed, because they are created after the main job is created.
-jleIsMaster :: Lens' JobListEntry (Maybe Bool)
-jleIsMaster = lens _jleIsMaster (\s a -> s {_jleIsMaster = a})
+-- | A value that indicates that this job is a main job. A main job
+-- represents a successful request to create an export job. Main jobs
+-- aren\'t associated with any Snowballs. Instead, each main job will have
+-- at least one job part, and each job part is associated with a Snowball.
+-- It might take some time before the job parts associated with a
+-- particular main job are listed, because they are created after the main
+-- job is created.
+jobListEntry_isMaster :: Lens.Lens' JobListEntry (Prelude.Maybe Prelude.Bool)
+jobListEntry_isMaster = Lens.lens (\JobListEntry' {isMaster} -> isMaster) (\s@JobListEntry' {} a -> s {isMaster = a} :: JobListEntry)
 
 -- | The current state of this job.
-jleJobState :: Lens' JobListEntry (Maybe JobState)
-jleJobState = lens _jleJobState (\s a -> s {_jleJobState = a})
+jobListEntry_jobState :: Lens.Lens' JobListEntry (Prelude.Maybe JobState)
+jobListEntry_jobState = Lens.lens (\JobListEntry' {jobState} -> jobState) (\s@JobListEntry' {} a -> s {jobState = a} :: JobListEntry)
 
 -- | The creation date for this job.
-jleCreationDate :: Lens' JobListEntry (Maybe UTCTime)
-jleCreationDate = lens _jleCreationDate (\s a -> s {_jleCreationDate = a}) . mapping _Time
+jobListEntry_creationDate :: Lens.Lens' JobListEntry (Prelude.Maybe Prelude.UTCTime)
+jobListEntry_creationDate = Lens.lens (\JobListEntry' {creationDate} -> creationDate) (\s@JobListEntry' {} a -> s {creationDate = a} :: JobListEntry) Prelude.. Lens.mapping Prelude._Time
 
 -- | The type of job.
-jleJobType :: Lens' JobListEntry (Maybe JobType)
-jleJobType = lens _jleJobType (\s a -> s {_jleJobType = a})
+jobListEntry_jobType :: Lens.Lens' JobListEntry (Prelude.Maybe JobType)
+jobListEntry_jobType = Lens.lens (\JobListEntry' {jobType} -> jobType) (\s@JobListEntry' {} a -> s {jobType = a} :: JobListEntry)
 
 -- | The type of device used with this job.
-jleSnowballType :: Lens' JobListEntry (Maybe SnowballType)
-jleSnowballType = lens _jleSnowballType (\s a -> s {_jleSnowballType = a})
+jobListEntry_snowballType :: Lens.Lens' JobListEntry (Prelude.Maybe SnowballType)
+jobListEntry_snowballType = Lens.lens (\JobListEntry' {snowballType} -> snowballType) (\s@JobListEntry' {} a -> s {snowballType = a} :: JobListEntry)
 
--- | The optional description of this specific job, for example @Important Photos 2016-08-11@ .
-jleDescription :: Lens' JobListEntry (Maybe Text)
-jleDescription = lens _jleDescription (\s a -> s {_jleDescription = a})
+-- | The optional description of this specific job, for example
+-- @Important Photos 2016-08-11@.
+jobListEntry_description :: Lens.Lens' JobListEntry (Prelude.Maybe Prelude.Text)
+jobListEntry_description = Lens.lens (\JobListEntry' {description} -> description) (\s@JobListEntry' {} a -> s {description = a} :: JobListEntry)
 
--- | The automatically generated ID for a job, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
-jleJobId :: Lens' JobListEntry (Maybe Text)
-jleJobId = lens _jleJobId (\s a -> s {_jleJobId = a})
+-- | The automatically generated ID for a job, for example
+-- @JID123e4567-e89b-12d3-a456-426655440000@.
+jobListEntry_jobId :: Lens.Lens' JobListEntry (Prelude.Maybe Prelude.Text)
+jobListEntry_jobId = Lens.lens (\JobListEntry' {jobId} -> jobId) (\s@JobListEntry' {} a -> s {jobId = a} :: JobListEntry)
 
-instance FromJSON JobListEntry where
+instance Prelude.FromJSON JobListEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobListEntry"
       ( \x ->
           JobListEntry'
-            <$> (x .:? "IsMaster")
-            <*> (x .:? "JobState")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "JobType")
-            <*> (x .:? "SnowballType")
-            <*> (x .:? "Description")
-            <*> (x .:? "JobId")
+            Prelude.<$> (x Prelude..:? "IsMaster")
+            Prelude.<*> (x Prelude..:? "JobState")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "JobType")
+            Prelude.<*> (x Prelude..:? "SnowballType")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "JobId")
       )
 
-instance Hashable JobListEntry
+instance Prelude.Hashable JobListEntry
 
-instance NFData JobListEntry
+instance Prelude.NFData JobListEntry

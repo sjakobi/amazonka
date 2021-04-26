@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.Snowball.Types.ShippingLabelStatus
   ( ShippingLabelStatus
       ( ..,
-        SLSFailed,
-        SLSInProgress,
-        SLSSucceeded,
-        SLSTimedOut
+        ShippingLabelStatusFailed,
+        ShippingLabelStatusInProgress,
+        ShippingLabelStatusSucceeded,
+        ShippingLabelStatusTimedOut
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ShippingLabelStatus
-  = ShippingLabelStatus'
-      ( CI
-          Text
-      )
+newtype ShippingLabelStatus = ShippingLabelStatus'
+  { fromShippingLabelStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SLSFailed :: ShippingLabelStatus
-pattern SLSFailed = ShippingLabelStatus' "Failed"
+pattern ShippingLabelStatusFailed :: ShippingLabelStatus
+pattern ShippingLabelStatusFailed = ShippingLabelStatus' "Failed"
 
-pattern SLSInProgress :: ShippingLabelStatus
-pattern SLSInProgress = ShippingLabelStatus' "InProgress"
+pattern ShippingLabelStatusInProgress :: ShippingLabelStatus
+pattern ShippingLabelStatusInProgress = ShippingLabelStatus' "InProgress"
 
-pattern SLSSucceeded :: ShippingLabelStatus
-pattern SLSSucceeded = ShippingLabelStatus' "Succeeded"
+pattern ShippingLabelStatusSucceeded :: ShippingLabelStatus
+pattern ShippingLabelStatusSucceeded = ShippingLabelStatus' "Succeeded"
 
-pattern SLSTimedOut :: ShippingLabelStatus
-pattern SLSTimedOut = ShippingLabelStatus' "TimedOut"
+pattern ShippingLabelStatusTimedOut :: ShippingLabelStatus
+pattern ShippingLabelStatusTimedOut = ShippingLabelStatus' "TimedOut"
 
 {-# COMPLETE
-  SLSFailed,
-  SLSInProgress,
-  SLSSucceeded,
-  SLSTimedOut,
+  ShippingLabelStatusFailed,
+  ShippingLabelStatusInProgress,
+  ShippingLabelStatusSucceeded,
+  ShippingLabelStatusTimedOut,
   ShippingLabelStatus'
   #-}
 
-instance FromText ShippingLabelStatus where
-  parser = (ShippingLabelStatus' . mk) <$> takeText
+instance Prelude.FromText ShippingLabelStatus where
+  parser = ShippingLabelStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ShippingLabelStatus where
-  toText (ShippingLabelStatus' ci) = original ci
+instance Prelude.ToText ShippingLabelStatus where
+  toText (ShippingLabelStatus' x) = x
 
-instance Hashable ShippingLabelStatus
+instance Prelude.Hashable ShippingLabelStatus
 
-instance NFData ShippingLabelStatus
+instance Prelude.NFData ShippingLabelStatus
 
-instance ToByteString ShippingLabelStatus
+instance Prelude.ToByteString ShippingLabelStatus
 
-instance ToQuery ShippingLabelStatus
+instance Prelude.ToQuery ShippingLabelStatus
 
-instance ToHeader ShippingLabelStatus
+instance Prelude.ToHeader ShippingLabelStatus
 
-instance FromJSON ShippingLabelStatus where
-  parseJSON = parseJSONText "ShippingLabelStatus"
+instance Prelude.FromJSON ShippingLabelStatus where
+  parseJSON = Prelude.parseJSONText "ShippingLabelStatus"

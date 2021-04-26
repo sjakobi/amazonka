@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,44 +19,51 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.TaxDocuments where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Snowball.Types.INDTaxDocuments
 
 -- | The tax documents required in your AWS Region.
 --
---
---
--- /See:/ 'taxDocuments' smart constructor.
-newtype TaxDocuments = TaxDocuments'
-  { _tdIND ::
-      Maybe INDTaxDocuments
+-- /See:/ 'newTaxDocuments' smart constructor.
+data TaxDocuments = TaxDocuments'
+  { iND :: Prelude.Maybe INDTaxDocuments
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TaxDocuments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TaxDocuments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdIND' - Undocumented member.
-taxDocuments ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'iND', 'taxDocuments_iND' - Undocumented member.
+newTaxDocuments ::
   TaxDocuments
-taxDocuments = TaxDocuments' {_tdIND = Nothing}
+newTaxDocuments =
+  TaxDocuments' {iND = Prelude.Nothing}
 
 -- | Undocumented member.
-tdIND :: Lens' TaxDocuments (Maybe INDTaxDocuments)
-tdIND = lens _tdIND (\s a -> s {_tdIND = a})
+taxDocuments_iND :: Lens.Lens' TaxDocuments (Prelude.Maybe INDTaxDocuments)
+taxDocuments_iND = Lens.lens (\TaxDocuments' {iND} -> iND) (\s@TaxDocuments' {} a -> s {iND = a} :: TaxDocuments)
 
-instance FromJSON TaxDocuments where
+instance Prelude.FromJSON TaxDocuments where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TaxDocuments"
-      (\x -> TaxDocuments' <$> (x .:? "IND"))
+      ( \x ->
+          TaxDocuments' Prelude.<$> (x Prelude..:? "IND")
+      )
 
-instance Hashable TaxDocuments
+instance Prelude.Hashable TaxDocuments
 
-instance NFData TaxDocuments
+instance Prelude.NFData TaxDocuments
 
-instance ToJSON TaxDocuments where
+instance Prelude.ToJSON TaxDocuments where
   toJSON TaxDocuments' {..} =
-    object (catMaybes [("IND" .=) <$> _tdIND])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("IND" Prelude..=) Prelude.<$> iND]
+      )

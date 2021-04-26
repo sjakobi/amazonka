@@ -11,10 +11,19 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- AWS Snow Family is a petabyte-scale data transport solution that uses secure devices to transfer large amounts of data between your on-premises data centers and Amazon Simple Storage Service (Amazon S3). The Snow commands described here provide access to the same functionality that is available in the AWS Snow Family Management Console, which enables you to create and manage jobs for a Snow device. To transfer data locally with a Snow device, you'll need to use the Snowball Edge client or the Amazon S3 API Interface for Snowball or AWS OpsHub for Snow Family. For more information, see the <https://docs.aws.amazon.com/AWSImportExport/latest/ug/api-reference.html User Guide> .
+-- AWS Snow Family is a petabyte-scale data transport solution that uses
+-- secure devices to transfer large amounts of data between your
+-- on-premises data centers and Amazon Simple Storage Service (Amazon S3).
+-- The Snow commands described here provide access to the same
+-- functionality that is available in the AWS Snow Family Management
+-- Console, which enables you to create and manage jobs for a Snow device.
+-- To transfer data locally with a Snow device, you\'ll need to use the
+-- Snowball Edge client or the Amazon S3 API Interface for Snowball or AWS
+-- OpsHub for Snow Family. For more information, see the
+-- <https://docs.aws.amazon.com/AWSImportExport/latest/ug/api-reference.html User Guide>.
 module Network.AWS.Snowball
   ( -- * Service Configuration
-    snowball,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -43,8 +52,8 @@ module Network.AWS.Snowball
     -- ** ConflictException
     _ConflictException,
 
-    -- ** EC2RequestFailedException
-    _EC2RequestFailedException,
+    -- ** Ec2RequestFailedException
+    _Ec2RequestFailedException,
 
     -- ** InvalidJobStateException
     _InvalidJobStateException,
@@ -59,70 +68,136 @@ module Network.AWS.Snowball
     -- $operations
 
     -- ** ListClusterJobs (Paginated)
-    module Network.AWS.Snowball.ListClusterJobs,
+    ListClusterJobs (ListClusterJobs'),
+    newListClusterJobs,
+    ListClusterJobsResponse (ListClusterJobsResponse'),
+    newListClusterJobsResponse,
 
     -- ** CancelJob
-    module Network.AWS.Snowball.CancelJob,
+    CancelJob (CancelJob'),
+    newCancelJob,
+    CancelJobResponse (CancelJobResponse'),
+    newCancelJobResponse,
 
     -- ** UpdateJobShipmentState
-    module Network.AWS.Snowball.UpdateJobShipmentState,
+    UpdateJobShipmentState (UpdateJobShipmentState'),
+    newUpdateJobShipmentState,
+    UpdateJobShipmentStateResponse (UpdateJobShipmentStateResponse'),
+    newUpdateJobShipmentStateResponse,
 
     -- ** CreateCluster
-    module Network.AWS.Snowball.CreateCluster,
+    CreateCluster (CreateCluster'),
+    newCreateCluster,
+    CreateClusterResponse (CreateClusterResponse'),
+    newCreateClusterResponse,
 
     -- ** UpdateJob
-    module Network.AWS.Snowball.UpdateJob,
+    UpdateJob (UpdateJob'),
+    newUpdateJob,
+    UpdateJobResponse (UpdateJobResponse'),
+    newUpdateJobResponse,
 
     -- ** DescribeAddress
-    module Network.AWS.Snowball.DescribeAddress,
+    DescribeAddress (DescribeAddress'),
+    newDescribeAddress,
+    DescribeAddressResponse (DescribeAddressResponse'),
+    newDescribeAddressResponse,
 
     -- ** DescribeReturnShippingLabel
-    module Network.AWS.Snowball.DescribeReturnShippingLabel,
+    DescribeReturnShippingLabel (DescribeReturnShippingLabel'),
+    newDescribeReturnShippingLabel,
+    DescribeReturnShippingLabelResponse (DescribeReturnShippingLabelResponse'),
+    newDescribeReturnShippingLabelResponse,
 
     -- ** GetSoftwareUpdates
-    module Network.AWS.Snowball.GetSoftwareUpdates,
+    GetSoftwareUpdates (GetSoftwareUpdates'),
+    newGetSoftwareUpdates,
+    GetSoftwareUpdatesResponse (GetSoftwareUpdatesResponse'),
+    newGetSoftwareUpdatesResponse,
 
     -- ** ListCompatibleImages (Paginated)
-    module Network.AWS.Snowball.ListCompatibleImages,
+    ListCompatibleImages (ListCompatibleImages'),
+    newListCompatibleImages,
+    ListCompatibleImagesResponse (ListCompatibleImagesResponse'),
+    newListCompatibleImagesResponse,
 
     -- ** DescribeAddresses (Paginated)
-    module Network.AWS.Snowball.DescribeAddresses,
+    DescribeAddresses (DescribeAddresses'),
+    newDescribeAddresses,
+    DescribeAddressesResponse (DescribeAddressesResponse'),
+    newDescribeAddressesResponse,
 
     -- ** DescribeJob
-    module Network.AWS.Snowball.DescribeJob,
+    DescribeJob (DescribeJob'),
+    newDescribeJob,
+    DescribeJobResponse (DescribeJobResponse'),
+    newDescribeJobResponse,
 
     -- ** DescribeCluster
-    module Network.AWS.Snowball.DescribeCluster,
+    DescribeCluster (DescribeCluster'),
+    newDescribeCluster,
+    DescribeClusterResponse (DescribeClusterResponse'),
+    newDescribeClusterResponse,
 
     -- ** CancelCluster
-    module Network.AWS.Snowball.CancelCluster,
+    CancelCluster (CancelCluster'),
+    newCancelCluster,
+    CancelClusterResponse (CancelClusterResponse'),
+    newCancelClusterResponse,
 
     -- ** GetJobUnlockCode
-    module Network.AWS.Snowball.GetJobUnlockCode,
+    GetJobUnlockCode (GetJobUnlockCode'),
+    newGetJobUnlockCode,
+    GetJobUnlockCodeResponse (GetJobUnlockCodeResponse'),
+    newGetJobUnlockCodeResponse,
 
     -- ** ListJobs (Paginated)
-    module Network.AWS.Snowball.ListJobs,
+    ListJobs (ListJobs'),
+    newListJobs,
+    ListJobsResponse (ListJobsResponse'),
+    newListJobsResponse,
 
     -- ** GetJobManifest
-    module Network.AWS.Snowball.GetJobManifest,
+    GetJobManifest (GetJobManifest'),
+    newGetJobManifest,
+    GetJobManifestResponse (GetJobManifestResponse'),
+    newGetJobManifestResponse,
 
     -- ** CreateJob
-    module Network.AWS.Snowball.CreateJob,
+    CreateJob (CreateJob'),
+    newCreateJob,
+    CreateJobResponse (CreateJobResponse'),
+    newCreateJobResponse,
 
     -- ** UpdateCluster
-    module Network.AWS.Snowball.UpdateCluster,
+    UpdateCluster (UpdateCluster'),
+    newUpdateCluster,
+    UpdateClusterResponse (UpdateClusterResponse'),
+    newUpdateClusterResponse,
 
     -- ** ListClusters (Paginated)
-    module Network.AWS.Snowball.ListClusters,
+    ListClusters (ListClusters'),
+    newListClusters,
+    ListClustersResponse (ListClustersResponse'),
+    newListClustersResponse,
 
     -- ** GetSnowballUsage
-    module Network.AWS.Snowball.GetSnowballUsage,
+    GetSnowballUsage (GetSnowballUsage'),
+    newGetSnowballUsage,
+    GetSnowballUsageResponse (GetSnowballUsageResponse'),
+    newGetSnowballUsageResponse,
 
     -- ** CreateReturnShippingLabel
-    module Network.AWS.Snowball.CreateReturnShippingLabel,
+    CreateReturnShippingLabel (CreateReturnShippingLabel'),
+    newCreateReturnShippingLabel,
+    CreateReturnShippingLabelResponse (CreateReturnShippingLabelResponse'),
+    newCreateReturnShippingLabelResponse,
 
     -- ** CreateAddress
-    module Network.AWS.Snowball.CreateAddress,
+    CreateAddress (CreateAddress'),
+    newCreateAddress,
+    CreateAddressResponse (CreateAddressResponse'),
+    newCreateAddressResponse,
 
     -- * Types
 
@@ -151,184 +226,92 @@ module Network.AWS.Snowball
     SnowballType (..),
 
     -- ** Address
-    Address,
-    address,
-    aPhoneNumber,
-    aCompany,
-    aIsRestricted,
-    aPostalCode,
-    aStreet1,
-    aLandmark,
-    aCity,
-    aName,
-    aAddressId,
-    aStreet2,
-    aStateOrProvince,
-    aCountry,
-    aPrefectureOrDistrict,
-    aStreet3,
+    Address (Address'),
+    newAddress,
 
     -- ** ClusterListEntry
-    ClusterListEntry,
-    clusterListEntry,
-    cleClusterId,
-    cleCreationDate,
-    cleDescription,
-    cleClusterState,
+    ClusterListEntry (ClusterListEntry'),
+    newClusterListEntry,
 
     -- ** ClusterMetadata
-    ClusterMetadata,
-    clusterMetadata,
-    cmClusterId,
-    cmRoleARN,
-    cmShippingOption,
-    cmCreationDate,
-    cmKMSKeyARN,
-    cmJobType,
-    cmResources,
-    cmTaxDocuments,
-    cmSnowballType,
-    cmDescription,
-    cmAddressId,
-    cmForwardingAddressId,
-    cmNotification,
-    cmClusterState,
+    ClusterMetadata (ClusterMetadata'),
+    newClusterMetadata,
 
     -- ** CompatibleImage
-    CompatibleImage,
-    compatibleImage,
-    ciAMIId,
-    ciName,
+    CompatibleImage (CompatibleImage'),
+    newCompatibleImage,
 
     -- ** DataTransfer
-    DataTransfer,
-    dataTransfer,
-    dtTotalObjects,
-    dtBytesTransferred,
-    dtTotalBytes,
-    dtObjectsTransferred,
+    DataTransfer (DataTransfer'),
+    newDataTransfer,
 
     -- ** DeviceConfiguration
-    DeviceConfiguration,
-    deviceConfiguration,
-    dcSnowconeDeviceConfiguration,
+    DeviceConfiguration (DeviceConfiguration'),
+    newDeviceConfiguration,
 
-    -- ** EC2AMIResource
-    EC2AMIResource,
-    ec2AMIResource,
-    earSnowballAMIId,
-    earAMIId,
+    -- ** Ec2AmiResource
+    Ec2AmiResource (Ec2AmiResource'),
+    newEc2AmiResource,
 
     -- ** EventTriggerDefinition
-    EventTriggerDefinition,
-    eventTriggerDefinition,
-    etdEventResourceARN,
+    EventTriggerDefinition (EventTriggerDefinition'),
+    newEventTriggerDefinition,
 
     -- ** INDTaxDocuments
-    INDTaxDocuments,
-    iNDTaxDocuments,
-    indtdGSTIN,
+    INDTaxDocuments (INDTaxDocuments'),
+    newINDTaxDocuments,
 
     -- ** JobListEntry
-    JobListEntry,
-    jobListEntry,
-    jleIsMaster,
-    jleJobState,
-    jleCreationDate,
-    jleJobType,
-    jleSnowballType,
-    jleDescription,
-    jleJobId,
+    JobListEntry (JobListEntry'),
+    newJobListEntry,
 
     -- ** JobLogs
-    JobLogs,
-    jobLogs,
-    jlJobCompletionReportURI,
-    jlJobSuccessLogURI,
-    jlJobFailureLogURI,
+    JobLogs (JobLogs'),
+    newJobLogs,
 
     -- ** JobMetadata
-    JobMetadata,
-    jobMetadata,
-    jmClusterId,
-    jmRoleARN,
-    jmJobState,
-    jmDeviceConfiguration,
-    jmCreationDate,
-    jmKMSKeyARN,
-    jmJobType,
-    jmResources,
-    jmTaxDocuments,
-    jmSnowballCapacityPreference,
-    jmSnowballType,
-    jmDataTransferProgress,
-    jmDescription,
-    jmAddressId,
-    jmForwardingAddressId,
-    jmShippingDetails,
-    jmNotification,
-    jmJobLogInfo,
-    jmJobId,
+    JobMetadata (JobMetadata'),
+    newJobMetadata,
 
     -- ** JobResource
-    JobResource,
-    jobResource,
-    jrS3Resources,
-    jrEC2AMIResources,
-    jrLambdaResources,
+    JobResource (JobResource'),
+    newJobResource,
 
     -- ** KeyRange
-    KeyRange,
-    keyRange,
-    krEndMarker,
-    krBeginMarker,
+    KeyRange (KeyRange'),
+    newKeyRange,
 
     -- ** LambdaResource
-    LambdaResource,
-    lambdaResource,
-    lrEventTriggers,
-    lrLambdaARN,
+    LambdaResource (LambdaResource'),
+    newLambdaResource,
 
     -- ** Notification
-    Notification,
-    notification,
-    nJobStatesToNotify,
-    nNotifyAll,
-    nSNSTopicARN,
+    Notification (Notification'),
+    newNotification,
 
     -- ** S3Resource
-    S3Resource,
-    s3Resource,
-    srBucketARN,
-    srKeyRange,
+    S3Resource (S3Resource'),
+    newS3Resource,
 
     -- ** Shipment
-    Shipment,
-    shipment,
-    sTrackingNumber,
-    sStatus,
+    Shipment (Shipment'),
+    newShipment,
 
     -- ** ShippingDetails
-    ShippingDetails,
-    shippingDetails,
-    sdShippingOption,
-    sdOutboundShipment,
-    sdInboundShipment,
+    ShippingDetails (ShippingDetails'),
+    newShippingDetails,
 
     -- ** SnowconeDeviceConfiguration
-    SnowconeDeviceConfiguration,
-    snowconeDeviceConfiguration,
-    sdcWirelessConnection,
+    SnowconeDeviceConfiguration (SnowconeDeviceConfiguration'),
+    newSnowconeDeviceConfiguration,
 
     -- ** TaxDocuments
-    TaxDocuments,
-    taxDocuments,
-    tdIND,
+    TaxDocuments (TaxDocuments'),
+    newTaxDocuments,
 
     -- ** WirelessConnection
-    WirelessConnection,
-    wirelessConnection,
-    wcIsWifiEnabled,
+    WirelessConnection (WirelessConnection'),
+    newWirelessConnection,
   )
 where
 
@@ -347,6 +330,7 @@ import Network.AWS.Snowball.GetJobManifest
 import Network.AWS.Snowball.GetJobUnlockCode
 import Network.AWS.Snowball.GetSnowballUsage
 import Network.AWS.Snowball.GetSoftwareUpdates
+import Network.AWS.Snowball.Lens
 import Network.AWS.Snowball.ListClusterJobs
 import Network.AWS.Snowball.ListClusters
 import Network.AWS.Snowball.ListCompatibleImages

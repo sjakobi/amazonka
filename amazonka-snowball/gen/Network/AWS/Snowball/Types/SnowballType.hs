@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.Snowball.Types.SnowballType
   ( SnowballType
       ( ..,
-        Edge,
-        EdgeC,
-        EdgeCg,
-        EdgeS,
-        SNC1Hdd,
-        Standard
+        SnowballTypeEDGE,
+        SnowballTypeEDGEC,
+        SnowballTypeEDGECG,
+        SnowballTypeEDGES,
+        SnowballTypeSNC1HDD,
+        SnowballTypeSTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SnowballType = SnowballType' (CI Text)
+newtype SnowballType = SnowballType'
+  { fromSnowballType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Edge :: SnowballType
-pattern Edge = SnowballType' "EDGE"
+pattern SnowballTypeEDGE :: SnowballType
+pattern SnowballTypeEDGE = SnowballType' "EDGE"
 
-pattern EdgeC :: SnowballType
-pattern EdgeC = SnowballType' "EDGE_C"
+pattern SnowballTypeEDGEC :: SnowballType
+pattern SnowballTypeEDGEC = SnowballType' "EDGE_C"
 
-pattern EdgeCg :: SnowballType
-pattern EdgeCg = SnowballType' "EDGE_CG"
+pattern SnowballTypeEDGECG :: SnowballType
+pattern SnowballTypeEDGECG = SnowballType' "EDGE_CG"
 
-pattern EdgeS :: SnowballType
-pattern EdgeS = SnowballType' "EDGE_S"
+pattern SnowballTypeEDGES :: SnowballType
+pattern SnowballTypeEDGES = SnowballType' "EDGE_S"
 
-pattern SNC1Hdd :: SnowballType
-pattern SNC1Hdd = SnowballType' "SNC1_HDD"
+pattern SnowballTypeSNC1HDD :: SnowballType
+pattern SnowballTypeSNC1HDD = SnowballType' "SNC1_HDD"
 
-pattern Standard :: SnowballType
-pattern Standard = SnowballType' "STANDARD"
+pattern SnowballTypeSTANDARD :: SnowballType
+pattern SnowballTypeSTANDARD = SnowballType' "STANDARD"
 
 {-# COMPLETE
-  Edge,
-  EdgeC,
-  EdgeCg,
-  EdgeS,
-  SNC1Hdd,
-  Standard,
+  SnowballTypeEDGE,
+  SnowballTypeEDGEC,
+  SnowballTypeEDGECG,
+  SnowballTypeEDGES,
+  SnowballTypeSNC1HDD,
+  SnowballTypeSTANDARD,
   SnowballType'
   #-}
 
-instance FromText SnowballType where
-  parser = (SnowballType' . mk) <$> takeText
+instance Prelude.FromText SnowballType where
+  parser = SnowballType' Prelude.<$> Prelude.takeText
 
-instance ToText SnowballType where
-  toText (SnowballType' ci) = original ci
+instance Prelude.ToText SnowballType where
+  toText (SnowballType' x) = x
 
-instance Hashable SnowballType
+instance Prelude.Hashable SnowballType
 
-instance NFData SnowballType
+instance Prelude.NFData SnowballType
 
-instance ToByteString SnowballType
+instance Prelude.ToByteString SnowballType
 
-instance ToQuery SnowballType
+instance Prelude.ToQuery SnowballType
 
-instance ToHeader SnowballType
+instance Prelude.ToHeader SnowballType
 
-instance ToJSON SnowballType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SnowballType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SnowballType where
-  parseJSON = parseJSONText "SnowballType"
+instance Prelude.FromJSON SnowballType where
+  parseJSON = Prelude.parseJSONText "SnowballType"

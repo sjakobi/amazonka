@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,140 +21,153 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns an Amazon S3 presigned URL for an update file associated with a specified @JobId@ .
+-- Returns an Amazon S3 presigned URL for an update file associated with a
+-- specified @JobId@.
 module Network.AWS.Snowball.GetSoftwareUpdates
   ( -- * Creating a Request
-    getSoftwareUpdates,
-    GetSoftwareUpdates,
+    GetSoftwareUpdates (..),
+    newGetSoftwareUpdates,
 
     -- * Request Lenses
-    gsuJobId,
+    getSoftwareUpdates_jobId,
 
     -- * Destructuring the Response
-    getSoftwareUpdatesResponse,
-    GetSoftwareUpdatesResponse,
+    GetSoftwareUpdatesResponse (..),
+    newGetSoftwareUpdatesResponse,
 
     -- * Response Lenses
-    grsUpdatesURI,
-    grsResponseStatus,
+    getSoftwareUpdatesResponse_updatesURI,
+    getSoftwareUpdatesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Snowball.Types
 
--- | /See:/ 'getSoftwareUpdates' smart constructor.
-newtype GetSoftwareUpdates = GetSoftwareUpdates'
-  { _gsuJobId ::
-      Text
+-- | /See:/ 'newGetSoftwareUpdates' smart constructor.
+data GetSoftwareUpdates = GetSoftwareUpdates'
+  { -- | The ID for a job that you want to get the software update file for, for
+    -- example @JID123e4567-e89b-12d3-a456-426655440000@.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSoftwareUpdates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSoftwareUpdates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsuJobId' - The ID for a job that you want to get the software update file for, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
-getSoftwareUpdates ::
-  -- | 'gsuJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'getSoftwareUpdates_jobId' - The ID for a job that you want to get the software update file for, for
+-- example @JID123e4567-e89b-12d3-a456-426655440000@.
+newGetSoftwareUpdates ::
+  -- | 'jobId'
+  Prelude.Text ->
   GetSoftwareUpdates
-getSoftwareUpdates pJobId_ =
-  GetSoftwareUpdates' {_gsuJobId = pJobId_}
+newGetSoftwareUpdates pJobId_ =
+  GetSoftwareUpdates' {jobId = pJobId_}
 
--- | The ID for a job that you want to get the software update file for, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
-gsuJobId :: Lens' GetSoftwareUpdates Text
-gsuJobId = lens _gsuJobId (\s a -> s {_gsuJobId = a})
+-- | The ID for a job that you want to get the software update file for, for
+-- example @JID123e4567-e89b-12d3-a456-426655440000@.
+getSoftwareUpdates_jobId :: Lens.Lens' GetSoftwareUpdates Prelude.Text
+getSoftwareUpdates_jobId = Lens.lens (\GetSoftwareUpdates' {jobId} -> jobId) (\s@GetSoftwareUpdates' {} a -> s {jobId = a} :: GetSoftwareUpdates)
 
-instance AWSRequest GetSoftwareUpdates where
+instance Prelude.AWSRequest GetSoftwareUpdates where
   type
     Rs GetSoftwareUpdates =
       GetSoftwareUpdatesResponse
-  request = postJSON snowball
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSoftwareUpdatesResponse'
-            <$> (x .?> "UpdatesURI") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UpdatesURI")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSoftwareUpdates
+instance Prelude.Hashable GetSoftwareUpdates
 
-instance NFData GetSoftwareUpdates
+instance Prelude.NFData GetSoftwareUpdates
 
-instance ToHeaders GetSoftwareUpdates where
+instance Prelude.ToHeaders GetSoftwareUpdates where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSIESnowballJobManagementService.GetSoftwareUpdates" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSIESnowballJobManagementService.GetSoftwareUpdates" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetSoftwareUpdates where
+instance Prelude.ToJSON GetSoftwareUpdates where
   toJSON GetSoftwareUpdates' {..} =
-    object (catMaybes [Just ("JobId" .= _gsuJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath GetSoftwareUpdates where
-  toPath = const "/"
+instance Prelude.ToPath GetSoftwareUpdates where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSoftwareUpdates where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSoftwareUpdates where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSoftwareUpdatesResponse' smart constructor.
+-- | /See:/ 'newGetSoftwareUpdatesResponse' smart constructor.
 data GetSoftwareUpdatesResponse = GetSoftwareUpdatesResponse'
-  { _grsUpdatesURI ::
-      !(Maybe Text),
-    _grsResponseStatus ::
-      !Int
+  { -- | The Amazon S3 presigned URL for the update file associated with the
+    -- specified @JobId@ value. The software update will be available for 2
+    -- days after this request is made. To access an update after the 2 days
+    -- have passed, you\'ll have to make another call to @GetSoftwareUpdates@.
+    updatesURI :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSoftwareUpdatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSoftwareUpdatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grsUpdatesURI' - The Amazon S3 presigned URL for the update file associated with the specified @JobId@ value. The software update will be available for 2 days after this request is made. To access an update after the 2 days have passed, you'll have to make another call to @GetSoftwareUpdates@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grsResponseStatus' - -- | The response status code.
-getSoftwareUpdatesResponse ::
-  -- | 'grsResponseStatus'
-  Int ->
+-- 'updatesURI', 'getSoftwareUpdatesResponse_updatesURI' - The Amazon S3 presigned URL for the update file associated with the
+-- specified @JobId@ value. The software update will be available for 2
+-- days after this request is made. To access an update after the 2 days
+-- have passed, you\'ll have to make another call to @GetSoftwareUpdates@.
+--
+-- 'httpStatus', 'getSoftwareUpdatesResponse_httpStatus' - The response's http status code.
+newGetSoftwareUpdatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSoftwareUpdatesResponse
-getSoftwareUpdatesResponse pResponseStatus_ =
+newGetSoftwareUpdatesResponse pHttpStatus_ =
   GetSoftwareUpdatesResponse'
-    { _grsUpdatesURI =
-        Nothing,
-      _grsResponseStatus = pResponseStatus_
+    { updatesURI =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon S3 presigned URL for the update file associated with the specified @JobId@ value. The software update will be available for 2 days after this request is made. To access an update after the 2 days have passed, you'll have to make another call to @GetSoftwareUpdates@ .
-grsUpdatesURI :: Lens' GetSoftwareUpdatesResponse (Maybe Text)
-grsUpdatesURI = lens _grsUpdatesURI (\s a -> s {_grsUpdatesURI = a})
+-- | The Amazon S3 presigned URL for the update file associated with the
+-- specified @JobId@ value. The software update will be available for 2
+-- days after this request is made. To access an update after the 2 days
+-- have passed, you\'ll have to make another call to @GetSoftwareUpdates@.
+getSoftwareUpdatesResponse_updatesURI :: Lens.Lens' GetSoftwareUpdatesResponse (Prelude.Maybe Prelude.Text)
+getSoftwareUpdatesResponse_updatesURI = Lens.lens (\GetSoftwareUpdatesResponse' {updatesURI} -> updatesURI) (\s@GetSoftwareUpdatesResponse' {} a -> s {updatesURI = a} :: GetSoftwareUpdatesResponse)
 
--- | -- | The response status code.
-grsResponseStatus :: Lens' GetSoftwareUpdatesResponse Int
-grsResponseStatus = lens _grsResponseStatus (\s a -> s {_grsResponseStatus = a})
+-- | The response's http status code.
+getSoftwareUpdatesResponse_httpStatus :: Lens.Lens' GetSoftwareUpdatesResponse Prelude.Int
+getSoftwareUpdatesResponse_httpStatus = Lens.lens (\GetSoftwareUpdatesResponse' {httpStatus} -> httpStatus) (\s@GetSoftwareUpdatesResponse' {} a -> s {httpStatus = a} :: GetSoftwareUpdatesResponse)
 
-instance NFData GetSoftwareUpdatesResponse
+instance Prelude.NFData GetSoftwareUpdatesResponse

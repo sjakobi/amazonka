@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.ClusterMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Snowball.Types.ClusterState
 import Network.AWS.Snowball.Types.JobResource
 import Network.AWS.Snowball.Types.JobType
@@ -27,162 +31,259 @@ import Network.AWS.Snowball.Types.TaxDocuments
 
 -- | Contains metadata about a specific cluster.
 --
---
---
--- /See:/ 'clusterMetadata' smart constructor.
+-- /See:/ 'newClusterMetadata' smart constructor.
 data ClusterMetadata = ClusterMetadata'
-  { _cmClusterId ::
-      !(Maybe Text),
-    _cmRoleARN :: !(Maybe Text),
-    _cmShippingOption ::
-      !(Maybe ShippingOption),
-    _cmCreationDate :: !(Maybe POSIX),
-    _cmKMSKeyARN :: !(Maybe Text),
-    _cmJobType :: !(Maybe JobType),
-    _cmResources :: !(Maybe JobResource),
-    _cmTaxDocuments ::
-      !(Maybe TaxDocuments),
-    _cmSnowballType ::
-      !(Maybe SnowballType),
-    _cmDescription :: !(Maybe Text),
-    _cmAddressId :: !(Maybe Text),
-    _cmForwardingAddressId :: !(Maybe Text),
-    _cmNotification ::
-      !(Maybe Notification),
-    _cmClusterState ::
-      !(Maybe ClusterState)
+  { -- | The automatically generated ID for a cluster.
+    clusterId :: Prelude.Maybe Prelude.Text,
+    -- | The role ARN associated with this cluster. This ARN was created using
+    -- the
+    -- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
+    -- API action in AWS Identity and Access Management (IAM).
+    roleARN :: Prelude.Maybe Prelude.Text,
+    -- | The shipping speed for each node in this cluster. This speed doesn\'t
+    -- dictate how soon you\'ll get each device, rather it represents how
+    -- quickly each device moves to its destination while in transit. Regional
+    -- shipping speeds are as follows:
+    --
+    -- -   In Australia, you have access to express shipping. Typically,
+    --     devices shipped express are delivered in about a day.
+    --
+    -- -   In the European Union (EU), you have access to express shipping.
+    --     Typically, Snow devices shipped express are delivered in about a
+    --     day. In addition, most countries in the EU have access to standard
+    --     shipping, which typically takes less than a week, one way.
+    --
+    -- -   In India, Snow devices are delivered in one to seven days.
+    --
+    -- -   In the US, you have access to one-day shipping and two-day shipping.
+    shippingOption :: Prelude.Maybe ShippingOption,
+    -- | The creation date for this cluster.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The @KmsKeyARN@ Amazon Resource Name (ARN) associated with this cluster.
+    -- This ARN was created using the
+    -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
+    -- API action in AWS Key Management Service (AWS KMS).
+    kmsKeyARN :: Prelude.Maybe Prelude.Text,
+    -- | The type of job for this cluster. Currently, the only job type supported
+    -- for clusters is @LOCAL_USE@.
+    jobType :: Prelude.Maybe JobType,
+    -- | The arrays of JobResource objects that can include updated S3Resource
+    -- objects or LambdaResource objects.
+    resources :: Prelude.Maybe JobResource,
+    -- | The tax documents required in your AWS Region.
+    taxDocuments :: Prelude.Maybe TaxDocuments,
+    -- | The type of AWS Snow device to use for this cluster.
+    --
+    -- For cluster jobs, AWS Snow Family currently supports only the @EDGE@
+    -- device type.
+    snowballType :: Prelude.Maybe SnowballType,
+    -- | The optional description of the cluster.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The automatically generated ID for a specific address.
+    addressId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the address that you want a cluster shipped to, after it will
+    -- be shipped to its primary address. This field is not supported in most
+    -- regions.
+    forwardingAddressId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Simple Notification Service (Amazon SNS) notification
+    -- settings for this cluster.
+    notification :: Prelude.Maybe Notification,
+    -- | The current status of the cluster.
+    clusterState :: Prelude.Maybe ClusterState
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmClusterId' - The automatically generated ID for a cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmRoleARN' - The role ARN associated with this cluster. This ARN was created using the <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole> API action in AWS Identity and Access Management (IAM).
+-- 'clusterId', 'clusterMetadata_clusterId' - The automatically generated ID for a cluster.
 --
--- * 'cmShippingOption' - The shipping speed for each node in this cluster. This speed doesn't dictate how soon you'll get each device, rather it represents how quickly each device moves to its destination while in transit. Regional shipping speeds are as follows:     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a day.     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes less than a week, one way.     * In India, Snow devices are delivered in one to seven days.     * In the US, you have access to one-day shipping and two-day shipping.
+-- 'roleARN', 'clusterMetadata_roleARN' - The role ARN associated with this cluster. This ARN was created using
+-- the
+-- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
+-- API action in AWS Identity and Access Management (IAM).
 --
--- * 'cmCreationDate' - The creation date for this cluster.
+-- 'shippingOption', 'clusterMetadata_shippingOption' - The shipping speed for each node in this cluster. This speed doesn\'t
+-- dictate how soon you\'ll get each device, rather it represents how
+-- quickly each device moves to its destination while in transit. Regional
+-- shipping speeds are as follows:
 --
--- * 'cmKMSKeyARN' - The @KmsKeyARN@ Amazon Resource Name (ARN) associated with this cluster. This ARN was created using the <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey> API action in AWS Key Management Service (AWS KMS).
+-- -   In Australia, you have access to express shipping. Typically,
+--     devices shipped express are delivered in about a day.
 --
--- * 'cmJobType' - The type of job for this cluster. Currently, the only job type supported for clusters is @LOCAL_USE@ .
+-- -   In the European Union (EU), you have access to express shipping.
+--     Typically, Snow devices shipped express are delivered in about a
+--     day. In addition, most countries in the EU have access to standard
+--     shipping, which typically takes less than a week, one way.
 --
--- * 'cmResources' - The arrays of 'JobResource' objects that can include updated 'S3Resource' objects or 'LambdaResource' objects.
+-- -   In India, Snow devices are delivered in one to seven days.
 --
--- * 'cmTaxDocuments' - The tax documents required in your AWS Region.
+-- -   In the US, you have access to one-day shipping and two-day shipping.
 --
--- * 'cmSnowballType' - The type of AWS Snow device to use for this cluster.
+-- 'creationDate', 'clusterMetadata_creationDate' - The creation date for this cluster.
 --
--- * 'cmDescription' - The optional description of the cluster.
+-- 'kmsKeyARN', 'clusterMetadata_kmsKeyARN' - The @KmsKeyARN@ Amazon Resource Name (ARN) associated with this cluster.
+-- This ARN was created using the
+-- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
+-- API action in AWS Key Management Service (AWS KMS).
 --
--- * 'cmAddressId' - The automatically generated ID for a specific address.
+-- 'jobType', 'clusterMetadata_jobType' - The type of job for this cluster. Currently, the only job type supported
+-- for clusters is @LOCAL_USE@.
 --
--- * 'cmForwardingAddressId' - The ID of the address that you want a cluster shipped to, after it will be shipped to its primary address. This field is not supported in most regions.
+-- 'resources', 'clusterMetadata_resources' - The arrays of JobResource objects that can include updated S3Resource
+-- objects or LambdaResource objects.
 --
--- * 'cmNotification' - The Amazon Simple Notification Service (Amazon SNS) notification settings for this cluster.
+-- 'taxDocuments', 'clusterMetadata_taxDocuments' - The tax documents required in your AWS Region.
 --
--- * 'cmClusterState' - The current status of the cluster.
-clusterMetadata ::
+-- 'snowballType', 'clusterMetadata_snowballType' - The type of AWS Snow device to use for this cluster.
+--
+-- For cluster jobs, AWS Snow Family currently supports only the @EDGE@
+-- device type.
+--
+-- 'description', 'clusterMetadata_description' - The optional description of the cluster.
+--
+-- 'addressId', 'clusterMetadata_addressId' - The automatically generated ID for a specific address.
+--
+-- 'forwardingAddressId', 'clusterMetadata_forwardingAddressId' - The ID of the address that you want a cluster shipped to, after it will
+-- be shipped to its primary address. This field is not supported in most
+-- regions.
+--
+-- 'notification', 'clusterMetadata_notification' - The Amazon Simple Notification Service (Amazon SNS) notification
+-- settings for this cluster.
+--
+-- 'clusterState', 'clusterMetadata_clusterState' - The current status of the cluster.
+newClusterMetadata ::
   ClusterMetadata
-clusterMetadata =
+newClusterMetadata =
   ClusterMetadata'
-    { _cmClusterId = Nothing,
-      _cmRoleARN = Nothing,
-      _cmShippingOption = Nothing,
-      _cmCreationDate = Nothing,
-      _cmKMSKeyARN = Nothing,
-      _cmJobType = Nothing,
-      _cmResources = Nothing,
-      _cmTaxDocuments = Nothing,
-      _cmSnowballType = Nothing,
-      _cmDescription = Nothing,
-      _cmAddressId = Nothing,
-      _cmForwardingAddressId = Nothing,
-      _cmNotification = Nothing,
-      _cmClusterState = Nothing
+    { clusterId = Prelude.Nothing,
+      roleARN = Prelude.Nothing,
+      shippingOption = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      kmsKeyARN = Prelude.Nothing,
+      jobType = Prelude.Nothing,
+      resources = Prelude.Nothing,
+      taxDocuments = Prelude.Nothing,
+      snowballType = Prelude.Nothing,
+      description = Prelude.Nothing,
+      addressId = Prelude.Nothing,
+      forwardingAddressId = Prelude.Nothing,
+      notification = Prelude.Nothing,
+      clusterState = Prelude.Nothing
     }
 
 -- | The automatically generated ID for a cluster.
-cmClusterId :: Lens' ClusterMetadata (Maybe Text)
-cmClusterId = lens _cmClusterId (\s a -> s {_cmClusterId = a})
+clusterMetadata_clusterId :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_clusterId = Lens.lens (\ClusterMetadata' {clusterId} -> clusterId) (\s@ClusterMetadata' {} a -> s {clusterId = a} :: ClusterMetadata)
 
--- | The role ARN associated with this cluster. This ARN was created using the <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole> API action in AWS Identity and Access Management (IAM).
-cmRoleARN :: Lens' ClusterMetadata (Maybe Text)
-cmRoleARN = lens _cmRoleARN (\s a -> s {_cmRoleARN = a})
+-- | The role ARN associated with this cluster. This ARN was created using
+-- the
+-- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
+-- API action in AWS Identity and Access Management (IAM).
+clusterMetadata_roleARN :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_roleARN = Lens.lens (\ClusterMetadata' {roleARN} -> roleARN) (\s@ClusterMetadata' {} a -> s {roleARN = a} :: ClusterMetadata)
 
--- | The shipping speed for each node in this cluster. This speed doesn't dictate how soon you'll get each device, rather it represents how quickly each device moves to its destination while in transit. Regional shipping speeds are as follows:     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a day.     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes less than a week, one way.     * In India, Snow devices are delivered in one to seven days.     * In the US, you have access to one-day shipping and two-day shipping.
-cmShippingOption :: Lens' ClusterMetadata (Maybe ShippingOption)
-cmShippingOption = lens _cmShippingOption (\s a -> s {_cmShippingOption = a})
+-- | The shipping speed for each node in this cluster. This speed doesn\'t
+-- dictate how soon you\'ll get each device, rather it represents how
+-- quickly each device moves to its destination while in transit. Regional
+-- shipping speeds are as follows:
+--
+-- -   In Australia, you have access to express shipping. Typically,
+--     devices shipped express are delivered in about a day.
+--
+-- -   In the European Union (EU), you have access to express shipping.
+--     Typically, Snow devices shipped express are delivered in about a
+--     day. In addition, most countries in the EU have access to standard
+--     shipping, which typically takes less than a week, one way.
+--
+-- -   In India, Snow devices are delivered in one to seven days.
+--
+-- -   In the US, you have access to one-day shipping and two-day shipping.
+clusterMetadata_shippingOption :: Lens.Lens' ClusterMetadata (Prelude.Maybe ShippingOption)
+clusterMetadata_shippingOption = Lens.lens (\ClusterMetadata' {shippingOption} -> shippingOption) (\s@ClusterMetadata' {} a -> s {shippingOption = a} :: ClusterMetadata)
 
 -- | The creation date for this cluster.
-cmCreationDate :: Lens' ClusterMetadata (Maybe UTCTime)
-cmCreationDate = lens _cmCreationDate (\s a -> s {_cmCreationDate = a}) . mapping _Time
+clusterMetadata_creationDate :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.UTCTime)
+clusterMetadata_creationDate = Lens.lens (\ClusterMetadata' {creationDate} -> creationDate) (\s@ClusterMetadata' {} a -> s {creationDate = a} :: ClusterMetadata) Prelude.. Lens.mapping Prelude._Time
 
--- | The @KmsKeyARN@ Amazon Resource Name (ARN) associated with this cluster. This ARN was created using the <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey> API action in AWS Key Management Service (AWS KMS).
-cmKMSKeyARN :: Lens' ClusterMetadata (Maybe Text)
-cmKMSKeyARN = lens _cmKMSKeyARN (\s a -> s {_cmKMSKeyARN = a})
+-- | The @KmsKeyARN@ Amazon Resource Name (ARN) associated with this cluster.
+-- This ARN was created using the
+-- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
+-- API action in AWS Key Management Service (AWS KMS).
+clusterMetadata_kmsKeyARN :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_kmsKeyARN = Lens.lens (\ClusterMetadata' {kmsKeyARN} -> kmsKeyARN) (\s@ClusterMetadata' {} a -> s {kmsKeyARN = a} :: ClusterMetadata)
 
--- | The type of job for this cluster. Currently, the only job type supported for clusters is @LOCAL_USE@ .
-cmJobType :: Lens' ClusterMetadata (Maybe JobType)
-cmJobType = lens _cmJobType (\s a -> s {_cmJobType = a})
+-- | The type of job for this cluster. Currently, the only job type supported
+-- for clusters is @LOCAL_USE@.
+clusterMetadata_jobType :: Lens.Lens' ClusterMetadata (Prelude.Maybe JobType)
+clusterMetadata_jobType = Lens.lens (\ClusterMetadata' {jobType} -> jobType) (\s@ClusterMetadata' {} a -> s {jobType = a} :: ClusterMetadata)
 
--- | The arrays of 'JobResource' objects that can include updated 'S3Resource' objects or 'LambdaResource' objects.
-cmResources :: Lens' ClusterMetadata (Maybe JobResource)
-cmResources = lens _cmResources (\s a -> s {_cmResources = a})
+-- | The arrays of JobResource objects that can include updated S3Resource
+-- objects or LambdaResource objects.
+clusterMetadata_resources :: Lens.Lens' ClusterMetadata (Prelude.Maybe JobResource)
+clusterMetadata_resources = Lens.lens (\ClusterMetadata' {resources} -> resources) (\s@ClusterMetadata' {} a -> s {resources = a} :: ClusterMetadata)
 
 -- | The tax documents required in your AWS Region.
-cmTaxDocuments :: Lens' ClusterMetadata (Maybe TaxDocuments)
-cmTaxDocuments = lens _cmTaxDocuments (\s a -> s {_cmTaxDocuments = a})
+clusterMetadata_taxDocuments :: Lens.Lens' ClusterMetadata (Prelude.Maybe TaxDocuments)
+clusterMetadata_taxDocuments = Lens.lens (\ClusterMetadata' {taxDocuments} -> taxDocuments) (\s@ClusterMetadata' {} a -> s {taxDocuments = a} :: ClusterMetadata)
 
 -- | The type of AWS Snow device to use for this cluster.
-cmSnowballType :: Lens' ClusterMetadata (Maybe SnowballType)
-cmSnowballType = lens _cmSnowballType (\s a -> s {_cmSnowballType = a})
+--
+-- For cluster jobs, AWS Snow Family currently supports only the @EDGE@
+-- device type.
+clusterMetadata_snowballType :: Lens.Lens' ClusterMetadata (Prelude.Maybe SnowballType)
+clusterMetadata_snowballType = Lens.lens (\ClusterMetadata' {snowballType} -> snowballType) (\s@ClusterMetadata' {} a -> s {snowballType = a} :: ClusterMetadata)
 
 -- | The optional description of the cluster.
-cmDescription :: Lens' ClusterMetadata (Maybe Text)
-cmDescription = lens _cmDescription (\s a -> s {_cmDescription = a})
+clusterMetadata_description :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_description = Lens.lens (\ClusterMetadata' {description} -> description) (\s@ClusterMetadata' {} a -> s {description = a} :: ClusterMetadata)
 
 -- | The automatically generated ID for a specific address.
-cmAddressId :: Lens' ClusterMetadata (Maybe Text)
-cmAddressId = lens _cmAddressId (\s a -> s {_cmAddressId = a})
+clusterMetadata_addressId :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_addressId = Lens.lens (\ClusterMetadata' {addressId} -> addressId) (\s@ClusterMetadata' {} a -> s {addressId = a} :: ClusterMetadata)
 
--- | The ID of the address that you want a cluster shipped to, after it will be shipped to its primary address. This field is not supported in most regions.
-cmForwardingAddressId :: Lens' ClusterMetadata (Maybe Text)
-cmForwardingAddressId = lens _cmForwardingAddressId (\s a -> s {_cmForwardingAddressId = a})
+-- | The ID of the address that you want a cluster shipped to, after it will
+-- be shipped to its primary address. This field is not supported in most
+-- regions.
+clusterMetadata_forwardingAddressId :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_forwardingAddressId = Lens.lens (\ClusterMetadata' {forwardingAddressId} -> forwardingAddressId) (\s@ClusterMetadata' {} a -> s {forwardingAddressId = a} :: ClusterMetadata)
 
--- | The Amazon Simple Notification Service (Amazon SNS) notification settings for this cluster.
-cmNotification :: Lens' ClusterMetadata (Maybe Notification)
-cmNotification = lens _cmNotification (\s a -> s {_cmNotification = a})
+-- | The Amazon Simple Notification Service (Amazon SNS) notification
+-- settings for this cluster.
+clusterMetadata_notification :: Lens.Lens' ClusterMetadata (Prelude.Maybe Notification)
+clusterMetadata_notification = Lens.lens (\ClusterMetadata' {notification} -> notification) (\s@ClusterMetadata' {} a -> s {notification = a} :: ClusterMetadata)
 
 -- | The current status of the cluster.
-cmClusterState :: Lens' ClusterMetadata (Maybe ClusterState)
-cmClusterState = lens _cmClusterState (\s a -> s {_cmClusterState = a})
+clusterMetadata_clusterState :: Lens.Lens' ClusterMetadata (Prelude.Maybe ClusterState)
+clusterMetadata_clusterState = Lens.lens (\ClusterMetadata' {clusterState} -> clusterState) (\s@ClusterMetadata' {} a -> s {clusterState = a} :: ClusterMetadata)
 
-instance FromJSON ClusterMetadata where
+instance Prelude.FromJSON ClusterMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClusterMetadata"
       ( \x ->
           ClusterMetadata'
-            <$> (x .:? "ClusterId")
-            <*> (x .:? "RoleARN")
-            <*> (x .:? "ShippingOption")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "KmsKeyARN")
-            <*> (x .:? "JobType")
-            <*> (x .:? "Resources")
-            <*> (x .:? "TaxDocuments")
-            <*> (x .:? "SnowballType")
-            <*> (x .:? "Description")
-            <*> (x .:? "AddressId")
-            <*> (x .:? "ForwardingAddressId")
-            <*> (x .:? "Notification")
-            <*> (x .:? "ClusterState")
+            Prelude.<$> (x Prelude..:? "ClusterId")
+            Prelude.<*> (x Prelude..:? "RoleARN")
+            Prelude.<*> (x Prelude..:? "ShippingOption")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "KmsKeyARN")
+            Prelude.<*> (x Prelude..:? "JobType")
+            Prelude.<*> (x Prelude..:? "Resources")
+            Prelude.<*> (x Prelude..:? "TaxDocuments")
+            Prelude.<*> (x Prelude..:? "SnowballType")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "AddressId")
+            Prelude.<*> (x Prelude..:? "ForwardingAddressId")
+            Prelude.<*> (x Prelude..:? "Notification")
+            Prelude.<*> (x Prelude..:? "ClusterState")
       )
 
-instance Hashable ClusterMetadata
+instance Prelude.Hashable ClusterMetadata
 
-instance NFData ClusterMetadata
+instance Prelude.NFData ClusterMetadata

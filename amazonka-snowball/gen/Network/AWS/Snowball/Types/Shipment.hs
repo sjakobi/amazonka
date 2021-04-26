@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.Shipment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The @Status@ and @TrackingNumber@ information for an inbound or outbound shipment.
+-- | The @Status@ and @TrackingNumber@ information for an inbound or outbound
+-- shipment.
 --
---
---
--- /See:/ 'shipment' smart constructor.
+-- /See:/ 'newShipment' smart constructor.
 data Shipment = Shipment'
-  { _sTrackingNumber ::
-      !(Maybe Text),
-    _sStatus :: !(Maybe Text)
+  { -- | The tracking number for this job. Using this tracking number with your
+    -- region\'s carrier\'s website, you can track a Snow device as the carrier
+    -- transports it.
+    --
+    -- For India, the carrier is Amazon Logistics. For all other regions, UPS
+    -- is the carrier.
+    trackingNumber :: Prelude.Maybe Prelude.Text,
+    -- | Status information for a shipment.
+    status :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Shipment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Shipment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sTrackingNumber' - The tracking number for this job. Using this tracking number with your region's carrier's website, you can track a Snow device as the carrier transports it. For India, the carrier is Amazon Logistics. For all other regions, UPS is the carrier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sStatus' - Status information for a shipment.
-shipment ::
+-- 'trackingNumber', 'shipment_trackingNumber' - The tracking number for this job. Using this tracking number with your
+-- region\'s carrier\'s website, you can track a Snow device as the carrier
+-- transports it.
+--
+-- For India, the carrier is Amazon Logistics. For all other regions, UPS
+-- is the carrier.
+--
+-- 'status', 'shipment_status' - Status information for a shipment.
+newShipment ::
   Shipment
-shipment =
+newShipment =
   Shipment'
-    { _sTrackingNumber = Nothing,
-      _sStatus = Nothing
+    { trackingNumber = Prelude.Nothing,
+      status = Prelude.Nothing
     }
 
--- | The tracking number for this job. Using this tracking number with your region's carrier's website, you can track a Snow device as the carrier transports it. For India, the carrier is Amazon Logistics. For all other regions, UPS is the carrier.
-sTrackingNumber :: Lens' Shipment (Maybe Text)
-sTrackingNumber = lens _sTrackingNumber (\s a -> s {_sTrackingNumber = a})
+-- | The tracking number for this job. Using this tracking number with your
+-- region\'s carrier\'s website, you can track a Snow device as the carrier
+-- transports it.
+--
+-- For India, the carrier is Amazon Logistics. For all other regions, UPS
+-- is the carrier.
+shipment_trackingNumber :: Lens.Lens' Shipment (Prelude.Maybe Prelude.Text)
+shipment_trackingNumber = Lens.lens (\Shipment' {trackingNumber} -> trackingNumber) (\s@Shipment' {} a -> s {trackingNumber = a} :: Shipment)
 
 -- | Status information for a shipment.
-sStatus :: Lens' Shipment (Maybe Text)
-sStatus = lens _sStatus (\s a -> s {_sStatus = a})
+shipment_status :: Lens.Lens' Shipment (Prelude.Maybe Prelude.Text)
+shipment_status = Lens.lens (\Shipment' {status} -> status) (\s@Shipment' {} a -> s {status = a} :: Shipment)
 
-instance FromJSON Shipment where
+instance Prelude.FromJSON Shipment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Shipment"
       ( \x ->
           Shipment'
-            <$> (x .:? "TrackingNumber") <*> (x .:? "Status")
+            Prelude.<$> (x Prelude..:? "TrackingNumber")
+            Prelude.<*> (x Prelude..:? "Status")
       )
 
-instance Hashable Shipment
+instance Prelude.Hashable Shipment
 
-instance NFData Shipment
+instance Prelude.NFData Shipment

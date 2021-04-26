@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Snowball.Types.ShipmentState
   ( ShipmentState
       ( ..,
-        Received,
-        Returned
+        ShipmentStateRECEIVED,
+        ShipmentStateRETURNED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ShipmentState = ShipmentState' (CI Text)
+newtype ShipmentState = ShipmentState'
+  { fromShipmentState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Received :: ShipmentState
-pattern Received = ShipmentState' "RECEIVED"
+pattern ShipmentStateRECEIVED :: ShipmentState
+pattern ShipmentStateRECEIVED = ShipmentState' "RECEIVED"
 
-pattern Returned :: ShipmentState
-pattern Returned = ShipmentState' "RETURNED"
+pattern ShipmentStateRETURNED :: ShipmentState
+pattern ShipmentStateRETURNED = ShipmentState' "RETURNED"
 
 {-# COMPLETE
-  Received,
-  Returned,
+  ShipmentStateRECEIVED,
+  ShipmentStateRETURNED,
   ShipmentState'
   #-}
 
-instance FromText ShipmentState where
-  parser = (ShipmentState' . mk) <$> takeText
+instance Prelude.FromText ShipmentState where
+  parser = ShipmentState' Prelude.<$> Prelude.takeText
 
-instance ToText ShipmentState where
-  toText (ShipmentState' ci) = original ci
+instance Prelude.ToText ShipmentState where
+  toText (ShipmentState' x) = x
 
-instance Hashable ShipmentState
+instance Prelude.Hashable ShipmentState
 
-instance NFData ShipmentState
+instance Prelude.NFData ShipmentState
 
-instance ToByteString ShipmentState
+instance Prelude.ToByteString ShipmentState
 
-instance ToQuery ShipmentState
+instance Prelude.ToQuery ShipmentState
 
-instance ToHeader ShipmentState
+instance Prelude.ToHeader ShipmentState
 
-instance ToJSON ShipmentState where
-  toJSON = toJSONText
+instance Prelude.ToJSON ShipmentState where
+  toJSON = Prelude.toJSONText

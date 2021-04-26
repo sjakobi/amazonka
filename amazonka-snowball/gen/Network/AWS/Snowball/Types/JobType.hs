@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Snowball.Types.JobType
   ( JobType
       ( ..,
-        Export,
-        Import,
-        LocalUse
+        JobTypeEXPORT,
+        JobTypeIMPORT,
+        JobTypeLOCALUSE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobType = JobType' (CI Text)
+newtype JobType = JobType'
+  { fromJobType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Export :: JobType
-pattern Export = JobType' "EXPORT"
+pattern JobTypeEXPORT :: JobType
+pattern JobTypeEXPORT = JobType' "EXPORT"
 
-pattern Import :: JobType
-pattern Import = JobType' "IMPORT"
+pattern JobTypeIMPORT :: JobType
+pattern JobTypeIMPORT = JobType' "IMPORT"
 
-pattern LocalUse :: JobType
-pattern LocalUse = JobType' "LOCAL_USE"
+pattern JobTypeLOCALUSE :: JobType
+pattern JobTypeLOCALUSE = JobType' "LOCAL_USE"
 
 {-# COMPLETE
-  Export,
-  Import,
-  LocalUse,
+  JobTypeEXPORT,
+  JobTypeIMPORT,
+  JobTypeLOCALUSE,
   JobType'
   #-}
 
-instance FromText JobType where
-  parser = (JobType' . mk) <$> takeText
+instance Prelude.FromText JobType where
+  parser = JobType' Prelude.<$> Prelude.takeText
 
-instance ToText JobType where
-  toText (JobType' ci) = original ci
+instance Prelude.ToText JobType where
+  toText (JobType' x) = x
 
-instance Hashable JobType
+instance Prelude.Hashable JobType
 
-instance NFData JobType
+instance Prelude.NFData JobType
 
-instance ToByteString JobType
+instance Prelude.ToByteString JobType
 
-instance ToQuery JobType
+instance Prelude.ToQuery JobType
 
-instance ToHeader JobType
+instance Prelude.ToHeader JobType
 
-instance ToJSON JobType where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JobType where
-  parseJSON = parseJSONText "JobType"
+instance Prelude.FromJSON JobType where
+  parseJSON = Prelude.parseJSONText "JobType"

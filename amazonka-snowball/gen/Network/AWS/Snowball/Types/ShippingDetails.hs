@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,124 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.ShippingDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Snowball.Types.Shipment
 import Network.AWS.Snowball.Types.ShippingOption
 
--- | A job's shipping information, including inbound and outbound tracking numbers and shipping speed options.
+-- | A job\'s shipping information, including inbound and outbound tracking
+-- numbers and shipping speed options.
 --
---
---
--- /See:/ 'shippingDetails' smart constructor.
+-- /See:/ 'newShippingDetails' smart constructor.
 data ShippingDetails = ShippingDetails'
-  { _sdShippingOption ::
-      !(Maybe ShippingOption),
-    _sdOutboundShipment ::
-      !(Maybe Shipment),
-    _sdInboundShipment :: !(Maybe Shipment)
+  { -- | The shipping speed for a particular job. This speed doesn\'t dictate how
+    -- soon you\'ll get the Snow device from the job\'s creation date. This
+    -- speed represents how quickly it moves to its destination while in
+    -- transit. Regional shipping speeds are as follows:
+    --
+    -- -   In Australia, you have access to express shipping. Typically, Snow
+    --     devices shipped express are delivered in about a day.
+    --
+    -- -   In the European Union (EU), you have access to express shipping.
+    --     Typically, Snow devices shipped express are delivered in about a
+    --     day. In addition, most countries in the EU have access to standard
+    --     shipping, which typically takes less than a week, one way.
+    --
+    -- -   In India, Snow device are delivered in one to seven days.
+    --
+    -- -   In the United States of America (US), you have access to one-day
+    --     shipping and two-day shipping.
+    shippingOption :: Prelude.Maybe ShippingOption,
+    -- | The @Status@ and @TrackingNumber@ values for a Snow device being
+    -- delivered to the address that you specified for a particular job.
+    outboundShipment :: Prelude.Maybe Shipment,
+    -- | The @Status@ and @TrackingNumber@ values for a Snow device being
+    -- returned to AWS for a particular job.
+    inboundShipment :: Prelude.Maybe Shipment
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ShippingDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ShippingDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdShippingOption' - The shipping speed for a particular job. This speed doesn't dictate how soon you'll get the Snow device from the job's creation date. This speed represents how quickly it moves to its destination while in transit. Regional shipping speeds are as follows:     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about a day.     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes less than a week, one way.     * In India, Snow device are delivered in one to seven days.     * In the United States of America (US), you have access to one-day shipping and two-day shipping.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdOutboundShipment' - The @Status@ and @TrackingNumber@ values for a Snow device being delivered to the address that you specified for a particular job.
+-- 'shippingOption', 'shippingDetails_shippingOption' - The shipping speed for a particular job. This speed doesn\'t dictate how
+-- soon you\'ll get the Snow device from the job\'s creation date. This
+-- speed represents how quickly it moves to its destination while in
+-- transit. Regional shipping speeds are as follows:
 --
--- * 'sdInboundShipment' - The @Status@ and @TrackingNumber@ values for a Snow device being returned to AWS for a particular job.
-shippingDetails ::
+-- -   In Australia, you have access to express shipping. Typically, Snow
+--     devices shipped express are delivered in about a day.
+--
+-- -   In the European Union (EU), you have access to express shipping.
+--     Typically, Snow devices shipped express are delivered in about a
+--     day. In addition, most countries in the EU have access to standard
+--     shipping, which typically takes less than a week, one way.
+--
+-- -   In India, Snow device are delivered in one to seven days.
+--
+-- -   In the United States of America (US), you have access to one-day
+--     shipping and two-day shipping.
+--
+-- 'outboundShipment', 'shippingDetails_outboundShipment' - The @Status@ and @TrackingNumber@ values for a Snow device being
+-- delivered to the address that you specified for a particular job.
+--
+-- 'inboundShipment', 'shippingDetails_inboundShipment' - The @Status@ and @TrackingNumber@ values for a Snow device being
+-- returned to AWS for a particular job.
+newShippingDetails ::
   ShippingDetails
-shippingDetails =
+newShippingDetails =
   ShippingDetails'
-    { _sdShippingOption = Nothing,
-      _sdOutboundShipment = Nothing,
-      _sdInboundShipment = Nothing
+    { shippingOption = Prelude.Nothing,
+      outboundShipment = Prelude.Nothing,
+      inboundShipment = Prelude.Nothing
     }
 
--- | The shipping speed for a particular job. This speed doesn't dictate how soon you'll get the Snow device from the job's creation date. This speed represents how quickly it moves to its destination while in transit. Regional shipping speeds are as follows:     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about a day.     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes less than a week, one way.     * In India, Snow device are delivered in one to seven days.     * In the United States of America (US), you have access to one-day shipping and two-day shipping.
-sdShippingOption :: Lens' ShippingDetails (Maybe ShippingOption)
-sdShippingOption = lens _sdShippingOption (\s a -> s {_sdShippingOption = a})
+-- | The shipping speed for a particular job. This speed doesn\'t dictate how
+-- soon you\'ll get the Snow device from the job\'s creation date. This
+-- speed represents how quickly it moves to its destination while in
+-- transit. Regional shipping speeds are as follows:
+--
+-- -   In Australia, you have access to express shipping. Typically, Snow
+--     devices shipped express are delivered in about a day.
+--
+-- -   In the European Union (EU), you have access to express shipping.
+--     Typically, Snow devices shipped express are delivered in about a
+--     day. In addition, most countries in the EU have access to standard
+--     shipping, which typically takes less than a week, one way.
+--
+-- -   In India, Snow device are delivered in one to seven days.
+--
+-- -   In the United States of America (US), you have access to one-day
+--     shipping and two-day shipping.
+shippingDetails_shippingOption :: Lens.Lens' ShippingDetails (Prelude.Maybe ShippingOption)
+shippingDetails_shippingOption = Lens.lens (\ShippingDetails' {shippingOption} -> shippingOption) (\s@ShippingDetails' {} a -> s {shippingOption = a} :: ShippingDetails)
 
--- | The @Status@ and @TrackingNumber@ values for a Snow device being delivered to the address that you specified for a particular job.
-sdOutboundShipment :: Lens' ShippingDetails (Maybe Shipment)
-sdOutboundShipment = lens _sdOutboundShipment (\s a -> s {_sdOutboundShipment = a})
+-- | The @Status@ and @TrackingNumber@ values for a Snow device being
+-- delivered to the address that you specified for a particular job.
+shippingDetails_outboundShipment :: Lens.Lens' ShippingDetails (Prelude.Maybe Shipment)
+shippingDetails_outboundShipment = Lens.lens (\ShippingDetails' {outboundShipment} -> outboundShipment) (\s@ShippingDetails' {} a -> s {outboundShipment = a} :: ShippingDetails)
 
--- | The @Status@ and @TrackingNumber@ values for a Snow device being returned to AWS for a particular job.
-sdInboundShipment :: Lens' ShippingDetails (Maybe Shipment)
-sdInboundShipment = lens _sdInboundShipment (\s a -> s {_sdInboundShipment = a})
+-- | The @Status@ and @TrackingNumber@ values for a Snow device being
+-- returned to AWS for a particular job.
+shippingDetails_inboundShipment :: Lens.Lens' ShippingDetails (Prelude.Maybe Shipment)
+shippingDetails_inboundShipment = Lens.lens (\ShippingDetails' {inboundShipment} -> inboundShipment) (\s@ShippingDetails' {} a -> s {inboundShipment = a} :: ShippingDetails)
 
-instance FromJSON ShippingDetails where
+instance Prelude.FromJSON ShippingDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ShippingDetails"
       ( \x ->
           ShippingDetails'
-            <$> (x .:? "ShippingOption")
-            <*> (x .:? "OutboundShipment")
-            <*> (x .:? "InboundShipment")
+            Prelude.<$> (x Prelude..:? "ShippingOption")
+            Prelude.<*> (x Prelude..:? "OutboundShipment")
+            Prelude.<*> (x Prelude..:? "InboundShipment")
       )
 
-instance Hashable ShippingDetails
+instance Prelude.Hashable ShippingDetails
 
-instance NFData ShippingDetails
+instance Prelude.NFData ShippingDetails

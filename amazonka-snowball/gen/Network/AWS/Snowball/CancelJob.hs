@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,109 +21,129 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels the specified job. You can only cancel a job before its @JobState@ value changes to @PreparingAppliance@ . Requesting the @ListJobs@ or @DescribeJob@ action returns a job's @JobState@ as part of the response element data returned.
+-- Cancels the specified job. You can only cancel a job before its
+-- @JobState@ value changes to @PreparingAppliance@. Requesting the
+-- @ListJobs@ or @DescribeJob@ action returns a job\'s @JobState@ as part
+-- of the response element data returned.
 module Network.AWS.Snowball.CancelJob
   ( -- * Creating a Request
-    cancelJob,
-    CancelJob,
+    CancelJob (..),
+    newCancelJob,
 
     -- * Request Lenses
-    cjJobId,
+    cancelJob_jobId,
 
     -- * Destructuring the Response
-    cancelJobResponse,
-    CancelJobResponse,
+    CancelJobResponse (..),
+    newCancelJobResponse,
 
     -- * Response Lenses
-    cjrrsResponseStatus,
+    cancelJobResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Snowball.Types
 
--- | /See:/ 'cancelJob' smart constructor.
-newtype CancelJob = CancelJob' {_cjJobId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newCancelJob' smart constructor.
+data CancelJob = CancelJob'
+  { -- | The 39-character job ID for the job that you want to cancel, for example
+    -- @JID123e4567-e89b-12d3-a456-426655440000@.
+    jobId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cjJobId' - The 39-character job ID for the job that you want to cancel, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
-cancelJob ::
-  -- | 'cjJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'cancelJob_jobId' - The 39-character job ID for the job that you want to cancel, for example
+-- @JID123e4567-e89b-12d3-a456-426655440000@.
+newCancelJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   CancelJob
-cancelJob pJobId_ = CancelJob' {_cjJobId = pJobId_}
+newCancelJob pJobId_ = CancelJob' {jobId = pJobId_}
 
--- | The 39-character job ID for the job that you want to cancel, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
-cjJobId :: Lens' CancelJob Text
-cjJobId = lens _cjJobId (\s a -> s {_cjJobId = a})
+-- | The 39-character job ID for the job that you want to cancel, for example
+-- @JID123e4567-e89b-12d3-a456-426655440000@.
+cancelJob_jobId :: Lens.Lens' CancelJob Prelude.Text
+cancelJob_jobId = Lens.lens (\CancelJob' {jobId} -> jobId) (\s@CancelJob' {} a -> s {jobId = a} :: CancelJob)
 
-instance AWSRequest CancelJob where
+instance Prelude.AWSRequest CancelJob where
   type Rs CancelJob = CancelJobResponse
-  request = postJSON snowball
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CancelJobResponse' <$> (pure (fromEnum s))
+          CancelJobResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelJob
+instance Prelude.Hashable CancelJob
 
-instance NFData CancelJob
+instance Prelude.NFData CancelJob
 
-instance ToHeaders CancelJob where
+instance Prelude.ToHeaders CancelJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSIESnowballJobManagementService.CancelJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSIESnowballJobManagementService.CancelJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CancelJob where
+instance Prelude.ToJSON CancelJob where
   toJSON CancelJob' {..} =
-    object (catMaybes [Just ("JobId" .= _cjJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath CancelJob where
-  toPath = const "/"
+instance Prelude.ToPath CancelJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery CancelJob where
-  toQuery = const mempty
+instance Prelude.ToQuery CancelJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'cancelJobResponse' smart constructor.
-newtype CancelJobResponse = CancelJobResponse'
-  { _cjrrsResponseStatus ::
-      Int
+-- | /See:/ 'newCancelJobResponse' smart constructor.
+data CancelJobResponse = CancelJobResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cjrrsResponseStatus' - -- | The response status code.
-cancelJobResponse ::
-  -- | 'cjrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'cancelJobResponse_httpStatus' - The response's http status code.
+newCancelJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelJobResponse
-cancelJobResponse pResponseStatus_ =
-  CancelJobResponse'
-    { _cjrrsResponseStatus =
-        pResponseStatus_
-    }
+newCancelJobResponse pHttpStatus_ =
+  CancelJobResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-cjrrsResponseStatus :: Lens' CancelJobResponse Int
-cjrrsResponseStatus = lens _cjrrsResponseStatus (\s a -> s {_cjrrsResponseStatus = a})
+-- | The response's http status code.
+cancelJobResponse_httpStatus :: Lens.Lens' CancelJobResponse Prelude.Int
+cancelJobResponse_httpStatus = Lens.lens (\CancelJobResponse' {httpStatus} -> httpStatus) (\s@CancelJobResponse' {} a -> s {httpStatus = a} :: CancelJobResponse)
 
-instance NFData CancelJobResponse
+instance Prelude.NFData CancelJobResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.LambdaResource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Snowball.Types.EventTriggerDefinition
 
 -- | Identifies
 --
---
---
--- /See:/ 'lambdaResource' smart constructor.
+-- /See:/ 'newLambdaResource' smart constructor.
 data LambdaResource = LambdaResource'
-  { _lrEventTriggers ::
-      !(Maybe [EventTriggerDefinition]),
-    _lrLambdaARN :: !(Maybe Text)
+  { -- | The array of ARNs for S3Resource objects to trigger the LambdaResource
+    -- objects associated with this job.
+    eventTriggers :: Prelude.Maybe [EventTriggerDefinition],
+    -- | An Amazon Resource Name (ARN) that represents an AWS Lambda function to
+    -- be triggered by PUT object actions on the associated local Amazon S3
+    -- resource.
+    lambdaArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrEventTriggers' - The array of ARNs for 'S3Resource' objects to trigger the 'LambdaResource' objects associated with this job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrLambdaARN' - An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object actions on the associated local Amazon S3 resource.
-lambdaResource ::
+-- 'eventTriggers', 'lambdaResource_eventTriggers' - The array of ARNs for S3Resource objects to trigger the LambdaResource
+-- objects associated with this job.
+--
+-- 'lambdaArn', 'lambdaResource_lambdaArn' - An Amazon Resource Name (ARN) that represents an AWS Lambda function to
+-- be triggered by PUT object actions on the associated local Amazon S3
+-- resource.
+newLambdaResource ::
   LambdaResource
-lambdaResource =
+newLambdaResource =
   LambdaResource'
-    { _lrEventTriggers = Nothing,
-      _lrLambdaARN = Nothing
+    { eventTriggers = Prelude.Nothing,
+      lambdaArn = Prelude.Nothing
     }
 
--- | The array of ARNs for 'S3Resource' objects to trigger the 'LambdaResource' objects associated with this job.
-lrEventTriggers :: Lens' LambdaResource [EventTriggerDefinition]
-lrEventTriggers = lens _lrEventTriggers (\s a -> s {_lrEventTriggers = a}) . _Default . _Coerce
+-- | The array of ARNs for S3Resource objects to trigger the LambdaResource
+-- objects associated with this job.
+lambdaResource_eventTriggers :: Lens.Lens' LambdaResource (Prelude.Maybe [EventTriggerDefinition])
+lambdaResource_eventTriggers = Lens.lens (\LambdaResource' {eventTriggers} -> eventTriggers) (\s@LambdaResource' {} a -> s {eventTriggers = a} :: LambdaResource) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object actions on the associated local Amazon S3 resource.
-lrLambdaARN :: Lens' LambdaResource (Maybe Text)
-lrLambdaARN = lens _lrLambdaARN (\s a -> s {_lrLambdaARN = a})
+-- | An Amazon Resource Name (ARN) that represents an AWS Lambda function to
+-- be triggered by PUT object actions on the associated local Amazon S3
+-- resource.
+lambdaResource_lambdaArn :: Lens.Lens' LambdaResource (Prelude.Maybe Prelude.Text)
+lambdaResource_lambdaArn = Lens.lens (\LambdaResource' {lambdaArn} -> lambdaArn) (\s@LambdaResource' {} a -> s {lambdaArn = a} :: LambdaResource)
 
-instance FromJSON LambdaResource where
+instance Prelude.FromJSON LambdaResource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaResource"
       ( \x ->
           LambdaResource'
-            <$> (x .:? "EventTriggers" .!= mempty)
-            <*> (x .:? "LambdaArn")
+            Prelude.<$> ( x Prelude..:? "EventTriggers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "LambdaArn")
       )
 
-instance Hashable LambdaResource
+instance Prelude.Hashable LambdaResource
 
-instance NFData LambdaResource
+instance Prelude.NFData LambdaResource
 
-instance ToJSON LambdaResource where
+instance Prelude.ToJSON LambdaResource where
   toJSON LambdaResource' {..} =
-    object
-      ( catMaybes
-          [ ("EventTriggers" .=) <$> _lrEventTriggers,
-            ("LambdaArn" .=) <$> _lrLambdaARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EventTriggers" Prelude..=)
+              Prelude.<$> eventTriggers,
+            ("LambdaArn" Prelude..=) Prelude.<$> lambdaArn
           ]
       )

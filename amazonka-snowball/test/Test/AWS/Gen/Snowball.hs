@@ -28,139 +28,139 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestListClusterJobs $
---             listClusterJobs
+--             newListClusterJobs
 --
 --         , requestCancelJob $
---             cancelJob
+--             newCancelJob
 --
 --         , requestUpdateJobShipmentState $
---             updateJobShipmentState
+--             newUpdateJobShipmentState
 --
 --         , requestCreateCluster $
---             createCluster
+--             newCreateCluster
 --
 --         , requestUpdateJob $
---             updateJob
+--             newUpdateJob
 --
 --         , requestDescribeAddress $
---             describeAddress
+--             newDescribeAddress
 --
 --         , requestDescribeReturnShippingLabel $
---             describeReturnShippingLabel
+--             newDescribeReturnShippingLabel
 --
 --         , requestGetSoftwareUpdates $
---             getSoftwareUpdates
+--             newGetSoftwareUpdates
 --
 --         , requestListCompatibleImages $
---             listCompatibleImages
+--             newListCompatibleImages
 --
 --         , requestDescribeAddresses $
---             describeAddresses
+--             newDescribeAddresses
 --
 --         , requestDescribeJob $
---             describeJob
+--             newDescribeJob
 --
 --         , requestDescribeCluster $
---             describeCluster
+--             newDescribeCluster
 --
 --         , requestCancelCluster $
---             cancelCluster
+--             newCancelCluster
 --
 --         , requestGetJobUnlockCode $
---             getJobUnlockCode
+--             newGetJobUnlockCode
 --
 --         , requestListJobs $
---             listJobs
+--             newListJobs
 --
 --         , requestGetJobManifest $
---             getJobManifest
+--             newGetJobManifest
 --
 --         , requestCreateJob $
---             createJob
+--             newCreateJob
 --
 --         , requestUpdateCluster $
---             updateCluster
+--             newUpdateCluster
 --
 --         , requestListClusters $
---             listClusters
+--             newListClusters
 --
 --         , requestGetSnowballUsage $
---             getSnowballUsage
+--             newGetSnowballUsage
 --
 --         , requestCreateReturnShippingLabel $
---             createReturnShippingLabel
+--             newCreateReturnShippingLabel
 --
 --         , requestCreateAddress $
---             createAddress
+--             newCreateAddress
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseListClusterJobs $
---             listClusterJobsResponse
+--             newListClusterJobsResponse
 --
 --         , responseCancelJob $
---             cancelJobResponse
+--             newCancelJobResponse
 --
 --         , responseUpdateJobShipmentState $
---             updateJobShipmentStateResponse
+--             newUpdateJobShipmentStateResponse
 --
 --         , responseCreateCluster $
---             createClusterResponse
+--             newCreateClusterResponse
 --
 --         , responseUpdateJob $
---             updateJobResponse
+--             newUpdateJobResponse
 --
 --         , responseDescribeAddress $
---             describeAddressResponse
+--             newDescribeAddressResponse
 --
 --         , responseDescribeReturnShippingLabel $
---             describeReturnShippingLabelResponse
+--             newDescribeReturnShippingLabelResponse
 --
 --         , responseGetSoftwareUpdates $
---             getSoftwareUpdatesResponse
+--             newGetSoftwareUpdatesResponse
 --
 --         , responseListCompatibleImages $
---             listCompatibleImagesResponse
+--             newListCompatibleImagesResponse
 --
 --         , responseDescribeAddresses $
---             describeAddressesResponse
+--             newDescribeAddressesResponse
 --
 --         , responseDescribeJob $
---             describeJobResponse
+--             newDescribeJobResponse
 --
 --         , responseDescribeCluster $
---             describeClusterResponse
+--             newDescribeClusterResponse
 --
 --         , responseCancelCluster $
---             cancelClusterResponse
+--             newCancelClusterResponse
 --
 --         , responseGetJobUnlockCode $
---             getJobUnlockCodeResponse
+--             newGetJobUnlockCodeResponse
 --
 --         , responseListJobs $
---             listJobsResponse
+--             newListJobsResponse
 --
 --         , responseGetJobManifest $
---             getJobManifestResponse
+--             newGetJobManifestResponse
 --
 --         , responseCreateJob $
---             createJobResponse
+--             newCreateJobResponse
 --
 --         , responseUpdateCluster $
---             updateClusterResponse
+--             newUpdateClusterResponse
 --
 --         , responseListClusters $
---             listClustersResponse
+--             newListClustersResponse
 --
 --         , responseGetSnowballUsage $
---             getSnowballUsageResponse
+--             newGetSnowballUsageResponse
 --
 --         , responseCreateReturnShippingLabel $
---             createReturnShippingLabelResponse
+--             newCreateReturnShippingLabelResponse
 --
 --         , responseCreateAddress $
---             createAddressResponse
+--             newCreateAddressResponse
 --
 --           ]
 --     ]
@@ -306,7 +306,7 @@ responseListClusterJobs =
   res
     "ListClusterJobsResponse"
     "fixture/ListClusterJobsResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy ListClusterJobs)
 
 responseCancelJob :: CancelJobResponse -> TestTree
@@ -314,7 +314,7 @@ responseCancelJob =
   res
     "CancelJobResponse"
     "fixture/CancelJobResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy CancelJob)
 
 responseUpdateJobShipmentState :: UpdateJobShipmentStateResponse -> TestTree
@@ -322,7 +322,7 @@ responseUpdateJobShipmentState =
   res
     "UpdateJobShipmentStateResponse"
     "fixture/UpdateJobShipmentStateResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy UpdateJobShipmentState)
 
 responseCreateCluster :: CreateClusterResponse -> TestTree
@@ -330,7 +330,7 @@ responseCreateCluster =
   res
     "CreateClusterResponse"
     "fixture/CreateClusterResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy CreateCluster)
 
 responseUpdateJob :: UpdateJobResponse -> TestTree
@@ -338,7 +338,7 @@ responseUpdateJob =
   res
     "UpdateJobResponse"
     "fixture/UpdateJobResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy UpdateJob)
 
 responseDescribeAddress :: DescribeAddressResponse -> TestTree
@@ -346,7 +346,7 @@ responseDescribeAddress =
   res
     "DescribeAddressResponse"
     "fixture/DescribeAddressResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy DescribeAddress)
 
 responseDescribeReturnShippingLabel :: DescribeReturnShippingLabelResponse -> TestTree
@@ -354,7 +354,7 @@ responseDescribeReturnShippingLabel =
   res
     "DescribeReturnShippingLabelResponse"
     "fixture/DescribeReturnShippingLabelResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy DescribeReturnShippingLabel)
 
 responseGetSoftwareUpdates :: GetSoftwareUpdatesResponse -> TestTree
@@ -362,7 +362,7 @@ responseGetSoftwareUpdates =
   res
     "GetSoftwareUpdatesResponse"
     "fixture/GetSoftwareUpdatesResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy GetSoftwareUpdates)
 
 responseListCompatibleImages :: ListCompatibleImagesResponse -> TestTree
@@ -370,7 +370,7 @@ responseListCompatibleImages =
   res
     "ListCompatibleImagesResponse"
     "fixture/ListCompatibleImagesResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy ListCompatibleImages)
 
 responseDescribeAddresses :: DescribeAddressesResponse -> TestTree
@@ -378,7 +378,7 @@ responseDescribeAddresses =
   res
     "DescribeAddressesResponse"
     "fixture/DescribeAddressesResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy DescribeAddresses)
 
 responseDescribeJob :: DescribeJobResponse -> TestTree
@@ -386,7 +386,7 @@ responseDescribeJob =
   res
     "DescribeJobResponse"
     "fixture/DescribeJobResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy DescribeJob)
 
 responseDescribeCluster :: DescribeClusterResponse -> TestTree
@@ -394,7 +394,7 @@ responseDescribeCluster =
   res
     "DescribeClusterResponse"
     "fixture/DescribeClusterResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy DescribeCluster)
 
 responseCancelCluster :: CancelClusterResponse -> TestTree
@@ -402,7 +402,7 @@ responseCancelCluster =
   res
     "CancelClusterResponse"
     "fixture/CancelClusterResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy CancelCluster)
 
 responseGetJobUnlockCode :: GetJobUnlockCodeResponse -> TestTree
@@ -410,7 +410,7 @@ responseGetJobUnlockCode =
   res
     "GetJobUnlockCodeResponse"
     "fixture/GetJobUnlockCodeResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy GetJobUnlockCode)
 
 responseListJobs :: ListJobsResponse -> TestTree
@@ -418,7 +418,7 @@ responseListJobs =
   res
     "ListJobsResponse"
     "fixture/ListJobsResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy ListJobs)
 
 responseGetJobManifest :: GetJobManifestResponse -> TestTree
@@ -426,7 +426,7 @@ responseGetJobManifest =
   res
     "GetJobManifestResponse"
     "fixture/GetJobManifestResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy GetJobManifest)
 
 responseCreateJob :: CreateJobResponse -> TestTree
@@ -434,7 +434,7 @@ responseCreateJob =
   res
     "CreateJobResponse"
     "fixture/CreateJobResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy CreateJob)
 
 responseUpdateCluster :: UpdateClusterResponse -> TestTree
@@ -442,7 +442,7 @@ responseUpdateCluster =
   res
     "UpdateClusterResponse"
     "fixture/UpdateClusterResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy UpdateCluster)
 
 responseListClusters :: ListClustersResponse -> TestTree
@@ -450,7 +450,7 @@ responseListClusters =
   res
     "ListClustersResponse"
     "fixture/ListClustersResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy ListClusters)
 
 responseGetSnowballUsage :: GetSnowballUsageResponse -> TestTree
@@ -458,7 +458,7 @@ responseGetSnowballUsage =
   res
     "GetSnowballUsageResponse"
     "fixture/GetSnowballUsageResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy GetSnowballUsage)
 
 responseCreateReturnShippingLabel :: CreateReturnShippingLabelResponse -> TestTree
@@ -466,7 +466,7 @@ responseCreateReturnShippingLabel =
   res
     "CreateReturnShippingLabelResponse"
     "fixture/CreateReturnShippingLabelResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy CreateReturnShippingLabel)
 
 responseCreateAddress :: CreateAddressResponse -> TestTree
@@ -474,5 +474,5 @@ responseCreateAddress =
   res
     "CreateAddressResponse"
     "fixture/CreateAddressResponse.proto"
-    snowball
+    defaultService
     (Proxy :: Proxy CreateAddress)

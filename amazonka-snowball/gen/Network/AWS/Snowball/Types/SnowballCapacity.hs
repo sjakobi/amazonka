@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Snowball.Types.SnowballCapacity
   ( SnowballCapacity
       ( ..,
-        NoPreference,
-        T100,
-        T42,
-        T50,
-        T8,
-        T80,
-        T98
+        SnowballCapacityNoPreference,
+        SnowballCapacityT100,
+        SnowballCapacityT42,
+        SnowballCapacityT50,
+        SnowballCapacityT8,
+        SnowballCapacityT80,
+        SnowballCapacityT98
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SnowballCapacity = SnowballCapacity' (CI Text)
+newtype SnowballCapacity = SnowballCapacity'
+  { fromSnowballCapacity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NoPreference :: SnowballCapacity
-pattern NoPreference = SnowballCapacity' "NoPreference"
+pattern SnowballCapacityNoPreference :: SnowballCapacity
+pattern SnowballCapacityNoPreference = SnowballCapacity' "NoPreference"
 
-pattern T100 :: SnowballCapacity
-pattern T100 = SnowballCapacity' "T100"
+pattern SnowballCapacityT100 :: SnowballCapacity
+pattern SnowballCapacityT100 = SnowballCapacity' "T100"
 
-pattern T42 :: SnowballCapacity
-pattern T42 = SnowballCapacity' "T42"
+pattern SnowballCapacityT42 :: SnowballCapacity
+pattern SnowballCapacityT42 = SnowballCapacity' "T42"
 
-pattern T50 :: SnowballCapacity
-pattern T50 = SnowballCapacity' "T50"
+pattern SnowballCapacityT50 :: SnowballCapacity
+pattern SnowballCapacityT50 = SnowballCapacity' "T50"
 
-pattern T8 :: SnowballCapacity
-pattern T8 = SnowballCapacity' "T8"
+pattern SnowballCapacityT8 :: SnowballCapacity
+pattern SnowballCapacityT8 = SnowballCapacity' "T8"
 
-pattern T80 :: SnowballCapacity
-pattern T80 = SnowballCapacity' "T80"
+pattern SnowballCapacityT80 :: SnowballCapacity
+pattern SnowballCapacityT80 = SnowballCapacity' "T80"
 
-pattern T98 :: SnowballCapacity
-pattern T98 = SnowballCapacity' "T98"
+pattern SnowballCapacityT98 :: SnowballCapacity
+pattern SnowballCapacityT98 = SnowballCapacity' "T98"
 
 {-# COMPLETE
-  NoPreference,
-  T100,
-  T42,
-  T50,
-  T8,
-  T80,
-  T98,
+  SnowballCapacityNoPreference,
+  SnowballCapacityT100,
+  SnowballCapacityT42,
+  SnowballCapacityT50,
+  SnowballCapacityT8,
+  SnowballCapacityT80,
+  SnowballCapacityT98,
   SnowballCapacity'
   #-}
 
-instance FromText SnowballCapacity where
-  parser = (SnowballCapacity' . mk) <$> takeText
+instance Prelude.FromText SnowballCapacity where
+  parser = SnowballCapacity' Prelude.<$> Prelude.takeText
 
-instance ToText SnowballCapacity where
-  toText (SnowballCapacity' ci) = original ci
+instance Prelude.ToText SnowballCapacity where
+  toText (SnowballCapacity' x) = x
 
-instance Hashable SnowballCapacity
+instance Prelude.Hashable SnowballCapacity
 
-instance NFData SnowballCapacity
+instance Prelude.NFData SnowballCapacity
 
-instance ToByteString SnowballCapacity
+instance Prelude.ToByteString SnowballCapacity
 
-instance ToQuery SnowballCapacity
+instance Prelude.ToQuery SnowballCapacity
 
-instance ToHeader SnowballCapacity
+instance Prelude.ToHeader SnowballCapacity
 
-instance ToJSON SnowballCapacity where
-  toJSON = toJSONText
+instance Prelude.ToJSON SnowballCapacity where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SnowballCapacity where
-  parseJSON = parseJSONText "SnowballCapacity"
+instance Prelude.FromJSON SnowballCapacity where
+  parseJSON = Prelude.parseJSONText "SnowballCapacity"

@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types
   ( -- * Service Configuration
-    snowball,
+    defaultService,
 
     -- * Errors
     _InvalidResourceException,
@@ -22,7 +25,7 @@ module Network.AWS.Snowball.Types
     _ReturnShippingLabelAlreadyExistsException,
     _UnsupportedAddressException,
     _ConflictException,
-    _EC2RequestFailedException,
+    _Ec2RequestFailedException,
     _InvalidJobStateException,
     _KMSRequestFailedException,
 
@@ -52,189 +55,97 @@ module Network.AWS.Snowball.Types
 
     -- * Address
     Address (..),
-    address,
-    aPhoneNumber,
-    aCompany,
-    aIsRestricted,
-    aPostalCode,
-    aStreet1,
-    aLandmark,
-    aCity,
-    aName,
-    aAddressId,
-    aStreet2,
-    aStateOrProvince,
-    aCountry,
-    aPrefectureOrDistrict,
-    aStreet3,
+    newAddress,
 
     -- * ClusterListEntry
     ClusterListEntry (..),
-    clusterListEntry,
-    cleClusterId,
-    cleCreationDate,
-    cleDescription,
-    cleClusterState,
+    newClusterListEntry,
 
     -- * ClusterMetadata
     ClusterMetadata (..),
-    clusterMetadata,
-    cmClusterId,
-    cmRoleARN,
-    cmShippingOption,
-    cmCreationDate,
-    cmKMSKeyARN,
-    cmJobType,
-    cmResources,
-    cmTaxDocuments,
-    cmSnowballType,
-    cmDescription,
-    cmAddressId,
-    cmForwardingAddressId,
-    cmNotification,
-    cmClusterState,
+    newClusterMetadata,
 
     -- * CompatibleImage
     CompatibleImage (..),
-    compatibleImage,
-    ciAMIId,
-    ciName,
+    newCompatibleImage,
 
     -- * DataTransfer
     DataTransfer (..),
-    dataTransfer,
-    dtTotalObjects,
-    dtBytesTransferred,
-    dtTotalBytes,
-    dtObjectsTransferred,
+    newDataTransfer,
 
     -- * DeviceConfiguration
     DeviceConfiguration (..),
-    deviceConfiguration,
-    dcSnowconeDeviceConfiguration,
+    newDeviceConfiguration,
 
-    -- * EC2AMIResource
-    EC2AMIResource (..),
-    ec2AMIResource,
-    earSnowballAMIId,
-    earAMIId,
+    -- * Ec2AmiResource
+    Ec2AmiResource (..),
+    newEc2AmiResource,
 
     -- * EventTriggerDefinition
     EventTriggerDefinition (..),
-    eventTriggerDefinition,
-    etdEventResourceARN,
+    newEventTriggerDefinition,
 
     -- * INDTaxDocuments
     INDTaxDocuments (..),
-    iNDTaxDocuments,
-    indtdGSTIN,
+    newINDTaxDocuments,
 
     -- * JobListEntry
     JobListEntry (..),
-    jobListEntry,
-    jleIsMaster,
-    jleJobState,
-    jleCreationDate,
-    jleJobType,
-    jleSnowballType,
-    jleDescription,
-    jleJobId,
+    newJobListEntry,
 
     -- * JobLogs
     JobLogs (..),
-    jobLogs,
-    jlJobCompletionReportURI,
-    jlJobSuccessLogURI,
-    jlJobFailureLogURI,
+    newJobLogs,
 
     -- * JobMetadata
     JobMetadata (..),
-    jobMetadata,
-    jmClusterId,
-    jmRoleARN,
-    jmJobState,
-    jmDeviceConfiguration,
-    jmCreationDate,
-    jmKMSKeyARN,
-    jmJobType,
-    jmResources,
-    jmTaxDocuments,
-    jmSnowballCapacityPreference,
-    jmSnowballType,
-    jmDataTransferProgress,
-    jmDescription,
-    jmAddressId,
-    jmForwardingAddressId,
-    jmShippingDetails,
-    jmNotification,
-    jmJobLogInfo,
-    jmJobId,
+    newJobMetadata,
 
     -- * JobResource
     JobResource (..),
-    jobResource,
-    jrS3Resources,
-    jrEC2AMIResources,
-    jrLambdaResources,
+    newJobResource,
 
     -- * KeyRange
     KeyRange (..),
-    keyRange,
-    krEndMarker,
-    krBeginMarker,
+    newKeyRange,
 
     -- * LambdaResource
     LambdaResource (..),
-    lambdaResource,
-    lrEventTriggers,
-    lrLambdaARN,
+    newLambdaResource,
 
     -- * Notification
     Notification (..),
-    notification,
-    nJobStatesToNotify,
-    nNotifyAll,
-    nSNSTopicARN,
+    newNotification,
 
     -- * S3Resource
     S3Resource (..),
-    s3Resource,
-    srBucketARN,
-    srKeyRange,
+    newS3Resource,
 
     -- * Shipment
     Shipment (..),
-    shipment,
-    sTrackingNumber,
-    sStatus,
+    newShipment,
 
     -- * ShippingDetails
     ShippingDetails (..),
-    shippingDetails,
-    sdShippingOption,
-    sdOutboundShipment,
-    sdInboundShipment,
+    newShippingDetails,
 
     -- * SnowconeDeviceConfiguration
     SnowconeDeviceConfiguration (..),
-    snowconeDeviceConfiguration,
-    sdcWirelessConnection,
+    newSnowconeDeviceConfiguration,
 
     -- * TaxDocuments
     TaxDocuments (..),
-    taxDocuments,
-    tdIND,
+    newTaxDocuments,
 
     -- * WirelessConnection
     WirelessConnection (..),
-    wirelessConnection,
-    wcIsWifiEnabled,
+    newWirelessConnection,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 import Network.AWS.Snowball.Types.Address
 import Network.AWS.Snowball.Types.ClusterListEntry
 import Network.AWS.Snowball.Types.ClusterMetadata
@@ -242,7 +153,7 @@ import Network.AWS.Snowball.Types.ClusterState
 import Network.AWS.Snowball.Types.CompatibleImage
 import Network.AWS.Snowball.Types.DataTransfer
 import Network.AWS.Snowball.Types.DeviceConfiguration
-import Network.AWS.Snowball.Types.EC2AMIResource
+import Network.AWS.Snowball.Types.Ec2AmiResource
 import Network.AWS.Snowball.Types.EventTriggerDefinition
 import Network.AWS.Snowball.Types.INDTaxDocuments
 import Network.AWS.Snowball.Types.JobListEntry
@@ -267,127 +178,165 @@ import Network.AWS.Snowball.Types.TaxDocuments
 import Network.AWS.Snowball.Types.WirelessConnection
 
 -- | API version @2016-06-30@ of the Amazon Import/Export Snowball SDK configuration.
-snowball :: Service
-snowball =
-  Service
-    { _svcAbbrev = "Snowball",
-      _svcSigner = v4,
-      _svcPrefix = "snowball",
-      _svcVersion = "2016-06-30",
-      _svcEndpoint = defaultEndpoint snowball,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Snowball",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Snowball",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "snowball",
+      Prelude._svcVersion = "2016-06-30",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "Snowball",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The specified resource can't be found. Check the information you provided in your last request, and try again.
-_InvalidResourceException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified resource can\'t be found. Check the information you
+-- provided in your last request, and try again.
+_InvalidResourceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidResourceException =
-  _MatchServiceError
-    snowball
+  Prelude._MatchServiceError
+    defaultService
     "InvalidResourceException"
 
--- | Job or cluster creation failed. One or more inputs were invalid. Confirm that the 'CreateClusterRequest$SnowballType' value supports your 'CreateJobRequest$JobType' , and try again.
-_InvalidInputCombinationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Job or cluster creation failed. One or more inputs were invalid. Confirm
+-- that the CreateClusterRequest$SnowballType value supports your
+-- CreateJobRequest$JobType, and try again.
+_InvalidInputCombinationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidInputCombinationException =
-  _MatchServiceError
-    snowball
+  Prelude._MatchServiceError
+    defaultService
     "InvalidInputCombinationException"
 
--- | Job creation failed. Currently, clusters support five nodes. If you have less than five nodes for your cluster and you have more nodes to create for this cluster, try again and create jobs until your cluster has exactly five notes.
-_ClusterLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Job creation failed. Currently, clusters support five nodes. If you have
+-- less than five nodes for your cluster and you have more nodes to create
+-- for this cluster, try again and create jobs until your cluster has
+-- exactly five notes.
+_ClusterLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ClusterLimitExceededException =
-  _MatchServiceError
-    snowball
+  Prelude._MatchServiceError
+    defaultService
     "ClusterLimitExceededException"
 
--- | The address provided was invalid. Check the address with your region's carrier, and try again.
-_InvalidAddressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The address provided was invalid. Check the address with your region\'s
+-- carrier, and try again.
+_InvalidAddressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidAddressException =
-  _MatchServiceError
-    snowball
+  Prelude._MatchServiceError
+    defaultService
     "InvalidAddressException"
 
--- | The @NextToken@ string was altered unexpectedly, and the operation has stopped. Run the operation without changing the @NextToken@ string, and try again.
-_InvalidNextTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The @NextToken@ string was altered unexpectedly, and the operation has
+-- stopped. Run the operation without changing the @NextToken@ string, and
+-- try again.
+_InvalidNextTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidNextTokenException =
-  _MatchServiceError
-    snowball
+  Prelude._MatchServiceError
+    defaultService
     "InvalidNextTokenException"
 
--- | You get this exception if you call @CreateReturnShippingLabel@ and a valid return shipping label already exists. In this case, use @DescribeReturnShippingLabel@ to get the url.
-_ReturnShippingLabelAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You get this exception if you call @CreateReturnShippingLabel@ and a
+-- valid return shipping label already exists. In this case, use
+-- @DescribeReturnShippingLabel@ to get the url.
+_ReturnShippingLabelAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReturnShippingLabelAlreadyExistsException =
-  _MatchServiceError
-    snowball
+  Prelude._MatchServiceError
+    defaultService
     "ReturnShippingLabelAlreadyExistsException"
 
--- | The address is either outside the serviceable area for your region, or an error occurred. Check the address with your region's carrier and try again. If the issue persists, contact AWS Support.
-_UnsupportedAddressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The address is either outside the serviceable area for your region, or
+-- an error occurred. Check the address with your region\'s carrier and try
+-- again. If the issue persists, contact AWS Support.
+_UnsupportedAddressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedAddressException =
-  _MatchServiceError
-    snowball
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedAddressException"
 
--- | You get this exception when you call @CreateReturnShippingLabel@ more than once when other requests are not completed.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You get this exception when you call @CreateReturnShippingLabel@ more
+-- than once when other requests are not completed.
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError snowball "ConflictException"
+  Prelude._MatchServiceError
+    defaultService
+    "ConflictException"
 
--- | Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
-_EC2RequestFailedException :: AsError a => Getting (First ServiceError) a ServiceError
-_EC2RequestFailedException =
-  _MatchServiceError
-    snowball
+-- | Your IAM user lacks the necessary Amazon EC2 permissions to perform the
+-- attempted action.
+_Ec2RequestFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_Ec2RequestFailedException =
+  Prelude._MatchServiceError
+    defaultService
     "Ec2RequestFailedException"
 
--- | The action can't be performed because the job's current state doesn't allow that action to be performed.
-_InvalidJobStateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The action can\'t be performed because the job\'s current state doesn\'t
+-- allow that action to be performed.
+_InvalidJobStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidJobStateException =
-  _MatchServiceError
-    snowball
+  Prelude._MatchServiceError
+    defaultService
     "InvalidJobStateException"
 
--- | The provided AWS Key Management Service key lacks the permissions to perform the specified 'CreateJob' or 'UpdateJob' action.
-_KMSRequestFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The provided AWS Key Management Service key lacks the permissions to
+-- perform the specified CreateJob or UpdateJob action.
+_KMSRequestFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _KMSRequestFailedException =
-  _MatchServiceError
-    snowball
+  Prelude._MatchServiceError
+    defaultService
     "KMSRequestFailedException"

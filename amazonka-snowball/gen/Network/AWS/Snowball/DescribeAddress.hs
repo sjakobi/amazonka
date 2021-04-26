@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,131 +21,142 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Takes an @AddressId@ and returns specific details about that address in the form of an @Address@ object.
+-- Takes an @AddressId@ and returns specific details about that address in
+-- the form of an @Address@ object.
 module Network.AWS.Snowball.DescribeAddress
   ( -- * Creating a Request
-    describeAddress,
-    DescribeAddress,
+    DescribeAddress (..),
+    newDescribeAddress,
 
     -- * Request Lenses
-    daAddressId,
+    describeAddress_addressId,
 
     -- * Destructuring the Response
-    describeAddressResponse,
-    DescribeAddressResponse,
+    DescribeAddressResponse (..),
+    newDescribeAddressResponse,
 
     -- * Response Lenses
-    darrsAddress,
-    darrsResponseStatus,
+    describeAddressResponse_address,
+    describeAddressResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Snowball.Types
+import Network.AWS.Snowball.Types.Address
 
--- | /See:/ 'describeAddress' smart constructor.
-newtype DescribeAddress = DescribeAddress'
-  { _daAddressId ::
-      Text
+-- | /See:/ 'newDescribeAddress' smart constructor.
+data DescribeAddress = DescribeAddress'
+  { -- | The automatically generated ID for a specific address.
+    addressId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAddress' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAddress' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daAddressId' - The automatically generated ID for a specific address.
-describeAddress ::
-  -- | 'daAddressId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'addressId', 'describeAddress_addressId' - The automatically generated ID for a specific address.
+newDescribeAddress ::
+  -- | 'addressId'
+  Prelude.Text ->
   DescribeAddress
-describeAddress pAddressId_ =
-  DescribeAddress' {_daAddressId = pAddressId_}
+newDescribeAddress pAddressId_ =
+  DescribeAddress' {addressId = pAddressId_}
 
 -- | The automatically generated ID for a specific address.
-daAddressId :: Lens' DescribeAddress Text
-daAddressId = lens _daAddressId (\s a -> s {_daAddressId = a})
+describeAddress_addressId :: Lens.Lens' DescribeAddress Prelude.Text
+describeAddress_addressId = Lens.lens (\DescribeAddress' {addressId} -> addressId) (\s@DescribeAddress' {} a -> s {addressId = a} :: DescribeAddress)
 
-instance AWSRequest DescribeAddress where
+instance Prelude.AWSRequest DescribeAddress where
   type Rs DescribeAddress = DescribeAddressResponse
-  request = postJSON snowball
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAddressResponse'
-            <$> (x .?> "Address") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Address")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAddress
+instance Prelude.Hashable DescribeAddress
 
-instance NFData DescribeAddress
+instance Prelude.NFData DescribeAddress
 
-instance ToHeaders DescribeAddress where
+instance Prelude.ToHeaders DescribeAddress where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSIESnowballJobManagementService.DescribeAddress" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSIESnowballJobManagementService.DescribeAddress" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAddress where
+instance Prelude.ToJSON DescribeAddress where
   toJSON DescribeAddress' {..} =
-    object
-      (catMaybes [Just ("AddressId" .= _daAddressId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("AddressId" Prelude..= addressId)]
+      )
 
-instance ToPath DescribeAddress where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAddress where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAddress where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAddress where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAddressResponse' smart constructor.
+-- | /See:/ 'newDescribeAddressResponse' smart constructor.
 data DescribeAddressResponse = DescribeAddressResponse'
-  { _darrsAddress ::
-      !(Maybe Address),
-    _darrsResponseStatus ::
-      !Int
+  { -- | The address that you want the Snow device(s) associated with a specific
+    -- job to be shipped to.
+    address :: Prelude.Maybe Address,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAddressResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAddressResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsAddress' - The address that you want the Snow device(s) associated with a specific job to be shipped to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-describeAddressResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'address', 'describeAddressResponse_address' - The address that you want the Snow device(s) associated with a specific
+-- job to be shipped to.
+--
+-- 'httpStatus', 'describeAddressResponse_httpStatus' - The response's http status code.
+newDescribeAddressResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAddressResponse
-describeAddressResponse pResponseStatus_ =
+newDescribeAddressResponse pHttpStatus_ =
   DescribeAddressResponse'
-    { _darrsAddress = Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { address = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The address that you want the Snow device(s) associated with a specific job to be shipped to.
-darrsAddress :: Lens' DescribeAddressResponse (Maybe Address)
-darrsAddress = lens _darrsAddress (\s a -> s {_darrsAddress = a})
+-- | The address that you want the Snow device(s) associated with a specific
+-- job to be shipped to.
+describeAddressResponse_address :: Lens.Lens' DescribeAddressResponse (Prelude.Maybe Address)
+describeAddressResponse_address = Lens.lens (\DescribeAddressResponse' {address} -> address) (\s@DescribeAddressResponse' {} a -> s {address = a} :: DescribeAddressResponse)
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DescribeAddressResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+describeAddressResponse_httpStatus :: Lens.Lens' DescribeAddressResponse Prelude.Int
+describeAddressResponse_httpStatus = Lens.lens (\DescribeAddressResponse' {httpStatus} -> httpStatus) (\s@DescribeAddressResponse' {} a -> s {httpStatus = a} :: DescribeAddressResponse)
 
-instance NFData DescribeAddressResponse
+instance Prelude.NFData DescribeAddressResponse

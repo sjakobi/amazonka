@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,184 +19,223 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.Address where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The address that you want the Snow device(s) associated with a specific job to be shipped to. Addresses are validated at the time of creation. The address you provide must be located within the serviceable area of your region. Although no individual elements of the @Address@ are required, if the address is invalid or unsupported, then an exception is thrown.
+-- | The address that you want the Snow device(s) associated with a specific
+-- job to be shipped to. Addresses are validated at the time of creation.
+-- The address you provide must be located within the serviceable area of
+-- your region. Although no individual elements of the @Address@ are
+-- required, if the address is invalid or unsupported, then an exception is
+-- thrown.
 --
---
---
--- /See:/ 'address' smart constructor.
+-- /See:/ 'newAddress' smart constructor.
 data Address = Address'
-  { _aPhoneNumber ::
-      !(Maybe Text),
-    _aCompany :: !(Maybe Text),
-    _aIsRestricted :: !(Maybe Bool),
-    _aPostalCode :: !(Maybe Text),
-    _aStreet1 :: !(Maybe Text),
-    _aLandmark :: !(Maybe Text),
-    _aCity :: !(Maybe Text),
-    _aName :: !(Maybe Text),
-    _aAddressId :: !(Maybe Text),
-    _aStreet2 :: !(Maybe Text),
-    _aStateOrProvince :: !(Maybe Text),
-    _aCountry :: !(Maybe Text),
-    _aPrefectureOrDistrict :: !(Maybe Text),
-    _aStreet3 :: !(Maybe Text)
+  { -- | The phone number associated with an address that a Snow device is to be
+    -- delivered to.
+    phoneNumber :: Prelude.Maybe Prelude.Text,
+    -- | The name of the company to receive a Snow device at an address.
+    company :: Prelude.Maybe Prelude.Text,
+    -- | If the address you are creating is a primary address, then set this
+    -- option to true. This field is not supported in most regions.
+    isRestricted :: Prelude.Maybe Prelude.Bool,
+    -- | The postal code in an address that a Snow device is to be delivered to.
+    postalCode :: Prelude.Maybe Prelude.Text,
+    -- | The first line in a street address that a Snow device is to be delivered
+    -- to.
+    street1 :: Prelude.Maybe Prelude.Text,
+    -- | This field is no longer used and the value is ignored.
+    landmark :: Prelude.Maybe Prelude.Text,
+    -- | The city in an address that a Snow device is to be delivered to.
+    city :: Prelude.Maybe Prelude.Text,
+    -- | The name of a person to receive a Snow device at an address.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID for an address.
+    addressId :: Prelude.Maybe Prelude.Text,
+    -- | The second line in a street address that a Snow device is to be
+    -- delivered to.
+    street2 :: Prelude.Maybe Prelude.Text,
+    -- | The state or province in an address that a Snow device is to be
+    -- delivered to.
+    stateOrProvince :: Prelude.Maybe Prelude.Text,
+    -- | The country in an address that a Snow device is to be delivered to.
+    country :: Prelude.Maybe Prelude.Text,
+    -- | This field is no longer used and the value is ignored.
+    prefectureOrDistrict :: Prelude.Maybe Prelude.Text,
+    -- | The third line in a street address that a Snow device is to be delivered
+    -- to.
+    street3 :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Address' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Address' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aPhoneNumber' - The phone number associated with an address that a Snow device is to be delivered to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aCompany' - The name of the company to receive a Snow device at an address.
+-- 'phoneNumber', 'address_phoneNumber' - The phone number associated with an address that a Snow device is to be
+-- delivered to.
 --
--- * 'aIsRestricted' - If the address you are creating is a primary address, then set this option to true. This field is not supported in most regions.
+-- 'company', 'address_company' - The name of the company to receive a Snow device at an address.
 --
--- * 'aPostalCode' - The postal code in an address that a Snow device is to be delivered to.
+-- 'isRestricted', 'address_isRestricted' - If the address you are creating is a primary address, then set this
+-- option to true. This field is not supported in most regions.
 --
--- * 'aStreet1' - The first line in a street address that a Snow device is to be delivered to.
+-- 'postalCode', 'address_postalCode' - The postal code in an address that a Snow device is to be delivered to.
 --
--- * 'aLandmark' - This field is no longer used and the value is ignored.
+-- 'street1', 'address_street1' - The first line in a street address that a Snow device is to be delivered
+-- to.
 --
--- * 'aCity' - The city in an address that a Snow device is to be delivered to.
+-- 'landmark', 'address_landmark' - This field is no longer used and the value is ignored.
 --
--- * 'aName' - The name of a person to receive a Snow device at an address.
+-- 'city', 'address_city' - The city in an address that a Snow device is to be delivered to.
 --
--- * 'aAddressId' - The unique ID for an address.
+-- 'name', 'address_name' - The name of a person to receive a Snow device at an address.
 --
--- * 'aStreet2' - The second line in a street address that a Snow device is to be delivered to.
+-- 'addressId', 'address_addressId' - The unique ID for an address.
 --
--- * 'aStateOrProvince' - The state or province in an address that a Snow device is to be delivered to.
+-- 'street2', 'address_street2' - The second line in a street address that a Snow device is to be
+-- delivered to.
 --
--- * 'aCountry' - The country in an address that a Snow device is to be delivered to.
+-- 'stateOrProvince', 'address_stateOrProvince' - The state or province in an address that a Snow device is to be
+-- delivered to.
 --
--- * 'aPrefectureOrDistrict' - This field is no longer used and the value is ignored.
+-- 'country', 'address_country' - The country in an address that a Snow device is to be delivered to.
 --
--- * 'aStreet3' - The third line in a street address that a Snow device is to be delivered to.
-address ::
+-- 'prefectureOrDistrict', 'address_prefectureOrDistrict' - This field is no longer used and the value is ignored.
+--
+-- 'street3', 'address_street3' - The third line in a street address that a Snow device is to be delivered
+-- to.
+newAddress ::
   Address
-address =
+newAddress =
   Address'
-    { _aPhoneNumber = Nothing,
-      _aCompany = Nothing,
-      _aIsRestricted = Nothing,
-      _aPostalCode = Nothing,
-      _aStreet1 = Nothing,
-      _aLandmark = Nothing,
-      _aCity = Nothing,
-      _aName = Nothing,
-      _aAddressId = Nothing,
-      _aStreet2 = Nothing,
-      _aStateOrProvince = Nothing,
-      _aCountry = Nothing,
-      _aPrefectureOrDistrict = Nothing,
-      _aStreet3 = Nothing
+    { phoneNumber = Prelude.Nothing,
+      company = Prelude.Nothing,
+      isRestricted = Prelude.Nothing,
+      postalCode = Prelude.Nothing,
+      street1 = Prelude.Nothing,
+      landmark = Prelude.Nothing,
+      city = Prelude.Nothing,
+      name = Prelude.Nothing,
+      addressId = Prelude.Nothing,
+      street2 = Prelude.Nothing,
+      stateOrProvince = Prelude.Nothing,
+      country = Prelude.Nothing,
+      prefectureOrDistrict = Prelude.Nothing,
+      street3 = Prelude.Nothing
     }
 
--- | The phone number associated with an address that a Snow device is to be delivered to.
-aPhoneNumber :: Lens' Address (Maybe Text)
-aPhoneNumber = lens _aPhoneNumber (\s a -> s {_aPhoneNumber = a})
+-- | The phone number associated with an address that a Snow device is to be
+-- delivered to.
+address_phoneNumber :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_phoneNumber = Lens.lens (\Address' {phoneNumber} -> phoneNumber) (\s@Address' {} a -> s {phoneNumber = a} :: Address)
 
 -- | The name of the company to receive a Snow device at an address.
-aCompany :: Lens' Address (Maybe Text)
-aCompany = lens _aCompany (\s a -> s {_aCompany = a})
+address_company :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_company = Lens.lens (\Address' {company} -> company) (\s@Address' {} a -> s {company = a} :: Address)
 
--- | If the address you are creating is a primary address, then set this option to true. This field is not supported in most regions.
-aIsRestricted :: Lens' Address (Maybe Bool)
-aIsRestricted = lens _aIsRestricted (\s a -> s {_aIsRestricted = a})
+-- | If the address you are creating is a primary address, then set this
+-- option to true. This field is not supported in most regions.
+address_isRestricted :: Lens.Lens' Address (Prelude.Maybe Prelude.Bool)
+address_isRestricted = Lens.lens (\Address' {isRestricted} -> isRestricted) (\s@Address' {} a -> s {isRestricted = a} :: Address)
 
 -- | The postal code in an address that a Snow device is to be delivered to.
-aPostalCode :: Lens' Address (Maybe Text)
-aPostalCode = lens _aPostalCode (\s a -> s {_aPostalCode = a})
+address_postalCode :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_postalCode = Lens.lens (\Address' {postalCode} -> postalCode) (\s@Address' {} a -> s {postalCode = a} :: Address)
 
--- | The first line in a street address that a Snow device is to be delivered to.
-aStreet1 :: Lens' Address (Maybe Text)
-aStreet1 = lens _aStreet1 (\s a -> s {_aStreet1 = a})
+-- | The first line in a street address that a Snow device is to be delivered
+-- to.
+address_street1 :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_street1 = Lens.lens (\Address' {street1} -> street1) (\s@Address' {} a -> s {street1 = a} :: Address)
 
 -- | This field is no longer used and the value is ignored.
-aLandmark :: Lens' Address (Maybe Text)
-aLandmark = lens _aLandmark (\s a -> s {_aLandmark = a})
+address_landmark :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_landmark = Lens.lens (\Address' {landmark} -> landmark) (\s@Address' {} a -> s {landmark = a} :: Address)
 
 -- | The city in an address that a Snow device is to be delivered to.
-aCity :: Lens' Address (Maybe Text)
-aCity = lens _aCity (\s a -> s {_aCity = a})
+address_city :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_city = Lens.lens (\Address' {city} -> city) (\s@Address' {} a -> s {city = a} :: Address)
 
 -- | The name of a person to receive a Snow device at an address.
-aName :: Lens' Address (Maybe Text)
-aName = lens _aName (\s a -> s {_aName = a})
+address_name :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_name = Lens.lens (\Address' {name} -> name) (\s@Address' {} a -> s {name = a} :: Address)
 
 -- | The unique ID for an address.
-aAddressId :: Lens' Address (Maybe Text)
-aAddressId = lens _aAddressId (\s a -> s {_aAddressId = a})
+address_addressId :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_addressId = Lens.lens (\Address' {addressId} -> addressId) (\s@Address' {} a -> s {addressId = a} :: Address)
 
--- | The second line in a street address that a Snow device is to be delivered to.
-aStreet2 :: Lens' Address (Maybe Text)
-aStreet2 = lens _aStreet2 (\s a -> s {_aStreet2 = a})
+-- | The second line in a street address that a Snow device is to be
+-- delivered to.
+address_street2 :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_street2 = Lens.lens (\Address' {street2} -> street2) (\s@Address' {} a -> s {street2 = a} :: Address)
 
--- | The state or province in an address that a Snow device is to be delivered to.
-aStateOrProvince :: Lens' Address (Maybe Text)
-aStateOrProvince = lens _aStateOrProvince (\s a -> s {_aStateOrProvince = a})
+-- | The state or province in an address that a Snow device is to be
+-- delivered to.
+address_stateOrProvince :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_stateOrProvince = Lens.lens (\Address' {stateOrProvince} -> stateOrProvince) (\s@Address' {} a -> s {stateOrProvince = a} :: Address)
 
 -- | The country in an address that a Snow device is to be delivered to.
-aCountry :: Lens' Address (Maybe Text)
-aCountry = lens _aCountry (\s a -> s {_aCountry = a})
+address_country :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_country = Lens.lens (\Address' {country} -> country) (\s@Address' {} a -> s {country = a} :: Address)
 
 -- | This field is no longer used and the value is ignored.
-aPrefectureOrDistrict :: Lens' Address (Maybe Text)
-aPrefectureOrDistrict = lens _aPrefectureOrDistrict (\s a -> s {_aPrefectureOrDistrict = a})
+address_prefectureOrDistrict :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_prefectureOrDistrict = Lens.lens (\Address' {prefectureOrDistrict} -> prefectureOrDistrict) (\s@Address' {} a -> s {prefectureOrDistrict = a} :: Address)
 
--- | The third line in a street address that a Snow device is to be delivered to.
-aStreet3 :: Lens' Address (Maybe Text)
-aStreet3 = lens _aStreet3 (\s a -> s {_aStreet3 = a})
+-- | The third line in a street address that a Snow device is to be delivered
+-- to.
+address_street3 :: Lens.Lens' Address (Prelude.Maybe Prelude.Text)
+address_street3 = Lens.lens (\Address' {street3} -> street3) (\s@Address' {} a -> s {street3 = a} :: Address)
 
-instance FromJSON Address where
+instance Prelude.FromJSON Address where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Address"
       ( \x ->
           Address'
-            <$> (x .:? "PhoneNumber")
-            <*> (x .:? "Company")
-            <*> (x .:? "IsRestricted")
-            <*> (x .:? "PostalCode")
-            <*> (x .:? "Street1")
-            <*> (x .:? "Landmark")
-            <*> (x .:? "City")
-            <*> (x .:? "Name")
-            <*> (x .:? "AddressId")
-            <*> (x .:? "Street2")
-            <*> (x .:? "StateOrProvince")
-            <*> (x .:? "Country")
-            <*> (x .:? "PrefectureOrDistrict")
-            <*> (x .:? "Street3")
+            Prelude.<$> (x Prelude..:? "PhoneNumber")
+            Prelude.<*> (x Prelude..:? "Company")
+            Prelude.<*> (x Prelude..:? "IsRestricted")
+            Prelude.<*> (x Prelude..:? "PostalCode")
+            Prelude.<*> (x Prelude..:? "Street1")
+            Prelude.<*> (x Prelude..:? "Landmark")
+            Prelude.<*> (x Prelude..:? "City")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "AddressId")
+            Prelude.<*> (x Prelude..:? "Street2")
+            Prelude.<*> (x Prelude..:? "StateOrProvince")
+            Prelude.<*> (x Prelude..:? "Country")
+            Prelude.<*> (x Prelude..:? "PrefectureOrDistrict")
+            Prelude.<*> (x Prelude..:? "Street3")
       )
 
-instance Hashable Address
+instance Prelude.Hashable Address
 
-instance NFData Address
+instance Prelude.NFData Address
 
-instance ToJSON Address where
+instance Prelude.ToJSON Address where
   toJSON Address' {..} =
-    object
-      ( catMaybes
-          [ ("PhoneNumber" .=) <$> _aPhoneNumber,
-            ("Company" .=) <$> _aCompany,
-            ("IsRestricted" .=) <$> _aIsRestricted,
-            ("PostalCode" .=) <$> _aPostalCode,
-            ("Street1" .=) <$> _aStreet1,
-            ("Landmark" .=) <$> _aLandmark,
-            ("City" .=) <$> _aCity,
-            ("Name" .=) <$> _aName,
-            ("AddressId" .=) <$> _aAddressId,
-            ("Street2" .=) <$> _aStreet2,
-            ("StateOrProvince" .=) <$> _aStateOrProvince,
-            ("Country" .=) <$> _aCountry,
-            ("PrefectureOrDistrict" .=)
-              <$> _aPrefectureOrDistrict,
-            ("Street3" .=) <$> _aStreet3
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PhoneNumber" Prelude..=) Prelude.<$> phoneNumber,
+            ("Company" Prelude..=) Prelude.<$> company,
+            ("IsRestricted" Prelude..=) Prelude.<$> isRestricted,
+            ("PostalCode" Prelude..=) Prelude.<$> postalCode,
+            ("Street1" Prelude..=) Prelude.<$> street1,
+            ("Landmark" Prelude..=) Prelude.<$> landmark,
+            ("City" Prelude..=) Prelude.<$> city,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("AddressId" Prelude..=) Prelude.<$> addressId,
+            ("Street2" Prelude..=) Prelude.<$> street2,
+            ("StateOrProvince" Prelude..=)
+              Prelude.<$> stateOrProvince,
+            ("Country" Prelude..=) Prelude.<$> country,
+            ("PrefectureOrDistrict" Prelude..=)
+              Prelude.<$> prefectureOrDistrict,
+            ("Street3" Prelude..=) Prelude.<$> street3
           ]
       )

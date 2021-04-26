@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.JobMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Snowball.Types.DataTransfer
 import Network.AWS.Snowball.Types.DeviceConfiguration
 import Network.AWS.Snowball.Types.JobLogs
@@ -29,207 +33,301 @@ import Network.AWS.Snowball.Types.SnowballCapacity
 import Network.AWS.Snowball.Types.SnowballType
 import Network.AWS.Snowball.Types.TaxDocuments
 
--- | Contains information about a specific job including shipping information, job status, and other important metadata. This information is returned as a part of the response syntax of the @DescribeJob@ action.
+-- | Contains information about a specific job including shipping
+-- information, job status, and other important metadata. This information
+-- is returned as a part of the response syntax of the @DescribeJob@
+-- action.
 --
---
---
--- /See:/ 'jobMetadata' smart constructor.
+-- /See:/ 'newJobMetadata' smart constructor.
 data JobMetadata = JobMetadata'
-  { _jmClusterId ::
-      !(Maybe Text),
-    _jmRoleARN :: !(Maybe Text),
-    _jmJobState :: !(Maybe JobState),
-    _jmDeviceConfiguration ::
-      !(Maybe DeviceConfiguration),
-    _jmCreationDate :: !(Maybe POSIX),
-    _jmKMSKeyARN :: !(Maybe Text),
-    _jmJobType :: !(Maybe JobType),
-    _jmResources :: !(Maybe JobResource),
-    _jmTaxDocuments :: !(Maybe TaxDocuments),
-    _jmSnowballCapacityPreference ::
-      !(Maybe SnowballCapacity),
-    _jmSnowballType :: !(Maybe SnowballType),
-    _jmDataTransferProgress ::
-      !(Maybe DataTransfer),
-    _jmDescription :: !(Maybe Text),
-    _jmAddressId :: !(Maybe Text),
-    _jmForwardingAddressId :: !(Maybe Text),
-    _jmShippingDetails :: !(Maybe ShippingDetails),
-    _jmNotification :: !(Maybe Notification),
-    _jmJobLogInfo :: !(Maybe JobLogs),
-    _jmJobId :: !(Maybe Text)
+  { -- | The 39-character ID for the cluster, for example
+    -- @CID123e4567-e89b-12d3-a456-426655440000@.
+    clusterId :: Prelude.Maybe Prelude.Text,
+    -- | The role ARN associated with this job. This ARN was created using the
+    -- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
+    -- API action in AWS Identity and Access Management (IAM).
+    roleARN :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the jobs.
+    jobState :: Prelude.Maybe JobState,
+    deviceConfiguration :: Prelude.Maybe DeviceConfiguration,
+    -- | The creation date for this job.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) for the AWS Key Management Service (AWS
+    -- KMS) key associated with this job. This ARN was created using the
+    -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
+    -- API action in AWS KMS.
+    kmsKeyARN :: Prelude.Maybe Prelude.Text,
+    -- | The type of job.
+    jobType :: Prelude.Maybe JobType,
+    -- | An array of @S3Resource@ objects. Each @S3Resource@ object represents an
+    -- Amazon S3 bucket that your transferred data will be exported from or
+    -- imported into.
+    resources :: Prelude.Maybe JobResource,
+    -- | The metadata associated with the tax documents required in your AWS
+    -- Region.
+    taxDocuments :: Prelude.Maybe TaxDocuments,
+    -- | The Snow device capacity preference for this job, specified at job
+    -- creation. In US regions, you can choose between 50 TB and 80 TB
+    -- Snowballs. All other regions use 80 TB capacity Snowballs.
+    snowballCapacityPreference :: Prelude.Maybe SnowballCapacity,
+    -- | The type of device used with this job.
+    snowballType :: Prelude.Maybe SnowballType,
+    -- | A value that defines the real-time status of a Snow device\'s data
+    -- transfer while the device is at AWS. This data is only available while a
+    -- job has a @JobState@ value of @InProgress@, for both import and export
+    -- jobs.
+    dataTransferProgress :: Prelude.Maybe DataTransfer,
+    -- | The description of the job, provided at job creation.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID for the address that you want the Snow device shipped to.
+    addressId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the address that you want a job shipped to, after it will be
+    -- shipped to its primary address. This field is not supported in most
+    -- regions.
+    forwardingAddressId :: Prelude.Maybe Prelude.Text,
+    -- | A job\'s shipping information, including inbound and outbound tracking
+    -- numbers and shipping speed options.
+    shippingDetails :: Prelude.Maybe ShippingDetails,
+    -- | The Amazon Simple Notification Service (Amazon SNS) notification
+    -- settings associated with a specific job. The @Notification@ object is
+    -- returned as a part of the response syntax of the @DescribeJob@ action in
+    -- the @JobMetadata@ data type.
+    notification :: Prelude.Maybe Notification,
+    -- | Links to Amazon S3 presigned URLs for the job report and logs. For
+    -- import jobs, the PDF job report becomes available at the end of the
+    -- import process. For export jobs, your job report typically becomes
+    -- available while the Snow device for your job part is being delivered to
+    -- you.
+    jobLogInfo :: Prelude.Maybe JobLogs,
+    -- | The automatically generated ID for a job, for example
+    -- @JID123e4567-e89b-12d3-a456-426655440000@.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jmClusterId' - The 39-character ID for the cluster, for example @CID123e4567-e89b-12d3-a456-426655440000@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jmRoleARN' - The role ARN associated with this job. This ARN was created using the <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole> API action in AWS Identity and Access Management (IAM).
+-- 'clusterId', 'jobMetadata_clusterId' - The 39-character ID for the cluster, for example
+-- @CID123e4567-e89b-12d3-a456-426655440000@.
 --
--- * 'jmJobState' - The current status of the jobs.
+-- 'roleARN', 'jobMetadata_roleARN' - The role ARN associated with this job. This ARN was created using the
+-- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
+-- API action in AWS Identity and Access Management (IAM).
 --
--- * 'jmDeviceConfiguration' - Undocumented member.
+-- 'jobState', 'jobMetadata_jobState' - The current status of the jobs.
 --
--- * 'jmCreationDate' - The creation date for this job.
+-- 'deviceConfiguration', 'jobMetadata_deviceConfiguration' - Undocumented member.
 --
--- * 'jmKMSKeyARN' - The Amazon Resource Name (ARN) for the AWS Key Management Service (AWS KMS) key associated with this job. This ARN was created using the <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey> API action in AWS KMS.
+-- 'creationDate', 'jobMetadata_creationDate' - The creation date for this job.
 --
--- * 'jmJobType' - The type of job.
+-- 'kmsKeyARN', 'jobMetadata_kmsKeyARN' - The Amazon Resource Name (ARN) for the AWS Key Management Service (AWS
+-- KMS) key associated with this job. This ARN was created using the
+-- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
+-- API action in AWS KMS.
 --
--- * 'jmResources' - An array of @S3Resource@ objects. Each @S3Resource@ object represents an Amazon S3 bucket that your transferred data will be exported from or imported into.
+-- 'jobType', 'jobMetadata_jobType' - The type of job.
 --
--- * 'jmTaxDocuments' - The metadata associated with the tax documents required in your AWS Region.
+-- 'resources', 'jobMetadata_resources' - An array of @S3Resource@ objects. Each @S3Resource@ object represents an
+-- Amazon S3 bucket that your transferred data will be exported from or
+-- imported into.
 --
--- * 'jmSnowballCapacityPreference' - The Snow device capacity preference for this job, specified at job creation. In US regions, you can choose between 50 TB and 80 TB Snowballs. All other regions use 80 TB capacity Snowballs.
+-- 'taxDocuments', 'jobMetadata_taxDocuments' - The metadata associated with the tax documents required in your AWS
+-- Region.
 --
--- * 'jmSnowballType' - The type of device used with this job.
+-- 'snowballCapacityPreference', 'jobMetadata_snowballCapacityPreference' - The Snow device capacity preference for this job, specified at job
+-- creation. In US regions, you can choose between 50 TB and 80 TB
+-- Snowballs. All other regions use 80 TB capacity Snowballs.
 --
--- * 'jmDataTransferProgress' - A value that defines the real-time status of a Snow device's data transfer while the device is at AWS. This data is only available while a job has a @JobState@ value of @InProgress@ , for both import and export jobs.
+-- 'snowballType', 'jobMetadata_snowballType' - The type of device used with this job.
 --
--- * 'jmDescription' - The description of the job, provided at job creation.
+-- 'dataTransferProgress', 'jobMetadata_dataTransferProgress' - A value that defines the real-time status of a Snow device\'s data
+-- transfer while the device is at AWS. This data is only available while a
+-- job has a @JobState@ value of @InProgress@, for both import and export
+-- jobs.
 --
--- * 'jmAddressId' - The ID for the address that you want the Snow device shipped to.
+-- 'description', 'jobMetadata_description' - The description of the job, provided at job creation.
 --
--- * 'jmForwardingAddressId' - The ID of the address that you want a job shipped to, after it will be shipped to its primary address. This field is not supported in most regions.
+-- 'addressId', 'jobMetadata_addressId' - The ID for the address that you want the Snow device shipped to.
 --
--- * 'jmShippingDetails' - A job's shipping information, including inbound and outbound tracking numbers and shipping speed options.
+-- 'forwardingAddressId', 'jobMetadata_forwardingAddressId' - The ID of the address that you want a job shipped to, after it will be
+-- shipped to its primary address. This field is not supported in most
+-- regions.
 --
--- * 'jmNotification' - The Amazon Simple Notification Service (Amazon SNS) notification settings associated with a specific job. The @Notification@ object is returned as a part of the response syntax of the @DescribeJob@ action in the @JobMetadata@ data type.
+-- 'shippingDetails', 'jobMetadata_shippingDetails' - A job\'s shipping information, including inbound and outbound tracking
+-- numbers and shipping speed options.
 --
--- * 'jmJobLogInfo' - Links to Amazon S3 presigned URLs for the job report and logs. For import jobs, the PDF job report becomes available at the end of the import process. For export jobs, your job report typically becomes available while the Snow device for your job part is being delivered to you.
+-- 'notification', 'jobMetadata_notification' - The Amazon Simple Notification Service (Amazon SNS) notification
+-- settings associated with a specific job. The @Notification@ object is
+-- returned as a part of the response syntax of the @DescribeJob@ action in
+-- the @JobMetadata@ data type.
 --
--- * 'jmJobId' - The automatically generated ID for a job, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
-jobMetadata ::
+-- 'jobLogInfo', 'jobMetadata_jobLogInfo' - Links to Amazon S3 presigned URLs for the job report and logs. For
+-- import jobs, the PDF job report becomes available at the end of the
+-- import process. For export jobs, your job report typically becomes
+-- available while the Snow device for your job part is being delivered to
+-- you.
+--
+-- 'jobId', 'jobMetadata_jobId' - The automatically generated ID for a job, for example
+-- @JID123e4567-e89b-12d3-a456-426655440000@.
+newJobMetadata ::
   JobMetadata
-jobMetadata =
+newJobMetadata =
   JobMetadata'
-    { _jmClusterId = Nothing,
-      _jmRoleARN = Nothing,
-      _jmJobState = Nothing,
-      _jmDeviceConfiguration = Nothing,
-      _jmCreationDate = Nothing,
-      _jmKMSKeyARN = Nothing,
-      _jmJobType = Nothing,
-      _jmResources = Nothing,
-      _jmTaxDocuments = Nothing,
-      _jmSnowballCapacityPreference = Nothing,
-      _jmSnowballType = Nothing,
-      _jmDataTransferProgress = Nothing,
-      _jmDescription = Nothing,
-      _jmAddressId = Nothing,
-      _jmForwardingAddressId = Nothing,
-      _jmShippingDetails = Nothing,
-      _jmNotification = Nothing,
-      _jmJobLogInfo = Nothing,
-      _jmJobId = Nothing
+    { clusterId = Prelude.Nothing,
+      roleARN = Prelude.Nothing,
+      jobState = Prelude.Nothing,
+      deviceConfiguration = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      kmsKeyARN = Prelude.Nothing,
+      jobType = Prelude.Nothing,
+      resources = Prelude.Nothing,
+      taxDocuments = Prelude.Nothing,
+      snowballCapacityPreference = Prelude.Nothing,
+      snowballType = Prelude.Nothing,
+      dataTransferProgress = Prelude.Nothing,
+      description = Prelude.Nothing,
+      addressId = Prelude.Nothing,
+      forwardingAddressId = Prelude.Nothing,
+      shippingDetails = Prelude.Nothing,
+      notification = Prelude.Nothing,
+      jobLogInfo = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
--- | The 39-character ID for the cluster, for example @CID123e4567-e89b-12d3-a456-426655440000@ .
-jmClusterId :: Lens' JobMetadata (Maybe Text)
-jmClusterId = lens _jmClusterId (\s a -> s {_jmClusterId = a})
+-- | The 39-character ID for the cluster, for example
+-- @CID123e4567-e89b-12d3-a456-426655440000@.
+jobMetadata_clusterId :: Lens.Lens' JobMetadata (Prelude.Maybe Prelude.Text)
+jobMetadata_clusterId = Lens.lens (\JobMetadata' {clusterId} -> clusterId) (\s@JobMetadata' {} a -> s {clusterId = a} :: JobMetadata)
 
--- | The role ARN associated with this job. This ARN was created using the <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole> API action in AWS Identity and Access Management (IAM).
-jmRoleARN :: Lens' JobMetadata (Maybe Text)
-jmRoleARN = lens _jmRoleARN (\s a -> s {_jmRoleARN = a})
+-- | The role ARN associated with this job. This ARN was created using the
+-- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
+-- API action in AWS Identity and Access Management (IAM).
+jobMetadata_roleARN :: Lens.Lens' JobMetadata (Prelude.Maybe Prelude.Text)
+jobMetadata_roleARN = Lens.lens (\JobMetadata' {roleARN} -> roleARN) (\s@JobMetadata' {} a -> s {roleARN = a} :: JobMetadata)
 
 -- | The current status of the jobs.
-jmJobState :: Lens' JobMetadata (Maybe JobState)
-jmJobState = lens _jmJobState (\s a -> s {_jmJobState = a})
+jobMetadata_jobState :: Lens.Lens' JobMetadata (Prelude.Maybe JobState)
+jobMetadata_jobState = Lens.lens (\JobMetadata' {jobState} -> jobState) (\s@JobMetadata' {} a -> s {jobState = a} :: JobMetadata)
 
 -- | Undocumented member.
-jmDeviceConfiguration :: Lens' JobMetadata (Maybe DeviceConfiguration)
-jmDeviceConfiguration = lens _jmDeviceConfiguration (\s a -> s {_jmDeviceConfiguration = a})
+jobMetadata_deviceConfiguration :: Lens.Lens' JobMetadata (Prelude.Maybe DeviceConfiguration)
+jobMetadata_deviceConfiguration = Lens.lens (\JobMetadata' {deviceConfiguration} -> deviceConfiguration) (\s@JobMetadata' {} a -> s {deviceConfiguration = a} :: JobMetadata)
 
 -- | The creation date for this job.
-jmCreationDate :: Lens' JobMetadata (Maybe UTCTime)
-jmCreationDate = lens _jmCreationDate (\s a -> s {_jmCreationDate = a}) . mapping _Time
+jobMetadata_creationDate :: Lens.Lens' JobMetadata (Prelude.Maybe Prelude.UTCTime)
+jobMetadata_creationDate = Lens.lens (\JobMetadata' {creationDate} -> creationDate) (\s@JobMetadata' {} a -> s {creationDate = a} :: JobMetadata) Prelude.. Lens.mapping Prelude._Time
 
--- | The Amazon Resource Name (ARN) for the AWS Key Management Service (AWS KMS) key associated with this job. This ARN was created using the <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey> API action in AWS KMS.
-jmKMSKeyARN :: Lens' JobMetadata (Maybe Text)
-jmKMSKeyARN = lens _jmKMSKeyARN (\s a -> s {_jmKMSKeyARN = a})
+-- | The Amazon Resource Name (ARN) for the AWS Key Management Service (AWS
+-- KMS) key associated with this job. This ARN was created using the
+-- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
+-- API action in AWS KMS.
+jobMetadata_kmsKeyARN :: Lens.Lens' JobMetadata (Prelude.Maybe Prelude.Text)
+jobMetadata_kmsKeyARN = Lens.lens (\JobMetadata' {kmsKeyARN} -> kmsKeyARN) (\s@JobMetadata' {} a -> s {kmsKeyARN = a} :: JobMetadata)
 
 -- | The type of job.
-jmJobType :: Lens' JobMetadata (Maybe JobType)
-jmJobType = lens _jmJobType (\s a -> s {_jmJobType = a})
+jobMetadata_jobType :: Lens.Lens' JobMetadata (Prelude.Maybe JobType)
+jobMetadata_jobType = Lens.lens (\JobMetadata' {jobType} -> jobType) (\s@JobMetadata' {} a -> s {jobType = a} :: JobMetadata)
 
--- | An array of @S3Resource@ objects. Each @S3Resource@ object represents an Amazon S3 bucket that your transferred data will be exported from or imported into.
-jmResources :: Lens' JobMetadata (Maybe JobResource)
-jmResources = lens _jmResources (\s a -> s {_jmResources = a})
+-- | An array of @S3Resource@ objects. Each @S3Resource@ object represents an
+-- Amazon S3 bucket that your transferred data will be exported from or
+-- imported into.
+jobMetadata_resources :: Lens.Lens' JobMetadata (Prelude.Maybe JobResource)
+jobMetadata_resources = Lens.lens (\JobMetadata' {resources} -> resources) (\s@JobMetadata' {} a -> s {resources = a} :: JobMetadata)
 
--- | The metadata associated with the tax documents required in your AWS Region.
-jmTaxDocuments :: Lens' JobMetadata (Maybe TaxDocuments)
-jmTaxDocuments = lens _jmTaxDocuments (\s a -> s {_jmTaxDocuments = a})
+-- | The metadata associated with the tax documents required in your AWS
+-- Region.
+jobMetadata_taxDocuments :: Lens.Lens' JobMetadata (Prelude.Maybe TaxDocuments)
+jobMetadata_taxDocuments = Lens.lens (\JobMetadata' {taxDocuments} -> taxDocuments) (\s@JobMetadata' {} a -> s {taxDocuments = a} :: JobMetadata)
 
--- | The Snow device capacity preference for this job, specified at job creation. In US regions, you can choose between 50 TB and 80 TB Snowballs. All other regions use 80 TB capacity Snowballs.
-jmSnowballCapacityPreference :: Lens' JobMetadata (Maybe SnowballCapacity)
-jmSnowballCapacityPreference = lens _jmSnowballCapacityPreference (\s a -> s {_jmSnowballCapacityPreference = a})
+-- | The Snow device capacity preference for this job, specified at job
+-- creation. In US regions, you can choose between 50 TB and 80 TB
+-- Snowballs. All other regions use 80 TB capacity Snowballs.
+jobMetadata_snowballCapacityPreference :: Lens.Lens' JobMetadata (Prelude.Maybe SnowballCapacity)
+jobMetadata_snowballCapacityPreference = Lens.lens (\JobMetadata' {snowballCapacityPreference} -> snowballCapacityPreference) (\s@JobMetadata' {} a -> s {snowballCapacityPreference = a} :: JobMetadata)
 
 -- | The type of device used with this job.
-jmSnowballType :: Lens' JobMetadata (Maybe SnowballType)
-jmSnowballType = lens _jmSnowballType (\s a -> s {_jmSnowballType = a})
+jobMetadata_snowballType :: Lens.Lens' JobMetadata (Prelude.Maybe SnowballType)
+jobMetadata_snowballType = Lens.lens (\JobMetadata' {snowballType} -> snowballType) (\s@JobMetadata' {} a -> s {snowballType = a} :: JobMetadata)
 
--- | A value that defines the real-time status of a Snow device's data transfer while the device is at AWS. This data is only available while a job has a @JobState@ value of @InProgress@ , for both import and export jobs.
-jmDataTransferProgress :: Lens' JobMetadata (Maybe DataTransfer)
-jmDataTransferProgress = lens _jmDataTransferProgress (\s a -> s {_jmDataTransferProgress = a})
+-- | A value that defines the real-time status of a Snow device\'s data
+-- transfer while the device is at AWS. This data is only available while a
+-- job has a @JobState@ value of @InProgress@, for both import and export
+-- jobs.
+jobMetadata_dataTransferProgress :: Lens.Lens' JobMetadata (Prelude.Maybe DataTransfer)
+jobMetadata_dataTransferProgress = Lens.lens (\JobMetadata' {dataTransferProgress} -> dataTransferProgress) (\s@JobMetadata' {} a -> s {dataTransferProgress = a} :: JobMetadata)
 
 -- | The description of the job, provided at job creation.
-jmDescription :: Lens' JobMetadata (Maybe Text)
-jmDescription = lens _jmDescription (\s a -> s {_jmDescription = a})
+jobMetadata_description :: Lens.Lens' JobMetadata (Prelude.Maybe Prelude.Text)
+jobMetadata_description = Lens.lens (\JobMetadata' {description} -> description) (\s@JobMetadata' {} a -> s {description = a} :: JobMetadata)
 
 -- | The ID for the address that you want the Snow device shipped to.
-jmAddressId :: Lens' JobMetadata (Maybe Text)
-jmAddressId = lens _jmAddressId (\s a -> s {_jmAddressId = a})
+jobMetadata_addressId :: Lens.Lens' JobMetadata (Prelude.Maybe Prelude.Text)
+jobMetadata_addressId = Lens.lens (\JobMetadata' {addressId} -> addressId) (\s@JobMetadata' {} a -> s {addressId = a} :: JobMetadata)
 
--- | The ID of the address that you want a job shipped to, after it will be shipped to its primary address. This field is not supported in most regions.
-jmForwardingAddressId :: Lens' JobMetadata (Maybe Text)
-jmForwardingAddressId = lens _jmForwardingAddressId (\s a -> s {_jmForwardingAddressId = a})
+-- | The ID of the address that you want a job shipped to, after it will be
+-- shipped to its primary address. This field is not supported in most
+-- regions.
+jobMetadata_forwardingAddressId :: Lens.Lens' JobMetadata (Prelude.Maybe Prelude.Text)
+jobMetadata_forwardingAddressId = Lens.lens (\JobMetadata' {forwardingAddressId} -> forwardingAddressId) (\s@JobMetadata' {} a -> s {forwardingAddressId = a} :: JobMetadata)
 
--- | A job's shipping information, including inbound and outbound tracking numbers and shipping speed options.
-jmShippingDetails :: Lens' JobMetadata (Maybe ShippingDetails)
-jmShippingDetails = lens _jmShippingDetails (\s a -> s {_jmShippingDetails = a})
+-- | A job\'s shipping information, including inbound and outbound tracking
+-- numbers and shipping speed options.
+jobMetadata_shippingDetails :: Lens.Lens' JobMetadata (Prelude.Maybe ShippingDetails)
+jobMetadata_shippingDetails = Lens.lens (\JobMetadata' {shippingDetails} -> shippingDetails) (\s@JobMetadata' {} a -> s {shippingDetails = a} :: JobMetadata)
 
--- | The Amazon Simple Notification Service (Amazon SNS) notification settings associated with a specific job. The @Notification@ object is returned as a part of the response syntax of the @DescribeJob@ action in the @JobMetadata@ data type.
-jmNotification :: Lens' JobMetadata (Maybe Notification)
-jmNotification = lens _jmNotification (\s a -> s {_jmNotification = a})
+-- | The Amazon Simple Notification Service (Amazon SNS) notification
+-- settings associated with a specific job. The @Notification@ object is
+-- returned as a part of the response syntax of the @DescribeJob@ action in
+-- the @JobMetadata@ data type.
+jobMetadata_notification :: Lens.Lens' JobMetadata (Prelude.Maybe Notification)
+jobMetadata_notification = Lens.lens (\JobMetadata' {notification} -> notification) (\s@JobMetadata' {} a -> s {notification = a} :: JobMetadata)
 
--- | Links to Amazon S3 presigned URLs for the job report and logs. For import jobs, the PDF job report becomes available at the end of the import process. For export jobs, your job report typically becomes available while the Snow device for your job part is being delivered to you.
-jmJobLogInfo :: Lens' JobMetadata (Maybe JobLogs)
-jmJobLogInfo = lens _jmJobLogInfo (\s a -> s {_jmJobLogInfo = a})
+-- | Links to Amazon S3 presigned URLs for the job report and logs. For
+-- import jobs, the PDF job report becomes available at the end of the
+-- import process. For export jobs, your job report typically becomes
+-- available while the Snow device for your job part is being delivered to
+-- you.
+jobMetadata_jobLogInfo :: Lens.Lens' JobMetadata (Prelude.Maybe JobLogs)
+jobMetadata_jobLogInfo = Lens.lens (\JobMetadata' {jobLogInfo} -> jobLogInfo) (\s@JobMetadata' {} a -> s {jobLogInfo = a} :: JobMetadata)
 
--- | The automatically generated ID for a job, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
-jmJobId :: Lens' JobMetadata (Maybe Text)
-jmJobId = lens _jmJobId (\s a -> s {_jmJobId = a})
+-- | The automatically generated ID for a job, for example
+-- @JID123e4567-e89b-12d3-a456-426655440000@.
+jobMetadata_jobId :: Lens.Lens' JobMetadata (Prelude.Maybe Prelude.Text)
+jobMetadata_jobId = Lens.lens (\JobMetadata' {jobId} -> jobId) (\s@JobMetadata' {} a -> s {jobId = a} :: JobMetadata)
 
-instance FromJSON JobMetadata where
+instance Prelude.FromJSON JobMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobMetadata"
       ( \x ->
           JobMetadata'
-            <$> (x .:? "ClusterId")
-            <*> (x .:? "RoleARN")
-            <*> (x .:? "JobState")
-            <*> (x .:? "DeviceConfiguration")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "KmsKeyARN")
-            <*> (x .:? "JobType")
-            <*> (x .:? "Resources")
-            <*> (x .:? "TaxDocuments")
-            <*> (x .:? "SnowballCapacityPreference")
-            <*> (x .:? "SnowballType")
-            <*> (x .:? "DataTransferProgress")
-            <*> (x .:? "Description")
-            <*> (x .:? "AddressId")
-            <*> (x .:? "ForwardingAddressId")
-            <*> (x .:? "ShippingDetails")
-            <*> (x .:? "Notification")
-            <*> (x .:? "JobLogInfo")
-            <*> (x .:? "JobId")
+            Prelude.<$> (x Prelude..:? "ClusterId")
+            Prelude.<*> (x Prelude..:? "RoleARN")
+            Prelude.<*> (x Prelude..:? "JobState")
+            Prelude.<*> (x Prelude..:? "DeviceConfiguration")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "KmsKeyARN")
+            Prelude.<*> (x Prelude..:? "JobType")
+            Prelude.<*> (x Prelude..:? "Resources")
+            Prelude.<*> (x Prelude..:? "TaxDocuments")
+            Prelude.<*> (x Prelude..:? "SnowballCapacityPreference")
+            Prelude.<*> (x Prelude..:? "SnowballType")
+            Prelude.<*> (x Prelude..:? "DataTransferProgress")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "AddressId")
+            Prelude.<*> (x Prelude..:? "ForwardingAddressId")
+            Prelude.<*> (x Prelude..:? "ShippingDetails")
+            Prelude.<*> (x Prelude..:? "Notification")
+            Prelude.<*> (x Prelude..:? "JobLogInfo")
+            Prelude.<*> (x Prelude..:? "JobId")
       )
 
-instance Hashable JobMetadata
+instance Prelude.Hashable JobMetadata
 
-instance NFData JobMetadata
+instance Prelude.NFData JobMetadata

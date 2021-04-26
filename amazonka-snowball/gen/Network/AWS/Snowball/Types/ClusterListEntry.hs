@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.ClusterListEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Snowball.Types.ClusterState
 
--- | Contains a cluster's state, a cluster's ID, and other important information.
+-- | Contains a cluster\'s state, a cluster\'s ID, and other important
+-- information.
 --
---
---
--- /See:/ 'clusterListEntry' smart constructor.
+-- /See:/ 'newClusterListEntry' smart constructor.
 data ClusterListEntry = ClusterListEntry'
-  { _cleClusterId ::
-      !(Maybe Text),
-    _cleCreationDate :: !(Maybe POSIX),
-    _cleDescription :: !(Maybe Text),
-    _cleClusterState ::
-      !(Maybe ClusterState)
+  { -- | The 39-character ID for the cluster that you want to list, for example
+    -- @CID123e4567-e89b-12d3-a456-426655440000@.
+    clusterId :: Prelude.Maybe Prelude.Text,
+    -- | The creation date for this cluster.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Defines an optional description of the cluster, for example
+    -- @Environmental Data Cluster-01@.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The current state of this cluster. For information about the state of a
+    -- specific node, see JobListEntry$JobState.
+    clusterState :: Prelude.Maybe ClusterState
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterListEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterListEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cleClusterId' - The 39-character ID for the cluster that you want to list, for example @CID123e4567-e89b-12d3-a456-426655440000@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cleCreationDate' - The creation date for this cluster.
+-- 'clusterId', 'clusterListEntry_clusterId' - The 39-character ID for the cluster that you want to list, for example
+-- @CID123e4567-e89b-12d3-a456-426655440000@.
 --
--- * 'cleDescription' - Defines an optional description of the cluster, for example @Environmental Data Cluster-01@ .
+-- 'creationDate', 'clusterListEntry_creationDate' - The creation date for this cluster.
 --
--- * 'cleClusterState' - The current state of this cluster. For information about the state of a specific node, see 'JobListEntry$JobState' .
-clusterListEntry ::
+-- 'description', 'clusterListEntry_description' - Defines an optional description of the cluster, for example
+-- @Environmental Data Cluster-01@.
+--
+-- 'clusterState', 'clusterListEntry_clusterState' - The current state of this cluster. For information about the state of a
+-- specific node, see JobListEntry$JobState.
+newClusterListEntry ::
   ClusterListEntry
-clusterListEntry =
+newClusterListEntry =
   ClusterListEntry'
-    { _cleClusterId = Nothing,
-      _cleCreationDate = Nothing,
-      _cleDescription = Nothing,
-      _cleClusterState = Nothing
+    { clusterId = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      description = Prelude.Nothing,
+      clusterState = Prelude.Nothing
     }
 
--- | The 39-character ID for the cluster that you want to list, for example @CID123e4567-e89b-12d3-a456-426655440000@ .
-cleClusterId :: Lens' ClusterListEntry (Maybe Text)
-cleClusterId = lens _cleClusterId (\s a -> s {_cleClusterId = a})
+-- | The 39-character ID for the cluster that you want to list, for example
+-- @CID123e4567-e89b-12d3-a456-426655440000@.
+clusterListEntry_clusterId :: Lens.Lens' ClusterListEntry (Prelude.Maybe Prelude.Text)
+clusterListEntry_clusterId = Lens.lens (\ClusterListEntry' {clusterId} -> clusterId) (\s@ClusterListEntry' {} a -> s {clusterId = a} :: ClusterListEntry)
 
 -- | The creation date for this cluster.
-cleCreationDate :: Lens' ClusterListEntry (Maybe UTCTime)
-cleCreationDate = lens _cleCreationDate (\s a -> s {_cleCreationDate = a}) . mapping _Time
+clusterListEntry_creationDate :: Lens.Lens' ClusterListEntry (Prelude.Maybe Prelude.UTCTime)
+clusterListEntry_creationDate = Lens.lens (\ClusterListEntry' {creationDate} -> creationDate) (\s@ClusterListEntry' {} a -> s {creationDate = a} :: ClusterListEntry) Prelude.. Lens.mapping Prelude._Time
 
--- | Defines an optional description of the cluster, for example @Environmental Data Cluster-01@ .
-cleDescription :: Lens' ClusterListEntry (Maybe Text)
-cleDescription = lens _cleDescription (\s a -> s {_cleDescription = a})
+-- | Defines an optional description of the cluster, for example
+-- @Environmental Data Cluster-01@.
+clusterListEntry_description :: Lens.Lens' ClusterListEntry (Prelude.Maybe Prelude.Text)
+clusterListEntry_description = Lens.lens (\ClusterListEntry' {description} -> description) (\s@ClusterListEntry' {} a -> s {description = a} :: ClusterListEntry)
 
--- | The current state of this cluster. For information about the state of a specific node, see 'JobListEntry$JobState' .
-cleClusterState :: Lens' ClusterListEntry (Maybe ClusterState)
-cleClusterState = lens _cleClusterState (\s a -> s {_cleClusterState = a})
+-- | The current state of this cluster. For information about the state of a
+-- specific node, see JobListEntry$JobState.
+clusterListEntry_clusterState :: Lens.Lens' ClusterListEntry (Prelude.Maybe ClusterState)
+clusterListEntry_clusterState = Lens.lens (\ClusterListEntry' {clusterState} -> clusterState) (\s@ClusterListEntry' {} a -> s {clusterState = a} :: ClusterListEntry)
 
-instance FromJSON ClusterListEntry where
+instance Prelude.FromJSON ClusterListEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClusterListEntry"
       ( \x ->
           ClusterListEntry'
-            <$> (x .:? "ClusterId")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "Description")
-            <*> (x .:? "ClusterState")
+            Prelude.<$> (x Prelude..:? "ClusterId")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "ClusterState")
       )
 
-instance Hashable ClusterListEntry
+instance Prelude.Hashable ClusterListEntry
 
-instance NFData ClusterListEntry
+instance Prelude.NFData ClusterListEntry

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,111 +19,113 @@
 module Network.AWS.Snowball.Types.JobState
   ( JobState
       ( ..,
-        Cancelled,
-        Complete,
-        InProgress,
-        InTransitToAWS,
-        InTransitToCustomer,
-        Listing,
-        New,
-        Pending,
-        PreparingAppliance,
-        PreparingShipment,
-        WithAWS,
-        WithAWSSortingFacility,
-        WithCustomer
+        JobStateCancelled,
+        JobStateComplete,
+        JobStateInProgress,
+        JobStateInTransitToAWS,
+        JobStateInTransitToCustomer,
+        JobStateListing,
+        JobStateNew,
+        JobStatePending,
+        JobStatePreparingAppliance,
+        JobStatePreparingShipment,
+        JobStateWithAWS,
+        JobStateWithAWSSortingFacility,
+        JobStateWithCustomer
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobState = JobState' (CI Text)
+newtype JobState = JobState'
+  { fromJobState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cancelled :: JobState
-pattern Cancelled = JobState' "Cancelled"
+pattern JobStateCancelled :: JobState
+pattern JobStateCancelled = JobState' "Cancelled"
 
-pattern Complete :: JobState
-pattern Complete = JobState' "Complete"
+pattern JobStateComplete :: JobState
+pattern JobStateComplete = JobState' "Complete"
 
-pattern InProgress :: JobState
-pattern InProgress = JobState' "InProgress"
+pattern JobStateInProgress :: JobState
+pattern JobStateInProgress = JobState' "InProgress"
 
-pattern InTransitToAWS :: JobState
-pattern InTransitToAWS = JobState' "InTransitToAWS"
+pattern JobStateInTransitToAWS :: JobState
+pattern JobStateInTransitToAWS = JobState' "InTransitToAWS"
 
-pattern InTransitToCustomer :: JobState
-pattern InTransitToCustomer = JobState' "InTransitToCustomer"
+pattern JobStateInTransitToCustomer :: JobState
+pattern JobStateInTransitToCustomer = JobState' "InTransitToCustomer"
 
-pattern Listing :: JobState
-pattern Listing = JobState' "Listing"
+pattern JobStateListing :: JobState
+pattern JobStateListing = JobState' "Listing"
 
-pattern New :: JobState
-pattern New = JobState' "New"
+pattern JobStateNew :: JobState
+pattern JobStateNew = JobState' "New"
 
-pattern Pending :: JobState
-pattern Pending = JobState' "Pending"
+pattern JobStatePending :: JobState
+pattern JobStatePending = JobState' "Pending"
 
-pattern PreparingAppliance :: JobState
-pattern PreparingAppliance = JobState' "PreparingAppliance"
+pattern JobStatePreparingAppliance :: JobState
+pattern JobStatePreparingAppliance = JobState' "PreparingAppliance"
 
-pattern PreparingShipment :: JobState
-pattern PreparingShipment = JobState' "PreparingShipment"
+pattern JobStatePreparingShipment :: JobState
+pattern JobStatePreparingShipment = JobState' "PreparingShipment"
 
-pattern WithAWS :: JobState
-pattern WithAWS = JobState' "WithAWS"
+pattern JobStateWithAWS :: JobState
+pattern JobStateWithAWS = JobState' "WithAWS"
 
-pattern WithAWSSortingFacility :: JobState
-pattern WithAWSSortingFacility = JobState' "WithAWSSortingFacility"
+pattern JobStateWithAWSSortingFacility :: JobState
+pattern JobStateWithAWSSortingFacility = JobState' "WithAWSSortingFacility"
 
-pattern WithCustomer :: JobState
-pattern WithCustomer = JobState' "WithCustomer"
+pattern JobStateWithCustomer :: JobState
+pattern JobStateWithCustomer = JobState' "WithCustomer"
 
 {-# COMPLETE
-  Cancelled,
-  Complete,
-  InProgress,
-  InTransitToAWS,
-  InTransitToCustomer,
-  Listing,
-  New,
-  Pending,
-  PreparingAppliance,
-  PreparingShipment,
-  WithAWS,
-  WithAWSSortingFacility,
-  WithCustomer,
+  JobStateCancelled,
+  JobStateComplete,
+  JobStateInProgress,
+  JobStateInTransitToAWS,
+  JobStateInTransitToCustomer,
+  JobStateListing,
+  JobStateNew,
+  JobStatePending,
+  JobStatePreparingAppliance,
+  JobStatePreparingShipment,
+  JobStateWithAWS,
+  JobStateWithAWSSortingFacility,
+  JobStateWithCustomer,
   JobState'
   #-}
 
-instance FromText JobState where
-  parser = (JobState' . mk) <$> takeText
+instance Prelude.FromText JobState where
+  parser = JobState' Prelude.<$> Prelude.takeText
 
-instance ToText JobState where
-  toText (JobState' ci) = original ci
+instance Prelude.ToText JobState where
+  toText (JobState' x) = x
 
-instance Hashable JobState
+instance Prelude.Hashable JobState
 
-instance NFData JobState
+instance Prelude.NFData JobState
 
-instance ToByteString JobState
+instance Prelude.ToByteString JobState
 
-instance ToQuery JobState
+instance Prelude.ToQuery JobState
 
-instance ToHeader JobState
+instance Prelude.ToHeader JobState
 
-instance ToJSON JobState where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JobState where
-  parseJSON = parseJSONText "JobState"
+instance Prelude.FromJSON JobState where
+  parseJSON = Prelude.parseJSONText "JobState"

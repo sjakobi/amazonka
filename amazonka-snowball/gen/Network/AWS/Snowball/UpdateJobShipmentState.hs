@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the state when a the shipment states changes to a different state.
+-- Updates the state when a the shipment states changes to a different
+-- state.
 module Network.AWS.Snowball.UpdateJobShipmentState
   ( -- * Creating a Request
-    updateJobShipmentState,
-    UpdateJobShipmentState,
+    UpdateJobShipmentState (..),
+    newUpdateJobShipmentState,
 
     -- * Request Lenses
-    ujssJobId,
-    ujssShipmentState,
+    updateJobShipmentState_jobId,
+    updateJobShipmentState_shipmentState,
 
     -- * Destructuring the Response
-    updateJobShipmentStateResponse,
-    UpdateJobShipmentStateResponse,
+    UpdateJobShipmentStateResponse (..),
+    newUpdateJobShipmentStateResponse,
 
     -- * Response Lenses
-    ujssrrsResponseStatus,
+    updateJobShipmentStateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Snowball.Types
 
--- | /See:/ 'updateJobShipmentState' smart constructor.
+-- | /See:/ 'newUpdateJobShipmentState' smart constructor.
 data UpdateJobShipmentState = UpdateJobShipmentState'
-  { _ujssJobId ::
-      !Text,
-    _ujssShipmentState ::
-      !ShipmentState
+  { -- | The job ID of the job whose shipment date you want to update, for
+    -- example @JID123e4567-e89b-12d3-a456-426655440000@.
+    jobId :: Prelude.Text,
+    -- | The state of a device when it is being shipped.
+    --
+    -- Set to @RECEIVED@ when the device arrives at your location.
+    --
+    -- Set to @RETURNED@ when you have returned the device to AWS.
+    shipmentState :: ShipmentState
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateJobShipmentState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateJobShipmentState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ujssJobId' - The job ID of the job whose shipment date you want to update, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ujssShipmentState' - The state of a device when it is being shipped.  Set to @RECEIVED@ when the device arrives at your location. Set to @RETURNED@ when you have returned the device to AWS.
-updateJobShipmentState ::
-  -- | 'ujssJobId'
-  Text ->
-  -- | 'ujssShipmentState'
+-- 'jobId', 'updateJobShipmentState_jobId' - The job ID of the job whose shipment date you want to update, for
+-- example @JID123e4567-e89b-12d3-a456-426655440000@.
+--
+-- 'shipmentState', 'updateJobShipmentState_shipmentState' - The state of a device when it is being shipped.
+--
+-- Set to @RECEIVED@ when the device arrives at your location.
+--
+-- Set to @RETURNED@ when you have returned the device to AWS.
+newUpdateJobShipmentState ::
+  -- | 'jobId'
+  Prelude.Text ->
+  -- | 'shipmentState'
   ShipmentState ->
   UpdateJobShipmentState
-updateJobShipmentState pJobId_ pShipmentState_ =
+newUpdateJobShipmentState pJobId_ pShipmentState_ =
   UpdateJobShipmentState'
-    { _ujssJobId = pJobId_,
-      _ujssShipmentState = pShipmentState_
+    { jobId = pJobId_,
+      shipmentState = pShipmentState_
     }
 
--- | The job ID of the job whose shipment date you want to update, for example @JID123e4567-e89b-12d3-a456-426655440000@ .
-ujssJobId :: Lens' UpdateJobShipmentState Text
-ujssJobId = lens _ujssJobId (\s a -> s {_ujssJobId = a})
+-- | The job ID of the job whose shipment date you want to update, for
+-- example @JID123e4567-e89b-12d3-a456-426655440000@.
+updateJobShipmentState_jobId :: Lens.Lens' UpdateJobShipmentState Prelude.Text
+updateJobShipmentState_jobId = Lens.lens (\UpdateJobShipmentState' {jobId} -> jobId) (\s@UpdateJobShipmentState' {} a -> s {jobId = a} :: UpdateJobShipmentState)
 
--- | The state of a device when it is being shipped.  Set to @RECEIVED@ when the device arrives at your location. Set to @RETURNED@ when you have returned the device to AWS.
-ujssShipmentState :: Lens' UpdateJobShipmentState ShipmentState
-ujssShipmentState = lens _ujssShipmentState (\s a -> s {_ujssShipmentState = a})
+-- | The state of a device when it is being shipped.
+--
+-- Set to @RECEIVED@ when the device arrives at your location.
+--
+-- Set to @RETURNED@ when you have returned the device to AWS.
+updateJobShipmentState_shipmentState :: Lens.Lens' UpdateJobShipmentState ShipmentState
+updateJobShipmentState_shipmentState = Lens.lens (\UpdateJobShipmentState' {shipmentState} -> shipmentState) (\s@UpdateJobShipmentState' {} a -> s {shipmentState = a} :: UpdateJobShipmentState)
 
-instance AWSRequest UpdateJobShipmentState where
+instance Prelude.AWSRequest UpdateJobShipmentState where
   type
     Rs UpdateJobShipmentState =
       UpdateJobShipmentStateResponse
-  request = postJSON snowball
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateJobShipmentStateResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateJobShipmentState
+instance Prelude.Hashable UpdateJobShipmentState
 
-instance NFData UpdateJobShipmentState
+instance Prelude.NFData UpdateJobShipmentState
 
-instance ToHeaders UpdateJobShipmentState where
+instance Prelude.ToHeaders UpdateJobShipmentState where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSIESnowballJobManagementService.UpdateJobShipmentState" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSIESnowballJobManagementService.UpdateJobShipmentState" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateJobShipmentState where
+instance Prelude.ToJSON UpdateJobShipmentState where
   toJSON UpdateJobShipmentState' {..} =
-    object
-      ( catMaybes
-          [ Just ("JobId" .= _ujssJobId),
-            Just ("ShipmentState" .= _ujssShipmentState)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("JobId" Prelude..= jobId),
+            Prelude.Just
+              ("ShipmentState" Prelude..= shipmentState)
           ]
       )
 
-instance ToPath UpdateJobShipmentState where
-  toPath = const "/"
+instance Prelude.ToPath UpdateJobShipmentState where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateJobShipmentState where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateJobShipmentState where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateJobShipmentStateResponse' smart constructor.
-newtype UpdateJobShipmentStateResponse = UpdateJobShipmentStateResponse'
-  { _ujssrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateJobShipmentStateResponse' smart constructor.
+data UpdateJobShipmentStateResponse = UpdateJobShipmentStateResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateJobShipmentStateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateJobShipmentStateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ujssrrsResponseStatus' - -- | The response status code.
-updateJobShipmentStateResponse ::
-  -- | 'ujssrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateJobShipmentStateResponse_httpStatus' - The response's http status code.
+newUpdateJobShipmentStateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateJobShipmentStateResponse
-updateJobShipmentStateResponse pResponseStatus_ =
+newUpdateJobShipmentStateResponse pHttpStatus_ =
   UpdateJobShipmentStateResponse'
-    { _ujssrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ujssrrsResponseStatus :: Lens' UpdateJobShipmentStateResponse Int
-ujssrrsResponseStatus = lens _ujssrrsResponseStatus (\s a -> s {_ujssrrsResponseStatus = a})
+-- | The response's http status code.
+updateJobShipmentStateResponse_httpStatus :: Lens.Lens' UpdateJobShipmentStateResponse Prelude.Int
+updateJobShipmentStateResponse_httpStatus = Lens.lens (\UpdateJobShipmentStateResponse' {httpStatus} -> httpStatus) (\s@UpdateJobShipmentStateResponse' {} a -> s {httpStatus = a} :: UpdateJobShipmentStateResponse)
 
-instance NFData UpdateJobShipmentStateResponse
+instance
+  Prelude.NFData
+    UpdateJobShipmentStateResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,114 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.Notification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Snowball.Types.JobState
 
--- | The Amazon Simple Notification Service (Amazon SNS) notification settings associated with a specific job. The @Notification@ object is returned as a part of the response syntax of the @DescribeJob@ action in the @JobMetadata@ data type.
+-- | The Amazon Simple Notification Service (Amazon SNS) notification
+-- settings associated with a specific job. The @Notification@ object is
+-- returned as a part of the response syntax of the @DescribeJob@ action in
+-- the @JobMetadata@ data type.
 --
+-- When the notification settings are defined during job creation, you can
+-- choose to notify based on a specific set of job states using the
+-- @JobStatesToNotify@ array of strings, or you can specify that you want
+-- to have Amazon SNS notifications sent out for all job states with
+-- @NotifyAll@ set to true.
 --
--- When the notification settings are defined during job creation, you can choose to notify based on a specific set of job states using the @JobStatesToNotify@ array of strings, or you can specify that you want to have Amazon SNS notifications sent out for all job states with @NotifyAll@ set to true.
---
---
--- /See:/ 'notification' smart constructor.
+-- /See:/ 'newNotification' smart constructor.
 data Notification = Notification'
-  { _nJobStatesToNotify ::
-      !(Maybe [JobState]),
-    _nNotifyAll :: !(Maybe Bool),
-    _nSNSTopicARN :: !(Maybe Text)
+  { -- | The list of job states that will trigger a notification for this job.
+    jobStatesToNotify :: Prelude.Maybe [JobState],
+    -- | Any change in job state will trigger a notification for this job.
+    notifyAll :: Prelude.Maybe Prelude.Bool,
+    -- | The new SNS @TopicArn@ that you want to associate with this job. You can
+    -- create Amazon Resource Names (ARNs) for topics by using the
+    -- <https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html CreateTopic>
+    -- Amazon SNS API action.
+    --
+    -- You can subscribe email addresses to an Amazon SNS topic through the AWS
+    -- Management Console, or by using the
+    -- <https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html Subscribe>
+    -- AWS Simple Notification Service (SNS) API action.
+    snsTopicARN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Notification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Notification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nJobStatesToNotify' - The list of job states that will trigger a notification for this job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nNotifyAll' - Any change in job state will trigger a notification for this job.
+-- 'jobStatesToNotify', 'notification_jobStatesToNotify' - The list of job states that will trigger a notification for this job.
 --
--- * 'nSNSTopicARN' - The new SNS @TopicArn@ that you want to associate with this job. You can create Amazon Resource Names (ARNs) for topics by using the <https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html CreateTopic> Amazon SNS API action. You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using the <https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html Subscribe> AWS Simple Notification Service (SNS) API action.
-notification ::
+-- 'notifyAll', 'notification_notifyAll' - Any change in job state will trigger a notification for this job.
+--
+-- 'snsTopicARN', 'notification_snsTopicARN' - The new SNS @TopicArn@ that you want to associate with this job. You can
+-- create Amazon Resource Names (ARNs) for topics by using the
+-- <https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html CreateTopic>
+-- Amazon SNS API action.
+--
+-- You can subscribe email addresses to an Amazon SNS topic through the AWS
+-- Management Console, or by using the
+-- <https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html Subscribe>
+-- AWS Simple Notification Service (SNS) API action.
+newNotification ::
   Notification
-notification =
+newNotification =
   Notification'
-    { _nJobStatesToNotify = Nothing,
-      _nNotifyAll = Nothing,
-      _nSNSTopicARN = Nothing
+    { jobStatesToNotify = Prelude.Nothing,
+      notifyAll = Prelude.Nothing,
+      snsTopicARN = Prelude.Nothing
     }
 
 -- | The list of job states that will trigger a notification for this job.
-nJobStatesToNotify :: Lens' Notification [JobState]
-nJobStatesToNotify = lens _nJobStatesToNotify (\s a -> s {_nJobStatesToNotify = a}) . _Default . _Coerce
+notification_jobStatesToNotify :: Lens.Lens' Notification (Prelude.Maybe [JobState])
+notification_jobStatesToNotify = Lens.lens (\Notification' {jobStatesToNotify} -> jobStatesToNotify) (\s@Notification' {} a -> s {jobStatesToNotify = a} :: Notification) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Any change in job state will trigger a notification for this job.
-nNotifyAll :: Lens' Notification (Maybe Bool)
-nNotifyAll = lens _nNotifyAll (\s a -> s {_nNotifyAll = a})
+notification_notifyAll :: Lens.Lens' Notification (Prelude.Maybe Prelude.Bool)
+notification_notifyAll = Lens.lens (\Notification' {notifyAll} -> notifyAll) (\s@Notification' {} a -> s {notifyAll = a} :: Notification)
 
--- | The new SNS @TopicArn@ that you want to associate with this job. You can create Amazon Resource Names (ARNs) for topics by using the <https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html CreateTopic> Amazon SNS API action. You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using the <https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html Subscribe> AWS Simple Notification Service (SNS) API action.
-nSNSTopicARN :: Lens' Notification (Maybe Text)
-nSNSTopicARN = lens _nSNSTopicARN (\s a -> s {_nSNSTopicARN = a})
+-- | The new SNS @TopicArn@ that you want to associate with this job. You can
+-- create Amazon Resource Names (ARNs) for topics by using the
+-- <https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html CreateTopic>
+-- Amazon SNS API action.
+--
+-- You can subscribe email addresses to an Amazon SNS topic through the AWS
+-- Management Console, or by using the
+-- <https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html Subscribe>
+-- AWS Simple Notification Service (SNS) API action.
+notification_snsTopicARN :: Lens.Lens' Notification (Prelude.Maybe Prelude.Text)
+notification_snsTopicARN = Lens.lens (\Notification' {snsTopicARN} -> snsTopicARN) (\s@Notification' {} a -> s {snsTopicARN = a} :: Notification)
 
-instance FromJSON Notification where
+instance Prelude.FromJSON Notification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Notification"
       ( \x ->
           Notification'
-            <$> (x .:? "JobStatesToNotify" .!= mempty)
-            <*> (x .:? "NotifyAll")
-            <*> (x .:? "SnsTopicARN")
+            Prelude.<$> ( x Prelude..:? "JobStatesToNotify"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "NotifyAll")
+            Prelude.<*> (x Prelude..:? "SnsTopicARN")
       )
 
-instance Hashable Notification
+instance Prelude.Hashable Notification
 
-instance NFData Notification
+instance Prelude.NFData Notification
 
-instance ToJSON Notification where
+instance Prelude.ToJSON Notification where
   toJSON Notification' {..} =
-    object
-      ( catMaybes
-          [ ("JobStatesToNotify" .=) <$> _nJobStatesToNotify,
-            ("NotifyAll" .=) <$> _nNotifyAll,
-            ("SnsTopicARN" .=) <$> _nSNSTopicARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("JobStatesToNotify" Prelude..=)
+              Prelude.<$> jobStatesToNotify,
+            ("NotifyAll" Prelude..=) Prelude.<$> notifyAll,
+            ("SnsTopicARN" Prelude..=) Prelude.<$> snsTopicARN
           ]
       )

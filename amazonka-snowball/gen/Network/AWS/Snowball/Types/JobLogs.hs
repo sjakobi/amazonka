@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Snowball.Types.JobLogs where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains job logs. Whenever a Snow device is used to import data into or export data out of Amazon S3, you'll have the option of downloading a PDF job report. Job logs are returned as a part of the response syntax of the @DescribeJob@ action in the @JobMetadata@ data type. The job logs can be accessed for up to 60 minutes after this request has been made. To access any of the job logs after 60 minutes have passed, you'll have to make another call to the @DescribeJob@ action.
+-- | Contains job logs. Whenever a Snow device is used to import data into or
+-- export data out of Amazon S3, you\'ll have the option of downloading a
+-- PDF job report. Job logs are returned as a part of the response syntax
+-- of the @DescribeJob@ action in the @JobMetadata@ data type. The job logs
+-- can be accessed for up to 60 minutes after this request has been made.
+-- To access any of the job logs after 60 minutes have passed, you\'ll have
+-- to make another call to the @DescribeJob@ action.
 --
+-- For import jobs, the PDF job report becomes available at the end of the
+-- import process. For export jobs, your job report typically becomes
+-- available while the Snow device for your job part is being delivered to
+-- you.
 --
--- For import jobs, the PDF job report becomes available at the end of the import process. For export jobs, your job report typically becomes available while the Snow device for your job part is being delivered to you.
+-- The job report provides you insight into the state of your Amazon S3
+-- data transfer. The report includes details about your job or job part
+-- for your records.
 --
--- The job report provides you insight into the state of your Amazon S3 data transfer. The report includes details about your job or job part for your records.
+-- For deeper visibility into the status of your transferred objects, you
+-- can look at the two associated logs: a success log and a failure log.
+-- The logs are saved in comma-separated value (CSV) format, and the name
+-- of each log includes the ID of the job or job part that the log
+-- describes.
 --
--- For deeper visibility into the status of your transferred objects, you can look at the two associated logs: a success log and a failure log. The logs are saved in comma-separated value (CSV) format, and the name of each log includes the ID of the job or job part that the log describes.
---
---
--- /See:/ 'jobLogs' smart constructor.
+-- /See:/ 'newJobLogs' smart constructor.
 data JobLogs = JobLogs'
-  { _jlJobCompletionReportURI ::
-      !(Maybe Text),
-    _jlJobSuccessLogURI :: !(Maybe Text),
-    _jlJobFailureLogURI :: !(Maybe Text)
+  { -- | A link to an Amazon S3 presigned URL where the job completion report is
+    -- located.
+    jobCompletionReportURI :: Prelude.Maybe Prelude.Text,
+    -- | A link to an Amazon S3 presigned URL where the job success log is
+    -- located.
+    jobSuccessLogURI :: Prelude.Maybe Prelude.Text,
+    -- | A link to an Amazon S3 presigned URL where the job failure log is
+    -- located.
+    jobFailureLogURI :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobLogs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobLogs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jlJobCompletionReportURI' - A link to an Amazon S3 presigned URL where the job completion report is located.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jlJobSuccessLogURI' - A link to an Amazon S3 presigned URL where the job success log is located.
+-- 'jobCompletionReportURI', 'jobLogs_jobCompletionReportURI' - A link to an Amazon S3 presigned URL where the job completion report is
+-- located.
 --
--- * 'jlJobFailureLogURI' - A link to an Amazon S3 presigned URL where the job failure log is located.
-jobLogs ::
+-- 'jobSuccessLogURI', 'jobLogs_jobSuccessLogURI' - A link to an Amazon S3 presigned URL where the job success log is
+-- located.
+--
+-- 'jobFailureLogURI', 'jobLogs_jobFailureLogURI' - A link to an Amazon S3 presigned URL where the job failure log is
+-- located.
+newJobLogs ::
   JobLogs
-jobLogs =
+newJobLogs =
   JobLogs'
-    { _jlJobCompletionReportURI = Nothing,
-      _jlJobSuccessLogURI = Nothing,
-      _jlJobFailureLogURI = Nothing
+    { jobCompletionReportURI = Prelude.Nothing,
+      jobSuccessLogURI = Prelude.Nothing,
+      jobFailureLogURI = Prelude.Nothing
     }
 
--- | A link to an Amazon S3 presigned URL where the job completion report is located.
-jlJobCompletionReportURI :: Lens' JobLogs (Maybe Text)
-jlJobCompletionReportURI = lens _jlJobCompletionReportURI (\s a -> s {_jlJobCompletionReportURI = a})
+-- | A link to an Amazon S3 presigned URL where the job completion report is
+-- located.
+jobLogs_jobCompletionReportURI :: Lens.Lens' JobLogs (Prelude.Maybe Prelude.Text)
+jobLogs_jobCompletionReportURI = Lens.lens (\JobLogs' {jobCompletionReportURI} -> jobCompletionReportURI) (\s@JobLogs' {} a -> s {jobCompletionReportURI = a} :: JobLogs)
 
--- | A link to an Amazon S3 presigned URL where the job success log is located.
-jlJobSuccessLogURI :: Lens' JobLogs (Maybe Text)
-jlJobSuccessLogURI = lens _jlJobSuccessLogURI (\s a -> s {_jlJobSuccessLogURI = a})
+-- | A link to an Amazon S3 presigned URL where the job success log is
+-- located.
+jobLogs_jobSuccessLogURI :: Lens.Lens' JobLogs (Prelude.Maybe Prelude.Text)
+jobLogs_jobSuccessLogURI = Lens.lens (\JobLogs' {jobSuccessLogURI} -> jobSuccessLogURI) (\s@JobLogs' {} a -> s {jobSuccessLogURI = a} :: JobLogs)
 
--- | A link to an Amazon S3 presigned URL where the job failure log is located.
-jlJobFailureLogURI :: Lens' JobLogs (Maybe Text)
-jlJobFailureLogURI = lens _jlJobFailureLogURI (\s a -> s {_jlJobFailureLogURI = a})
+-- | A link to an Amazon S3 presigned URL where the job failure log is
+-- located.
+jobLogs_jobFailureLogURI :: Lens.Lens' JobLogs (Prelude.Maybe Prelude.Text)
+jobLogs_jobFailureLogURI = Lens.lens (\JobLogs' {jobFailureLogURI} -> jobFailureLogURI) (\s@JobLogs' {} a -> s {jobFailureLogURI = a} :: JobLogs)
 
-instance FromJSON JobLogs where
+instance Prelude.FromJSON JobLogs where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobLogs"
       ( \x ->
           JobLogs'
-            <$> (x .:? "JobCompletionReportURI")
-            <*> (x .:? "JobSuccessLogURI")
-            <*> (x .:? "JobFailureLogURI")
+            Prelude.<$> (x Prelude..:? "JobCompletionReportURI")
+            Prelude.<*> (x Prelude..:? "JobSuccessLogURI")
+            Prelude.<*> (x Prelude..:? "JobFailureLogURI")
       )
 
-instance Hashable JobLogs
+instance Prelude.Hashable JobLogs
 
-instance NFData JobLogs
+instance Prelude.NFData JobLogs
