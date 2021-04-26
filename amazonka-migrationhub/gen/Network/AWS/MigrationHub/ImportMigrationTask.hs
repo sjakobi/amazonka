@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers a new migration task which represents a server, database, etc., being migrated to AWS by a migration tool.
+-- Registers a new migration task which represents a server, database,
+-- etc., being migrated to AWS by a migration tool.
 --
---
--- This API is a prerequisite to calling the @NotifyMigrationTaskState@ API as the migration tool must first register the migration task with Migration Hub.
+-- This API is a prerequisite to calling the @NotifyMigrationTaskState@ API
+-- as the migration tool must first register the migration task with
+-- Migration Hub.
 module Network.AWS.MigrationHub.ImportMigrationTask
   ( -- * Creating a Request
-    importMigrationTask,
-    ImportMigrationTask,
+    ImportMigrationTask (..),
+    newImportMigrationTask,
 
     -- * Request Lenses
-    imtDryRun,
-    imtProgressUpdateStream,
-    imtMigrationTaskName,
+    importMigrationTask_dryRun,
+    importMigrationTask_progressUpdateStream,
+    importMigrationTask_migrationTaskName,
 
     -- * Destructuring the Response
-    importMigrationTaskResponse,
-    ImportMigrationTaskResponse,
+    ImportMigrationTaskResponse (..),
+    newImportMigrationTaskResponse,
 
     -- * Response Lenses
-    imtrrsResponseStatus,
+    importMigrationTaskResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'importMigrationTask' smart constructor.
+-- | /See:/ 'newImportMigrationTask' smart constructor.
 data ImportMigrationTask = ImportMigrationTask'
-  { _imtDryRun ::
-      !(Maybe Bool),
-    _imtProgressUpdateStream ::
-      !Text,
-    _imtMigrationTaskName :: !Text
+  { -- | Optional boolean flag to indicate whether any effect should take place.
+    -- Used to test if the caller has permission to make the call.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the ProgressUpdateStream. >
+    progressUpdateStream :: Prelude.Text,
+    -- | Unique identifier that references the migration task. /Do not store
+    -- personal data in this field./
+    migrationTaskName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportMigrationTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportMigrationTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'imtDryRun' - Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'imtProgressUpdateStream' - The name of the ProgressUpdateStream. >
+-- 'dryRun', 'importMigrationTask_dryRun' - Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
 --
--- * 'imtMigrationTaskName' - Unique identifier that references the migration task. /Do not store personal data in this field./
-importMigrationTask ::
-  -- | 'imtProgressUpdateStream'
-  Text ->
-  -- | 'imtMigrationTaskName'
-  Text ->
+-- 'progressUpdateStream', 'importMigrationTask_progressUpdateStream' - The name of the ProgressUpdateStream. >
+--
+-- 'migrationTaskName', 'importMigrationTask_migrationTaskName' - Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+newImportMigrationTask ::
+  -- | 'progressUpdateStream'
+  Prelude.Text ->
+  -- | 'migrationTaskName'
+  Prelude.Text ->
   ImportMigrationTask
-importMigrationTask
+newImportMigrationTask
   pProgressUpdateStream_
   pMigrationTaskName_ =
     ImportMigrationTask'
-      { _imtDryRun = Nothing,
-        _imtProgressUpdateStream = pProgressUpdateStream_,
-        _imtMigrationTaskName = pMigrationTaskName_
+      { dryRun = Prelude.Nothing,
+        progressUpdateStream = pProgressUpdateStream_,
+        migrationTaskName = pMigrationTaskName_
       }
 
--- | Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
-imtDryRun :: Lens' ImportMigrationTask (Maybe Bool)
-imtDryRun = lens _imtDryRun (\s a -> s {_imtDryRun = a})
+-- | Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
+importMigrationTask_dryRun :: Lens.Lens' ImportMigrationTask (Prelude.Maybe Prelude.Bool)
+importMigrationTask_dryRun = Lens.lens (\ImportMigrationTask' {dryRun} -> dryRun) (\s@ImportMigrationTask' {} a -> s {dryRun = a} :: ImportMigrationTask)
 
 -- | The name of the ProgressUpdateStream. >
-imtProgressUpdateStream :: Lens' ImportMigrationTask Text
-imtProgressUpdateStream = lens _imtProgressUpdateStream (\s a -> s {_imtProgressUpdateStream = a})
+importMigrationTask_progressUpdateStream :: Lens.Lens' ImportMigrationTask Prelude.Text
+importMigrationTask_progressUpdateStream = Lens.lens (\ImportMigrationTask' {progressUpdateStream} -> progressUpdateStream) (\s@ImportMigrationTask' {} a -> s {progressUpdateStream = a} :: ImportMigrationTask)
 
--- | Unique identifier that references the migration task. /Do not store personal data in this field./
-imtMigrationTaskName :: Lens' ImportMigrationTask Text
-imtMigrationTaskName = lens _imtMigrationTaskName (\s a -> s {_imtMigrationTaskName = a})
+-- | Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+importMigrationTask_migrationTaskName :: Lens.Lens' ImportMigrationTask Prelude.Text
+importMigrationTask_migrationTaskName = Lens.lens (\ImportMigrationTask' {migrationTaskName} -> migrationTaskName) (\s@ImportMigrationTask' {} a -> s {migrationTaskName = a} :: ImportMigrationTask)
 
-instance AWSRequest ImportMigrationTask where
+instance Prelude.AWSRequest ImportMigrationTask where
   type
     Rs ImportMigrationTask =
       ImportMigrationTaskResponse
-  request = postJSON migrationHub
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          ImportMigrationTaskResponse' <$> (pure (fromEnum s))
+          ImportMigrationTaskResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ImportMigrationTask
+instance Prelude.Hashable ImportMigrationTask
 
-instance NFData ImportMigrationTask
+instance Prelude.NFData ImportMigrationTask
 
-instance ToHeaders ImportMigrationTask where
+instance Prelude.ToHeaders ImportMigrationTask where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSMigrationHub.ImportMigrationTask" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSMigrationHub.ImportMigrationTask" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ImportMigrationTask where
+instance Prelude.ToJSON ImportMigrationTask where
   toJSON ImportMigrationTask' {..} =
-    object
-      ( catMaybes
-          [ ("DryRun" .=) <$> _imtDryRun,
-            Just
-              ("ProgressUpdateStream" .= _imtProgressUpdateStream),
-            Just ("MigrationTaskName" .= _imtMigrationTaskName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DryRun" Prelude..=) Prelude.<$> dryRun,
+            Prelude.Just
+              ( "ProgressUpdateStream"
+                  Prelude..= progressUpdateStream
+              ),
+            Prelude.Just
+              ("MigrationTaskName" Prelude..= migrationTaskName)
           ]
       )
 
-instance ToPath ImportMigrationTask where
-  toPath = const "/"
+instance Prelude.ToPath ImportMigrationTask where
+  toPath = Prelude.const "/"
 
-instance ToQuery ImportMigrationTask where
-  toQuery = const mempty
+instance Prelude.ToQuery ImportMigrationTask where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'importMigrationTaskResponse' smart constructor.
-newtype ImportMigrationTaskResponse = ImportMigrationTaskResponse'
-  { _imtrrsResponseStatus ::
-      Int
+-- | /See:/ 'newImportMigrationTaskResponse' smart constructor.
+data ImportMigrationTaskResponse = ImportMigrationTaskResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportMigrationTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportMigrationTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'imtrrsResponseStatus' - -- | The response status code.
-importMigrationTaskResponse ::
-  -- | 'imtrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'importMigrationTaskResponse_httpStatus' - The response's http status code.
+newImportMigrationTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ImportMigrationTaskResponse
-importMigrationTaskResponse pResponseStatus_ =
+newImportMigrationTaskResponse pHttpStatus_ =
   ImportMigrationTaskResponse'
-    { _imtrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-imtrrsResponseStatus :: Lens' ImportMigrationTaskResponse Int
-imtrrsResponseStatus = lens _imtrrsResponseStatus (\s a -> s {_imtrrsResponseStatus = a})
+-- | The response's http status code.
+importMigrationTaskResponse_httpStatus :: Lens.Lens' ImportMigrationTaskResponse Prelude.Int
+importMigrationTaskResponse_httpStatus = Lens.lens (\ImportMigrationTaskResponse' {httpStatus} -> httpStatus) (\s@ImportMigrationTaskResponse' {} a -> s {httpStatus = a} :: ImportMigrationTaskResponse)
 
-instance NFData ImportMigrationTaskResponse
+instance Prelude.NFData ImportMigrationTaskResponse

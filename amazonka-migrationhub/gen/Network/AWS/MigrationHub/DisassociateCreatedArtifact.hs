@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,211 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates a created artifact of an AWS resource with a migration task performed by a migration tool that was previously associated. This API has the following traits:
+-- Disassociates a created artifact of an AWS resource with a migration
+-- task performed by a migration tool that was previously associated. This
+-- API has the following traits:
 --
+-- -   A migration user can call the @DisassociateCreatedArtifacts@
+--     operation to disassociate a created AWS Artifact from a migration
+--     task.
 --
---     * A migration user can call the @DisassociateCreatedArtifacts@ operation to disassociate a created AWS Artifact from a migration task.
+-- -   The created artifact name must be provided in ARN (Amazon Resource
+--     Name) format which will contain information about type and region;
+--     for example:
+--     @arn:aws:ec2:us-east-1:488216288981:image\/ami-6d0ba87b@.
 --
---     * The created artifact name must be provided in ARN (Amazon Resource Name) format which will contain information about type and region; for example: @arn:aws:ec2:us-east-1:488216288981:image/ami-6d0ba87b@ .
---
---     * Examples of the AWS resource behind the created artifact are, AMI's, EC2 instance, or RDS instance, etc.
+-- -   Examples of the AWS resource behind the created artifact are,
+--     AMI\'s, EC2 instance, or RDS instance, etc.
 module Network.AWS.MigrationHub.DisassociateCreatedArtifact
   ( -- * Creating a Request
-    disassociateCreatedArtifact,
-    DisassociateCreatedArtifact,
+    DisassociateCreatedArtifact (..),
+    newDisassociateCreatedArtifact,
 
     -- * Request Lenses
-    dcaDryRun,
-    dcaProgressUpdateStream,
-    dcaMigrationTaskName,
-    dcaCreatedArtifactName,
+    disassociateCreatedArtifact_dryRun,
+    disassociateCreatedArtifact_progressUpdateStream,
+    disassociateCreatedArtifact_migrationTaskName,
+    disassociateCreatedArtifact_createdArtifactName,
 
     -- * Destructuring the Response
-    disassociateCreatedArtifactResponse,
-    DisassociateCreatedArtifactResponse,
+    DisassociateCreatedArtifactResponse (..),
+    newDisassociateCreatedArtifactResponse,
 
     -- * Response Lenses
-    dcarrsResponseStatus,
+    disassociateCreatedArtifactResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateCreatedArtifact' smart constructor.
+-- | /See:/ 'newDisassociateCreatedArtifact' smart constructor.
 data DisassociateCreatedArtifact = DisassociateCreatedArtifact'
-  { _dcaDryRun ::
-      !(Maybe Bool),
-    _dcaProgressUpdateStream ::
-      !Text,
-    _dcaMigrationTaskName ::
-      !Text,
-    _dcaCreatedArtifactName ::
-      !Text
+  { -- | Optional boolean flag to indicate whether any effect should take place.
+    -- Used to test if the caller has permission to make the call.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the ProgressUpdateStream.
+    progressUpdateStream :: Prelude.Text,
+    -- | Unique identifier that references the migration task to be disassociated
+    -- with the artifact. /Do not store personal data in this field./
+    migrationTaskName :: Prelude.Text,
+    -- | An ARN of the AWS resource related to the migration (e.g., AMI, EC2
+    -- instance, RDS instance, etc.)
+    createdArtifactName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateCreatedArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateCreatedArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcaDryRun' - Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcaProgressUpdateStream' - The name of the ProgressUpdateStream.
+-- 'dryRun', 'disassociateCreatedArtifact_dryRun' - Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
 --
--- * 'dcaMigrationTaskName' - Unique identifier that references the migration task to be disassociated with the artifact. /Do not store personal data in this field./
+-- 'progressUpdateStream', 'disassociateCreatedArtifact_progressUpdateStream' - The name of the ProgressUpdateStream.
 --
--- * 'dcaCreatedArtifactName' - An ARN of the AWS resource related to the migration (e.g., AMI, EC2 instance, RDS instance, etc.)
-disassociateCreatedArtifact ::
-  -- | 'dcaProgressUpdateStream'
-  Text ->
-  -- | 'dcaMigrationTaskName'
-  Text ->
-  -- | 'dcaCreatedArtifactName'
-  Text ->
+-- 'migrationTaskName', 'disassociateCreatedArtifact_migrationTaskName' - Unique identifier that references the migration task to be disassociated
+-- with the artifact. /Do not store personal data in this field./
+--
+-- 'createdArtifactName', 'disassociateCreatedArtifact_createdArtifactName' - An ARN of the AWS resource related to the migration (e.g., AMI, EC2
+-- instance, RDS instance, etc.)
+newDisassociateCreatedArtifact ::
+  -- | 'progressUpdateStream'
+  Prelude.Text ->
+  -- | 'migrationTaskName'
+  Prelude.Text ->
+  -- | 'createdArtifactName'
+  Prelude.Text ->
   DisassociateCreatedArtifact
-disassociateCreatedArtifact
+newDisassociateCreatedArtifact
   pProgressUpdateStream_
   pMigrationTaskName_
   pCreatedArtifactName_ =
     DisassociateCreatedArtifact'
-      { _dcaDryRun = Nothing,
-        _dcaProgressUpdateStream =
-          pProgressUpdateStream_,
-        _dcaMigrationTaskName = pMigrationTaskName_,
-        _dcaCreatedArtifactName =
-          pCreatedArtifactName_
+      { dryRun =
+          Prelude.Nothing,
+        progressUpdateStream = pProgressUpdateStream_,
+        migrationTaskName = pMigrationTaskName_,
+        createdArtifactName = pCreatedArtifactName_
       }
 
--- | Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
-dcaDryRun :: Lens' DisassociateCreatedArtifact (Maybe Bool)
-dcaDryRun = lens _dcaDryRun (\s a -> s {_dcaDryRun = a})
+-- | Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
+disassociateCreatedArtifact_dryRun :: Lens.Lens' DisassociateCreatedArtifact (Prelude.Maybe Prelude.Bool)
+disassociateCreatedArtifact_dryRun = Lens.lens (\DisassociateCreatedArtifact' {dryRun} -> dryRun) (\s@DisassociateCreatedArtifact' {} a -> s {dryRun = a} :: DisassociateCreatedArtifact)
 
 -- | The name of the ProgressUpdateStream.
-dcaProgressUpdateStream :: Lens' DisassociateCreatedArtifact Text
-dcaProgressUpdateStream = lens _dcaProgressUpdateStream (\s a -> s {_dcaProgressUpdateStream = a})
+disassociateCreatedArtifact_progressUpdateStream :: Lens.Lens' DisassociateCreatedArtifact Prelude.Text
+disassociateCreatedArtifact_progressUpdateStream = Lens.lens (\DisassociateCreatedArtifact' {progressUpdateStream} -> progressUpdateStream) (\s@DisassociateCreatedArtifact' {} a -> s {progressUpdateStream = a} :: DisassociateCreatedArtifact)
 
--- | Unique identifier that references the migration task to be disassociated with the artifact. /Do not store personal data in this field./
-dcaMigrationTaskName :: Lens' DisassociateCreatedArtifact Text
-dcaMigrationTaskName = lens _dcaMigrationTaskName (\s a -> s {_dcaMigrationTaskName = a})
+-- | Unique identifier that references the migration task to be disassociated
+-- with the artifact. /Do not store personal data in this field./
+disassociateCreatedArtifact_migrationTaskName :: Lens.Lens' DisassociateCreatedArtifact Prelude.Text
+disassociateCreatedArtifact_migrationTaskName = Lens.lens (\DisassociateCreatedArtifact' {migrationTaskName} -> migrationTaskName) (\s@DisassociateCreatedArtifact' {} a -> s {migrationTaskName = a} :: DisassociateCreatedArtifact)
 
--- | An ARN of the AWS resource related to the migration (e.g., AMI, EC2 instance, RDS instance, etc.)
-dcaCreatedArtifactName :: Lens' DisassociateCreatedArtifact Text
-dcaCreatedArtifactName = lens _dcaCreatedArtifactName (\s a -> s {_dcaCreatedArtifactName = a})
+-- | An ARN of the AWS resource related to the migration (e.g., AMI, EC2
+-- instance, RDS instance, etc.)
+disassociateCreatedArtifact_createdArtifactName :: Lens.Lens' DisassociateCreatedArtifact Prelude.Text
+disassociateCreatedArtifact_createdArtifactName = Lens.lens (\DisassociateCreatedArtifact' {createdArtifactName} -> createdArtifactName) (\s@DisassociateCreatedArtifact' {} a -> s {createdArtifactName = a} :: DisassociateCreatedArtifact)
 
-instance AWSRequest DisassociateCreatedArtifact where
+instance
+  Prelude.AWSRequest
+    DisassociateCreatedArtifact
+  where
   type
     Rs DisassociateCreatedArtifact =
       DisassociateCreatedArtifactResponse
-  request = postJSON migrationHub
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DisassociateCreatedArtifactResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisassociateCreatedArtifact
+instance Prelude.Hashable DisassociateCreatedArtifact
 
-instance NFData DisassociateCreatedArtifact
+instance Prelude.NFData DisassociateCreatedArtifact
 
-instance ToHeaders DisassociateCreatedArtifact where
+instance
+  Prelude.ToHeaders
+    DisassociateCreatedArtifact
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSMigrationHub.DisassociateCreatedArtifact" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSMigrationHub.DisassociateCreatedArtifact" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisassociateCreatedArtifact where
+instance Prelude.ToJSON DisassociateCreatedArtifact where
   toJSON DisassociateCreatedArtifact' {..} =
-    object
-      ( catMaybes
-          [ ("DryRun" .=) <$> _dcaDryRun,
-            Just
-              ("ProgressUpdateStream" .= _dcaProgressUpdateStream),
-            Just ("MigrationTaskName" .= _dcaMigrationTaskName),
-            Just
-              ("CreatedArtifactName" .= _dcaCreatedArtifactName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DryRun" Prelude..=) Prelude.<$> dryRun,
+            Prelude.Just
+              ( "ProgressUpdateStream"
+                  Prelude..= progressUpdateStream
+              ),
+            Prelude.Just
+              ("MigrationTaskName" Prelude..= migrationTaskName),
+            Prelude.Just
+              ( "CreatedArtifactName"
+                  Prelude..= createdArtifactName
+              )
           ]
       )
 
-instance ToPath DisassociateCreatedArtifact where
-  toPath = const "/"
+instance Prelude.ToPath DisassociateCreatedArtifact where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisassociateCreatedArtifact where
-  toQuery = const mempty
+instance Prelude.ToQuery DisassociateCreatedArtifact where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disassociateCreatedArtifactResponse' smart constructor.
-newtype DisassociateCreatedArtifactResponse = DisassociateCreatedArtifactResponse'
-  { _dcarrsResponseStatus ::
-      Int
+-- | /See:/ 'newDisassociateCreatedArtifactResponse' smart constructor.
+data DisassociateCreatedArtifactResponse = DisassociateCreatedArtifactResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateCreatedArtifactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateCreatedArtifactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcarrsResponseStatus' - -- | The response status code.
-disassociateCreatedArtifactResponse ::
-  -- | 'dcarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disassociateCreatedArtifactResponse_httpStatus' - The response's http status code.
+newDisassociateCreatedArtifactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisassociateCreatedArtifactResponse
-disassociateCreatedArtifactResponse pResponseStatus_ =
+newDisassociateCreatedArtifactResponse pHttpStatus_ =
   DisassociateCreatedArtifactResponse'
-    { _dcarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dcarrsResponseStatus :: Lens' DisassociateCreatedArtifactResponse Int
-dcarrsResponseStatus = lens _dcarrsResponseStatus (\s a -> s {_dcarrsResponseStatus = a})
+-- | The response's http status code.
+disassociateCreatedArtifactResponse_httpStatus :: Lens.Lens' DisassociateCreatedArtifactResponse Prelude.Int
+disassociateCreatedArtifactResponse_httpStatus = Lens.lens (\DisassociateCreatedArtifactResponse' {httpStatus} -> httpStatus) (\s@DisassociateCreatedArtifactResponse' {} a -> s {httpStatus = a} :: DisassociateCreatedArtifactResponse)
 
-instance NFData DisassociateCreatedArtifactResponse
+instance
+  Prelude.NFData
+    DisassociateCreatedArtifactResponse

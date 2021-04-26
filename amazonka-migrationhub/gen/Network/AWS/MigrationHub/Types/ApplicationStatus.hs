@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.MigrationHub.Types.ApplicationStatus
   ( ApplicationStatus
       ( ..,
-        ASCompleted,
-        ASInProgress,
-        ASNotStarted
+        ApplicationStatusCOMPLETED,
+        ApplicationStatusINPROGRESS,
+        ApplicationStatusNOTSTARTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ApplicationStatus = ApplicationStatus' (CI Text)
+newtype ApplicationStatus = ApplicationStatus'
+  { fromApplicationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASCompleted :: ApplicationStatus
-pattern ASCompleted = ApplicationStatus' "COMPLETED"
+pattern ApplicationStatusCOMPLETED :: ApplicationStatus
+pattern ApplicationStatusCOMPLETED = ApplicationStatus' "COMPLETED"
 
-pattern ASInProgress :: ApplicationStatus
-pattern ASInProgress = ApplicationStatus' "IN_PROGRESS"
+pattern ApplicationStatusINPROGRESS :: ApplicationStatus
+pattern ApplicationStatusINPROGRESS = ApplicationStatus' "IN_PROGRESS"
 
-pattern ASNotStarted :: ApplicationStatus
-pattern ASNotStarted = ApplicationStatus' "NOT_STARTED"
+pattern ApplicationStatusNOTSTARTED :: ApplicationStatus
+pattern ApplicationStatusNOTSTARTED = ApplicationStatus' "NOT_STARTED"
 
 {-# COMPLETE
-  ASCompleted,
-  ASInProgress,
-  ASNotStarted,
+  ApplicationStatusCOMPLETED,
+  ApplicationStatusINPROGRESS,
+  ApplicationStatusNOTSTARTED,
   ApplicationStatus'
   #-}
 
-instance FromText ApplicationStatus where
-  parser = (ApplicationStatus' . mk) <$> takeText
+instance Prelude.FromText ApplicationStatus where
+  parser = ApplicationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ApplicationStatus where
-  toText (ApplicationStatus' ci) = original ci
+instance Prelude.ToText ApplicationStatus where
+  toText (ApplicationStatus' x) = x
 
-instance Hashable ApplicationStatus
+instance Prelude.Hashable ApplicationStatus
 
-instance NFData ApplicationStatus
+instance Prelude.NFData ApplicationStatus
 
-instance ToByteString ApplicationStatus
+instance Prelude.ToByteString ApplicationStatus
 
-instance ToQuery ApplicationStatus
+instance Prelude.ToQuery ApplicationStatus
 
-instance ToHeader ApplicationStatus
+instance Prelude.ToHeader ApplicationStatus
 
-instance ToJSON ApplicationStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ApplicationStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ApplicationStatus where
-  parseJSON = parseJSONText "ApplicationStatus"
+instance Prelude.FromJSON ApplicationStatus where
+  parseJSON = Prelude.parseJSONText "ApplicationStatus"

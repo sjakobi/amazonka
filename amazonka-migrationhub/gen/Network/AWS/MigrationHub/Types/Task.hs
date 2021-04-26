@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MigrationHub.Types.Task where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types.MigrationStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Task object encapsulating task information.
 --
---
---
--- /See:/ 'task' smart constructor.
+-- /See:/ 'newTask' smart constructor.
 data Task = Task'
-  { _tProgressPercent :: !(Maybe Nat),
-    _tStatusDetail :: !(Maybe Text),
-    _tStatus :: !MigrationStatus
+  { -- | Indication of the percentage completion of the task.
+    progressPercent :: Prelude.Maybe Prelude.Nat,
+    -- | Details of task status as notified by a migration tool. A tool might use
+    -- this field to provide clarifying information about the status that is
+    -- unique to that tool or that explains an error state.
+    statusDetail :: Prelude.Maybe Prelude.Text,
+    -- | Status of the task - Not Started, In-Progress, Complete.
+    status :: MigrationStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Task' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Task' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tProgressPercent' - Indication of the percentage completion of the task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tStatusDetail' - Details of task status as notified by a migration tool. A tool might use this field to provide clarifying information about the status that is unique to that tool or that explains an error state.
+-- 'progressPercent', 'task_progressPercent' - Indication of the percentage completion of the task.
 --
--- * 'tStatus' - Status of the task - Not Started, In-Progress, Complete.
-task ::
-  -- | 'tStatus'
+-- 'statusDetail', 'task_statusDetail' - Details of task status as notified by a migration tool. A tool might use
+-- this field to provide clarifying information about the status that is
+-- unique to that tool or that explains an error state.
+--
+-- 'status', 'task_status' - Status of the task - Not Started, In-Progress, Complete.
+newTask ::
+  -- | 'status'
   MigrationStatus ->
   Task
-task pStatus_ =
+newTask pStatus_ =
   Task'
-    { _tProgressPercent = Nothing,
-      _tStatusDetail = Nothing,
-      _tStatus = pStatus_
+    { progressPercent = Prelude.Nothing,
+      statusDetail = Prelude.Nothing,
+      status = pStatus_
     }
 
 -- | Indication of the percentage completion of the task.
-tProgressPercent :: Lens' Task (Maybe Natural)
-tProgressPercent = lens _tProgressPercent (\s a -> s {_tProgressPercent = a}) . mapping _Nat
+task_progressPercent :: Lens.Lens' Task (Prelude.Maybe Prelude.Natural)
+task_progressPercent = Lens.lens (\Task' {progressPercent} -> progressPercent) (\s@Task' {} a -> s {progressPercent = a} :: Task) Prelude.. Lens.mapping Prelude._Nat
 
--- | Details of task status as notified by a migration tool. A tool might use this field to provide clarifying information about the status that is unique to that tool or that explains an error state.
-tStatusDetail :: Lens' Task (Maybe Text)
-tStatusDetail = lens _tStatusDetail (\s a -> s {_tStatusDetail = a})
+-- | Details of task status as notified by a migration tool. A tool might use
+-- this field to provide clarifying information about the status that is
+-- unique to that tool or that explains an error state.
+task_statusDetail :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_statusDetail = Lens.lens (\Task' {statusDetail} -> statusDetail) (\s@Task' {} a -> s {statusDetail = a} :: Task)
 
 -- | Status of the task - Not Started, In-Progress, Complete.
-tStatus :: Lens' Task MigrationStatus
-tStatus = lens _tStatus (\s a -> s {_tStatus = a})
+task_status :: Lens.Lens' Task MigrationStatus
+task_status = Lens.lens (\Task' {status} -> status) (\s@Task' {} a -> s {status = a} :: Task)
 
-instance FromJSON Task where
+instance Prelude.FromJSON Task where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Task"
       ( \x ->
           Task'
-            <$> (x .:? "ProgressPercent")
-            <*> (x .:? "StatusDetail")
-            <*> (x .: "Status")
+            Prelude.<$> (x Prelude..:? "ProgressPercent")
+            Prelude.<*> (x Prelude..:? "StatusDetail")
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable Task
+instance Prelude.Hashable Task
 
-instance NFData Task
+instance Prelude.NFData Task
 
-instance ToJSON Task where
+instance Prelude.ToJSON Task where
   toJSON Task' {..} =
-    object
-      ( catMaybes
-          [ ("ProgressPercent" .=) <$> _tProgressPercent,
-            ("StatusDetail" .=) <$> _tStatusDetail,
-            Just ("Status" .= _tStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ProgressPercent" Prelude..=)
+              Prelude.<$> progressPercent,
+            ("StatusDetail" Prelude..=) Prelude.<$> statusDetail,
+            Prelude.Just ("Status" Prelude..= status)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MigrationHub.Types.DiscoveredResource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Object representing the on-premises resource being migrated.
 --
---
---
--- /See:/ 'discoveredResource' smart constructor.
+-- /See:/ 'newDiscoveredResource' smart constructor.
 data DiscoveredResource = DiscoveredResource'
-  { _drDescription ::
-      !(Maybe Text),
-    _drConfigurationId :: !Text
+  { -- | A description that can be free-form text to record additional detail
+    -- about the discovered resource for clarity or later reference.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The configurationId in Application Discovery Service that uniquely
+    -- identifies the on-premise resource.
+    configurationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiscoveredResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiscoveredResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drDescription' - A description that can be free-form text to record additional detail about the discovered resource for clarity or later reference.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drConfigurationId' - The configurationId in Application Discovery Service that uniquely identifies the on-premise resource.
-discoveredResource ::
-  -- | 'drConfigurationId'
-  Text ->
+-- 'description', 'discoveredResource_description' - A description that can be free-form text to record additional detail
+-- about the discovered resource for clarity or later reference.
+--
+-- 'configurationId', 'discoveredResource_configurationId' - The configurationId in Application Discovery Service that uniquely
+-- identifies the on-premise resource.
+newDiscoveredResource ::
+  -- | 'configurationId'
+  Prelude.Text ->
   DiscoveredResource
-discoveredResource pConfigurationId_ =
+newDiscoveredResource pConfigurationId_ =
   DiscoveredResource'
-    { _drDescription = Nothing,
-      _drConfigurationId = pConfigurationId_
+    { description = Prelude.Nothing,
+      configurationId = pConfigurationId_
     }
 
--- | A description that can be free-form text to record additional detail about the discovered resource for clarity or later reference.
-drDescription :: Lens' DiscoveredResource (Maybe Text)
-drDescription = lens _drDescription (\s a -> s {_drDescription = a})
+-- | A description that can be free-form text to record additional detail
+-- about the discovered resource for clarity or later reference.
+discoveredResource_description :: Lens.Lens' DiscoveredResource (Prelude.Maybe Prelude.Text)
+discoveredResource_description = Lens.lens (\DiscoveredResource' {description} -> description) (\s@DiscoveredResource' {} a -> s {description = a} :: DiscoveredResource)
 
--- | The configurationId in Application Discovery Service that uniquely identifies the on-premise resource.
-drConfigurationId :: Lens' DiscoveredResource Text
-drConfigurationId = lens _drConfigurationId (\s a -> s {_drConfigurationId = a})
+-- | The configurationId in Application Discovery Service that uniquely
+-- identifies the on-premise resource.
+discoveredResource_configurationId :: Lens.Lens' DiscoveredResource Prelude.Text
+discoveredResource_configurationId = Lens.lens (\DiscoveredResource' {configurationId} -> configurationId) (\s@DiscoveredResource' {} a -> s {configurationId = a} :: DiscoveredResource)
 
-instance FromJSON DiscoveredResource where
+instance Prelude.FromJSON DiscoveredResource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DiscoveredResource"
       ( \x ->
           DiscoveredResource'
-            <$> (x .:? "Description") <*> (x .: "ConfigurationId")
+            Prelude.<$> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..: "ConfigurationId")
       )
 
-instance Hashable DiscoveredResource
+instance Prelude.Hashable DiscoveredResource
 
-instance NFData DiscoveredResource
+instance Prelude.NFData DiscoveredResource
 
-instance ToJSON DiscoveredResource where
+instance Prelude.ToJSON DiscoveredResource where
   toJSON DiscoveredResource' {..} =
-    object
-      ( catMaybes
-          [ ("Description" .=) <$> _drDescription,
-            Just ("ConfigurationId" .= _drConfigurationId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just
+              ("ConfigurationId" Prelude..= configurationId)
           ]
       )

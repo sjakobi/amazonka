@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,100 +19,98 @@
 module Network.AWS.MigrationHub.Types.ResourceAttributeType
   ( ResourceAttributeType
       ( ..,
-        BiosId,
-        Fqdn,
-        IPV4Address,
-        IPV6Address,
-        MACAddress,
-        MotherboardSerialNumber,
-        VMManagedObjectReference,
-        VMManagerId,
-        VMName,
-        VMPath
+        ResourceAttributeTypeBIOSID,
+        ResourceAttributeTypeFQDN,
+        ResourceAttributeTypeIPV4ADDRESS,
+        ResourceAttributeTypeIPV6ADDRESS,
+        ResourceAttributeTypeMACADDRESS,
+        ResourceAttributeTypeMOTHERBOARDSERIALNUMBER,
+        ResourceAttributeTypeVMMANAGEDOBJECTREFERENCE,
+        ResourceAttributeTypeVMMANAGERID,
+        ResourceAttributeTypeVMNAME,
+        ResourceAttributeTypeVMPATH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceAttributeType
-  = ResourceAttributeType'
-      ( CI
-          Text
-      )
+newtype ResourceAttributeType = ResourceAttributeType'
+  { fromResourceAttributeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BiosId :: ResourceAttributeType
-pattern BiosId = ResourceAttributeType' "BIOS_ID"
+pattern ResourceAttributeTypeBIOSID :: ResourceAttributeType
+pattern ResourceAttributeTypeBIOSID = ResourceAttributeType' "BIOS_ID"
 
-pattern Fqdn :: ResourceAttributeType
-pattern Fqdn = ResourceAttributeType' "FQDN"
+pattern ResourceAttributeTypeFQDN :: ResourceAttributeType
+pattern ResourceAttributeTypeFQDN = ResourceAttributeType' "FQDN"
 
-pattern IPV4Address :: ResourceAttributeType
-pattern IPV4Address = ResourceAttributeType' "IPV4_ADDRESS"
+pattern ResourceAttributeTypeIPV4ADDRESS :: ResourceAttributeType
+pattern ResourceAttributeTypeIPV4ADDRESS = ResourceAttributeType' "IPV4_ADDRESS"
 
-pattern IPV6Address :: ResourceAttributeType
-pattern IPV6Address = ResourceAttributeType' "IPV6_ADDRESS"
+pattern ResourceAttributeTypeIPV6ADDRESS :: ResourceAttributeType
+pattern ResourceAttributeTypeIPV6ADDRESS = ResourceAttributeType' "IPV6_ADDRESS"
 
-pattern MACAddress :: ResourceAttributeType
-pattern MACAddress = ResourceAttributeType' "MAC_ADDRESS"
+pattern ResourceAttributeTypeMACADDRESS :: ResourceAttributeType
+pattern ResourceAttributeTypeMACADDRESS = ResourceAttributeType' "MAC_ADDRESS"
 
-pattern MotherboardSerialNumber :: ResourceAttributeType
-pattern MotherboardSerialNumber = ResourceAttributeType' "MOTHERBOARD_SERIAL_NUMBER"
+pattern ResourceAttributeTypeMOTHERBOARDSERIALNUMBER :: ResourceAttributeType
+pattern ResourceAttributeTypeMOTHERBOARDSERIALNUMBER = ResourceAttributeType' "MOTHERBOARD_SERIAL_NUMBER"
 
-pattern VMManagedObjectReference :: ResourceAttributeType
-pattern VMManagedObjectReference = ResourceAttributeType' "VM_MANAGED_OBJECT_REFERENCE"
+pattern ResourceAttributeTypeVMMANAGEDOBJECTREFERENCE :: ResourceAttributeType
+pattern ResourceAttributeTypeVMMANAGEDOBJECTREFERENCE = ResourceAttributeType' "VM_MANAGED_OBJECT_REFERENCE"
 
-pattern VMManagerId :: ResourceAttributeType
-pattern VMManagerId = ResourceAttributeType' "VM_MANAGER_ID"
+pattern ResourceAttributeTypeVMMANAGERID :: ResourceAttributeType
+pattern ResourceAttributeTypeVMMANAGERID = ResourceAttributeType' "VM_MANAGER_ID"
 
-pattern VMName :: ResourceAttributeType
-pattern VMName = ResourceAttributeType' "VM_NAME"
+pattern ResourceAttributeTypeVMNAME :: ResourceAttributeType
+pattern ResourceAttributeTypeVMNAME = ResourceAttributeType' "VM_NAME"
 
-pattern VMPath :: ResourceAttributeType
-pattern VMPath = ResourceAttributeType' "VM_PATH"
+pattern ResourceAttributeTypeVMPATH :: ResourceAttributeType
+pattern ResourceAttributeTypeVMPATH = ResourceAttributeType' "VM_PATH"
 
 {-# COMPLETE
-  BiosId,
-  Fqdn,
-  IPV4Address,
-  IPV6Address,
-  MACAddress,
-  MotherboardSerialNumber,
-  VMManagedObjectReference,
-  VMManagerId,
-  VMName,
-  VMPath,
+  ResourceAttributeTypeBIOSID,
+  ResourceAttributeTypeFQDN,
+  ResourceAttributeTypeIPV4ADDRESS,
+  ResourceAttributeTypeIPV6ADDRESS,
+  ResourceAttributeTypeMACADDRESS,
+  ResourceAttributeTypeMOTHERBOARDSERIALNUMBER,
+  ResourceAttributeTypeVMMANAGEDOBJECTREFERENCE,
+  ResourceAttributeTypeVMMANAGERID,
+  ResourceAttributeTypeVMNAME,
+  ResourceAttributeTypeVMPATH,
   ResourceAttributeType'
   #-}
 
-instance FromText ResourceAttributeType where
-  parser = (ResourceAttributeType' . mk) <$> takeText
+instance Prelude.FromText ResourceAttributeType where
+  parser = ResourceAttributeType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceAttributeType where
-  toText (ResourceAttributeType' ci) = original ci
+instance Prelude.ToText ResourceAttributeType where
+  toText (ResourceAttributeType' x) = x
 
-instance Hashable ResourceAttributeType
+instance Prelude.Hashable ResourceAttributeType
 
-instance NFData ResourceAttributeType
+instance Prelude.NFData ResourceAttributeType
 
-instance ToByteString ResourceAttributeType
+instance Prelude.ToByteString ResourceAttributeType
 
-instance ToQuery ResourceAttributeType
+instance Prelude.ToQuery ResourceAttributeType
 
-instance ToHeader ResourceAttributeType
+instance Prelude.ToHeader ResourceAttributeType
 
-instance ToJSON ResourceAttributeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceAttributeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ResourceAttributeType where
-  parseJSON = parseJSONText "ResourceAttributeType"
+instance Prelude.FromJSON ResourceAttributeType where
+  parseJSON = Prelude.parseJSONText "ResourceAttributeType"

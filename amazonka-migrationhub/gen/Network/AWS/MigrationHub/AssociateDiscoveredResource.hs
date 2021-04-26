@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates a discovered resource ID from Application Discovery Service with a migration task.
+-- Associates a discovered resource ID from Application Discovery Service
+-- with a migration task.
 module Network.AWS.MigrationHub.AssociateDiscoveredResource
   ( -- * Creating a Request
-    associateDiscoveredResource,
-    AssociateDiscoveredResource,
+    AssociateDiscoveredResource (..),
+    newAssociateDiscoveredResource,
 
     -- * Request Lenses
-    adrDryRun,
-    adrProgressUpdateStream,
-    adrMigrationTaskName,
-    adrDiscoveredResource,
+    associateDiscoveredResource_dryRun,
+    associateDiscoveredResource_progressUpdateStream,
+    associateDiscoveredResource_migrationTaskName,
+    associateDiscoveredResource_discoveredResource,
 
     -- * Destructuring the Response
-    associateDiscoveredResourceResponse,
-    AssociateDiscoveredResourceResponse,
+    AssociateDiscoveredResourceResponse (..),
+    newAssociateDiscoveredResourceResponse,
 
     -- * Response Lenses
-    adrrrsResponseStatus,
+    associateDiscoveredResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateDiscoveredResource' smart constructor.
+-- | /See:/ 'newAssociateDiscoveredResource' smart constructor.
 data AssociateDiscoveredResource = AssociateDiscoveredResource'
-  { _adrDryRun ::
-      !(Maybe Bool),
-    _adrProgressUpdateStream ::
-      !Text,
-    _adrMigrationTaskName ::
-      !Text,
-    _adrDiscoveredResource ::
-      !DiscoveredResource
+  { -- | Optional boolean flag to indicate whether any effect should take place.
+    -- Used to test if the caller has permission to make the call.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the ProgressUpdateStream.
+    progressUpdateStream :: Prelude.Text,
+    -- | The identifier given to the MigrationTask. /Do not store personal data
+    -- in this field./
+    migrationTaskName :: Prelude.Text,
+    -- | Object representing a Resource.
+    discoveredResource :: DiscoveredResource
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDiscoveredResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDiscoveredResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adrDryRun' - Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adrProgressUpdateStream' - The name of the ProgressUpdateStream.
+-- 'dryRun', 'associateDiscoveredResource_dryRun' - Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
 --
--- * 'adrMigrationTaskName' - The identifier given to the MigrationTask. /Do not store personal data in this field./
+-- 'progressUpdateStream', 'associateDiscoveredResource_progressUpdateStream' - The name of the ProgressUpdateStream.
 --
--- * 'adrDiscoveredResource' - Object representing a Resource.
-associateDiscoveredResource ::
-  -- | 'adrProgressUpdateStream'
-  Text ->
-  -- | 'adrMigrationTaskName'
-  Text ->
-  -- | 'adrDiscoveredResource'
+-- 'migrationTaskName', 'associateDiscoveredResource_migrationTaskName' - The identifier given to the MigrationTask. /Do not store personal data
+-- in this field./
+--
+-- 'discoveredResource', 'associateDiscoveredResource_discoveredResource' - Object representing a Resource.
+newAssociateDiscoveredResource ::
+  -- | 'progressUpdateStream'
+  Prelude.Text ->
+  -- | 'migrationTaskName'
+  Prelude.Text ->
+  -- | 'discoveredResource'
   DiscoveredResource ->
   AssociateDiscoveredResource
-associateDiscoveredResource
+newAssociateDiscoveredResource
   pProgressUpdateStream_
   pMigrationTaskName_
   pDiscoveredResource_ =
     AssociateDiscoveredResource'
-      { _adrDryRun = Nothing,
-        _adrProgressUpdateStream =
-          pProgressUpdateStream_,
-        _adrMigrationTaskName = pMigrationTaskName_,
-        _adrDiscoveredResource = pDiscoveredResource_
+      { dryRun =
+          Prelude.Nothing,
+        progressUpdateStream = pProgressUpdateStream_,
+        migrationTaskName = pMigrationTaskName_,
+        discoveredResource = pDiscoveredResource_
       }
 
--- | Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
-adrDryRun :: Lens' AssociateDiscoveredResource (Maybe Bool)
-adrDryRun = lens _adrDryRun (\s a -> s {_adrDryRun = a})
+-- | Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
+associateDiscoveredResource_dryRun :: Lens.Lens' AssociateDiscoveredResource (Prelude.Maybe Prelude.Bool)
+associateDiscoveredResource_dryRun = Lens.lens (\AssociateDiscoveredResource' {dryRun} -> dryRun) (\s@AssociateDiscoveredResource' {} a -> s {dryRun = a} :: AssociateDiscoveredResource)
 
 -- | The name of the ProgressUpdateStream.
-adrProgressUpdateStream :: Lens' AssociateDiscoveredResource Text
-adrProgressUpdateStream = lens _adrProgressUpdateStream (\s a -> s {_adrProgressUpdateStream = a})
+associateDiscoveredResource_progressUpdateStream :: Lens.Lens' AssociateDiscoveredResource Prelude.Text
+associateDiscoveredResource_progressUpdateStream = Lens.lens (\AssociateDiscoveredResource' {progressUpdateStream} -> progressUpdateStream) (\s@AssociateDiscoveredResource' {} a -> s {progressUpdateStream = a} :: AssociateDiscoveredResource)
 
--- | The identifier given to the MigrationTask. /Do not store personal data in this field./
-adrMigrationTaskName :: Lens' AssociateDiscoveredResource Text
-adrMigrationTaskName = lens _adrMigrationTaskName (\s a -> s {_adrMigrationTaskName = a})
+-- | The identifier given to the MigrationTask. /Do not store personal data
+-- in this field./
+associateDiscoveredResource_migrationTaskName :: Lens.Lens' AssociateDiscoveredResource Prelude.Text
+associateDiscoveredResource_migrationTaskName = Lens.lens (\AssociateDiscoveredResource' {migrationTaskName} -> migrationTaskName) (\s@AssociateDiscoveredResource' {} a -> s {migrationTaskName = a} :: AssociateDiscoveredResource)
 
 -- | Object representing a Resource.
-adrDiscoveredResource :: Lens' AssociateDiscoveredResource DiscoveredResource
-adrDiscoveredResource = lens _adrDiscoveredResource (\s a -> s {_adrDiscoveredResource = a})
+associateDiscoveredResource_discoveredResource :: Lens.Lens' AssociateDiscoveredResource DiscoveredResource
+associateDiscoveredResource_discoveredResource = Lens.lens (\AssociateDiscoveredResource' {discoveredResource} -> discoveredResource) (\s@AssociateDiscoveredResource' {} a -> s {discoveredResource = a} :: AssociateDiscoveredResource)
 
-instance AWSRequest AssociateDiscoveredResource where
+instance
+  Prelude.AWSRequest
+    AssociateDiscoveredResource
+  where
   type
     Rs AssociateDiscoveredResource =
       AssociateDiscoveredResourceResponse
-  request = postJSON migrationHub
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateDiscoveredResourceResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateDiscoveredResource
+instance Prelude.Hashable AssociateDiscoveredResource
 
-instance NFData AssociateDiscoveredResource
+instance Prelude.NFData AssociateDiscoveredResource
 
-instance ToHeaders AssociateDiscoveredResource where
+instance
+  Prelude.ToHeaders
+    AssociateDiscoveredResource
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSMigrationHub.AssociateDiscoveredResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSMigrationHub.AssociateDiscoveredResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateDiscoveredResource where
+instance Prelude.ToJSON AssociateDiscoveredResource where
   toJSON AssociateDiscoveredResource' {..} =
-    object
-      ( catMaybes
-          [ ("DryRun" .=) <$> _adrDryRun,
-            Just
-              ("ProgressUpdateStream" .= _adrProgressUpdateStream),
-            Just ("MigrationTaskName" .= _adrMigrationTaskName),
-            Just
-              ("DiscoveredResource" .= _adrDiscoveredResource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DryRun" Prelude..=) Prelude.<$> dryRun,
+            Prelude.Just
+              ( "ProgressUpdateStream"
+                  Prelude..= progressUpdateStream
+              ),
+            Prelude.Just
+              ("MigrationTaskName" Prelude..= migrationTaskName),
+            Prelude.Just
+              ( "DiscoveredResource"
+                  Prelude..= discoveredResource
+              )
           ]
       )
 
-instance ToPath AssociateDiscoveredResource where
-  toPath = const "/"
+instance Prelude.ToPath AssociateDiscoveredResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateDiscoveredResource where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateDiscoveredResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateDiscoveredResourceResponse' smart constructor.
-newtype AssociateDiscoveredResourceResponse = AssociateDiscoveredResourceResponse'
-  { _adrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateDiscoveredResourceResponse' smart constructor.
+data AssociateDiscoveredResourceResponse = AssociateDiscoveredResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDiscoveredResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDiscoveredResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adrrrsResponseStatus' - -- | The response status code.
-associateDiscoveredResourceResponse ::
-  -- | 'adrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateDiscoveredResourceResponse_httpStatus' - The response's http status code.
+newAssociateDiscoveredResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateDiscoveredResourceResponse
-associateDiscoveredResourceResponse pResponseStatus_ =
+newAssociateDiscoveredResourceResponse pHttpStatus_ =
   AssociateDiscoveredResourceResponse'
-    { _adrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-adrrrsResponseStatus :: Lens' AssociateDiscoveredResourceResponse Int
-adrrrsResponseStatus = lens _adrrrsResponseStatus (\s a -> s {_adrrrsResponseStatus = a})
+-- | The response's http status code.
+associateDiscoveredResourceResponse_httpStatus :: Lens.Lens' AssociateDiscoveredResourceResponse Prelude.Int
+associateDiscoveredResourceResponse_httpStatus = Lens.lens (\AssociateDiscoveredResourceResponse' {httpStatus} -> httpStatus) (\s@AssociateDiscoveredResourceResponse' {} a -> s {httpStatus = a} :: AssociateDiscoveredResourceResponse)
 
-instance NFData AssociateDiscoveredResourceResponse
+instance
+  Prelude.NFData
+    AssociateDiscoveredResourceResponse

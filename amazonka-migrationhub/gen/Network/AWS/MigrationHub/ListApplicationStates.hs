@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,194 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all the migration statuses for your applications. If you use the optional @ApplicationIds@ parameter, only the migration statuses for those applications will be returned.
---
---
+-- Lists all the migration statuses for your applications. If you use the
+-- optional @ApplicationIds@ parameter, only the migration statuses for
+-- those applications will be returned.
 --
 -- This operation returns paginated results.
 module Network.AWS.MigrationHub.ListApplicationStates
   ( -- * Creating a Request
-    listApplicationStates,
-    ListApplicationStates,
+    ListApplicationStates (..),
+    newListApplicationStates,
 
     -- * Request Lenses
-    lasNextToken,
-    lasMaxResults,
-    lasApplicationIds,
+    listApplicationStates_nextToken,
+    listApplicationStates_maxResults,
+    listApplicationStates_applicationIds,
 
     -- * Destructuring the Response
-    listApplicationStatesResponse,
-    ListApplicationStatesResponse,
+    ListApplicationStatesResponse (..),
+    newListApplicationStatesResponse,
 
     -- * Response Lenses
-    lasrrsApplicationStateList,
-    lasrrsNextToken,
-    lasrrsResponseStatus,
+    listApplicationStatesResponse_applicationStateList,
+    listApplicationStatesResponse_nextToken,
+    listApplicationStatesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MigrationHub.Types.ApplicationState
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listApplicationStates' smart constructor.
+-- | /See:/ 'newListApplicationStates' smart constructor.
 data ListApplicationStates = ListApplicationStates'
-  { _lasNextToken ::
-      !(Maybe Text),
-    _lasMaxResults ::
-      !(Maybe Nat),
-    _lasApplicationIds ::
-      !(Maybe (List1 Text))
+  { -- | If a @NextToken@ was returned by a previous call, there are more results
+    -- available. To retrieve the next page of results, make the call again
+    -- using the returned token in @NextToken@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of results to be returned per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The configurationIds from the Application Discovery Service that
+    -- uniquely identifies your applications.
+    applicationIds :: Prelude.Maybe (Prelude.List1 Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListApplicationStates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListApplicationStates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lasNextToken' - If a @NextToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @NextToken@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lasMaxResults' - Maximum number of results to be returned per page.
+-- 'nextToken', 'listApplicationStates_nextToken' - If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
 --
--- * 'lasApplicationIds' - The configurationIds from the Application Discovery Service that uniquely identifies your applications.
-listApplicationStates ::
+-- 'maxResults', 'listApplicationStates_maxResults' - Maximum number of results to be returned per page.
+--
+-- 'applicationIds', 'listApplicationStates_applicationIds' - The configurationIds from the Application Discovery Service that
+-- uniquely identifies your applications.
+newListApplicationStates ::
   ListApplicationStates
-listApplicationStates =
+newListApplicationStates =
   ListApplicationStates'
-    { _lasNextToken = Nothing,
-      _lasMaxResults = Nothing,
-      _lasApplicationIds = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      applicationIds = Prelude.Nothing
     }
 
--- | If a @NextToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @NextToken@ .
-lasNextToken :: Lens' ListApplicationStates (Maybe Text)
-lasNextToken = lens _lasNextToken (\s a -> s {_lasNextToken = a})
+-- | If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
+listApplicationStates_nextToken :: Lens.Lens' ListApplicationStates (Prelude.Maybe Prelude.Text)
+listApplicationStates_nextToken = Lens.lens (\ListApplicationStates' {nextToken} -> nextToken) (\s@ListApplicationStates' {} a -> s {nextToken = a} :: ListApplicationStates)
 
 -- | Maximum number of results to be returned per page.
-lasMaxResults :: Lens' ListApplicationStates (Maybe Natural)
-lasMaxResults = lens _lasMaxResults (\s a -> s {_lasMaxResults = a}) . mapping _Nat
+listApplicationStates_maxResults :: Lens.Lens' ListApplicationStates (Prelude.Maybe Prelude.Natural)
+listApplicationStates_maxResults = Lens.lens (\ListApplicationStates' {maxResults} -> maxResults) (\s@ListApplicationStates' {} a -> s {maxResults = a} :: ListApplicationStates) Prelude.. Lens.mapping Prelude._Nat
 
--- | The configurationIds from the Application Discovery Service that uniquely identifies your applications.
-lasApplicationIds :: Lens' ListApplicationStates (Maybe (NonEmpty Text))
-lasApplicationIds = lens _lasApplicationIds (\s a -> s {_lasApplicationIds = a}) . mapping _List1
+-- | The configurationIds from the Application Discovery Service that
+-- uniquely identifies your applications.
+listApplicationStates_applicationIds :: Lens.Lens' ListApplicationStates (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+listApplicationStates_applicationIds = Lens.lens (\ListApplicationStates' {applicationIds} -> applicationIds) (\s@ListApplicationStates' {} a -> s {applicationIds = a} :: ListApplicationStates) Prelude.. Lens.mapping Prelude._List1
 
-instance AWSPager ListApplicationStates where
+instance Pager.AWSPager ListApplicationStates where
   page rq rs
-    | stop (rs ^. lasrrsNextToken) = Nothing
-    | stop (rs ^. lasrrsApplicationStateList) = Nothing
-    | otherwise =
-      Just $ rq & lasNextToken .~ rs ^. lasrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listApplicationStatesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listApplicationStatesResponse_applicationStateList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listApplicationStates_nextToken
+          Lens..~ rs
+          Lens.^? listApplicationStatesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListApplicationStates where
+instance Prelude.AWSRequest ListApplicationStates where
   type
     Rs ListApplicationStates =
       ListApplicationStatesResponse
-  request = postJSON migrationHub
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListApplicationStatesResponse'
-            <$> (x .?> "ApplicationStateList" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ApplicationStateList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListApplicationStates
+instance Prelude.Hashable ListApplicationStates
 
-instance NFData ListApplicationStates
+instance Prelude.NFData ListApplicationStates
 
-instance ToHeaders ListApplicationStates where
+instance Prelude.ToHeaders ListApplicationStates where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSMigrationHub.ListApplicationStates" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSMigrationHub.ListApplicationStates" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListApplicationStates where
+instance Prelude.ToJSON ListApplicationStates where
   toJSON ListApplicationStates' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lasNextToken,
-            ("MaxResults" .=) <$> _lasMaxResults,
-            ("ApplicationIds" .=) <$> _lasApplicationIds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("ApplicationIds" Prelude..=)
+              Prelude.<$> applicationIds
           ]
       )
 
-instance ToPath ListApplicationStates where
-  toPath = const "/"
+instance Prelude.ToPath ListApplicationStates where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListApplicationStates where
-  toQuery = const mempty
+instance Prelude.ToQuery ListApplicationStates where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listApplicationStatesResponse' smart constructor.
+-- | /See:/ 'newListApplicationStatesResponse' smart constructor.
 data ListApplicationStatesResponse = ListApplicationStatesResponse'
-  { _lasrrsApplicationStateList ::
-      !( Maybe
-           [ApplicationState]
-       ),
-    _lasrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lasrrsResponseStatus ::
-      !Int
+  { -- | A list of Applications that exist in Application Discovery Service.
+    applicationStateList :: Prelude.Maybe [ApplicationState],
+    -- | If a @NextToken@ was returned by a previous call, there are more results
+    -- available. To retrieve the next page of results, make the call again
+    -- using the returned token in @NextToken@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListApplicationStatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListApplicationStatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lasrrsApplicationStateList' - A list of Applications that exist in Application Discovery Service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lasrrsNextToken' - If a @NextToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @NextToken@ .
+-- 'applicationStateList', 'listApplicationStatesResponse_applicationStateList' - A list of Applications that exist in Application Discovery Service.
 --
--- * 'lasrrsResponseStatus' - -- | The response status code.
-listApplicationStatesResponse ::
-  -- | 'lasrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listApplicationStatesResponse_nextToken' - If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
+--
+-- 'httpStatus', 'listApplicationStatesResponse_httpStatus' - The response's http status code.
+newListApplicationStatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListApplicationStatesResponse
-listApplicationStatesResponse pResponseStatus_ =
+newListApplicationStatesResponse pHttpStatus_ =
   ListApplicationStatesResponse'
-    { _lasrrsApplicationStateList =
-        Nothing,
-      _lasrrsNextToken = Nothing,
-      _lasrrsResponseStatus = pResponseStatus_
+    { applicationStateList =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of Applications that exist in Application Discovery Service.
-lasrrsApplicationStateList :: Lens' ListApplicationStatesResponse [ApplicationState]
-lasrrsApplicationStateList = lens _lasrrsApplicationStateList (\s a -> s {_lasrrsApplicationStateList = a}) . _Default . _Coerce
+listApplicationStatesResponse_applicationStateList :: Lens.Lens' ListApplicationStatesResponse (Prelude.Maybe [ApplicationState])
+listApplicationStatesResponse_applicationStateList = Lens.lens (\ListApplicationStatesResponse' {applicationStateList} -> applicationStateList) (\s@ListApplicationStatesResponse' {} a -> s {applicationStateList = a} :: ListApplicationStatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If a @NextToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @NextToken@ .
-lasrrsNextToken :: Lens' ListApplicationStatesResponse (Maybe Text)
-lasrrsNextToken = lens _lasrrsNextToken (\s a -> s {_lasrrsNextToken = a})
+-- | If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
+listApplicationStatesResponse_nextToken :: Lens.Lens' ListApplicationStatesResponse (Prelude.Maybe Prelude.Text)
+listApplicationStatesResponse_nextToken = Lens.lens (\ListApplicationStatesResponse' {nextToken} -> nextToken) (\s@ListApplicationStatesResponse' {} a -> s {nextToken = a} :: ListApplicationStatesResponse)
 
--- | -- | The response status code.
-lasrrsResponseStatus :: Lens' ListApplicationStatesResponse Int
-lasrrsResponseStatus = lens _lasrrsResponseStatus (\s a -> s {_lasrrsResponseStatus = a})
+-- | The response's http status code.
+listApplicationStatesResponse_httpStatus :: Lens.Lens' ListApplicationStatesResponse Prelude.Int
+listApplicationStatesResponse_httpStatus = Lens.lens (\ListApplicationStatesResponse' {httpStatus} -> httpStatus) (\s@ListApplicationStatesResponse' {} a -> s {httpStatus = a} :: ListApplicationStatesResponse)
 
-instance NFData ListApplicationStatesResponse
+instance Prelude.NFData ListApplicationStatesResponse

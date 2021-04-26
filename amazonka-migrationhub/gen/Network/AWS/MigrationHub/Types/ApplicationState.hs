@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MigrationHub.Types.ApplicationState where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types.ApplicationStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The state of an application discovered through Migration Hub import, the AWS Agentless Discovery Connector, or the AWS Application Discovery Agent.
+-- | The state of an application discovered through Migration Hub import, the
+-- AWS Agentless Discovery Connector, or the AWS Application Discovery
+-- Agent.
 --
---
---
--- /See:/ 'applicationState' smart constructor.
+-- /See:/ 'newApplicationState' smart constructor.
 data ApplicationState = ApplicationState'
-  { _asApplicationId ::
-      !(Maybe Text),
-    _asApplicationStatus ::
-      !(Maybe ApplicationStatus),
-    _asLastUpdatedTime :: !(Maybe POSIX)
+  { -- | The configurationId from the Application Discovery Service that uniquely
+    -- identifies an application.
+    applicationId :: Prelude.Maybe Prelude.Text,
+    -- | The current status of an application.
+    applicationStatus :: Prelude.Maybe ApplicationStatus,
+    -- | The timestamp when the application status was last updated.
+    lastUpdatedTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asApplicationId' - The configurationId from the Application Discovery Service that uniquely identifies an application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asApplicationStatus' - The current status of an application.
+-- 'applicationId', 'applicationState_applicationId' - The configurationId from the Application Discovery Service that uniquely
+-- identifies an application.
 --
--- * 'asLastUpdatedTime' - The timestamp when the application status was last updated.
-applicationState ::
+-- 'applicationStatus', 'applicationState_applicationStatus' - The current status of an application.
+--
+-- 'lastUpdatedTime', 'applicationState_lastUpdatedTime' - The timestamp when the application status was last updated.
+newApplicationState ::
   ApplicationState
-applicationState =
+newApplicationState =
   ApplicationState'
-    { _asApplicationId = Nothing,
-      _asApplicationStatus = Nothing,
-      _asLastUpdatedTime = Nothing
+    { applicationId = Prelude.Nothing,
+      applicationStatus = Prelude.Nothing,
+      lastUpdatedTime = Prelude.Nothing
     }
 
--- | The configurationId from the Application Discovery Service that uniquely identifies an application.
-asApplicationId :: Lens' ApplicationState (Maybe Text)
-asApplicationId = lens _asApplicationId (\s a -> s {_asApplicationId = a})
+-- | The configurationId from the Application Discovery Service that uniquely
+-- identifies an application.
+applicationState_applicationId :: Lens.Lens' ApplicationState (Prelude.Maybe Prelude.Text)
+applicationState_applicationId = Lens.lens (\ApplicationState' {applicationId} -> applicationId) (\s@ApplicationState' {} a -> s {applicationId = a} :: ApplicationState)
 
 -- | The current status of an application.
-asApplicationStatus :: Lens' ApplicationState (Maybe ApplicationStatus)
-asApplicationStatus = lens _asApplicationStatus (\s a -> s {_asApplicationStatus = a})
+applicationState_applicationStatus :: Lens.Lens' ApplicationState (Prelude.Maybe ApplicationStatus)
+applicationState_applicationStatus = Lens.lens (\ApplicationState' {applicationStatus} -> applicationStatus) (\s@ApplicationState' {} a -> s {applicationStatus = a} :: ApplicationState)
 
 -- | The timestamp when the application status was last updated.
-asLastUpdatedTime :: Lens' ApplicationState (Maybe UTCTime)
-asLastUpdatedTime = lens _asLastUpdatedTime (\s a -> s {_asLastUpdatedTime = a}) . mapping _Time
+applicationState_lastUpdatedTime :: Lens.Lens' ApplicationState (Prelude.Maybe Prelude.UTCTime)
+applicationState_lastUpdatedTime = Lens.lens (\ApplicationState' {lastUpdatedTime} -> lastUpdatedTime) (\s@ApplicationState' {} a -> s {lastUpdatedTime = a} :: ApplicationState) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ApplicationState where
+instance Prelude.FromJSON ApplicationState where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ApplicationState"
       ( \x ->
           ApplicationState'
-            <$> (x .:? "ApplicationId")
-            <*> (x .:? "ApplicationStatus")
-            <*> (x .:? "LastUpdatedTime")
+            Prelude.<$> (x Prelude..:? "ApplicationId")
+            Prelude.<*> (x Prelude..:? "ApplicationStatus")
+            Prelude.<*> (x Prelude..:? "LastUpdatedTime")
       )
 
-instance Hashable ApplicationState
+instance Prelude.Hashable ApplicationState
 
-instance NFData ApplicationState
+instance Prelude.NFData ApplicationState

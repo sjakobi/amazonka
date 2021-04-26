@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,52 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MigrationHub.Types.ProgressUpdateStreamSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Summary of the AWS resource used for access control that is implicitly linked to your AWS account.
+-- | Summary of the AWS resource used for access control that is implicitly
+-- linked to your AWS account.
 --
---
---
--- /See:/ 'progressUpdateStreamSummary' smart constructor.
-newtype ProgressUpdateStreamSummary = ProgressUpdateStreamSummary'
-  { _pussProgressUpdateStreamName ::
-      Maybe Text
+-- /See:/ 'newProgressUpdateStreamSummary' smart constructor.
+data ProgressUpdateStreamSummary = ProgressUpdateStreamSummary'
+  { -- | The name of the ProgressUpdateStream. /Do not store personal data in
+    -- this field./
+    progressUpdateStreamName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProgressUpdateStreamSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProgressUpdateStreamSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pussProgressUpdateStreamName' - The name of the ProgressUpdateStream. /Do not store personal data in this field./
-progressUpdateStreamSummary ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'progressUpdateStreamName', 'progressUpdateStreamSummary_progressUpdateStreamName' - The name of the ProgressUpdateStream. /Do not store personal data in
+-- this field./
+newProgressUpdateStreamSummary ::
   ProgressUpdateStreamSummary
-progressUpdateStreamSummary =
+newProgressUpdateStreamSummary =
   ProgressUpdateStreamSummary'
-    { _pussProgressUpdateStreamName =
-        Nothing
+    { progressUpdateStreamName =
+        Prelude.Nothing
     }
 
--- | The name of the ProgressUpdateStream. /Do not store personal data in this field./
-pussProgressUpdateStreamName :: Lens' ProgressUpdateStreamSummary (Maybe Text)
-pussProgressUpdateStreamName = lens _pussProgressUpdateStreamName (\s a -> s {_pussProgressUpdateStreamName = a})
+-- | The name of the ProgressUpdateStream. /Do not store personal data in
+-- this field./
+progressUpdateStreamSummary_progressUpdateStreamName :: Lens.Lens' ProgressUpdateStreamSummary (Prelude.Maybe Prelude.Text)
+progressUpdateStreamSummary_progressUpdateStreamName = Lens.lens (\ProgressUpdateStreamSummary' {progressUpdateStreamName} -> progressUpdateStreamName) (\s@ProgressUpdateStreamSummary' {} a -> s {progressUpdateStreamName = a} :: ProgressUpdateStreamSummary)
 
-instance FromJSON ProgressUpdateStreamSummary where
+instance Prelude.FromJSON ProgressUpdateStreamSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProgressUpdateStreamSummary"
       ( \x ->
           ProgressUpdateStreamSummary'
-            <$> (x .:? "ProgressUpdateStreamName")
+            Prelude.<$> (x Prelude..:? "ProgressUpdateStreamName")
       )
 
-instance Hashable ProgressUpdateStreamSummary
+instance Prelude.Hashable ProgressUpdateStreamSummary
 
-instance NFData ProgressUpdateStreamSummary
+instance Prelude.NFData ProgressUpdateStreamSummary

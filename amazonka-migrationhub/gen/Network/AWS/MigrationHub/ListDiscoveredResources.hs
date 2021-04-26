@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,212 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists discovered resources associated with the given @MigrationTask@ .
---
---
+-- Lists discovered resources associated with the given @MigrationTask@.
 --
 -- This operation returns paginated results.
 module Network.AWS.MigrationHub.ListDiscoveredResources
   ( -- * Creating a Request
-    listDiscoveredResources,
-    ListDiscoveredResources,
+    ListDiscoveredResources (..),
+    newListDiscoveredResources,
 
     -- * Request Lenses
-    ldrNextToken,
-    ldrMaxResults,
-    ldrProgressUpdateStream,
-    ldrMigrationTaskName,
+    listDiscoveredResources_nextToken,
+    listDiscoveredResources_maxResults,
+    listDiscoveredResources_progressUpdateStream,
+    listDiscoveredResources_migrationTaskName,
 
     -- * Destructuring the Response
-    listDiscoveredResourcesResponse,
-    ListDiscoveredResourcesResponse,
+    ListDiscoveredResourcesResponse (..),
+    newListDiscoveredResourcesResponse,
 
     -- * Response Lenses
-    ldrrrsNextToken,
-    ldrrrsDiscoveredResourceList,
-    ldrrrsResponseStatus,
+    listDiscoveredResourcesResponse_nextToken,
+    listDiscoveredResourcesResponse_discoveredResourceList,
+    listDiscoveredResourcesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MigrationHub.Types.DiscoveredResource
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDiscoveredResources' smart constructor.
+-- | /See:/ 'newListDiscoveredResources' smart constructor.
 data ListDiscoveredResources = ListDiscoveredResources'
-  { _ldrNextToken ::
-      !(Maybe Text),
-    _ldrMaxResults ::
-      !(Maybe Nat),
-    _ldrProgressUpdateStream ::
-      !Text,
-    _ldrMigrationTaskName ::
-      !Text
+  { -- | If a @NextToken@ was returned by a previous call, there are more results
+    -- available. To retrieve the next page of results, make the call again
+    -- using the returned token in @NextToken@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results returned per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the ProgressUpdateStream.
+    progressUpdateStream :: Prelude.Text,
+    -- | The name of the MigrationTask. /Do not store personal data in this
+    -- field./
+    migrationTaskName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDiscoveredResources' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDiscoveredResources' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrNextToken' - If a @NextToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @NextToken@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrMaxResults' - The maximum number of results returned per page.
+-- 'nextToken', 'listDiscoveredResources_nextToken' - If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
 --
--- * 'ldrProgressUpdateStream' - The name of the ProgressUpdateStream.
+-- 'maxResults', 'listDiscoveredResources_maxResults' - The maximum number of results returned per page.
 --
--- * 'ldrMigrationTaskName' - The name of the MigrationTask. /Do not store personal data in this field./
-listDiscoveredResources ::
-  -- | 'ldrProgressUpdateStream'
-  Text ->
-  -- | 'ldrMigrationTaskName'
-  Text ->
+-- 'progressUpdateStream', 'listDiscoveredResources_progressUpdateStream' - The name of the ProgressUpdateStream.
+--
+-- 'migrationTaskName', 'listDiscoveredResources_migrationTaskName' - The name of the MigrationTask. /Do not store personal data in this
+-- field./
+newListDiscoveredResources ::
+  -- | 'progressUpdateStream'
+  Prelude.Text ->
+  -- | 'migrationTaskName'
+  Prelude.Text ->
   ListDiscoveredResources
-listDiscoveredResources
+newListDiscoveredResources
   pProgressUpdateStream_
   pMigrationTaskName_ =
     ListDiscoveredResources'
-      { _ldrNextToken = Nothing,
-        _ldrMaxResults = Nothing,
-        _ldrProgressUpdateStream = pProgressUpdateStream_,
-        _ldrMigrationTaskName = pMigrationTaskName_
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        progressUpdateStream = pProgressUpdateStream_,
+        migrationTaskName = pMigrationTaskName_
       }
 
--- | If a @NextToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @NextToken@ .
-ldrNextToken :: Lens' ListDiscoveredResources (Maybe Text)
-ldrNextToken = lens _ldrNextToken (\s a -> s {_ldrNextToken = a})
+-- | If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
+listDiscoveredResources_nextToken :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe Prelude.Text)
+listDiscoveredResources_nextToken = Lens.lens (\ListDiscoveredResources' {nextToken} -> nextToken) (\s@ListDiscoveredResources' {} a -> s {nextToken = a} :: ListDiscoveredResources)
 
 -- | The maximum number of results returned per page.
-ldrMaxResults :: Lens' ListDiscoveredResources (Maybe Natural)
-ldrMaxResults = lens _ldrMaxResults (\s a -> s {_ldrMaxResults = a}) . mapping _Nat
+listDiscoveredResources_maxResults :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe Prelude.Natural)
+listDiscoveredResources_maxResults = Lens.lens (\ListDiscoveredResources' {maxResults} -> maxResults) (\s@ListDiscoveredResources' {} a -> s {maxResults = a} :: ListDiscoveredResources) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the ProgressUpdateStream.
-ldrProgressUpdateStream :: Lens' ListDiscoveredResources Text
-ldrProgressUpdateStream = lens _ldrProgressUpdateStream (\s a -> s {_ldrProgressUpdateStream = a})
+listDiscoveredResources_progressUpdateStream :: Lens.Lens' ListDiscoveredResources Prelude.Text
+listDiscoveredResources_progressUpdateStream = Lens.lens (\ListDiscoveredResources' {progressUpdateStream} -> progressUpdateStream) (\s@ListDiscoveredResources' {} a -> s {progressUpdateStream = a} :: ListDiscoveredResources)
 
--- | The name of the MigrationTask. /Do not store personal data in this field./
-ldrMigrationTaskName :: Lens' ListDiscoveredResources Text
-ldrMigrationTaskName = lens _ldrMigrationTaskName (\s a -> s {_ldrMigrationTaskName = a})
+-- | The name of the MigrationTask. /Do not store personal data in this
+-- field./
+listDiscoveredResources_migrationTaskName :: Lens.Lens' ListDiscoveredResources Prelude.Text
+listDiscoveredResources_migrationTaskName = Lens.lens (\ListDiscoveredResources' {migrationTaskName} -> migrationTaskName) (\s@ListDiscoveredResources' {} a -> s {migrationTaskName = a} :: ListDiscoveredResources)
 
-instance AWSPager ListDiscoveredResources where
+instance Pager.AWSPager ListDiscoveredResources where
   page rq rs
-    | stop (rs ^. ldrrrsNextToken) = Nothing
-    | stop (rs ^. ldrrrsDiscoveredResourceList) = Nothing
-    | otherwise =
-      Just $ rq & ldrNextToken .~ rs ^. ldrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDiscoveredResourcesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDiscoveredResourcesResponse_discoveredResourceList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDiscoveredResources_nextToken
+          Lens..~ rs
+          Lens.^? listDiscoveredResourcesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDiscoveredResources where
+instance Prelude.AWSRequest ListDiscoveredResources where
   type
     Rs ListDiscoveredResources =
       ListDiscoveredResourcesResponse
-  request = postJSON migrationHub
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDiscoveredResourcesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "DiscoveredResourceList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "DiscoveredResourceList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDiscoveredResources
+instance Prelude.Hashable ListDiscoveredResources
 
-instance NFData ListDiscoveredResources
+instance Prelude.NFData ListDiscoveredResources
 
-instance ToHeaders ListDiscoveredResources where
+instance Prelude.ToHeaders ListDiscoveredResources where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSMigrationHub.ListDiscoveredResources" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSMigrationHub.ListDiscoveredResources" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDiscoveredResources where
+instance Prelude.ToJSON ListDiscoveredResources where
   toJSON ListDiscoveredResources' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ldrNextToken,
-            ("MaxResults" .=) <$> _ldrMaxResults,
-            Just
-              ("ProgressUpdateStream" .= _ldrProgressUpdateStream),
-            Just ("MigrationTaskName" .= _ldrMigrationTaskName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ( "ProgressUpdateStream"
+                  Prelude..= progressUpdateStream
+              ),
+            Prelude.Just
+              ("MigrationTaskName" Prelude..= migrationTaskName)
           ]
       )
 
-instance ToPath ListDiscoveredResources where
-  toPath = const "/"
+instance Prelude.ToPath ListDiscoveredResources where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDiscoveredResources where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDiscoveredResources where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listDiscoveredResourcesResponse' smart constructor.
+-- | /See:/ 'newListDiscoveredResourcesResponse' smart constructor.
 data ListDiscoveredResourcesResponse = ListDiscoveredResourcesResponse'
-  { _ldrrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldrrrsDiscoveredResourceList ::
-      !( Maybe
-           [DiscoveredResource]
-       ),
-    _ldrrrsResponseStatus ::
-      !Int
+  { -- | If there are more discovered resources than the max result, return the
+    -- next token to be passed to the next call as a bookmark of where to start
+    -- from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Returned list of discovered resources associated with the given
+    -- MigrationTask.
+    discoveredResourceList :: Prelude.Maybe [DiscoveredResource],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDiscoveredResourcesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDiscoveredResourcesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrrrsNextToken' - If there are more discovered resources than the max result, return the next token to be passed to the next call as a bookmark of where to start from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrrrsDiscoveredResourceList' - Returned list of discovered resources associated with the given MigrationTask.
+-- 'nextToken', 'listDiscoveredResourcesResponse_nextToken' - If there are more discovered resources than the max result, return the
+-- next token to be passed to the next call as a bookmark of where to start
+-- from.
 --
--- * 'ldrrrsResponseStatus' - -- | The response status code.
-listDiscoveredResourcesResponse ::
-  -- | 'ldrrrsResponseStatus'
-  Int ->
+-- 'discoveredResourceList', 'listDiscoveredResourcesResponse_discoveredResourceList' - Returned list of discovered resources associated with the given
+-- MigrationTask.
+--
+-- 'httpStatus', 'listDiscoveredResourcesResponse_httpStatus' - The response's http status code.
+newListDiscoveredResourcesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDiscoveredResourcesResponse
-listDiscoveredResourcesResponse pResponseStatus_ =
+newListDiscoveredResourcesResponse pHttpStatus_ =
   ListDiscoveredResourcesResponse'
-    { _ldrrrsNextToken =
-        Nothing,
-      _ldrrrsDiscoveredResourceList = Nothing,
-      _ldrrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      discoveredResourceList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are more discovered resources than the max result, return the next token to be passed to the next call as a bookmark of where to start from.
-ldrrrsNextToken :: Lens' ListDiscoveredResourcesResponse (Maybe Text)
-ldrrrsNextToken = lens _ldrrrsNextToken (\s a -> s {_ldrrrsNextToken = a})
+-- | If there are more discovered resources than the max result, return the
+-- next token to be passed to the next call as a bookmark of where to start
+-- from.
+listDiscoveredResourcesResponse_nextToken :: Lens.Lens' ListDiscoveredResourcesResponse (Prelude.Maybe Prelude.Text)
+listDiscoveredResourcesResponse_nextToken = Lens.lens (\ListDiscoveredResourcesResponse' {nextToken} -> nextToken) (\s@ListDiscoveredResourcesResponse' {} a -> s {nextToken = a} :: ListDiscoveredResourcesResponse)
 
--- | Returned list of discovered resources associated with the given MigrationTask.
-ldrrrsDiscoveredResourceList :: Lens' ListDiscoveredResourcesResponse [DiscoveredResource]
-ldrrrsDiscoveredResourceList = lens _ldrrrsDiscoveredResourceList (\s a -> s {_ldrrrsDiscoveredResourceList = a}) . _Default . _Coerce
+-- | Returned list of discovered resources associated with the given
+-- MigrationTask.
+listDiscoveredResourcesResponse_discoveredResourceList :: Lens.Lens' ListDiscoveredResourcesResponse (Prelude.Maybe [DiscoveredResource])
+listDiscoveredResourcesResponse_discoveredResourceList = Lens.lens (\ListDiscoveredResourcesResponse' {discoveredResourceList} -> discoveredResourceList) (\s@ListDiscoveredResourcesResponse' {} a -> s {discoveredResourceList = a} :: ListDiscoveredResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ldrrrsResponseStatus :: Lens' ListDiscoveredResourcesResponse Int
-ldrrrsResponseStatus = lens _ldrrrsResponseStatus (\s a -> s {_ldrrrsResponseStatus = a})
+-- | The response's http status code.
+listDiscoveredResourcesResponse_httpStatus :: Lens.Lens' ListDiscoveredResourcesResponse Prelude.Int
+listDiscoveredResourcesResponse_httpStatus = Lens.lens (\ListDiscoveredResourcesResponse' {httpStatus} -> httpStatus) (\s@ListDiscoveredResourcesResponse' {} a -> s {httpStatus = a} :: ListDiscoveredResourcesResponse)
 
-instance NFData ListDiscoveredResourcesResponse
+instance
+  Prelude.NFData
+    ListDiscoveredResourcesResponse

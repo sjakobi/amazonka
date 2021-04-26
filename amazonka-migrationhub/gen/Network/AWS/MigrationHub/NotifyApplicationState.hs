@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,171 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the migration state of an application. For a given application identified by the value passed to @ApplicationId@ , its status is set or updated by passing one of three values to @Status@ : @NOT_STARTED | IN_PROGRESS | COMPLETED@ .
+-- Sets the migration state of an application. For a given application
+-- identified by the value passed to @ApplicationId@, its status is set or
+-- updated by passing one of three values to @Status@:
+-- @NOT_STARTED | IN_PROGRESS | COMPLETED@.
 module Network.AWS.MigrationHub.NotifyApplicationState
   ( -- * Creating a Request
-    notifyApplicationState,
-    NotifyApplicationState,
+    NotifyApplicationState (..),
+    newNotifyApplicationState,
 
     -- * Request Lenses
-    nasDryRun,
-    nasUpdateDateTime,
-    nasApplicationId,
-    nasStatus,
+    notifyApplicationState_dryRun,
+    notifyApplicationState_updateDateTime,
+    notifyApplicationState_applicationId,
+    notifyApplicationState_status,
 
     -- * Destructuring the Response
-    notifyApplicationStateResponse,
-    NotifyApplicationStateResponse,
+    NotifyApplicationStateResponse (..),
+    newNotifyApplicationStateResponse,
 
     -- * Response Lenses
-    nasrrsResponseStatus,
+    notifyApplicationStateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'notifyApplicationState' smart constructor.
+-- | /See:/ 'newNotifyApplicationState' smart constructor.
 data NotifyApplicationState = NotifyApplicationState'
-  { _nasDryRun ::
-      !(Maybe Bool),
-    _nasUpdateDateTime ::
-      !(Maybe POSIX),
-    _nasApplicationId ::
-      !Text,
-    _nasStatus ::
-      !ApplicationStatus
+  { -- | Optional boolean flag to indicate whether any effect should take place.
+    -- Used to test if the caller has permission to make the call.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The timestamp when the application state changed.
+    updateDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The configurationId in Application Discovery Service that uniquely
+    -- identifies the grouped application.
+    applicationId :: Prelude.Text,
+    -- | Status of the application - Not Started, In-Progress, Complete.
+    status :: ApplicationStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotifyApplicationState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotifyApplicationState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nasDryRun' - Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nasUpdateDateTime' - The timestamp when the application state changed.
+-- 'dryRun', 'notifyApplicationState_dryRun' - Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
 --
--- * 'nasApplicationId' - The configurationId in Application Discovery Service that uniquely identifies the grouped application.
+-- 'updateDateTime', 'notifyApplicationState_updateDateTime' - The timestamp when the application state changed.
 --
--- * 'nasStatus' - Status of the application - Not Started, In-Progress, Complete.
-notifyApplicationState ::
-  -- | 'nasApplicationId'
-  Text ->
-  -- | 'nasStatus'
+-- 'applicationId', 'notifyApplicationState_applicationId' - The configurationId in Application Discovery Service that uniquely
+-- identifies the grouped application.
+--
+-- 'status', 'notifyApplicationState_status' - Status of the application - Not Started, In-Progress, Complete.
+newNotifyApplicationState ::
+  -- | 'applicationId'
+  Prelude.Text ->
+  -- | 'status'
   ApplicationStatus ->
   NotifyApplicationState
-notifyApplicationState pApplicationId_ pStatus_ =
+newNotifyApplicationState pApplicationId_ pStatus_ =
   NotifyApplicationState'
-    { _nasDryRun = Nothing,
-      _nasUpdateDateTime = Nothing,
-      _nasApplicationId = pApplicationId_,
-      _nasStatus = pStatus_
+    { dryRun = Prelude.Nothing,
+      updateDateTime = Prelude.Nothing,
+      applicationId = pApplicationId_,
+      status = pStatus_
     }
 
--- | Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
-nasDryRun :: Lens' NotifyApplicationState (Maybe Bool)
-nasDryRun = lens _nasDryRun (\s a -> s {_nasDryRun = a})
+-- | Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
+notifyApplicationState_dryRun :: Lens.Lens' NotifyApplicationState (Prelude.Maybe Prelude.Bool)
+notifyApplicationState_dryRun = Lens.lens (\NotifyApplicationState' {dryRun} -> dryRun) (\s@NotifyApplicationState' {} a -> s {dryRun = a} :: NotifyApplicationState)
 
 -- | The timestamp when the application state changed.
-nasUpdateDateTime :: Lens' NotifyApplicationState (Maybe UTCTime)
-nasUpdateDateTime = lens _nasUpdateDateTime (\s a -> s {_nasUpdateDateTime = a}) . mapping _Time
+notifyApplicationState_updateDateTime :: Lens.Lens' NotifyApplicationState (Prelude.Maybe Prelude.UTCTime)
+notifyApplicationState_updateDateTime = Lens.lens (\NotifyApplicationState' {updateDateTime} -> updateDateTime) (\s@NotifyApplicationState' {} a -> s {updateDateTime = a} :: NotifyApplicationState) Prelude.. Lens.mapping Prelude._Time
 
--- | The configurationId in Application Discovery Service that uniquely identifies the grouped application.
-nasApplicationId :: Lens' NotifyApplicationState Text
-nasApplicationId = lens _nasApplicationId (\s a -> s {_nasApplicationId = a})
+-- | The configurationId in Application Discovery Service that uniquely
+-- identifies the grouped application.
+notifyApplicationState_applicationId :: Lens.Lens' NotifyApplicationState Prelude.Text
+notifyApplicationState_applicationId = Lens.lens (\NotifyApplicationState' {applicationId} -> applicationId) (\s@NotifyApplicationState' {} a -> s {applicationId = a} :: NotifyApplicationState)
 
 -- | Status of the application - Not Started, In-Progress, Complete.
-nasStatus :: Lens' NotifyApplicationState ApplicationStatus
-nasStatus = lens _nasStatus (\s a -> s {_nasStatus = a})
+notifyApplicationState_status :: Lens.Lens' NotifyApplicationState ApplicationStatus
+notifyApplicationState_status = Lens.lens (\NotifyApplicationState' {status} -> status) (\s@NotifyApplicationState' {} a -> s {status = a} :: NotifyApplicationState)
 
-instance AWSRequest NotifyApplicationState where
+instance Prelude.AWSRequest NotifyApplicationState where
   type
     Rs NotifyApplicationState =
       NotifyApplicationStateResponse
-  request = postJSON migrationHub
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           NotifyApplicationStateResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable NotifyApplicationState
+instance Prelude.Hashable NotifyApplicationState
 
-instance NFData NotifyApplicationState
+instance Prelude.NFData NotifyApplicationState
 
-instance ToHeaders NotifyApplicationState where
+instance Prelude.ToHeaders NotifyApplicationState where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSMigrationHub.NotifyApplicationState" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSMigrationHub.NotifyApplicationState" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON NotifyApplicationState where
+instance Prelude.ToJSON NotifyApplicationState where
   toJSON NotifyApplicationState' {..} =
-    object
-      ( catMaybes
-          [ ("DryRun" .=) <$> _nasDryRun,
-            ("UpdateDateTime" .=) <$> _nasUpdateDateTime,
-            Just ("ApplicationId" .= _nasApplicationId),
-            Just ("Status" .= _nasStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DryRun" Prelude..=) Prelude.<$> dryRun,
+            ("UpdateDateTime" Prelude..=)
+              Prelude.<$> updateDateTime,
+            Prelude.Just
+              ("ApplicationId" Prelude..= applicationId),
+            Prelude.Just ("Status" Prelude..= status)
           ]
       )
 
-instance ToPath NotifyApplicationState where
-  toPath = const "/"
+instance Prelude.ToPath NotifyApplicationState where
+  toPath = Prelude.const "/"
 
-instance ToQuery NotifyApplicationState where
-  toQuery = const mempty
+instance Prelude.ToQuery NotifyApplicationState where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'notifyApplicationStateResponse' smart constructor.
-newtype NotifyApplicationStateResponse = NotifyApplicationStateResponse'
-  { _nasrrsResponseStatus ::
-      Int
+-- | /See:/ 'newNotifyApplicationStateResponse' smart constructor.
+data NotifyApplicationStateResponse = NotifyApplicationStateResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotifyApplicationStateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotifyApplicationStateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nasrrsResponseStatus' - -- | The response status code.
-notifyApplicationStateResponse ::
-  -- | 'nasrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'notifyApplicationStateResponse_httpStatus' - The response's http status code.
+newNotifyApplicationStateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   NotifyApplicationStateResponse
-notifyApplicationStateResponse pResponseStatus_ =
+newNotifyApplicationStateResponse pHttpStatus_ =
   NotifyApplicationStateResponse'
-    { _nasrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-nasrrsResponseStatus :: Lens' NotifyApplicationStateResponse Int
-nasrrsResponseStatus = lens _nasrrsResponseStatus (\s a -> s {_nasrrsResponseStatus = a})
+-- | The response's http status code.
+notifyApplicationStateResponse_httpStatus :: Lens.Lens' NotifyApplicationStateResponse Prelude.Int
+notifyApplicationStateResponse_httpStatus = Lens.lens (\NotifyApplicationStateResponse' {httpStatus} -> httpStatus) (\s@NotifyApplicationStateResponse' {} a -> s {httpStatus = a} :: NotifyApplicationStateResponse)
 
-instance NFData NotifyApplicationStateResponse
+instance
+  Prelude.NFData
+    NotifyApplicationStateResponse

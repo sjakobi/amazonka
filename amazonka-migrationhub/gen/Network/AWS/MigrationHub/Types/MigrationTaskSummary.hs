@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,96 +19,108 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MigrationHub.Types.MigrationTaskSummary where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types.MigrationStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | MigrationTaskSummary includes @MigrationTaskName@ , @ProgressPercent@ , @ProgressUpdateStream@ , @Status@ , and @UpdateDateTime@ for each task.
+-- | MigrationTaskSummary includes @MigrationTaskName@, @ProgressPercent@,
+-- @ProgressUpdateStream@, @Status@, and @UpdateDateTime@ for each task.
 --
---
---
--- /See:/ 'migrationTaskSummary' smart constructor.
+-- /See:/ 'newMigrationTaskSummary' smart constructor.
 data MigrationTaskSummary = MigrationTaskSummary'
-  { _mtsStatus ::
-      !(Maybe MigrationStatus),
-    _mtsProgressPercent ::
-      !(Maybe Nat),
-    _mtsUpdateDateTime ::
-      !(Maybe POSIX),
-    _mtsStatusDetail ::
-      !(Maybe Text),
-    _mtsMigrationTaskName ::
-      !(Maybe Text),
-    _mtsProgressUpdateStream ::
-      !(Maybe Text)
+  { -- | Status of the task.
+    status :: Prelude.Maybe MigrationStatus,
+    -- | Indication of the percentage completion of the task.
+    progressPercent :: Prelude.Maybe Prelude.Nat,
+    -- | The timestamp when the task was gathered.
+    updateDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Detail information of what is being done within the overall status
+    -- state.
+    statusDetail :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifier that references the migration task. /Do not store
+    -- personal data in this field./
+    migrationTaskName :: Prelude.Maybe Prelude.Text,
+    -- | An AWS resource used for access control. It should uniquely identify the
+    -- migration tool as it is used for all updates made by the tool.
+    progressUpdateStream :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MigrationTaskSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MigrationTaskSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtsStatus' - Status of the task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtsProgressPercent' - Indication of the percentage completion of the task.
+-- 'status', 'migrationTaskSummary_status' - Status of the task.
 --
--- * 'mtsUpdateDateTime' - The timestamp when the task was gathered.
+-- 'progressPercent', 'migrationTaskSummary_progressPercent' - Indication of the percentage completion of the task.
 --
--- * 'mtsStatusDetail' - Detail information of what is being done within the overall status state.
+-- 'updateDateTime', 'migrationTaskSummary_updateDateTime' - The timestamp when the task was gathered.
 --
--- * 'mtsMigrationTaskName' - Unique identifier that references the migration task. /Do not store personal data in this field./
+-- 'statusDetail', 'migrationTaskSummary_statusDetail' - Detail information of what is being done within the overall status
+-- state.
 --
--- * 'mtsProgressUpdateStream' - An AWS resource used for access control. It should uniquely identify the migration tool as it is used for all updates made by the tool.
-migrationTaskSummary ::
+-- 'migrationTaskName', 'migrationTaskSummary_migrationTaskName' - Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+--
+-- 'progressUpdateStream', 'migrationTaskSummary_progressUpdateStream' - An AWS resource used for access control. It should uniquely identify the
+-- migration tool as it is used for all updates made by the tool.
+newMigrationTaskSummary ::
   MigrationTaskSummary
-migrationTaskSummary =
+newMigrationTaskSummary =
   MigrationTaskSummary'
-    { _mtsStatus = Nothing,
-      _mtsProgressPercent = Nothing,
-      _mtsUpdateDateTime = Nothing,
-      _mtsStatusDetail = Nothing,
-      _mtsMigrationTaskName = Nothing,
-      _mtsProgressUpdateStream = Nothing
+    { status = Prelude.Nothing,
+      progressPercent = Prelude.Nothing,
+      updateDateTime = Prelude.Nothing,
+      statusDetail = Prelude.Nothing,
+      migrationTaskName = Prelude.Nothing,
+      progressUpdateStream = Prelude.Nothing
     }
 
 -- | Status of the task.
-mtsStatus :: Lens' MigrationTaskSummary (Maybe MigrationStatus)
-mtsStatus = lens _mtsStatus (\s a -> s {_mtsStatus = a})
+migrationTaskSummary_status :: Lens.Lens' MigrationTaskSummary (Prelude.Maybe MigrationStatus)
+migrationTaskSummary_status = Lens.lens (\MigrationTaskSummary' {status} -> status) (\s@MigrationTaskSummary' {} a -> s {status = a} :: MigrationTaskSummary)
 
 -- | Indication of the percentage completion of the task.
-mtsProgressPercent :: Lens' MigrationTaskSummary (Maybe Natural)
-mtsProgressPercent = lens _mtsProgressPercent (\s a -> s {_mtsProgressPercent = a}) . mapping _Nat
+migrationTaskSummary_progressPercent :: Lens.Lens' MigrationTaskSummary (Prelude.Maybe Prelude.Natural)
+migrationTaskSummary_progressPercent = Lens.lens (\MigrationTaskSummary' {progressPercent} -> progressPercent) (\s@MigrationTaskSummary' {} a -> s {progressPercent = a} :: MigrationTaskSummary) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The timestamp when the task was gathered.
-mtsUpdateDateTime :: Lens' MigrationTaskSummary (Maybe UTCTime)
-mtsUpdateDateTime = lens _mtsUpdateDateTime (\s a -> s {_mtsUpdateDateTime = a}) . mapping _Time
+migrationTaskSummary_updateDateTime :: Lens.Lens' MigrationTaskSummary (Prelude.Maybe Prelude.UTCTime)
+migrationTaskSummary_updateDateTime = Lens.lens (\MigrationTaskSummary' {updateDateTime} -> updateDateTime) (\s@MigrationTaskSummary' {} a -> s {updateDateTime = a} :: MigrationTaskSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | Detail information of what is being done within the overall status state.
-mtsStatusDetail :: Lens' MigrationTaskSummary (Maybe Text)
-mtsStatusDetail = lens _mtsStatusDetail (\s a -> s {_mtsStatusDetail = a})
+-- | Detail information of what is being done within the overall status
+-- state.
+migrationTaskSummary_statusDetail :: Lens.Lens' MigrationTaskSummary (Prelude.Maybe Prelude.Text)
+migrationTaskSummary_statusDetail = Lens.lens (\MigrationTaskSummary' {statusDetail} -> statusDetail) (\s@MigrationTaskSummary' {} a -> s {statusDetail = a} :: MigrationTaskSummary)
 
--- | Unique identifier that references the migration task. /Do not store personal data in this field./
-mtsMigrationTaskName :: Lens' MigrationTaskSummary (Maybe Text)
-mtsMigrationTaskName = lens _mtsMigrationTaskName (\s a -> s {_mtsMigrationTaskName = a})
+-- | Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+migrationTaskSummary_migrationTaskName :: Lens.Lens' MigrationTaskSummary (Prelude.Maybe Prelude.Text)
+migrationTaskSummary_migrationTaskName = Lens.lens (\MigrationTaskSummary' {migrationTaskName} -> migrationTaskName) (\s@MigrationTaskSummary' {} a -> s {migrationTaskName = a} :: MigrationTaskSummary)
 
--- | An AWS resource used for access control. It should uniquely identify the migration tool as it is used for all updates made by the tool.
-mtsProgressUpdateStream :: Lens' MigrationTaskSummary (Maybe Text)
-mtsProgressUpdateStream = lens _mtsProgressUpdateStream (\s a -> s {_mtsProgressUpdateStream = a})
+-- | An AWS resource used for access control. It should uniquely identify the
+-- migration tool as it is used for all updates made by the tool.
+migrationTaskSummary_progressUpdateStream :: Lens.Lens' MigrationTaskSummary (Prelude.Maybe Prelude.Text)
+migrationTaskSummary_progressUpdateStream = Lens.lens (\MigrationTaskSummary' {progressUpdateStream} -> progressUpdateStream) (\s@MigrationTaskSummary' {} a -> s {progressUpdateStream = a} :: MigrationTaskSummary)
 
-instance FromJSON MigrationTaskSummary where
+instance Prelude.FromJSON MigrationTaskSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MigrationTaskSummary"
       ( \x ->
           MigrationTaskSummary'
-            <$> (x .:? "Status")
-            <*> (x .:? "ProgressPercent")
-            <*> (x .:? "UpdateDateTime")
-            <*> (x .:? "StatusDetail")
-            <*> (x .:? "MigrationTaskName")
-            <*> (x .:? "ProgressUpdateStream")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "ProgressPercent")
+            Prelude.<*> (x Prelude..:? "UpdateDateTime")
+            Prelude.<*> (x Prelude..:? "StatusDetail")
+            Prelude.<*> (x Prelude..:? "MigrationTaskName")
+            Prelude.<*> (x Prelude..:? "ProgressUpdateStream")
       )
 
-instance Hashable MigrationTaskSummary
+instance Prelude.Hashable MigrationTaskSummary
 
-instance NFData MigrationTaskSummary
+instance Prelude.NFData MigrationTaskSummary

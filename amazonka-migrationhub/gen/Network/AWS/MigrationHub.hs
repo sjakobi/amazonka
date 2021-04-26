@@ -11,13 +11,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The AWS Migration Hub API methods help to obtain server and application migration status and integrate your resource-specific migration tool by providing a programmatic interface to Migration Hub.
+-- The AWS Migration Hub API methods help to obtain server and application
+-- migration status and integrate your resource-specific migration tool by
+-- providing a programmatic interface to Migration Hub.
 --
---
--- Remember that you must set your AWS Migration Hub home region before you call any of these APIs, or a @HomeRegionNotSetException@ error will be returned. Also, you must make the API calls while in your home region.
+-- Remember that you must set your AWS Migration Hub home region before you
+-- call any of these APIs, or a @HomeRegionNotSetException@ error will be
+-- returned. Also, you must make the API calls while in your home region.
 module Network.AWS.MigrationHub
   ( -- * Service Configuration
-    migrationHub,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -59,55 +62,106 @@ module Network.AWS.MigrationHub
     -- $operations
 
     -- ** ListCreatedArtifacts (Paginated)
-    module Network.AWS.MigrationHub.ListCreatedArtifacts,
+    ListCreatedArtifacts (ListCreatedArtifacts'),
+    newListCreatedArtifacts,
+    ListCreatedArtifactsResponse (ListCreatedArtifactsResponse'),
+    newListCreatedArtifactsResponse,
 
     -- ** DescribeMigrationTask
-    module Network.AWS.MigrationHub.DescribeMigrationTask,
+    DescribeMigrationTask (DescribeMigrationTask'),
+    newDescribeMigrationTask,
+    DescribeMigrationTaskResponse (DescribeMigrationTaskResponse'),
+    newDescribeMigrationTaskResponse,
 
     -- ** DisassociateCreatedArtifact
-    module Network.AWS.MigrationHub.DisassociateCreatedArtifact,
+    DisassociateCreatedArtifact (DisassociateCreatedArtifact'),
+    newDisassociateCreatedArtifact,
+    DisassociateCreatedArtifactResponse (DisassociateCreatedArtifactResponse'),
+    newDisassociateCreatedArtifactResponse,
 
     -- ** ImportMigrationTask
-    module Network.AWS.MigrationHub.ImportMigrationTask,
+    ImportMigrationTask (ImportMigrationTask'),
+    newImportMigrationTask,
+    ImportMigrationTaskResponse (ImportMigrationTaskResponse'),
+    newImportMigrationTaskResponse,
 
     -- ** CreateProgressUpdateStream
-    module Network.AWS.MigrationHub.CreateProgressUpdateStream,
+    CreateProgressUpdateStream (CreateProgressUpdateStream'),
+    newCreateProgressUpdateStream,
+    CreateProgressUpdateStreamResponse (CreateProgressUpdateStreamResponse'),
+    newCreateProgressUpdateStreamResponse,
 
     -- ** PutResourceAttributes
-    module Network.AWS.MigrationHub.PutResourceAttributes,
+    PutResourceAttributes (PutResourceAttributes'),
+    newPutResourceAttributes,
+    PutResourceAttributesResponse (PutResourceAttributesResponse'),
+    newPutResourceAttributesResponse,
 
     -- ** ListDiscoveredResources (Paginated)
-    module Network.AWS.MigrationHub.ListDiscoveredResources,
+    ListDiscoveredResources (ListDiscoveredResources'),
+    newListDiscoveredResources,
+    ListDiscoveredResourcesResponse (ListDiscoveredResourcesResponse'),
+    newListDiscoveredResourcesResponse,
 
     -- ** DeleteProgressUpdateStream
-    module Network.AWS.MigrationHub.DeleteProgressUpdateStream,
+    DeleteProgressUpdateStream (DeleteProgressUpdateStream'),
+    newDeleteProgressUpdateStream,
+    DeleteProgressUpdateStreamResponse (DeleteProgressUpdateStreamResponse'),
+    newDeleteProgressUpdateStreamResponse,
 
     -- ** NotifyMigrationTaskState
-    module Network.AWS.MigrationHub.NotifyMigrationTaskState,
+    NotifyMigrationTaskState (NotifyMigrationTaskState'),
+    newNotifyMigrationTaskState,
+    NotifyMigrationTaskStateResponse (NotifyMigrationTaskStateResponse'),
+    newNotifyMigrationTaskStateResponse,
 
     -- ** DisassociateDiscoveredResource
-    module Network.AWS.MigrationHub.DisassociateDiscoveredResource,
+    DisassociateDiscoveredResource (DisassociateDiscoveredResource'),
+    newDisassociateDiscoveredResource,
+    DisassociateDiscoveredResourceResponse (DisassociateDiscoveredResourceResponse'),
+    newDisassociateDiscoveredResourceResponse,
 
     -- ** ListApplicationStates (Paginated)
-    module Network.AWS.MigrationHub.ListApplicationStates,
+    ListApplicationStates (ListApplicationStates'),
+    newListApplicationStates,
+    ListApplicationStatesResponse (ListApplicationStatesResponse'),
+    newListApplicationStatesResponse,
 
     -- ** AssociateDiscoveredResource
-    module Network.AWS.MigrationHub.AssociateDiscoveredResource,
+    AssociateDiscoveredResource (AssociateDiscoveredResource'),
+    newAssociateDiscoveredResource,
+    AssociateDiscoveredResourceResponse (AssociateDiscoveredResourceResponse'),
+    newAssociateDiscoveredResourceResponse,
 
     -- ** ListProgressUpdateStreams (Paginated)
-    module Network.AWS.MigrationHub.ListProgressUpdateStreams,
+    ListProgressUpdateStreams (ListProgressUpdateStreams'),
+    newListProgressUpdateStreams,
+    ListProgressUpdateStreamsResponse (ListProgressUpdateStreamsResponse'),
+    newListProgressUpdateStreamsResponse,
 
     -- ** NotifyApplicationState
-    module Network.AWS.MigrationHub.NotifyApplicationState,
+    NotifyApplicationState (NotifyApplicationState'),
+    newNotifyApplicationState,
+    NotifyApplicationStateResponse (NotifyApplicationStateResponse'),
+    newNotifyApplicationStateResponse,
 
     -- ** ListMigrationTasks (Paginated)
-    module Network.AWS.MigrationHub.ListMigrationTasks,
+    ListMigrationTasks (ListMigrationTasks'),
+    newListMigrationTasks,
+    ListMigrationTasksResponse (ListMigrationTasksResponse'),
+    newListMigrationTasksResponse,
 
     -- ** DescribeApplicationState
-    module Network.AWS.MigrationHub.DescribeApplicationState,
+    DescribeApplicationState (DescribeApplicationState'),
+    newDescribeApplicationState,
+    DescribeApplicationStateResponse (DescribeApplicationStateResponse'),
+    newDescribeApplicationStateResponse,
 
     -- ** AssociateCreatedArtifact
-    module Network.AWS.MigrationHub.AssociateCreatedArtifact,
+    AssociateCreatedArtifact (AssociateCreatedArtifact'),
+    newAssociateCreatedArtifact,
+    AssociateCreatedArtifactResponse (AssociateCreatedArtifactResponse'),
+    newAssociateCreatedArtifactResponse,
 
     -- * Types
 
@@ -121,60 +175,36 @@ module Network.AWS.MigrationHub
     ResourceAttributeType (..),
 
     -- ** ApplicationState
-    ApplicationState,
-    applicationState,
-    asApplicationId,
-    asApplicationStatus,
-    asLastUpdatedTime,
+    ApplicationState (ApplicationState'),
+    newApplicationState,
 
     -- ** CreatedArtifact
-    CreatedArtifact,
-    createdArtifact,
-    caDescription,
-    caName,
+    CreatedArtifact (CreatedArtifact'),
+    newCreatedArtifact,
 
     -- ** DiscoveredResource
-    DiscoveredResource,
-    discoveredResource,
-    drDescription,
-    drConfigurationId,
+    DiscoveredResource (DiscoveredResource'),
+    newDiscoveredResource,
 
     -- ** MigrationTask
-    MigrationTask,
-    migrationTask,
-    mtResourceAttributeList,
-    mtUpdateDateTime,
-    mtTask,
-    mtMigrationTaskName,
-    mtProgressUpdateStream,
+    MigrationTask (MigrationTask'),
+    newMigrationTask,
 
     -- ** MigrationTaskSummary
-    MigrationTaskSummary,
-    migrationTaskSummary,
-    mtsStatus,
-    mtsProgressPercent,
-    mtsUpdateDateTime,
-    mtsStatusDetail,
-    mtsMigrationTaskName,
-    mtsProgressUpdateStream,
+    MigrationTaskSummary (MigrationTaskSummary'),
+    newMigrationTaskSummary,
 
     -- ** ProgressUpdateStreamSummary
-    ProgressUpdateStreamSummary,
-    progressUpdateStreamSummary,
-    pussProgressUpdateStreamName,
+    ProgressUpdateStreamSummary (ProgressUpdateStreamSummary'),
+    newProgressUpdateStreamSummary,
 
     -- ** ResourceAttribute
-    ResourceAttribute,
-    resourceAttribute,
-    raType,
-    raValue,
+    ResourceAttribute (ResourceAttribute'),
+    newResourceAttribute,
 
     -- ** Task
-    Task,
-    task,
-    tProgressPercent,
-    tStatusDetail,
-    tStatus,
+    Task (Task'),
+    newTask,
   )
 where
 
@@ -187,6 +217,7 @@ import Network.AWS.MigrationHub.DescribeMigrationTask
 import Network.AWS.MigrationHub.DisassociateCreatedArtifact
 import Network.AWS.MigrationHub.DisassociateDiscoveredResource
 import Network.AWS.MigrationHub.ImportMigrationTask
+import Network.AWS.MigrationHub.Lens
 import Network.AWS.MigrationHub.ListApplicationStates
 import Network.AWS.MigrationHub.ListCreatedArtifacts
 import Network.AWS.MigrationHub.ListDiscoveredResources

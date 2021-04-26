@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MigrationHub.Types.MigrationTask where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types.ResourceAttribute
 import Network.AWS.MigrationHub.Types.Task
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a migration task in a migration tool.
 --
---
---
--- /See:/ 'migrationTask' smart constructor.
+-- /See:/ 'newMigrationTask' smart constructor.
 data MigrationTask = MigrationTask'
-  { _mtResourceAttributeList ::
-      !(Maybe [ResourceAttribute]),
-    _mtUpdateDateTime :: !(Maybe POSIX),
-    _mtTask :: !(Maybe Task),
-    _mtMigrationTaskName :: !(Maybe Text),
-    _mtProgressUpdateStream :: !(Maybe Text)
+  { -- | Information about the resource that is being migrated. This data will be
+    -- used to map the task to a resource in the Application Discovery Service
+    -- repository.
+    resourceAttributeList :: Prelude.Maybe [ResourceAttribute],
+    -- | The timestamp when the task was gathered.
+    updateDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Task object encapsulating task information.
+    task :: Prelude.Maybe Task,
+    -- | Unique identifier that references the migration task. /Do not store
+    -- personal data in this field./
+    migrationTaskName :: Prelude.Maybe Prelude.Text,
+    -- | A name that identifies the vendor of the migration tool being used.
+    progressUpdateStream :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MigrationTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MigrationTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtResourceAttributeList' - Information about the resource that is being migrated. This data will be used to map the task to a resource in the Application Discovery Service repository.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtUpdateDateTime' - The timestamp when the task was gathered.
+-- 'resourceAttributeList', 'migrationTask_resourceAttributeList' - Information about the resource that is being migrated. This data will be
+-- used to map the task to a resource in the Application Discovery Service
+-- repository.
 --
--- * 'mtTask' - Task object encapsulating task information.
+-- 'updateDateTime', 'migrationTask_updateDateTime' - The timestamp when the task was gathered.
 --
--- * 'mtMigrationTaskName' - Unique identifier that references the migration task. /Do not store personal data in this field./
+-- 'task', 'migrationTask_task' - Task object encapsulating task information.
 --
--- * 'mtProgressUpdateStream' - A name that identifies the vendor of the migration tool being used.
-migrationTask ::
+-- 'migrationTaskName', 'migrationTask_migrationTaskName' - Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+--
+-- 'progressUpdateStream', 'migrationTask_progressUpdateStream' - A name that identifies the vendor of the migration tool being used.
+newMigrationTask ::
   MigrationTask
-migrationTask =
+newMigrationTask =
   MigrationTask'
-    { _mtResourceAttributeList = Nothing,
-      _mtUpdateDateTime = Nothing,
-      _mtTask = Nothing,
-      _mtMigrationTaskName = Nothing,
-      _mtProgressUpdateStream = Nothing
+    { resourceAttributeList =
+        Prelude.Nothing,
+      updateDateTime = Prelude.Nothing,
+      task = Prelude.Nothing,
+      migrationTaskName = Prelude.Nothing,
+      progressUpdateStream = Prelude.Nothing
     }
 
--- | Information about the resource that is being migrated. This data will be used to map the task to a resource in the Application Discovery Service repository.
-mtResourceAttributeList :: Lens' MigrationTask [ResourceAttribute]
-mtResourceAttributeList = lens _mtResourceAttributeList (\s a -> s {_mtResourceAttributeList = a}) . _Default . _Coerce
+-- | Information about the resource that is being migrated. This data will be
+-- used to map the task to a resource in the Application Discovery Service
+-- repository.
+migrationTask_resourceAttributeList :: Lens.Lens' MigrationTask (Prelude.Maybe [ResourceAttribute])
+migrationTask_resourceAttributeList = Lens.lens (\MigrationTask' {resourceAttributeList} -> resourceAttributeList) (\s@MigrationTask' {} a -> s {resourceAttributeList = a} :: MigrationTask) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The timestamp when the task was gathered.
-mtUpdateDateTime :: Lens' MigrationTask (Maybe UTCTime)
-mtUpdateDateTime = lens _mtUpdateDateTime (\s a -> s {_mtUpdateDateTime = a}) . mapping _Time
+migrationTask_updateDateTime :: Lens.Lens' MigrationTask (Prelude.Maybe Prelude.UTCTime)
+migrationTask_updateDateTime = Lens.lens (\MigrationTask' {updateDateTime} -> updateDateTime) (\s@MigrationTask' {} a -> s {updateDateTime = a} :: MigrationTask) Prelude.. Lens.mapping Prelude._Time
 
 -- | Task object encapsulating task information.
-mtTask :: Lens' MigrationTask (Maybe Task)
-mtTask = lens _mtTask (\s a -> s {_mtTask = a})
+migrationTask_task :: Lens.Lens' MigrationTask (Prelude.Maybe Task)
+migrationTask_task = Lens.lens (\MigrationTask' {task} -> task) (\s@MigrationTask' {} a -> s {task = a} :: MigrationTask)
 
--- | Unique identifier that references the migration task. /Do not store personal data in this field./
-mtMigrationTaskName :: Lens' MigrationTask (Maybe Text)
-mtMigrationTaskName = lens _mtMigrationTaskName (\s a -> s {_mtMigrationTaskName = a})
+-- | Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+migrationTask_migrationTaskName :: Lens.Lens' MigrationTask (Prelude.Maybe Prelude.Text)
+migrationTask_migrationTaskName = Lens.lens (\MigrationTask' {migrationTaskName} -> migrationTaskName) (\s@MigrationTask' {} a -> s {migrationTaskName = a} :: MigrationTask)
 
 -- | A name that identifies the vendor of the migration tool being used.
-mtProgressUpdateStream :: Lens' MigrationTask (Maybe Text)
-mtProgressUpdateStream = lens _mtProgressUpdateStream (\s a -> s {_mtProgressUpdateStream = a})
+migrationTask_progressUpdateStream :: Lens.Lens' MigrationTask (Prelude.Maybe Prelude.Text)
+migrationTask_progressUpdateStream = Lens.lens (\MigrationTask' {progressUpdateStream} -> progressUpdateStream) (\s@MigrationTask' {} a -> s {progressUpdateStream = a} :: MigrationTask)
 
-instance FromJSON MigrationTask where
+instance Prelude.FromJSON MigrationTask where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MigrationTask"
       ( \x ->
           MigrationTask'
-            <$> (x .:? "ResourceAttributeList" .!= mempty)
-            <*> (x .:? "UpdateDateTime")
-            <*> (x .:? "Task")
-            <*> (x .:? "MigrationTaskName")
-            <*> (x .:? "ProgressUpdateStream")
+            Prelude.<$> ( x Prelude..:? "ResourceAttributeList"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "UpdateDateTime")
+            Prelude.<*> (x Prelude..:? "Task")
+            Prelude.<*> (x Prelude..:? "MigrationTaskName")
+            Prelude.<*> (x Prelude..:? "ProgressUpdateStream")
       )
 
-instance Hashable MigrationTask
+instance Prelude.Hashable MigrationTask
 
-instance NFData MigrationTask
+instance Prelude.NFData MigrationTask

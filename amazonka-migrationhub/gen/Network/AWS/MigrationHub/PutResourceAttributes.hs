@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,186 +21,262 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides identifying details of the resource being migrated so that it can be associated in the Application Discovery Service repository. This association occurs asynchronously after @PutResourceAttributes@ returns.
+-- Provides identifying details of the resource being migrated so that it
+-- can be associated in the Application Discovery Service repository. This
+-- association occurs asynchronously after @PutResourceAttributes@ returns.
 --
+-- -   Keep in mind that subsequent calls to PutResourceAttributes will
+--     override previously stored attributes. For example, if it is first
+--     called with a MAC address, but later, it is desired to /add/ an IP
+--     address, it will then be required to call it with /both/ the IP and
+--     MAC addresses to prevent overriding the MAC address.
 --
--- /Important:/     * Keep in mind that subsequent calls to PutResourceAttributes will override previously stored attributes. For example, if it is first called with a MAC address, but later, it is desired to /add/ an IP address, it will then be required to call it with /both/ the IP and MAC addresses to prevent overriding the MAC address.
+-- -   Note the instructions regarding the special use case of the
+--     <https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#migrationhub-PutResourceAttributes-request-ResourceAttributeList ResourceAttributeList>
+--     parameter when specifying any \"VM\" related value.
 --
---     * Note the instructions regarding the special use case of the <https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#migrationhub-PutResourceAttributes-request-ResourceAttributeList @ResourceAttributeList@ > parameter when specifying any "VM" related value.
+-- Because this is an asynchronous call, it will always return 200, whether
+-- an association occurs or not. To confirm if an association was found
+-- based on the provided details, call @ListDiscoveredResources@.
 module Network.AWS.MigrationHub.PutResourceAttributes
   ( -- * Creating a Request
-    putResourceAttributes,
-    PutResourceAttributes,
+    PutResourceAttributes (..),
+    newPutResourceAttributes,
 
     -- * Request Lenses
-    praDryRun,
-    praProgressUpdateStream,
-    praMigrationTaskName,
-    praResourceAttributeList,
+    putResourceAttributes_dryRun,
+    putResourceAttributes_progressUpdateStream,
+    putResourceAttributes_migrationTaskName,
+    putResourceAttributes_resourceAttributeList,
 
     -- * Destructuring the Response
-    putResourceAttributesResponse,
-    PutResourceAttributesResponse,
+    PutResourceAttributesResponse (..),
+    newPutResourceAttributesResponse,
 
     -- * Response Lenses
-    prarrsResponseStatus,
+    putResourceAttributesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putResourceAttributes' smart constructor.
+-- | /See:/ 'newPutResourceAttributes' smart constructor.
 data PutResourceAttributes = PutResourceAttributes'
-  { _praDryRun ::
-      !(Maybe Bool),
-    _praProgressUpdateStream ::
-      !Text,
-    _praMigrationTaskName ::
-      !Text,
-    _praResourceAttributeList ::
-      !(List1 ResourceAttribute)
+  { -- | Optional boolean flag to indicate whether any effect should take place.
+    -- Used to test if the caller has permission to make the call.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the ProgressUpdateStream.
+    progressUpdateStream :: Prelude.Text,
+    -- | Unique identifier that references the migration task. /Do not store
+    -- personal data in this field./
+    migrationTaskName :: Prelude.Text,
+    -- | Information about the resource that is being migrated. This data will be
+    -- used to map the task to a resource in the Application Discovery Service
+    -- repository.
+    --
+    -- Takes the object array of @ResourceAttribute@ where the @Type@ field is
+    -- reserved for the following values:
+    -- @IPV4_ADDRESS | IPV6_ADDRESS | MAC_ADDRESS | FQDN | VM_MANAGER_ID | VM_MANAGED_OBJECT_REFERENCE | VM_NAME | VM_PATH | BIOS_ID | MOTHERBOARD_SERIAL_NUMBER@
+    -- where the identifying value can be a string up to 256 characters.
+    --
+    -- -   If any \"VM\" related value is set for a @ResourceAttribute@ object,
+    --     it is required that @VM_MANAGER_ID@, as a minimum, is always set. If
+    --     @VM_MANAGER_ID@ is not set, then all \"VM\" fields will be discarded
+    --     and \"VM\" fields will not be used for matching the migration task
+    --     to a server in Application Discovery Service repository. See the
+    --     <https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples Example>
+    --     section below for a use case of specifying \"VM\" related values.
+    --
+    -- -   If a server you are trying to match has multiple IP or MAC
+    --     addresses, you should provide as many as you know in separate
+    --     type\/value pairs passed to the @ResourceAttributeList@ parameter to
+    --     maximize the chances of matching.
+    resourceAttributeList :: Prelude.List1 ResourceAttribute
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutResourceAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutResourceAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'praDryRun' - Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'praProgressUpdateStream' - The name of the ProgressUpdateStream.
+-- 'dryRun', 'putResourceAttributes_dryRun' - Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
 --
--- * 'praMigrationTaskName' - Unique identifier that references the migration task. /Do not store personal data in this field./
+-- 'progressUpdateStream', 'putResourceAttributes_progressUpdateStream' - The name of the ProgressUpdateStream.
 --
--- * 'praResourceAttributeList' - Information about the resource that is being migrated. This data will be used to map the task to a resource in the Application Discovery Service repository. /Important:/     * If any "VM" related value is set for a @ResourceAttribute@ object, it is required that @VM_MANAGER_ID@ , as a minimum, is always set. If @VM_MANAGER_ID@ is not set, then all "VM" fields will be discarded and "VM" fields will not be used for matching the migration task to a server in Application Discovery Service repository. See the <https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples Example> section below for a use case of specifying "VM" related values.     * If a server you are trying to match has multiple IP or MAC addresses, you should provide as many as you know in separate type/value pairs passed to the @ResourceAttributeList@ parameter to maximize the chances of matching.
-putResourceAttributes ::
-  -- | 'praProgressUpdateStream'
-  Text ->
-  -- | 'praMigrationTaskName'
-  Text ->
-  -- | 'praResourceAttributeList'
-  NonEmpty ResourceAttribute ->
+-- 'migrationTaskName', 'putResourceAttributes_migrationTaskName' - Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+--
+-- 'resourceAttributeList', 'putResourceAttributes_resourceAttributeList' - Information about the resource that is being migrated. This data will be
+-- used to map the task to a resource in the Application Discovery Service
+-- repository.
+--
+-- Takes the object array of @ResourceAttribute@ where the @Type@ field is
+-- reserved for the following values:
+-- @IPV4_ADDRESS | IPV6_ADDRESS | MAC_ADDRESS | FQDN | VM_MANAGER_ID | VM_MANAGED_OBJECT_REFERENCE | VM_NAME | VM_PATH | BIOS_ID | MOTHERBOARD_SERIAL_NUMBER@
+-- where the identifying value can be a string up to 256 characters.
+--
+-- -   If any \"VM\" related value is set for a @ResourceAttribute@ object,
+--     it is required that @VM_MANAGER_ID@, as a minimum, is always set. If
+--     @VM_MANAGER_ID@ is not set, then all \"VM\" fields will be discarded
+--     and \"VM\" fields will not be used for matching the migration task
+--     to a server in Application Discovery Service repository. See the
+--     <https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples Example>
+--     section below for a use case of specifying \"VM\" related values.
+--
+-- -   If a server you are trying to match has multiple IP or MAC
+--     addresses, you should provide as many as you know in separate
+--     type\/value pairs passed to the @ResourceAttributeList@ parameter to
+--     maximize the chances of matching.
+newPutResourceAttributes ::
+  -- | 'progressUpdateStream'
+  Prelude.Text ->
+  -- | 'migrationTaskName'
+  Prelude.Text ->
+  -- | 'resourceAttributeList'
+  Prelude.NonEmpty ResourceAttribute ->
   PutResourceAttributes
-putResourceAttributes
+newPutResourceAttributes
   pProgressUpdateStream_
   pMigrationTaskName_
   pResourceAttributeList_ =
     PutResourceAttributes'
-      { _praDryRun = Nothing,
-        _praProgressUpdateStream = pProgressUpdateStream_,
-        _praMigrationTaskName = pMigrationTaskName_,
-        _praResourceAttributeList =
-          _List1 # pResourceAttributeList_
+      { dryRun = Prelude.Nothing,
+        progressUpdateStream = pProgressUpdateStream_,
+        migrationTaskName = pMigrationTaskName_,
+        resourceAttributeList =
+          Prelude._List1 Lens.# pResourceAttributeList_
       }
 
--- | Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
-praDryRun :: Lens' PutResourceAttributes (Maybe Bool)
-praDryRun = lens _praDryRun (\s a -> s {_praDryRun = a})
+-- | Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
+putResourceAttributes_dryRun :: Lens.Lens' PutResourceAttributes (Prelude.Maybe Prelude.Bool)
+putResourceAttributes_dryRun = Lens.lens (\PutResourceAttributes' {dryRun} -> dryRun) (\s@PutResourceAttributes' {} a -> s {dryRun = a} :: PutResourceAttributes)
 
 -- | The name of the ProgressUpdateStream.
-praProgressUpdateStream :: Lens' PutResourceAttributes Text
-praProgressUpdateStream = lens _praProgressUpdateStream (\s a -> s {_praProgressUpdateStream = a})
+putResourceAttributes_progressUpdateStream :: Lens.Lens' PutResourceAttributes Prelude.Text
+putResourceAttributes_progressUpdateStream = Lens.lens (\PutResourceAttributes' {progressUpdateStream} -> progressUpdateStream) (\s@PutResourceAttributes' {} a -> s {progressUpdateStream = a} :: PutResourceAttributes)
 
--- | Unique identifier that references the migration task. /Do not store personal data in this field./
-praMigrationTaskName :: Lens' PutResourceAttributes Text
-praMigrationTaskName = lens _praMigrationTaskName (\s a -> s {_praMigrationTaskName = a})
+-- | Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+putResourceAttributes_migrationTaskName :: Lens.Lens' PutResourceAttributes Prelude.Text
+putResourceAttributes_migrationTaskName = Lens.lens (\PutResourceAttributes' {migrationTaskName} -> migrationTaskName) (\s@PutResourceAttributes' {} a -> s {migrationTaskName = a} :: PutResourceAttributes)
 
--- | Information about the resource that is being migrated. This data will be used to map the task to a resource in the Application Discovery Service repository. /Important:/     * If any "VM" related value is set for a @ResourceAttribute@ object, it is required that @VM_MANAGER_ID@ , as a minimum, is always set. If @VM_MANAGER_ID@ is not set, then all "VM" fields will be discarded and "VM" fields will not be used for matching the migration task to a server in Application Discovery Service repository. See the <https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples Example> section below for a use case of specifying "VM" related values.     * If a server you are trying to match has multiple IP or MAC addresses, you should provide as many as you know in separate type/value pairs passed to the @ResourceAttributeList@ parameter to maximize the chances of matching.
-praResourceAttributeList :: Lens' PutResourceAttributes (NonEmpty ResourceAttribute)
-praResourceAttributeList = lens _praResourceAttributeList (\s a -> s {_praResourceAttributeList = a}) . _List1
+-- | Information about the resource that is being migrated. This data will be
+-- used to map the task to a resource in the Application Discovery Service
+-- repository.
+--
+-- Takes the object array of @ResourceAttribute@ where the @Type@ field is
+-- reserved for the following values:
+-- @IPV4_ADDRESS | IPV6_ADDRESS | MAC_ADDRESS | FQDN | VM_MANAGER_ID | VM_MANAGED_OBJECT_REFERENCE | VM_NAME | VM_PATH | BIOS_ID | MOTHERBOARD_SERIAL_NUMBER@
+-- where the identifying value can be a string up to 256 characters.
+--
+-- -   If any \"VM\" related value is set for a @ResourceAttribute@ object,
+--     it is required that @VM_MANAGER_ID@, as a minimum, is always set. If
+--     @VM_MANAGER_ID@ is not set, then all \"VM\" fields will be discarded
+--     and \"VM\" fields will not be used for matching the migration task
+--     to a server in Application Discovery Service repository. See the
+--     <https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples Example>
+--     section below for a use case of specifying \"VM\" related values.
+--
+-- -   If a server you are trying to match has multiple IP or MAC
+--     addresses, you should provide as many as you know in separate
+--     type\/value pairs passed to the @ResourceAttributeList@ parameter to
+--     maximize the chances of matching.
+putResourceAttributes_resourceAttributeList :: Lens.Lens' PutResourceAttributes (Prelude.NonEmpty ResourceAttribute)
+putResourceAttributes_resourceAttributeList = Lens.lens (\PutResourceAttributes' {resourceAttributeList} -> resourceAttributeList) (\s@PutResourceAttributes' {} a -> s {resourceAttributeList = a} :: PutResourceAttributes) Prelude.. Prelude._List1
 
-instance AWSRequest PutResourceAttributes where
+instance Prelude.AWSRequest PutResourceAttributes where
   type
     Rs PutResourceAttributes =
       PutResourceAttributesResponse
-  request = postJSON migrationHub
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutResourceAttributesResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutResourceAttributes
+instance Prelude.Hashable PutResourceAttributes
 
-instance NFData PutResourceAttributes
+instance Prelude.NFData PutResourceAttributes
 
-instance ToHeaders PutResourceAttributes where
+instance Prelude.ToHeaders PutResourceAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSMigrationHub.PutResourceAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSMigrationHub.PutResourceAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutResourceAttributes where
+instance Prelude.ToJSON PutResourceAttributes where
   toJSON PutResourceAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("DryRun" .=) <$> _praDryRun,
-            Just
-              ("ProgressUpdateStream" .= _praProgressUpdateStream),
-            Just ("MigrationTaskName" .= _praMigrationTaskName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DryRun" Prelude..=) Prelude.<$> dryRun,
+            Prelude.Just
+              ( "ProgressUpdateStream"
+                  Prelude..= progressUpdateStream
+              ),
+            Prelude.Just
+              ("MigrationTaskName" Prelude..= migrationTaskName),
+            Prelude.Just
               ( "ResourceAttributeList"
-                  .= _praResourceAttributeList
+                  Prelude..= resourceAttributeList
               )
           ]
       )
 
-instance ToPath PutResourceAttributes where
-  toPath = const "/"
+instance Prelude.ToPath PutResourceAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutResourceAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery PutResourceAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putResourceAttributesResponse' smart constructor.
-newtype PutResourceAttributesResponse = PutResourceAttributesResponse'
-  { _prarrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutResourceAttributesResponse' smart constructor.
+data PutResourceAttributesResponse = PutResourceAttributesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutResourceAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutResourceAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prarrsResponseStatus' - -- | The response status code.
-putResourceAttributesResponse ::
-  -- | 'prarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putResourceAttributesResponse_httpStatus' - The response's http status code.
+newPutResourceAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutResourceAttributesResponse
-putResourceAttributesResponse pResponseStatus_ =
+newPutResourceAttributesResponse pHttpStatus_ =
   PutResourceAttributesResponse'
-    { _prarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-prarrsResponseStatus :: Lens' PutResourceAttributesResponse Int
-prarrsResponseStatus = lens _prarrsResponseStatus (\s a -> s {_prarrsResponseStatus = a})
+-- | The response's http status code.
+putResourceAttributesResponse_httpStatus :: Lens.Lens' PutResourceAttributesResponse Prelude.Int
+putResourceAttributesResponse_httpStatus = Lens.lens (\PutResourceAttributesResponse' {httpStatus} -> httpStatus) (\s@PutResourceAttributesResponse' {} a -> s {httpStatus = a} :: PutResourceAttributesResponse)
 
-instance NFData PutResourceAttributesResponse
+instance Prelude.NFData PutResourceAttributesResponse

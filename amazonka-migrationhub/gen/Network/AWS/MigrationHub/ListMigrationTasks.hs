@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,229 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all, or filtered by resource name, migration tasks associated with the user account making this call. This API has the following traits:
+-- Lists all, or filtered by resource name, migration tasks associated with
+-- the user account making this call. This API has the following traits:
 --
+-- -   Can show a summary list of the most recent migration tasks.
 --
---     * Can show a summary list of the most recent migration tasks.
+-- -   Can show a summary list of migration tasks associated with a given
+--     discovered resource.
 --
---     * Can show a summary list of migration tasks associated with a given discovered resource.
---
---     * Lists migration tasks in a paginated interface.
---
---
---
+-- -   Lists migration tasks in a paginated interface.
 --
 -- This operation returns paginated results.
 module Network.AWS.MigrationHub.ListMigrationTasks
   ( -- * Creating a Request
-    listMigrationTasks,
-    ListMigrationTasks,
+    ListMigrationTasks (..),
+    newListMigrationTasks,
 
     -- * Request Lenses
-    lmtNextToken,
-    lmtMaxResults,
-    lmtResourceName,
+    listMigrationTasks_nextToken,
+    listMigrationTasks_maxResults,
+    listMigrationTasks_resourceName,
 
     -- * Destructuring the Response
-    listMigrationTasksResponse,
-    ListMigrationTasksResponse,
+    ListMigrationTasksResponse (..),
+    newListMigrationTasksResponse,
 
     -- * Response Lenses
-    lmtrrsMigrationTaskSummaryList,
-    lmtrrsNextToken,
-    lmtrrsResponseStatus,
+    listMigrationTasksResponse_migrationTaskSummaryList,
+    listMigrationTasksResponse_nextToken,
+    listMigrationTasksResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MigrationHub.Types.MigrationTaskSummary
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listMigrationTasks' smart constructor.
+-- | /See:/ 'newListMigrationTasks' smart constructor.
 data ListMigrationTasks = ListMigrationTasks'
-  { _lmtNextToken ::
-      !(Maybe Text),
-    _lmtMaxResults :: !(Maybe Nat),
-    _lmtResourceName :: !(Maybe Text)
+  { -- | If a @NextToken@ was returned by a previous call, there are more results
+    -- available. To retrieve the next page of results, make the call again
+    -- using the returned token in @NextToken@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Value to specify how many results are returned per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filter migration tasks by discovered resource name.
+    resourceName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMigrationTasks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMigrationTasks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmtNextToken' - If a @NextToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @NextToken@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmtMaxResults' - Value to specify how many results are returned per page.
+-- 'nextToken', 'listMigrationTasks_nextToken' - If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
 --
--- * 'lmtResourceName' - Filter migration tasks by discovered resource name.
-listMigrationTasks ::
+-- 'maxResults', 'listMigrationTasks_maxResults' - Value to specify how many results are returned per page.
+--
+-- 'resourceName', 'listMigrationTasks_resourceName' - Filter migration tasks by discovered resource name.
+newListMigrationTasks ::
   ListMigrationTasks
-listMigrationTasks =
+newListMigrationTasks =
   ListMigrationTasks'
-    { _lmtNextToken = Nothing,
-      _lmtMaxResults = Nothing,
-      _lmtResourceName = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      resourceName = Prelude.Nothing
     }
 
--- | If a @NextToken@ was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in @NextToken@ .
-lmtNextToken :: Lens' ListMigrationTasks (Maybe Text)
-lmtNextToken = lens _lmtNextToken (\s a -> s {_lmtNextToken = a})
+-- | If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
+listMigrationTasks_nextToken :: Lens.Lens' ListMigrationTasks (Prelude.Maybe Prelude.Text)
+listMigrationTasks_nextToken = Lens.lens (\ListMigrationTasks' {nextToken} -> nextToken) (\s@ListMigrationTasks' {} a -> s {nextToken = a} :: ListMigrationTasks)
 
 -- | Value to specify how many results are returned per page.
-lmtMaxResults :: Lens' ListMigrationTasks (Maybe Natural)
-lmtMaxResults = lens _lmtMaxResults (\s a -> s {_lmtMaxResults = a}) . mapping _Nat
+listMigrationTasks_maxResults :: Lens.Lens' ListMigrationTasks (Prelude.Maybe Prelude.Natural)
+listMigrationTasks_maxResults = Lens.lens (\ListMigrationTasks' {maxResults} -> maxResults) (\s@ListMigrationTasks' {} a -> s {maxResults = a} :: ListMigrationTasks) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Filter migration tasks by discovered resource name.
-lmtResourceName :: Lens' ListMigrationTasks (Maybe Text)
-lmtResourceName = lens _lmtResourceName (\s a -> s {_lmtResourceName = a})
+listMigrationTasks_resourceName :: Lens.Lens' ListMigrationTasks (Prelude.Maybe Prelude.Text)
+listMigrationTasks_resourceName = Lens.lens (\ListMigrationTasks' {resourceName} -> resourceName) (\s@ListMigrationTasks' {} a -> s {resourceName = a} :: ListMigrationTasks)
 
-instance AWSPager ListMigrationTasks where
+instance Pager.AWSPager ListMigrationTasks where
   page rq rs
-    | stop (rs ^. lmtrrsNextToken) = Nothing
-    | stop (rs ^. lmtrrsMigrationTaskSummaryList) =
-      Nothing
-    | otherwise =
-      Just $ rq & lmtNextToken .~ rs ^. lmtrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listMigrationTasksResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listMigrationTasksResponse_migrationTaskSummaryList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listMigrationTasks_nextToken
+          Lens..~ rs
+          Lens.^? listMigrationTasksResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListMigrationTasks where
+instance Prelude.AWSRequest ListMigrationTasks where
   type
     Rs ListMigrationTasks =
       ListMigrationTasksResponse
-  request = postJSON migrationHub
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListMigrationTasksResponse'
-            <$> (x .?> "MigrationTaskSummaryList" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "MigrationTaskSummaryList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListMigrationTasks
+instance Prelude.Hashable ListMigrationTasks
 
-instance NFData ListMigrationTasks
+instance Prelude.NFData ListMigrationTasks
 
-instance ToHeaders ListMigrationTasks where
+instance Prelude.ToHeaders ListMigrationTasks where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSMigrationHub.ListMigrationTasks" :: ByteString),
+              Prelude.=# ( "AWSMigrationHub.ListMigrationTasks" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListMigrationTasks where
+instance Prelude.ToJSON ListMigrationTasks where
   toJSON ListMigrationTasks' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lmtNextToken,
-            ("MaxResults" .=) <$> _lmtMaxResults,
-            ("ResourceName" .=) <$> _lmtResourceName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("ResourceName" Prelude..=)
+              Prelude.<$> resourceName
           ]
       )
 
-instance ToPath ListMigrationTasks where
-  toPath = const "/"
+instance Prelude.ToPath ListMigrationTasks where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListMigrationTasks where
-  toQuery = const mempty
+instance Prelude.ToQuery ListMigrationTasks where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listMigrationTasksResponse' smart constructor.
+-- | /See:/ 'newListMigrationTasksResponse' smart constructor.
 data ListMigrationTasksResponse = ListMigrationTasksResponse'
-  { _lmtrrsMigrationTaskSummaryList ::
-      !( Maybe
-           [MigrationTaskSummary]
-       ),
-    _lmtrrsNextToken ::
-      !(Maybe Text),
-    _lmtrrsResponseStatus ::
-      !Int
+  { -- | Lists the migration task\'s summary which includes: @MigrationTaskName@,
+    -- @ProgressPercent@, @ProgressUpdateStream@, @Status@, and the
+    -- @UpdateDateTime@ for each task.
+    migrationTaskSummaryList :: Prelude.Maybe [MigrationTaskSummary],
+    -- | If there are more migration tasks than the max result, return the next
+    -- token to be passed to the next call as a bookmark of where to start
+    -- from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMigrationTasksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMigrationTasksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmtrrsMigrationTaskSummaryList' - Lists the migration task's summary which includes: @MigrationTaskName@ , @ProgressPercent@ , @ProgressUpdateStream@ , @Status@ , and the @UpdateDateTime@ for each task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmtrrsNextToken' - If there are more migration tasks than the max result, return the next token to be passed to the next call as a bookmark of where to start from.
+-- 'migrationTaskSummaryList', 'listMigrationTasksResponse_migrationTaskSummaryList' - Lists the migration task\'s summary which includes: @MigrationTaskName@,
+-- @ProgressPercent@, @ProgressUpdateStream@, @Status@, and the
+-- @UpdateDateTime@ for each task.
 --
--- * 'lmtrrsResponseStatus' - -- | The response status code.
-listMigrationTasksResponse ::
-  -- | 'lmtrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listMigrationTasksResponse_nextToken' - If there are more migration tasks than the max result, return the next
+-- token to be passed to the next call as a bookmark of where to start
+-- from.
+--
+-- 'httpStatus', 'listMigrationTasksResponse_httpStatus' - The response's http status code.
+newListMigrationTasksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListMigrationTasksResponse
-listMigrationTasksResponse pResponseStatus_ =
+newListMigrationTasksResponse pHttpStatus_ =
   ListMigrationTasksResponse'
-    { _lmtrrsMigrationTaskSummaryList =
-        Nothing,
-      _lmtrrsNextToken = Nothing,
-      _lmtrrsResponseStatus = pResponseStatus_
+    { migrationTaskSummaryList =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Lists the migration task's summary which includes: @MigrationTaskName@ , @ProgressPercent@ , @ProgressUpdateStream@ , @Status@ , and the @UpdateDateTime@ for each task.
-lmtrrsMigrationTaskSummaryList :: Lens' ListMigrationTasksResponse [MigrationTaskSummary]
-lmtrrsMigrationTaskSummaryList = lens _lmtrrsMigrationTaskSummaryList (\s a -> s {_lmtrrsMigrationTaskSummaryList = a}) . _Default . _Coerce
+-- | Lists the migration task\'s summary which includes: @MigrationTaskName@,
+-- @ProgressPercent@, @ProgressUpdateStream@, @Status@, and the
+-- @UpdateDateTime@ for each task.
+listMigrationTasksResponse_migrationTaskSummaryList :: Lens.Lens' ListMigrationTasksResponse (Prelude.Maybe [MigrationTaskSummary])
+listMigrationTasksResponse_migrationTaskSummaryList = Lens.lens (\ListMigrationTasksResponse' {migrationTaskSummaryList} -> migrationTaskSummaryList) (\s@ListMigrationTasksResponse' {} a -> s {migrationTaskSummaryList = a} :: ListMigrationTasksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If there are more migration tasks than the max result, return the next token to be passed to the next call as a bookmark of where to start from.
-lmtrrsNextToken :: Lens' ListMigrationTasksResponse (Maybe Text)
-lmtrrsNextToken = lens _lmtrrsNextToken (\s a -> s {_lmtrrsNextToken = a})
+-- | If there are more migration tasks than the max result, return the next
+-- token to be passed to the next call as a bookmark of where to start
+-- from.
+listMigrationTasksResponse_nextToken :: Lens.Lens' ListMigrationTasksResponse (Prelude.Maybe Prelude.Text)
+listMigrationTasksResponse_nextToken = Lens.lens (\ListMigrationTasksResponse' {nextToken} -> nextToken) (\s@ListMigrationTasksResponse' {} a -> s {nextToken = a} :: ListMigrationTasksResponse)
 
--- | -- | The response status code.
-lmtrrsResponseStatus :: Lens' ListMigrationTasksResponse Int
-lmtrrsResponseStatus = lens _lmtrrsResponseStatus (\s a -> s {_lmtrrsResponseStatus = a})
+-- | The response's http status code.
+listMigrationTasksResponse_httpStatus :: Lens.Lens' ListMigrationTasksResponse Prelude.Int
+listMigrationTasksResponse_httpStatus = Lens.lens (\ListMigrationTasksResponse' {httpStatus} -> httpStatus) (\s@ListMigrationTasksResponse' {} a -> s {httpStatus = a} :: ListMigrationTasksResponse)
 
-instance NFData ListMigrationTasksResponse
+instance Prelude.NFData ListMigrationTasksResponse

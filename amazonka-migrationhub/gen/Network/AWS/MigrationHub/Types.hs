@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MigrationHub.Types
   ( -- * Service Configuration
-    migrationHub,
+    defaultService,
 
     -- * Errors
     _UnauthorizedOperation,
@@ -36,63 +39,39 @@ module Network.AWS.MigrationHub.Types
 
     -- * ApplicationState
     ApplicationState (..),
-    applicationState,
-    asApplicationId,
-    asApplicationStatus,
-    asLastUpdatedTime,
+    newApplicationState,
 
     -- * CreatedArtifact
     CreatedArtifact (..),
-    createdArtifact,
-    caDescription,
-    caName,
+    newCreatedArtifact,
 
     -- * DiscoveredResource
     DiscoveredResource (..),
-    discoveredResource,
-    drDescription,
-    drConfigurationId,
+    newDiscoveredResource,
 
     -- * MigrationTask
     MigrationTask (..),
-    migrationTask,
-    mtResourceAttributeList,
-    mtUpdateDateTime,
-    mtTask,
-    mtMigrationTaskName,
-    mtProgressUpdateStream,
+    newMigrationTask,
 
     -- * MigrationTaskSummary
     MigrationTaskSummary (..),
-    migrationTaskSummary,
-    mtsStatus,
-    mtsProgressPercent,
-    mtsUpdateDateTime,
-    mtsStatusDetail,
-    mtsMigrationTaskName,
-    mtsProgressUpdateStream,
+    newMigrationTaskSummary,
 
     -- * ProgressUpdateStreamSummary
     ProgressUpdateStreamSummary (..),
-    progressUpdateStreamSummary,
-    pussProgressUpdateStreamName,
+    newProgressUpdateStreamSummary,
 
     -- * ResourceAttribute
     ResourceAttribute (..),
-    resourceAttribute,
-    raType,
-    raValue,
+    newResourceAttribute,
 
     -- * Task
     Task (..),
-    task,
-    tProgressPercent,
-    tStatusDetail,
-    tStatus,
+    newTask,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types.ApplicationState
 import Network.AWS.MigrationHub.Types.ApplicationStatus
 import Network.AWS.MigrationHub.Types.CreatedArtifact
@@ -104,124 +83,157 @@ import Network.AWS.MigrationHub.Types.ProgressUpdateStreamSummary
 import Network.AWS.MigrationHub.Types.ResourceAttribute
 import Network.AWS.MigrationHub.Types.ResourceAttributeType
 import Network.AWS.MigrationHub.Types.Task
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-05-31@ of the Amazon Migration Hub SDK configuration.
-migrationHub :: Service
-migrationHub =
-  Service
-    { _svcAbbrev = "MigrationHub",
-      _svcSigner = v4,
-      _svcPrefix = "mgh",
-      _svcVersion = "2017-05-31",
-      _svcEndpoint = defaultEndpoint migrationHub,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "MigrationHub",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "MigrationHub",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "mgh",
+      Prelude._svcVersion = "2017-05-31",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "MigrationHub",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | Exception raised to indicate a request was not authorized when the @DryRun@ flag is set to "true".
-_UnauthorizedOperation :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception raised to indicate a request was not authorized when the
+-- @DryRun@ flag is set to \"true\".
+_UnauthorizedOperation :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedOperation =
-  _MatchServiceError
-    migrationHub
+  Prelude._MatchServiceError
+    defaultService
     "UnauthorizedOperation"
 
--- | Exception raised when the provided input violates a policy constraint or is entered in the wrong format or data type.
-_InvalidInputException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception raised when the provided input violates a policy constraint or
+-- is entered in the wrong format or data type.
+_InvalidInputException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidInputException =
-  _MatchServiceError
-    migrationHub
+  Prelude._MatchServiceError
+    defaultService
     "InvalidInputException"
 
--- | Exception raised when there is an internal, configuration, or dependency error encountered.
-_ServiceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception raised when there is an internal, configuration, or dependency
+-- error encountered.
+_ServiceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableException =
-  _MatchServiceError
-    migrationHub
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableException"
 
 -- | The request was denied due to request throttling.
-_ThrottlingException :: AsError a => Getting (First ServiceError) a ServiceError
+_ThrottlingException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ThrottlingException =
-  _MatchServiceError
-    migrationHub
+  Prelude._MatchServiceError
+    defaultService
     "ThrottlingException"
 
--- | Exception raised when an internal, configuration, or dependency error is encountered.
-_InternalServerError :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception raised when an internal, configuration, or dependency error is
+-- encountered.
+_InternalServerError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerError =
-  _MatchServiceError
-    migrationHub
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerError"
 
 -- | The home region is not set. Set the home region to continue.
-_HomeRegionNotSetException :: AsError a => Getting (First ServiceError) a ServiceError
+_HomeRegionNotSetException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _HomeRegionNotSetException =
-  _MatchServiceError
-    migrationHub
+  Prelude._MatchServiceError
+    defaultService
     "HomeRegionNotSetException"
 
--- | Exception raised when there are problems accessing Application Discovery Service (Application Discovery Service); most likely due to a misconfigured policy or the @migrationhub-discovery@ role is missing or not configured correctly.
-_PolicyErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception raised when there are problems accessing Application Discovery
+-- Service (Application Discovery Service); most likely due to a
+-- misconfigured policy or the @migrationhub-discovery@ role is missing or
+-- not configured correctly.
+_PolicyErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PolicyErrorException =
-  _MatchServiceError
-    migrationHub
+  Prelude._MatchServiceError
+    defaultService
     "PolicyErrorException"
 
 -- | You do not have sufficient access to perform this action.
-_AccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+_AccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedException =
-  _MatchServiceError
-    migrationHub
+  Prelude._MatchServiceError
+    defaultService
     "AccessDeniedException"
 
--- | Exception raised when the request references a resource (Application Discovery Service configuration, update stream, migration task, etc.) that does not exist in Application Discovery Service (Application Discovery Service) or in Migration Hub's repository.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception raised when the request references a resource (Application
+-- Discovery Service configuration, update stream, migration task, etc.)
+-- that does not exist in Application Discovery Service (Application
+-- Discovery Service) or in Migration Hub\'s repository.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    migrationHub
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
--- | Exception raised to indicate a successfully authorized action when the @DryRun@ flag is set to "true".
-_DryRunOperation :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception raised to indicate a successfully authorized action when the
+-- @DryRun@ flag is set to \"true\".
+_DryRunOperation :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DryRunOperation =
-  _MatchServiceError migrationHub "DryRunOperation"
+  Prelude._MatchServiceError
+    defaultService
+    "DryRunOperation"

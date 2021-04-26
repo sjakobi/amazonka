@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a progress update stream, including all of its tasks, which was previously created as an AWS resource used for access control. This API has the following traits:
+-- Deletes a progress update stream, including all of its tasks, which was
+-- previously created as an AWS resource used for access control. This API
+-- has the following traits:
 --
+-- -   The only parameter needed for @DeleteProgressUpdateStream@ is the
+--     stream name (same as a @CreateProgressUpdateStream@ call).
 --
---     * The only parameter needed for @DeleteProgressUpdateStream@ is the stream name (same as a @CreateProgressUpdateStream@ call).
+-- -   The call will return, and a background process will asynchronously
+--     delete the stream and all of its resources (tasks, associated
+--     resources, resource attributes, created artifacts).
 --
---     * The call will return, and a background process will asynchronously delete the stream and all of its resources (tasks, associated resources, resource attributes, created artifacts).
+-- -   If the stream takes time to be deleted, it might still show up on a
+--     @ListProgressUpdateStreams@ call.
 --
---     * If the stream takes time to be deleted, it might still show up on a @ListProgressUpdateStreams@ call.
+-- -   @CreateProgressUpdateStream@, @ImportMigrationTask@,
+--     @NotifyMigrationTaskState@, and all Associate[*] APIs related to the
+--     tasks belonging to the stream will throw \"InvalidInputException\"
+--     if the stream of the same name is in the process of being deleted.
 --
---     * @CreateProgressUpdateStream@ , @ImportMigrationTask@ , @NotifyMigrationTaskState@ , and all Associate[*] APIs related to the tasks belonging to the stream will throw "InvalidInputException" if the stream of the same name is in the process of being deleted.
---
---     * Once the stream and all of its resources are deleted, @CreateProgressUpdateStream@ for a stream of the same name will succeed, and that stream will be an entirely new logical resource (without any resources associated with the old stream).
+-- -   Once the stream and all of its resources are deleted,
+--     @CreateProgressUpdateStream@ for a stream of the same name will
+--     succeed, and that stream will be an entirely new logical resource
+--     (without any resources associated with the old stream).
 module Network.AWS.MigrationHub.DeleteProgressUpdateStream
   ( -- * Creating a Request
-    deleteProgressUpdateStream,
-    DeleteProgressUpdateStream,
+    DeleteProgressUpdateStream (..),
+    newDeleteProgressUpdateStream,
 
     -- * Request Lenses
-    dpusDryRun,
-    dpusProgressUpdateStreamName,
+    deleteProgressUpdateStream_dryRun,
+    deleteProgressUpdateStream_progressUpdateStreamName,
 
     -- * Destructuring the Response
-    deleteProgressUpdateStreamResponse,
-    DeleteProgressUpdateStreamResponse,
+    DeleteProgressUpdateStreamResponse (..),
+    newDeleteProgressUpdateStreamResponse,
 
     -- * Response Lenses
-    dpusrrsResponseStatus,
+    deleteProgressUpdateStreamResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MigrationHub.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteProgressUpdateStream' smart constructor.
+-- | /See:/ 'newDeleteProgressUpdateStream' smart constructor.
 data DeleteProgressUpdateStream = DeleteProgressUpdateStream'
-  { _dpusDryRun ::
-      !(Maybe Bool),
-    _dpusProgressUpdateStreamName ::
-      !Text
+  { -- | Optional boolean flag to indicate whether any effect should take place.
+    -- Used to test if the caller has permission to make the call.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the ProgressUpdateStream. /Do not store personal data in
+    -- this field./
+    progressUpdateStreamName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProgressUpdateStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProgressUpdateStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpusDryRun' - Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpusProgressUpdateStreamName' - The name of the ProgressUpdateStream. /Do not store personal data in this field./
-deleteProgressUpdateStream ::
-  -- | 'dpusProgressUpdateStreamName'
-  Text ->
+-- 'dryRun', 'deleteProgressUpdateStream_dryRun' - Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
+--
+-- 'progressUpdateStreamName', 'deleteProgressUpdateStream_progressUpdateStreamName' - The name of the ProgressUpdateStream. /Do not store personal data in
+-- this field./
+newDeleteProgressUpdateStream ::
+  -- | 'progressUpdateStreamName'
+  Prelude.Text ->
   DeleteProgressUpdateStream
-deleteProgressUpdateStream pProgressUpdateStreamName_ =
-  DeleteProgressUpdateStream'
-    { _dpusDryRun = Nothing,
-      _dpusProgressUpdateStreamName =
-        pProgressUpdateStreamName_
-    }
+newDeleteProgressUpdateStream
+  pProgressUpdateStreamName_ =
+    DeleteProgressUpdateStream'
+      { dryRun =
+          Prelude.Nothing,
+        progressUpdateStreamName =
+          pProgressUpdateStreamName_
+      }
 
--- | Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.
-dpusDryRun :: Lens' DeleteProgressUpdateStream (Maybe Bool)
-dpusDryRun = lens _dpusDryRun (\s a -> s {_dpusDryRun = a})
+-- | Optional boolean flag to indicate whether any effect should take place.
+-- Used to test if the caller has permission to make the call.
+deleteProgressUpdateStream_dryRun :: Lens.Lens' DeleteProgressUpdateStream (Prelude.Maybe Prelude.Bool)
+deleteProgressUpdateStream_dryRun = Lens.lens (\DeleteProgressUpdateStream' {dryRun} -> dryRun) (\s@DeleteProgressUpdateStream' {} a -> s {dryRun = a} :: DeleteProgressUpdateStream)
 
--- | The name of the ProgressUpdateStream. /Do not store personal data in this field./
-dpusProgressUpdateStreamName :: Lens' DeleteProgressUpdateStream Text
-dpusProgressUpdateStreamName = lens _dpusProgressUpdateStreamName (\s a -> s {_dpusProgressUpdateStreamName = a})
+-- | The name of the ProgressUpdateStream. /Do not store personal data in
+-- this field./
+deleteProgressUpdateStream_progressUpdateStreamName :: Lens.Lens' DeleteProgressUpdateStream Prelude.Text
+deleteProgressUpdateStream_progressUpdateStreamName = Lens.lens (\DeleteProgressUpdateStream' {progressUpdateStreamName} -> progressUpdateStreamName) (\s@DeleteProgressUpdateStream' {} a -> s {progressUpdateStreamName = a} :: DeleteProgressUpdateStream)
 
-instance AWSRequest DeleteProgressUpdateStream where
+instance
+  Prelude.AWSRequest
+    DeleteProgressUpdateStream
+  where
   type
     Rs DeleteProgressUpdateStream =
       DeleteProgressUpdateStreamResponse
-  request = postJSON migrationHub
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteProgressUpdateStreamResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteProgressUpdateStream
+instance Prelude.Hashable DeleteProgressUpdateStream
 
-instance NFData DeleteProgressUpdateStream
+instance Prelude.NFData DeleteProgressUpdateStream
 
-instance ToHeaders DeleteProgressUpdateStream where
+instance Prelude.ToHeaders DeleteProgressUpdateStream where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSMigrationHub.DeleteProgressUpdateStream" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSMigrationHub.DeleteProgressUpdateStream" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteProgressUpdateStream where
+instance Prelude.ToJSON DeleteProgressUpdateStream where
   toJSON DeleteProgressUpdateStream' {..} =
-    object
-      ( catMaybes
-          [ ("DryRun" .=) <$> _dpusDryRun,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DryRun" Prelude..=) Prelude.<$> dryRun,
+            Prelude.Just
               ( "ProgressUpdateStreamName"
-                  .= _dpusProgressUpdateStreamName
+                  Prelude..= progressUpdateStreamName
               )
           ]
       )
 
-instance ToPath DeleteProgressUpdateStream where
-  toPath = const "/"
+instance Prelude.ToPath DeleteProgressUpdateStream where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteProgressUpdateStream where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteProgressUpdateStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteProgressUpdateStreamResponse' smart constructor.
-newtype DeleteProgressUpdateStreamResponse = DeleteProgressUpdateStreamResponse'
-  { _dpusrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteProgressUpdateStreamResponse' smart constructor.
+data DeleteProgressUpdateStreamResponse = DeleteProgressUpdateStreamResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProgressUpdateStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProgressUpdateStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpusrrsResponseStatus' - -- | The response status code.
-deleteProgressUpdateStreamResponse ::
-  -- | 'dpusrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteProgressUpdateStreamResponse_httpStatus' - The response's http status code.
+newDeleteProgressUpdateStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteProgressUpdateStreamResponse
-deleteProgressUpdateStreamResponse pResponseStatus_ =
+newDeleteProgressUpdateStreamResponse pHttpStatus_ =
   DeleteProgressUpdateStreamResponse'
-    { _dpusrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dpusrrsResponseStatus :: Lens' DeleteProgressUpdateStreamResponse Int
-dpusrrsResponseStatus = lens _dpusrrsResponseStatus (\s a -> s {_dpusrrsResponseStatus = a})
+-- | The response's http status code.
+deleteProgressUpdateStreamResponse_httpStatus :: Lens.Lens' DeleteProgressUpdateStreamResponse Prelude.Int
+deleteProgressUpdateStreamResponse_httpStatus = Lens.lens (\DeleteProgressUpdateStreamResponse' {httpStatus} -> httpStatus) (\s@DeleteProgressUpdateStreamResponse' {} a -> s {httpStatus = a} :: DeleteProgressUpdateStreamResponse)
 
-instance NFData DeleteProgressUpdateStreamResponse
+instance
+  Prelude.NFData
+    DeleteProgressUpdateStreamResponse
