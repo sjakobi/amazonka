@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,210 +21,303 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the attributes for Amazon ECS resources within a specified target type and cluster. When you specify a target type and cluster, @ListAttributes@ returns a list of attribute objects, one for each attribute on each resource. You can filter the list of results to a single attribute name to only return results that have that name. You can also filter the results by attribute name and value, for example, to see which container instances in a cluster are running a Linux AMI (@ecs.os-type=linux@ ).
---
---
+-- Lists the attributes for Amazon ECS resources within a specified target
+-- type and cluster. When you specify a target type and cluster,
+-- @ListAttributes@ returns a list of attribute objects, one for each
+-- attribute on each resource. You can filter the list of results to a
+-- single attribute name to only return results that have that name. You
+-- can also filter the results by attribute name and value, for example, to
+-- see which container instances in a cluster are running a Linux AMI
+-- (@ecs.os-type=linux@).
 --
 -- This operation returns paginated results.
 module Network.AWS.ECS.ListAttributes
   ( -- * Creating a Request
-    listAttributes,
-    ListAttributes,
+    ListAttributes (..),
+    newListAttributes,
 
     -- * Request Lenses
-    laAttributeValue,
-    laNextToken,
-    laMaxResults,
-    laAttributeName,
-    laCluster,
-    laTargetType,
+    listAttributes_attributeValue,
+    listAttributes_nextToken,
+    listAttributes_maxResults,
+    listAttributes_attributeName,
+    listAttributes_cluster,
+    listAttributes_targetType,
 
     -- * Destructuring the Response
-    listAttributesResponse,
-    ListAttributesResponse,
+    ListAttributesResponse (..),
+    newListAttributesResponse,
 
     -- * Response Lenses
-    larrsNextToken,
-    larrsAttributes,
-    larrsResponseStatus,
+    listAttributesResponse_nextToken,
+    listAttributesResponse_attributes,
+    listAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.Attribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAttributes' smart constructor.
+-- | /See:/ 'newListAttributes' smart constructor.
 data ListAttributes = ListAttributes'
-  { _laAttributeValue ::
-      !(Maybe Text),
-    _laNextToken :: !(Maybe Text),
-    _laMaxResults :: !(Maybe Int),
-    _laAttributeName :: !(Maybe Text),
-    _laCluster :: !(Maybe Text),
-    _laTargetType :: !TargetType
+  { -- | The value of the attribute with which to filter results. You must also
+    -- specify an attribute name to use this parameter.
+    attributeValue :: Prelude.Maybe Prelude.Text,
+    -- | The @nextToken@ value returned from a @ListAttributes@ request
+    -- indicating that more results are available to fulfill the request and
+    -- further calls will be needed. If @maxResults@ was provided, it is
+    -- possible the number of results to be fewer than @maxResults@.
+    --
+    -- This token should be treated as an opaque identifier that is only used
+    -- to retrieve the next items in a list and not for other programmatic
+    -- purposes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of cluster results returned by @ListAttributes@ in
+    -- paginated output. When this parameter is used, @ListAttributes@ only
+    -- returns @maxResults@ results in a single page along with a @nextToken@
+    -- response element. The remaining results of the initial request can be
+    -- seen by sending another @ListAttributes@ request with the returned
+    -- @nextToken@ value. This value can be between 1 and 100. If this
+    -- parameter is not used, then @ListAttributes@ returns up to 100 results
+    -- and a @nextToken@ value if applicable.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The name of the attribute with which to filter the results.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The short name or full Amazon Resource Name (ARN) of the cluster to list
+    -- attributes. If you do not specify a cluster, the default cluster is
+    -- assumed.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | The type of the target with which to list attributes.
+    targetType :: TargetType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laAttributeValue' - The value of the attribute with which to filter results. You must also specify an attribute name to use this parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laNextToken' - The @nextToken@ value returned from a @ListAttributes@ request indicating that more results are available to fulfill the request and further calls will be needed. If @maxResults@ was provided, it is possible the number of results to be fewer than @maxResults@ .
+-- 'attributeValue', 'listAttributes_attributeValue' - The value of the attribute with which to filter results. You must also
+-- specify an attribute name to use this parameter.
 --
--- * 'laMaxResults' - The maximum number of cluster results returned by @ListAttributes@ in paginated output. When this parameter is used, @ListAttributes@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @ListAttributes@ request with the returned @nextToken@ value. This value can be between 1 and 100. If this parameter is not used, then @ListAttributes@ returns up to 100 results and a @nextToken@ value if applicable.
+-- 'nextToken', 'listAttributes_nextToken' - The @nextToken@ value returned from a @ListAttributes@ request
+-- indicating that more results are available to fulfill the request and
+-- further calls will be needed. If @maxResults@ was provided, it is
+-- possible the number of results to be fewer than @maxResults@.
 --
--- * 'laAttributeName' - The name of the attribute with which to filter the results.
+-- This token should be treated as an opaque identifier that is only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
 --
--- * 'laCluster' - The short name or full Amazon Resource Name (ARN) of the cluster to list attributes. If you do not specify a cluster, the default cluster is assumed.
+-- 'maxResults', 'listAttributes_maxResults' - The maximum number of cluster results returned by @ListAttributes@ in
+-- paginated output. When this parameter is used, @ListAttributes@ only
+-- returns @maxResults@ results in a single page along with a @nextToken@
+-- response element. The remaining results of the initial request can be
+-- seen by sending another @ListAttributes@ request with the returned
+-- @nextToken@ value. This value can be between 1 and 100. If this
+-- parameter is not used, then @ListAttributes@ returns up to 100 results
+-- and a @nextToken@ value if applicable.
 --
--- * 'laTargetType' - The type of the target with which to list attributes.
-listAttributes ::
-  -- | 'laTargetType'
+-- 'attributeName', 'listAttributes_attributeName' - The name of the attribute with which to filter the results.
+--
+-- 'cluster', 'listAttributes_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster to list
+-- attributes. If you do not specify a cluster, the default cluster is
+-- assumed.
+--
+-- 'targetType', 'listAttributes_targetType' - The type of the target with which to list attributes.
+newListAttributes ::
+  -- | 'targetType'
   TargetType ->
   ListAttributes
-listAttributes pTargetType_ =
+newListAttributes pTargetType_ =
   ListAttributes'
-    { _laAttributeValue = Nothing,
-      _laNextToken = Nothing,
-      _laMaxResults = Nothing,
-      _laAttributeName = Nothing,
-      _laCluster = Nothing,
-      _laTargetType = pTargetType_
+    { attributeValue = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      attributeName = Prelude.Nothing,
+      cluster = Prelude.Nothing,
+      targetType = pTargetType_
     }
 
--- | The value of the attribute with which to filter results. You must also specify an attribute name to use this parameter.
-laAttributeValue :: Lens' ListAttributes (Maybe Text)
-laAttributeValue = lens _laAttributeValue (\s a -> s {_laAttributeValue = a})
+-- | The value of the attribute with which to filter results. You must also
+-- specify an attribute name to use this parameter.
+listAttributes_attributeValue :: Lens.Lens' ListAttributes (Prelude.Maybe Prelude.Text)
+listAttributes_attributeValue = Lens.lens (\ListAttributes' {attributeValue} -> attributeValue) (\s@ListAttributes' {} a -> s {attributeValue = a} :: ListAttributes)
 
--- | The @nextToken@ value returned from a @ListAttributes@ request indicating that more results are available to fulfill the request and further calls will be needed. If @maxResults@ was provided, it is possible the number of results to be fewer than @maxResults@ .
-laNextToken :: Lens' ListAttributes (Maybe Text)
-laNextToken = lens _laNextToken (\s a -> s {_laNextToken = a})
+-- | The @nextToken@ value returned from a @ListAttributes@ request
+-- indicating that more results are available to fulfill the request and
+-- further calls will be needed. If @maxResults@ was provided, it is
+-- possible the number of results to be fewer than @maxResults@.
+--
+-- This token should be treated as an opaque identifier that is only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+listAttributes_nextToken :: Lens.Lens' ListAttributes (Prelude.Maybe Prelude.Text)
+listAttributes_nextToken = Lens.lens (\ListAttributes' {nextToken} -> nextToken) (\s@ListAttributes' {} a -> s {nextToken = a} :: ListAttributes)
 
--- | The maximum number of cluster results returned by @ListAttributes@ in paginated output. When this parameter is used, @ListAttributes@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @ListAttributes@ request with the returned @nextToken@ value. This value can be between 1 and 100. If this parameter is not used, then @ListAttributes@ returns up to 100 results and a @nextToken@ value if applicable.
-laMaxResults :: Lens' ListAttributes (Maybe Int)
-laMaxResults = lens _laMaxResults (\s a -> s {_laMaxResults = a})
+-- | The maximum number of cluster results returned by @ListAttributes@ in
+-- paginated output. When this parameter is used, @ListAttributes@ only
+-- returns @maxResults@ results in a single page along with a @nextToken@
+-- response element. The remaining results of the initial request can be
+-- seen by sending another @ListAttributes@ request with the returned
+-- @nextToken@ value. This value can be between 1 and 100. If this
+-- parameter is not used, then @ListAttributes@ returns up to 100 results
+-- and a @nextToken@ value if applicable.
+listAttributes_maxResults :: Lens.Lens' ListAttributes (Prelude.Maybe Prelude.Int)
+listAttributes_maxResults = Lens.lens (\ListAttributes' {maxResults} -> maxResults) (\s@ListAttributes' {} a -> s {maxResults = a} :: ListAttributes)
 
 -- | The name of the attribute with which to filter the results.
-laAttributeName :: Lens' ListAttributes (Maybe Text)
-laAttributeName = lens _laAttributeName (\s a -> s {_laAttributeName = a})
+listAttributes_attributeName :: Lens.Lens' ListAttributes (Prelude.Maybe Prelude.Text)
+listAttributes_attributeName = Lens.lens (\ListAttributes' {attributeName} -> attributeName) (\s@ListAttributes' {} a -> s {attributeName = a} :: ListAttributes)
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster to list attributes. If you do not specify a cluster, the default cluster is assumed.
-laCluster :: Lens' ListAttributes (Maybe Text)
-laCluster = lens _laCluster (\s a -> s {_laCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster to list
+-- attributes. If you do not specify a cluster, the default cluster is
+-- assumed.
+listAttributes_cluster :: Lens.Lens' ListAttributes (Prelude.Maybe Prelude.Text)
+listAttributes_cluster = Lens.lens (\ListAttributes' {cluster} -> cluster) (\s@ListAttributes' {} a -> s {cluster = a} :: ListAttributes)
 
 -- | The type of the target with which to list attributes.
-laTargetType :: Lens' ListAttributes TargetType
-laTargetType = lens _laTargetType (\s a -> s {_laTargetType = a})
+listAttributes_targetType :: Lens.Lens' ListAttributes TargetType
+listAttributes_targetType = Lens.lens (\ListAttributes' {targetType} -> targetType) (\s@ListAttributes' {} a -> s {targetType = a} :: ListAttributes)
 
-instance AWSPager ListAttributes where
+instance Pager.AWSPager ListAttributes where
   page rq rs
-    | stop (rs ^. larrsNextToken) = Nothing
-    | stop (rs ^. larrsAttributes) = Nothing
-    | otherwise =
-      Just $ rq & laNextToken .~ rs ^. larrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAttributesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAttributesResponse_attributes
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAttributes_nextToken
+          Lens..~ rs
+          Lens.^? listAttributesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListAttributes where
+instance Prelude.AWSRequest ListAttributes where
   type Rs ListAttributes = ListAttributesResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAttributesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "attributes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "attributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAttributes
+instance Prelude.Hashable ListAttributes
 
-instance NFData ListAttributes
+instance Prelude.NFData ListAttributes
 
-instance ToHeaders ListAttributes where
+instance Prelude.ToHeaders ListAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.ListAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.ListAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListAttributes where
+instance Prelude.ToJSON ListAttributes where
   toJSON ListAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("attributeValue" .=) <$> _laAttributeValue,
-            ("nextToken" .=) <$> _laNextToken,
-            ("maxResults" .=) <$> _laMaxResults,
-            ("attributeName" .=) <$> _laAttributeName,
-            ("cluster" .=) <$> _laCluster,
-            Just ("targetType" .= _laTargetType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("attributeValue" Prelude..=)
+              Prelude.<$> attributeValue,
+            ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("attributeName" Prelude..=)
+              Prelude.<$> attributeName,
+            ("cluster" Prelude..=) Prelude.<$> cluster,
+            Prelude.Just ("targetType" Prelude..= targetType)
           ]
       )
 
-instance ToPath ListAttributes where
-  toPath = const "/"
+instance Prelude.ToPath ListAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery ListAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listAttributesResponse' smart constructor.
+-- | /See:/ 'newListAttributesResponse' smart constructor.
 data ListAttributesResponse = ListAttributesResponse'
-  { _larrsNextToken ::
-      !(Maybe Text),
-    _larrsAttributes ::
-      !(Maybe [Attribute]),
-    _larrsResponseStatus ::
-      !Int
+  { -- | The @nextToken@ value to include in a future @ListAttributes@ request.
+    -- When the results of a @ListAttributes@ request exceed @maxResults@, this
+    -- value can be used to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of attribute objects that meet the criteria of the request.
+    attributes :: Prelude.Maybe [Attribute],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'larrsNextToken' - The @nextToken@ value to include in a future @ListAttributes@ request. When the results of a @ListAttributes@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'larrsAttributes' - A list of attribute objects that meet the criteria of the request.
+-- 'nextToken', 'listAttributesResponse_nextToken' - The @nextToken@ value to include in a future @ListAttributes@ request.
+-- When the results of a @ListAttributes@ request exceed @maxResults@, this
+-- value can be used to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'larrsResponseStatus' - -- | The response status code.
-listAttributesResponse ::
-  -- | 'larrsResponseStatus'
-  Int ->
+-- 'attributes', 'listAttributesResponse_attributes' - A list of attribute objects that meet the criteria of the request.
+--
+-- 'httpStatus', 'listAttributesResponse_httpStatus' - The response's http status code.
+newListAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAttributesResponse
-listAttributesResponse pResponseStatus_ =
+newListAttributesResponse pHttpStatus_ =
   ListAttributesResponse'
-    { _larrsNextToken = Nothing,
-      _larrsAttributes = Nothing,
-      _larrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @nextToken@ value to include in a future @ListAttributes@ request. When the results of a @ListAttributes@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
-larrsNextToken :: Lens' ListAttributesResponse (Maybe Text)
-larrsNextToken = lens _larrsNextToken (\s a -> s {_larrsNextToken = a})
+-- | The @nextToken@ value to include in a future @ListAttributes@ request.
+-- When the results of a @ListAttributes@ request exceed @maxResults@, this
+-- value can be used to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+listAttributesResponse_nextToken :: Lens.Lens' ListAttributesResponse (Prelude.Maybe Prelude.Text)
+listAttributesResponse_nextToken = Lens.lens (\ListAttributesResponse' {nextToken} -> nextToken) (\s@ListAttributesResponse' {} a -> s {nextToken = a} :: ListAttributesResponse)
 
 -- | A list of attribute objects that meet the criteria of the request.
-larrsAttributes :: Lens' ListAttributesResponse [Attribute]
-larrsAttributes = lens _larrsAttributes (\s a -> s {_larrsAttributes = a}) . _Default . _Coerce
+listAttributesResponse_attributes :: Lens.Lens' ListAttributesResponse (Prelude.Maybe [Attribute])
+listAttributesResponse_attributes = Lens.lens (\ListAttributesResponse' {attributes} -> attributes) (\s@ListAttributesResponse' {} a -> s {attributes = a} :: ListAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-larrsResponseStatus :: Lens' ListAttributesResponse Int
-larrsResponseStatus = lens _larrsResponseStatus (\s a -> s {_larrsResponseStatus = a})
+-- | The response's http status code.
+listAttributesResponse_httpStatus :: Lens.Lens' ListAttributesResponse Prelude.Int
+listAttributesResponse_httpStatus = Lens.lens (\ListAttributesResponse' {httpStatus} -> httpStatus) (\s@ListAttributesResponse' {} a -> s {httpStatus = a} :: ListAttributesResponse)
 
-instance NFData ListAttributesResponse
+instance Prelude.NFData ListAttributesResponse

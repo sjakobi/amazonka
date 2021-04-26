@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ECS.Types.ResourceType
   ( ResourceType
       ( ..,
-        RTGpu,
-        RTInferenceAccelerator
+        ResourceTypeGPU,
+        ResourceTypeInferenceAccelerator
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceType = ResourceType' (CI Text)
+newtype ResourceType = ResourceType'
+  { fromResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RTGpu :: ResourceType
-pattern RTGpu = ResourceType' "GPU"
+pattern ResourceTypeGPU :: ResourceType
+pattern ResourceTypeGPU = ResourceType' "GPU"
 
-pattern RTInferenceAccelerator :: ResourceType
-pattern RTInferenceAccelerator = ResourceType' "InferenceAccelerator"
+pattern ResourceTypeInferenceAccelerator :: ResourceType
+pattern ResourceTypeInferenceAccelerator = ResourceType' "InferenceAccelerator"
 
 {-# COMPLETE
-  RTGpu,
-  RTInferenceAccelerator,
+  ResourceTypeGPU,
+  ResourceTypeInferenceAccelerator,
   ResourceType'
   #-}
 
-instance FromText ResourceType where
-  parser = (ResourceType' . mk) <$> takeText
+instance Prelude.FromText ResourceType where
+  parser = ResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceType where
-  toText (ResourceType' ci) = original ci
+instance Prelude.ToText ResourceType where
+  toText (ResourceType' x) = x
 
-instance Hashable ResourceType
+instance Prelude.Hashable ResourceType
 
-instance NFData ResourceType
+instance Prelude.NFData ResourceType
 
-instance ToByteString ResourceType
+instance Prelude.ToByteString ResourceType
 
-instance ToQuery ResourceType
+instance Prelude.ToQuery ResourceType
 
-instance ToHeader ResourceType
+instance Prelude.ToHeader ResourceType
 
-instance ToJSON ResourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ResourceType where
-  parseJSON = parseJSONText "ResourceType"
+instance Prelude.FromJSON ResourceType where
+  parseJSON = Prelude.parseJSONText "ResourceType"

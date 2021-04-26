@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.ECS.Types.CapacityProviderUpdateStatus
   ( CapacityProviderUpdateStatus
       ( ..,
-        DeleteComplete,
-        DeleteFailed,
-        DeleteInProgress,
-        UpdateComplete,
-        UpdateFailed,
-        UpdateInProgress
+        CapacityProviderUpdateStatusDELETECOMPLETE,
+        CapacityProviderUpdateStatusDELETEFAILED,
+        CapacityProviderUpdateStatusDELETEINPROGRESS,
+        CapacityProviderUpdateStatusUPDATECOMPLETE,
+        CapacityProviderUpdateStatusUPDATEFAILED,
+        CapacityProviderUpdateStatusUPDATEINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CapacityProviderUpdateStatus
-  = CapacityProviderUpdateStatus'
-      ( CI
-          Text
-      )
+newtype CapacityProviderUpdateStatus = CapacityProviderUpdateStatus'
+  { fromCapacityProviderUpdateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeleteComplete :: CapacityProviderUpdateStatus
-pattern DeleteComplete = CapacityProviderUpdateStatus' "DELETE_COMPLETE"
+pattern CapacityProviderUpdateStatusDELETECOMPLETE :: CapacityProviderUpdateStatus
+pattern CapacityProviderUpdateStatusDELETECOMPLETE = CapacityProviderUpdateStatus' "DELETE_COMPLETE"
 
-pattern DeleteFailed :: CapacityProviderUpdateStatus
-pattern DeleteFailed = CapacityProviderUpdateStatus' "DELETE_FAILED"
+pattern CapacityProviderUpdateStatusDELETEFAILED :: CapacityProviderUpdateStatus
+pattern CapacityProviderUpdateStatusDELETEFAILED = CapacityProviderUpdateStatus' "DELETE_FAILED"
 
-pattern DeleteInProgress :: CapacityProviderUpdateStatus
-pattern DeleteInProgress = CapacityProviderUpdateStatus' "DELETE_IN_PROGRESS"
+pattern CapacityProviderUpdateStatusDELETEINPROGRESS :: CapacityProviderUpdateStatus
+pattern CapacityProviderUpdateStatusDELETEINPROGRESS = CapacityProviderUpdateStatus' "DELETE_IN_PROGRESS"
 
-pattern UpdateComplete :: CapacityProviderUpdateStatus
-pattern UpdateComplete = CapacityProviderUpdateStatus' "UPDATE_COMPLETE"
+pattern CapacityProviderUpdateStatusUPDATECOMPLETE :: CapacityProviderUpdateStatus
+pattern CapacityProviderUpdateStatusUPDATECOMPLETE = CapacityProviderUpdateStatus' "UPDATE_COMPLETE"
 
-pattern UpdateFailed :: CapacityProviderUpdateStatus
-pattern UpdateFailed = CapacityProviderUpdateStatus' "UPDATE_FAILED"
+pattern CapacityProviderUpdateStatusUPDATEFAILED :: CapacityProviderUpdateStatus
+pattern CapacityProviderUpdateStatusUPDATEFAILED = CapacityProviderUpdateStatus' "UPDATE_FAILED"
 
-pattern UpdateInProgress :: CapacityProviderUpdateStatus
-pattern UpdateInProgress = CapacityProviderUpdateStatus' "UPDATE_IN_PROGRESS"
+pattern CapacityProviderUpdateStatusUPDATEINPROGRESS :: CapacityProviderUpdateStatus
+pattern CapacityProviderUpdateStatusUPDATEINPROGRESS = CapacityProviderUpdateStatus' "UPDATE_IN_PROGRESS"
 
 {-# COMPLETE
-  DeleteComplete,
-  DeleteFailed,
-  DeleteInProgress,
-  UpdateComplete,
-  UpdateFailed,
-  UpdateInProgress,
+  CapacityProviderUpdateStatusDELETECOMPLETE,
+  CapacityProviderUpdateStatusDELETEFAILED,
+  CapacityProviderUpdateStatusDELETEINPROGRESS,
+  CapacityProviderUpdateStatusUPDATECOMPLETE,
+  CapacityProviderUpdateStatusUPDATEFAILED,
+  CapacityProviderUpdateStatusUPDATEINPROGRESS,
   CapacityProviderUpdateStatus'
   #-}
 
-instance FromText CapacityProviderUpdateStatus where
-  parser = (CapacityProviderUpdateStatus' . mk) <$> takeText
+instance Prelude.FromText CapacityProviderUpdateStatus where
+  parser = CapacityProviderUpdateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CapacityProviderUpdateStatus where
-  toText (CapacityProviderUpdateStatus' ci) = original ci
+instance Prelude.ToText CapacityProviderUpdateStatus where
+  toText (CapacityProviderUpdateStatus' x) = x
 
-instance Hashable CapacityProviderUpdateStatus
+instance Prelude.Hashable CapacityProviderUpdateStatus
 
-instance NFData CapacityProviderUpdateStatus
+instance Prelude.NFData CapacityProviderUpdateStatus
 
-instance ToByteString CapacityProviderUpdateStatus
+instance Prelude.ToByteString CapacityProviderUpdateStatus
 
-instance ToQuery CapacityProviderUpdateStatus
+instance Prelude.ToQuery CapacityProviderUpdateStatus
 
-instance ToHeader CapacityProviderUpdateStatus
+instance Prelude.ToHeader CapacityProviderUpdateStatus
 
-instance FromJSON CapacityProviderUpdateStatus where
-  parseJSON = parseJSONText "CapacityProviderUpdateStatus"
+instance Prelude.FromJSON CapacityProviderUpdateStatus where
+  parseJSON = Prelude.parseJSONText "CapacityProviderUpdateStatus"

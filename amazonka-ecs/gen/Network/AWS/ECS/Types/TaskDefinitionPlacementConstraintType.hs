@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.ECS.Types.TaskDefinitionPlacementConstraintType
   ( TaskDefinitionPlacementConstraintType
       ( ..,
-        MemberOf
+        TaskDefinitionPlacementConstraintTypeMemberOf
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskDefinitionPlacementConstraintType
-  = TaskDefinitionPlacementConstraintType'
-      ( CI
-          Text
-      )
+newtype TaskDefinitionPlacementConstraintType = TaskDefinitionPlacementConstraintType'
+  { fromTaskDefinitionPlacementConstraintType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MemberOf :: TaskDefinitionPlacementConstraintType
-pattern MemberOf = TaskDefinitionPlacementConstraintType' "memberOf"
+pattern TaskDefinitionPlacementConstraintTypeMemberOf :: TaskDefinitionPlacementConstraintType
+pattern TaskDefinitionPlacementConstraintTypeMemberOf = TaskDefinitionPlacementConstraintType' "memberOf"
 
 {-# COMPLETE
-  MemberOf,
+  TaskDefinitionPlacementConstraintTypeMemberOf,
   TaskDefinitionPlacementConstraintType'
   #-}
 
-instance FromText TaskDefinitionPlacementConstraintType where
-  parser = (TaskDefinitionPlacementConstraintType' . mk) <$> takeText
+instance Prelude.FromText TaskDefinitionPlacementConstraintType where
+  parser = TaskDefinitionPlacementConstraintType' Prelude.<$> Prelude.takeText
 
-instance ToText TaskDefinitionPlacementConstraintType where
-  toText (TaskDefinitionPlacementConstraintType' ci) = original ci
+instance Prelude.ToText TaskDefinitionPlacementConstraintType where
+  toText (TaskDefinitionPlacementConstraintType' x) = x
 
-instance Hashable TaskDefinitionPlacementConstraintType
+instance Prelude.Hashable TaskDefinitionPlacementConstraintType
 
-instance NFData TaskDefinitionPlacementConstraintType
+instance Prelude.NFData TaskDefinitionPlacementConstraintType
 
-instance ToByteString TaskDefinitionPlacementConstraintType
+instance Prelude.ToByteString TaskDefinitionPlacementConstraintType
 
-instance ToQuery TaskDefinitionPlacementConstraintType
+instance Prelude.ToQuery TaskDefinitionPlacementConstraintType
 
-instance ToHeader TaskDefinitionPlacementConstraintType
+instance Prelude.ToHeader TaskDefinitionPlacementConstraintType
 
-instance ToJSON TaskDefinitionPlacementConstraintType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskDefinitionPlacementConstraintType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TaskDefinitionPlacementConstraintType where
-  parseJSON = parseJSONText "TaskDefinitionPlacementConstraintType"
+instance Prelude.FromJSON TaskDefinitionPlacementConstraintType where
+  parseJSON = Prelude.parseJSONText "TaskDefinitionPlacementConstraintType"

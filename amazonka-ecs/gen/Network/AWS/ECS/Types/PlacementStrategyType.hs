@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.ECS.Types.PlacementStrategyType
   ( PlacementStrategyType
       ( ..,
-        Binpack,
-        Random,
-        Spread
+        PlacementStrategyTypeBinpack,
+        PlacementStrategyTypeRandom,
+        PlacementStrategyTypeSpread
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlacementStrategyType
-  = PlacementStrategyType'
-      ( CI
-          Text
-      )
+newtype PlacementStrategyType = PlacementStrategyType'
+  { fromPlacementStrategyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Binpack :: PlacementStrategyType
-pattern Binpack = PlacementStrategyType' "binpack"
+pattern PlacementStrategyTypeBinpack :: PlacementStrategyType
+pattern PlacementStrategyTypeBinpack = PlacementStrategyType' "binpack"
 
-pattern Random :: PlacementStrategyType
-pattern Random = PlacementStrategyType' "random"
+pattern PlacementStrategyTypeRandom :: PlacementStrategyType
+pattern PlacementStrategyTypeRandom = PlacementStrategyType' "random"
 
-pattern Spread :: PlacementStrategyType
-pattern Spread = PlacementStrategyType' "spread"
+pattern PlacementStrategyTypeSpread :: PlacementStrategyType
+pattern PlacementStrategyTypeSpread = PlacementStrategyType' "spread"
 
 {-# COMPLETE
-  Binpack,
-  Random,
-  Spread,
+  PlacementStrategyTypeBinpack,
+  PlacementStrategyTypeRandom,
+  PlacementStrategyTypeSpread,
   PlacementStrategyType'
   #-}
 
-instance FromText PlacementStrategyType where
-  parser = (PlacementStrategyType' . mk) <$> takeText
+instance Prelude.FromText PlacementStrategyType where
+  parser = PlacementStrategyType' Prelude.<$> Prelude.takeText
 
-instance ToText PlacementStrategyType where
-  toText (PlacementStrategyType' ci) = original ci
+instance Prelude.ToText PlacementStrategyType where
+  toText (PlacementStrategyType' x) = x
 
-instance Hashable PlacementStrategyType
+instance Prelude.Hashable PlacementStrategyType
 
-instance NFData PlacementStrategyType
+instance Prelude.NFData PlacementStrategyType
 
-instance ToByteString PlacementStrategyType
+instance Prelude.ToByteString PlacementStrategyType
 
-instance ToQuery PlacementStrategyType
+instance Prelude.ToQuery PlacementStrategyType
 
-instance ToHeader PlacementStrategyType
+instance Prelude.ToHeader PlacementStrategyType
 
-instance ToJSON PlacementStrategyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PlacementStrategyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PlacementStrategyType where
-  parseJSON = parseJSONText "PlacementStrategyType"
+instance Prelude.FromJSON PlacementStrategyType where
+  parseJSON = Prelude.parseJSONText "PlacementStrategyType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ECS.Types.PidMode
   ( PidMode
       ( ..,
-        Host,
-        Task
+        PidModeHost,
+        PidModeTask
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PidMode = PidMode' (CI Text)
+newtype PidMode = PidMode'
+  { fromPidMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Host :: PidMode
-pattern Host = PidMode' "host"
+pattern PidModeHost :: PidMode
+pattern PidModeHost = PidMode' "host"
 
-pattern Task :: PidMode
-pattern Task = PidMode' "task"
+pattern PidModeTask :: PidMode
+pattern PidModeTask = PidMode' "task"
 
 {-# COMPLETE
-  Host,
-  Task,
+  PidModeHost,
+  PidModeTask,
   PidMode'
   #-}
 
-instance FromText PidMode where
-  parser = (PidMode' . mk) <$> takeText
+instance Prelude.FromText PidMode where
+  parser = PidMode' Prelude.<$> Prelude.takeText
 
-instance ToText PidMode where
-  toText (PidMode' ci) = original ci
+instance Prelude.ToText PidMode where
+  toText (PidMode' x) = x
 
-instance Hashable PidMode
+instance Prelude.Hashable PidMode
 
-instance NFData PidMode
+instance Prelude.NFData PidMode
 
-instance ToByteString PidMode
+instance Prelude.ToByteString PidMode
 
-instance ToQuery PidMode
+instance Prelude.ToQuery PidMode
 
-instance ToHeader PidMode
+instance Prelude.ToHeader PidMode
 
-instance ToJSON PidMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON PidMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PidMode where
-  parseJSON = parseJSONText "PidMode"
+instance Prelude.FromJSON PidMode where
+  parseJSON = Prelude.parseJSONText "PidMode"

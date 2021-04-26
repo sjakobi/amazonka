@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,291 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the available capacity providers and the default capacity provider strategy for a cluster.
+-- Modifies the available capacity providers and the default capacity
+-- provider strategy for a cluster.
 --
+-- You must specify both the available capacity providers and a default
+-- capacity provider strategy for the cluster. If the specified cluster has
+-- existing capacity providers associated with it, you must specify all
+-- existing capacity providers in addition to any new ones you want to add.
+-- Any existing capacity providers associated with a cluster that are
+-- omitted from a PutClusterCapacityProviders API call will be
+-- disassociated with the cluster. You can only disassociate an existing
+-- capacity provider from a cluster if it\'s not being used by any existing
+-- tasks.
 --
--- You must specify both the available capacity providers and a default capacity provider strategy for the cluster. If the specified cluster has existing capacity providers associated with it, you must specify all existing capacity providers in addition to any new ones you want to add. Any existing capacity providers associated with a cluster that are omitted from a 'PutClusterCapacityProviders' API call will be disassociated with the cluster. You can only disassociate an existing capacity provider from a cluster if it's not being used by any existing tasks.
---
--- When creating a service or running a task on a cluster, if no capacity provider or launch type is specified, then the cluster's default capacity provider strategy is used. It is recommended to define a default capacity provider strategy for your cluster, however you may specify an empty array (@[]@ ) to bypass defining a default strategy.
+-- When creating a service or running a task on a cluster, if no capacity
+-- provider or launch type is specified, then the cluster\'s default
+-- capacity provider strategy is used. It is recommended to define a
+-- default capacity provider strategy for your cluster, however you may
+-- specify an empty array (@[]@) to bypass defining a default strategy.
 module Network.AWS.ECS.PutClusterCapacityProviders
   ( -- * Creating a Request
-    putClusterCapacityProviders,
-    PutClusterCapacityProviders,
+    PutClusterCapacityProviders (..),
+    newPutClusterCapacityProviders,
 
     -- * Request Lenses
-    pccpCluster,
-    pccpCapacityProviders,
-    pccpDefaultCapacityProviderStrategy,
+    putClusterCapacityProviders_cluster,
+    putClusterCapacityProviders_capacityProviders,
+    putClusterCapacityProviders_defaultCapacityProviderStrategy,
 
     -- * Destructuring the Response
-    putClusterCapacityProvidersResponse,
-    PutClusterCapacityProvidersResponse,
+    PutClusterCapacityProvidersResponse (..),
+    newPutClusterCapacityProvidersResponse,
 
     -- * Response Lenses
-    pccprrsCluster,
-    pccprrsResponseStatus,
+    putClusterCapacityProvidersResponse_cluster,
+    putClusterCapacityProvidersResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.Cluster
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putClusterCapacityProviders' smart constructor.
+-- | /See:/ 'newPutClusterCapacityProviders' smart constructor.
 data PutClusterCapacityProviders = PutClusterCapacityProviders'
-  { _pccpCluster ::
-      !Text,
-    _pccpCapacityProviders ::
-      ![Text],
-    _pccpDefaultCapacityProviderStrategy ::
-      ![CapacityProviderStrategyItem]
+  { -- | The short name or full Amazon Resource Name (ARN) of the cluster to
+    -- modify the capacity provider settings for. If you do not specify a
+    -- cluster, the default cluster is assumed.
+    cluster :: Prelude.Text,
+    -- | The name of one or more capacity providers to associate with the
+    -- cluster.
+    --
+    -- If specifying a capacity provider that uses an Auto Scaling group, the
+    -- capacity provider must already be created. New capacity providers can be
+    -- created with the CreateCapacityProvider API operation.
+    --
+    -- To use a AWS Fargate capacity provider, specify either the @FARGATE@ or
+    -- @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers
+    -- are available to all accounts and only need to be associated with a
+    -- cluster to be used.
+    capacityProviders :: [Prelude.Text],
+    -- | The capacity provider strategy to use by default for the cluster.
+    --
+    -- When creating a service or running a task on a cluster, if no capacity
+    -- provider or launch type is specified then the default capacity provider
+    -- strategy for the cluster is used.
+    --
+    -- A capacity provider strategy consists of one or more capacity providers
+    -- along with the @base@ and @weight@ to assign to them. A capacity
+    -- provider must be associated with the cluster to be used in a capacity
+    -- provider strategy. The PutClusterCapacityProviders API is used to
+    -- associate a capacity provider with a cluster. Only capacity providers
+    -- with an @ACTIVE@ or @UPDATING@ status can be used.
+    --
+    -- If specifying a capacity provider that uses an Auto Scaling group, the
+    -- capacity provider must already be created. New capacity providers can be
+    -- created with the CreateCapacityProvider API operation.
+    --
+    -- To use a AWS Fargate capacity provider, specify either the @FARGATE@ or
+    -- @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers
+    -- are available to all accounts and only need to be associated with a
+    -- cluster to be used.
+    defaultCapacityProviderStrategy :: [CapacityProviderStrategyItem]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutClusterCapacityProviders' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutClusterCapacityProviders' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pccpCluster' - The short name or full Amazon Resource Name (ARN) of the cluster to modify the capacity provider settings for. If you do not specify a cluster, the default cluster is assumed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pccpCapacityProviders' - The name of one or more capacity providers to associate with the cluster. If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must already be created. New capacity providers can be created with the 'CreateCapacityProvider' API operation. To use a AWS Fargate capacity provider, specify either the @FARGATE@ or @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers are available to all accounts and only need to be associated with a cluster to be used.
+-- 'cluster', 'putClusterCapacityProviders_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster to
+-- modify the capacity provider settings for. If you do not specify a
+-- cluster, the default cluster is assumed.
 --
--- * 'pccpDefaultCapacityProviderStrategy' - The capacity provider strategy to use by default for the cluster. When creating a service or running a task on a cluster, if no capacity provider or launch type is specified then the default capacity provider strategy for the cluster is used. A capacity provider strategy consists of one or more capacity providers along with the @base@ and @weight@ to assign to them. A capacity provider must be associated with the cluster to be used in a capacity provider strategy. The 'PutClusterCapacityProviders' API is used to associate a capacity provider with a cluster. Only capacity providers with an @ACTIVE@ or @UPDATING@ status can be used. If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must already be created. New capacity providers can be created with the 'CreateCapacityProvider' API operation. To use a AWS Fargate capacity provider, specify either the @FARGATE@ or @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers are available to all accounts and only need to be associated with a cluster to be used.
-putClusterCapacityProviders ::
-  -- | 'pccpCluster'
-  Text ->
+-- 'capacityProviders', 'putClusterCapacityProviders_capacityProviders' - The name of one or more capacity providers to associate with the
+-- cluster.
+--
+-- If specifying a capacity provider that uses an Auto Scaling group, the
+-- capacity provider must already be created. New capacity providers can be
+-- created with the CreateCapacityProvider API operation.
+--
+-- To use a AWS Fargate capacity provider, specify either the @FARGATE@ or
+-- @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers
+-- are available to all accounts and only need to be associated with a
+-- cluster to be used.
+--
+-- 'defaultCapacityProviderStrategy', 'putClusterCapacityProviders_defaultCapacityProviderStrategy' - The capacity provider strategy to use by default for the cluster.
+--
+-- When creating a service or running a task on a cluster, if no capacity
+-- provider or launch type is specified then the default capacity provider
+-- strategy for the cluster is used.
+--
+-- A capacity provider strategy consists of one or more capacity providers
+-- along with the @base@ and @weight@ to assign to them. A capacity
+-- provider must be associated with the cluster to be used in a capacity
+-- provider strategy. The PutClusterCapacityProviders API is used to
+-- associate a capacity provider with a cluster. Only capacity providers
+-- with an @ACTIVE@ or @UPDATING@ status can be used.
+--
+-- If specifying a capacity provider that uses an Auto Scaling group, the
+-- capacity provider must already be created. New capacity providers can be
+-- created with the CreateCapacityProvider API operation.
+--
+-- To use a AWS Fargate capacity provider, specify either the @FARGATE@ or
+-- @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers
+-- are available to all accounts and only need to be associated with a
+-- cluster to be used.
+newPutClusterCapacityProviders ::
+  -- | 'cluster'
+  Prelude.Text ->
   PutClusterCapacityProviders
-putClusterCapacityProviders pCluster_ =
+newPutClusterCapacityProviders pCluster_ =
   PutClusterCapacityProviders'
-    { _pccpCluster =
-        pCluster_,
-      _pccpCapacityProviders = mempty,
-      _pccpDefaultCapacityProviderStrategy = mempty
+    { cluster = pCluster_,
+      capacityProviders = Prelude.mempty,
+      defaultCapacityProviderStrategy =
+        Prelude.mempty
     }
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster to modify the capacity provider settings for. If you do not specify a cluster, the default cluster is assumed.
-pccpCluster :: Lens' PutClusterCapacityProviders Text
-pccpCluster = lens _pccpCluster (\s a -> s {_pccpCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster to
+-- modify the capacity provider settings for. If you do not specify a
+-- cluster, the default cluster is assumed.
+putClusterCapacityProviders_cluster :: Lens.Lens' PutClusterCapacityProviders Prelude.Text
+putClusterCapacityProviders_cluster = Lens.lens (\PutClusterCapacityProviders' {cluster} -> cluster) (\s@PutClusterCapacityProviders' {} a -> s {cluster = a} :: PutClusterCapacityProviders)
 
--- | The name of one or more capacity providers to associate with the cluster. If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must already be created. New capacity providers can be created with the 'CreateCapacityProvider' API operation. To use a AWS Fargate capacity provider, specify either the @FARGATE@ or @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers are available to all accounts and only need to be associated with a cluster to be used.
-pccpCapacityProviders :: Lens' PutClusterCapacityProviders [Text]
-pccpCapacityProviders = lens _pccpCapacityProviders (\s a -> s {_pccpCapacityProviders = a}) . _Coerce
+-- | The name of one or more capacity providers to associate with the
+-- cluster.
+--
+-- If specifying a capacity provider that uses an Auto Scaling group, the
+-- capacity provider must already be created. New capacity providers can be
+-- created with the CreateCapacityProvider API operation.
+--
+-- To use a AWS Fargate capacity provider, specify either the @FARGATE@ or
+-- @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers
+-- are available to all accounts and only need to be associated with a
+-- cluster to be used.
+putClusterCapacityProviders_capacityProviders :: Lens.Lens' PutClusterCapacityProviders [Prelude.Text]
+putClusterCapacityProviders_capacityProviders = Lens.lens (\PutClusterCapacityProviders' {capacityProviders} -> capacityProviders) (\s@PutClusterCapacityProviders' {} a -> s {capacityProviders = a} :: PutClusterCapacityProviders) Prelude.. Prelude._Coerce
 
--- | The capacity provider strategy to use by default for the cluster. When creating a service or running a task on a cluster, if no capacity provider or launch type is specified then the default capacity provider strategy for the cluster is used. A capacity provider strategy consists of one or more capacity providers along with the @base@ and @weight@ to assign to them. A capacity provider must be associated with the cluster to be used in a capacity provider strategy. The 'PutClusterCapacityProviders' API is used to associate a capacity provider with a cluster. Only capacity providers with an @ACTIVE@ or @UPDATING@ status can be used. If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must already be created. New capacity providers can be created with the 'CreateCapacityProvider' API operation. To use a AWS Fargate capacity provider, specify either the @FARGATE@ or @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers are available to all accounts and only need to be associated with a cluster to be used.
-pccpDefaultCapacityProviderStrategy :: Lens' PutClusterCapacityProviders [CapacityProviderStrategyItem]
-pccpDefaultCapacityProviderStrategy = lens _pccpDefaultCapacityProviderStrategy (\s a -> s {_pccpDefaultCapacityProviderStrategy = a}) . _Coerce
+-- | The capacity provider strategy to use by default for the cluster.
+--
+-- When creating a service or running a task on a cluster, if no capacity
+-- provider or launch type is specified then the default capacity provider
+-- strategy for the cluster is used.
+--
+-- A capacity provider strategy consists of one or more capacity providers
+-- along with the @base@ and @weight@ to assign to them. A capacity
+-- provider must be associated with the cluster to be used in a capacity
+-- provider strategy. The PutClusterCapacityProviders API is used to
+-- associate a capacity provider with a cluster. Only capacity providers
+-- with an @ACTIVE@ or @UPDATING@ status can be used.
+--
+-- If specifying a capacity provider that uses an Auto Scaling group, the
+-- capacity provider must already be created. New capacity providers can be
+-- created with the CreateCapacityProvider API operation.
+--
+-- To use a AWS Fargate capacity provider, specify either the @FARGATE@ or
+-- @FARGATE_SPOT@ capacity providers. The AWS Fargate capacity providers
+-- are available to all accounts and only need to be associated with a
+-- cluster to be used.
+putClusterCapacityProviders_defaultCapacityProviderStrategy :: Lens.Lens' PutClusterCapacityProviders [CapacityProviderStrategyItem]
+putClusterCapacityProviders_defaultCapacityProviderStrategy = Lens.lens (\PutClusterCapacityProviders' {defaultCapacityProviderStrategy} -> defaultCapacityProviderStrategy) (\s@PutClusterCapacityProviders' {} a -> s {defaultCapacityProviderStrategy = a} :: PutClusterCapacityProviders) Prelude.. Prelude._Coerce
 
-instance AWSRequest PutClusterCapacityProviders where
+instance
+  Prelude.AWSRequest
+    PutClusterCapacityProviders
+  where
   type
     Rs PutClusterCapacityProviders =
       PutClusterCapacityProvidersResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutClusterCapacityProvidersResponse'
-            <$> (x .?> "cluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "cluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutClusterCapacityProviders
+instance Prelude.Hashable PutClusterCapacityProviders
 
-instance NFData PutClusterCapacityProviders
+instance Prelude.NFData PutClusterCapacityProviders
 
-instance ToHeaders PutClusterCapacityProviders where
+instance
+  Prelude.ToHeaders
+    PutClusterCapacityProviders
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.PutClusterCapacityProviders" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.PutClusterCapacityProviders" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutClusterCapacityProviders where
+instance Prelude.ToJSON PutClusterCapacityProviders where
   toJSON PutClusterCapacityProviders' {..} =
-    object
-      ( catMaybes
-          [ Just ("cluster" .= _pccpCluster),
-            Just ("capacityProviders" .= _pccpCapacityProviders),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("cluster" Prelude..= cluster),
+            Prelude.Just
+              ("capacityProviders" Prelude..= capacityProviders),
+            Prelude.Just
               ( "defaultCapacityProviderStrategy"
-                  .= _pccpDefaultCapacityProviderStrategy
+                  Prelude..= defaultCapacityProviderStrategy
               )
           ]
       )
 
-instance ToPath PutClusterCapacityProviders where
-  toPath = const "/"
+instance Prelude.ToPath PutClusterCapacityProviders where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutClusterCapacityProviders where
-  toQuery = const mempty
+instance Prelude.ToQuery PutClusterCapacityProviders where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putClusterCapacityProvidersResponse' smart constructor.
+-- | /See:/ 'newPutClusterCapacityProvidersResponse' smart constructor.
 data PutClusterCapacityProvidersResponse = PutClusterCapacityProvidersResponse'
-  { _pccprrsCluster ::
-      !( Maybe
-           Cluster
-       ),
-    _pccprrsResponseStatus ::
-      !Int
+  { cluster :: Prelude.Maybe Cluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutClusterCapacityProvidersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutClusterCapacityProvidersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pccprrsCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pccprrsResponseStatus' - -- | The response status code.
-putClusterCapacityProvidersResponse ::
-  -- | 'pccprrsResponseStatus'
-  Int ->
+-- 'cluster', 'putClusterCapacityProvidersResponse_cluster' - Undocumented member.
+--
+-- 'httpStatus', 'putClusterCapacityProvidersResponse_httpStatus' - The response's http status code.
+newPutClusterCapacityProvidersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutClusterCapacityProvidersResponse
-putClusterCapacityProvidersResponse pResponseStatus_ =
+newPutClusterCapacityProvidersResponse pHttpStatus_ =
   PutClusterCapacityProvidersResponse'
-    { _pccprrsCluster =
-        Nothing,
-      _pccprrsResponseStatus =
-        pResponseStatus_
+    { cluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-pccprrsCluster :: Lens' PutClusterCapacityProvidersResponse (Maybe Cluster)
-pccprrsCluster = lens _pccprrsCluster (\s a -> s {_pccprrsCluster = a})
+putClusterCapacityProvidersResponse_cluster :: Lens.Lens' PutClusterCapacityProvidersResponse (Prelude.Maybe Cluster)
+putClusterCapacityProvidersResponse_cluster = Lens.lens (\PutClusterCapacityProvidersResponse' {cluster} -> cluster) (\s@PutClusterCapacityProvidersResponse' {} a -> s {cluster = a} :: PutClusterCapacityProvidersResponse)
 
--- | -- | The response status code.
-pccprrsResponseStatus :: Lens' PutClusterCapacityProvidersResponse Int
-pccprrsResponseStatus = lens _pccprrsResponseStatus (\s a -> s {_pccprrsResponseStatus = a})
+-- | The response's http status code.
+putClusterCapacityProvidersResponse_httpStatus :: Lens.Lens' PutClusterCapacityProvidersResponse Prelude.Int
+putClusterCapacityProvidersResponse_httpStatus = Lens.lens (\PutClusterCapacityProvidersResponse' {httpStatus} -> httpStatus) (\s@PutClusterCapacityProvidersResponse' {} a -> s {httpStatus = a} :: PutClusterCapacityProvidersResponse)
 
-instance NFData PutClusterCapacityProvidersResponse
+instance
+  Prelude.NFData
+    PutClusterCapacityProvidersResponse

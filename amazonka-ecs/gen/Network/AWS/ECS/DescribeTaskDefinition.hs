@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,268 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes a task definition. You can specify a @family@ and @revision@ to find information about a specific task definition, or you can simply specify the family to find the latest @ACTIVE@ revision in that family.
+-- Describes a task definition. You can specify a @family@ and @revision@
+-- to find information about a specific task definition, or you can simply
+-- specify the family to find the latest @ACTIVE@ revision in that family.
+--
+-- You can only describe @INACTIVE@ task definitions while an active task
+-- or service references them.
 module Network.AWS.ECS.DescribeTaskDefinition
   ( -- * Creating a Request
-    describeTaskDefinition,
-    DescribeTaskDefinition,
+    DescribeTaskDefinition (..),
+    newDescribeTaskDefinition,
 
     -- * Request Lenses
-    desInclude,
-    desTaskDefinition,
+    describeTaskDefinition_include,
+    describeTaskDefinition_taskDefinition,
 
     -- * Destructuring the Response
-    describeTaskDefinitionResponse,
-    DescribeTaskDefinitionResponse,
+    DescribeTaskDefinitionResponse (..),
+    newDescribeTaskDefinitionResponse,
 
     -- * Response Lenses
-    dtdrrsTags,
-    dtdrrsTaskDefinition,
-    dtdrrsResponseStatus,
+    describeTaskDefinitionResponse_tags,
+    describeTaskDefinitionResponse_taskDefinition,
+    describeTaskDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.Tag
+import Network.AWS.ECS.Types.TaskDefinition
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTaskDefinition' smart constructor.
+-- | /See:/ 'newDescribeTaskDefinition' smart constructor.
 data DescribeTaskDefinition = DescribeTaskDefinition'
-  { _desInclude ::
-      !( Maybe
-           [TaskDefinitionField]
-       ),
-    _desTaskDefinition ::
-      !Text
+  { -- | Specifies whether to see the resource tags for the task definition. If
+    -- @TAGS@ is specified, the tags are included in the response. If this
+    -- field is omitted, tags are not included in the response.
+    include :: Prelude.Maybe [TaskDefinitionField],
+    -- | The @family@ for the latest @ACTIVE@ revision, @family@ and @revision@
+    -- (@family:revision@) for a specific revision in the family, or full
+    -- Amazon Resource Name (ARN) of the task definition to describe.
+    taskDefinition :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTaskDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTaskDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desInclude' - Specifies whether to see the resource tags for the task definition. If @TAGS@ is specified, the tags are included in the response. If this field is omitted, tags are not included in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desTaskDefinition' - The @family@ for the latest @ACTIVE@ revision, @family@ and @revision@ (@family:revision@ ) for a specific revision in the family, or full Amazon Resource Name (ARN) of the task definition to describe.
-describeTaskDefinition ::
-  -- | 'desTaskDefinition'
-  Text ->
+-- 'include', 'describeTaskDefinition_include' - Specifies whether to see the resource tags for the task definition. If
+-- @TAGS@ is specified, the tags are included in the response. If this
+-- field is omitted, tags are not included in the response.
+--
+-- 'taskDefinition', 'describeTaskDefinition_taskDefinition' - The @family@ for the latest @ACTIVE@ revision, @family@ and @revision@
+-- (@family:revision@) for a specific revision in the family, or full
+-- Amazon Resource Name (ARN) of the task definition to describe.
+newDescribeTaskDefinition ::
+  -- | 'taskDefinition'
+  Prelude.Text ->
   DescribeTaskDefinition
-describeTaskDefinition pTaskDefinition_ =
+newDescribeTaskDefinition pTaskDefinition_ =
   DescribeTaskDefinition'
-    { _desInclude = Nothing,
-      _desTaskDefinition = pTaskDefinition_
+    { include = Prelude.Nothing,
+      taskDefinition = pTaskDefinition_
     }
 
--- | Specifies whether to see the resource tags for the task definition. If @TAGS@ is specified, the tags are included in the response. If this field is omitted, tags are not included in the response.
-desInclude :: Lens' DescribeTaskDefinition [TaskDefinitionField]
-desInclude = lens _desInclude (\s a -> s {_desInclude = a}) . _Default . _Coerce
+-- | Specifies whether to see the resource tags for the task definition. If
+-- @TAGS@ is specified, the tags are included in the response. If this
+-- field is omitted, tags are not included in the response.
+describeTaskDefinition_include :: Lens.Lens' DescribeTaskDefinition (Prelude.Maybe [TaskDefinitionField])
+describeTaskDefinition_include = Lens.lens (\DescribeTaskDefinition' {include} -> include) (\s@DescribeTaskDefinition' {} a -> s {include = a} :: DescribeTaskDefinition) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The @family@ for the latest @ACTIVE@ revision, @family@ and @revision@ (@family:revision@ ) for a specific revision in the family, or full Amazon Resource Name (ARN) of the task definition to describe.
-desTaskDefinition :: Lens' DescribeTaskDefinition Text
-desTaskDefinition = lens _desTaskDefinition (\s a -> s {_desTaskDefinition = a})
+-- | The @family@ for the latest @ACTIVE@ revision, @family@ and @revision@
+-- (@family:revision@) for a specific revision in the family, or full
+-- Amazon Resource Name (ARN) of the task definition to describe.
+describeTaskDefinition_taskDefinition :: Lens.Lens' DescribeTaskDefinition Prelude.Text
+describeTaskDefinition_taskDefinition = Lens.lens (\DescribeTaskDefinition' {taskDefinition} -> taskDefinition) (\s@DescribeTaskDefinition' {} a -> s {taskDefinition = a} :: DescribeTaskDefinition)
 
-instance AWSRequest DescribeTaskDefinition where
+instance Prelude.AWSRequest DescribeTaskDefinition where
   type
     Rs DescribeTaskDefinition =
       DescribeTaskDefinitionResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTaskDefinitionResponse'
-            <$> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "taskDefinition")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "taskDefinition")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTaskDefinition
+instance Prelude.Hashable DescribeTaskDefinition
 
-instance NFData DescribeTaskDefinition
+instance Prelude.NFData DescribeTaskDefinition
 
-instance ToHeaders DescribeTaskDefinition where
+instance Prelude.ToHeaders DescribeTaskDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.DescribeTaskDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.DescribeTaskDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTaskDefinition where
+instance Prelude.ToJSON DescribeTaskDefinition where
   toJSON DescribeTaskDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("include" .=) <$> _desInclude,
-            Just ("taskDefinition" .= _desTaskDefinition)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("include" Prelude..=) Prelude.<$> include,
+            Prelude.Just
+              ("taskDefinition" Prelude..= taskDefinition)
           ]
       )
 
-instance ToPath DescribeTaskDefinition where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTaskDefinition where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTaskDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeTaskDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeTaskDefinitionResponse' smart constructor.
+-- | /See:/ 'newDescribeTaskDefinitionResponse' smart constructor.
 data DescribeTaskDefinitionResponse = DescribeTaskDefinitionResponse'
-  { _dtdrrsTags ::
-      !( Maybe
-           [Tag]
-       ),
-    _dtdrrsTaskDefinition ::
-      !( Maybe
-           TaskDefinition
-       ),
-    _dtdrrsResponseStatus ::
-      !Int
+  { -- | The metadata that is applied to the task definition to help you
+    -- categorize and organize them. Each tag consists of a key and an optional
+    -- value, both of which you define.
+    --
+    -- The following basic restrictions apply to tags:
+    --
+    -- -   Maximum number of tags per resource - 50
+    --
+    -- -   For each resource, each tag key must be unique, and each tag key can
+    --     have only one value.
+    --
+    -- -   Maximum key length - 128 Unicode characters in UTF-8
+    --
+    -- -   Maximum value length - 256 Unicode characters in UTF-8
+    --
+    -- -   If your tagging schema is used across multiple services and
+    --     resources, remember that other services may have restrictions on
+    --     allowed characters. Generally allowed characters are: letters,
+    --     numbers, and spaces representable in UTF-8, and the following
+    --     characters: + - = . _ : \/ \@.
+    --
+    -- -   Tag keys and values are case-sensitive.
+    --
+    -- -   Do not use @aws:@, @AWS:@, or any upper or lowercase combination of
+    --     such as a prefix for either keys or values as it is reserved for AWS
+    --     use. You cannot edit or delete tag keys or values with this prefix.
+    --     Tags with this prefix do not count against your tags per resource
+    --     limit.
+    tags :: Prelude.Maybe [Tag],
+    -- | The full task definition description.
+    taskDefinition :: Prelude.Maybe TaskDefinition,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTaskDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTaskDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtdrrsTags' - The metadata that is applied to the task definition to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. The following basic restrictions apply to tags:     * Maximum number of tags per resource - 50     * For each resource, each tag key must be unique, and each tag key can have only one value.     * Maximum key length - 128 Unicode characters in UTF-8     * Maximum value length - 256 Unicode characters in UTF-8     * If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.     * Tag keys and values are case-sensitive.     * Do not use @aws:@ , @AWS:@ , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtdrrsTaskDefinition' - The full task definition description.
+-- 'tags', 'describeTaskDefinitionResponse_tags' - The metadata that is applied to the task definition to help you
+-- categorize and organize them. Each tag consists of a key and an optional
+-- value, both of which you define.
 --
--- * 'dtdrrsResponseStatus' - -- | The response status code.
-describeTaskDefinitionResponse ::
-  -- | 'dtdrrsResponseStatus'
-  Int ->
+-- The following basic restrictions apply to tags:
+--
+-- -   Maximum number of tags per resource - 50
+--
+-- -   For each resource, each tag key must be unique, and each tag key can
+--     have only one value.
+--
+-- -   Maximum key length - 128 Unicode characters in UTF-8
+--
+-- -   Maximum value length - 256 Unicode characters in UTF-8
+--
+-- -   If your tagging schema is used across multiple services and
+--     resources, remember that other services may have restrictions on
+--     allowed characters. Generally allowed characters are: letters,
+--     numbers, and spaces representable in UTF-8, and the following
+--     characters: + - = . _ : \/ \@.
+--
+-- -   Tag keys and values are case-sensitive.
+--
+-- -   Do not use @aws:@, @AWS:@, or any upper or lowercase combination of
+--     such as a prefix for either keys or values as it is reserved for AWS
+--     use. You cannot edit or delete tag keys or values with this prefix.
+--     Tags with this prefix do not count against your tags per resource
+--     limit.
+--
+-- 'taskDefinition', 'describeTaskDefinitionResponse_taskDefinition' - The full task definition description.
+--
+-- 'httpStatus', 'describeTaskDefinitionResponse_httpStatus' - The response's http status code.
+newDescribeTaskDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTaskDefinitionResponse
-describeTaskDefinitionResponse pResponseStatus_ =
+newDescribeTaskDefinitionResponse pHttpStatus_ =
   DescribeTaskDefinitionResponse'
-    { _dtdrrsTags =
-        Nothing,
-      _dtdrrsTaskDefinition = Nothing,
-      _dtdrrsResponseStatus = pResponseStatus_
+    { tags =
+        Prelude.Nothing,
+      taskDefinition = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The metadata that is applied to the task definition to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. The following basic restrictions apply to tags:     * Maximum number of tags per resource - 50     * For each resource, each tag key must be unique, and each tag key can have only one value.     * Maximum key length - 128 Unicode characters in UTF-8     * Maximum value length - 256 Unicode characters in UTF-8     * If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.     * Tag keys and values are case-sensitive.     * Do not use @aws:@ , @AWS:@ , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
-dtdrrsTags :: Lens' DescribeTaskDefinitionResponse [Tag]
-dtdrrsTags = lens _dtdrrsTags (\s a -> s {_dtdrrsTags = a}) . _Default . _Coerce
+-- | The metadata that is applied to the task definition to help you
+-- categorize and organize them. Each tag consists of a key and an optional
+-- value, both of which you define.
+--
+-- The following basic restrictions apply to tags:
+--
+-- -   Maximum number of tags per resource - 50
+--
+-- -   For each resource, each tag key must be unique, and each tag key can
+--     have only one value.
+--
+-- -   Maximum key length - 128 Unicode characters in UTF-8
+--
+-- -   Maximum value length - 256 Unicode characters in UTF-8
+--
+-- -   If your tagging schema is used across multiple services and
+--     resources, remember that other services may have restrictions on
+--     allowed characters. Generally allowed characters are: letters,
+--     numbers, and spaces representable in UTF-8, and the following
+--     characters: + - = . _ : \/ \@.
+--
+-- -   Tag keys and values are case-sensitive.
+--
+-- -   Do not use @aws:@, @AWS:@, or any upper or lowercase combination of
+--     such as a prefix for either keys or values as it is reserved for AWS
+--     use. You cannot edit or delete tag keys or values with this prefix.
+--     Tags with this prefix do not count against your tags per resource
+--     limit.
+describeTaskDefinitionResponse_tags :: Lens.Lens' DescribeTaskDefinitionResponse (Prelude.Maybe [Tag])
+describeTaskDefinitionResponse_tags = Lens.lens (\DescribeTaskDefinitionResponse' {tags} -> tags) (\s@DescribeTaskDefinitionResponse' {} a -> s {tags = a} :: DescribeTaskDefinitionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The full task definition description.
-dtdrrsTaskDefinition :: Lens' DescribeTaskDefinitionResponse (Maybe TaskDefinition)
-dtdrrsTaskDefinition = lens _dtdrrsTaskDefinition (\s a -> s {_dtdrrsTaskDefinition = a})
+describeTaskDefinitionResponse_taskDefinition :: Lens.Lens' DescribeTaskDefinitionResponse (Prelude.Maybe TaskDefinition)
+describeTaskDefinitionResponse_taskDefinition = Lens.lens (\DescribeTaskDefinitionResponse' {taskDefinition} -> taskDefinition) (\s@DescribeTaskDefinitionResponse' {} a -> s {taskDefinition = a} :: DescribeTaskDefinitionResponse)
 
--- | -- | The response status code.
-dtdrrsResponseStatus :: Lens' DescribeTaskDefinitionResponse Int
-dtdrrsResponseStatus = lens _dtdrrsResponseStatus (\s a -> s {_dtdrrsResponseStatus = a})
+-- | The response's http status code.
+describeTaskDefinitionResponse_httpStatus :: Lens.Lens' DescribeTaskDefinitionResponse Prelude.Int
+describeTaskDefinitionResponse_httpStatus = Lens.lens (\DescribeTaskDefinitionResponse' {httpStatus} -> httpStatus) (\s@DescribeTaskDefinitionResponse' {} a -> s {httpStatus = a} :: DescribeTaskDefinitionResponse)
 
-instance NFData DescribeTaskDefinitionResponse
+instance
+  Prelude.NFData
+    DescribeTaskDefinitionResponse

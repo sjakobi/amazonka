@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.ECS.Types.ClusterSettingName
   ( ClusterSettingName
       ( ..,
-        ContainerInsights
+        ClusterSettingNameContainerInsights
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ClusterSettingName
-  = ClusterSettingName'
-      ( CI
-          Text
-      )
+newtype ClusterSettingName = ClusterSettingName'
+  { fromClusterSettingName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ContainerInsights :: ClusterSettingName
-pattern ContainerInsights = ClusterSettingName' "containerInsights"
+pattern ClusterSettingNameContainerInsights :: ClusterSettingName
+pattern ClusterSettingNameContainerInsights = ClusterSettingName' "containerInsights"
 
 {-# COMPLETE
-  ContainerInsights,
+  ClusterSettingNameContainerInsights,
   ClusterSettingName'
   #-}
 
-instance FromText ClusterSettingName where
-  parser = (ClusterSettingName' . mk) <$> takeText
+instance Prelude.FromText ClusterSettingName where
+  parser = ClusterSettingName' Prelude.<$> Prelude.takeText
 
-instance ToText ClusterSettingName where
-  toText (ClusterSettingName' ci) = original ci
+instance Prelude.ToText ClusterSettingName where
+  toText (ClusterSettingName' x) = x
 
-instance Hashable ClusterSettingName
+instance Prelude.Hashable ClusterSettingName
 
-instance NFData ClusterSettingName
+instance Prelude.NFData ClusterSettingName
 
-instance ToByteString ClusterSettingName
+instance Prelude.ToByteString ClusterSettingName
 
-instance ToQuery ClusterSettingName
+instance Prelude.ToQuery ClusterSettingName
 
-instance ToHeader ClusterSettingName
+instance Prelude.ToHeader ClusterSettingName
 
-instance ToJSON ClusterSettingName where
-  toJSON = toJSONText
+instance Prelude.ToJSON ClusterSettingName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ClusterSettingName where
-  parseJSON = parseJSONText "ClusterSettingName"
+instance Prelude.FromJSON ClusterSettingName where
+  parseJSON = Prelude.parseJSONText "ClusterSettingName"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.ECS.Types.ScaleUnit
   ( ScaleUnit
       ( ..,
-        Percent
+        ScaleUnitPERCENT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScaleUnit = ScaleUnit' (CI Text)
+newtype ScaleUnit = ScaleUnit'
+  { fromScaleUnit ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Percent :: ScaleUnit
-pattern Percent = ScaleUnit' "PERCENT"
+pattern ScaleUnitPERCENT :: ScaleUnit
+pattern ScaleUnitPERCENT = ScaleUnit' "PERCENT"
 
 {-# COMPLETE
-  Percent,
+  ScaleUnitPERCENT,
   ScaleUnit'
   #-}
 
-instance FromText ScaleUnit where
-  parser = (ScaleUnit' . mk) <$> takeText
+instance Prelude.FromText ScaleUnit where
+  parser = ScaleUnit' Prelude.<$> Prelude.takeText
 
-instance ToText ScaleUnit where
-  toText (ScaleUnit' ci) = original ci
+instance Prelude.ToText ScaleUnit where
+  toText (ScaleUnit' x) = x
 
-instance Hashable ScaleUnit
+instance Prelude.Hashable ScaleUnit
 
-instance NFData ScaleUnit
+instance Prelude.NFData ScaleUnit
 
-instance ToByteString ScaleUnit
+instance Prelude.ToByteString ScaleUnit
 
-instance ToQuery ScaleUnit
+instance Prelude.ToQuery ScaleUnit
 
-instance ToHeader ScaleUnit
+instance Prelude.ToHeader ScaleUnit
 
-instance ToJSON ScaleUnit where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScaleUnit where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScaleUnit where
-  parseJSON = parseJSONText "ScaleUnit"
+instance Prelude.FromJSON ScaleUnit where
+  parseJSON = Prelude.parseJSONText "ScaleUnit"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.ECS.Types.TaskSetField
   ( TaskSetField
       ( ..,
-        TSFTags
+        TaskSetFieldTAGS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskSetField = TaskSetField' (CI Text)
+newtype TaskSetField = TaskSetField'
+  { fromTaskSetField ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSFTags :: TaskSetField
-pattern TSFTags = TaskSetField' "TAGS"
+pattern TaskSetFieldTAGS :: TaskSetField
+pattern TaskSetFieldTAGS = TaskSetField' "TAGS"
 
 {-# COMPLETE
-  TSFTags,
+  TaskSetFieldTAGS,
   TaskSetField'
   #-}
 
-instance FromText TaskSetField where
-  parser = (TaskSetField' . mk) <$> takeText
+instance Prelude.FromText TaskSetField where
+  parser = TaskSetField' Prelude.<$> Prelude.takeText
 
-instance ToText TaskSetField where
-  toText (TaskSetField' ci) = original ci
+instance Prelude.ToText TaskSetField where
+  toText (TaskSetField' x) = x
 
-instance Hashable TaskSetField
+instance Prelude.Hashable TaskSetField
 
-instance NFData TaskSetField
+instance Prelude.NFData TaskSetField
 
-instance ToByteString TaskSetField
+instance Prelude.ToByteString TaskSetField
 
-instance ToQuery TaskSetField
+instance Prelude.ToQuery TaskSetField
 
-instance ToHeader TaskSetField
+instance Prelude.ToHeader TaskSetField
 
-instance ToJSON TaskSetField where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskSetField where
+  toJSON = Prelude.toJSONText

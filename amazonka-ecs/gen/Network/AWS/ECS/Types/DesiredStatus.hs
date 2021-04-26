@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ECS.Types.DesiredStatus
   ( DesiredStatus
       ( ..,
-        DSPending,
-        DSRunning,
-        DSStopped
+        DesiredStatusPENDING,
+        DesiredStatusRUNNING,
+        DesiredStatusSTOPPED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DesiredStatus = DesiredStatus' (CI Text)
+newtype DesiredStatus = DesiredStatus'
+  { fromDesiredStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSPending :: DesiredStatus
-pattern DSPending = DesiredStatus' "PENDING"
+pattern DesiredStatusPENDING :: DesiredStatus
+pattern DesiredStatusPENDING = DesiredStatus' "PENDING"
 
-pattern DSRunning :: DesiredStatus
-pattern DSRunning = DesiredStatus' "RUNNING"
+pattern DesiredStatusRUNNING :: DesiredStatus
+pattern DesiredStatusRUNNING = DesiredStatus' "RUNNING"
 
-pattern DSStopped :: DesiredStatus
-pattern DSStopped = DesiredStatus' "STOPPED"
+pattern DesiredStatusSTOPPED :: DesiredStatus
+pattern DesiredStatusSTOPPED = DesiredStatus' "STOPPED"
 
 {-# COMPLETE
-  DSPending,
-  DSRunning,
-  DSStopped,
+  DesiredStatusPENDING,
+  DesiredStatusRUNNING,
+  DesiredStatusSTOPPED,
   DesiredStatus'
   #-}
 
-instance FromText DesiredStatus where
-  parser = (DesiredStatus' . mk) <$> takeText
+instance Prelude.FromText DesiredStatus where
+  parser = DesiredStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DesiredStatus where
-  toText (DesiredStatus' ci) = original ci
+instance Prelude.ToText DesiredStatus where
+  toText (DesiredStatus' x) = x
 
-instance Hashable DesiredStatus
+instance Prelude.Hashable DesiredStatus
 
-instance NFData DesiredStatus
+instance Prelude.NFData DesiredStatus
 
-instance ToByteString DesiredStatus
+instance Prelude.ToByteString DesiredStatus
 
-instance ToQuery DesiredStatus
+instance Prelude.ToQuery DesiredStatus
 
-instance ToHeader DesiredStatus
+instance Prelude.ToHeader DesiredStatus
 
-instance ToJSON DesiredStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON DesiredStatus where
+  toJSON = Prelude.toJSONText

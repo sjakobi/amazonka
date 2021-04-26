@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ECS.Types.TransportProtocol
   ( TransportProtocol
       ( ..,
-        TCP,
-        Udp
+        TransportProtocolTcp,
+        TransportProtocolUdp
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransportProtocol = TransportProtocol' (CI Text)
+newtype TransportProtocol = TransportProtocol'
+  { fromTransportProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TCP :: TransportProtocol
-pattern TCP = TransportProtocol' "tcp"
+pattern TransportProtocolTcp :: TransportProtocol
+pattern TransportProtocolTcp = TransportProtocol' "tcp"
 
-pattern Udp :: TransportProtocol
-pattern Udp = TransportProtocol' "udp"
+pattern TransportProtocolUdp :: TransportProtocol
+pattern TransportProtocolUdp = TransportProtocol' "udp"
 
 {-# COMPLETE
-  TCP,
-  Udp,
+  TransportProtocolTcp,
+  TransportProtocolUdp,
   TransportProtocol'
   #-}
 
-instance FromText TransportProtocol where
-  parser = (TransportProtocol' . mk) <$> takeText
+instance Prelude.FromText TransportProtocol where
+  parser = TransportProtocol' Prelude.<$> Prelude.takeText
 
-instance ToText TransportProtocol where
-  toText (TransportProtocol' ci) = original ci
+instance Prelude.ToText TransportProtocol where
+  toText (TransportProtocol' x) = x
 
-instance Hashable TransportProtocol
+instance Prelude.Hashable TransportProtocol
 
-instance NFData TransportProtocol
+instance Prelude.NFData TransportProtocol
 
-instance ToByteString TransportProtocol
+instance Prelude.ToByteString TransportProtocol
 
-instance ToQuery TransportProtocol
+instance Prelude.ToQuery TransportProtocol
 
-instance ToHeader TransportProtocol
+instance Prelude.ToHeader TransportProtocol
 
-instance ToJSON TransportProtocol where
-  toJSON = toJSONText
+instance Prelude.ToJSON TransportProtocol where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TransportProtocol where
-  parseJSON = parseJSONText "TransportProtocol"
+instance Prelude.FromJSON TransportProtocol where
+  parseJSON = Prelude.parseJSONText "TransportProtocol"

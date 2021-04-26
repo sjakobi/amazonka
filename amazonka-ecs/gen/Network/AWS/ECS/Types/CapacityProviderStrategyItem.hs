@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,119 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.CapacityProviderStrategyItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of a capacity provider strategy.
 --
---
---
--- /See:/ 'capacityProviderStrategyItem' smart constructor.
+-- /See:/ 'newCapacityProviderStrategyItem' smart constructor.
 data CapacityProviderStrategyItem = CapacityProviderStrategyItem'
-  { _cpsiWeight ::
-      !(Maybe Nat),
-    _cpsiBase ::
-      !(Maybe Nat),
-    _cpsiCapacityProvider ::
-      !Text
+  { -- | The /weight/ value designates the relative percentage of the total
+    -- number of tasks launched that should use the specified capacity
+    -- provider.
+    --
+    -- For example, if you have a strategy that contains two capacity providers
+    -- and both have a weight of @1@, then when the @base@ is satisfied, the
+    -- tasks will be split evenly across the two capacity providers. Using that
+    -- same logic, if you specify a weight of @1@ for /capacityProviderA/ and a
+    -- weight of @4@ for /capacityProviderB/, then for every one task that is
+    -- run using /capacityProviderA/, four tasks would use /capacityProviderB/.
+    weight :: Prelude.Maybe Prelude.Nat,
+    -- | The /base/ value designates how many tasks, at a minimum, to run on the
+    -- specified capacity provider. Only one capacity provider in a capacity
+    -- provider strategy can have a /base/ defined.
+    base :: Prelude.Maybe Prelude.Nat,
+    -- | The short name of the capacity provider.
+    capacityProvider :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CapacityProviderStrategyItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CapacityProviderStrategyItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpsiWeight' - The /weight/ value designates the relative percentage of the total number of tasks launched that should use the specified capacity provider. For example, if you have a strategy that contains two capacity providers and both have a weight of @1@ , then when the @base@ is satisfied, the tasks will be split evenly across the two capacity providers. Using that same logic, if you specify a weight of @1@ for /capacityProviderA/ and a weight of @4@ for /capacityProviderB/ , then for every one task that is run using /capacityProviderA/ , four tasks would use /capacityProviderB/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpsiBase' - The /base/ value designates how many tasks, at a minimum, to run on the specified capacity provider. Only one capacity provider in a capacity provider strategy can have a /base/ defined.
+-- 'weight', 'capacityProviderStrategyItem_weight' - The /weight/ value designates the relative percentage of the total
+-- number of tasks launched that should use the specified capacity
+-- provider.
 --
--- * 'cpsiCapacityProvider' - The short name of the capacity provider.
-capacityProviderStrategyItem ::
-  -- | 'cpsiCapacityProvider'
-  Text ->
+-- For example, if you have a strategy that contains two capacity providers
+-- and both have a weight of @1@, then when the @base@ is satisfied, the
+-- tasks will be split evenly across the two capacity providers. Using that
+-- same logic, if you specify a weight of @1@ for /capacityProviderA/ and a
+-- weight of @4@ for /capacityProviderB/, then for every one task that is
+-- run using /capacityProviderA/, four tasks would use /capacityProviderB/.
+--
+-- 'base', 'capacityProviderStrategyItem_base' - The /base/ value designates how many tasks, at a minimum, to run on the
+-- specified capacity provider. Only one capacity provider in a capacity
+-- provider strategy can have a /base/ defined.
+--
+-- 'capacityProvider', 'capacityProviderStrategyItem_capacityProvider' - The short name of the capacity provider.
+newCapacityProviderStrategyItem ::
+  -- | 'capacityProvider'
+  Prelude.Text ->
   CapacityProviderStrategyItem
-capacityProviderStrategyItem pCapacityProvider_ =
+newCapacityProviderStrategyItem pCapacityProvider_ =
   CapacityProviderStrategyItem'
-    { _cpsiWeight =
-        Nothing,
-      _cpsiBase = Nothing,
-      _cpsiCapacityProvider = pCapacityProvider_
+    { weight =
+        Prelude.Nothing,
+      base = Prelude.Nothing,
+      capacityProvider = pCapacityProvider_
     }
 
--- | The /weight/ value designates the relative percentage of the total number of tasks launched that should use the specified capacity provider. For example, if you have a strategy that contains two capacity providers and both have a weight of @1@ , then when the @base@ is satisfied, the tasks will be split evenly across the two capacity providers. Using that same logic, if you specify a weight of @1@ for /capacityProviderA/ and a weight of @4@ for /capacityProviderB/ , then for every one task that is run using /capacityProviderA/ , four tasks would use /capacityProviderB/ .
-cpsiWeight :: Lens' CapacityProviderStrategyItem (Maybe Natural)
-cpsiWeight = lens _cpsiWeight (\s a -> s {_cpsiWeight = a}) . mapping _Nat
+-- | The /weight/ value designates the relative percentage of the total
+-- number of tasks launched that should use the specified capacity
+-- provider.
+--
+-- For example, if you have a strategy that contains two capacity providers
+-- and both have a weight of @1@, then when the @base@ is satisfied, the
+-- tasks will be split evenly across the two capacity providers. Using that
+-- same logic, if you specify a weight of @1@ for /capacityProviderA/ and a
+-- weight of @4@ for /capacityProviderB/, then for every one task that is
+-- run using /capacityProviderA/, four tasks would use /capacityProviderB/.
+capacityProviderStrategyItem_weight :: Lens.Lens' CapacityProviderStrategyItem (Prelude.Maybe Prelude.Natural)
+capacityProviderStrategyItem_weight = Lens.lens (\CapacityProviderStrategyItem' {weight} -> weight) (\s@CapacityProviderStrategyItem' {} a -> s {weight = a} :: CapacityProviderStrategyItem) Prelude.. Lens.mapping Prelude._Nat
 
--- | The /base/ value designates how many tasks, at a minimum, to run on the specified capacity provider. Only one capacity provider in a capacity provider strategy can have a /base/ defined.
-cpsiBase :: Lens' CapacityProviderStrategyItem (Maybe Natural)
-cpsiBase = lens _cpsiBase (\s a -> s {_cpsiBase = a}) . mapping _Nat
+-- | The /base/ value designates how many tasks, at a minimum, to run on the
+-- specified capacity provider. Only one capacity provider in a capacity
+-- provider strategy can have a /base/ defined.
+capacityProviderStrategyItem_base :: Lens.Lens' CapacityProviderStrategyItem (Prelude.Maybe Prelude.Natural)
+capacityProviderStrategyItem_base = Lens.lens (\CapacityProviderStrategyItem' {base} -> base) (\s@CapacityProviderStrategyItem' {} a -> s {base = a} :: CapacityProviderStrategyItem) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The short name of the capacity provider.
-cpsiCapacityProvider :: Lens' CapacityProviderStrategyItem Text
-cpsiCapacityProvider = lens _cpsiCapacityProvider (\s a -> s {_cpsiCapacityProvider = a})
+capacityProviderStrategyItem_capacityProvider :: Lens.Lens' CapacityProviderStrategyItem Prelude.Text
+capacityProviderStrategyItem_capacityProvider = Lens.lens (\CapacityProviderStrategyItem' {capacityProvider} -> capacityProvider) (\s@CapacityProviderStrategyItem' {} a -> s {capacityProvider = a} :: CapacityProviderStrategyItem)
 
-instance FromJSON CapacityProviderStrategyItem where
+instance
+  Prelude.FromJSON
+    CapacityProviderStrategyItem
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CapacityProviderStrategyItem"
       ( \x ->
           CapacityProviderStrategyItem'
-            <$> (x .:? "weight")
-            <*> (x .:? "base")
-            <*> (x .: "capacityProvider")
+            Prelude.<$> (x Prelude..:? "weight")
+            Prelude.<*> (x Prelude..:? "base")
+            Prelude.<*> (x Prelude..: "capacityProvider")
       )
 
-instance Hashable CapacityProviderStrategyItem
+instance
+  Prelude.Hashable
+    CapacityProviderStrategyItem
 
-instance NFData CapacityProviderStrategyItem
+instance Prelude.NFData CapacityProviderStrategyItem
 
-instance ToJSON CapacityProviderStrategyItem where
+instance Prelude.ToJSON CapacityProviderStrategyItem where
   toJSON CapacityProviderStrategyItem' {..} =
-    object
-      ( catMaybes
-          [ ("weight" .=) <$> _cpsiWeight,
-            ("base" .=) <$> _cpsiBase,
-            Just ("capacityProvider" .= _cpsiCapacityProvider)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("weight" Prelude..=) Prelude.<$> weight,
+            ("base" Prelude..=) Prelude.<$> base,
+            Prelude.Just
+              ("capacityProvider" Prelude..= capacityProvider)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,73 @@
 module Network.AWS.ECS.Types.Setting where
 
 import Network.AWS.ECS.Types.SettingName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The current account setting for a resource.
 --
---
---
--- /See:/ 'setting' smart constructor.
+-- /See:/ 'newSetting' smart constructor.
 data Setting = Setting'
-  { _setName ::
-      !(Maybe SettingName),
-    _setPrincipalARN :: !(Maybe Text),
-    _setValue :: !(Maybe Text)
+  { -- | The Amazon ECS resource name.
+    name :: Prelude.Maybe SettingName,
+    -- | The ARN of the principal, which can be an IAM user, IAM role, or the
+    -- root user. If this field is omitted, the authenticated user is assumed.
+    principalArn :: Prelude.Maybe Prelude.Text,
+    -- | Whether the account setting is enabled or disabled for the specified
+    -- resource.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Setting' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Setting' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'setName' - The Amazon ECS resource name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'setPrincipalARN' - The ARN of the principal, which can be an IAM user, IAM role, or the root user. If this field is omitted, the authenticated user is assumed.
+-- 'name', 'setting_name' - The Amazon ECS resource name.
 --
--- * 'setValue' - Whether the account setting is enabled or disabled for the specified resource.
-setting ::
+-- 'principalArn', 'setting_principalArn' - The ARN of the principal, which can be an IAM user, IAM role, or the
+-- root user. If this field is omitted, the authenticated user is assumed.
+--
+-- 'value', 'setting_value' - Whether the account setting is enabled or disabled for the specified
+-- resource.
+newSetting ::
   Setting
-setting =
+newSetting =
   Setting'
-    { _setName = Nothing,
-      _setPrincipalARN = Nothing,
-      _setValue = Nothing
+    { name = Prelude.Nothing,
+      principalArn = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The Amazon ECS resource name.
-setName :: Lens' Setting (Maybe SettingName)
-setName = lens _setName (\s a -> s {_setName = a})
+setting_name :: Lens.Lens' Setting (Prelude.Maybe SettingName)
+setting_name = Lens.lens (\Setting' {name} -> name) (\s@Setting' {} a -> s {name = a} :: Setting)
 
--- | The ARN of the principal, which can be an IAM user, IAM role, or the root user. If this field is omitted, the authenticated user is assumed.
-setPrincipalARN :: Lens' Setting (Maybe Text)
-setPrincipalARN = lens _setPrincipalARN (\s a -> s {_setPrincipalARN = a})
+-- | The ARN of the principal, which can be an IAM user, IAM role, or the
+-- root user. If this field is omitted, the authenticated user is assumed.
+setting_principalArn :: Lens.Lens' Setting (Prelude.Maybe Prelude.Text)
+setting_principalArn = Lens.lens (\Setting' {principalArn} -> principalArn) (\s@Setting' {} a -> s {principalArn = a} :: Setting)
 
--- | Whether the account setting is enabled or disabled for the specified resource.
-setValue :: Lens' Setting (Maybe Text)
-setValue = lens _setValue (\s a -> s {_setValue = a})
+-- | Whether the account setting is enabled or disabled for the specified
+-- resource.
+setting_value :: Lens.Lens' Setting (Prelude.Maybe Prelude.Text)
+setting_value = Lens.lens (\Setting' {value} -> value) (\s@Setting' {} a -> s {value = a} :: Setting)
 
-instance FromJSON Setting where
+instance Prelude.FromJSON Setting where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Setting"
       ( \x ->
           Setting'
-            <$> (x .:? "name")
-            <*> (x .:? "principalArn")
-            <*> (x .:? "value")
+            Prelude.<$> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "principalArn")
+            Prelude.<*> (x Prelude..:? "value")
       )
 
-instance Hashable Setting
+instance Prelude.Hashable Setting
 
-instance NFData Setting
+instance Prelude.NFData Setting

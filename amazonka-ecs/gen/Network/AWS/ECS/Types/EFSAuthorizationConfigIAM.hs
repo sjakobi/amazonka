@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ECS.Types.EFSAuthorizationConfigIAM
   ( EFSAuthorizationConfigIAM
       ( ..,
-        EFSACIDisabled,
-        EFSACIEnabled
+        EFSAuthorizationConfigIAMDISABLED,
+        EFSAuthorizationConfigIAMENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EFSAuthorizationConfigIAM
-  = EFSAuthorizationConfigIAM'
-      ( CI
-          Text
-      )
+newtype EFSAuthorizationConfigIAM = EFSAuthorizationConfigIAM'
+  { fromEFSAuthorizationConfigIAM ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EFSACIDisabled :: EFSAuthorizationConfigIAM
-pattern EFSACIDisabled = EFSAuthorizationConfigIAM' "DISABLED"
+pattern EFSAuthorizationConfigIAMDISABLED :: EFSAuthorizationConfigIAM
+pattern EFSAuthorizationConfigIAMDISABLED = EFSAuthorizationConfigIAM' "DISABLED"
 
-pattern EFSACIEnabled :: EFSAuthorizationConfigIAM
-pattern EFSACIEnabled = EFSAuthorizationConfigIAM' "ENABLED"
+pattern EFSAuthorizationConfigIAMENABLED :: EFSAuthorizationConfigIAM
+pattern EFSAuthorizationConfigIAMENABLED = EFSAuthorizationConfigIAM' "ENABLED"
 
 {-# COMPLETE
-  EFSACIDisabled,
-  EFSACIEnabled,
+  EFSAuthorizationConfigIAMDISABLED,
+  EFSAuthorizationConfigIAMENABLED,
   EFSAuthorizationConfigIAM'
   #-}
 
-instance FromText EFSAuthorizationConfigIAM where
-  parser = (EFSAuthorizationConfigIAM' . mk) <$> takeText
+instance Prelude.FromText EFSAuthorizationConfigIAM where
+  parser = EFSAuthorizationConfigIAM' Prelude.<$> Prelude.takeText
 
-instance ToText EFSAuthorizationConfigIAM where
-  toText (EFSAuthorizationConfigIAM' ci) = original ci
+instance Prelude.ToText EFSAuthorizationConfigIAM where
+  toText (EFSAuthorizationConfigIAM' x) = x
 
-instance Hashable EFSAuthorizationConfigIAM
+instance Prelude.Hashable EFSAuthorizationConfigIAM
 
-instance NFData EFSAuthorizationConfigIAM
+instance Prelude.NFData EFSAuthorizationConfigIAM
 
-instance ToByteString EFSAuthorizationConfigIAM
+instance Prelude.ToByteString EFSAuthorizationConfigIAM
 
-instance ToQuery EFSAuthorizationConfigIAM
+instance Prelude.ToQuery EFSAuthorizationConfigIAM
 
-instance ToHeader EFSAuthorizationConfigIAM
+instance Prelude.ToHeader EFSAuthorizationConfigIAM
 
-instance ToJSON EFSAuthorizationConfigIAM where
-  toJSON = toJSONText
+instance Prelude.ToJSON EFSAuthorizationConfigIAM where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EFSAuthorizationConfigIAM where
-  parseJSON = parseJSONText "EFSAuthorizationConfigIAM"
+instance Prelude.FromJSON EFSAuthorizationConfigIAM where
+  parseJSON = Prelude.parseJSONText "EFSAuthorizationConfigIAM"

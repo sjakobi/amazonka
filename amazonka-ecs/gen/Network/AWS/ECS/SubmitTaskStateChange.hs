@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,238 +21,238 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
+-- This action is only used by the Amazon ECS agent, and it is not intended
+-- for use outside of the agent.
+--
 -- Sent to acknowledge that a task changed states.
 module Network.AWS.ECS.SubmitTaskStateChange
   ( -- * Creating a Request
-    submitTaskStateChange,
-    SubmitTaskStateChange,
+    SubmitTaskStateChange (..),
+    newSubmitTaskStateChange,
 
     -- * Request Lenses
-    stscStatus,
-    stscPullStartedAt,
-    stscTask,
-    stscContainers,
-    stscReason,
-    stscPullStoppedAt,
-    stscExecutionStoppedAt,
-    stscCluster,
-    stscAttachments,
+    submitTaskStateChange_status,
+    submitTaskStateChange_pullStartedAt,
+    submitTaskStateChange_task,
+    submitTaskStateChange_containers,
+    submitTaskStateChange_reason,
+    submitTaskStateChange_pullStoppedAt,
+    submitTaskStateChange_executionStoppedAt,
+    submitTaskStateChange_cluster,
+    submitTaskStateChange_attachments,
 
     -- * Destructuring the Response
-    submitTaskStateChangeResponse,
-    SubmitTaskStateChangeResponse,
+    SubmitTaskStateChangeResponse (..),
+    newSubmitTaskStateChangeResponse,
 
     -- * Response Lenses
-    stscrrsAcknowledgment,
-    stscrrsResponseStatus,
+    submitTaskStateChangeResponse_acknowledgment,
+    submitTaskStateChangeResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'submitTaskStateChange' smart constructor.
+-- | /See:/ 'newSubmitTaskStateChange' smart constructor.
 data SubmitTaskStateChange = SubmitTaskStateChange'
-  { _stscStatus ::
-      !(Maybe Text),
-    _stscPullStartedAt ::
-      !(Maybe POSIX),
-    _stscTask :: !(Maybe Text),
-    _stscContainers ::
-      !( Maybe
-           [ContainerStateChange]
-       ),
-    _stscReason ::
-      !(Maybe Text),
-    _stscPullStoppedAt ::
-      !(Maybe POSIX),
-    _stscExecutionStoppedAt ::
-      !(Maybe POSIX),
-    _stscCluster ::
-      !(Maybe Text),
-    _stscAttachments ::
-      !( Maybe
-           [AttachmentStateChange]
-       )
+  { -- | The status of the state change request.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the container image pull began.
+    pullStartedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The task ID or full ARN of the task in the state change request.
+    task :: Prelude.Maybe Prelude.Text,
+    -- | Any containers associated with the state change request.
+    containers :: Prelude.Maybe [ContainerStateChange],
+    -- | The reason for the state change request.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the container image pull completed.
+    pullStoppedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The Unix timestamp for when the task execution stopped.
+    executionStoppedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- hosts the task.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | Any attachments associated with the state change request.
+    attachments :: Prelude.Maybe [AttachmentStateChange]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubmitTaskStateChange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubmitTaskStateChange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stscStatus' - The status of the state change request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stscPullStartedAt' - The Unix timestamp for when the container image pull began.
+-- 'status', 'submitTaskStateChange_status' - The status of the state change request.
 --
--- * 'stscTask' - The task ID or full ARN of the task in the state change request.
+-- 'pullStartedAt', 'submitTaskStateChange_pullStartedAt' - The Unix timestamp for when the container image pull began.
 --
--- * 'stscContainers' - Any containers associated with the state change request.
+-- 'task', 'submitTaskStateChange_task' - The task ID or full ARN of the task in the state change request.
 --
--- * 'stscReason' - The reason for the state change request.
+-- 'containers', 'submitTaskStateChange_containers' - Any containers associated with the state change request.
 --
--- * 'stscPullStoppedAt' - The Unix timestamp for when the container image pull completed.
+-- 'reason', 'submitTaskStateChange_reason' - The reason for the state change request.
 --
--- * 'stscExecutionStoppedAt' - The Unix timestamp for when the task execution stopped.
+-- 'pullStoppedAt', 'submitTaskStateChange_pullStoppedAt' - The Unix timestamp for when the container image pull completed.
 --
--- * 'stscCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task.
+-- 'executionStoppedAt', 'submitTaskStateChange_executionStoppedAt' - The Unix timestamp for when the task execution stopped.
 --
--- * 'stscAttachments' - Any attachments associated with the state change request.
-submitTaskStateChange ::
+-- 'cluster', 'submitTaskStateChange_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the task.
+--
+-- 'attachments', 'submitTaskStateChange_attachments' - Any attachments associated with the state change request.
+newSubmitTaskStateChange ::
   SubmitTaskStateChange
-submitTaskStateChange =
+newSubmitTaskStateChange =
   SubmitTaskStateChange'
-    { _stscStatus = Nothing,
-      _stscPullStartedAt = Nothing,
-      _stscTask = Nothing,
-      _stscContainers = Nothing,
-      _stscReason = Nothing,
-      _stscPullStoppedAt = Nothing,
-      _stscExecutionStoppedAt = Nothing,
-      _stscCluster = Nothing,
-      _stscAttachments = Nothing
+    { status = Prelude.Nothing,
+      pullStartedAt = Prelude.Nothing,
+      task = Prelude.Nothing,
+      containers = Prelude.Nothing,
+      reason = Prelude.Nothing,
+      pullStoppedAt = Prelude.Nothing,
+      executionStoppedAt = Prelude.Nothing,
+      cluster = Prelude.Nothing,
+      attachments = Prelude.Nothing
     }
 
 -- | The status of the state change request.
-stscStatus :: Lens' SubmitTaskStateChange (Maybe Text)
-stscStatus = lens _stscStatus (\s a -> s {_stscStatus = a})
+submitTaskStateChange_status :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.Text)
+submitTaskStateChange_status = Lens.lens (\SubmitTaskStateChange' {status} -> status) (\s@SubmitTaskStateChange' {} a -> s {status = a} :: SubmitTaskStateChange)
 
 -- | The Unix timestamp for when the container image pull began.
-stscPullStartedAt :: Lens' SubmitTaskStateChange (Maybe UTCTime)
-stscPullStartedAt = lens _stscPullStartedAt (\s a -> s {_stscPullStartedAt = a}) . mapping _Time
+submitTaskStateChange_pullStartedAt :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.UTCTime)
+submitTaskStateChange_pullStartedAt = Lens.lens (\SubmitTaskStateChange' {pullStartedAt} -> pullStartedAt) (\s@SubmitTaskStateChange' {} a -> s {pullStartedAt = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Prelude._Time
 
 -- | The task ID or full ARN of the task in the state change request.
-stscTask :: Lens' SubmitTaskStateChange (Maybe Text)
-stscTask = lens _stscTask (\s a -> s {_stscTask = a})
+submitTaskStateChange_task :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.Text)
+submitTaskStateChange_task = Lens.lens (\SubmitTaskStateChange' {task} -> task) (\s@SubmitTaskStateChange' {} a -> s {task = a} :: SubmitTaskStateChange)
 
 -- | Any containers associated with the state change request.
-stscContainers :: Lens' SubmitTaskStateChange [ContainerStateChange]
-stscContainers = lens _stscContainers (\s a -> s {_stscContainers = a}) . _Default . _Coerce
+submitTaskStateChange_containers :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe [ContainerStateChange])
+submitTaskStateChange_containers = Lens.lens (\SubmitTaskStateChange' {containers} -> containers) (\s@SubmitTaskStateChange' {} a -> s {containers = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The reason for the state change request.
-stscReason :: Lens' SubmitTaskStateChange (Maybe Text)
-stscReason = lens _stscReason (\s a -> s {_stscReason = a})
+submitTaskStateChange_reason :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.Text)
+submitTaskStateChange_reason = Lens.lens (\SubmitTaskStateChange' {reason} -> reason) (\s@SubmitTaskStateChange' {} a -> s {reason = a} :: SubmitTaskStateChange)
 
 -- | The Unix timestamp for when the container image pull completed.
-stscPullStoppedAt :: Lens' SubmitTaskStateChange (Maybe UTCTime)
-stscPullStoppedAt = lens _stscPullStoppedAt (\s a -> s {_stscPullStoppedAt = a}) . mapping _Time
+submitTaskStateChange_pullStoppedAt :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.UTCTime)
+submitTaskStateChange_pullStoppedAt = Lens.lens (\SubmitTaskStateChange' {pullStoppedAt} -> pullStoppedAt) (\s@SubmitTaskStateChange' {} a -> s {pullStoppedAt = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Unix timestamp for when the task execution stopped.
-stscExecutionStoppedAt :: Lens' SubmitTaskStateChange (Maybe UTCTime)
-stscExecutionStoppedAt = lens _stscExecutionStoppedAt (\s a -> s {_stscExecutionStoppedAt = a}) . mapping _Time
+submitTaskStateChange_executionStoppedAt :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.UTCTime)
+submitTaskStateChange_executionStoppedAt = Lens.lens (\SubmitTaskStateChange' {executionStoppedAt} -> executionStoppedAt) (\s@SubmitTaskStateChange' {} a -> s {executionStoppedAt = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Prelude._Time
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task.
-stscCluster :: Lens' SubmitTaskStateChange (Maybe Text)
-stscCluster = lens _stscCluster (\s a -> s {_stscCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the task.
+submitTaskStateChange_cluster :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.Text)
+submitTaskStateChange_cluster = Lens.lens (\SubmitTaskStateChange' {cluster} -> cluster) (\s@SubmitTaskStateChange' {} a -> s {cluster = a} :: SubmitTaskStateChange)
 
 -- | Any attachments associated with the state change request.
-stscAttachments :: Lens' SubmitTaskStateChange [AttachmentStateChange]
-stscAttachments = lens _stscAttachments (\s a -> s {_stscAttachments = a}) . _Default . _Coerce
+submitTaskStateChange_attachments :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe [AttachmentStateChange])
+submitTaskStateChange_attachments = Lens.lens (\SubmitTaskStateChange' {attachments} -> attachments) (\s@SubmitTaskStateChange' {} a -> s {attachments = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest SubmitTaskStateChange where
+instance Prelude.AWSRequest SubmitTaskStateChange where
   type
     Rs SubmitTaskStateChange =
       SubmitTaskStateChangeResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SubmitTaskStateChangeResponse'
-            <$> (x .?> "acknowledgment") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "acknowledgment")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SubmitTaskStateChange
+instance Prelude.Hashable SubmitTaskStateChange
 
-instance NFData SubmitTaskStateChange
+instance Prelude.NFData SubmitTaskStateChange
 
-instance ToHeaders SubmitTaskStateChange where
+instance Prelude.ToHeaders SubmitTaskStateChange where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.SubmitTaskStateChange" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.SubmitTaskStateChange" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SubmitTaskStateChange where
+instance Prelude.ToJSON SubmitTaskStateChange where
   toJSON SubmitTaskStateChange' {..} =
-    object
-      ( catMaybes
-          [ ("status" .=) <$> _stscStatus,
-            ("pullStartedAt" .=) <$> _stscPullStartedAt,
-            ("task" .=) <$> _stscTask,
-            ("containers" .=) <$> _stscContainers,
-            ("reason" .=) <$> _stscReason,
-            ("pullStoppedAt" .=) <$> _stscPullStoppedAt,
-            ("executionStoppedAt" .=)
-              <$> _stscExecutionStoppedAt,
-            ("cluster" .=) <$> _stscCluster,
-            ("attachments" .=) <$> _stscAttachments
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("status" Prelude..=) Prelude.<$> status,
+            ("pullStartedAt" Prelude..=)
+              Prelude.<$> pullStartedAt,
+            ("task" Prelude..=) Prelude.<$> task,
+            ("containers" Prelude..=) Prelude.<$> containers,
+            ("reason" Prelude..=) Prelude.<$> reason,
+            ("pullStoppedAt" Prelude..=)
+              Prelude.<$> pullStoppedAt,
+            ("executionStoppedAt" Prelude..=)
+              Prelude.<$> executionStoppedAt,
+            ("cluster" Prelude..=) Prelude.<$> cluster,
+            ("attachments" Prelude..=) Prelude.<$> attachments
           ]
       )
 
-instance ToPath SubmitTaskStateChange where
-  toPath = const "/"
+instance Prelude.ToPath SubmitTaskStateChange where
+  toPath = Prelude.const "/"
 
-instance ToQuery SubmitTaskStateChange where
-  toQuery = const mempty
+instance Prelude.ToQuery SubmitTaskStateChange where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'submitTaskStateChangeResponse' smart constructor.
+-- | /See:/ 'newSubmitTaskStateChangeResponse' smart constructor.
 data SubmitTaskStateChangeResponse = SubmitTaskStateChangeResponse'
-  { _stscrrsAcknowledgment ::
-      !( Maybe
-           Text
-       ),
-    _stscrrsResponseStatus ::
-      !Int
+  { -- | Acknowledgement of the state change.
+    acknowledgment :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubmitTaskStateChangeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubmitTaskStateChangeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stscrrsAcknowledgment' - Acknowledgement of the state change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stscrrsResponseStatus' - -- | The response status code.
-submitTaskStateChangeResponse ::
-  -- | 'stscrrsResponseStatus'
-  Int ->
+-- 'acknowledgment', 'submitTaskStateChangeResponse_acknowledgment' - Acknowledgement of the state change.
+--
+-- 'httpStatus', 'submitTaskStateChangeResponse_httpStatus' - The response's http status code.
+newSubmitTaskStateChangeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SubmitTaskStateChangeResponse
-submitTaskStateChangeResponse pResponseStatus_ =
+newSubmitTaskStateChangeResponse pHttpStatus_ =
   SubmitTaskStateChangeResponse'
-    { _stscrrsAcknowledgment =
-        Nothing,
-      _stscrrsResponseStatus = pResponseStatus_
+    { acknowledgment =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Acknowledgement of the state change.
-stscrrsAcknowledgment :: Lens' SubmitTaskStateChangeResponse (Maybe Text)
-stscrrsAcknowledgment = lens _stscrrsAcknowledgment (\s a -> s {_stscrrsAcknowledgment = a})
+submitTaskStateChangeResponse_acknowledgment :: Lens.Lens' SubmitTaskStateChangeResponse (Prelude.Maybe Prelude.Text)
+submitTaskStateChangeResponse_acknowledgment = Lens.lens (\SubmitTaskStateChangeResponse' {acknowledgment} -> acknowledgment) (\s@SubmitTaskStateChangeResponse' {} a -> s {acknowledgment = a} :: SubmitTaskStateChangeResponse)
 
--- | -- | The response status code.
-stscrrsResponseStatus :: Lens' SubmitTaskStateChangeResponse Int
-stscrrsResponseStatus = lens _stscrrsResponseStatus (\s a -> s {_stscrrsResponseStatus = a})
+-- | The response's http status code.
+submitTaskStateChangeResponse_httpStatus :: Lens.Lens' SubmitTaskStateChangeResponse Prelude.Int
+submitTaskStateChangeResponse_httpStatus = Lens.lens (\SubmitTaskStateChangeResponse' {httpStatus} -> httpStatus) (\s@SubmitTaskStateChangeResponse' {} a -> s {httpStatus = a} :: SubmitTaskStateChangeResponse)
 
-instance NFData SubmitTaskStateChangeResponse
+instance Prelude.NFData SubmitTaskStateChangeResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
+-- This action is only used by the Amazon ECS agent, and it is not intended
+-- for use outside of the agent.
+--
 -- Sent to acknowledge that an attachment changed states.
 module Network.AWS.ECS.SubmitAttachmentStateChanges
   ( -- * Creating a Request
-    submitAttachmentStateChanges,
-    SubmitAttachmentStateChanges,
+    SubmitAttachmentStateChanges (..),
+    newSubmitAttachmentStateChanges,
 
     -- * Request Lenses
-    sascCluster,
-    sascAttachments,
+    submitAttachmentStateChanges_cluster,
+    submitAttachmentStateChanges_attachments,
 
     -- * Destructuring the Response
-    submitAttachmentStateChangesResponse,
-    SubmitAttachmentStateChangesResponse,
+    SubmitAttachmentStateChangesResponse (..),
+    newSubmitAttachmentStateChangesResponse,
 
     -- * Response Lenses
-    sascrrsAcknowledgment,
-    sascrrsResponseStatus,
+    submitAttachmentStateChangesResponse_acknowledgment,
+    submitAttachmentStateChangesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'submitAttachmentStateChanges' smart constructor.
+-- | /See:/ 'newSubmitAttachmentStateChanges' smart constructor.
 data SubmitAttachmentStateChanges = SubmitAttachmentStateChanges'
-  { _sascCluster ::
-      !(Maybe Text),
-    _sascAttachments ::
-      ![AttachmentStateChange]
+  { -- | The short name or full ARN of the cluster that hosts the container
+    -- instance the attachment belongs to.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | Any attachments associated with the state change request.
+    attachments :: [AttachmentStateChange]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubmitAttachmentStateChanges' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubmitAttachmentStateChanges' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sascCluster' - The short name or full ARN of the cluster that hosts the container instance the attachment belongs to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sascAttachments' - Any attachments associated with the state change request.
-submitAttachmentStateChanges ::
+-- 'cluster', 'submitAttachmentStateChanges_cluster' - The short name or full ARN of the cluster that hosts the container
+-- instance the attachment belongs to.
+--
+-- 'attachments', 'submitAttachmentStateChanges_attachments' - Any attachments associated with the state change request.
+newSubmitAttachmentStateChanges ::
   SubmitAttachmentStateChanges
-submitAttachmentStateChanges =
+newSubmitAttachmentStateChanges =
   SubmitAttachmentStateChanges'
-    { _sascCluster =
-        Nothing,
-      _sascAttachments = mempty
+    { cluster =
+        Prelude.Nothing,
+      attachments = Prelude.mempty
     }
 
--- | The short name or full ARN of the cluster that hosts the container instance the attachment belongs to.
-sascCluster :: Lens' SubmitAttachmentStateChanges (Maybe Text)
-sascCluster = lens _sascCluster (\s a -> s {_sascCluster = a})
+-- | The short name or full ARN of the cluster that hosts the container
+-- instance the attachment belongs to.
+submitAttachmentStateChanges_cluster :: Lens.Lens' SubmitAttachmentStateChanges (Prelude.Maybe Prelude.Text)
+submitAttachmentStateChanges_cluster = Lens.lens (\SubmitAttachmentStateChanges' {cluster} -> cluster) (\s@SubmitAttachmentStateChanges' {} a -> s {cluster = a} :: SubmitAttachmentStateChanges)
 
 -- | Any attachments associated with the state change request.
-sascAttachments :: Lens' SubmitAttachmentStateChanges [AttachmentStateChange]
-sascAttachments = lens _sascAttachments (\s a -> s {_sascAttachments = a}) . _Coerce
+submitAttachmentStateChanges_attachments :: Lens.Lens' SubmitAttachmentStateChanges [AttachmentStateChange]
+submitAttachmentStateChanges_attachments = Lens.lens (\SubmitAttachmentStateChanges' {attachments} -> attachments) (\s@SubmitAttachmentStateChanges' {} a -> s {attachments = a} :: SubmitAttachmentStateChanges) Prelude.. Prelude._Coerce
 
-instance AWSRequest SubmitAttachmentStateChanges where
+instance
+  Prelude.AWSRequest
+    SubmitAttachmentStateChanges
+  where
   type
     Rs SubmitAttachmentStateChanges =
       SubmitAttachmentStateChangesResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SubmitAttachmentStateChangesResponse'
-            <$> (x .?> "acknowledgment") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "acknowledgment")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SubmitAttachmentStateChanges
+instance
+  Prelude.Hashable
+    SubmitAttachmentStateChanges
 
-instance NFData SubmitAttachmentStateChanges
+instance Prelude.NFData SubmitAttachmentStateChanges
 
-instance ToHeaders SubmitAttachmentStateChanges where
+instance
+  Prelude.ToHeaders
+    SubmitAttachmentStateChanges
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.SubmitAttachmentStateChanges" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.SubmitAttachmentStateChanges" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SubmitAttachmentStateChanges where
+instance Prelude.ToJSON SubmitAttachmentStateChanges where
   toJSON SubmitAttachmentStateChanges' {..} =
-    object
-      ( catMaybes
-          [ ("cluster" .=) <$> _sascCluster,
-            Just ("attachments" .= _sascAttachments)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("cluster" Prelude..=) Prelude.<$> cluster,
+            Prelude.Just ("attachments" Prelude..= attachments)
           ]
       )
 
-instance ToPath SubmitAttachmentStateChanges where
-  toPath = const "/"
+instance Prelude.ToPath SubmitAttachmentStateChanges where
+  toPath = Prelude.const "/"
 
-instance ToQuery SubmitAttachmentStateChanges where
-  toQuery = const mempty
+instance Prelude.ToQuery SubmitAttachmentStateChanges where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'submitAttachmentStateChangesResponse' smart constructor.
+-- | /See:/ 'newSubmitAttachmentStateChangesResponse' smart constructor.
 data SubmitAttachmentStateChangesResponse = SubmitAttachmentStateChangesResponse'
-  { _sascrrsAcknowledgment ::
-      !( Maybe
-           Text
-       ),
-    _sascrrsResponseStatus ::
-      !Int
+  { -- | Acknowledgement of the state change.
+    acknowledgment :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubmitAttachmentStateChangesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubmitAttachmentStateChangesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sascrrsAcknowledgment' - Acknowledgement of the state change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sascrrsResponseStatus' - -- | The response status code.
-submitAttachmentStateChangesResponse ::
-  -- | 'sascrrsResponseStatus'
-  Int ->
+-- 'acknowledgment', 'submitAttachmentStateChangesResponse_acknowledgment' - Acknowledgement of the state change.
+--
+-- 'httpStatus', 'submitAttachmentStateChangesResponse_httpStatus' - The response's http status code.
+newSubmitAttachmentStateChangesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SubmitAttachmentStateChangesResponse
-submitAttachmentStateChangesResponse pResponseStatus_ =
+newSubmitAttachmentStateChangesResponse pHttpStatus_ =
   SubmitAttachmentStateChangesResponse'
-    { _sascrrsAcknowledgment =
-        Nothing,
-      _sascrrsResponseStatus =
-        pResponseStatus_
+    { acknowledgment =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Acknowledgement of the state change.
-sascrrsAcknowledgment :: Lens' SubmitAttachmentStateChangesResponse (Maybe Text)
-sascrrsAcknowledgment = lens _sascrrsAcknowledgment (\s a -> s {_sascrrsAcknowledgment = a})
+submitAttachmentStateChangesResponse_acknowledgment :: Lens.Lens' SubmitAttachmentStateChangesResponse (Prelude.Maybe Prelude.Text)
+submitAttachmentStateChangesResponse_acknowledgment = Lens.lens (\SubmitAttachmentStateChangesResponse' {acknowledgment} -> acknowledgment) (\s@SubmitAttachmentStateChangesResponse' {} a -> s {acknowledgment = a} :: SubmitAttachmentStateChangesResponse)
 
--- | -- | The response status code.
-sascrrsResponseStatus :: Lens' SubmitAttachmentStateChangesResponse Int
-sascrrsResponseStatus = lens _sascrrsResponseStatus (\s a -> s {_sascrrsResponseStatus = a})
+-- | The response's http status code.
+submitAttachmentStateChangesResponse_httpStatus :: Lens.Lens' SubmitAttachmentStateChangesResponse Prelude.Int
+submitAttachmentStateChangesResponse_httpStatus = Lens.lens (\SubmitAttachmentStateChangesResponse' {httpStatus} -> httpStatus) (\s@SubmitAttachmentStateChangesResponse' {} a -> s {httpStatus = a} :: SubmitAttachmentStateChangesResponse)
 
-instance NFData SubmitAttachmentStateChangesResponse
+instance
+  Prelude.NFData
+    SubmitAttachmentStateChangesResponse

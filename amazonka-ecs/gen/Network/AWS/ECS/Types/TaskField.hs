@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.ECS.Types.TaskField
   ( TaskField
       ( ..,
-        TFTags
+        TaskFieldTAGS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskField = TaskField' (CI Text)
+newtype TaskField = TaskField'
+  { fromTaskField ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TFTags :: TaskField
-pattern TFTags = TaskField' "TAGS"
+pattern TaskFieldTAGS :: TaskField
+pattern TaskFieldTAGS = TaskField' "TAGS"
 
 {-# COMPLETE
-  TFTags,
+  TaskFieldTAGS,
   TaskField'
   #-}
 
-instance FromText TaskField where
-  parser = (TaskField' . mk) <$> takeText
+instance Prelude.FromText TaskField where
+  parser = TaskField' Prelude.<$> Prelude.takeText
 
-instance ToText TaskField where
-  toText (TaskField' ci) = original ci
+instance Prelude.ToText TaskField where
+  toText (TaskField' x) = x
 
-instance Hashable TaskField
+instance Prelude.Hashable TaskField
 
-instance NFData TaskField
+instance Prelude.NFData TaskField
 
-instance ToByteString TaskField
+instance Prelude.ToByteString TaskField
 
-instance ToQuery TaskField
+instance Prelude.ToQuery TaskField
 
-instance ToHeader TaskField
+instance Prelude.ToHeader TaskField
 
-instance ToJSON TaskField where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskField where
+  toJSON = Prelude.toJSONText

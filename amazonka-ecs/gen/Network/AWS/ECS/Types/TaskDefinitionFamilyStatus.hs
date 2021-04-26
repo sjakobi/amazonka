@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ECS.Types.TaskDefinitionFamilyStatus
   ( TaskDefinitionFamilyStatus
       ( ..,
-        TDFSActive,
-        TDFSAll,
-        TDFSInactive
+        TaskDefinitionFamilyStatusACTIVE,
+        TaskDefinitionFamilyStatusALL,
+        TaskDefinitionFamilyStatusINACTIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskDefinitionFamilyStatus
-  = TaskDefinitionFamilyStatus'
-      ( CI
-          Text
-      )
+newtype TaskDefinitionFamilyStatus = TaskDefinitionFamilyStatus'
+  { fromTaskDefinitionFamilyStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TDFSActive :: TaskDefinitionFamilyStatus
-pattern TDFSActive = TaskDefinitionFamilyStatus' "ACTIVE"
+pattern TaskDefinitionFamilyStatusACTIVE :: TaskDefinitionFamilyStatus
+pattern TaskDefinitionFamilyStatusACTIVE = TaskDefinitionFamilyStatus' "ACTIVE"
 
-pattern TDFSAll :: TaskDefinitionFamilyStatus
-pattern TDFSAll = TaskDefinitionFamilyStatus' "ALL"
+pattern TaskDefinitionFamilyStatusALL :: TaskDefinitionFamilyStatus
+pattern TaskDefinitionFamilyStatusALL = TaskDefinitionFamilyStatus' "ALL"
 
-pattern TDFSInactive :: TaskDefinitionFamilyStatus
-pattern TDFSInactive = TaskDefinitionFamilyStatus' "INACTIVE"
+pattern TaskDefinitionFamilyStatusINACTIVE :: TaskDefinitionFamilyStatus
+pattern TaskDefinitionFamilyStatusINACTIVE = TaskDefinitionFamilyStatus' "INACTIVE"
 
 {-# COMPLETE
-  TDFSActive,
-  TDFSAll,
-  TDFSInactive,
+  TaskDefinitionFamilyStatusACTIVE,
+  TaskDefinitionFamilyStatusALL,
+  TaskDefinitionFamilyStatusINACTIVE,
   TaskDefinitionFamilyStatus'
   #-}
 
-instance FromText TaskDefinitionFamilyStatus where
-  parser = (TaskDefinitionFamilyStatus' . mk) <$> takeText
+instance Prelude.FromText TaskDefinitionFamilyStatus where
+  parser = TaskDefinitionFamilyStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TaskDefinitionFamilyStatus where
-  toText (TaskDefinitionFamilyStatus' ci) = original ci
+instance Prelude.ToText TaskDefinitionFamilyStatus where
+  toText (TaskDefinitionFamilyStatus' x) = x
 
-instance Hashable TaskDefinitionFamilyStatus
+instance Prelude.Hashable TaskDefinitionFamilyStatus
 
-instance NFData TaskDefinitionFamilyStatus
+instance Prelude.NFData TaskDefinitionFamilyStatus
 
-instance ToByteString TaskDefinitionFamilyStatus
+instance Prelude.ToByteString TaskDefinitionFamilyStatus
 
-instance ToQuery TaskDefinitionFamilyStatus
+instance Prelude.ToQuery TaskDefinitionFamilyStatus
 
-instance ToHeader TaskDefinitionFamilyStatus
+instance Prelude.ToHeader TaskDefinitionFamilyStatus
 
-instance ToJSON TaskDefinitionFamilyStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskDefinitionFamilyStatus where
+  toJSON = Prelude.toJSONText

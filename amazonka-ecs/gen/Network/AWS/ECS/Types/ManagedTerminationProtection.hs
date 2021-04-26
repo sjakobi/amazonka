@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ECS.Types.ManagedTerminationProtection
   ( ManagedTerminationProtection
       ( ..,
-        MTPDisabled,
-        MTPEnabled
+        ManagedTerminationProtectionDISABLED,
+        ManagedTerminationProtectionENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ManagedTerminationProtection
-  = ManagedTerminationProtection'
-      ( CI
-          Text
-      )
+newtype ManagedTerminationProtection = ManagedTerminationProtection'
+  { fromManagedTerminationProtection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MTPDisabled :: ManagedTerminationProtection
-pattern MTPDisabled = ManagedTerminationProtection' "DISABLED"
+pattern ManagedTerminationProtectionDISABLED :: ManagedTerminationProtection
+pattern ManagedTerminationProtectionDISABLED = ManagedTerminationProtection' "DISABLED"
 
-pattern MTPEnabled :: ManagedTerminationProtection
-pattern MTPEnabled = ManagedTerminationProtection' "ENABLED"
+pattern ManagedTerminationProtectionENABLED :: ManagedTerminationProtection
+pattern ManagedTerminationProtectionENABLED = ManagedTerminationProtection' "ENABLED"
 
 {-# COMPLETE
-  MTPDisabled,
-  MTPEnabled,
+  ManagedTerminationProtectionDISABLED,
+  ManagedTerminationProtectionENABLED,
   ManagedTerminationProtection'
   #-}
 
-instance FromText ManagedTerminationProtection where
-  parser = (ManagedTerminationProtection' . mk) <$> takeText
+instance Prelude.FromText ManagedTerminationProtection where
+  parser = ManagedTerminationProtection' Prelude.<$> Prelude.takeText
 
-instance ToText ManagedTerminationProtection where
-  toText (ManagedTerminationProtection' ci) = original ci
+instance Prelude.ToText ManagedTerminationProtection where
+  toText (ManagedTerminationProtection' x) = x
 
-instance Hashable ManagedTerminationProtection
+instance Prelude.Hashable ManagedTerminationProtection
 
-instance NFData ManagedTerminationProtection
+instance Prelude.NFData ManagedTerminationProtection
 
-instance ToByteString ManagedTerminationProtection
+instance Prelude.ToByteString ManagedTerminationProtection
 
-instance ToQuery ManagedTerminationProtection
+instance Prelude.ToQuery ManagedTerminationProtection
 
-instance ToHeader ManagedTerminationProtection
+instance Prelude.ToHeader ManagedTerminationProtection
 
-instance ToJSON ManagedTerminationProtection where
-  toJSON = toJSONText
+instance Prelude.ToJSON ManagedTerminationProtection where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ManagedTerminationProtection where
-  parseJSON = parseJSONText "ManagedTerminationProtection"
+instance Prelude.FromJSON ManagedTerminationProtection where
+  parseJSON = Prelude.parseJSONText "ManagedTerminationProtection"

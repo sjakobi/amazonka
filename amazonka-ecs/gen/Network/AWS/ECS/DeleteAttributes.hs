@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,143 +24,168 @@
 -- Deletes one or more custom attributes from an Amazon ECS resource.
 module Network.AWS.ECS.DeleteAttributes
   ( -- * Creating a Request
-    deleteAttributes,
-    DeleteAttributes,
+    DeleteAttributes (..),
+    newDeleteAttributes,
 
     -- * Request Lenses
-    daCluster,
-    daAttributes,
+    deleteAttributes_cluster,
+    deleteAttributes_attributes,
 
     -- * Destructuring the Response
-    deleteAttributesResponse,
-    DeleteAttributesResponse,
+    DeleteAttributesResponse (..),
+    newDeleteAttributesResponse,
 
     -- * Response Lenses
-    darrsAttributes,
-    darrsResponseStatus,
+    deleteAttributesResponse_attributes,
+    deleteAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.Attribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAttributes' smart constructor.
+-- | /See:/ 'newDeleteAttributes' smart constructor.
 data DeleteAttributes = DeleteAttributes'
-  { _daCluster ::
-      !(Maybe Text),
-    _daAttributes :: ![Attribute]
+  { -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- contains the resource to delete attributes. If you do not specify a
+    -- cluster, the default cluster is assumed.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | The attributes to delete from your resource. You can specify up to 10
+    -- attributes per request. For custom attributes, specify the attribute
+    -- name and target ID, but do not specify the value. If you specify the
+    -- target ID using the short form, you must also specify the target type.
+    attributes :: [Attribute]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that contains the resource to delete attributes. If you do not specify a cluster, the default cluster is assumed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daAttributes' - The attributes to delete from your resource. You can specify up to 10 attributes per request. For custom attributes, specify the attribute name and target ID, but do not specify the value. If you specify the target ID using the short form, you must also specify the target type.
-deleteAttributes ::
+-- 'cluster', 'deleteAttributes_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- contains the resource to delete attributes. If you do not specify a
+-- cluster, the default cluster is assumed.
+--
+-- 'attributes', 'deleteAttributes_attributes' - The attributes to delete from your resource. You can specify up to 10
+-- attributes per request. For custom attributes, specify the attribute
+-- name and target ID, but do not specify the value. If you specify the
+-- target ID using the short form, you must also specify the target type.
+newDeleteAttributes ::
   DeleteAttributes
-deleteAttributes =
+newDeleteAttributes =
   DeleteAttributes'
-    { _daCluster = Nothing,
-      _daAttributes = mempty
+    { cluster = Prelude.Nothing,
+      attributes = Prelude.mempty
     }
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that contains the resource to delete attributes. If you do not specify a cluster, the default cluster is assumed.
-daCluster :: Lens' DeleteAttributes (Maybe Text)
-daCluster = lens _daCluster (\s a -> s {_daCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- contains the resource to delete attributes. If you do not specify a
+-- cluster, the default cluster is assumed.
+deleteAttributes_cluster :: Lens.Lens' DeleteAttributes (Prelude.Maybe Prelude.Text)
+deleteAttributes_cluster = Lens.lens (\DeleteAttributes' {cluster} -> cluster) (\s@DeleteAttributes' {} a -> s {cluster = a} :: DeleteAttributes)
 
--- | The attributes to delete from your resource. You can specify up to 10 attributes per request. For custom attributes, specify the attribute name and target ID, but do not specify the value. If you specify the target ID using the short form, you must also specify the target type.
-daAttributes :: Lens' DeleteAttributes [Attribute]
-daAttributes = lens _daAttributes (\s a -> s {_daAttributes = a}) . _Coerce
+-- | The attributes to delete from your resource. You can specify up to 10
+-- attributes per request. For custom attributes, specify the attribute
+-- name and target ID, but do not specify the value. If you specify the
+-- target ID using the short form, you must also specify the target type.
+deleteAttributes_attributes :: Lens.Lens' DeleteAttributes [Attribute]
+deleteAttributes_attributes = Lens.lens (\DeleteAttributes' {attributes} -> attributes) (\s@DeleteAttributes' {} a -> s {attributes = a} :: DeleteAttributes) Prelude.. Prelude._Coerce
 
-instance AWSRequest DeleteAttributes where
+instance Prelude.AWSRequest DeleteAttributes where
   type Rs DeleteAttributes = DeleteAttributesResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteAttributesResponse'
-            <$> (x .?> "attributes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "attributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAttributes
+instance Prelude.Hashable DeleteAttributes
 
-instance NFData DeleteAttributes
+instance Prelude.NFData DeleteAttributes
 
-instance ToHeaders DeleteAttributes where
+instance Prelude.ToHeaders DeleteAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.DeleteAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.DeleteAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAttributes where
+instance Prelude.ToJSON DeleteAttributes where
   toJSON DeleteAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("cluster" .=) <$> _daCluster,
-            Just ("attributes" .= _daAttributes)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("cluster" Prelude..=) Prelude.<$> cluster,
+            Prelude.Just ("attributes" Prelude..= attributes)
           ]
       )
 
-instance ToPath DeleteAttributes where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAttributesResponse' smart constructor.
+-- | /See:/ 'newDeleteAttributesResponse' smart constructor.
 data DeleteAttributesResponse = DeleteAttributesResponse'
-  { _darrsAttributes ::
-      !(Maybe [Attribute]),
-    _darrsResponseStatus ::
-      !Int
+  { -- | A list of attribute objects that were successfully deleted from your
+    -- resource.
+    attributes :: Prelude.Maybe [Attribute],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsAttributes' - A list of attribute objects that were successfully deleted from your resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-deleteAttributesResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'attributes', 'deleteAttributesResponse_attributes' - A list of attribute objects that were successfully deleted from your
+-- resource.
+--
+-- 'httpStatus', 'deleteAttributesResponse_httpStatus' - The response's http status code.
+newDeleteAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteAttributesResponse
-deleteAttributesResponse pResponseStatus_ =
+newDeleteAttributesResponse pHttpStatus_ =
   DeleteAttributesResponse'
-    { _darrsAttributes =
-        Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { attributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of attribute objects that were successfully deleted from your resource.
-darrsAttributes :: Lens' DeleteAttributesResponse [Attribute]
-darrsAttributes = lens _darrsAttributes (\s a -> s {_darrsAttributes = a}) . _Default . _Coerce
+-- | A list of attribute objects that were successfully deleted from your
+-- resource.
+deleteAttributesResponse_attributes :: Lens.Lens' DeleteAttributesResponse (Prelude.Maybe [Attribute])
+deleteAttributesResponse_attributes = Lens.lens (\DeleteAttributesResponse' {attributes} -> attributes) (\s@DeleteAttributesResponse' {} a -> s {attributes = a} :: DeleteAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DeleteAttributesResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+deleteAttributesResponse_httpStatus :: Lens.Lens' DeleteAttributesResponse Prelude.Int
+deleteAttributesResponse_httpStatus = Lens.lens (\DeleteAttributesResponse' {httpStatus} -> httpStatus) (\s@DeleteAttributesResponse' {} a -> s {httpStatus = a} :: DeleteAttributesResponse)
 
-instance NFData DeleteAttributesResponse
+instance Prelude.NFData DeleteAttributesResponse

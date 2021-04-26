@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.ECS.Types.NetworkMode
   ( NetworkMode
       ( ..,
-        NMAWSvpc,
-        NMBridge,
-        NMHost,
-        NMNone
+        NetworkModeAwsvpc,
+        NetworkModeBridge,
+        NetworkModeHost,
+        NetworkModeNone
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NetworkMode = NetworkMode' (CI Text)
+newtype NetworkMode = NetworkMode'
+  { fromNetworkMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NMAWSvpc :: NetworkMode
-pattern NMAWSvpc = NetworkMode' "awsvpc"
+pattern NetworkModeAwsvpc :: NetworkMode
+pattern NetworkModeAwsvpc = NetworkMode' "awsvpc"
 
-pattern NMBridge :: NetworkMode
-pattern NMBridge = NetworkMode' "bridge"
+pattern NetworkModeBridge :: NetworkMode
+pattern NetworkModeBridge = NetworkMode' "bridge"
 
-pattern NMHost :: NetworkMode
-pattern NMHost = NetworkMode' "host"
+pattern NetworkModeHost :: NetworkMode
+pattern NetworkModeHost = NetworkMode' "host"
 
-pattern NMNone :: NetworkMode
-pattern NMNone = NetworkMode' "none"
+pattern NetworkModeNone :: NetworkMode
+pattern NetworkModeNone = NetworkMode' "none"
 
 {-# COMPLETE
-  NMAWSvpc,
-  NMBridge,
-  NMHost,
-  NMNone,
+  NetworkModeAwsvpc,
+  NetworkModeBridge,
+  NetworkModeHost,
+  NetworkModeNone,
   NetworkMode'
   #-}
 
-instance FromText NetworkMode where
-  parser = (NetworkMode' . mk) <$> takeText
+instance Prelude.FromText NetworkMode where
+  parser = NetworkMode' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkMode where
-  toText (NetworkMode' ci) = original ci
+instance Prelude.ToText NetworkMode where
+  toText (NetworkMode' x) = x
 
-instance Hashable NetworkMode
+instance Prelude.Hashable NetworkMode
 
-instance NFData NetworkMode
+instance Prelude.NFData NetworkMode
 
-instance ToByteString NetworkMode
+instance Prelude.ToByteString NetworkMode
 
-instance ToQuery NetworkMode
+instance Prelude.ToQuery NetworkMode
 
-instance ToHeader NetworkMode
+instance Prelude.ToHeader NetworkMode
 
-instance ToJSON NetworkMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON NetworkMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NetworkMode where
-  parseJSON = parseJSONText "NetworkMode"
+instance Prelude.FromJSON NetworkMode where
+  parseJSON = Prelude.parseJSONText "NetworkMode"

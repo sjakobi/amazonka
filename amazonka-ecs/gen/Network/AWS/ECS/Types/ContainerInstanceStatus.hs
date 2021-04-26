@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.ECS.Types.ContainerInstanceStatus
   ( ContainerInstanceStatus
       ( ..,
-        CISActive,
-        CISDeregistering,
-        CISDraining,
-        CISRegistering,
-        CISRegistrationFailed
+        ContainerInstanceStatusACTIVE,
+        ContainerInstanceStatusDEREGISTERING,
+        ContainerInstanceStatusDRAINING,
+        ContainerInstanceStatusREGISTERING,
+        ContainerInstanceStatusREGISTRATIONFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerInstanceStatus
-  = ContainerInstanceStatus'
-      ( CI
-          Text
-      )
+newtype ContainerInstanceStatus = ContainerInstanceStatus'
+  { fromContainerInstanceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CISActive :: ContainerInstanceStatus
-pattern CISActive = ContainerInstanceStatus' "ACTIVE"
+pattern ContainerInstanceStatusACTIVE :: ContainerInstanceStatus
+pattern ContainerInstanceStatusACTIVE = ContainerInstanceStatus' "ACTIVE"
 
-pattern CISDeregistering :: ContainerInstanceStatus
-pattern CISDeregistering = ContainerInstanceStatus' "DEREGISTERING"
+pattern ContainerInstanceStatusDEREGISTERING :: ContainerInstanceStatus
+pattern ContainerInstanceStatusDEREGISTERING = ContainerInstanceStatus' "DEREGISTERING"
 
-pattern CISDraining :: ContainerInstanceStatus
-pattern CISDraining = ContainerInstanceStatus' "DRAINING"
+pattern ContainerInstanceStatusDRAINING :: ContainerInstanceStatus
+pattern ContainerInstanceStatusDRAINING = ContainerInstanceStatus' "DRAINING"
 
-pattern CISRegistering :: ContainerInstanceStatus
-pattern CISRegistering = ContainerInstanceStatus' "REGISTERING"
+pattern ContainerInstanceStatusREGISTERING :: ContainerInstanceStatus
+pattern ContainerInstanceStatusREGISTERING = ContainerInstanceStatus' "REGISTERING"
 
-pattern CISRegistrationFailed :: ContainerInstanceStatus
-pattern CISRegistrationFailed = ContainerInstanceStatus' "REGISTRATION_FAILED"
+pattern ContainerInstanceStatusREGISTRATIONFAILED :: ContainerInstanceStatus
+pattern ContainerInstanceStatusREGISTRATIONFAILED = ContainerInstanceStatus' "REGISTRATION_FAILED"
 
 {-# COMPLETE
-  CISActive,
-  CISDeregistering,
-  CISDraining,
-  CISRegistering,
-  CISRegistrationFailed,
+  ContainerInstanceStatusACTIVE,
+  ContainerInstanceStatusDEREGISTERING,
+  ContainerInstanceStatusDRAINING,
+  ContainerInstanceStatusREGISTERING,
+  ContainerInstanceStatusREGISTRATIONFAILED,
   ContainerInstanceStatus'
   #-}
 
-instance FromText ContainerInstanceStatus where
-  parser = (ContainerInstanceStatus' . mk) <$> takeText
+instance Prelude.FromText ContainerInstanceStatus where
+  parser = ContainerInstanceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerInstanceStatus where
-  toText (ContainerInstanceStatus' ci) = original ci
+instance Prelude.ToText ContainerInstanceStatus where
+  toText (ContainerInstanceStatus' x) = x
 
-instance Hashable ContainerInstanceStatus
+instance Prelude.Hashable ContainerInstanceStatus
 
-instance NFData ContainerInstanceStatus
+instance Prelude.NFData ContainerInstanceStatus
 
-instance ToByteString ContainerInstanceStatus
+instance Prelude.ToByteString ContainerInstanceStatus
 
-instance ToQuery ContainerInstanceStatus
+instance Prelude.ToQuery ContainerInstanceStatus
 
-instance ToHeader ContainerInstanceStatus
+instance Prelude.ToHeader ContainerInstanceStatus
 
-instance ToJSON ContainerInstanceStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContainerInstanceStatus where
+  toJSON = Prelude.toJSONText

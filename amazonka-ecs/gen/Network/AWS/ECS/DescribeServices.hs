@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,166 +24,192 @@
 -- Describes the specified services running in your cluster.
 module Network.AWS.ECS.DescribeServices
   ( -- * Creating a Request
-    describeServices,
-    DescribeServices,
+    DescribeServices (..),
+    newDescribeServices,
 
     -- * Request Lenses
-    dssInclude,
-    dssCluster,
-    dssServices,
+    describeServices_include,
+    describeServices_cluster,
+    describeServices_services,
 
     -- * Destructuring the Response
-    describeServicesResponse,
-    DescribeServicesResponse,
+    DescribeServicesResponse (..),
+    newDescribeServicesResponse,
 
     -- * Response Lenses
-    dsrsrsServices,
-    dsrsrsFailures,
-    dsrsrsResponseStatus,
+    describeServicesResponse_services,
+    describeServicesResponse_failures,
+    describeServicesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.ContainerService
+import Network.AWS.ECS.Types.Failure
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeServices' smart constructor.
+-- | /See:/ 'newDescribeServices' smart constructor.
 data DescribeServices = DescribeServices'
-  { _dssInclude ::
-      !(Maybe [ServiceField]),
-    _dssCluster :: !(Maybe Text),
-    _dssServices :: ![Text]
+  { -- | Specifies whether you want to see the resource tags for the service. If
+    -- @TAGS@ is specified, the tags are included in the response. If this
+    -- field is omitted, tags are not included in the response.
+    include :: Prelude.Maybe [ServiceField],
+    -- | The short name or full Amazon Resource Name (ARN)the cluster that hosts
+    -- the service to describe. If you do not specify a cluster, the default
+    -- cluster is assumed. This parameter is required if the service or
+    -- services you are describing were launched in any cluster other than the
+    -- default cluster.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | A list of services to describe. You may specify up to 10 services to
+    -- describe in a single operation.
+    services :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dssInclude' - Specifies whether you want to see the resource tags for the service. If @TAGS@ is specified, the tags are included in the response. If this field is omitted, tags are not included in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dssCluster' - The short name or full Amazon Resource Name (ARN)the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed. This parameter is required if the service or services you are describing were launched in any cluster other than the default cluster.
+-- 'include', 'describeServices_include' - Specifies whether you want to see the resource tags for the service. If
+-- @TAGS@ is specified, the tags are included in the response. If this
+-- field is omitted, tags are not included in the response.
 --
--- * 'dssServices' - A list of services to describe. You may specify up to 10 services to describe in a single operation.
-describeServices ::
+-- 'cluster', 'describeServices_cluster' - The short name or full Amazon Resource Name (ARN)the cluster that hosts
+-- the service to describe. If you do not specify a cluster, the default
+-- cluster is assumed. This parameter is required if the service or
+-- services you are describing were launched in any cluster other than the
+-- default cluster.
+--
+-- 'services', 'describeServices_services' - A list of services to describe. You may specify up to 10 services to
+-- describe in a single operation.
+newDescribeServices ::
   DescribeServices
-describeServices =
+newDescribeServices =
   DescribeServices'
-    { _dssInclude = Nothing,
-      _dssCluster = Nothing,
-      _dssServices = mempty
+    { include = Prelude.Nothing,
+      cluster = Prelude.Nothing,
+      services = Prelude.mempty
     }
 
--- | Specifies whether you want to see the resource tags for the service. If @TAGS@ is specified, the tags are included in the response. If this field is omitted, tags are not included in the response.
-dssInclude :: Lens' DescribeServices [ServiceField]
-dssInclude = lens _dssInclude (\s a -> s {_dssInclude = a}) . _Default . _Coerce
+-- | Specifies whether you want to see the resource tags for the service. If
+-- @TAGS@ is specified, the tags are included in the response. If this
+-- field is omitted, tags are not included in the response.
+describeServices_include :: Lens.Lens' DescribeServices (Prelude.Maybe [ServiceField])
+describeServices_include = Lens.lens (\DescribeServices' {include} -> include) (\s@DescribeServices' {} a -> s {include = a} :: DescribeServices) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The short name or full Amazon Resource Name (ARN)the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed. This parameter is required if the service or services you are describing were launched in any cluster other than the default cluster.
-dssCluster :: Lens' DescribeServices (Maybe Text)
-dssCluster = lens _dssCluster (\s a -> s {_dssCluster = a})
+-- | The short name or full Amazon Resource Name (ARN)the cluster that hosts
+-- the service to describe. If you do not specify a cluster, the default
+-- cluster is assumed. This parameter is required if the service or
+-- services you are describing were launched in any cluster other than the
+-- default cluster.
+describeServices_cluster :: Lens.Lens' DescribeServices (Prelude.Maybe Prelude.Text)
+describeServices_cluster = Lens.lens (\DescribeServices' {cluster} -> cluster) (\s@DescribeServices' {} a -> s {cluster = a} :: DescribeServices)
 
--- | A list of services to describe. You may specify up to 10 services to describe in a single operation.
-dssServices :: Lens' DescribeServices [Text]
-dssServices = lens _dssServices (\s a -> s {_dssServices = a}) . _Coerce
+-- | A list of services to describe. You may specify up to 10 services to
+-- describe in a single operation.
+describeServices_services :: Lens.Lens' DescribeServices [Prelude.Text]
+describeServices_services = Lens.lens (\DescribeServices' {services} -> services) (\s@DescribeServices' {} a -> s {services = a} :: DescribeServices) Prelude.. Prelude._Coerce
 
-instance AWSRequest DescribeServices where
+instance Prelude.AWSRequest DescribeServices where
   type Rs DescribeServices = DescribeServicesResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeServicesResponse'
-            <$> (x .?> "services" .!@ mempty)
-            <*> (x .?> "failures" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "services" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "failures" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeServices
+instance Prelude.Hashable DescribeServices
 
-instance NFData DescribeServices
+instance Prelude.NFData DescribeServices
 
-instance ToHeaders DescribeServices where
+instance Prelude.ToHeaders DescribeServices where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.DescribeServices" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.DescribeServices" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeServices where
+instance Prelude.ToJSON DescribeServices where
   toJSON DescribeServices' {..} =
-    object
-      ( catMaybes
-          [ ("include" .=) <$> _dssInclude,
-            ("cluster" .=) <$> _dssCluster,
-            Just ("services" .= _dssServices)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("include" Prelude..=) Prelude.<$> include,
+            ("cluster" Prelude..=) Prelude.<$> cluster,
+            Prelude.Just ("services" Prelude..= services)
           ]
       )
 
-instance ToPath DescribeServices where
-  toPath = const "/"
+instance Prelude.ToPath DescribeServices where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeServices where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeServices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeServicesResponse' smart constructor.
+-- | /See:/ 'newDescribeServicesResponse' smart constructor.
 data DescribeServicesResponse = DescribeServicesResponse'
-  { _dsrsrsServices ::
-      !( Maybe
-           [ContainerService]
-       ),
-    _dsrsrsFailures ::
-      !(Maybe [Failure]),
-    _dsrsrsResponseStatus ::
-      !Int
+  { -- | The list of services described.
+    services :: Prelude.Maybe [ContainerService],
+    -- | Any failures associated with the call.
+    failures :: Prelude.Maybe [Failure],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServicesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServicesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrsrsServices' - The list of services described.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrsrsFailures' - Any failures associated with the call.
+-- 'services', 'describeServicesResponse_services' - The list of services described.
 --
--- * 'dsrsrsResponseStatus' - -- | The response status code.
-describeServicesResponse ::
-  -- | 'dsrsrsResponseStatus'
-  Int ->
+-- 'failures', 'describeServicesResponse_failures' - Any failures associated with the call.
+--
+-- 'httpStatus', 'describeServicesResponse_httpStatus' - The response's http status code.
+newDescribeServicesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeServicesResponse
-describeServicesResponse pResponseStatus_ =
+newDescribeServicesResponse pHttpStatus_ =
   DescribeServicesResponse'
-    { _dsrsrsServices =
-        Nothing,
-      _dsrsrsFailures = Nothing,
-      _dsrsrsResponseStatus = pResponseStatus_
+    { services =
+        Prelude.Nothing,
+      failures = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of services described.
-dsrsrsServices :: Lens' DescribeServicesResponse [ContainerService]
-dsrsrsServices = lens _dsrsrsServices (\s a -> s {_dsrsrsServices = a}) . _Default . _Coerce
+describeServicesResponse_services :: Lens.Lens' DescribeServicesResponse (Prelude.Maybe [ContainerService])
+describeServicesResponse_services = Lens.lens (\DescribeServicesResponse' {services} -> services) (\s@DescribeServicesResponse' {} a -> s {services = a} :: DescribeServicesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Any failures associated with the call.
-dsrsrsFailures :: Lens' DescribeServicesResponse [Failure]
-dsrsrsFailures = lens _dsrsrsFailures (\s a -> s {_dsrsrsFailures = a}) . _Default . _Coerce
+describeServicesResponse_failures :: Lens.Lens' DescribeServicesResponse (Prelude.Maybe [Failure])
+describeServicesResponse_failures = Lens.lens (\DescribeServicesResponse' {failures} -> failures) (\s@DescribeServicesResponse' {} a -> s {failures = a} :: DescribeServicesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsrsrsResponseStatus :: Lens' DescribeServicesResponse Int
-dsrsrsResponseStatus = lens _dsrsrsResponseStatus (\s a -> s {_dsrsrsResponseStatus = a})
+-- | The response's http status code.
+describeServicesResponse_httpStatus :: Lens.Lens' DescribeServicesResponse Prelude.Int
+describeServicesResponse_httpStatus = Lens.lens (\DescribeServicesResponse' {httpStatus} -> httpStatus) (\s@DescribeServicesResponse' {} a -> s {httpStatus = a} :: DescribeServicesResponse)
 
-instance NFData DescribeServicesResponse
+instance Prelude.NFData DescribeServicesResponse

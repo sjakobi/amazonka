@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,156 +24,160 @@
 -- Modifies the settings to use for a cluster.
 module Network.AWS.ECS.UpdateClusterSettings
   ( -- * Creating a Request
-    updateClusterSettings,
-    UpdateClusterSettings,
+    UpdateClusterSettings (..),
+    newUpdateClusterSettings,
 
     -- * Request Lenses
-    ucsCluster,
-    ucsSettings,
+    updateClusterSettings_cluster,
+    updateClusterSettings_settings,
 
     -- * Destructuring the Response
-    updateClusterSettingsResponse,
-    UpdateClusterSettingsResponse,
+    UpdateClusterSettingsResponse (..),
+    newUpdateClusterSettingsResponse,
 
     -- * Response Lenses
-    ucsrrsCluster,
-    ucsrrsResponseStatus,
+    updateClusterSettingsResponse_cluster,
+    updateClusterSettingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.Cluster
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateClusterSettings' smart constructor.
+-- | /See:/ 'newUpdateClusterSettings' smart constructor.
 data UpdateClusterSettings = UpdateClusterSettings'
-  { _ucsCluster ::
-      !Text,
-    _ucsSettings ::
-      ![ClusterSetting]
+  { -- | The name of the cluster to modify the settings for.
+    cluster :: Prelude.Text,
+    -- | The setting to use by default for a cluster. This parameter is used to
+    -- enable CloudWatch Container Insights for a cluster. If this value is
+    -- specified, it will override the @containerInsights@ value set with
+    -- PutAccountSetting or PutAccountSettingDefault.
+    settings :: [ClusterSetting]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateClusterSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateClusterSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucsCluster' - The name of the cluster to modify the settings for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucsSettings' - The setting to use by default for a cluster. This parameter is used to enable CloudWatch Container Insights for a cluster. If this value is specified, it will override the @containerInsights@ value set with 'PutAccountSetting' or 'PutAccountSettingDefault' .
-updateClusterSettings ::
-  -- | 'ucsCluster'
-  Text ->
+-- 'cluster', 'updateClusterSettings_cluster' - The name of the cluster to modify the settings for.
+--
+-- 'settings', 'updateClusterSettings_settings' - The setting to use by default for a cluster. This parameter is used to
+-- enable CloudWatch Container Insights for a cluster. If this value is
+-- specified, it will override the @containerInsights@ value set with
+-- PutAccountSetting or PutAccountSettingDefault.
+newUpdateClusterSettings ::
+  -- | 'cluster'
+  Prelude.Text ->
   UpdateClusterSettings
-updateClusterSettings pCluster_ =
+newUpdateClusterSettings pCluster_ =
   UpdateClusterSettings'
-    { _ucsCluster = pCluster_,
-      _ucsSettings = mempty
+    { cluster = pCluster_,
+      settings = Prelude.mempty
     }
 
 -- | The name of the cluster to modify the settings for.
-ucsCluster :: Lens' UpdateClusterSettings Text
-ucsCluster = lens _ucsCluster (\s a -> s {_ucsCluster = a})
+updateClusterSettings_cluster :: Lens.Lens' UpdateClusterSettings Prelude.Text
+updateClusterSettings_cluster = Lens.lens (\UpdateClusterSettings' {cluster} -> cluster) (\s@UpdateClusterSettings' {} a -> s {cluster = a} :: UpdateClusterSettings)
 
--- | The setting to use by default for a cluster. This parameter is used to enable CloudWatch Container Insights for a cluster. If this value is specified, it will override the @containerInsights@ value set with 'PutAccountSetting' or 'PutAccountSettingDefault' .
-ucsSettings :: Lens' UpdateClusterSettings [ClusterSetting]
-ucsSettings = lens _ucsSettings (\s a -> s {_ucsSettings = a}) . _Coerce
+-- | The setting to use by default for a cluster. This parameter is used to
+-- enable CloudWatch Container Insights for a cluster. If this value is
+-- specified, it will override the @containerInsights@ value set with
+-- PutAccountSetting or PutAccountSettingDefault.
+updateClusterSettings_settings :: Lens.Lens' UpdateClusterSettings [ClusterSetting]
+updateClusterSettings_settings = Lens.lens (\UpdateClusterSettings' {settings} -> settings) (\s@UpdateClusterSettings' {} a -> s {settings = a} :: UpdateClusterSettings) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateClusterSettings where
+instance Prelude.AWSRequest UpdateClusterSettings where
   type
     Rs UpdateClusterSettings =
       UpdateClusterSettingsResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateClusterSettingsResponse'
-            <$> (x .?> "cluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "cluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateClusterSettings
+instance Prelude.Hashable UpdateClusterSettings
 
-instance NFData UpdateClusterSettings
+instance Prelude.NFData UpdateClusterSettings
 
-instance ToHeaders UpdateClusterSettings where
+instance Prelude.ToHeaders UpdateClusterSettings where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.UpdateClusterSettings" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.UpdateClusterSettings" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateClusterSettings where
+instance Prelude.ToJSON UpdateClusterSettings where
   toJSON UpdateClusterSettings' {..} =
-    object
-      ( catMaybes
-          [ Just ("cluster" .= _ucsCluster),
-            Just ("settings" .= _ucsSettings)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("cluster" Prelude..= cluster),
+            Prelude.Just ("settings" Prelude..= settings)
           ]
       )
 
-instance ToPath UpdateClusterSettings where
-  toPath = const "/"
+instance Prelude.ToPath UpdateClusterSettings where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateClusterSettings where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateClusterSettings where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateClusterSettingsResponse' smart constructor.
+-- | /See:/ 'newUpdateClusterSettingsResponse' smart constructor.
 data UpdateClusterSettingsResponse = UpdateClusterSettingsResponse'
-  { _ucsrrsCluster ::
-      !( Maybe
-           Cluster
-       ),
-    _ucsrrsResponseStatus ::
-      !Int
+  { cluster :: Prelude.Maybe Cluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateClusterSettingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateClusterSettingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucsrrsCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucsrrsResponseStatus' - -- | The response status code.
-updateClusterSettingsResponse ::
-  -- | 'ucsrrsResponseStatus'
-  Int ->
+-- 'cluster', 'updateClusterSettingsResponse_cluster' - Undocumented member.
+--
+-- 'httpStatus', 'updateClusterSettingsResponse_httpStatus' - The response's http status code.
+newUpdateClusterSettingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateClusterSettingsResponse
-updateClusterSettingsResponse pResponseStatus_ =
+newUpdateClusterSettingsResponse pHttpStatus_ =
   UpdateClusterSettingsResponse'
-    { _ucsrrsCluster =
-        Nothing,
-      _ucsrrsResponseStatus = pResponseStatus_
+    { cluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-ucsrrsCluster :: Lens' UpdateClusterSettingsResponse (Maybe Cluster)
-ucsrrsCluster = lens _ucsrrsCluster (\s a -> s {_ucsrrsCluster = a})
+updateClusterSettingsResponse_cluster :: Lens.Lens' UpdateClusterSettingsResponse (Prelude.Maybe Cluster)
+updateClusterSettingsResponse_cluster = Lens.lens (\UpdateClusterSettingsResponse' {cluster} -> cluster) (\s@UpdateClusterSettingsResponse' {} a -> s {cluster = a} :: UpdateClusterSettingsResponse)
 
--- | -- | The response status code.
-ucsrrsResponseStatus :: Lens' UpdateClusterSettingsResponse Int
-ucsrrsResponseStatus = lens _ucsrrsResponseStatus (\s a -> s {_ucsrrsResponseStatus = a})
+-- | The response's http status code.
+updateClusterSettingsResponse_httpStatus :: Lens.Lens' UpdateClusterSettingsResponse Prelude.Int
+updateClusterSettingsResponse_httpStatus = Lens.lens (\UpdateClusterSettingsResponse' {httpStatus} -> httpStatus) (\s@UpdateClusterSettingsResponse' {} a -> s {httpStatus = a} :: UpdateClusterSettingsResponse)
 
-instance NFData UpdateClusterSettingsResponse
+instance Prelude.NFData UpdateClusterSettingsResponse

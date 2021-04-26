@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ECS.Types.SchedulingStrategy
   ( SchedulingStrategy
       ( ..,
-        Daemon,
-        Replica
+        SchedulingStrategyDAEMON,
+        SchedulingStrategyREPLICA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SchedulingStrategy
-  = SchedulingStrategy'
-      ( CI
-          Text
-      )
+newtype SchedulingStrategy = SchedulingStrategy'
+  { fromSchedulingStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Daemon :: SchedulingStrategy
-pattern Daemon = SchedulingStrategy' "DAEMON"
+pattern SchedulingStrategyDAEMON :: SchedulingStrategy
+pattern SchedulingStrategyDAEMON = SchedulingStrategy' "DAEMON"
 
-pattern Replica :: SchedulingStrategy
-pattern Replica = SchedulingStrategy' "REPLICA"
+pattern SchedulingStrategyREPLICA :: SchedulingStrategy
+pattern SchedulingStrategyREPLICA = SchedulingStrategy' "REPLICA"
 
 {-# COMPLETE
-  Daemon,
-  Replica,
+  SchedulingStrategyDAEMON,
+  SchedulingStrategyREPLICA,
   SchedulingStrategy'
   #-}
 
-instance FromText SchedulingStrategy where
-  parser = (SchedulingStrategy' . mk) <$> takeText
+instance Prelude.FromText SchedulingStrategy where
+  parser = SchedulingStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText SchedulingStrategy where
-  toText (SchedulingStrategy' ci) = original ci
+instance Prelude.ToText SchedulingStrategy where
+  toText (SchedulingStrategy' x) = x
 
-instance Hashable SchedulingStrategy
+instance Prelude.Hashable SchedulingStrategy
 
-instance NFData SchedulingStrategy
+instance Prelude.NFData SchedulingStrategy
 
-instance ToByteString SchedulingStrategy
+instance Prelude.ToByteString SchedulingStrategy
 
-instance ToQuery SchedulingStrategy
+instance Prelude.ToQuery SchedulingStrategy
 
-instance ToHeader SchedulingStrategy
+instance Prelude.ToHeader SchedulingStrategy
 
-instance ToJSON SchedulingStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SchedulingStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SchedulingStrategy where
-  parseJSON = parseJSONText "SchedulingStrategy"
+instance Prelude.FromJSON SchedulingStrategy where
+  parseJSON = Prelude.parseJSONText "SchedulingStrategy"

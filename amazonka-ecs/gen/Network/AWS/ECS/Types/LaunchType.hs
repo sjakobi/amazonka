@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ECS.Types.LaunchType
   ( LaunchType
       ( ..,
-        EC2,
-        Fargate
+        LaunchTypeEC2,
+        LaunchTypeFARGATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LaunchType = LaunchType' (CI Text)
+newtype LaunchType = LaunchType'
+  { fromLaunchType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EC2 :: LaunchType
-pattern EC2 = LaunchType' "EC2"
+pattern LaunchTypeEC2 :: LaunchType
+pattern LaunchTypeEC2 = LaunchType' "EC2"
 
-pattern Fargate :: LaunchType
-pattern Fargate = LaunchType' "FARGATE"
+pattern LaunchTypeFARGATE :: LaunchType
+pattern LaunchTypeFARGATE = LaunchType' "FARGATE"
 
 {-# COMPLETE
-  EC2,
-  Fargate,
+  LaunchTypeEC2,
+  LaunchTypeFARGATE,
   LaunchType'
   #-}
 
-instance FromText LaunchType where
-  parser = (LaunchType' . mk) <$> takeText
+instance Prelude.FromText LaunchType where
+  parser = LaunchType' Prelude.<$> Prelude.takeText
 
-instance ToText LaunchType where
-  toText (LaunchType' ci) = original ci
+instance Prelude.ToText LaunchType where
+  toText (LaunchType' x) = x
 
-instance Hashable LaunchType
+instance Prelude.Hashable LaunchType
 
-instance NFData LaunchType
+instance Prelude.NFData LaunchType
 
-instance ToByteString LaunchType
+instance Prelude.ToByteString LaunchType
 
-instance ToQuery LaunchType
+instance Prelude.ToQuery LaunchType
 
-instance ToHeader LaunchType
+instance Prelude.ToHeader LaunchType
 
-instance ToJSON LaunchType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LaunchType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LaunchType where
-  parseJSON = parseJSONText "LaunchType"
+instance Prelude.FromJSON LaunchType where
+  parseJSON = Prelude.parseJSONText "LaunchType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.ECS.Types.SettingName
   ( SettingName
       ( ..,
-        SNAWSvpcTrunking,
-        SNContainerInsights,
-        SNContainerInstanceLongARNFormat,
-        SNServiceLongARNFormat,
-        SNTaskLongARNFormat
+        SettingNameAwsvpcTrunking,
+        SettingNameContainerInsights,
+        SettingNameContainerInstanceLongArnFormat,
+        SettingNameServiceLongArnFormat,
+        SettingNameTaskLongArnFormat
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SettingName = SettingName' (CI Text)
+newtype SettingName = SettingName'
+  { fromSettingName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SNAWSvpcTrunking :: SettingName
-pattern SNAWSvpcTrunking = SettingName' "awsvpcTrunking"
+pattern SettingNameAwsvpcTrunking :: SettingName
+pattern SettingNameAwsvpcTrunking = SettingName' "awsvpcTrunking"
 
-pattern SNContainerInsights :: SettingName
-pattern SNContainerInsights = SettingName' "containerInsights"
+pattern SettingNameContainerInsights :: SettingName
+pattern SettingNameContainerInsights = SettingName' "containerInsights"
 
-pattern SNContainerInstanceLongARNFormat :: SettingName
-pattern SNContainerInstanceLongARNFormat = SettingName' "containerInstanceLongArnFormat"
+pattern SettingNameContainerInstanceLongArnFormat :: SettingName
+pattern SettingNameContainerInstanceLongArnFormat = SettingName' "containerInstanceLongArnFormat"
 
-pattern SNServiceLongARNFormat :: SettingName
-pattern SNServiceLongARNFormat = SettingName' "serviceLongArnFormat"
+pattern SettingNameServiceLongArnFormat :: SettingName
+pattern SettingNameServiceLongArnFormat = SettingName' "serviceLongArnFormat"
 
-pattern SNTaskLongARNFormat :: SettingName
-pattern SNTaskLongARNFormat = SettingName' "taskLongArnFormat"
+pattern SettingNameTaskLongArnFormat :: SettingName
+pattern SettingNameTaskLongArnFormat = SettingName' "taskLongArnFormat"
 
 {-# COMPLETE
-  SNAWSvpcTrunking,
-  SNContainerInsights,
-  SNContainerInstanceLongARNFormat,
-  SNServiceLongARNFormat,
-  SNTaskLongARNFormat,
+  SettingNameAwsvpcTrunking,
+  SettingNameContainerInsights,
+  SettingNameContainerInstanceLongArnFormat,
+  SettingNameServiceLongArnFormat,
+  SettingNameTaskLongArnFormat,
   SettingName'
   #-}
 
-instance FromText SettingName where
-  parser = (SettingName' . mk) <$> takeText
+instance Prelude.FromText SettingName where
+  parser = SettingName' Prelude.<$> Prelude.takeText
 
-instance ToText SettingName where
-  toText (SettingName' ci) = original ci
+instance Prelude.ToText SettingName where
+  toText (SettingName' x) = x
 
-instance Hashable SettingName
+instance Prelude.Hashable SettingName
 
-instance NFData SettingName
+instance Prelude.NFData SettingName
 
-instance ToByteString SettingName
+instance Prelude.ToByteString SettingName
 
-instance ToQuery SettingName
+instance Prelude.ToQuery SettingName
 
-instance ToHeader SettingName
+instance Prelude.ToHeader SettingName
 
-instance ToJSON SettingName where
-  toJSON = toJSONText
+instance Prelude.ToJSON SettingName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SettingName where
-  parseJSON = parseJSONText "SettingName"
+instance Prelude.FromJSON SettingName where
+  parseJSON = Prelude.parseJSONText "SettingName"

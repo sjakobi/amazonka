@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ECS.Types.Compatibility
   ( Compatibility
       ( ..,
-        CEC2,
-        CFargate
+        CompatibilityEC2,
+        CompatibilityFARGATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Compatibility = Compatibility' (CI Text)
+newtype Compatibility = Compatibility'
+  { fromCompatibility ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CEC2 :: Compatibility
-pattern CEC2 = Compatibility' "EC2"
+pattern CompatibilityEC2 :: Compatibility
+pattern CompatibilityEC2 = Compatibility' "EC2"
 
-pattern CFargate :: Compatibility
-pattern CFargate = Compatibility' "FARGATE"
+pattern CompatibilityFARGATE :: Compatibility
+pattern CompatibilityFARGATE = Compatibility' "FARGATE"
 
 {-# COMPLETE
-  CEC2,
-  CFargate,
+  CompatibilityEC2,
+  CompatibilityFARGATE,
   Compatibility'
   #-}
 
-instance FromText Compatibility where
-  parser = (Compatibility' . mk) <$> takeText
+instance Prelude.FromText Compatibility where
+  parser = Compatibility' Prelude.<$> Prelude.takeText
 
-instance ToText Compatibility where
-  toText (Compatibility' ci) = original ci
+instance Prelude.ToText Compatibility where
+  toText (Compatibility' x) = x
 
-instance Hashable Compatibility
+instance Prelude.Hashable Compatibility
 
-instance NFData Compatibility
+instance Prelude.NFData Compatibility
 
-instance ToByteString Compatibility
+instance Prelude.ToByteString Compatibility
 
-instance ToQuery Compatibility
+instance Prelude.ToQuery Compatibility
 
-instance ToHeader Compatibility
+instance Prelude.ToHeader Compatibility
 
-instance ToJSON Compatibility where
-  toJSON = toJSONText
+instance Prelude.ToJSON Compatibility where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Compatibility where
-  parseJSON = parseJSONText "Compatibility"
+instance Prelude.FromJSON Compatibility where
+  parseJSON = Prelude.parseJSONText "Compatibility"

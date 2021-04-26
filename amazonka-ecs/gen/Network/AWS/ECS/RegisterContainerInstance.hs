@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,244 +21,354 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers an EC2 instance into the specified cluster. This instance becomes available to place containers on.
+-- This action is only used by the Amazon ECS agent, and it is not intended
+-- for use outside of the agent.
+--
+-- Registers an EC2 instance into the specified cluster. This instance
+-- becomes available to place containers on.
 module Network.AWS.ECS.RegisterContainerInstance
   ( -- * Creating a Request
-    registerContainerInstance,
-    RegisterContainerInstance,
+    RegisterContainerInstance (..),
+    newRegisterContainerInstance,
 
     -- * Request Lenses
-    rciVersionInfo,
-    rciContainerInstanceARN,
-    rciInstanceIdentityDocument,
-    rciAttributes,
-    rciInstanceIdentityDocumentSignature,
-    rciPlatformDevices,
-    rciTags,
-    rciTotalResources,
-    rciCluster,
+    registerContainerInstance_versionInfo,
+    registerContainerInstance_containerInstanceArn,
+    registerContainerInstance_instanceIdentityDocument,
+    registerContainerInstance_attributes,
+    registerContainerInstance_instanceIdentityDocumentSignature,
+    registerContainerInstance_platformDevices,
+    registerContainerInstance_tags,
+    registerContainerInstance_totalResources,
+    registerContainerInstance_cluster,
 
     -- * Destructuring the Response
-    registerContainerInstanceResponse,
-    RegisterContainerInstanceResponse,
+    RegisterContainerInstanceResponse (..),
+    newRegisterContainerInstanceResponse,
 
     -- * Response Lenses
-    rcirrsContainerInstance,
-    rcirrsResponseStatus,
+    registerContainerInstanceResponse_containerInstance,
+    registerContainerInstanceResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.ContainerInstance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerContainerInstance' smart constructor.
+-- | /See:/ 'newRegisterContainerInstance' smart constructor.
 data RegisterContainerInstance = RegisterContainerInstance'
-  { _rciVersionInfo ::
-      !( Maybe
-           VersionInfo
-       ),
-    _rciContainerInstanceARN ::
-      !(Maybe Text),
-    _rciInstanceIdentityDocument ::
-      !(Maybe Text),
-    _rciAttributes ::
-      !( Maybe
-           [Attribute]
-       ),
-    _rciInstanceIdentityDocumentSignature ::
-      !(Maybe Text),
-    _rciPlatformDevices ::
-      !( Maybe
-           [PlatformDevice]
-       ),
-    _rciTags ::
-      !(Maybe [Tag]),
-    _rciTotalResources ::
-      !(Maybe [Resource]),
-    _rciCluster ::
-      !(Maybe Text)
+  { -- | The version information for the Amazon ECS container agent and Docker
+    -- daemon running on the container instance.
+    versionInfo :: Prelude.Maybe VersionInfo,
+    -- | The ARN of the container instance (if it was previously registered).
+    containerInstanceArn :: Prelude.Maybe Prelude.Text,
+    -- | The instance identity document for the EC2 instance to register. This
+    -- document can be found by running the following command from the
+    -- instance:
+    -- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/document\/@
+    instanceIdentityDocument :: Prelude.Maybe Prelude.Text,
+    -- | The container instance attributes that this container instance supports.
+    attributes :: Prelude.Maybe [Attribute],
+    -- | The instance identity document signature for the EC2 instance to
+    -- register. This signature can be found by running the following command
+    -- from the instance:
+    -- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/signature\/@
+    instanceIdentityDocumentSignature :: Prelude.Maybe Prelude.Text,
+    -- | The devices that are available on the container instance. The only
+    -- supported device type is a GPU.
+    platformDevices :: Prelude.Maybe [PlatformDevice],
+    -- | The metadata that you apply to the container instance to help you
+    -- categorize and organize them. Each tag consists of a key and an optional
+    -- value, both of which you define.
+    --
+    -- The following basic restrictions apply to tags:
+    --
+    -- -   Maximum number of tags per resource - 50
+    --
+    -- -   For each resource, each tag key must be unique, and each tag key can
+    --     have only one value.
+    --
+    -- -   Maximum key length - 128 Unicode characters in UTF-8
+    --
+    -- -   Maximum value length - 256 Unicode characters in UTF-8
+    --
+    -- -   If your tagging schema is used across multiple services and
+    --     resources, remember that other services may have restrictions on
+    --     allowed characters. Generally allowed characters are: letters,
+    --     numbers, and spaces representable in UTF-8, and the following
+    --     characters: + - = . _ : \/ \@.
+    --
+    -- -   Tag keys and values are case-sensitive.
+    --
+    -- -   Do not use @aws:@, @AWS:@, or any upper or lowercase combination of
+    --     such as a prefix for either keys or values as it is reserved for AWS
+    --     use. You cannot edit or delete tag keys or values with this prefix.
+    --     Tags with this prefix do not count against your tags per resource
+    --     limit.
+    tags :: Prelude.Maybe [Tag],
+    -- | The resources available on the instance.
+    totalResources :: Prelude.Maybe [Resource],
+    -- | The short name or full Amazon Resource Name (ARN) of the cluster with
+    -- which to register your container instance. If you do not specify a
+    -- cluster, the default cluster is assumed.
+    cluster :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterContainerInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterContainerInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rciVersionInfo' - The version information for the Amazon ECS container agent and Docker daemon running on the container instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rciContainerInstanceARN' - The ARN of the container instance (if it was previously registered).
+-- 'versionInfo', 'registerContainerInstance_versionInfo' - The version information for the Amazon ECS container agent and Docker
+-- daemon running on the container instance.
 --
--- * 'rciInstanceIdentityDocument' - The instance identity document for the EC2 instance to register. This document can be found by running the following command from the instance: @curl http://169.254.169.254/latest/dynamic/instance-identity/document/@
+-- 'containerInstanceArn', 'registerContainerInstance_containerInstanceArn' - The ARN of the container instance (if it was previously registered).
 --
--- * 'rciAttributes' - The container instance attributes that this container instance supports.
+-- 'instanceIdentityDocument', 'registerContainerInstance_instanceIdentityDocument' - The instance identity document for the EC2 instance to register. This
+-- document can be found by running the following command from the
+-- instance:
+-- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/document\/@
 --
--- * 'rciInstanceIdentityDocumentSignature' - The instance identity document signature for the EC2 instance to register. This signature can be found by running the following command from the instance: @curl http://169.254.169.254/latest/dynamic/instance-identity/signature/@
+-- 'attributes', 'registerContainerInstance_attributes' - The container instance attributes that this container instance supports.
 --
--- * 'rciPlatformDevices' - The devices that are available on the container instance. The only supported device type is a GPU.
+-- 'instanceIdentityDocumentSignature', 'registerContainerInstance_instanceIdentityDocumentSignature' - The instance identity document signature for the EC2 instance to
+-- register. This signature can be found by running the following command
+-- from the instance:
+-- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/signature\/@
 --
--- * 'rciTags' - The metadata that you apply to the container instance to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. The following basic restrictions apply to tags:     * Maximum number of tags per resource - 50     * For each resource, each tag key must be unique, and each tag key can have only one value.     * Maximum key length - 128 Unicode characters in UTF-8     * Maximum value length - 256 Unicode characters in UTF-8     * If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.     * Tag keys and values are case-sensitive.     * Do not use @aws:@ , @AWS:@ , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+-- 'platformDevices', 'registerContainerInstance_platformDevices' - The devices that are available on the container instance. The only
+-- supported device type is a GPU.
 --
--- * 'rciTotalResources' - The resources available on the instance.
+-- 'tags', 'registerContainerInstance_tags' - The metadata that you apply to the container instance to help you
+-- categorize and organize them. Each tag consists of a key and an optional
+-- value, both of which you define.
 --
--- * 'rciCluster' - The short name or full Amazon Resource Name (ARN) of the cluster with which to register your container instance. If you do not specify a cluster, the default cluster is assumed.
-registerContainerInstance ::
+-- The following basic restrictions apply to tags:
+--
+-- -   Maximum number of tags per resource - 50
+--
+-- -   For each resource, each tag key must be unique, and each tag key can
+--     have only one value.
+--
+-- -   Maximum key length - 128 Unicode characters in UTF-8
+--
+-- -   Maximum value length - 256 Unicode characters in UTF-8
+--
+-- -   If your tagging schema is used across multiple services and
+--     resources, remember that other services may have restrictions on
+--     allowed characters. Generally allowed characters are: letters,
+--     numbers, and spaces representable in UTF-8, and the following
+--     characters: + - = . _ : \/ \@.
+--
+-- -   Tag keys and values are case-sensitive.
+--
+-- -   Do not use @aws:@, @AWS:@, or any upper or lowercase combination of
+--     such as a prefix for either keys or values as it is reserved for AWS
+--     use. You cannot edit or delete tag keys or values with this prefix.
+--     Tags with this prefix do not count against your tags per resource
+--     limit.
+--
+-- 'totalResources', 'registerContainerInstance_totalResources' - The resources available on the instance.
+--
+-- 'cluster', 'registerContainerInstance_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster with
+-- which to register your container instance. If you do not specify a
+-- cluster, the default cluster is assumed.
+newRegisterContainerInstance ::
   RegisterContainerInstance
-registerContainerInstance =
+newRegisterContainerInstance =
   RegisterContainerInstance'
-    { _rciVersionInfo =
-        Nothing,
-      _rciContainerInstanceARN = Nothing,
-      _rciInstanceIdentityDocument = Nothing,
-      _rciAttributes = Nothing,
-      _rciInstanceIdentityDocumentSignature = Nothing,
-      _rciPlatformDevices = Nothing,
-      _rciTags = Nothing,
-      _rciTotalResources = Nothing,
-      _rciCluster = Nothing
+    { versionInfo =
+        Prelude.Nothing,
+      containerInstanceArn = Prelude.Nothing,
+      instanceIdentityDocument = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      instanceIdentityDocumentSignature =
+        Prelude.Nothing,
+      platformDevices = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      totalResources = Prelude.Nothing,
+      cluster = Prelude.Nothing
     }
 
--- | The version information for the Amazon ECS container agent and Docker daemon running on the container instance.
-rciVersionInfo :: Lens' RegisterContainerInstance (Maybe VersionInfo)
-rciVersionInfo = lens _rciVersionInfo (\s a -> s {_rciVersionInfo = a})
+-- | The version information for the Amazon ECS container agent and Docker
+-- daemon running on the container instance.
+registerContainerInstance_versionInfo :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe VersionInfo)
+registerContainerInstance_versionInfo = Lens.lens (\RegisterContainerInstance' {versionInfo} -> versionInfo) (\s@RegisterContainerInstance' {} a -> s {versionInfo = a} :: RegisterContainerInstance)
 
 -- | The ARN of the container instance (if it was previously registered).
-rciContainerInstanceARN :: Lens' RegisterContainerInstance (Maybe Text)
-rciContainerInstanceARN = lens _rciContainerInstanceARN (\s a -> s {_rciContainerInstanceARN = a})
+registerContainerInstance_containerInstanceArn :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
+registerContainerInstance_containerInstanceArn = Lens.lens (\RegisterContainerInstance' {containerInstanceArn} -> containerInstanceArn) (\s@RegisterContainerInstance' {} a -> s {containerInstanceArn = a} :: RegisterContainerInstance)
 
--- | The instance identity document for the EC2 instance to register. This document can be found by running the following command from the instance: @curl http://169.254.169.254/latest/dynamic/instance-identity/document/@
-rciInstanceIdentityDocument :: Lens' RegisterContainerInstance (Maybe Text)
-rciInstanceIdentityDocument = lens _rciInstanceIdentityDocument (\s a -> s {_rciInstanceIdentityDocument = a})
+-- | The instance identity document for the EC2 instance to register. This
+-- document can be found by running the following command from the
+-- instance:
+-- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/document\/@
+registerContainerInstance_instanceIdentityDocument :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
+registerContainerInstance_instanceIdentityDocument = Lens.lens (\RegisterContainerInstance' {instanceIdentityDocument} -> instanceIdentityDocument) (\s@RegisterContainerInstance' {} a -> s {instanceIdentityDocument = a} :: RegisterContainerInstance)
 
 -- | The container instance attributes that this container instance supports.
-rciAttributes :: Lens' RegisterContainerInstance [Attribute]
-rciAttributes = lens _rciAttributes (\s a -> s {_rciAttributes = a}) . _Default . _Coerce
+registerContainerInstance_attributes :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [Attribute])
+registerContainerInstance_attributes = Lens.lens (\RegisterContainerInstance' {attributes} -> attributes) (\s@RegisterContainerInstance' {} a -> s {attributes = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The instance identity document signature for the EC2 instance to register. This signature can be found by running the following command from the instance: @curl http://169.254.169.254/latest/dynamic/instance-identity/signature/@
-rciInstanceIdentityDocumentSignature :: Lens' RegisterContainerInstance (Maybe Text)
-rciInstanceIdentityDocumentSignature = lens _rciInstanceIdentityDocumentSignature (\s a -> s {_rciInstanceIdentityDocumentSignature = a})
+-- | The instance identity document signature for the EC2 instance to
+-- register. This signature can be found by running the following command
+-- from the instance:
+-- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/signature\/@
+registerContainerInstance_instanceIdentityDocumentSignature :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
+registerContainerInstance_instanceIdentityDocumentSignature = Lens.lens (\RegisterContainerInstance' {instanceIdentityDocumentSignature} -> instanceIdentityDocumentSignature) (\s@RegisterContainerInstance' {} a -> s {instanceIdentityDocumentSignature = a} :: RegisterContainerInstance)
 
--- | The devices that are available on the container instance. The only supported device type is a GPU.
-rciPlatformDevices :: Lens' RegisterContainerInstance [PlatformDevice]
-rciPlatformDevices = lens _rciPlatformDevices (\s a -> s {_rciPlatformDevices = a}) . _Default . _Coerce
+-- | The devices that are available on the container instance. The only
+-- supported device type is a GPU.
+registerContainerInstance_platformDevices :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [PlatformDevice])
+registerContainerInstance_platformDevices = Lens.lens (\RegisterContainerInstance' {platformDevices} -> platformDevices) (\s@RegisterContainerInstance' {} a -> s {platformDevices = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The metadata that you apply to the container instance to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. The following basic restrictions apply to tags:     * Maximum number of tags per resource - 50     * For each resource, each tag key must be unique, and each tag key can have only one value.     * Maximum key length - 128 Unicode characters in UTF-8     * Maximum value length - 256 Unicode characters in UTF-8     * If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.     * Tag keys and values are case-sensitive.     * Do not use @aws:@ , @AWS:@ , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
-rciTags :: Lens' RegisterContainerInstance [Tag]
-rciTags = lens _rciTags (\s a -> s {_rciTags = a}) . _Default . _Coerce
+-- | The metadata that you apply to the container instance to help you
+-- categorize and organize them. Each tag consists of a key and an optional
+-- value, both of which you define.
+--
+-- The following basic restrictions apply to tags:
+--
+-- -   Maximum number of tags per resource - 50
+--
+-- -   For each resource, each tag key must be unique, and each tag key can
+--     have only one value.
+--
+-- -   Maximum key length - 128 Unicode characters in UTF-8
+--
+-- -   Maximum value length - 256 Unicode characters in UTF-8
+--
+-- -   If your tagging schema is used across multiple services and
+--     resources, remember that other services may have restrictions on
+--     allowed characters. Generally allowed characters are: letters,
+--     numbers, and spaces representable in UTF-8, and the following
+--     characters: + - = . _ : \/ \@.
+--
+-- -   Tag keys and values are case-sensitive.
+--
+-- -   Do not use @aws:@, @AWS:@, or any upper or lowercase combination of
+--     such as a prefix for either keys or values as it is reserved for AWS
+--     use. You cannot edit or delete tag keys or values with this prefix.
+--     Tags with this prefix do not count against your tags per resource
+--     limit.
+registerContainerInstance_tags :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [Tag])
+registerContainerInstance_tags = Lens.lens (\RegisterContainerInstance' {tags} -> tags) (\s@RegisterContainerInstance' {} a -> s {tags = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The resources available on the instance.
-rciTotalResources :: Lens' RegisterContainerInstance [Resource]
-rciTotalResources = lens _rciTotalResources (\s a -> s {_rciTotalResources = a}) . _Default . _Coerce
+registerContainerInstance_totalResources :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [Resource])
+registerContainerInstance_totalResources = Lens.lens (\RegisterContainerInstance' {totalResources} -> totalResources) (\s@RegisterContainerInstance' {} a -> s {totalResources = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster with which to register your container instance. If you do not specify a cluster, the default cluster is assumed.
-rciCluster :: Lens' RegisterContainerInstance (Maybe Text)
-rciCluster = lens _rciCluster (\s a -> s {_rciCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster with
+-- which to register your container instance. If you do not specify a
+-- cluster, the default cluster is assumed.
+registerContainerInstance_cluster :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
+registerContainerInstance_cluster = Lens.lens (\RegisterContainerInstance' {cluster} -> cluster) (\s@RegisterContainerInstance' {} a -> s {cluster = a} :: RegisterContainerInstance)
 
-instance AWSRequest RegisterContainerInstance where
+instance Prelude.AWSRequest RegisterContainerInstance where
   type
     Rs RegisterContainerInstance =
       RegisterContainerInstanceResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterContainerInstanceResponse'
-            <$> (x .?> "containerInstance") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "containerInstance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterContainerInstance
+instance Prelude.Hashable RegisterContainerInstance
 
-instance NFData RegisterContainerInstance
+instance Prelude.NFData RegisterContainerInstance
 
-instance ToHeaders RegisterContainerInstance where
+instance Prelude.ToHeaders RegisterContainerInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.RegisterContainerInstance" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.RegisterContainerInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterContainerInstance where
+instance Prelude.ToJSON RegisterContainerInstance where
   toJSON RegisterContainerInstance' {..} =
-    object
-      ( catMaybes
-          [ ("versionInfo" .=) <$> _rciVersionInfo,
-            ("containerInstanceArn" .=)
-              <$> _rciContainerInstanceARN,
-            ("instanceIdentityDocument" .=)
-              <$> _rciInstanceIdentityDocument,
-            ("attributes" .=) <$> _rciAttributes,
-            ("instanceIdentityDocumentSignature" .=)
-              <$> _rciInstanceIdentityDocumentSignature,
-            ("platformDevices" .=) <$> _rciPlatformDevices,
-            ("tags" .=) <$> _rciTags,
-            ("totalResources" .=) <$> _rciTotalResources,
-            ("cluster" .=) <$> _rciCluster
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("versionInfo" Prelude..=) Prelude.<$> versionInfo,
+            ("containerInstanceArn" Prelude..=)
+              Prelude.<$> containerInstanceArn,
+            ("instanceIdentityDocument" Prelude..=)
+              Prelude.<$> instanceIdentityDocument,
+            ("attributes" Prelude..=) Prelude.<$> attributes,
+            ("instanceIdentityDocumentSignature" Prelude..=)
+              Prelude.<$> instanceIdentityDocumentSignature,
+            ("platformDevices" Prelude..=)
+              Prelude.<$> platformDevices,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("totalResources" Prelude..=)
+              Prelude.<$> totalResources,
+            ("cluster" Prelude..=) Prelude.<$> cluster
           ]
       )
 
-instance ToPath RegisterContainerInstance where
-  toPath = const "/"
+instance Prelude.ToPath RegisterContainerInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterContainerInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterContainerInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerContainerInstanceResponse' smart constructor.
+-- | /See:/ 'newRegisterContainerInstanceResponse' smart constructor.
 data RegisterContainerInstanceResponse = RegisterContainerInstanceResponse'
-  { _rcirrsContainerInstance ::
-      !( Maybe
-           ContainerInstance
-       ),
-    _rcirrsResponseStatus ::
-      !Int
+  { -- | The container instance that was registered.
+    containerInstance :: Prelude.Maybe ContainerInstance,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterContainerInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterContainerInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcirrsContainerInstance' - The container instance that was registered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcirrsResponseStatus' - -- | The response status code.
-registerContainerInstanceResponse ::
-  -- | 'rcirrsResponseStatus'
-  Int ->
+-- 'containerInstance', 'registerContainerInstanceResponse_containerInstance' - The container instance that was registered.
+--
+-- 'httpStatus', 'registerContainerInstanceResponse_httpStatus' - The response's http status code.
+newRegisterContainerInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterContainerInstanceResponse
-registerContainerInstanceResponse pResponseStatus_ =
+newRegisterContainerInstanceResponse pHttpStatus_ =
   RegisterContainerInstanceResponse'
-    { _rcirrsContainerInstance =
-        Nothing,
-      _rcirrsResponseStatus = pResponseStatus_
+    { containerInstance =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The container instance that was registered.
-rcirrsContainerInstance :: Lens' RegisterContainerInstanceResponse (Maybe ContainerInstance)
-rcirrsContainerInstance = lens _rcirrsContainerInstance (\s a -> s {_rcirrsContainerInstance = a})
+registerContainerInstanceResponse_containerInstance :: Lens.Lens' RegisterContainerInstanceResponse (Prelude.Maybe ContainerInstance)
+registerContainerInstanceResponse_containerInstance = Lens.lens (\RegisterContainerInstanceResponse' {containerInstance} -> containerInstance) (\s@RegisterContainerInstanceResponse' {} a -> s {containerInstance = a} :: RegisterContainerInstanceResponse)
 
--- | -- | The response status code.
-rcirrsResponseStatus :: Lens' RegisterContainerInstanceResponse Int
-rcirrsResponseStatus = lens _rcirrsResponseStatus (\s a -> s {_rcirrsResponseStatus = a})
+-- | The response's http status code.
+registerContainerInstanceResponse_httpStatus :: Lens.Lens' RegisterContainerInstanceResponse Prelude.Int
+registerContainerInstanceResponse_httpStatus = Lens.lens (\RegisterContainerInstanceResponse' {httpStatus} -> httpStatus) (\s@RegisterContainerInstanceResponse' {} a -> s {httpStatus = a} :: RegisterContainerInstanceResponse)
 
-instance NFData RegisterContainerInstanceResponse
+instance
+  Prelude.NFData
+    RegisterContainerInstanceResponse

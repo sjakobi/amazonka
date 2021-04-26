@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,226 +21,232 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
+-- This action is only used by the Amazon ECS agent, and it is not intended
+-- for use outside of the agent.
+--
 -- Sent to acknowledge that a container changed states.
 module Network.AWS.ECS.SubmitContainerStateChange
   ( -- * Creating a Request
-    submitContainerStateChange,
-    SubmitContainerStateChange,
+    SubmitContainerStateChange (..),
+    newSubmitContainerStateChange,
 
     -- * Request Lenses
-    scscStatus,
-    scscRuntimeId,
-    scscTask,
-    scscExitCode,
-    scscNetworkBindings,
-    scscReason,
-    scscContainerName,
-    scscCluster,
+    submitContainerStateChange_status,
+    submitContainerStateChange_runtimeId,
+    submitContainerStateChange_task,
+    submitContainerStateChange_exitCode,
+    submitContainerStateChange_networkBindings,
+    submitContainerStateChange_reason,
+    submitContainerStateChange_containerName,
+    submitContainerStateChange_cluster,
 
     -- * Destructuring the Response
-    submitContainerStateChangeResponse,
-    SubmitContainerStateChangeResponse,
+    SubmitContainerStateChangeResponse (..),
+    newSubmitContainerStateChangeResponse,
 
     -- * Response Lenses
-    scscrrsAcknowledgment,
-    scscrrsResponseStatus,
+    submitContainerStateChangeResponse_acknowledgment,
+    submitContainerStateChangeResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'submitContainerStateChange' smart constructor.
+-- | /See:/ 'newSubmitContainerStateChange' smart constructor.
 data SubmitContainerStateChange = SubmitContainerStateChange'
-  { _scscStatus ::
-      !(Maybe Text),
-    _scscRuntimeId ::
-      !(Maybe Text),
-    _scscTask ::
-      !(Maybe Text),
-    _scscExitCode ::
-      !(Maybe Int),
-    _scscNetworkBindings ::
-      !( Maybe
-           [NetworkBinding]
-       ),
-    _scscReason ::
-      !(Maybe Text),
-    _scscContainerName ::
-      !(Maybe Text),
-    _scscCluster ::
-      !(Maybe Text)
+  { -- | The status of the state change request.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Docker container.
+    runtimeId :: Prelude.Maybe Prelude.Text,
+    -- | The task ID or full Amazon Resource Name (ARN) of the task that hosts
+    -- the container.
+    task :: Prelude.Maybe Prelude.Text,
+    -- | The exit code returned for the state change request.
+    exitCode :: Prelude.Maybe Prelude.Int,
+    -- | The network bindings of the container.
+    networkBindings :: Prelude.Maybe [NetworkBinding],
+    -- | The reason for the state change request.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The name of the container.
+    containerName :: Prelude.Maybe Prelude.Text,
+    -- | The short name or full ARN of the cluster that hosts the container.
+    cluster :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubmitContainerStateChange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubmitContainerStateChange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scscStatus' - The status of the state change request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scscRuntimeId' - The ID of the Docker container.
+-- 'status', 'submitContainerStateChange_status' - The status of the state change request.
 --
--- * 'scscTask' - The task ID or full Amazon Resource Name (ARN) of the task that hosts the container.
+-- 'runtimeId', 'submitContainerStateChange_runtimeId' - The ID of the Docker container.
 --
--- * 'scscExitCode' - The exit code returned for the state change request.
+-- 'task', 'submitContainerStateChange_task' - The task ID or full Amazon Resource Name (ARN) of the task that hosts
+-- the container.
 --
--- * 'scscNetworkBindings' - The network bindings of the container.
+-- 'exitCode', 'submitContainerStateChange_exitCode' - The exit code returned for the state change request.
 --
--- * 'scscReason' - The reason for the state change request.
+-- 'networkBindings', 'submitContainerStateChange_networkBindings' - The network bindings of the container.
 --
--- * 'scscContainerName' - The name of the container.
+-- 'reason', 'submitContainerStateChange_reason' - The reason for the state change request.
 --
--- * 'scscCluster' - The short name or full ARN of the cluster that hosts the container.
-submitContainerStateChange ::
+-- 'containerName', 'submitContainerStateChange_containerName' - The name of the container.
+--
+-- 'cluster', 'submitContainerStateChange_cluster' - The short name or full ARN of the cluster that hosts the container.
+newSubmitContainerStateChange ::
   SubmitContainerStateChange
-submitContainerStateChange =
+newSubmitContainerStateChange =
   SubmitContainerStateChange'
-    { _scscStatus = Nothing,
-      _scscRuntimeId = Nothing,
-      _scscTask = Nothing,
-      _scscExitCode = Nothing,
-      _scscNetworkBindings = Nothing,
-      _scscReason = Nothing,
-      _scscContainerName = Nothing,
-      _scscCluster = Nothing
+    { status =
+        Prelude.Nothing,
+      runtimeId = Prelude.Nothing,
+      task = Prelude.Nothing,
+      exitCode = Prelude.Nothing,
+      networkBindings = Prelude.Nothing,
+      reason = Prelude.Nothing,
+      containerName = Prelude.Nothing,
+      cluster = Prelude.Nothing
     }
 
 -- | The status of the state change request.
-scscStatus :: Lens' SubmitContainerStateChange (Maybe Text)
-scscStatus = lens _scscStatus (\s a -> s {_scscStatus = a})
+submitContainerStateChange_status :: Lens.Lens' SubmitContainerStateChange (Prelude.Maybe Prelude.Text)
+submitContainerStateChange_status = Lens.lens (\SubmitContainerStateChange' {status} -> status) (\s@SubmitContainerStateChange' {} a -> s {status = a} :: SubmitContainerStateChange)
 
 -- | The ID of the Docker container.
-scscRuntimeId :: Lens' SubmitContainerStateChange (Maybe Text)
-scscRuntimeId = lens _scscRuntimeId (\s a -> s {_scscRuntimeId = a})
+submitContainerStateChange_runtimeId :: Lens.Lens' SubmitContainerStateChange (Prelude.Maybe Prelude.Text)
+submitContainerStateChange_runtimeId = Lens.lens (\SubmitContainerStateChange' {runtimeId} -> runtimeId) (\s@SubmitContainerStateChange' {} a -> s {runtimeId = a} :: SubmitContainerStateChange)
 
--- | The task ID or full Amazon Resource Name (ARN) of the task that hosts the container.
-scscTask :: Lens' SubmitContainerStateChange (Maybe Text)
-scscTask = lens _scscTask (\s a -> s {_scscTask = a})
+-- | The task ID or full Amazon Resource Name (ARN) of the task that hosts
+-- the container.
+submitContainerStateChange_task :: Lens.Lens' SubmitContainerStateChange (Prelude.Maybe Prelude.Text)
+submitContainerStateChange_task = Lens.lens (\SubmitContainerStateChange' {task} -> task) (\s@SubmitContainerStateChange' {} a -> s {task = a} :: SubmitContainerStateChange)
 
 -- | The exit code returned for the state change request.
-scscExitCode :: Lens' SubmitContainerStateChange (Maybe Int)
-scscExitCode = lens _scscExitCode (\s a -> s {_scscExitCode = a})
+submitContainerStateChange_exitCode :: Lens.Lens' SubmitContainerStateChange (Prelude.Maybe Prelude.Int)
+submitContainerStateChange_exitCode = Lens.lens (\SubmitContainerStateChange' {exitCode} -> exitCode) (\s@SubmitContainerStateChange' {} a -> s {exitCode = a} :: SubmitContainerStateChange)
 
 -- | The network bindings of the container.
-scscNetworkBindings :: Lens' SubmitContainerStateChange [NetworkBinding]
-scscNetworkBindings = lens _scscNetworkBindings (\s a -> s {_scscNetworkBindings = a}) . _Default . _Coerce
+submitContainerStateChange_networkBindings :: Lens.Lens' SubmitContainerStateChange (Prelude.Maybe [NetworkBinding])
+submitContainerStateChange_networkBindings = Lens.lens (\SubmitContainerStateChange' {networkBindings} -> networkBindings) (\s@SubmitContainerStateChange' {} a -> s {networkBindings = a} :: SubmitContainerStateChange) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The reason for the state change request.
-scscReason :: Lens' SubmitContainerStateChange (Maybe Text)
-scscReason = lens _scscReason (\s a -> s {_scscReason = a})
+submitContainerStateChange_reason :: Lens.Lens' SubmitContainerStateChange (Prelude.Maybe Prelude.Text)
+submitContainerStateChange_reason = Lens.lens (\SubmitContainerStateChange' {reason} -> reason) (\s@SubmitContainerStateChange' {} a -> s {reason = a} :: SubmitContainerStateChange)
 
 -- | The name of the container.
-scscContainerName :: Lens' SubmitContainerStateChange (Maybe Text)
-scscContainerName = lens _scscContainerName (\s a -> s {_scscContainerName = a})
+submitContainerStateChange_containerName :: Lens.Lens' SubmitContainerStateChange (Prelude.Maybe Prelude.Text)
+submitContainerStateChange_containerName = Lens.lens (\SubmitContainerStateChange' {containerName} -> containerName) (\s@SubmitContainerStateChange' {} a -> s {containerName = a} :: SubmitContainerStateChange)
 
 -- | The short name or full ARN of the cluster that hosts the container.
-scscCluster :: Lens' SubmitContainerStateChange (Maybe Text)
-scscCluster = lens _scscCluster (\s a -> s {_scscCluster = a})
+submitContainerStateChange_cluster :: Lens.Lens' SubmitContainerStateChange (Prelude.Maybe Prelude.Text)
+submitContainerStateChange_cluster = Lens.lens (\SubmitContainerStateChange' {cluster} -> cluster) (\s@SubmitContainerStateChange' {} a -> s {cluster = a} :: SubmitContainerStateChange)
 
-instance AWSRequest SubmitContainerStateChange where
+instance
+  Prelude.AWSRequest
+    SubmitContainerStateChange
+  where
   type
     Rs SubmitContainerStateChange =
       SubmitContainerStateChangeResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SubmitContainerStateChangeResponse'
-            <$> (x .?> "acknowledgment") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "acknowledgment")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SubmitContainerStateChange
+instance Prelude.Hashable SubmitContainerStateChange
 
-instance NFData SubmitContainerStateChange
+instance Prelude.NFData SubmitContainerStateChange
 
-instance ToHeaders SubmitContainerStateChange where
+instance Prelude.ToHeaders SubmitContainerStateChange where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.SubmitContainerStateChange" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.SubmitContainerStateChange" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SubmitContainerStateChange where
+instance Prelude.ToJSON SubmitContainerStateChange where
   toJSON SubmitContainerStateChange' {..} =
-    object
-      ( catMaybes
-          [ ("status" .=) <$> _scscStatus,
-            ("runtimeId" .=) <$> _scscRuntimeId,
-            ("task" .=) <$> _scscTask,
-            ("exitCode" .=) <$> _scscExitCode,
-            ("networkBindings" .=) <$> _scscNetworkBindings,
-            ("reason" .=) <$> _scscReason,
-            ("containerName" .=) <$> _scscContainerName,
-            ("cluster" .=) <$> _scscCluster
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("status" Prelude..=) Prelude.<$> status,
+            ("runtimeId" Prelude..=) Prelude.<$> runtimeId,
+            ("task" Prelude..=) Prelude.<$> task,
+            ("exitCode" Prelude..=) Prelude.<$> exitCode,
+            ("networkBindings" Prelude..=)
+              Prelude.<$> networkBindings,
+            ("reason" Prelude..=) Prelude.<$> reason,
+            ("containerName" Prelude..=)
+              Prelude.<$> containerName,
+            ("cluster" Prelude..=) Prelude.<$> cluster
           ]
       )
 
-instance ToPath SubmitContainerStateChange where
-  toPath = const "/"
+instance Prelude.ToPath SubmitContainerStateChange where
+  toPath = Prelude.const "/"
 
-instance ToQuery SubmitContainerStateChange where
-  toQuery = const mempty
+instance Prelude.ToQuery SubmitContainerStateChange where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'submitContainerStateChangeResponse' smart constructor.
+-- | /See:/ 'newSubmitContainerStateChangeResponse' smart constructor.
 data SubmitContainerStateChangeResponse = SubmitContainerStateChangeResponse'
-  { _scscrrsAcknowledgment ::
-      !( Maybe
-           Text
-       ),
-    _scscrrsResponseStatus ::
-      !Int
+  { -- | Acknowledgement of the state change.
+    acknowledgment :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubmitContainerStateChangeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubmitContainerStateChangeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scscrrsAcknowledgment' - Acknowledgement of the state change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scscrrsResponseStatus' - -- | The response status code.
-submitContainerStateChangeResponse ::
-  -- | 'scscrrsResponseStatus'
-  Int ->
+-- 'acknowledgment', 'submitContainerStateChangeResponse_acknowledgment' - Acknowledgement of the state change.
+--
+-- 'httpStatus', 'submitContainerStateChangeResponse_httpStatus' - The response's http status code.
+newSubmitContainerStateChangeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SubmitContainerStateChangeResponse
-submitContainerStateChangeResponse pResponseStatus_ =
+newSubmitContainerStateChangeResponse pHttpStatus_ =
   SubmitContainerStateChangeResponse'
-    { _scscrrsAcknowledgment =
-        Nothing,
-      _scscrrsResponseStatus =
-        pResponseStatus_
+    { acknowledgment =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Acknowledgement of the state change.
-scscrrsAcknowledgment :: Lens' SubmitContainerStateChangeResponse (Maybe Text)
-scscrrsAcknowledgment = lens _scscrrsAcknowledgment (\s a -> s {_scscrrsAcknowledgment = a})
+submitContainerStateChangeResponse_acknowledgment :: Lens.Lens' SubmitContainerStateChangeResponse (Prelude.Maybe Prelude.Text)
+submitContainerStateChangeResponse_acknowledgment = Lens.lens (\SubmitContainerStateChangeResponse' {acknowledgment} -> acknowledgment) (\s@SubmitContainerStateChangeResponse' {} a -> s {acknowledgment = a} :: SubmitContainerStateChangeResponse)
 
--- | -- | The response status code.
-scscrrsResponseStatus :: Lens' SubmitContainerStateChangeResponse Int
-scscrrsResponseStatus = lens _scscrrsResponseStatus (\s a -> s {_scscrrsResponseStatus = a})
+-- | The response's http status code.
+submitContainerStateChangeResponse_httpStatus :: Lens.Lens' SubmitContainerStateChangeResponse Prelude.Int
+submitContainerStateChangeResponse_httpStatus = Lens.lens (\SubmitContainerStateChangeResponse' {httpStatus} -> httpStatus) (\s@SubmitContainerStateChangeResponse' {} a -> s {httpStatus = a} :: SubmitContainerStateChangeResponse)
 
-instance NFData SubmitContainerStateChangeResponse
+instance
+  Prelude.NFData
+    SubmitContainerStateChangeResponse

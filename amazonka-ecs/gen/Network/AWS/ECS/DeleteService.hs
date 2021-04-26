@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,193 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified service within a cluster. You can delete a service if you have no running tasks in it and the desired task count is zero. If the service is actively maintaining tasks, you cannot delete it, and you must update the service to a desired task count of zero. For more information, see 'UpdateService' .
+-- Deletes a specified service within a cluster. You can delete a service
+-- if you have no running tasks in it and the desired task count is zero.
+-- If the service is actively maintaining tasks, you cannot delete it, and
+-- you must update the service to a desired task count of zero. For more
+-- information, see UpdateService.
 --
+-- When you delete a service, if there are still running tasks that require
+-- cleanup, the service status moves from @ACTIVE@ to @DRAINING@, and the
+-- service is no longer visible in the console or in the ListServices API
+-- operation. After all tasks have transitioned to either @STOPPING@ or
+-- @STOPPED@ status, the service status moves from @DRAINING@ to
+-- @INACTIVE@. Services in the @DRAINING@ or @INACTIVE@ status can still be
+-- viewed with the DescribeServices API operation. However, in the future,
+-- @INACTIVE@ services may be cleaned up and purged from Amazon ECS record
+-- keeping, and DescribeServices calls on those services return a
+-- @ServiceNotFoundException@ error.
 --
--- /Important:/ If you attempt to create a new service with the same name as an existing service in either @ACTIVE@ or @DRAINING@ status, you receive an error.
+-- If you attempt to create a new service with the same name as an existing
+-- service in either @ACTIVE@ or @DRAINING@ status, you receive an error.
 module Network.AWS.ECS.DeleteService
   ( -- * Creating a Request
-    deleteService,
-    DeleteService,
+    DeleteService (..),
+    newDeleteService,
 
     -- * Request Lenses
-    dsForce,
-    dsCluster,
-    dsService,
+    deleteService_force,
+    deleteService_cluster,
+    deleteService_service,
 
     -- * Destructuring the Response
-    deleteServiceResponse,
-    DeleteServiceResponse,
+    DeleteServiceResponse (..),
+    newDeleteServiceResponse,
 
     -- * Response Lenses
-    dsrrsService,
-    dsrrsResponseStatus,
+    deleteServiceResponse_service,
+    deleteServiceResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.ContainerService
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteService' smart constructor.
+-- | /See:/ 'newDeleteService' smart constructor.
 data DeleteService = DeleteService'
-  { _dsForce ::
-      !(Maybe Bool),
-    _dsCluster :: !(Maybe Text),
-    _dsService :: !Text
+  { -- | If @true@, allows you to delete a service even if it has not been scaled
+    -- down to zero tasks. It is only necessary to use this if the service is
+    -- using the @REPLICA@ scheduling strategy.
+    force :: Prelude.Maybe Prelude.Bool,
+    -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- hosts the service to delete. If you do not specify a cluster, the
+    -- default cluster is assumed.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | The name of the service to delete.
+    service :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteService' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteService' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsForce' - If @true@ , allows you to delete a service even if it has not been scaled down to zero tasks. It is only necessary to use this if the service is using the @REPLICA@ scheduling strategy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to delete. If you do not specify a cluster, the default cluster is assumed.
+-- 'force', 'deleteService_force' - If @true@, allows you to delete a service even if it has not been scaled
+-- down to zero tasks. It is only necessary to use this if the service is
+-- using the @REPLICA@ scheduling strategy.
 --
--- * 'dsService' - The name of the service to delete.
-deleteService ::
-  -- | 'dsService'
-  Text ->
+-- 'cluster', 'deleteService_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the service to delete. If you do not specify a cluster, the
+-- default cluster is assumed.
+--
+-- 'service', 'deleteService_service' - The name of the service to delete.
+newDeleteService ::
+  -- | 'service'
+  Prelude.Text ->
   DeleteService
-deleteService pService_ =
+newDeleteService pService_ =
   DeleteService'
-    { _dsForce = Nothing,
-      _dsCluster = Nothing,
-      _dsService = pService_
+    { force = Prelude.Nothing,
+      cluster = Prelude.Nothing,
+      service = pService_
     }
 
--- | If @true@ , allows you to delete a service even if it has not been scaled down to zero tasks. It is only necessary to use this if the service is using the @REPLICA@ scheduling strategy.
-dsForce :: Lens' DeleteService (Maybe Bool)
-dsForce = lens _dsForce (\s a -> s {_dsForce = a})
+-- | If @true@, allows you to delete a service even if it has not been scaled
+-- down to zero tasks. It is only necessary to use this if the service is
+-- using the @REPLICA@ scheduling strategy.
+deleteService_force :: Lens.Lens' DeleteService (Prelude.Maybe Prelude.Bool)
+deleteService_force = Lens.lens (\DeleteService' {force} -> force) (\s@DeleteService' {} a -> s {force = a} :: DeleteService)
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to delete. If you do not specify a cluster, the default cluster is assumed.
-dsCluster :: Lens' DeleteService (Maybe Text)
-dsCluster = lens _dsCluster (\s a -> s {_dsCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the service to delete. If you do not specify a cluster, the
+-- default cluster is assumed.
+deleteService_cluster :: Lens.Lens' DeleteService (Prelude.Maybe Prelude.Text)
+deleteService_cluster = Lens.lens (\DeleteService' {cluster} -> cluster) (\s@DeleteService' {} a -> s {cluster = a} :: DeleteService)
 
 -- | The name of the service to delete.
-dsService :: Lens' DeleteService Text
-dsService = lens _dsService (\s a -> s {_dsService = a})
+deleteService_service :: Lens.Lens' DeleteService Prelude.Text
+deleteService_service = Lens.lens (\DeleteService' {service} -> service) (\s@DeleteService' {} a -> s {service = a} :: DeleteService)
 
-instance AWSRequest DeleteService where
+instance Prelude.AWSRequest DeleteService where
   type Rs DeleteService = DeleteServiceResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteServiceResponse'
-            <$> (x .?> "service") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "service")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteService
+instance Prelude.Hashable DeleteService
 
-instance NFData DeleteService
+instance Prelude.NFData DeleteService
 
-instance ToHeaders DeleteService where
+instance Prelude.ToHeaders DeleteService where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.DeleteService" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.DeleteService" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteService where
+instance Prelude.ToJSON DeleteService where
   toJSON DeleteService' {..} =
-    object
-      ( catMaybes
-          [ ("force" .=) <$> _dsForce,
-            ("cluster" .=) <$> _dsCluster,
-            Just ("service" .= _dsService)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("force" Prelude..=) Prelude.<$> force,
+            ("cluster" Prelude..=) Prelude.<$> cluster,
+            Prelude.Just ("service" Prelude..= service)
           ]
       )
 
-instance ToPath DeleteService where
-  toPath = const "/"
+instance Prelude.ToPath DeleteService where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteService where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteService where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteServiceResponse' smart constructor.
+-- | /See:/ 'newDeleteServiceResponse' smart constructor.
 data DeleteServiceResponse = DeleteServiceResponse'
-  { _dsrrsService ::
-      !(Maybe ContainerService),
-    _dsrrsResponseStatus ::
-      !Int
+  { -- | The full description of the deleted service.
+    service :: Prelude.Maybe ContainerService,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteServiceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteServiceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsService' - The full description of the deleted service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-deleteServiceResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'service', 'deleteServiceResponse_service' - The full description of the deleted service.
+--
+-- 'httpStatus', 'deleteServiceResponse_httpStatus' - The response's http status code.
+newDeleteServiceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteServiceResponse
-deleteServiceResponse pResponseStatus_ =
+newDeleteServiceResponse pHttpStatus_ =
   DeleteServiceResponse'
-    { _dsrrsService = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { service = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The full description of the deleted service.
-dsrrsService :: Lens' DeleteServiceResponse (Maybe ContainerService)
-dsrrsService = lens _dsrrsService (\s a -> s {_dsrrsService = a})
+deleteServiceResponse_service :: Lens.Lens' DeleteServiceResponse (Prelude.Maybe ContainerService)
+deleteServiceResponse_service = Lens.lens (\DeleteServiceResponse' {service} -> service) (\s@DeleteServiceResponse' {} a -> s {service = a} :: DeleteServiceResponse)
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DeleteServiceResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteServiceResponse_httpStatus :: Lens.Lens' DeleteServiceResponse Prelude.Int
+deleteServiceResponse_httpStatus = Lens.lens (\DeleteServiceResponse' {httpStatus} -> httpStatus) (\s@DeleteServiceResponse' {} a -> s {httpStatus = a} :: DeleteServiceResponse)
 
-instance NFData DeleteServiceResponse
+instance Prelude.NFData DeleteServiceResponse

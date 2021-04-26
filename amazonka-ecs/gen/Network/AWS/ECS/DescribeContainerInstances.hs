@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,186 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes Amazon Elastic Container Service container instances. Returns metadata about registered and remaining resources on each container instance requested.
+-- Describes Amazon Elastic Container Service container instances. Returns
+-- metadata about registered and remaining resources on each container
+-- instance requested.
 module Network.AWS.ECS.DescribeContainerInstances
   ( -- * Creating a Request
-    describeContainerInstances,
-    DescribeContainerInstances,
+    DescribeContainerInstances (..),
+    newDescribeContainerInstances,
 
     -- * Request Lenses
-    dciInclude,
-    dciCluster,
-    dciContainerInstances,
+    describeContainerInstances_include,
+    describeContainerInstances_cluster,
+    describeContainerInstances_containerInstances,
 
     -- * Destructuring the Response
-    describeContainerInstancesResponse,
-    DescribeContainerInstancesResponse,
+    DescribeContainerInstancesResponse (..),
+    newDescribeContainerInstancesResponse,
 
     -- * Response Lenses
-    dcirrsFailures,
-    dcirrsContainerInstances,
-    dcirrsResponseStatus,
+    describeContainerInstancesResponse_failures,
+    describeContainerInstancesResponse_containerInstances,
+    describeContainerInstancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.ContainerInstance
+import Network.AWS.ECS.Types.Failure
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeContainerInstances' smart constructor.
+-- | /See:/ 'newDescribeContainerInstances' smart constructor.
 data DescribeContainerInstances = DescribeContainerInstances'
-  { _dciInclude ::
-      !( Maybe
-           [ContainerInstanceField]
-       ),
-    _dciCluster ::
-      !(Maybe Text),
-    _dciContainerInstances ::
-      ![Text]
+  { -- | Specifies whether you want to see the resource tags for the container
+    -- instance. If @TAGS@ is specified, the tags are included in the response.
+    -- If this field is omitted, tags are not included in the response.
+    include :: Prelude.Maybe [ContainerInstanceField],
+    -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- hosts the container instances to describe. If you do not specify a
+    -- cluster, the default cluster is assumed. This parameter is required if
+    -- the container instance or container instances you are describing were
+    -- launched in any cluster other than the default cluster.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | A list of up to 100 container instance IDs or full Amazon Resource Name
+    -- (ARN) entries.
+    containerInstances :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContainerInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContainerInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dciInclude' - Specifies whether you want to see the resource tags for the container instance. If @TAGS@ is specified, the tags are included in the response. If this field is omitted, tags are not included in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dciCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that hosts the container instances to describe. If you do not specify a cluster, the default cluster is assumed. This parameter is required if the container instance or container instances you are describing were launched in any cluster other than the default cluster.
+-- 'include', 'describeContainerInstances_include' - Specifies whether you want to see the resource tags for the container
+-- instance. If @TAGS@ is specified, the tags are included in the response.
+-- If this field is omitted, tags are not included in the response.
 --
--- * 'dciContainerInstances' - A list of up to 100 container instance IDs or full Amazon Resource Name (ARN) entries.
-describeContainerInstances ::
+-- 'cluster', 'describeContainerInstances_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the container instances to describe. If you do not specify a
+-- cluster, the default cluster is assumed. This parameter is required if
+-- the container instance or container instances you are describing were
+-- launched in any cluster other than the default cluster.
+--
+-- 'containerInstances', 'describeContainerInstances_containerInstances' - A list of up to 100 container instance IDs or full Amazon Resource Name
+-- (ARN) entries.
+newDescribeContainerInstances ::
   DescribeContainerInstances
-describeContainerInstances =
+newDescribeContainerInstances =
   DescribeContainerInstances'
-    { _dciInclude = Nothing,
-      _dciCluster = Nothing,
-      _dciContainerInstances = mempty
+    { include =
+        Prelude.Nothing,
+      cluster = Prelude.Nothing,
+      containerInstances = Prelude.mempty
     }
 
--- | Specifies whether you want to see the resource tags for the container instance. If @TAGS@ is specified, the tags are included in the response. If this field is omitted, tags are not included in the response.
-dciInclude :: Lens' DescribeContainerInstances [ContainerInstanceField]
-dciInclude = lens _dciInclude (\s a -> s {_dciInclude = a}) . _Default . _Coerce
+-- | Specifies whether you want to see the resource tags for the container
+-- instance. If @TAGS@ is specified, the tags are included in the response.
+-- If this field is omitted, tags are not included in the response.
+describeContainerInstances_include :: Lens.Lens' DescribeContainerInstances (Prelude.Maybe [ContainerInstanceField])
+describeContainerInstances_include = Lens.lens (\DescribeContainerInstances' {include} -> include) (\s@DescribeContainerInstances' {} a -> s {include = a} :: DescribeContainerInstances) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that hosts the container instances to describe. If you do not specify a cluster, the default cluster is assumed. This parameter is required if the container instance or container instances you are describing were launched in any cluster other than the default cluster.
-dciCluster :: Lens' DescribeContainerInstances (Maybe Text)
-dciCluster = lens _dciCluster (\s a -> s {_dciCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the container instances to describe. If you do not specify a
+-- cluster, the default cluster is assumed. This parameter is required if
+-- the container instance or container instances you are describing were
+-- launched in any cluster other than the default cluster.
+describeContainerInstances_cluster :: Lens.Lens' DescribeContainerInstances (Prelude.Maybe Prelude.Text)
+describeContainerInstances_cluster = Lens.lens (\DescribeContainerInstances' {cluster} -> cluster) (\s@DescribeContainerInstances' {} a -> s {cluster = a} :: DescribeContainerInstances)
 
--- | A list of up to 100 container instance IDs or full Amazon Resource Name (ARN) entries.
-dciContainerInstances :: Lens' DescribeContainerInstances [Text]
-dciContainerInstances = lens _dciContainerInstances (\s a -> s {_dciContainerInstances = a}) . _Coerce
+-- | A list of up to 100 container instance IDs or full Amazon Resource Name
+-- (ARN) entries.
+describeContainerInstances_containerInstances :: Lens.Lens' DescribeContainerInstances [Prelude.Text]
+describeContainerInstances_containerInstances = Lens.lens (\DescribeContainerInstances' {containerInstances} -> containerInstances) (\s@DescribeContainerInstances' {} a -> s {containerInstances = a} :: DescribeContainerInstances) Prelude.. Prelude._Coerce
 
-instance AWSRequest DescribeContainerInstances where
+instance
+  Prelude.AWSRequest
+    DescribeContainerInstances
+  where
   type
     Rs DescribeContainerInstances =
       DescribeContainerInstancesResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeContainerInstancesResponse'
-            <$> (x .?> "failures" .!@ mempty)
-            <*> (x .?> "containerInstances" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "failures" Prelude..!@ Prelude.mempty)
+            Prelude.<*> ( x Prelude..?> "containerInstances"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeContainerInstances
+instance Prelude.Hashable DescribeContainerInstances
 
-instance NFData DescribeContainerInstances
+instance Prelude.NFData DescribeContainerInstances
 
-instance ToHeaders DescribeContainerInstances where
+instance Prelude.ToHeaders DescribeContainerInstances where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.DescribeContainerInstances" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.DescribeContainerInstances" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeContainerInstances where
+instance Prelude.ToJSON DescribeContainerInstances where
   toJSON DescribeContainerInstances' {..} =
-    object
-      ( catMaybes
-          [ ("include" .=) <$> _dciInclude,
-            ("cluster" .=) <$> _dciCluster,
-            Just
-              ("containerInstances" .= _dciContainerInstances)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("include" Prelude..=) Prelude.<$> include,
+            ("cluster" Prelude..=) Prelude.<$> cluster,
+            Prelude.Just
+              ( "containerInstances"
+                  Prelude..= containerInstances
+              )
           ]
       )
 
-instance ToPath DescribeContainerInstances where
-  toPath = const "/"
+instance Prelude.ToPath DescribeContainerInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeContainerInstances where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeContainerInstances where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeContainerInstancesResponse' smart constructor.
+-- | /See:/ 'newDescribeContainerInstancesResponse' smart constructor.
 data DescribeContainerInstancesResponse = DescribeContainerInstancesResponse'
-  { _dcirrsFailures ::
-      !( Maybe
-           [Failure]
-       ),
-    _dcirrsContainerInstances ::
-      !( Maybe
-           [ContainerInstance]
-       ),
-    _dcirrsResponseStatus ::
-      !Int
+  { -- | Any failures associated with the call.
+    failures :: Prelude.Maybe [Failure],
+    -- | The list of container instances.
+    containerInstances :: Prelude.Maybe [ContainerInstance],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContainerInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContainerInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcirrsFailures' - Any failures associated with the call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcirrsContainerInstances' - The list of container instances.
+-- 'failures', 'describeContainerInstancesResponse_failures' - Any failures associated with the call.
 --
--- * 'dcirrsResponseStatus' - -- | The response status code.
-describeContainerInstancesResponse ::
-  -- | 'dcirrsResponseStatus'
-  Int ->
+-- 'containerInstances', 'describeContainerInstancesResponse_containerInstances' - The list of container instances.
+--
+-- 'httpStatus', 'describeContainerInstancesResponse_httpStatus' - The response's http status code.
+newDescribeContainerInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeContainerInstancesResponse
-describeContainerInstancesResponse pResponseStatus_ =
+newDescribeContainerInstancesResponse pHttpStatus_ =
   DescribeContainerInstancesResponse'
-    { _dcirrsFailures =
-        Nothing,
-      _dcirrsContainerInstances = Nothing,
-      _dcirrsResponseStatus =
-        pResponseStatus_
+    { failures =
+        Prelude.Nothing,
+      containerInstances = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Any failures associated with the call.
-dcirrsFailures :: Lens' DescribeContainerInstancesResponse [Failure]
-dcirrsFailures = lens _dcirrsFailures (\s a -> s {_dcirrsFailures = a}) . _Default . _Coerce
+describeContainerInstancesResponse_failures :: Lens.Lens' DescribeContainerInstancesResponse (Prelude.Maybe [Failure])
+describeContainerInstancesResponse_failures = Lens.lens (\DescribeContainerInstancesResponse' {failures} -> failures) (\s@DescribeContainerInstancesResponse' {} a -> s {failures = a} :: DescribeContainerInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The list of container instances.
-dcirrsContainerInstances :: Lens' DescribeContainerInstancesResponse [ContainerInstance]
-dcirrsContainerInstances = lens _dcirrsContainerInstances (\s a -> s {_dcirrsContainerInstances = a}) . _Default . _Coerce
+describeContainerInstancesResponse_containerInstances :: Lens.Lens' DescribeContainerInstancesResponse (Prelude.Maybe [ContainerInstance])
+describeContainerInstancesResponse_containerInstances = Lens.lens (\DescribeContainerInstancesResponse' {containerInstances} -> containerInstances) (\s@DescribeContainerInstancesResponse' {} a -> s {containerInstances = a} :: DescribeContainerInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcirrsResponseStatus :: Lens' DescribeContainerInstancesResponse Int
-dcirrsResponseStatus = lens _dcirrsResponseStatus (\s a -> s {_dcirrsResponseStatus = a})
+-- | The response's http status code.
+describeContainerInstancesResponse_httpStatus :: Lens.Lens' DescribeContainerInstancesResponse Prelude.Int
+describeContainerInstancesResponse_httpStatus = Lens.lens (\DescribeContainerInstancesResponse' {httpStatus} -> httpStatus) (\s@DescribeContainerInstancesResponse' {} a -> s {httpStatus = a} :: DescribeContainerInstancesResponse)
 
-instance NFData DescribeContainerInstancesResponse
+instance
+  Prelude.NFData
+    DescribeContainerInstancesResponse

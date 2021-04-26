@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.ECS.Types.ContainerCondition
   ( ContainerCondition
       ( ..,
-        CCComplete,
-        CCHealthy,
-        CCStart,
-        CCSuccess
+        ContainerConditionCOMPLETE,
+        ContainerConditionHEALTHY,
+        ContainerConditionSTART,
+        ContainerConditionSUCCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerCondition
-  = ContainerCondition'
-      ( CI
-          Text
-      )
+newtype ContainerCondition = ContainerCondition'
+  { fromContainerCondition ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CCComplete :: ContainerCondition
-pattern CCComplete = ContainerCondition' "COMPLETE"
+pattern ContainerConditionCOMPLETE :: ContainerCondition
+pattern ContainerConditionCOMPLETE = ContainerCondition' "COMPLETE"
 
-pattern CCHealthy :: ContainerCondition
-pattern CCHealthy = ContainerCondition' "HEALTHY"
+pattern ContainerConditionHEALTHY :: ContainerCondition
+pattern ContainerConditionHEALTHY = ContainerCondition' "HEALTHY"
 
-pattern CCStart :: ContainerCondition
-pattern CCStart = ContainerCondition' "START"
+pattern ContainerConditionSTART :: ContainerCondition
+pattern ContainerConditionSTART = ContainerCondition' "START"
 
-pattern CCSuccess :: ContainerCondition
-pattern CCSuccess = ContainerCondition' "SUCCESS"
+pattern ContainerConditionSUCCESS :: ContainerCondition
+pattern ContainerConditionSUCCESS = ContainerCondition' "SUCCESS"
 
 {-# COMPLETE
-  CCComplete,
-  CCHealthy,
-  CCStart,
-  CCSuccess,
+  ContainerConditionCOMPLETE,
+  ContainerConditionHEALTHY,
+  ContainerConditionSTART,
+  ContainerConditionSUCCESS,
   ContainerCondition'
   #-}
 
-instance FromText ContainerCondition where
-  parser = (ContainerCondition' . mk) <$> takeText
+instance Prelude.FromText ContainerCondition where
+  parser = ContainerCondition' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerCondition where
-  toText (ContainerCondition' ci) = original ci
+instance Prelude.ToText ContainerCondition where
+  toText (ContainerCondition' x) = x
 
-instance Hashable ContainerCondition
+instance Prelude.Hashable ContainerCondition
 
-instance NFData ContainerCondition
+instance Prelude.NFData ContainerCondition
 
-instance ToByteString ContainerCondition
+instance Prelude.ToByteString ContainerCondition
 
-instance ToQuery ContainerCondition
+instance Prelude.ToQuery ContainerCondition
 
-instance ToHeader ContainerCondition
+instance Prelude.ToHeader ContainerCondition
 
-instance ToJSON ContainerCondition where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContainerCondition where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContainerCondition where
-  parseJSON = parseJSONText "ContainerCondition"
+instance Prelude.FromJSON ContainerCondition where
+  parseJSON = Prelude.parseJSONText "ContainerCondition"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,101 +20,112 @@
 module Network.AWS.ECS.Types.ContainerStateChange where
 
 import Network.AWS.ECS.Types.NetworkBinding
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing a change in state for a container.
 --
---
---
--- /See:/ 'containerStateChange' smart constructor.
+-- /See:/ 'newContainerStateChange' smart constructor.
 data ContainerStateChange = ContainerStateChange'
-  { _cscImageDigest ::
-      !(Maybe Text),
-    _cscStatus :: !(Maybe Text),
-    _cscRuntimeId ::
-      !(Maybe Text),
-    _cscExitCode :: !(Maybe Int),
-    _cscNetworkBindings ::
-      !(Maybe [NetworkBinding]),
-    _cscReason :: !(Maybe Text),
-    _cscContainerName ::
-      !(Maybe Text)
+  { -- | The container image SHA 256 digest.
+    imageDigest :: Prelude.Maybe Prelude.Text,
+    -- | The status of the container.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Docker container.
+    runtimeId :: Prelude.Maybe Prelude.Text,
+    -- | The exit code for the container, if the state change is a result of the
+    -- container exiting.
+    exitCode :: Prelude.Maybe Prelude.Int,
+    -- | Any network bindings associated with the container.
+    networkBindings :: Prelude.Maybe [NetworkBinding],
+    -- | The reason for the state change.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The name of the container.
+    containerName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContainerStateChange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContainerStateChange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cscImageDigest' - The container image SHA 256 digest.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cscStatus' - The status of the container.
+-- 'imageDigest', 'containerStateChange_imageDigest' - The container image SHA 256 digest.
 --
--- * 'cscRuntimeId' - The ID of the Docker container.
+-- 'status', 'containerStateChange_status' - The status of the container.
 --
--- * 'cscExitCode' - The exit code for the container, if the state change is a result of the container exiting.
+-- 'runtimeId', 'containerStateChange_runtimeId' - The ID of the Docker container.
 --
--- * 'cscNetworkBindings' - Any network bindings associated with the container.
+-- 'exitCode', 'containerStateChange_exitCode' - The exit code for the container, if the state change is a result of the
+-- container exiting.
 --
--- * 'cscReason' - The reason for the state change.
+-- 'networkBindings', 'containerStateChange_networkBindings' - Any network bindings associated with the container.
 --
--- * 'cscContainerName' - The name of the container.
-containerStateChange ::
+-- 'reason', 'containerStateChange_reason' - The reason for the state change.
+--
+-- 'containerName', 'containerStateChange_containerName' - The name of the container.
+newContainerStateChange ::
   ContainerStateChange
-containerStateChange =
+newContainerStateChange =
   ContainerStateChange'
-    { _cscImageDigest = Nothing,
-      _cscStatus = Nothing,
-      _cscRuntimeId = Nothing,
-      _cscExitCode = Nothing,
-      _cscNetworkBindings = Nothing,
-      _cscReason = Nothing,
-      _cscContainerName = Nothing
+    { imageDigest =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      runtimeId = Prelude.Nothing,
+      exitCode = Prelude.Nothing,
+      networkBindings = Prelude.Nothing,
+      reason = Prelude.Nothing,
+      containerName = Prelude.Nothing
     }
 
 -- | The container image SHA 256 digest.
-cscImageDigest :: Lens' ContainerStateChange (Maybe Text)
-cscImageDigest = lens _cscImageDigest (\s a -> s {_cscImageDigest = a})
+containerStateChange_imageDigest :: Lens.Lens' ContainerStateChange (Prelude.Maybe Prelude.Text)
+containerStateChange_imageDigest = Lens.lens (\ContainerStateChange' {imageDigest} -> imageDigest) (\s@ContainerStateChange' {} a -> s {imageDigest = a} :: ContainerStateChange)
 
 -- | The status of the container.
-cscStatus :: Lens' ContainerStateChange (Maybe Text)
-cscStatus = lens _cscStatus (\s a -> s {_cscStatus = a})
+containerStateChange_status :: Lens.Lens' ContainerStateChange (Prelude.Maybe Prelude.Text)
+containerStateChange_status = Lens.lens (\ContainerStateChange' {status} -> status) (\s@ContainerStateChange' {} a -> s {status = a} :: ContainerStateChange)
 
 -- | The ID of the Docker container.
-cscRuntimeId :: Lens' ContainerStateChange (Maybe Text)
-cscRuntimeId = lens _cscRuntimeId (\s a -> s {_cscRuntimeId = a})
+containerStateChange_runtimeId :: Lens.Lens' ContainerStateChange (Prelude.Maybe Prelude.Text)
+containerStateChange_runtimeId = Lens.lens (\ContainerStateChange' {runtimeId} -> runtimeId) (\s@ContainerStateChange' {} a -> s {runtimeId = a} :: ContainerStateChange)
 
--- | The exit code for the container, if the state change is a result of the container exiting.
-cscExitCode :: Lens' ContainerStateChange (Maybe Int)
-cscExitCode = lens _cscExitCode (\s a -> s {_cscExitCode = a})
+-- | The exit code for the container, if the state change is a result of the
+-- container exiting.
+containerStateChange_exitCode :: Lens.Lens' ContainerStateChange (Prelude.Maybe Prelude.Int)
+containerStateChange_exitCode = Lens.lens (\ContainerStateChange' {exitCode} -> exitCode) (\s@ContainerStateChange' {} a -> s {exitCode = a} :: ContainerStateChange)
 
 -- | Any network bindings associated with the container.
-cscNetworkBindings :: Lens' ContainerStateChange [NetworkBinding]
-cscNetworkBindings = lens _cscNetworkBindings (\s a -> s {_cscNetworkBindings = a}) . _Default . _Coerce
+containerStateChange_networkBindings :: Lens.Lens' ContainerStateChange (Prelude.Maybe [NetworkBinding])
+containerStateChange_networkBindings = Lens.lens (\ContainerStateChange' {networkBindings} -> networkBindings) (\s@ContainerStateChange' {} a -> s {networkBindings = a} :: ContainerStateChange) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The reason for the state change.
-cscReason :: Lens' ContainerStateChange (Maybe Text)
-cscReason = lens _cscReason (\s a -> s {_cscReason = a})
+containerStateChange_reason :: Lens.Lens' ContainerStateChange (Prelude.Maybe Prelude.Text)
+containerStateChange_reason = Lens.lens (\ContainerStateChange' {reason} -> reason) (\s@ContainerStateChange' {} a -> s {reason = a} :: ContainerStateChange)
 
 -- | The name of the container.
-cscContainerName :: Lens' ContainerStateChange (Maybe Text)
-cscContainerName = lens _cscContainerName (\s a -> s {_cscContainerName = a})
+containerStateChange_containerName :: Lens.Lens' ContainerStateChange (Prelude.Maybe Prelude.Text)
+containerStateChange_containerName = Lens.lens (\ContainerStateChange' {containerName} -> containerName) (\s@ContainerStateChange' {} a -> s {containerName = a} :: ContainerStateChange)
 
-instance Hashable ContainerStateChange
+instance Prelude.Hashable ContainerStateChange
 
-instance NFData ContainerStateChange
+instance Prelude.NFData ContainerStateChange
 
-instance ToJSON ContainerStateChange where
+instance Prelude.ToJSON ContainerStateChange where
   toJSON ContainerStateChange' {..} =
-    object
-      ( catMaybes
-          [ ("imageDigest" .=) <$> _cscImageDigest,
-            ("status" .=) <$> _cscStatus,
-            ("runtimeId" .=) <$> _cscRuntimeId,
-            ("exitCode" .=) <$> _cscExitCode,
-            ("networkBindings" .=) <$> _cscNetworkBindings,
-            ("reason" .=) <$> _cscReason,
-            ("containerName" .=) <$> _cscContainerName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("imageDigest" Prelude..=) Prelude.<$> imageDigest,
+            ("status" Prelude..=) Prelude.<$> status,
+            ("runtimeId" Prelude..=) Prelude.<$> runtimeId,
+            ("exitCode" Prelude..=) Prelude.<$> exitCode,
+            ("networkBindings" Prelude..=)
+              Prelude.<$> networkBindings,
+            ("reason" Prelude..=) Prelude.<$> reason,
+            ("containerName" Prelude..=)
+              Prelude.<$> containerName
           ]
       )

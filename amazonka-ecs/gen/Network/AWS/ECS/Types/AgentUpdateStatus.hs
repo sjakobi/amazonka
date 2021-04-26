@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.ECS.Types.AgentUpdateStatus
   ( AgentUpdateStatus
       ( ..,
-        Failed,
-        Pending,
-        Staged,
-        Staging,
-        Updated,
-        Updating
+        AgentUpdateStatusFAILED,
+        AgentUpdateStatusPENDING,
+        AgentUpdateStatusSTAGED,
+        AgentUpdateStatusSTAGING,
+        AgentUpdateStatusUPDATED,
+        AgentUpdateStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AgentUpdateStatus = AgentUpdateStatus' (CI Text)
+newtype AgentUpdateStatus = AgentUpdateStatus'
+  { fromAgentUpdateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: AgentUpdateStatus
-pattern Failed = AgentUpdateStatus' "FAILED"
+pattern AgentUpdateStatusFAILED :: AgentUpdateStatus
+pattern AgentUpdateStatusFAILED = AgentUpdateStatus' "FAILED"
 
-pattern Pending :: AgentUpdateStatus
-pattern Pending = AgentUpdateStatus' "PENDING"
+pattern AgentUpdateStatusPENDING :: AgentUpdateStatus
+pattern AgentUpdateStatusPENDING = AgentUpdateStatus' "PENDING"
 
-pattern Staged :: AgentUpdateStatus
-pattern Staged = AgentUpdateStatus' "STAGED"
+pattern AgentUpdateStatusSTAGED :: AgentUpdateStatus
+pattern AgentUpdateStatusSTAGED = AgentUpdateStatus' "STAGED"
 
-pattern Staging :: AgentUpdateStatus
-pattern Staging = AgentUpdateStatus' "STAGING"
+pattern AgentUpdateStatusSTAGING :: AgentUpdateStatus
+pattern AgentUpdateStatusSTAGING = AgentUpdateStatus' "STAGING"
 
-pattern Updated :: AgentUpdateStatus
-pattern Updated = AgentUpdateStatus' "UPDATED"
+pattern AgentUpdateStatusUPDATED :: AgentUpdateStatus
+pattern AgentUpdateStatusUPDATED = AgentUpdateStatus' "UPDATED"
 
-pattern Updating :: AgentUpdateStatus
-pattern Updating = AgentUpdateStatus' "UPDATING"
+pattern AgentUpdateStatusUPDATING :: AgentUpdateStatus
+pattern AgentUpdateStatusUPDATING = AgentUpdateStatus' "UPDATING"
 
 {-# COMPLETE
-  Failed,
-  Pending,
-  Staged,
-  Staging,
-  Updated,
-  Updating,
+  AgentUpdateStatusFAILED,
+  AgentUpdateStatusPENDING,
+  AgentUpdateStatusSTAGED,
+  AgentUpdateStatusSTAGING,
+  AgentUpdateStatusUPDATED,
+  AgentUpdateStatusUPDATING,
   AgentUpdateStatus'
   #-}
 
-instance FromText AgentUpdateStatus where
-  parser = (AgentUpdateStatus' . mk) <$> takeText
+instance Prelude.FromText AgentUpdateStatus where
+  parser = AgentUpdateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AgentUpdateStatus where
-  toText (AgentUpdateStatus' ci) = original ci
+instance Prelude.ToText AgentUpdateStatus where
+  toText (AgentUpdateStatus' x) = x
 
-instance Hashable AgentUpdateStatus
+instance Prelude.Hashable AgentUpdateStatus
 
-instance NFData AgentUpdateStatus
+instance Prelude.NFData AgentUpdateStatus
 
-instance ToByteString AgentUpdateStatus
+instance Prelude.ToByteString AgentUpdateStatus
 
-instance ToQuery AgentUpdateStatus
+instance Prelude.ToQuery AgentUpdateStatus
 
-instance ToHeader AgentUpdateStatus
+instance Prelude.ToHeader AgentUpdateStatus
 
-instance FromJSON AgentUpdateStatus where
-  parseJSON = parseJSONText "AgentUpdateStatus"
+instance Prelude.FromJSON AgentUpdateStatus where
+  parseJSON = Prelude.parseJSONText "AgentUpdateStatus"

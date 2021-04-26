@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,149 +23,163 @@
 --
 -- Deletes the specified capacity provider.
 --
+-- The @FARGATE@ and @FARGATE_SPOT@ capacity providers are reserved and
+-- cannot be deleted. You can disassociate them from a cluster using either
+-- the PutClusterCapacityProviders API or by deleting the cluster.
 --
--- Prior to a capacity provider being deleted, the capacity provider must be removed from the capacity provider strategy from all services. The 'UpdateService' API can be used to remove a capacity provider from a service's capacity provider strategy. When updating a service, the @forceNewDeployment@ option can be used to ensure that any tasks using the Amazon EC2 instance capacity provided by the capacity provider are transitioned to use the capacity from the remaining capacity providers. Only capacity providers that are not associated with a cluster can be deleted. To remove a capacity provider from a cluster, you can either use 'PutClusterCapacityProviders' or delete the cluster.
+-- Prior to a capacity provider being deleted, the capacity provider must
+-- be removed from the capacity provider strategy from all services. The
+-- UpdateService API can be used to remove a capacity provider from a
+-- service\'s capacity provider strategy. When updating a service, the
+-- @forceNewDeployment@ option can be used to ensure that any tasks using
+-- the Amazon EC2 instance capacity provided by the capacity provider are
+-- transitioned to use the capacity from the remaining capacity providers.
+-- Only capacity providers that are not associated with a cluster can be
+-- deleted. To remove a capacity provider from a cluster, you can either
+-- use PutClusterCapacityProviders or delete the cluster.
 module Network.AWS.ECS.DeleteCapacityProvider
   ( -- * Creating a Request
-    deleteCapacityProvider,
-    DeleteCapacityProvider,
+    DeleteCapacityProvider (..),
+    newDeleteCapacityProvider,
 
     -- * Request Lenses
-    dcpCapacityProvider,
+    deleteCapacityProvider_capacityProvider,
 
     -- * Destructuring the Response
-    deleteCapacityProviderResponse,
-    DeleteCapacityProviderResponse,
+    DeleteCapacityProviderResponse (..),
+    newDeleteCapacityProviderResponse,
 
     -- * Response Lenses
-    dcprrsCapacityProvider,
-    dcprrsResponseStatus,
+    deleteCapacityProviderResponse_capacityProvider,
+    deleteCapacityProviderResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.CapacityProvider
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteCapacityProvider' smart constructor.
-newtype DeleteCapacityProvider = DeleteCapacityProvider'
-  { _dcpCapacityProvider ::
-      Text
+-- | /See:/ 'newDeleteCapacityProvider' smart constructor.
+data DeleteCapacityProvider = DeleteCapacityProvider'
+  { -- | The short name or full Amazon Resource Name (ARN) of the capacity
+    -- provider to delete.
+    capacityProvider :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCapacityProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCapacityProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpCapacityProvider' - The short name or full Amazon Resource Name (ARN) of the capacity provider to delete.
-deleteCapacityProvider ::
-  -- | 'dcpCapacityProvider'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'capacityProvider', 'deleteCapacityProvider_capacityProvider' - The short name or full Amazon Resource Name (ARN) of the capacity
+-- provider to delete.
+newDeleteCapacityProvider ::
+  -- | 'capacityProvider'
+  Prelude.Text ->
   DeleteCapacityProvider
-deleteCapacityProvider pCapacityProvider_ =
+newDeleteCapacityProvider pCapacityProvider_ =
   DeleteCapacityProvider'
-    { _dcpCapacityProvider =
+    { capacityProvider =
         pCapacityProvider_
     }
 
--- | The short name or full Amazon Resource Name (ARN) of the capacity provider to delete.
-dcpCapacityProvider :: Lens' DeleteCapacityProvider Text
-dcpCapacityProvider = lens _dcpCapacityProvider (\s a -> s {_dcpCapacityProvider = a})
+-- | The short name or full Amazon Resource Name (ARN) of the capacity
+-- provider to delete.
+deleteCapacityProvider_capacityProvider :: Lens.Lens' DeleteCapacityProvider Prelude.Text
+deleteCapacityProvider_capacityProvider = Lens.lens (\DeleteCapacityProvider' {capacityProvider} -> capacityProvider) (\s@DeleteCapacityProvider' {} a -> s {capacityProvider = a} :: DeleteCapacityProvider)
 
-instance AWSRequest DeleteCapacityProvider where
+instance Prelude.AWSRequest DeleteCapacityProvider where
   type
     Rs DeleteCapacityProvider =
       DeleteCapacityProviderResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteCapacityProviderResponse'
-            <$> (x .?> "capacityProvider") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "capacityProvider")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteCapacityProvider
+instance Prelude.Hashable DeleteCapacityProvider
 
-instance NFData DeleteCapacityProvider
+instance Prelude.NFData DeleteCapacityProvider
 
-instance ToHeaders DeleteCapacityProvider where
+instance Prelude.ToHeaders DeleteCapacityProvider where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.DeleteCapacityProvider" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.DeleteCapacityProvider" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteCapacityProvider where
+instance Prelude.ToJSON DeleteCapacityProvider where
   toJSON DeleteCapacityProvider' {..} =
-    object
-      ( catMaybes
-          [Just ("capacityProvider" .= _dcpCapacityProvider)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("capacityProvider" Prelude..= capacityProvider)
+          ]
       )
 
-instance ToPath DeleteCapacityProvider where
-  toPath = const "/"
+instance Prelude.ToPath DeleteCapacityProvider where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteCapacityProvider where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteCapacityProvider where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteCapacityProviderResponse' smart constructor.
+-- | /See:/ 'newDeleteCapacityProviderResponse' smart constructor.
 data DeleteCapacityProviderResponse = DeleteCapacityProviderResponse'
-  { _dcprrsCapacityProvider ::
-      !( Maybe
-           CapacityProvider
-       ),
-    _dcprrsResponseStatus ::
-      !Int
+  { capacityProvider :: Prelude.Maybe CapacityProvider,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCapacityProviderResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCapacityProviderResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcprrsCapacityProvider' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcprrsResponseStatus' - -- | The response status code.
-deleteCapacityProviderResponse ::
-  -- | 'dcprrsResponseStatus'
-  Int ->
+-- 'capacityProvider', 'deleteCapacityProviderResponse_capacityProvider' - Undocumented member.
+--
+-- 'httpStatus', 'deleteCapacityProviderResponse_httpStatus' - The response's http status code.
+newDeleteCapacityProviderResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteCapacityProviderResponse
-deleteCapacityProviderResponse pResponseStatus_ =
+newDeleteCapacityProviderResponse pHttpStatus_ =
   DeleteCapacityProviderResponse'
-    { _dcprrsCapacityProvider =
-        Nothing,
-      _dcprrsResponseStatus = pResponseStatus_
+    { capacityProvider =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-dcprrsCapacityProvider :: Lens' DeleteCapacityProviderResponse (Maybe CapacityProvider)
-dcprrsCapacityProvider = lens _dcprrsCapacityProvider (\s a -> s {_dcprrsCapacityProvider = a})
+deleteCapacityProviderResponse_capacityProvider :: Lens.Lens' DeleteCapacityProviderResponse (Prelude.Maybe CapacityProvider)
+deleteCapacityProviderResponse_capacityProvider = Lens.lens (\DeleteCapacityProviderResponse' {capacityProvider} -> capacityProvider) (\s@DeleteCapacityProviderResponse' {} a -> s {capacityProvider = a} :: DeleteCapacityProviderResponse)
 
--- | -- | The response status code.
-dcprrsResponseStatus :: Lens' DeleteCapacityProviderResponse Int
-dcprrsResponseStatus = lens _dcprrsResponseStatus (\s a -> s {_dcprrsResponseStatus = a})
+-- | The response's http status code.
+deleteCapacityProviderResponse_httpStatus :: Lens.Lens' DeleteCapacityProviderResponse Prelude.Int
+deleteCapacityProviderResponse_httpStatus = Lens.lens (\DeleteCapacityProviderResponse' {httpStatus} -> httpStatus) (\s@DeleteCapacityProviderResponse' {} a -> s {httpStatus = a} :: DeleteCapacityProviderResponse)
 
-instance NFData DeleteCapacityProviderResponse
+instance
+  Prelude.NFData
+    DeleteCapacityProviderResponse

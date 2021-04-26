@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.AttachmentStateChange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing a change in state for a task attachment.
 --
---
---
--- /See:/ 'attachmentStateChange' smart constructor.
+-- /See:/ 'newAttachmentStateChange' smart constructor.
 data AttachmentStateChange = AttachmentStateChange'
-  { _ascAttachmentARN ::
-      !Text,
-    _ascStatus :: !Text
+  { -- | The Amazon Resource Name (ARN) of the attachment.
+    attachmentArn :: Prelude.Text,
+    -- | The status of the attachment.
+    status :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachmentStateChange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachmentStateChange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ascAttachmentARN' - The Amazon Resource Name (ARN) of the attachment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ascStatus' - The status of the attachment.
-attachmentStateChange ::
-  -- | 'ascAttachmentARN'
-  Text ->
-  -- | 'ascStatus'
-  Text ->
+-- 'attachmentArn', 'attachmentStateChange_attachmentArn' - The Amazon Resource Name (ARN) of the attachment.
+--
+-- 'status', 'attachmentStateChange_status' - The status of the attachment.
+newAttachmentStateChange ::
+  -- | 'attachmentArn'
+  Prelude.Text ->
+  -- | 'status'
+  Prelude.Text ->
   AttachmentStateChange
-attachmentStateChange pAttachmentARN_ pStatus_ =
+newAttachmentStateChange pAttachmentArn_ pStatus_ =
   AttachmentStateChange'
-    { _ascAttachmentARN =
-        pAttachmentARN_,
-      _ascStatus = pStatus_
+    { attachmentArn =
+        pAttachmentArn_,
+      status = pStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the attachment.
-ascAttachmentARN :: Lens' AttachmentStateChange Text
-ascAttachmentARN = lens _ascAttachmentARN (\s a -> s {_ascAttachmentARN = a})
+attachmentStateChange_attachmentArn :: Lens.Lens' AttachmentStateChange Prelude.Text
+attachmentStateChange_attachmentArn = Lens.lens (\AttachmentStateChange' {attachmentArn} -> attachmentArn) (\s@AttachmentStateChange' {} a -> s {attachmentArn = a} :: AttachmentStateChange)
 
 -- | The status of the attachment.
-ascStatus :: Lens' AttachmentStateChange Text
-ascStatus = lens _ascStatus (\s a -> s {_ascStatus = a})
+attachmentStateChange_status :: Lens.Lens' AttachmentStateChange Prelude.Text
+attachmentStateChange_status = Lens.lens (\AttachmentStateChange' {status} -> status) (\s@AttachmentStateChange' {} a -> s {status = a} :: AttachmentStateChange)
 
-instance Hashable AttachmentStateChange
+instance Prelude.Hashable AttachmentStateChange
 
-instance NFData AttachmentStateChange
+instance Prelude.NFData AttachmentStateChange
 
-instance ToJSON AttachmentStateChange where
+instance Prelude.ToJSON AttachmentStateChange where
   toJSON AttachmentStateChange' {..} =
-    object
-      ( catMaybes
-          [ Just ("attachmentArn" .= _ascAttachmentARN),
-            Just ("status" .= _ascStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("attachmentArn" Prelude..= attachmentArn),
+            Prelude.Just ("status" Prelude..= status)
           ]
       )

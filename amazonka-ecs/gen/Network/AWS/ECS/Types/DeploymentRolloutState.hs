@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ECS.Types.DeploymentRolloutState
   ( DeploymentRolloutState
       ( ..,
-        DRSCompleted,
-        DRSFailed,
-        DRSInProgress
+        DeploymentRolloutStateCOMPLETED,
+        DeploymentRolloutStateFAILED,
+        DeploymentRolloutStateINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeploymentRolloutState
-  = DeploymentRolloutState'
-      ( CI
-          Text
-      )
+newtype DeploymentRolloutState = DeploymentRolloutState'
+  { fromDeploymentRolloutState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DRSCompleted :: DeploymentRolloutState
-pattern DRSCompleted = DeploymentRolloutState' "COMPLETED"
+pattern DeploymentRolloutStateCOMPLETED :: DeploymentRolloutState
+pattern DeploymentRolloutStateCOMPLETED = DeploymentRolloutState' "COMPLETED"
 
-pattern DRSFailed :: DeploymentRolloutState
-pattern DRSFailed = DeploymentRolloutState' "FAILED"
+pattern DeploymentRolloutStateFAILED :: DeploymentRolloutState
+pattern DeploymentRolloutStateFAILED = DeploymentRolloutState' "FAILED"
 
-pattern DRSInProgress :: DeploymentRolloutState
-pattern DRSInProgress = DeploymentRolloutState' "IN_PROGRESS"
+pattern DeploymentRolloutStateINPROGRESS :: DeploymentRolloutState
+pattern DeploymentRolloutStateINPROGRESS = DeploymentRolloutState' "IN_PROGRESS"
 
 {-# COMPLETE
-  DRSCompleted,
-  DRSFailed,
-  DRSInProgress,
+  DeploymentRolloutStateCOMPLETED,
+  DeploymentRolloutStateFAILED,
+  DeploymentRolloutStateINPROGRESS,
   DeploymentRolloutState'
   #-}
 
-instance FromText DeploymentRolloutState where
-  parser = (DeploymentRolloutState' . mk) <$> takeText
+instance Prelude.FromText DeploymentRolloutState where
+  parser = DeploymentRolloutState' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentRolloutState where
-  toText (DeploymentRolloutState' ci) = original ci
+instance Prelude.ToText DeploymentRolloutState where
+  toText (DeploymentRolloutState' x) = x
 
-instance Hashable DeploymentRolloutState
+instance Prelude.Hashable DeploymentRolloutState
 
-instance NFData DeploymentRolloutState
+instance Prelude.NFData DeploymentRolloutState
 
-instance ToByteString DeploymentRolloutState
+instance Prelude.ToByteString DeploymentRolloutState
 
-instance ToQuery DeploymentRolloutState
+instance Prelude.ToQuery DeploymentRolloutState
 
-instance ToHeader DeploymentRolloutState
+instance Prelude.ToHeader DeploymentRolloutState
 
-instance FromJSON DeploymentRolloutState where
-  parseJSON = parseJSONText "DeploymentRolloutState"
+instance Prelude.FromJSON DeploymentRolloutState where
+  parseJSON = Prelude.parseJSONText "DeploymentRolloutState"

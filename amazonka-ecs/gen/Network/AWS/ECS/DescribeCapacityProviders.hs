@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,205 +24,270 @@
 -- Describes one or more of your capacity providers.
 module Network.AWS.ECS.DescribeCapacityProviders
   ( -- * Creating a Request
-    describeCapacityProviders,
-    DescribeCapacityProviders,
+    DescribeCapacityProviders (..),
+    newDescribeCapacityProviders,
 
     -- * Request Lenses
-    dcpNextToken,
-    dcpMaxResults,
-    dcpInclude,
-    dcpCapacityProviders,
+    describeCapacityProviders_nextToken,
+    describeCapacityProviders_maxResults,
+    describeCapacityProviders_include,
+    describeCapacityProviders_capacityProviders,
 
     -- * Destructuring the Response
-    describeCapacityProvidersResponse,
-    DescribeCapacityProvidersResponse,
+    DescribeCapacityProvidersResponse (..),
+    newDescribeCapacityProvidersResponse,
 
     -- * Response Lenses
-    desrsNextToken,
-    desrsFailures,
-    desrsCapacityProviders,
-    desrsResponseStatus,
+    describeCapacityProvidersResponse_nextToken,
+    describeCapacityProvidersResponse_failures,
+    describeCapacityProvidersResponse_capacityProviders,
+    describeCapacityProvidersResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.CapacityProvider
+import Network.AWS.ECS.Types.Failure
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCapacityProviders' smart constructor.
+-- | /See:/ 'newDescribeCapacityProviders' smart constructor.
 data DescribeCapacityProviders = DescribeCapacityProviders'
-  { _dcpNextToken ::
-      !(Maybe Text),
-    _dcpMaxResults ::
-      !(Maybe Int),
-    _dcpInclude ::
-      !( Maybe
-           [CapacityProviderField]
-       ),
-    _dcpCapacityProviders ::
-      !(Maybe [Text])
+  { -- | The @nextToken@ value returned from a previous paginated
+    -- @DescribeCapacityProviders@ request where @maxResults@ was used and the
+    -- results exceeded the value of that parameter. Pagination continues from
+    -- the end of the previous results that returned the @nextToken@ value.
+    --
+    -- This token should be treated as an opaque identifier that is only used
+    -- to retrieve the next items in a list and not for other programmatic
+    -- purposes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of account setting results returned by
+    -- @DescribeCapacityProviders@ in paginated output. When this parameter is
+    -- used, @DescribeCapacityProviders@ only returns @maxResults@ results in a
+    -- single page along with a @nextToken@ response element. The remaining
+    -- results of the initial request can be seen by sending another
+    -- @DescribeCapacityProviders@ request with the returned @nextToken@ value.
+    -- This value can be between 1 and 10. If this parameter is not used, then
+    -- @DescribeCapacityProviders@ returns up to 10 results and a @nextToken@
+    -- value if applicable.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Specifies whether or not you want to see the resource tags for the
+    -- capacity provider. If @TAGS@ is specified, the tags are included in the
+    -- response. If this field is omitted, tags are not included in the
+    -- response.
+    include :: Prelude.Maybe [CapacityProviderField],
+    -- | The short name or full Amazon Resource Name (ARN) of one or more
+    -- capacity providers. Up to @100@ capacity providers can be described in
+    -- an action.
+    capacityProviders :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCapacityProviders' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCapacityProviders' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpNextToken' - The @nextToken@ value returned from a previous paginated @DescribeCapacityProviders@ request where @maxResults@ was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the @nextToken@ value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcpMaxResults' - The maximum number of account setting results returned by @DescribeCapacityProviders@ in paginated output. When this parameter is used, @DescribeCapacityProviders@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @DescribeCapacityProviders@ request with the returned @nextToken@ value. This value can be between 1 and 10. If this parameter is not used, then @DescribeCapacityProviders@ returns up to 10 results and a @nextToken@ value if applicable.
+-- 'nextToken', 'describeCapacityProviders_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @DescribeCapacityProviders@ request where @maxResults@ was used and the
+-- results exceeded the value of that parameter. Pagination continues from
+-- the end of the previous results that returned the @nextToken@ value.
 --
--- * 'dcpInclude' - Specifies whether or not you want to see the resource tags for the capacity provider. If @TAGS@ is specified, the tags are included in the response. If this field is omitted, tags are not included in the response.
+-- This token should be treated as an opaque identifier that is only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
 --
--- * 'dcpCapacityProviders' - The short name or full Amazon Resource Name (ARN) of one or more capacity providers. Up to @100@ capacity providers can be described in an action.
-describeCapacityProviders ::
+-- 'maxResults', 'describeCapacityProviders_maxResults' - The maximum number of account setting results returned by
+-- @DescribeCapacityProviders@ in paginated output. When this parameter is
+-- used, @DescribeCapacityProviders@ only returns @maxResults@ results in a
+-- single page along with a @nextToken@ response element. The remaining
+-- results of the initial request can be seen by sending another
+-- @DescribeCapacityProviders@ request with the returned @nextToken@ value.
+-- This value can be between 1 and 10. If this parameter is not used, then
+-- @DescribeCapacityProviders@ returns up to 10 results and a @nextToken@
+-- value if applicable.
+--
+-- 'include', 'describeCapacityProviders_include' - Specifies whether or not you want to see the resource tags for the
+-- capacity provider. If @TAGS@ is specified, the tags are included in the
+-- response. If this field is omitted, tags are not included in the
+-- response.
+--
+-- 'capacityProviders', 'describeCapacityProviders_capacityProviders' - The short name or full Amazon Resource Name (ARN) of one or more
+-- capacity providers. Up to @100@ capacity providers can be described in
+-- an action.
+newDescribeCapacityProviders ::
   DescribeCapacityProviders
-describeCapacityProviders =
+newDescribeCapacityProviders =
   DescribeCapacityProviders'
-    { _dcpNextToken = Nothing,
-      _dcpMaxResults = Nothing,
-      _dcpInclude = Nothing,
-      _dcpCapacityProviders = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      include = Prelude.Nothing,
+      capacityProviders = Prelude.Nothing
     }
 
--- | The @nextToken@ value returned from a previous paginated @DescribeCapacityProviders@ request where @maxResults@ was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the @nextToken@ value.
-dcpNextToken :: Lens' DescribeCapacityProviders (Maybe Text)
-dcpNextToken = lens _dcpNextToken (\s a -> s {_dcpNextToken = a})
+-- | The @nextToken@ value returned from a previous paginated
+-- @DescribeCapacityProviders@ request where @maxResults@ was used and the
+-- results exceeded the value of that parameter. Pagination continues from
+-- the end of the previous results that returned the @nextToken@ value.
+--
+-- This token should be treated as an opaque identifier that is only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+describeCapacityProviders_nextToken :: Lens.Lens' DescribeCapacityProviders (Prelude.Maybe Prelude.Text)
+describeCapacityProviders_nextToken = Lens.lens (\DescribeCapacityProviders' {nextToken} -> nextToken) (\s@DescribeCapacityProviders' {} a -> s {nextToken = a} :: DescribeCapacityProviders)
 
--- | The maximum number of account setting results returned by @DescribeCapacityProviders@ in paginated output. When this parameter is used, @DescribeCapacityProviders@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @DescribeCapacityProviders@ request with the returned @nextToken@ value. This value can be between 1 and 10. If this parameter is not used, then @DescribeCapacityProviders@ returns up to 10 results and a @nextToken@ value if applicable.
-dcpMaxResults :: Lens' DescribeCapacityProviders (Maybe Int)
-dcpMaxResults = lens _dcpMaxResults (\s a -> s {_dcpMaxResults = a})
+-- | The maximum number of account setting results returned by
+-- @DescribeCapacityProviders@ in paginated output. When this parameter is
+-- used, @DescribeCapacityProviders@ only returns @maxResults@ results in a
+-- single page along with a @nextToken@ response element. The remaining
+-- results of the initial request can be seen by sending another
+-- @DescribeCapacityProviders@ request with the returned @nextToken@ value.
+-- This value can be between 1 and 10. If this parameter is not used, then
+-- @DescribeCapacityProviders@ returns up to 10 results and a @nextToken@
+-- value if applicable.
+describeCapacityProviders_maxResults :: Lens.Lens' DescribeCapacityProviders (Prelude.Maybe Prelude.Int)
+describeCapacityProviders_maxResults = Lens.lens (\DescribeCapacityProviders' {maxResults} -> maxResults) (\s@DescribeCapacityProviders' {} a -> s {maxResults = a} :: DescribeCapacityProviders)
 
--- | Specifies whether or not you want to see the resource tags for the capacity provider. If @TAGS@ is specified, the tags are included in the response. If this field is omitted, tags are not included in the response.
-dcpInclude :: Lens' DescribeCapacityProviders [CapacityProviderField]
-dcpInclude = lens _dcpInclude (\s a -> s {_dcpInclude = a}) . _Default . _Coerce
+-- | Specifies whether or not you want to see the resource tags for the
+-- capacity provider. If @TAGS@ is specified, the tags are included in the
+-- response. If this field is omitted, tags are not included in the
+-- response.
+describeCapacityProviders_include :: Lens.Lens' DescribeCapacityProviders (Prelude.Maybe [CapacityProviderField])
+describeCapacityProviders_include = Lens.lens (\DescribeCapacityProviders' {include} -> include) (\s@DescribeCapacityProviders' {} a -> s {include = a} :: DescribeCapacityProviders) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The short name or full Amazon Resource Name (ARN) of one or more capacity providers. Up to @100@ capacity providers can be described in an action.
-dcpCapacityProviders :: Lens' DescribeCapacityProviders [Text]
-dcpCapacityProviders = lens _dcpCapacityProviders (\s a -> s {_dcpCapacityProviders = a}) . _Default . _Coerce
+-- | The short name or full Amazon Resource Name (ARN) of one or more
+-- capacity providers. Up to @100@ capacity providers can be described in
+-- an action.
+describeCapacityProviders_capacityProviders :: Lens.Lens' DescribeCapacityProviders (Prelude.Maybe [Prelude.Text])
+describeCapacityProviders_capacityProviders = Lens.lens (\DescribeCapacityProviders' {capacityProviders} -> capacityProviders) (\s@DescribeCapacityProviders' {} a -> s {capacityProviders = a} :: DescribeCapacityProviders) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeCapacityProviders where
+instance Prelude.AWSRequest DescribeCapacityProviders where
   type
     Rs DescribeCapacityProviders =
       DescribeCapacityProvidersResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCapacityProvidersResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "failures" .!@ mempty)
-            <*> (x .?> "capacityProviders" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "failures" Prelude..!@ Prelude.mempty)
+            Prelude.<*> ( x Prelude..?> "capacityProviders"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCapacityProviders
+instance Prelude.Hashable DescribeCapacityProviders
 
-instance NFData DescribeCapacityProviders
+instance Prelude.NFData DescribeCapacityProviders
 
-instance ToHeaders DescribeCapacityProviders where
+instance Prelude.ToHeaders DescribeCapacityProviders where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.DescribeCapacityProviders" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.DescribeCapacityProviders" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCapacityProviders where
+instance Prelude.ToJSON DescribeCapacityProviders where
   toJSON DescribeCapacityProviders' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _dcpNextToken,
-            ("maxResults" .=) <$> _dcpMaxResults,
-            ("include" .=) <$> _dcpInclude,
-            ("capacityProviders" .=) <$> _dcpCapacityProviders
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("include" Prelude..=) Prelude.<$> include,
+            ("capacityProviders" Prelude..=)
+              Prelude.<$> capacityProviders
           ]
       )
 
-instance ToPath DescribeCapacityProviders where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCapacityProviders where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCapacityProviders where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeCapacityProviders where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeCapacityProvidersResponse' smart constructor.
+-- | /See:/ 'newDescribeCapacityProvidersResponse' smart constructor.
 data DescribeCapacityProvidersResponse = DescribeCapacityProvidersResponse'
-  { _desrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _desrsFailures ::
-      !( Maybe
-           [Failure]
-       ),
-    _desrsCapacityProviders ::
-      !( Maybe
-           [CapacityProvider]
-       ),
-    _desrsResponseStatus ::
-      !Int
+  { -- | The @nextToken@ value to include in a future @DescribeCapacityProviders@
+    -- request. When the results of a @DescribeCapacityProviders@ request
+    -- exceed @maxResults@, this value can be used to retrieve the next page of
+    -- results. This value is @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Any failures associated with the call.
+    failures :: Prelude.Maybe [Failure],
+    -- | The list of capacity providers.
+    capacityProviders :: Prelude.Maybe [CapacityProvider],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCapacityProvidersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCapacityProvidersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsNextToken' - The @nextToken@ value to include in a future @DescribeCapacityProviders@ request. When the results of a @DescribeCapacityProviders@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsFailures' - Any failures associated with the call.
+-- 'nextToken', 'describeCapacityProvidersResponse_nextToken' - The @nextToken@ value to include in a future @DescribeCapacityProviders@
+-- request. When the results of a @DescribeCapacityProviders@ request
+-- exceed @maxResults@, this value can be used to retrieve the next page of
+-- results. This value is @null@ when there are no more results to return.
 --
--- * 'desrsCapacityProviders' - The list of capacity providers.
+-- 'failures', 'describeCapacityProvidersResponse_failures' - Any failures associated with the call.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeCapacityProvidersResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'capacityProviders', 'describeCapacityProvidersResponse_capacityProviders' - The list of capacity providers.
+--
+-- 'httpStatus', 'describeCapacityProvidersResponse_httpStatus' - The response's http status code.
+newDescribeCapacityProvidersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCapacityProvidersResponse
-describeCapacityProvidersResponse pResponseStatus_ =
+newDescribeCapacityProvidersResponse pHttpStatus_ =
   DescribeCapacityProvidersResponse'
-    { _desrsNextToken =
-        Nothing,
-      _desrsFailures = Nothing,
-      _desrsCapacityProviders = Nothing,
-      _desrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      failures = Prelude.Nothing,
+      capacityProviders = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @nextToken@ value to include in a future @DescribeCapacityProviders@ request. When the results of a @DescribeCapacityProviders@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
-desrsNextToken :: Lens' DescribeCapacityProvidersResponse (Maybe Text)
-desrsNextToken = lens _desrsNextToken (\s a -> s {_desrsNextToken = a})
+-- | The @nextToken@ value to include in a future @DescribeCapacityProviders@
+-- request. When the results of a @DescribeCapacityProviders@ request
+-- exceed @maxResults@, this value can be used to retrieve the next page of
+-- results. This value is @null@ when there are no more results to return.
+describeCapacityProvidersResponse_nextToken :: Lens.Lens' DescribeCapacityProvidersResponse (Prelude.Maybe Prelude.Text)
+describeCapacityProvidersResponse_nextToken = Lens.lens (\DescribeCapacityProvidersResponse' {nextToken} -> nextToken) (\s@DescribeCapacityProvidersResponse' {} a -> s {nextToken = a} :: DescribeCapacityProvidersResponse)
 
 -- | Any failures associated with the call.
-desrsFailures :: Lens' DescribeCapacityProvidersResponse [Failure]
-desrsFailures = lens _desrsFailures (\s a -> s {_desrsFailures = a}) . _Default . _Coerce
+describeCapacityProvidersResponse_failures :: Lens.Lens' DescribeCapacityProvidersResponse (Prelude.Maybe [Failure])
+describeCapacityProvidersResponse_failures = Lens.lens (\DescribeCapacityProvidersResponse' {failures} -> failures) (\s@DescribeCapacityProvidersResponse' {} a -> s {failures = a} :: DescribeCapacityProvidersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The list of capacity providers.
-desrsCapacityProviders :: Lens' DescribeCapacityProvidersResponse [CapacityProvider]
-desrsCapacityProviders = lens _desrsCapacityProviders (\s a -> s {_desrsCapacityProviders = a}) . _Default . _Coerce
+describeCapacityProvidersResponse_capacityProviders :: Lens.Lens' DescribeCapacityProvidersResponse (Prelude.Maybe [CapacityProvider])
+describeCapacityProvidersResponse_capacityProviders = Lens.lens (\DescribeCapacityProvidersResponse' {capacityProviders} -> capacityProviders) (\s@DescribeCapacityProvidersResponse' {} a -> s {capacityProviders = a} :: DescribeCapacityProvidersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeCapacityProvidersResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeCapacityProvidersResponse_httpStatus :: Lens.Lens' DescribeCapacityProvidersResponse Prelude.Int
+describeCapacityProvidersResponse_httpStatus = Lens.lens (\DescribeCapacityProvidersResponse' {httpStatus} -> httpStatus) (\s@DescribeCapacityProvidersResponse' {} a -> s {httpStatus = a} :: DescribeCapacityProvidersResponse)
 
-instance NFData DescribeCapacityProvidersResponse
+instance
+  Prelude.NFData
+    DescribeCapacityProvidersResponse

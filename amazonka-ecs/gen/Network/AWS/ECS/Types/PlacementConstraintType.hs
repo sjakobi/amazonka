@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ECS.Types.PlacementConstraintType
   ( PlacementConstraintType
       ( ..,
-        PCTDistinctInstance,
-        PCTMemberOf
+        PlacementConstraintTypeDistinctInstance,
+        PlacementConstraintTypeMemberOf
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlacementConstraintType
-  = PlacementConstraintType'
-      ( CI
-          Text
-      )
+newtype PlacementConstraintType = PlacementConstraintType'
+  { fromPlacementConstraintType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PCTDistinctInstance :: PlacementConstraintType
-pattern PCTDistinctInstance = PlacementConstraintType' "distinctInstance"
+pattern PlacementConstraintTypeDistinctInstance :: PlacementConstraintType
+pattern PlacementConstraintTypeDistinctInstance = PlacementConstraintType' "distinctInstance"
 
-pattern PCTMemberOf :: PlacementConstraintType
-pattern PCTMemberOf = PlacementConstraintType' "memberOf"
+pattern PlacementConstraintTypeMemberOf :: PlacementConstraintType
+pattern PlacementConstraintTypeMemberOf = PlacementConstraintType' "memberOf"
 
 {-# COMPLETE
-  PCTDistinctInstance,
-  PCTMemberOf,
+  PlacementConstraintTypeDistinctInstance,
+  PlacementConstraintTypeMemberOf,
   PlacementConstraintType'
   #-}
 
-instance FromText PlacementConstraintType where
-  parser = (PlacementConstraintType' . mk) <$> takeText
+instance Prelude.FromText PlacementConstraintType where
+  parser = PlacementConstraintType' Prelude.<$> Prelude.takeText
 
-instance ToText PlacementConstraintType where
-  toText (PlacementConstraintType' ci) = original ci
+instance Prelude.ToText PlacementConstraintType where
+  toText (PlacementConstraintType' x) = x
 
-instance Hashable PlacementConstraintType
+instance Prelude.Hashable PlacementConstraintType
 
-instance NFData PlacementConstraintType
+instance Prelude.NFData PlacementConstraintType
 
-instance ToByteString PlacementConstraintType
+instance Prelude.ToByteString PlacementConstraintType
 
-instance ToQuery PlacementConstraintType
+instance Prelude.ToQuery PlacementConstraintType
 
-instance ToHeader PlacementConstraintType
+instance Prelude.ToHeader PlacementConstraintType
 
-instance ToJSON PlacementConstraintType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PlacementConstraintType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PlacementConstraintType where
-  parseJSON = parseJSONText "PlacementConstraintType"
+instance Prelude.FromJSON PlacementConstraintType where
+  parseJSON = Prelude.parseJSONText "PlacementConstraintType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies which task set in a service is the primary task set. Any parameters that are updated on the primary task set in a service will transition to the service. This is used when a service uses the @EXTERNAL@ deployment controller type. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html Amazon ECS Deployment Types> in the /Amazon Elastic Container Service Developer Guide/ .
+-- Modifies which task set in a service is the primary task set. Any
+-- parameters that are updated on the primary task set in a service will
+-- transition to the service. This is used when a service uses the
+-- @EXTERNAL@ deployment controller type. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html Amazon ECS Deployment Types>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 module Network.AWS.ECS.UpdateServicePrimaryTaskSet
   ( -- * Creating a Request
-    updateServicePrimaryTaskSet,
-    UpdateServicePrimaryTaskSet,
+    UpdateServicePrimaryTaskSet (..),
+    newUpdateServicePrimaryTaskSet,
 
     -- * Request Lenses
-    usptsCluster,
-    usptsService,
-    usptsPrimaryTaskSet,
+    updateServicePrimaryTaskSet_cluster,
+    updateServicePrimaryTaskSet_service,
+    updateServicePrimaryTaskSet_primaryTaskSet,
 
     -- * Destructuring the Response
-    updateServicePrimaryTaskSetResponse,
-    UpdateServicePrimaryTaskSetResponse,
+    UpdateServicePrimaryTaskSetResponse (..),
+    newUpdateServicePrimaryTaskSetResponse,
 
     -- * Response Lenses
-    usptsrrsTaskSet,
-    usptsrrsResponseStatus,
+    updateServicePrimaryTaskSetResponse_taskSet,
+    updateServicePrimaryTaskSetResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.TaskSet
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateServicePrimaryTaskSet' smart constructor.
+-- | /See:/ 'newUpdateServicePrimaryTaskSet' smart constructor.
 data UpdateServicePrimaryTaskSet = UpdateServicePrimaryTaskSet'
-  { _usptsCluster ::
-      !Text,
-    _usptsService ::
-      !Text,
-    _usptsPrimaryTaskSet ::
-      !Text
+  { -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- hosts the service that the task set exists in.
+    cluster :: Prelude.Text,
+    -- | The short name or full Amazon Resource Name (ARN) of the service that
+    -- the task set exists in.
+    service :: Prelude.Text,
+    -- | The short name or full Amazon Resource Name (ARN) of the task set to set
+    -- as the primary task set in the deployment.
+    primaryTaskSet :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateServicePrimaryTaskSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateServicePrimaryTaskSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usptsCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists in.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usptsService' - The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
+-- 'cluster', 'updateServicePrimaryTaskSet_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the service that the task set exists in.
 --
--- * 'usptsPrimaryTaskSet' - The short name or full Amazon Resource Name (ARN) of the task set to set as the primary task set in the deployment.
-updateServicePrimaryTaskSet ::
-  -- | 'usptsCluster'
-  Text ->
-  -- | 'usptsService'
-  Text ->
-  -- | 'usptsPrimaryTaskSet'
-  Text ->
+-- 'service', 'updateServicePrimaryTaskSet_service' - The short name or full Amazon Resource Name (ARN) of the service that
+-- the task set exists in.
+--
+-- 'primaryTaskSet', 'updateServicePrimaryTaskSet_primaryTaskSet' - The short name or full Amazon Resource Name (ARN) of the task set to set
+-- as the primary task set in the deployment.
+newUpdateServicePrimaryTaskSet ::
+  -- | 'cluster'
+  Prelude.Text ->
+  -- | 'service'
+  Prelude.Text ->
+  -- | 'primaryTaskSet'
+  Prelude.Text ->
   UpdateServicePrimaryTaskSet
-updateServicePrimaryTaskSet
+newUpdateServicePrimaryTaskSet
   pCluster_
   pService_
   pPrimaryTaskSet_ =
     UpdateServicePrimaryTaskSet'
-      { _usptsCluster =
-          pCluster_,
-        _usptsService = pService_,
-        _usptsPrimaryTaskSet = pPrimaryTaskSet_
+      { cluster = pCluster_,
+        service = pService_,
+        primaryTaskSet = pPrimaryTaskSet_
       }
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists in.
-usptsCluster :: Lens' UpdateServicePrimaryTaskSet Text
-usptsCluster = lens _usptsCluster (\s a -> s {_usptsCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the service that the task set exists in.
+updateServicePrimaryTaskSet_cluster :: Lens.Lens' UpdateServicePrimaryTaskSet Prelude.Text
+updateServicePrimaryTaskSet_cluster = Lens.lens (\UpdateServicePrimaryTaskSet' {cluster} -> cluster) (\s@UpdateServicePrimaryTaskSet' {} a -> s {cluster = a} :: UpdateServicePrimaryTaskSet)
 
--- | The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
-usptsService :: Lens' UpdateServicePrimaryTaskSet Text
-usptsService = lens _usptsService (\s a -> s {_usptsService = a})
+-- | The short name or full Amazon Resource Name (ARN) of the service that
+-- the task set exists in.
+updateServicePrimaryTaskSet_service :: Lens.Lens' UpdateServicePrimaryTaskSet Prelude.Text
+updateServicePrimaryTaskSet_service = Lens.lens (\UpdateServicePrimaryTaskSet' {service} -> service) (\s@UpdateServicePrimaryTaskSet' {} a -> s {service = a} :: UpdateServicePrimaryTaskSet)
 
--- | The short name or full Amazon Resource Name (ARN) of the task set to set as the primary task set in the deployment.
-usptsPrimaryTaskSet :: Lens' UpdateServicePrimaryTaskSet Text
-usptsPrimaryTaskSet = lens _usptsPrimaryTaskSet (\s a -> s {_usptsPrimaryTaskSet = a})
+-- | The short name or full Amazon Resource Name (ARN) of the task set to set
+-- as the primary task set in the deployment.
+updateServicePrimaryTaskSet_primaryTaskSet :: Lens.Lens' UpdateServicePrimaryTaskSet Prelude.Text
+updateServicePrimaryTaskSet_primaryTaskSet = Lens.lens (\UpdateServicePrimaryTaskSet' {primaryTaskSet} -> primaryTaskSet) (\s@UpdateServicePrimaryTaskSet' {} a -> s {primaryTaskSet = a} :: UpdateServicePrimaryTaskSet)
 
-instance AWSRequest UpdateServicePrimaryTaskSet where
+instance
+  Prelude.AWSRequest
+    UpdateServicePrimaryTaskSet
+  where
   type
     Rs UpdateServicePrimaryTaskSet =
       UpdateServicePrimaryTaskSetResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateServicePrimaryTaskSetResponse'
-            <$> (x .?> "taskSet") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "taskSet")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateServicePrimaryTaskSet
+instance Prelude.Hashable UpdateServicePrimaryTaskSet
 
-instance NFData UpdateServicePrimaryTaskSet
+instance Prelude.NFData UpdateServicePrimaryTaskSet
 
-instance ToHeaders UpdateServicePrimaryTaskSet where
+instance
+  Prelude.ToHeaders
+    UpdateServicePrimaryTaskSet
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.UpdateServicePrimaryTaskSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.UpdateServicePrimaryTaskSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateServicePrimaryTaskSet where
+instance Prelude.ToJSON UpdateServicePrimaryTaskSet where
   toJSON UpdateServicePrimaryTaskSet' {..} =
-    object
-      ( catMaybes
-          [ Just ("cluster" .= _usptsCluster),
-            Just ("service" .= _usptsService),
-            Just ("primaryTaskSet" .= _usptsPrimaryTaskSet)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("cluster" Prelude..= cluster),
+            Prelude.Just ("service" Prelude..= service),
+            Prelude.Just
+              ("primaryTaskSet" Prelude..= primaryTaskSet)
           ]
       )
 
-instance ToPath UpdateServicePrimaryTaskSet where
-  toPath = const "/"
+instance Prelude.ToPath UpdateServicePrimaryTaskSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateServicePrimaryTaskSet where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateServicePrimaryTaskSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateServicePrimaryTaskSetResponse' smart constructor.
+-- | /See:/ 'newUpdateServicePrimaryTaskSetResponse' smart constructor.
 data UpdateServicePrimaryTaskSetResponse = UpdateServicePrimaryTaskSetResponse'
-  { _usptsrrsTaskSet ::
-      !( Maybe
-           TaskSet
-       ),
-    _usptsrrsResponseStatus ::
-      !Int
+  { taskSet :: Prelude.Maybe TaskSet,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateServicePrimaryTaskSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateServicePrimaryTaskSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usptsrrsTaskSet' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usptsrrsResponseStatus' - -- | The response status code.
-updateServicePrimaryTaskSetResponse ::
-  -- | 'usptsrrsResponseStatus'
-  Int ->
+-- 'taskSet', 'updateServicePrimaryTaskSetResponse_taskSet' - Undocumented member.
+--
+-- 'httpStatus', 'updateServicePrimaryTaskSetResponse_httpStatus' - The response's http status code.
+newUpdateServicePrimaryTaskSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateServicePrimaryTaskSetResponse
-updateServicePrimaryTaskSetResponse pResponseStatus_ =
+newUpdateServicePrimaryTaskSetResponse pHttpStatus_ =
   UpdateServicePrimaryTaskSetResponse'
-    { _usptsrrsTaskSet =
-        Nothing,
-      _usptsrrsResponseStatus =
-        pResponseStatus_
+    { taskSet =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-usptsrrsTaskSet :: Lens' UpdateServicePrimaryTaskSetResponse (Maybe TaskSet)
-usptsrrsTaskSet = lens _usptsrrsTaskSet (\s a -> s {_usptsrrsTaskSet = a})
+updateServicePrimaryTaskSetResponse_taskSet :: Lens.Lens' UpdateServicePrimaryTaskSetResponse (Prelude.Maybe TaskSet)
+updateServicePrimaryTaskSetResponse_taskSet = Lens.lens (\UpdateServicePrimaryTaskSetResponse' {taskSet} -> taskSet) (\s@UpdateServicePrimaryTaskSetResponse' {} a -> s {taskSet = a} :: UpdateServicePrimaryTaskSetResponse)
 
--- | -- | The response status code.
-usptsrrsResponseStatus :: Lens' UpdateServicePrimaryTaskSetResponse Int
-usptsrrsResponseStatus = lens _usptsrrsResponseStatus (\s a -> s {_usptsrrsResponseStatus = a})
+-- | The response's http status code.
+updateServicePrimaryTaskSetResponse_httpStatus :: Lens.Lens' UpdateServicePrimaryTaskSetResponse Prelude.Int
+updateServicePrimaryTaskSetResponse_httpStatus = Lens.lens (\UpdateServicePrimaryTaskSetResponse' {httpStatus} -> httpStatus) (\s@UpdateServicePrimaryTaskSetResponse' {} a -> s {httpStatus = a} :: UpdateServicePrimaryTaskSetResponse)
 
-instance NFData UpdateServicePrimaryTaskSetResponse
+instance
+  Prelude.NFData
+    UpdateServicePrimaryTaskSetResponse

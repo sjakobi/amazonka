@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,51 +20,67 @@
 module Network.AWS.ECS.Types.PlatformDevice where
 
 import Network.AWS.ECS.Types.PlatformDeviceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The devices that are available on the container instance. The only supported device type is a GPU.
+-- | The devices that are available on the container instance. The only
+-- supported device type is a GPU.
 --
---
---
--- /See:/ 'platformDevice' smart constructor.
+-- /See:/ 'newPlatformDevice' smart constructor.
 data PlatformDevice = PlatformDevice'
-  { _pdId :: !Text,
-    _pdType :: !PlatformDeviceType
+  { -- | The ID for the GPU(s) on the container instance. The available GPU IDs
+    -- can also be obtained on the container instance in the
+    -- @\/var\/lib\/ecs\/gpu\/nvidia_gpu_info.json@ file.
+    id :: Prelude.Text,
+    -- | The type of device that is available on the container instance. The only
+    -- supported value is @GPU@.
+    type' :: PlatformDeviceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlatformDevice' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlatformDevice' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdId' - The ID for the GPU(s) on the container instance. The available GPU IDs can also be obtained on the container instance in the @/var/lib/ecs/gpu/nvidia_gpu_info.json@ file.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdType' - The type of device that is available on the container instance. The only supported value is @GPU@ .
-platformDevice ::
-  -- | 'pdId'
-  Text ->
-  -- | 'pdType'
+-- 'id', 'platformDevice_id' - The ID for the GPU(s) on the container instance. The available GPU IDs
+-- can also be obtained on the container instance in the
+-- @\/var\/lib\/ecs\/gpu\/nvidia_gpu_info.json@ file.
+--
+-- 'type'', 'platformDevice_type' - The type of device that is available on the container instance. The only
+-- supported value is @GPU@.
+newPlatformDevice ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'type''
   PlatformDeviceType ->
   PlatformDevice
-platformDevice pId_ pType_ =
-  PlatformDevice' {_pdId = pId_, _pdType = pType_}
+newPlatformDevice pId_ pType_ =
+  PlatformDevice' {id = pId_, type' = pType_}
 
--- | The ID for the GPU(s) on the container instance. The available GPU IDs can also be obtained on the container instance in the @/var/lib/ecs/gpu/nvidia_gpu_info.json@ file.
-pdId :: Lens' PlatformDevice Text
-pdId = lens _pdId (\s a -> s {_pdId = a})
+-- | The ID for the GPU(s) on the container instance. The available GPU IDs
+-- can also be obtained on the container instance in the
+-- @\/var\/lib\/ecs\/gpu\/nvidia_gpu_info.json@ file.
+platformDevice_id :: Lens.Lens' PlatformDevice Prelude.Text
+platformDevice_id = Lens.lens (\PlatformDevice' {id} -> id) (\s@PlatformDevice' {} a -> s {id = a} :: PlatformDevice)
 
--- | The type of device that is available on the container instance. The only supported value is @GPU@ .
-pdType :: Lens' PlatformDevice PlatformDeviceType
-pdType = lens _pdType (\s a -> s {_pdType = a})
+-- | The type of device that is available on the container instance. The only
+-- supported value is @GPU@.
+platformDevice_type :: Lens.Lens' PlatformDevice PlatformDeviceType
+platformDevice_type = Lens.lens (\PlatformDevice' {type'} -> type') (\s@PlatformDevice' {} a -> s {type' = a} :: PlatformDevice)
 
-instance Hashable PlatformDevice
+instance Prelude.Hashable PlatformDevice
 
-instance NFData PlatformDevice
+instance Prelude.NFData PlatformDevice
 
-instance ToJSON PlatformDevice where
+instance Prelude.ToJSON PlatformDevice where
   toJSON PlatformDevice' {..} =
-    object
-      ( catMaybes
-          [Just ("id" .= _pdId), Just ("type" .= _pdType)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("id" Prelude..= id),
+            Prelude.Just ("type" Prelude..= type')
+          ]
       )

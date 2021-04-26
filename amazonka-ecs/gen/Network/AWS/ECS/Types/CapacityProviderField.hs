@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.ECS.Types.CapacityProviderField
   ( CapacityProviderField
       ( ..,
-        Tags
+        CapacityProviderFieldTAGS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CapacityProviderField
-  = CapacityProviderField'
-      ( CI
-          Text
-      )
+newtype CapacityProviderField = CapacityProviderField'
+  { fromCapacityProviderField ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Tags :: CapacityProviderField
-pattern Tags = CapacityProviderField' "TAGS"
+pattern CapacityProviderFieldTAGS :: CapacityProviderField
+pattern CapacityProviderFieldTAGS = CapacityProviderField' "TAGS"
 
 {-# COMPLETE
-  Tags,
+  CapacityProviderFieldTAGS,
   CapacityProviderField'
   #-}
 
-instance FromText CapacityProviderField where
-  parser = (CapacityProviderField' . mk) <$> takeText
+instance Prelude.FromText CapacityProviderField where
+  parser = CapacityProviderField' Prelude.<$> Prelude.takeText
 
-instance ToText CapacityProviderField where
-  toText (CapacityProviderField' ci) = original ci
+instance Prelude.ToText CapacityProviderField where
+  toText (CapacityProviderField' x) = x
 
-instance Hashable CapacityProviderField
+instance Prelude.Hashable CapacityProviderField
 
-instance NFData CapacityProviderField
+instance Prelude.NFData CapacityProviderField
 
-instance ToByteString CapacityProviderField
+instance Prelude.ToByteString CapacityProviderField
 
-instance ToQuery CapacityProviderField
+instance Prelude.ToQuery CapacityProviderField
 
-instance ToHeader CapacityProviderField
+instance Prelude.ToHeader CapacityProviderField
 
-instance ToJSON CapacityProviderField where
-  toJSON = toJSONText
+instance Prelude.ToJSON CapacityProviderField where
+  toJSON = Prelude.toJSONText

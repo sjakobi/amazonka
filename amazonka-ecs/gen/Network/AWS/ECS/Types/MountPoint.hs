@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.MountPoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details on a volume mount point that is used in a container definition.
 --
---
---
--- /See:/ 'mountPoint' smart constructor.
+-- /See:/ 'newMountPoint' smart constructor.
 data MountPoint = MountPoint'
-  { _mpReadOnly ::
-      !(Maybe Bool),
-    _mpSourceVolume :: !(Maybe Text),
-    _mpContainerPath :: !(Maybe Text)
+  { -- | If this value is @true@, the container has read-only access to the
+    -- volume. If this value is @false@, then the container can write to the
+    -- volume. The default value is @false@.
+    readOnly :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the volume to mount. Must be a volume name referenced in the
+    -- @name@ parameter of task definition @volume@.
+    sourceVolume :: Prelude.Maybe Prelude.Text,
+    -- | The path on the container to mount the host volume at.
+    containerPath :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MountPoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MountPoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mpReadOnly' - If this value is @true@ , the container has read-only access to the volume. If this value is @false@ , then the container can write to the volume. The default value is @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mpSourceVolume' - The name of the volume to mount. Must be a volume name referenced in the @name@ parameter of task definition @volume@ .
+-- 'readOnly', 'mountPoint_readOnly' - If this value is @true@, the container has read-only access to the
+-- volume. If this value is @false@, then the container can write to the
+-- volume. The default value is @false@.
 --
--- * 'mpContainerPath' - The path on the container to mount the host volume at.
-mountPoint ::
+-- 'sourceVolume', 'mountPoint_sourceVolume' - The name of the volume to mount. Must be a volume name referenced in the
+-- @name@ parameter of task definition @volume@.
+--
+-- 'containerPath', 'mountPoint_containerPath' - The path on the container to mount the host volume at.
+newMountPoint ::
   MountPoint
-mountPoint =
+newMountPoint =
   MountPoint'
-    { _mpReadOnly = Nothing,
-      _mpSourceVolume = Nothing,
-      _mpContainerPath = Nothing
+    { readOnly = Prelude.Nothing,
+      sourceVolume = Prelude.Nothing,
+      containerPath = Prelude.Nothing
     }
 
--- | If this value is @true@ , the container has read-only access to the volume. If this value is @false@ , then the container can write to the volume. The default value is @false@ .
-mpReadOnly :: Lens' MountPoint (Maybe Bool)
-mpReadOnly = lens _mpReadOnly (\s a -> s {_mpReadOnly = a})
+-- | If this value is @true@, the container has read-only access to the
+-- volume. If this value is @false@, then the container can write to the
+-- volume. The default value is @false@.
+mountPoint_readOnly :: Lens.Lens' MountPoint (Prelude.Maybe Prelude.Bool)
+mountPoint_readOnly = Lens.lens (\MountPoint' {readOnly} -> readOnly) (\s@MountPoint' {} a -> s {readOnly = a} :: MountPoint)
 
--- | The name of the volume to mount. Must be a volume name referenced in the @name@ parameter of task definition @volume@ .
-mpSourceVolume :: Lens' MountPoint (Maybe Text)
-mpSourceVolume = lens _mpSourceVolume (\s a -> s {_mpSourceVolume = a})
+-- | The name of the volume to mount. Must be a volume name referenced in the
+-- @name@ parameter of task definition @volume@.
+mountPoint_sourceVolume :: Lens.Lens' MountPoint (Prelude.Maybe Prelude.Text)
+mountPoint_sourceVolume = Lens.lens (\MountPoint' {sourceVolume} -> sourceVolume) (\s@MountPoint' {} a -> s {sourceVolume = a} :: MountPoint)
 
 -- | The path on the container to mount the host volume at.
-mpContainerPath :: Lens' MountPoint (Maybe Text)
-mpContainerPath = lens _mpContainerPath (\s a -> s {_mpContainerPath = a})
+mountPoint_containerPath :: Lens.Lens' MountPoint (Prelude.Maybe Prelude.Text)
+mountPoint_containerPath = Lens.lens (\MountPoint' {containerPath} -> containerPath) (\s@MountPoint' {} a -> s {containerPath = a} :: MountPoint)
 
-instance FromJSON MountPoint where
+instance Prelude.FromJSON MountPoint where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MountPoint"
       ( \x ->
           MountPoint'
-            <$> (x .:? "readOnly")
-            <*> (x .:? "sourceVolume")
-            <*> (x .:? "containerPath")
+            Prelude.<$> (x Prelude..:? "readOnly")
+            Prelude.<*> (x Prelude..:? "sourceVolume")
+            Prelude.<*> (x Prelude..:? "containerPath")
       )
 
-instance Hashable MountPoint
+instance Prelude.Hashable MountPoint
 
-instance NFData MountPoint
+instance Prelude.NFData MountPoint
 
-instance ToJSON MountPoint where
+instance Prelude.ToJSON MountPoint where
   toJSON MountPoint' {..} =
-    object
-      ( catMaybes
-          [ ("readOnly" .=) <$> _mpReadOnly,
-            ("sourceVolume" .=) <$> _mpSourceVolume,
-            ("containerPath" .=) <$> _mpContainerPath
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("readOnly" Prelude..=) Prelude.<$> readOnly,
+            ("sourceVolume" Prelude..=) Prelude.<$> sourceVolume,
+            ("containerPath" Prelude..=)
+              Prelude.<$> containerPath
           ]
       )

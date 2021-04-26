@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.KeyValuePair where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A key-value pair object.
 --
---
---
--- /See:/ 'keyValuePair' smart constructor.
+-- /See:/ 'newKeyValuePair' smart constructor.
 data KeyValuePair = KeyValuePair'
-  { _kvpName ::
-      !(Maybe Text),
-    _kvpValue :: !(Maybe Text)
+  { -- | The name of the key-value pair. For environment variables, this is the
+    -- name of the environment variable.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of the key-value pair. For environment variables, this is the
+    -- value of the environment variable.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyValuePair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyValuePair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kvpName' - The name of the key-value pair. For environment variables, this is the name of the environment variable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kvpValue' - The value of the key-value pair. For environment variables, this is the value of the environment variable.
-keyValuePair ::
+-- 'name', 'keyValuePair_name' - The name of the key-value pair. For environment variables, this is the
+-- name of the environment variable.
+--
+-- 'value', 'keyValuePair_value' - The value of the key-value pair. For environment variables, this is the
+-- value of the environment variable.
+newKeyValuePair ::
   KeyValuePair
-keyValuePair =
+newKeyValuePair =
   KeyValuePair'
-    { _kvpName = Nothing,
-      _kvpValue = Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
--- | The name of the key-value pair. For environment variables, this is the name of the environment variable.
-kvpName :: Lens' KeyValuePair (Maybe Text)
-kvpName = lens _kvpName (\s a -> s {_kvpName = a})
+-- | The name of the key-value pair. For environment variables, this is the
+-- name of the environment variable.
+keyValuePair_name :: Lens.Lens' KeyValuePair (Prelude.Maybe Prelude.Text)
+keyValuePair_name = Lens.lens (\KeyValuePair' {name} -> name) (\s@KeyValuePair' {} a -> s {name = a} :: KeyValuePair)
 
--- | The value of the key-value pair. For environment variables, this is the value of the environment variable.
-kvpValue :: Lens' KeyValuePair (Maybe Text)
-kvpValue = lens _kvpValue (\s a -> s {_kvpValue = a})
+-- | The value of the key-value pair. For environment variables, this is the
+-- value of the environment variable.
+keyValuePair_value :: Lens.Lens' KeyValuePair (Prelude.Maybe Prelude.Text)
+keyValuePair_value = Lens.lens (\KeyValuePair' {value} -> value) (\s@KeyValuePair' {} a -> s {value = a} :: KeyValuePair)
 
-instance FromJSON KeyValuePair where
+instance Prelude.FromJSON KeyValuePair where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KeyValuePair"
       ( \x ->
-          KeyValuePair' <$> (x .:? "name") <*> (x .:? "value")
+          KeyValuePair'
+            Prelude.<$> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "value")
       )
 
-instance Hashable KeyValuePair
+instance Prelude.Hashable KeyValuePair
 
-instance NFData KeyValuePair
+instance Prelude.NFData KeyValuePair
 
-instance ToJSON KeyValuePair where
+instance Prelude.ToJSON KeyValuePair where
   toJSON KeyValuePair' {..} =
-    object
-      ( catMaybes
-          [ ("name" .=) <$> _kvpName,
-            ("value" .=) <$> _kvpValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("name" Prelude..=) Prelude.<$> name,
+            ("value" Prelude..=) Prelude.<$> value
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -25,333 +29,717 @@ import Network.AWS.ECS.Types.LaunchType
 import Network.AWS.ECS.Types.Tag
 import Network.AWS.ECS.Types.TaskOverride
 import Network.AWS.ECS.Types.TaskStopCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details on a task in a cluster.
 --
---
---
--- /See:/ 'task' smart constructor.
+-- /See:/ 'newTask' smart constructor.
 data Task = Task'
-  { _tClusterARN :: !(Maybe Text),
-    _tStartedAt :: !(Maybe POSIX),
-    _tMemory :: !(Maybe Text),
-    _tPullStartedAt :: !(Maybe POSIX),
-    _tContainerInstanceARN :: !(Maybe Text),
-    _tLaunchType :: !(Maybe LaunchType),
-    _tConnectivity :: !(Maybe Connectivity),
-    _tCreatedAt :: !(Maybe POSIX),
-    _tPlatformVersion :: !(Maybe Text),
-    _tStoppingAt :: !(Maybe POSIX),
-    _tVersion :: !(Maybe Integer),
-    _tStartedBy :: !(Maybe Text),
-    _tInferenceAccelerators ::
-      !(Maybe [InferenceAccelerator]),
-    _tGroup :: !(Maybe Text),
-    _tAttributes :: !(Maybe [Attribute]),
-    _tAvailabilityZone :: !(Maybe Text),
-    _tOverrides :: !(Maybe TaskOverride),
-    _tDesiredStatus :: !(Maybe Text),
-    _tStoppedAt :: !(Maybe POSIX),
-    _tContainers :: !(Maybe [Container]),
-    _tTags :: !(Maybe [Tag]),
-    _tPullStoppedAt :: !(Maybe POSIX),
-    _tExecutionStoppedAt :: !(Maybe POSIX),
-    _tCpu :: !(Maybe Text),
-    _tLastStatus :: !(Maybe Text),
-    _tTaskARN :: !(Maybe Text),
-    _tConnectivityAt :: !(Maybe POSIX),
-    _tHealthStatus :: !(Maybe HealthStatus),
-    _tStopCode :: !(Maybe TaskStopCode),
-    _tTaskDefinitionARN :: !(Maybe Text),
-    _tStoppedReason :: !(Maybe Text),
-    _tCapacityProviderName :: !(Maybe Text),
-    _tAttachments :: !(Maybe [Attachment])
+  { -- | The ARN of the cluster that hosts the task.
+    clusterArn :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the task started (the task transitioned from
+    -- the @PENDING@ state to the @RUNNING@ state).
+    startedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The amount of memory (in MiB) used by the task as expressed in a task
+    -- definition. It can be expressed as an integer using MiB, for example
+    -- @1024@. It can also be expressed as a string using GB, for example @1GB@
+    -- or @1 GB@. String values are converted to an integer indicating the MiB
+    -- when the task definition is registered.
+    --
+    -- If you are using the EC2 launch type, this field is optional.
+    --
+    -- If you are using the Fargate launch type, this field is required and you
+    -- must use one of the following values, which determines your range of
+    -- supported values for the @cpu@ parameter:
+    --
+    -- -   512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available @cpu@ values: 256
+    --     (.25 vCPU)
+    --
+    -- -   1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available @cpu@
+    --     values: 512 (.5 vCPU)
+    --
+    -- -   2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB),
+    --     7168 (7 GB), 8192 (8 GB) - Available @cpu@ values: 1024 (1 vCPU)
+    --
+    -- -   Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) -
+    --     Available @cpu@ values: 2048 (2 vCPU)
+    --
+    -- -   Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) -
+    --     Available @cpu@ values: 4096 (4 vCPU)
+    memory :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the container image pull began.
+    pullStartedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The ARN of the container instances that host the task.
+    containerInstanceArn :: Prelude.Maybe Prelude.Text,
+    -- | The launch type on which your task is running. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html Amazon ECS Launch Types>
+    -- in the /Amazon Elastic Container Service Developer Guide/.
+    launchType :: Prelude.Maybe LaunchType,
+    -- | The connectivity status of a task.
+    connectivity :: Prelude.Maybe Connectivity,
+    -- | The Unix timestamp for when the task was created (the task entered the
+    -- @PENDING@ state).
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The platform version on which your task is running. A platform version
+    -- is only specified for tasks using the Fargate launch type. If one is not
+    -- specified, the @LATEST@ platform version is used by default. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions>
+    -- in the /Amazon Elastic Container Service Developer Guide/.
+    platformVersion :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the task stops (transitions from the
+    -- @RUNNING@ state to @STOPPED@).
+    stoppingAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The version counter for the task. Every time a task experiences a change
+    -- that triggers a CloudWatch event, the version counter is incremented. If
+    -- you are replicating your Amazon ECS task state with CloudWatch Events,
+    -- you can compare the version of a task reported by the Amazon ECS API
+    -- actions with the version reported in CloudWatch Events for the task
+    -- (inside the @detail@ object) to verify that the version in your event
+    -- stream is current.
+    version :: Prelude.Maybe Prelude.Integer,
+    -- | The tag specified when a task is started. If the task is started by an
+    -- Amazon ECS service, then the @startedBy@ parameter contains the
+    -- deployment ID of the service that starts it.
+    startedBy :: Prelude.Maybe Prelude.Text,
+    -- | The Elastic Inference accelerator associated with the task.
+    inferenceAccelerators :: Prelude.Maybe [InferenceAccelerator],
+    -- | The name of the task group associated with the task.
+    group' :: Prelude.Maybe Prelude.Text,
+    -- | The attributes of the task
+    attributes :: Prelude.Maybe [Attribute],
+    -- | The availability zone of the task.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | One or more container overrides.
+    overrides :: Prelude.Maybe TaskOverride,
+    -- | The desired status of the task. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle>.
+    desiredStatus :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the task was stopped (the task transitioned
+    -- from the @RUNNING@ state to the @STOPPED@ state).
+    stoppedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The containers associated with the task.
+    containers :: Prelude.Maybe [Container],
+    -- | The metadata that you apply to the task to help you categorize and
+    -- organize them. Each tag consists of a key and an optional value, both of
+    -- which you define.
+    --
+    -- The following basic restrictions apply to tags:
+    --
+    -- -   Maximum number of tags per resource - 50
+    --
+    -- -   For each resource, each tag key must be unique, and each tag key can
+    --     have only one value.
+    --
+    -- -   Maximum key length - 128 Unicode characters in UTF-8
+    --
+    -- -   Maximum value length - 256 Unicode characters in UTF-8
+    --
+    -- -   If your tagging schema is used across multiple services and
+    --     resources, remember that other services may have restrictions on
+    --     allowed characters. Generally allowed characters are: letters,
+    --     numbers, and spaces representable in UTF-8, and the following
+    --     characters: + - = . _ : \/ \@.
+    --
+    -- -   Tag keys and values are case-sensitive.
+    --
+    -- -   Do not use @aws:@, @AWS:@, or any upper or lowercase combination of
+    --     such as a prefix for either keys or values as it is reserved for AWS
+    --     use. You cannot edit or delete tag keys or values with this prefix.
+    --     Tags with this prefix do not count against your tags per resource
+    --     limit.
+    tags :: Prelude.Maybe [Tag],
+    -- | The Unix timestamp for when the container image pull completed.
+    pullStoppedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The Unix timestamp for when the task execution stopped.
+    executionStoppedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The number of CPU units used by the task as expressed in a task
+    -- definition. It can be expressed as an integer using CPU units, for
+    -- example @1024@. It can also be expressed as a string using vCPUs, for
+    -- example @1 vCPU@ or @1 vcpu@. String values are converted to an integer
+    -- indicating the CPU units when the task definition is registered.
+    --
+    -- If you are using the EC2 launch type, this field is optional. Supported
+    -- values are between @128@ CPU units (@0.125@ vCPUs) and @10240@ CPU units
+    -- (@10@ vCPUs).
+    --
+    -- If you are using the Fargate launch type, this field is required and you
+    -- must use one of the following values, which determines your range of
+    -- supported values for the @memory@ parameter:
+    --
+    -- -   256 (.25 vCPU) - Available @memory@ values: 512 (0.5 GB), 1024 (1
+    --     GB), 2048 (2 GB)
+    --
+    -- -   512 (.5 vCPU) - Available @memory@ values: 1024 (1 GB), 2048 (2 GB),
+    --     3072 (3 GB), 4096 (4 GB)
+    --
+    -- -   1024 (1 vCPU) - Available @memory@ values: 2048 (2 GB), 3072 (3 GB),
+    --     4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB)
+    --
+    -- -   2048 (2 vCPU) - Available @memory@ values: Between 4096 (4 GB) and
+    --     16384 (16 GB) in increments of 1024 (1 GB)
+    --
+    -- -   4096 (4 vCPU) - Available @memory@ values: Between 8192 (8 GB) and
+    --     30720 (30 GB) in increments of 1024 (1 GB)
+    cpu :: Prelude.Maybe Prelude.Text,
+    -- | The last known status of the task. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle>.
+    lastStatus :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the task.
+    taskArn :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the task last went into @CONNECTED@ status.
+    connectivityAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The health status for the task, which is determined by the health of the
+    -- essential containers in the task. If all essential containers in the
+    -- task are reporting as @HEALTHY@, then the task status also reports as
+    -- @HEALTHY@. If any essential containers in the task are reporting as
+    -- @UNHEALTHY@ or @UNKNOWN@, then the task status also reports as
+    -- @UNHEALTHY@ or @UNKNOWN@, accordingly.
+    --
+    -- The Amazon ECS container agent does not monitor or report on Docker
+    -- health checks that are embedded in a container image (such as those
+    -- specified in a parent image or from the image\'s Dockerfile) and not
+    -- specified in the container definition. Health check parameters that are
+    -- specified in a container definition override any Docker health checks
+    -- that exist in the container image.
+    healthStatus :: Prelude.Maybe HealthStatus,
+    -- | The stop code indicating why a task was stopped. The @stoppedReason@ may
+    -- contain additional details.
+    stopCode :: Prelude.Maybe TaskStopCode,
+    -- | The ARN of the task definition that creates the task.
+    taskDefinitionArn :: Prelude.Maybe Prelude.Text,
+    -- | The reason that the task was stopped.
+    stoppedReason :: Prelude.Maybe Prelude.Text,
+    -- | The capacity provider associated with the task.
+    capacityProviderName :: Prelude.Maybe Prelude.Text,
+    -- | The Elastic Network Adapter associated with the task if the task uses
+    -- the @awsvpc@ network mode.
+    attachments :: Prelude.Maybe [Attachment]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Task' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Task' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tClusterARN' - The ARN of the cluster that hosts the task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tStartedAt' - The Unix timestamp for when the task started (the task transitioned from the @PENDING@ state to the @RUNNING@ state).
+-- 'clusterArn', 'task_clusterArn' - The ARN of the cluster that hosts the task.
 --
--- * 'tMemory' - The amount of memory (in MiB) used by the task as expressed in a task definition. It can be expressed as an integer using MiB, for example @1024@ . It can also be expressed as a string using GB, for example @1GB@ or @1 GB@ . String values are converted to an integer indicating the MiB when the task definition is registered. If you are using the EC2 launch type, this field is optional. If you are using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of supported values for the @cpu@ parameter:     * 512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available @cpu@ values: 256 (.25 vCPU)     * 1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available @cpu@ values: 512 (.5 vCPU)     * 2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB) - Available @cpu@ values: 1024 (1 vCPU)     * Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) - Available @cpu@ values: 2048 (2 vCPU)     * Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) - Available @cpu@ values: 4096 (4 vCPU)
+-- 'startedAt', 'task_startedAt' - The Unix timestamp for when the task started (the task transitioned from
+-- the @PENDING@ state to the @RUNNING@ state).
 --
--- * 'tPullStartedAt' - The Unix timestamp for when the container image pull began.
+-- 'memory', 'task_memory' - The amount of memory (in MiB) used by the task as expressed in a task
+-- definition. It can be expressed as an integer using MiB, for example
+-- @1024@. It can also be expressed as a string using GB, for example @1GB@
+-- or @1 GB@. String values are converted to an integer indicating the MiB
+-- when the task definition is registered.
 --
--- * 'tContainerInstanceARN' - The ARN of the container instances that host the task.
+-- If you are using the EC2 launch type, this field is optional.
 --
--- * 'tLaunchType' - The launch type on which your task is running. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html Amazon ECS Launch Types> in the /Amazon Elastic Container Service Developer Guide/ .
+-- If you are using the Fargate launch type, this field is required and you
+-- must use one of the following values, which determines your range of
+-- supported values for the @cpu@ parameter:
 --
--- * 'tConnectivity' - The connectivity status of a task.
+-- -   512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available @cpu@ values: 256
+--     (.25 vCPU)
 --
--- * 'tCreatedAt' - The Unix timestamp for when the task was created (the task entered the @PENDING@ state).
+-- -   1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available @cpu@
+--     values: 512 (.5 vCPU)
 --
--- * 'tPlatformVersion' - The platform version on which your task is running. A platform version is only specified for tasks using the Fargate launch type. If one is not specified, the @LATEST@ platform version is used by default. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions> in the /Amazon Elastic Container Service Developer Guide/ .
+-- -   2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB),
+--     7168 (7 GB), 8192 (8 GB) - Available @cpu@ values: 1024 (1 vCPU)
 --
--- * 'tStoppingAt' - The Unix timestamp for when the task stops (transitions from the @RUNNING@ state to @STOPPED@ ).
+-- -   Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) -
+--     Available @cpu@ values: 2048 (2 vCPU)
 --
--- * 'tVersion' - The version counter for the task. Every time a task experiences a change that triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS task state with CloudWatch Events, you can compare the version of a task reported by the Amazon ECS API actions with the version reported in CloudWatch Events for the task (inside the @detail@ object) to verify that the version in your event stream is current.
+-- -   Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) -
+--     Available @cpu@ values: 4096 (4 vCPU)
 --
--- * 'tStartedBy' - The tag specified when a task is started. If the task is started by an Amazon ECS service, then the @startedBy@ parameter contains the deployment ID of the service that starts it.
+-- 'pullStartedAt', 'task_pullStartedAt' - The Unix timestamp for when the container image pull began.
 --
--- * 'tInferenceAccelerators' - The Elastic Inference accelerator associated with the task.
+-- 'containerInstanceArn', 'task_containerInstanceArn' - The ARN of the container instances that host the task.
 --
--- * 'tGroup' - The name of the task group associated with the task.
+-- 'launchType', 'task_launchType' - The launch type on which your task is running. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html Amazon ECS Launch Types>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 --
--- * 'tAttributes' - The attributes of the task
+-- 'connectivity', 'task_connectivity' - The connectivity status of a task.
 --
--- * 'tAvailabilityZone' - The availability zone of the task.
+-- 'createdAt', 'task_createdAt' - The Unix timestamp for when the task was created (the task entered the
+-- @PENDING@ state).
 --
--- * 'tOverrides' - One or more container overrides.
+-- 'platformVersion', 'task_platformVersion' - The platform version on which your task is running. A platform version
+-- is only specified for tasks using the Fargate launch type. If one is not
+-- specified, the @LATEST@ platform version is used by default. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 --
--- * 'tDesiredStatus' - The desired status of the task. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle> .
+-- 'stoppingAt', 'task_stoppingAt' - The Unix timestamp for when the task stops (transitions from the
+-- @RUNNING@ state to @STOPPED@).
 --
--- * 'tStoppedAt' - The Unix timestamp for when the task was stopped (the task transitioned from the @RUNNING@ state to the @STOPPED@ state).
+-- 'version', 'task_version' - The version counter for the task. Every time a task experiences a change
+-- that triggers a CloudWatch event, the version counter is incremented. If
+-- you are replicating your Amazon ECS task state with CloudWatch Events,
+-- you can compare the version of a task reported by the Amazon ECS API
+-- actions with the version reported in CloudWatch Events for the task
+-- (inside the @detail@ object) to verify that the version in your event
+-- stream is current.
 --
--- * 'tContainers' - The containers associated with the task.
+-- 'startedBy', 'task_startedBy' - The tag specified when a task is started. If the task is started by an
+-- Amazon ECS service, then the @startedBy@ parameter contains the
+-- deployment ID of the service that starts it.
 --
--- * 'tTags' - The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. The following basic restrictions apply to tags:     * Maximum number of tags per resource - 50     * For each resource, each tag key must be unique, and each tag key can have only one value.     * Maximum key length - 128 Unicode characters in UTF-8     * Maximum value length - 256 Unicode characters in UTF-8     * If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.     * Tag keys and values are case-sensitive.     * Do not use @aws:@ , @AWS:@ , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+-- 'inferenceAccelerators', 'task_inferenceAccelerators' - The Elastic Inference accelerator associated with the task.
 --
--- * 'tPullStoppedAt' - The Unix timestamp for when the container image pull completed.
+-- 'group'', 'task_group' - The name of the task group associated with the task.
 --
--- * 'tExecutionStoppedAt' - The Unix timestamp for when the task execution stopped.
+-- 'attributes', 'task_attributes' - The attributes of the task
 --
--- * 'tCpu' - The number of CPU units used by the task as expressed in a task definition. It can be expressed as an integer using CPU units, for example @1024@ . It can also be expressed as a string using vCPUs, for example @1 vCPU@ or @1 vcpu@ . String values are converted to an integer indicating the CPU units when the task definition is registered. If you are using the EC2 launch type, this field is optional. Supported values are between @128@ CPU units (@0.125@ vCPUs) and @10240@ CPU units (@10@ vCPUs). If you are using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of supported values for the @memory@ parameter:     * 256 (.25 vCPU) - Available @memory@ values: 512 (0.5 GB), 1024 (1 GB), 2048 (2 GB)     * 512 (.5 vCPU) - Available @memory@ values: 1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB)     * 1024 (1 vCPU) - Available @memory@ values: 2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB)     * 2048 (2 vCPU) - Available @memory@ values: Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB)     * 4096 (4 vCPU) - Available @memory@ values: Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB)
+-- 'availabilityZone', 'task_availabilityZone' - The availability zone of the task.
 --
--- * 'tLastStatus' - The last known status of the task. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle> .
+-- 'overrides', 'task_overrides' - One or more container overrides.
 --
--- * 'tTaskARN' - The Amazon Resource Name (ARN) of the task.
+-- 'desiredStatus', 'task_desiredStatus' - The desired status of the task. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle>.
 --
--- * 'tConnectivityAt' - The Unix timestamp for when the task last went into @CONNECTED@ status.
+-- 'stoppedAt', 'task_stoppedAt' - The Unix timestamp for when the task was stopped (the task transitioned
+-- from the @RUNNING@ state to the @STOPPED@ state).
 --
--- * 'tHealthStatus' - The health status for the task, which is determined by the health of the essential containers in the task. If all essential containers in the task are reporting as @HEALTHY@ , then the task status also reports as @HEALTHY@ . If any essential containers in the task are reporting as @UNHEALTHY@ or @UNKNOWN@ , then the task status also reports as @UNHEALTHY@ or @UNKNOWN@ , accordingly.
+-- 'containers', 'task_containers' - The containers associated with the task.
 --
--- * 'tStopCode' - The stop code indicating why a task was stopped. The @stoppedReason@ may contain additional details.
+-- 'tags', 'task_tags' - The metadata that you apply to the task to help you categorize and
+-- organize them. Each tag consists of a key and an optional value, both of
+-- which you define.
 --
--- * 'tTaskDefinitionARN' - The ARN of the task definition that creates the task.
+-- The following basic restrictions apply to tags:
 --
--- * 'tStoppedReason' - The reason that the task was stopped.
+-- -   Maximum number of tags per resource - 50
 --
--- * 'tCapacityProviderName' - The capacity provider associated with the task.
+-- -   For each resource, each tag key must be unique, and each tag key can
+--     have only one value.
 --
--- * 'tAttachments' - The Elastic Network Adapter associated with the task if the task uses the @awsvpc@ network mode.
-task ::
+-- -   Maximum key length - 128 Unicode characters in UTF-8
+--
+-- -   Maximum value length - 256 Unicode characters in UTF-8
+--
+-- -   If your tagging schema is used across multiple services and
+--     resources, remember that other services may have restrictions on
+--     allowed characters. Generally allowed characters are: letters,
+--     numbers, and spaces representable in UTF-8, and the following
+--     characters: + - = . _ : \/ \@.
+--
+-- -   Tag keys and values are case-sensitive.
+--
+-- -   Do not use @aws:@, @AWS:@, or any upper or lowercase combination of
+--     such as a prefix for either keys or values as it is reserved for AWS
+--     use. You cannot edit or delete tag keys or values with this prefix.
+--     Tags with this prefix do not count against your tags per resource
+--     limit.
+--
+-- 'pullStoppedAt', 'task_pullStoppedAt' - The Unix timestamp for when the container image pull completed.
+--
+-- 'executionStoppedAt', 'task_executionStoppedAt' - The Unix timestamp for when the task execution stopped.
+--
+-- 'cpu', 'task_cpu' - The number of CPU units used by the task as expressed in a task
+-- definition. It can be expressed as an integer using CPU units, for
+-- example @1024@. It can also be expressed as a string using vCPUs, for
+-- example @1 vCPU@ or @1 vcpu@. String values are converted to an integer
+-- indicating the CPU units when the task definition is registered.
+--
+-- If you are using the EC2 launch type, this field is optional. Supported
+-- values are between @128@ CPU units (@0.125@ vCPUs) and @10240@ CPU units
+-- (@10@ vCPUs).
+--
+-- If you are using the Fargate launch type, this field is required and you
+-- must use one of the following values, which determines your range of
+-- supported values for the @memory@ parameter:
+--
+-- -   256 (.25 vCPU) - Available @memory@ values: 512 (0.5 GB), 1024 (1
+--     GB), 2048 (2 GB)
+--
+-- -   512 (.5 vCPU) - Available @memory@ values: 1024 (1 GB), 2048 (2 GB),
+--     3072 (3 GB), 4096 (4 GB)
+--
+-- -   1024 (1 vCPU) - Available @memory@ values: 2048 (2 GB), 3072 (3 GB),
+--     4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB)
+--
+-- -   2048 (2 vCPU) - Available @memory@ values: Between 4096 (4 GB) and
+--     16384 (16 GB) in increments of 1024 (1 GB)
+--
+-- -   4096 (4 vCPU) - Available @memory@ values: Between 8192 (8 GB) and
+--     30720 (30 GB) in increments of 1024 (1 GB)
+--
+-- 'lastStatus', 'task_lastStatus' - The last known status of the task. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle>.
+--
+-- 'taskArn', 'task_taskArn' - The Amazon Resource Name (ARN) of the task.
+--
+-- 'connectivityAt', 'task_connectivityAt' - The Unix timestamp for when the task last went into @CONNECTED@ status.
+--
+-- 'healthStatus', 'task_healthStatus' - The health status for the task, which is determined by the health of the
+-- essential containers in the task. If all essential containers in the
+-- task are reporting as @HEALTHY@, then the task status also reports as
+-- @HEALTHY@. If any essential containers in the task are reporting as
+-- @UNHEALTHY@ or @UNKNOWN@, then the task status also reports as
+-- @UNHEALTHY@ or @UNKNOWN@, accordingly.
+--
+-- The Amazon ECS container agent does not monitor or report on Docker
+-- health checks that are embedded in a container image (such as those
+-- specified in a parent image or from the image\'s Dockerfile) and not
+-- specified in the container definition. Health check parameters that are
+-- specified in a container definition override any Docker health checks
+-- that exist in the container image.
+--
+-- 'stopCode', 'task_stopCode' - The stop code indicating why a task was stopped. The @stoppedReason@ may
+-- contain additional details.
+--
+-- 'taskDefinitionArn', 'task_taskDefinitionArn' - The ARN of the task definition that creates the task.
+--
+-- 'stoppedReason', 'task_stoppedReason' - The reason that the task was stopped.
+--
+-- 'capacityProviderName', 'task_capacityProviderName' - The capacity provider associated with the task.
+--
+-- 'attachments', 'task_attachments' - The Elastic Network Adapter associated with the task if the task uses
+-- the @awsvpc@ network mode.
+newTask ::
   Task
-task =
+newTask =
   Task'
-    { _tClusterARN = Nothing,
-      _tStartedAt = Nothing,
-      _tMemory = Nothing,
-      _tPullStartedAt = Nothing,
-      _tContainerInstanceARN = Nothing,
-      _tLaunchType = Nothing,
-      _tConnectivity = Nothing,
-      _tCreatedAt = Nothing,
-      _tPlatformVersion = Nothing,
-      _tStoppingAt = Nothing,
-      _tVersion = Nothing,
-      _tStartedBy = Nothing,
-      _tInferenceAccelerators = Nothing,
-      _tGroup = Nothing,
-      _tAttributes = Nothing,
-      _tAvailabilityZone = Nothing,
-      _tOverrides = Nothing,
-      _tDesiredStatus = Nothing,
-      _tStoppedAt = Nothing,
-      _tContainers = Nothing,
-      _tTags = Nothing,
-      _tPullStoppedAt = Nothing,
-      _tExecutionStoppedAt = Nothing,
-      _tCpu = Nothing,
-      _tLastStatus = Nothing,
-      _tTaskARN = Nothing,
-      _tConnectivityAt = Nothing,
-      _tHealthStatus = Nothing,
-      _tStopCode = Nothing,
-      _tTaskDefinitionARN = Nothing,
-      _tStoppedReason = Nothing,
-      _tCapacityProviderName = Nothing,
-      _tAttachments = Nothing
+    { clusterArn = Prelude.Nothing,
+      startedAt = Prelude.Nothing,
+      memory = Prelude.Nothing,
+      pullStartedAt = Prelude.Nothing,
+      containerInstanceArn = Prelude.Nothing,
+      launchType = Prelude.Nothing,
+      connectivity = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      platformVersion = Prelude.Nothing,
+      stoppingAt = Prelude.Nothing,
+      version = Prelude.Nothing,
+      startedBy = Prelude.Nothing,
+      inferenceAccelerators = Prelude.Nothing,
+      group' = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      overrides = Prelude.Nothing,
+      desiredStatus = Prelude.Nothing,
+      stoppedAt = Prelude.Nothing,
+      containers = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      pullStoppedAt = Prelude.Nothing,
+      executionStoppedAt = Prelude.Nothing,
+      cpu = Prelude.Nothing,
+      lastStatus = Prelude.Nothing,
+      taskArn = Prelude.Nothing,
+      connectivityAt = Prelude.Nothing,
+      healthStatus = Prelude.Nothing,
+      stopCode = Prelude.Nothing,
+      taskDefinitionArn = Prelude.Nothing,
+      stoppedReason = Prelude.Nothing,
+      capacityProviderName = Prelude.Nothing,
+      attachments = Prelude.Nothing
     }
 
 -- | The ARN of the cluster that hosts the task.
-tClusterARN :: Lens' Task (Maybe Text)
-tClusterARN = lens _tClusterARN (\s a -> s {_tClusterARN = a})
+task_clusterArn :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_clusterArn = Lens.lens (\Task' {clusterArn} -> clusterArn) (\s@Task' {} a -> s {clusterArn = a} :: Task)
 
--- | The Unix timestamp for when the task started (the task transitioned from the @PENDING@ state to the @RUNNING@ state).
-tStartedAt :: Lens' Task (Maybe UTCTime)
-tStartedAt = lens _tStartedAt (\s a -> s {_tStartedAt = a}) . mapping _Time
+-- | The Unix timestamp for when the task started (the task transitioned from
+-- the @PENDING@ state to the @RUNNING@ state).
+task_startedAt :: Lens.Lens' Task (Prelude.Maybe Prelude.UTCTime)
+task_startedAt = Lens.lens (\Task' {startedAt} -> startedAt) (\s@Task' {} a -> s {startedAt = a} :: Task) Prelude.. Lens.mapping Prelude._Time
 
--- | The amount of memory (in MiB) used by the task as expressed in a task definition. It can be expressed as an integer using MiB, for example @1024@ . It can also be expressed as a string using GB, for example @1GB@ or @1 GB@ . String values are converted to an integer indicating the MiB when the task definition is registered. If you are using the EC2 launch type, this field is optional. If you are using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of supported values for the @cpu@ parameter:     * 512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available @cpu@ values: 256 (.25 vCPU)     * 1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available @cpu@ values: 512 (.5 vCPU)     * 2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB) - Available @cpu@ values: 1024 (1 vCPU)     * Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) - Available @cpu@ values: 2048 (2 vCPU)     * Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) - Available @cpu@ values: 4096 (4 vCPU)
-tMemory :: Lens' Task (Maybe Text)
-tMemory = lens _tMemory (\s a -> s {_tMemory = a})
+-- | The amount of memory (in MiB) used by the task as expressed in a task
+-- definition. It can be expressed as an integer using MiB, for example
+-- @1024@. It can also be expressed as a string using GB, for example @1GB@
+-- or @1 GB@. String values are converted to an integer indicating the MiB
+-- when the task definition is registered.
+--
+-- If you are using the EC2 launch type, this field is optional.
+--
+-- If you are using the Fargate launch type, this field is required and you
+-- must use one of the following values, which determines your range of
+-- supported values for the @cpu@ parameter:
+--
+-- -   512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available @cpu@ values: 256
+--     (.25 vCPU)
+--
+-- -   1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available @cpu@
+--     values: 512 (.5 vCPU)
+--
+-- -   2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB),
+--     7168 (7 GB), 8192 (8 GB) - Available @cpu@ values: 1024 (1 vCPU)
+--
+-- -   Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) -
+--     Available @cpu@ values: 2048 (2 vCPU)
+--
+-- -   Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) -
+--     Available @cpu@ values: 4096 (4 vCPU)
+task_memory :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_memory = Lens.lens (\Task' {memory} -> memory) (\s@Task' {} a -> s {memory = a} :: Task)
 
 -- | The Unix timestamp for when the container image pull began.
-tPullStartedAt :: Lens' Task (Maybe UTCTime)
-tPullStartedAt = lens _tPullStartedAt (\s a -> s {_tPullStartedAt = a}) . mapping _Time
+task_pullStartedAt :: Lens.Lens' Task (Prelude.Maybe Prelude.UTCTime)
+task_pullStartedAt = Lens.lens (\Task' {pullStartedAt} -> pullStartedAt) (\s@Task' {} a -> s {pullStartedAt = a} :: Task) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ARN of the container instances that host the task.
-tContainerInstanceARN :: Lens' Task (Maybe Text)
-tContainerInstanceARN = lens _tContainerInstanceARN (\s a -> s {_tContainerInstanceARN = a})
+task_containerInstanceArn :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_containerInstanceArn = Lens.lens (\Task' {containerInstanceArn} -> containerInstanceArn) (\s@Task' {} a -> s {containerInstanceArn = a} :: Task)
 
--- | The launch type on which your task is running. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html Amazon ECS Launch Types> in the /Amazon Elastic Container Service Developer Guide/ .
-tLaunchType :: Lens' Task (Maybe LaunchType)
-tLaunchType = lens _tLaunchType (\s a -> s {_tLaunchType = a})
+-- | The launch type on which your task is running. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html Amazon ECS Launch Types>
+-- in the /Amazon Elastic Container Service Developer Guide/.
+task_launchType :: Lens.Lens' Task (Prelude.Maybe LaunchType)
+task_launchType = Lens.lens (\Task' {launchType} -> launchType) (\s@Task' {} a -> s {launchType = a} :: Task)
 
 -- | The connectivity status of a task.
-tConnectivity :: Lens' Task (Maybe Connectivity)
-tConnectivity = lens _tConnectivity (\s a -> s {_tConnectivity = a})
+task_connectivity :: Lens.Lens' Task (Prelude.Maybe Connectivity)
+task_connectivity = Lens.lens (\Task' {connectivity} -> connectivity) (\s@Task' {} a -> s {connectivity = a} :: Task)
 
--- | The Unix timestamp for when the task was created (the task entered the @PENDING@ state).
-tCreatedAt :: Lens' Task (Maybe UTCTime)
-tCreatedAt = lens _tCreatedAt (\s a -> s {_tCreatedAt = a}) . mapping _Time
+-- | The Unix timestamp for when the task was created (the task entered the
+-- @PENDING@ state).
+task_createdAt :: Lens.Lens' Task (Prelude.Maybe Prelude.UTCTime)
+task_createdAt = Lens.lens (\Task' {createdAt} -> createdAt) (\s@Task' {} a -> s {createdAt = a} :: Task) Prelude.. Lens.mapping Prelude._Time
 
--- | The platform version on which your task is running. A platform version is only specified for tasks using the Fargate launch type. If one is not specified, the @LATEST@ platform version is used by default. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions> in the /Amazon Elastic Container Service Developer Guide/ .
-tPlatformVersion :: Lens' Task (Maybe Text)
-tPlatformVersion = lens _tPlatformVersion (\s a -> s {_tPlatformVersion = a})
+-- | The platform version on which your task is running. A platform version
+-- is only specified for tasks using the Fargate launch type. If one is not
+-- specified, the @LATEST@ platform version is used by default. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html AWS Fargate Platform Versions>
+-- in the /Amazon Elastic Container Service Developer Guide/.
+task_platformVersion :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_platformVersion = Lens.lens (\Task' {platformVersion} -> platformVersion) (\s@Task' {} a -> s {platformVersion = a} :: Task)
 
--- | The Unix timestamp for when the task stops (transitions from the @RUNNING@ state to @STOPPED@ ).
-tStoppingAt :: Lens' Task (Maybe UTCTime)
-tStoppingAt = lens _tStoppingAt (\s a -> s {_tStoppingAt = a}) . mapping _Time
+-- | The Unix timestamp for when the task stops (transitions from the
+-- @RUNNING@ state to @STOPPED@).
+task_stoppingAt :: Lens.Lens' Task (Prelude.Maybe Prelude.UTCTime)
+task_stoppingAt = Lens.lens (\Task' {stoppingAt} -> stoppingAt) (\s@Task' {} a -> s {stoppingAt = a} :: Task) Prelude.. Lens.mapping Prelude._Time
 
--- | The version counter for the task. Every time a task experiences a change that triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS task state with CloudWatch Events, you can compare the version of a task reported by the Amazon ECS API actions with the version reported in CloudWatch Events for the task (inside the @detail@ object) to verify that the version in your event stream is current.
-tVersion :: Lens' Task (Maybe Integer)
-tVersion = lens _tVersion (\s a -> s {_tVersion = a})
+-- | The version counter for the task. Every time a task experiences a change
+-- that triggers a CloudWatch event, the version counter is incremented. If
+-- you are replicating your Amazon ECS task state with CloudWatch Events,
+-- you can compare the version of a task reported by the Amazon ECS API
+-- actions with the version reported in CloudWatch Events for the task
+-- (inside the @detail@ object) to verify that the version in your event
+-- stream is current.
+task_version :: Lens.Lens' Task (Prelude.Maybe Prelude.Integer)
+task_version = Lens.lens (\Task' {version} -> version) (\s@Task' {} a -> s {version = a} :: Task)
 
--- | The tag specified when a task is started. If the task is started by an Amazon ECS service, then the @startedBy@ parameter contains the deployment ID of the service that starts it.
-tStartedBy :: Lens' Task (Maybe Text)
-tStartedBy = lens _tStartedBy (\s a -> s {_tStartedBy = a})
+-- | The tag specified when a task is started. If the task is started by an
+-- Amazon ECS service, then the @startedBy@ parameter contains the
+-- deployment ID of the service that starts it.
+task_startedBy :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_startedBy = Lens.lens (\Task' {startedBy} -> startedBy) (\s@Task' {} a -> s {startedBy = a} :: Task)
 
 -- | The Elastic Inference accelerator associated with the task.
-tInferenceAccelerators :: Lens' Task [InferenceAccelerator]
-tInferenceAccelerators = lens _tInferenceAccelerators (\s a -> s {_tInferenceAccelerators = a}) . _Default . _Coerce
+task_inferenceAccelerators :: Lens.Lens' Task (Prelude.Maybe [InferenceAccelerator])
+task_inferenceAccelerators = Lens.lens (\Task' {inferenceAccelerators} -> inferenceAccelerators) (\s@Task' {} a -> s {inferenceAccelerators = a} :: Task) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the task group associated with the task.
-tGroup :: Lens' Task (Maybe Text)
-tGroup = lens _tGroup (\s a -> s {_tGroup = a})
+task_group :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_group = Lens.lens (\Task' {group'} -> group') (\s@Task' {} a -> s {group' = a} :: Task)
 
 -- | The attributes of the task
-tAttributes :: Lens' Task [Attribute]
-tAttributes = lens _tAttributes (\s a -> s {_tAttributes = a}) . _Default . _Coerce
+task_attributes :: Lens.Lens' Task (Prelude.Maybe [Attribute])
+task_attributes = Lens.lens (\Task' {attributes} -> attributes) (\s@Task' {} a -> s {attributes = a} :: Task) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The availability zone of the task.
-tAvailabilityZone :: Lens' Task (Maybe Text)
-tAvailabilityZone = lens _tAvailabilityZone (\s a -> s {_tAvailabilityZone = a})
+task_availabilityZone :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_availabilityZone = Lens.lens (\Task' {availabilityZone} -> availabilityZone) (\s@Task' {} a -> s {availabilityZone = a} :: Task)
 
 -- | One or more container overrides.
-tOverrides :: Lens' Task (Maybe TaskOverride)
-tOverrides = lens _tOverrides (\s a -> s {_tOverrides = a})
+task_overrides :: Lens.Lens' Task (Prelude.Maybe TaskOverride)
+task_overrides = Lens.lens (\Task' {overrides} -> overrides) (\s@Task' {} a -> s {overrides = a} :: Task)
 
--- | The desired status of the task. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle> .
-tDesiredStatus :: Lens' Task (Maybe Text)
-tDesiredStatus = lens _tDesiredStatus (\s a -> s {_tDesiredStatus = a})
+-- | The desired status of the task. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle>.
+task_desiredStatus :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_desiredStatus = Lens.lens (\Task' {desiredStatus} -> desiredStatus) (\s@Task' {} a -> s {desiredStatus = a} :: Task)
 
--- | The Unix timestamp for when the task was stopped (the task transitioned from the @RUNNING@ state to the @STOPPED@ state).
-tStoppedAt :: Lens' Task (Maybe UTCTime)
-tStoppedAt = lens _tStoppedAt (\s a -> s {_tStoppedAt = a}) . mapping _Time
+-- | The Unix timestamp for when the task was stopped (the task transitioned
+-- from the @RUNNING@ state to the @STOPPED@ state).
+task_stoppedAt :: Lens.Lens' Task (Prelude.Maybe Prelude.UTCTime)
+task_stoppedAt = Lens.lens (\Task' {stoppedAt} -> stoppedAt) (\s@Task' {} a -> s {stoppedAt = a} :: Task) Prelude.. Lens.mapping Prelude._Time
 
 -- | The containers associated with the task.
-tContainers :: Lens' Task [Container]
-tContainers = lens _tContainers (\s a -> s {_tContainers = a}) . _Default . _Coerce
+task_containers :: Lens.Lens' Task (Prelude.Maybe [Container])
+task_containers = Lens.lens (\Task' {containers} -> containers) (\s@Task' {} a -> s {containers = a} :: Task) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. The following basic restrictions apply to tags:     * Maximum number of tags per resource - 50     * For each resource, each tag key must be unique, and each tag key can have only one value.     * Maximum key length - 128 Unicode characters in UTF-8     * Maximum value length - 256 Unicode characters in UTF-8     * If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.     * Tag keys and values are case-sensitive.     * Do not use @aws:@ , @AWS:@ , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
-tTags :: Lens' Task [Tag]
-tTags = lens _tTags (\s a -> s {_tTags = a}) . _Default . _Coerce
+-- | The metadata that you apply to the task to help you categorize and
+-- organize them. Each tag consists of a key and an optional value, both of
+-- which you define.
+--
+-- The following basic restrictions apply to tags:
+--
+-- -   Maximum number of tags per resource - 50
+--
+-- -   For each resource, each tag key must be unique, and each tag key can
+--     have only one value.
+--
+-- -   Maximum key length - 128 Unicode characters in UTF-8
+--
+-- -   Maximum value length - 256 Unicode characters in UTF-8
+--
+-- -   If your tagging schema is used across multiple services and
+--     resources, remember that other services may have restrictions on
+--     allowed characters. Generally allowed characters are: letters,
+--     numbers, and spaces representable in UTF-8, and the following
+--     characters: + - = . _ : \/ \@.
+--
+-- -   Tag keys and values are case-sensitive.
+--
+-- -   Do not use @aws:@, @AWS:@, or any upper or lowercase combination of
+--     such as a prefix for either keys or values as it is reserved for AWS
+--     use. You cannot edit or delete tag keys or values with this prefix.
+--     Tags with this prefix do not count against your tags per resource
+--     limit.
+task_tags :: Lens.Lens' Task (Prelude.Maybe [Tag])
+task_tags = Lens.lens (\Task' {tags} -> tags) (\s@Task' {} a -> s {tags = a} :: Task) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Unix timestamp for when the container image pull completed.
-tPullStoppedAt :: Lens' Task (Maybe UTCTime)
-tPullStoppedAt = lens _tPullStoppedAt (\s a -> s {_tPullStoppedAt = a}) . mapping _Time
+task_pullStoppedAt :: Lens.Lens' Task (Prelude.Maybe Prelude.UTCTime)
+task_pullStoppedAt = Lens.lens (\Task' {pullStoppedAt} -> pullStoppedAt) (\s@Task' {} a -> s {pullStoppedAt = a} :: Task) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Unix timestamp for when the task execution stopped.
-tExecutionStoppedAt :: Lens' Task (Maybe UTCTime)
-tExecutionStoppedAt = lens _tExecutionStoppedAt (\s a -> s {_tExecutionStoppedAt = a}) . mapping _Time
+task_executionStoppedAt :: Lens.Lens' Task (Prelude.Maybe Prelude.UTCTime)
+task_executionStoppedAt = Lens.lens (\Task' {executionStoppedAt} -> executionStoppedAt) (\s@Task' {} a -> s {executionStoppedAt = a} :: Task) Prelude.. Lens.mapping Prelude._Time
 
--- | The number of CPU units used by the task as expressed in a task definition. It can be expressed as an integer using CPU units, for example @1024@ . It can also be expressed as a string using vCPUs, for example @1 vCPU@ or @1 vcpu@ . String values are converted to an integer indicating the CPU units when the task definition is registered. If you are using the EC2 launch type, this field is optional. Supported values are between @128@ CPU units (@0.125@ vCPUs) and @10240@ CPU units (@10@ vCPUs). If you are using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of supported values for the @memory@ parameter:     * 256 (.25 vCPU) - Available @memory@ values: 512 (0.5 GB), 1024 (1 GB), 2048 (2 GB)     * 512 (.5 vCPU) - Available @memory@ values: 1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB)     * 1024 (1 vCPU) - Available @memory@ values: 2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB)     * 2048 (2 vCPU) - Available @memory@ values: Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB)     * 4096 (4 vCPU) - Available @memory@ values: Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB)
-tCpu :: Lens' Task (Maybe Text)
-tCpu = lens _tCpu (\s a -> s {_tCpu = a})
+-- | The number of CPU units used by the task as expressed in a task
+-- definition. It can be expressed as an integer using CPU units, for
+-- example @1024@. It can also be expressed as a string using vCPUs, for
+-- example @1 vCPU@ or @1 vcpu@. String values are converted to an integer
+-- indicating the CPU units when the task definition is registered.
+--
+-- If you are using the EC2 launch type, this field is optional. Supported
+-- values are between @128@ CPU units (@0.125@ vCPUs) and @10240@ CPU units
+-- (@10@ vCPUs).
+--
+-- If you are using the Fargate launch type, this field is required and you
+-- must use one of the following values, which determines your range of
+-- supported values for the @memory@ parameter:
+--
+-- -   256 (.25 vCPU) - Available @memory@ values: 512 (0.5 GB), 1024 (1
+--     GB), 2048 (2 GB)
+--
+-- -   512 (.5 vCPU) - Available @memory@ values: 1024 (1 GB), 2048 (2 GB),
+--     3072 (3 GB), 4096 (4 GB)
+--
+-- -   1024 (1 vCPU) - Available @memory@ values: 2048 (2 GB), 3072 (3 GB),
+--     4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB)
+--
+-- -   2048 (2 vCPU) - Available @memory@ values: Between 4096 (4 GB) and
+--     16384 (16 GB) in increments of 1024 (1 GB)
+--
+-- -   4096 (4 vCPU) - Available @memory@ values: Between 8192 (8 GB) and
+--     30720 (30 GB) in increments of 1024 (1 GB)
+task_cpu :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_cpu = Lens.lens (\Task' {cpu} -> cpu) (\s@Task' {} a -> s {cpu = a} :: Task)
 
--- | The last known status of the task. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle> .
-tLastStatus :: Lens' Task (Maybe Text)
-tLastStatus = lens _tLastStatus (\s a -> s {_tLastStatus = a})
+-- | The last known status of the task. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html Task Lifecycle>.
+task_lastStatus :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_lastStatus = Lens.lens (\Task' {lastStatus} -> lastStatus) (\s@Task' {} a -> s {lastStatus = a} :: Task)
 
 -- | The Amazon Resource Name (ARN) of the task.
-tTaskARN :: Lens' Task (Maybe Text)
-tTaskARN = lens _tTaskARN (\s a -> s {_tTaskARN = a})
+task_taskArn :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_taskArn = Lens.lens (\Task' {taskArn} -> taskArn) (\s@Task' {} a -> s {taskArn = a} :: Task)
 
 -- | The Unix timestamp for when the task last went into @CONNECTED@ status.
-tConnectivityAt :: Lens' Task (Maybe UTCTime)
-tConnectivityAt = lens _tConnectivityAt (\s a -> s {_tConnectivityAt = a}) . mapping _Time
+task_connectivityAt :: Lens.Lens' Task (Prelude.Maybe Prelude.UTCTime)
+task_connectivityAt = Lens.lens (\Task' {connectivityAt} -> connectivityAt) (\s@Task' {} a -> s {connectivityAt = a} :: Task) Prelude.. Lens.mapping Prelude._Time
 
--- | The health status for the task, which is determined by the health of the essential containers in the task. If all essential containers in the task are reporting as @HEALTHY@ , then the task status also reports as @HEALTHY@ . If any essential containers in the task are reporting as @UNHEALTHY@ or @UNKNOWN@ , then the task status also reports as @UNHEALTHY@ or @UNKNOWN@ , accordingly.
-tHealthStatus :: Lens' Task (Maybe HealthStatus)
-tHealthStatus = lens _tHealthStatus (\s a -> s {_tHealthStatus = a})
+-- | The health status for the task, which is determined by the health of the
+-- essential containers in the task. If all essential containers in the
+-- task are reporting as @HEALTHY@, then the task status also reports as
+-- @HEALTHY@. If any essential containers in the task are reporting as
+-- @UNHEALTHY@ or @UNKNOWN@, then the task status also reports as
+-- @UNHEALTHY@ or @UNKNOWN@, accordingly.
+--
+-- The Amazon ECS container agent does not monitor or report on Docker
+-- health checks that are embedded in a container image (such as those
+-- specified in a parent image or from the image\'s Dockerfile) and not
+-- specified in the container definition. Health check parameters that are
+-- specified in a container definition override any Docker health checks
+-- that exist in the container image.
+task_healthStatus :: Lens.Lens' Task (Prelude.Maybe HealthStatus)
+task_healthStatus = Lens.lens (\Task' {healthStatus} -> healthStatus) (\s@Task' {} a -> s {healthStatus = a} :: Task)
 
--- | The stop code indicating why a task was stopped. The @stoppedReason@ may contain additional details.
-tStopCode :: Lens' Task (Maybe TaskStopCode)
-tStopCode = lens _tStopCode (\s a -> s {_tStopCode = a})
+-- | The stop code indicating why a task was stopped. The @stoppedReason@ may
+-- contain additional details.
+task_stopCode :: Lens.Lens' Task (Prelude.Maybe TaskStopCode)
+task_stopCode = Lens.lens (\Task' {stopCode} -> stopCode) (\s@Task' {} a -> s {stopCode = a} :: Task)
 
 -- | The ARN of the task definition that creates the task.
-tTaskDefinitionARN :: Lens' Task (Maybe Text)
-tTaskDefinitionARN = lens _tTaskDefinitionARN (\s a -> s {_tTaskDefinitionARN = a})
+task_taskDefinitionArn :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_taskDefinitionArn = Lens.lens (\Task' {taskDefinitionArn} -> taskDefinitionArn) (\s@Task' {} a -> s {taskDefinitionArn = a} :: Task)
 
 -- | The reason that the task was stopped.
-tStoppedReason :: Lens' Task (Maybe Text)
-tStoppedReason = lens _tStoppedReason (\s a -> s {_tStoppedReason = a})
+task_stoppedReason :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_stoppedReason = Lens.lens (\Task' {stoppedReason} -> stoppedReason) (\s@Task' {} a -> s {stoppedReason = a} :: Task)
 
 -- | The capacity provider associated with the task.
-tCapacityProviderName :: Lens' Task (Maybe Text)
-tCapacityProviderName = lens _tCapacityProviderName (\s a -> s {_tCapacityProviderName = a})
+task_capacityProviderName :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
+task_capacityProviderName = Lens.lens (\Task' {capacityProviderName} -> capacityProviderName) (\s@Task' {} a -> s {capacityProviderName = a} :: Task)
 
--- | The Elastic Network Adapter associated with the task if the task uses the @awsvpc@ network mode.
-tAttachments :: Lens' Task [Attachment]
-tAttachments = lens _tAttachments (\s a -> s {_tAttachments = a}) . _Default . _Coerce
+-- | The Elastic Network Adapter associated with the task if the task uses
+-- the @awsvpc@ network mode.
+task_attachments :: Lens.Lens' Task (Prelude.Maybe [Attachment])
+task_attachments = Lens.lens (\Task' {attachments} -> attachments) (\s@Task' {} a -> s {attachments = a} :: Task) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Task where
+instance Prelude.FromJSON Task where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Task"
       ( \x ->
           Task'
-            <$> (x .:? "clusterArn")
-            <*> (x .:? "startedAt")
-            <*> (x .:? "memory")
-            <*> (x .:? "pullStartedAt")
-            <*> (x .:? "containerInstanceArn")
-            <*> (x .:? "launchType")
-            <*> (x .:? "connectivity")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "platformVersion")
-            <*> (x .:? "stoppingAt")
-            <*> (x .:? "version")
-            <*> (x .:? "startedBy")
-            <*> (x .:? "inferenceAccelerators" .!= mempty)
-            <*> (x .:? "group")
-            <*> (x .:? "attributes" .!= mempty)
-            <*> (x .:? "availabilityZone")
-            <*> (x .:? "overrides")
-            <*> (x .:? "desiredStatus")
-            <*> (x .:? "stoppedAt")
-            <*> (x .:? "containers" .!= mempty)
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "pullStoppedAt")
-            <*> (x .:? "executionStoppedAt")
-            <*> (x .:? "cpu")
-            <*> (x .:? "lastStatus")
-            <*> (x .:? "taskArn")
-            <*> (x .:? "connectivityAt")
-            <*> (x .:? "healthStatus")
-            <*> (x .:? "stopCode")
-            <*> (x .:? "taskDefinitionArn")
-            <*> (x .:? "stoppedReason")
-            <*> (x .:? "capacityProviderName")
-            <*> (x .:? "attachments" .!= mempty)
+            Prelude.<$> (x Prelude..:? "clusterArn")
+            Prelude.<*> (x Prelude..:? "startedAt")
+            Prelude.<*> (x Prelude..:? "memory")
+            Prelude.<*> (x Prelude..:? "pullStartedAt")
+            Prelude.<*> (x Prelude..:? "containerInstanceArn")
+            Prelude.<*> (x Prelude..:? "launchType")
+            Prelude.<*> (x Prelude..:? "connectivity")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "platformVersion")
+            Prelude.<*> (x Prelude..:? "stoppingAt")
+            Prelude.<*> (x Prelude..:? "version")
+            Prelude.<*> (x Prelude..:? "startedBy")
+            Prelude.<*> ( x Prelude..:? "inferenceAccelerators"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "group")
+            Prelude.<*> ( x Prelude..:? "attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "availabilityZone")
+            Prelude.<*> (x Prelude..:? "overrides")
+            Prelude.<*> (x Prelude..:? "desiredStatus")
+            Prelude.<*> (x Prelude..:? "stoppedAt")
+            Prelude.<*> ( x Prelude..:? "containers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "pullStoppedAt")
+            Prelude.<*> (x Prelude..:? "executionStoppedAt")
+            Prelude.<*> (x Prelude..:? "cpu")
+            Prelude.<*> (x Prelude..:? "lastStatus")
+            Prelude.<*> (x Prelude..:? "taskArn")
+            Prelude.<*> (x Prelude..:? "connectivityAt")
+            Prelude.<*> (x Prelude..:? "healthStatus")
+            Prelude.<*> (x Prelude..:? "stopCode")
+            Prelude.<*> (x Prelude..:? "taskDefinitionArn")
+            Prelude.<*> (x Prelude..:? "stoppedReason")
+            Prelude.<*> (x Prelude..:? "capacityProviderName")
+            Prelude.<*> ( x Prelude..:? "attachments"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Task
+instance Prelude.Hashable Task
 
-instance NFData Task
+instance Prelude.NFData Task

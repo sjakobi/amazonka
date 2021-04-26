@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,193 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified task set within a service. This is used when a service uses the @EXTERNAL@ deployment controller type. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html Amazon ECS Deployment Types> in the /Amazon Elastic Container Service Developer Guide/ .
+-- Deletes a specified task set within a service. This is used when a
+-- service uses the @EXTERNAL@ deployment controller type. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html Amazon ECS Deployment Types>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 module Network.AWS.ECS.DeleteTaskSet
   ( -- * Creating a Request
-    deleteTaskSet,
-    DeleteTaskSet,
+    DeleteTaskSet (..),
+    newDeleteTaskSet,
 
     -- * Request Lenses
-    dForce,
-    dCluster,
-    dService,
-    dTaskSet,
+    deleteTaskSet_force,
+    deleteTaskSet_cluster,
+    deleteTaskSet_service,
+    deleteTaskSet_taskSet,
 
     -- * Destructuring the Response
-    deleteTaskSetResponse,
-    DeleteTaskSetResponse,
+    DeleteTaskSetResponse (..),
+    newDeleteTaskSetResponse,
 
     -- * Response Lenses
-    dtsrrsTaskSet,
-    dtsrrsResponseStatus,
+    deleteTaskSetResponse_taskSet,
+    deleteTaskSetResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.TaskSet
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTaskSet' smart constructor.
+-- | /See:/ 'newDeleteTaskSet' smart constructor.
 data DeleteTaskSet = DeleteTaskSet'
-  { _dForce ::
-      !(Maybe Bool),
-    _dCluster :: !Text,
-    _dService :: !Text,
-    _dTaskSet :: !Text
+  { -- | If @true@, this allows you to delete a task set even if it hasn\'t been
+    -- scaled down to zero.
+    force :: Prelude.Maybe Prelude.Bool,
+    -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- hosts the service that the task set exists in to delete.
+    cluster :: Prelude.Text,
+    -- | The short name or full Amazon Resource Name (ARN) of the service that
+    -- hosts the task set to delete.
+    service :: Prelude.Text,
+    -- | The task set ID or full Amazon Resource Name (ARN) of the task set to
+    -- delete.
+    taskSet :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTaskSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTaskSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dForce' - If @true@ , this allows you to delete a task set even if it hasn't been scaled down to zero.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists in to delete.
+-- 'force', 'deleteTaskSet_force' - If @true@, this allows you to delete a task set even if it hasn\'t been
+-- scaled down to zero.
 --
--- * 'dService' - The short name or full Amazon Resource Name (ARN) of the service that hosts the task set to delete.
+-- 'cluster', 'deleteTaskSet_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the service that the task set exists in to delete.
 --
--- * 'dTaskSet' - The task set ID or full Amazon Resource Name (ARN) of the task set to delete.
-deleteTaskSet ::
-  -- | 'dCluster'
-  Text ->
-  -- | 'dService'
-  Text ->
-  -- | 'dTaskSet'
-  Text ->
+-- 'service', 'deleteTaskSet_service' - The short name or full Amazon Resource Name (ARN) of the service that
+-- hosts the task set to delete.
+--
+-- 'taskSet', 'deleteTaskSet_taskSet' - The task set ID or full Amazon Resource Name (ARN) of the task set to
+-- delete.
+newDeleteTaskSet ::
+  -- | 'cluster'
+  Prelude.Text ->
+  -- | 'service'
+  Prelude.Text ->
+  -- | 'taskSet'
+  Prelude.Text ->
   DeleteTaskSet
-deleteTaskSet pCluster_ pService_ pTaskSet_ =
+newDeleteTaskSet pCluster_ pService_ pTaskSet_ =
   DeleteTaskSet'
-    { _dForce = Nothing,
-      _dCluster = pCluster_,
-      _dService = pService_,
-      _dTaskSet = pTaskSet_
+    { force = Prelude.Nothing,
+      cluster = pCluster_,
+      service = pService_,
+      taskSet = pTaskSet_
     }
 
--- | If @true@ , this allows you to delete a task set even if it hasn't been scaled down to zero.
-dForce :: Lens' DeleteTaskSet (Maybe Bool)
-dForce = lens _dForce (\s a -> s {_dForce = a})
+-- | If @true@, this allows you to delete a task set even if it hasn\'t been
+-- scaled down to zero.
+deleteTaskSet_force :: Lens.Lens' DeleteTaskSet (Prelude.Maybe Prelude.Bool)
+deleteTaskSet_force = Lens.lens (\DeleteTaskSet' {force} -> force) (\s@DeleteTaskSet' {} a -> s {force = a} :: DeleteTaskSet)
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists in to delete.
-dCluster :: Lens' DeleteTaskSet Text
-dCluster = lens _dCluster (\s a -> s {_dCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the service that the task set exists in to delete.
+deleteTaskSet_cluster :: Lens.Lens' DeleteTaskSet Prelude.Text
+deleteTaskSet_cluster = Lens.lens (\DeleteTaskSet' {cluster} -> cluster) (\s@DeleteTaskSet' {} a -> s {cluster = a} :: DeleteTaskSet)
 
--- | The short name or full Amazon Resource Name (ARN) of the service that hosts the task set to delete.
-dService :: Lens' DeleteTaskSet Text
-dService = lens _dService (\s a -> s {_dService = a})
+-- | The short name or full Amazon Resource Name (ARN) of the service that
+-- hosts the task set to delete.
+deleteTaskSet_service :: Lens.Lens' DeleteTaskSet Prelude.Text
+deleteTaskSet_service = Lens.lens (\DeleteTaskSet' {service} -> service) (\s@DeleteTaskSet' {} a -> s {service = a} :: DeleteTaskSet)
 
--- | The task set ID or full Amazon Resource Name (ARN) of the task set to delete.
-dTaskSet :: Lens' DeleteTaskSet Text
-dTaskSet = lens _dTaskSet (\s a -> s {_dTaskSet = a})
+-- | The task set ID or full Amazon Resource Name (ARN) of the task set to
+-- delete.
+deleteTaskSet_taskSet :: Lens.Lens' DeleteTaskSet Prelude.Text
+deleteTaskSet_taskSet = Lens.lens (\DeleteTaskSet' {taskSet} -> taskSet) (\s@DeleteTaskSet' {} a -> s {taskSet = a} :: DeleteTaskSet)
 
-instance AWSRequest DeleteTaskSet where
+instance Prelude.AWSRequest DeleteTaskSet where
   type Rs DeleteTaskSet = DeleteTaskSetResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteTaskSetResponse'
-            <$> (x .?> "taskSet") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "taskSet")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTaskSet
+instance Prelude.Hashable DeleteTaskSet
 
-instance NFData DeleteTaskSet
+instance Prelude.NFData DeleteTaskSet
 
-instance ToHeaders DeleteTaskSet where
+instance Prelude.ToHeaders DeleteTaskSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.DeleteTaskSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.DeleteTaskSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTaskSet where
+instance Prelude.ToJSON DeleteTaskSet where
   toJSON DeleteTaskSet' {..} =
-    object
-      ( catMaybes
-          [ ("force" .=) <$> _dForce,
-            Just ("cluster" .= _dCluster),
-            Just ("service" .= _dService),
-            Just ("taskSet" .= _dTaskSet)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("force" Prelude..=) Prelude.<$> force,
+            Prelude.Just ("cluster" Prelude..= cluster),
+            Prelude.Just ("service" Prelude..= service),
+            Prelude.Just ("taskSet" Prelude..= taskSet)
           ]
       )
 
-instance ToPath DeleteTaskSet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTaskSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTaskSet where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTaskSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTaskSetResponse' smart constructor.
+-- | /See:/ 'newDeleteTaskSetResponse' smart constructor.
 data DeleteTaskSetResponse = DeleteTaskSetResponse'
-  { _dtsrrsTaskSet ::
-      !(Maybe TaskSet),
-    _dtsrrsResponseStatus ::
-      !Int
+  { taskSet :: Prelude.Maybe TaskSet,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTaskSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTaskSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtsrrsTaskSet' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtsrrsResponseStatus' - -- | The response status code.
-deleteTaskSetResponse ::
-  -- | 'dtsrrsResponseStatus'
-  Int ->
+-- 'taskSet', 'deleteTaskSetResponse_taskSet' - Undocumented member.
+--
+-- 'httpStatus', 'deleteTaskSetResponse_httpStatus' - The response's http status code.
+newDeleteTaskSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTaskSetResponse
-deleteTaskSetResponse pResponseStatus_ =
+newDeleteTaskSetResponse pHttpStatus_ =
   DeleteTaskSetResponse'
-    { _dtsrrsTaskSet = Nothing,
-      _dtsrrsResponseStatus = pResponseStatus_
+    { taskSet = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-dtsrrsTaskSet :: Lens' DeleteTaskSetResponse (Maybe TaskSet)
-dtsrrsTaskSet = lens _dtsrrsTaskSet (\s a -> s {_dtsrrsTaskSet = a})
+deleteTaskSetResponse_taskSet :: Lens.Lens' DeleteTaskSetResponse (Prelude.Maybe TaskSet)
+deleteTaskSetResponse_taskSet = Lens.lens (\DeleteTaskSetResponse' {taskSet} -> taskSet) (\s@DeleteTaskSetResponse' {} a -> s {taskSet = a} :: DeleteTaskSetResponse)
 
--- | -- | The response status code.
-dtsrrsResponseStatus :: Lens' DeleteTaskSetResponse Int
-dtsrrsResponseStatus = lens _dtsrrsResponseStatus (\s a -> s {_dtsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTaskSetResponse_httpStatus :: Lens.Lens' DeleteTaskSetResponse Prelude.Int
+deleteTaskSetResponse_httpStatus = Lens.lens (\DeleteTaskSetResponse' {httpStatus} -> httpStatus) (\s@DeleteTaskSetResponse' {} a -> s {httpStatus = a} :: DeleteTaskSetResponse)
 
-instance NFData DeleteTaskSetResponse
+instance Prelude.NFData DeleteTaskSetResponse

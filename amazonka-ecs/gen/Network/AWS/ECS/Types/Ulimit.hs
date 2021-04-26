@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,78 +20,83 @@
 module Network.AWS.ECS.Types.Ulimit where
 
 import Network.AWS.ECS.Types.UlimitName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The @ulimit@ settings to pass to the container.
 --
---
---
--- /See:/ 'ulimit' smart constructor.
+-- /See:/ 'newUlimit' smart constructor.
 data Ulimit = Ulimit'
-  { _uName :: !UlimitName,
-    _uSoftLimit :: !Int,
-    _uHardLimit :: !Int
+  { -- | The @type@ of the @ulimit@.
+    name :: UlimitName,
+    -- | The soft limit for the ulimit type.
+    softLimit :: Prelude.Int,
+    -- | The hard limit for the ulimit type.
+    hardLimit :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Ulimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Ulimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uName' - The @type@ of the @ulimit@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uSoftLimit' - The soft limit for the ulimit type.
+-- 'name', 'ulimit_name' - The @type@ of the @ulimit@.
 --
--- * 'uHardLimit' - The hard limit for the ulimit type.
-ulimit ::
-  -- | 'uName'
+-- 'softLimit', 'ulimit_softLimit' - The soft limit for the ulimit type.
+--
+-- 'hardLimit', 'ulimit_hardLimit' - The hard limit for the ulimit type.
+newUlimit ::
+  -- | 'name'
   UlimitName ->
-  -- | 'uSoftLimit'
-  Int ->
-  -- | 'uHardLimit'
-  Int ->
+  -- | 'softLimit'
+  Prelude.Int ->
+  -- | 'hardLimit'
+  Prelude.Int ->
   Ulimit
-ulimit pName_ pSoftLimit_ pHardLimit_ =
+newUlimit pName_ pSoftLimit_ pHardLimit_ =
   Ulimit'
-    { _uName = pName_,
-      _uSoftLimit = pSoftLimit_,
-      _uHardLimit = pHardLimit_
+    { name = pName_,
+      softLimit = pSoftLimit_,
+      hardLimit = pHardLimit_
     }
 
--- | The @type@ of the @ulimit@ .
-uName :: Lens' Ulimit UlimitName
-uName = lens _uName (\s a -> s {_uName = a})
+-- | The @type@ of the @ulimit@.
+ulimit_name :: Lens.Lens' Ulimit UlimitName
+ulimit_name = Lens.lens (\Ulimit' {name} -> name) (\s@Ulimit' {} a -> s {name = a} :: Ulimit)
 
 -- | The soft limit for the ulimit type.
-uSoftLimit :: Lens' Ulimit Int
-uSoftLimit = lens _uSoftLimit (\s a -> s {_uSoftLimit = a})
+ulimit_softLimit :: Lens.Lens' Ulimit Prelude.Int
+ulimit_softLimit = Lens.lens (\Ulimit' {softLimit} -> softLimit) (\s@Ulimit' {} a -> s {softLimit = a} :: Ulimit)
 
 -- | The hard limit for the ulimit type.
-uHardLimit :: Lens' Ulimit Int
-uHardLimit = lens _uHardLimit (\s a -> s {_uHardLimit = a})
+ulimit_hardLimit :: Lens.Lens' Ulimit Prelude.Int
+ulimit_hardLimit = Lens.lens (\Ulimit' {hardLimit} -> hardLimit) (\s@Ulimit' {} a -> s {hardLimit = a} :: Ulimit)
 
-instance FromJSON Ulimit where
+instance Prelude.FromJSON Ulimit where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Ulimit"
       ( \x ->
           Ulimit'
-            <$> (x .: "name")
-            <*> (x .: "softLimit")
-            <*> (x .: "hardLimit")
+            Prelude.<$> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "softLimit")
+            Prelude.<*> (x Prelude..: "hardLimit")
       )
 
-instance Hashable Ulimit
+instance Prelude.Hashable Ulimit
 
-instance NFData Ulimit
+instance Prelude.NFData Ulimit
 
-instance ToJSON Ulimit where
+instance Prelude.ToJSON Ulimit where
   toJSON Ulimit' {..} =
-    object
-      ( catMaybes
-          [ Just ("name" .= _uName),
-            Just ("softLimit" .= _uSoftLimit),
-            Just ("hardLimit" .= _uHardLimit)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("softLimit" Prelude..= softLimit),
+            Prelude.Just ("hardLimit" Prelude..= hardLimit)
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.ECS.Types.TaskDefinitionField
   ( TaskDefinitionField
       ( ..,
-        TDFTags
+        TaskDefinitionFieldTAGS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskDefinitionField
-  = TaskDefinitionField'
-      ( CI
-          Text
-      )
+newtype TaskDefinitionField = TaskDefinitionField'
+  { fromTaskDefinitionField ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TDFTags :: TaskDefinitionField
-pattern TDFTags = TaskDefinitionField' "TAGS"
+pattern TaskDefinitionFieldTAGS :: TaskDefinitionField
+pattern TaskDefinitionFieldTAGS = TaskDefinitionField' "TAGS"
 
 {-# COMPLETE
-  TDFTags,
+  TaskDefinitionFieldTAGS,
   TaskDefinitionField'
   #-}
 
-instance FromText TaskDefinitionField where
-  parser = (TaskDefinitionField' . mk) <$> takeText
+instance Prelude.FromText TaskDefinitionField where
+  parser = TaskDefinitionField' Prelude.<$> Prelude.takeText
 
-instance ToText TaskDefinitionField where
-  toText (TaskDefinitionField' ci) = original ci
+instance Prelude.ToText TaskDefinitionField where
+  toText (TaskDefinitionField' x) = x
 
-instance Hashable TaskDefinitionField
+instance Prelude.Hashable TaskDefinitionField
 
-instance NFData TaskDefinitionField
+instance Prelude.NFData TaskDefinitionField
 
-instance ToByteString TaskDefinitionField
+instance Prelude.ToByteString TaskDefinitionField
 
-instance ToQuery TaskDefinitionField
+instance Prelude.ToQuery TaskDefinitionField
 
-instance ToHeader TaskDefinitionField
+instance Prelude.ToHeader TaskDefinitionField
 
-instance ToJSON TaskDefinitionField where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskDefinitionField where
+  toJSON = Prelude.toJSONText

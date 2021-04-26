@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.VolumeFrom where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details on a data volume from another container in the same task definition.
+-- | Details on a data volume from another container in the same task
+-- definition.
 --
---
---
--- /See:/ 'volumeFrom' smart constructor.
+-- /See:/ 'newVolumeFrom' smart constructor.
 data VolumeFrom = VolumeFrom'
-  { _vfReadOnly ::
-      !(Maybe Bool),
-    _vfSourceContainer :: !(Maybe Text)
+  { -- | If this value is @true@, the container has read-only access to the
+    -- volume. If this value is @false@, then the container can write to the
+    -- volume. The default value is @false@.
+    readOnly :: Prelude.Maybe Prelude.Bool,
+    -- | The name of another container within the same task definition from which
+    -- to mount volumes.
+    sourceContainer :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VolumeFrom' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VolumeFrom' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vfReadOnly' - If this value is @true@ , the container has read-only access to the volume. If this value is @false@ , then the container can write to the volume. The default value is @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vfSourceContainer' - The name of another container within the same task definition from which to mount volumes.
-volumeFrom ::
+-- 'readOnly', 'volumeFrom_readOnly' - If this value is @true@, the container has read-only access to the
+-- volume. If this value is @false@, then the container can write to the
+-- volume. The default value is @false@.
+--
+-- 'sourceContainer', 'volumeFrom_sourceContainer' - The name of another container within the same task definition from which
+-- to mount volumes.
+newVolumeFrom ::
   VolumeFrom
-volumeFrom =
+newVolumeFrom =
   VolumeFrom'
-    { _vfReadOnly = Nothing,
-      _vfSourceContainer = Nothing
+    { readOnly = Prelude.Nothing,
+      sourceContainer = Prelude.Nothing
     }
 
--- | If this value is @true@ , the container has read-only access to the volume. If this value is @false@ , then the container can write to the volume. The default value is @false@ .
-vfReadOnly :: Lens' VolumeFrom (Maybe Bool)
-vfReadOnly = lens _vfReadOnly (\s a -> s {_vfReadOnly = a})
+-- | If this value is @true@, the container has read-only access to the
+-- volume. If this value is @false@, then the container can write to the
+-- volume. The default value is @false@.
+volumeFrom_readOnly :: Lens.Lens' VolumeFrom (Prelude.Maybe Prelude.Bool)
+volumeFrom_readOnly = Lens.lens (\VolumeFrom' {readOnly} -> readOnly) (\s@VolumeFrom' {} a -> s {readOnly = a} :: VolumeFrom)
 
--- | The name of another container within the same task definition from which to mount volumes.
-vfSourceContainer :: Lens' VolumeFrom (Maybe Text)
-vfSourceContainer = lens _vfSourceContainer (\s a -> s {_vfSourceContainer = a})
+-- | The name of another container within the same task definition from which
+-- to mount volumes.
+volumeFrom_sourceContainer :: Lens.Lens' VolumeFrom (Prelude.Maybe Prelude.Text)
+volumeFrom_sourceContainer = Lens.lens (\VolumeFrom' {sourceContainer} -> sourceContainer) (\s@VolumeFrom' {} a -> s {sourceContainer = a} :: VolumeFrom)
 
-instance FromJSON VolumeFrom where
+instance Prelude.FromJSON VolumeFrom where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VolumeFrom"
       ( \x ->
           VolumeFrom'
-            <$> (x .:? "readOnly") <*> (x .:? "sourceContainer")
+            Prelude.<$> (x Prelude..:? "readOnly")
+            Prelude.<*> (x Prelude..:? "sourceContainer")
       )
 
-instance Hashable VolumeFrom
+instance Prelude.Hashable VolumeFrom
 
-instance NFData VolumeFrom
+instance Prelude.NFData VolumeFrom
 
-instance ToJSON VolumeFrom where
+instance Prelude.ToJSON VolumeFrom where
   toJSON VolumeFrom' {..} =
-    object
-      ( catMaybes
-          [ ("readOnly" .=) <$> _vfReadOnly,
-            ("sourceContainer" .=) <$> _vfSourceContainer
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("readOnly" Prelude..=) Prelude.<$> readOnly,
+            ("sourceContainer" Prelude..=)
+              Prelude.<$> sourceContainer
           ]
       )

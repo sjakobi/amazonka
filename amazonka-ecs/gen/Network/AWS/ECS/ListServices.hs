@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,189 +23,277 @@
 --
 -- Lists the services that are running in a specified cluster.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.ECS.ListServices
   ( -- * Creating a Request
-    listServices,
-    ListServices,
+    ListServices (..),
+    newListServices,
 
     -- * Request Lenses
-    lsNextToken,
-    lsMaxResults,
-    lsLaunchType,
-    lsSchedulingStrategy,
-    lsCluster,
+    listServices_nextToken,
+    listServices_maxResults,
+    listServices_launchType,
+    listServices_schedulingStrategy,
+    listServices_cluster,
 
     -- * Destructuring the Response
-    listServicesResponse,
-    ListServicesResponse,
+    ListServicesResponse (..),
+    newListServicesResponse,
 
     -- * Response Lenses
-    lsrrsNextToken,
-    lsrrsServiceARNs,
-    lsrrsResponseStatus,
+    listServicesResponse_nextToken,
+    listServicesResponse_serviceArns,
+    listServicesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listServices' smart constructor.
+-- | /See:/ 'newListServices' smart constructor.
 data ListServices = ListServices'
-  { _lsNextToken ::
-      !(Maybe Text),
-    _lsMaxResults :: !(Maybe Int),
-    _lsLaunchType :: !(Maybe LaunchType),
-    _lsSchedulingStrategy ::
-      !(Maybe SchedulingStrategy),
-    _lsCluster :: !(Maybe Text)
+  { -- | The @nextToken@ value returned from a @ListServices@ request indicating
+    -- that more results are available to fulfill the request and further calls
+    -- will be needed. If @maxResults@ was provided, it is possible the number
+    -- of results to be fewer than @maxResults@.
+    --
+    -- This token should be treated as an opaque identifier that is only used
+    -- to retrieve the next items in a list and not for other programmatic
+    -- purposes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of service results returned by @ListServices@ in
+    -- paginated output. When this parameter is used, @ListServices@ only
+    -- returns @maxResults@ results in a single page along with a @nextToken@
+    -- response element. The remaining results of the initial request can be
+    -- seen by sending another @ListServices@ request with the returned
+    -- @nextToken@ value. This value can be between 1 and 100. If this
+    -- parameter is not used, then @ListServices@ returns up to 10 results and
+    -- a @nextToken@ value if applicable.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The launch type for the services to list.
+    launchType :: Prelude.Maybe LaunchType,
+    -- | The scheduling strategy for services to list.
+    schedulingStrategy :: Prelude.Maybe SchedulingStrategy,
+    -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- hosts the services to list. If you do not specify a cluster, the default
+    -- cluster is assumed.
+    cluster :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsNextToken' - The @nextToken@ value returned from a @ListServices@ request indicating that more results are available to fulfill the request and further calls will be needed. If @maxResults@ was provided, it is possible the number of results to be fewer than @maxResults@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsMaxResults' - The maximum number of service results returned by @ListServices@ in paginated output. When this parameter is used, @ListServices@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @ListServices@ request with the returned @nextToken@ value. This value can be between 1 and 100. If this parameter is not used, then @ListServices@ returns up to 10 results and a @nextToken@ value if applicable.
+-- 'nextToken', 'listServices_nextToken' - The @nextToken@ value returned from a @ListServices@ request indicating
+-- that more results are available to fulfill the request and further calls
+-- will be needed. If @maxResults@ was provided, it is possible the number
+-- of results to be fewer than @maxResults@.
 --
--- * 'lsLaunchType' - The launch type for the services to list.
+-- This token should be treated as an opaque identifier that is only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
 --
--- * 'lsSchedulingStrategy' - The scheduling strategy for services to list.
+-- 'maxResults', 'listServices_maxResults' - The maximum number of service results returned by @ListServices@ in
+-- paginated output. When this parameter is used, @ListServices@ only
+-- returns @maxResults@ results in a single page along with a @nextToken@
+-- response element. The remaining results of the initial request can be
+-- seen by sending another @ListServices@ request with the returned
+-- @nextToken@ value. This value can be between 1 and 100. If this
+-- parameter is not used, then @ListServices@ returns up to 10 results and
+-- a @nextToken@ value if applicable.
 --
--- * 'lsCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that hosts the services to list. If you do not specify a cluster, the default cluster is assumed.
-listServices ::
+-- 'launchType', 'listServices_launchType' - The launch type for the services to list.
+--
+-- 'schedulingStrategy', 'listServices_schedulingStrategy' - The scheduling strategy for services to list.
+--
+-- 'cluster', 'listServices_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the services to list. If you do not specify a cluster, the default
+-- cluster is assumed.
+newListServices ::
   ListServices
-listServices =
+newListServices =
   ListServices'
-    { _lsNextToken = Nothing,
-      _lsMaxResults = Nothing,
-      _lsLaunchType = Nothing,
-      _lsSchedulingStrategy = Nothing,
-      _lsCluster = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      launchType = Prelude.Nothing,
+      schedulingStrategy = Prelude.Nothing,
+      cluster = Prelude.Nothing
     }
 
--- | The @nextToken@ value returned from a @ListServices@ request indicating that more results are available to fulfill the request and further calls will be needed. If @maxResults@ was provided, it is possible the number of results to be fewer than @maxResults@ .
-lsNextToken :: Lens' ListServices (Maybe Text)
-lsNextToken = lens _lsNextToken (\s a -> s {_lsNextToken = a})
+-- | The @nextToken@ value returned from a @ListServices@ request indicating
+-- that more results are available to fulfill the request and further calls
+-- will be needed. If @maxResults@ was provided, it is possible the number
+-- of results to be fewer than @maxResults@.
+--
+-- This token should be treated as an opaque identifier that is only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+listServices_nextToken :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Text)
+listServices_nextToken = Lens.lens (\ListServices' {nextToken} -> nextToken) (\s@ListServices' {} a -> s {nextToken = a} :: ListServices)
 
--- | The maximum number of service results returned by @ListServices@ in paginated output. When this parameter is used, @ListServices@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @ListServices@ request with the returned @nextToken@ value. This value can be between 1 and 100. If this parameter is not used, then @ListServices@ returns up to 10 results and a @nextToken@ value if applicable.
-lsMaxResults :: Lens' ListServices (Maybe Int)
-lsMaxResults = lens _lsMaxResults (\s a -> s {_lsMaxResults = a})
+-- | The maximum number of service results returned by @ListServices@ in
+-- paginated output. When this parameter is used, @ListServices@ only
+-- returns @maxResults@ results in a single page along with a @nextToken@
+-- response element. The remaining results of the initial request can be
+-- seen by sending another @ListServices@ request with the returned
+-- @nextToken@ value. This value can be between 1 and 100. If this
+-- parameter is not used, then @ListServices@ returns up to 10 results and
+-- a @nextToken@ value if applicable.
+listServices_maxResults :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Int)
+listServices_maxResults = Lens.lens (\ListServices' {maxResults} -> maxResults) (\s@ListServices' {} a -> s {maxResults = a} :: ListServices)
 
 -- | The launch type for the services to list.
-lsLaunchType :: Lens' ListServices (Maybe LaunchType)
-lsLaunchType = lens _lsLaunchType (\s a -> s {_lsLaunchType = a})
+listServices_launchType :: Lens.Lens' ListServices (Prelude.Maybe LaunchType)
+listServices_launchType = Lens.lens (\ListServices' {launchType} -> launchType) (\s@ListServices' {} a -> s {launchType = a} :: ListServices)
 
 -- | The scheduling strategy for services to list.
-lsSchedulingStrategy :: Lens' ListServices (Maybe SchedulingStrategy)
-lsSchedulingStrategy = lens _lsSchedulingStrategy (\s a -> s {_lsSchedulingStrategy = a})
+listServices_schedulingStrategy :: Lens.Lens' ListServices (Prelude.Maybe SchedulingStrategy)
+listServices_schedulingStrategy = Lens.lens (\ListServices' {schedulingStrategy} -> schedulingStrategy) (\s@ListServices' {} a -> s {schedulingStrategy = a} :: ListServices)
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that hosts the services to list. If you do not specify a cluster, the default cluster is assumed.
-lsCluster :: Lens' ListServices (Maybe Text)
-lsCluster = lens _lsCluster (\s a -> s {_lsCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the services to list. If you do not specify a cluster, the default
+-- cluster is assumed.
+listServices_cluster :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Text)
+listServices_cluster = Lens.lens (\ListServices' {cluster} -> cluster) (\s@ListServices' {} a -> s {cluster = a} :: ListServices)
 
-instance AWSPager ListServices where
+instance Pager.AWSPager ListServices where
   page rq rs
-    | stop (rs ^. lsrrsNextToken) = Nothing
-    | stop (rs ^. lsrrsServiceARNs) = Nothing
-    | otherwise =
-      Just $ rq & lsNextToken .~ rs ^. lsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listServicesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listServicesResponse_serviceArns
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listServices_nextToken
+          Lens..~ rs
+          Lens.^? listServicesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListServices where
+instance Prelude.AWSRequest ListServices where
   type Rs ListServices = ListServicesResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListServicesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "serviceArns" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "serviceArns"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListServices
+instance Prelude.Hashable ListServices
 
-instance NFData ListServices
+instance Prelude.NFData ListServices
 
-instance ToHeaders ListServices where
+instance Prelude.ToHeaders ListServices where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.ListServices" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.ListServices" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListServices where
+instance Prelude.ToJSON ListServices where
   toJSON ListServices' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lsNextToken,
-            ("maxResults" .=) <$> _lsMaxResults,
-            ("launchType" .=) <$> _lsLaunchType,
-            ("schedulingStrategy" .=) <$> _lsSchedulingStrategy,
-            ("cluster" .=) <$> _lsCluster
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("launchType" Prelude..=) Prelude.<$> launchType,
+            ("schedulingStrategy" Prelude..=)
+              Prelude.<$> schedulingStrategy,
+            ("cluster" Prelude..=) Prelude.<$> cluster
           ]
       )
 
-instance ToPath ListServices where
-  toPath = const "/"
+instance Prelude.ToPath ListServices where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListServices where
-  toQuery = const mempty
+instance Prelude.ToQuery ListServices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listServicesResponse' smart constructor.
+-- | /See:/ 'newListServicesResponse' smart constructor.
 data ListServicesResponse = ListServicesResponse'
-  { _lsrrsNextToken ::
-      !(Maybe Text),
-    _lsrrsServiceARNs ::
-      !(Maybe [Text]),
-    _lsrrsResponseStatus :: !Int
+  { -- | The @nextToken@ value to include in a future @ListServices@ request.
+    -- When the results of a @ListServices@ request exceed @maxResults@, this
+    -- value can be used to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of full ARN entries for each service associated with the
+    -- specified cluster.
+    serviceArns :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServicesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServicesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsrrsNextToken' - The @nextToken@ value to include in a future @ListServices@ request. When the results of a @ListServices@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsrrsServiceARNs' - The list of full ARN entries for each service associated with the specified cluster.
+-- 'nextToken', 'listServicesResponse_nextToken' - The @nextToken@ value to include in a future @ListServices@ request.
+-- When the results of a @ListServices@ request exceed @maxResults@, this
+-- value can be used to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'lsrrsResponseStatus' - -- | The response status code.
-listServicesResponse ::
-  -- | 'lsrrsResponseStatus'
-  Int ->
+-- 'serviceArns', 'listServicesResponse_serviceArns' - The list of full ARN entries for each service associated with the
+-- specified cluster.
+--
+-- 'httpStatus', 'listServicesResponse_httpStatus' - The response's http status code.
+newListServicesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListServicesResponse
-listServicesResponse pResponseStatus_ =
+newListServicesResponse pHttpStatus_ =
   ListServicesResponse'
-    { _lsrrsNextToken = Nothing,
-      _lsrrsServiceARNs = Nothing,
-      _lsrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      serviceArns = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @nextToken@ value to include in a future @ListServices@ request. When the results of a @ListServices@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
-lsrrsNextToken :: Lens' ListServicesResponse (Maybe Text)
-lsrrsNextToken = lens _lsrrsNextToken (\s a -> s {_lsrrsNextToken = a})
+-- | The @nextToken@ value to include in a future @ListServices@ request.
+-- When the results of a @ListServices@ request exceed @maxResults@, this
+-- value can be used to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+listServicesResponse_nextToken :: Lens.Lens' ListServicesResponse (Prelude.Maybe Prelude.Text)
+listServicesResponse_nextToken = Lens.lens (\ListServicesResponse' {nextToken} -> nextToken) (\s@ListServicesResponse' {} a -> s {nextToken = a} :: ListServicesResponse)
 
--- | The list of full ARN entries for each service associated with the specified cluster.
-lsrrsServiceARNs :: Lens' ListServicesResponse [Text]
-lsrrsServiceARNs = lens _lsrrsServiceARNs (\s a -> s {_lsrrsServiceARNs = a}) . _Default . _Coerce
+-- | The list of full ARN entries for each service associated with the
+-- specified cluster.
+listServicesResponse_serviceArns :: Lens.Lens' ListServicesResponse (Prelude.Maybe [Prelude.Text])
+listServicesResponse_serviceArns = Lens.lens (\ListServicesResponse' {serviceArns} -> serviceArns) (\s@ListServicesResponse' {} a -> s {serviceArns = a} :: ListServicesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsrrsResponseStatus :: Lens' ListServicesResponse Int
-lsrrsResponseStatus = lens _lsrrsResponseStatus (\s a -> s {_lsrrsResponseStatus = a})
+-- | The response's http status code.
+listServicesResponse_httpStatus :: Lens.Lens' ListServicesResponse Prelude.Int
+listServicesResponse_httpStatus = Lens.lens (\ListServicesResponse' {httpStatus} -> httpStatus) (\s@ListServicesResponse' {} a -> s {httpStatus = a} :: ListServicesResponse)
 
-instance NFData ListServicesResponse
+instance Prelude.NFData ListServicesResponse

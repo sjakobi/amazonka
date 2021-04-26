@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ECS.Types.PropagateTags
   ( PropagateTags
       ( ..,
-        Service,
-        TaskDefinition
+        PropagateTagsSERVICE,
+        PropagateTagsTASKDEFINITION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PropagateTags = PropagateTags' (CI Text)
+newtype PropagateTags = PropagateTags'
+  { fromPropagateTags ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Service :: PropagateTags
-pattern Service = PropagateTags' "SERVICE"
+pattern PropagateTagsSERVICE :: PropagateTags
+pattern PropagateTagsSERVICE = PropagateTags' "SERVICE"
 
-pattern TaskDefinition :: PropagateTags
-pattern TaskDefinition = PropagateTags' "TASK_DEFINITION"
+pattern PropagateTagsTASKDEFINITION :: PropagateTags
+pattern PropagateTagsTASKDEFINITION = PropagateTags' "TASK_DEFINITION"
 
 {-# COMPLETE
-  Service,
-  TaskDefinition,
+  PropagateTagsSERVICE,
+  PropagateTagsTASKDEFINITION,
   PropagateTags'
   #-}
 
-instance FromText PropagateTags where
-  parser = (PropagateTags' . mk) <$> takeText
+instance Prelude.FromText PropagateTags where
+  parser = PropagateTags' Prelude.<$> Prelude.takeText
 
-instance ToText PropagateTags where
-  toText (PropagateTags' ci) = original ci
+instance Prelude.ToText PropagateTags where
+  toText (PropagateTags' x) = x
 
-instance Hashable PropagateTags
+instance Prelude.Hashable PropagateTags
 
-instance NFData PropagateTags
+instance Prelude.NFData PropagateTags
 
-instance ToByteString PropagateTags
+instance Prelude.ToByteString PropagateTags
 
-instance ToQuery PropagateTags
+instance Prelude.ToQuery PropagateTags
 
-instance ToHeader PropagateTags
+instance Prelude.ToHeader PropagateTags
 
-instance ToJSON PropagateTags where
-  toJSON = toJSONText
+instance Prelude.ToJSON PropagateTags where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PropagateTags where
-  parseJSON = parseJSONText "PropagateTags"
+instance Prelude.FromJSON PropagateTags where
+  parseJSON = Prelude.parseJSONText "PropagateTags"

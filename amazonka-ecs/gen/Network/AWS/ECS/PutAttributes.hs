@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Create or update an attribute on an Amazon ECS resource. If the attribute does not exist, it is created. If the attribute exists, its value is replaced with the specified value. To delete an attribute, use 'DeleteAttributes' . For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes Attributes> in the /Amazon Elastic Container Service Developer Guide/ .
+-- Create or update an attribute on an Amazon ECS resource. If the
+-- attribute does not exist, it is created. If the attribute exists, its
+-- value is replaced with the specified value. To delete an attribute, use
+-- DeleteAttributes. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes Attributes>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 module Network.AWS.ECS.PutAttributes
   ( -- * Creating a Request
-    putAttributes,
-    PutAttributes,
+    PutAttributes (..),
+    newPutAttributes,
 
     -- * Request Lenses
-    paCluster,
-    paAttributes,
+    putAttributes_cluster,
+    putAttributes_attributes,
 
     -- * Destructuring the Response
-    putAttributesResponse,
-    PutAttributesResponse,
+    PutAttributesResponse (..),
+    newPutAttributesResponse,
 
     -- * Response Lenses
-    parrsAttributes,
-    parrsResponseStatus,
+    putAttributesResponse_attributes,
+    putAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.Attribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putAttributes' smart constructor.
+-- | /See:/ 'newPutAttributes' smart constructor.
 data PutAttributes = PutAttributes'
-  { _paCluster ::
-      !(Maybe Text),
-    _paAttributes :: ![Attribute]
+  { -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- contains the resource to apply attributes. If you do not specify a
+    -- cluster, the default cluster is assumed.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | The attributes to apply to your resource. You can specify up to 10
+    -- custom attributes per resource. You can specify up to 10 attributes in a
+    -- single call.
+    attributes :: [Attribute]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'paCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that contains the resource to apply attributes. If you do not specify a cluster, the default cluster is assumed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'paAttributes' - The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can specify up to 10 attributes in a single call.
-putAttributes ::
+-- 'cluster', 'putAttributes_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- contains the resource to apply attributes. If you do not specify a
+-- cluster, the default cluster is assumed.
+--
+-- 'attributes', 'putAttributes_attributes' - The attributes to apply to your resource. You can specify up to 10
+-- custom attributes per resource. You can specify up to 10 attributes in a
+-- single call.
+newPutAttributes ::
   PutAttributes
-putAttributes =
+newPutAttributes =
   PutAttributes'
-    { _paCluster = Nothing,
-      _paAttributes = mempty
+    { cluster = Prelude.Nothing,
+      attributes = Prelude.mempty
     }
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that contains the resource to apply attributes. If you do not specify a cluster, the default cluster is assumed.
-paCluster :: Lens' PutAttributes (Maybe Text)
-paCluster = lens _paCluster (\s a -> s {_paCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- contains the resource to apply attributes. If you do not specify a
+-- cluster, the default cluster is assumed.
+putAttributes_cluster :: Lens.Lens' PutAttributes (Prelude.Maybe Prelude.Text)
+putAttributes_cluster = Lens.lens (\PutAttributes' {cluster} -> cluster) (\s@PutAttributes' {} a -> s {cluster = a} :: PutAttributes)
 
--- | The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can specify up to 10 attributes in a single call.
-paAttributes :: Lens' PutAttributes [Attribute]
-paAttributes = lens _paAttributes (\s a -> s {_paAttributes = a}) . _Coerce
+-- | The attributes to apply to your resource. You can specify up to 10
+-- custom attributes per resource. You can specify up to 10 attributes in a
+-- single call.
+putAttributes_attributes :: Lens.Lens' PutAttributes [Attribute]
+putAttributes_attributes = Lens.lens (\PutAttributes' {attributes} -> attributes) (\s@PutAttributes' {} a -> s {attributes = a} :: PutAttributes) Prelude.. Prelude._Coerce
 
-instance AWSRequest PutAttributes where
+instance Prelude.AWSRequest PutAttributes where
   type Rs PutAttributes = PutAttributesResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutAttributesResponse'
-            <$> (x .?> "attributes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "attributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutAttributes
+instance Prelude.Hashable PutAttributes
 
-instance NFData PutAttributes
+instance Prelude.NFData PutAttributes
 
-instance ToHeaders PutAttributes where
+instance Prelude.ToHeaders PutAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.PutAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.PutAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutAttributes where
+instance Prelude.ToJSON PutAttributes where
   toJSON PutAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("cluster" .=) <$> _paCluster,
-            Just ("attributes" .= _paAttributes)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("cluster" Prelude..=) Prelude.<$> cluster,
+            Prelude.Just ("attributes" Prelude..= attributes)
           ]
       )
 
-instance ToPath PutAttributes where
-  toPath = const "/"
+instance Prelude.ToPath PutAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery PutAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putAttributesResponse' smart constructor.
+-- | /See:/ 'newPutAttributesResponse' smart constructor.
 data PutAttributesResponse = PutAttributesResponse'
-  { _parrsAttributes ::
-      !(Maybe [Attribute]),
-    _parrsResponseStatus ::
-      !Int
+  { -- | The attributes applied to your resource.
+    attributes :: Prelude.Maybe [Attribute],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'parrsAttributes' - The attributes applied to your resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'parrsResponseStatus' - -- | The response status code.
-putAttributesResponse ::
-  -- | 'parrsResponseStatus'
-  Int ->
+-- 'attributes', 'putAttributesResponse_attributes' - The attributes applied to your resource.
+--
+-- 'httpStatus', 'putAttributesResponse_httpStatus' - The response's http status code.
+newPutAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutAttributesResponse
-putAttributesResponse pResponseStatus_ =
+newPutAttributesResponse pHttpStatus_ =
   PutAttributesResponse'
-    { _parrsAttributes = Nothing,
-      _parrsResponseStatus = pResponseStatus_
+    { attributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The attributes applied to your resource.
-parrsAttributes :: Lens' PutAttributesResponse [Attribute]
-parrsAttributes = lens _parrsAttributes (\s a -> s {_parrsAttributes = a}) . _Default . _Coerce
+putAttributesResponse_attributes :: Lens.Lens' PutAttributesResponse (Prelude.Maybe [Attribute])
+putAttributesResponse_attributes = Lens.lens (\PutAttributesResponse' {attributes} -> attributes) (\s@PutAttributesResponse' {} a -> s {attributes = a} :: PutAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-parrsResponseStatus :: Lens' PutAttributesResponse Int
-parrsResponseStatus = lens _parrsResponseStatus (\s a -> s {_parrsResponseStatus = a})
+-- | The response's http status code.
+putAttributesResponse_httpStatus :: Lens.Lens' PutAttributesResponse Prelude.Int
+putAttributesResponse_httpStatus = Lens.lens (\PutAttributesResponse' {httpStatus} -> httpStatus) (\s@PutAttributesResponse' {} a -> s {httpStatus = a} :: PutAttributesResponse)
 
-instance NFData PutAttributesResponse
+instance Prelude.NFData PutAttributesResponse

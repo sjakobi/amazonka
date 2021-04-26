@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.InferenceAcceleratorOverride where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details on an Elastic Inference accelerator task override. This parameter is used to override the Elastic Inference accelerator specified in the task definition. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html Working with Amazon Elastic Inference on Amazon ECS> in the /Amazon Elastic Container Service Developer Guide/ .
+-- | Details on an Elastic Inference accelerator task override. This
+-- parameter is used to override the Elastic Inference accelerator
+-- specified in the task definition. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html Working with Amazon Elastic Inference on Amazon ECS>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 --
---
---
--- /See:/ 'inferenceAcceleratorOverride' smart constructor.
+-- /See:/ 'newInferenceAcceleratorOverride' smart constructor.
 data InferenceAcceleratorOverride = InferenceAcceleratorOverride'
-  { _iaoDeviceName ::
-      !(Maybe Text),
-    _iaoDeviceType ::
-      !(Maybe Text)
+  { -- | The Elastic Inference accelerator device name to override for the task.
+    -- This parameter must match a @deviceName@ specified in the task
+    -- definition.
+    deviceName :: Prelude.Maybe Prelude.Text,
+    -- | The Elastic Inference accelerator type to use.
+    deviceType :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InferenceAcceleratorOverride' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InferenceAcceleratorOverride' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iaoDeviceName' - The Elastic Inference accelerator device name to override for the task. This parameter must match a @deviceName@ specified in the task definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iaoDeviceType' - The Elastic Inference accelerator type to use.
-inferenceAcceleratorOverride ::
+-- 'deviceName', 'inferenceAcceleratorOverride_deviceName' - The Elastic Inference accelerator device name to override for the task.
+-- This parameter must match a @deviceName@ specified in the task
+-- definition.
+--
+-- 'deviceType', 'inferenceAcceleratorOverride_deviceType' - The Elastic Inference accelerator type to use.
+newInferenceAcceleratorOverride ::
   InferenceAcceleratorOverride
-inferenceAcceleratorOverride =
+newInferenceAcceleratorOverride =
   InferenceAcceleratorOverride'
-    { _iaoDeviceName =
-        Nothing,
-      _iaoDeviceType = Nothing
+    { deviceName =
+        Prelude.Nothing,
+      deviceType = Prelude.Nothing
     }
 
--- | The Elastic Inference accelerator device name to override for the task. This parameter must match a @deviceName@ specified in the task definition.
-iaoDeviceName :: Lens' InferenceAcceleratorOverride (Maybe Text)
-iaoDeviceName = lens _iaoDeviceName (\s a -> s {_iaoDeviceName = a})
+-- | The Elastic Inference accelerator device name to override for the task.
+-- This parameter must match a @deviceName@ specified in the task
+-- definition.
+inferenceAcceleratorOverride_deviceName :: Lens.Lens' InferenceAcceleratorOverride (Prelude.Maybe Prelude.Text)
+inferenceAcceleratorOverride_deviceName = Lens.lens (\InferenceAcceleratorOverride' {deviceName} -> deviceName) (\s@InferenceAcceleratorOverride' {} a -> s {deviceName = a} :: InferenceAcceleratorOverride)
 
 -- | The Elastic Inference accelerator type to use.
-iaoDeviceType :: Lens' InferenceAcceleratorOverride (Maybe Text)
-iaoDeviceType = lens _iaoDeviceType (\s a -> s {_iaoDeviceType = a})
+inferenceAcceleratorOverride_deviceType :: Lens.Lens' InferenceAcceleratorOverride (Prelude.Maybe Prelude.Text)
+inferenceAcceleratorOverride_deviceType = Lens.lens (\InferenceAcceleratorOverride' {deviceType} -> deviceType) (\s@InferenceAcceleratorOverride' {} a -> s {deviceType = a} :: InferenceAcceleratorOverride)
 
-instance FromJSON InferenceAcceleratorOverride where
+instance
+  Prelude.FromJSON
+    InferenceAcceleratorOverride
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InferenceAcceleratorOverride"
       ( \x ->
           InferenceAcceleratorOverride'
-            <$> (x .:? "deviceName") <*> (x .:? "deviceType")
+            Prelude.<$> (x Prelude..:? "deviceName")
+            Prelude.<*> (x Prelude..:? "deviceType")
       )
 
-instance Hashable InferenceAcceleratorOverride
+instance
+  Prelude.Hashable
+    InferenceAcceleratorOverride
 
-instance NFData InferenceAcceleratorOverride
+instance Prelude.NFData InferenceAcceleratorOverride
 
-instance ToJSON InferenceAcceleratorOverride where
+instance Prelude.ToJSON InferenceAcceleratorOverride where
   toJSON InferenceAcceleratorOverride' {..} =
-    object
-      ( catMaybes
-          [ ("deviceName" .=) <$> _iaoDeviceName,
-            ("deviceType" .=) <$> _iaoDeviceType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("deviceName" Prelude..=) Prelude.<$> deviceName,
+            ("deviceType" Prelude..=) Prelude.<$> deviceType
           ]
       )

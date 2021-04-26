@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,70 @@
 module Network.AWS.ECS.Types.Scale where
 
 import Network.AWS.ECS.Types.ScaleUnit
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+-- | A floating-point percentage of the desired number of tasks to place and
+-- keep running in the task set.
 --
---
---
--- /See:/ 'scale' smart constructor.
+-- /See:/ 'newScale' smart constructor.
 data Scale = Scale'
-  { _sUnit :: !(Maybe ScaleUnit),
-    _sValue :: !(Maybe Double)
+  { -- | The unit of measure for the scale value.
+    unit :: Prelude.Maybe ScaleUnit,
+    -- | The value, specified as a percent total of a service\'s @desiredCount@,
+    -- to scale the task set. Accepted values are numbers between 0 and 100.
+    value :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Scale' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Scale' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sUnit' - The unit of measure for the scale value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sValue' - The value, specified as a percent total of a service's @desiredCount@ , to scale the task set. Accepted values are numbers between 0 and 100.
-scale ::
+-- 'unit', 'scale_unit' - The unit of measure for the scale value.
+--
+-- 'value', 'scale_value' - The value, specified as a percent total of a service\'s @desiredCount@,
+-- to scale the task set. Accepted values are numbers between 0 and 100.
+newScale ::
   Scale
-scale = Scale' {_sUnit = Nothing, _sValue = Nothing}
+newScale =
+  Scale'
+    { unit = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
 -- | The unit of measure for the scale value.
-sUnit :: Lens' Scale (Maybe ScaleUnit)
-sUnit = lens _sUnit (\s a -> s {_sUnit = a})
+scale_unit :: Lens.Lens' Scale (Prelude.Maybe ScaleUnit)
+scale_unit = Lens.lens (\Scale' {unit} -> unit) (\s@Scale' {} a -> s {unit = a} :: Scale)
 
--- | The value, specified as a percent total of a service's @desiredCount@ , to scale the task set. Accepted values are numbers between 0 and 100.
-sValue :: Lens' Scale (Maybe Double)
-sValue = lens _sValue (\s a -> s {_sValue = a})
+-- | The value, specified as a percent total of a service\'s @desiredCount@,
+-- to scale the task set. Accepted values are numbers between 0 and 100.
+scale_value :: Lens.Lens' Scale (Prelude.Maybe Prelude.Double)
+scale_value = Lens.lens (\Scale' {value} -> value) (\s@Scale' {} a -> s {value = a} :: Scale)
 
-instance FromJSON Scale where
+instance Prelude.FromJSON Scale where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Scale"
       ( \x ->
-          Scale' <$> (x .:? "unit") <*> (x .:? "value")
+          Scale'
+            Prelude.<$> (x Prelude..:? "unit")
+            Prelude.<*> (x Prelude..:? "value")
       )
 
-instance Hashable Scale
+instance Prelude.Hashable Scale
 
-instance NFData Scale
+instance Prelude.NFData Scale
 
-instance ToJSON Scale where
+instance Prelude.ToJSON Scale where
   toJSON Scale' {..} =
-    object
-      ( catMaybes
-          [("unit" .=) <$> _sUnit, ("value" .=) <$> _sValue]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("unit" Prelude..=) Prelude.<$> unit,
+            ("value" Prelude..=) Prelude.<$> value
+          ]
       )

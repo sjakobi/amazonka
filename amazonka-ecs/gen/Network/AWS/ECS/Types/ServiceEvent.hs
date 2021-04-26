@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.ServiceEvent where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details on an event associated with a service.
 --
---
---
--- /See:/ 'serviceEvent' smart constructor.
+-- /See:/ 'newServiceEvent' smart constructor.
 data ServiceEvent = ServiceEvent'
-  { _seMessage ::
-      !(Maybe Text),
-    _seCreatedAt :: !(Maybe POSIX),
-    _seId :: !(Maybe Text)
+  { -- | The event message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the event was triggered.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID string of the event.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceEvent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceEvent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seMessage' - The event message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seCreatedAt' - The Unix timestamp for when the event was triggered.
+-- 'message', 'serviceEvent_message' - The event message.
 --
--- * 'seId' - The ID string of the event.
-serviceEvent ::
+-- 'createdAt', 'serviceEvent_createdAt' - The Unix timestamp for when the event was triggered.
+--
+-- 'id', 'serviceEvent_id' - The ID string of the event.
+newServiceEvent ::
   ServiceEvent
-serviceEvent =
+newServiceEvent =
   ServiceEvent'
-    { _seMessage = Nothing,
-      _seCreatedAt = Nothing,
-      _seId = Nothing
+    { message = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
 -- | The event message.
-seMessage :: Lens' ServiceEvent (Maybe Text)
-seMessage = lens _seMessage (\s a -> s {_seMessage = a})
+serviceEvent_message :: Lens.Lens' ServiceEvent (Prelude.Maybe Prelude.Text)
+serviceEvent_message = Lens.lens (\ServiceEvent' {message} -> message) (\s@ServiceEvent' {} a -> s {message = a} :: ServiceEvent)
 
 -- | The Unix timestamp for when the event was triggered.
-seCreatedAt :: Lens' ServiceEvent (Maybe UTCTime)
-seCreatedAt = lens _seCreatedAt (\s a -> s {_seCreatedAt = a}) . mapping _Time
+serviceEvent_createdAt :: Lens.Lens' ServiceEvent (Prelude.Maybe Prelude.UTCTime)
+serviceEvent_createdAt = Lens.lens (\ServiceEvent' {createdAt} -> createdAt) (\s@ServiceEvent' {} a -> s {createdAt = a} :: ServiceEvent) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID string of the event.
-seId :: Lens' ServiceEvent (Maybe Text)
-seId = lens _seId (\s a -> s {_seId = a})
+serviceEvent_id :: Lens.Lens' ServiceEvent (Prelude.Maybe Prelude.Text)
+serviceEvent_id = Lens.lens (\ServiceEvent' {id} -> id) (\s@ServiceEvent' {} a -> s {id = a} :: ServiceEvent)
 
-instance FromJSON ServiceEvent where
+instance Prelude.FromJSON ServiceEvent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceEvent"
       ( \x ->
           ServiceEvent'
-            <$> (x .:? "message")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "id")
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "id")
       )
 
-instance Hashable ServiceEvent
+instance Prelude.Hashable ServiceEvent
 
-instance NFData ServiceEvent
+instance Prelude.NFData ServiceEvent

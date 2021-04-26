@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.NetworkInterface where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object representing the elastic network interface for tasks that use the @awsvpc@ network mode.
+-- | An object representing the elastic network interface for tasks that use
+-- the @awsvpc@ network mode.
 --
---
---
--- /See:/ 'networkInterface' smart constructor.
+-- /See:/ 'newNetworkInterface' smart constructor.
 data NetworkInterface = NetworkInterface'
-  { _niPrivateIPv4Address ::
-      !(Maybe Text),
-    _niIpv6Address :: !(Maybe Text),
-    _niAttachmentId :: !(Maybe Text)
+  { -- | The private IPv4 address for the network interface.
+    privateIpv4Address :: Prelude.Maybe Prelude.Text,
+    -- | The private IPv6 address for the network interface.
+    ipv6Address :: Prelude.Maybe Prelude.Text,
+    -- | The attachment ID for the network interface.
+    attachmentId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'niPrivateIPv4Address' - The private IPv4 address for the network interface.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'niIpv6Address' - The private IPv6 address for the network interface.
+-- 'privateIpv4Address', 'networkInterface_privateIpv4Address' - The private IPv4 address for the network interface.
 --
--- * 'niAttachmentId' - The attachment ID for the network interface.
-networkInterface ::
+-- 'ipv6Address', 'networkInterface_ipv6Address' - The private IPv6 address for the network interface.
+--
+-- 'attachmentId', 'networkInterface_attachmentId' - The attachment ID for the network interface.
+newNetworkInterface ::
   NetworkInterface
-networkInterface =
+newNetworkInterface =
   NetworkInterface'
-    { _niPrivateIPv4Address = Nothing,
-      _niIpv6Address = Nothing,
-      _niAttachmentId = Nothing
+    { privateIpv4Address =
+        Prelude.Nothing,
+      ipv6Address = Prelude.Nothing,
+      attachmentId = Prelude.Nothing
     }
 
 -- | The private IPv4 address for the network interface.
-niPrivateIPv4Address :: Lens' NetworkInterface (Maybe Text)
-niPrivateIPv4Address = lens _niPrivateIPv4Address (\s a -> s {_niPrivateIPv4Address = a})
+networkInterface_privateIpv4Address :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_privateIpv4Address = Lens.lens (\NetworkInterface' {privateIpv4Address} -> privateIpv4Address) (\s@NetworkInterface' {} a -> s {privateIpv4Address = a} :: NetworkInterface)
 
 -- | The private IPv6 address for the network interface.
-niIpv6Address :: Lens' NetworkInterface (Maybe Text)
-niIpv6Address = lens _niIpv6Address (\s a -> s {_niIpv6Address = a})
+networkInterface_ipv6Address :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_ipv6Address = Lens.lens (\NetworkInterface' {ipv6Address} -> ipv6Address) (\s@NetworkInterface' {} a -> s {ipv6Address = a} :: NetworkInterface)
 
 -- | The attachment ID for the network interface.
-niAttachmentId :: Lens' NetworkInterface (Maybe Text)
-niAttachmentId = lens _niAttachmentId (\s a -> s {_niAttachmentId = a})
+networkInterface_attachmentId :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
+networkInterface_attachmentId = Lens.lens (\NetworkInterface' {attachmentId} -> attachmentId) (\s@NetworkInterface' {} a -> s {attachmentId = a} :: NetworkInterface)
 
-instance FromJSON NetworkInterface where
+instance Prelude.FromJSON NetworkInterface where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NetworkInterface"
       ( \x ->
           NetworkInterface'
-            <$> (x .:? "privateIpv4Address")
-            <*> (x .:? "ipv6Address")
-            <*> (x .:? "attachmentId")
+            Prelude.<$> (x Prelude..:? "privateIpv4Address")
+            Prelude.<*> (x Prelude..:? "ipv6Address")
+            Prelude.<*> (x Prelude..:? "attachmentId")
       )
 
-instance Hashable NetworkInterface
+instance Prelude.Hashable NetworkInterface
 
-instance NFData NetworkInterface
+instance Prelude.NFData NetworkInterface

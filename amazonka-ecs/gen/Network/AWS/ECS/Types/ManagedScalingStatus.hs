@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ECS.Types.ManagedScalingStatus
   ( ManagedScalingStatus
       ( ..,
-        Disabled,
-        Enabled
+        ManagedScalingStatusDISABLED,
+        ManagedScalingStatusENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ManagedScalingStatus
-  = ManagedScalingStatus'
-      ( CI
-          Text
-      )
+newtype ManagedScalingStatus = ManagedScalingStatus'
+  { fromManagedScalingStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: ManagedScalingStatus
-pattern Disabled = ManagedScalingStatus' "DISABLED"
+pattern ManagedScalingStatusDISABLED :: ManagedScalingStatus
+pattern ManagedScalingStatusDISABLED = ManagedScalingStatus' "DISABLED"
 
-pattern Enabled :: ManagedScalingStatus
-pattern Enabled = ManagedScalingStatus' "ENABLED"
+pattern ManagedScalingStatusENABLED :: ManagedScalingStatus
+pattern ManagedScalingStatusENABLED = ManagedScalingStatus' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  ManagedScalingStatusDISABLED,
+  ManagedScalingStatusENABLED,
   ManagedScalingStatus'
   #-}
 
-instance FromText ManagedScalingStatus where
-  parser = (ManagedScalingStatus' . mk) <$> takeText
+instance Prelude.FromText ManagedScalingStatus where
+  parser = ManagedScalingStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ManagedScalingStatus where
-  toText (ManagedScalingStatus' ci) = original ci
+instance Prelude.ToText ManagedScalingStatus where
+  toText (ManagedScalingStatus' x) = x
 
-instance Hashable ManagedScalingStatus
+instance Prelude.Hashable ManagedScalingStatus
 
-instance NFData ManagedScalingStatus
+instance Prelude.NFData ManagedScalingStatus
 
-instance ToByteString ManagedScalingStatus
+instance Prelude.ToByteString ManagedScalingStatus
 
-instance ToQuery ManagedScalingStatus
+instance Prelude.ToQuery ManagedScalingStatus
 
-instance ToHeader ManagedScalingStatus
+instance Prelude.ToHeader ManagedScalingStatus
 
-instance ToJSON ManagedScalingStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ManagedScalingStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ManagedScalingStatus where
-  parseJSON = parseJSONText "ManagedScalingStatus"
+instance Prelude.FromJSON ManagedScalingStatus where
+  parseJSON = Prelude.parseJSONText "ManagedScalingStatus"

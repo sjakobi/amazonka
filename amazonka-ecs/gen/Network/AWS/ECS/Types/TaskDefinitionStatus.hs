@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ECS.Types.TaskDefinitionStatus
   ( TaskDefinitionStatus
       ( ..,
-        TDSActive,
-        TDSInactive
+        TaskDefinitionStatusACTIVE,
+        TaskDefinitionStatusINACTIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskDefinitionStatus
-  = TaskDefinitionStatus'
-      ( CI
-          Text
-      )
+newtype TaskDefinitionStatus = TaskDefinitionStatus'
+  { fromTaskDefinitionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TDSActive :: TaskDefinitionStatus
-pattern TDSActive = TaskDefinitionStatus' "ACTIVE"
+pattern TaskDefinitionStatusACTIVE :: TaskDefinitionStatus
+pattern TaskDefinitionStatusACTIVE = TaskDefinitionStatus' "ACTIVE"
 
-pattern TDSInactive :: TaskDefinitionStatus
-pattern TDSInactive = TaskDefinitionStatus' "INACTIVE"
+pattern TaskDefinitionStatusINACTIVE :: TaskDefinitionStatus
+pattern TaskDefinitionStatusINACTIVE = TaskDefinitionStatus' "INACTIVE"
 
 {-# COMPLETE
-  TDSActive,
-  TDSInactive,
+  TaskDefinitionStatusACTIVE,
+  TaskDefinitionStatusINACTIVE,
   TaskDefinitionStatus'
   #-}
 
-instance FromText TaskDefinitionStatus where
-  parser = (TaskDefinitionStatus' . mk) <$> takeText
+instance Prelude.FromText TaskDefinitionStatus where
+  parser = TaskDefinitionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TaskDefinitionStatus where
-  toText (TaskDefinitionStatus' ci) = original ci
+instance Prelude.ToText TaskDefinitionStatus where
+  toText (TaskDefinitionStatus' x) = x
 
-instance Hashable TaskDefinitionStatus
+instance Prelude.Hashable TaskDefinitionStatus
 
-instance NFData TaskDefinitionStatus
+instance Prelude.NFData TaskDefinitionStatus
 
-instance ToByteString TaskDefinitionStatus
+instance Prelude.ToByteString TaskDefinitionStatus
 
-instance ToQuery TaskDefinitionStatus
+instance Prelude.ToQuery TaskDefinitionStatus
 
-instance ToHeader TaskDefinitionStatus
+instance Prelude.ToHeader TaskDefinitionStatus
 
-instance ToJSON TaskDefinitionStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskDefinitionStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TaskDefinitionStatus where
-  parseJSON = parseJSONText "TaskDefinitionStatus"
+instance Prelude.FromJSON TaskDefinitionStatus where
+  parseJSON = Prelude.parseJSONText "TaskDefinitionStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.ECS.Types.ProxyConfigurationType
   ( ProxyConfigurationType
       ( ..,
-        Appmesh
+        ProxyConfigurationTypeAPPMESH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProxyConfigurationType
-  = ProxyConfigurationType'
-      ( CI
-          Text
-      )
+newtype ProxyConfigurationType = ProxyConfigurationType'
+  { fromProxyConfigurationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Appmesh :: ProxyConfigurationType
-pattern Appmesh = ProxyConfigurationType' "APPMESH"
+pattern ProxyConfigurationTypeAPPMESH :: ProxyConfigurationType
+pattern ProxyConfigurationTypeAPPMESH = ProxyConfigurationType' "APPMESH"
 
 {-# COMPLETE
-  Appmesh,
+  ProxyConfigurationTypeAPPMESH,
   ProxyConfigurationType'
   #-}
 
-instance FromText ProxyConfigurationType where
-  parser = (ProxyConfigurationType' . mk) <$> takeText
+instance Prelude.FromText ProxyConfigurationType where
+  parser = ProxyConfigurationType' Prelude.<$> Prelude.takeText
 
-instance ToText ProxyConfigurationType where
-  toText (ProxyConfigurationType' ci) = original ci
+instance Prelude.ToText ProxyConfigurationType where
+  toText (ProxyConfigurationType' x) = x
 
-instance Hashable ProxyConfigurationType
+instance Prelude.Hashable ProxyConfigurationType
 
-instance NFData ProxyConfigurationType
+instance Prelude.NFData ProxyConfigurationType
 
-instance ToByteString ProxyConfigurationType
+instance Prelude.ToByteString ProxyConfigurationType
 
-instance ToQuery ProxyConfigurationType
+instance Prelude.ToQuery ProxyConfigurationType
 
-instance ToHeader ProxyConfigurationType
+instance Prelude.ToHeader ProxyConfigurationType
 
-instance ToJSON ProxyConfigurationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProxyConfigurationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProxyConfigurationType where
-  parseJSON = parseJSONText "ProxyConfigurationType"
+instance Prelude.FromJSON ProxyConfigurationType where
+  parseJSON = Prelude.parseJSONText "ProxyConfigurationType"

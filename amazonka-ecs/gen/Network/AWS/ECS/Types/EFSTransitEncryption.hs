@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ECS.Types.EFSTransitEncryption
   ( EFSTransitEncryption
       ( ..,
-        EFSTEDisabled,
-        EFSTEEnabled
+        EFSTransitEncryptionDISABLED,
+        EFSTransitEncryptionENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EFSTransitEncryption
-  = EFSTransitEncryption'
-      ( CI
-          Text
-      )
+newtype EFSTransitEncryption = EFSTransitEncryption'
+  { fromEFSTransitEncryption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EFSTEDisabled :: EFSTransitEncryption
-pattern EFSTEDisabled = EFSTransitEncryption' "DISABLED"
+pattern EFSTransitEncryptionDISABLED :: EFSTransitEncryption
+pattern EFSTransitEncryptionDISABLED = EFSTransitEncryption' "DISABLED"
 
-pattern EFSTEEnabled :: EFSTransitEncryption
-pattern EFSTEEnabled = EFSTransitEncryption' "ENABLED"
+pattern EFSTransitEncryptionENABLED :: EFSTransitEncryption
+pattern EFSTransitEncryptionENABLED = EFSTransitEncryption' "ENABLED"
 
 {-# COMPLETE
-  EFSTEDisabled,
-  EFSTEEnabled,
+  EFSTransitEncryptionDISABLED,
+  EFSTransitEncryptionENABLED,
   EFSTransitEncryption'
   #-}
 
-instance FromText EFSTransitEncryption where
-  parser = (EFSTransitEncryption' . mk) <$> takeText
+instance Prelude.FromText EFSTransitEncryption where
+  parser = EFSTransitEncryption' Prelude.<$> Prelude.takeText
 
-instance ToText EFSTransitEncryption where
-  toText (EFSTransitEncryption' ci) = original ci
+instance Prelude.ToText EFSTransitEncryption where
+  toText (EFSTransitEncryption' x) = x
 
-instance Hashable EFSTransitEncryption
+instance Prelude.Hashable EFSTransitEncryption
 
-instance NFData EFSTransitEncryption
+instance Prelude.NFData EFSTransitEncryption
 
-instance ToByteString EFSTransitEncryption
+instance Prelude.ToByteString EFSTransitEncryption
 
-instance ToQuery EFSTransitEncryption
+instance Prelude.ToQuery EFSTransitEncryption
 
-instance ToHeader EFSTransitEncryption
+instance Prelude.ToHeader EFSTransitEncryption
 
-instance ToJSON EFSTransitEncryption where
-  toJSON = toJSONText
+instance Prelude.ToJSON EFSTransitEncryption where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EFSTransitEncryption where
-  parseJSON = parseJSONText "EFSTransitEncryption"
+instance Prelude.FromJSON EFSTransitEncryption where
+  parseJSON = Prelude.parseJSONText "EFSTransitEncryption"

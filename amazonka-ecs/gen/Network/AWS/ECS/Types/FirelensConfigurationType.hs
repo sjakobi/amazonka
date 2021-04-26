@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ECS.Types.FirelensConfigurationType
   ( FirelensConfigurationType
       ( ..,
-        Fluentbit,
-        Fluentd
+        FirelensConfigurationTypeFluentbit,
+        FirelensConfigurationTypeFluentd
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FirelensConfigurationType
-  = FirelensConfigurationType'
-      ( CI
-          Text
-      )
+newtype FirelensConfigurationType = FirelensConfigurationType'
+  { fromFirelensConfigurationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Fluentbit :: FirelensConfigurationType
-pattern Fluentbit = FirelensConfigurationType' "fluentbit"
+pattern FirelensConfigurationTypeFluentbit :: FirelensConfigurationType
+pattern FirelensConfigurationTypeFluentbit = FirelensConfigurationType' "fluentbit"
 
-pattern Fluentd :: FirelensConfigurationType
-pattern Fluentd = FirelensConfigurationType' "fluentd"
+pattern FirelensConfigurationTypeFluentd :: FirelensConfigurationType
+pattern FirelensConfigurationTypeFluentd = FirelensConfigurationType' "fluentd"
 
 {-# COMPLETE
-  Fluentbit,
-  Fluentd,
+  FirelensConfigurationTypeFluentbit,
+  FirelensConfigurationTypeFluentd,
   FirelensConfigurationType'
   #-}
 
-instance FromText FirelensConfigurationType where
-  parser = (FirelensConfigurationType' . mk) <$> takeText
+instance Prelude.FromText FirelensConfigurationType where
+  parser = FirelensConfigurationType' Prelude.<$> Prelude.takeText
 
-instance ToText FirelensConfigurationType where
-  toText (FirelensConfigurationType' ci) = original ci
+instance Prelude.ToText FirelensConfigurationType where
+  toText (FirelensConfigurationType' x) = x
 
-instance Hashable FirelensConfigurationType
+instance Prelude.Hashable FirelensConfigurationType
 
-instance NFData FirelensConfigurationType
+instance Prelude.NFData FirelensConfigurationType
 
-instance ToByteString FirelensConfigurationType
+instance Prelude.ToByteString FirelensConfigurationType
 
-instance ToQuery FirelensConfigurationType
+instance Prelude.ToQuery FirelensConfigurationType
 
-instance ToHeader FirelensConfigurationType
+instance Prelude.ToHeader FirelensConfigurationType
 
-instance ToJSON FirelensConfigurationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FirelensConfigurationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FirelensConfigurationType where
-  parseJSON = parseJSONText "FirelensConfigurationType"
+instance Prelude.FromJSON FirelensConfigurationType where
+  parseJSON = Prelude.parseJSONText "FirelensConfigurationType"

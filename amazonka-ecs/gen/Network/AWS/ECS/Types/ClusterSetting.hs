@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,60 +20,85 @@
 module Network.AWS.ECS.Types.ClusterSetting where
 
 import Network.AWS.ECS.Types.ClusterSettingName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The settings to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights for a cluster.
+-- | The settings to use when creating a cluster. This parameter is used to
+-- enable CloudWatch Container Insights for a cluster.
 --
---
---
--- /See:/ 'clusterSetting' smart constructor.
+-- /See:/ 'newClusterSetting' smart constructor.
 data ClusterSetting = ClusterSetting'
-  { _csName ::
-      !(Maybe ClusterSettingName),
-    _csValue :: !(Maybe Text)
+  { -- | The name of the cluster setting. The only supported value is
+    -- @containerInsights@.
+    name :: Prelude.Maybe ClusterSettingName,
+    -- | The value to set for the cluster setting. The supported values are
+    -- @enabled@ and @disabled@. If @enabled@ is specified, CloudWatch
+    -- Container Insights will be enabled for the cluster, otherwise it will be
+    -- disabled unless the @containerInsights@ account setting is enabled. If a
+    -- cluster value is specified, it will override the @containerInsights@
+    -- value set with PutAccountSetting or PutAccountSettingDefault.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClusterSetting' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClusterSetting' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csName' - The name of the cluster setting. The only supported value is @containerInsights@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csValue' - The value to set for the cluster setting. The supported values are @enabled@ and @disabled@ . If @enabled@ is specified, CloudWatch Container Insights will be enabled for the cluster, otherwise it will be disabled unless the @containerInsights@ account setting is enabled. If a cluster value is specified, it will override the @containerInsights@ value set with 'PutAccountSetting' or 'PutAccountSettingDefault' .
-clusterSetting ::
+-- 'name', 'clusterSetting_name' - The name of the cluster setting. The only supported value is
+-- @containerInsights@.
+--
+-- 'value', 'clusterSetting_value' - The value to set for the cluster setting. The supported values are
+-- @enabled@ and @disabled@. If @enabled@ is specified, CloudWatch
+-- Container Insights will be enabled for the cluster, otherwise it will be
+-- disabled unless the @containerInsights@ account setting is enabled. If a
+-- cluster value is specified, it will override the @containerInsights@
+-- value set with PutAccountSetting or PutAccountSettingDefault.
+newClusterSetting ::
   ClusterSetting
-clusterSetting =
+newClusterSetting =
   ClusterSetting'
-    { _csName = Nothing,
-      _csValue = Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
--- | The name of the cluster setting. The only supported value is @containerInsights@ .
-csName :: Lens' ClusterSetting (Maybe ClusterSettingName)
-csName = lens _csName (\s a -> s {_csName = a})
+-- | The name of the cluster setting. The only supported value is
+-- @containerInsights@.
+clusterSetting_name :: Lens.Lens' ClusterSetting (Prelude.Maybe ClusterSettingName)
+clusterSetting_name = Lens.lens (\ClusterSetting' {name} -> name) (\s@ClusterSetting' {} a -> s {name = a} :: ClusterSetting)
 
--- | The value to set for the cluster setting. The supported values are @enabled@ and @disabled@ . If @enabled@ is specified, CloudWatch Container Insights will be enabled for the cluster, otherwise it will be disabled unless the @containerInsights@ account setting is enabled. If a cluster value is specified, it will override the @containerInsights@ value set with 'PutAccountSetting' or 'PutAccountSettingDefault' .
-csValue :: Lens' ClusterSetting (Maybe Text)
-csValue = lens _csValue (\s a -> s {_csValue = a})
+-- | The value to set for the cluster setting. The supported values are
+-- @enabled@ and @disabled@. If @enabled@ is specified, CloudWatch
+-- Container Insights will be enabled for the cluster, otherwise it will be
+-- disabled unless the @containerInsights@ account setting is enabled. If a
+-- cluster value is specified, it will override the @containerInsights@
+-- value set with PutAccountSetting or PutAccountSettingDefault.
+clusterSetting_value :: Lens.Lens' ClusterSetting (Prelude.Maybe Prelude.Text)
+clusterSetting_value = Lens.lens (\ClusterSetting' {value} -> value) (\s@ClusterSetting' {} a -> s {value = a} :: ClusterSetting)
 
-instance FromJSON ClusterSetting where
+instance Prelude.FromJSON ClusterSetting where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClusterSetting"
       ( \x ->
           ClusterSetting'
-            <$> (x .:? "name") <*> (x .:? "value")
+            Prelude.<$> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "value")
       )
 
-instance Hashable ClusterSetting
+instance Prelude.Hashable ClusterSetting
 
-instance NFData ClusterSetting
+instance Prelude.NFData ClusterSetting
 
-instance ToJSON ClusterSetting where
+instance Prelude.ToJSON ClusterSetting where
   toJSON ClusterSetting' {..} =
-    object
-      ( catMaybes
-          [("name" .=) <$> _csName, ("value" .=) <$> _csValue]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("name" Prelude..=) Prelude.<$> name,
+            ("value" Prelude..=) Prelude.<$> value
+          ]
       )

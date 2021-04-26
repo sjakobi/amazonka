@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ECS.Types.CapacityProviderStatus
   ( CapacityProviderStatus
       ( ..,
-        Active,
-        Inactive
+        CapacityProviderStatusACTIVE,
+        CapacityProviderStatusINACTIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CapacityProviderStatus
-  = CapacityProviderStatus'
-      ( CI
-          Text
-      )
+newtype CapacityProviderStatus = CapacityProviderStatus'
+  { fromCapacityProviderStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: CapacityProviderStatus
-pattern Active = CapacityProviderStatus' "ACTIVE"
+pattern CapacityProviderStatusACTIVE :: CapacityProviderStatus
+pattern CapacityProviderStatusACTIVE = CapacityProviderStatus' "ACTIVE"
 
-pattern Inactive :: CapacityProviderStatus
-pattern Inactive = CapacityProviderStatus' "INACTIVE"
+pattern CapacityProviderStatusINACTIVE :: CapacityProviderStatus
+pattern CapacityProviderStatusINACTIVE = CapacityProviderStatus' "INACTIVE"
 
 {-# COMPLETE
-  Active,
-  Inactive,
+  CapacityProviderStatusACTIVE,
+  CapacityProviderStatusINACTIVE,
   CapacityProviderStatus'
   #-}
 
-instance FromText CapacityProviderStatus where
-  parser = (CapacityProviderStatus' . mk) <$> takeText
+instance Prelude.FromText CapacityProviderStatus where
+  parser = CapacityProviderStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CapacityProviderStatus where
-  toText (CapacityProviderStatus' ci) = original ci
+instance Prelude.ToText CapacityProviderStatus where
+  toText (CapacityProviderStatus' x) = x
 
-instance Hashable CapacityProviderStatus
+instance Prelude.Hashable CapacityProviderStatus
 
-instance NFData CapacityProviderStatus
+instance Prelude.NFData CapacityProviderStatus
 
-instance ToByteString CapacityProviderStatus
+instance Prelude.ToByteString CapacityProviderStatus
 
-instance ToQuery CapacityProviderStatus
+instance Prelude.ToQuery CapacityProviderStatus
 
-instance ToHeader CapacityProviderStatus
+instance Prelude.ToHeader CapacityProviderStatus
 
-instance FromJSON CapacityProviderStatus where
-  parseJSON = parseJSONText "CapacityProviderStatus"
+instance Prelude.FromJSON CapacityProviderStatus where
+  parseJSON = Prelude.parseJSONText "CapacityProviderStatus"

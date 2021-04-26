@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.RepositoryCredentials where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The repository credentials for private registry authentication.
 --
---
---
--- /See:/ 'repositoryCredentials' smart constructor.
-newtype RepositoryCredentials = RepositoryCredentials'
-  { _rcCredentialsParameter ::
-      Text
+-- /See:/ 'newRepositoryCredentials' smart constructor.
+data RepositoryCredentials = RepositoryCredentials'
+  { -- | The Amazon Resource Name (ARN) of the secret containing the private
+    -- repository credentials.
+    --
+    -- When you are using the Amazon ECS API, AWS CLI, or AWS SDK, if the
+    -- secret exists in the same Region as the task that you are launching then
+    -- you can use either the full ARN or the name of the secret. When you are
+    -- using the AWS Management Console, you must specify the full ARN of the
+    -- secret.
+    credentialsParameter :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RepositoryCredentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RepositoryCredentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcCredentialsParameter' - The Amazon Resource Name (ARN) of the secret containing the private repository credentials.
-repositoryCredentials ::
-  -- | 'rcCredentialsParameter'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'credentialsParameter', 'repositoryCredentials_credentialsParameter' - The Amazon Resource Name (ARN) of the secret containing the private
+-- repository credentials.
+--
+-- When you are using the Amazon ECS API, AWS CLI, or AWS SDK, if the
+-- secret exists in the same Region as the task that you are launching then
+-- you can use either the full ARN or the name of the secret. When you are
+-- using the AWS Management Console, you must specify the full ARN of the
+-- secret.
+newRepositoryCredentials ::
+  -- | 'credentialsParameter'
+  Prelude.Text ->
   RepositoryCredentials
-repositoryCredentials pCredentialsParameter_ =
+newRepositoryCredentials pCredentialsParameter_ =
   RepositoryCredentials'
-    { _rcCredentialsParameter =
+    { credentialsParameter =
         pCredentialsParameter_
     }
 
--- | The Amazon Resource Name (ARN) of the secret containing the private repository credentials.
-rcCredentialsParameter :: Lens' RepositoryCredentials Text
-rcCredentialsParameter = lens _rcCredentialsParameter (\s a -> s {_rcCredentialsParameter = a})
+-- | The Amazon Resource Name (ARN) of the secret containing the private
+-- repository credentials.
+--
+-- When you are using the Amazon ECS API, AWS CLI, or AWS SDK, if the
+-- secret exists in the same Region as the task that you are launching then
+-- you can use either the full ARN or the name of the secret. When you are
+-- using the AWS Management Console, you must specify the full ARN of the
+-- secret.
+repositoryCredentials_credentialsParameter :: Lens.Lens' RepositoryCredentials Prelude.Text
+repositoryCredentials_credentialsParameter = Lens.lens (\RepositoryCredentials' {credentialsParameter} -> credentialsParameter) (\s@RepositoryCredentials' {} a -> s {credentialsParameter = a} :: RepositoryCredentials)
 
-instance FromJSON RepositoryCredentials where
+instance Prelude.FromJSON RepositoryCredentials where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RepositoryCredentials"
       ( \x ->
           RepositoryCredentials'
-            <$> (x .: "credentialsParameter")
+            Prelude.<$> (x Prelude..: "credentialsParameter")
       )
 
-instance Hashable RepositoryCredentials
+instance Prelude.Hashable RepositoryCredentials
 
-instance NFData RepositoryCredentials
+instance Prelude.NFData RepositoryCredentials
 
-instance ToJSON RepositoryCredentials where
+instance Prelude.ToJSON RepositoryCredentials where
   toJSON RepositoryCredentials' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("credentialsParameter" .= _rcCredentialsParameter)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "credentialsParameter"
+                  Prelude..= credentialsParameter
+              )
           ]
       )

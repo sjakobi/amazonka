@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,85 +20,124 @@
 module Network.AWS.ECS.Types.Attribute where
 
 import Network.AWS.ECS.Types.TargetType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An attribute is a name-value pair associated with an Amazon ECS object. Attributes enable you to extend the Amazon ECS data model by adding custom metadata to your resources. For more information, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes Attributes> in the /Amazon Elastic Container Service Developer Guide/ .
+-- | An attribute is a name-value pair associated with an Amazon ECS object.
+-- Attributes enable you to extend the Amazon ECS data model by adding
+-- custom metadata to your resources. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes Attributes>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 --
---
---
--- /See:/ 'attribute' smart constructor.
+-- /See:/ 'newAttribute' smart constructor.
 data Attribute = Attribute'
-  { _aTargetId ::
-      !(Maybe Text),
-    _aTargetType :: !(Maybe TargetType),
-    _aValue :: !(Maybe Text),
-    _aName :: !Text
+  { -- | The ID of the target. You can specify the short form ID for a resource
+    -- or the full Amazon Resource Name (ARN).
+    targetId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the target with which to attach the attribute. This
+    -- parameter is required if you use the short form ID for a resource
+    -- instead of the full ARN.
+    targetType :: Prelude.Maybe TargetType,
+    -- | The value of the attribute. The @value@ must contain between 1 and 128
+    -- characters and may contain letters (uppercase and lowercase), numbers,
+    -- hyphens, underscores, periods, at signs (\@), forward slashes, back
+    -- slashes, colons, or spaces. The value cannot contain any leading or
+    -- trailing whitespace.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The name of the attribute. The @name@ must contain between 1 and 128
+    -- characters and name may contain letters (uppercase and lowercase),
+    -- numbers, hyphens, underscores, forward slashes, back slashes, or
+    -- periods.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Attribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Attribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aTargetId' - The ID of the target. You can specify the short form ID for a resource or the full Amazon Resource Name (ARN).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aTargetType' - The type of the target with which to attach the attribute. This parameter is required if you use the short form ID for a resource instead of the full ARN.
+-- 'targetId', 'attribute_targetId' - The ID of the target. You can specify the short form ID for a resource
+-- or the full Amazon Resource Name (ARN).
 --
--- * 'aValue' - The value of the attribute. The @value@ must contain between 1 and 128 characters and may contain letters (uppercase and lowercase), numbers, hyphens, underscores, periods, at signs (@), forward slashes, back slashes, colons, or spaces. The value cannot contain any leading or trailing whitespace.
+-- 'targetType', 'attribute_targetType' - The type of the target with which to attach the attribute. This
+-- parameter is required if you use the short form ID for a resource
+-- instead of the full ARN.
 --
--- * 'aName' - The name of the attribute. The @name@ must contain between 1 and 128 characters and name may contain letters (uppercase and lowercase), numbers, hyphens, underscores, forward slashes, back slashes, or periods.
-attribute ::
-  -- | 'aName'
-  Text ->
+-- 'value', 'attribute_value' - The value of the attribute. The @value@ must contain between 1 and 128
+-- characters and may contain letters (uppercase and lowercase), numbers,
+-- hyphens, underscores, periods, at signs (\@), forward slashes, back
+-- slashes, colons, or spaces. The value cannot contain any leading or
+-- trailing whitespace.
+--
+-- 'name', 'attribute_name' - The name of the attribute. The @name@ must contain between 1 and 128
+-- characters and name may contain letters (uppercase and lowercase),
+-- numbers, hyphens, underscores, forward slashes, back slashes, or
+-- periods.
+newAttribute ::
+  -- | 'name'
+  Prelude.Text ->
   Attribute
-attribute pName_ =
+newAttribute pName_ =
   Attribute'
-    { _aTargetId = Nothing,
-      _aTargetType = Nothing,
-      _aValue = Nothing,
-      _aName = pName_
+    { targetId = Prelude.Nothing,
+      targetType = Prelude.Nothing,
+      value = Prelude.Nothing,
+      name = pName_
     }
 
--- | The ID of the target. You can specify the short form ID for a resource or the full Amazon Resource Name (ARN).
-aTargetId :: Lens' Attribute (Maybe Text)
-aTargetId = lens _aTargetId (\s a -> s {_aTargetId = a})
+-- | The ID of the target. You can specify the short form ID for a resource
+-- or the full Amazon Resource Name (ARN).
+attribute_targetId :: Lens.Lens' Attribute (Prelude.Maybe Prelude.Text)
+attribute_targetId = Lens.lens (\Attribute' {targetId} -> targetId) (\s@Attribute' {} a -> s {targetId = a} :: Attribute)
 
--- | The type of the target with which to attach the attribute. This parameter is required if you use the short form ID for a resource instead of the full ARN.
-aTargetType :: Lens' Attribute (Maybe TargetType)
-aTargetType = lens _aTargetType (\s a -> s {_aTargetType = a})
+-- | The type of the target with which to attach the attribute. This
+-- parameter is required if you use the short form ID for a resource
+-- instead of the full ARN.
+attribute_targetType :: Lens.Lens' Attribute (Prelude.Maybe TargetType)
+attribute_targetType = Lens.lens (\Attribute' {targetType} -> targetType) (\s@Attribute' {} a -> s {targetType = a} :: Attribute)
 
--- | The value of the attribute. The @value@ must contain between 1 and 128 characters and may contain letters (uppercase and lowercase), numbers, hyphens, underscores, periods, at signs (@), forward slashes, back slashes, colons, or spaces. The value cannot contain any leading or trailing whitespace.
-aValue :: Lens' Attribute (Maybe Text)
-aValue = lens _aValue (\s a -> s {_aValue = a})
+-- | The value of the attribute. The @value@ must contain between 1 and 128
+-- characters and may contain letters (uppercase and lowercase), numbers,
+-- hyphens, underscores, periods, at signs (\@), forward slashes, back
+-- slashes, colons, or spaces. The value cannot contain any leading or
+-- trailing whitespace.
+attribute_value :: Lens.Lens' Attribute (Prelude.Maybe Prelude.Text)
+attribute_value = Lens.lens (\Attribute' {value} -> value) (\s@Attribute' {} a -> s {value = a} :: Attribute)
 
--- | The name of the attribute. The @name@ must contain between 1 and 128 characters and name may contain letters (uppercase and lowercase), numbers, hyphens, underscores, forward slashes, back slashes, or periods.
-aName :: Lens' Attribute Text
-aName = lens _aName (\s a -> s {_aName = a})
+-- | The name of the attribute. The @name@ must contain between 1 and 128
+-- characters and name may contain letters (uppercase and lowercase),
+-- numbers, hyphens, underscores, forward slashes, back slashes, or
+-- periods.
+attribute_name :: Lens.Lens' Attribute Prelude.Text
+attribute_name = Lens.lens (\Attribute' {name} -> name) (\s@Attribute' {} a -> s {name = a} :: Attribute)
 
-instance FromJSON Attribute where
+instance Prelude.FromJSON Attribute where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Attribute"
       ( \x ->
           Attribute'
-            <$> (x .:? "targetId")
-            <*> (x .:? "targetType")
-            <*> (x .:? "value")
-            <*> (x .: "name")
+            Prelude.<$> (x Prelude..:? "targetId")
+            Prelude.<*> (x Prelude..:? "targetType")
+            Prelude.<*> (x Prelude..:? "value")
+            Prelude.<*> (x Prelude..: "name")
       )
 
-instance Hashable Attribute
+instance Prelude.Hashable Attribute
 
-instance NFData Attribute
+instance Prelude.NFData Attribute
 
-instance ToJSON Attribute where
+instance Prelude.ToJSON Attribute where
   toJSON Attribute' {..} =
-    object
-      ( catMaybes
-          [ ("targetId" .=) <$> _aTargetId,
-            ("targetType" .=) <$> _aTargetType,
-            ("value" .=) <$> _aValue,
-            Just ("name" .= _aName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("targetId" Prelude..=) Prelude.<$> targetId,
+            ("targetType" Prelude..=) Prelude.<$> targetType,
+            ("value" Prelude..=) Prelude.<$> value,
+            Prelude.Just ("name" Prelude..= name)
           ]
       )

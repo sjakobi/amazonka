@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,109 +20,115 @@
 module Network.AWS.ECS.Types.FSxWindowsFileServerVolumeConfiguration where
 
 import Network.AWS.ECS.Types.FSxWindowsFileServerAuthorizationConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This parameter is specified when you are using <https://docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html Amazon FSx for Windows File Server> file system for task storage.
+-- | This parameter is specified when you are using
+-- <https://docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html Amazon FSx for Windows File Server>
+-- file system for task storage.
 --
+-- For more information and the input format, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/wfsx-volumes.html Amazon FSx for Windows File Server Volumes>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 --
--- For more information and the input format, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/wfsx-volumes.html Amazon FSx for Windows File Server Volumes> in the /Amazon Elastic Container Service Developer Guide/ .
---
---
--- /See:/ 'fSxWindowsFileServerVolumeConfiguration' smart constructor.
+-- /See:/ 'newFSxWindowsFileServerVolumeConfiguration' smart constructor.
 data FSxWindowsFileServerVolumeConfiguration = FSxWindowsFileServerVolumeConfiguration'
-  { _fswfsvcFileSystemId ::
-      !Text,
-    _fswfsvcRootDirectory ::
-      !Text,
-    _fswfsvcAuthorizationConfig ::
-      !FSxWindowsFileServerAuthorizationConfig
+  { -- | The Amazon FSx for Windows File Server file system ID to use.
+    fileSystemId :: Prelude.Text,
+    -- | The directory within the Amazon FSx for Windows File Server file system
+    -- to mount as the root directory inside the host.
+    rootDirectory :: Prelude.Text,
+    -- | The authorization configuration details for the Amazon FSx for Windows
+    -- File Server file system.
+    authorizationConfig :: FSxWindowsFileServerAuthorizationConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FSxWindowsFileServerVolumeConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FSxWindowsFileServerVolumeConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fswfsvcFileSystemId' - The Amazon FSx for Windows File Server file system ID to use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fswfsvcRootDirectory' - The directory within the Amazon FSx for Windows File Server file system to mount as the root directory inside the host.
+-- 'fileSystemId', 'fSxWindowsFileServerVolumeConfiguration_fileSystemId' - The Amazon FSx for Windows File Server file system ID to use.
 --
--- * 'fswfsvcAuthorizationConfig' - The authorization configuration details for the Amazon FSx for Windows File Server file system.
-fSxWindowsFileServerVolumeConfiguration ::
-  -- | 'fswfsvcFileSystemId'
-  Text ->
-  -- | 'fswfsvcRootDirectory'
-  Text ->
-  -- | 'fswfsvcAuthorizationConfig'
+-- 'rootDirectory', 'fSxWindowsFileServerVolumeConfiguration_rootDirectory' - The directory within the Amazon FSx for Windows File Server file system
+-- to mount as the root directory inside the host.
+--
+-- 'authorizationConfig', 'fSxWindowsFileServerVolumeConfiguration_authorizationConfig' - The authorization configuration details for the Amazon FSx for Windows
+-- File Server file system.
+newFSxWindowsFileServerVolumeConfiguration ::
+  -- | 'fileSystemId'
+  Prelude.Text ->
+  -- | 'rootDirectory'
+  Prelude.Text ->
+  -- | 'authorizationConfig'
   FSxWindowsFileServerAuthorizationConfig ->
   FSxWindowsFileServerVolumeConfiguration
-fSxWindowsFileServerVolumeConfiguration
+newFSxWindowsFileServerVolumeConfiguration
   pFileSystemId_
   pRootDirectory_
   pAuthorizationConfig_ =
     FSxWindowsFileServerVolumeConfiguration'
-      { _fswfsvcFileSystemId =
+      { fileSystemId =
           pFileSystemId_,
-        _fswfsvcRootDirectory =
-          pRootDirectory_,
-        _fswfsvcAuthorizationConfig =
+        rootDirectory = pRootDirectory_,
+        authorizationConfig =
           pAuthorizationConfig_
       }
 
 -- | The Amazon FSx for Windows File Server file system ID to use.
-fswfsvcFileSystemId :: Lens' FSxWindowsFileServerVolumeConfiguration Text
-fswfsvcFileSystemId = lens _fswfsvcFileSystemId (\s a -> s {_fswfsvcFileSystemId = a})
+fSxWindowsFileServerVolumeConfiguration_fileSystemId :: Lens.Lens' FSxWindowsFileServerVolumeConfiguration Prelude.Text
+fSxWindowsFileServerVolumeConfiguration_fileSystemId = Lens.lens (\FSxWindowsFileServerVolumeConfiguration' {fileSystemId} -> fileSystemId) (\s@FSxWindowsFileServerVolumeConfiguration' {} a -> s {fileSystemId = a} :: FSxWindowsFileServerVolumeConfiguration)
 
--- | The directory within the Amazon FSx for Windows File Server file system to mount as the root directory inside the host.
-fswfsvcRootDirectory :: Lens' FSxWindowsFileServerVolumeConfiguration Text
-fswfsvcRootDirectory = lens _fswfsvcRootDirectory (\s a -> s {_fswfsvcRootDirectory = a})
+-- | The directory within the Amazon FSx for Windows File Server file system
+-- to mount as the root directory inside the host.
+fSxWindowsFileServerVolumeConfiguration_rootDirectory :: Lens.Lens' FSxWindowsFileServerVolumeConfiguration Prelude.Text
+fSxWindowsFileServerVolumeConfiguration_rootDirectory = Lens.lens (\FSxWindowsFileServerVolumeConfiguration' {rootDirectory} -> rootDirectory) (\s@FSxWindowsFileServerVolumeConfiguration' {} a -> s {rootDirectory = a} :: FSxWindowsFileServerVolumeConfiguration)
 
--- | The authorization configuration details for the Amazon FSx for Windows File Server file system.
-fswfsvcAuthorizationConfig :: Lens' FSxWindowsFileServerVolumeConfiguration FSxWindowsFileServerAuthorizationConfig
-fswfsvcAuthorizationConfig = lens _fswfsvcAuthorizationConfig (\s a -> s {_fswfsvcAuthorizationConfig = a})
+-- | The authorization configuration details for the Amazon FSx for Windows
+-- File Server file system.
+fSxWindowsFileServerVolumeConfiguration_authorizationConfig :: Lens.Lens' FSxWindowsFileServerVolumeConfiguration FSxWindowsFileServerAuthorizationConfig
+fSxWindowsFileServerVolumeConfiguration_authorizationConfig = Lens.lens (\FSxWindowsFileServerVolumeConfiguration' {authorizationConfig} -> authorizationConfig) (\s@FSxWindowsFileServerVolumeConfiguration' {} a -> s {authorizationConfig = a} :: FSxWindowsFileServerVolumeConfiguration)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     FSxWindowsFileServerVolumeConfiguration
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FSxWindowsFileServerVolumeConfiguration"
       ( \x ->
           FSxWindowsFileServerVolumeConfiguration'
-            <$> (x .: "fileSystemId")
-            <*> (x .: "rootDirectory")
-            <*> (x .: "authorizationConfig")
+            Prelude.<$> (x Prelude..: "fileSystemId")
+            Prelude.<*> (x Prelude..: "rootDirectory")
+            Prelude.<*> (x Prelude..: "authorizationConfig")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     FSxWindowsFileServerVolumeConfiguration
 
 instance
-  NFData
+  Prelude.NFData
     FSxWindowsFileServerVolumeConfiguration
 
 instance
-  ToJSON
+  Prelude.ToJSON
     FSxWindowsFileServerVolumeConfiguration
   where
   toJSON FSxWindowsFileServerVolumeConfiguration' {..} =
-    object
-      ( catMaybes
-          [ Just ("fileSystemId" .= _fswfsvcFileSystemId),
-            Just ("rootDirectory" .= _fswfsvcRootDirectory),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("fileSystemId" Prelude..= fileSystemId),
+            Prelude.Just
+              ("rootDirectory" Prelude..= rootDirectory),
+            Prelude.Just
               ( "authorizationConfig"
-                  .= _fswfsvcAuthorizationConfig
+                  Prelude..= authorizationConfig
               )
           ]
       )

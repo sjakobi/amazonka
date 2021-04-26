@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,83 +20,92 @@
 module Network.AWS.ECS.Types.NetworkBinding where
 
 import Network.AWS.ECS.Types.TransportProtocol
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details on the network bindings between a container and its host container instance. After a task reaches the @RUNNING@ status, manual and automatic host and container port assignments are visible in the @networkBindings@ section of 'DescribeTasks' API responses.
+-- | Details on the network bindings between a container and its host
+-- container instance. After a task reaches the @RUNNING@ status, manual
+-- and automatic host and container port assignments are visible in the
+-- @networkBindings@ section of DescribeTasks API responses.
 --
---
---
--- /See:/ 'networkBinding' smart constructor.
+-- /See:/ 'newNetworkBinding' smart constructor.
 data NetworkBinding = NetworkBinding'
-  { _nbHostPort ::
-      !(Maybe Int),
-    _nbBindIP :: !(Maybe Text),
-    _nbProtocol :: !(Maybe TransportProtocol),
-    _nbContainerPort :: !(Maybe Int)
+  { -- | The port number on the host that is used with the network binding.
+    hostPort :: Prelude.Maybe Prelude.Int,
+    -- | The IP address that the container is bound to on the container instance.
+    bindIP :: Prelude.Maybe Prelude.Text,
+    -- | The protocol used for the network binding.
+    protocol :: Prelude.Maybe TransportProtocol,
+    -- | The port number on the container that is used with the network binding.
+    containerPort :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkBinding' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkBinding' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nbHostPort' - The port number on the host that is used with the network binding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nbBindIP' - The IP address that the container is bound to on the container instance.
+-- 'hostPort', 'networkBinding_hostPort' - The port number on the host that is used with the network binding.
 --
--- * 'nbProtocol' - The protocol used for the network binding.
+-- 'bindIP', 'networkBinding_bindIP' - The IP address that the container is bound to on the container instance.
 --
--- * 'nbContainerPort' - The port number on the container that is used with the network binding.
-networkBinding ::
+-- 'protocol', 'networkBinding_protocol' - The protocol used for the network binding.
+--
+-- 'containerPort', 'networkBinding_containerPort' - The port number on the container that is used with the network binding.
+newNetworkBinding ::
   NetworkBinding
-networkBinding =
+newNetworkBinding =
   NetworkBinding'
-    { _nbHostPort = Nothing,
-      _nbBindIP = Nothing,
-      _nbProtocol = Nothing,
-      _nbContainerPort = Nothing
+    { hostPort = Prelude.Nothing,
+      bindIP = Prelude.Nothing,
+      protocol = Prelude.Nothing,
+      containerPort = Prelude.Nothing
     }
 
 -- | The port number on the host that is used with the network binding.
-nbHostPort :: Lens' NetworkBinding (Maybe Int)
-nbHostPort = lens _nbHostPort (\s a -> s {_nbHostPort = a})
+networkBinding_hostPort :: Lens.Lens' NetworkBinding (Prelude.Maybe Prelude.Int)
+networkBinding_hostPort = Lens.lens (\NetworkBinding' {hostPort} -> hostPort) (\s@NetworkBinding' {} a -> s {hostPort = a} :: NetworkBinding)
 
 -- | The IP address that the container is bound to on the container instance.
-nbBindIP :: Lens' NetworkBinding (Maybe Text)
-nbBindIP = lens _nbBindIP (\s a -> s {_nbBindIP = a})
+networkBinding_bindIP :: Lens.Lens' NetworkBinding (Prelude.Maybe Prelude.Text)
+networkBinding_bindIP = Lens.lens (\NetworkBinding' {bindIP} -> bindIP) (\s@NetworkBinding' {} a -> s {bindIP = a} :: NetworkBinding)
 
 -- | The protocol used for the network binding.
-nbProtocol :: Lens' NetworkBinding (Maybe TransportProtocol)
-nbProtocol = lens _nbProtocol (\s a -> s {_nbProtocol = a})
+networkBinding_protocol :: Lens.Lens' NetworkBinding (Prelude.Maybe TransportProtocol)
+networkBinding_protocol = Lens.lens (\NetworkBinding' {protocol} -> protocol) (\s@NetworkBinding' {} a -> s {protocol = a} :: NetworkBinding)
 
 -- | The port number on the container that is used with the network binding.
-nbContainerPort :: Lens' NetworkBinding (Maybe Int)
-nbContainerPort = lens _nbContainerPort (\s a -> s {_nbContainerPort = a})
+networkBinding_containerPort :: Lens.Lens' NetworkBinding (Prelude.Maybe Prelude.Int)
+networkBinding_containerPort = Lens.lens (\NetworkBinding' {containerPort} -> containerPort) (\s@NetworkBinding' {} a -> s {containerPort = a} :: NetworkBinding)
 
-instance FromJSON NetworkBinding where
+instance Prelude.FromJSON NetworkBinding where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NetworkBinding"
       ( \x ->
           NetworkBinding'
-            <$> (x .:? "hostPort")
-            <*> (x .:? "bindIP")
-            <*> (x .:? "protocol")
-            <*> (x .:? "containerPort")
+            Prelude.<$> (x Prelude..:? "hostPort")
+            Prelude.<*> (x Prelude..:? "bindIP")
+            Prelude.<*> (x Prelude..:? "protocol")
+            Prelude.<*> (x Prelude..:? "containerPort")
       )
 
-instance Hashable NetworkBinding
+instance Prelude.Hashable NetworkBinding
 
-instance NFData NetworkBinding
+instance Prelude.NFData NetworkBinding
 
-instance ToJSON NetworkBinding where
+instance Prelude.ToJSON NetworkBinding where
   toJSON NetworkBinding' {..} =
-    object
-      ( catMaybes
-          [ ("hostPort" .=) <$> _nbHostPort,
-            ("bindIP" .=) <$> _nbBindIP,
-            ("protocol" .=) <$> _nbProtocol,
-            ("containerPort" .=) <$> _nbContainerPort
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("hostPort" Prelude..=) Prelude.<$> hostPort,
+            ("bindIP" Prelude..=) Prelude.<$> bindIP,
+            ("protocol" Prelude..=) Prelude.<$> protocol,
+            ("containerPort" Prelude..=)
+              Prelude.<$> containerPort
           ]
       )

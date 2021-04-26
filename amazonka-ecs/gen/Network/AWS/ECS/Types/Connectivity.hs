@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.ECS.Types.Connectivity
   ( Connectivity
       ( ..,
-        Connected,
-        Disconnected
+        ConnectivityCONNECTED,
+        ConnectivityDISCONNECTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Connectivity = Connectivity' (CI Text)
+newtype Connectivity = Connectivity'
+  { fromConnectivity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Connected :: Connectivity
-pattern Connected = Connectivity' "CONNECTED"
+pattern ConnectivityCONNECTED :: Connectivity
+pattern ConnectivityCONNECTED = Connectivity' "CONNECTED"
 
-pattern Disconnected :: Connectivity
-pattern Disconnected = Connectivity' "DISCONNECTED"
+pattern ConnectivityDISCONNECTED :: Connectivity
+pattern ConnectivityDISCONNECTED = Connectivity' "DISCONNECTED"
 
 {-# COMPLETE
-  Connected,
-  Disconnected,
+  ConnectivityCONNECTED,
+  ConnectivityDISCONNECTED,
   Connectivity'
   #-}
 
-instance FromText Connectivity where
-  parser = (Connectivity' . mk) <$> takeText
+instance Prelude.FromText Connectivity where
+  parser = Connectivity' Prelude.<$> Prelude.takeText
 
-instance ToText Connectivity where
-  toText (Connectivity' ci) = original ci
+instance Prelude.ToText Connectivity where
+  toText (Connectivity' x) = x
 
-instance Hashable Connectivity
+instance Prelude.Hashable Connectivity
 
-instance NFData Connectivity
+instance Prelude.NFData Connectivity
 
-instance ToByteString Connectivity
+instance Prelude.ToByteString Connectivity
 
-instance ToQuery Connectivity
+instance Prelude.ToQuery Connectivity
 
-instance ToHeader Connectivity
+instance Prelude.ToHeader Connectivity
 
-instance FromJSON Connectivity where
-  parseJSON = parseJSONText "Connectivity"
+instance Prelude.FromJSON Connectivity where
+  parseJSON = Prelude.parseJSONText "Connectivity"

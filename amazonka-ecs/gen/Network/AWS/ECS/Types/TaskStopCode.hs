@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ECS.Types.TaskStopCode
   ( TaskStopCode
       ( ..,
-        EssentialContainerExited,
-        TaskFailedToStart,
-        UserInitiated
+        TaskStopCodeEssentialContainerExited,
+        TaskStopCodeTaskFailedToStart,
+        TaskStopCodeUserInitiated
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskStopCode = TaskStopCode' (CI Text)
+newtype TaskStopCode = TaskStopCode'
+  { fromTaskStopCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EssentialContainerExited :: TaskStopCode
-pattern EssentialContainerExited = TaskStopCode' "EssentialContainerExited"
+pattern TaskStopCodeEssentialContainerExited :: TaskStopCode
+pattern TaskStopCodeEssentialContainerExited = TaskStopCode' "EssentialContainerExited"
 
-pattern TaskFailedToStart :: TaskStopCode
-pattern TaskFailedToStart = TaskStopCode' "TaskFailedToStart"
+pattern TaskStopCodeTaskFailedToStart :: TaskStopCode
+pattern TaskStopCodeTaskFailedToStart = TaskStopCode' "TaskFailedToStart"
 
-pattern UserInitiated :: TaskStopCode
-pattern UserInitiated = TaskStopCode' "UserInitiated"
+pattern TaskStopCodeUserInitiated :: TaskStopCode
+pattern TaskStopCodeUserInitiated = TaskStopCode' "UserInitiated"
 
 {-# COMPLETE
-  EssentialContainerExited,
-  TaskFailedToStart,
-  UserInitiated,
+  TaskStopCodeEssentialContainerExited,
+  TaskStopCodeTaskFailedToStart,
+  TaskStopCodeUserInitiated,
   TaskStopCode'
   #-}
 
-instance FromText TaskStopCode where
-  parser = (TaskStopCode' . mk) <$> takeText
+instance Prelude.FromText TaskStopCode where
+  parser = TaskStopCode' Prelude.<$> Prelude.takeText
 
-instance ToText TaskStopCode where
-  toText (TaskStopCode' ci) = original ci
+instance Prelude.ToText TaskStopCode where
+  toText (TaskStopCode' x) = x
 
-instance Hashable TaskStopCode
+instance Prelude.Hashable TaskStopCode
 
-instance NFData TaskStopCode
+instance Prelude.NFData TaskStopCode
 
-instance ToByteString TaskStopCode
+instance Prelude.ToByteString TaskStopCode
 
-instance ToQuery TaskStopCode
+instance Prelude.ToQuery TaskStopCode
 
-instance ToHeader TaskStopCode
+instance Prelude.ToHeader TaskStopCode
 
-instance FromJSON TaskStopCode where
-  parseJSON = parseJSONText "TaskStopCode"
+instance Prelude.FromJSON TaskStopCode where
+  parseJSON = Prelude.parseJSONText "TaskStopCode"

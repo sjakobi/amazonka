@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.ECS.Types.DeploymentControllerType
   ( DeploymentControllerType
       ( ..,
-        CodeDeploy,
-        Ecs,
-        External
+        DeploymentControllerTypeCODEDEPLOY,
+        DeploymentControllerTypeECS,
+        DeploymentControllerTypeEXTERNAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeploymentControllerType
-  = DeploymentControllerType'
-      ( CI
-          Text
-      )
+newtype DeploymentControllerType = DeploymentControllerType'
+  { fromDeploymentControllerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CodeDeploy :: DeploymentControllerType
-pattern CodeDeploy = DeploymentControllerType' "CODE_DEPLOY"
+pattern DeploymentControllerTypeCODEDEPLOY :: DeploymentControllerType
+pattern DeploymentControllerTypeCODEDEPLOY = DeploymentControllerType' "CODE_DEPLOY"
 
-pattern Ecs :: DeploymentControllerType
-pattern Ecs = DeploymentControllerType' "ECS"
+pattern DeploymentControllerTypeECS :: DeploymentControllerType
+pattern DeploymentControllerTypeECS = DeploymentControllerType' "ECS"
 
-pattern External :: DeploymentControllerType
-pattern External = DeploymentControllerType' "EXTERNAL"
+pattern DeploymentControllerTypeEXTERNAL :: DeploymentControllerType
+pattern DeploymentControllerTypeEXTERNAL = DeploymentControllerType' "EXTERNAL"
 
 {-# COMPLETE
-  CodeDeploy,
-  Ecs,
-  External,
+  DeploymentControllerTypeCODEDEPLOY,
+  DeploymentControllerTypeECS,
+  DeploymentControllerTypeEXTERNAL,
   DeploymentControllerType'
   #-}
 
-instance FromText DeploymentControllerType where
-  parser = (DeploymentControllerType' . mk) <$> takeText
+instance Prelude.FromText DeploymentControllerType where
+  parser = DeploymentControllerType' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentControllerType where
-  toText (DeploymentControllerType' ci) = original ci
+instance Prelude.ToText DeploymentControllerType where
+  toText (DeploymentControllerType' x) = x
 
-instance Hashable DeploymentControllerType
+instance Prelude.Hashable DeploymentControllerType
 
-instance NFData DeploymentControllerType
+instance Prelude.NFData DeploymentControllerType
 
-instance ToByteString DeploymentControllerType
+instance Prelude.ToByteString DeploymentControllerType
 
-instance ToQuery DeploymentControllerType
+instance Prelude.ToQuery DeploymentControllerType
 
-instance ToHeader DeploymentControllerType
+instance Prelude.ToHeader DeploymentControllerType
 
-instance ToJSON DeploymentControllerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeploymentControllerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeploymentControllerType where
-  parseJSON = parseJSONText "DeploymentControllerType"
+instance Prelude.FromJSON DeploymentControllerType where
+  parseJSON = Prelude.parseJSONText "DeploymentControllerType"

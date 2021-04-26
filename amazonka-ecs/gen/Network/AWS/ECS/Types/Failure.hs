@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECS.Types.Failure where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A failed resource. For a list of common causes, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/api_failures_messages.html API failure reasons> in the /Amazon Elastic Container Service Developer Guide/ .
+-- | A failed resource. For a list of common causes, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/api_failures_messages.html API failure reasons>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 --
---
---
--- /See:/ 'failure' smart constructor.
+-- /See:/ 'newFailure' smart constructor.
 data Failure = Failure'
-  { _fArn :: !(Maybe Text),
-    _fReason :: !(Maybe Text),
-    _fDetail :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the failed resource.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The reason for the failure.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The details of the failure.
+    detail :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Failure' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Failure' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fArn' - The Amazon Resource Name (ARN) of the failed resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fReason' - The reason for the failure.
+-- 'arn', 'failure_arn' - The Amazon Resource Name (ARN) of the failed resource.
 --
--- * 'fDetail' - The details of the failure.
-failure ::
+-- 'reason', 'failure_reason' - The reason for the failure.
+--
+-- 'detail', 'failure_detail' - The details of the failure.
+newFailure ::
   Failure
-failure =
+newFailure =
   Failure'
-    { _fArn = Nothing,
-      _fReason = Nothing,
-      _fDetail = Nothing
+    { arn = Prelude.Nothing,
+      reason = Prelude.Nothing,
+      detail = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the failed resource.
-fArn :: Lens' Failure (Maybe Text)
-fArn = lens _fArn (\s a -> s {_fArn = a})
+failure_arn :: Lens.Lens' Failure (Prelude.Maybe Prelude.Text)
+failure_arn = Lens.lens (\Failure' {arn} -> arn) (\s@Failure' {} a -> s {arn = a} :: Failure)
 
 -- | The reason for the failure.
-fReason :: Lens' Failure (Maybe Text)
-fReason = lens _fReason (\s a -> s {_fReason = a})
+failure_reason :: Lens.Lens' Failure (Prelude.Maybe Prelude.Text)
+failure_reason = Lens.lens (\Failure' {reason} -> reason) (\s@Failure' {} a -> s {reason = a} :: Failure)
 
 -- | The details of the failure.
-fDetail :: Lens' Failure (Maybe Text)
-fDetail = lens _fDetail (\s a -> s {_fDetail = a})
+failure_detail :: Lens.Lens' Failure (Prelude.Maybe Prelude.Text)
+failure_detail = Lens.lens (\Failure' {detail} -> detail) (\s@Failure' {} a -> s {detail = a} :: Failure)
 
-instance FromJSON Failure where
+instance Prelude.FromJSON Failure where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Failure"
       ( \x ->
           Failure'
-            <$> (x .:? "arn")
-            <*> (x .:? "reason")
-            <*> (x .:? "detail")
+            Prelude.<$> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "reason")
+            Prelude.<*> (x Prelude..:? "detail")
       )
 
-instance Hashable Failure
+instance Prelude.Hashable Failure
 
-instance NFData Failure
+instance Prelude.NFData Failure

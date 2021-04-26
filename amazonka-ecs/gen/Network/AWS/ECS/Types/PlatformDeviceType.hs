@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.ECS.Types.PlatformDeviceType
   ( PlatformDeviceType
       ( ..,
-        Gpu
+        PlatformDeviceTypeGPU
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlatformDeviceType
-  = PlatformDeviceType'
-      ( CI
-          Text
-      )
+newtype PlatformDeviceType = PlatformDeviceType'
+  { fromPlatformDeviceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Gpu :: PlatformDeviceType
-pattern Gpu = PlatformDeviceType' "GPU"
+pattern PlatformDeviceTypeGPU :: PlatformDeviceType
+pattern PlatformDeviceTypeGPU = PlatformDeviceType' "GPU"
 
 {-# COMPLETE
-  Gpu,
+  PlatformDeviceTypeGPU,
   PlatformDeviceType'
   #-}
 
-instance FromText PlatformDeviceType where
-  parser = (PlatformDeviceType' . mk) <$> takeText
+instance Prelude.FromText PlatformDeviceType where
+  parser = PlatformDeviceType' Prelude.<$> Prelude.takeText
 
-instance ToText PlatformDeviceType where
-  toText (PlatformDeviceType' ci) = original ci
+instance Prelude.ToText PlatformDeviceType where
+  toText (PlatformDeviceType' x) = x
 
-instance Hashable PlatformDeviceType
+instance Prelude.Hashable PlatformDeviceType
 
-instance NFData PlatformDeviceType
+instance Prelude.NFData PlatformDeviceType
 
-instance ToByteString PlatformDeviceType
+instance Prelude.ToByteString PlatformDeviceType
 
-instance ToQuery PlatformDeviceType
+instance Prelude.ToQuery PlatformDeviceType
 
-instance ToHeader PlatformDeviceType
+instance Prelude.ToHeader PlatformDeviceType
 
-instance ToJSON PlatformDeviceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PlatformDeviceType where
+  toJSON = Prelude.toJSONText

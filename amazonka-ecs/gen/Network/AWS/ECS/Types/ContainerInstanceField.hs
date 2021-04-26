@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.ECS.Types.ContainerInstanceField
   ( ContainerInstanceField
       ( ..,
-        CIFTags
+        ContainerInstanceFieldTAGS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerInstanceField
-  = ContainerInstanceField'
-      ( CI
-          Text
-      )
+newtype ContainerInstanceField = ContainerInstanceField'
+  { fromContainerInstanceField ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CIFTags :: ContainerInstanceField
-pattern CIFTags = ContainerInstanceField' "TAGS"
+pattern ContainerInstanceFieldTAGS :: ContainerInstanceField
+pattern ContainerInstanceFieldTAGS = ContainerInstanceField' "TAGS"
 
 {-# COMPLETE
-  CIFTags,
+  ContainerInstanceFieldTAGS,
   ContainerInstanceField'
   #-}
 
-instance FromText ContainerInstanceField where
-  parser = (ContainerInstanceField' . mk) <$> takeText
+instance Prelude.FromText ContainerInstanceField where
+  parser = ContainerInstanceField' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerInstanceField where
-  toText (ContainerInstanceField' ci) = original ci
+instance Prelude.ToText ContainerInstanceField where
+  toText (ContainerInstanceField' x) = x
 
-instance Hashable ContainerInstanceField
+instance Prelude.Hashable ContainerInstanceField
 
-instance NFData ContainerInstanceField
+instance Prelude.NFData ContainerInstanceField
 
-instance ToByteString ContainerInstanceField
+instance Prelude.ToByteString ContainerInstanceField
 
-instance ToQuery ContainerInstanceField
+instance Prelude.ToQuery ContainerInstanceField
 
-instance ToHeader ContainerInstanceField
+instance Prelude.ToHeader ContainerInstanceField
 
-instance ToJSON ContainerInstanceField where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContainerInstanceField where
+  toJSON = Prelude.toJSONText

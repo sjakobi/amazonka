@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the Amazon ECS container agent on a specified container instance. Updating the Amazon ECS container agent does not interrupt running tasks or services on the container instance. The process for updating the agent differs depending on whether your container instance was launched with the Amazon ECS-optimized AMI or another operating system.
+-- Updates the Amazon ECS container agent on a specified container
+-- instance. Updating the Amazon ECS container agent does not interrupt
+-- running tasks or services on the container instance. The process for
+-- updating the agent differs depending on whether your container instance
+-- was launched with the Amazon ECS-optimized AMI or another operating
+-- system.
 --
---
--- @UpdateContainerAgent@ requires the Amazon ECS-optimized AMI or Amazon Linux with the @ecs-init@ service installed and running. For help updating the Amazon ECS container agent on other operating systems, see <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html#manually_update_agent Manually Updating the Amazon ECS Container Agent> in the /Amazon Elastic Container Service Developer Guide/ .
+-- @UpdateContainerAgent@ requires the Amazon ECS-optimized AMI or Amazon
+-- Linux with the @ecs-init@ service installed and running. For help
+-- updating the Amazon ECS container agent on other operating systems, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html#manually_update_agent Manually Updating the Amazon ECS Container Agent>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 module Network.AWS.ECS.UpdateContainerAgent
   ( -- * Creating a Request
-    updateContainerAgent,
-    UpdateContainerAgent,
+    UpdateContainerAgent (..),
+    newUpdateContainerAgent,
 
     -- * Request Lenses
-    ucaCluster,
-    ucaContainerInstance,
+    updateContainerAgent_cluster,
+    updateContainerAgent_containerInstance,
 
     -- * Destructuring the Response
-    updateContainerAgentResponse,
-    UpdateContainerAgentResponse,
+    UpdateContainerAgentResponse (..),
+    newUpdateContainerAgentResponse,
 
     -- * Response Lenses
-    ucarrsContainerInstance,
-    ucarrsResponseStatus,
+    updateContainerAgentResponse_containerInstance,
+    updateContainerAgentResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.ContainerInstance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateContainerAgent' smart constructor.
+-- | /See:/ 'newUpdateContainerAgent' smart constructor.
 data UpdateContainerAgent = UpdateContainerAgent'
-  { _ucaCluster ::
-      !(Maybe Text),
-    _ucaContainerInstance ::
-      !Text
+  { -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- your container instance is running on. If you do not specify a cluster,
+    -- the default cluster is assumed.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | The container instance ID or full ARN entries for the container instance
+    -- on which you would like to update the Amazon ECS container agent.
+    containerInstance :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateContainerAgent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateContainerAgent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucaCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that your container instance is running on. If you do not specify a cluster, the default cluster is assumed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucaContainerInstance' - The container instance ID or full ARN entries for the container instance on which you would like to update the Amazon ECS container agent.
-updateContainerAgent ::
-  -- | 'ucaContainerInstance'
-  Text ->
+-- 'cluster', 'updateContainerAgent_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- your container instance is running on. If you do not specify a cluster,
+-- the default cluster is assumed.
+--
+-- 'containerInstance', 'updateContainerAgent_containerInstance' - The container instance ID or full ARN entries for the container instance
+-- on which you would like to update the Amazon ECS container agent.
+newUpdateContainerAgent ::
+  -- | 'containerInstance'
+  Prelude.Text ->
   UpdateContainerAgent
-updateContainerAgent pContainerInstance_ =
+newUpdateContainerAgent pContainerInstance_ =
   UpdateContainerAgent'
-    { _ucaCluster = Nothing,
-      _ucaContainerInstance = pContainerInstance_
+    { cluster = Prelude.Nothing,
+      containerInstance = pContainerInstance_
     }
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that your container instance is running on. If you do not specify a cluster, the default cluster is assumed.
-ucaCluster :: Lens' UpdateContainerAgent (Maybe Text)
-ucaCluster = lens _ucaCluster (\s a -> s {_ucaCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- your container instance is running on. If you do not specify a cluster,
+-- the default cluster is assumed.
+updateContainerAgent_cluster :: Lens.Lens' UpdateContainerAgent (Prelude.Maybe Prelude.Text)
+updateContainerAgent_cluster = Lens.lens (\UpdateContainerAgent' {cluster} -> cluster) (\s@UpdateContainerAgent' {} a -> s {cluster = a} :: UpdateContainerAgent)
 
--- | The container instance ID or full ARN entries for the container instance on which you would like to update the Amazon ECS container agent.
-ucaContainerInstance :: Lens' UpdateContainerAgent Text
-ucaContainerInstance = lens _ucaContainerInstance (\s a -> s {_ucaContainerInstance = a})
+-- | The container instance ID or full ARN entries for the container instance
+-- on which you would like to update the Amazon ECS container agent.
+updateContainerAgent_containerInstance :: Lens.Lens' UpdateContainerAgent Prelude.Text
+updateContainerAgent_containerInstance = Lens.lens (\UpdateContainerAgent' {containerInstance} -> containerInstance) (\s@UpdateContainerAgent' {} a -> s {containerInstance = a} :: UpdateContainerAgent)
 
-instance AWSRequest UpdateContainerAgent where
+instance Prelude.AWSRequest UpdateContainerAgent where
   type
     Rs UpdateContainerAgent =
       UpdateContainerAgentResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateContainerAgentResponse'
-            <$> (x .?> "containerInstance") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "containerInstance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateContainerAgent
+instance Prelude.Hashable UpdateContainerAgent
 
-instance NFData UpdateContainerAgent
+instance Prelude.NFData UpdateContainerAgent
 
-instance ToHeaders UpdateContainerAgent where
+instance Prelude.ToHeaders UpdateContainerAgent where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.UpdateContainerAgent" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.UpdateContainerAgent" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateContainerAgent where
+instance Prelude.ToJSON UpdateContainerAgent where
   toJSON UpdateContainerAgent' {..} =
-    object
-      ( catMaybes
-          [ ("cluster" .=) <$> _ucaCluster,
-            Just ("containerInstance" .= _ucaContainerInstance)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("cluster" Prelude..=) Prelude.<$> cluster,
+            Prelude.Just
+              ("containerInstance" Prelude..= containerInstance)
           ]
       )
 
-instance ToPath UpdateContainerAgent where
-  toPath = const "/"
+instance Prelude.ToPath UpdateContainerAgent where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateContainerAgent where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateContainerAgent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateContainerAgentResponse' smart constructor.
+-- | /See:/ 'newUpdateContainerAgentResponse' smart constructor.
 data UpdateContainerAgentResponse = UpdateContainerAgentResponse'
-  { _ucarrsContainerInstance ::
-      !( Maybe
-           ContainerInstance
-       ),
-    _ucarrsResponseStatus ::
-      !Int
+  { -- | The container instance for which the container agent was updated.
+    containerInstance :: Prelude.Maybe ContainerInstance,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateContainerAgentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateContainerAgentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucarrsContainerInstance' - The container instance for which the container agent was updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucarrsResponseStatus' - -- | The response status code.
-updateContainerAgentResponse ::
-  -- | 'ucarrsResponseStatus'
-  Int ->
+-- 'containerInstance', 'updateContainerAgentResponse_containerInstance' - The container instance for which the container agent was updated.
+--
+-- 'httpStatus', 'updateContainerAgentResponse_httpStatus' - The response's http status code.
+newUpdateContainerAgentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateContainerAgentResponse
-updateContainerAgentResponse pResponseStatus_ =
+newUpdateContainerAgentResponse pHttpStatus_ =
   UpdateContainerAgentResponse'
-    { _ucarrsContainerInstance =
-        Nothing,
-      _ucarrsResponseStatus = pResponseStatus_
+    { containerInstance =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The container instance for which the container agent was updated.
-ucarrsContainerInstance :: Lens' UpdateContainerAgentResponse (Maybe ContainerInstance)
-ucarrsContainerInstance = lens _ucarrsContainerInstance (\s a -> s {_ucarrsContainerInstance = a})
+updateContainerAgentResponse_containerInstance :: Lens.Lens' UpdateContainerAgentResponse (Prelude.Maybe ContainerInstance)
+updateContainerAgentResponse_containerInstance = Lens.lens (\UpdateContainerAgentResponse' {containerInstance} -> containerInstance) (\s@UpdateContainerAgentResponse' {} a -> s {containerInstance = a} :: UpdateContainerAgentResponse)
 
--- | -- | The response status code.
-ucarrsResponseStatus :: Lens' UpdateContainerAgentResponse Int
-ucarrsResponseStatus = lens _ucarrsResponseStatus (\s a -> s {_ucarrsResponseStatus = a})
+-- | The response's http status code.
+updateContainerAgentResponse_httpStatus :: Lens.Lens' UpdateContainerAgentResponse Prelude.Int
+updateContainerAgentResponse_httpStatus = Lens.lens (\UpdateContainerAgentResponse' {httpStatus} -> httpStatus) (\s@UpdateContainerAgentResponse' {} a -> s {httpStatus = a} :: UpdateContainerAgentResponse)
 
-instance NFData UpdateContainerAgentResponse
+instance Prelude.NFData UpdateContainerAgentResponse

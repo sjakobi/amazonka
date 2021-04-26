@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,121 +19,123 @@
 module Network.AWS.ECS.Types.UlimitName
   ( UlimitName
       ( ..,
-        CPU,
-        Core,
-        Data,
-        Fsize,
-        Locks,
-        Memlock,
-        Msgqueue,
-        Nice,
-        Nofile,
-        Nproc,
-        Rss,
-        Rtprio,
-        Rttime,
-        Sigpending,
-        Stack
+        UlimitNameCore,
+        UlimitNameCpu,
+        UlimitNameData,
+        UlimitNameFsize,
+        UlimitNameLocks,
+        UlimitNameMemlock,
+        UlimitNameMsgqueue,
+        UlimitNameNice,
+        UlimitNameNofile,
+        UlimitNameNproc,
+        UlimitNameRss,
+        UlimitNameRtprio,
+        UlimitNameRttime,
+        UlimitNameSigpending,
+        UlimitNameStack
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UlimitName = UlimitName' (CI Text)
+newtype UlimitName = UlimitName'
+  { fromUlimitName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CPU :: UlimitName
-pattern CPU = UlimitName' "cpu"
+pattern UlimitNameCore :: UlimitName
+pattern UlimitNameCore = UlimitName' "core"
 
-pattern Core :: UlimitName
-pattern Core = UlimitName' "core"
+pattern UlimitNameCpu :: UlimitName
+pattern UlimitNameCpu = UlimitName' "cpu"
 
-pattern Data :: UlimitName
-pattern Data = UlimitName' "data"
+pattern UlimitNameData :: UlimitName
+pattern UlimitNameData = UlimitName' "data"
 
-pattern Fsize :: UlimitName
-pattern Fsize = UlimitName' "fsize"
+pattern UlimitNameFsize :: UlimitName
+pattern UlimitNameFsize = UlimitName' "fsize"
 
-pattern Locks :: UlimitName
-pattern Locks = UlimitName' "locks"
+pattern UlimitNameLocks :: UlimitName
+pattern UlimitNameLocks = UlimitName' "locks"
 
-pattern Memlock :: UlimitName
-pattern Memlock = UlimitName' "memlock"
+pattern UlimitNameMemlock :: UlimitName
+pattern UlimitNameMemlock = UlimitName' "memlock"
 
-pattern Msgqueue :: UlimitName
-pattern Msgqueue = UlimitName' "msgqueue"
+pattern UlimitNameMsgqueue :: UlimitName
+pattern UlimitNameMsgqueue = UlimitName' "msgqueue"
 
-pattern Nice :: UlimitName
-pattern Nice = UlimitName' "nice"
+pattern UlimitNameNice :: UlimitName
+pattern UlimitNameNice = UlimitName' "nice"
 
-pattern Nofile :: UlimitName
-pattern Nofile = UlimitName' "nofile"
+pattern UlimitNameNofile :: UlimitName
+pattern UlimitNameNofile = UlimitName' "nofile"
 
-pattern Nproc :: UlimitName
-pattern Nproc = UlimitName' "nproc"
+pattern UlimitNameNproc :: UlimitName
+pattern UlimitNameNproc = UlimitName' "nproc"
 
-pattern Rss :: UlimitName
-pattern Rss = UlimitName' "rss"
+pattern UlimitNameRss :: UlimitName
+pattern UlimitNameRss = UlimitName' "rss"
 
-pattern Rtprio :: UlimitName
-pattern Rtprio = UlimitName' "rtprio"
+pattern UlimitNameRtprio :: UlimitName
+pattern UlimitNameRtprio = UlimitName' "rtprio"
 
-pattern Rttime :: UlimitName
-pattern Rttime = UlimitName' "rttime"
+pattern UlimitNameRttime :: UlimitName
+pattern UlimitNameRttime = UlimitName' "rttime"
 
-pattern Sigpending :: UlimitName
-pattern Sigpending = UlimitName' "sigpending"
+pattern UlimitNameSigpending :: UlimitName
+pattern UlimitNameSigpending = UlimitName' "sigpending"
 
-pattern Stack :: UlimitName
-pattern Stack = UlimitName' "stack"
+pattern UlimitNameStack :: UlimitName
+pattern UlimitNameStack = UlimitName' "stack"
 
 {-# COMPLETE
-  CPU,
-  Core,
-  Data,
-  Fsize,
-  Locks,
-  Memlock,
-  Msgqueue,
-  Nice,
-  Nofile,
-  Nproc,
-  Rss,
-  Rtprio,
-  Rttime,
-  Sigpending,
-  Stack,
+  UlimitNameCore,
+  UlimitNameCpu,
+  UlimitNameData,
+  UlimitNameFsize,
+  UlimitNameLocks,
+  UlimitNameMemlock,
+  UlimitNameMsgqueue,
+  UlimitNameNice,
+  UlimitNameNofile,
+  UlimitNameNproc,
+  UlimitNameRss,
+  UlimitNameRtprio,
+  UlimitNameRttime,
+  UlimitNameSigpending,
+  UlimitNameStack,
   UlimitName'
   #-}
 
-instance FromText UlimitName where
-  parser = (UlimitName' . mk) <$> takeText
+instance Prelude.FromText UlimitName where
+  parser = UlimitName' Prelude.<$> Prelude.takeText
 
-instance ToText UlimitName where
-  toText (UlimitName' ci) = original ci
+instance Prelude.ToText UlimitName where
+  toText (UlimitName' x) = x
 
-instance Hashable UlimitName
+instance Prelude.Hashable UlimitName
 
-instance NFData UlimitName
+instance Prelude.NFData UlimitName
 
-instance ToByteString UlimitName
+instance Prelude.ToByteString UlimitName
 
-instance ToQuery UlimitName
+instance Prelude.ToQuery UlimitName
 
-instance ToHeader UlimitName
+instance Prelude.ToHeader UlimitName
 
-instance ToJSON UlimitName where
-  toJSON = toJSONText
+instance Prelude.ToJSON UlimitName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON UlimitName where
-  parseJSON = parseJSONText "UlimitName"
+instance Prelude.FromJSON UlimitName where
+  parseJSON = Prelude.parseJSONText "UlimitName"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,106 +21,126 @@ module Network.AWS.ECS.Types.TaskOverride where
 
 import Network.AWS.ECS.Types.ContainerOverride
 import Network.AWS.ECS.Types.InferenceAcceleratorOverride
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The overrides associated with a task.
 --
---
---
--- /See:/ 'taskOverride' smart constructor.
+-- /See:/ 'newTaskOverride' smart constructor.
 data TaskOverride = TaskOverride'
-  { _toTaskRoleARN ::
-      !(Maybe Text),
-    _toMemory :: !(Maybe Text),
-    _toExecutionRoleARN :: !(Maybe Text),
-    _toInferenceAcceleratorOverrides ::
-      !(Maybe [InferenceAcceleratorOverride]),
-    _toContainerOverrides ::
-      !(Maybe [ContainerOverride]),
-    _toCpu :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the IAM role that containers in this
+    -- task can assume. All containers in this task are granted the permissions
+    -- that are specified in this role.
+    taskRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The memory override for the task.
+    memory :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the task execution IAM role override
+    -- for the task.
+    executionRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Elastic Inference accelerator override for the task.
+    inferenceAcceleratorOverrides :: Prelude.Maybe [InferenceAcceleratorOverride],
+    -- | One or more container overrides sent to a task.
+    containerOverrides :: Prelude.Maybe [ContainerOverride],
+    -- | The cpu override for the task.
+    cpu :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TaskOverride' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TaskOverride' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'toTaskRoleARN' - The Amazon Resource Name (ARN) of the IAM role that containers in this task can assume. All containers in this task are granted the permissions that are specified in this role.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'toMemory' - The memory override for the task.
+-- 'taskRoleArn', 'taskOverride_taskRoleArn' - The Amazon Resource Name (ARN) of the IAM role that containers in this
+-- task can assume. All containers in this task are granted the permissions
+-- that are specified in this role.
 --
--- * 'toExecutionRoleARN' - The Amazon Resource Name (ARN) of the task execution IAM role override for the task.
+-- 'memory', 'taskOverride_memory' - The memory override for the task.
 --
--- * 'toInferenceAcceleratorOverrides' - The Elastic Inference accelerator override for the task.
+-- 'executionRoleArn', 'taskOverride_executionRoleArn' - The Amazon Resource Name (ARN) of the task execution IAM role override
+-- for the task.
 --
--- * 'toContainerOverrides' - One or more container overrides sent to a task.
+-- 'inferenceAcceleratorOverrides', 'taskOverride_inferenceAcceleratorOverrides' - The Elastic Inference accelerator override for the task.
 --
--- * 'toCpu' - The cpu override for the task.
-taskOverride ::
+-- 'containerOverrides', 'taskOverride_containerOverrides' - One or more container overrides sent to a task.
+--
+-- 'cpu', 'taskOverride_cpu' - The cpu override for the task.
+newTaskOverride ::
   TaskOverride
-taskOverride =
+newTaskOverride =
   TaskOverride'
-    { _toTaskRoleARN = Nothing,
-      _toMemory = Nothing,
-      _toExecutionRoleARN = Nothing,
-      _toInferenceAcceleratorOverrides = Nothing,
-      _toContainerOverrides = Nothing,
-      _toCpu = Nothing
+    { taskRoleArn = Prelude.Nothing,
+      memory = Prelude.Nothing,
+      executionRoleArn = Prelude.Nothing,
+      inferenceAcceleratorOverrides = Prelude.Nothing,
+      containerOverrides = Prelude.Nothing,
+      cpu = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the IAM role that containers in this task can assume. All containers in this task are granted the permissions that are specified in this role.
-toTaskRoleARN :: Lens' TaskOverride (Maybe Text)
-toTaskRoleARN = lens _toTaskRoleARN (\s a -> s {_toTaskRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role that containers in this
+-- task can assume. All containers in this task are granted the permissions
+-- that are specified in this role.
+taskOverride_taskRoleArn :: Lens.Lens' TaskOverride (Prelude.Maybe Prelude.Text)
+taskOverride_taskRoleArn = Lens.lens (\TaskOverride' {taskRoleArn} -> taskRoleArn) (\s@TaskOverride' {} a -> s {taskRoleArn = a} :: TaskOverride)
 
 -- | The memory override for the task.
-toMemory :: Lens' TaskOverride (Maybe Text)
-toMemory = lens _toMemory (\s a -> s {_toMemory = a})
+taskOverride_memory :: Lens.Lens' TaskOverride (Prelude.Maybe Prelude.Text)
+taskOverride_memory = Lens.lens (\TaskOverride' {memory} -> memory) (\s@TaskOverride' {} a -> s {memory = a} :: TaskOverride)
 
--- | The Amazon Resource Name (ARN) of the task execution IAM role override for the task.
-toExecutionRoleARN :: Lens' TaskOverride (Maybe Text)
-toExecutionRoleARN = lens _toExecutionRoleARN (\s a -> s {_toExecutionRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the task execution IAM role override
+-- for the task.
+taskOverride_executionRoleArn :: Lens.Lens' TaskOverride (Prelude.Maybe Prelude.Text)
+taskOverride_executionRoleArn = Lens.lens (\TaskOverride' {executionRoleArn} -> executionRoleArn) (\s@TaskOverride' {} a -> s {executionRoleArn = a} :: TaskOverride)
 
 -- | The Elastic Inference accelerator override for the task.
-toInferenceAcceleratorOverrides :: Lens' TaskOverride [InferenceAcceleratorOverride]
-toInferenceAcceleratorOverrides = lens _toInferenceAcceleratorOverrides (\s a -> s {_toInferenceAcceleratorOverrides = a}) . _Default . _Coerce
+taskOverride_inferenceAcceleratorOverrides :: Lens.Lens' TaskOverride (Prelude.Maybe [InferenceAcceleratorOverride])
+taskOverride_inferenceAcceleratorOverrides = Lens.lens (\TaskOverride' {inferenceAcceleratorOverrides} -> inferenceAcceleratorOverrides) (\s@TaskOverride' {} a -> s {inferenceAcceleratorOverrides = a} :: TaskOverride) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | One or more container overrides sent to a task.
-toContainerOverrides :: Lens' TaskOverride [ContainerOverride]
-toContainerOverrides = lens _toContainerOverrides (\s a -> s {_toContainerOverrides = a}) . _Default . _Coerce
+taskOverride_containerOverrides :: Lens.Lens' TaskOverride (Prelude.Maybe [ContainerOverride])
+taskOverride_containerOverrides = Lens.lens (\TaskOverride' {containerOverrides} -> containerOverrides) (\s@TaskOverride' {} a -> s {containerOverrides = a} :: TaskOverride) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The cpu override for the task.
-toCpu :: Lens' TaskOverride (Maybe Text)
-toCpu = lens _toCpu (\s a -> s {_toCpu = a})
+taskOverride_cpu :: Lens.Lens' TaskOverride (Prelude.Maybe Prelude.Text)
+taskOverride_cpu = Lens.lens (\TaskOverride' {cpu} -> cpu) (\s@TaskOverride' {} a -> s {cpu = a} :: TaskOverride)
 
-instance FromJSON TaskOverride where
+instance Prelude.FromJSON TaskOverride where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TaskOverride"
       ( \x ->
           TaskOverride'
-            <$> (x .:? "taskRoleArn")
-            <*> (x .:? "memory")
-            <*> (x .:? "executionRoleArn")
-            <*> (x .:? "inferenceAcceleratorOverrides" .!= mempty)
-            <*> (x .:? "containerOverrides" .!= mempty)
-            <*> (x .:? "cpu")
+            Prelude.<$> (x Prelude..:? "taskRoleArn")
+            Prelude.<*> (x Prelude..:? "memory")
+            Prelude.<*> (x Prelude..:? "executionRoleArn")
+            Prelude.<*> ( x Prelude..:? "inferenceAcceleratorOverrides"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "containerOverrides"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "cpu")
       )
 
-instance Hashable TaskOverride
+instance Prelude.Hashable TaskOverride
 
-instance NFData TaskOverride
+instance Prelude.NFData TaskOverride
 
-instance ToJSON TaskOverride where
+instance Prelude.ToJSON TaskOverride where
   toJSON TaskOverride' {..} =
-    object
-      ( catMaybes
-          [ ("taskRoleArn" .=) <$> _toTaskRoleARN,
-            ("memory" .=) <$> _toMemory,
-            ("executionRoleArn" .=) <$> _toExecutionRoleARN,
-            ("inferenceAcceleratorOverrides" .=)
-              <$> _toInferenceAcceleratorOverrides,
-            ("containerOverrides" .=) <$> _toContainerOverrides,
-            ("cpu" .=) <$> _toCpu
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("taskRoleArn" Prelude..=) Prelude.<$> taskRoleArn,
+            ("memory" Prelude..=) Prelude.<$> memory,
+            ("executionRoleArn" Prelude..=)
+              Prelude.<$> executionRoleArn,
+            ("inferenceAcceleratorOverrides" Prelude..=)
+              Prelude.<$> inferenceAcceleratorOverrides,
+            ("containerOverrides" Prelude..=)
+              Prelude.<$> containerOverrides,
+            ("cpu" Prelude..=) Prelude.<$> cpu
           ]
       )

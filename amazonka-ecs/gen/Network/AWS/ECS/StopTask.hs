@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,148 +23,192 @@
 --
 -- Stops a running task. Any tags associated with the task will be deleted.
 --
+-- When StopTask is called on a task, the equivalent of @docker stop@ is
+-- issued to the containers running in the task. This results in a
+-- @SIGTERM@ value and a default 30-second timeout, after which the
+-- @SIGKILL@ value is sent and the containers are forcibly stopped. If the
+-- container handles the @SIGTERM@ value gracefully and exits within 30
+-- seconds from receiving it, no @SIGKILL@ value is sent.
 --
--- When 'StopTask' is called on a task, the equivalent of @docker stop@ is issued to the containers running in the task. This results in a @SIGTERM@ value and a default 30-second timeout, after which the @SIGKILL@ value is sent and the containers are forcibly stopped. If the container handles the @SIGTERM@ value gracefully and exits within 30 seconds from receiving it, no @SIGKILL@ value is sent.
+-- The default 30-second timeout can be configured on the Amazon ECS
+-- container agent with the @ECS_CONTAINER_STOP_TIMEOUT@ variable. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html Amazon ECS Container Agent Configuration>
+-- in the /Amazon Elastic Container Service Developer Guide/.
 module Network.AWS.ECS.StopTask
   ( -- * Creating a Request
-    stopTask,
-    StopTask,
+    StopTask (..),
+    newStopTask,
 
     -- * Request Lenses
-    stReason,
-    stCluster,
-    stTask,
+    stopTask_reason,
+    stopTask_cluster,
+    stopTask_task,
 
     -- * Destructuring the Response
-    stopTaskResponse,
-    StopTaskResponse,
+    StopTaskResponse (..),
+    newStopTaskResponse,
 
     -- * Response Lenses
-    strrsTask,
-    strrsResponseStatus,
+    stopTaskResponse_task,
+    stopTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECS.Types.Task
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopTask' smart constructor.
+-- | /See:/ 'newStopTask' smart constructor.
 data StopTask = StopTask'
-  { _stReason :: !(Maybe Text),
-    _stCluster :: !(Maybe Text),
-    _stTask :: !Text
+  { -- | An optional message specified when a task is stopped. For example, if
+    -- you are using a custom scheduler, you can use this parameter to specify
+    -- the reason for stopping the task here, and the message appears in
+    -- subsequent DescribeTasks API operations on this task. Up to 255
+    -- characters are allowed in this message.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+    -- hosts the task to stop. If you do not specify a cluster, the default
+    -- cluster is assumed.
+    cluster :: Prelude.Maybe Prelude.Text,
+    -- | The task ID or full Amazon Resource Name (ARN) of the task to stop.
+    task :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stReason' - An optional message specified when a task is stopped. For example, if you are using a custom scheduler, you can use this parameter to specify the reason for stopping the task here, and the message appears in subsequent 'DescribeTasks' API operations on this task. Up to 255 characters are allowed in this message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stCluster' - The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task to stop. If you do not specify a cluster, the default cluster is assumed.
+-- 'reason', 'stopTask_reason' - An optional message specified when a task is stopped. For example, if
+-- you are using a custom scheduler, you can use this parameter to specify
+-- the reason for stopping the task here, and the message appears in
+-- subsequent DescribeTasks API operations on this task. Up to 255
+-- characters are allowed in this message.
 --
--- * 'stTask' - The task ID or full Amazon Resource Name (ARN) of the task to stop.
-stopTask ::
-  -- | 'stTask'
-  Text ->
+-- 'cluster', 'stopTask_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the task to stop. If you do not specify a cluster, the default
+-- cluster is assumed.
+--
+-- 'task', 'stopTask_task' - The task ID or full Amazon Resource Name (ARN) of the task to stop.
+newStopTask ::
+  -- | 'task'
+  Prelude.Text ->
   StopTask
-stopTask pTask_ =
+newStopTask pTask_ =
   StopTask'
-    { _stReason = Nothing,
-      _stCluster = Nothing,
-      _stTask = pTask_
+    { reason = Prelude.Nothing,
+      cluster = Prelude.Nothing,
+      task = pTask_
     }
 
--- | An optional message specified when a task is stopped. For example, if you are using a custom scheduler, you can use this parameter to specify the reason for stopping the task here, and the message appears in subsequent 'DescribeTasks' API operations on this task. Up to 255 characters are allowed in this message.
-stReason :: Lens' StopTask (Maybe Text)
-stReason = lens _stReason (\s a -> s {_stReason = a})
+-- | An optional message specified when a task is stopped. For example, if
+-- you are using a custom scheduler, you can use this parameter to specify
+-- the reason for stopping the task here, and the message appears in
+-- subsequent DescribeTasks API operations on this task. Up to 255
+-- characters are allowed in this message.
+stopTask_reason :: Lens.Lens' StopTask (Prelude.Maybe Prelude.Text)
+stopTask_reason = Lens.lens (\StopTask' {reason} -> reason) (\s@StopTask' {} a -> s {reason = a} :: StopTask)
 
--- | The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task to stop. If you do not specify a cluster, the default cluster is assumed.
-stCluster :: Lens' StopTask (Maybe Text)
-stCluster = lens _stCluster (\s a -> s {_stCluster = a})
+-- | The short name or full Amazon Resource Name (ARN) of the cluster that
+-- hosts the task to stop. If you do not specify a cluster, the default
+-- cluster is assumed.
+stopTask_cluster :: Lens.Lens' StopTask (Prelude.Maybe Prelude.Text)
+stopTask_cluster = Lens.lens (\StopTask' {cluster} -> cluster) (\s@StopTask' {} a -> s {cluster = a} :: StopTask)
 
 -- | The task ID or full Amazon Resource Name (ARN) of the task to stop.
-stTask :: Lens' StopTask Text
-stTask = lens _stTask (\s a -> s {_stTask = a})
+stopTask_task :: Lens.Lens' StopTask Prelude.Text
+stopTask_task = Lens.lens (\StopTask' {task} -> task) (\s@StopTask' {} a -> s {task = a} :: StopTask)
 
-instance AWSRequest StopTask where
+instance Prelude.AWSRequest StopTask where
   type Rs StopTask = StopTaskResponse
-  request = postJSON ecs
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopTaskResponse'
-            <$> (x .?> "task") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "task")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopTask
+instance Prelude.Hashable StopTask
 
-instance NFData StopTask
+instance Prelude.NFData StopTask
 
-instance ToHeaders StopTask where
+instance Prelude.ToHeaders StopTask where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerServiceV20141113.StopTask" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerServiceV20141113.StopTask" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopTask where
+instance Prelude.ToJSON StopTask where
   toJSON StopTask' {..} =
-    object
-      ( catMaybes
-          [ ("reason" .=) <$> _stReason,
-            ("cluster" .=) <$> _stCluster,
-            Just ("task" .= _stTask)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("reason" Prelude..=) Prelude.<$> reason,
+            ("cluster" Prelude..=) Prelude.<$> cluster,
+            Prelude.Just ("task" Prelude..= task)
           ]
       )
 
-instance ToPath StopTask where
-  toPath = const "/"
+instance Prelude.ToPath StopTask where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopTask where
-  toQuery = const mempty
+instance Prelude.ToQuery StopTask where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopTaskResponse' smart constructor.
+-- | /See:/ 'newStopTaskResponse' smart constructor.
 data StopTaskResponse = StopTaskResponse'
-  { _strrsTask ::
-      !(Maybe Task),
-    _strrsResponseStatus :: !Int
+  { -- | The task that was stopped.
+    task :: Prelude.Maybe Task,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'strrsTask' - The task that was stopped.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'strrsResponseStatus' - -- | The response status code.
-stopTaskResponse ::
-  -- | 'strrsResponseStatus'
-  Int ->
+-- 'task', 'stopTaskResponse_task' - The task that was stopped.
+--
+-- 'httpStatus', 'stopTaskResponse_httpStatus' - The response's http status code.
+newStopTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopTaskResponse
-stopTaskResponse pResponseStatus_ =
+newStopTaskResponse pHttpStatus_ =
   StopTaskResponse'
-    { _strrsTask = Nothing,
-      _strrsResponseStatus = pResponseStatus_
+    { task = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The task that was stopped.
-strrsTask :: Lens' StopTaskResponse (Maybe Task)
-strrsTask = lens _strrsTask (\s a -> s {_strrsTask = a})
+stopTaskResponse_task :: Lens.Lens' StopTaskResponse (Prelude.Maybe Task)
+stopTaskResponse_task = Lens.lens (\StopTaskResponse' {task} -> task) (\s@StopTaskResponse' {} a -> s {task = a} :: StopTaskResponse)
 
--- | -- | The response status code.
-strrsResponseStatus :: Lens' StopTaskResponse Int
-strrsResponseStatus = lens _strrsResponseStatus (\s a -> s {_strrsResponseStatus = a})
+-- | The response's http status code.
+stopTaskResponse_httpStatus :: Lens.Lens' StopTaskResponse Prelude.Int
+stopTaskResponse_httpStatus = Lens.lens (\StopTaskResponse' {httpStatus} -> httpStatus) (\s@StopTaskResponse' {} a -> s {httpStatus = a} :: StopTaskResponse)
 
-instance NFData StopTaskResponse
+instance Prelude.NFData StopTaskResponse
