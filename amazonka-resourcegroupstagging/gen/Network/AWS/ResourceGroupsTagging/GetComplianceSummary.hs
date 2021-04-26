@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,238 +21,384 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a table that shows counts of resources that are noncompliant with their tag policies.
+-- Returns a table that shows counts of resources that are noncompliant
+-- with their tag policies.
 --
+-- For more information on tag policies, see
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html Tag Policies>
+-- in the /AWS Organizations User Guide./
 --
--- For more information on tag policies, see <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html Tag Policies> in the /AWS Organizations User Guide./
+-- You can call this operation only from the organization\'s management
+-- account and from the us-east-1 Region.
 --
--- You can call this operation only from the organization's management account and from the us-east-1 Region.
---
--- This operation supports pagination, where the response can be sent in multiple pages. You should check the @PaginationToken@ response parameter to determine if there are additional results available to return. Repeat the query, passing the @PaginationToken@ response parameter value as an input to the next request until you recieve a @null@ value. A null value for @PaginationToken@ indicates that there are no more results waiting to be returned.
---
+-- This operation supports pagination, where the response can be sent in
+-- multiple pages. You should check the @PaginationToken@ response
+-- parameter to determine if there are additional results available to
+-- return. Repeat the query, passing the @PaginationToken@ response
+-- parameter value as an input to the next request until you recieve a
+-- @null@ value. A null value for @PaginationToken@ indicates that there
+-- are no more results waiting to be returned.
 --
 -- This operation returns paginated results.
 module Network.AWS.ResourceGroupsTagging.GetComplianceSummary
   ( -- * Creating a Request
-    getComplianceSummary,
-    GetComplianceSummary,
+    GetComplianceSummary (..),
+    newGetComplianceSummary,
 
     -- * Request Lenses
-    gcsMaxResults,
-    gcsRegionFilters,
-    gcsTargetIdFilters,
-    gcsPaginationToken,
-    gcsGroupBy,
-    gcsResourceTypeFilters,
-    gcsTagKeyFilters,
+    getComplianceSummary_maxResults,
+    getComplianceSummary_regionFilters,
+    getComplianceSummary_targetIdFilters,
+    getComplianceSummary_paginationToken,
+    getComplianceSummary_groupBy,
+    getComplianceSummary_resourceTypeFilters,
+    getComplianceSummary_tagKeyFilters,
 
     -- * Destructuring the Response
-    getComplianceSummaryResponse,
-    GetComplianceSummaryResponse,
+    GetComplianceSummaryResponse (..),
+    newGetComplianceSummaryResponse,
 
     -- * Response Lenses
-    gcsrrsPaginationToken,
-    gcsrrsSummaryList,
-    gcsrrsResponseStatus,
+    getComplianceSummaryResponse_paginationToken,
+    getComplianceSummaryResponse_summaryList,
+    getComplianceSummaryResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroupsTagging.Types
-import Network.AWS.Response
+import Network.AWS.ResourceGroupsTagging.Types.Summary
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getComplianceSummary' smart constructor.
+-- | /See:/ 'newGetComplianceSummary' smart constructor.
 data GetComplianceSummary = GetComplianceSummary'
-  { _gcsMaxResults ::
-      !(Maybe Nat),
-    _gcsRegionFilters ::
-      !(Maybe (List1 Text)),
-    _gcsTargetIdFilters ::
-      !(Maybe (List1 Text)),
-    _gcsPaginationToken ::
-      !(Maybe Text),
-    _gcsGroupBy ::
-      !(Maybe [GroupByAttribute]),
-    _gcsResourceTypeFilters ::
-      !(Maybe [Text]),
-    _gcsTagKeyFilters ::
-      !(Maybe (List1 Text))
+  { -- | Specifies the maximum number of results to be returned in each page. A
+    -- query can return fewer than this maximum, even if there are more results
+    -- still to return. You should always check the @PaginationToken@ response
+    -- value to see if there are more results. You can specify a minimum of 1
+    -- and a maximum value of 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies a list of AWS Regions to limit the output by. If you use this
+    -- parameter, the count of returned noncompliant resources includes only
+    -- resources in the specified Regions.
+    regionFilters :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | Specifies target identifiers (usually, specific account IDs) to limit
+    -- the output by. If you use this parameter, the count of returned
+    -- noncompliant resources includes only resources with the specified target
+    -- IDs.
+    targetIdFilters :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | Specifies a @PaginationToken@ response value from a previous request to
+    -- indicate that you want the next page of results. Leave this parameter
+    -- empty in your initial request.
+    paginationToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a list of attributes to group the counts of noncompliant
+    -- resources by. If supplied, the counts are sorted by those attributes.
+    groupBy :: Prelude.Maybe [GroupByAttribute],
+    -- | Specifies that you want the response to include information for only
+    -- resources of the specified types. The format of each resource type is
+    -- @service[:resourceType]@. For example, specifying a resource type of
+    -- @ec2@ returns all Amazon EC2 resources (which includes EC2 instances).
+    -- Specifying a resource type of @ec2:instance@ returns only EC2 instances.
+    --
+    -- The string for each service name and resource type is the same as that
+    -- embedded in a resource\'s Amazon Resource Name (ARN). Consult the /AWS
+    -- General Reference/ for the following:
+    --
+    -- -   For a list of service name strings, see
+    --     <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS Service Namespaces>.
+    --
+    -- -   For resource type strings, see
+    --     <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax Example ARNs>.
+    --
+    -- -   For more information about ARNs, see
+    --     <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    --
+    -- You can specify multiple resource types by using a comma separated
+    -- array. The array can include up to 100 items. Note that the length
+    -- constraint requirement applies to each resource type filter.
+    resourceTypeFilters :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies that you want the response to include information for only
+    -- resources that have tags with the specified tag keys. If you use this
+    -- parameter, the count of returned noncompliant resources includes only
+    -- resources that have the specified tag keys.
+    tagKeyFilters :: Prelude.Maybe (Prelude.List1 Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetComplianceSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetComplianceSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsMaxResults' - Specifies the maximum number of results to be returned in each page. A query can return fewer than this maximum, even if there are more results still to return. You should always check the @PaginationToken@ response value to see if there are more results. You can specify a minimum of 1 and a maximum value of 100.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsRegionFilters' - Specifies a list of AWS Regions to limit the output by. If you use this parameter, the count of returned noncompliant resources includes only resources in the specified Regions.
+-- 'maxResults', 'getComplianceSummary_maxResults' - Specifies the maximum number of results to be returned in each page. A
+-- query can return fewer than this maximum, even if there are more results
+-- still to return. You should always check the @PaginationToken@ response
+-- value to see if there are more results. You can specify a minimum of 1
+-- and a maximum value of 100.
 --
--- * 'gcsTargetIdFilters' - Specifies target identifiers (usually, specific account IDs) to limit the output by. If you use this parameter, the count of returned noncompliant resources includes only resources with the specified target IDs.
+-- 'regionFilters', 'getComplianceSummary_regionFilters' - Specifies a list of AWS Regions to limit the output by. If you use this
+-- parameter, the count of returned noncompliant resources includes only
+-- resources in the specified Regions.
 --
--- * 'gcsPaginationToken' - Specifies a @PaginationToken@ response value from a previous request to indicate that you want the next page of results. Leave this parameter empty in your initial request.
+-- 'targetIdFilters', 'getComplianceSummary_targetIdFilters' - Specifies target identifiers (usually, specific account IDs) to limit
+-- the output by. If you use this parameter, the count of returned
+-- noncompliant resources includes only resources with the specified target
+-- IDs.
 --
--- * 'gcsGroupBy' - Specifies a list of attributes to group the counts of noncompliant resources by. If supplied, the counts are sorted by those attributes.
+-- 'paginationToken', 'getComplianceSummary_paginationToken' - Specifies a @PaginationToken@ response value from a previous request to
+-- indicate that you want the next page of results. Leave this parameter
+-- empty in your initial request.
 --
--- * 'gcsResourceTypeFilters' - Specifies that you want the response to include information for only resources of the specified types. The format of each resource type is @service[:resourceType]@ . For example, specifying a resource type of @ec2@ returns all Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of @ec2:instance@ returns only EC2 instances.  The string for each service name and resource type is the same as that embedded in a resource's Amazon Resource Name (ARN). Consult the /AWS General Reference/ for the following:     * For a list of service name strings, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS Service Namespaces> .     * For resource type strings, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax Example ARNs> .     * For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> . You can specify multiple resource types by using a comma separated array. The array can include up to 100 items. Note that the length constraint requirement applies to each resource type filter.
+-- 'groupBy', 'getComplianceSummary_groupBy' - Specifies a list of attributes to group the counts of noncompliant
+-- resources by. If supplied, the counts are sorted by those attributes.
 --
--- * 'gcsTagKeyFilters' - Specifies that you want the response to include information for only resources that have tags with the specified tag keys. If you use this parameter, the count of returned noncompliant resources includes only resources that have the specified tag keys.
-getComplianceSummary ::
+-- 'resourceTypeFilters', 'getComplianceSummary_resourceTypeFilters' - Specifies that you want the response to include information for only
+-- resources of the specified types. The format of each resource type is
+-- @service[:resourceType]@. For example, specifying a resource type of
+-- @ec2@ returns all Amazon EC2 resources (which includes EC2 instances).
+-- Specifying a resource type of @ec2:instance@ returns only EC2 instances.
+--
+-- The string for each service name and resource type is the same as that
+-- embedded in a resource\'s Amazon Resource Name (ARN). Consult the /AWS
+-- General Reference/ for the following:
+--
+-- -   For a list of service name strings, see
+--     <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS Service Namespaces>.
+--
+-- -   For resource type strings, see
+--     <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax Example ARNs>.
+--
+-- -   For more information about ARNs, see
+--     <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+--
+-- You can specify multiple resource types by using a comma separated
+-- array. The array can include up to 100 items. Note that the length
+-- constraint requirement applies to each resource type filter.
+--
+-- 'tagKeyFilters', 'getComplianceSummary_tagKeyFilters' - Specifies that you want the response to include information for only
+-- resources that have tags with the specified tag keys. If you use this
+-- parameter, the count of returned noncompliant resources includes only
+-- resources that have the specified tag keys.
+newGetComplianceSummary ::
   GetComplianceSummary
-getComplianceSummary =
+newGetComplianceSummary =
   GetComplianceSummary'
-    { _gcsMaxResults = Nothing,
-      _gcsRegionFilters = Nothing,
-      _gcsTargetIdFilters = Nothing,
-      _gcsPaginationToken = Nothing,
-      _gcsGroupBy = Nothing,
-      _gcsResourceTypeFilters = Nothing,
-      _gcsTagKeyFilters = Nothing
+    { maxResults = Prelude.Nothing,
+      regionFilters = Prelude.Nothing,
+      targetIdFilters = Prelude.Nothing,
+      paginationToken = Prelude.Nothing,
+      groupBy = Prelude.Nothing,
+      resourceTypeFilters = Prelude.Nothing,
+      tagKeyFilters = Prelude.Nothing
     }
 
--- | Specifies the maximum number of results to be returned in each page. A query can return fewer than this maximum, even if there are more results still to return. You should always check the @PaginationToken@ response value to see if there are more results. You can specify a minimum of 1 and a maximum value of 100.
-gcsMaxResults :: Lens' GetComplianceSummary (Maybe Natural)
-gcsMaxResults = lens _gcsMaxResults (\s a -> s {_gcsMaxResults = a}) . mapping _Nat
+-- | Specifies the maximum number of results to be returned in each page. A
+-- query can return fewer than this maximum, even if there are more results
+-- still to return. You should always check the @PaginationToken@ response
+-- value to see if there are more results. You can specify a minimum of 1
+-- and a maximum value of 100.
+getComplianceSummary_maxResults :: Lens.Lens' GetComplianceSummary (Prelude.Maybe Prelude.Natural)
+getComplianceSummary_maxResults = Lens.lens (\GetComplianceSummary' {maxResults} -> maxResults) (\s@GetComplianceSummary' {} a -> s {maxResults = a} :: GetComplianceSummary) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies a list of AWS Regions to limit the output by. If you use this parameter, the count of returned noncompliant resources includes only resources in the specified Regions.
-gcsRegionFilters :: Lens' GetComplianceSummary (Maybe (NonEmpty Text))
-gcsRegionFilters = lens _gcsRegionFilters (\s a -> s {_gcsRegionFilters = a}) . mapping _List1
+-- | Specifies a list of AWS Regions to limit the output by. If you use this
+-- parameter, the count of returned noncompliant resources includes only
+-- resources in the specified Regions.
+getComplianceSummary_regionFilters :: Lens.Lens' GetComplianceSummary (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+getComplianceSummary_regionFilters = Lens.lens (\GetComplianceSummary' {regionFilters} -> regionFilters) (\s@GetComplianceSummary' {} a -> s {regionFilters = a} :: GetComplianceSummary) Prelude.. Lens.mapping Prelude._List1
 
--- | Specifies target identifiers (usually, specific account IDs) to limit the output by. If you use this parameter, the count of returned noncompliant resources includes only resources with the specified target IDs.
-gcsTargetIdFilters :: Lens' GetComplianceSummary (Maybe (NonEmpty Text))
-gcsTargetIdFilters = lens _gcsTargetIdFilters (\s a -> s {_gcsTargetIdFilters = a}) . mapping _List1
+-- | Specifies target identifiers (usually, specific account IDs) to limit
+-- the output by. If you use this parameter, the count of returned
+-- noncompliant resources includes only resources with the specified target
+-- IDs.
+getComplianceSummary_targetIdFilters :: Lens.Lens' GetComplianceSummary (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+getComplianceSummary_targetIdFilters = Lens.lens (\GetComplianceSummary' {targetIdFilters} -> targetIdFilters) (\s@GetComplianceSummary' {} a -> s {targetIdFilters = a} :: GetComplianceSummary) Prelude.. Lens.mapping Prelude._List1
 
--- | Specifies a @PaginationToken@ response value from a previous request to indicate that you want the next page of results. Leave this parameter empty in your initial request.
-gcsPaginationToken :: Lens' GetComplianceSummary (Maybe Text)
-gcsPaginationToken = lens _gcsPaginationToken (\s a -> s {_gcsPaginationToken = a})
+-- | Specifies a @PaginationToken@ response value from a previous request to
+-- indicate that you want the next page of results. Leave this parameter
+-- empty in your initial request.
+getComplianceSummary_paginationToken :: Lens.Lens' GetComplianceSummary (Prelude.Maybe Prelude.Text)
+getComplianceSummary_paginationToken = Lens.lens (\GetComplianceSummary' {paginationToken} -> paginationToken) (\s@GetComplianceSummary' {} a -> s {paginationToken = a} :: GetComplianceSummary)
 
--- | Specifies a list of attributes to group the counts of noncompliant resources by. If supplied, the counts are sorted by those attributes.
-gcsGroupBy :: Lens' GetComplianceSummary [GroupByAttribute]
-gcsGroupBy = lens _gcsGroupBy (\s a -> s {_gcsGroupBy = a}) . _Default . _Coerce
+-- | Specifies a list of attributes to group the counts of noncompliant
+-- resources by. If supplied, the counts are sorted by those attributes.
+getComplianceSummary_groupBy :: Lens.Lens' GetComplianceSummary (Prelude.Maybe [GroupByAttribute])
+getComplianceSummary_groupBy = Lens.lens (\GetComplianceSummary' {groupBy} -> groupBy) (\s@GetComplianceSummary' {} a -> s {groupBy = a} :: GetComplianceSummary) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies that you want the response to include information for only resources of the specified types. The format of each resource type is @service[:resourceType]@ . For example, specifying a resource type of @ec2@ returns all Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of @ec2:instance@ returns only EC2 instances.  The string for each service name and resource type is the same as that embedded in a resource's Amazon Resource Name (ARN). Consult the /AWS General Reference/ for the following:     * For a list of service name strings, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS Service Namespaces> .     * For resource type strings, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax Example ARNs> .     * For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> . You can specify multiple resource types by using a comma separated array. The array can include up to 100 items. Note that the length constraint requirement applies to each resource type filter.
-gcsResourceTypeFilters :: Lens' GetComplianceSummary [Text]
-gcsResourceTypeFilters = lens _gcsResourceTypeFilters (\s a -> s {_gcsResourceTypeFilters = a}) . _Default . _Coerce
+-- | Specifies that you want the response to include information for only
+-- resources of the specified types. The format of each resource type is
+-- @service[:resourceType]@. For example, specifying a resource type of
+-- @ec2@ returns all Amazon EC2 resources (which includes EC2 instances).
+-- Specifying a resource type of @ec2:instance@ returns only EC2 instances.
+--
+-- The string for each service name and resource type is the same as that
+-- embedded in a resource\'s Amazon Resource Name (ARN). Consult the /AWS
+-- General Reference/ for the following:
+--
+-- -   For a list of service name strings, see
+--     <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS Service Namespaces>.
+--
+-- -   For resource type strings, see
+--     <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax Example ARNs>.
+--
+-- -   For more information about ARNs, see
+--     <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+--
+-- You can specify multiple resource types by using a comma separated
+-- array. The array can include up to 100 items. Note that the length
+-- constraint requirement applies to each resource type filter.
+getComplianceSummary_resourceTypeFilters :: Lens.Lens' GetComplianceSummary (Prelude.Maybe [Prelude.Text])
+getComplianceSummary_resourceTypeFilters = Lens.lens (\GetComplianceSummary' {resourceTypeFilters} -> resourceTypeFilters) (\s@GetComplianceSummary' {} a -> s {resourceTypeFilters = a} :: GetComplianceSummary) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies that you want the response to include information for only resources that have tags with the specified tag keys. If you use this parameter, the count of returned noncompliant resources includes only resources that have the specified tag keys.
-gcsTagKeyFilters :: Lens' GetComplianceSummary (Maybe (NonEmpty Text))
-gcsTagKeyFilters = lens _gcsTagKeyFilters (\s a -> s {_gcsTagKeyFilters = a}) . mapping _List1
+-- | Specifies that you want the response to include information for only
+-- resources that have tags with the specified tag keys. If you use this
+-- parameter, the count of returned noncompliant resources includes only
+-- resources that have the specified tag keys.
+getComplianceSummary_tagKeyFilters :: Lens.Lens' GetComplianceSummary (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+getComplianceSummary_tagKeyFilters = Lens.lens (\GetComplianceSummary' {tagKeyFilters} -> tagKeyFilters) (\s@GetComplianceSummary' {} a -> s {tagKeyFilters = a} :: GetComplianceSummary) Prelude.. Lens.mapping Prelude._List1
 
-instance AWSPager GetComplianceSummary where
+instance Pager.AWSPager GetComplianceSummary where
   page rq rs
-    | stop (rs ^. gcsrrsPaginationToken) = Nothing
-    | stop (rs ^. gcsrrsSummaryList) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? getComplianceSummaryResponse_paginationToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getComplianceSummaryResponse_summaryList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & gcsPaginationToken .~ rs ^. gcsrrsPaginationToken
+          Lens.& getComplianceSummary_paginationToken
+          Lens..~ rs
+          Lens.^? getComplianceSummaryResponse_paginationToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetComplianceSummary where
+instance Prelude.AWSRequest GetComplianceSummary where
   type
     Rs GetComplianceSummary =
       GetComplianceSummaryResponse
-  request = postJSON resourceGroupsTagging
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetComplianceSummaryResponse'
-            <$> (x .?> "PaginationToken")
-            <*> (x .?> "SummaryList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PaginationToken")
+            Prelude.<*> ( x Prelude..?> "SummaryList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetComplianceSummary
+instance Prelude.Hashable GetComplianceSummary
 
-instance NFData GetComplianceSummary
+instance Prelude.NFData GetComplianceSummary
 
-instance ToHeaders GetComplianceSummary where
+instance Prelude.ToHeaders GetComplianceSummary where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ResourceGroupsTaggingAPI_20170126.GetComplianceSummary" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ResourceGroupsTaggingAPI_20170126.GetComplianceSummary" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetComplianceSummary where
+instance Prelude.ToJSON GetComplianceSummary where
   toJSON GetComplianceSummary' {..} =
-    object
-      ( catMaybes
-          [ ("MaxResults" .=) <$> _gcsMaxResults,
-            ("RegionFilters" .=) <$> _gcsRegionFilters,
-            ("TargetIdFilters" .=) <$> _gcsTargetIdFilters,
-            ("PaginationToken" .=) <$> _gcsPaginationToken,
-            ("GroupBy" .=) <$> _gcsGroupBy,
-            ("ResourceTypeFilters" .=)
-              <$> _gcsResourceTypeFilters,
-            ("TagKeyFilters" .=) <$> _gcsTagKeyFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("RegionFilters" Prelude..=)
+              Prelude.<$> regionFilters,
+            ("TargetIdFilters" Prelude..=)
+              Prelude.<$> targetIdFilters,
+            ("PaginationToken" Prelude..=)
+              Prelude.<$> paginationToken,
+            ("GroupBy" Prelude..=) Prelude.<$> groupBy,
+            ("ResourceTypeFilters" Prelude..=)
+              Prelude.<$> resourceTypeFilters,
+            ("TagKeyFilters" Prelude..=)
+              Prelude.<$> tagKeyFilters
           ]
       )
 
-instance ToPath GetComplianceSummary where
-  toPath = const "/"
+instance Prelude.ToPath GetComplianceSummary where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetComplianceSummary where
-  toQuery = const mempty
+instance Prelude.ToQuery GetComplianceSummary where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getComplianceSummaryResponse' smart constructor.
+-- | /See:/ 'newGetComplianceSummaryResponse' smart constructor.
 data GetComplianceSummaryResponse = GetComplianceSummaryResponse'
-  { _gcsrrsPaginationToken ::
-      !(Maybe Text),
-    _gcsrrsSummaryList ::
-      !( Maybe
-           [Summary]
-       ),
-    _gcsrrsResponseStatus ::
-      !Int
+  { -- | A string that indicates that there is more data available than this
+    -- response contains. To receive the next part of the response, specify
+    -- this response value as the @PaginationToken@ value in the request for
+    -- the next page.
+    paginationToken :: Prelude.Maybe Prelude.Text,
+    -- | A table that shows counts of noncompliant resources.
+    summaryList :: Prelude.Maybe [Summary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetComplianceSummaryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetComplianceSummaryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsrrsPaginationToken' - A string that indicates that there is more data available than this response contains. To receive the next part of the response, specify this response value as the @PaginationToken@ value in the request for the next page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsrrsSummaryList' - A table that shows counts of noncompliant resources.
+-- 'paginationToken', 'getComplianceSummaryResponse_paginationToken' - A string that indicates that there is more data available than this
+-- response contains. To receive the next part of the response, specify
+-- this response value as the @PaginationToken@ value in the request for
+-- the next page.
 --
--- * 'gcsrrsResponseStatus' - -- | The response status code.
-getComplianceSummaryResponse ::
-  -- | 'gcsrrsResponseStatus'
-  Int ->
+-- 'summaryList', 'getComplianceSummaryResponse_summaryList' - A table that shows counts of noncompliant resources.
+--
+-- 'httpStatus', 'getComplianceSummaryResponse_httpStatus' - The response's http status code.
+newGetComplianceSummaryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetComplianceSummaryResponse
-getComplianceSummaryResponse pResponseStatus_ =
+newGetComplianceSummaryResponse pHttpStatus_ =
   GetComplianceSummaryResponse'
-    { _gcsrrsPaginationToken =
-        Nothing,
-      _gcsrrsSummaryList = Nothing,
-      _gcsrrsResponseStatus = pResponseStatus_
+    { paginationToken =
+        Prelude.Nothing,
+      summaryList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A string that indicates that there is more data available than this response contains. To receive the next part of the response, specify this response value as the @PaginationToken@ value in the request for the next page.
-gcsrrsPaginationToken :: Lens' GetComplianceSummaryResponse (Maybe Text)
-gcsrrsPaginationToken = lens _gcsrrsPaginationToken (\s a -> s {_gcsrrsPaginationToken = a})
+-- | A string that indicates that there is more data available than this
+-- response contains. To receive the next part of the response, specify
+-- this response value as the @PaginationToken@ value in the request for
+-- the next page.
+getComplianceSummaryResponse_paginationToken :: Lens.Lens' GetComplianceSummaryResponse (Prelude.Maybe Prelude.Text)
+getComplianceSummaryResponse_paginationToken = Lens.lens (\GetComplianceSummaryResponse' {paginationToken} -> paginationToken) (\s@GetComplianceSummaryResponse' {} a -> s {paginationToken = a} :: GetComplianceSummaryResponse)
 
 -- | A table that shows counts of noncompliant resources.
-gcsrrsSummaryList :: Lens' GetComplianceSummaryResponse [Summary]
-gcsrrsSummaryList = lens _gcsrrsSummaryList (\s a -> s {_gcsrrsSummaryList = a}) . _Default . _Coerce
+getComplianceSummaryResponse_summaryList :: Lens.Lens' GetComplianceSummaryResponse (Prelude.Maybe [Summary])
+getComplianceSummaryResponse_summaryList = Lens.lens (\GetComplianceSummaryResponse' {summaryList} -> summaryList) (\s@GetComplianceSummaryResponse' {} a -> s {summaryList = a} :: GetComplianceSummaryResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcsrrsResponseStatus :: Lens' GetComplianceSummaryResponse Int
-gcsrrsResponseStatus = lens _gcsrrsResponseStatus (\s a -> s {_gcsrrsResponseStatus = a})
+-- | The response's http status code.
+getComplianceSummaryResponse_httpStatus :: Lens.Lens' GetComplianceSummaryResponse Prelude.Int
+getComplianceSummaryResponse_httpStatus = Lens.lens (\GetComplianceSummaryResponse' {httpStatus} -> httpStatus) (\s@GetComplianceSummaryResponse' {} a -> s {httpStatus = a} :: GetComplianceSummaryResponse)
 
-instance NFData GetComplianceSummaryResponse
+instance Prelude.NFData GetComplianceSummaryResponse

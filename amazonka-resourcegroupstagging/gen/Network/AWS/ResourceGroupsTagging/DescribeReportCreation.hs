@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,152 +23,188 @@
 --
 -- Describes the status of the @StartReportCreation@ operation.
 --
---
--- You can call this operation only from the organization's management account and from the us-east-1 Region.
+-- You can call this operation only from the organization\'s management
+-- account and from the us-east-1 Region.
 module Network.AWS.ResourceGroupsTagging.DescribeReportCreation
   ( -- * Creating a Request
-    describeReportCreation,
-    DescribeReportCreation,
+    DescribeReportCreation (..),
+    newDescribeReportCreation,
 
     -- * Destructuring the Response
-    describeReportCreationResponse,
-    DescribeReportCreationResponse,
+    DescribeReportCreationResponse (..),
+    newDescribeReportCreationResponse,
 
     -- * Response Lenses
-    drcrrsStatus,
-    drcrrsS3Location,
-    drcrrsErrorMessage,
-    drcrrsResponseStatus,
+    describeReportCreationResponse_status,
+    describeReportCreationResponse_s3Location,
+    describeReportCreationResponse_errorMessage,
+    describeReportCreationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroupsTagging.Types
-import Network.AWS.Response
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeReportCreation' smart constructor.
+-- | /See:/ 'newDescribeReportCreation' smart constructor.
 data DescribeReportCreation = DescribeReportCreation'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReportCreation' with the minimum fields required to make a request.
-describeReportCreation ::
+-- |
+-- Create a value of 'DescribeReportCreation' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeReportCreation ::
   DescribeReportCreation
-describeReportCreation = DescribeReportCreation'
+newDescribeReportCreation = DescribeReportCreation'
 
-instance AWSRequest DescribeReportCreation where
+instance Prelude.AWSRequest DescribeReportCreation where
   type
     Rs DescribeReportCreation =
       DescribeReportCreationResponse
-  request = postJSON resourceGroupsTagging
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeReportCreationResponse'
-            <$> (x .?> "Status")
-            <*> (x .?> "S3Location")
-            <*> (x .?> "ErrorMessage")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "S3Location")
+            Prelude.<*> (x Prelude..?> "ErrorMessage")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeReportCreation
+instance Prelude.Hashable DescribeReportCreation
 
-instance NFData DescribeReportCreation
+instance Prelude.NFData DescribeReportCreation
 
-instance ToHeaders DescribeReportCreation where
+instance Prelude.ToHeaders DescribeReportCreation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ResourceGroupsTaggingAPI_20170126.DescribeReportCreation" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ResourceGroupsTaggingAPI_20170126.DescribeReportCreation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeReportCreation where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DescribeReportCreation where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DescribeReportCreation where
-  toPath = const "/"
+instance Prelude.ToPath DescribeReportCreation where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeReportCreation where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeReportCreation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeReportCreationResponse' smart constructor.
+-- | /See:/ 'newDescribeReportCreationResponse' smart constructor.
 data DescribeReportCreationResponse = DescribeReportCreationResponse'
-  { _drcrrsStatus ::
-      !( Maybe
-           Text
-       ),
-    _drcrrsS3Location ::
-      !( Maybe
-           Text
-       ),
-    _drcrrsErrorMessage ::
-      !( Maybe
-           Text
-       ),
-    _drcrrsResponseStatus ::
-      !Int
+  { -- | Reports the status of the operation.
+    --
+    -- The operation status can be one of the following:
+    --
+    -- -   @RUNNING@ - Report creation is in progress.
+    --
+    -- -   @SUCCEEDED@ - Report creation is complete. You can open the report
+    --     from the Amazon S3 bucket that you specified when you ran
+    --     @StartReportCreation@.
+    --
+    -- -   @FAILED@ - Report creation timed out or the Amazon S3 bucket is not
+    --     accessible.
+    --
+    -- -   @NO REPORT@ - No report was generated in the last 90 days.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The path to the Amazon S3 bucket where the report was stored on
+    -- creation.
+    s3Location :: Prelude.Maybe Prelude.Text,
+    -- | Details of the common errors that all operations return.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReportCreationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeReportCreationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcrrsStatus' - Reports the status of the operation. The operation status can be one of the following:     * @RUNNING@ - Report creation is in progress.     * @SUCCEEDED@ - Report creation is complete. You can open the report from the Amazon S3 bucket that you specified when you ran @StartReportCreation@ .     * @FAILED@ - Report creation timed out or the Amazon S3 bucket is not accessible.      * @NO REPORT@ - No report was generated in the last 90 days.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drcrrsS3Location' - The path to the Amazon S3 bucket where the report was stored on creation.
+-- 'status', 'describeReportCreationResponse_status' - Reports the status of the operation.
 --
--- * 'drcrrsErrorMessage' - Details of the common errors that all operations return.
+-- The operation status can be one of the following:
 --
--- * 'drcrrsResponseStatus' - -- | The response status code.
-describeReportCreationResponse ::
-  -- | 'drcrrsResponseStatus'
-  Int ->
+-- -   @RUNNING@ - Report creation is in progress.
+--
+-- -   @SUCCEEDED@ - Report creation is complete. You can open the report
+--     from the Amazon S3 bucket that you specified when you ran
+--     @StartReportCreation@.
+--
+-- -   @FAILED@ - Report creation timed out or the Amazon S3 bucket is not
+--     accessible.
+--
+-- -   @NO REPORT@ - No report was generated in the last 90 days.
+--
+-- 's3Location', 'describeReportCreationResponse_s3Location' - The path to the Amazon S3 bucket where the report was stored on
+-- creation.
+--
+-- 'errorMessage', 'describeReportCreationResponse_errorMessage' - Details of the common errors that all operations return.
+--
+-- 'httpStatus', 'describeReportCreationResponse_httpStatus' - The response's http status code.
+newDescribeReportCreationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeReportCreationResponse
-describeReportCreationResponse pResponseStatus_ =
+newDescribeReportCreationResponse pHttpStatus_ =
   DescribeReportCreationResponse'
-    { _drcrrsStatus =
-        Nothing,
-      _drcrrsS3Location = Nothing,
-      _drcrrsErrorMessage = Nothing,
-      _drcrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      s3Location = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Reports the status of the operation. The operation status can be one of the following:     * @RUNNING@ - Report creation is in progress.     * @SUCCEEDED@ - Report creation is complete. You can open the report from the Amazon S3 bucket that you specified when you ran @StartReportCreation@ .     * @FAILED@ - Report creation timed out or the Amazon S3 bucket is not accessible.      * @NO REPORT@ - No report was generated in the last 90 days.
-drcrrsStatus :: Lens' DescribeReportCreationResponse (Maybe Text)
-drcrrsStatus = lens _drcrrsStatus (\s a -> s {_drcrrsStatus = a})
+-- | Reports the status of the operation.
+--
+-- The operation status can be one of the following:
+--
+-- -   @RUNNING@ - Report creation is in progress.
+--
+-- -   @SUCCEEDED@ - Report creation is complete. You can open the report
+--     from the Amazon S3 bucket that you specified when you ran
+--     @StartReportCreation@.
+--
+-- -   @FAILED@ - Report creation timed out or the Amazon S3 bucket is not
+--     accessible.
+--
+-- -   @NO REPORT@ - No report was generated in the last 90 days.
+describeReportCreationResponse_status :: Lens.Lens' DescribeReportCreationResponse (Prelude.Maybe Prelude.Text)
+describeReportCreationResponse_status = Lens.lens (\DescribeReportCreationResponse' {status} -> status) (\s@DescribeReportCreationResponse' {} a -> s {status = a} :: DescribeReportCreationResponse)
 
--- | The path to the Amazon S3 bucket where the report was stored on creation.
-drcrrsS3Location :: Lens' DescribeReportCreationResponse (Maybe Text)
-drcrrsS3Location = lens _drcrrsS3Location (\s a -> s {_drcrrsS3Location = a})
+-- | The path to the Amazon S3 bucket where the report was stored on
+-- creation.
+describeReportCreationResponse_s3Location :: Lens.Lens' DescribeReportCreationResponse (Prelude.Maybe Prelude.Text)
+describeReportCreationResponse_s3Location = Lens.lens (\DescribeReportCreationResponse' {s3Location} -> s3Location) (\s@DescribeReportCreationResponse' {} a -> s {s3Location = a} :: DescribeReportCreationResponse)
 
 -- | Details of the common errors that all operations return.
-drcrrsErrorMessage :: Lens' DescribeReportCreationResponse (Maybe Text)
-drcrrsErrorMessage = lens _drcrrsErrorMessage (\s a -> s {_drcrrsErrorMessage = a})
+describeReportCreationResponse_errorMessage :: Lens.Lens' DescribeReportCreationResponse (Prelude.Maybe Prelude.Text)
+describeReportCreationResponse_errorMessage = Lens.lens (\DescribeReportCreationResponse' {errorMessage} -> errorMessage) (\s@DescribeReportCreationResponse' {} a -> s {errorMessage = a} :: DescribeReportCreationResponse)
 
--- | -- | The response status code.
-drcrrsResponseStatus :: Lens' DescribeReportCreationResponse Int
-drcrrsResponseStatus = lens _drcrrsResponseStatus (\s a -> s {_drcrrsResponseStatus = a})
+-- | The response's http status code.
+describeReportCreationResponse_httpStatus :: Lens.Lens' DescribeReportCreationResponse Prelude.Int
+describeReportCreationResponse_httpStatus = Lens.lens (\DescribeReportCreationResponse' {httpStatus} -> httpStatus) (\s@DescribeReportCreationResponse' {} a -> s {httpStatus = a} :: DescribeReportCreationResponse)
 
-instance NFData DescribeReportCreationResponse
+instance
+  Prelude.NFData
+    DescribeReportCreationResponse

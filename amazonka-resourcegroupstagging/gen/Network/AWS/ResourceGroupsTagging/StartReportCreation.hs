@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates a report that lists all tagged resources in the accounts across your organization and tells whether each resource is compliant with the effective tag policy. Compliance data is refreshed daily. The report is generated asynchronously.
---
+-- Generates a report that lists all tagged resources in the accounts
+-- across your organization and tells whether each resource is compliant
+-- with the effective tag policy. Compliance data is refreshed daily. The
+-- report is generated asynchronously.
 --
 -- The generated report is saved to the following location:
 --
--- @s3://example-bucket/AwsTagPolicies/o-exampleorgid/YYYY-MM-ddTHH:mm:ssZ/report.csv@
+-- @s3:\/\/example-bucket\/AwsTagPolicies\/o-exampleorgid\/YYYY-MM-ddTHH:mm:ssZ\/report.csv@
 --
--- You can call this operation only from the organization's management account and from the us-east-1 Region.
+-- You can call this operation only from the organization\'s management
+-- account and from the us-east-1 Region.
 module Network.AWS.ResourceGroupsTagging.StartReportCreation
   ( -- * Creating a Request
-    startReportCreation,
-    StartReportCreation,
+    StartReportCreation (..),
+    newStartReportCreation,
 
     -- * Request Lenses
-    srcS3Bucket,
+    startReportCreation_s3Bucket,
 
     -- * Destructuring the Response
-    startReportCreationResponse,
-    StartReportCreationResponse,
+    StartReportCreationResponse (..),
+    newStartReportCreationResponse,
 
     -- * Response Lenses
-    srcrrsResponseStatus,
+    startReportCreationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroupsTagging.Types
-import Network.AWS.Response
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startReportCreation' smart constructor.
-newtype StartReportCreation = StartReportCreation'
-  { _srcS3Bucket ::
-      Text
+-- | /See:/ 'newStartReportCreation' smart constructor.
+data StartReportCreation = StartReportCreation'
+  { -- | The name of the Amazon S3 bucket where the report will be stored; for
+    -- example:
+    --
+    -- @awsexamplebucket@
+    --
+    -- For more information on S3 bucket requirements, including an example
+    -- bucket policy, see the example S3 bucket policy on this page.
+    s3Bucket :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartReportCreation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartReportCreation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srcS3Bucket' - The name of the Amazon S3 bucket where the report will be stored; for example: @awsexamplebucket@  For more information on S3 bucket requirements, including an example bucket policy, see the example S3 bucket policy on this page.
-startReportCreation ::
-  -- | 'srcS3Bucket'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Bucket', 'startReportCreation_s3Bucket' - The name of the Amazon S3 bucket where the report will be stored; for
+-- example:
+--
+-- @awsexamplebucket@
+--
+-- For more information on S3 bucket requirements, including an example
+-- bucket policy, see the example S3 bucket policy on this page.
+newStartReportCreation ::
+  -- | 's3Bucket'
+  Prelude.Text ->
   StartReportCreation
-startReportCreation pS3Bucket_ =
-  StartReportCreation' {_srcS3Bucket = pS3Bucket_}
+newStartReportCreation pS3Bucket_ =
+  StartReportCreation' {s3Bucket = pS3Bucket_}
 
--- | The name of the Amazon S3 bucket where the report will be stored; for example: @awsexamplebucket@  For more information on S3 bucket requirements, including an example bucket policy, see the example S3 bucket policy on this page.
-srcS3Bucket :: Lens' StartReportCreation Text
-srcS3Bucket = lens _srcS3Bucket (\s a -> s {_srcS3Bucket = a})
+-- | The name of the Amazon S3 bucket where the report will be stored; for
+-- example:
+--
+-- @awsexamplebucket@
+--
+-- For more information on S3 bucket requirements, including an example
+-- bucket policy, see the example S3 bucket policy on this page.
+startReportCreation_s3Bucket :: Lens.Lens' StartReportCreation Prelude.Text
+startReportCreation_s3Bucket = Lens.lens (\StartReportCreation' {s3Bucket} -> s3Bucket) (\s@StartReportCreation' {} a -> s {s3Bucket = a} :: StartReportCreation)
 
-instance AWSRequest StartReportCreation where
+instance Prelude.AWSRequest StartReportCreation where
   type
     Rs StartReportCreation =
       StartReportCreationResponse
-  request = postJSON resourceGroupsTagging
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          StartReportCreationResponse' <$> (pure (fromEnum s))
+          StartReportCreationResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartReportCreation
+instance Prelude.Hashable StartReportCreation
 
-instance NFData StartReportCreation
+instance Prelude.NFData StartReportCreation
 
-instance ToHeaders StartReportCreation where
+instance Prelude.ToHeaders StartReportCreation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ResourceGroupsTaggingAPI_20170126.StartReportCreation" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ResourceGroupsTaggingAPI_20170126.StartReportCreation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartReportCreation where
+instance Prelude.ToJSON StartReportCreation where
   toJSON StartReportCreation' {..} =
-    object
-      (catMaybes [Just ("S3Bucket" .= _srcS3Bucket)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("S3Bucket" Prelude..= s3Bucket)]
+      )
 
-instance ToPath StartReportCreation where
-  toPath = const "/"
+instance Prelude.ToPath StartReportCreation where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartReportCreation where
-  toQuery = const mempty
+instance Prelude.ToQuery StartReportCreation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startReportCreationResponse' smart constructor.
-newtype StartReportCreationResponse = StartReportCreationResponse'
-  { _srcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newStartReportCreationResponse' smart constructor.
+data StartReportCreationResponse = StartReportCreationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartReportCreationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartReportCreationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srcrrsResponseStatus' - -- | The response status code.
-startReportCreationResponse ::
-  -- | 'srcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startReportCreationResponse_httpStatus' - The response's http status code.
+newStartReportCreationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartReportCreationResponse
-startReportCreationResponse pResponseStatus_ =
+newStartReportCreationResponse pHttpStatus_ =
   StartReportCreationResponse'
-    { _srcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-srcrrsResponseStatus :: Lens' StartReportCreationResponse Int
-srcrrsResponseStatus = lens _srcrrsResponseStatus (\s a -> s {_srcrrsResponseStatus = a})
+-- | The response's http status code.
+startReportCreationResponse_httpStatus :: Lens.Lens' StartReportCreationResponse Prelude.Int
+startReportCreationResponse_httpStatus = Lens.lens (\StartReportCreationResponse' {httpStatus} -> httpStatus) (\s@StartReportCreationResponse' {} a -> s {httpStatus = a} :: StartReportCreationResponse)
 
-instance NFData StartReportCreationResponse
+instance Prelude.NFData StartReportCreationResponse

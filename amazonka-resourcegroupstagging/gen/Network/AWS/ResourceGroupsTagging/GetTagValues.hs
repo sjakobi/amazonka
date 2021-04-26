@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,167 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns all tag values for the specified key that are used in the specified AWS Region for the calling AWS account.
+-- Returns all tag values for the specified key that are used in the
+-- specified AWS Region for the calling AWS account.
 --
---
--- This operation supports pagination, where the response can be sent in multiple pages. You should check the @PaginationToken@ response parameter to determine if there are additional results available to return. Repeat the query, passing the @PaginationToken@ response parameter value as an input to the next request until you recieve a @null@ value. A null value for @PaginationToken@ indicates that there are no more results waiting to be returned.
---
+-- This operation supports pagination, where the response can be sent in
+-- multiple pages. You should check the @PaginationToken@ response
+-- parameter to determine if there are additional results available to
+-- return. Repeat the query, passing the @PaginationToken@ response
+-- parameter value as an input to the next request until you recieve a
+-- @null@ value. A null value for @PaginationToken@ indicates that there
+-- are no more results waiting to be returned.
 --
 -- This operation returns paginated results.
 module Network.AWS.ResourceGroupsTagging.GetTagValues
   ( -- * Creating a Request
-    getTagValues,
-    GetTagValues,
+    GetTagValues (..),
+    newGetTagValues,
 
     -- * Request Lenses
-    gtvPaginationToken,
-    gtvKey,
+    getTagValues_paginationToken,
+    getTagValues_key,
 
     -- * Destructuring the Response
-    getTagValuesResponse,
-    GetTagValuesResponse,
+    GetTagValuesResponse (..),
+    newGetTagValuesResponse,
 
     -- * Response Lenses
-    gtvrrsPaginationToken,
-    gtvrrsTagValues,
-    gtvrrsResponseStatus,
+    getTagValuesResponse_paginationToken,
+    getTagValuesResponse_tagValues,
+    getTagValuesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroupsTagging.Types
-import Network.AWS.Response
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getTagValues' smart constructor.
+-- | /See:/ 'newGetTagValues' smart constructor.
 data GetTagValues = GetTagValues'
-  { _gtvPaginationToken ::
-      !(Maybe Text),
-    _gtvKey :: !Text
+  { -- | Specifies a @PaginationToken@ response value from a previous request to
+    -- indicate that you want the next page of results. Leave this parameter
+    -- empty in your initial request.
+    paginationToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the tag key for which you want to list all existing values
+    -- that are currently used in the specified AWS Region for the calling AWS
+    -- account.
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTagValues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTagValues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtvPaginationToken' - Specifies a @PaginationToken@ response value from a previous request to indicate that you want the next page of results. Leave this parameter empty in your initial request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtvKey' - Specifies the tag key for which you want to list all existing values that are currently used in the specified AWS Region for the calling AWS account.
-getTagValues ::
-  -- | 'gtvKey'
-  Text ->
+-- 'paginationToken', 'getTagValues_paginationToken' - Specifies a @PaginationToken@ response value from a previous request to
+-- indicate that you want the next page of results. Leave this parameter
+-- empty in your initial request.
+--
+-- 'key', 'getTagValues_key' - Specifies the tag key for which you want to list all existing values
+-- that are currently used in the specified AWS Region for the calling AWS
+-- account.
+newGetTagValues ::
+  -- | 'key'
+  Prelude.Text ->
   GetTagValues
-getTagValues pKey_ =
+newGetTagValues pKey_ =
   GetTagValues'
-    { _gtvPaginationToken = Nothing,
-      _gtvKey = pKey_
+    { paginationToken = Prelude.Nothing,
+      key = pKey_
     }
 
--- | Specifies a @PaginationToken@ response value from a previous request to indicate that you want the next page of results. Leave this parameter empty in your initial request.
-gtvPaginationToken :: Lens' GetTagValues (Maybe Text)
-gtvPaginationToken = lens _gtvPaginationToken (\s a -> s {_gtvPaginationToken = a})
+-- | Specifies a @PaginationToken@ response value from a previous request to
+-- indicate that you want the next page of results. Leave this parameter
+-- empty in your initial request.
+getTagValues_paginationToken :: Lens.Lens' GetTagValues (Prelude.Maybe Prelude.Text)
+getTagValues_paginationToken = Lens.lens (\GetTagValues' {paginationToken} -> paginationToken) (\s@GetTagValues' {} a -> s {paginationToken = a} :: GetTagValues)
 
--- | Specifies the tag key for which you want to list all existing values that are currently used in the specified AWS Region for the calling AWS account.
-gtvKey :: Lens' GetTagValues Text
-gtvKey = lens _gtvKey (\s a -> s {_gtvKey = a})
+-- | Specifies the tag key for which you want to list all existing values
+-- that are currently used in the specified AWS Region for the calling AWS
+-- account.
+getTagValues_key :: Lens.Lens' GetTagValues Prelude.Text
+getTagValues_key = Lens.lens (\GetTagValues' {key} -> key) (\s@GetTagValues' {} a -> s {key = a} :: GetTagValues)
 
-instance AWSPager GetTagValues where
+instance Pager.AWSPager GetTagValues where
   page rq rs
-    | stop (rs ^. gtvrrsPaginationToken) = Nothing
-    | stop (rs ^. gtvrrsTagValues) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? getTagValuesResponse_paginationToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getTagValuesResponse_tagValues Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & gtvPaginationToken .~ rs ^. gtvrrsPaginationToken
+          Lens.& getTagValues_paginationToken
+          Lens..~ rs
+          Lens.^? getTagValuesResponse_paginationToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetTagValues where
+instance Prelude.AWSRequest GetTagValues where
   type Rs GetTagValues = GetTagValuesResponse
-  request = postJSON resourceGroupsTagging
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTagValuesResponse'
-            <$> (x .?> "PaginationToken")
-            <*> (x .?> "TagValues" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PaginationToken")
+            Prelude.<*> ( x Prelude..?> "TagValues"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetTagValues
+instance Prelude.Hashable GetTagValues
 
-instance NFData GetTagValues
+instance Prelude.NFData GetTagValues
 
-instance ToHeaders GetTagValues where
+instance Prelude.ToHeaders GetTagValues where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ResourceGroupsTaggingAPI_20170126.GetTagValues" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ResourceGroupsTaggingAPI_20170126.GetTagValues" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetTagValues where
+instance Prelude.ToJSON GetTagValues where
   toJSON GetTagValues' {..} =
-    object
-      ( catMaybes
-          [ ("PaginationToken" .=) <$> _gtvPaginationToken,
-            Just ("Key" .= _gtvKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PaginationToken" Prelude..=)
+              Prelude.<$> paginationToken,
+            Prelude.Just ("Key" Prelude..= key)
           ]
       )
 
-instance ToPath GetTagValues where
-  toPath = const "/"
+instance Prelude.ToPath GetTagValues where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetTagValues where
-  toQuery = const mempty
+instance Prelude.ToQuery GetTagValues where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getTagValuesResponse' smart constructor.
+-- | /See:/ 'newGetTagValuesResponse' smart constructor.
 data GetTagValuesResponse = GetTagValuesResponse'
-  { _gtvrrsPaginationToken ::
-      !(Maybe Text),
-    _gtvrrsTagValues ::
-      !(Maybe [Text]),
-    _gtvrrsResponseStatus :: !Int
+  { -- | A string that indicates that there is more data available than this
+    -- response contains. To receive the next part of the response, specify
+    -- this response value as the @PaginationToken@ value in the request for
+    -- the next page.
+    paginationToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of all tag values for the specified key currently used in the
+    -- specified AWS Region for the calling AWS account.
+    tagValues :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTagValuesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTagValuesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtvrrsPaginationToken' - A string that indicates that there is more data available than this response contains. To receive the next part of the response, specify this response value as the @PaginationToken@ value in the request for the next page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtvrrsTagValues' - A list of all tag values for the specified key currently used in the specified AWS Region for the calling AWS account.
+-- 'paginationToken', 'getTagValuesResponse_paginationToken' - A string that indicates that there is more data available than this
+-- response contains. To receive the next part of the response, specify
+-- this response value as the @PaginationToken@ value in the request for
+-- the next page.
 --
--- * 'gtvrrsResponseStatus' - -- | The response status code.
-getTagValuesResponse ::
-  -- | 'gtvrrsResponseStatus'
-  Int ->
+-- 'tagValues', 'getTagValuesResponse_tagValues' - A list of all tag values for the specified key currently used in the
+-- specified AWS Region for the calling AWS account.
+--
+-- 'httpStatus', 'getTagValuesResponse_httpStatus' - The response's http status code.
+newGetTagValuesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTagValuesResponse
-getTagValuesResponse pResponseStatus_ =
+newGetTagValuesResponse pHttpStatus_ =
   GetTagValuesResponse'
-    { _gtvrrsPaginationToken =
-        Nothing,
-      _gtvrrsTagValues = Nothing,
-      _gtvrrsResponseStatus = pResponseStatus_
+    { paginationToken =
+        Prelude.Nothing,
+      tagValues = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A string that indicates that there is more data available than this response contains. To receive the next part of the response, specify this response value as the @PaginationToken@ value in the request for the next page.
-gtvrrsPaginationToken :: Lens' GetTagValuesResponse (Maybe Text)
-gtvrrsPaginationToken = lens _gtvrrsPaginationToken (\s a -> s {_gtvrrsPaginationToken = a})
+-- | A string that indicates that there is more data available than this
+-- response contains. To receive the next part of the response, specify
+-- this response value as the @PaginationToken@ value in the request for
+-- the next page.
+getTagValuesResponse_paginationToken :: Lens.Lens' GetTagValuesResponse (Prelude.Maybe Prelude.Text)
+getTagValuesResponse_paginationToken = Lens.lens (\GetTagValuesResponse' {paginationToken} -> paginationToken) (\s@GetTagValuesResponse' {} a -> s {paginationToken = a} :: GetTagValuesResponse)
 
--- | A list of all tag values for the specified key currently used in the specified AWS Region for the calling AWS account.
-gtvrrsTagValues :: Lens' GetTagValuesResponse [Text]
-gtvrrsTagValues = lens _gtvrrsTagValues (\s a -> s {_gtvrrsTagValues = a}) . _Default . _Coerce
+-- | A list of all tag values for the specified key currently used in the
+-- specified AWS Region for the calling AWS account.
+getTagValuesResponse_tagValues :: Lens.Lens' GetTagValuesResponse (Prelude.Maybe [Prelude.Text])
+getTagValuesResponse_tagValues = Lens.lens (\GetTagValuesResponse' {tagValues} -> tagValues) (\s@GetTagValuesResponse' {} a -> s {tagValues = a} :: GetTagValuesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gtvrrsResponseStatus :: Lens' GetTagValuesResponse Int
-gtvrrsResponseStatus = lens _gtvrrsResponseStatus (\s a -> s {_gtvrrsResponseStatus = a})
+-- | The response's http status code.
+getTagValuesResponse_httpStatus :: Lens.Lens' GetTagValuesResponse Prelude.Int
+getTagValuesResponse_httpStatus = Lens.lens (\GetTagValuesResponse' {httpStatus} -> httpStatus) (\s@GetTagValuesResponse' {} a -> s {httpStatus = a} :: GetTagValuesResponse)
 
-instance NFData GetTagValuesResponse
+instance Prelude.NFData GetTagValuesResponse

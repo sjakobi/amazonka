@@ -11,10 +11,10 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Resource Groups Tagging API__
+-- Resource Groups Tagging API
 module Network.AWS.ResourceGroupsTagging
   ( -- * Service Configuration
-    resourceGroupsTagging,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -44,28 +44,52 @@ module Network.AWS.ResourceGroupsTagging
     -- $operations
 
     -- ** GetComplianceSummary (Paginated)
-    module Network.AWS.ResourceGroupsTagging.GetComplianceSummary,
+    GetComplianceSummary (GetComplianceSummary'),
+    newGetComplianceSummary,
+    GetComplianceSummaryResponse (GetComplianceSummaryResponse'),
+    newGetComplianceSummaryResponse,
 
     -- ** StartReportCreation
-    module Network.AWS.ResourceGroupsTagging.StartReportCreation,
+    StartReportCreation (StartReportCreation'),
+    newStartReportCreation,
+    StartReportCreationResponse (StartReportCreationResponse'),
+    newStartReportCreationResponse,
 
     -- ** TagResources
-    module Network.AWS.ResourceGroupsTagging.TagResources,
+    TagResources (TagResources'),
+    newTagResources,
+    TagResourcesResponse (TagResourcesResponse'),
+    newTagResourcesResponse,
 
     -- ** GetTagKeys (Paginated)
-    module Network.AWS.ResourceGroupsTagging.GetTagKeys,
+    GetTagKeys (GetTagKeys'),
+    newGetTagKeys,
+    GetTagKeysResponse (GetTagKeysResponse'),
+    newGetTagKeysResponse,
 
     -- ** DescribeReportCreation
-    module Network.AWS.ResourceGroupsTagging.DescribeReportCreation,
+    DescribeReportCreation (DescribeReportCreation'),
+    newDescribeReportCreation,
+    DescribeReportCreationResponse (DescribeReportCreationResponse'),
+    newDescribeReportCreationResponse,
 
     -- ** GetResources (Paginated)
-    module Network.AWS.ResourceGroupsTagging.GetResources,
+    GetResources (GetResources'),
+    newGetResources,
+    GetResourcesResponse (GetResourcesResponse'),
+    newGetResourcesResponse,
 
     -- ** GetTagValues (Paginated)
-    module Network.AWS.ResourceGroupsTagging.GetTagValues,
+    GetTagValues (GetTagValues'),
+    newGetTagValues,
+    GetTagValuesResponse (GetTagValuesResponse'),
+    newGetTagValuesResponse,
 
     -- ** UntagResources
-    module Network.AWS.ResourceGroupsTagging.UntagResources,
+    UntagResources (UntagResources'),
+    newUntagResources,
+    UntagResourcesResponse (UntagResourcesResponse'),
+    newUntagResourcesResponse,
 
     -- * Types
 
@@ -79,47 +103,28 @@ module Network.AWS.ResourceGroupsTagging
     TargetIdType (..),
 
     -- ** ComplianceDetails
-    ComplianceDetails,
-    complianceDetails,
-    cdComplianceStatus,
-    cdNoncompliantKeys,
-    cdKeysWithNoncompliantValues,
+    ComplianceDetails (ComplianceDetails'),
+    newComplianceDetails,
 
     -- ** FailureInfo
-    FailureInfo,
-    failureInfo,
-    fiStatusCode,
-    fiErrorMessage,
-    fiErrorCode,
+    FailureInfo (FailureInfo'),
+    newFailureInfo,
 
     -- ** ResourceTagMapping
-    ResourceTagMapping,
-    resourceTagMapping,
-    rtmResourceARN,
-    rtmComplianceDetails,
-    rtmTags,
+    ResourceTagMapping (ResourceTagMapping'),
+    newResourceTagMapping,
 
     -- ** Summary
-    Summary,
-    summary,
-    sTargetId,
-    sResourceType,
-    sLastUpdated,
-    sTargetIdType,
-    sNonCompliantResources,
-    sRegion,
+    Summary (Summary'),
+    newSummary,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TagFilter
-    TagFilter,
-    tagFilter,
-    tfKey,
-    tfValues,
+    TagFilter (TagFilter'),
+    newTagFilter,
   )
 where
 
@@ -128,6 +133,7 @@ import Network.AWS.ResourceGroupsTagging.GetComplianceSummary
 import Network.AWS.ResourceGroupsTagging.GetResources
 import Network.AWS.ResourceGroupsTagging.GetTagKeys
 import Network.AWS.ResourceGroupsTagging.GetTagValues
+import Network.AWS.ResourceGroupsTagging.Lens
 import Network.AWS.ResourceGroupsTagging.StartReportCreation
 import Network.AWS.ResourceGroupsTagging.TagResources
 import Network.AWS.ResourceGroupsTagging.Types

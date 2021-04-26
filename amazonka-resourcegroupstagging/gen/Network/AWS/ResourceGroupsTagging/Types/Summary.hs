@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,107 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroupsTagging.Types.Summary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ResourceGroupsTagging.Types.TargetIdType
 
 -- | A count of noncompliant resources.
 --
---
---
--- /See:/ 'summary' smart constructor.
+-- /See:/ 'newSummary' smart constructor.
 data Summary = Summary'
-  { _sTargetId :: !(Maybe Text),
-    _sResourceType :: !(Maybe Text),
-    _sLastUpdated :: !(Maybe Text),
-    _sTargetIdType :: !(Maybe TargetIdType),
-    _sNonCompliantResources :: !(Maybe Integer),
-    _sRegion :: !(Maybe Text)
+  { -- | The account identifier or the root identifier of the organization. If
+    -- you don\'t know the root ID, you can call the AWS Organizations
+    -- <http://docs.aws.amazon.com/organizations/latest/APIReference/API_ListRoots.html ListRoots>
+    -- API.
+    targetId :: Prelude.Maybe Prelude.Text,
+    -- | The AWS resource type.
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp that shows when this summary was generated in this Region.
+    lastUpdated :: Prelude.Maybe Prelude.Text,
+    -- | Whether the target is an account, an OU, or the organization root.
+    targetIdType :: Prelude.Maybe TargetIdType,
+    -- | The count of noncompliant resources.
+    nonCompliantResources :: Prelude.Maybe Prelude.Integer,
+    -- | The AWS Region that the summary applies to.
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Summary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Summary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sTargetId' - The account identifier or the root identifier of the organization. If you don't know the root ID, you can call the AWS Organizations <http://docs.aws.amazon.com/organizations/latest/APIReference/API_ListRoots.html ListRoots> API.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sResourceType' - The AWS resource type.
+-- 'targetId', 'summary_targetId' - The account identifier or the root identifier of the organization. If
+-- you don\'t know the root ID, you can call the AWS Organizations
+-- <http://docs.aws.amazon.com/organizations/latest/APIReference/API_ListRoots.html ListRoots>
+-- API.
 --
--- * 'sLastUpdated' - The timestamp that shows when this summary was generated in this Region.
+-- 'resourceType', 'summary_resourceType' - The AWS resource type.
 --
--- * 'sTargetIdType' - Whether the target is an account, an OU, or the organization root.
+-- 'lastUpdated', 'summary_lastUpdated' - The timestamp that shows when this summary was generated in this Region.
 --
--- * 'sNonCompliantResources' - The count of noncompliant resources.
+-- 'targetIdType', 'summary_targetIdType' - Whether the target is an account, an OU, or the organization root.
 --
--- * 'sRegion' - The AWS Region that the summary applies to.
-summary ::
+-- 'nonCompliantResources', 'summary_nonCompliantResources' - The count of noncompliant resources.
+--
+-- 'region', 'summary_region' - The AWS Region that the summary applies to.
+newSummary ::
   Summary
-summary =
+newSummary =
   Summary'
-    { _sTargetId = Nothing,
-      _sResourceType = Nothing,
-      _sLastUpdated = Nothing,
-      _sTargetIdType = Nothing,
-      _sNonCompliantResources = Nothing,
-      _sRegion = Nothing
+    { targetId = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      lastUpdated = Prelude.Nothing,
+      targetIdType = Prelude.Nothing,
+      nonCompliantResources = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
--- | The account identifier or the root identifier of the organization. If you don't know the root ID, you can call the AWS Organizations <http://docs.aws.amazon.com/organizations/latest/APIReference/API_ListRoots.html ListRoots> API.
-sTargetId :: Lens' Summary (Maybe Text)
-sTargetId = lens _sTargetId (\s a -> s {_sTargetId = a})
+-- | The account identifier or the root identifier of the organization. If
+-- you don\'t know the root ID, you can call the AWS Organizations
+-- <http://docs.aws.amazon.com/organizations/latest/APIReference/API_ListRoots.html ListRoots>
+-- API.
+summary_targetId :: Lens.Lens' Summary (Prelude.Maybe Prelude.Text)
+summary_targetId = Lens.lens (\Summary' {targetId} -> targetId) (\s@Summary' {} a -> s {targetId = a} :: Summary)
 
 -- | The AWS resource type.
-sResourceType :: Lens' Summary (Maybe Text)
-sResourceType = lens _sResourceType (\s a -> s {_sResourceType = a})
+summary_resourceType :: Lens.Lens' Summary (Prelude.Maybe Prelude.Text)
+summary_resourceType = Lens.lens (\Summary' {resourceType} -> resourceType) (\s@Summary' {} a -> s {resourceType = a} :: Summary)
 
 -- | The timestamp that shows when this summary was generated in this Region.
-sLastUpdated :: Lens' Summary (Maybe Text)
-sLastUpdated = lens _sLastUpdated (\s a -> s {_sLastUpdated = a})
+summary_lastUpdated :: Lens.Lens' Summary (Prelude.Maybe Prelude.Text)
+summary_lastUpdated = Lens.lens (\Summary' {lastUpdated} -> lastUpdated) (\s@Summary' {} a -> s {lastUpdated = a} :: Summary)
 
 -- | Whether the target is an account, an OU, or the organization root.
-sTargetIdType :: Lens' Summary (Maybe TargetIdType)
-sTargetIdType = lens _sTargetIdType (\s a -> s {_sTargetIdType = a})
+summary_targetIdType :: Lens.Lens' Summary (Prelude.Maybe TargetIdType)
+summary_targetIdType = Lens.lens (\Summary' {targetIdType} -> targetIdType) (\s@Summary' {} a -> s {targetIdType = a} :: Summary)
 
 -- | The count of noncompliant resources.
-sNonCompliantResources :: Lens' Summary (Maybe Integer)
-sNonCompliantResources = lens _sNonCompliantResources (\s a -> s {_sNonCompliantResources = a})
+summary_nonCompliantResources :: Lens.Lens' Summary (Prelude.Maybe Prelude.Integer)
+summary_nonCompliantResources = Lens.lens (\Summary' {nonCompliantResources} -> nonCompliantResources) (\s@Summary' {} a -> s {nonCompliantResources = a} :: Summary)
 
 -- | The AWS Region that the summary applies to.
-sRegion :: Lens' Summary (Maybe Text)
-sRegion = lens _sRegion (\s a -> s {_sRegion = a})
+summary_region :: Lens.Lens' Summary (Prelude.Maybe Prelude.Text)
+summary_region = Lens.lens (\Summary' {region} -> region) (\s@Summary' {} a -> s {region = a} :: Summary)
 
-instance FromJSON Summary where
+instance Prelude.FromJSON Summary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Summary"
       ( \x ->
           Summary'
-            <$> (x .:? "TargetId")
-            <*> (x .:? "ResourceType")
-            <*> (x .:? "LastUpdated")
-            <*> (x .:? "TargetIdType")
-            <*> (x .:? "NonCompliantResources")
-            <*> (x .:? "Region")
+            Prelude.<$> (x Prelude..:? "TargetId")
+            Prelude.<*> (x Prelude..:? "ResourceType")
+            Prelude.<*> (x Prelude..:? "LastUpdated")
+            Prelude.<*> (x Prelude..:? "TargetIdType")
+            Prelude.<*> (x Prelude..:? "NonCompliantResources")
+            Prelude.<*> (x Prelude..:? "Region")
       )
 
-instance Hashable Summary
+instance Prelude.Hashable Summary
 
-instance NFData Summary
+instance Prelude.NFData Summary

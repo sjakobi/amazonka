@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,154 +23,209 @@
 --
 -- Applies one or more tags to the specified resources. Note the following:
 --
+-- -   Not all resources can have tags. For a list of services with
+--     resources that support tagging using this operation, see
+--     <https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html Services that support the Resource Groups Tagging API>.
 --
---     * Not all resources can have tags. For a list of services with resources that support tagging using this operation, see <https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html Services that support the Resource Groups Tagging API> .
+-- -   Each resource can have up to 50 tags. For other limits, see
+--     <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions Tag Naming and Usage Conventions>
+--     in the /AWS General Reference./
 --
---     * Each resource can have up to 50 tags. For other limits, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions Tag Naming and Usage Conventions> in the /AWS General Reference./
+-- -   You can only tag resources that are located in the specified AWS
+--     Region for the AWS account.
 --
---     * You can only tag resources that are located in the specified AWS Region for the AWS account.
+-- -   To add tags to a resource, you need the necessary permissions for
+--     the service that the resource belongs to as well as permissions for
+--     adding tags. For more information, see the documentation for each
+--     service.
 --
---     * To add tags to a resource, you need the necessary permissions for the service that the resource belongs to as well as permissions for adding tags. For more information, see the documentation for each service.
---
---
---
--- /Important:/ Do not store personally identifiable information (PII) or other confidential or sensitive information in tags. We use tags to provide you with billing and administration services. Tags are not intended to be used for private or sensitive data.
+-- Do not store personally identifiable information (PII) or other
+-- confidential or sensitive information in tags. We use tags to provide
+-- you with billing and administration services. Tags are not intended to
+-- be used for private or sensitive data.
 module Network.AWS.ResourceGroupsTagging.TagResources
   ( -- * Creating a Request
-    tagResources,
-    TagResources,
+    TagResources (..),
+    newTagResources,
 
     -- * Request Lenses
-    trResourceARNList,
-    trTags,
+    tagResources_resourceARNList,
+    tagResources_tags,
 
     -- * Destructuring the Response
-    tagResourcesResponse,
-    TagResourcesResponse,
+    TagResourcesResponse (..),
+    newTagResourcesResponse,
 
     -- * Response Lenses
-    trrrsFailedResourcesMap,
-    trrrsResponseStatus,
+    tagResourcesResponse_failedResourcesMap,
+    tagResourcesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroupsTagging.Types
-import Network.AWS.Response
+import Network.AWS.ResourceGroupsTagging.Types.FailureInfo
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagResources' smart constructor.
+-- | /See:/ 'newTagResources' smart constructor.
 data TagResources = TagResources'
-  { _trResourceARNList ::
-      !(List1 Text),
-    _trTags :: !(Map Text Text)
+  { -- | Specifies the list of ARNs of the resources that you want to apply tags
+    -- to.
+    --
+    -- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
+    -- information, see
+    -- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
+    resourceARNList :: Prelude.List1 Prelude.Text,
+    -- | Specifies a list of tags that you want to add to the specified
+    -- resources. A tag consists of a key and a value that you define.
+    tags :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResources' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResources' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trResourceARNList' - Specifies the list of ARNs of the resources that you want to apply tags to. An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> in the /AWS General Reference/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTags' - Specifies a list of tags that you want to add to the specified resources. A tag consists of a key and a value that you define.
-tagResources ::
-  -- | 'trResourceARNList'
-  NonEmpty Text ->
+-- 'resourceARNList', 'tagResources_resourceARNList' - Specifies the list of ARNs of the resources that you want to apply tags
+-- to.
+--
+-- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
+-- information, see
+-- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
+--
+-- 'tags', 'tagResources_tags' - Specifies a list of tags that you want to add to the specified
+-- resources. A tag consists of a key and a value that you define.
+newTagResources ::
+  -- | 'resourceARNList'
+  Prelude.NonEmpty Prelude.Text ->
   TagResources
-tagResources pResourceARNList_ =
+newTagResources pResourceARNList_ =
   TagResources'
-    { _trResourceARNList =
-        _List1 # pResourceARNList_,
-      _trTags = mempty
+    { resourceARNList =
+        Prelude._List1 Lens.# pResourceARNList_,
+      tags = Prelude.mempty
     }
 
--- | Specifies the list of ARNs of the resources that you want to apply tags to. An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> in the /AWS General Reference/ .
-trResourceARNList :: Lens' TagResources (NonEmpty Text)
-trResourceARNList = lens _trResourceARNList (\s a -> s {_trResourceARNList = a}) . _List1
+-- | Specifies the list of ARNs of the resources that you want to apply tags
+-- to.
+--
+-- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
+-- information, see
+-- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
+tagResources_resourceARNList :: Lens.Lens' TagResources (Prelude.NonEmpty Prelude.Text)
+tagResources_resourceARNList = Lens.lens (\TagResources' {resourceARNList} -> resourceARNList) (\s@TagResources' {} a -> s {resourceARNList = a} :: TagResources) Prelude.. Prelude._List1
 
--- | Specifies a list of tags that you want to add to the specified resources. A tag consists of a key and a value that you define.
-trTags :: Lens' TagResources (HashMap Text Text)
-trTags = lens _trTags (\s a -> s {_trTags = a}) . _Map
+-- | Specifies a list of tags that you want to add to the specified
+-- resources. A tag consists of a key and a value that you define.
+tagResources_tags :: Lens.Lens' TagResources (Prelude.HashMap Prelude.Text Prelude.Text)
+tagResources_tags = Lens.lens (\TagResources' {tags} -> tags) (\s@TagResources' {} a -> s {tags = a} :: TagResources) Prelude.. Prelude._Map
 
-instance AWSRequest TagResources where
+instance Prelude.AWSRequest TagResources where
   type Rs TagResources = TagResourcesResponse
-  request = postJSON resourceGroupsTagging
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TagResourcesResponse'
-            <$> (x .?> "FailedResourcesMap" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "FailedResourcesMap"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TagResources
+instance Prelude.Hashable TagResources
 
-instance NFData TagResources
+instance Prelude.NFData TagResources
 
-instance ToHeaders TagResources where
+instance Prelude.ToHeaders TagResources where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ResourceGroupsTaggingAPI_20170126.TagResources" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ResourceGroupsTaggingAPI_20170126.TagResources" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TagResources where
+instance Prelude.ToJSON TagResources where
   toJSON TagResources' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceARNList" .= _trResourceARNList),
-            Just ("Tags" .= _trTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceARNList" Prelude..= resourceARNList),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath TagResources where
-  toPath = const "/"
+instance Prelude.ToPath TagResources where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagResources where
-  toQuery = const mempty
+instance Prelude.ToQuery TagResources where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagResourcesResponse' smart constructor.
+-- | /See:/ 'newTagResourcesResponse' smart constructor.
 data TagResourcesResponse = TagResourcesResponse'
-  { _trrrsFailedResourcesMap ::
-      !( Maybe
-           (Map Text FailureInfo)
-       ),
-    _trrrsResponseStatus :: !Int
+  { -- | A map containing a key-value pair for each failed item that couldn\'t be
+    -- tagged. The key is the ARN of the failed resource. The value is a
+    -- @FailureInfo@ object that contains an error code, a status code, and an
+    -- error message. If there are no errors, the @FailedResourcesMap@ is
+    -- empty.
+    failedResourcesMap :: Prelude.Maybe (Prelude.Map Prelude.Text FailureInfo),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourcesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResourcesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trrrsFailedResourcesMap' - A map containing a key-value pair for each failed item that couldn't be tagged. The key is the ARN of the failed resource. The value is a @FailureInfo@ object that contains an error code, a status code, and an error message. If there are no errors, the @FailedResourcesMap@ is empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trrrsResponseStatus' - -- | The response status code.
-tagResourcesResponse ::
-  -- | 'trrrsResponseStatus'
-  Int ->
+-- 'failedResourcesMap', 'tagResourcesResponse_failedResourcesMap' - A map containing a key-value pair for each failed item that couldn\'t be
+-- tagged. The key is the ARN of the failed resource. The value is a
+-- @FailureInfo@ object that contains an error code, a status code, and an
+-- error message. If there are no errors, the @FailedResourcesMap@ is
+-- empty.
+--
+-- 'httpStatus', 'tagResourcesResponse_httpStatus' - The response's http status code.
+newTagResourcesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TagResourcesResponse
-tagResourcesResponse pResponseStatus_ =
+newTagResourcesResponse pHttpStatus_ =
   TagResourcesResponse'
-    { _trrrsFailedResourcesMap =
-        Nothing,
-      _trrrsResponseStatus = pResponseStatus_
+    { failedResourcesMap =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A map containing a key-value pair for each failed item that couldn't be tagged. The key is the ARN of the failed resource. The value is a @FailureInfo@ object that contains an error code, a status code, and an error message. If there are no errors, the @FailedResourcesMap@ is empty.
-trrrsFailedResourcesMap :: Lens' TagResourcesResponse (HashMap Text FailureInfo)
-trrrsFailedResourcesMap = lens _trrrsFailedResourcesMap (\s a -> s {_trrrsFailedResourcesMap = a}) . _Default . _Map
+-- | A map containing a key-value pair for each failed item that couldn\'t be
+-- tagged. The key is the ARN of the failed resource. The value is a
+-- @FailureInfo@ object that contains an error code, a status code, and an
+-- error message. If there are no errors, the @FailedResourcesMap@ is
+-- empty.
+tagResourcesResponse_failedResourcesMap :: Lens.Lens' TagResourcesResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text FailureInfo))
+tagResourcesResponse_failedResourcesMap = Lens.lens (\TagResourcesResponse' {failedResourcesMap} -> failedResourcesMap) (\s@TagResourcesResponse' {} a -> s {failedResourcesMap = a} :: TagResourcesResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-trrrsResponseStatus :: Lens' TagResourcesResponse Int
-trrrsResponseStatus = lens _trrrsResponseStatus (\s a -> s {_trrrsResponseStatus = a})
+-- | The response's http status code.
+tagResourcesResponse_httpStatus :: Lens.Lens' TagResourcesResponse Prelude.Int
+tagResourcesResponse_httpStatus = Lens.lens (\TagResourcesResponse' {httpStatus} -> httpStatus) (\s@TagResourcesResponse' {} a -> s {httpStatus = a} :: TagResourcesResponse)
 
-instance NFData TagResourcesResponse
+instance Prelude.NFData TagResourcesResponse

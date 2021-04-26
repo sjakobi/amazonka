@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ResourceGroupsTagging.Types.TargetIdType
   ( TargetIdType
       ( ..,
-        Account,
-        OU,
-        Root
+        TargetIdTypeACCOUNT,
+        TargetIdTypeOU,
+        TargetIdTypeROOT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetIdType = TargetIdType' (CI Text)
+newtype TargetIdType = TargetIdType'
+  { fromTargetIdType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Account :: TargetIdType
-pattern Account = TargetIdType' "ACCOUNT"
+pattern TargetIdTypeACCOUNT :: TargetIdType
+pattern TargetIdTypeACCOUNT = TargetIdType' "ACCOUNT"
 
-pattern OU :: TargetIdType
-pattern OU = TargetIdType' "OU"
+pattern TargetIdTypeOU :: TargetIdType
+pattern TargetIdTypeOU = TargetIdType' "OU"
 
-pattern Root :: TargetIdType
-pattern Root = TargetIdType' "ROOT"
+pattern TargetIdTypeROOT :: TargetIdType
+pattern TargetIdTypeROOT = TargetIdType' "ROOT"
 
 {-# COMPLETE
-  Account,
-  OU,
-  Root,
+  TargetIdTypeACCOUNT,
+  TargetIdTypeOU,
+  TargetIdTypeROOT,
   TargetIdType'
   #-}
 
-instance FromText TargetIdType where
-  parser = (TargetIdType' . mk) <$> takeText
+instance Prelude.FromText TargetIdType where
+  parser = TargetIdType' Prelude.<$> Prelude.takeText
 
-instance ToText TargetIdType where
-  toText (TargetIdType' ci) = original ci
+instance Prelude.ToText TargetIdType where
+  toText (TargetIdType' x) = x
 
-instance Hashable TargetIdType
+instance Prelude.Hashable TargetIdType
 
-instance NFData TargetIdType
+instance Prelude.NFData TargetIdType
 
-instance ToByteString TargetIdType
+instance Prelude.ToByteString TargetIdType
 
-instance ToQuery TargetIdType
+instance Prelude.ToQuery TargetIdType
 
-instance ToHeader TargetIdType
+instance Prelude.ToHeader TargetIdType
 
-instance FromJSON TargetIdType where
-  parseJSON = parseJSONText "TargetIdType"
+instance Prelude.FromJSON TargetIdType where
+  parseJSON = Prelude.parseJSONText "TargetIdType"

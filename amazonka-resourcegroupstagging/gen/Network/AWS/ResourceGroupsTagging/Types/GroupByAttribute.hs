@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ResourceGroupsTagging.Types.GroupByAttribute
   ( GroupByAttribute
       ( ..,
-        Region,
-        ResourceType,
-        TargetId
+        GroupByAttributeREGION,
+        GroupByAttributeRESOURCETYPE,
+        GroupByAttributeTARGETID
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GroupByAttribute = GroupByAttribute' (CI Text)
+newtype GroupByAttribute = GroupByAttribute'
+  { fromGroupByAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Region :: GroupByAttribute
-pattern Region = GroupByAttribute' "REGION"
+pattern GroupByAttributeREGION :: GroupByAttribute
+pattern GroupByAttributeREGION = GroupByAttribute' "REGION"
 
-pattern ResourceType :: GroupByAttribute
-pattern ResourceType = GroupByAttribute' "RESOURCE_TYPE"
+pattern GroupByAttributeRESOURCETYPE :: GroupByAttribute
+pattern GroupByAttributeRESOURCETYPE = GroupByAttribute' "RESOURCE_TYPE"
 
-pattern TargetId :: GroupByAttribute
-pattern TargetId = GroupByAttribute' "TARGET_ID"
+pattern GroupByAttributeTARGETID :: GroupByAttribute
+pattern GroupByAttributeTARGETID = GroupByAttribute' "TARGET_ID"
 
 {-# COMPLETE
-  Region,
-  ResourceType,
-  TargetId,
+  GroupByAttributeREGION,
+  GroupByAttributeRESOURCETYPE,
+  GroupByAttributeTARGETID,
   GroupByAttribute'
   #-}
 
-instance FromText GroupByAttribute where
-  parser = (GroupByAttribute' . mk) <$> takeText
+instance Prelude.FromText GroupByAttribute where
+  parser = GroupByAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText GroupByAttribute where
-  toText (GroupByAttribute' ci) = original ci
+instance Prelude.ToText GroupByAttribute where
+  toText (GroupByAttribute' x) = x
 
-instance Hashable GroupByAttribute
+instance Prelude.Hashable GroupByAttribute
 
-instance NFData GroupByAttribute
+instance Prelude.NFData GroupByAttribute
 
-instance ToByteString GroupByAttribute
+instance Prelude.ToByteString GroupByAttribute
 
-instance ToQuery GroupByAttribute
+instance Prelude.ToQuery GroupByAttribute
 
-instance ToHeader GroupByAttribute
+instance Prelude.ToHeader GroupByAttribute
 
-instance ToJSON GroupByAttribute where
-  toJSON = toJSONText
+instance Prelude.ToJSON GroupByAttribute where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.ResourceGroupsTagging.Types.ResourceErrorCode
   ( ResourceErrorCode
       ( ..,
-        InternalServiceException,
-        InvalidParameterException
+        ResourceErrorCodeInternalServiceException,
+        ResourceErrorCodeInvalidParameterException
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceErrorCode = ResourceErrorCode' (CI Text)
+newtype ResourceErrorCode = ResourceErrorCode'
+  { fromResourceErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InternalServiceException :: ResourceErrorCode
-pattern InternalServiceException = ResourceErrorCode' "InternalServiceException"
+pattern ResourceErrorCodeInternalServiceException :: ResourceErrorCode
+pattern ResourceErrorCodeInternalServiceException = ResourceErrorCode' "InternalServiceException"
 
-pattern InvalidParameterException :: ResourceErrorCode
-pattern InvalidParameterException = ResourceErrorCode' "InvalidParameterException"
+pattern ResourceErrorCodeInvalidParameterException :: ResourceErrorCode
+pattern ResourceErrorCodeInvalidParameterException = ResourceErrorCode' "InvalidParameterException"
 
 {-# COMPLETE
-  InternalServiceException,
-  InvalidParameterException,
+  ResourceErrorCodeInternalServiceException,
+  ResourceErrorCodeInvalidParameterException,
   ResourceErrorCode'
   #-}
 
-instance FromText ResourceErrorCode where
-  parser = (ResourceErrorCode' . mk) <$> takeText
+instance Prelude.FromText ResourceErrorCode where
+  parser = ResourceErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceErrorCode where
-  toText (ResourceErrorCode' ci) = original ci
+instance Prelude.ToText ResourceErrorCode where
+  toText (ResourceErrorCode' x) = x
 
-instance Hashable ResourceErrorCode
+instance Prelude.Hashable ResourceErrorCode
 
-instance NFData ResourceErrorCode
+instance Prelude.NFData ResourceErrorCode
 
-instance ToByteString ResourceErrorCode
+instance Prelude.ToByteString ResourceErrorCode
 
-instance ToQuery ResourceErrorCode
+instance Prelude.ToQuery ResourceErrorCode
 
-instance ToHeader ResourceErrorCode
+instance Prelude.ToHeader ResourceErrorCode
 
-instance FromJSON ResourceErrorCode where
-  parseJSON = parseJSONText "ResourceErrorCode"
+instance Prelude.FromJSON ResourceErrorCode where
+  parseJSON = Prelude.parseJSONText "ResourceErrorCode"
