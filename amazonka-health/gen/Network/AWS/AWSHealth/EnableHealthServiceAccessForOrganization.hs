@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,117 +21,134 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables AWS Health to work with AWS Organizations. You can use the organizational view feature to aggregate events from all AWS accounts in your organization in a centralized location.
+-- Enables AWS Health to work with AWS Organizations. You can use the
+-- organizational view feature to aggregate events from all AWS accounts in
+-- your organization in a centralized location.
 --
+-- This operation also creates a service-linked role for the management
+-- account in the organization.
 --
--- This operation also creates a service-linked role for the management account in the organization.
+-- To call this operation, you must meet the following requirements:
 --
--- If you don't have the required support plan, you can instead use the AWS Health console to enable the organizational view feature. For more information, see <https://docs.aws.amazon.com/health/latest/ug/aggregate-events.html Aggregating AWS Health events> in the /AWS Health User Guide/ .
+-- -   You must have a Business or Enterprise support plan from
+--     <http://aws.amazon.com/premiumsupport/ AWS Support> to use the AWS
+--     Health API. If you call the AWS Health API from an AWS account that
+--     doesn\'t have a Business or Enterprise support plan, you receive a
+--     @SubscriptionRequiredException@ error.
+--
+-- -   You must have permission to call this operation from the
+--     organization\'s management account. For example IAM policies, see
+--     <https://docs.aws.amazon.com/health/latest/ug/security_iam_id-based-policy-examples.html AWS Health identity-based policy examples>.
+--
+-- If you don\'t have the required support plan, you can instead use the
+-- AWS Health console to enable the organizational view feature. For more
+-- information, see
+-- <https://docs.aws.amazon.com/health/latest/ug/aggregate-events.html Aggregating AWS Health events>
+-- in the /AWS Health User Guide/.
 module Network.AWS.AWSHealth.EnableHealthServiceAccessForOrganization
   ( -- * Creating a Request
-    enableHealthServiceAccessForOrganization,
-    EnableHealthServiceAccessForOrganization,
+    EnableHealthServiceAccessForOrganization (..),
+    newEnableHealthServiceAccessForOrganization,
 
     -- * Destructuring the Response
-    enableHealthServiceAccessForOrganizationResponse,
-    EnableHealthServiceAccessForOrganizationResponse,
+    EnableHealthServiceAccessForOrganizationResponse (..),
+    newEnableHealthServiceAccessForOrganizationResponse,
   )
 where
 
 import Network.AWS.AWSHealth.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableHealthServiceAccessForOrganization' smart constructor.
+-- | /See:/ 'newEnableHealthServiceAccessForOrganization' smart constructor.
 data EnableHealthServiceAccessForOrganization = EnableHealthServiceAccessForOrganization'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableHealthServiceAccessForOrganization' with the minimum fields required to make a request.
-enableHealthServiceAccessForOrganization ::
+-- |
+-- Create a value of 'EnableHealthServiceAccessForOrganization' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEnableHealthServiceAccessForOrganization ::
   EnableHealthServiceAccessForOrganization
-enableHealthServiceAccessForOrganization =
+newEnableHealthServiceAccessForOrganization =
   EnableHealthServiceAccessForOrganization'
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     EnableHealthServiceAccessForOrganization
   where
   type
     Rs EnableHealthServiceAccessForOrganization =
       EnableHealthServiceAccessForOrganizationResponse
-  request = postJSON awsHealth
+  request = Request.postJSON defaultService
   response =
-    receiveNull
+    Response.receiveNull
       EnableHealthServiceAccessForOrganizationResponse'
 
 instance
-  Hashable
+  Prelude.Hashable
     EnableHealthServiceAccessForOrganization
 
 instance
-  NFData
+  Prelude.NFData
     EnableHealthServiceAccessForOrganization
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     EnableHealthServiceAccessForOrganization
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSHealth_20160804.EnableHealthServiceAccessForOrganization" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSHealth_20160804.EnableHealthServiceAccessForOrganization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     EnableHealthServiceAccessForOrganization
   where
-  toJSON = const (Object mempty)
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
 instance
-  ToPath
+  Prelude.ToPath
     EnableHealthServiceAccessForOrganization
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     EnableHealthServiceAccessForOrganization
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableHealthServiceAccessForOrganizationResponse' smart constructor.
+-- | /See:/ 'newEnableHealthServiceAccessForOrganizationResponse' smart constructor.
 data EnableHealthServiceAccessForOrganizationResponse = EnableHealthServiceAccessForOrganizationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableHealthServiceAccessForOrganizationResponse' with the minimum fields required to make a request.
-enableHealthServiceAccessForOrganizationResponse ::
+-- |
+-- Create a value of 'EnableHealthServiceAccessForOrganizationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEnableHealthServiceAccessForOrganizationResponse ::
   EnableHealthServiceAccessForOrganizationResponse
-enableHealthServiceAccessForOrganizationResponse =
+newEnableHealthServiceAccessForOrganizationResponse =
   EnableHealthServiceAccessForOrganizationResponse'
 
 instance
-  NFData
+  Prelude.NFData
     EnableHealthServiceAccessForOrganizationResponse

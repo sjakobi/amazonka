@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,93 +21,110 @@ module Network.AWS.AWSHealth.Types.EntityFilter where
 
 import Network.AWS.AWSHealth.Types.DateTimeRange
 import Network.AWS.AWSHealth.Types.EntityStatusCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The values to use to filter results from the <https://docs.aws.amazon.com/health/latest/APIReference/API_EntityFilter.html EntityFilter> operation.
+-- | The values to use to filter results from the
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_EntityFilter.html EntityFilter>
+-- operation.
 --
---
---
--- /See:/ 'entityFilter' smart constructor.
+-- /See:/ 'newEntityFilter' smart constructor.
 data EntityFilter = EntityFilter'
-  { _eEntityARNs ::
-      !(Maybe (List1 Text)),
-    _eStatusCodes ::
-      !(Maybe (List1 EntityStatusCode)),
-    _eLastUpdatedTimes ::
-      !(Maybe (List1 DateTimeRange)),
-    _eTags :: !(Maybe [Map Text Text]),
-    _eEntityValues :: !(Maybe (List1 Text)),
-    _eEventARNs :: !(List1 Text)
+  { -- | A list of entity ARNs (unique identifiers).
+    entityArns :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of entity status codes (@IMPAIRED@, @UNIMPAIRED@, or @UNKNOWN@).
+    statusCodes :: Prelude.Maybe (Prelude.List1 EntityStatusCode),
+    -- | A list of the most recent dates and times that the entity was updated.
+    lastUpdatedTimes :: Prelude.Maybe (Prelude.List1 DateTimeRange),
+    -- | A map of entity tags attached to the affected entity.
+    --
+    -- Currently, the @tags@ property isn\'t supported.
+    tags :: Prelude.Maybe [Prelude.Map Prelude.Text Prelude.Text],
+    -- | A list of IDs for affected entities.
+    entityValues :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of event ARNs (unique identifiers). For example:
+    -- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+    eventArns :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EntityFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EntityFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eEntityARNs' - A list of entity ARNs (unique identifiers).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eStatusCodes' - A list of entity status codes (@IMPAIRED@ , @UNIMPAIRED@ , or @UNKNOWN@ ).
+-- 'entityArns', 'entityFilter_entityArns' - A list of entity ARNs (unique identifiers).
 --
--- * 'eLastUpdatedTimes' - A list of the most recent dates and times that the entity was updated.
+-- 'statusCodes', 'entityFilter_statusCodes' - A list of entity status codes (@IMPAIRED@, @UNIMPAIRED@, or @UNKNOWN@).
 --
--- * 'eTags' - A map of entity tags attached to the affected entity.
+-- 'lastUpdatedTimes', 'entityFilter_lastUpdatedTimes' - A list of the most recent dates and times that the entity was updated.
 --
--- * 'eEntityValues' - A list of IDs for affected entities.
+-- 'tags', 'entityFilter_tags' - A map of entity tags attached to the affected entity.
 --
--- * 'eEventARNs' - A list of event ARNs (unique identifiers). For example: @"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"@
-entityFilter ::
-  -- | 'eEventARNs'
-  NonEmpty Text ->
+-- Currently, the @tags@ property isn\'t supported.
+--
+-- 'entityValues', 'entityFilter_entityValues' - A list of IDs for affected entities.
+--
+-- 'eventArns', 'entityFilter_eventArns' - A list of event ARNs (unique identifiers). For example:
+-- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+newEntityFilter ::
+  -- | 'eventArns'
+  Prelude.NonEmpty Prelude.Text ->
   EntityFilter
-entityFilter pEventARNs_ =
+newEntityFilter pEventArns_ =
   EntityFilter'
-    { _eEntityARNs = Nothing,
-      _eStatusCodes = Nothing,
-      _eLastUpdatedTimes = Nothing,
-      _eTags = Nothing,
-      _eEntityValues = Nothing,
-      _eEventARNs = _List1 # pEventARNs_
+    { entityArns = Prelude.Nothing,
+      statusCodes = Prelude.Nothing,
+      lastUpdatedTimes = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      entityValues = Prelude.Nothing,
+      eventArns = Prelude._List1 Lens.# pEventArns_
     }
 
 -- | A list of entity ARNs (unique identifiers).
-eEntityARNs :: Lens' EntityFilter (Maybe (NonEmpty Text))
-eEntityARNs = lens _eEntityARNs (\s a -> s {_eEntityARNs = a}) . mapping _List1
+entityFilter_entityArns :: Lens.Lens' EntityFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+entityFilter_entityArns = Lens.lens (\EntityFilter' {entityArns} -> entityArns) (\s@EntityFilter' {} a -> s {entityArns = a} :: EntityFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of entity status codes (@IMPAIRED@ , @UNIMPAIRED@ , or @UNKNOWN@ ).
-eStatusCodes :: Lens' EntityFilter (Maybe (NonEmpty EntityStatusCode))
-eStatusCodes = lens _eStatusCodes (\s a -> s {_eStatusCodes = a}) . mapping _List1
+-- | A list of entity status codes (@IMPAIRED@, @UNIMPAIRED@, or @UNKNOWN@).
+entityFilter_statusCodes :: Lens.Lens' EntityFilter (Prelude.Maybe (Prelude.NonEmpty EntityStatusCode))
+entityFilter_statusCodes = Lens.lens (\EntityFilter' {statusCodes} -> statusCodes) (\s@EntityFilter' {} a -> s {statusCodes = a} :: EntityFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | A list of the most recent dates and times that the entity was updated.
-eLastUpdatedTimes :: Lens' EntityFilter (Maybe (NonEmpty DateTimeRange))
-eLastUpdatedTimes = lens _eLastUpdatedTimes (\s a -> s {_eLastUpdatedTimes = a}) . mapping _List1
+entityFilter_lastUpdatedTimes :: Lens.Lens' EntityFilter (Prelude.Maybe (Prelude.NonEmpty DateTimeRange))
+entityFilter_lastUpdatedTimes = Lens.lens (\EntityFilter' {lastUpdatedTimes} -> lastUpdatedTimes) (\s@EntityFilter' {} a -> s {lastUpdatedTimes = a} :: EntityFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | A map of entity tags attached to the affected entity.
-eTags :: Lens' EntityFilter [HashMap Text Text]
-eTags = lens _eTags (\s a -> s {_eTags = a}) . _Default . _Coerce
+--
+-- Currently, the @tags@ property isn\'t supported.
+entityFilter_tags :: Lens.Lens' EntityFilter (Prelude.Maybe [Prelude.HashMap Prelude.Text Prelude.Text])
+entityFilter_tags = Lens.lens (\EntityFilter' {tags} -> tags) (\s@EntityFilter' {} a -> s {tags = a} :: EntityFilter) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of IDs for affected entities.
-eEntityValues :: Lens' EntityFilter (Maybe (NonEmpty Text))
-eEntityValues = lens _eEntityValues (\s a -> s {_eEntityValues = a}) . mapping _List1
+entityFilter_entityValues :: Lens.Lens' EntityFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+entityFilter_entityValues = Lens.lens (\EntityFilter' {entityValues} -> entityValues) (\s@EntityFilter' {} a -> s {entityValues = a} :: EntityFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of event ARNs (unique identifiers). For example: @"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"@
-eEventARNs :: Lens' EntityFilter (NonEmpty Text)
-eEventARNs = lens _eEventARNs (\s a -> s {_eEventARNs = a}) . _List1
+-- | A list of event ARNs (unique identifiers). For example:
+-- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+entityFilter_eventArns :: Lens.Lens' EntityFilter (Prelude.NonEmpty Prelude.Text)
+entityFilter_eventArns = Lens.lens (\EntityFilter' {eventArns} -> eventArns) (\s@EntityFilter' {} a -> s {eventArns = a} :: EntityFilter) Prelude.. Prelude._List1
 
-instance Hashable EntityFilter
+instance Prelude.Hashable EntityFilter
 
-instance NFData EntityFilter
+instance Prelude.NFData EntityFilter
 
-instance ToJSON EntityFilter where
+instance Prelude.ToJSON EntityFilter where
   toJSON EntityFilter' {..} =
-    object
-      ( catMaybes
-          [ ("entityArns" .=) <$> _eEntityARNs,
-            ("statusCodes" .=) <$> _eStatusCodes,
-            ("lastUpdatedTimes" .=) <$> _eLastUpdatedTimes,
-            ("tags" .=) <$> _eTags,
-            ("entityValues" .=) <$> _eEntityValues,
-            Just ("eventArns" .= _eEventARNs)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("entityArns" Prelude..=) Prelude.<$> entityArns,
+            ("statusCodes" Prelude..=) Prelude.<$> statusCodes,
+            ("lastUpdatedTimes" Prelude..=)
+              Prelude.<$> lastUpdatedTimes,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("entityValues" Prelude..=) Prelude.<$> entityValues,
+            Prelude.Just ("eventArns" Prelude..= eventArns)
           ]
       )

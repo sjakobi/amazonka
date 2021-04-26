@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.AWSHealth.Types.EventTypeCategory
   ( EventTypeCategory
       ( ..,
-        AccountNotification,
-        Investigation,
-        Issue,
-        ScheduledChange
+        EventTypeCategoryAccountNotification,
+        EventTypeCategoryInvestigation,
+        EventTypeCategoryIssue,
+        EventTypeCategoryScheduledChange
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventTypeCategory = EventTypeCategory' (CI Text)
+newtype EventTypeCategory = EventTypeCategory'
+  { fromEventTypeCategory ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccountNotification :: EventTypeCategory
-pattern AccountNotification = EventTypeCategory' "accountNotification"
+pattern EventTypeCategoryAccountNotification :: EventTypeCategory
+pattern EventTypeCategoryAccountNotification = EventTypeCategory' "accountNotification"
 
-pattern Investigation :: EventTypeCategory
-pattern Investigation = EventTypeCategory' "investigation"
+pattern EventTypeCategoryInvestigation :: EventTypeCategory
+pattern EventTypeCategoryInvestigation = EventTypeCategory' "investigation"
 
-pattern Issue :: EventTypeCategory
-pattern Issue = EventTypeCategory' "issue"
+pattern EventTypeCategoryIssue :: EventTypeCategory
+pattern EventTypeCategoryIssue = EventTypeCategory' "issue"
 
-pattern ScheduledChange :: EventTypeCategory
-pattern ScheduledChange = EventTypeCategory' "scheduledChange"
+pattern EventTypeCategoryScheduledChange :: EventTypeCategory
+pattern EventTypeCategoryScheduledChange = EventTypeCategory' "scheduledChange"
 
 {-# COMPLETE
-  AccountNotification,
-  Investigation,
-  Issue,
-  ScheduledChange,
+  EventTypeCategoryAccountNotification,
+  EventTypeCategoryInvestigation,
+  EventTypeCategoryIssue,
+  EventTypeCategoryScheduledChange,
   EventTypeCategory'
   #-}
 
-instance FromText EventTypeCategory where
-  parser = (EventTypeCategory' . mk) <$> takeText
+instance Prelude.FromText EventTypeCategory where
+  parser = EventTypeCategory' Prelude.<$> Prelude.takeText
 
-instance ToText EventTypeCategory where
-  toText (EventTypeCategory' ci) = original ci
+instance Prelude.ToText EventTypeCategory where
+  toText (EventTypeCategory' x) = x
 
-instance Hashable EventTypeCategory
+instance Prelude.Hashable EventTypeCategory
 
-instance NFData EventTypeCategory
+instance Prelude.NFData EventTypeCategory
 
-instance ToByteString EventTypeCategory
+instance Prelude.ToByteString EventTypeCategory
 
-instance ToQuery EventTypeCategory
+instance Prelude.ToQuery EventTypeCategory
 
-instance ToHeader EventTypeCategory
+instance Prelude.ToHeader EventTypeCategory
 
-instance ToJSON EventTypeCategory where
-  toJSON = toJSONText
+instance Prelude.ToJSON EventTypeCategory where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EventTypeCategory where
-  parseJSON = parseJSONText "EventTypeCategory"
+instance Prelude.FromJSON EventTypeCategory where
+  parseJSON = Prelude.parseJSONText "EventTypeCategory"

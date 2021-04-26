@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AWSHealth.Types.EventAggregate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The number of events of each issue type. Returned by the <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventAggregates.html DescribeEventAggregates> operation.
+-- | The number of events of each issue type. Returned by the
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventAggregates.html DescribeEventAggregates>
+-- operation.
 --
---
---
--- /See:/ 'eventAggregate' smart constructor.
+-- /See:/ 'newEventAggregate' smart constructor.
 data EventAggregate = EventAggregate'
-  { _eCount ::
-      !(Maybe Int),
-    _eAggregateValue :: !(Maybe Text)
+  { -- | The number of events of the associated issue type.
+    count :: Prelude.Maybe Prelude.Int,
+    -- | The issue type for the associated count.
+    aggregateValue :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventAggregate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventAggregate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eCount' - The number of events of the associated issue type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eAggregateValue' - The issue type for the associated count.
-eventAggregate ::
+-- 'count', 'eventAggregate_count' - The number of events of the associated issue type.
+--
+-- 'aggregateValue', 'eventAggregate_aggregateValue' - The issue type for the associated count.
+newEventAggregate ::
   EventAggregate
-eventAggregate =
+newEventAggregate =
   EventAggregate'
-    { _eCount = Nothing,
-      _eAggregateValue = Nothing
+    { count = Prelude.Nothing,
+      aggregateValue = Prelude.Nothing
     }
 
 -- | The number of events of the associated issue type.
-eCount :: Lens' EventAggregate (Maybe Int)
-eCount = lens _eCount (\s a -> s {_eCount = a})
+eventAggregate_count :: Lens.Lens' EventAggregate (Prelude.Maybe Prelude.Int)
+eventAggregate_count = Lens.lens (\EventAggregate' {count} -> count) (\s@EventAggregate' {} a -> s {count = a} :: EventAggregate)
 
 -- | The issue type for the associated count.
-eAggregateValue :: Lens' EventAggregate (Maybe Text)
-eAggregateValue = lens _eAggregateValue (\s a -> s {_eAggregateValue = a})
+eventAggregate_aggregateValue :: Lens.Lens' EventAggregate (Prelude.Maybe Prelude.Text)
+eventAggregate_aggregateValue = Lens.lens (\EventAggregate' {aggregateValue} -> aggregateValue) (\s@EventAggregate' {} a -> s {aggregateValue = a} :: EventAggregate)
 
-instance FromJSON EventAggregate where
+instance Prelude.FromJSON EventAggregate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventAggregate"
       ( \x ->
           EventAggregate'
-            <$> (x .:? "count") <*> (x .:? "aggregateValue")
+            Prelude.<$> (x Prelude..:? "count")
+            Prelude.<*> (x Prelude..:? "aggregateValue")
       )
 
-instance Hashable EventAggregate
+instance Prelude.Hashable EventAggregate
 
-instance NFData EventAggregate
+instance Prelude.NFData EventAggregate

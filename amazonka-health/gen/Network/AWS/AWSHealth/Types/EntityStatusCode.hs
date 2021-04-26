@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.AWSHealth.Types.EntityStatusCode
   ( EntityStatusCode
       ( ..,
-        Impaired,
-        Unimpaired,
-        Unknown
+        EntityStatusCodeIMPAIRED,
+        EntityStatusCodeUNIMPAIRED,
+        EntityStatusCodeUNKNOWN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EntityStatusCode = EntityStatusCode' (CI Text)
+newtype EntityStatusCode = EntityStatusCode'
+  { fromEntityStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Impaired :: EntityStatusCode
-pattern Impaired = EntityStatusCode' "IMPAIRED"
+pattern EntityStatusCodeIMPAIRED :: EntityStatusCode
+pattern EntityStatusCodeIMPAIRED = EntityStatusCode' "IMPAIRED"
 
-pattern Unimpaired :: EntityStatusCode
-pattern Unimpaired = EntityStatusCode' "UNIMPAIRED"
+pattern EntityStatusCodeUNIMPAIRED :: EntityStatusCode
+pattern EntityStatusCodeUNIMPAIRED = EntityStatusCode' "UNIMPAIRED"
 
-pattern Unknown :: EntityStatusCode
-pattern Unknown = EntityStatusCode' "UNKNOWN"
+pattern EntityStatusCodeUNKNOWN :: EntityStatusCode
+pattern EntityStatusCodeUNKNOWN = EntityStatusCode' "UNKNOWN"
 
 {-# COMPLETE
-  Impaired,
-  Unimpaired,
-  Unknown,
+  EntityStatusCodeIMPAIRED,
+  EntityStatusCodeUNIMPAIRED,
+  EntityStatusCodeUNKNOWN,
   EntityStatusCode'
   #-}
 
-instance FromText EntityStatusCode where
-  parser = (EntityStatusCode' . mk) <$> takeText
+instance Prelude.FromText EntityStatusCode where
+  parser = EntityStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText EntityStatusCode where
-  toText (EntityStatusCode' ci) = original ci
+instance Prelude.ToText EntityStatusCode where
+  toText (EntityStatusCode' x) = x
 
-instance Hashable EntityStatusCode
+instance Prelude.Hashable EntityStatusCode
 
-instance NFData EntityStatusCode
+instance Prelude.NFData EntityStatusCode
 
-instance ToByteString EntityStatusCode
+instance Prelude.ToByteString EntityStatusCode
 
-instance ToQuery EntityStatusCode
+instance Prelude.ToQuery EntityStatusCode
 
-instance ToHeader EntityStatusCode
+instance Prelude.ToHeader EntityStatusCode
 
-instance ToJSON EntityStatusCode where
-  toJSON = toJSONText
+instance Prelude.ToJSON EntityStatusCode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EntityStatusCode where
-  parseJSON = parseJSONText "EntityStatusCode"
+instance Prelude.FromJSON EntityStatusCode where
+  parseJSON = Prelude.parseJSONText "EntityStatusCode"

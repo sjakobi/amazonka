@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,160 +22,163 @@ module Network.AWS.AWSHealth.Types.OrganizationEventFilter where
 import Network.AWS.AWSHealth.Types.DateTimeRange
 import Network.AWS.AWSHealth.Types.EventStatusCode
 import Network.AWS.AWSHealth.Types.EventTypeCategory
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The values to filter results from the <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventsForOrganization.html DescribeEventsForOrganization> operation.
+-- | The values to filter results from the
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventsForOrganization.html DescribeEventsForOrganization>
+-- operation.
 --
---
---
--- /See:/ 'organizationEventFilter' smart constructor.
+-- /See:/ 'newOrganizationEventFilter' smart constructor.
 data OrganizationEventFilter = OrganizationEventFilter'
-  { _oefServices ::
-      !(Maybe (List1 Text)),
-    _oefStartTime ::
-      !(Maybe DateTimeRange),
-    _oefEntityARNs ::
-      !(Maybe (List1 Text)),
-    _oefEventTypeCodes ::
-      !(Maybe (List1 Text)),
-    _oefEndTime ::
-      !(Maybe DateTimeRange),
-    _oefEventStatusCodes ::
-      !( Maybe
-           ( List1
-               EventStatusCode
-           )
-       ),
-    _oefEntityValues ::
-      !(Maybe (List1 Text)),
-    _oefRegions ::
-      !(Maybe (List1 Text)),
-    _oefEventTypeCategories ::
-      !( Maybe
-           ( List1
-               EventTypeCategory
-           )
-       ),
-    _oefAwsAccountIds ::
-      !(Maybe (List1 Text)),
-    _oefLastUpdatedTime ::
-      !(Maybe DateTimeRange)
+  { -- | The AWS services associated with the event. For example, @EC2@, @RDS@.
+    services :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    startTime :: Prelude.Maybe DateTimeRange,
+    -- | A list of entity ARNs (unique identifiers).
+    entityArns :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of unique identifiers for event types. For example,
+    -- @\"AWS_EC2_SYSTEM_MAINTENANCE_EVENT\",\"AWS_RDS_MAINTENANCE_SCHEDULED\".@
+    eventTypeCodes :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    endTime :: Prelude.Maybe DateTimeRange,
+    -- | A list of event status codes.
+    eventStatusCodes :: Prelude.Maybe (Prelude.List1 EventStatusCode),
+    -- | A list of entity identifiers, such as EC2 instance IDs (i-34ab692e) or
+    -- EBS volumes (vol-426ab23e).
+    entityValues :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of AWS Regions.
+    regions :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of event type category codes (issue, scheduledChange, or
+    -- accountNotification).
+    eventTypeCategories :: Prelude.Maybe (Prelude.List1 EventTypeCategory),
+    -- | A list of 12-digit AWS account numbers that contains the affected
+    -- entities.
+    awsAccountIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    lastUpdatedTime :: Prelude.Maybe DateTimeRange
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OrganizationEventFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OrganizationEventFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oefServices' - The AWS services associated with the event. For example, @EC2@ , @RDS@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oefStartTime' - Undocumented member.
+-- 'services', 'organizationEventFilter_services' - The AWS services associated with the event. For example, @EC2@, @RDS@.
 --
--- * 'oefEntityARNs' - A list of entity ARNs (unique identifiers).
+-- 'startTime', 'organizationEventFilter_startTime' - Undocumented member.
 --
--- * 'oefEventTypeCodes' - A list of unique identifiers for event types. For example, @"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".@
+-- 'entityArns', 'organizationEventFilter_entityArns' - A list of entity ARNs (unique identifiers).
 --
--- * 'oefEndTime' - Undocumented member.
+-- 'eventTypeCodes', 'organizationEventFilter_eventTypeCodes' - A list of unique identifiers for event types. For example,
+-- @\"AWS_EC2_SYSTEM_MAINTENANCE_EVENT\",\"AWS_RDS_MAINTENANCE_SCHEDULED\".@
 --
--- * 'oefEventStatusCodes' - A list of event status codes.
+-- 'endTime', 'organizationEventFilter_endTime' - Undocumented member.
 --
--- * 'oefEntityValues' - A list of entity identifiers, such as EC2 instance IDs (i-34ab692e) or EBS volumes (vol-426ab23e).
+-- 'eventStatusCodes', 'organizationEventFilter_eventStatusCodes' - A list of event status codes.
 --
--- * 'oefRegions' - A list of AWS Regions.
+-- 'entityValues', 'organizationEventFilter_entityValues' - A list of entity identifiers, such as EC2 instance IDs (i-34ab692e) or
+-- EBS volumes (vol-426ab23e).
 --
--- * 'oefEventTypeCategories' - A list of event type category codes (issue, scheduledChange, or accountNotification).
+-- 'regions', 'organizationEventFilter_regions' - A list of AWS Regions.
 --
--- * 'oefAwsAccountIds' - A list of 12-digit AWS account numbers that contains the affected entities.
+-- 'eventTypeCategories', 'organizationEventFilter_eventTypeCategories' - A list of event type category codes (issue, scheduledChange, or
+-- accountNotification).
 --
--- * 'oefLastUpdatedTime' - Undocumented member.
-organizationEventFilter ::
+-- 'awsAccountIds', 'organizationEventFilter_awsAccountIds' - A list of 12-digit AWS account numbers that contains the affected
+-- entities.
+--
+-- 'lastUpdatedTime', 'organizationEventFilter_lastUpdatedTime' - Undocumented member.
+newOrganizationEventFilter ::
   OrganizationEventFilter
-organizationEventFilter =
+newOrganizationEventFilter =
   OrganizationEventFilter'
-    { _oefServices = Nothing,
-      _oefStartTime = Nothing,
-      _oefEntityARNs = Nothing,
-      _oefEventTypeCodes = Nothing,
-      _oefEndTime = Nothing,
-      _oefEventStatusCodes = Nothing,
-      _oefEntityValues = Nothing,
-      _oefRegions = Nothing,
-      _oefEventTypeCategories = Nothing,
-      _oefAwsAccountIds = Nothing,
-      _oefLastUpdatedTime = Nothing
+    { services =
+        Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      entityArns = Prelude.Nothing,
+      eventTypeCodes = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      eventStatusCodes = Prelude.Nothing,
+      entityValues = Prelude.Nothing,
+      regions = Prelude.Nothing,
+      eventTypeCategories = Prelude.Nothing,
+      awsAccountIds = Prelude.Nothing,
+      lastUpdatedTime = Prelude.Nothing
     }
 
--- | The AWS services associated with the event. For example, @EC2@ , @RDS@ .
-oefServices :: Lens' OrganizationEventFilter (Maybe (NonEmpty Text))
-oefServices = lens _oefServices (\s a -> s {_oefServices = a}) . mapping _List1
+-- | The AWS services associated with the event. For example, @EC2@, @RDS@.
+organizationEventFilter_services :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+organizationEventFilter_services = Lens.lens (\OrganizationEventFilter' {services} -> services) (\s@OrganizationEventFilter' {} a -> s {services = a} :: OrganizationEventFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | Undocumented member.
-oefStartTime :: Lens' OrganizationEventFilter (Maybe DateTimeRange)
-oefStartTime = lens _oefStartTime (\s a -> s {_oefStartTime = a})
+organizationEventFilter_startTime :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe DateTimeRange)
+organizationEventFilter_startTime = Lens.lens (\OrganizationEventFilter' {startTime} -> startTime) (\s@OrganizationEventFilter' {} a -> s {startTime = a} :: OrganizationEventFilter)
 
 -- | A list of entity ARNs (unique identifiers).
-oefEntityARNs :: Lens' OrganizationEventFilter (Maybe (NonEmpty Text))
-oefEntityARNs = lens _oefEntityARNs (\s a -> s {_oefEntityARNs = a}) . mapping _List1
+organizationEventFilter_entityArns :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+organizationEventFilter_entityArns = Lens.lens (\OrganizationEventFilter' {entityArns} -> entityArns) (\s@OrganizationEventFilter' {} a -> s {entityArns = a} :: OrganizationEventFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of unique identifiers for event types. For example, @"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".@
-oefEventTypeCodes :: Lens' OrganizationEventFilter (Maybe (NonEmpty Text))
-oefEventTypeCodes = lens _oefEventTypeCodes (\s a -> s {_oefEventTypeCodes = a}) . mapping _List1
+-- | A list of unique identifiers for event types. For example,
+-- @\"AWS_EC2_SYSTEM_MAINTENANCE_EVENT\",\"AWS_RDS_MAINTENANCE_SCHEDULED\".@
+organizationEventFilter_eventTypeCodes :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+organizationEventFilter_eventTypeCodes = Lens.lens (\OrganizationEventFilter' {eventTypeCodes} -> eventTypeCodes) (\s@OrganizationEventFilter' {} a -> s {eventTypeCodes = a} :: OrganizationEventFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | Undocumented member.
-oefEndTime :: Lens' OrganizationEventFilter (Maybe DateTimeRange)
-oefEndTime = lens _oefEndTime (\s a -> s {_oefEndTime = a})
+organizationEventFilter_endTime :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe DateTimeRange)
+organizationEventFilter_endTime = Lens.lens (\OrganizationEventFilter' {endTime} -> endTime) (\s@OrganizationEventFilter' {} a -> s {endTime = a} :: OrganizationEventFilter)
 
 -- | A list of event status codes.
-oefEventStatusCodes :: Lens' OrganizationEventFilter (Maybe (NonEmpty EventStatusCode))
-oefEventStatusCodes = lens _oefEventStatusCodes (\s a -> s {_oefEventStatusCodes = a}) . mapping _List1
+organizationEventFilter_eventStatusCodes :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe (Prelude.NonEmpty EventStatusCode))
+organizationEventFilter_eventStatusCodes = Lens.lens (\OrganizationEventFilter' {eventStatusCodes} -> eventStatusCodes) (\s@OrganizationEventFilter' {} a -> s {eventStatusCodes = a} :: OrganizationEventFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of entity identifiers, such as EC2 instance IDs (i-34ab692e) or EBS volumes (vol-426ab23e).
-oefEntityValues :: Lens' OrganizationEventFilter (Maybe (NonEmpty Text))
-oefEntityValues = lens _oefEntityValues (\s a -> s {_oefEntityValues = a}) . mapping _List1
+-- | A list of entity identifiers, such as EC2 instance IDs (i-34ab692e) or
+-- EBS volumes (vol-426ab23e).
+organizationEventFilter_entityValues :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+organizationEventFilter_entityValues = Lens.lens (\OrganizationEventFilter' {entityValues} -> entityValues) (\s@OrganizationEventFilter' {} a -> s {entityValues = a} :: OrganizationEventFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | A list of AWS Regions.
-oefRegions :: Lens' OrganizationEventFilter (Maybe (NonEmpty Text))
-oefRegions = lens _oefRegions (\s a -> s {_oefRegions = a}) . mapping _List1
+organizationEventFilter_regions :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+organizationEventFilter_regions = Lens.lens (\OrganizationEventFilter' {regions} -> regions) (\s@OrganizationEventFilter' {} a -> s {regions = a} :: OrganizationEventFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of event type category codes (issue, scheduledChange, or accountNotification).
-oefEventTypeCategories :: Lens' OrganizationEventFilter (Maybe (NonEmpty EventTypeCategory))
-oefEventTypeCategories = lens _oefEventTypeCategories (\s a -> s {_oefEventTypeCategories = a}) . mapping _List1
+-- | A list of event type category codes (issue, scheduledChange, or
+-- accountNotification).
+organizationEventFilter_eventTypeCategories :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe (Prelude.NonEmpty EventTypeCategory))
+organizationEventFilter_eventTypeCategories = Lens.lens (\OrganizationEventFilter' {eventTypeCategories} -> eventTypeCategories) (\s@OrganizationEventFilter' {} a -> s {eventTypeCategories = a} :: OrganizationEventFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of 12-digit AWS account numbers that contains the affected entities.
-oefAwsAccountIds :: Lens' OrganizationEventFilter (Maybe (NonEmpty Text))
-oefAwsAccountIds = lens _oefAwsAccountIds (\s a -> s {_oefAwsAccountIds = a}) . mapping _List1
+-- | A list of 12-digit AWS account numbers that contains the affected
+-- entities.
+organizationEventFilter_awsAccountIds :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+organizationEventFilter_awsAccountIds = Lens.lens (\OrganizationEventFilter' {awsAccountIds} -> awsAccountIds) (\s@OrganizationEventFilter' {} a -> s {awsAccountIds = a} :: OrganizationEventFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | Undocumented member.
-oefLastUpdatedTime :: Lens' OrganizationEventFilter (Maybe DateTimeRange)
-oefLastUpdatedTime = lens _oefLastUpdatedTime (\s a -> s {_oefLastUpdatedTime = a})
+organizationEventFilter_lastUpdatedTime :: Lens.Lens' OrganizationEventFilter (Prelude.Maybe DateTimeRange)
+organizationEventFilter_lastUpdatedTime = Lens.lens (\OrganizationEventFilter' {lastUpdatedTime} -> lastUpdatedTime) (\s@OrganizationEventFilter' {} a -> s {lastUpdatedTime = a} :: OrganizationEventFilter)
 
-instance Hashable OrganizationEventFilter
+instance Prelude.Hashable OrganizationEventFilter
 
-instance NFData OrganizationEventFilter
+instance Prelude.NFData OrganizationEventFilter
 
-instance ToJSON OrganizationEventFilter where
+instance Prelude.ToJSON OrganizationEventFilter where
   toJSON OrganizationEventFilter' {..} =
-    object
-      ( catMaybes
-          [ ("services" .=) <$> _oefServices,
-            ("startTime" .=) <$> _oefStartTime,
-            ("entityArns" .=) <$> _oefEntityARNs,
-            ("eventTypeCodes" .=) <$> _oefEventTypeCodes,
-            ("endTime" .=) <$> _oefEndTime,
-            ("eventStatusCodes" .=) <$> _oefEventStatusCodes,
-            ("entityValues" .=) <$> _oefEntityValues,
-            ("regions" .=) <$> _oefRegions,
-            ("eventTypeCategories" .=)
-              <$> _oefEventTypeCategories,
-            ("awsAccountIds" .=) <$> _oefAwsAccountIds,
-            ("lastUpdatedTime" .=) <$> _oefLastUpdatedTime
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("services" Prelude..=) Prelude.<$> services,
+            ("startTime" Prelude..=) Prelude.<$> startTime,
+            ("entityArns" Prelude..=) Prelude.<$> entityArns,
+            ("eventTypeCodes" Prelude..=)
+              Prelude.<$> eventTypeCodes,
+            ("endTime" Prelude..=) Prelude.<$> endTime,
+            ("eventStatusCodes" Prelude..=)
+              Prelude.<$> eventStatusCodes,
+            ("entityValues" Prelude..=) Prelude.<$> entityValues,
+            ("regions" Prelude..=) Prelude.<$> regions,
+            ("eventTypeCategories" Prelude..=)
+              Prelude.<$> eventTypeCategories,
+            ("awsAccountIds" Prelude..=)
+              Prelude.<$> awsAccountIds,
+            ("lastUpdatedTime" Prelude..=)
+              Prelude.<$> lastUpdatedTime
           ]
       )

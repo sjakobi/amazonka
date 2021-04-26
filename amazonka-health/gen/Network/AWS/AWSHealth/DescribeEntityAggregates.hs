@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the number of entities that are affected by each of the specified events. If no events are specified, the counts of all affected entities are returned.
+-- Returns the number of entities that are affected by each of the
+-- specified events. If no events are specified, the counts of all affected
+-- entities are returned.
 module Network.AWS.AWSHealth.DescribeEntityAggregates
   ( -- * Creating a Request
-    describeEntityAggregates,
-    DescribeEntityAggregates,
+    DescribeEntityAggregates (..),
+    newDescribeEntityAggregates,
 
     -- * Request Lenses
-    deaEventARNs,
+    describeEntityAggregates_eventArns,
 
     -- * Destructuring the Response
-    describeEntityAggregatesResponse,
-    DescribeEntityAggregatesResponse,
+    DescribeEntityAggregatesResponse (..),
+    newDescribeEntityAggregatesResponse,
 
     -- * Response Lenses
-    dearrsEntityAggregates,
-    dearrsResponseStatus,
+    describeEntityAggregatesResponse_entityAggregates,
+    describeEntityAggregatesResponse_httpStatus,
   )
 where
 
 import Network.AWS.AWSHealth.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AWSHealth.Types.EntityAggregate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeEntityAggregates' smart constructor.
-newtype DescribeEntityAggregates = DescribeEntityAggregates'
-  { _deaEventARNs ::
-      Maybe (List1 Text)
+-- | /See:/ 'newDescribeEntityAggregates' smart constructor.
+data DescribeEntityAggregates = DescribeEntityAggregates'
+  { -- | A list of event ARNs (unique identifiers). For example:
+    -- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+    eventArns :: Prelude.Maybe (Prelude.List1 Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEntityAggregates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEntityAggregates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deaEventARNs' - A list of event ARNs (unique identifiers). For example: @"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"@
-describeEntityAggregates ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'eventArns', 'describeEntityAggregates_eventArns' - A list of event ARNs (unique identifiers). For example:
+-- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+newDescribeEntityAggregates ::
   DescribeEntityAggregates
-describeEntityAggregates =
-  DescribeEntityAggregates' {_deaEventARNs = Nothing}
+newDescribeEntityAggregates =
+  DescribeEntityAggregates'
+    { eventArns =
+        Prelude.Nothing
+    }
 
--- | A list of event ARNs (unique identifiers). For example: @"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"@
-deaEventARNs :: Lens' DescribeEntityAggregates (Maybe (NonEmpty Text))
-deaEventARNs = lens _deaEventARNs (\s a -> s {_deaEventARNs = a}) . mapping _List1
+-- | A list of event ARNs (unique identifiers). For example:
+-- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+describeEntityAggregates_eventArns :: Lens.Lens' DescribeEntityAggregates (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeEntityAggregates_eventArns = Lens.lens (\DescribeEntityAggregates' {eventArns} -> eventArns) (\s@DescribeEntityAggregates' {} a -> s {eventArns = a} :: DescribeEntityAggregates) Prelude.. Lens.mapping Prelude._List1
 
-instance AWSRequest DescribeEntityAggregates where
+instance Prelude.AWSRequest DescribeEntityAggregates where
   type
     Rs DescribeEntityAggregates =
       DescribeEntityAggregatesResponse
-  request = postJSON awsHealth
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEntityAggregatesResponse'
-            <$> (x .?> "entityAggregates" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "entityAggregates"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEntityAggregates
+instance Prelude.Hashable DescribeEntityAggregates
 
-instance NFData DescribeEntityAggregates
+instance Prelude.NFData DescribeEntityAggregates
 
-instance ToHeaders DescribeEntityAggregates where
+instance Prelude.ToHeaders DescribeEntityAggregates where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSHealth_20160804.DescribeEntityAggregates" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSHealth_20160804.DescribeEntityAggregates" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEntityAggregates where
+instance Prelude.ToJSON DescribeEntityAggregates where
   toJSON DescribeEntityAggregates' {..} =
-    object
-      (catMaybes [("eventArns" .=) <$> _deaEventARNs])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("eventArns" Prelude..=) Prelude.<$> eventArns]
+      )
 
-instance ToPath DescribeEntityAggregates where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEntityAggregates where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEntityAggregates where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEntityAggregates where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEntityAggregatesResponse' smart constructor.
+-- | /See:/ 'newDescribeEntityAggregatesResponse' smart constructor.
 data DescribeEntityAggregatesResponse = DescribeEntityAggregatesResponse'
-  { _dearrsEntityAggregates ::
-      !( Maybe
-           [EntityAggregate]
-       ),
-    _dearrsResponseStatus ::
-      !Int
+  { -- | The number of entities that are affected by each of the specified
+    -- events.
+    entityAggregates :: Prelude.Maybe [EntityAggregate],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEntityAggregatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEntityAggregatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dearrsEntityAggregates' - The number of entities that are affected by each of the specified events.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dearrsResponseStatus' - -- | The response status code.
-describeEntityAggregatesResponse ::
-  -- | 'dearrsResponseStatus'
-  Int ->
+-- 'entityAggregates', 'describeEntityAggregatesResponse_entityAggregates' - The number of entities that are affected by each of the specified
+-- events.
+--
+-- 'httpStatus', 'describeEntityAggregatesResponse_httpStatus' - The response's http status code.
+newDescribeEntityAggregatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEntityAggregatesResponse
-describeEntityAggregatesResponse pResponseStatus_ =
+newDescribeEntityAggregatesResponse pHttpStatus_ =
   DescribeEntityAggregatesResponse'
-    { _dearrsEntityAggregates =
-        Nothing,
-      _dearrsResponseStatus = pResponseStatus_
+    { entityAggregates =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The number of entities that are affected by each of the specified events.
-dearrsEntityAggregates :: Lens' DescribeEntityAggregatesResponse [EntityAggregate]
-dearrsEntityAggregates = lens _dearrsEntityAggregates (\s a -> s {_dearrsEntityAggregates = a}) . _Default . _Coerce
+-- | The number of entities that are affected by each of the specified
+-- events.
+describeEntityAggregatesResponse_entityAggregates :: Lens.Lens' DescribeEntityAggregatesResponse (Prelude.Maybe [EntityAggregate])
+describeEntityAggregatesResponse_entityAggregates = Lens.lens (\DescribeEntityAggregatesResponse' {entityAggregates} -> entityAggregates) (\s@DescribeEntityAggregatesResponse' {} a -> s {entityAggregates = a} :: DescribeEntityAggregatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dearrsResponseStatus :: Lens' DescribeEntityAggregatesResponse Int
-dearrsResponseStatus = lens _dearrsResponseStatus (\s a -> s {_dearrsResponseStatus = a})
+-- | The response's http status code.
+describeEntityAggregatesResponse_httpStatus :: Lens.Lens' DescribeEntityAggregatesResponse Prelude.Int
+describeEntityAggregatesResponse_httpStatus = Lens.lens (\DescribeEntityAggregatesResponse' {httpStatus} -> httpStatus) (\s@DescribeEntityAggregatesResponse' {} a -> s {httpStatus = a} :: DescribeEntityAggregatesResponse)
 
-instance NFData DescribeEntityAggregatesResponse
+instance
+  Prelude.NFData
+    DescribeEntityAggregatesResponse

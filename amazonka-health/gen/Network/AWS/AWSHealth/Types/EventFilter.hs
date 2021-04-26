@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,156 +22,193 @@ module Network.AWS.AWSHealth.Types.EventFilter where
 import Network.AWS.AWSHealth.Types.DateTimeRange
 import Network.AWS.AWSHealth.Types.EventStatusCode
 import Network.AWS.AWSHealth.Types.EventTypeCategory
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The values to use to filter results from the <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEvents.html DescribeEvents> and <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventAggregates.html DescribeEventAggregates> operations.
+-- | The values to use to filter results from the
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEvents.html DescribeEvents>
+-- and
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventAggregates.html DescribeEventAggregates>
+-- operations.
 --
---
---
--- /See:/ 'eventFilter' smart constructor.
+-- /See:/ 'newEventFilter' smart constructor.
 data EventFilter = EventFilter'
-  { _efAvailabilityZones ::
-      !(Maybe [Text]),
-    _efEndTimes :: !(Maybe (List1 DateTimeRange)),
-    _efStartTimes :: !(Maybe (List1 DateTimeRange)),
-    _efServices :: !(Maybe (List1 Text)),
-    _efEntityARNs :: !(Maybe (List1 Text)),
-    _efEventTypeCodes :: !(Maybe (List1 Text)),
-    _efLastUpdatedTimes ::
-      !(Maybe (List1 DateTimeRange)),
-    _efTags :: !(Maybe [Map Text Text]),
-    _efEventStatusCodes ::
-      !(Maybe (List1 EventStatusCode)),
-    _efEntityValues :: !(Maybe (List1 Text)),
-    _efRegions :: !(Maybe (List1 Text)),
-    _efEventARNs :: !(Maybe (List1 Text)),
-    _efEventTypeCategories ::
-      !(Maybe (List1 EventTypeCategory))
+  { -- | A list of AWS availability zones.
+    availabilityZones :: Prelude.Maybe [Prelude.Text],
+    -- | A list of dates and times that the event ended.
+    endTimes :: Prelude.Maybe (Prelude.List1 DateTimeRange),
+    -- | A list of dates and times that the event began.
+    startTimes :: Prelude.Maybe (Prelude.List1 DateTimeRange),
+    -- | The AWS services associated with the event. For example, @EC2@, @RDS@.
+    services :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of entity ARNs (unique identifiers).
+    entityArns :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of unique identifiers for event types. For example,
+    -- @\"AWS_EC2_SYSTEM_MAINTENANCE_EVENT\",\"AWS_RDS_MAINTENANCE_SCHEDULED\".@
+    eventTypeCodes :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of dates and times that the event was last updated.
+    lastUpdatedTimes :: Prelude.Maybe (Prelude.List1 DateTimeRange),
+    -- | A map of entity tags attached to the affected entity.
+    --
+    -- Currently, the @tags@ property isn\'t supported.
+    tags :: Prelude.Maybe [Prelude.Map Prelude.Text Prelude.Text],
+    -- | A list of event status codes.
+    eventStatusCodes :: Prelude.Maybe (Prelude.List1 EventStatusCode),
+    -- | A list of entity identifiers, such as EC2 instance IDs (@i-34ab692e@) or
+    -- EBS volumes (@vol-426ab23e@).
+    entityValues :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of AWS regions.
+    regions :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of event ARNs (unique identifiers). For example:
+    -- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+    eventArns :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of event type category codes (@issue@, @scheduledChange@, or
+    -- @accountNotification@).
+    eventTypeCategories :: Prelude.Maybe (Prelude.List1 EventTypeCategory)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'efAvailabilityZones' - A list of AWS availability zones.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'efEndTimes' - A list of dates and times that the event ended.
+-- 'availabilityZones', 'eventFilter_availabilityZones' - A list of AWS availability zones.
 --
--- * 'efStartTimes' - A list of dates and times that the event began.
+-- 'endTimes', 'eventFilter_endTimes' - A list of dates and times that the event ended.
 --
--- * 'efServices' - The AWS services associated with the event. For example, @EC2@ , @RDS@ .
+-- 'startTimes', 'eventFilter_startTimes' - A list of dates and times that the event began.
 --
--- * 'efEntityARNs' - A list of entity ARNs (unique identifiers).
+-- 'services', 'eventFilter_services' - The AWS services associated with the event. For example, @EC2@, @RDS@.
 --
--- * 'efEventTypeCodes' - A list of unique identifiers for event types. For example, @"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".@
+-- 'entityArns', 'eventFilter_entityArns' - A list of entity ARNs (unique identifiers).
 --
--- * 'efLastUpdatedTimes' - A list of dates and times that the event was last updated.
+-- 'eventTypeCodes', 'eventFilter_eventTypeCodes' - A list of unique identifiers for event types. For example,
+-- @\"AWS_EC2_SYSTEM_MAINTENANCE_EVENT\",\"AWS_RDS_MAINTENANCE_SCHEDULED\".@
 --
--- * 'efTags' - A map of entity tags attached to the affected entity.
+-- 'lastUpdatedTimes', 'eventFilter_lastUpdatedTimes' - A list of dates and times that the event was last updated.
 --
--- * 'efEventStatusCodes' - A list of event status codes.
+-- 'tags', 'eventFilter_tags' - A map of entity tags attached to the affected entity.
 --
--- * 'efEntityValues' - A list of entity identifiers, such as EC2 instance IDs (@i-34ab692e@ ) or EBS volumes (@vol-426ab23e@ ).
+-- Currently, the @tags@ property isn\'t supported.
 --
--- * 'efRegions' - A list of AWS regions.
+-- 'eventStatusCodes', 'eventFilter_eventStatusCodes' - A list of event status codes.
 --
--- * 'efEventARNs' - A list of event ARNs (unique identifiers). For example: @"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"@
+-- 'entityValues', 'eventFilter_entityValues' - A list of entity identifiers, such as EC2 instance IDs (@i-34ab692e@) or
+-- EBS volumes (@vol-426ab23e@).
 --
--- * 'efEventTypeCategories' - A list of event type category codes (@issue@ , @scheduledChange@ , or @accountNotification@ ).
-eventFilter ::
+-- 'regions', 'eventFilter_regions' - A list of AWS regions.
+--
+-- 'eventArns', 'eventFilter_eventArns' - A list of event ARNs (unique identifiers). For example:
+-- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+--
+-- 'eventTypeCategories', 'eventFilter_eventTypeCategories' - A list of event type category codes (@issue@, @scheduledChange@, or
+-- @accountNotification@).
+newEventFilter ::
   EventFilter
-eventFilter =
+newEventFilter =
   EventFilter'
-    { _efAvailabilityZones = Nothing,
-      _efEndTimes = Nothing,
-      _efStartTimes = Nothing,
-      _efServices = Nothing,
-      _efEntityARNs = Nothing,
-      _efEventTypeCodes = Nothing,
-      _efLastUpdatedTimes = Nothing,
-      _efTags = Nothing,
-      _efEventStatusCodes = Nothing,
-      _efEntityValues = Nothing,
-      _efRegions = Nothing,
-      _efEventARNs = Nothing,
-      _efEventTypeCategories = Nothing
+    { availabilityZones = Prelude.Nothing,
+      endTimes = Prelude.Nothing,
+      startTimes = Prelude.Nothing,
+      services = Prelude.Nothing,
+      entityArns = Prelude.Nothing,
+      eventTypeCodes = Prelude.Nothing,
+      lastUpdatedTimes = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      eventStatusCodes = Prelude.Nothing,
+      entityValues = Prelude.Nothing,
+      regions = Prelude.Nothing,
+      eventArns = Prelude.Nothing,
+      eventTypeCategories = Prelude.Nothing
     }
 
 -- | A list of AWS availability zones.
-efAvailabilityZones :: Lens' EventFilter [Text]
-efAvailabilityZones = lens _efAvailabilityZones (\s a -> s {_efAvailabilityZones = a}) . _Default . _Coerce
+eventFilter_availabilityZones :: Lens.Lens' EventFilter (Prelude.Maybe [Prelude.Text])
+eventFilter_availabilityZones = Lens.lens (\EventFilter' {availabilityZones} -> availabilityZones) (\s@EventFilter' {} a -> s {availabilityZones = a} :: EventFilter) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of dates and times that the event ended.
-efEndTimes :: Lens' EventFilter (Maybe (NonEmpty DateTimeRange))
-efEndTimes = lens _efEndTimes (\s a -> s {_efEndTimes = a}) . mapping _List1
+eventFilter_endTimes :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty DateTimeRange))
+eventFilter_endTimes = Lens.lens (\EventFilter' {endTimes} -> endTimes) (\s@EventFilter' {} a -> s {endTimes = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | A list of dates and times that the event began.
-efStartTimes :: Lens' EventFilter (Maybe (NonEmpty DateTimeRange))
-efStartTimes = lens _efStartTimes (\s a -> s {_efStartTimes = a}) . mapping _List1
+eventFilter_startTimes :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty DateTimeRange))
+eventFilter_startTimes = Lens.lens (\EventFilter' {startTimes} -> startTimes) (\s@EventFilter' {} a -> s {startTimes = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | The AWS services associated with the event. For example, @EC2@ , @RDS@ .
-efServices :: Lens' EventFilter (Maybe (NonEmpty Text))
-efServices = lens _efServices (\s a -> s {_efServices = a}) . mapping _List1
+-- | The AWS services associated with the event. For example, @EC2@, @RDS@.
+eventFilter_services :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+eventFilter_services = Lens.lens (\EventFilter' {services} -> services) (\s@EventFilter' {} a -> s {services = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | A list of entity ARNs (unique identifiers).
-efEntityARNs :: Lens' EventFilter (Maybe (NonEmpty Text))
-efEntityARNs = lens _efEntityARNs (\s a -> s {_efEntityARNs = a}) . mapping _List1
+eventFilter_entityArns :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+eventFilter_entityArns = Lens.lens (\EventFilter' {entityArns} -> entityArns) (\s@EventFilter' {} a -> s {entityArns = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of unique identifiers for event types. For example, @"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".@
-efEventTypeCodes :: Lens' EventFilter (Maybe (NonEmpty Text))
-efEventTypeCodes = lens _efEventTypeCodes (\s a -> s {_efEventTypeCodes = a}) . mapping _List1
+-- | A list of unique identifiers for event types. For example,
+-- @\"AWS_EC2_SYSTEM_MAINTENANCE_EVENT\",\"AWS_RDS_MAINTENANCE_SCHEDULED\".@
+eventFilter_eventTypeCodes :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+eventFilter_eventTypeCodes = Lens.lens (\EventFilter' {eventTypeCodes} -> eventTypeCodes) (\s@EventFilter' {} a -> s {eventTypeCodes = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | A list of dates and times that the event was last updated.
-efLastUpdatedTimes :: Lens' EventFilter (Maybe (NonEmpty DateTimeRange))
-efLastUpdatedTimes = lens _efLastUpdatedTimes (\s a -> s {_efLastUpdatedTimes = a}) . mapping _List1
+eventFilter_lastUpdatedTimes :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty DateTimeRange))
+eventFilter_lastUpdatedTimes = Lens.lens (\EventFilter' {lastUpdatedTimes} -> lastUpdatedTimes) (\s@EventFilter' {} a -> s {lastUpdatedTimes = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | A map of entity tags attached to the affected entity.
-efTags :: Lens' EventFilter [HashMap Text Text]
-efTags = lens _efTags (\s a -> s {_efTags = a}) . _Default . _Coerce
+--
+-- Currently, the @tags@ property isn\'t supported.
+eventFilter_tags :: Lens.Lens' EventFilter (Prelude.Maybe [Prelude.HashMap Prelude.Text Prelude.Text])
+eventFilter_tags = Lens.lens (\EventFilter' {tags} -> tags) (\s@EventFilter' {} a -> s {tags = a} :: EventFilter) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of event status codes.
-efEventStatusCodes :: Lens' EventFilter (Maybe (NonEmpty EventStatusCode))
-efEventStatusCodes = lens _efEventStatusCodes (\s a -> s {_efEventStatusCodes = a}) . mapping _List1
+eventFilter_eventStatusCodes :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty EventStatusCode))
+eventFilter_eventStatusCodes = Lens.lens (\EventFilter' {eventStatusCodes} -> eventStatusCodes) (\s@EventFilter' {} a -> s {eventStatusCodes = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of entity identifiers, such as EC2 instance IDs (@i-34ab692e@ ) or EBS volumes (@vol-426ab23e@ ).
-efEntityValues :: Lens' EventFilter (Maybe (NonEmpty Text))
-efEntityValues = lens _efEntityValues (\s a -> s {_efEntityValues = a}) . mapping _List1
+-- | A list of entity identifiers, such as EC2 instance IDs (@i-34ab692e@) or
+-- EBS volumes (@vol-426ab23e@).
+eventFilter_entityValues :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+eventFilter_entityValues = Lens.lens (\EventFilter' {entityValues} -> entityValues) (\s@EventFilter' {} a -> s {entityValues = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
 -- | A list of AWS regions.
-efRegions :: Lens' EventFilter (Maybe (NonEmpty Text))
-efRegions = lens _efRegions (\s a -> s {_efRegions = a}) . mapping _List1
+eventFilter_regions :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+eventFilter_regions = Lens.lens (\EventFilter' {regions} -> regions) (\s@EventFilter' {} a -> s {regions = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of event ARNs (unique identifiers). For example: @"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"@
-efEventARNs :: Lens' EventFilter (Maybe (NonEmpty Text))
-efEventARNs = lens _efEventARNs (\s a -> s {_efEventARNs = a}) . mapping _List1
+-- | A list of event ARNs (unique identifiers). For example:
+-- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+eventFilter_eventArns :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+eventFilter_eventArns = Lens.lens (\EventFilter' {eventArns} -> eventArns) (\s@EventFilter' {} a -> s {eventArns = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of event type category codes (@issue@ , @scheduledChange@ , or @accountNotification@ ).
-efEventTypeCategories :: Lens' EventFilter (Maybe (NonEmpty EventTypeCategory))
-efEventTypeCategories = lens _efEventTypeCategories (\s a -> s {_efEventTypeCategories = a}) . mapping _List1
+-- | A list of event type category codes (@issue@, @scheduledChange@, or
+-- @accountNotification@).
+eventFilter_eventTypeCategories :: Lens.Lens' EventFilter (Prelude.Maybe (Prelude.NonEmpty EventTypeCategory))
+eventFilter_eventTypeCategories = Lens.lens (\EventFilter' {eventTypeCategories} -> eventTypeCategories) (\s@EventFilter' {} a -> s {eventTypeCategories = a} :: EventFilter) Prelude.. Lens.mapping Prelude._List1
 
-instance Hashable EventFilter
+instance Prelude.Hashable EventFilter
 
-instance NFData EventFilter
+instance Prelude.NFData EventFilter
 
-instance ToJSON EventFilter where
+instance Prelude.ToJSON EventFilter where
   toJSON EventFilter' {..} =
-    object
-      ( catMaybes
-          [ ("availabilityZones" .=) <$> _efAvailabilityZones,
-            ("endTimes" .=) <$> _efEndTimes,
-            ("startTimes" .=) <$> _efStartTimes,
-            ("services" .=) <$> _efServices,
-            ("entityArns" .=) <$> _efEntityARNs,
-            ("eventTypeCodes" .=) <$> _efEventTypeCodes,
-            ("lastUpdatedTimes" .=) <$> _efLastUpdatedTimes,
-            ("tags" .=) <$> _efTags,
-            ("eventStatusCodes" .=) <$> _efEventStatusCodes,
-            ("entityValues" .=) <$> _efEntityValues,
-            ("regions" .=) <$> _efRegions,
-            ("eventArns" .=) <$> _efEventARNs,
-            ("eventTypeCategories" .=)
-              <$> _efEventTypeCategories
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("availabilityZones" Prelude..=)
+              Prelude.<$> availabilityZones,
+            ("endTimes" Prelude..=) Prelude.<$> endTimes,
+            ("startTimes" Prelude..=) Prelude.<$> startTimes,
+            ("services" Prelude..=) Prelude.<$> services,
+            ("entityArns" Prelude..=) Prelude.<$> entityArns,
+            ("eventTypeCodes" Prelude..=)
+              Prelude.<$> eventTypeCodes,
+            ("lastUpdatedTimes" Prelude..=)
+              Prelude.<$> lastUpdatedTimes,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("eventStatusCodes" Prelude..=)
+              Prelude.<$> eventStatusCodes,
+            ("entityValues" Prelude..=) Prelude.<$> entityValues,
+            ("regions" Prelude..=) Prelude.<$> regions,
+            ("eventArns" Prelude..=) Prelude.<$> eventArns,
+            ("eventTypeCategories" Prelude..=)
+              Prelude.<$> eventTypeCategories
           ]
       )

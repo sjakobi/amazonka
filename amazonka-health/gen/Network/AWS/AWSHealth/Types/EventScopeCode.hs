@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.AWSHealth.Types.EventScopeCode
   ( EventScopeCode
       ( ..,
-        AccountSpecific,
-        None,
-        Public
+        EventScopeCodeACCOUNTSPECIFIC,
+        EventScopeCodeNONE,
+        EventScopeCodePUBLIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventScopeCode = EventScopeCode' (CI Text)
+newtype EventScopeCode = EventScopeCode'
+  { fromEventScopeCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccountSpecific :: EventScopeCode
-pattern AccountSpecific = EventScopeCode' "ACCOUNT_SPECIFIC"
+pattern EventScopeCodeACCOUNTSPECIFIC :: EventScopeCode
+pattern EventScopeCodeACCOUNTSPECIFIC = EventScopeCode' "ACCOUNT_SPECIFIC"
 
-pattern None :: EventScopeCode
-pattern None = EventScopeCode' "NONE"
+pattern EventScopeCodeNONE :: EventScopeCode
+pattern EventScopeCodeNONE = EventScopeCode' "NONE"
 
-pattern Public :: EventScopeCode
-pattern Public = EventScopeCode' "PUBLIC"
+pattern EventScopeCodePUBLIC :: EventScopeCode
+pattern EventScopeCodePUBLIC = EventScopeCode' "PUBLIC"
 
 {-# COMPLETE
-  AccountSpecific,
-  None,
-  Public,
+  EventScopeCodeACCOUNTSPECIFIC,
+  EventScopeCodeNONE,
+  EventScopeCodePUBLIC,
   EventScopeCode'
   #-}
 
-instance FromText EventScopeCode where
-  parser = (EventScopeCode' . mk) <$> takeText
+instance Prelude.FromText EventScopeCode where
+  parser = EventScopeCode' Prelude.<$> Prelude.takeText
 
-instance ToText EventScopeCode where
-  toText (EventScopeCode' ci) = original ci
+instance Prelude.ToText EventScopeCode where
+  toText (EventScopeCode' x) = x
 
-instance Hashable EventScopeCode
+instance Prelude.Hashable EventScopeCode
 
-instance NFData EventScopeCode
+instance Prelude.NFData EventScopeCode
 
-instance ToByteString EventScopeCode
+instance Prelude.ToByteString EventScopeCode
 
-instance ToQuery EventScopeCode
+instance Prelude.ToQuery EventScopeCode
 
-instance ToHeader EventScopeCode
+instance Prelude.ToHeader EventScopeCode
 
-instance FromJSON EventScopeCode where
-  parseJSON = parseJSONText "EventScopeCode"
+instance Prelude.FromJSON EventScopeCode where
+  parseJSON = Prelude.parseJSONText "EventScopeCode"

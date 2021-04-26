@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,194 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns detailed information about one or more specified events. Information includes standard event data (AWS Region, service, and so on, as returned by <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEvents.html DescribeEvents> ), a detailed event description, and possible additional metadata that depends upon the nature of the event. Affected entities are not included. To retrieve those, use the <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeAffectedEntities.html DescribeAffectedEntities> operation.
+-- Returns detailed information about one or more specified events.
+-- Information includes standard event data (AWS Region, service, and so
+-- on, as returned by
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEvents.html DescribeEvents>),
+-- a detailed event description, and possible additional metadata that
+-- depends upon the nature of the event. Affected entities are not
+-- included. To retrieve those, use the
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeAffectedEntities.html DescribeAffectedEntities>
+-- operation.
 --
+-- If a specified event cannot be retrieved, an error message is returned
+-- for that event.
 --
--- If a specified event cannot be retrieved, an error message is returned for that event.
+-- This operation supports resource-level permissions. You can use this
+-- operation to allow or deny access to specific AWS Health events. For
+-- more information, see
+-- <https://docs.aws.amazon.com/health/latest/ug/security_iam_id-based-policy-examples.html#resource-action-based-conditions Resource- and action-based conditions>
+-- in the /AWS Health User Guide/.
 module Network.AWS.AWSHealth.DescribeEventDetails
   ( -- * Creating a Request
-    describeEventDetails,
-    DescribeEventDetails,
+    DescribeEventDetails (..),
+    newDescribeEventDetails,
 
     -- * Request Lenses
-    dedLocale,
-    dedEventARNs,
+    describeEventDetails_locale,
+    describeEventDetails_eventArns,
 
     -- * Destructuring the Response
-    describeEventDetailsResponse,
-    DescribeEventDetailsResponse,
+    DescribeEventDetailsResponse (..),
+    newDescribeEventDetailsResponse,
 
     -- * Response Lenses
-    dedrrsSuccessfulSet,
-    dedrrsFailedSet,
-    dedrrsResponseStatus,
+    describeEventDetailsResponse_successfulSet,
+    describeEventDetailsResponse_failedSet,
+    describeEventDetailsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AWSHealth.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AWSHealth.Types.EventDetails
+import Network.AWS.AWSHealth.Types.EventDetailsErrorItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeEventDetails' smart constructor.
+-- | /See:/ 'newDescribeEventDetails' smart constructor.
 data DescribeEventDetails = DescribeEventDetails'
-  { _dedLocale ::
-      !(Maybe Text),
-    _dedEventARNs ::
-      !(List1 Text)
+  { -- | The locale (language) to return information in. English (en) is the
+    -- default and the only supported value at this time.
+    locale :: Prelude.Maybe Prelude.Text,
+    -- | A list of event ARNs (unique identifiers). For example:
+    -- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+    eventArns :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dedLocale' - The locale (language) to return information in. English (en) is the default and the only supported value at this time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dedEventARNs' - A list of event ARNs (unique identifiers). For example: @"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"@
-describeEventDetails ::
-  -- | 'dedEventARNs'
-  NonEmpty Text ->
+-- 'locale', 'describeEventDetails_locale' - The locale (language) to return information in. English (en) is the
+-- default and the only supported value at this time.
+--
+-- 'eventArns', 'describeEventDetails_eventArns' - A list of event ARNs (unique identifiers). For example:
+-- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+newDescribeEventDetails ::
+  -- | 'eventArns'
+  Prelude.NonEmpty Prelude.Text ->
   DescribeEventDetails
-describeEventDetails pEventARNs_ =
+newDescribeEventDetails pEventArns_ =
   DescribeEventDetails'
-    { _dedLocale = Nothing,
-      _dedEventARNs = _List1 # pEventARNs_
+    { locale = Prelude.Nothing,
+      eventArns = Prelude._List1 Lens.# pEventArns_
     }
 
--- | The locale (language) to return information in. English (en) is the default and the only supported value at this time.
-dedLocale :: Lens' DescribeEventDetails (Maybe Text)
-dedLocale = lens _dedLocale (\s a -> s {_dedLocale = a})
+-- | The locale (language) to return information in. English (en) is the
+-- default and the only supported value at this time.
+describeEventDetails_locale :: Lens.Lens' DescribeEventDetails (Prelude.Maybe Prelude.Text)
+describeEventDetails_locale = Lens.lens (\DescribeEventDetails' {locale} -> locale) (\s@DescribeEventDetails' {} a -> s {locale = a} :: DescribeEventDetails)
 
--- | A list of event ARNs (unique identifiers). For example: @"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456", "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"@
-dedEventARNs :: Lens' DescribeEventDetails (NonEmpty Text)
-dedEventARNs = lens _dedEventARNs (\s a -> s {_dedEventARNs = a}) . _List1
+-- | A list of event ARNs (unique identifiers). For example:
+-- @\"arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456\", \"arn:aws:health:us-west-1::event\/EBS\/AWS_EBS_LOST_VOLUME\/AWS_EBS_LOST_VOLUME_CHI789_JKL101\"@
+describeEventDetails_eventArns :: Lens.Lens' DescribeEventDetails (Prelude.NonEmpty Prelude.Text)
+describeEventDetails_eventArns = Lens.lens (\DescribeEventDetails' {eventArns} -> eventArns) (\s@DescribeEventDetails' {} a -> s {eventArns = a} :: DescribeEventDetails) Prelude.. Prelude._List1
 
-instance AWSRequest DescribeEventDetails where
+instance Prelude.AWSRequest DescribeEventDetails where
   type
     Rs DescribeEventDetails =
       DescribeEventDetailsResponse
-  request = postJSON awsHealth
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEventDetailsResponse'
-            <$> (x .?> "successfulSet" .!@ mempty)
-            <*> (x .?> "failedSet" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "successfulSet"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "failedSet"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEventDetails
+instance Prelude.Hashable DescribeEventDetails
 
-instance NFData DescribeEventDetails
+instance Prelude.NFData DescribeEventDetails
 
-instance ToHeaders DescribeEventDetails where
+instance Prelude.ToHeaders DescribeEventDetails where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSHealth_20160804.DescribeEventDetails" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSHealth_20160804.DescribeEventDetails" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEventDetails where
+instance Prelude.ToJSON DescribeEventDetails where
   toJSON DescribeEventDetails' {..} =
-    object
-      ( catMaybes
-          [ ("locale" .=) <$> _dedLocale,
-            Just ("eventArns" .= _dedEventARNs)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("locale" Prelude..=) Prelude.<$> locale,
+            Prelude.Just ("eventArns" Prelude..= eventArns)
           ]
       )
 
-instance ToPath DescribeEventDetails where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEventDetails where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEventDetails where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEventDetails where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEventDetailsResponse' smart constructor.
+-- | /See:/ 'newDescribeEventDetailsResponse' smart constructor.
 data DescribeEventDetailsResponse = DescribeEventDetailsResponse'
-  { _dedrrsSuccessfulSet ::
-      !( Maybe
-           [EventDetails]
-       ),
-    _dedrrsFailedSet ::
-      !( Maybe
-           [EventDetailsErrorItem]
-       ),
-    _dedrrsResponseStatus ::
-      !Int
+  { -- | Information about the events that could be retrieved.
+    successfulSet :: Prelude.Maybe [EventDetails],
+    -- | Error messages for any events that could not be retrieved.
+    failedSet :: Prelude.Maybe [EventDetailsErrorItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEventDetailsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEventDetailsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dedrrsSuccessfulSet' - Information about the events that could be retrieved.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dedrrsFailedSet' - Error messages for any events that could not be retrieved.
+-- 'successfulSet', 'describeEventDetailsResponse_successfulSet' - Information about the events that could be retrieved.
 --
--- * 'dedrrsResponseStatus' - -- | The response status code.
-describeEventDetailsResponse ::
-  -- | 'dedrrsResponseStatus'
-  Int ->
+-- 'failedSet', 'describeEventDetailsResponse_failedSet' - Error messages for any events that could not be retrieved.
+--
+-- 'httpStatus', 'describeEventDetailsResponse_httpStatus' - The response's http status code.
+newDescribeEventDetailsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEventDetailsResponse
-describeEventDetailsResponse pResponseStatus_ =
+newDescribeEventDetailsResponse pHttpStatus_ =
   DescribeEventDetailsResponse'
-    { _dedrrsSuccessfulSet =
-        Nothing,
-      _dedrrsFailedSet = Nothing,
-      _dedrrsResponseStatus = pResponseStatus_
+    { successfulSet =
+        Prelude.Nothing,
+      failedSet = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the events that could be retrieved.
-dedrrsSuccessfulSet :: Lens' DescribeEventDetailsResponse [EventDetails]
-dedrrsSuccessfulSet = lens _dedrrsSuccessfulSet (\s a -> s {_dedrrsSuccessfulSet = a}) . _Default . _Coerce
+describeEventDetailsResponse_successfulSet :: Lens.Lens' DescribeEventDetailsResponse (Prelude.Maybe [EventDetails])
+describeEventDetailsResponse_successfulSet = Lens.lens (\DescribeEventDetailsResponse' {successfulSet} -> successfulSet) (\s@DescribeEventDetailsResponse' {} a -> s {successfulSet = a} :: DescribeEventDetailsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Error messages for any events that could not be retrieved.
-dedrrsFailedSet :: Lens' DescribeEventDetailsResponse [EventDetailsErrorItem]
-dedrrsFailedSet = lens _dedrrsFailedSet (\s a -> s {_dedrrsFailedSet = a}) . _Default . _Coerce
+describeEventDetailsResponse_failedSet :: Lens.Lens' DescribeEventDetailsResponse (Prelude.Maybe [EventDetailsErrorItem])
+describeEventDetailsResponse_failedSet = Lens.lens (\DescribeEventDetailsResponse' {failedSet} -> failedSet) (\s@DescribeEventDetailsResponse' {} a -> s {failedSet = a} :: DescribeEventDetailsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dedrrsResponseStatus :: Lens' DescribeEventDetailsResponse Int
-dedrrsResponseStatus = lens _dedrrsResponseStatus (\s a -> s {_dedrrsResponseStatus = a})
+-- | The response's http status code.
+describeEventDetailsResponse_httpStatus :: Lens.Lens' DescribeEventDetailsResponse Prelude.Int
+describeEventDetailsResponse_httpStatus = Lens.lens (\DescribeEventDetailsResponse' {httpStatus} -> httpStatus) (\s@DescribeEventDetailsResponse' {} a -> s {httpStatus = a} :: DescribeEventDetailsResponse)
 
-instance NFData DescribeEventDetailsResponse
+instance Prelude.NFData DescribeEventDetailsResponse

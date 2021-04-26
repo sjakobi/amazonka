@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation provides status information on enabling or disabling AWS Health to work with your organization. To call this operation, you must sign in as an IAM user, assume an IAM role, or sign in as the root user (not recommended) in the organization's management account.
+-- This operation provides status information on enabling or disabling AWS
+-- Health to work with your organization. To call this operation, you must
+-- sign in as an IAM user, assume an IAM role, or sign in as the root user
+-- (not recommended) in the organization\'s management account.
 module Network.AWS.AWSHealth.DescribeHealthServiceStatusForOrganization
   ( -- * Creating a Request
-    describeHealthServiceStatusForOrganization,
-    DescribeHealthServiceStatusForOrganization,
+    DescribeHealthServiceStatusForOrganization (..),
+    newDescribeHealthServiceStatusForOrganization,
 
     -- * Destructuring the Response
-    describeHealthServiceStatusForOrganizationResponse,
-    DescribeHealthServiceStatusForOrganizationResponse,
+    DescribeHealthServiceStatusForOrganizationResponse (..),
+    newDescribeHealthServiceStatusForOrganizationResponse,
 
     -- * Response Lenses
-    dhssforrsHealthServiceAccessStatusForOrganization,
-    dhssforrsResponseStatus,
+    describeHealthServiceStatusForOrganizationResponse_healthServiceAccessStatusForOrganization,
+    describeHealthServiceStatusForOrganizationResponse_httpStatus,
   )
 where
 
 import Network.AWS.AWSHealth.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeHealthServiceStatusForOrganization' smart constructor.
+-- | /See:/ 'newDescribeHealthServiceStatusForOrganization' smart constructor.
 data DescribeHealthServiceStatusForOrganization = DescribeHealthServiceStatusForOrganization'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHealthServiceStatusForOrganization' with the minimum fields required to make a request.
-describeHealthServiceStatusForOrganization ::
+-- |
+-- Create a value of 'DescribeHealthServiceStatusForOrganization' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeHealthServiceStatusForOrganization ::
   DescribeHealthServiceStatusForOrganization
-describeHealthServiceStatusForOrganization =
+newDescribeHealthServiceStatusForOrganization =
   DescribeHealthServiceStatusForOrganization'
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeHealthServiceStatusForOrganization
   where
   type
     Rs DescribeHealthServiceStatusForOrganization =
       DescribeHealthServiceStatusForOrganizationResponse
-  request = postJSON awsHealth
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeHealthServiceStatusForOrganizationResponse'
-            <$> (x .?> "healthServiceAccessStatusForOrganization")
-              <*> (pure (fromEnum s))
+            Prelude.<$> ( x
+                            Prelude..?> "healthServiceAccessStatusForOrganization"
+                        )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeHealthServiceStatusForOrganization
 
 instance
-  NFData
+  Prelude.NFData
     DescribeHealthServiceStatusForOrganization
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DescribeHealthServiceStatusForOrganization
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSHealth_20160804.DescribeHealthServiceStatusForOrganization" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSHealth_20160804.DescribeHealthServiceStatusForOrganization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     DescribeHealthServiceStatusForOrganization
   where
-  toJSON = const (Object mempty)
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
 instance
-  ToPath
+  Prelude.ToPath
     DescribeHealthServiceStatusForOrganization
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     DescribeHealthServiceStatusForOrganization
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeHealthServiceStatusForOrganizationResponse' smart constructor.
+-- | /See:/ 'newDescribeHealthServiceStatusForOrganizationResponse' smart constructor.
 data DescribeHealthServiceStatusForOrganizationResponse = DescribeHealthServiceStatusForOrganizationResponse'
-  { _dhssforrsHealthServiceAccessStatusForOrganization ::
-      !( Maybe
-           Text
-       ),
-    _dhssforrsResponseStatus ::
-      !Int
+  { -- | Information about the status of enabling or disabling AWS Health
+    -- Organizational View in your organization.
+    --
+    -- Valid values are @ENABLED | DISABLED | PENDING@.
+    healthServiceAccessStatusForOrganization :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHealthServiceStatusForOrganizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeHealthServiceStatusForOrganizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhssforrsHealthServiceAccessStatusForOrganization' - Information about the status of enabling or disabling AWS Health Organizational View in your organization. Valid values are @ENABLED | DISABLED | PENDING@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dhssforrsResponseStatus' - -- | The response status code.
-describeHealthServiceStatusForOrganizationResponse ::
-  -- | 'dhssforrsResponseStatus'
-  Int ->
+-- 'healthServiceAccessStatusForOrganization', 'describeHealthServiceStatusForOrganizationResponse_healthServiceAccessStatusForOrganization' - Information about the status of enabling or disabling AWS Health
+-- Organizational View in your organization.
+--
+-- Valid values are @ENABLED | DISABLED | PENDING@.
+--
+-- 'httpStatus', 'describeHealthServiceStatusForOrganizationResponse_httpStatus' - The response's http status code.
+newDescribeHealthServiceStatusForOrganizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeHealthServiceStatusForOrganizationResponse
-describeHealthServiceStatusForOrganizationResponse
-  pResponseStatus_ =
+newDescribeHealthServiceStatusForOrganizationResponse
+  pHttpStatus_ =
     DescribeHealthServiceStatusForOrganizationResponse'
-      { _dhssforrsHealthServiceAccessStatusForOrganization =
-          Nothing,
-        _dhssforrsResponseStatus =
-          pResponseStatus_
+      { healthServiceAccessStatusForOrganization =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
--- | Information about the status of enabling or disabling AWS Health Organizational View in your organization. Valid values are @ENABLED | DISABLED | PENDING@ .
-dhssforrsHealthServiceAccessStatusForOrganization :: Lens' DescribeHealthServiceStatusForOrganizationResponse (Maybe Text)
-dhssforrsHealthServiceAccessStatusForOrganization = lens _dhssforrsHealthServiceAccessStatusForOrganization (\s a -> s {_dhssforrsHealthServiceAccessStatusForOrganization = a})
+-- | Information about the status of enabling or disabling AWS Health
+-- Organizational View in your organization.
+--
+-- Valid values are @ENABLED | DISABLED | PENDING@.
+describeHealthServiceStatusForOrganizationResponse_healthServiceAccessStatusForOrganization :: Lens.Lens' DescribeHealthServiceStatusForOrganizationResponse (Prelude.Maybe Prelude.Text)
+describeHealthServiceStatusForOrganizationResponse_healthServiceAccessStatusForOrganization = Lens.lens (\DescribeHealthServiceStatusForOrganizationResponse' {healthServiceAccessStatusForOrganization} -> healthServiceAccessStatusForOrganization) (\s@DescribeHealthServiceStatusForOrganizationResponse' {} a -> s {healthServiceAccessStatusForOrganization = a} :: DescribeHealthServiceStatusForOrganizationResponse)
 
--- | -- | The response status code.
-dhssforrsResponseStatus :: Lens' DescribeHealthServiceStatusForOrganizationResponse Int
-dhssforrsResponseStatus = lens _dhssforrsResponseStatus (\s a -> s {_dhssforrsResponseStatus = a})
+-- | The response's http status code.
+describeHealthServiceStatusForOrganizationResponse_httpStatus :: Lens.Lens' DescribeHealthServiceStatusForOrganizationResponse Prelude.Int
+describeHealthServiceStatusForOrganizationResponse_httpStatus = Lens.lens (\DescribeHealthServiceStatusForOrganizationResponse' {httpStatus} -> httpStatus) (\s@DescribeHealthServiceStatusForOrganizationResponse' {} a -> s {httpStatus = a} :: DescribeHealthServiceStatusForOrganizationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeHealthServiceStatusForOrganizationResponse

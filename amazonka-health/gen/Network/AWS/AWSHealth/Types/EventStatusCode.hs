@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.AWSHealth.Types.EventStatusCode
   ( EventStatusCode
       ( ..,
-        Closed,
-        Open,
-        Upcoming
+        EventStatusCodeClosed,
+        EventStatusCodeOpen,
+        EventStatusCodeUpcoming
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventStatusCode = EventStatusCode' (CI Text)
+newtype EventStatusCode = EventStatusCode'
+  { fromEventStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Closed :: EventStatusCode
-pattern Closed = EventStatusCode' "closed"
+pattern EventStatusCodeClosed :: EventStatusCode
+pattern EventStatusCodeClosed = EventStatusCode' "closed"
 
-pattern Open :: EventStatusCode
-pattern Open = EventStatusCode' "open"
+pattern EventStatusCodeOpen :: EventStatusCode
+pattern EventStatusCodeOpen = EventStatusCode' "open"
 
-pattern Upcoming :: EventStatusCode
-pattern Upcoming = EventStatusCode' "upcoming"
+pattern EventStatusCodeUpcoming :: EventStatusCode
+pattern EventStatusCodeUpcoming = EventStatusCode' "upcoming"
 
 {-# COMPLETE
-  Closed,
-  Open,
-  Upcoming,
+  EventStatusCodeClosed,
+  EventStatusCodeOpen,
+  EventStatusCodeUpcoming,
   EventStatusCode'
   #-}
 
-instance FromText EventStatusCode where
-  parser = (EventStatusCode' . mk) <$> takeText
+instance Prelude.FromText EventStatusCode where
+  parser = EventStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText EventStatusCode where
-  toText (EventStatusCode' ci) = original ci
+instance Prelude.ToText EventStatusCode where
+  toText (EventStatusCode' x) = x
 
-instance Hashable EventStatusCode
+instance Prelude.Hashable EventStatusCode
 
-instance NFData EventStatusCode
+instance Prelude.NFData EventStatusCode
 
-instance ToByteString EventStatusCode
+instance Prelude.ToByteString EventStatusCode
 
-instance ToQuery EventStatusCode
+instance Prelude.ToQuery EventStatusCode
 
-instance ToHeader EventStatusCode
+instance Prelude.ToHeader EventStatusCode
 
-instance ToJSON EventStatusCode where
-  toJSON = toJSONText
+instance Prelude.ToJSON EventStatusCode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EventStatusCode where
-  parseJSON = parseJSONText "EventStatusCode"
+instance Prelude.FromJSON EventStatusCode where
+  parseJSON = Prelude.parseJSONText "EventStatusCode"

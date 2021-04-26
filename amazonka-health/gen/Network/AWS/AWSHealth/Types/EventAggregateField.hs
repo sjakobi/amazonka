@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.AWSHealth.Types.EventAggregateField
   ( EventAggregateField
       ( ..,
-        EventTypeCategory
+        EventAggregateFieldEventTypeCategory
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventAggregateField
-  = EventAggregateField'
-      ( CI
-          Text
-      )
+newtype EventAggregateField = EventAggregateField'
+  { fromEventAggregateField ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EventTypeCategory :: EventAggregateField
-pattern EventTypeCategory = EventAggregateField' "eventTypeCategory"
+pattern EventAggregateFieldEventTypeCategory :: EventAggregateField
+pattern EventAggregateFieldEventTypeCategory = EventAggregateField' "eventTypeCategory"
 
 {-# COMPLETE
-  EventTypeCategory,
+  EventAggregateFieldEventTypeCategory,
   EventAggregateField'
   #-}
 
-instance FromText EventAggregateField where
-  parser = (EventAggregateField' . mk) <$> takeText
+instance Prelude.FromText EventAggregateField where
+  parser = EventAggregateField' Prelude.<$> Prelude.takeText
 
-instance ToText EventAggregateField where
-  toText (EventAggregateField' ci) = original ci
+instance Prelude.ToText EventAggregateField where
+  toText (EventAggregateField' x) = x
 
-instance Hashable EventAggregateField
+instance Prelude.Hashable EventAggregateField
 
-instance NFData EventAggregateField
+instance Prelude.NFData EventAggregateField
 
-instance ToByteString EventAggregateField
+instance Prelude.ToByteString EventAggregateField
 
-instance ToQuery EventAggregateField
+instance Prelude.ToQuery EventAggregateField
 
-instance ToHeader EventAggregateField
+instance Prelude.ToHeader EventAggregateField
 
-instance ToJSON EventAggregateField where
-  toJSON = toJSONText
+instance Prelude.ToJSON EventAggregateField where
+  toJSON = Prelude.toJSONText

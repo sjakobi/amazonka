@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +21,84 @@ module Network.AWS.AWSHealth.Types.OrganizationEventDetails where
 
 import Network.AWS.AWSHealth.Types.Event
 import Network.AWS.AWSHealth.Types.EventDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Detailed information about an event. A combination of an <https://docs.aws.amazon.com/health/latest/APIReference/API_Event.html Event> object, an <https://docs.aws.amazon.com/health/latest/APIReference/API_EventDescription.html EventDescription> object, and additional metadata about the event. Returned by the <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventDetailsForOrganization.html DescribeEventDetailsForOrganization> operation.
+-- | Detailed information about an event. A combination of an
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_Event.html Event>
+-- object, an
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_EventDescription.html EventDescription>
+-- object, and additional metadata about the event. Returned by the
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventDetailsForOrganization.html DescribeEventDetailsForOrganization>
+-- operation.
 --
---
---
--- /See:/ 'organizationEventDetails' smart constructor.
+-- /See:/ 'newOrganizationEventDetails' smart constructor.
 data OrganizationEventDetails = OrganizationEventDetails'
-  { _oedAwsAccountId ::
-      !(Maybe Text),
-    _oedEventMetadata ::
-      !( Maybe
-           (Map Text Text)
-       ),
-    _oedEventDescription ::
-      !( Maybe
-           EventDescription
-       ),
-    _oedEvent ::
-      !(Maybe Event)
+  { -- | The 12-digit AWS account numbers that contains the affected entities.
+    awsAccountId :: Prelude.Maybe Prelude.Text,
+    -- | Additional metadata about the event.
+    eventMetadata :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    eventDescription :: Prelude.Maybe EventDescription,
+    event :: Prelude.Maybe Event
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OrganizationEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OrganizationEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oedAwsAccountId' - The 12-digit AWS account numbers that contains the affected entities.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oedEventMetadata' - Additional metadata about the event.
+-- 'awsAccountId', 'organizationEventDetails_awsAccountId' - The 12-digit AWS account numbers that contains the affected entities.
 --
--- * 'oedEventDescription' - Undocumented member.
+-- 'eventMetadata', 'organizationEventDetails_eventMetadata' - Additional metadata about the event.
 --
--- * 'oedEvent' - Undocumented member.
-organizationEventDetails ::
+-- 'eventDescription', 'organizationEventDetails_eventDescription' - Undocumented member.
+--
+-- 'event', 'organizationEventDetails_event' - Undocumented member.
+newOrganizationEventDetails ::
   OrganizationEventDetails
-organizationEventDetails =
+newOrganizationEventDetails =
   OrganizationEventDetails'
-    { _oedAwsAccountId =
-        Nothing,
-      _oedEventMetadata = Nothing,
-      _oedEventDescription = Nothing,
-      _oedEvent = Nothing
+    { awsAccountId =
+        Prelude.Nothing,
+      eventMetadata = Prelude.Nothing,
+      eventDescription = Prelude.Nothing,
+      event = Prelude.Nothing
     }
 
 -- | The 12-digit AWS account numbers that contains the affected entities.
-oedAwsAccountId :: Lens' OrganizationEventDetails (Maybe Text)
-oedAwsAccountId = lens _oedAwsAccountId (\s a -> s {_oedAwsAccountId = a})
+organizationEventDetails_awsAccountId :: Lens.Lens' OrganizationEventDetails (Prelude.Maybe Prelude.Text)
+organizationEventDetails_awsAccountId = Lens.lens (\OrganizationEventDetails' {awsAccountId} -> awsAccountId) (\s@OrganizationEventDetails' {} a -> s {awsAccountId = a} :: OrganizationEventDetails)
 
 -- | Additional metadata about the event.
-oedEventMetadata :: Lens' OrganizationEventDetails (HashMap Text Text)
-oedEventMetadata = lens _oedEventMetadata (\s a -> s {_oedEventMetadata = a}) . _Default . _Map
+organizationEventDetails_eventMetadata :: Lens.Lens' OrganizationEventDetails (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+organizationEventDetails_eventMetadata = Lens.lens (\OrganizationEventDetails' {eventMetadata} -> eventMetadata) (\s@OrganizationEventDetails' {} a -> s {eventMetadata = a} :: OrganizationEventDetails) Prelude.. Lens.mapping Prelude._Map
 
 -- | Undocumented member.
-oedEventDescription :: Lens' OrganizationEventDetails (Maybe EventDescription)
-oedEventDescription = lens _oedEventDescription (\s a -> s {_oedEventDescription = a})
+organizationEventDetails_eventDescription :: Lens.Lens' OrganizationEventDetails (Prelude.Maybe EventDescription)
+organizationEventDetails_eventDescription = Lens.lens (\OrganizationEventDetails' {eventDescription} -> eventDescription) (\s@OrganizationEventDetails' {} a -> s {eventDescription = a} :: OrganizationEventDetails)
 
 -- | Undocumented member.
-oedEvent :: Lens' OrganizationEventDetails (Maybe Event)
-oedEvent = lens _oedEvent (\s a -> s {_oedEvent = a})
+organizationEventDetails_event :: Lens.Lens' OrganizationEventDetails (Prelude.Maybe Event)
+organizationEventDetails_event = Lens.lens (\OrganizationEventDetails' {event} -> event) (\s@OrganizationEventDetails' {} a -> s {event = a} :: OrganizationEventDetails)
 
-instance FromJSON OrganizationEventDetails where
+instance Prelude.FromJSON OrganizationEventDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OrganizationEventDetails"
       ( \x ->
           OrganizationEventDetails'
-            <$> (x .:? "awsAccountId")
-            <*> (x .:? "eventMetadata" .!= mempty)
-            <*> (x .:? "eventDescription")
-            <*> (x .:? "event")
+            Prelude.<$> (x Prelude..:? "awsAccountId")
+            Prelude.<*> ( x Prelude..:? "eventMetadata"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "eventDescription")
+            Prelude.<*> (x Prelude..:? "event")
       )
 
-instance Hashable OrganizationEventDetails
+instance Prelude.Hashable OrganizationEventDetails
 
-instance NFData OrganizationEventDetails
+instance Prelude.NFData OrganizationEventDetails

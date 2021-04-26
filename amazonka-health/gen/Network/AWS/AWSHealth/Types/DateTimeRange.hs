@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AWSHealth.Types.DateTimeRange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A range of dates and times that is used by the <https://docs.aws.amazon.com/health/latest/APIReference/API_EventFilter.html EventFilter> and <https://docs.aws.amazon.com/health/latest/APIReference/API_EntityFilter.html EntityFilter> objects. If @from@ is set and @to@ is set: match items where the timestamp (@startTime@ , @endTime@ , or @lastUpdatedTime@ ) is between @from@ and @to@ inclusive. If @from@ is set and @to@ is not set: match items where the timestamp value is equal to or after @from@ . If @from@ is not set and @to@ is set: match items where the timestamp value is equal to or before @to@ .
+-- | A range of dates and times that is used by the
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_EventFilter.html EventFilter>
+-- and
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_EntityFilter.html EntityFilter>
+-- objects. If @from@ is set and @to@ is set: match items where the
+-- timestamp (@startTime@, @endTime@, or @lastUpdatedTime@) is between
+-- @from@ and @to@ inclusive. If @from@ is set and @to@ is not set: match
+-- items where the timestamp value is equal to or after @from@. If @from@
+-- is not set and @to@ is set: match items where the timestamp value is
+-- equal to or before @to@.
 --
---
---
--- /See:/ 'dateTimeRange' smart constructor.
+-- /See:/ 'newDateTimeRange' smart constructor.
 data DateTimeRange = DateTimeRange'
-  { _dtrTo ::
-      !(Maybe POSIX),
-    _dtrFrom :: !(Maybe POSIX)
+  { -- | The ending date and time of a time range.
+    to :: Prelude.Maybe Prelude.POSIX,
+    -- | The starting date and time of a time range.
+    from :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DateTimeRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DateTimeRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrTo' - The ending date and time of a time range.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtrFrom' - The starting date and time of a time range.
-dateTimeRange ::
+-- 'to', 'dateTimeRange_to' - The ending date and time of a time range.
+--
+-- 'from', 'dateTimeRange_from' - The starting date and time of a time range.
+newDateTimeRange ::
   DateTimeRange
-dateTimeRange =
+newDateTimeRange =
   DateTimeRange'
-    { _dtrTo = Nothing,
-      _dtrFrom = Nothing
+    { to = Prelude.Nothing,
+      from = Prelude.Nothing
     }
 
 -- | The ending date and time of a time range.
-dtrTo :: Lens' DateTimeRange (Maybe UTCTime)
-dtrTo = lens _dtrTo (\s a -> s {_dtrTo = a}) . mapping _Time
+dateTimeRange_to :: Lens.Lens' DateTimeRange (Prelude.Maybe Prelude.UTCTime)
+dateTimeRange_to = Lens.lens (\DateTimeRange' {to} -> to) (\s@DateTimeRange' {} a -> s {to = a} :: DateTimeRange) Prelude.. Lens.mapping Prelude._Time
 
 -- | The starting date and time of a time range.
-dtrFrom :: Lens' DateTimeRange (Maybe UTCTime)
-dtrFrom = lens _dtrFrom (\s a -> s {_dtrFrom = a}) . mapping _Time
+dateTimeRange_from :: Lens.Lens' DateTimeRange (Prelude.Maybe Prelude.UTCTime)
+dateTimeRange_from = Lens.lens (\DateTimeRange' {from} -> from) (\s@DateTimeRange' {} a -> s {from = a} :: DateTimeRange) Prelude.. Lens.mapping Prelude._Time
 
-instance Hashable DateTimeRange
+instance Prelude.Hashable DateTimeRange
 
-instance NFData DateTimeRange
+instance Prelude.NFData DateTimeRange
 
-instance ToJSON DateTimeRange where
+instance Prelude.ToJSON DateTimeRange where
   toJSON DateTimeRange' {..} =
-    object
-      ( catMaybes
-          [("to" .=) <$> _dtrTo, ("from" .=) <$> _dtrFrom]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("to" Prelude..=) Prelude.<$> to,
+            ("from" Prelude..=) Prelude.<$> from
+          ]
       )

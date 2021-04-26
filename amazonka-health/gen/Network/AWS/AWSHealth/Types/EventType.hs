@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,92 @@
 module Network.AWS.AWSHealth.Types.EventType where
 
 import Network.AWS.AWSHealth.Types.EventTypeCategory
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the metadata about a type of event that is reported by AWS Health. The @EventType@ shows the category, service, and the event type code of the event. For example, an @issue@ might be the category, @EC2@ the service, and @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@ the event type code.
+-- | Contains the metadata about a type of event that is reported by AWS
+-- Health. The @EventType@ shows the category, service, and the event type
+-- code of the event. For example, an @issue@ might be the category, @EC2@
+-- the service, and @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@ the event type code.
 --
+-- You can use the
+-- <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventTypes.html DescribeEventTypes>
+-- API operation to return this information about an event.
 --
--- You can use the <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventTypes.html DescribeEventTypes> API operation to return this information about an event.
+-- You can also use the Amazon CloudWatch Events console to create a rule
+-- so that you can get notified or take action when AWS Health delivers a
+-- specific event to your AWS account. For more information, see
+-- <https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html Monitor for AWS Health events with Amazon CloudWatch Events>
+-- in the /AWS Health User Guide/.
 --
--- You can also use the Amazon CloudWatch Events console to create a rule so that you can get notified or take action when AWS Health delivers a specific event to your AWS account. For more information, see <https://docs.aws.amazon.com/health/latest/ug/cloudwatch-events-health.html Monitor for AWS Health events with Amazon CloudWatch Events> in the /AWS Health User Guide/ .
---
---
--- /See:/ 'eventType' smart constructor.
+-- /See:/ 'newEventType' smart constructor.
 data EventType = EventType'
-  { _etCategory ::
-      !(Maybe EventTypeCategory),
-    _etCode :: !(Maybe Text),
-    _etService :: !(Maybe Text)
+  { -- | A list of event type category codes (@issue@, @scheduledChange@, or
+    -- @accountNotification@).
+    category :: Prelude.Maybe EventTypeCategory,
+    -- | The unique identifier for the event type. The format is
+    -- @AWS_SERVICE_DESCRIPTION @; for example,
+    -- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The AWS service that is affected by the event. For example, @EC2@,
+    -- @RDS@.
+    service :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etCategory' - A list of event type category codes (@issue@ , @scheduledChange@ , or @accountNotification@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etCode' - The unique identifier for the event type. The format is @AWS_/SERVICE/ _/DESCRIPTION/ @ ; for example, @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@ .
+-- 'category', 'eventType_category' - A list of event type category codes (@issue@, @scheduledChange@, or
+-- @accountNotification@).
 --
--- * 'etService' - The AWS service that is affected by the event. For example, @EC2@ , @RDS@ .
-eventType ::
+-- 'code', 'eventType_code' - The unique identifier for the event type. The format is
+-- @AWS_SERVICE_DESCRIPTION @; for example,
+-- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
+--
+-- 'service', 'eventType_service' - The AWS service that is affected by the event. For example, @EC2@,
+-- @RDS@.
+newEventType ::
   EventType
-eventType =
+newEventType =
   EventType'
-    { _etCategory = Nothing,
-      _etCode = Nothing,
-      _etService = Nothing
+    { category = Prelude.Nothing,
+      code = Prelude.Nothing,
+      service = Prelude.Nothing
     }
 
--- | A list of event type category codes (@issue@ , @scheduledChange@ , or @accountNotification@ ).
-etCategory :: Lens' EventType (Maybe EventTypeCategory)
-etCategory = lens _etCategory (\s a -> s {_etCategory = a})
+-- | A list of event type category codes (@issue@, @scheduledChange@, or
+-- @accountNotification@).
+eventType_category :: Lens.Lens' EventType (Prelude.Maybe EventTypeCategory)
+eventType_category = Lens.lens (\EventType' {category} -> category) (\s@EventType' {} a -> s {category = a} :: EventType)
 
--- | The unique identifier for the event type. The format is @AWS_/SERVICE/ _/DESCRIPTION/ @ ; for example, @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@ .
-etCode :: Lens' EventType (Maybe Text)
-etCode = lens _etCode (\s a -> s {_etCode = a})
+-- | The unique identifier for the event type. The format is
+-- @AWS_SERVICE_DESCRIPTION @; for example,
+-- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
+eventType_code :: Lens.Lens' EventType (Prelude.Maybe Prelude.Text)
+eventType_code = Lens.lens (\EventType' {code} -> code) (\s@EventType' {} a -> s {code = a} :: EventType)
 
--- | The AWS service that is affected by the event. For example, @EC2@ , @RDS@ .
-etService :: Lens' EventType (Maybe Text)
-etService = lens _etService (\s a -> s {_etService = a})
+-- | The AWS service that is affected by the event. For example, @EC2@,
+-- @RDS@.
+eventType_service :: Lens.Lens' EventType (Prelude.Maybe Prelude.Text)
+eventType_service = Lens.lens (\EventType' {service} -> service) (\s@EventType' {} a -> s {service = a} :: EventType)
 
-instance FromJSON EventType where
+instance Prelude.FromJSON EventType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventType"
       ( \x ->
           EventType'
-            <$> (x .:? "category")
-            <*> (x .:? "code")
-            <*> (x .:? "service")
+            Prelude.<$> (x Prelude..:? "category")
+            Prelude.<*> (x Prelude..:? "code")
+            Prelude.<*> (x Prelude..:? "service")
       )
 
-instance Hashable EventType
+instance Prelude.Hashable EventType
 
-instance NFData EventType
+instance Prelude.NFData EventType
