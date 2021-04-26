@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.SecretsManager.Types.FilterNameStringType
   ( FilterNameStringType
       ( ..,
-        All,
-        Description,
-        Name,
-        PrimaryRegion,
-        TagKey,
-        TagValue
+        FilterNameStringTypeAll,
+        FilterNameStringTypeDescription,
+        FilterNameStringTypeName,
+        FilterNameStringTypePrimaryRegion,
+        FilterNameStringTypeTagKey,
+        FilterNameStringTypeTagValue
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FilterNameStringType
-  = FilterNameStringType'
-      ( CI
-          Text
-      )
+newtype FilterNameStringType = FilterNameStringType'
+  { fromFilterNameStringType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: FilterNameStringType
-pattern All = FilterNameStringType' "all"
+pattern FilterNameStringTypeAll :: FilterNameStringType
+pattern FilterNameStringTypeAll = FilterNameStringType' "all"
 
-pattern Description :: FilterNameStringType
-pattern Description = FilterNameStringType' "description"
+pattern FilterNameStringTypeDescription :: FilterNameStringType
+pattern FilterNameStringTypeDescription = FilterNameStringType' "description"
 
-pattern Name :: FilterNameStringType
-pattern Name = FilterNameStringType' "name"
+pattern FilterNameStringTypeName :: FilterNameStringType
+pattern FilterNameStringTypeName = FilterNameStringType' "name"
 
-pattern PrimaryRegion :: FilterNameStringType
-pattern PrimaryRegion = FilterNameStringType' "primary-region"
+pattern FilterNameStringTypePrimaryRegion :: FilterNameStringType
+pattern FilterNameStringTypePrimaryRegion = FilterNameStringType' "primary-region"
 
-pattern TagKey :: FilterNameStringType
-pattern TagKey = FilterNameStringType' "tag-key"
+pattern FilterNameStringTypeTagKey :: FilterNameStringType
+pattern FilterNameStringTypeTagKey = FilterNameStringType' "tag-key"
 
-pattern TagValue :: FilterNameStringType
-pattern TagValue = FilterNameStringType' "tag-value"
+pattern FilterNameStringTypeTagValue :: FilterNameStringType
+pattern FilterNameStringTypeTagValue = FilterNameStringType' "tag-value"
 
 {-# COMPLETE
-  All,
-  Description,
-  Name,
-  PrimaryRegion,
-  TagKey,
-  TagValue,
+  FilterNameStringTypeAll,
+  FilterNameStringTypeDescription,
+  FilterNameStringTypeName,
+  FilterNameStringTypePrimaryRegion,
+  FilterNameStringTypeTagKey,
+  FilterNameStringTypeTagValue,
   FilterNameStringType'
   #-}
 
-instance FromText FilterNameStringType where
-  parser = (FilterNameStringType' . mk) <$> takeText
+instance Prelude.FromText FilterNameStringType where
+  parser = FilterNameStringType' Prelude.<$> Prelude.takeText
 
-instance ToText FilterNameStringType where
-  toText (FilterNameStringType' ci) = original ci
+instance Prelude.ToText FilterNameStringType where
+  toText (FilterNameStringType' x) = x
 
-instance Hashable FilterNameStringType
+instance Prelude.Hashable FilterNameStringType
 
-instance NFData FilterNameStringType
+instance Prelude.NFData FilterNameStringType
 
-instance ToByteString FilterNameStringType
+instance Prelude.ToByteString FilterNameStringType
 
-instance ToQuery FilterNameStringType
+instance Prelude.ToQuery FilterNameStringType
 
-instance ToHeader FilterNameStringType
+instance Prelude.ToHeader FilterNameStringType
 
-instance ToJSON FilterNameStringType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FilterNameStringType where
+  toJSON = Prelude.toJSONText

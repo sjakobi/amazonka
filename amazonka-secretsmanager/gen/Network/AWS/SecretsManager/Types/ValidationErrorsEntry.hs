@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SecretsManager.Types.ValidationErrorsEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Displays errors that occurred during validation of the resource policy.
 --
---
---
--- /See:/ 'validationErrorsEntry' smart constructor.
+-- /See:/ 'newValidationErrorsEntry' smart constructor.
 data ValidationErrorsEntry = ValidationErrorsEntry'
-  { _veeCheckName ::
-      !(Maybe Text),
-    _veeErrorMessage ::
-      !(Maybe Text)
+  { -- | Checks the name of the policy.
+    checkName :: Prelude.Maybe Prelude.Text,
+    -- | Displays error messages if validation encounters problems during
+    -- validation of the resource policy.
+    errorMessage :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidationErrorsEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidationErrorsEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'veeCheckName' - Checks the name of the policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'veeErrorMessage' - Displays error messages if validation encounters problems during validation of the resource policy.
-validationErrorsEntry ::
+-- 'checkName', 'validationErrorsEntry_checkName' - Checks the name of the policy.
+--
+-- 'errorMessage', 'validationErrorsEntry_errorMessage' - Displays error messages if validation encounters problems during
+-- validation of the resource policy.
+newValidationErrorsEntry ::
   ValidationErrorsEntry
-validationErrorsEntry =
+newValidationErrorsEntry =
   ValidationErrorsEntry'
-    { _veeCheckName = Nothing,
-      _veeErrorMessage = Nothing
+    { checkName = Prelude.Nothing,
+      errorMessage = Prelude.Nothing
     }
 
 -- | Checks the name of the policy.
-veeCheckName :: Lens' ValidationErrorsEntry (Maybe Text)
-veeCheckName = lens _veeCheckName (\s a -> s {_veeCheckName = a})
+validationErrorsEntry_checkName :: Lens.Lens' ValidationErrorsEntry (Prelude.Maybe Prelude.Text)
+validationErrorsEntry_checkName = Lens.lens (\ValidationErrorsEntry' {checkName} -> checkName) (\s@ValidationErrorsEntry' {} a -> s {checkName = a} :: ValidationErrorsEntry)
 
--- | Displays error messages if validation encounters problems during validation of the resource policy.
-veeErrorMessage :: Lens' ValidationErrorsEntry (Maybe Text)
-veeErrorMessage = lens _veeErrorMessage (\s a -> s {_veeErrorMessage = a})
+-- | Displays error messages if validation encounters problems during
+-- validation of the resource policy.
+validationErrorsEntry_errorMessage :: Lens.Lens' ValidationErrorsEntry (Prelude.Maybe Prelude.Text)
+validationErrorsEntry_errorMessage = Lens.lens (\ValidationErrorsEntry' {errorMessage} -> errorMessage) (\s@ValidationErrorsEntry' {} a -> s {errorMessage = a} :: ValidationErrorsEntry)
 
-instance FromJSON ValidationErrorsEntry where
+instance Prelude.FromJSON ValidationErrorsEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ValidationErrorsEntry"
       ( \x ->
           ValidationErrorsEntry'
-            <$> (x .:? "CheckName") <*> (x .:? "ErrorMessage")
+            Prelude.<$> (x Prelude..:? "CheckName")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
       )
 
-instance Hashable ValidationErrorsEntry
+instance Prelude.Hashable ValidationErrorsEntry
 
-instance NFData ValidationErrorsEntry
+instance Prelude.NFData ValidationErrorsEntry

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,192 +21,286 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all of the secrets that are stored by Secrets Manager in the AWS account. To list the versions currently stored for a specific secret, use 'ListSecretVersionIds' . The encrypted fields @SecretString@ and @SecretBinary@ are not included in the output. To get that information, call the 'GetSecretValue' operation.
+-- Lists all of the secrets that are stored by Secrets Manager in the AWS
+-- account. To list the versions currently stored for a specific secret,
+-- use ListSecretVersionIds. The encrypted fields @SecretString@ and
+-- @SecretBinary@ are not included in the output. To get that information,
+-- call the GetSecretValue operation.
 --
+-- Always check the @NextToken@ response parameter when calling any of the
+-- @List*@ operations. These operations can occasionally return an empty or
+-- shorter than expected list of results even when there more results
+-- become available. When this happens, the @NextToken@ response parameter
+-- contains a value to pass to the next call to the same API to request the
+-- next part of the list.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * secretsmanager:ListSecrets
---
---
+-- -   secretsmanager:ListSecrets
 --
 -- __Related operations__
 --
---     * To list the versions attached to a secret, use 'ListSecretVersionIds' .
---
---
---
+-- -   To list the versions attached to a secret, use ListSecretVersionIds.
 --
 -- This operation returns paginated results.
 module Network.AWS.SecretsManager.ListSecrets
   ( -- * Creating a Request
-    listSecrets,
-    ListSecrets,
+    ListSecrets (..),
+    newListSecrets,
 
     -- * Request Lenses
-    lsSortOrder,
-    lsNextToken,
-    lsMaxResults,
-    lsFilters,
+    listSecrets_sortOrder,
+    listSecrets_nextToken,
+    listSecrets_maxResults,
+    listSecrets_filters,
 
     -- * Destructuring the Response
-    listSecretsResponse,
-    ListSecretsResponse,
+    ListSecretsResponse (..),
+    newListSecretsResponse,
 
     -- * Response Lenses
-    lsrrsNextToken,
-    lsrrsSecretList,
-    lsrrsResponseStatus,
+    listSecretsResponse_nextToken,
+    listSecretsResponse_secretList,
+    listSecretsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SecretsManager.Types
+import Network.AWS.SecretsManager.Types.SecretListEntry
 
--- | /See:/ 'listSecrets' smart constructor.
+-- | /See:/ 'newListSecrets' smart constructor.
 data ListSecrets = ListSecrets'
-  { _lsSortOrder ::
-      !(Maybe SortOrderType),
-    _lsNextToken :: !(Maybe Text),
-    _lsMaxResults :: !(Maybe Nat),
-    _lsFilters :: !(Maybe [Filter])
+  { -- | Lists secrets in the requested order.
+    sortOrder :: Prelude.Maybe SortOrderType,
+    -- | (Optional) Use this parameter in a request if you receive a @NextToken@
+    -- response in a previous request indicating there\'s more output
+    -- available. In a subsequent call, set it to the value of the previous
+    -- call @NextToken@ response to indicate where the output should continue
+    -- from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) Limits the number of results you want to include in the
+    -- response. If you don\'t include this parameter, it defaults to a value
+    -- that\'s specific to the operation. If additional items exist beyond the
+    -- maximum you specify, the @NextToken@ response element is present and has
+    -- a value (isn\'t null). Include that value as the @NextToken@ request
+    -- parameter in the next call to the operation to get the next part of the
+    -- results. Note that Secrets Manager might return fewer results than the
+    -- maximum even when there are more results available. You should check
+    -- @NextToken@ after every operation to ensure that you receive all of the
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Lists the secret request filters.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSecrets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSecrets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsSortOrder' - Lists secrets in the requested order.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsNextToken' - (Optional) Use this parameter in a request if you receive a @NextToken@ response in a previous request indicating there's more output available. In a subsequent call, set it to the value of the previous call @NextToken@ response to indicate where the output should continue from.
+-- 'sortOrder', 'listSecrets_sortOrder' - Lists secrets in the requested order.
 --
--- * 'lsMaxResults' - (Optional) Limits the number of results you want to include in the response. If you don't include this parameter, it defaults to a value that's specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (isn't null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Secrets Manager might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
+-- 'nextToken', 'listSecrets_nextToken' - (Optional) Use this parameter in a request if you receive a @NextToken@
+-- response in a previous request indicating there\'s more output
+-- available. In a subsequent call, set it to the value of the previous
+-- call @NextToken@ response to indicate where the output should continue
+-- from.
 --
--- * 'lsFilters' - Lists the secret request filters.
-listSecrets ::
+-- 'maxResults', 'listSecrets_maxResults' - (Optional) Limits the number of results you want to include in the
+-- response. If you don\'t include this parameter, it defaults to a value
+-- that\'s specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (isn\'t null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Secrets Manager might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+--
+-- 'filters', 'listSecrets_filters' - Lists the secret request filters.
+newListSecrets ::
   ListSecrets
-listSecrets =
+newListSecrets =
   ListSecrets'
-    { _lsSortOrder = Nothing,
-      _lsNextToken = Nothing,
-      _lsMaxResults = Nothing,
-      _lsFilters = Nothing
+    { sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | Lists secrets in the requested order.
-lsSortOrder :: Lens' ListSecrets (Maybe SortOrderType)
-lsSortOrder = lens _lsSortOrder (\s a -> s {_lsSortOrder = a})
+listSecrets_sortOrder :: Lens.Lens' ListSecrets (Prelude.Maybe SortOrderType)
+listSecrets_sortOrder = Lens.lens (\ListSecrets' {sortOrder} -> sortOrder) (\s@ListSecrets' {} a -> s {sortOrder = a} :: ListSecrets)
 
--- | (Optional) Use this parameter in a request if you receive a @NextToken@ response in a previous request indicating there's more output available. In a subsequent call, set it to the value of the previous call @NextToken@ response to indicate where the output should continue from.
-lsNextToken :: Lens' ListSecrets (Maybe Text)
-lsNextToken = lens _lsNextToken (\s a -> s {_lsNextToken = a})
+-- | (Optional) Use this parameter in a request if you receive a @NextToken@
+-- response in a previous request indicating there\'s more output
+-- available. In a subsequent call, set it to the value of the previous
+-- call @NextToken@ response to indicate where the output should continue
+-- from.
+listSecrets_nextToken :: Lens.Lens' ListSecrets (Prelude.Maybe Prelude.Text)
+listSecrets_nextToken = Lens.lens (\ListSecrets' {nextToken} -> nextToken) (\s@ListSecrets' {} a -> s {nextToken = a} :: ListSecrets)
 
--- | (Optional) Limits the number of results you want to include in the response. If you don't include this parameter, it defaults to a value that's specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (isn't null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Secrets Manager might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
-lsMaxResults :: Lens' ListSecrets (Maybe Natural)
-lsMaxResults = lens _lsMaxResults (\s a -> s {_lsMaxResults = a}) . mapping _Nat
+-- | (Optional) Limits the number of results you want to include in the
+-- response. If you don\'t include this parameter, it defaults to a value
+-- that\'s specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (isn\'t null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Secrets Manager might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+listSecrets_maxResults :: Lens.Lens' ListSecrets (Prelude.Maybe Prelude.Natural)
+listSecrets_maxResults = Lens.lens (\ListSecrets' {maxResults} -> maxResults) (\s@ListSecrets' {} a -> s {maxResults = a} :: ListSecrets) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Lists the secret request filters.
-lsFilters :: Lens' ListSecrets [Filter]
-lsFilters = lens _lsFilters (\s a -> s {_lsFilters = a}) . _Default . _Coerce
+listSecrets_filters :: Lens.Lens' ListSecrets (Prelude.Maybe [Filter])
+listSecrets_filters = Lens.lens (\ListSecrets' {filters} -> filters) (\s@ListSecrets' {} a -> s {filters = a} :: ListSecrets) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager ListSecrets where
+instance Pager.AWSPager ListSecrets where
   page rq rs
-    | stop (rs ^. lsrrsNextToken) = Nothing
-    | stop (rs ^. lsrrsSecretList) = Nothing
-    | otherwise =
-      Just $ rq & lsNextToken .~ rs ^. lsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSecretsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSecretsResponse_secretList Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSecrets_nextToken
+          Lens..~ rs
+          Lens.^? listSecretsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListSecrets where
+instance Prelude.AWSRequest ListSecrets where
   type Rs ListSecrets = ListSecretsResponse
-  request = postJSON secretsManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSecretsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "SecretList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "SecretList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSecrets
+instance Prelude.Hashable ListSecrets
 
-instance NFData ListSecrets
+instance Prelude.NFData ListSecrets
 
-instance ToHeaders ListSecrets where
+instance Prelude.ToHeaders ListSecrets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("secretsmanager.ListSecrets" :: ByteString),
+              Prelude.=# ("secretsmanager.ListSecrets" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSecrets where
+instance Prelude.ToJSON ListSecrets where
   toJSON ListSecrets' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lsSortOrder,
-            ("NextToken" .=) <$> _lsNextToken,
-            ("MaxResults" .=) <$> _lsMaxResults,
-            ("Filters" .=) <$> _lsFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath ListSecrets where
-  toPath = const "/"
+instance Prelude.ToPath ListSecrets where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSecrets where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSecrets where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSecretsResponse' smart constructor.
+-- | /See:/ 'newListSecretsResponse' smart constructor.
 data ListSecretsResponse = ListSecretsResponse'
-  { _lsrrsNextToken ::
-      !(Maybe Text),
-    _lsrrsSecretList ::
-      !(Maybe [SecretListEntry]),
-    _lsrrsResponseStatus :: !Int
+  { -- | If present in the response, this value indicates that there\'s more
+    -- output available than included in the current response. This can occur
+    -- even when the response includes no values at all, such as when you ask
+    -- for a filtered view of a very long list. Use this value in the
+    -- @NextToken@ request parameter in a subsequent call to the operation to
+    -- continue processing and get the next part of the output. You should
+    -- repeat this until the @NextToken@ response element comes back empty (as
+    -- @null@).
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the secrets in the account.
+    secretList :: Prelude.Maybe [SecretListEntry],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSecretsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSecretsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsrrsNextToken' - If present in the response, this value indicates that there's more output available than included in the current response. This can occur even when the response includes no values at all, such as when you ask for a filtered view of a very long list. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to continue processing and get the next part of the output. You should repeat this until the @NextToken@ response element comes back empty (as @null@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsrrsSecretList' - A list of the secrets in the account.
+-- 'nextToken', 'listSecretsResponse_nextToken' - If present in the response, this value indicates that there\'s more
+-- output available than included in the current response. This can occur
+-- even when the response includes no values at all, such as when you ask
+-- for a filtered view of a very long list. Use this value in the
+-- @NextToken@ request parameter in a subsequent call to the operation to
+-- continue processing and get the next part of the output. You should
+-- repeat this until the @NextToken@ response element comes back empty (as
+-- @null@).
 --
--- * 'lsrrsResponseStatus' - -- | The response status code.
-listSecretsResponse ::
-  -- | 'lsrrsResponseStatus'
-  Int ->
+-- 'secretList', 'listSecretsResponse_secretList' - A list of the secrets in the account.
+--
+-- 'httpStatus', 'listSecretsResponse_httpStatus' - The response's http status code.
+newListSecretsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSecretsResponse
-listSecretsResponse pResponseStatus_ =
+newListSecretsResponse pHttpStatus_ =
   ListSecretsResponse'
-    { _lsrrsNextToken = Nothing,
-      _lsrrsSecretList = Nothing,
-      _lsrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      secretList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If present in the response, this value indicates that there's more output available than included in the current response. This can occur even when the response includes no values at all, such as when you ask for a filtered view of a very long list. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to continue processing and get the next part of the output. You should repeat this until the @NextToken@ response element comes back empty (as @null@ ).
-lsrrsNextToken :: Lens' ListSecretsResponse (Maybe Text)
-lsrrsNextToken = lens _lsrrsNextToken (\s a -> s {_lsrrsNextToken = a})
+-- | If present in the response, this value indicates that there\'s more
+-- output available than included in the current response. This can occur
+-- even when the response includes no values at all, such as when you ask
+-- for a filtered view of a very long list. Use this value in the
+-- @NextToken@ request parameter in a subsequent call to the operation to
+-- continue processing and get the next part of the output. You should
+-- repeat this until the @NextToken@ response element comes back empty (as
+-- @null@).
+listSecretsResponse_nextToken :: Lens.Lens' ListSecretsResponse (Prelude.Maybe Prelude.Text)
+listSecretsResponse_nextToken = Lens.lens (\ListSecretsResponse' {nextToken} -> nextToken) (\s@ListSecretsResponse' {} a -> s {nextToken = a} :: ListSecretsResponse)
 
 -- | A list of the secrets in the account.
-lsrrsSecretList :: Lens' ListSecretsResponse [SecretListEntry]
-lsrrsSecretList = lens _lsrrsSecretList (\s a -> s {_lsrrsSecretList = a}) . _Default . _Coerce
+listSecretsResponse_secretList :: Lens.Lens' ListSecretsResponse (Prelude.Maybe [SecretListEntry])
+listSecretsResponse_secretList = Lens.lens (\ListSecretsResponse' {secretList} -> secretList) (\s@ListSecretsResponse' {} a -> s {secretList = a} :: ListSecretsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsrrsResponseStatus :: Lens' ListSecretsResponse Int
-lsrrsResponseStatus = lens _lsrrsResponseStatus (\s a -> s {_lsrrsResponseStatus = a})
+-- | The response's http status code.
+listSecretsResponse_httpStatus :: Lens.Lens' ListSecretsResponse Prelude.Int
+listSecretsResponse_httpStatus = Lens.lens (\ListSecretsResponse' {httpStatus} -> httpStatus) (\s@ListSecretsResponse' {} a -> s {httpStatus = a} :: ListSecretsResponse)
 
-instance NFData ListSecretsResponse
+instance Prelude.NFData ListSecretsResponse

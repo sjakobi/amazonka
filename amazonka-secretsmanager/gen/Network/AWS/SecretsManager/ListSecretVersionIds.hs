@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,233 +21,412 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all of the versions attached to the specified secret. The output does not include the @SecretString@ or @SecretBinary@ fields. By default, the list includes only versions that have at least one staging label in @VersionStage@ attached.
+-- Lists all of the versions attached to the specified secret. The output
+-- does not include the @SecretString@ or @SecretBinary@ fields. By
+-- default, the list includes only versions that have at least one staging
+-- label in @VersionStage@ attached.
 --
+-- Always check the @NextToken@ response parameter when calling any of the
+-- @List*@ operations. These operations can occasionally return an empty or
+-- shorter than expected list of results even when there more results
+-- become available. When this happens, the @NextToken@ response parameter
+-- contains a value to pass to the next call to the same API to request the
+-- next part of the list.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * secretsmanager:ListSecretVersionIds
---
---
+-- -   secretsmanager:ListSecretVersionIds
 --
 -- __Related operations__
 --
---     * To list the secrets in an account, use 'ListSecrets' .
---
---
---
+-- -   To list the secrets in an account, use ListSecrets.
 --
 -- This operation returns paginated results.
 module Network.AWS.SecretsManager.ListSecretVersionIds
   ( -- * Creating a Request
-    listSecretVersionIds,
-    ListSecretVersionIds,
+    ListSecretVersionIds (..),
+    newListSecretVersionIds,
 
     -- * Request Lenses
-    lsviNextToken,
-    lsviMaxResults,
-    lsviIncludeDeprecated,
-    lsviSecretId,
+    listSecretVersionIds_nextToken,
+    listSecretVersionIds_maxResults,
+    listSecretVersionIds_includeDeprecated,
+    listSecretVersionIds_secretId,
 
     -- * Destructuring the Response
-    listSecretVersionIdsResponse,
-    ListSecretVersionIdsResponse,
+    ListSecretVersionIdsResponse (..),
+    newListSecretVersionIdsResponse,
 
     -- * Response Lenses
-    lsvirrsNextToken,
-    lsvirrsVersions,
-    lsvirrsARN,
-    lsvirrsName,
-    lsvirrsResponseStatus,
+    listSecretVersionIdsResponse_nextToken,
+    listSecretVersionIdsResponse_versions,
+    listSecretVersionIdsResponse_aRN,
+    listSecretVersionIdsResponse_name,
+    listSecretVersionIdsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SecretsManager.Types
+import Network.AWS.SecretsManager.Types.SecretVersionsListEntry
 
--- | /See:/ 'listSecretVersionIds' smart constructor.
+-- | /See:/ 'newListSecretVersionIds' smart constructor.
 data ListSecretVersionIds = ListSecretVersionIds'
-  { _lsviNextToken ::
-      !(Maybe Text),
-    _lsviMaxResults ::
-      !(Maybe Nat),
-    _lsviIncludeDeprecated ::
-      !(Maybe Bool),
-    _lsviSecretId :: !Text
+  { -- | (Optional) Use this parameter in a request if you receive a @NextToken@
+    -- response in a previous request indicating there\'s more output
+    -- available. In a subsequent call, set it to the value of the previous
+    -- call @NextToken@ response to indicate where the output should continue
+    -- from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) Limits the number of results you want to include in the
+    -- response. If you don\'t include this parameter, it defaults to a value
+    -- that\'s specific to the operation. If additional items exist beyond the
+    -- maximum you specify, the @NextToken@ response element is present and has
+    -- a value (isn\'t null). Include that value as the @NextToken@ request
+    -- parameter in the next call to the operation to get the next part of the
+    -- results. Note that Secrets Manager might return fewer results than the
+    -- maximum even when there are more results available. You should check
+    -- @NextToken@ after every operation to ensure that you receive all of the
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | (Optional) Specifies that you want the results to include versions that
+    -- do not have any staging labels attached to them. Such versions are
+    -- considered deprecated and are subject to deletion by Secrets Manager as
+    -- needed.
+    includeDeprecated :: Prelude.Maybe Prelude.Bool,
+    -- | The identifier for the secret containing the versions you want to list.
+    -- You can specify either the Amazon Resource Name (ARN) or the friendly
+    -- name of the secret.
+    --
+    -- If you specify an ARN, we generally recommend that you specify a
+    -- complete ARN. You can specify a partial ARN too—for example, if you
+    -- don’t include the final hyphen and six random characters that Secrets
+    -- Manager adds at the end of the ARN when you created the secret. A
+    -- partial ARN match can work as long as it uniquely matches only one
+    -- secret. However, if your secret has a name that ends in a hyphen
+    -- followed by six characters (before Secrets Manager adds the hyphen and
+    -- six characters to the ARN) and you try to use that as a partial ARN,
+    -- then those characters cause Secrets Manager to assume that you’re
+    -- specifying a complete ARN. This confusion can cause unexpected results.
+    -- To avoid this situation, we recommend that you don’t create secret names
+    -- ending with a hyphen followed by six characters.
+    --
+    -- If you specify an incomplete ARN without the random suffix, and instead
+    -- provide the \'friendly name\', you /must/ not include the random suffix.
+    -- If you do include the random suffix added by Secrets Manager, you
+    -- receive either a /ResourceNotFoundException/ or an
+    -- /AccessDeniedException/ error, depending on your permissions.
+    secretId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSecretVersionIds' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSecretVersionIds' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsviNextToken' - (Optional) Use this parameter in a request if you receive a @NextToken@ response in a previous request indicating there's more output available. In a subsequent call, set it to the value of the previous call @NextToken@ response to indicate where the output should continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsviMaxResults' - (Optional) Limits the number of results you want to include in the response. If you don't include this parameter, it defaults to a value that's specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (isn't null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Secrets Manager might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
+-- 'nextToken', 'listSecretVersionIds_nextToken' - (Optional) Use this parameter in a request if you receive a @NextToken@
+-- response in a previous request indicating there\'s more output
+-- available. In a subsequent call, set it to the value of the previous
+-- call @NextToken@ response to indicate where the output should continue
+-- from.
 --
--- * 'lsviIncludeDeprecated' - (Optional) Specifies that you want the results to include versions that do not have any staging labels attached to them. Such versions are considered deprecated and are subject to deletion by Secrets Manager as needed.
+-- 'maxResults', 'listSecretVersionIds_maxResults' - (Optional) Limits the number of results you want to include in the
+-- response. If you don\'t include this parameter, it defaults to a value
+-- that\'s specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (isn\'t null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Secrets Manager might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
 --
--- * 'lsviSecretId' - The identifier for the secret containing the versions you want to list. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
-listSecretVersionIds ::
-  -- | 'lsviSecretId'
-  Text ->
+-- 'includeDeprecated', 'listSecretVersionIds_includeDeprecated' - (Optional) Specifies that you want the results to include versions that
+-- do not have any staging labels attached to them. Such versions are
+-- considered deprecated and are subject to deletion by Secrets Manager as
+-- needed.
+--
+-- 'secretId', 'listSecretVersionIds_secretId' - The identifier for the secret containing the versions you want to list.
+-- You can specify either the Amazon Resource Name (ARN) or the friendly
+-- name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+newListSecretVersionIds ::
+  -- | 'secretId'
+  Prelude.Text ->
   ListSecretVersionIds
-listSecretVersionIds pSecretId_ =
+newListSecretVersionIds pSecretId_ =
   ListSecretVersionIds'
-    { _lsviNextToken = Nothing,
-      _lsviMaxResults = Nothing,
-      _lsviIncludeDeprecated = Nothing,
-      _lsviSecretId = pSecretId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      includeDeprecated = Prelude.Nothing,
+      secretId = pSecretId_
     }
 
--- | (Optional) Use this parameter in a request if you receive a @NextToken@ response in a previous request indicating there's more output available. In a subsequent call, set it to the value of the previous call @NextToken@ response to indicate where the output should continue from.
-lsviNextToken :: Lens' ListSecretVersionIds (Maybe Text)
-lsviNextToken = lens _lsviNextToken (\s a -> s {_lsviNextToken = a})
+-- | (Optional) Use this parameter in a request if you receive a @NextToken@
+-- response in a previous request indicating there\'s more output
+-- available. In a subsequent call, set it to the value of the previous
+-- call @NextToken@ response to indicate where the output should continue
+-- from.
+listSecretVersionIds_nextToken :: Lens.Lens' ListSecretVersionIds (Prelude.Maybe Prelude.Text)
+listSecretVersionIds_nextToken = Lens.lens (\ListSecretVersionIds' {nextToken} -> nextToken) (\s@ListSecretVersionIds' {} a -> s {nextToken = a} :: ListSecretVersionIds)
 
--- | (Optional) Limits the number of results you want to include in the response. If you don't include this parameter, it defaults to a value that's specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (isn't null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that Secrets Manager might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
-lsviMaxResults :: Lens' ListSecretVersionIds (Maybe Natural)
-lsviMaxResults = lens _lsviMaxResults (\s a -> s {_lsviMaxResults = a}) . mapping _Nat
+-- | (Optional) Limits the number of results you want to include in the
+-- response. If you don\'t include this parameter, it defaults to a value
+-- that\'s specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (isn\'t null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that Secrets Manager might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+listSecretVersionIds_maxResults :: Lens.Lens' ListSecretVersionIds (Prelude.Maybe Prelude.Natural)
+listSecretVersionIds_maxResults = Lens.lens (\ListSecretVersionIds' {maxResults} -> maxResults) (\s@ListSecretVersionIds' {} a -> s {maxResults = a} :: ListSecretVersionIds) Prelude.. Lens.mapping Prelude._Nat
 
--- | (Optional) Specifies that you want the results to include versions that do not have any staging labels attached to them. Such versions are considered deprecated and are subject to deletion by Secrets Manager as needed.
-lsviIncludeDeprecated :: Lens' ListSecretVersionIds (Maybe Bool)
-lsviIncludeDeprecated = lens _lsviIncludeDeprecated (\s a -> s {_lsviIncludeDeprecated = a})
+-- | (Optional) Specifies that you want the results to include versions that
+-- do not have any staging labels attached to them. Such versions are
+-- considered deprecated and are subject to deletion by Secrets Manager as
+-- needed.
+listSecretVersionIds_includeDeprecated :: Lens.Lens' ListSecretVersionIds (Prelude.Maybe Prelude.Bool)
+listSecretVersionIds_includeDeprecated = Lens.lens (\ListSecretVersionIds' {includeDeprecated} -> includeDeprecated) (\s@ListSecretVersionIds' {} a -> s {includeDeprecated = a} :: ListSecretVersionIds)
 
--- | The identifier for the secret containing the versions you want to list. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
-lsviSecretId :: Lens' ListSecretVersionIds Text
-lsviSecretId = lens _lsviSecretId (\s a -> s {_lsviSecretId = a})
+-- | The identifier for the secret containing the versions you want to list.
+-- You can specify either the Amazon Resource Name (ARN) or the friendly
+-- name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+listSecretVersionIds_secretId :: Lens.Lens' ListSecretVersionIds Prelude.Text
+listSecretVersionIds_secretId = Lens.lens (\ListSecretVersionIds' {secretId} -> secretId) (\s@ListSecretVersionIds' {} a -> s {secretId = a} :: ListSecretVersionIds)
 
-instance AWSPager ListSecretVersionIds where
+instance Pager.AWSPager ListSecretVersionIds where
   page rq rs
-    | stop (rs ^. lsvirrsNextToken) = Nothing
-    | stop (rs ^. lsvirrsVersions) = Nothing
-    | otherwise =
-      Just $ rq & lsviNextToken .~ rs ^. lsvirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSecretVersionIdsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSecretVersionIdsResponse_versions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSecretVersionIds_nextToken
+          Lens..~ rs
+          Lens.^? listSecretVersionIdsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSecretVersionIds where
+instance Prelude.AWSRequest ListSecretVersionIds where
   type
     Rs ListSecretVersionIds =
       ListSecretVersionIdsResponse
-  request = postJSON secretsManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSecretVersionIdsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Versions" .!@ mempty)
-            <*> (x .?> "ARN")
-            <*> (x .?> "Name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Versions" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "ARN")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSecretVersionIds
+instance Prelude.Hashable ListSecretVersionIds
 
-instance NFData ListSecretVersionIds
+instance Prelude.NFData ListSecretVersionIds
 
-instance ToHeaders ListSecretVersionIds where
+instance Prelude.ToHeaders ListSecretVersionIds where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "secretsmanager.ListSecretVersionIds" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "secretsmanager.ListSecretVersionIds" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSecretVersionIds where
+instance Prelude.ToJSON ListSecretVersionIds where
   toJSON ListSecretVersionIds' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lsviNextToken,
-            ("MaxResults" .=) <$> _lsviMaxResults,
-            ("IncludeDeprecated" .=) <$> _lsviIncludeDeprecated,
-            Just ("SecretId" .= _lsviSecretId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("IncludeDeprecated" Prelude..=)
+              Prelude.<$> includeDeprecated,
+            Prelude.Just ("SecretId" Prelude..= secretId)
           ]
       )
 
-instance ToPath ListSecretVersionIds where
-  toPath = const "/"
+instance Prelude.ToPath ListSecretVersionIds where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSecretVersionIds where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSecretVersionIds where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSecretVersionIdsResponse' smart constructor.
+-- | /See:/ 'newListSecretVersionIdsResponse' smart constructor.
 data ListSecretVersionIdsResponse = ListSecretVersionIdsResponse'
-  { _lsvirrsNextToken ::
-      !(Maybe Text),
-    _lsvirrsVersions ::
-      !( Maybe
-           [SecretVersionsListEntry]
-       ),
-    _lsvirrsARN ::
-      !(Maybe Text),
-    _lsvirrsName ::
-      !(Maybe Text),
-    _lsvirrsResponseStatus ::
-      !Int
+  { -- | If present in the response, this value indicates that there\'s more
+    -- output available than included in the current response. This can occur
+    -- even when the response includes no values at all, such as when you ask
+    -- for a filtered view of a very long list. Use this value in the
+    -- @NextToken@ request parameter in a subsequent call to the operation to
+    -- continue processing and get the next part of the output. You should
+    -- repeat this until the @NextToken@ response element comes back empty (as
+    -- @null@).
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of the currently available versions of the specified secret.
+    versions :: Prelude.Maybe [SecretVersionsListEntry],
+    -- | The Amazon Resource Name (ARN) for the secret.
+    --
+    -- Secrets Manager automatically adds several random characters to the name
+    -- at the end of the ARN when you initially create a secret. This affects
+    -- only the ARN and not the actual friendly name. This ensures that if you
+    -- create a new secret with the same name as an old secret that you
+    -- previously deleted, then users with access to the old secret /don\'t/
+    -- automatically get access to the new secret because the ARNs are
+    -- different.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of the secret.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSecretVersionIdsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSecretVersionIdsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsvirrsNextToken' - If present in the response, this value indicates that there's more output available than included in the current response. This can occur even when the response includes no values at all, such as when you ask for a filtered view of a very long list. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to continue processing and get the next part of the output. You should repeat this until the @NextToken@ response element comes back empty (as @null@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsvirrsVersions' - The list of the currently available versions of the specified secret.
+-- 'nextToken', 'listSecretVersionIdsResponse_nextToken' - If present in the response, this value indicates that there\'s more
+-- output available than included in the current response. This can occur
+-- even when the response includes no values at all, such as when you ask
+-- for a filtered view of a very long list. Use this value in the
+-- @NextToken@ request parameter in a subsequent call to the operation to
+-- continue processing and get the next part of the output. You should
+-- repeat this until the @NextToken@ response element comes back empty (as
+-- @null@).
 --
--- * 'lsvirrsARN' - The Amazon Resource Name (ARN) for the secret.
+-- 'versions', 'listSecretVersionIdsResponse_versions' - The list of the currently available versions of the specified secret.
 --
--- * 'lsvirrsName' - The friendly name of the secret.
+-- 'aRN', 'listSecretVersionIdsResponse_aRN' - The Amazon Resource Name (ARN) for the secret.
 --
--- * 'lsvirrsResponseStatus' - -- | The response status code.
-listSecretVersionIdsResponse ::
-  -- | 'lsvirrsResponseStatus'
-  Int ->
+-- Secrets Manager automatically adds several random characters to the name
+-- at the end of the ARN when you initially create a secret. This affects
+-- only the ARN and not the actual friendly name. This ensures that if you
+-- create a new secret with the same name as an old secret that you
+-- previously deleted, then users with access to the old secret /don\'t/
+-- automatically get access to the new secret because the ARNs are
+-- different.
+--
+-- 'name', 'listSecretVersionIdsResponse_name' - The friendly name of the secret.
+--
+-- 'httpStatus', 'listSecretVersionIdsResponse_httpStatus' - The response's http status code.
+newListSecretVersionIdsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSecretVersionIdsResponse
-listSecretVersionIdsResponse pResponseStatus_ =
+newListSecretVersionIdsResponse pHttpStatus_ =
   ListSecretVersionIdsResponse'
-    { _lsvirrsNextToken =
-        Nothing,
-      _lsvirrsVersions = Nothing,
-      _lsvirrsARN = Nothing,
-      _lsvirrsName = Nothing,
-      _lsvirrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      versions = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If present in the response, this value indicates that there's more output available than included in the current response. This can occur even when the response includes no values at all, such as when you ask for a filtered view of a very long list. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to continue processing and get the next part of the output. You should repeat this until the @NextToken@ response element comes back empty (as @null@ ).
-lsvirrsNextToken :: Lens' ListSecretVersionIdsResponse (Maybe Text)
-lsvirrsNextToken = lens _lsvirrsNextToken (\s a -> s {_lsvirrsNextToken = a})
+-- | If present in the response, this value indicates that there\'s more
+-- output available than included in the current response. This can occur
+-- even when the response includes no values at all, such as when you ask
+-- for a filtered view of a very long list. Use this value in the
+-- @NextToken@ request parameter in a subsequent call to the operation to
+-- continue processing and get the next part of the output. You should
+-- repeat this until the @NextToken@ response element comes back empty (as
+-- @null@).
+listSecretVersionIdsResponse_nextToken :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe Prelude.Text)
+listSecretVersionIdsResponse_nextToken = Lens.lens (\ListSecretVersionIdsResponse' {nextToken} -> nextToken) (\s@ListSecretVersionIdsResponse' {} a -> s {nextToken = a} :: ListSecretVersionIdsResponse)
 
 -- | The list of the currently available versions of the specified secret.
-lsvirrsVersions :: Lens' ListSecretVersionIdsResponse [SecretVersionsListEntry]
-lsvirrsVersions = lens _lsvirrsVersions (\s a -> s {_lsvirrsVersions = a}) . _Default . _Coerce
+listSecretVersionIdsResponse_versions :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe [SecretVersionsListEntry])
+listSecretVersionIdsResponse_versions = Lens.lens (\ListSecretVersionIdsResponse' {versions} -> versions) (\s@ListSecretVersionIdsResponse' {} a -> s {versions = a} :: ListSecretVersionIdsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon Resource Name (ARN) for the secret.
-lsvirrsARN :: Lens' ListSecretVersionIdsResponse (Maybe Text)
-lsvirrsARN = lens _lsvirrsARN (\s a -> s {_lsvirrsARN = a})
+--
+-- Secrets Manager automatically adds several random characters to the name
+-- at the end of the ARN when you initially create a secret. This affects
+-- only the ARN and not the actual friendly name. This ensures that if you
+-- create a new secret with the same name as an old secret that you
+-- previously deleted, then users with access to the old secret /don\'t/
+-- automatically get access to the new secret because the ARNs are
+-- different.
+listSecretVersionIdsResponse_aRN :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe Prelude.Text)
+listSecretVersionIdsResponse_aRN = Lens.lens (\ListSecretVersionIdsResponse' {aRN} -> aRN) (\s@ListSecretVersionIdsResponse' {} a -> s {aRN = a} :: ListSecretVersionIdsResponse)
 
 -- | The friendly name of the secret.
-lsvirrsName :: Lens' ListSecretVersionIdsResponse (Maybe Text)
-lsvirrsName = lens _lsvirrsName (\s a -> s {_lsvirrsName = a})
+listSecretVersionIdsResponse_name :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe Prelude.Text)
+listSecretVersionIdsResponse_name = Lens.lens (\ListSecretVersionIdsResponse' {name} -> name) (\s@ListSecretVersionIdsResponse' {} a -> s {name = a} :: ListSecretVersionIdsResponse)
 
--- | -- | The response status code.
-lsvirrsResponseStatus :: Lens' ListSecretVersionIdsResponse Int
-lsvirrsResponseStatus = lens _lsvirrsResponseStatus (\s a -> s {_lsvirrsResponseStatus = a})
+-- | The response's http status code.
+listSecretVersionIdsResponse_httpStatus :: Lens.Lens' ListSecretVersionIdsResponse Prelude.Int
+listSecretVersionIdsResponse_httpStatus = Lens.lens (\ListSecretVersionIdsResponse' {httpStatus} -> httpStatus) (\s@ListSecretVersionIdsResponse' {} a -> s {httpStatus = a} :: ListSecretVersionIdsResponse)
 
-instance NFData ListSecretVersionIdsResponse
+instance Prelude.NFData ListSecretVersionIdsResponse

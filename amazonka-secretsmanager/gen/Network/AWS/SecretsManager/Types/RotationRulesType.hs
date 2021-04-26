@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SecretsManager.Types.RotationRulesType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure that defines the rotation configuration for the secret.
 --
---
---
--- /See:/ 'rotationRulesType' smart constructor.
-newtype RotationRulesType = RotationRulesType'
-  { _rrtAutomaticallyAfterDays ::
-      Maybe Nat
+-- /See:/ 'newRotationRulesType' smart constructor.
+data RotationRulesType = RotationRulesType'
+  { -- | Specifies the number of days between automatic scheduled rotations of
+    -- the secret.
+    --
+    -- Secrets Manager schedules the next rotation when the previous one is
+    -- complete. Secrets Manager schedules the date by adding the rotation
+    -- interval (number of days) to the actual date of the last rotation. The
+    -- service chooses the hour within that 24-hour date window randomly. The
+    -- minute is also chosen somewhat randomly, but weighted towards the top of
+    -- the hour and influenced by a variety of factors that help distribute
+    -- load.
+    automaticallyAfterDays :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RotationRulesType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RotationRulesType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrtAutomaticallyAfterDays' - Specifies the number of days between automatic scheduled rotations of the secret. Secrets Manager schedules the next rotation when the previous one is complete. Secrets Manager schedules the date by adding the rotation interval (number of days) to the actual date of the last rotation. The service chooses the hour within that 24-hour date window randomly. The minute is also chosen somewhat randomly, but weighted towards the top of the hour and influenced by a variety of factors that help distribute load.
-rotationRulesType ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'automaticallyAfterDays', 'rotationRulesType_automaticallyAfterDays' - Specifies the number of days between automatic scheduled rotations of
+-- the secret.
+--
+-- Secrets Manager schedules the next rotation when the previous one is
+-- complete. Secrets Manager schedules the date by adding the rotation
+-- interval (number of days) to the actual date of the last rotation. The
+-- service chooses the hour within that 24-hour date window randomly. The
+-- minute is also chosen somewhat randomly, but weighted towards the top of
+-- the hour and influenced by a variety of factors that help distribute
+-- load.
+newRotationRulesType ::
   RotationRulesType
-rotationRulesType =
+newRotationRulesType =
   RotationRulesType'
-    { _rrtAutomaticallyAfterDays =
-        Nothing
+    { automaticallyAfterDays =
+        Prelude.Nothing
     }
 
--- | Specifies the number of days between automatic scheduled rotations of the secret. Secrets Manager schedules the next rotation when the previous one is complete. Secrets Manager schedules the date by adding the rotation interval (number of days) to the actual date of the last rotation. The service chooses the hour within that 24-hour date window randomly. The minute is also chosen somewhat randomly, but weighted towards the top of the hour and influenced by a variety of factors that help distribute load.
-rrtAutomaticallyAfterDays :: Lens' RotationRulesType (Maybe Natural)
-rrtAutomaticallyAfterDays = lens _rrtAutomaticallyAfterDays (\s a -> s {_rrtAutomaticallyAfterDays = a}) . mapping _Nat
+-- | Specifies the number of days between automatic scheduled rotations of
+-- the secret.
+--
+-- Secrets Manager schedules the next rotation when the previous one is
+-- complete. Secrets Manager schedules the date by adding the rotation
+-- interval (number of days) to the actual date of the last rotation. The
+-- service chooses the hour within that 24-hour date window randomly. The
+-- minute is also chosen somewhat randomly, but weighted towards the top of
+-- the hour and influenced by a variety of factors that help distribute
+-- load.
+rotationRulesType_automaticallyAfterDays :: Lens.Lens' RotationRulesType (Prelude.Maybe Prelude.Natural)
+rotationRulesType_automaticallyAfterDays = Lens.lens (\RotationRulesType' {automaticallyAfterDays} -> automaticallyAfterDays) (\s@RotationRulesType' {} a -> s {automaticallyAfterDays = a} :: RotationRulesType) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON RotationRulesType where
+instance Prelude.FromJSON RotationRulesType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RotationRulesType"
       ( \x ->
           RotationRulesType'
-            <$> (x .:? "AutomaticallyAfterDays")
+            Prelude.<$> (x Prelude..:? "AutomaticallyAfterDays")
       )
 
-instance Hashable RotationRulesType
+instance Prelude.Hashable RotationRulesType
 
-instance NFData RotationRulesType
+instance Prelude.NFData RotationRulesType
 
-instance ToJSON RotationRulesType where
+instance Prelude.ToJSON RotationRulesType where
   toJSON RotationRulesType' {..} =
-    object
-      ( catMaybes
-          [ ("AutomaticallyAfterDays" .=)
-              <$> _rrtAutomaticallyAfterDays
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AutomaticallyAfterDays" Prelude..=)
+              Prelude.<$> automaticallyAfterDays
           ]
       )

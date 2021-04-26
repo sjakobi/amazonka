@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,218 +21,324 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the staging labels attached to a version of a secret. Staging labels are used to track a version as it progresses through the secret rotation process. You can attach a staging label to only one version of a secret at a time. If a staging label to be added is already attached to another version, then it is moved--removed from the other version first and then attached to this one. For more information about staging labels, see <https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_staging-label Staging Labels> in the /AWS Secrets Manager User Guide/ .
+-- Modifies the staging labels attached to a version of a secret. Staging
+-- labels are used to track a version as it progresses through the secret
+-- rotation process. You can attach a staging label to only one version of
+-- a secret at a time. If a staging label to be added is already attached
+-- to another version, then it is moved--removed from the other version
+-- first and then attached to this one. For more information about staging
+-- labels, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_staging-label Staging Labels>
+-- in the /AWS Secrets Manager User Guide/.
 --
+-- The staging labels that you specify in the @VersionStage@ parameter are
+-- added to the existing list of staging labels--they don\'t replace it.
 --
--- The staging labels that you specify in the @VersionStage@ parameter are added to the existing list of staging labels--they don't replace it.
+-- You can move the @AWSCURRENT@ staging label to this version by including
+-- it in this call.
 --
--- You can move the @AWSCURRENT@ staging label to this version by including it in this call.
+-- Whenever you move @AWSCURRENT@, Secrets Manager automatically moves the
+-- label @AWSPREVIOUS@ to the version that @AWSCURRENT@ was removed from.
 --
--- If this action results in the last label being removed from a version, then the version is considered to be 'deprecated' and can be deleted by Secrets Manager.
+-- If this action results in the last label being removed from a version,
+-- then the version is considered to be \'deprecated\' and can be deleted
+-- by Secrets Manager.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * secretsmanager:UpdateSecretVersionStage
---
---
+-- -   secretsmanager:UpdateSecretVersionStage
 --
 -- __Related operations__
 --
---     * To get the list of staging labels that are currently associated with a version of a secret, use @'DescribeSecret' @ and examine the @SecretVersionsToStages@ response value.
+-- -   To get the list of staging labels that are currently associated with
+--     a version of a secret, use @ DescribeSecret @ and examine the
+--     @SecretVersionsToStages@ response value.
 module Network.AWS.SecretsManager.UpdateSecretVersionStage
   ( -- * Creating a Request
-    updateSecretVersionStage,
-    UpdateSecretVersionStage,
+    UpdateSecretVersionStage (..),
+    newUpdateSecretVersionStage,
 
     -- * Request Lenses
-    usvsRemoveFromVersionId,
-    usvsMoveToVersionId,
-    usvsSecretId,
-    usvsVersionStage,
+    updateSecretVersionStage_removeFromVersionId,
+    updateSecretVersionStage_moveToVersionId,
+    updateSecretVersionStage_secretId,
+    updateSecretVersionStage_versionStage,
 
     -- * Destructuring the Response
-    updateSecretVersionStageResponse,
-    UpdateSecretVersionStageResponse,
+    UpdateSecretVersionStageResponse (..),
+    newUpdateSecretVersionStageResponse,
 
     -- * Response Lenses
-    usvsrrsARN,
-    usvsrrsName,
-    usvsrrsResponseStatus,
+    updateSecretVersionStageResponse_aRN,
+    updateSecretVersionStageResponse_name,
+    updateSecretVersionStageResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SecretsManager.Types
 
--- | /See:/ 'updateSecretVersionStage' smart constructor.
+-- | /See:/ 'newUpdateSecretVersionStage' smart constructor.
 data UpdateSecretVersionStage = UpdateSecretVersionStage'
-  { _usvsRemoveFromVersionId ::
-      !(Maybe Text),
-    _usvsMoveToVersionId ::
-      !(Maybe Text),
-    _usvsSecretId ::
-      !Text,
-    _usvsVersionStage ::
-      !Text
+  { -- | Specifies the secret version ID of the version that the staging label is
+    -- to be removed from. If the staging label you are trying to attach to one
+    -- version is already attached to a different version, then you must
+    -- include this parameter and specify the version that the label is to be
+    -- removed from. If the label is attached and you either do not specify
+    -- this parameter, or the version ID does not match, then the operation
+    -- fails.
+    removeFromVersionId :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) The secret version ID that you want to add the staging label.
+    -- If you want to remove a label from a version, then do not specify this
+    -- parameter.
+    --
+    -- If the staging label is already attached to a different version of the
+    -- secret, then you must also specify the @RemoveFromVersionId@ parameter.
+    moveToVersionId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the secret with the version with the list of staging labels
+    -- you want to modify. You can specify either the Amazon Resource Name
+    -- (ARN) or the friendly name of the secret.
+    --
+    -- If you specify an ARN, we generally recommend that you specify a
+    -- complete ARN. You can specify a partial ARN too—for example, if you
+    -- don’t include the final hyphen and six random characters that Secrets
+    -- Manager adds at the end of the ARN when you created the secret. A
+    -- partial ARN match can work as long as it uniquely matches only one
+    -- secret. However, if your secret has a name that ends in a hyphen
+    -- followed by six characters (before Secrets Manager adds the hyphen and
+    -- six characters to the ARN) and you try to use that as a partial ARN,
+    -- then those characters cause Secrets Manager to assume that you’re
+    -- specifying a complete ARN. This confusion can cause unexpected results.
+    -- To avoid this situation, we recommend that you don’t create secret names
+    -- ending with a hyphen followed by six characters.
+    --
+    -- If you specify an incomplete ARN without the random suffix, and instead
+    -- provide the \'friendly name\', you /must/ not include the random suffix.
+    -- If you do include the random suffix added by Secrets Manager, you
+    -- receive either a /ResourceNotFoundException/ or an
+    -- /AccessDeniedException/ error, depending on your permissions.
+    secretId :: Prelude.Text,
+    -- | The staging label to add to this version.
+    versionStage :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSecretVersionStage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSecretVersionStage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usvsRemoveFromVersionId' - Specifies the secret version ID of the version that the staging label is to be removed from. If the staging label you are trying to attach to one version is already attached to a different version, then you must include this parameter and specify the version that the label is to be removed from. If the label is attached and you either do not specify this parameter, or the version ID does not match, then the operation fails.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usvsMoveToVersionId' - (Optional) The secret version ID that you want to add the staging label. If you want to remove a label from a version, then do not specify this parameter. If the staging label is already attached to a different version of the secret, then you must also specify the @RemoveFromVersionId@ parameter.
+-- 'removeFromVersionId', 'updateSecretVersionStage_removeFromVersionId' - Specifies the secret version ID of the version that the staging label is
+-- to be removed from. If the staging label you are trying to attach to one
+-- version is already attached to a different version, then you must
+-- include this parameter and specify the version that the label is to be
+-- removed from. If the label is attached and you either do not specify
+-- this parameter, or the version ID does not match, then the operation
+-- fails.
 --
--- * 'usvsSecretId' - Specifies the secret with the version with the list of staging labels you want to modify. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
+-- 'moveToVersionId', 'updateSecretVersionStage_moveToVersionId' - (Optional) The secret version ID that you want to add the staging label.
+-- If you want to remove a label from a version, then do not specify this
+-- parameter.
 --
--- * 'usvsVersionStage' - The staging label to add to this version.
-updateSecretVersionStage ::
-  -- | 'usvsSecretId'
-  Text ->
-  -- | 'usvsVersionStage'
-  Text ->
+-- If the staging label is already attached to a different version of the
+-- secret, then you must also specify the @RemoveFromVersionId@ parameter.
+--
+-- 'secretId', 'updateSecretVersionStage_secretId' - Specifies the secret with the version with the list of staging labels
+-- you want to modify. You can specify either the Amazon Resource Name
+-- (ARN) or the friendly name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+--
+-- 'versionStage', 'updateSecretVersionStage_versionStage' - The staging label to add to this version.
+newUpdateSecretVersionStage ::
+  -- | 'secretId'
+  Prelude.Text ->
+  -- | 'versionStage'
+  Prelude.Text ->
   UpdateSecretVersionStage
-updateSecretVersionStage pSecretId_ pVersionStage_ =
+newUpdateSecretVersionStage pSecretId_ pVersionStage_ =
   UpdateSecretVersionStage'
-    { _usvsRemoveFromVersionId =
-        Nothing,
-      _usvsMoveToVersionId = Nothing,
-      _usvsSecretId = pSecretId_,
-      _usvsVersionStage = pVersionStage_
+    { removeFromVersionId =
+        Prelude.Nothing,
+      moveToVersionId = Prelude.Nothing,
+      secretId = pSecretId_,
+      versionStage = pVersionStage_
     }
 
--- | Specifies the secret version ID of the version that the staging label is to be removed from. If the staging label you are trying to attach to one version is already attached to a different version, then you must include this parameter and specify the version that the label is to be removed from. If the label is attached and you either do not specify this parameter, or the version ID does not match, then the operation fails.
-usvsRemoveFromVersionId :: Lens' UpdateSecretVersionStage (Maybe Text)
-usvsRemoveFromVersionId = lens _usvsRemoveFromVersionId (\s a -> s {_usvsRemoveFromVersionId = a})
+-- | Specifies the secret version ID of the version that the staging label is
+-- to be removed from. If the staging label you are trying to attach to one
+-- version is already attached to a different version, then you must
+-- include this parameter and specify the version that the label is to be
+-- removed from. If the label is attached and you either do not specify
+-- this parameter, or the version ID does not match, then the operation
+-- fails.
+updateSecretVersionStage_removeFromVersionId :: Lens.Lens' UpdateSecretVersionStage (Prelude.Maybe Prelude.Text)
+updateSecretVersionStage_removeFromVersionId = Lens.lens (\UpdateSecretVersionStage' {removeFromVersionId} -> removeFromVersionId) (\s@UpdateSecretVersionStage' {} a -> s {removeFromVersionId = a} :: UpdateSecretVersionStage)
 
--- | (Optional) The secret version ID that you want to add the staging label. If you want to remove a label from a version, then do not specify this parameter. If the staging label is already attached to a different version of the secret, then you must also specify the @RemoveFromVersionId@ parameter.
-usvsMoveToVersionId :: Lens' UpdateSecretVersionStage (Maybe Text)
-usvsMoveToVersionId = lens _usvsMoveToVersionId (\s a -> s {_usvsMoveToVersionId = a})
+-- | (Optional) The secret version ID that you want to add the staging label.
+-- If you want to remove a label from a version, then do not specify this
+-- parameter.
+--
+-- If the staging label is already attached to a different version of the
+-- secret, then you must also specify the @RemoveFromVersionId@ parameter.
+updateSecretVersionStage_moveToVersionId :: Lens.Lens' UpdateSecretVersionStage (Prelude.Maybe Prelude.Text)
+updateSecretVersionStage_moveToVersionId = Lens.lens (\UpdateSecretVersionStage' {moveToVersionId} -> moveToVersionId) (\s@UpdateSecretVersionStage' {} a -> s {moveToVersionId = a} :: UpdateSecretVersionStage)
 
--- | Specifies the secret with the version with the list of staging labels you want to modify. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
-usvsSecretId :: Lens' UpdateSecretVersionStage Text
-usvsSecretId = lens _usvsSecretId (\s a -> s {_usvsSecretId = a})
+-- | Specifies the secret with the version with the list of staging labels
+-- you want to modify. You can specify either the Amazon Resource Name
+-- (ARN) or the friendly name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+updateSecretVersionStage_secretId :: Lens.Lens' UpdateSecretVersionStage Prelude.Text
+updateSecretVersionStage_secretId = Lens.lens (\UpdateSecretVersionStage' {secretId} -> secretId) (\s@UpdateSecretVersionStage' {} a -> s {secretId = a} :: UpdateSecretVersionStage)
 
 -- | The staging label to add to this version.
-usvsVersionStage :: Lens' UpdateSecretVersionStage Text
-usvsVersionStage = lens _usvsVersionStage (\s a -> s {_usvsVersionStage = a})
+updateSecretVersionStage_versionStage :: Lens.Lens' UpdateSecretVersionStage Prelude.Text
+updateSecretVersionStage_versionStage = Lens.lens (\UpdateSecretVersionStage' {versionStage} -> versionStage) (\s@UpdateSecretVersionStage' {} a -> s {versionStage = a} :: UpdateSecretVersionStage)
 
-instance AWSRequest UpdateSecretVersionStage where
+instance Prelude.AWSRequest UpdateSecretVersionStage where
   type
     Rs UpdateSecretVersionStage =
       UpdateSecretVersionStageResponse
-  request = postJSON secretsManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateSecretVersionStageResponse'
-            <$> (x .?> "ARN")
-            <*> (x .?> "Name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ARN")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateSecretVersionStage
+instance Prelude.Hashable UpdateSecretVersionStage
 
-instance NFData UpdateSecretVersionStage
+instance Prelude.NFData UpdateSecretVersionStage
 
-instance ToHeaders UpdateSecretVersionStage where
+instance Prelude.ToHeaders UpdateSecretVersionStage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "secretsmanager.UpdateSecretVersionStage" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "secretsmanager.UpdateSecretVersionStage" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateSecretVersionStage where
+instance Prelude.ToJSON UpdateSecretVersionStage where
   toJSON UpdateSecretVersionStage' {..} =
-    object
-      ( catMaybes
-          [ ("RemoveFromVersionId" .=)
-              <$> _usvsRemoveFromVersionId,
-            ("MoveToVersionId" .=) <$> _usvsMoveToVersionId,
-            Just ("SecretId" .= _usvsSecretId),
-            Just ("VersionStage" .= _usvsVersionStage)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RemoveFromVersionId" Prelude..=)
+              Prelude.<$> removeFromVersionId,
+            ("MoveToVersionId" Prelude..=)
+              Prelude.<$> moveToVersionId,
+            Prelude.Just ("SecretId" Prelude..= secretId),
+            Prelude.Just
+              ("VersionStage" Prelude..= versionStage)
           ]
       )
 
-instance ToPath UpdateSecretVersionStage where
-  toPath = const "/"
+instance Prelude.ToPath UpdateSecretVersionStage where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateSecretVersionStage where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateSecretVersionStage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateSecretVersionStageResponse' smart constructor.
+-- | /See:/ 'newUpdateSecretVersionStageResponse' smart constructor.
 data UpdateSecretVersionStageResponse = UpdateSecretVersionStageResponse'
-  { _usvsrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _usvsrrsName ::
-      !( Maybe
-           Text
-       ),
-    _usvsrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the secret with the modified staging label.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of the secret with the modified staging label.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSecretVersionStageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSecretVersionStageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usvsrrsARN' - The ARN of the secret with the modified staging label.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usvsrrsName' - The friendly name of the secret with the modified staging label.
+-- 'aRN', 'updateSecretVersionStageResponse_aRN' - The ARN of the secret with the modified staging label.
 --
--- * 'usvsrrsResponseStatus' - -- | The response status code.
-updateSecretVersionStageResponse ::
-  -- | 'usvsrrsResponseStatus'
-  Int ->
+-- 'name', 'updateSecretVersionStageResponse_name' - The friendly name of the secret with the modified staging label.
+--
+-- 'httpStatus', 'updateSecretVersionStageResponse_httpStatus' - The response's http status code.
+newUpdateSecretVersionStageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateSecretVersionStageResponse
-updateSecretVersionStageResponse pResponseStatus_ =
+newUpdateSecretVersionStageResponse pHttpStatus_ =
   UpdateSecretVersionStageResponse'
-    { _usvsrrsARN =
-        Nothing,
-      _usvsrrsName = Nothing,
-      _usvsrrsResponseStatus = pResponseStatus_
+    { aRN =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the secret with the modified staging label.
-usvsrrsARN :: Lens' UpdateSecretVersionStageResponse (Maybe Text)
-usvsrrsARN = lens _usvsrrsARN (\s a -> s {_usvsrrsARN = a})
+updateSecretVersionStageResponse_aRN :: Lens.Lens' UpdateSecretVersionStageResponse (Prelude.Maybe Prelude.Text)
+updateSecretVersionStageResponse_aRN = Lens.lens (\UpdateSecretVersionStageResponse' {aRN} -> aRN) (\s@UpdateSecretVersionStageResponse' {} a -> s {aRN = a} :: UpdateSecretVersionStageResponse)
 
 -- | The friendly name of the secret with the modified staging label.
-usvsrrsName :: Lens' UpdateSecretVersionStageResponse (Maybe Text)
-usvsrrsName = lens _usvsrrsName (\s a -> s {_usvsrrsName = a})
+updateSecretVersionStageResponse_name :: Lens.Lens' UpdateSecretVersionStageResponse (Prelude.Maybe Prelude.Text)
+updateSecretVersionStageResponse_name = Lens.lens (\UpdateSecretVersionStageResponse' {name} -> name) (\s@UpdateSecretVersionStageResponse' {} a -> s {name = a} :: UpdateSecretVersionStageResponse)
 
--- | -- | The response status code.
-usvsrrsResponseStatus :: Lens' UpdateSecretVersionStageResponse Int
-usvsrrsResponseStatus = lens _usvsrrsResponseStatus (\s a -> s {_usvsrrsResponseStatus = a})
+-- | The response's http status code.
+updateSecretVersionStageResponse_httpStatus :: Lens.Lens' UpdateSecretVersionStageResponse Prelude.Int
+updateSecretVersionStageResponse_httpStatus = Lens.lens (\UpdateSecretVersionStageResponse' {httpStatus} -> httpStatus) (\s@UpdateSecretVersionStageResponse' {} a -> s {httpStatus = a} :: UpdateSecretVersionStageResponse)
 
-instance NFData UpdateSecretVersionStageResponse
+instance
+  Prelude.NFData
+    UpdateSecretVersionStageResponse

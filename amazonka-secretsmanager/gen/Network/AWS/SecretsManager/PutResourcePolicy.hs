@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,185 +21,285 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Attaches the contents of the specified resource-based permission policy to a secret. A resource-based policy is optional. Alternatively, you can use IAM identity-based policies that specify the secret's Amazon Resource Name (ARN) in the policy statement's @Resources@ element. You can also use a combination of both identity-based and resource-based policies. The affected users and roles receive the permissions that are permitted by all of the relevant policies. For more information, see <http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-based-policies.html Using Resource-Based Policies for AWS Secrets Manager> . For the complete description of the AWS policy syntax and grammar, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html IAM JSON Policy Reference> in the /IAM User Guide/ .
---
+-- Attaches the contents of the specified resource-based permission policy
+-- to a secret. A resource-based policy is optional. Alternatively, you can
+-- use IAM identity-based policies that specify the secret\'s Amazon
+-- Resource Name (ARN) in the policy statement\'s @Resources@ element. You
+-- can also use a combination of both identity-based and resource-based
+-- policies. The affected users and roles receive the permissions that are
+-- permitted by all of the relevant policies. For more information, see
+-- <http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-based-policies.html Using Resource-Based Policies for AWS Secrets Manager>.
+-- For the complete description of the AWS policy syntax and grammar, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html IAM JSON Policy Reference>
+-- in the /IAM User Guide/.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * secretsmanager:PutResourcePolicy
---
---
+-- -   secretsmanager:PutResourcePolicy
 --
 -- __Related operations__
 --
---     * To retrieve the resource policy attached to a secret, use 'GetResourcePolicy' .
+-- -   To retrieve the resource policy attached to a secret, use
+--     GetResourcePolicy.
 --
---     * To delete the resource-based policy attached to a secret, use 'DeleteResourcePolicy' .
+-- -   To delete the resource-based policy attached to a secret, use
+--     DeleteResourcePolicy.
 --
---     * To list all of the currently available secrets, use 'ListSecrets' .
+-- -   To list all of the currently available secrets, use ListSecrets.
 module Network.AWS.SecretsManager.PutResourcePolicy
   ( -- * Creating a Request
-    putResourcePolicy,
-    PutResourcePolicy,
+    PutResourcePolicy (..),
+    newPutResourcePolicy,
 
     -- * Request Lenses
-    prpBlockPublicPolicy,
-    prpSecretId,
-    prpResourcePolicy,
+    putResourcePolicy_blockPublicPolicy,
+    putResourcePolicy_secretId,
+    putResourcePolicy_resourcePolicy,
 
     -- * Destructuring the Response
-    putResourcePolicyResponse,
-    PutResourcePolicyResponse,
+    PutResourcePolicyResponse (..),
+    newPutResourcePolicyResponse,
 
     -- * Response Lenses
-    prprrsARN,
-    prprrsName,
-    prprrsResponseStatus,
+    putResourcePolicyResponse_aRN,
+    putResourcePolicyResponse_name,
+    putResourcePolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SecretsManager.Types
 
--- | /See:/ 'putResourcePolicy' smart constructor.
+-- | /See:/ 'newPutResourcePolicy' smart constructor.
 data PutResourcePolicy = PutResourcePolicy'
-  { _prpBlockPublicPolicy ::
-      !(Maybe Bool),
-    _prpSecretId :: !Text,
-    _prpResourcePolicy :: !Text
+  { -- | (Optional) If you set the parameter, @BlockPublicPolicy@ to true, then
+    -- you block resource-based policies that allow broad access to the secret.
+    blockPublicPolicy :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the secret that you want to attach the resource-based policy.
+    -- You can specify either the ARN or the friendly name of the secret.
+    --
+    -- If you specify an ARN, we generally recommend that you specify a
+    -- complete ARN. You can specify a partial ARN too—for example, if you
+    -- don’t include the final hyphen and six random characters that Secrets
+    -- Manager adds at the end of the ARN when you created the secret. A
+    -- partial ARN match can work as long as it uniquely matches only one
+    -- secret. However, if your secret has a name that ends in a hyphen
+    -- followed by six characters (before Secrets Manager adds the hyphen and
+    -- six characters to the ARN) and you try to use that as a partial ARN,
+    -- then those characters cause Secrets Manager to assume that you’re
+    -- specifying a complete ARN. This confusion can cause unexpected results.
+    -- To avoid this situation, we recommend that you don’t create secret names
+    -- ending with a hyphen followed by six characters.
+    --
+    -- If you specify an incomplete ARN without the random suffix, and instead
+    -- provide the \'friendly name\', you /must/ not include the random suffix.
+    -- If you do include the random suffix added by Secrets Manager, you
+    -- receive either a /ResourceNotFoundException/ or an
+    -- /AccessDeniedException/ error, depending on your permissions.
+    secretId :: Prelude.Text,
+    -- | A JSON-formatted string constructed according to the grammar and syntax
+    -- for an AWS resource-based policy. The policy in the string identifies
+    -- who can access or manage this secret and its versions. For information
+    -- on how to format a JSON parameter for the various command line tool
+    -- environments, see
+    -- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json Using JSON for Parameters>
+    -- in the /AWS CLI User Guide/.
+    resourcePolicy :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutResourcePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutResourcePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prpBlockPublicPolicy' - (Optional) If you set the parameter, @BlockPublicPolicy@ to true, then you block resource-based policies that allow broad access to the secret.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prpSecretId' - Specifies the secret that you want to attach the resource-based policy. You can specify either the ARN or the friendly name of the secret.
+-- 'blockPublicPolicy', 'putResourcePolicy_blockPublicPolicy' - (Optional) If you set the parameter, @BlockPublicPolicy@ to true, then
+-- you block resource-based policies that allow broad access to the secret.
 --
--- * 'prpResourcePolicy' - A JSON-formatted string constructed according to the grammar and syntax for an AWS resource-based policy. The policy in the string identifies who can access or manage this secret and its versions. For information on how to format a JSON parameter for the various command line tool environments, see <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json Using JSON for Parameters> in the /AWS CLI User Guide/ .
-putResourcePolicy ::
-  -- | 'prpSecretId'
-  Text ->
-  -- | 'prpResourcePolicy'
-  Text ->
+-- 'secretId', 'putResourcePolicy_secretId' - Specifies the secret that you want to attach the resource-based policy.
+-- You can specify either the ARN or the friendly name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+--
+-- 'resourcePolicy', 'putResourcePolicy_resourcePolicy' - A JSON-formatted string constructed according to the grammar and syntax
+-- for an AWS resource-based policy. The policy in the string identifies
+-- who can access or manage this secret and its versions. For information
+-- on how to format a JSON parameter for the various command line tool
+-- environments, see
+-- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json Using JSON for Parameters>
+-- in the /AWS CLI User Guide/.
+newPutResourcePolicy ::
+  -- | 'secretId'
+  Prelude.Text ->
+  -- | 'resourcePolicy'
+  Prelude.Text ->
   PutResourcePolicy
-putResourcePolicy pSecretId_ pResourcePolicy_ =
+newPutResourcePolicy pSecretId_ pResourcePolicy_ =
   PutResourcePolicy'
-    { _prpBlockPublicPolicy = Nothing,
-      _prpSecretId = pSecretId_,
-      _prpResourcePolicy = pResourcePolicy_
+    { blockPublicPolicy =
+        Prelude.Nothing,
+      secretId = pSecretId_,
+      resourcePolicy = pResourcePolicy_
     }
 
--- | (Optional) If you set the parameter, @BlockPublicPolicy@ to true, then you block resource-based policies that allow broad access to the secret.
-prpBlockPublicPolicy :: Lens' PutResourcePolicy (Maybe Bool)
-prpBlockPublicPolicy = lens _prpBlockPublicPolicy (\s a -> s {_prpBlockPublicPolicy = a})
+-- | (Optional) If you set the parameter, @BlockPublicPolicy@ to true, then
+-- you block resource-based policies that allow broad access to the secret.
+putResourcePolicy_blockPublicPolicy :: Lens.Lens' PutResourcePolicy (Prelude.Maybe Prelude.Bool)
+putResourcePolicy_blockPublicPolicy = Lens.lens (\PutResourcePolicy' {blockPublicPolicy} -> blockPublicPolicy) (\s@PutResourcePolicy' {} a -> s {blockPublicPolicy = a} :: PutResourcePolicy)
 
--- | Specifies the secret that you want to attach the resource-based policy. You can specify either the ARN or the friendly name of the secret.
-prpSecretId :: Lens' PutResourcePolicy Text
-prpSecretId = lens _prpSecretId (\s a -> s {_prpSecretId = a})
+-- | Specifies the secret that you want to attach the resource-based policy.
+-- You can specify either the ARN or the friendly name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+putResourcePolicy_secretId :: Lens.Lens' PutResourcePolicy Prelude.Text
+putResourcePolicy_secretId = Lens.lens (\PutResourcePolicy' {secretId} -> secretId) (\s@PutResourcePolicy' {} a -> s {secretId = a} :: PutResourcePolicy)
 
--- | A JSON-formatted string constructed according to the grammar and syntax for an AWS resource-based policy. The policy in the string identifies who can access or manage this secret and its versions. For information on how to format a JSON parameter for the various command line tool environments, see <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json Using JSON for Parameters> in the /AWS CLI User Guide/ .
-prpResourcePolicy :: Lens' PutResourcePolicy Text
-prpResourcePolicy = lens _prpResourcePolicy (\s a -> s {_prpResourcePolicy = a})
+-- | A JSON-formatted string constructed according to the grammar and syntax
+-- for an AWS resource-based policy. The policy in the string identifies
+-- who can access or manage this secret and its versions. For information
+-- on how to format a JSON parameter for the various command line tool
+-- environments, see
+-- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json Using JSON for Parameters>
+-- in the /AWS CLI User Guide/.
+putResourcePolicy_resourcePolicy :: Lens.Lens' PutResourcePolicy Prelude.Text
+putResourcePolicy_resourcePolicy = Lens.lens (\PutResourcePolicy' {resourcePolicy} -> resourcePolicy) (\s@PutResourcePolicy' {} a -> s {resourcePolicy = a} :: PutResourcePolicy)
 
-instance AWSRequest PutResourcePolicy where
+instance Prelude.AWSRequest PutResourcePolicy where
   type Rs PutResourcePolicy = PutResourcePolicyResponse
-  request = postJSON secretsManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutResourcePolicyResponse'
-            <$> (x .?> "ARN")
-            <*> (x .?> "Name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ARN")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutResourcePolicy
+instance Prelude.Hashable PutResourcePolicy
 
-instance NFData PutResourcePolicy
+instance Prelude.NFData PutResourcePolicy
 
-instance ToHeaders PutResourcePolicy where
+instance Prelude.ToHeaders PutResourcePolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("secretsmanager.PutResourcePolicy" :: ByteString),
+              Prelude.=# ( "secretsmanager.PutResourcePolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutResourcePolicy where
+instance Prelude.ToJSON PutResourcePolicy where
   toJSON PutResourcePolicy' {..} =
-    object
-      ( catMaybes
-          [ ("BlockPublicPolicy" .=) <$> _prpBlockPublicPolicy,
-            Just ("SecretId" .= _prpSecretId),
-            Just ("ResourcePolicy" .= _prpResourcePolicy)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("BlockPublicPolicy" Prelude..=)
+              Prelude.<$> blockPublicPolicy,
+            Prelude.Just ("SecretId" Prelude..= secretId),
+            Prelude.Just
+              ("ResourcePolicy" Prelude..= resourcePolicy)
           ]
       )
 
-instance ToPath PutResourcePolicy where
-  toPath = const "/"
+instance Prelude.ToPath PutResourcePolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutResourcePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery PutResourcePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putResourcePolicyResponse' smart constructor.
+-- | /See:/ 'newPutResourcePolicyResponse' smart constructor.
 data PutResourcePolicyResponse = PutResourcePolicyResponse'
-  { _prprrsARN ::
-      !(Maybe Text),
-    _prprrsName ::
-      !(Maybe Text),
-    _prprrsResponseStatus ::
-      !Int
+  { -- | The ARN of the secret retrieved by the resource-based policy.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of the secret retrieved by the resource-based policy.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutResourcePolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutResourcePolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prprrsARN' - The ARN of the secret retrieved by the resource-based policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prprrsName' - The friendly name of the secret retrieved by the resource-based policy.
+-- 'aRN', 'putResourcePolicyResponse_aRN' - The ARN of the secret retrieved by the resource-based policy.
 --
--- * 'prprrsResponseStatus' - -- | The response status code.
-putResourcePolicyResponse ::
-  -- | 'prprrsResponseStatus'
-  Int ->
+-- 'name', 'putResourcePolicyResponse_name' - The friendly name of the secret retrieved by the resource-based policy.
+--
+-- 'httpStatus', 'putResourcePolicyResponse_httpStatus' - The response's http status code.
+newPutResourcePolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutResourcePolicyResponse
-putResourcePolicyResponse pResponseStatus_ =
+newPutResourcePolicyResponse pHttpStatus_ =
   PutResourcePolicyResponse'
-    { _prprrsARN = Nothing,
-      _prprrsName = Nothing,
-      _prprrsResponseStatus = pResponseStatus_
+    { aRN = Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the secret retrieved by the resource-based policy.
-prprrsARN :: Lens' PutResourcePolicyResponse (Maybe Text)
-prprrsARN = lens _prprrsARN (\s a -> s {_prprrsARN = a})
+putResourcePolicyResponse_aRN :: Lens.Lens' PutResourcePolicyResponse (Prelude.Maybe Prelude.Text)
+putResourcePolicyResponse_aRN = Lens.lens (\PutResourcePolicyResponse' {aRN} -> aRN) (\s@PutResourcePolicyResponse' {} a -> s {aRN = a} :: PutResourcePolicyResponse)
 
 -- | The friendly name of the secret retrieved by the resource-based policy.
-prprrsName :: Lens' PutResourcePolicyResponse (Maybe Text)
-prprrsName = lens _prprrsName (\s a -> s {_prprrsName = a})
+putResourcePolicyResponse_name :: Lens.Lens' PutResourcePolicyResponse (Prelude.Maybe Prelude.Text)
+putResourcePolicyResponse_name = Lens.lens (\PutResourcePolicyResponse' {name} -> name) (\s@PutResourcePolicyResponse' {} a -> s {name = a} :: PutResourcePolicyResponse)
 
--- | -- | The response status code.
-prprrsResponseStatus :: Lens' PutResourcePolicyResponse Int
-prprrsResponseStatus = lens _prprrsResponseStatus (\s a -> s {_prprrsResponseStatus = a})
+-- | The response's http status code.
+putResourcePolicyResponse_httpStatus :: Lens.Lens' PutResourcePolicyResponse Prelude.Int
+putResourcePolicyResponse_httpStatus = Lens.lens (\PutResourcePolicyResponse' {httpStatus} -> httpStatus) (\s@PutResourcePolicyResponse' {} a -> s {httpStatus = a} :: PutResourcePolicyResponse)
 
-instance NFData PutResourcePolicyResponse
+instance Prelude.NFData PutResourcePolicyResponse

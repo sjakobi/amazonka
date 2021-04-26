@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,167 +23,230 @@
 --
 -- Deletes the resource-based permission policy attached to the secret.
 --
---
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * secretsmanager:DeleteResourcePolicy
---
---
+-- -   secretsmanager:DeleteResourcePolicy
 --
 -- __Related operations__
 --
---     * To attach a resource policy to a secret, use 'PutResourcePolicy' .
+-- -   To attach a resource policy to a secret, use PutResourcePolicy.
 --
---     * To retrieve the current resource-based policy attached to a secret, use 'GetResourcePolicy' .
+-- -   To retrieve the current resource-based policy attached to a secret,
+--     use GetResourcePolicy.
 --
---     * To list all of the currently available secrets, use 'ListSecrets' .
+-- -   To list all of the currently available secrets, use ListSecrets.
 module Network.AWS.SecretsManager.DeleteResourcePolicy
   ( -- * Creating a Request
-    deleteResourcePolicy,
-    DeleteResourcePolicy,
+    DeleteResourcePolicy (..),
+    newDeleteResourcePolicy,
 
     -- * Request Lenses
-    drpSecretId,
+    deleteResourcePolicy_secretId,
 
     -- * Destructuring the Response
-    deleteResourcePolicyResponse,
-    DeleteResourcePolicyResponse,
+    DeleteResourcePolicyResponse (..),
+    newDeleteResourcePolicyResponse,
 
     -- * Response Lenses
-    drprrsARN,
-    drprrsName,
-    drprrsResponseStatus,
+    deleteResourcePolicyResponse_aRN,
+    deleteResourcePolicyResponse_name,
+    deleteResourcePolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SecretsManager.Types
 
--- | /See:/ 'deleteResourcePolicy' smart constructor.
-newtype DeleteResourcePolicy = DeleteResourcePolicy'
-  { _drpSecretId ::
-      Text
+-- | /See:/ 'newDeleteResourcePolicy' smart constructor.
+data DeleteResourcePolicy = DeleteResourcePolicy'
+  { -- | Specifies the secret that you want to delete the attached resource-based
+    -- policy for. You can specify either the Amazon Resource Name (ARN) or the
+    -- friendly name of the secret.
+    --
+    -- If you specify an ARN, we generally recommend that you specify a
+    -- complete ARN. You can specify a partial ARN too—for example, if you
+    -- don’t include the final hyphen and six random characters that Secrets
+    -- Manager adds at the end of the ARN when you created the secret. A
+    -- partial ARN match can work as long as it uniquely matches only one
+    -- secret. However, if your secret has a name that ends in a hyphen
+    -- followed by six characters (before Secrets Manager adds the hyphen and
+    -- six characters to the ARN) and you try to use that as a partial ARN,
+    -- then those characters cause Secrets Manager to assume that you’re
+    -- specifying a complete ARN. This confusion can cause unexpected results.
+    -- To avoid this situation, we recommend that you don’t create secret names
+    -- ending with a hyphen followed by six characters.
+    --
+    -- If you specify an incomplete ARN without the random suffix, and instead
+    -- provide the \'friendly name\', you /must/ not include the random suffix.
+    -- If you do include the random suffix added by Secrets Manager, you
+    -- receive either a /ResourceNotFoundException/ or an
+    -- /AccessDeniedException/ error, depending on your permissions.
+    secretId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourcePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteResourcePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drpSecretId' - Specifies the secret that you want to delete the attached resource-based policy for. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
-deleteResourcePolicy ::
-  -- | 'drpSecretId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'secretId', 'deleteResourcePolicy_secretId' - Specifies the secret that you want to delete the attached resource-based
+-- policy for. You can specify either the Amazon Resource Name (ARN) or the
+-- friendly name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+newDeleteResourcePolicy ::
+  -- | 'secretId'
+  Prelude.Text ->
   DeleteResourcePolicy
-deleteResourcePolicy pSecretId_ =
-  DeleteResourcePolicy' {_drpSecretId = pSecretId_}
+newDeleteResourcePolicy pSecretId_ =
+  DeleteResourcePolicy' {secretId = pSecretId_}
 
--- | Specifies the secret that you want to delete the attached resource-based policy for. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
-drpSecretId :: Lens' DeleteResourcePolicy Text
-drpSecretId = lens _drpSecretId (\s a -> s {_drpSecretId = a})
+-- | Specifies the secret that you want to delete the attached resource-based
+-- policy for. You can specify either the Amazon Resource Name (ARN) or the
+-- friendly name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+deleteResourcePolicy_secretId :: Lens.Lens' DeleteResourcePolicy Prelude.Text
+deleteResourcePolicy_secretId = Lens.lens (\DeleteResourcePolicy' {secretId} -> secretId) (\s@DeleteResourcePolicy' {} a -> s {secretId = a} :: DeleteResourcePolicy)
 
-instance AWSRequest DeleteResourcePolicy where
+instance Prelude.AWSRequest DeleteResourcePolicy where
   type
     Rs DeleteResourcePolicy =
       DeleteResourcePolicyResponse
-  request = postJSON secretsManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteResourcePolicyResponse'
-            <$> (x .?> "ARN")
-            <*> (x .?> "Name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ARN")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteResourcePolicy
+instance Prelude.Hashable DeleteResourcePolicy
 
-instance NFData DeleteResourcePolicy
+instance Prelude.NFData DeleteResourcePolicy
 
-instance ToHeaders DeleteResourcePolicy where
+instance Prelude.ToHeaders DeleteResourcePolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "secretsmanager.DeleteResourcePolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "secretsmanager.DeleteResourcePolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteResourcePolicy where
+instance Prelude.ToJSON DeleteResourcePolicy where
   toJSON DeleteResourcePolicy' {..} =
-    object
-      (catMaybes [Just ("SecretId" .= _drpSecretId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SecretId" Prelude..= secretId)]
+      )
 
-instance ToPath DeleteResourcePolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteResourcePolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteResourcePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteResourcePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteResourcePolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteResourcePolicyResponse' smart constructor.
 data DeleteResourcePolicyResponse = DeleteResourcePolicyResponse'
-  { _drprrsARN ::
-      !(Maybe Text),
-    _drprrsName ::
-      !(Maybe Text),
-    _drprrsResponseStatus ::
-      !Int
+  { -- | The ARN of the secret that the resource-based policy was deleted for.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of the secret that the resource-based policy was
+    -- deleted for.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourcePolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteResourcePolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drprrsARN' - The ARN of the secret that the resource-based policy was deleted for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drprrsName' - The friendly name of the secret that the resource-based policy was deleted for.
+-- 'aRN', 'deleteResourcePolicyResponse_aRN' - The ARN of the secret that the resource-based policy was deleted for.
 --
--- * 'drprrsResponseStatus' - -- | The response status code.
-deleteResourcePolicyResponse ::
-  -- | 'drprrsResponseStatus'
-  Int ->
+-- 'name', 'deleteResourcePolicyResponse_name' - The friendly name of the secret that the resource-based policy was
+-- deleted for.
+--
+-- 'httpStatus', 'deleteResourcePolicyResponse_httpStatus' - The response's http status code.
+newDeleteResourcePolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteResourcePolicyResponse
-deleteResourcePolicyResponse pResponseStatus_ =
+newDeleteResourcePolicyResponse pHttpStatus_ =
   DeleteResourcePolicyResponse'
-    { _drprrsARN = Nothing,
-      _drprrsName = Nothing,
-      _drprrsResponseStatus = pResponseStatus_
+    { aRN =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the secret that the resource-based policy was deleted for.
-drprrsARN :: Lens' DeleteResourcePolicyResponse (Maybe Text)
-drprrsARN = lens _drprrsARN (\s a -> s {_drprrsARN = a})
+deleteResourcePolicyResponse_aRN :: Lens.Lens' DeleteResourcePolicyResponse (Prelude.Maybe Prelude.Text)
+deleteResourcePolicyResponse_aRN = Lens.lens (\DeleteResourcePolicyResponse' {aRN} -> aRN) (\s@DeleteResourcePolicyResponse' {} a -> s {aRN = a} :: DeleteResourcePolicyResponse)
 
--- | The friendly name of the secret that the resource-based policy was deleted for.
-drprrsName :: Lens' DeleteResourcePolicyResponse (Maybe Text)
-drprrsName = lens _drprrsName (\s a -> s {_drprrsName = a})
+-- | The friendly name of the secret that the resource-based policy was
+-- deleted for.
+deleteResourcePolicyResponse_name :: Lens.Lens' DeleteResourcePolicyResponse (Prelude.Maybe Prelude.Text)
+deleteResourcePolicyResponse_name = Lens.lens (\DeleteResourcePolicyResponse' {name} -> name) (\s@DeleteResourcePolicyResponse' {} a -> s {name = a} :: DeleteResourcePolicyResponse)
 
--- | -- | The response status code.
-drprrsResponseStatus :: Lens' DeleteResourcePolicyResponse Int
-drprrsResponseStatus = lens _drprrsResponseStatus (\s a -> s {_drprrsResponseStatus = a})
+-- | The response's http status code.
+deleteResourcePolicyResponse_httpStatus :: Lens.Lens' DeleteResourcePolicyResponse Prelude.Int
+deleteResourcePolicyResponse_httpStatus = Lens.lens (\DeleteResourcePolicyResponse' {httpStatus} -> httpStatus) (\s@DeleteResourcePolicyResponse' {} a -> s {httpStatus = a} :: DeleteResourcePolicyResponse)
 
-instance NFData DeleteResourcePolicyResponse
+instance Prelude.NFData DeleteResourcePolicyResponse

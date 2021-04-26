@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SecretsManager.Types
   ( -- * Service Configuration
-    secretsManager,
+    defaultService,
 
     -- * Errors
     _MalformedPolicyDocumentException,
@@ -38,74 +41,40 @@ module Network.AWS.SecretsManager.Types
 
     -- * Filter
     Filter (..),
-    filter',
-    fKey,
-    fValues,
+    newFilter,
 
     -- * ReplicaRegionType
     ReplicaRegionType (..),
-    replicaRegionType,
-    rrtKMSKeyId,
-    rrtRegion,
+    newReplicaRegionType,
 
     -- * ReplicationStatusType
     ReplicationStatusType (..),
-    replicationStatusType,
-    rstStatusMessage,
-    rstStatus,
-    rstKMSKeyId,
-    rstLastAccessedDate,
-    rstRegion,
+    newReplicationStatusType,
 
     -- * RotationRulesType
     RotationRulesType (..),
-    rotationRulesType,
-    rrtAutomaticallyAfterDays,
+    newRotationRulesType,
 
     -- * SecretListEntry
     SecretListEntry (..),
-    secretListEntry,
-    sleCreatedDate,
-    sleOwningService,
-    sleSecretVersionsToStages,
-    sleLastRotatedDate,
-    sleARN,
-    sleKMSKeyId,
-    sleName,
-    sleLastChangedDate,
-    slePrimaryRegion,
-    sleRotationRules,
-    sleTags,
-    sleRotationEnabled,
-    sleDeletedDate,
-    sleRotationLambdaARN,
-    sleDescription,
-    sleLastAccessedDate,
+    newSecretListEntry,
 
     -- * SecretVersionsListEntry
     SecretVersionsListEntry (..),
-    secretVersionsListEntry,
-    svleCreatedDate,
-    svleVersionStages,
-    svleVersionId,
-    svleLastAccessedDate,
+    newSecretVersionsListEntry,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * ValidationErrorsEntry
     ValidationErrorsEntry (..),
-    validationErrorsEntry,
-    veeCheckName,
-    veeErrorMessage,
+    newValidationErrorsEntry,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SecretsManager.Types.Filter
 import Network.AWS.SecretsManager.Types.FilterNameStringType
 import Network.AWS.SecretsManager.Types.ReplicaRegionType
@@ -117,146 +86,176 @@ import Network.AWS.SecretsManager.Types.SortOrderType
 import Network.AWS.SecretsManager.Types.StatusType
 import Network.AWS.SecretsManager.Types.Tag
 import Network.AWS.SecretsManager.Types.ValidationErrorsEntry
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-10-17@ of the Amazon Secrets Manager SDK configuration.
-secretsManager :: Service
-secretsManager =
-  Service
-    { _svcAbbrev = "SecretsManager",
-      _svcSigner = v4,
-      _svcPrefix = "secretsmanager",
-      _svcVersion = "2017-10-17",
-      _svcEndpoint = defaultEndpoint secretsManager,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "SecretsManager",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "SecretsManager",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "secretsmanager",
+      Prelude._svcVersion = "2017-10-17",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "SecretsManager",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | You provided a resource-based policy with syntax errors.
-_MalformedPolicyDocumentException :: AsError a => Getting (First ServiceError) a ServiceError
+_MalformedPolicyDocumentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MalformedPolicyDocumentException =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "MalformedPolicyDocumentException"
 
--- | Secrets Manager can't encrypt the protected secret text using the provided KMS key. Check that the customer master key (CMK) is available, enabled, and not in an invalid state. For more information, see <http://docs.aws.amazon.com/kms/latest/developerguide/key-state.html How Key State Affects Use of a Customer Master Key> .
-_EncryptionFailure :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Secrets Manager can\'t encrypt the protected secret text using the
+-- provided KMS key. Check that the customer master key (CMK) is available,
+-- enabled, and not in an invalid state. For more information, see
+-- <http://docs.aws.amazon.com/kms/latest/developerguide/key-state.html How Key State Affects Use of a Customer Master Key>.
+_EncryptionFailure :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EncryptionFailure =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "EncryptionFailure"
 
--- | The BlockPublicPolicy parameter is set to true and the resource policy did not prevent broad access to the secret.
-_PublicPolicyException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The BlockPublicPolicy parameter is set to true and the resource policy
+-- did not prevent broad access to the secret.
+_PublicPolicyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PublicPolicyException =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "PublicPolicyException"
 
--- | Secrets Manager can't decrypt the protected secret text using the provided KMS key.
-_DecryptionFailure :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Secrets Manager can\'t decrypt the protected secret text using the
+-- provided KMS key.
+_DecryptionFailure :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DecryptionFailure =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "DecryptionFailure"
 
 -- | You provided an invalid @NextToken@ value.
-_InvalidNextTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidNextTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidNextTokenException =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "InvalidNextTokenException"
 
--- | The request failed because you did not complete all the prerequisite steps.
-_PreconditionNotMetException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request failed because you did not complete all the prerequisite
+-- steps.
+_PreconditionNotMetException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PreconditionNotMetException =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "PreconditionNotMetException"
 
--- | You provided a parameter value that is not valid for the current state of the resource.
---
+-- | You provided a parameter value that is not valid for the current state
+-- of the resource.
 --
 -- Possible causes:
 --
---     * You tried to perform the operation on a secret that's currently marked deleted.
+-- -   You tried to perform the operation on a secret that\'s currently
+--     marked deleted.
 --
---     * You tried to enable rotation on a secret that doesn't already have a Lambda function ARN configured and you didn't include such an ARN as a parameter in this call.
-_InvalidRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- -   You tried to enable rotation on a secret that doesn\'t already have
+--     a Lambda function ARN configured and you didn\'t include such an ARN
+--     as a parameter in this call.
+_InvalidRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRequestException =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRequestException"
 
 -- | You provided an invalid value for a parameter.
-_InvalidParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterException =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterException"
 
--- | The request failed because it would exceed one of the Secrets Manager internal limits.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request failed because it would exceed one of the Secrets Manager
+-- internal limits.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | We can't find the resource that you asked for.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | We can\'t find the resource that you asked for.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
 -- | A resource with the ID you requested already exists.
-_ResourceExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceExistsException =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "ResourceExistsException"
 
 -- | An error occurred on the server side.
-_InternalServiceError :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalServiceError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServiceError =
-  _MatchServiceError
-    secretsManager
+  Prelude._MatchServiceError
+    defaultService
     "InternalServiceError"

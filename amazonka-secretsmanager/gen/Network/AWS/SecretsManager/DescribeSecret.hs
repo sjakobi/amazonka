@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,332 +21,496 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the details of a secret. It does not include the encrypted fields. Secrets Manager only returns fields populated with a value in the response.
---
+-- Retrieves the details of a secret. It does not include the encrypted
+-- fields. Secrets Manager only returns fields populated with a value in
+-- the response.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * secretsmanager:DescribeSecret
---
---
+-- -   secretsmanager:DescribeSecret
 --
 -- __Related operations__
 --
---     * To create a secret, use 'CreateSecret' .
+-- -   To create a secret, use CreateSecret.
 --
---     * To modify a secret, use 'UpdateSecret' .
+-- -   To modify a secret, use UpdateSecret.
 --
---     * To retrieve the encrypted secret information in a version of the secret, use 'GetSecretValue' .
+-- -   To retrieve the encrypted secret information in a version of the
+--     secret, use GetSecretValue.
 --
---     * To list all of the secrets in the AWS account, use 'ListSecrets' .
+-- -   To list all of the secrets in the AWS account, use ListSecrets.
 module Network.AWS.SecretsManager.DescribeSecret
   ( -- * Creating a Request
-    describeSecret,
-    DescribeSecret,
+    DescribeSecret (..),
+    newDescribeSecret,
 
     -- * Request Lenses
-    dSecretId,
+    describeSecret_secretId,
 
     -- * Destructuring the Response
-    describeSecretResponse,
-    DescribeSecretResponse,
+    DescribeSecretResponse (..),
+    newDescribeSecretResponse,
 
     -- * Response Lenses
-    drsCreatedDate,
-    drsOwningService,
-    drsLastRotatedDate,
-    drsReplicationStatus,
-    drsARN,
-    drsKMSKeyId,
-    drsName,
-    drsLastChangedDate,
-    drsPrimaryRegion,
-    drsRotationRules,
-    drsTags,
-    drsRotationEnabled,
-    drsDeletedDate,
-    drsRotationLambdaARN,
-    drsDescription,
-    drsLastAccessedDate,
-    drsVersionIdsToStages,
-    drsResponseStatus,
+    describeSecretResponse_createdDate,
+    describeSecretResponse_owningService,
+    describeSecretResponse_lastRotatedDate,
+    describeSecretResponse_replicationStatus,
+    describeSecretResponse_aRN,
+    describeSecretResponse_kmsKeyId,
+    describeSecretResponse_name,
+    describeSecretResponse_lastChangedDate,
+    describeSecretResponse_primaryRegion,
+    describeSecretResponse_rotationRules,
+    describeSecretResponse_tags,
+    describeSecretResponse_rotationEnabled,
+    describeSecretResponse_deletedDate,
+    describeSecretResponse_rotationLambdaARN,
+    describeSecretResponse_description,
+    describeSecretResponse_lastAccessedDate,
+    describeSecretResponse_versionIdsToStages,
+    describeSecretResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SecretsManager.Types
+import Network.AWS.SecretsManager.Types.ReplicationStatusType
+import Network.AWS.SecretsManager.Types.RotationRulesType
+import Network.AWS.SecretsManager.Types.Tag
 
--- | /See:/ 'describeSecret' smart constructor.
-newtype DescribeSecret = DescribeSecret'
-  { _dSecretId ::
-      Text
+-- | /See:/ 'newDescribeSecret' smart constructor.
+data DescribeSecret = DescribeSecret'
+  { -- | The identifier of the secret whose details you want to retrieve. You can
+    -- specify either the Amazon Resource Name (ARN) or the friendly name of
+    -- the secret.
+    --
+    -- If you specify an ARN, we generally recommend that you specify a
+    -- complete ARN. You can specify a partial ARN too—for example, if you
+    -- don’t include the final hyphen and six random characters that Secrets
+    -- Manager adds at the end of the ARN when you created the secret. A
+    -- partial ARN match can work as long as it uniquely matches only one
+    -- secret. However, if your secret has a name that ends in a hyphen
+    -- followed by six characters (before Secrets Manager adds the hyphen and
+    -- six characters to the ARN) and you try to use that as a partial ARN,
+    -- then those characters cause Secrets Manager to assume that you’re
+    -- specifying a complete ARN. This confusion can cause unexpected results.
+    -- To avoid this situation, we recommend that you don’t create secret names
+    -- ending with a hyphen followed by six characters.
+    --
+    -- If you specify an incomplete ARN without the random suffix, and instead
+    -- provide the \'friendly name\', you /must/ not include the random suffix.
+    -- If you do include the random suffix added by Secrets Manager, you
+    -- receive either a /ResourceNotFoundException/ or an
+    -- /AccessDeniedException/ error, depending on your permissions.
+    secretId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSecret' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSecret' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dSecretId' - The identifier of the secret whose details you want to retrieve. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
-describeSecret ::
-  -- | 'dSecretId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'secretId', 'describeSecret_secretId' - The identifier of the secret whose details you want to retrieve. You can
+-- specify either the Amazon Resource Name (ARN) or the friendly name of
+-- the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+newDescribeSecret ::
+  -- | 'secretId'
+  Prelude.Text ->
   DescribeSecret
-describeSecret pSecretId_ =
-  DescribeSecret' {_dSecretId = pSecretId_}
+newDescribeSecret pSecretId_ =
+  DescribeSecret' {secretId = pSecretId_}
 
--- | The identifier of the secret whose details you want to retrieve. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
-dSecretId :: Lens' DescribeSecret Text
-dSecretId = lens _dSecretId (\s a -> s {_dSecretId = a})
+-- | The identifier of the secret whose details you want to retrieve. You can
+-- specify either the Amazon Resource Name (ARN) or the friendly name of
+-- the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+describeSecret_secretId :: Lens.Lens' DescribeSecret Prelude.Text
+describeSecret_secretId = Lens.lens (\DescribeSecret' {secretId} -> secretId) (\s@DescribeSecret' {} a -> s {secretId = a} :: DescribeSecret)
 
-instance AWSRequest DescribeSecret where
+instance Prelude.AWSRequest DescribeSecret where
   type Rs DescribeSecret = DescribeSecretResponse
-  request = postJSON secretsManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeSecretResponse'
-            <$> (x .?> "CreatedDate")
-            <*> (x .?> "OwningService")
-            <*> (x .?> "LastRotatedDate")
-            <*> (x .?> "ReplicationStatus" .!@ mempty)
-            <*> (x .?> "ARN")
-            <*> (x .?> "KmsKeyId")
-            <*> (x .?> "Name")
-            <*> (x .?> "LastChangedDate")
-            <*> (x .?> "PrimaryRegion")
-            <*> (x .?> "RotationRules")
-            <*> (x .?> "Tags" .!@ mempty)
-            <*> (x .?> "RotationEnabled")
-            <*> (x .?> "DeletedDate")
-            <*> (x .?> "RotationLambdaARN")
-            <*> (x .?> "Description")
-            <*> (x .?> "LastAccessedDate")
-            <*> (x .?> "VersionIdsToStages" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreatedDate")
+            Prelude.<*> (x Prelude..?> "OwningService")
+            Prelude.<*> (x Prelude..?> "LastRotatedDate")
+            Prelude.<*> ( x Prelude..?> "ReplicationStatus"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "ARN")
+            Prelude.<*> (x Prelude..?> "KmsKeyId")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "LastChangedDate")
+            Prelude.<*> (x Prelude..?> "PrimaryRegion")
+            Prelude.<*> (x Prelude..?> "RotationRules")
+            Prelude.<*> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "RotationEnabled")
+            Prelude.<*> (x Prelude..?> "DeletedDate")
+            Prelude.<*> (x Prelude..?> "RotationLambdaARN")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "LastAccessedDate")
+            Prelude.<*> ( x Prelude..?> "VersionIdsToStages"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSecret
+instance Prelude.Hashable DescribeSecret
 
-instance NFData DescribeSecret
+instance Prelude.NFData DescribeSecret
 
-instance ToHeaders DescribeSecret where
+instance Prelude.ToHeaders DescribeSecret where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("secretsmanager.DescribeSecret" :: ByteString),
+              Prelude.=# ( "secretsmanager.DescribeSecret" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeSecret where
+instance Prelude.ToJSON DescribeSecret where
   toJSON DescribeSecret' {..} =
-    object
-      (catMaybes [Just ("SecretId" .= _dSecretId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SecretId" Prelude..= secretId)]
+      )
 
-instance ToPath DescribeSecret where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSecret where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSecret where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeSecret where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeSecretResponse' smart constructor.
+-- | /See:/ 'newDescribeSecretResponse' smart constructor.
 data DescribeSecretResponse = DescribeSecretResponse'
-  { _drsCreatedDate ::
-      !(Maybe POSIX),
-    _drsOwningService ::
-      !(Maybe Text),
-    _drsLastRotatedDate ::
-      !(Maybe POSIX),
-    _drsReplicationStatus ::
-      !( Maybe
-           [ReplicationStatusType]
-       ),
-    _drsARN :: !(Maybe Text),
-    _drsKMSKeyId ::
-      !(Maybe Text),
-    _drsName :: !(Maybe Text),
-    _drsLastChangedDate ::
-      !(Maybe POSIX),
-    _drsPrimaryRegion ::
-      !(Maybe Text),
-    _drsRotationRules ::
-      !( Maybe
-           RotationRulesType
-       ),
-    _drsTags ::
-      !(Maybe [Tag]),
-    _drsRotationEnabled ::
-      !(Maybe Bool),
-    _drsDeletedDate ::
-      !(Maybe POSIX),
-    _drsRotationLambdaARN ::
-      !(Maybe Text),
-    _drsDescription ::
-      !(Maybe Text),
-    _drsLastAccessedDate ::
-      !(Maybe POSIX),
-    _drsVersionIdsToStages ::
-      !( Maybe
-           ( Map
-               Text
-               (List1 Text)
-           )
-       ),
-    _drsResponseStatus ::
-      !Int
+  { -- | The date you created the secret.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Returns the name of the service that created this secret.
+    owningService :: Prelude.Maybe Prelude.Text,
+    -- | The last date and time that the rotation process for this secret was
+    -- invoked.
+    --
+    -- The most recent date and time that the Secrets Manager rotation process
+    -- successfully completed. If the secret doesn\'t rotate, Secrets Manager
+    -- returns a null value.
+    lastRotatedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Describes a list of replication status objects as @InProgress@, @Failed@
+    -- or @InSync@.@P@
+    replicationStatus :: Prelude.Maybe [ReplicationStatusType],
+    -- | The ARN of the secret.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The ARN or alias of the AWS KMS customer master key (CMK) that\'s used
+    -- to encrypt the @SecretString@ or @SecretBinary@ fields in each version
+    -- of the secret. If you don\'t provide a key, then Secrets Manager
+    -- defaults to encrypting the secret fields with the default AWS KMS CMK
+    -- (the one named @awssecretsmanager@) for this account.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The user-provided friendly name of the secret.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The last date and time that this secret was modified in any way.
+    lastChangedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies the primary region for secret replication.
+    primaryRegion :: Prelude.Maybe Prelude.Text,
+    -- | A structure with the rotation configuration for this secret.
+    rotationRules :: Prelude.Maybe RotationRulesType,
+    -- | The list of user-defined tags that are associated with the secret. To
+    -- add tags to a secret, use TagResource. To remove tags, use
+    -- UntagResource.
+    tags :: Prelude.Maybe [Tag],
+    -- | Specifies whether automatic rotation is enabled for this secret.
+    --
+    -- To enable rotation, use RotateSecret with @AutomaticallyRotateAfterDays@
+    -- set to a value greater than 0. To disable rotation, use
+    -- CancelRotateSecret.
+    rotationEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | This value exists if the secret is scheduled for deletion. Some time
+    -- after the specified date and time, Secrets Manager deletes the secret
+    -- and all of its versions.
+    --
+    -- If a secret is scheduled for deletion, then its details, including the
+    -- encrypted secret information, is not accessible. To cancel a scheduled
+    -- deletion and restore access, use RestoreSecret.
+    deletedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The ARN of a Lambda function that\'s invoked by Secrets Manager to
+    -- rotate the secret either automatically per the schedule or manually by a
+    -- call to @RotateSecret@.
+    rotationLambdaARN :: Prelude.Maybe Prelude.Text,
+    -- | The user-provided description of the secret.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The last date that this secret was accessed. This value is truncated to
+    -- midnight of the date and therefore shows only the date, not the time.
+    lastAccessedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | A list of all of the currently assigned @VersionStage@ staging labels
+    -- and the @VersionId@ that each is attached to. Staging labels are used to
+    -- keep track of the different versions during the rotation process.
+    --
+    -- A version that does not have any staging labels attached is considered
+    -- deprecated and subject to deletion. Such versions are not included in
+    -- this list.
+    versionIdsToStages :: Prelude.Maybe (Prelude.Map Prelude.Text (Prelude.List1 Prelude.Text)),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSecretResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSecretResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsCreatedDate' - The date you created the secret.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsOwningService' - Returns the name of the service that created this secret.
+-- 'createdDate', 'describeSecretResponse_createdDate' - The date you created the secret.
 --
--- * 'drsLastRotatedDate' - The last date and time that the rotation process for this secret was invoked. The most recent date and time that the Secrets Manager rotation process successfully completed. If the secret doesn't rotate, Secrets Manager returns a null value.
+-- 'owningService', 'describeSecretResponse_owningService' - Returns the name of the service that created this secret.
 --
--- * 'drsReplicationStatus' - Describes a list of replication status objects as @InProgress@ , @Failed@ or @InSync@ .@P@
+-- 'lastRotatedDate', 'describeSecretResponse_lastRotatedDate' - The last date and time that the rotation process for this secret was
+-- invoked.
 --
--- * 'drsARN' - The ARN of the secret.
+-- The most recent date and time that the Secrets Manager rotation process
+-- successfully completed. If the secret doesn\'t rotate, Secrets Manager
+-- returns a null value.
 --
--- * 'drsKMSKeyId' - The ARN or alias of the AWS KMS customer master key (CMK) that's used to encrypt the @SecretString@ or @SecretBinary@ fields in each version of the secret. If you don't provide a key, then Secrets Manager defaults to encrypting the secret fields with the default AWS KMS CMK (the one named @awssecretsmanager@ ) for this account.
+-- 'replicationStatus', 'describeSecretResponse_replicationStatus' - Describes a list of replication status objects as @InProgress@, @Failed@
+-- or @InSync@.@P@
 --
--- * 'drsName' - The user-provided friendly name of the secret.
+-- 'aRN', 'describeSecretResponse_aRN' - The ARN of the secret.
 --
--- * 'drsLastChangedDate' - The last date and time that this secret was modified in any way.
+-- 'kmsKeyId', 'describeSecretResponse_kmsKeyId' - The ARN or alias of the AWS KMS customer master key (CMK) that\'s used
+-- to encrypt the @SecretString@ or @SecretBinary@ fields in each version
+-- of the secret. If you don\'t provide a key, then Secrets Manager
+-- defaults to encrypting the secret fields with the default AWS KMS CMK
+-- (the one named @awssecretsmanager@) for this account.
 --
--- * 'drsPrimaryRegion' - Specifies the primary region for secret replication.
+-- 'name', 'describeSecretResponse_name' - The user-provided friendly name of the secret.
 --
--- * 'drsRotationRules' - A structure with the rotation configuration for this secret.
+-- 'lastChangedDate', 'describeSecretResponse_lastChangedDate' - The last date and time that this secret was modified in any way.
 --
--- * 'drsTags' - The list of user-defined tags that are associated with the secret. To add tags to a secret, use 'TagResource' . To remove tags, use 'UntagResource' .
+-- 'primaryRegion', 'describeSecretResponse_primaryRegion' - Specifies the primary region for secret replication.
 --
--- * 'drsRotationEnabled' - Specifies whether automatic rotation is enabled for this secret. To enable rotation, use 'RotateSecret' with @AutomaticallyRotateAfterDays@ set to a value greater than 0. To disable rotation, use 'CancelRotateSecret' .
+-- 'rotationRules', 'describeSecretResponse_rotationRules' - A structure with the rotation configuration for this secret.
 --
--- * 'drsDeletedDate' - This value exists if the secret is scheduled for deletion. Some time after the specified date and time, Secrets Manager deletes the secret and all of its versions. If a secret is scheduled for deletion, then its details, including the encrypted secret information, is not accessible. To cancel a scheduled deletion and restore access, use 'RestoreSecret' .
+-- 'tags', 'describeSecretResponse_tags' - The list of user-defined tags that are associated with the secret. To
+-- add tags to a secret, use TagResource. To remove tags, use
+-- UntagResource.
 --
--- * 'drsRotationLambdaARN' - The ARN of a Lambda function that's invoked by Secrets Manager to rotate the secret either automatically per the schedule or manually by a call to @RotateSecret@ .
+-- 'rotationEnabled', 'describeSecretResponse_rotationEnabled' - Specifies whether automatic rotation is enabled for this secret.
 --
--- * 'drsDescription' - The user-provided description of the secret.
+-- To enable rotation, use RotateSecret with @AutomaticallyRotateAfterDays@
+-- set to a value greater than 0. To disable rotation, use
+-- CancelRotateSecret.
 --
--- * 'drsLastAccessedDate' - The last date that this secret was accessed. This value is truncated to midnight of the date and therefore shows only the date, not the time.
+-- 'deletedDate', 'describeSecretResponse_deletedDate' - This value exists if the secret is scheduled for deletion. Some time
+-- after the specified date and time, Secrets Manager deletes the secret
+-- and all of its versions.
 --
--- * 'drsVersionIdsToStages' - A list of all of the currently assigned @VersionStage@ staging labels and the @VersionId@ that each is attached to. Staging labels are used to keep track of the different versions during the rotation process.
+-- If a secret is scheduled for deletion, then its details, including the
+-- encrypted secret information, is not accessible. To cancel a scheduled
+-- deletion and restore access, use RestoreSecret.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeSecretResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'rotationLambdaARN', 'describeSecretResponse_rotationLambdaARN' - The ARN of a Lambda function that\'s invoked by Secrets Manager to
+-- rotate the secret either automatically per the schedule or manually by a
+-- call to @RotateSecret@.
+--
+-- 'description', 'describeSecretResponse_description' - The user-provided description of the secret.
+--
+-- 'lastAccessedDate', 'describeSecretResponse_lastAccessedDate' - The last date that this secret was accessed. This value is truncated to
+-- midnight of the date and therefore shows only the date, not the time.
+--
+-- 'versionIdsToStages', 'describeSecretResponse_versionIdsToStages' - A list of all of the currently assigned @VersionStage@ staging labels
+-- and the @VersionId@ that each is attached to. Staging labels are used to
+-- keep track of the different versions during the rotation process.
+--
+-- A version that does not have any staging labels attached is considered
+-- deprecated and subject to deletion. Such versions are not included in
+-- this list.
+--
+-- 'httpStatus', 'describeSecretResponse_httpStatus' - The response's http status code.
+newDescribeSecretResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSecretResponse
-describeSecretResponse pResponseStatus_ =
+newDescribeSecretResponse pHttpStatus_ =
   DescribeSecretResponse'
-    { _drsCreatedDate = Nothing,
-      _drsOwningService = Nothing,
-      _drsLastRotatedDate = Nothing,
-      _drsReplicationStatus = Nothing,
-      _drsARN = Nothing,
-      _drsKMSKeyId = Nothing,
-      _drsName = Nothing,
-      _drsLastChangedDate = Nothing,
-      _drsPrimaryRegion = Nothing,
-      _drsRotationRules = Nothing,
-      _drsTags = Nothing,
-      _drsRotationEnabled = Nothing,
-      _drsDeletedDate = Nothing,
-      _drsRotationLambdaARN = Nothing,
-      _drsDescription = Nothing,
-      _drsLastAccessedDate = Nothing,
-      _drsVersionIdsToStages = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { createdDate =
+        Prelude.Nothing,
+      owningService = Prelude.Nothing,
+      lastRotatedDate = Prelude.Nothing,
+      replicationStatus = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastChangedDate = Prelude.Nothing,
+      primaryRegion = Prelude.Nothing,
+      rotationRules = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      rotationEnabled = Prelude.Nothing,
+      deletedDate = Prelude.Nothing,
+      rotationLambdaARN = Prelude.Nothing,
+      description = Prelude.Nothing,
+      lastAccessedDate = Prelude.Nothing,
+      versionIdsToStages = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The date you created the secret.
-drsCreatedDate :: Lens' DescribeSecretResponse (Maybe UTCTime)
-drsCreatedDate = lens _drsCreatedDate (\s a -> s {_drsCreatedDate = a}) . mapping _Time
+describeSecretResponse_createdDate :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.UTCTime)
+describeSecretResponse_createdDate = Lens.lens (\DescribeSecretResponse' {createdDate} -> createdDate) (\s@DescribeSecretResponse' {} a -> s {createdDate = a} :: DescribeSecretResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Returns the name of the service that created this secret.
-drsOwningService :: Lens' DescribeSecretResponse (Maybe Text)
-drsOwningService = lens _drsOwningService (\s a -> s {_drsOwningService = a})
+describeSecretResponse_owningService :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.Text)
+describeSecretResponse_owningService = Lens.lens (\DescribeSecretResponse' {owningService} -> owningService) (\s@DescribeSecretResponse' {} a -> s {owningService = a} :: DescribeSecretResponse)
 
--- | The last date and time that the rotation process for this secret was invoked. The most recent date and time that the Secrets Manager rotation process successfully completed. If the secret doesn't rotate, Secrets Manager returns a null value.
-drsLastRotatedDate :: Lens' DescribeSecretResponse (Maybe UTCTime)
-drsLastRotatedDate = lens _drsLastRotatedDate (\s a -> s {_drsLastRotatedDate = a}) . mapping _Time
+-- | The last date and time that the rotation process for this secret was
+-- invoked.
+--
+-- The most recent date and time that the Secrets Manager rotation process
+-- successfully completed. If the secret doesn\'t rotate, Secrets Manager
+-- returns a null value.
+describeSecretResponse_lastRotatedDate :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.UTCTime)
+describeSecretResponse_lastRotatedDate = Lens.lens (\DescribeSecretResponse' {lastRotatedDate} -> lastRotatedDate) (\s@DescribeSecretResponse' {} a -> s {lastRotatedDate = a} :: DescribeSecretResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | Describes a list of replication status objects as @InProgress@ , @Failed@ or @InSync@ .@P@
-drsReplicationStatus :: Lens' DescribeSecretResponse [ReplicationStatusType]
-drsReplicationStatus = lens _drsReplicationStatus (\s a -> s {_drsReplicationStatus = a}) . _Default . _Coerce
+-- | Describes a list of replication status objects as @InProgress@, @Failed@
+-- or @InSync@.@P@
+describeSecretResponse_replicationStatus :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe [ReplicationStatusType])
+describeSecretResponse_replicationStatus = Lens.lens (\DescribeSecretResponse' {replicationStatus} -> replicationStatus) (\s@DescribeSecretResponse' {} a -> s {replicationStatus = a} :: DescribeSecretResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ARN of the secret.
-drsARN :: Lens' DescribeSecretResponse (Maybe Text)
-drsARN = lens _drsARN (\s a -> s {_drsARN = a})
+describeSecretResponse_aRN :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.Text)
+describeSecretResponse_aRN = Lens.lens (\DescribeSecretResponse' {aRN} -> aRN) (\s@DescribeSecretResponse' {} a -> s {aRN = a} :: DescribeSecretResponse)
 
--- | The ARN or alias of the AWS KMS customer master key (CMK) that's used to encrypt the @SecretString@ or @SecretBinary@ fields in each version of the secret. If you don't provide a key, then Secrets Manager defaults to encrypting the secret fields with the default AWS KMS CMK (the one named @awssecretsmanager@ ) for this account.
-drsKMSKeyId :: Lens' DescribeSecretResponse (Maybe Text)
-drsKMSKeyId = lens _drsKMSKeyId (\s a -> s {_drsKMSKeyId = a})
+-- | The ARN or alias of the AWS KMS customer master key (CMK) that\'s used
+-- to encrypt the @SecretString@ or @SecretBinary@ fields in each version
+-- of the secret. If you don\'t provide a key, then Secrets Manager
+-- defaults to encrypting the secret fields with the default AWS KMS CMK
+-- (the one named @awssecretsmanager@) for this account.
+describeSecretResponse_kmsKeyId :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.Text)
+describeSecretResponse_kmsKeyId = Lens.lens (\DescribeSecretResponse' {kmsKeyId} -> kmsKeyId) (\s@DescribeSecretResponse' {} a -> s {kmsKeyId = a} :: DescribeSecretResponse)
 
 -- | The user-provided friendly name of the secret.
-drsName :: Lens' DescribeSecretResponse (Maybe Text)
-drsName = lens _drsName (\s a -> s {_drsName = a})
+describeSecretResponse_name :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.Text)
+describeSecretResponse_name = Lens.lens (\DescribeSecretResponse' {name} -> name) (\s@DescribeSecretResponse' {} a -> s {name = a} :: DescribeSecretResponse)
 
 -- | The last date and time that this secret was modified in any way.
-drsLastChangedDate :: Lens' DescribeSecretResponse (Maybe UTCTime)
-drsLastChangedDate = lens _drsLastChangedDate (\s a -> s {_drsLastChangedDate = a}) . mapping _Time
+describeSecretResponse_lastChangedDate :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.UTCTime)
+describeSecretResponse_lastChangedDate = Lens.lens (\DescribeSecretResponse' {lastChangedDate} -> lastChangedDate) (\s@DescribeSecretResponse' {} a -> s {lastChangedDate = a} :: DescribeSecretResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Specifies the primary region for secret replication.
-drsPrimaryRegion :: Lens' DescribeSecretResponse (Maybe Text)
-drsPrimaryRegion = lens _drsPrimaryRegion (\s a -> s {_drsPrimaryRegion = a})
+describeSecretResponse_primaryRegion :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.Text)
+describeSecretResponse_primaryRegion = Lens.lens (\DescribeSecretResponse' {primaryRegion} -> primaryRegion) (\s@DescribeSecretResponse' {} a -> s {primaryRegion = a} :: DescribeSecretResponse)
 
 -- | A structure with the rotation configuration for this secret.
-drsRotationRules :: Lens' DescribeSecretResponse (Maybe RotationRulesType)
-drsRotationRules = lens _drsRotationRules (\s a -> s {_drsRotationRules = a})
+describeSecretResponse_rotationRules :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe RotationRulesType)
+describeSecretResponse_rotationRules = Lens.lens (\DescribeSecretResponse' {rotationRules} -> rotationRules) (\s@DescribeSecretResponse' {} a -> s {rotationRules = a} :: DescribeSecretResponse)
 
--- | The list of user-defined tags that are associated with the secret. To add tags to a secret, use 'TagResource' . To remove tags, use 'UntagResource' .
-drsTags :: Lens' DescribeSecretResponse [Tag]
-drsTags = lens _drsTags (\s a -> s {_drsTags = a}) . _Default . _Coerce
+-- | The list of user-defined tags that are associated with the secret. To
+-- add tags to a secret, use TagResource. To remove tags, use
+-- UntagResource.
+describeSecretResponse_tags :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe [Tag])
+describeSecretResponse_tags = Lens.lens (\DescribeSecretResponse' {tags} -> tags) (\s@DescribeSecretResponse' {} a -> s {tags = a} :: DescribeSecretResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies whether automatic rotation is enabled for this secret. To enable rotation, use 'RotateSecret' with @AutomaticallyRotateAfterDays@ set to a value greater than 0. To disable rotation, use 'CancelRotateSecret' .
-drsRotationEnabled :: Lens' DescribeSecretResponse (Maybe Bool)
-drsRotationEnabled = lens _drsRotationEnabled (\s a -> s {_drsRotationEnabled = a})
+-- | Specifies whether automatic rotation is enabled for this secret.
+--
+-- To enable rotation, use RotateSecret with @AutomaticallyRotateAfterDays@
+-- set to a value greater than 0. To disable rotation, use
+-- CancelRotateSecret.
+describeSecretResponse_rotationEnabled :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.Bool)
+describeSecretResponse_rotationEnabled = Lens.lens (\DescribeSecretResponse' {rotationEnabled} -> rotationEnabled) (\s@DescribeSecretResponse' {} a -> s {rotationEnabled = a} :: DescribeSecretResponse)
 
--- | This value exists if the secret is scheduled for deletion. Some time after the specified date and time, Secrets Manager deletes the secret and all of its versions. If a secret is scheduled for deletion, then its details, including the encrypted secret information, is not accessible. To cancel a scheduled deletion and restore access, use 'RestoreSecret' .
-drsDeletedDate :: Lens' DescribeSecretResponse (Maybe UTCTime)
-drsDeletedDate = lens _drsDeletedDate (\s a -> s {_drsDeletedDate = a}) . mapping _Time
+-- | This value exists if the secret is scheduled for deletion. Some time
+-- after the specified date and time, Secrets Manager deletes the secret
+-- and all of its versions.
+--
+-- If a secret is scheduled for deletion, then its details, including the
+-- encrypted secret information, is not accessible. To cancel a scheduled
+-- deletion and restore access, use RestoreSecret.
+describeSecretResponse_deletedDate :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.UTCTime)
+describeSecretResponse_deletedDate = Lens.lens (\DescribeSecretResponse' {deletedDate} -> deletedDate) (\s@DescribeSecretResponse' {} a -> s {deletedDate = a} :: DescribeSecretResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The ARN of a Lambda function that's invoked by Secrets Manager to rotate the secret either automatically per the schedule or manually by a call to @RotateSecret@ .
-drsRotationLambdaARN :: Lens' DescribeSecretResponse (Maybe Text)
-drsRotationLambdaARN = lens _drsRotationLambdaARN (\s a -> s {_drsRotationLambdaARN = a})
+-- | The ARN of a Lambda function that\'s invoked by Secrets Manager to
+-- rotate the secret either automatically per the schedule or manually by a
+-- call to @RotateSecret@.
+describeSecretResponse_rotationLambdaARN :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.Text)
+describeSecretResponse_rotationLambdaARN = Lens.lens (\DescribeSecretResponse' {rotationLambdaARN} -> rotationLambdaARN) (\s@DescribeSecretResponse' {} a -> s {rotationLambdaARN = a} :: DescribeSecretResponse)
 
 -- | The user-provided description of the secret.
-drsDescription :: Lens' DescribeSecretResponse (Maybe Text)
-drsDescription = lens _drsDescription (\s a -> s {_drsDescription = a})
+describeSecretResponse_description :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.Text)
+describeSecretResponse_description = Lens.lens (\DescribeSecretResponse' {description} -> description) (\s@DescribeSecretResponse' {} a -> s {description = a} :: DescribeSecretResponse)
 
--- | The last date that this secret was accessed. This value is truncated to midnight of the date and therefore shows only the date, not the time.
-drsLastAccessedDate :: Lens' DescribeSecretResponse (Maybe UTCTime)
-drsLastAccessedDate = lens _drsLastAccessedDate (\s a -> s {_drsLastAccessedDate = a}) . mapping _Time
+-- | The last date that this secret was accessed. This value is truncated to
+-- midnight of the date and therefore shows only the date, not the time.
+describeSecretResponse_lastAccessedDate :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe Prelude.UTCTime)
+describeSecretResponse_lastAccessedDate = Lens.lens (\DescribeSecretResponse' {lastAccessedDate} -> lastAccessedDate) (\s@DescribeSecretResponse' {} a -> s {lastAccessedDate = a} :: DescribeSecretResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | A list of all of the currently assigned @VersionStage@ staging labels and the @VersionId@ that each is attached to. Staging labels are used to keep track of the different versions during the rotation process.
-drsVersionIdsToStages :: Lens' DescribeSecretResponse (HashMap Text (NonEmpty Text))
-drsVersionIdsToStages = lens _drsVersionIdsToStages (\s a -> s {_drsVersionIdsToStages = a}) . _Default . _Map
+-- | A list of all of the currently assigned @VersionStage@ staging labels
+-- and the @VersionId@ that each is attached to. Staging labels are used to
+-- keep track of the different versions during the rotation process.
+--
+-- A version that does not have any staging labels attached is considered
+-- deprecated and subject to deletion. Such versions are not included in
+-- this list.
+describeSecretResponse_versionIdsToStages :: Lens.Lens' DescribeSecretResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text (Prelude.NonEmpty Prelude.Text)))
+describeSecretResponse_versionIdsToStages = Lens.lens (\DescribeSecretResponse' {versionIdsToStages} -> versionIdsToStages) (\s@DescribeSecretResponse' {} a -> s {versionIdsToStages = a} :: DescribeSecretResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeSecretResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeSecretResponse_httpStatus :: Lens.Lens' DescribeSecretResponse Prelude.Int
+describeSecretResponse_httpStatus = Lens.lens (\DescribeSecretResponse' {httpStatus} -> httpStatus) (\s@DescribeSecretResponse' {} a -> s {httpStatus = a} :: DescribeSecretResponse)
 
-instance NFData DescribeSecretResponse
+instance Prelude.NFData DescribeSecretResponse

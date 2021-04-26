@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SecretsManager.Types.ReplicaRegionType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | (Optional) Custom type consisting of a @Region@ (required) and the @KmsKeyId@ which can be an @ARN@ , @Key ID@ , or @Alias@ .
+-- | (Optional) Custom type consisting of a @Region@ (required) and the
+-- @KmsKeyId@ which can be an @ARN@, @Key ID@, or @Alias@.
 --
---
---
--- /See:/ 'replicaRegionType' smart constructor.
+-- /See:/ 'newReplicaRegionType' smart constructor.
 data ReplicaRegionType = ReplicaRegionType'
-  { _rrtKMSKeyId ::
-      !(Maybe Text),
-    _rrtRegion :: !(Maybe Text)
+  { -- | Can be an @ARN@, @Key ID@, or @Alias@.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Describes a single instance of Region objects.
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicaRegionType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicaRegionType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrtKMSKeyId' - Can be an @ARN@ , @Key ID@ , or @Alias@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrtRegion' - Describes a single instance of Region objects.
-replicaRegionType ::
+-- 'kmsKeyId', 'replicaRegionType_kmsKeyId' - Can be an @ARN@, @Key ID@, or @Alias@.
+--
+-- 'region', 'replicaRegionType_region' - Describes a single instance of Region objects.
+newReplicaRegionType ::
   ReplicaRegionType
-replicaRegionType =
+newReplicaRegionType =
   ReplicaRegionType'
-    { _rrtKMSKeyId = Nothing,
-      _rrtRegion = Nothing
+    { kmsKeyId = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
--- | Can be an @ARN@ , @Key ID@ , or @Alias@ .
-rrtKMSKeyId :: Lens' ReplicaRegionType (Maybe Text)
-rrtKMSKeyId = lens _rrtKMSKeyId (\s a -> s {_rrtKMSKeyId = a})
+-- | Can be an @ARN@, @Key ID@, or @Alias@.
+replicaRegionType_kmsKeyId :: Lens.Lens' ReplicaRegionType (Prelude.Maybe Prelude.Text)
+replicaRegionType_kmsKeyId = Lens.lens (\ReplicaRegionType' {kmsKeyId} -> kmsKeyId) (\s@ReplicaRegionType' {} a -> s {kmsKeyId = a} :: ReplicaRegionType)
 
 -- | Describes a single instance of Region objects.
-rrtRegion :: Lens' ReplicaRegionType (Maybe Text)
-rrtRegion = lens _rrtRegion (\s a -> s {_rrtRegion = a})
+replicaRegionType_region :: Lens.Lens' ReplicaRegionType (Prelude.Maybe Prelude.Text)
+replicaRegionType_region = Lens.lens (\ReplicaRegionType' {region} -> region) (\s@ReplicaRegionType' {} a -> s {region = a} :: ReplicaRegionType)
 
-instance Hashable ReplicaRegionType
+instance Prelude.Hashable ReplicaRegionType
 
-instance NFData ReplicaRegionType
+instance Prelude.NFData ReplicaRegionType
 
-instance ToJSON ReplicaRegionType where
+instance Prelude.ToJSON ReplicaRegionType where
   toJSON ReplicaRegionType' {..} =
-    object
-      ( catMaybes
-          [ ("KmsKeyId" .=) <$> _rrtKMSKeyId,
-            ("Region" .=) <$> _rrtRegion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("KmsKeyId" Prelude..=) Prelude.<$> kmsKeyId,
+            ("Region" Prelude..=) Prelude.<$> region
           ]
       )

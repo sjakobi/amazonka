@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,222 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels the scheduled deletion of a secret by removing the @DeletedDate@ time stamp. This makes the secret accessible to query once again.
---
+-- Cancels the scheduled deletion of a secret by removing the @DeletedDate@
+-- time stamp. This makes the secret accessible to query once again.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * secretsmanager:RestoreSecret
---
---
+-- -   secretsmanager:RestoreSecret
 --
 -- __Related operations__
 --
---     * To delete a secret, use 'DeleteSecret' .
+-- -   To delete a secret, use DeleteSecret.
 module Network.AWS.SecretsManager.RestoreSecret
   ( -- * Creating a Request
-    restoreSecret,
-    RestoreSecret,
+    RestoreSecret (..),
+    newRestoreSecret,
 
     -- * Request Lenses
-    rSecretId,
+    restoreSecret_secretId,
 
     -- * Destructuring the Response
-    restoreSecretResponse,
-    RestoreSecretResponse,
+    RestoreSecretResponse (..),
+    newRestoreSecretResponse,
 
     -- * Response Lenses
-    rrsARN,
-    rrsName,
-    rrsResponseStatus,
+    restoreSecretResponse_aRN,
+    restoreSecretResponse_name,
+    restoreSecretResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SecretsManager.Types
 
--- | /See:/ 'restoreSecret' smart constructor.
-newtype RestoreSecret = RestoreSecret'
-  { _rSecretId ::
-      Text
+-- | /See:/ 'newRestoreSecret' smart constructor.
+data RestoreSecret = RestoreSecret'
+  { -- | Specifies the secret that you want to restore from a previously
+    -- scheduled deletion. You can specify either the Amazon Resource Name
+    -- (ARN) or the friendly name of the secret.
+    --
+    -- If you specify an ARN, we generally recommend that you specify a
+    -- complete ARN. You can specify a partial ARN too—for example, if you
+    -- don’t include the final hyphen and six random characters that Secrets
+    -- Manager adds at the end of the ARN when you created the secret. A
+    -- partial ARN match can work as long as it uniquely matches only one
+    -- secret. However, if your secret has a name that ends in a hyphen
+    -- followed by six characters (before Secrets Manager adds the hyphen and
+    -- six characters to the ARN) and you try to use that as a partial ARN,
+    -- then those characters cause Secrets Manager to assume that you’re
+    -- specifying a complete ARN. This confusion can cause unexpected results.
+    -- To avoid this situation, we recommend that you don’t create secret names
+    -- ending with a hyphen followed by six characters.
+    --
+    -- If you specify an incomplete ARN without the random suffix, and instead
+    -- provide the \'friendly name\', you /must/ not include the random suffix.
+    -- If you do include the random suffix added by Secrets Manager, you
+    -- receive either a /ResourceNotFoundException/ or an
+    -- /AccessDeniedException/ error, depending on your permissions.
+    secretId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreSecret' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreSecret' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rSecretId' - Specifies the secret that you want to restore from a previously scheduled deletion. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
-restoreSecret ::
-  -- | 'rSecretId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'secretId', 'restoreSecret_secretId' - Specifies the secret that you want to restore from a previously
+-- scheduled deletion. You can specify either the Amazon Resource Name
+-- (ARN) or the friendly name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+newRestoreSecret ::
+  -- | 'secretId'
+  Prelude.Text ->
   RestoreSecret
-restoreSecret pSecretId_ =
-  RestoreSecret' {_rSecretId = pSecretId_}
+newRestoreSecret pSecretId_ =
+  RestoreSecret' {secretId = pSecretId_}
 
--- | Specifies the secret that you want to restore from a previously scheduled deletion. You can specify either the Amazon Resource Name (ARN) or the friendly name of the secret.
-rSecretId :: Lens' RestoreSecret Text
-rSecretId = lens _rSecretId (\s a -> s {_rSecretId = a})
+-- | Specifies the secret that you want to restore from a previously
+-- scheduled deletion. You can specify either the Amazon Resource Name
+-- (ARN) or the friendly name of the secret.
+--
+-- If you specify an ARN, we generally recommend that you specify a
+-- complete ARN. You can specify a partial ARN too—for example, if you
+-- don’t include the final hyphen and six random characters that Secrets
+-- Manager adds at the end of the ARN when you created the secret. A
+-- partial ARN match can work as long as it uniquely matches only one
+-- secret. However, if your secret has a name that ends in a hyphen
+-- followed by six characters (before Secrets Manager adds the hyphen and
+-- six characters to the ARN) and you try to use that as a partial ARN,
+-- then those characters cause Secrets Manager to assume that you’re
+-- specifying a complete ARN. This confusion can cause unexpected results.
+-- To avoid this situation, we recommend that you don’t create secret names
+-- ending with a hyphen followed by six characters.
+--
+-- If you specify an incomplete ARN without the random suffix, and instead
+-- provide the \'friendly name\', you /must/ not include the random suffix.
+-- If you do include the random suffix added by Secrets Manager, you
+-- receive either a /ResourceNotFoundException/ or an
+-- /AccessDeniedException/ error, depending on your permissions.
+restoreSecret_secretId :: Lens.Lens' RestoreSecret Prelude.Text
+restoreSecret_secretId = Lens.lens (\RestoreSecret' {secretId} -> secretId) (\s@RestoreSecret' {} a -> s {secretId = a} :: RestoreSecret)
 
-instance AWSRequest RestoreSecret where
+instance Prelude.AWSRequest RestoreSecret where
   type Rs RestoreSecret = RestoreSecretResponse
-  request = postJSON secretsManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RestoreSecretResponse'
-            <$> (x .?> "ARN")
-            <*> (x .?> "Name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ARN")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RestoreSecret
+instance Prelude.Hashable RestoreSecret
 
-instance NFData RestoreSecret
+instance Prelude.NFData RestoreSecret
 
-instance ToHeaders RestoreSecret where
+instance Prelude.ToHeaders RestoreSecret where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("secretsmanager.RestoreSecret" :: ByteString),
+              Prelude.=# ( "secretsmanager.RestoreSecret" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RestoreSecret where
+instance Prelude.ToJSON RestoreSecret where
   toJSON RestoreSecret' {..} =
-    object
-      (catMaybes [Just ("SecretId" .= _rSecretId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SecretId" Prelude..= secretId)]
+      )
 
-instance ToPath RestoreSecret where
-  toPath = const "/"
+instance Prelude.ToPath RestoreSecret where
+  toPath = Prelude.const "/"
 
-instance ToQuery RestoreSecret where
-  toQuery = const mempty
+instance Prelude.ToQuery RestoreSecret where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'restoreSecretResponse' smart constructor.
+-- | /See:/ 'newRestoreSecretResponse' smart constructor.
 data RestoreSecretResponse = RestoreSecretResponse'
-  { _rrsARN ::
-      !(Maybe Text),
-    _rrsName :: !(Maybe Text),
-    _rrsResponseStatus :: !Int
+  { -- | The ARN of the secret that was restored.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of the secret that was restored.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreSecretResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreSecretResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrsARN' - The ARN of the secret that was restored.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrsName' - The friendly name of the secret that was restored.
+-- 'aRN', 'restoreSecretResponse_aRN' - The ARN of the secret that was restored.
 --
--- * 'rrsResponseStatus' - -- | The response status code.
-restoreSecretResponse ::
-  -- | 'rrsResponseStatus'
-  Int ->
+-- 'name', 'restoreSecretResponse_name' - The friendly name of the secret that was restored.
+--
+-- 'httpStatus', 'restoreSecretResponse_httpStatus' - The response's http status code.
+newRestoreSecretResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RestoreSecretResponse
-restoreSecretResponse pResponseStatus_ =
+newRestoreSecretResponse pHttpStatus_ =
   RestoreSecretResponse'
-    { _rrsARN = Nothing,
-      _rrsName = Nothing,
-      _rrsResponseStatus = pResponseStatus_
+    { aRN = Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the secret that was restored.
-rrsARN :: Lens' RestoreSecretResponse (Maybe Text)
-rrsARN = lens _rrsARN (\s a -> s {_rrsARN = a})
+restoreSecretResponse_aRN :: Lens.Lens' RestoreSecretResponse (Prelude.Maybe Prelude.Text)
+restoreSecretResponse_aRN = Lens.lens (\RestoreSecretResponse' {aRN} -> aRN) (\s@RestoreSecretResponse' {} a -> s {aRN = a} :: RestoreSecretResponse)
 
 -- | The friendly name of the secret that was restored.
-rrsName :: Lens' RestoreSecretResponse (Maybe Text)
-rrsName = lens _rrsName (\s a -> s {_rrsName = a})
+restoreSecretResponse_name :: Lens.Lens' RestoreSecretResponse (Prelude.Maybe Prelude.Text)
+restoreSecretResponse_name = Lens.lens (\RestoreSecretResponse' {name} -> name) (\s@RestoreSecretResponse' {} a -> s {name = a} :: RestoreSecretResponse)
 
--- | -- | The response status code.
-rrsResponseStatus :: Lens' RestoreSecretResponse Int
-rrsResponseStatus = lens _rrsResponseStatus (\s a -> s {_rrsResponseStatus = a})
+-- | The response's http status code.
+restoreSecretResponse_httpStatus :: Lens.Lens' RestoreSecretResponse Prelude.Int
+restoreSecretResponse_httpStatus = Lens.lens (\RestoreSecretResponse' {httpStatus} -> httpStatus) (\s@RestoreSecretResponse' {} a -> s {httpStatus = a} :: RestoreSecretResponse)
 
-instance NFData RestoreSecretResponse
+instance Prelude.NFData RestoreSecretResponse
