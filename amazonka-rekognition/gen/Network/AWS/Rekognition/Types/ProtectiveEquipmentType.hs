@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Rekognition.Types.ProtectiveEquipmentType
   ( ProtectiveEquipmentType
       ( ..,
-        FaceCover,
-        HandCover,
-        HeadCover
+        ProtectiveEquipmentTypeFACECOVER,
+        ProtectiveEquipmentTypeHANDCOVER,
+        ProtectiveEquipmentTypeHEADCOVER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProtectiveEquipmentType
-  = ProtectiveEquipmentType'
-      ( CI
-          Text
-      )
+newtype ProtectiveEquipmentType = ProtectiveEquipmentType'
+  { fromProtectiveEquipmentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FaceCover :: ProtectiveEquipmentType
-pattern FaceCover = ProtectiveEquipmentType' "FACE_COVER"
+pattern ProtectiveEquipmentTypeFACECOVER :: ProtectiveEquipmentType
+pattern ProtectiveEquipmentTypeFACECOVER = ProtectiveEquipmentType' "FACE_COVER"
 
-pattern HandCover :: ProtectiveEquipmentType
-pattern HandCover = ProtectiveEquipmentType' "HAND_COVER"
+pattern ProtectiveEquipmentTypeHANDCOVER :: ProtectiveEquipmentType
+pattern ProtectiveEquipmentTypeHANDCOVER = ProtectiveEquipmentType' "HAND_COVER"
 
-pattern HeadCover :: ProtectiveEquipmentType
-pattern HeadCover = ProtectiveEquipmentType' "HEAD_COVER"
+pattern ProtectiveEquipmentTypeHEADCOVER :: ProtectiveEquipmentType
+pattern ProtectiveEquipmentTypeHEADCOVER = ProtectiveEquipmentType' "HEAD_COVER"
 
 {-# COMPLETE
-  FaceCover,
-  HandCover,
-  HeadCover,
+  ProtectiveEquipmentTypeFACECOVER,
+  ProtectiveEquipmentTypeHANDCOVER,
+  ProtectiveEquipmentTypeHEADCOVER,
   ProtectiveEquipmentType'
   #-}
 
-instance FromText ProtectiveEquipmentType where
-  parser = (ProtectiveEquipmentType' . mk) <$> takeText
+instance Prelude.FromText ProtectiveEquipmentType where
+  parser = ProtectiveEquipmentType' Prelude.<$> Prelude.takeText
 
-instance ToText ProtectiveEquipmentType where
-  toText (ProtectiveEquipmentType' ci) = original ci
+instance Prelude.ToText ProtectiveEquipmentType where
+  toText (ProtectiveEquipmentType' x) = x
 
-instance Hashable ProtectiveEquipmentType
+instance Prelude.Hashable ProtectiveEquipmentType
 
-instance NFData ProtectiveEquipmentType
+instance Prelude.NFData ProtectiveEquipmentType
 
-instance ToByteString ProtectiveEquipmentType
+instance Prelude.ToByteString ProtectiveEquipmentType
 
-instance ToQuery ProtectiveEquipmentType
+instance Prelude.ToQuery ProtectiveEquipmentType
 
-instance ToHeader ProtectiveEquipmentType
+instance Prelude.ToHeader ProtectiveEquipmentType
 
-instance ToJSON ProtectiveEquipmentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProtectiveEquipmentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProtectiveEquipmentType where
-  parseJSON = parseJSONText "ProtectiveEquipmentType"
+instance Prelude.FromJSON ProtectiveEquipmentType where
+  parseJSON = Prelude.parseJSONText "ProtectiveEquipmentType"

@@ -14,7 +14,7 @@
 -- This is the Amazon Rekognition API reference.
 module Network.AWS.Rekognition
   ( -- * Service Configuration
-    rekognition,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -77,157 +77,301 @@ module Network.AWS.Rekognition
     -- $waiters
 
     -- ** ProjectVersionTrainingCompleted
-    projectVersionTrainingCompleted,
+    newProjectVersionTrainingCompleted,
 
     -- ** ProjectVersionRunning
-    projectVersionRunning,
+    newProjectVersionRunning,
 
     -- * Operations
     -- $operations
 
     -- ** StartFaceSearch
-    module Network.AWS.Rekognition.StartFaceSearch,
+    StartFaceSearch (StartFaceSearch'),
+    newStartFaceSearch,
+    StartFaceSearchResponse (StartFaceSearchResponse'),
+    newStartFaceSearchResponse,
 
     -- ** DescribeStreamProcessor
-    module Network.AWS.Rekognition.DescribeStreamProcessor,
+    DescribeStreamProcessor (DescribeStreamProcessor'),
+    newDescribeStreamProcessor,
+    DescribeStreamProcessorResponse (DescribeStreamProcessorResponse'),
+    newDescribeStreamProcessorResponse,
 
     -- ** DeleteCollection
-    module Network.AWS.Rekognition.DeleteCollection,
+    DeleteCollection (DeleteCollection'),
+    newDeleteCollection,
+    DeleteCollectionResponse (DeleteCollectionResponse'),
+    newDeleteCollectionResponse,
 
     -- ** GetLabelDetection
-    module Network.AWS.Rekognition.GetLabelDetection,
+    GetLabelDetection (GetLabelDetection'),
+    newGetLabelDetection,
+    GetLabelDetectionResponse (GetLabelDetectionResponse'),
+    newGetLabelDetectionResponse,
 
     -- ** SearchFaces
-    module Network.AWS.Rekognition.SearchFaces,
+    SearchFaces (SearchFaces'),
+    newSearchFaces,
+    SearchFacesResponse (SearchFacesResponse'),
+    newSearchFacesResponse,
 
     -- ** GetTextDetection
-    module Network.AWS.Rekognition.GetTextDetection,
+    GetTextDetection (GetTextDetection'),
+    newGetTextDetection,
+    GetTextDetectionResponse (GetTextDetectionResponse'),
+    newGetTextDetectionResponse,
 
     -- ** CreateProject
-    module Network.AWS.Rekognition.CreateProject,
+    CreateProject (CreateProject'),
+    newCreateProject,
+    CreateProjectResponse (CreateProjectResponse'),
+    newCreateProjectResponse,
 
     -- ** DetectCustomLabels
-    module Network.AWS.Rekognition.DetectCustomLabels,
+    DetectCustomLabels (DetectCustomLabels'),
+    newDetectCustomLabels,
+    DetectCustomLabelsResponse (DetectCustomLabelsResponse'),
+    newDetectCustomLabelsResponse,
 
     -- ** RecognizeCelebrities
-    module Network.AWS.Rekognition.RecognizeCelebrities,
+    RecognizeCelebrities (RecognizeCelebrities'),
+    newRecognizeCelebrities,
+    RecognizeCelebritiesResponse (RecognizeCelebritiesResponse'),
+    newRecognizeCelebritiesResponse,
 
     -- ** StartFaceDetection
-    module Network.AWS.Rekognition.StartFaceDetection,
+    StartFaceDetection (StartFaceDetection'),
+    newStartFaceDetection,
+    StartFaceDetectionResponse (StartFaceDetectionResponse'),
+    newStartFaceDetectionResponse,
 
     -- ** DetectModerationLabels
-    module Network.AWS.Rekognition.DetectModerationLabels,
+    DetectModerationLabels (DetectModerationLabels'),
+    newDetectModerationLabels,
+    DetectModerationLabelsResponse (DetectModerationLabelsResponse'),
+    newDetectModerationLabelsResponse,
 
     -- ** DeleteFaces
-    module Network.AWS.Rekognition.DeleteFaces,
+    DeleteFaces (DeleteFaces'),
+    newDeleteFaces,
+    DeleteFacesResponse (DeleteFacesResponse'),
+    newDeleteFacesResponse,
 
     -- ** ListStreamProcessors (Paginated)
-    module Network.AWS.Rekognition.ListStreamProcessors,
+    ListStreamProcessors (ListStreamProcessors'),
+    newListStreamProcessors,
+    ListStreamProcessorsResponse (ListStreamProcessorsResponse'),
+    newListStreamProcessorsResponse,
 
     -- ** DescribeCollection
-    module Network.AWS.Rekognition.DescribeCollection,
+    DescribeCollection (DescribeCollection'),
+    newDescribeCollection,
+    DescribeCollectionResponse (DescribeCollectionResponse'),
+    newDescribeCollectionResponse,
 
     -- ** DeleteStreamProcessor
-    module Network.AWS.Rekognition.DeleteStreamProcessor,
+    DeleteStreamProcessor (DeleteStreamProcessor'),
+    newDeleteStreamProcessor,
+    DeleteStreamProcessorResponse (DeleteStreamProcessorResponse'),
+    newDeleteStreamProcessorResponse,
 
     -- ** ListFaces (Paginated)
-    module Network.AWS.Rekognition.ListFaces,
+    ListFaces (ListFaces'),
+    newListFaces,
+    ListFacesResponse (ListFacesResponse'),
+    newListFacesResponse,
 
     -- ** SearchFacesByImage
-    module Network.AWS.Rekognition.SearchFacesByImage,
+    SearchFacesByImage (SearchFacesByImage'),
+    newSearchFacesByImage,
+    SearchFacesByImageResponse (SearchFacesByImageResponse'),
+    newSearchFacesByImageResponse,
 
     -- ** CompareFaces
-    module Network.AWS.Rekognition.CompareFaces,
+    CompareFaces (CompareFaces'),
+    newCompareFaces,
+    CompareFacesResponse (CompareFacesResponse'),
+    newCompareFacesResponse,
 
     -- ** DetectLabels
-    module Network.AWS.Rekognition.DetectLabels,
+    DetectLabels (DetectLabels'),
+    newDetectLabels,
+    DetectLabelsResponse (DetectLabelsResponse'),
+    newDetectLabelsResponse,
 
     -- ** GetSegmentDetection
-    module Network.AWS.Rekognition.GetSegmentDetection,
+    GetSegmentDetection (GetSegmentDetection'),
+    newGetSegmentDetection,
+    GetSegmentDetectionResponse (GetSegmentDetectionResponse'),
+    newGetSegmentDetectionResponse,
 
     -- ** GetCelebrityRecognition
-    module Network.AWS.Rekognition.GetCelebrityRecognition,
+    GetCelebrityRecognition (GetCelebrityRecognition'),
+    newGetCelebrityRecognition,
+    GetCelebrityRecognitionResponse (GetCelebrityRecognitionResponse'),
+    newGetCelebrityRecognitionResponse,
 
     -- ** StartPersonTracking
-    module Network.AWS.Rekognition.StartPersonTracking,
+    StartPersonTracking (StartPersonTracking'),
+    newStartPersonTracking,
+    StartPersonTrackingResponse (StartPersonTrackingResponse'),
+    newStartPersonTrackingResponse,
 
     -- ** CreateCollection
-    module Network.AWS.Rekognition.CreateCollection,
+    CreateCollection (CreateCollection'),
+    newCreateCollection,
+    CreateCollectionResponse (CreateCollectionResponse'),
+    newCreateCollectionResponse,
 
     -- ** StopProjectVersion
-    module Network.AWS.Rekognition.StopProjectVersion,
+    StopProjectVersion (StopProjectVersion'),
+    newStopProjectVersion,
+    StopProjectVersionResponse (StopProjectVersionResponse'),
+    newStopProjectVersionResponse,
 
     -- ** StartProjectVersion
-    module Network.AWS.Rekognition.StartProjectVersion,
+    StartProjectVersion (StartProjectVersion'),
+    newStartProjectVersion,
+    StartProjectVersionResponse (StartProjectVersionResponse'),
+    newStartProjectVersionResponse,
 
     -- ** ListCollections (Paginated)
-    module Network.AWS.Rekognition.ListCollections,
+    ListCollections (ListCollections'),
+    newListCollections,
+    ListCollectionsResponse (ListCollectionsResponse'),
+    newListCollectionsResponse,
 
     -- ** DetectProtectiveEquipment
-    module Network.AWS.Rekognition.DetectProtectiveEquipment,
+    DetectProtectiveEquipment (DetectProtectiveEquipment'),
+    newDetectProtectiveEquipment,
+    DetectProtectiveEquipmentResponse (DetectProtectiveEquipmentResponse'),
+    newDetectProtectiveEquipmentResponse,
 
     -- ** GetPersonTracking
-    module Network.AWS.Rekognition.GetPersonTracking,
+    GetPersonTracking (GetPersonTracking'),
+    newGetPersonTracking,
+    GetPersonTrackingResponse (GetPersonTrackingResponse'),
+    newGetPersonTrackingResponse,
 
     -- ** DeleteProject
-    module Network.AWS.Rekognition.DeleteProject,
+    DeleteProject (DeleteProject'),
+    newDeleteProject,
+    DeleteProjectResponse (DeleteProjectResponse'),
+    newDeleteProjectResponse,
 
     -- ** IndexFaces
-    module Network.AWS.Rekognition.IndexFaces,
+    IndexFaces (IndexFaces'),
+    newIndexFaces,
+    IndexFacesResponse (IndexFacesResponse'),
+    newIndexFacesResponse,
 
     -- ** StartSegmentDetection
-    module Network.AWS.Rekognition.StartSegmentDetection,
+    StartSegmentDetection (StartSegmentDetection'),
+    newStartSegmentDetection,
+    StartSegmentDetectionResponse (StartSegmentDetectionResponse'),
+    newStartSegmentDetectionResponse,
 
     -- ** StartCelebrityRecognition
-    module Network.AWS.Rekognition.StartCelebrityRecognition,
+    StartCelebrityRecognition (StartCelebrityRecognition'),
+    newStartCelebrityRecognition,
+    StartCelebrityRecognitionResponse (StartCelebrityRecognitionResponse'),
+    newStartCelebrityRecognitionResponse,
 
     -- ** GetFaceSearch
-    module Network.AWS.Rekognition.GetFaceSearch,
+    GetFaceSearch (GetFaceSearch'),
+    newGetFaceSearch,
+    GetFaceSearchResponse (GetFaceSearchResponse'),
+    newGetFaceSearchResponse,
 
     -- ** StartLabelDetection
-    module Network.AWS.Rekognition.StartLabelDetection,
+    StartLabelDetection (StartLabelDetection'),
+    newStartLabelDetection,
+    StartLabelDetectionResponse (StartLabelDetectionResponse'),
+    newStartLabelDetectionResponse,
 
     -- ** DescribeProjectVersions (Paginated)
-    module Network.AWS.Rekognition.DescribeProjectVersions,
+    DescribeProjectVersions (DescribeProjectVersions'),
+    newDescribeProjectVersions,
+    DescribeProjectVersionsResponse (DescribeProjectVersionsResponse'),
+    newDescribeProjectVersionsResponse,
 
     -- ** DeleteProjectVersion
-    module Network.AWS.Rekognition.DeleteProjectVersion,
+    DeleteProjectVersion (DeleteProjectVersion'),
+    newDeleteProjectVersion,
+    DeleteProjectVersionResponse (DeleteProjectVersionResponse'),
+    newDeleteProjectVersionResponse,
 
     -- ** CreateStreamProcessor
-    module Network.AWS.Rekognition.CreateStreamProcessor,
+    CreateStreamProcessor (CreateStreamProcessor'),
+    newCreateStreamProcessor,
+    CreateStreamProcessorResponse (CreateStreamProcessorResponse'),
+    newCreateStreamProcessorResponse,
 
     -- ** GetContentModeration
-    module Network.AWS.Rekognition.GetContentModeration,
+    GetContentModeration (GetContentModeration'),
+    newGetContentModeration,
+    GetContentModerationResponse (GetContentModerationResponse'),
+    newGetContentModerationResponse,
 
     -- ** GetCelebrityInfo
-    module Network.AWS.Rekognition.GetCelebrityInfo,
+    GetCelebrityInfo (GetCelebrityInfo'),
+    newGetCelebrityInfo,
+    GetCelebrityInfoResponse (GetCelebrityInfoResponse'),
+    newGetCelebrityInfoResponse,
 
     -- ** DescribeProjects (Paginated)
-    module Network.AWS.Rekognition.DescribeProjects,
+    DescribeProjects (DescribeProjects'),
+    newDescribeProjects,
+    DescribeProjectsResponse (DescribeProjectsResponse'),
+    newDescribeProjectsResponse,
 
     -- ** CreateProjectVersion
-    module Network.AWS.Rekognition.CreateProjectVersion,
+    CreateProjectVersion (CreateProjectVersion'),
+    newCreateProjectVersion,
+    CreateProjectVersionResponse (CreateProjectVersionResponse'),
+    newCreateProjectVersionResponse,
 
     -- ** GetFaceDetection
-    module Network.AWS.Rekognition.GetFaceDetection,
+    GetFaceDetection (GetFaceDetection'),
+    newGetFaceDetection,
+    GetFaceDetectionResponse (GetFaceDetectionResponse'),
+    newGetFaceDetectionResponse,
 
     -- ** StartContentModeration
-    module Network.AWS.Rekognition.StartContentModeration,
+    StartContentModeration (StartContentModeration'),
+    newStartContentModeration,
+    StartContentModerationResponse (StartContentModerationResponse'),
+    newStartContentModerationResponse,
 
     -- ** DetectFaces
-    module Network.AWS.Rekognition.DetectFaces,
+    DetectFaces (DetectFaces'),
+    newDetectFaces,
+    DetectFacesResponse (DetectFacesResponse'),
+    newDetectFacesResponse,
 
     -- ** DetectText
-    module Network.AWS.Rekognition.DetectText,
+    DetectText (DetectText'),
+    newDetectText,
+    DetectTextResponse (DetectTextResponse'),
+    newDetectTextResponse,
 
     -- ** StartTextDetection
-    module Network.AWS.Rekognition.StartTextDetection,
+    StartTextDetection (StartTextDetection'),
+    newStartTextDetection,
+    StartTextDetectionResponse (StartTextDetectionResponse'),
+    newStartTextDetectionResponse,
 
     -- ** StopStreamProcessor
-    module Network.AWS.Rekognition.StopStreamProcessor,
+    StopStreamProcessor (StopStreamProcessor'),
+    newStopStreamProcessor,
+    StopStreamProcessorResponse (StopStreamProcessorResponse'),
+    newStopStreamProcessorResponse,
 
     -- ** StartStreamProcessor
-    module Network.AWS.Rekognition.StartStreamProcessor,
+    StartStreamProcessor (StartStreamProcessor'),
+    newStartStreamProcessor,
+    StartStreamProcessorResponse (StartStreamProcessorResponse'),
+    newStartStreamProcessorResponse,
 
     -- * Types
 
@@ -301,574 +445,344 @@ module Network.AWS.Rekognition
     VideoJobStatus (..),
 
     -- ** AgeRange
-    AgeRange,
-    ageRange,
-    arHigh,
-    arLow,
+    AgeRange (AgeRange'),
+    newAgeRange,
 
     -- ** Asset
-    Asset,
-    asset,
-    aGroundTruthManifest,
+    Asset (Asset'),
+    newAsset,
 
     -- ** AudioMetadata
-    AudioMetadata,
-    audioMetadata,
-    amCodec,
-    amSampleRate,
-    amDurationMillis,
-    amNumberOfChannels,
+    AudioMetadata (AudioMetadata'),
+    newAudioMetadata,
 
     -- ** Beard
-    Beard,
-    beard,
-    bConfidence,
-    bValue,
+    Beard (Beard'),
+    newBeard,
 
     -- ** BoundingBox
-    BoundingBox,
-    boundingBox,
-    bbHeight,
-    bbWidth,
-    bbTop,
-    bbLeft,
+    BoundingBox (BoundingBox'),
+    newBoundingBox,
 
     -- ** Celebrity
-    Celebrity,
-    celebrity,
-    cURLs,
-    cId,
-    cMatchConfidence,
-    cName,
-    cFace,
+    Celebrity (Celebrity'),
+    newCelebrity,
 
     -- ** CelebrityDetail
-    CelebrityDetail,
-    celebrityDetail,
-    cdURLs,
-    cdId,
-    cdBoundingBox,
-    cdName,
-    cdConfidence,
-    cdFace,
+    CelebrityDetail (CelebrityDetail'),
+    newCelebrityDetail,
 
     -- ** CelebrityRecognition
-    CelebrityRecognition,
-    celebrityRecognition,
-    crTimestamp,
-    crCelebrity,
+    CelebrityRecognition (CelebrityRecognition'),
+    newCelebrityRecognition,
 
     -- ** CompareFacesMatch
-    CompareFacesMatch,
-    compareFacesMatch,
-    cfmSimilarity,
-    cfmFace,
+    CompareFacesMatch (CompareFacesMatch'),
+    newCompareFacesMatch,
 
     -- ** ComparedFace
-    ComparedFace,
-    comparedFace,
-    cfPose,
-    cfLandmarks,
-    cfBoundingBox,
-    cfConfidence,
-    cfQuality,
+    ComparedFace (ComparedFace'),
+    newComparedFace,
 
     -- ** ComparedSourceImageFace
-    ComparedSourceImageFace,
-    comparedSourceImageFace,
-    csifBoundingBox,
-    csifConfidence,
+    ComparedSourceImageFace (ComparedSourceImageFace'),
+    newComparedSourceImageFace,
 
     -- ** ContentModerationDetection
-    ContentModerationDetection,
-    contentModerationDetection,
-    cmdTimestamp,
-    cmdModerationLabel,
+    ContentModerationDetection (ContentModerationDetection'),
+    newContentModerationDetection,
 
     -- ** CoversBodyPart
-    CoversBodyPart,
-    coversBodyPart,
-    cbpConfidence,
-    cbpValue,
+    CoversBodyPart (CoversBodyPart'),
+    newCoversBodyPart,
 
     -- ** CustomLabel
-    CustomLabel,
-    customLabel,
-    clName,
-    clConfidence,
-    clGeometry,
+    CustomLabel (CustomLabel'),
+    newCustomLabel,
 
     -- ** DetectTextFilters
-    DetectTextFilters,
-    detectTextFilters,
-    dtfRegionsOfInterest,
-    dtfWordFilter,
+    DetectTextFilters (DetectTextFilters'),
+    newDetectTextFilters,
 
     -- ** DetectionFilter
-    DetectionFilter,
-    detectionFilter,
-    dfMinBoundingBoxWidth,
-    dfMinConfidence,
-    dfMinBoundingBoxHeight,
+    DetectionFilter (DetectionFilter'),
+    newDetectionFilter,
 
     -- ** Emotion
-    Emotion,
-    emotion,
-    eConfidence,
-    eType,
+    Emotion (Emotion'),
+    newEmotion,
 
     -- ** EquipmentDetection
-    EquipmentDetection,
-    equipmentDetection,
-    edCoversBodyPart,
-    edBoundingBox,
-    edConfidence,
-    edType,
+    EquipmentDetection (EquipmentDetection'),
+    newEquipmentDetection,
 
     -- ** EvaluationResult
-    EvaluationResult,
-    evaluationResult,
-    erF1Score,
-    erSummary,
+    EvaluationResult (EvaluationResult'),
+    newEvaluationResult,
 
     -- ** EyeOpen
-    EyeOpen,
-    eyeOpen,
-    eoConfidence,
-    eoValue,
+    EyeOpen (EyeOpen'),
+    newEyeOpen,
 
     -- ** Eyeglasses
-    Eyeglasses,
-    eyeglasses,
-    eyeConfidence,
-    eyeValue,
+    Eyeglasses (Eyeglasses'),
+    newEyeglasses,
 
     -- ** Face
-    Face,
-    face,
-    fFaceId,
-    fImageId,
-    fExternalImageId,
-    fBoundingBox,
-    fConfidence,
+    Face (Face'),
+    newFace,
 
     -- ** FaceDetail
-    FaceDetail,
-    faceDetail,
-    fdSunglasses,
-    fdAgeRange,
-    fdPose,
-    fdLandmarks,
-    fdBeard,
-    fdEmotions,
-    fdEyeglasses,
-    fdGender,
-    fdBoundingBox,
-    fdMouthOpen,
-    fdConfidence,
-    fdSmile,
-    fdEyesOpen,
-    fdMustache,
-    fdQuality,
+    FaceDetail (FaceDetail'),
+    newFaceDetail,
 
     -- ** FaceDetection
-    FaceDetection,
-    faceDetection,
-    fdFace,
-    fdTimestamp,
+    FaceDetection (FaceDetection'),
+    newFaceDetection,
 
     -- ** FaceMatch
-    FaceMatch,
-    faceMatch,
-    fmSimilarity,
-    fmFace,
+    FaceMatch (FaceMatch'),
+    newFaceMatch,
 
     -- ** FaceRecord
-    FaceRecord,
-    faceRecord,
-    frFaceDetail,
-    frFace,
+    FaceRecord (FaceRecord'),
+    newFaceRecord,
 
     -- ** FaceSearchSettings
-    FaceSearchSettings,
-    faceSearchSettings,
-    fssCollectionId,
-    fssFaceMatchThreshold,
+    FaceSearchSettings (FaceSearchSettings'),
+    newFaceSearchSettings,
 
     -- ** Gender
-    Gender,
-    gender,
-    gConfidence,
-    gValue,
+    Gender (Gender'),
+    newGender,
 
     -- ** Geometry
-    Geometry,
-    geometry,
-    gPolygon,
-    gBoundingBox,
+    Geometry (Geometry'),
+    newGeometry,
 
     -- ** GroundTruthManifest
-    GroundTruthManifest,
-    groundTruthManifest,
-    gtmS3Object,
+    GroundTruthManifest (GroundTruthManifest'),
+    newGroundTruthManifest,
 
     -- ** HumanLoopActivationOutput
-    HumanLoopActivationOutput,
-    humanLoopActivationOutput,
-    hlaoHumanLoopActivationReasons,
-    hlaoHumanLoopARN,
-    hlaoHumanLoopActivationConditionsEvaluationResults,
+    HumanLoopActivationOutput (HumanLoopActivationOutput'),
+    newHumanLoopActivationOutput,
 
     -- ** HumanLoopConfig
-    HumanLoopConfig,
-    humanLoopConfig,
-    hlcDataAttributes,
-    hlcHumanLoopName,
-    hlcFlowDefinitionARN,
+    HumanLoopConfig (HumanLoopConfig'),
+    newHumanLoopConfig,
 
     -- ** HumanLoopDataAttributes
-    HumanLoopDataAttributes,
-    humanLoopDataAttributes,
-    hldaContentClassifiers,
+    HumanLoopDataAttributes (HumanLoopDataAttributes'),
+    newHumanLoopDataAttributes,
 
     -- ** Image
-    Image,
-    image,
-    iBytes,
-    iS3Object,
+    Image (Image'),
+    newImage,
 
     -- ** ImageQuality
-    ImageQuality,
-    imageQuality,
-    iqBrightness,
-    iqSharpness,
+    ImageQuality (ImageQuality'),
+    newImageQuality,
 
     -- ** Instance
-    Instance,
-    instance',
-    iBoundingBox,
-    iConfidence,
+    Instance (Instance'),
+    newInstance,
 
     -- ** KinesisDataStream
-    KinesisDataStream,
-    kinesisDataStream,
-    kdsARN,
+    KinesisDataStream (KinesisDataStream'),
+    newKinesisDataStream,
 
     -- ** KinesisVideoStream
-    KinesisVideoStream,
-    kinesisVideoStream,
-    kvsARN,
+    KinesisVideoStream (KinesisVideoStream'),
+    newKinesisVideoStream,
 
     -- ** Label
-    Label,
-    label,
-    lParents,
-    lInstances,
-    lName,
-    lConfidence,
+    Label (Label'),
+    newLabel,
 
     -- ** LabelDetection
-    LabelDetection,
-    labelDetection,
-    ldLabel,
-    ldTimestamp,
+    LabelDetection (LabelDetection'),
+    newLabelDetection,
 
     -- ** Landmark
-    Landmark,
-    landmark,
-    lY,
-    lX,
-    lType,
+    Landmark (Landmark'),
+    newLandmark,
 
     -- ** ModerationLabel
-    ModerationLabel,
-    moderationLabel,
-    mlName,
-    mlConfidence,
-    mlParentName,
+    ModerationLabel (ModerationLabel'),
+    newModerationLabel,
 
     -- ** MouthOpen
-    MouthOpen,
-    mouthOpen,
-    moConfidence,
-    moValue,
+    MouthOpen (MouthOpen'),
+    newMouthOpen,
 
     -- ** Mustache
-    Mustache,
-    mustache,
-    mConfidence,
-    mValue,
+    Mustache (Mustache'),
+    newMustache,
 
     -- ** NotificationChannel
-    NotificationChannel,
-    notificationChannel,
-    ncSNSTopicARN,
-    ncRoleARN,
+    NotificationChannel (NotificationChannel'),
+    newNotificationChannel,
 
     -- ** OutputConfig
-    OutputConfig,
-    outputConfig,
-    ocS3Bucket,
-    ocS3KeyPrefix,
+    OutputConfig (OutputConfig'),
+    newOutputConfig,
 
     -- ** Parent
-    Parent,
-    parent,
-    pName,
+    Parent (Parent'),
+    newParent,
 
     -- ** PersonDetail
-    PersonDetail,
-    personDetail,
-    pdBoundingBox,
-    pdFace,
-    pdIndex,
+    PersonDetail (PersonDetail'),
+    newPersonDetail,
 
     -- ** PersonDetection
-    PersonDetection,
-    personDetection,
-    pdTimestamp,
-    pdPerson,
+    PersonDetection (PersonDetection'),
+    newPersonDetection,
 
     -- ** PersonMatch
-    PersonMatch,
-    personMatch,
-    pmFaceMatches,
-    pmTimestamp,
-    pmPerson,
+    PersonMatch (PersonMatch'),
+    newPersonMatch,
 
     -- ** Point
-    Point,
-    point,
-    pY,
-    pX,
+    Point (Point'),
+    newPoint,
 
     -- ** Pose
-    Pose,
-    pose,
-    pYaw,
-    pPitch,
-    pRoll,
+    Pose (Pose'),
+    newPose,
 
     -- ** ProjectDescription
-    ProjectDescription,
-    projectDescription,
-    pdCreationTimestamp,
-    pdStatus,
-    pdProjectARN,
+    ProjectDescription (ProjectDescription'),
+    newProjectDescription,
 
     -- ** ProjectVersionDescription
-    ProjectVersionDescription,
-    projectVersionDescription,
-    pvdCreationTimestamp,
-    pvdStatusMessage,
-    pvdTestingDataResult,
-    pvdEvaluationResult,
-    pvdStatus,
-    pvdBillableTrainingTimeInSeconds,
-    pvdOutputConfig,
-    pvdProjectVersionARN,
-    pvdMinInferenceUnits,
-    pvdTrainingDataResult,
-    pvdTrainingEndTimestamp,
-    pvdManifestSummary,
+    ProjectVersionDescription (ProjectVersionDescription'),
+    newProjectVersionDescription,
 
     -- ** ProtectiveEquipmentBodyPart
-    ProtectiveEquipmentBodyPart,
-    protectiveEquipmentBodyPart,
-    pebpEquipmentDetections,
-    pebpName,
-    pebpConfidence,
+    ProtectiveEquipmentBodyPart (ProtectiveEquipmentBodyPart'),
+    newProtectiveEquipmentBodyPart,
 
     -- ** ProtectiveEquipmentPerson
-    ProtectiveEquipmentPerson,
-    protectiveEquipmentPerson,
-    pepId,
-    pepBoundingBox,
-    pepBodyParts,
-    pepConfidence,
+    ProtectiveEquipmentPerson (ProtectiveEquipmentPerson'),
+    newProtectiveEquipmentPerson,
 
     -- ** ProtectiveEquipmentSummarizationAttributes
-    ProtectiveEquipmentSummarizationAttributes,
-    protectiveEquipmentSummarizationAttributes,
-    pesaMinConfidence,
-    pesaRequiredEquipmentTypes,
+    ProtectiveEquipmentSummarizationAttributes (ProtectiveEquipmentSummarizationAttributes'),
+    newProtectiveEquipmentSummarizationAttributes,
 
     -- ** ProtectiveEquipmentSummary
-    ProtectiveEquipmentSummary,
-    protectiveEquipmentSummary,
-    pesPersonsWithRequiredEquipment,
-    pesPersonsIndeterminate,
-    pesPersonsWithoutRequiredEquipment,
+    ProtectiveEquipmentSummary (ProtectiveEquipmentSummary'),
+    newProtectiveEquipmentSummary,
 
     -- ** RegionOfInterest
-    RegionOfInterest,
-    regionOfInterest,
-    roiBoundingBox,
+    RegionOfInterest (RegionOfInterest'),
+    newRegionOfInterest,
 
     -- ** S3Object
-    S3Object,
-    s3Object,
-    soVersion,
-    soName,
-    soBucket,
+    S3Object (S3Object'),
+    newS3Object,
 
     -- ** SegmentDetection
-    SegmentDetection,
-    segmentDetection,
-    sdShotSegment,
-    sdEndTimestampMillis,
-    sdStartTimecodeSMPTE,
-    sdDurationSMPTE,
-    sdTechnicalCueSegment,
-    sdType,
-    sdDurationMillis,
-    sdEndTimecodeSMPTE,
-    sdStartTimestampMillis,
+    SegmentDetection (SegmentDetection'),
+    newSegmentDetection,
 
     -- ** SegmentTypeInfo
-    SegmentTypeInfo,
-    segmentTypeInfo,
-    stiModelVersion,
-    stiType,
+    SegmentTypeInfo (SegmentTypeInfo'),
+    newSegmentTypeInfo,
 
     -- ** ShotSegment
-    ShotSegment,
-    shotSegment,
-    ssConfidence,
-    ssIndex,
+    ShotSegment (ShotSegment'),
+    newShotSegment,
 
     -- ** Smile
-    Smile,
-    smile,
-    smiConfidence,
-    smiValue,
+    Smile (Smile'),
+    newSmile,
 
     -- ** StartSegmentDetectionFilters
-    StartSegmentDetectionFilters,
-    startSegmentDetectionFilters,
-    ssdfTechnicalCueFilter,
-    ssdfShotFilter,
+    StartSegmentDetectionFilters (StartSegmentDetectionFilters'),
+    newStartSegmentDetectionFilters,
 
     -- ** StartShotDetectionFilter
-    StartShotDetectionFilter,
-    startShotDetectionFilter,
-    ssdfMinSegmentConfidence,
+    StartShotDetectionFilter (StartShotDetectionFilter'),
+    newStartShotDetectionFilter,
 
     -- ** StartTechnicalCueDetectionFilter
-    StartTechnicalCueDetectionFilter,
-    startTechnicalCueDetectionFilter,
-    stcdfMinSegmentConfidence,
+    StartTechnicalCueDetectionFilter (StartTechnicalCueDetectionFilter'),
+    newStartTechnicalCueDetectionFilter,
 
     -- ** StartTextDetectionFilters
-    StartTextDetectionFilters,
-    startTextDetectionFilters,
-    stdfRegionsOfInterest,
-    stdfWordFilter,
+    StartTextDetectionFilters (StartTextDetectionFilters'),
+    newStartTextDetectionFilters,
 
     -- ** StreamProcessor
-    StreamProcessor,
-    streamProcessor,
-    spStatus,
-    spName,
+    StreamProcessor (StreamProcessor'),
+    newStreamProcessor,
 
     -- ** StreamProcessorInput
-    StreamProcessorInput,
-    streamProcessorInput,
-    spiKinesisVideoStream,
+    StreamProcessorInput (StreamProcessorInput'),
+    newStreamProcessorInput,
 
     -- ** StreamProcessorOutput
-    StreamProcessorOutput,
-    streamProcessorOutput,
-    spoKinesisDataStream,
+    StreamProcessorOutput (StreamProcessorOutput'),
+    newStreamProcessorOutput,
 
     -- ** StreamProcessorSettings
-    StreamProcessorSettings,
-    streamProcessorSettings,
-    spsFaceSearch,
+    StreamProcessorSettings (StreamProcessorSettings'),
+    newStreamProcessorSettings,
 
     -- ** Summary
-    Summary,
-    summary,
-    sS3Object,
+    Summary (Summary'),
+    newSummary,
 
     -- ** Sunglasses
-    Sunglasses,
-    sunglasses,
-    sConfidence,
-    sValue,
+    Sunglasses (Sunglasses'),
+    newSunglasses,
 
     -- ** TechnicalCueSegment
-    TechnicalCueSegment,
-    technicalCueSegment,
-    tcsConfidence,
-    tcsType,
+    TechnicalCueSegment (TechnicalCueSegment'),
+    newTechnicalCueSegment,
 
     -- ** TestingData
-    TestingData,
-    testingData,
-    tdAutoCreate,
-    tdAssets,
+    TestingData (TestingData'),
+    newTestingData,
 
     -- ** TestingDataResult
-    TestingDataResult,
-    testingDataResult,
-    tdrInput,
-    tdrOutput,
-    tdrValidation,
+    TestingDataResult (TestingDataResult'),
+    newTestingDataResult,
 
     -- ** TextDetection
-    TextDetection,
-    textDetection,
-    tdDetectedText,
-    tdId,
-    tdConfidence,
-    tdParentId,
-    tdType,
-    tdGeometry,
+    TextDetection (TextDetection'),
+    newTextDetection,
 
     -- ** TextDetectionResult
-    TextDetectionResult,
-    textDetectionResult,
-    tdrTextDetection,
-    tdrTimestamp,
+    TextDetectionResult (TextDetectionResult'),
+    newTextDetectionResult,
 
     -- ** TrainingData
-    TrainingData,
-    trainingData,
-    tAssets,
+    TrainingData (TrainingData'),
+    newTrainingData,
 
     -- ** TrainingDataResult
-    TrainingDataResult,
-    trainingDataResult,
-    tInput,
-    tOutput,
-    tValidation,
+    TrainingDataResult (TrainingDataResult'),
+    newTrainingDataResult,
 
     -- ** UnindexedFace
-    UnindexedFace,
-    unindexedFace,
-    ufFaceDetail,
-    ufReasons,
+    UnindexedFace (UnindexedFace'),
+    newUnindexedFace,
 
     -- ** ValidationData
-    ValidationData,
-    validationData,
-    vdAssets,
+    ValidationData (ValidationData'),
+    newValidationData,
 
     -- ** Video
-    Video,
-    video,
-    vS3Object,
+    Video (Video'),
+    newVideo,
 
     -- ** VideoMetadata
-    VideoMetadata,
-    videoMetadata,
-    vmCodec,
-    vmFormat,
-    vmFrameHeight,
-    vmFrameRate,
-    vmFrameWidth,
-    vmDurationMillis,
+    VideoMetadata (VideoMetadata'),
+    newVideoMetadata,
   )
 where
 
@@ -902,6 +816,7 @@ import Network.AWS.Rekognition.GetPersonTracking
 import Network.AWS.Rekognition.GetSegmentDetection
 import Network.AWS.Rekognition.GetTextDetection
 import Network.AWS.Rekognition.IndexFaces
+import Network.AWS.Rekognition.Lens
 import Network.AWS.Rekognition.ListCollections
 import Network.AWS.Rekognition.ListFaces
 import Network.AWS.Rekognition.ListStreamProcessors

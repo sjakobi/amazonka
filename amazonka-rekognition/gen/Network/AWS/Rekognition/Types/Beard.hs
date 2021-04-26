@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.Beard where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates whether or not the face has a beard, and the confidence level in the determination.
+-- | Indicates whether or not the face has a beard, and the confidence level
+-- in the determination.
 --
---
---
--- /See:/ 'beard' smart constructor.
+-- /See:/ 'newBeard' smart constructor.
 data Beard = Beard'
-  { _bConfidence :: !(Maybe Double),
-    _bValue :: !(Maybe Bool)
+  { -- | Level of confidence in the determination.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | Boolean value that indicates whether the face has beard or not.
+    value :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Beard' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Beard' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bConfidence' - Level of confidence in the determination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bValue' - Boolean value that indicates whether the face has beard or not.
-beard ::
+-- 'confidence', 'beard_confidence' - Level of confidence in the determination.
+--
+-- 'value', 'beard_value' - Boolean value that indicates whether the face has beard or not.
+newBeard ::
   Beard
-beard =
-  Beard' {_bConfidence = Nothing, _bValue = Nothing}
+newBeard =
+  Beard'
+    { confidence = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
 -- | Level of confidence in the determination.
-bConfidence :: Lens' Beard (Maybe Double)
-bConfidence = lens _bConfidence (\s a -> s {_bConfidence = a})
+beard_confidence :: Lens.Lens' Beard (Prelude.Maybe Prelude.Double)
+beard_confidence = Lens.lens (\Beard' {confidence} -> confidence) (\s@Beard' {} a -> s {confidence = a} :: Beard)
 
 -- | Boolean value that indicates whether the face has beard or not.
-bValue :: Lens' Beard (Maybe Bool)
-bValue = lens _bValue (\s a -> s {_bValue = a})
+beard_value :: Lens.Lens' Beard (Prelude.Maybe Prelude.Bool)
+beard_value = Lens.lens (\Beard' {value} -> value) (\s@Beard' {} a -> s {value = a} :: Beard)
 
-instance FromJSON Beard where
+instance Prelude.FromJSON Beard where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Beard"
       ( \x ->
-          Beard' <$> (x .:? "Confidence") <*> (x .:? "Value")
+          Beard'
+            Prelude.<$> (x Prelude..:? "Confidence")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable Beard
+instance Prelude.Hashable Beard
 
-instance NFData Beard
+instance Prelude.NFData Beard

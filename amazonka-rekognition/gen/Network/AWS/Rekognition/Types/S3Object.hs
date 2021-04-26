@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.S3Object where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides the S3 bucket name and object name.
 --
+-- The region for the S3 bucket containing the S3 object must match the
+-- region you use for Amazon Rekognition operations.
 --
--- The region for the S3 bucket containing the S3 object must match the region you use for Amazon Rekognition operations.
+-- For Amazon Rekognition to process an S3 object, the user must have
+-- permission to access the S3 object. For more information, see
+-- Resource-Based Policies in the Amazon Rekognition Developer Guide.
 --
--- For Amazon Rekognition to process an S3 object, the user must have permission to access the S3 object. For more information, see Resource-Based Policies in the Amazon Rekognition Developer Guide.
---
---
--- /See:/ 's3Object' smart constructor.
+-- /See:/ 'newS3Object' smart constructor.
 data S3Object = S3Object'
-  { _soVersion ::
-      !(Maybe Text),
-    _soName :: !(Maybe Text),
-    _soBucket :: !(Maybe Text)
+  { -- | If the bucket is versioning enabled, you can specify the object version.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | S3 object key name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Name of the S3 bucket.
+    bucket :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3Object' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3Object' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'soVersion' - If the bucket is versioning enabled, you can specify the object version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'soName' - S3 object key name.
+-- 'version', 's3Object_version' - If the bucket is versioning enabled, you can specify the object version.
 --
--- * 'soBucket' - Name of the S3 bucket.
-s3Object ::
+-- 'name', 's3Object_name' - S3 object key name.
+--
+-- 'bucket', 's3Object_bucket' - Name of the S3 bucket.
+newS3Object ::
   S3Object
-s3Object =
+newS3Object =
   S3Object'
-    { _soVersion = Nothing,
-      _soName = Nothing,
-      _soBucket = Nothing
+    { version = Prelude.Nothing,
+      name = Prelude.Nothing,
+      bucket = Prelude.Nothing
     }
 
 -- | If the bucket is versioning enabled, you can specify the object version.
-soVersion :: Lens' S3Object (Maybe Text)
-soVersion = lens _soVersion (\s a -> s {_soVersion = a})
+s3Object_version :: Lens.Lens' S3Object (Prelude.Maybe Prelude.Text)
+s3Object_version = Lens.lens (\S3Object' {version} -> version) (\s@S3Object' {} a -> s {version = a} :: S3Object)
 
 -- | S3 object key name.
-soName :: Lens' S3Object (Maybe Text)
-soName = lens _soName (\s a -> s {_soName = a})
+s3Object_name :: Lens.Lens' S3Object (Prelude.Maybe Prelude.Text)
+s3Object_name = Lens.lens (\S3Object' {name} -> name) (\s@S3Object' {} a -> s {name = a} :: S3Object)
 
 -- | Name of the S3 bucket.
-soBucket :: Lens' S3Object (Maybe Text)
-soBucket = lens _soBucket (\s a -> s {_soBucket = a})
+s3Object_bucket :: Lens.Lens' S3Object (Prelude.Maybe Prelude.Text)
+s3Object_bucket = Lens.lens (\S3Object' {bucket} -> bucket) (\s@S3Object' {} a -> s {bucket = a} :: S3Object)
 
-instance FromJSON S3Object where
+instance Prelude.FromJSON S3Object where
   parseJSON =
-    withObject
+    Prelude.withObject
       "S3Object"
       ( \x ->
           S3Object'
-            <$> (x .:? "Version")
-            <*> (x .:? "Name")
-            <*> (x .:? "Bucket")
+            Prelude.<$> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Bucket")
       )
 
-instance Hashable S3Object
+instance Prelude.Hashable S3Object
 
-instance NFData S3Object
+instance Prelude.NFData S3Object
 
-instance ToJSON S3Object where
+instance Prelude.ToJSON S3Object where
   toJSON S3Object' {..} =
-    object
-      ( catMaybes
-          [ ("Version" .=) <$> _soVersion,
-            ("Name" .=) <$> _soName,
-            ("Bucket" .=) <$> _soBucket
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Version" Prelude..=) Prelude.<$> version,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Bucket" Prelude..=) Prelude.<$> bucket
           ]
       )

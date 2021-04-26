@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.CompareFacesMatch where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.ComparedFace
 
--- | Provides information about a face in a target image that matches the source image face analyzed by @CompareFaces@ . The @Face@ property contains the bounding box of the face in the target image. The @Similarity@ property is the confidence that the source image face matches the face in the bounding box.
+-- | Provides information about a face in a target image that matches the
+-- source image face analyzed by @CompareFaces@. The @Face@ property
+-- contains the bounding box of the face in the target image. The
+-- @Similarity@ property is the confidence that the source image face
+-- matches the face in the bounding box.
 --
---
---
--- /See:/ 'compareFacesMatch' smart constructor.
+-- /See:/ 'newCompareFacesMatch' smart constructor.
 data CompareFacesMatch = CompareFacesMatch'
-  { _cfmSimilarity ::
-      !(Maybe Double),
-    _cfmFace :: !(Maybe ComparedFace)
+  { -- | Level of confidence that the faces match.
+    similarity :: Prelude.Maybe Prelude.Double,
+    -- | Provides face metadata (bounding box and confidence that the bounding
+    -- box actually contains a face).
+    face :: Prelude.Maybe ComparedFace
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompareFacesMatch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompareFacesMatch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfmSimilarity' - Level of confidence that the faces match.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfmFace' - Provides face metadata (bounding box and confidence that the bounding box actually contains a face).
-compareFacesMatch ::
+-- 'similarity', 'compareFacesMatch_similarity' - Level of confidence that the faces match.
+--
+-- 'face', 'compareFacesMatch_face' - Provides face metadata (bounding box and confidence that the bounding
+-- box actually contains a face).
+newCompareFacesMatch ::
   CompareFacesMatch
-compareFacesMatch =
+newCompareFacesMatch =
   CompareFacesMatch'
-    { _cfmSimilarity = Nothing,
-      _cfmFace = Nothing
+    { similarity = Prelude.Nothing,
+      face = Prelude.Nothing
     }
 
 -- | Level of confidence that the faces match.
-cfmSimilarity :: Lens' CompareFacesMatch (Maybe Double)
-cfmSimilarity = lens _cfmSimilarity (\s a -> s {_cfmSimilarity = a})
+compareFacesMatch_similarity :: Lens.Lens' CompareFacesMatch (Prelude.Maybe Prelude.Double)
+compareFacesMatch_similarity = Lens.lens (\CompareFacesMatch' {similarity} -> similarity) (\s@CompareFacesMatch' {} a -> s {similarity = a} :: CompareFacesMatch)
 
--- | Provides face metadata (bounding box and confidence that the bounding box actually contains a face).
-cfmFace :: Lens' CompareFacesMatch (Maybe ComparedFace)
-cfmFace = lens _cfmFace (\s a -> s {_cfmFace = a})
+-- | Provides face metadata (bounding box and confidence that the bounding
+-- box actually contains a face).
+compareFacesMatch_face :: Lens.Lens' CompareFacesMatch (Prelude.Maybe ComparedFace)
+compareFacesMatch_face = Lens.lens (\CompareFacesMatch' {face} -> face) (\s@CompareFacesMatch' {} a -> s {face = a} :: CompareFacesMatch)
 
-instance FromJSON CompareFacesMatch where
+instance Prelude.FromJSON CompareFacesMatch where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CompareFacesMatch"
       ( \x ->
           CompareFacesMatch'
-            <$> (x .:? "Similarity") <*> (x .:? "Face")
+            Prelude.<$> (x Prelude..:? "Similarity")
+            Prelude.<*> (x Prelude..:? "Face")
       )
 
-instance Hashable CompareFacesMatch
+instance Prelude.Hashable CompareFacesMatch
 
-instance NFData CompareFacesMatch
+instance Prelude.NFData CompareFacesMatch

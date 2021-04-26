@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.StartTechnicalCueDetectionFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Filters for the technical segments returned by 'GetSegmentDetection' . For more information, see 'StartSegmentDetectionFilters' .
+-- | Filters for the technical segments returned by GetSegmentDetection. For
+-- more information, see StartSegmentDetectionFilters.
 --
---
---
--- /See:/ 'startTechnicalCueDetectionFilter' smart constructor.
-newtype StartTechnicalCueDetectionFilter = StartTechnicalCueDetectionFilter'
-  { _stcdfMinSegmentConfidence ::
-      Maybe
-        Double
+-- /See:/ 'newStartTechnicalCueDetectionFilter' smart constructor.
+data StartTechnicalCueDetectionFilter = StartTechnicalCueDetectionFilter'
+  { -- | Specifies the minimum confidence that Amazon Rekognition Video must have
+    -- in order to return a detected segment. Confidence represents how certain
+    -- Amazon Rekognition is that a segment is correctly identified. 0 is the
+    -- lowest confidence. 100 is the highest confidence. Amazon Rekognition
+    -- Video doesn\'t return any segments with a confidence level lower than
+    -- this specified value.
+    --
+    -- If you don\'t specify @MinSegmentConfidence@, @GetSegmentDetection@
+    -- returns segments with confidence values greater than or equal to 50
+    -- percent.
+    minSegmentConfidence :: Prelude.Maybe Prelude.Double
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartTechnicalCueDetectionFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartTechnicalCueDetectionFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stcdfMinSegmentConfidence' - Specifies the minimum confidence that Amazon Rekognition Video must have in order to return a detected segment. Confidence represents how certain Amazon Rekognition is that a segment is correctly identified. 0 is the lowest confidence. 100 is the highest confidence. Amazon Rekognition Video doesn't return any segments with a confidence level lower than this specified value. If you don't specify @MinSegmentConfidence@ , @GetSegmentDetection@ returns segments with confidence values greater than or equal to 50 percent.
-startTechnicalCueDetectionFilter ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'minSegmentConfidence', 'startTechnicalCueDetectionFilter_minSegmentConfidence' - Specifies the minimum confidence that Amazon Rekognition Video must have
+-- in order to return a detected segment. Confidence represents how certain
+-- Amazon Rekognition is that a segment is correctly identified. 0 is the
+-- lowest confidence. 100 is the highest confidence. Amazon Rekognition
+-- Video doesn\'t return any segments with a confidence level lower than
+-- this specified value.
+--
+-- If you don\'t specify @MinSegmentConfidence@, @GetSegmentDetection@
+-- returns segments with confidence values greater than or equal to 50
+-- percent.
+newStartTechnicalCueDetectionFilter ::
   StartTechnicalCueDetectionFilter
-startTechnicalCueDetectionFilter =
+newStartTechnicalCueDetectionFilter =
   StartTechnicalCueDetectionFilter'
-    { _stcdfMinSegmentConfidence =
-        Nothing
+    { minSegmentConfidence =
+        Prelude.Nothing
     }
 
--- | Specifies the minimum confidence that Amazon Rekognition Video must have in order to return a detected segment. Confidence represents how certain Amazon Rekognition is that a segment is correctly identified. 0 is the lowest confidence. 100 is the highest confidence. Amazon Rekognition Video doesn't return any segments with a confidence level lower than this specified value. If you don't specify @MinSegmentConfidence@ , @GetSegmentDetection@ returns segments with confidence values greater than or equal to 50 percent.
-stcdfMinSegmentConfidence :: Lens' StartTechnicalCueDetectionFilter (Maybe Double)
-stcdfMinSegmentConfidence = lens _stcdfMinSegmentConfidence (\s a -> s {_stcdfMinSegmentConfidence = a})
+-- | Specifies the minimum confidence that Amazon Rekognition Video must have
+-- in order to return a detected segment. Confidence represents how certain
+-- Amazon Rekognition is that a segment is correctly identified. 0 is the
+-- lowest confidence. 100 is the highest confidence. Amazon Rekognition
+-- Video doesn\'t return any segments with a confidence level lower than
+-- this specified value.
+--
+-- If you don\'t specify @MinSegmentConfidence@, @GetSegmentDetection@
+-- returns segments with confidence values greater than or equal to 50
+-- percent.
+startTechnicalCueDetectionFilter_minSegmentConfidence :: Lens.Lens' StartTechnicalCueDetectionFilter (Prelude.Maybe Prelude.Double)
+startTechnicalCueDetectionFilter_minSegmentConfidence = Lens.lens (\StartTechnicalCueDetectionFilter' {minSegmentConfidence} -> minSegmentConfidence) (\s@StartTechnicalCueDetectionFilter' {} a -> s {minSegmentConfidence = a} :: StartTechnicalCueDetectionFilter)
 
-instance Hashable StartTechnicalCueDetectionFilter
+instance
+  Prelude.Hashable
+    StartTechnicalCueDetectionFilter
 
-instance NFData StartTechnicalCueDetectionFilter
+instance
+  Prelude.NFData
+    StartTechnicalCueDetectionFilter
 
-instance ToJSON StartTechnicalCueDetectionFilter where
+instance
+  Prelude.ToJSON
+    StartTechnicalCueDetectionFilter
+  where
   toJSON StartTechnicalCueDetectionFilter' {..} =
-    object
-      ( catMaybes
-          [ ("MinSegmentConfidence" .=)
-              <$> _stcdfMinSegmentConfidence
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MinSegmentConfidence" Prelude..=)
+              Prelude.<$> minSegmentConfidence
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.ComparedFace where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.BoundingBox
 import Network.AWS.Rekognition.Types.ImageQuality
 import Network.AWS.Rekognition.Types.Landmark
 import Network.AWS.Rekognition.Types.Pose
 
--- | Provides face metadata for target image faces that are analyzed by @CompareFaces@ and @RecognizeCelebrities@ .
+-- | Provides face metadata for target image faces that are analyzed by
+-- @CompareFaces@ and @RecognizeCelebrities@.
 --
---
---
--- /See:/ 'comparedFace' smart constructor.
+-- /See:/ 'newComparedFace' smart constructor.
 data ComparedFace = ComparedFace'
-  { _cfPose ::
-      !(Maybe Pose),
-    _cfLandmarks :: !(Maybe [Landmark]),
-    _cfBoundingBox :: !(Maybe BoundingBox),
-    _cfConfidence :: !(Maybe Double),
-    _cfQuality :: !(Maybe ImageQuality)
+  { -- | Indicates the pose of the face as determined by its pitch, roll, and
+    -- yaw.
+    pose :: Prelude.Maybe Pose,
+    -- | An array of facial landmarks.
+    landmarks :: Prelude.Maybe [Landmark],
+    -- | Bounding box of the face.
+    boundingBox :: Prelude.Maybe BoundingBox,
+    -- | Level of confidence that what the bounding box contains is a face.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | Identifies face image brightness and sharpness.
+    quality :: Prelude.Maybe ImageQuality
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComparedFace' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComparedFace' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfPose' - Indicates the pose of the face as determined by its pitch, roll, and yaw.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfLandmarks' - An array of facial landmarks.
+-- 'pose', 'comparedFace_pose' - Indicates the pose of the face as determined by its pitch, roll, and
+-- yaw.
 --
--- * 'cfBoundingBox' - Bounding box of the face.
+-- 'landmarks', 'comparedFace_landmarks' - An array of facial landmarks.
 --
--- * 'cfConfidence' - Level of confidence that what the bounding box contains is a face.
+-- 'boundingBox', 'comparedFace_boundingBox' - Bounding box of the face.
 --
--- * 'cfQuality' - Identifies face image brightness and sharpness.
-comparedFace ::
+-- 'confidence', 'comparedFace_confidence' - Level of confidence that what the bounding box contains is a face.
+--
+-- 'quality', 'comparedFace_quality' - Identifies face image brightness and sharpness.
+newComparedFace ::
   ComparedFace
-comparedFace =
+newComparedFace =
   ComparedFace'
-    { _cfPose = Nothing,
-      _cfLandmarks = Nothing,
-      _cfBoundingBox = Nothing,
-      _cfConfidence = Nothing,
-      _cfQuality = Nothing
+    { pose = Prelude.Nothing,
+      landmarks = Prelude.Nothing,
+      boundingBox = Prelude.Nothing,
+      confidence = Prelude.Nothing,
+      quality = Prelude.Nothing
     }
 
--- | Indicates the pose of the face as determined by its pitch, roll, and yaw.
-cfPose :: Lens' ComparedFace (Maybe Pose)
-cfPose = lens _cfPose (\s a -> s {_cfPose = a})
+-- | Indicates the pose of the face as determined by its pitch, roll, and
+-- yaw.
+comparedFace_pose :: Lens.Lens' ComparedFace (Prelude.Maybe Pose)
+comparedFace_pose = Lens.lens (\ComparedFace' {pose} -> pose) (\s@ComparedFace' {} a -> s {pose = a} :: ComparedFace)
 
 -- | An array of facial landmarks.
-cfLandmarks :: Lens' ComparedFace [Landmark]
-cfLandmarks = lens _cfLandmarks (\s a -> s {_cfLandmarks = a}) . _Default . _Coerce
+comparedFace_landmarks :: Lens.Lens' ComparedFace (Prelude.Maybe [Landmark])
+comparedFace_landmarks = Lens.lens (\ComparedFace' {landmarks} -> landmarks) (\s@ComparedFace' {} a -> s {landmarks = a} :: ComparedFace) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Bounding box of the face.
-cfBoundingBox :: Lens' ComparedFace (Maybe BoundingBox)
-cfBoundingBox = lens _cfBoundingBox (\s a -> s {_cfBoundingBox = a})
+comparedFace_boundingBox :: Lens.Lens' ComparedFace (Prelude.Maybe BoundingBox)
+comparedFace_boundingBox = Lens.lens (\ComparedFace' {boundingBox} -> boundingBox) (\s@ComparedFace' {} a -> s {boundingBox = a} :: ComparedFace)
 
 -- | Level of confidence that what the bounding box contains is a face.
-cfConfidence :: Lens' ComparedFace (Maybe Double)
-cfConfidence = lens _cfConfidence (\s a -> s {_cfConfidence = a})
+comparedFace_confidence :: Lens.Lens' ComparedFace (Prelude.Maybe Prelude.Double)
+comparedFace_confidence = Lens.lens (\ComparedFace' {confidence} -> confidence) (\s@ComparedFace' {} a -> s {confidence = a} :: ComparedFace)
 
 -- | Identifies face image brightness and sharpness.
-cfQuality :: Lens' ComparedFace (Maybe ImageQuality)
-cfQuality = lens _cfQuality (\s a -> s {_cfQuality = a})
+comparedFace_quality :: Lens.Lens' ComparedFace (Prelude.Maybe ImageQuality)
+comparedFace_quality = Lens.lens (\ComparedFace' {quality} -> quality) (\s@ComparedFace' {} a -> s {quality = a} :: ComparedFace)
 
-instance FromJSON ComparedFace where
+instance Prelude.FromJSON ComparedFace where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ComparedFace"
       ( \x ->
           ComparedFace'
-            <$> (x .:? "Pose")
-            <*> (x .:? "Landmarks" .!= mempty)
-            <*> (x .:? "BoundingBox")
-            <*> (x .:? "Confidence")
-            <*> (x .:? "Quality")
+            Prelude.<$> (x Prelude..:? "Pose")
+            Prelude.<*> ( x Prelude..:? "Landmarks"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "BoundingBox")
+            Prelude.<*> (x Prelude..:? "Confidence")
+            Prelude.<*> (x Prelude..:? "Quality")
       )
 
-instance Hashable ComparedFace
+instance Prelude.Hashable ComparedFace
 
-instance NFData ComparedFace
+instance Prelude.NFData ComparedFace

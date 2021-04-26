@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.LabelDetection where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.Label
 
--- | Information about a label detected in a video analysis request and the time the label was detected in the video.
+-- | Information about a label detected in a video analysis request and the
+-- time the label was detected in the video.
 --
---
---
--- /See:/ 'labelDetection' smart constructor.
+-- /See:/ 'newLabelDetection' smart constructor.
 data LabelDetection = LabelDetection'
-  { _ldLabel ::
-      !(Maybe Label),
-    _ldTimestamp :: !(Maybe Integer)
+  { -- | Details about the detected label.
+    label :: Prelude.Maybe Label,
+    -- | Time, in milliseconds from the start of the video, that the label was
+    -- detected.
+    timestamp :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LabelDetection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LabelDetection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldLabel' - Details about the detected label.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldTimestamp' - Time, in milliseconds from the start of the video, that the label was detected.
-labelDetection ::
+-- 'label', 'labelDetection_label' - Details about the detected label.
+--
+-- 'timestamp', 'labelDetection_timestamp' - Time, in milliseconds from the start of the video, that the label was
+-- detected.
+newLabelDetection ::
   LabelDetection
-labelDetection =
+newLabelDetection =
   LabelDetection'
-    { _ldLabel = Nothing,
-      _ldTimestamp = Nothing
+    { label = Prelude.Nothing,
+      timestamp = Prelude.Nothing
     }
 
 -- | Details about the detected label.
-ldLabel :: Lens' LabelDetection (Maybe Label)
-ldLabel = lens _ldLabel (\s a -> s {_ldLabel = a})
+labelDetection_label :: Lens.Lens' LabelDetection (Prelude.Maybe Label)
+labelDetection_label = Lens.lens (\LabelDetection' {label} -> label) (\s@LabelDetection' {} a -> s {label = a} :: LabelDetection)
 
--- | Time, in milliseconds from the start of the video, that the label was detected.
-ldTimestamp :: Lens' LabelDetection (Maybe Integer)
-ldTimestamp = lens _ldTimestamp (\s a -> s {_ldTimestamp = a})
+-- | Time, in milliseconds from the start of the video, that the label was
+-- detected.
+labelDetection_timestamp :: Lens.Lens' LabelDetection (Prelude.Maybe Prelude.Integer)
+labelDetection_timestamp = Lens.lens (\LabelDetection' {timestamp} -> timestamp) (\s@LabelDetection' {} a -> s {timestamp = a} :: LabelDetection)
 
-instance FromJSON LabelDetection where
+instance Prelude.FromJSON LabelDetection where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LabelDetection"
       ( \x ->
           LabelDetection'
-            <$> (x .:? "Label") <*> (x .:? "Timestamp")
+            Prelude.<$> (x Prelude..:? "Label")
+            Prelude.<*> (x Prelude..:? "Timestamp")
       )
 
-instance Hashable LabelDetection
+instance Prelude.Hashable LabelDetection
 
-instance NFData LabelDetection
+instance Prelude.NFData LabelDetection

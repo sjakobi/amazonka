@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.Instance where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.BoundingBox
 
--- | An instance of a label returned by Amazon Rekognition Image ('DetectLabels' ) or by Amazon Rekognition Video ('GetLabelDetection' ).
+-- | An instance of a label returned by Amazon Rekognition Image
+-- (DetectLabels) or by Amazon Rekognition Video (GetLabelDetection).
 --
---
---
--- /See:/ 'instance'' smart constructor.
+-- /See:/ 'newInstance' smart constructor.
 data Instance = Instance'
-  { _iBoundingBox ::
-      !(Maybe BoundingBox),
-    _iConfidence :: !(Maybe Double)
+  { -- | The position of the label instance on the image.
+    boundingBox :: Prelude.Maybe BoundingBox,
+    -- | The confidence that Amazon Rekognition has in the accuracy of the
+    -- bounding box.
+    confidence :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Instance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Instance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iBoundingBox' - The position of the label instance on the image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iConfidence' - The confidence that Amazon Rekognition has in the accuracy of the bounding box.
-instance' ::
+-- 'boundingBox', 'instance_boundingBox' - The position of the label instance on the image.
+--
+-- 'confidence', 'instance_confidence' - The confidence that Amazon Rekognition has in the accuracy of the
+-- bounding box.
+newInstance ::
   Instance
-instance' =
+newInstance =
   Instance'
-    { _iBoundingBox = Nothing,
-      _iConfidence = Nothing
+    { boundingBox = Prelude.Nothing,
+      confidence = Prelude.Nothing
     }
 
 -- | The position of the label instance on the image.
-iBoundingBox :: Lens' Instance (Maybe BoundingBox)
-iBoundingBox = lens _iBoundingBox (\s a -> s {_iBoundingBox = a})
+instance_boundingBox :: Lens.Lens' Instance (Prelude.Maybe BoundingBox)
+instance_boundingBox = Lens.lens (\Instance' {boundingBox} -> boundingBox) (\s@Instance' {} a -> s {boundingBox = a} :: Instance)
 
--- | The confidence that Amazon Rekognition has in the accuracy of the bounding box.
-iConfidence :: Lens' Instance (Maybe Double)
-iConfidence = lens _iConfidence (\s a -> s {_iConfidence = a})
+-- | The confidence that Amazon Rekognition has in the accuracy of the
+-- bounding box.
+instance_confidence :: Lens.Lens' Instance (Prelude.Maybe Prelude.Double)
+instance_confidence = Lens.lens (\Instance' {confidence} -> confidence) (\s@Instance' {} a -> s {confidence = a} :: Instance)
 
-instance FromJSON Instance where
+instance Prelude.FromJSON Instance where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Instance"
       ( \x ->
           Instance'
-            <$> (x .:? "BoundingBox") <*> (x .:? "Confidence")
+            Prelude.<$> (x Prelude..:? "BoundingBox")
+            Prelude.<*> (x Prelude..:? "Confidence")
       )
 
-instance Hashable Instance
+instance Prelude.Hashable Instance
 
-instance NFData Instance
+instance Prelude.NFData Instance

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,186 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts the running of the version of a model. Starting a model takes a while to complete. To check the current state of the model, use 'DescribeProjectVersions' .
+-- Starts the running of the version of a model. Starting a model takes a
+-- while to complete. To check the current state of the model, use
+-- DescribeProjectVersions.
 --
+-- Once the model is running, you can detect custom labels in new images by
+-- calling DetectCustomLabels.
 --
--- Once the model is running, you can detect custom labels in new images by calling 'DetectCustomLabels' .
+-- You are charged for the amount of time that the model is running. To
+-- stop a running model, call StopProjectVersion.
 --
--- This operation requires permissions to perform the @rekognition:StartProjectVersion@ action.
+-- This operation requires permissions to perform the
+-- @rekognition:StartProjectVersion@ action.
 module Network.AWS.Rekognition.StartProjectVersion
   ( -- * Creating a Request
-    startProjectVersion,
-    StartProjectVersion,
+    StartProjectVersion (..),
+    newStartProjectVersion,
 
     -- * Request Lenses
-    sProjectVersionARN,
-    sMinInferenceUnits,
+    startProjectVersion_projectVersionArn,
+    startProjectVersion_minInferenceUnits,
 
     -- * Destructuring the Response
-    startProjectVersionResponse,
-    StartProjectVersionResponse,
+    StartProjectVersionResponse (..),
+    newStartProjectVersionResponse,
 
     -- * Response Lenses
-    spvrrsStatus,
-    spvrrsResponseStatus,
+    startProjectVersionResponse_status,
+    startProjectVersionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Rekognition.Types.ProjectVersionStatus
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startProjectVersion' smart constructor.
+-- | /See:/ 'newStartProjectVersion' smart constructor.
 data StartProjectVersion = StartProjectVersion'
-  { _sProjectVersionARN ::
-      !Text,
-    _sMinInferenceUnits :: !Nat
+  { -- | The Amazon Resource Name(ARN) of the model version that you want to
+    -- start.
+    projectVersionArn :: Prelude.Text,
+    -- | The minimum number of inference units to use. A single inference unit
+    -- represents 1 hour of processing and can support up to 5 Transaction Pers
+    -- Second (TPS). Use a higher number to increase the TPS throughput of your
+    -- model. You are charged for the number of inference units that you use.
+    minInferenceUnits :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartProjectVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartProjectVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sProjectVersionARN' - The Amazon Resource Name(ARN) of the model version that you want to start.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sMinInferenceUnits' - The minimum number of inference units to use. A single inference unit represents 1 hour of processing and can support up to 5 Transaction Pers Second (TPS). Use a higher number to increase the TPS throughput of your model. You are charged for the number of inference units that you use.
-startProjectVersion ::
-  -- | 'sProjectVersionARN'
-  Text ->
-  -- | 'sMinInferenceUnits'
-  Natural ->
+-- 'projectVersionArn', 'startProjectVersion_projectVersionArn' - The Amazon Resource Name(ARN) of the model version that you want to
+-- start.
+--
+-- 'minInferenceUnits', 'startProjectVersion_minInferenceUnits' - The minimum number of inference units to use. A single inference unit
+-- represents 1 hour of processing and can support up to 5 Transaction Pers
+-- Second (TPS). Use a higher number to increase the TPS throughput of your
+-- model. You are charged for the number of inference units that you use.
+newStartProjectVersion ::
+  -- | 'projectVersionArn'
+  Prelude.Text ->
+  -- | 'minInferenceUnits'
+  Prelude.Natural ->
   StartProjectVersion
-startProjectVersion
-  pProjectVersionARN_
+newStartProjectVersion
+  pProjectVersionArn_
   pMinInferenceUnits_ =
     StartProjectVersion'
-      { _sProjectVersionARN =
-          pProjectVersionARN_,
-        _sMinInferenceUnits = _Nat # pMinInferenceUnits_
+      { projectVersionArn =
+          pProjectVersionArn_,
+        minInferenceUnits =
+          Prelude._Nat Lens.# pMinInferenceUnits_
       }
 
--- | The Amazon Resource Name(ARN) of the model version that you want to start.
-sProjectVersionARN :: Lens' StartProjectVersion Text
-sProjectVersionARN = lens _sProjectVersionARN (\s a -> s {_sProjectVersionARN = a})
+-- | The Amazon Resource Name(ARN) of the model version that you want to
+-- start.
+startProjectVersion_projectVersionArn :: Lens.Lens' StartProjectVersion Prelude.Text
+startProjectVersion_projectVersionArn = Lens.lens (\StartProjectVersion' {projectVersionArn} -> projectVersionArn) (\s@StartProjectVersion' {} a -> s {projectVersionArn = a} :: StartProjectVersion)
 
--- | The minimum number of inference units to use. A single inference unit represents 1 hour of processing and can support up to 5 Transaction Pers Second (TPS). Use a higher number to increase the TPS throughput of your model. You are charged for the number of inference units that you use.
-sMinInferenceUnits :: Lens' StartProjectVersion Natural
-sMinInferenceUnits = lens _sMinInferenceUnits (\s a -> s {_sMinInferenceUnits = a}) . _Nat
+-- | The minimum number of inference units to use. A single inference unit
+-- represents 1 hour of processing and can support up to 5 Transaction Pers
+-- Second (TPS). Use a higher number to increase the TPS throughput of your
+-- model. You are charged for the number of inference units that you use.
+startProjectVersion_minInferenceUnits :: Lens.Lens' StartProjectVersion Prelude.Natural
+startProjectVersion_minInferenceUnits = Lens.lens (\StartProjectVersion' {minInferenceUnits} -> minInferenceUnits) (\s@StartProjectVersion' {} a -> s {minInferenceUnits = a} :: StartProjectVersion) Prelude.. Prelude._Nat
 
-instance AWSRequest StartProjectVersion where
+instance Prelude.AWSRequest StartProjectVersion where
   type
     Rs StartProjectVersion =
       StartProjectVersionResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartProjectVersionResponse'
-            <$> (x .?> "Status") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartProjectVersion
+instance Prelude.Hashable StartProjectVersion
 
-instance NFData StartProjectVersion
+instance Prelude.NFData StartProjectVersion
 
-instance ToHeaders StartProjectVersion where
+instance Prelude.ToHeaders StartProjectVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "RekognitionService.StartProjectVersion" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "RekognitionService.StartProjectVersion" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartProjectVersion where
+instance Prelude.ToJSON StartProjectVersion where
   toJSON StartProjectVersion' {..} =
-    object
-      ( catMaybes
-          [ Just ("ProjectVersionArn" .= _sProjectVersionARN),
-            Just ("MinInferenceUnits" .= _sMinInferenceUnits)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ProjectVersionArn" Prelude..= projectVersionArn),
+            Prelude.Just
+              ("MinInferenceUnits" Prelude..= minInferenceUnits)
           ]
       )
 
-instance ToPath StartProjectVersion where
-  toPath = const "/"
+instance Prelude.ToPath StartProjectVersion where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartProjectVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery StartProjectVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startProjectVersionResponse' smart constructor.
+-- | /See:/ 'newStartProjectVersionResponse' smart constructor.
 data StartProjectVersionResponse = StartProjectVersionResponse'
-  { _spvrrsStatus ::
-      !( Maybe
-           ProjectVersionStatus
-       ),
-    _spvrrsResponseStatus ::
-      !Int
+  { -- | The current running status of the model.
+    status :: Prelude.Maybe ProjectVersionStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartProjectVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartProjectVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spvrrsStatus' - The current running status of the model.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spvrrsResponseStatus' - -- | The response status code.
-startProjectVersionResponse ::
-  -- | 'spvrrsResponseStatus'
-  Int ->
+-- 'status', 'startProjectVersionResponse_status' - The current running status of the model.
+--
+-- 'httpStatus', 'startProjectVersionResponse_httpStatus' - The response's http status code.
+newStartProjectVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartProjectVersionResponse
-startProjectVersionResponse pResponseStatus_ =
+newStartProjectVersionResponse pHttpStatus_ =
   StartProjectVersionResponse'
-    { _spvrrsStatus =
-        Nothing,
-      _spvrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current running status of the model.
-spvrrsStatus :: Lens' StartProjectVersionResponse (Maybe ProjectVersionStatus)
-spvrrsStatus = lens _spvrrsStatus (\s a -> s {_spvrrsStatus = a})
+startProjectVersionResponse_status :: Lens.Lens' StartProjectVersionResponse (Prelude.Maybe ProjectVersionStatus)
+startProjectVersionResponse_status = Lens.lens (\StartProjectVersionResponse' {status} -> status) (\s@StartProjectVersionResponse' {} a -> s {status = a} :: StartProjectVersionResponse)
 
--- | -- | The response status code.
-spvrrsResponseStatus :: Lens' StartProjectVersionResponse Int
-spvrrsResponseStatus = lens _spvrrsResponseStatus (\s a -> s {_spvrrsResponseStatus = a})
+-- | The response's http status code.
+startProjectVersionResponse_httpStatus :: Lens.Lens' StartProjectVersionResponse Prelude.Int
+startProjectVersionResponse_httpStatus = Lens.lens (\StartProjectVersionResponse' {httpStatus} -> httpStatus) (\s@StartProjectVersionResponse' {} a -> s {httpStatus = a} :: StartProjectVersionResponse)
 
-instance NFData StartProjectVersionResponse
+instance Prelude.NFData StartProjectVersionResponse

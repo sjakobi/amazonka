@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.GroundTruthManifest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.S3Object
 
--- | The S3 bucket that contains an Amazon Sagemaker Ground Truth format manifest file.
+-- | The S3 bucket that contains an Amazon Sagemaker Ground Truth format
+-- manifest file.
 --
---
---
--- /See:/ 'groundTruthManifest' smart constructor.
-newtype GroundTruthManifest = GroundTruthManifest'
-  { _gtmS3Object ::
-      Maybe S3Object
+-- /See:/ 'newGroundTruthManifest' smart constructor.
+data GroundTruthManifest = GroundTruthManifest'
+  { s3Object :: Prelude.Maybe S3Object
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GroundTruthManifest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GroundTruthManifest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtmS3Object' - Undocumented member.
-groundTruthManifest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Object', 'groundTruthManifest_s3Object' - Undocumented member.
+newGroundTruthManifest ::
   GroundTruthManifest
-groundTruthManifest =
-  GroundTruthManifest' {_gtmS3Object = Nothing}
+newGroundTruthManifest =
+  GroundTruthManifest' {s3Object = Prelude.Nothing}
 
 -- | Undocumented member.
-gtmS3Object :: Lens' GroundTruthManifest (Maybe S3Object)
-gtmS3Object = lens _gtmS3Object (\s a -> s {_gtmS3Object = a})
+groundTruthManifest_s3Object :: Lens.Lens' GroundTruthManifest (Prelude.Maybe S3Object)
+groundTruthManifest_s3Object = Lens.lens (\GroundTruthManifest' {s3Object} -> s3Object) (\s@GroundTruthManifest' {} a -> s {s3Object = a} :: GroundTruthManifest)
 
-instance FromJSON GroundTruthManifest where
+instance Prelude.FromJSON GroundTruthManifest where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GroundTruthManifest"
-      (\x -> GroundTruthManifest' <$> (x .:? "S3Object"))
+      ( \x ->
+          GroundTruthManifest'
+            Prelude.<$> (x Prelude..:? "S3Object")
+      )
 
-instance Hashable GroundTruthManifest
+instance Prelude.Hashable GroundTruthManifest
 
-instance NFData GroundTruthManifest
+instance Prelude.NFData GroundTruthManifest
 
-instance ToJSON GroundTruthManifest where
+instance Prelude.ToJSON GroundTruthManifest where
   toJSON GroundTruthManifest' {..} =
-    object
-      (catMaybes [("S3Object" .=) <$> _gtmS3Object])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("S3Object" Prelude..=) Prelude.<$> s3Object]
+      )

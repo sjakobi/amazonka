@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.AgeRange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Structure containing the estimated age range, in years, for a face.
 --
+-- Amazon Rekognition estimates an age range for faces detected in the
+-- input image. Estimated age ranges can overlap. A face of a 5-year-old
+-- might have an estimated range of 4-6, while the face of a 6-year-old
+-- might have an estimated range of 4-8.
 --
--- Amazon Rekognition estimates an age range for faces detected in the input image. Estimated age ranges can overlap. A face of a 5-year-old might have an estimated range of 4-6, while the face of a 6-year-old might have an estimated range of 4-8.
---
---
--- /See:/ 'ageRange' smart constructor.
+-- /See:/ 'newAgeRange' smart constructor.
 data AgeRange = AgeRange'
-  { _arHigh :: !(Maybe Nat),
-    _arLow :: !(Maybe Nat)
+  { -- | The highest estimated age.
+    high :: Prelude.Maybe Prelude.Nat,
+    -- | The lowest estimated age.
+    low :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AgeRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AgeRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'arHigh' - The highest estimated age.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'arLow' - The lowest estimated age.
-ageRange ::
+-- 'high', 'ageRange_high' - The highest estimated age.
+--
+-- 'low', 'ageRange_low' - The lowest estimated age.
+newAgeRange ::
   AgeRange
-ageRange =
-  AgeRange' {_arHigh = Nothing, _arLow = Nothing}
+newAgeRange =
+  AgeRange'
+    { high = Prelude.Nothing,
+      low = Prelude.Nothing
+    }
 
 -- | The highest estimated age.
-arHigh :: Lens' AgeRange (Maybe Natural)
-arHigh = lens _arHigh (\s a -> s {_arHigh = a}) . mapping _Nat
+ageRange_high :: Lens.Lens' AgeRange (Prelude.Maybe Prelude.Natural)
+ageRange_high = Lens.lens (\AgeRange' {high} -> high) (\s@AgeRange' {} a -> s {high = a} :: AgeRange) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The lowest estimated age.
-arLow :: Lens' AgeRange (Maybe Natural)
-arLow = lens _arLow (\s a -> s {_arLow = a}) . mapping _Nat
+ageRange_low :: Lens.Lens' AgeRange (Prelude.Maybe Prelude.Natural)
+ageRange_low = Lens.lens (\AgeRange' {low} -> low) (\s@AgeRange' {} a -> s {low = a} :: AgeRange) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON AgeRange where
+instance Prelude.FromJSON AgeRange where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AgeRange"
       ( \x ->
-          AgeRange' <$> (x .:? "High") <*> (x .:? "Low")
+          AgeRange'
+            Prelude.<$> (x Prelude..:? "High")
+            Prelude.<*> (x Prelude..:? "Low")
       )
 
-instance Hashable AgeRange
+instance Prelude.Hashable AgeRange
 
-instance NFData AgeRange
+instance Prelude.NFData AgeRange

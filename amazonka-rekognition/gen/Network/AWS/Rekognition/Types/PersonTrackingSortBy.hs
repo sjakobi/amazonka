@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Rekognition.Types.PersonTrackingSortBy
   ( PersonTrackingSortBy
       ( ..,
-        PTSBIndex,
-        PTSBTimestamp
+        PersonTrackingSortByINDEX,
+        PersonTrackingSortByTIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PersonTrackingSortBy
-  = PersonTrackingSortBy'
-      ( CI
-          Text
-      )
+newtype PersonTrackingSortBy = PersonTrackingSortBy'
+  { fromPersonTrackingSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PTSBIndex :: PersonTrackingSortBy
-pattern PTSBIndex = PersonTrackingSortBy' "INDEX"
+pattern PersonTrackingSortByINDEX :: PersonTrackingSortBy
+pattern PersonTrackingSortByINDEX = PersonTrackingSortBy' "INDEX"
 
-pattern PTSBTimestamp :: PersonTrackingSortBy
-pattern PTSBTimestamp = PersonTrackingSortBy' "TIMESTAMP"
+pattern PersonTrackingSortByTIMESTAMP :: PersonTrackingSortBy
+pattern PersonTrackingSortByTIMESTAMP = PersonTrackingSortBy' "TIMESTAMP"
 
 {-# COMPLETE
-  PTSBIndex,
-  PTSBTimestamp,
+  PersonTrackingSortByINDEX,
+  PersonTrackingSortByTIMESTAMP,
   PersonTrackingSortBy'
   #-}
 
-instance FromText PersonTrackingSortBy where
-  parser = (PersonTrackingSortBy' . mk) <$> takeText
+instance Prelude.FromText PersonTrackingSortBy where
+  parser = PersonTrackingSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText PersonTrackingSortBy where
-  toText (PersonTrackingSortBy' ci) = original ci
+instance Prelude.ToText PersonTrackingSortBy where
+  toText (PersonTrackingSortBy' x) = x
 
-instance Hashable PersonTrackingSortBy
+instance Prelude.Hashable PersonTrackingSortBy
 
-instance NFData PersonTrackingSortBy
+instance Prelude.NFData PersonTrackingSortBy
 
-instance ToByteString PersonTrackingSortBy
+instance Prelude.ToByteString PersonTrackingSortBy
 
-instance ToQuery PersonTrackingSortBy
+instance Prelude.ToQuery PersonTrackingSortBy
 
-instance ToHeader PersonTrackingSortBy
+instance Prelude.ToHeader PersonTrackingSortBy
 
-instance ToJSON PersonTrackingSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON PersonTrackingSortBy where
+  toJSON = Prelude.toJSONText

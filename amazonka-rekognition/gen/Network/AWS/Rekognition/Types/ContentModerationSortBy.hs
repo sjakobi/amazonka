@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Rekognition.Types.ContentModerationSortBy
   ( ContentModerationSortBy
       ( ..,
-        CMSBName,
-        CMSBTimestamp
+        ContentModerationSortByNAME,
+        ContentModerationSortByTIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContentModerationSortBy
-  = ContentModerationSortBy'
-      ( CI
-          Text
-      )
+newtype ContentModerationSortBy = ContentModerationSortBy'
+  { fromContentModerationSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CMSBName :: ContentModerationSortBy
-pattern CMSBName = ContentModerationSortBy' "NAME"
+pattern ContentModerationSortByNAME :: ContentModerationSortBy
+pattern ContentModerationSortByNAME = ContentModerationSortBy' "NAME"
 
-pattern CMSBTimestamp :: ContentModerationSortBy
-pattern CMSBTimestamp = ContentModerationSortBy' "TIMESTAMP"
+pattern ContentModerationSortByTIMESTAMP :: ContentModerationSortBy
+pattern ContentModerationSortByTIMESTAMP = ContentModerationSortBy' "TIMESTAMP"
 
 {-# COMPLETE
-  CMSBName,
-  CMSBTimestamp,
+  ContentModerationSortByNAME,
+  ContentModerationSortByTIMESTAMP,
   ContentModerationSortBy'
   #-}
 
-instance FromText ContentModerationSortBy where
-  parser = (ContentModerationSortBy' . mk) <$> takeText
+instance Prelude.FromText ContentModerationSortBy where
+  parser = ContentModerationSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText ContentModerationSortBy where
-  toText (ContentModerationSortBy' ci) = original ci
+instance Prelude.ToText ContentModerationSortBy where
+  toText (ContentModerationSortBy' x) = x
 
-instance Hashable ContentModerationSortBy
+instance Prelude.Hashable ContentModerationSortBy
 
-instance NFData ContentModerationSortBy
+instance Prelude.NFData ContentModerationSortBy
 
-instance ToByteString ContentModerationSortBy
+instance Prelude.ToByteString ContentModerationSortBy
 
-instance ToQuery ContentModerationSortBy
+instance Prelude.ToQuery ContentModerationSortBy
 
-instance ToHeader ContentModerationSortBy
+instance Prelude.ToHeader ContentModerationSortBy
 
-instance ToJSON ContentModerationSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContentModerationSortBy where
+  toJSON = Prelude.toJSONText

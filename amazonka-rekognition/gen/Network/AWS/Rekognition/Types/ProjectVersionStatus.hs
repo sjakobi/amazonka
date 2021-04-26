@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,90 @@
 module Network.AWS.Rekognition.Types.ProjectVersionStatus
   ( ProjectVersionStatus
       ( ..,
-        PVSDeleting,
-        PVSFailed,
-        PVSRunning,
-        PVSStarting,
-        PVSStopped,
-        PVSStopping,
-        PVSTrainingCompleted,
-        PVSTrainingFailed,
-        PVSTrainingInProgress
+        ProjectVersionStatusDELETING,
+        ProjectVersionStatusFAILED,
+        ProjectVersionStatusRUNNING,
+        ProjectVersionStatusSTARTING,
+        ProjectVersionStatusSTOPPED,
+        ProjectVersionStatusSTOPPING,
+        ProjectVersionStatusTRAININGCOMPLETED,
+        ProjectVersionStatusTRAININGFAILED,
+        ProjectVersionStatusTRAININGINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProjectVersionStatus
-  = ProjectVersionStatus'
-      ( CI
-          Text
-      )
+newtype ProjectVersionStatus = ProjectVersionStatus'
+  { fromProjectVersionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PVSDeleting :: ProjectVersionStatus
-pattern PVSDeleting = ProjectVersionStatus' "DELETING"
+pattern ProjectVersionStatusDELETING :: ProjectVersionStatus
+pattern ProjectVersionStatusDELETING = ProjectVersionStatus' "DELETING"
 
-pattern PVSFailed :: ProjectVersionStatus
-pattern PVSFailed = ProjectVersionStatus' "FAILED"
+pattern ProjectVersionStatusFAILED :: ProjectVersionStatus
+pattern ProjectVersionStatusFAILED = ProjectVersionStatus' "FAILED"
 
-pattern PVSRunning :: ProjectVersionStatus
-pattern PVSRunning = ProjectVersionStatus' "RUNNING"
+pattern ProjectVersionStatusRUNNING :: ProjectVersionStatus
+pattern ProjectVersionStatusRUNNING = ProjectVersionStatus' "RUNNING"
 
-pattern PVSStarting :: ProjectVersionStatus
-pattern PVSStarting = ProjectVersionStatus' "STARTING"
+pattern ProjectVersionStatusSTARTING :: ProjectVersionStatus
+pattern ProjectVersionStatusSTARTING = ProjectVersionStatus' "STARTING"
 
-pattern PVSStopped :: ProjectVersionStatus
-pattern PVSStopped = ProjectVersionStatus' "STOPPED"
+pattern ProjectVersionStatusSTOPPED :: ProjectVersionStatus
+pattern ProjectVersionStatusSTOPPED = ProjectVersionStatus' "STOPPED"
 
-pattern PVSStopping :: ProjectVersionStatus
-pattern PVSStopping = ProjectVersionStatus' "STOPPING"
+pattern ProjectVersionStatusSTOPPING :: ProjectVersionStatus
+pattern ProjectVersionStatusSTOPPING = ProjectVersionStatus' "STOPPING"
 
-pattern PVSTrainingCompleted :: ProjectVersionStatus
-pattern PVSTrainingCompleted = ProjectVersionStatus' "TRAINING_COMPLETED"
+pattern ProjectVersionStatusTRAININGCOMPLETED :: ProjectVersionStatus
+pattern ProjectVersionStatusTRAININGCOMPLETED = ProjectVersionStatus' "TRAINING_COMPLETED"
 
-pattern PVSTrainingFailed :: ProjectVersionStatus
-pattern PVSTrainingFailed = ProjectVersionStatus' "TRAINING_FAILED"
+pattern ProjectVersionStatusTRAININGFAILED :: ProjectVersionStatus
+pattern ProjectVersionStatusTRAININGFAILED = ProjectVersionStatus' "TRAINING_FAILED"
 
-pattern PVSTrainingInProgress :: ProjectVersionStatus
-pattern PVSTrainingInProgress = ProjectVersionStatus' "TRAINING_IN_PROGRESS"
+pattern ProjectVersionStatusTRAININGINPROGRESS :: ProjectVersionStatus
+pattern ProjectVersionStatusTRAININGINPROGRESS = ProjectVersionStatus' "TRAINING_IN_PROGRESS"
 
 {-# COMPLETE
-  PVSDeleting,
-  PVSFailed,
-  PVSRunning,
-  PVSStarting,
-  PVSStopped,
-  PVSStopping,
-  PVSTrainingCompleted,
-  PVSTrainingFailed,
-  PVSTrainingInProgress,
+  ProjectVersionStatusDELETING,
+  ProjectVersionStatusFAILED,
+  ProjectVersionStatusRUNNING,
+  ProjectVersionStatusSTARTING,
+  ProjectVersionStatusSTOPPED,
+  ProjectVersionStatusSTOPPING,
+  ProjectVersionStatusTRAININGCOMPLETED,
+  ProjectVersionStatusTRAININGFAILED,
+  ProjectVersionStatusTRAININGINPROGRESS,
   ProjectVersionStatus'
   #-}
 
-instance FromText ProjectVersionStatus where
-  parser = (ProjectVersionStatus' . mk) <$> takeText
+instance Prelude.FromText ProjectVersionStatus where
+  parser = ProjectVersionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ProjectVersionStatus where
-  toText (ProjectVersionStatus' ci) = original ci
+instance Prelude.ToText ProjectVersionStatus where
+  toText (ProjectVersionStatus' x) = x
 
-instance Hashable ProjectVersionStatus
+instance Prelude.Hashable ProjectVersionStatus
 
-instance NFData ProjectVersionStatus
+instance Prelude.NFData ProjectVersionStatus
 
-instance ToByteString ProjectVersionStatus
+instance Prelude.ToByteString ProjectVersionStatus
 
-instance ToQuery ProjectVersionStatus
+instance Prelude.ToQuery ProjectVersionStatus
 
-instance ToHeader ProjectVersionStatus
+instance Prelude.ToHeader ProjectVersionStatus
 
-instance FromJSON ProjectVersionStatus where
-  parseJSON = parseJSONText "ProjectVersionStatus"
+instance Prelude.FromJSON ProjectVersionStatus where
+  parseJSON = Prelude.parseJSONText "ProjectVersionStatus"

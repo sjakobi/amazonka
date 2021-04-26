@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,102 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.CelebrityDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.BoundingBox
 import Network.AWS.Rekognition.Types.FaceDetail
 
 -- | Information about a recognized celebrity.
 --
---
---
--- /See:/ 'celebrityDetail' smart constructor.
+-- /See:/ 'newCelebrityDetail' smart constructor.
 data CelebrityDetail = CelebrityDetail'
-  { _cdURLs ::
-      !(Maybe [Text]),
-    _cdId :: !(Maybe Text),
-    _cdBoundingBox :: !(Maybe BoundingBox),
-    _cdName :: !(Maybe Text),
-    _cdConfidence :: !(Maybe Double),
-    _cdFace :: !(Maybe FaceDetail)
+  { -- | An array of URLs pointing to additional celebrity information.
+    urls :: Prelude.Maybe [Prelude.Text],
+    -- | The unique identifier for the celebrity.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Bounding box around the body of a celebrity.
+    boundingBox :: Prelude.Maybe BoundingBox,
+    -- | The name of the celebrity.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The confidence, in percentage, that Amazon Rekognition has that the
+    -- recognized face is the celebrity.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | Face details for the recognized celebrity.
+    face :: Prelude.Maybe FaceDetail
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CelebrityDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CelebrityDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdURLs' - An array of URLs pointing to additional celebrity information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdId' - The unique identifier for the celebrity.
+-- 'urls', 'celebrityDetail_urls' - An array of URLs pointing to additional celebrity information.
 --
--- * 'cdBoundingBox' - Bounding box around the body of a celebrity.
+-- 'id', 'celebrityDetail_id' - The unique identifier for the celebrity.
 --
--- * 'cdName' - The name of the celebrity.
+-- 'boundingBox', 'celebrityDetail_boundingBox' - Bounding box around the body of a celebrity.
 --
--- * 'cdConfidence' - The confidence, in percentage, that Amazon Rekognition has that the recognized face is the celebrity.
+-- 'name', 'celebrityDetail_name' - The name of the celebrity.
 --
--- * 'cdFace' - Face details for the recognized celebrity.
-celebrityDetail ::
+-- 'confidence', 'celebrityDetail_confidence' - The confidence, in percentage, that Amazon Rekognition has that the
+-- recognized face is the celebrity.
+--
+-- 'face', 'celebrityDetail_face' - Face details for the recognized celebrity.
+newCelebrityDetail ::
   CelebrityDetail
-celebrityDetail =
+newCelebrityDetail =
   CelebrityDetail'
-    { _cdURLs = Nothing,
-      _cdId = Nothing,
-      _cdBoundingBox = Nothing,
-      _cdName = Nothing,
-      _cdConfidence = Nothing,
-      _cdFace = Nothing
+    { urls = Prelude.Nothing,
+      id = Prelude.Nothing,
+      boundingBox = Prelude.Nothing,
+      name = Prelude.Nothing,
+      confidence = Prelude.Nothing,
+      face = Prelude.Nothing
     }
 
 -- | An array of URLs pointing to additional celebrity information.
-cdURLs :: Lens' CelebrityDetail [Text]
-cdURLs = lens _cdURLs (\s a -> s {_cdURLs = a}) . _Default . _Coerce
+celebrityDetail_urls :: Lens.Lens' CelebrityDetail (Prelude.Maybe [Prelude.Text])
+celebrityDetail_urls = Lens.lens (\CelebrityDetail' {urls} -> urls) (\s@CelebrityDetail' {} a -> s {urls = a} :: CelebrityDetail) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The unique identifier for the celebrity.
-cdId :: Lens' CelebrityDetail (Maybe Text)
-cdId = lens _cdId (\s a -> s {_cdId = a})
+celebrityDetail_id :: Lens.Lens' CelebrityDetail (Prelude.Maybe Prelude.Text)
+celebrityDetail_id = Lens.lens (\CelebrityDetail' {id} -> id) (\s@CelebrityDetail' {} a -> s {id = a} :: CelebrityDetail)
 
 -- | Bounding box around the body of a celebrity.
-cdBoundingBox :: Lens' CelebrityDetail (Maybe BoundingBox)
-cdBoundingBox = lens _cdBoundingBox (\s a -> s {_cdBoundingBox = a})
+celebrityDetail_boundingBox :: Lens.Lens' CelebrityDetail (Prelude.Maybe BoundingBox)
+celebrityDetail_boundingBox = Lens.lens (\CelebrityDetail' {boundingBox} -> boundingBox) (\s@CelebrityDetail' {} a -> s {boundingBox = a} :: CelebrityDetail)
 
 -- | The name of the celebrity.
-cdName :: Lens' CelebrityDetail (Maybe Text)
-cdName = lens _cdName (\s a -> s {_cdName = a})
+celebrityDetail_name :: Lens.Lens' CelebrityDetail (Prelude.Maybe Prelude.Text)
+celebrityDetail_name = Lens.lens (\CelebrityDetail' {name} -> name) (\s@CelebrityDetail' {} a -> s {name = a} :: CelebrityDetail)
 
--- | The confidence, in percentage, that Amazon Rekognition has that the recognized face is the celebrity.
-cdConfidence :: Lens' CelebrityDetail (Maybe Double)
-cdConfidence = lens _cdConfidence (\s a -> s {_cdConfidence = a})
+-- | The confidence, in percentage, that Amazon Rekognition has that the
+-- recognized face is the celebrity.
+celebrityDetail_confidence :: Lens.Lens' CelebrityDetail (Prelude.Maybe Prelude.Double)
+celebrityDetail_confidence = Lens.lens (\CelebrityDetail' {confidence} -> confidence) (\s@CelebrityDetail' {} a -> s {confidence = a} :: CelebrityDetail)
 
 -- | Face details for the recognized celebrity.
-cdFace :: Lens' CelebrityDetail (Maybe FaceDetail)
-cdFace = lens _cdFace (\s a -> s {_cdFace = a})
+celebrityDetail_face :: Lens.Lens' CelebrityDetail (Prelude.Maybe FaceDetail)
+celebrityDetail_face = Lens.lens (\CelebrityDetail' {face} -> face) (\s@CelebrityDetail' {} a -> s {face = a} :: CelebrityDetail)
 
-instance FromJSON CelebrityDetail where
+instance Prelude.FromJSON CelebrityDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CelebrityDetail"
       ( \x ->
           CelebrityDetail'
-            <$> (x .:? "Urls" .!= mempty)
-            <*> (x .:? "Id")
-            <*> (x .:? "BoundingBox")
-            <*> (x .:? "Name")
-            <*> (x .:? "Confidence")
-            <*> (x .:? "Face")
+            Prelude.<$> (x Prelude..:? "Urls" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "BoundingBox")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Confidence")
+            Prelude.<*> (x Prelude..:? "Face")
       )
 
-instance Hashable CelebrityDetail
+instance Prelude.Hashable CelebrityDetail
 
-instance NFData CelebrityDetail
+instance Prelude.NFData CelebrityDetail

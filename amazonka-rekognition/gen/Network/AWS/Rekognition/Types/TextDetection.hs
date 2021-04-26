@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,98 +19,131 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.TextDetection where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.Geometry
 import Network.AWS.Rekognition.Types.TextTypes
 
--- | Information about a word or line of text detected by 'DetectText' .
+-- | Information about a word or line of text detected by DetectText.
 --
+-- The @DetectedText@ field contains the text that Amazon Rekognition
+-- detected in the image.
 --
--- The @DetectedText@ field contains the text that Amazon Rekognition detected in the image.
+-- Every word and line has an identifier (@Id@). Each word belongs to a
+-- line and has a parent identifier (@ParentId@) that identifies the line
+-- of text in which the word appears. The word @Id@ is also an index for
+-- the word within a line of words.
 --
--- Every word and line has an identifier (@Id@ ). Each word belongs to a line and has a parent identifier (@ParentId@ ) that identifies the line of text in which the word appears. The word @Id@ is also an index for the word within a line of words.
+-- For more information, see Detecting Text in the Amazon Rekognition
+-- Developer Guide.
 --
--- For more information, see Detecting Text in the Amazon Rekognition Developer Guide.
---
---
--- /See:/ 'textDetection' smart constructor.
+-- /See:/ 'newTextDetection' smart constructor.
 data TextDetection = TextDetection'
-  { _tdDetectedText ::
-      !(Maybe Text),
-    _tdId :: !(Maybe Nat),
-    _tdConfidence :: !(Maybe Double),
-    _tdParentId :: !(Maybe Nat),
-    _tdType :: !(Maybe TextTypes),
-    _tdGeometry :: !(Maybe Geometry)
+  { -- | The word or line of text recognized by Amazon Rekognition.
+    detectedText :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the detected text. The identifier is only unique for
+    -- a single call to @DetectText@.
+    id :: Prelude.Maybe Prelude.Nat,
+    -- | The confidence that Amazon Rekognition has in the accuracy of the
+    -- detected text and the accuracy of the geometry points around the
+    -- detected text.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | The Parent identifier for the detected text identified by the value of
+    -- @ID@. If the type of detected text is @LINE@, the value of @ParentId@ is
+    -- @Null@.
+    parentId :: Prelude.Maybe Prelude.Nat,
+    -- | The type of text that was detected.
+    type' :: Prelude.Maybe TextTypes,
+    -- | The location of the detected text on the image. Includes an axis aligned
+    -- coarse bounding box surrounding the text and a finer grain polygon for
+    -- more accurate spatial information.
+    geometry :: Prelude.Maybe Geometry
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TextDetection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TextDetection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdDetectedText' - The word or line of text recognized by Amazon Rekognition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdId' - The identifier for the detected text. The identifier is only unique for a single call to @DetectText@ .
+-- 'detectedText', 'textDetection_detectedText' - The word or line of text recognized by Amazon Rekognition.
 --
--- * 'tdConfidence' - The confidence that Amazon Rekognition has in the accuracy of the detected text and the accuracy of the geometry points around the detected text.
+-- 'id', 'textDetection_id' - The identifier for the detected text. The identifier is only unique for
+-- a single call to @DetectText@.
 --
--- * 'tdParentId' - The Parent identifier for the detected text identified by the value of @ID@ . If the type of detected text is @LINE@ , the value of @ParentId@ is @Null@ .
+-- 'confidence', 'textDetection_confidence' - The confidence that Amazon Rekognition has in the accuracy of the
+-- detected text and the accuracy of the geometry points around the
+-- detected text.
 --
--- * 'tdType' - The type of text that was detected.
+-- 'parentId', 'textDetection_parentId' - The Parent identifier for the detected text identified by the value of
+-- @ID@. If the type of detected text is @LINE@, the value of @ParentId@ is
+-- @Null@.
 --
--- * 'tdGeometry' - The location of the detected text on the image. Includes an axis aligned coarse bounding box surrounding the text and a finer grain polygon for more accurate spatial information.
-textDetection ::
+-- 'type'', 'textDetection_type' - The type of text that was detected.
+--
+-- 'geometry', 'textDetection_geometry' - The location of the detected text on the image. Includes an axis aligned
+-- coarse bounding box surrounding the text and a finer grain polygon for
+-- more accurate spatial information.
+newTextDetection ::
   TextDetection
-textDetection =
+newTextDetection =
   TextDetection'
-    { _tdDetectedText = Nothing,
-      _tdId = Nothing,
-      _tdConfidence = Nothing,
-      _tdParentId = Nothing,
-      _tdType = Nothing,
-      _tdGeometry = Nothing
+    { detectedText = Prelude.Nothing,
+      id = Prelude.Nothing,
+      confidence = Prelude.Nothing,
+      parentId = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      geometry = Prelude.Nothing
     }
 
 -- | The word or line of text recognized by Amazon Rekognition.
-tdDetectedText :: Lens' TextDetection (Maybe Text)
-tdDetectedText = lens _tdDetectedText (\s a -> s {_tdDetectedText = a})
+textDetection_detectedText :: Lens.Lens' TextDetection (Prelude.Maybe Prelude.Text)
+textDetection_detectedText = Lens.lens (\TextDetection' {detectedText} -> detectedText) (\s@TextDetection' {} a -> s {detectedText = a} :: TextDetection)
 
--- | The identifier for the detected text. The identifier is only unique for a single call to @DetectText@ .
-tdId :: Lens' TextDetection (Maybe Natural)
-tdId = lens _tdId (\s a -> s {_tdId = a}) . mapping _Nat
+-- | The identifier for the detected text. The identifier is only unique for
+-- a single call to @DetectText@.
+textDetection_id :: Lens.Lens' TextDetection (Prelude.Maybe Prelude.Natural)
+textDetection_id = Lens.lens (\TextDetection' {id} -> id) (\s@TextDetection' {} a -> s {id = a} :: TextDetection) Prelude.. Lens.mapping Prelude._Nat
 
--- | The confidence that Amazon Rekognition has in the accuracy of the detected text and the accuracy of the geometry points around the detected text.
-tdConfidence :: Lens' TextDetection (Maybe Double)
-tdConfidence = lens _tdConfidence (\s a -> s {_tdConfidence = a})
+-- | The confidence that Amazon Rekognition has in the accuracy of the
+-- detected text and the accuracy of the geometry points around the
+-- detected text.
+textDetection_confidence :: Lens.Lens' TextDetection (Prelude.Maybe Prelude.Double)
+textDetection_confidence = Lens.lens (\TextDetection' {confidence} -> confidence) (\s@TextDetection' {} a -> s {confidence = a} :: TextDetection)
 
--- | The Parent identifier for the detected text identified by the value of @ID@ . If the type of detected text is @LINE@ , the value of @ParentId@ is @Null@ .
-tdParentId :: Lens' TextDetection (Maybe Natural)
-tdParentId = lens _tdParentId (\s a -> s {_tdParentId = a}) . mapping _Nat
+-- | The Parent identifier for the detected text identified by the value of
+-- @ID@. If the type of detected text is @LINE@, the value of @ParentId@ is
+-- @Null@.
+textDetection_parentId :: Lens.Lens' TextDetection (Prelude.Maybe Prelude.Natural)
+textDetection_parentId = Lens.lens (\TextDetection' {parentId} -> parentId) (\s@TextDetection' {} a -> s {parentId = a} :: TextDetection) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The type of text that was detected.
-tdType :: Lens' TextDetection (Maybe TextTypes)
-tdType = lens _tdType (\s a -> s {_tdType = a})
+textDetection_type :: Lens.Lens' TextDetection (Prelude.Maybe TextTypes)
+textDetection_type = Lens.lens (\TextDetection' {type'} -> type') (\s@TextDetection' {} a -> s {type' = a} :: TextDetection)
 
--- | The location of the detected text on the image. Includes an axis aligned coarse bounding box surrounding the text and a finer grain polygon for more accurate spatial information.
-tdGeometry :: Lens' TextDetection (Maybe Geometry)
-tdGeometry = lens _tdGeometry (\s a -> s {_tdGeometry = a})
+-- | The location of the detected text on the image. Includes an axis aligned
+-- coarse bounding box surrounding the text and a finer grain polygon for
+-- more accurate spatial information.
+textDetection_geometry :: Lens.Lens' TextDetection (Prelude.Maybe Geometry)
+textDetection_geometry = Lens.lens (\TextDetection' {geometry} -> geometry) (\s@TextDetection' {} a -> s {geometry = a} :: TextDetection)
 
-instance FromJSON TextDetection where
+instance Prelude.FromJSON TextDetection where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TextDetection"
       ( \x ->
           TextDetection'
-            <$> (x .:? "DetectedText")
-            <*> (x .:? "Id")
-            <*> (x .:? "Confidence")
-            <*> (x .:? "ParentId")
-            <*> (x .:? "Type")
-            <*> (x .:? "Geometry")
+            Prelude.<$> (x Prelude..:? "DetectedText")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Confidence")
+            Prelude.<*> (x Prelude..:? "ParentId")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "Geometry")
       )
 
-instance Hashable TextDetection
+instance Prelude.Hashable TextDetection
 
-instance NFData TextDetection
+instance Prelude.NFData TextDetection

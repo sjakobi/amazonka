@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,42 +19,50 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.RegionOfInterest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.BoundingBox
 
--- | Specifies a location within the frame that Rekognition checks for text. Uses a @BoundingBox@ object to set a region of the screen.
+-- | Specifies a location within the frame that Rekognition checks for text.
+-- Uses a @BoundingBox@ object to set a region of the screen.
 --
+-- A word is included in the region if the word is more than half in that
+-- region. If there is more than one region, the word will be compared with
+-- all regions of the screen. Any word more than half in a region is kept
+-- in the results.
 --
--- A word is included in the region if the word is more than half in that region. If there is more than one region, the word will be compared with all regions of the screen. Any word more than half in a region is kept in the results.
---
---
--- /See:/ 'regionOfInterest' smart constructor.
-newtype RegionOfInterest = RegionOfInterest'
-  { _roiBoundingBox ::
-      Maybe BoundingBox
+-- /See:/ 'newRegionOfInterest' smart constructor.
+data RegionOfInterest = RegionOfInterest'
+  { -- | The box representing a region of interest on screen.
+    boundingBox :: Prelude.Maybe BoundingBox
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegionOfInterest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegionOfInterest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'roiBoundingBox' - The box representing a region of interest on screen.
-regionOfInterest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'boundingBox', 'regionOfInterest_boundingBox' - The box representing a region of interest on screen.
+newRegionOfInterest ::
   RegionOfInterest
-regionOfInterest =
-  RegionOfInterest' {_roiBoundingBox = Nothing}
+newRegionOfInterest =
+  RegionOfInterest' {boundingBox = Prelude.Nothing}
 
 -- | The box representing a region of interest on screen.
-roiBoundingBox :: Lens' RegionOfInterest (Maybe BoundingBox)
-roiBoundingBox = lens _roiBoundingBox (\s a -> s {_roiBoundingBox = a})
+regionOfInterest_boundingBox :: Lens.Lens' RegionOfInterest (Prelude.Maybe BoundingBox)
+regionOfInterest_boundingBox = Lens.lens (\RegionOfInterest' {boundingBox} -> boundingBox) (\s@RegionOfInterest' {} a -> s {boundingBox = a} :: RegionOfInterest)
 
-instance Hashable RegionOfInterest
+instance Prelude.Hashable RegionOfInterest
 
-instance NFData RegionOfInterest
+instance Prelude.NFData RegionOfInterest
 
-instance ToJSON RegionOfInterest where
+instance Prelude.ToJSON RegionOfInterest where
   toJSON RegionOfInterest' {..} =
-    object
-      (catMaybes [("BoundingBox" .=) <$> _roiBoundingBox])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("BoundingBox" Prelude..=) Prelude.<$> boundingBox]
+      )

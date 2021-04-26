@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Rekognition.Types.GenderType
   ( GenderType
       ( ..,
-        Female,
-        Male
+        GenderTypeFemale,
+        GenderTypeMale
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GenderType = GenderType' (CI Text)
+newtype GenderType = GenderType'
+  { fromGenderType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Female :: GenderType
-pattern Female = GenderType' "Female"
+pattern GenderTypeFemale :: GenderType
+pattern GenderTypeFemale = GenderType' "Female"
 
-pattern Male :: GenderType
-pattern Male = GenderType' "Male"
+pattern GenderTypeMale :: GenderType
+pattern GenderTypeMale = GenderType' "Male"
 
 {-# COMPLETE
-  Female,
-  Male,
+  GenderTypeFemale,
+  GenderTypeMale,
   GenderType'
   #-}
 
-instance FromText GenderType where
-  parser = (GenderType' . mk) <$> takeText
+instance Prelude.FromText GenderType where
+  parser = GenderType' Prelude.<$> Prelude.takeText
 
-instance ToText GenderType where
-  toText (GenderType' ci) = original ci
+instance Prelude.ToText GenderType where
+  toText (GenderType' x) = x
 
-instance Hashable GenderType
+instance Prelude.Hashable GenderType
 
-instance NFData GenderType
+instance Prelude.NFData GenderType
 
-instance ToByteString GenderType
+instance Prelude.ToByteString GenderType
 
-instance ToQuery GenderType
+instance Prelude.ToQuery GenderType
 
-instance ToHeader GenderType
+instance Prelude.ToHeader GenderType
 
-instance FromJSON GenderType where
-  parseJSON = parseJSONText "GenderType"
+instance Prelude.FromJSON GenderType where
+  parseJSON = Prelude.parseJSONText "GenderType"

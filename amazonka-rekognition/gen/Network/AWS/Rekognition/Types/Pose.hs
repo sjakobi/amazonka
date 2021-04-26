@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.Pose where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates the pose of the face as determined by its pitch, roll, and yaw.
+-- | Indicates the pose of the face as determined by its pitch, roll, and
+-- yaw.
 --
---
---
--- /See:/ 'pose' smart constructor.
+-- /See:/ 'newPose' smart constructor.
 data Pose = Pose'
-  { _pYaw :: !(Maybe Double),
-    _pPitch :: !(Maybe Double),
-    _pRoll :: !(Maybe Double)
+  { -- | Value representing the face rotation on the yaw axis.
+    yaw :: Prelude.Maybe Prelude.Double,
+    -- | Value representing the face rotation on the pitch axis.
+    pitch :: Prelude.Maybe Prelude.Double,
+    -- | Value representing the face rotation on the roll axis.
+    roll :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Pose' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Pose' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pYaw' - Value representing the face rotation on the yaw axis.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pPitch' - Value representing the face rotation on the pitch axis.
+-- 'yaw', 'pose_yaw' - Value representing the face rotation on the yaw axis.
 --
--- * 'pRoll' - Value representing the face rotation on the roll axis.
-pose ::
+-- 'pitch', 'pose_pitch' - Value representing the face rotation on the pitch axis.
+--
+-- 'roll', 'pose_roll' - Value representing the face rotation on the roll axis.
+newPose ::
   Pose
-pose =
+newPose =
   Pose'
-    { _pYaw = Nothing,
-      _pPitch = Nothing,
-      _pRoll = Nothing
+    { yaw = Prelude.Nothing,
+      pitch = Prelude.Nothing,
+      roll = Prelude.Nothing
     }
 
 -- | Value representing the face rotation on the yaw axis.
-pYaw :: Lens' Pose (Maybe Double)
-pYaw = lens _pYaw (\s a -> s {_pYaw = a})
+pose_yaw :: Lens.Lens' Pose (Prelude.Maybe Prelude.Double)
+pose_yaw = Lens.lens (\Pose' {yaw} -> yaw) (\s@Pose' {} a -> s {yaw = a} :: Pose)
 
 -- | Value representing the face rotation on the pitch axis.
-pPitch :: Lens' Pose (Maybe Double)
-pPitch = lens _pPitch (\s a -> s {_pPitch = a})
+pose_pitch :: Lens.Lens' Pose (Prelude.Maybe Prelude.Double)
+pose_pitch = Lens.lens (\Pose' {pitch} -> pitch) (\s@Pose' {} a -> s {pitch = a} :: Pose)
 
 -- | Value representing the face rotation on the roll axis.
-pRoll :: Lens' Pose (Maybe Double)
-pRoll = lens _pRoll (\s a -> s {_pRoll = a})
+pose_roll :: Lens.Lens' Pose (Prelude.Maybe Prelude.Double)
+pose_roll = Lens.lens (\Pose' {roll} -> roll) (\s@Pose' {} a -> s {roll = a} :: Pose)
 
-instance FromJSON Pose where
+instance Prelude.FromJSON Pose where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Pose"
       ( \x ->
           Pose'
-            <$> (x .:? "Yaw") <*> (x .:? "Pitch") <*> (x .:? "Roll")
+            Prelude.<$> (x Prelude..:? "Yaw")
+            Prelude.<*> (x Prelude..:? "Pitch")
+            Prelude.<*> (x Prelude..:? "Roll")
       )
 
-instance Hashable Pose
+instance Prelude.Hashable Pose
 
-instance NFData Pose
+instance Prelude.NFData Pose

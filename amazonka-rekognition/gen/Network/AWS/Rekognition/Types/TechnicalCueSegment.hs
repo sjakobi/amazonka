@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.TechnicalCueSegment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.TechnicalCueType
 
--- | Information about a technical cue segment. For more information, see 'SegmentDetection' .
+-- | Information about a technical cue segment. For more information, see
+-- SegmentDetection.
 --
---
---
--- /See:/ 'technicalCueSegment' smart constructor.
+-- /See:/ 'newTechnicalCueSegment' smart constructor.
 data TechnicalCueSegment = TechnicalCueSegment'
-  { _tcsConfidence ::
-      !(Maybe Double),
-    _tcsType ::
-      !(Maybe TechnicalCueType)
+  { -- | The confidence that Amazon Rekognition Video has in the accuracy of the
+    -- detected segment.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | The type of the technical cue.
+    type' :: Prelude.Maybe TechnicalCueType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TechnicalCueSegment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TechnicalCueSegment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcsConfidence' - The confidence that Amazon Rekognition Video has in the accuracy of the detected segment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcsType' - The type of the technical cue.
-technicalCueSegment ::
+-- 'confidence', 'technicalCueSegment_confidence' - The confidence that Amazon Rekognition Video has in the accuracy of the
+-- detected segment.
+--
+-- 'type'', 'technicalCueSegment_type' - The type of the technical cue.
+newTechnicalCueSegment ::
   TechnicalCueSegment
-technicalCueSegment =
+newTechnicalCueSegment =
   TechnicalCueSegment'
-    { _tcsConfidence = Nothing,
-      _tcsType = Nothing
+    { confidence = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The confidence that Amazon Rekognition Video has in the accuracy of the detected segment.
-tcsConfidence :: Lens' TechnicalCueSegment (Maybe Double)
-tcsConfidence = lens _tcsConfidence (\s a -> s {_tcsConfidence = a})
+-- | The confidence that Amazon Rekognition Video has in the accuracy of the
+-- detected segment.
+technicalCueSegment_confidence :: Lens.Lens' TechnicalCueSegment (Prelude.Maybe Prelude.Double)
+technicalCueSegment_confidence = Lens.lens (\TechnicalCueSegment' {confidence} -> confidence) (\s@TechnicalCueSegment' {} a -> s {confidence = a} :: TechnicalCueSegment)
 
 -- | The type of the technical cue.
-tcsType :: Lens' TechnicalCueSegment (Maybe TechnicalCueType)
-tcsType = lens _tcsType (\s a -> s {_tcsType = a})
+technicalCueSegment_type :: Lens.Lens' TechnicalCueSegment (Prelude.Maybe TechnicalCueType)
+technicalCueSegment_type = Lens.lens (\TechnicalCueSegment' {type'} -> type') (\s@TechnicalCueSegment' {} a -> s {type' = a} :: TechnicalCueSegment)
 
-instance FromJSON TechnicalCueSegment where
+instance Prelude.FromJSON TechnicalCueSegment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TechnicalCueSegment"
       ( \x ->
           TechnicalCueSegment'
-            <$> (x .:? "Confidence") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Confidence")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable TechnicalCueSegment
+instance Prelude.Hashable TechnicalCueSegment
 
-instance NFData TechnicalCueSegment
+instance Prelude.NFData TechnicalCueSegment

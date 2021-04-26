@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.Geometry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.BoundingBox
 import Network.AWS.Rekognition.Types.Point
 
--- | Information about where an object ('DetectCustomLabels' ) or text ('DetectText' ) is located on an image.
+-- | Information about where an object (DetectCustomLabels) or text
+-- (DetectText) is located on an image.
 --
---
---
--- /See:/ 'geometry' smart constructor.
+-- /See:/ 'newGeometry' smart constructor.
 data Geometry = Geometry'
-  { _gPolygon ::
-      !(Maybe [Point]),
-    _gBoundingBox :: !(Maybe BoundingBox)
+  { -- | Within the bounding box, a fine-grained polygon around the detected
+    -- item.
+    polygon :: Prelude.Maybe [Point],
+    -- | An axis-aligned coarse representation of the detected item\'s location
+    -- on the image.
+    boundingBox :: Prelude.Maybe BoundingBox
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Geometry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Geometry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gPolygon' - Within the bounding box, a fine-grained polygon around the detected item.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gBoundingBox' - An axis-aligned coarse representation of the detected item's location on the image.
-geometry ::
+-- 'polygon', 'geometry_polygon' - Within the bounding box, a fine-grained polygon around the detected
+-- item.
+--
+-- 'boundingBox', 'geometry_boundingBox' - An axis-aligned coarse representation of the detected item\'s location
+-- on the image.
+newGeometry ::
   Geometry
-geometry =
+newGeometry =
   Geometry'
-    { _gPolygon = Nothing,
-      _gBoundingBox = Nothing
+    { polygon = Prelude.Nothing,
+      boundingBox = Prelude.Nothing
     }
 
--- | Within the bounding box, a fine-grained polygon around the detected item.
-gPolygon :: Lens' Geometry [Point]
-gPolygon = lens _gPolygon (\s a -> s {_gPolygon = a}) . _Default . _Coerce
+-- | Within the bounding box, a fine-grained polygon around the detected
+-- item.
+geometry_polygon :: Lens.Lens' Geometry (Prelude.Maybe [Point])
+geometry_polygon = Lens.lens (\Geometry' {polygon} -> polygon) (\s@Geometry' {} a -> s {polygon = a} :: Geometry) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An axis-aligned coarse representation of the detected item's location on the image.
-gBoundingBox :: Lens' Geometry (Maybe BoundingBox)
-gBoundingBox = lens _gBoundingBox (\s a -> s {_gBoundingBox = a})
+-- | An axis-aligned coarse representation of the detected item\'s location
+-- on the image.
+geometry_boundingBox :: Lens.Lens' Geometry (Prelude.Maybe BoundingBox)
+geometry_boundingBox = Lens.lens (\Geometry' {boundingBox} -> boundingBox) (\s@Geometry' {} a -> s {boundingBox = a} :: Geometry)
 
-instance FromJSON Geometry where
+instance Prelude.FromJSON Geometry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Geometry"
       ( \x ->
           Geometry'
-            <$> (x .:? "Polygon" .!= mempty)
-            <*> (x .:? "BoundingBox")
+            Prelude.<$> (x Prelude..:? "Polygon" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "BoundingBox")
       )
 
-instance Hashable Geometry
+instance Prelude.Hashable Geometry
 
-instance NFData Geometry
+instance Prelude.NFData Geometry

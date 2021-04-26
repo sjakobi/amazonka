@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,148 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new Amazon Rekognition Custom Labels project. A project is a logical grouping of resources (images, Labels, models) and operations (training, evaluation and detection).
+-- Creates a new Amazon Rekognition Custom Labels project. A project is a
+-- logical grouping of resources (images, Labels, models) and operations
+-- (training, evaluation and detection).
 --
---
--- This operation requires permissions to perform the @rekognition:CreateProject@ action.
+-- This operation requires permissions to perform the
+-- @rekognition:CreateProject@ action.
 module Network.AWS.Rekognition.CreateProject
   ( -- * Creating a Request
-    createProject,
-    CreateProject,
+    CreateProject (..),
+    newCreateProject,
 
     -- * Request Lenses
-    cpProjectName,
+    createProject_projectName,
 
     -- * Destructuring the Response
-    createProjectResponse,
-    CreateProjectResponse,
+    CreateProjectResponse (..),
+    newCreateProjectResponse,
 
     -- * Response Lenses
-    cprrsProjectARN,
-    cprrsResponseStatus,
+    createProjectResponse_projectArn,
+    createProjectResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createProject' smart constructor.
-newtype CreateProject = CreateProject'
-  { _cpProjectName ::
-      Text
+-- | /See:/ 'newCreateProject' smart constructor.
+data CreateProject = CreateProject'
+  { -- | The name of the project to create.
+    projectName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpProjectName' - The name of the project to create.
-createProject ::
-  -- | 'cpProjectName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'projectName', 'createProject_projectName' - The name of the project to create.
+newCreateProject ::
+  -- | 'projectName'
+  Prelude.Text ->
   CreateProject
-createProject pProjectName_ =
-  CreateProject' {_cpProjectName = pProjectName_}
+newCreateProject pProjectName_ =
+  CreateProject' {projectName = pProjectName_}
 
 -- | The name of the project to create.
-cpProjectName :: Lens' CreateProject Text
-cpProjectName = lens _cpProjectName (\s a -> s {_cpProjectName = a})
+createProject_projectName :: Lens.Lens' CreateProject Prelude.Text
+createProject_projectName = Lens.lens (\CreateProject' {projectName} -> projectName) (\s@CreateProject' {} a -> s {projectName = a} :: CreateProject)
 
-instance AWSRequest CreateProject where
+instance Prelude.AWSRequest CreateProject where
   type Rs CreateProject = CreateProjectResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateProjectResponse'
-            <$> (x .?> "ProjectArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ProjectArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateProject
+instance Prelude.Hashable CreateProject
 
-instance NFData CreateProject
+instance Prelude.NFData CreateProject
 
-instance ToHeaders CreateProject where
+instance Prelude.ToHeaders CreateProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("RekognitionService.CreateProject" :: ByteString),
+              Prelude.=# ( "RekognitionService.CreateProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateProject where
+instance Prelude.ToJSON CreateProject where
   toJSON CreateProject' {..} =
-    object
-      (catMaybes [Just ("ProjectName" .= _cpProjectName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ProjectName" Prelude..= projectName)
+          ]
+      )
 
-instance ToPath CreateProject where
-  toPath = const "/"
+instance Prelude.ToPath CreateProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateProject where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateProject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createProjectResponse' smart constructor.
+-- | /See:/ 'newCreateProjectResponse' smart constructor.
 data CreateProjectResponse = CreateProjectResponse'
-  { _cprrsProjectARN ::
-      !(Maybe Text),
-    _cprrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the new project. You can use the ARN
+    -- to configure IAM access to the project.
+    projectArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprrsProjectARN' - The Amazon Resource Name (ARN) of the new project. You can use the ARN to configure IAM access to the project.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprrsResponseStatus' - -- | The response status code.
-createProjectResponse ::
-  -- | 'cprrsResponseStatus'
-  Int ->
+-- 'projectArn', 'createProjectResponse_projectArn' - The Amazon Resource Name (ARN) of the new project. You can use the ARN
+-- to configure IAM access to the project.
+--
+-- 'httpStatus', 'createProjectResponse_httpStatus' - The response's http status code.
+newCreateProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateProjectResponse
-createProjectResponse pResponseStatus_ =
+newCreateProjectResponse pHttpStatus_ =
   CreateProjectResponse'
-    { _cprrsProjectARN = Nothing,
-      _cprrsResponseStatus = pResponseStatus_
+    { projectArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) of the new project. You can use the ARN to configure IAM access to the project.
-cprrsProjectARN :: Lens' CreateProjectResponse (Maybe Text)
-cprrsProjectARN = lens _cprrsProjectARN (\s a -> s {_cprrsProjectARN = a})
+-- | The Amazon Resource Name (ARN) of the new project. You can use the ARN
+-- to configure IAM access to the project.
+createProjectResponse_projectArn :: Lens.Lens' CreateProjectResponse (Prelude.Maybe Prelude.Text)
+createProjectResponse_projectArn = Lens.lens (\CreateProjectResponse' {projectArn} -> projectArn) (\s@CreateProjectResponse' {} a -> s {projectArn = a} :: CreateProjectResponse)
 
--- | -- | The response status code.
-cprrsResponseStatus :: Lens' CreateProjectResponse Int
-cprrsResponseStatus = lens _cprrsResponseStatus (\s a -> s {_cprrsResponseStatus = a})
+-- | The response's http status code.
+createProjectResponse_httpStatus :: Lens.Lens' CreateProjectResponse Prelude.Int
+createProjectResponse_httpStatus = Lens.lens (\CreateProjectResponse' {httpStatus} -> httpStatus) (\s@CreateProjectResponse' {} a -> s {httpStatus = a} :: CreateProjectResponse)
 
-instance NFData CreateProjectResponse
+instance Prelude.NFData CreateProjectResponse

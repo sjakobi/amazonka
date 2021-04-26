@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Rekognition.Types.Attribute
   ( Attribute
       ( ..,
-        AAll,
-        ADefault
+        AttributeALL,
+        AttributeDEFAULT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Attribute = Attribute' (CI Text)
+newtype Attribute = Attribute'
+  { fromAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AAll :: Attribute
-pattern AAll = Attribute' "ALL"
+pattern AttributeALL :: Attribute
+pattern AttributeALL = Attribute' "ALL"
 
-pattern ADefault :: Attribute
-pattern ADefault = Attribute' "DEFAULT"
+pattern AttributeDEFAULT :: Attribute
+pattern AttributeDEFAULT = Attribute' "DEFAULT"
 
 {-# COMPLETE
-  AAll,
-  ADefault,
+  AttributeALL,
+  AttributeDEFAULT,
   Attribute'
   #-}
 
-instance FromText Attribute where
-  parser = (Attribute' . mk) <$> takeText
+instance Prelude.FromText Attribute where
+  parser = Attribute' Prelude.<$> Prelude.takeText
 
-instance ToText Attribute where
-  toText (Attribute' ci) = original ci
+instance Prelude.ToText Attribute where
+  toText (Attribute' x) = x
 
-instance Hashable Attribute
+instance Prelude.Hashable Attribute
 
-instance NFData Attribute
+instance Prelude.NFData Attribute
 
-instance ToByteString Attribute
+instance Prelude.ToByteString Attribute
 
-instance ToQuery Attribute
+instance Prelude.ToQuery Attribute
 
-instance ToHeader Attribute
+instance Prelude.ToHeader Attribute
 
-instance ToJSON Attribute where
-  toJSON = toJSONText
+instance Prelude.ToJSON Attribute where
+  toJSON = Prelude.toJSONText

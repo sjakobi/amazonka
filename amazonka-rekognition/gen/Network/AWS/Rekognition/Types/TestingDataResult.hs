@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.TestingDataResult where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.TestingData
 import Network.AWS.Rekognition.Types.ValidationData
 
--- | Sagemaker Groundtruth format manifest files for the input, output and validation datasets that are used and created during testing.
+-- | Sagemaker Groundtruth format manifest files for the input, output and
+-- validation datasets that are used and created during testing.
 --
---
---
--- /See:/ 'testingDataResult' smart constructor.
+-- /See:/ 'newTestingDataResult' smart constructor.
 data TestingDataResult = TestingDataResult'
-  { _tdrInput ::
-      !(Maybe TestingData),
-    _tdrOutput :: !(Maybe TestingData),
-    _tdrValidation ::
-      !(Maybe ValidationData)
+  { -- | The testing dataset that was supplied for training.
+    input :: Prelude.Maybe TestingData,
+    -- | The subset of the dataset that was actually tested. Some images (assets)
+    -- might not be tested due to file formatting and other issues.
+    output :: Prelude.Maybe TestingData,
+    -- | The location of the data validation manifest. The data validation
+    -- manifest is created for the test dataset during model training.
+    validation :: Prelude.Maybe ValidationData
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestingDataResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestingDataResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdrInput' - The testing dataset that was supplied for training.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdrOutput' - The subset of the dataset that was actually tested. Some images (assets) might not be tested due to file formatting and other issues.
+-- 'input', 'testingDataResult_input' - The testing dataset that was supplied for training.
 --
--- * 'tdrValidation' - The location of the data validation manifest. The data validation manifest is created for the test dataset during model training.
-testingDataResult ::
+-- 'output', 'testingDataResult_output' - The subset of the dataset that was actually tested. Some images (assets)
+-- might not be tested due to file formatting and other issues.
+--
+-- 'validation', 'testingDataResult_validation' - The location of the data validation manifest. The data validation
+-- manifest is created for the test dataset during model training.
+newTestingDataResult ::
   TestingDataResult
-testingDataResult =
+newTestingDataResult =
   TestingDataResult'
-    { _tdrInput = Nothing,
-      _tdrOutput = Nothing,
-      _tdrValidation = Nothing
+    { input = Prelude.Nothing,
+      output = Prelude.Nothing,
+      validation = Prelude.Nothing
     }
 
 -- | The testing dataset that was supplied for training.
-tdrInput :: Lens' TestingDataResult (Maybe TestingData)
-tdrInput = lens _tdrInput (\s a -> s {_tdrInput = a})
+testingDataResult_input :: Lens.Lens' TestingDataResult (Prelude.Maybe TestingData)
+testingDataResult_input = Lens.lens (\TestingDataResult' {input} -> input) (\s@TestingDataResult' {} a -> s {input = a} :: TestingDataResult)
 
--- | The subset of the dataset that was actually tested. Some images (assets) might not be tested due to file formatting and other issues.
-tdrOutput :: Lens' TestingDataResult (Maybe TestingData)
-tdrOutput = lens _tdrOutput (\s a -> s {_tdrOutput = a})
+-- | The subset of the dataset that was actually tested. Some images (assets)
+-- might not be tested due to file formatting and other issues.
+testingDataResult_output :: Lens.Lens' TestingDataResult (Prelude.Maybe TestingData)
+testingDataResult_output = Lens.lens (\TestingDataResult' {output} -> output) (\s@TestingDataResult' {} a -> s {output = a} :: TestingDataResult)
 
--- | The location of the data validation manifest. The data validation manifest is created for the test dataset during model training.
-tdrValidation :: Lens' TestingDataResult (Maybe ValidationData)
-tdrValidation = lens _tdrValidation (\s a -> s {_tdrValidation = a})
+-- | The location of the data validation manifest. The data validation
+-- manifest is created for the test dataset during model training.
+testingDataResult_validation :: Lens.Lens' TestingDataResult (Prelude.Maybe ValidationData)
+testingDataResult_validation = Lens.lens (\TestingDataResult' {validation} -> validation) (\s@TestingDataResult' {} a -> s {validation = a} :: TestingDataResult)
 
-instance FromJSON TestingDataResult where
+instance Prelude.FromJSON TestingDataResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TestingDataResult"
       ( \x ->
           TestingDataResult'
-            <$> (x .:? "Input")
-            <*> (x .:? "Output")
-            <*> (x .:? "Validation")
+            Prelude.<$> (x Prelude..:? "Input")
+            Prelude.<*> (x Prelude..:? "Output")
+            Prelude.<*> (x Prelude..:? "Validation")
       )
 
-instance Hashable TestingDataResult
+instance Prelude.Hashable TestingDataResult
 
-instance NFData TestingDataResult
+instance Prelude.NFData TestingDataResult

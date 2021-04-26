@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.ProjectVersionDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.EvaluationResult
 import Network.AWS.Rekognition.Types.GroundTruthManifest
 import Network.AWS.Rekognition.Types.OutputConfig
@@ -26,170 +30,168 @@ import Network.AWS.Rekognition.Types.TrainingDataResult
 
 -- | The description of a version of a model.
 --
---
---
--- /See:/ 'projectVersionDescription' smart constructor.
+-- /See:/ 'newProjectVersionDescription' smart constructor.
 data ProjectVersionDescription = ProjectVersionDescription'
-  { _pvdCreationTimestamp ::
-      !(Maybe POSIX),
-    _pvdStatusMessage ::
-      !(Maybe Text),
-    _pvdTestingDataResult ::
-      !( Maybe
-           TestingDataResult
-       ),
-    _pvdEvaluationResult ::
-      !( Maybe
-           EvaluationResult
-       ),
-    _pvdStatus ::
-      !( Maybe
-           ProjectVersionStatus
-       ),
-    _pvdBillableTrainingTimeInSeconds ::
-      !(Maybe Nat),
-    _pvdOutputConfig ::
-      !( Maybe
-           OutputConfig
-       ),
-    _pvdProjectVersionARN ::
-      !(Maybe Text),
-    _pvdMinInferenceUnits ::
-      !(Maybe Nat),
-    _pvdTrainingDataResult ::
-      !( Maybe
-           TrainingDataResult
-       ),
-    _pvdTrainingEndTimestamp ::
-      !(Maybe POSIX),
-    _pvdManifestSummary ::
-      !( Maybe
-           GroundTruthManifest
-       )
+  { -- | The Unix datetime for the date and time that training started.
+    creationTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | A descriptive message for an error or warning that occurred.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | Contains information about the testing results.
+    testingDataResult :: Prelude.Maybe TestingDataResult,
+    -- | The training results. @EvaluationResult@ is only returned if training is
+    -- successful.
+    evaluationResult :: Prelude.Maybe EvaluationResult,
+    -- | The current status of the model version.
+    status :: Prelude.Maybe ProjectVersionStatus,
+    -- | The duration, in seconds, that the model version has been billed for
+    -- training. This value is only returned if the model version has been
+    -- successfully trained.
+    billableTrainingTimeInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The location where training results are saved.
+    outputConfig :: Prelude.Maybe OutputConfig,
+    -- | The Amazon Resource Name (ARN) of the model version.
+    projectVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The minimum number of inference units used by the model. For more
+    -- information, see StartProjectVersion.
+    minInferenceUnits :: Prelude.Maybe Prelude.Nat,
+    -- | Contains information about the training results.
+    trainingDataResult :: Prelude.Maybe TrainingDataResult,
+    -- | The Unix date and time that training of the model ended.
+    trainingEndTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The location of the summary manifest. The summary manifest provides
+    -- aggregate data validation results for the training and test datasets.
+    manifestSummary :: Prelude.Maybe GroundTruthManifest
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProjectVersionDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProjectVersionDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pvdCreationTimestamp' - The Unix datetime for the date and time that training started.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pvdStatusMessage' - A descriptive message for an error or warning that occurred.
+-- 'creationTimestamp', 'projectVersionDescription_creationTimestamp' - The Unix datetime for the date and time that training started.
 --
--- * 'pvdTestingDataResult' - Contains information about the testing results.
+-- 'statusMessage', 'projectVersionDescription_statusMessage' - A descriptive message for an error or warning that occurred.
 --
--- * 'pvdEvaluationResult' - The training results. @EvaluationResult@ is only returned if training is successful.
+-- 'testingDataResult', 'projectVersionDescription_testingDataResult' - Contains information about the testing results.
 --
--- * 'pvdStatus' - The current status of the model version.
+-- 'evaluationResult', 'projectVersionDescription_evaluationResult' - The training results. @EvaluationResult@ is only returned if training is
+-- successful.
 --
--- * 'pvdBillableTrainingTimeInSeconds' - The duration, in seconds, that the model version has been billed for training. This value is only returned if the model version has been successfully trained.
+-- 'status', 'projectVersionDescription_status' - The current status of the model version.
 --
--- * 'pvdOutputConfig' - The location where training results are saved.
+-- 'billableTrainingTimeInSeconds', 'projectVersionDescription_billableTrainingTimeInSeconds' - The duration, in seconds, that the model version has been billed for
+-- training. This value is only returned if the model version has been
+-- successfully trained.
 --
--- * 'pvdProjectVersionARN' - The Amazon Resource Name (ARN) of the model version.
+-- 'outputConfig', 'projectVersionDescription_outputConfig' - The location where training results are saved.
 --
--- * 'pvdMinInferenceUnits' - The minimum number of inference units used by the model. For more information, see 'StartProjectVersion' .
+-- 'projectVersionArn', 'projectVersionDescription_projectVersionArn' - The Amazon Resource Name (ARN) of the model version.
 --
--- * 'pvdTrainingDataResult' - Contains information about the training results.
+-- 'minInferenceUnits', 'projectVersionDescription_minInferenceUnits' - The minimum number of inference units used by the model. For more
+-- information, see StartProjectVersion.
 --
--- * 'pvdTrainingEndTimestamp' - The Unix date and time that training of the model ended.
+-- 'trainingDataResult', 'projectVersionDescription_trainingDataResult' - Contains information about the training results.
 --
--- * 'pvdManifestSummary' - The location of the summary manifest. The summary manifest provides aggregate data validation results for the training and test datasets.
-projectVersionDescription ::
+-- 'trainingEndTimestamp', 'projectVersionDescription_trainingEndTimestamp' - The Unix date and time that training of the model ended.
+--
+-- 'manifestSummary', 'projectVersionDescription_manifestSummary' - The location of the summary manifest. The summary manifest provides
+-- aggregate data validation results for the training and test datasets.
+newProjectVersionDescription ::
   ProjectVersionDescription
-projectVersionDescription =
+newProjectVersionDescription =
   ProjectVersionDescription'
-    { _pvdCreationTimestamp =
-        Nothing,
-      _pvdStatusMessage = Nothing,
-      _pvdTestingDataResult = Nothing,
-      _pvdEvaluationResult = Nothing,
-      _pvdStatus = Nothing,
-      _pvdBillableTrainingTimeInSeconds = Nothing,
-      _pvdOutputConfig = Nothing,
-      _pvdProjectVersionARN = Nothing,
-      _pvdMinInferenceUnits = Nothing,
-      _pvdTrainingDataResult = Nothing,
-      _pvdTrainingEndTimestamp = Nothing,
-      _pvdManifestSummary = Nothing
+    { creationTimestamp =
+        Prelude.Nothing,
+      statusMessage = Prelude.Nothing,
+      testingDataResult = Prelude.Nothing,
+      evaluationResult = Prelude.Nothing,
+      status = Prelude.Nothing,
+      billableTrainingTimeInSeconds = Prelude.Nothing,
+      outputConfig = Prelude.Nothing,
+      projectVersionArn = Prelude.Nothing,
+      minInferenceUnits = Prelude.Nothing,
+      trainingDataResult = Prelude.Nothing,
+      trainingEndTimestamp = Prelude.Nothing,
+      manifestSummary = Prelude.Nothing
     }
 
 -- | The Unix datetime for the date and time that training started.
-pvdCreationTimestamp :: Lens' ProjectVersionDescription (Maybe UTCTime)
-pvdCreationTimestamp = lens _pvdCreationTimestamp (\s a -> s {_pvdCreationTimestamp = a}) . mapping _Time
+projectVersionDescription_creationTimestamp :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe Prelude.UTCTime)
+projectVersionDescription_creationTimestamp = Lens.lens (\ProjectVersionDescription' {creationTimestamp} -> creationTimestamp) (\s@ProjectVersionDescription' {} a -> s {creationTimestamp = a} :: ProjectVersionDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | A descriptive message for an error or warning that occurred.
-pvdStatusMessage :: Lens' ProjectVersionDescription (Maybe Text)
-pvdStatusMessage = lens _pvdStatusMessage (\s a -> s {_pvdStatusMessage = a})
+projectVersionDescription_statusMessage :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe Prelude.Text)
+projectVersionDescription_statusMessage = Lens.lens (\ProjectVersionDescription' {statusMessage} -> statusMessage) (\s@ProjectVersionDescription' {} a -> s {statusMessage = a} :: ProjectVersionDescription)
 
 -- | Contains information about the testing results.
-pvdTestingDataResult :: Lens' ProjectVersionDescription (Maybe TestingDataResult)
-pvdTestingDataResult = lens _pvdTestingDataResult (\s a -> s {_pvdTestingDataResult = a})
+projectVersionDescription_testingDataResult :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe TestingDataResult)
+projectVersionDescription_testingDataResult = Lens.lens (\ProjectVersionDescription' {testingDataResult} -> testingDataResult) (\s@ProjectVersionDescription' {} a -> s {testingDataResult = a} :: ProjectVersionDescription)
 
--- | The training results. @EvaluationResult@ is only returned if training is successful.
-pvdEvaluationResult :: Lens' ProjectVersionDescription (Maybe EvaluationResult)
-pvdEvaluationResult = lens _pvdEvaluationResult (\s a -> s {_pvdEvaluationResult = a})
+-- | The training results. @EvaluationResult@ is only returned if training is
+-- successful.
+projectVersionDescription_evaluationResult :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe EvaluationResult)
+projectVersionDescription_evaluationResult = Lens.lens (\ProjectVersionDescription' {evaluationResult} -> evaluationResult) (\s@ProjectVersionDescription' {} a -> s {evaluationResult = a} :: ProjectVersionDescription)
 
 -- | The current status of the model version.
-pvdStatus :: Lens' ProjectVersionDescription (Maybe ProjectVersionStatus)
-pvdStatus = lens _pvdStatus (\s a -> s {_pvdStatus = a})
+projectVersionDescription_status :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe ProjectVersionStatus)
+projectVersionDescription_status = Lens.lens (\ProjectVersionDescription' {status} -> status) (\s@ProjectVersionDescription' {} a -> s {status = a} :: ProjectVersionDescription)
 
--- | The duration, in seconds, that the model version has been billed for training. This value is only returned if the model version has been successfully trained.
-pvdBillableTrainingTimeInSeconds :: Lens' ProjectVersionDescription (Maybe Natural)
-pvdBillableTrainingTimeInSeconds = lens _pvdBillableTrainingTimeInSeconds (\s a -> s {_pvdBillableTrainingTimeInSeconds = a}) . mapping _Nat
+-- | The duration, in seconds, that the model version has been billed for
+-- training. This value is only returned if the model version has been
+-- successfully trained.
+projectVersionDescription_billableTrainingTimeInSeconds :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe Prelude.Natural)
+projectVersionDescription_billableTrainingTimeInSeconds = Lens.lens (\ProjectVersionDescription' {billableTrainingTimeInSeconds} -> billableTrainingTimeInSeconds) (\s@ProjectVersionDescription' {} a -> s {billableTrainingTimeInSeconds = a} :: ProjectVersionDescription) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The location where training results are saved.
-pvdOutputConfig :: Lens' ProjectVersionDescription (Maybe OutputConfig)
-pvdOutputConfig = lens _pvdOutputConfig (\s a -> s {_pvdOutputConfig = a})
+projectVersionDescription_outputConfig :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe OutputConfig)
+projectVersionDescription_outputConfig = Lens.lens (\ProjectVersionDescription' {outputConfig} -> outputConfig) (\s@ProjectVersionDescription' {} a -> s {outputConfig = a} :: ProjectVersionDescription)
 
 -- | The Amazon Resource Name (ARN) of the model version.
-pvdProjectVersionARN :: Lens' ProjectVersionDescription (Maybe Text)
-pvdProjectVersionARN = lens _pvdProjectVersionARN (\s a -> s {_pvdProjectVersionARN = a})
+projectVersionDescription_projectVersionArn :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe Prelude.Text)
+projectVersionDescription_projectVersionArn = Lens.lens (\ProjectVersionDescription' {projectVersionArn} -> projectVersionArn) (\s@ProjectVersionDescription' {} a -> s {projectVersionArn = a} :: ProjectVersionDescription)
 
--- | The minimum number of inference units used by the model. For more information, see 'StartProjectVersion' .
-pvdMinInferenceUnits :: Lens' ProjectVersionDescription (Maybe Natural)
-pvdMinInferenceUnits = lens _pvdMinInferenceUnits (\s a -> s {_pvdMinInferenceUnits = a}) . mapping _Nat
+-- | The minimum number of inference units used by the model. For more
+-- information, see StartProjectVersion.
+projectVersionDescription_minInferenceUnits :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe Prelude.Natural)
+projectVersionDescription_minInferenceUnits = Lens.lens (\ProjectVersionDescription' {minInferenceUnits} -> minInferenceUnits) (\s@ProjectVersionDescription' {} a -> s {minInferenceUnits = a} :: ProjectVersionDescription) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Contains information about the training results.
-pvdTrainingDataResult :: Lens' ProjectVersionDescription (Maybe TrainingDataResult)
-pvdTrainingDataResult = lens _pvdTrainingDataResult (\s a -> s {_pvdTrainingDataResult = a})
+projectVersionDescription_trainingDataResult :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe TrainingDataResult)
+projectVersionDescription_trainingDataResult = Lens.lens (\ProjectVersionDescription' {trainingDataResult} -> trainingDataResult) (\s@ProjectVersionDescription' {} a -> s {trainingDataResult = a} :: ProjectVersionDescription)
 
 -- | The Unix date and time that training of the model ended.
-pvdTrainingEndTimestamp :: Lens' ProjectVersionDescription (Maybe UTCTime)
-pvdTrainingEndTimestamp = lens _pvdTrainingEndTimestamp (\s a -> s {_pvdTrainingEndTimestamp = a}) . mapping _Time
+projectVersionDescription_trainingEndTimestamp :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe Prelude.UTCTime)
+projectVersionDescription_trainingEndTimestamp = Lens.lens (\ProjectVersionDescription' {trainingEndTimestamp} -> trainingEndTimestamp) (\s@ProjectVersionDescription' {} a -> s {trainingEndTimestamp = a} :: ProjectVersionDescription) Prelude.. Lens.mapping Prelude._Time
 
--- | The location of the summary manifest. The summary manifest provides aggregate data validation results for the training and test datasets.
-pvdManifestSummary :: Lens' ProjectVersionDescription (Maybe GroundTruthManifest)
-pvdManifestSummary = lens _pvdManifestSummary (\s a -> s {_pvdManifestSummary = a})
+-- | The location of the summary manifest. The summary manifest provides
+-- aggregate data validation results for the training and test datasets.
+projectVersionDescription_manifestSummary :: Lens.Lens' ProjectVersionDescription (Prelude.Maybe GroundTruthManifest)
+projectVersionDescription_manifestSummary = Lens.lens (\ProjectVersionDescription' {manifestSummary} -> manifestSummary) (\s@ProjectVersionDescription' {} a -> s {manifestSummary = a} :: ProjectVersionDescription)
 
-instance FromJSON ProjectVersionDescription where
+instance Prelude.FromJSON ProjectVersionDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProjectVersionDescription"
       ( \x ->
           ProjectVersionDescription'
-            <$> (x .:? "CreationTimestamp")
-            <*> (x .:? "StatusMessage")
-            <*> (x .:? "TestingDataResult")
-            <*> (x .:? "EvaluationResult")
-            <*> (x .:? "Status")
-            <*> (x .:? "BillableTrainingTimeInSeconds")
-            <*> (x .:? "OutputConfig")
-            <*> (x .:? "ProjectVersionArn")
-            <*> (x .:? "MinInferenceUnits")
-            <*> (x .:? "TrainingDataResult")
-            <*> (x .:? "TrainingEndTimestamp")
-            <*> (x .:? "ManifestSummary")
+            Prelude.<$> (x Prelude..:? "CreationTimestamp")
+            Prelude.<*> (x Prelude..:? "StatusMessage")
+            Prelude.<*> (x Prelude..:? "TestingDataResult")
+            Prelude.<*> (x Prelude..:? "EvaluationResult")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "BillableTrainingTimeInSeconds")
+            Prelude.<*> (x Prelude..:? "OutputConfig")
+            Prelude.<*> (x Prelude..:? "ProjectVersionArn")
+            Prelude.<*> (x Prelude..:? "MinInferenceUnits")
+            Prelude.<*> (x Prelude..:? "TrainingDataResult")
+            Prelude.<*> (x Prelude..:? "TrainingEndTimestamp")
+            Prelude.<*> (x Prelude..:? "ManifestSummary")
       )
 
-instance Hashable ProjectVersionDescription
+instance Prelude.Hashable ProjectVersionDescription
 
-instance NFData ProjectVersionDescription
+instance Prelude.NFData ProjectVersionDescription

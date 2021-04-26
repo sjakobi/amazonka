@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,44 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.KinesisDataStream where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Kinesis data stream Amazon Rekognition to which the analysis results of a Amazon Rekognition stream processor are streamed. For more information, see CreateStreamProcessor in the Amazon Rekognition Developer Guide.
+-- | The Kinesis data stream Amazon Rekognition to which the analysis results
+-- of a Amazon Rekognition stream processor are streamed. For more
+-- information, see CreateStreamProcessor in the Amazon Rekognition
+-- Developer Guide.
 --
---
---
--- /See:/ 'kinesisDataStream' smart constructor.
-newtype KinesisDataStream = KinesisDataStream'
-  { _kdsARN ::
-      Maybe Text
+-- /See:/ 'newKinesisDataStream' smart constructor.
+data KinesisDataStream = KinesisDataStream'
+  { -- | ARN of the output Amazon Kinesis Data Streams stream.
+    arn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KinesisDataStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KinesisDataStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kdsARN' - ARN of the output Amazon Kinesis Data Streams stream.
-kinesisDataStream ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'kinesisDataStream_arn' - ARN of the output Amazon Kinesis Data Streams stream.
+newKinesisDataStream ::
   KinesisDataStream
-kinesisDataStream =
-  KinesisDataStream' {_kdsARN = Nothing}
+newKinesisDataStream =
+  KinesisDataStream' {arn = Prelude.Nothing}
 
 -- | ARN of the output Amazon Kinesis Data Streams stream.
-kdsARN :: Lens' KinesisDataStream (Maybe Text)
-kdsARN = lens _kdsARN (\s a -> s {_kdsARN = a})
+kinesisDataStream_arn :: Lens.Lens' KinesisDataStream (Prelude.Maybe Prelude.Text)
+kinesisDataStream_arn = Lens.lens (\KinesisDataStream' {arn} -> arn) (\s@KinesisDataStream' {} a -> s {arn = a} :: KinesisDataStream)
 
-instance FromJSON KinesisDataStream where
+instance Prelude.FromJSON KinesisDataStream where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KinesisDataStream"
-      (\x -> KinesisDataStream' <$> (x .:? "Arn"))
+      ( \x ->
+          KinesisDataStream' Prelude.<$> (x Prelude..:? "Arn")
+      )
 
-instance Hashable KinesisDataStream
+instance Prelude.Hashable KinesisDataStream
 
-instance NFData KinesisDataStream
+instance Prelude.NFData KinesisDataStream
 
-instance ToJSON KinesisDataStream where
+instance Prelude.ToJSON KinesisDataStream where
   toJSON KinesisDataStream' {..} =
-    object (catMaybes [("Arn" .=) <$> _kdsARN])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Arn" Prelude..=) Prelude.<$> arn]
+      )

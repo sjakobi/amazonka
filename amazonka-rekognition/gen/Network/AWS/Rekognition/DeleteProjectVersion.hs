@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,153 +23,155 @@
 --
 -- Deletes an Amazon Rekognition Custom Labels model.
 --
+-- You can\'t delete a model if it is running or if it is training. To
+-- check the status of a model, use the @Status@ field returned from
+-- DescribeProjectVersions. To stop a running model call
+-- StopProjectVersion. If the model is training, wait until it finishes.
 --
--- You can't delete a model if it is running or if it is training. To check the status of a model, use the @Status@ field returned from 'DescribeProjectVersions' . To stop a running model call 'StopProjectVersion' . If the model is training, wait until it finishes.
---
--- This operation requires permissions to perform the @rekognition:DeleteProjectVersion@ action.
+-- This operation requires permissions to perform the
+-- @rekognition:DeleteProjectVersion@ action.
 module Network.AWS.Rekognition.DeleteProjectVersion
   ( -- * Creating a Request
-    deleteProjectVersion,
-    DeleteProjectVersion,
+    DeleteProjectVersion (..),
+    newDeleteProjectVersion,
 
     -- * Request Lenses
-    dpvProjectVersionARN,
+    deleteProjectVersion_projectVersionArn,
 
     -- * Destructuring the Response
-    deleteProjectVersionResponse,
-    DeleteProjectVersionResponse,
+    DeleteProjectVersionResponse (..),
+    newDeleteProjectVersionResponse,
 
     -- * Response Lenses
-    dpvrrsStatus,
-    dpvrrsResponseStatus,
+    deleteProjectVersionResponse_status,
+    deleteProjectVersionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Rekognition.Types.ProjectVersionStatus
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteProjectVersion' smart constructor.
-newtype DeleteProjectVersion = DeleteProjectVersion'
-  { _dpvProjectVersionARN ::
-      Text
+-- | /See:/ 'newDeleteProjectVersion' smart constructor.
+data DeleteProjectVersion = DeleteProjectVersion'
+  { -- | The Amazon Resource Name (ARN) of the model version that you want to
+    -- delete.
+    projectVersionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProjectVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProjectVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpvProjectVersionARN' - The Amazon Resource Name (ARN) of the model version that you want to delete.
-deleteProjectVersion ::
-  -- | 'dpvProjectVersionARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'projectVersionArn', 'deleteProjectVersion_projectVersionArn' - The Amazon Resource Name (ARN) of the model version that you want to
+-- delete.
+newDeleteProjectVersion ::
+  -- | 'projectVersionArn'
+  Prelude.Text ->
   DeleteProjectVersion
-deleteProjectVersion pProjectVersionARN_ =
+newDeleteProjectVersion pProjectVersionArn_ =
   DeleteProjectVersion'
-    { _dpvProjectVersionARN =
-        pProjectVersionARN_
+    { projectVersionArn =
+        pProjectVersionArn_
     }
 
--- | The Amazon Resource Name (ARN) of the model version that you want to delete.
-dpvProjectVersionARN :: Lens' DeleteProjectVersion Text
-dpvProjectVersionARN = lens _dpvProjectVersionARN (\s a -> s {_dpvProjectVersionARN = a})
+-- | The Amazon Resource Name (ARN) of the model version that you want to
+-- delete.
+deleteProjectVersion_projectVersionArn :: Lens.Lens' DeleteProjectVersion Prelude.Text
+deleteProjectVersion_projectVersionArn = Lens.lens (\DeleteProjectVersion' {projectVersionArn} -> projectVersionArn) (\s@DeleteProjectVersion' {} a -> s {projectVersionArn = a} :: DeleteProjectVersion)
 
-instance AWSRequest DeleteProjectVersion where
+instance Prelude.AWSRequest DeleteProjectVersion where
   type
     Rs DeleteProjectVersion =
       DeleteProjectVersionResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteProjectVersionResponse'
-            <$> (x .?> "Status") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteProjectVersion
+instance Prelude.Hashable DeleteProjectVersion
 
-instance NFData DeleteProjectVersion
+instance Prelude.NFData DeleteProjectVersion
 
-instance ToHeaders DeleteProjectVersion where
+instance Prelude.ToHeaders DeleteProjectVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "RekognitionService.DeleteProjectVersion" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "RekognitionService.DeleteProjectVersion" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteProjectVersion where
+instance Prelude.ToJSON DeleteProjectVersion where
   toJSON DeleteProjectVersion' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("ProjectVersionArn" .= _dpvProjectVersionARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ProjectVersionArn" Prelude..= projectVersionArn)
           ]
       )
 
-instance ToPath DeleteProjectVersion where
-  toPath = const "/"
+instance Prelude.ToPath DeleteProjectVersion where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteProjectVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteProjectVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteProjectVersionResponse' smart constructor.
+-- | /See:/ 'newDeleteProjectVersionResponse' smart constructor.
 data DeleteProjectVersionResponse = DeleteProjectVersionResponse'
-  { _dpvrrsStatus ::
-      !( Maybe
-           ProjectVersionStatus
-       ),
-    _dpvrrsResponseStatus ::
-      !Int
+  { -- | The status of the deletion operation.
+    status :: Prelude.Maybe ProjectVersionStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProjectVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProjectVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpvrrsStatus' - The status of the deletion operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpvrrsResponseStatus' - -- | The response status code.
-deleteProjectVersionResponse ::
-  -- | 'dpvrrsResponseStatus'
-  Int ->
+-- 'status', 'deleteProjectVersionResponse_status' - The status of the deletion operation.
+--
+-- 'httpStatus', 'deleteProjectVersionResponse_httpStatus' - The response's http status code.
+newDeleteProjectVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteProjectVersionResponse
-deleteProjectVersionResponse pResponseStatus_ =
+newDeleteProjectVersionResponse pHttpStatus_ =
   DeleteProjectVersionResponse'
-    { _dpvrrsStatus =
-        Nothing,
-      _dpvrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the deletion operation.
-dpvrrsStatus :: Lens' DeleteProjectVersionResponse (Maybe ProjectVersionStatus)
-dpvrrsStatus = lens _dpvrrsStatus (\s a -> s {_dpvrrsStatus = a})
+deleteProjectVersionResponse_status :: Lens.Lens' DeleteProjectVersionResponse (Prelude.Maybe ProjectVersionStatus)
+deleteProjectVersionResponse_status = Lens.lens (\DeleteProjectVersionResponse' {status} -> status) (\s@DeleteProjectVersionResponse' {} a -> s {status = a} :: DeleteProjectVersionResponse)
 
--- | -- | The response status code.
-dpvrrsResponseStatus :: Lens' DeleteProjectVersionResponse Int
-dpvrrsResponseStatus = lens _dpvrrsResponseStatus (\s a -> s {_dpvrrsResponseStatus = a})
+-- | The response's http status code.
+deleteProjectVersionResponse_httpStatus :: Lens.Lens' DeleteProjectVersionResponse Prelude.Int
+deleteProjectVersionResponse_httpStatus = Lens.lens (\DeleteProjectVersionResponse' {httpStatus} -> httpStatus) (\s@DeleteProjectVersionResponse' {} a -> s {httpStatus = a} :: DeleteProjectVersionResponse)
 
-instance NFData DeleteProjectVersionResponse
+instance Prelude.NFData DeleteProjectVersionResponse

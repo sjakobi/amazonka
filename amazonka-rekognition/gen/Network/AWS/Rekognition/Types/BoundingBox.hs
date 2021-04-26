@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,109 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.BoundingBox where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Identifies the bounding box around the label, face, text or personal protective equipment. The @left@ (x-coordinate) and @top@ (y-coordinate) are coordinates representing the top and left sides of the bounding box. Note that the upper-left corner of the image is the origin (0,0).
+-- | Identifies the bounding box around the label, face, text or personal
+-- protective equipment. The @left@ (x-coordinate) and @top@ (y-coordinate)
+-- are coordinates representing the top and left sides of the bounding box.
+-- Note that the upper-left corner of the image is the origin (0,0).
 --
+-- The @top@ and @left@ values returned are ratios of the overall image
+-- size. For example, if the input image is 700x200 pixels, and the
+-- top-left coordinate of the bounding box is 350x50 pixels, the API
+-- returns a @left@ value of 0.5 (350\/700) and a @top@ value of 0.25
+-- (50\/200).
 --
--- The @top@ and @left@ values returned are ratios of the overall image size. For example, if the input image is 700x200 pixels, and the top-left coordinate of the bounding box is 350x50 pixels, the API returns a @left@ value of 0.5 (350/700) and a @top@ value of 0.25 (50/200).
+-- The @width@ and @height@ values represent the dimensions of the bounding
+-- box as a ratio of the overall image dimension. For example, if the input
+-- image is 700x200 pixels, and the bounding box width is 70 pixels, the
+-- width returned is 0.1.
 --
--- The @width@ and @height@ values represent the dimensions of the bounding box as a ratio of the overall image dimension. For example, if the input image is 700x200 pixels, and the bounding box width is 70 pixels, the width returned is 0.1.
+-- The bounding box coordinates can have negative values. For example, if
+-- Amazon Rekognition is able to detect a face that is at the image edge
+-- and is only partially visible, the service can return coordinates that
+-- are outside the image bounds and, depending on the image edge, you might
+-- get negative values or values greater than 1 for the @left@ or @top@
+-- values.
 --
---
--- /See:/ 'boundingBox' smart constructor.
+-- /See:/ 'newBoundingBox' smart constructor.
 data BoundingBox = BoundingBox'
-  { _bbHeight ::
-      !(Maybe Double),
-    _bbWidth :: !(Maybe Double),
-    _bbTop :: !(Maybe Double),
-    _bbLeft :: !(Maybe Double)
+  { -- | Height of the bounding box as a ratio of the overall image height.
+    height :: Prelude.Maybe Prelude.Double,
+    -- | Width of the bounding box as a ratio of the overall image width.
+    width :: Prelude.Maybe Prelude.Double,
+    -- | Top coordinate of the bounding box as a ratio of overall image height.
+    top :: Prelude.Maybe Prelude.Double,
+    -- | Left coordinate of the bounding box as a ratio of overall image width.
+    left :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BoundingBox' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BoundingBox' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bbHeight' - Height of the bounding box as a ratio of the overall image height.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bbWidth' - Width of the bounding box as a ratio of the overall image width.
+-- 'height', 'boundingBox_height' - Height of the bounding box as a ratio of the overall image height.
 --
--- * 'bbTop' - Top coordinate of the bounding box as a ratio of overall image height.
+-- 'width', 'boundingBox_width' - Width of the bounding box as a ratio of the overall image width.
 --
--- * 'bbLeft' - Left coordinate of the bounding box as a ratio of overall image width.
-boundingBox ::
+-- 'top', 'boundingBox_top' - Top coordinate of the bounding box as a ratio of overall image height.
+--
+-- 'left', 'boundingBox_left' - Left coordinate of the bounding box as a ratio of overall image width.
+newBoundingBox ::
   BoundingBox
-boundingBox =
+newBoundingBox =
   BoundingBox'
-    { _bbHeight = Nothing,
-      _bbWidth = Nothing,
-      _bbTop = Nothing,
-      _bbLeft = Nothing
+    { height = Prelude.Nothing,
+      width = Prelude.Nothing,
+      top = Prelude.Nothing,
+      left = Prelude.Nothing
     }
 
 -- | Height of the bounding box as a ratio of the overall image height.
-bbHeight :: Lens' BoundingBox (Maybe Double)
-bbHeight = lens _bbHeight (\s a -> s {_bbHeight = a})
+boundingBox_height :: Lens.Lens' BoundingBox (Prelude.Maybe Prelude.Double)
+boundingBox_height = Lens.lens (\BoundingBox' {height} -> height) (\s@BoundingBox' {} a -> s {height = a} :: BoundingBox)
 
 -- | Width of the bounding box as a ratio of the overall image width.
-bbWidth :: Lens' BoundingBox (Maybe Double)
-bbWidth = lens _bbWidth (\s a -> s {_bbWidth = a})
+boundingBox_width :: Lens.Lens' BoundingBox (Prelude.Maybe Prelude.Double)
+boundingBox_width = Lens.lens (\BoundingBox' {width} -> width) (\s@BoundingBox' {} a -> s {width = a} :: BoundingBox)
 
 -- | Top coordinate of the bounding box as a ratio of overall image height.
-bbTop :: Lens' BoundingBox (Maybe Double)
-bbTop = lens _bbTop (\s a -> s {_bbTop = a})
+boundingBox_top :: Lens.Lens' BoundingBox (Prelude.Maybe Prelude.Double)
+boundingBox_top = Lens.lens (\BoundingBox' {top} -> top) (\s@BoundingBox' {} a -> s {top = a} :: BoundingBox)
 
 -- | Left coordinate of the bounding box as a ratio of overall image width.
-bbLeft :: Lens' BoundingBox (Maybe Double)
-bbLeft = lens _bbLeft (\s a -> s {_bbLeft = a})
+boundingBox_left :: Lens.Lens' BoundingBox (Prelude.Maybe Prelude.Double)
+boundingBox_left = Lens.lens (\BoundingBox' {left} -> left) (\s@BoundingBox' {} a -> s {left = a} :: BoundingBox)
 
-instance FromJSON BoundingBox where
+instance Prelude.FromJSON BoundingBox where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BoundingBox"
       ( \x ->
           BoundingBox'
-            <$> (x .:? "Height")
-            <*> (x .:? "Width")
-            <*> (x .:? "Top")
-            <*> (x .:? "Left")
+            Prelude.<$> (x Prelude..:? "Height")
+            Prelude.<*> (x Prelude..:? "Width")
+            Prelude.<*> (x Prelude..:? "Top")
+            Prelude.<*> (x Prelude..:? "Left")
       )
 
-instance Hashable BoundingBox
+instance Prelude.Hashable BoundingBox
 
-instance NFData BoundingBox
+instance Prelude.NFData BoundingBox
 
-instance ToJSON BoundingBox where
+instance Prelude.ToJSON BoundingBox where
   toJSON BoundingBox' {..} =
-    object
-      ( catMaybes
-          [ ("Height" .=) <$> _bbHeight,
-            ("Width" .=) <$> _bbWidth,
-            ("Top" .=) <$> _bbTop,
-            ("Left" .=) <$> _bbLeft
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Height" Prelude..=) Prelude.<$> height,
+            ("Width" Prelude..=) Prelude.<$> width,
+            ("Top" Prelude..=) Prelude.<$> top,
+            ("Left" Prelude..=) Prelude.<$> left
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.FaceSearchSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Input face recognition parameters for an Amazon Rekognition stream processor. @FaceRecognitionSettings@ is a request parameter for 'CreateStreamProcessor' .
+-- | Input face recognition parameters for an Amazon Rekognition stream
+-- processor. @FaceRecognitionSettings@ is a request parameter for
+-- CreateStreamProcessor.
 --
---
---
--- /See:/ 'faceSearchSettings' smart constructor.
+-- /See:/ 'newFaceSearchSettings' smart constructor.
 data FaceSearchSettings = FaceSearchSettings'
-  { _fssCollectionId ::
-      !(Maybe Text),
-    _fssFaceMatchThreshold ::
-      !(Maybe Double)
+  { -- | The ID of a collection that contains faces that you want to search for.
+    collectionId :: Prelude.Maybe Prelude.Text,
+    -- | Minimum face match confidence score that must be met to return a result
+    -- for a recognized face. Default is 80. 0 is the lowest confidence. 100 is
+    -- the highest confidence.
+    faceMatchThreshold :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FaceSearchSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FaceSearchSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fssCollectionId' - The ID of a collection that contains faces that you want to search for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fssFaceMatchThreshold' - Minimum face match confidence score that must be met to return a result for a recognized face. Default is 80. 0 is the lowest confidence. 100 is the highest confidence.
-faceSearchSettings ::
+-- 'collectionId', 'faceSearchSettings_collectionId' - The ID of a collection that contains faces that you want to search for.
+--
+-- 'faceMatchThreshold', 'faceSearchSettings_faceMatchThreshold' - Minimum face match confidence score that must be met to return a result
+-- for a recognized face. Default is 80. 0 is the lowest confidence. 100 is
+-- the highest confidence.
+newFaceSearchSettings ::
   FaceSearchSettings
-faceSearchSettings =
+newFaceSearchSettings =
   FaceSearchSettings'
-    { _fssCollectionId = Nothing,
-      _fssFaceMatchThreshold = Nothing
+    { collectionId = Prelude.Nothing,
+      faceMatchThreshold = Prelude.Nothing
     }
 
 -- | The ID of a collection that contains faces that you want to search for.
-fssCollectionId :: Lens' FaceSearchSettings (Maybe Text)
-fssCollectionId = lens _fssCollectionId (\s a -> s {_fssCollectionId = a})
+faceSearchSettings_collectionId :: Lens.Lens' FaceSearchSettings (Prelude.Maybe Prelude.Text)
+faceSearchSettings_collectionId = Lens.lens (\FaceSearchSettings' {collectionId} -> collectionId) (\s@FaceSearchSettings' {} a -> s {collectionId = a} :: FaceSearchSettings)
 
--- | Minimum face match confidence score that must be met to return a result for a recognized face. Default is 80. 0 is the lowest confidence. 100 is the highest confidence.
-fssFaceMatchThreshold :: Lens' FaceSearchSettings (Maybe Double)
-fssFaceMatchThreshold = lens _fssFaceMatchThreshold (\s a -> s {_fssFaceMatchThreshold = a})
+-- | Minimum face match confidence score that must be met to return a result
+-- for a recognized face. Default is 80. 0 is the lowest confidence. 100 is
+-- the highest confidence.
+faceSearchSettings_faceMatchThreshold :: Lens.Lens' FaceSearchSettings (Prelude.Maybe Prelude.Double)
+faceSearchSettings_faceMatchThreshold = Lens.lens (\FaceSearchSettings' {faceMatchThreshold} -> faceMatchThreshold) (\s@FaceSearchSettings' {} a -> s {faceMatchThreshold = a} :: FaceSearchSettings)
 
-instance FromJSON FaceSearchSettings where
+instance Prelude.FromJSON FaceSearchSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FaceSearchSettings"
       ( \x ->
           FaceSearchSettings'
-            <$> (x .:? "CollectionId")
-            <*> (x .:? "FaceMatchThreshold")
+            Prelude.<$> (x Prelude..:? "CollectionId")
+            Prelude.<*> (x Prelude..:? "FaceMatchThreshold")
       )
 
-instance Hashable FaceSearchSettings
+instance Prelude.Hashable FaceSearchSettings
 
-instance NFData FaceSearchSettings
+instance Prelude.NFData FaceSearchSettings
 
-instance ToJSON FaceSearchSettings where
+instance Prelude.ToJSON FaceSearchSettings where
   toJSON FaceSearchSettings' {..} =
-    object
-      ( catMaybes
-          [ ("CollectionId" .=) <$> _fssCollectionId,
-            ("FaceMatchThreshold" .=)
-              <$> _fssFaceMatchThreshold
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CollectionId" Prelude..=)
+              Prelude.<$> collectionId,
+            ("FaceMatchThreshold" Prelude..=)
+              Prelude.<$> faceMatchThreshold
           ]
       )

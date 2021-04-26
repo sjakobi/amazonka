@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.Emotion where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.EmotionName
 
--- | The emotions that appear to be expressed on the face, and the confidence level in the determination. The API is only making a determination of the physical appearance of a person's face. It is not a determination of the person’s internal emotional state and should not be used in such a way. For example, a person pretending to have a sad face might not be sad emotionally.
+-- | The emotions that appear to be expressed on the face, and the confidence
+-- level in the determination. The API is only making a determination of
+-- the physical appearance of a person\'s face. It is not a determination
+-- of the person’s internal emotional state and should not be used in such
+-- a way. For example, a person pretending to have a sad face might not be
+-- sad emotionally.
 --
---
---
--- /See:/ 'emotion' smart constructor.
+-- /See:/ 'newEmotion' smart constructor.
 data Emotion = Emotion'
-  { _eConfidence ::
-      !(Maybe Double),
-    _eType :: !(Maybe EmotionName)
+  { -- | Level of confidence in the determination.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | Type of emotion detected.
+    type' :: Prelude.Maybe EmotionName
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Emotion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Emotion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eConfidence' - Level of confidence in the determination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eType' - Type of emotion detected.
-emotion ::
+-- 'confidence', 'emotion_confidence' - Level of confidence in the determination.
+--
+-- 'type'', 'emotion_type' - Type of emotion detected.
+newEmotion ::
   Emotion
-emotion =
-  Emotion' {_eConfidence = Nothing, _eType = Nothing}
+newEmotion =
+  Emotion'
+    { confidence = Prelude.Nothing,
+      type' = Prelude.Nothing
+    }
 
 -- | Level of confidence in the determination.
-eConfidence :: Lens' Emotion (Maybe Double)
-eConfidence = lens _eConfidence (\s a -> s {_eConfidence = a})
+emotion_confidence :: Lens.Lens' Emotion (Prelude.Maybe Prelude.Double)
+emotion_confidence = Lens.lens (\Emotion' {confidence} -> confidence) (\s@Emotion' {} a -> s {confidence = a} :: Emotion)
 
 -- | Type of emotion detected.
-eType :: Lens' Emotion (Maybe EmotionName)
-eType = lens _eType (\s a -> s {_eType = a})
+emotion_type :: Lens.Lens' Emotion (Prelude.Maybe EmotionName)
+emotion_type = Lens.lens (\Emotion' {type'} -> type') (\s@Emotion' {} a -> s {type' = a} :: Emotion)
 
-instance FromJSON Emotion where
+instance Prelude.FromJSON Emotion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Emotion"
       ( \x ->
-          Emotion' <$> (x .:? "Confidence") <*> (x .:? "Type")
+          Emotion'
+            Prelude.<$> (x Prelude..:? "Confidence")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable Emotion
+instance Prelude.Hashable Emotion
 
-instance NFData Emotion
+instance Prelude.NFData Emotion

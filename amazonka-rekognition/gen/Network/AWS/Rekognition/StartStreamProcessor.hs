@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,130 +21,132 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts processing a stream processor. You create a stream processor by calling 'CreateStreamProcessor' . To tell @StartStreamProcessor@ which stream processor to start, use the value of the @Name@ field specified in the call to @CreateStreamProcessor@ .
+-- Starts processing a stream processor. You create a stream processor by
+-- calling CreateStreamProcessor. To tell @StartStreamProcessor@ which
+-- stream processor to start, use the value of the @Name@ field specified
+-- in the call to @CreateStreamProcessor@.
 module Network.AWS.Rekognition.StartStreamProcessor
   ( -- * Creating a Request
-    startStreamProcessor,
-    StartStreamProcessor,
+    StartStreamProcessor (..),
+    newStartStreamProcessor,
 
     -- * Request Lenses
-    sName,
+    startStreamProcessor_name,
 
     -- * Destructuring the Response
-    startStreamProcessorResponse,
-    StartStreamProcessorResponse,
+    StartStreamProcessorResponse (..),
+    newStartStreamProcessorResponse,
 
     -- * Response Lenses
-    starsResponseStatus,
+    startStreamProcessorResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startStreamProcessor' smart constructor.
-newtype StartStreamProcessor = StartStreamProcessor'
-  { _sName ::
-      Text
+-- | /See:/ 'newStartStreamProcessor' smart constructor.
+data StartStreamProcessor = StartStreamProcessor'
+  { -- | The name of the stream processor to start processing.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartStreamProcessor' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartStreamProcessor' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sName' - The name of the stream processor to start processing.
-startStreamProcessor ::
-  -- | 'sName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'startStreamProcessor_name' - The name of the stream processor to start processing.
+newStartStreamProcessor ::
+  -- | 'name'
+  Prelude.Text ->
   StartStreamProcessor
-startStreamProcessor pName_ =
-  StartStreamProcessor' {_sName = pName_}
+newStartStreamProcessor pName_ =
+  StartStreamProcessor' {name = pName_}
 
 -- | The name of the stream processor to start processing.
-sName :: Lens' StartStreamProcessor Text
-sName = lens _sName (\s a -> s {_sName = a})
+startStreamProcessor_name :: Lens.Lens' StartStreamProcessor Prelude.Text
+startStreamProcessor_name = Lens.lens (\StartStreamProcessor' {name} -> name) (\s@StartStreamProcessor' {} a -> s {name = a} :: StartStreamProcessor)
 
-instance AWSRequest StartStreamProcessor where
+instance Prelude.AWSRequest StartStreamProcessor where
   type
     Rs StartStreamProcessor =
       StartStreamProcessorResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           StartStreamProcessorResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartStreamProcessor
+instance Prelude.Hashable StartStreamProcessor
 
-instance NFData StartStreamProcessor
+instance Prelude.NFData StartStreamProcessor
 
-instance ToHeaders StartStreamProcessor where
+instance Prelude.ToHeaders StartStreamProcessor where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "RekognitionService.StartStreamProcessor" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "RekognitionService.StartStreamProcessor" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartStreamProcessor where
+instance Prelude.ToJSON StartStreamProcessor where
   toJSON StartStreamProcessor' {..} =
-    object (catMaybes [Just ("Name" .= _sName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath StartStreamProcessor where
-  toPath = const "/"
+instance Prelude.ToPath StartStreamProcessor where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartStreamProcessor where
-  toQuery = const mempty
+instance Prelude.ToQuery StartStreamProcessor where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startStreamProcessorResponse' smart constructor.
-newtype StartStreamProcessorResponse = StartStreamProcessorResponse'
-  { _starsResponseStatus ::
-      Int
+-- | /See:/ 'newStartStreamProcessorResponse' smart constructor.
+data StartStreamProcessorResponse = StartStreamProcessorResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartStreamProcessorResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartStreamProcessorResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'starsResponseStatus' - -- | The response status code.
-startStreamProcessorResponse ::
-  -- | 'starsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startStreamProcessorResponse_httpStatus' - The response's http status code.
+newStartStreamProcessorResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartStreamProcessorResponse
-startStreamProcessorResponse pResponseStatus_ =
+newStartStreamProcessorResponse pHttpStatus_ =
   StartStreamProcessorResponse'
-    { _starsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-starsResponseStatus :: Lens' StartStreamProcessorResponse Int
-starsResponseStatus = lens _starsResponseStatus (\s a -> s {_starsResponseStatus = a})
+-- | The response's http status code.
+startStreamProcessorResponse_httpStatus :: Lens.Lens' StartStreamProcessorResponse Prelude.Int
+startStreamProcessorResponse_httpStatus = Lens.lens (\StartStreamProcessorResponse' {httpStatus} -> httpStatus) (\s@StartStreamProcessorResponse' {} a -> s {httpStatus = a} :: StartStreamProcessorResponse)
 
-instance NFData StartStreamProcessorResponse
+instance Prelude.NFData StartStreamProcessorResponse

@@ -28,295 +28,295 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestStartFaceSearch $
---             startFaceSearch
+--             newStartFaceSearch
 --
 --         , requestDescribeStreamProcessor $
---             describeStreamProcessor
+--             newDescribeStreamProcessor
 --
 --         , requestDeleteCollection $
---             deleteCollection
+--             newDeleteCollection
 --
 --         , requestGetLabelDetection $
---             getLabelDetection
+--             newGetLabelDetection
 --
 --         , requestSearchFaces $
---             searchFaces
+--             newSearchFaces
 --
 --         , requestGetTextDetection $
---             getTextDetection
+--             newGetTextDetection
 --
 --         , requestCreateProject $
---             createProject
+--             newCreateProject
 --
 --         , requestDetectCustomLabels $
---             detectCustomLabels
+--             newDetectCustomLabels
 --
 --         , requestRecognizeCelebrities $
---             recognizeCelebrities
+--             newRecognizeCelebrities
 --
 --         , requestStartFaceDetection $
---             startFaceDetection
+--             newStartFaceDetection
 --
 --         , requestDetectModerationLabels $
---             detectModerationLabels
+--             newDetectModerationLabels
 --
 --         , requestDeleteFaces $
---             deleteFaces
+--             newDeleteFaces
 --
 --         , requestListStreamProcessors $
---             listStreamProcessors
+--             newListStreamProcessors
 --
 --         , requestDescribeCollection $
---             describeCollection
+--             newDescribeCollection
 --
 --         , requestDeleteStreamProcessor $
---             deleteStreamProcessor
+--             newDeleteStreamProcessor
 --
 --         , requestListFaces $
---             listFaces
+--             newListFaces
 --
 --         , requestSearchFacesByImage $
---             searchFacesByImage
+--             newSearchFacesByImage
 --
 --         , requestCompareFaces $
---             compareFaces
+--             newCompareFaces
 --
 --         , requestDetectLabels $
---             detectLabels
+--             newDetectLabels
 --
 --         , requestGetSegmentDetection $
---             getSegmentDetection
+--             newGetSegmentDetection
 --
 --         , requestGetCelebrityRecognition $
---             getCelebrityRecognition
+--             newGetCelebrityRecognition
 --
 --         , requestStartPersonTracking $
---             startPersonTracking
+--             newStartPersonTracking
 --
 --         , requestCreateCollection $
---             createCollection
+--             newCreateCollection
 --
 --         , requestStopProjectVersion $
---             stopProjectVersion
+--             newStopProjectVersion
 --
 --         , requestStartProjectVersion $
---             startProjectVersion
+--             newStartProjectVersion
 --
 --         , requestListCollections $
---             listCollections
+--             newListCollections
 --
 --         , requestDetectProtectiveEquipment $
---             detectProtectiveEquipment
+--             newDetectProtectiveEquipment
 --
 --         , requestGetPersonTracking $
---             getPersonTracking
+--             newGetPersonTracking
 --
 --         , requestDeleteProject $
---             deleteProject
+--             newDeleteProject
 --
 --         , requestIndexFaces $
---             indexFaces
+--             newIndexFaces
 --
 --         , requestStartSegmentDetection $
---             startSegmentDetection
+--             newStartSegmentDetection
 --
 --         , requestStartCelebrityRecognition $
---             startCelebrityRecognition
+--             newStartCelebrityRecognition
 --
 --         , requestGetFaceSearch $
---             getFaceSearch
+--             newGetFaceSearch
 --
 --         , requestStartLabelDetection $
---             startLabelDetection
+--             newStartLabelDetection
 --
 --         , requestDescribeProjectVersions $
---             describeProjectVersions
+--             newDescribeProjectVersions
 --
 --         , requestDeleteProjectVersion $
---             deleteProjectVersion
+--             newDeleteProjectVersion
 --
 --         , requestCreateStreamProcessor $
---             createStreamProcessor
+--             newCreateStreamProcessor
 --
 --         , requestGetContentModeration $
---             getContentModeration
+--             newGetContentModeration
 --
 --         , requestGetCelebrityInfo $
---             getCelebrityInfo
+--             newGetCelebrityInfo
 --
 --         , requestDescribeProjects $
---             describeProjects
+--             newDescribeProjects
 --
 --         , requestCreateProjectVersion $
---             createProjectVersion
+--             newCreateProjectVersion
 --
 --         , requestGetFaceDetection $
---             getFaceDetection
+--             newGetFaceDetection
 --
 --         , requestStartContentModeration $
---             startContentModeration
+--             newStartContentModeration
 --
 --         , requestDetectFaces $
---             detectFaces
+--             newDetectFaces
 --
 --         , requestDetectText $
---             detectText
+--             newDetectText
 --
 --         , requestStartTextDetection $
---             startTextDetection
+--             newStartTextDetection
 --
 --         , requestStopStreamProcessor $
---             stopStreamProcessor
+--             newStopStreamProcessor
 --
 --         , requestStartStreamProcessor $
---             startStreamProcessor
+--             newStartStreamProcessor
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseStartFaceSearch $
---             startFaceSearchResponse
+--             newStartFaceSearchResponse
 --
 --         , responseDescribeStreamProcessor $
---             describeStreamProcessorResponse
+--             newDescribeStreamProcessorResponse
 --
 --         , responseDeleteCollection $
---             deleteCollectionResponse
+--             newDeleteCollectionResponse
 --
 --         , responseGetLabelDetection $
---             getLabelDetectionResponse
+--             newGetLabelDetectionResponse
 --
 --         , responseSearchFaces $
---             searchFacesResponse
+--             newSearchFacesResponse
 --
 --         , responseGetTextDetection $
---             getTextDetectionResponse
+--             newGetTextDetectionResponse
 --
 --         , responseCreateProject $
---             createProjectResponse
+--             newCreateProjectResponse
 --
 --         , responseDetectCustomLabels $
---             detectCustomLabelsResponse
+--             newDetectCustomLabelsResponse
 --
 --         , responseRecognizeCelebrities $
---             recognizeCelebritiesResponse
+--             newRecognizeCelebritiesResponse
 --
 --         , responseStartFaceDetection $
---             startFaceDetectionResponse
+--             newStartFaceDetectionResponse
 --
 --         , responseDetectModerationLabels $
---             detectModerationLabelsResponse
+--             newDetectModerationLabelsResponse
 --
 --         , responseDeleteFaces $
---             deleteFacesResponse
+--             newDeleteFacesResponse
 --
 --         , responseListStreamProcessors $
---             listStreamProcessorsResponse
+--             newListStreamProcessorsResponse
 --
 --         , responseDescribeCollection $
---             describeCollectionResponse
+--             newDescribeCollectionResponse
 --
 --         , responseDeleteStreamProcessor $
---             deleteStreamProcessorResponse
+--             newDeleteStreamProcessorResponse
 --
 --         , responseListFaces $
---             listFacesResponse
+--             newListFacesResponse
 --
 --         , responseSearchFacesByImage $
---             searchFacesByImageResponse
+--             newSearchFacesByImageResponse
 --
 --         , responseCompareFaces $
---             compareFacesResponse
+--             newCompareFacesResponse
 --
 --         , responseDetectLabels $
---             detectLabelsResponse
+--             newDetectLabelsResponse
 --
 --         , responseGetSegmentDetection $
---             getSegmentDetectionResponse
+--             newGetSegmentDetectionResponse
 --
 --         , responseGetCelebrityRecognition $
---             getCelebrityRecognitionResponse
+--             newGetCelebrityRecognitionResponse
 --
 --         , responseStartPersonTracking $
---             startPersonTrackingResponse
+--             newStartPersonTrackingResponse
 --
 --         , responseCreateCollection $
---             createCollectionResponse
+--             newCreateCollectionResponse
 --
 --         , responseStopProjectVersion $
---             stopProjectVersionResponse
+--             newStopProjectVersionResponse
 --
 --         , responseStartProjectVersion $
---             startProjectVersionResponse
+--             newStartProjectVersionResponse
 --
 --         , responseListCollections $
---             listCollectionsResponse
+--             newListCollectionsResponse
 --
 --         , responseDetectProtectiveEquipment $
---             detectProtectiveEquipmentResponse
+--             newDetectProtectiveEquipmentResponse
 --
 --         , responseGetPersonTracking $
---             getPersonTrackingResponse
+--             newGetPersonTrackingResponse
 --
 --         , responseDeleteProject $
---             deleteProjectResponse
+--             newDeleteProjectResponse
 --
 --         , responseIndexFaces $
---             indexFacesResponse
+--             newIndexFacesResponse
 --
 --         , responseStartSegmentDetection $
---             startSegmentDetectionResponse
+--             newStartSegmentDetectionResponse
 --
 --         , responseStartCelebrityRecognition $
---             startCelebrityRecognitionResponse
+--             newStartCelebrityRecognitionResponse
 --
 --         , responseGetFaceSearch $
---             getFaceSearchResponse
+--             newGetFaceSearchResponse
 --
 --         , responseStartLabelDetection $
---             startLabelDetectionResponse
+--             newStartLabelDetectionResponse
 --
 --         , responseDescribeProjectVersions $
---             describeProjectVersionsResponse
+--             newDescribeProjectVersionsResponse
 --
 --         , responseDeleteProjectVersion $
---             deleteProjectVersionResponse
+--             newDeleteProjectVersionResponse
 --
 --         , responseCreateStreamProcessor $
---             createStreamProcessorResponse
+--             newCreateStreamProcessorResponse
 --
 --         , responseGetContentModeration $
---             getContentModerationResponse
+--             newGetContentModerationResponse
 --
 --         , responseGetCelebrityInfo $
---             getCelebrityInfoResponse
+--             newGetCelebrityInfoResponse
 --
 --         , responseDescribeProjects $
---             describeProjectsResponse
+--             newDescribeProjectsResponse
 --
 --         , responseCreateProjectVersion $
---             createProjectVersionResponse
+--             newCreateProjectVersionResponse
 --
 --         , responseGetFaceDetection $
---             getFaceDetectionResponse
+--             newGetFaceDetectionResponse
 --
 --         , responseStartContentModeration $
---             startContentModerationResponse
+--             newStartContentModerationResponse
 --
 --         , responseDetectFaces $
---             detectFacesResponse
+--             newDetectFacesResponse
 --
 --         , responseDetectText $
---             detectTextResponse
+--             newDetectTextResponse
 --
 --         , responseStartTextDetection $
---             startTextDetectionResponse
+--             newStartTextDetectionResponse
 --
 --         , responseStopStreamProcessor $
---             stopStreamProcessorResponse
+--             newStopStreamProcessorResponse
 --
 --         , responseStartStreamProcessor $
---             startStreamProcessorResponse
+--             newStartStreamProcessorResponse
 --
 --           ]
 --     ]
@@ -618,7 +618,7 @@ responseStartFaceSearch =
   res
     "StartFaceSearchResponse"
     "fixture/StartFaceSearchResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartFaceSearch)
 
 responseDescribeStreamProcessor :: DescribeStreamProcessorResponse -> TestTree
@@ -626,7 +626,7 @@ responseDescribeStreamProcessor =
   res
     "DescribeStreamProcessorResponse"
     "fixture/DescribeStreamProcessorResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DescribeStreamProcessor)
 
 responseDeleteCollection :: DeleteCollectionResponse -> TestTree
@@ -634,7 +634,7 @@ responseDeleteCollection =
   res
     "DeleteCollectionResponse"
     "fixture/DeleteCollectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DeleteCollection)
 
 responseGetLabelDetection :: GetLabelDetectionResponse -> TestTree
@@ -642,7 +642,7 @@ responseGetLabelDetection =
   res
     "GetLabelDetectionResponse"
     "fixture/GetLabelDetectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy GetLabelDetection)
 
 responseSearchFaces :: SearchFacesResponse -> TestTree
@@ -650,7 +650,7 @@ responseSearchFaces =
   res
     "SearchFacesResponse"
     "fixture/SearchFacesResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy SearchFaces)
 
 responseGetTextDetection :: GetTextDetectionResponse -> TestTree
@@ -658,7 +658,7 @@ responseGetTextDetection =
   res
     "GetTextDetectionResponse"
     "fixture/GetTextDetectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy GetTextDetection)
 
 responseCreateProject :: CreateProjectResponse -> TestTree
@@ -666,7 +666,7 @@ responseCreateProject =
   res
     "CreateProjectResponse"
     "fixture/CreateProjectResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy CreateProject)
 
 responseDetectCustomLabels :: DetectCustomLabelsResponse -> TestTree
@@ -674,7 +674,7 @@ responseDetectCustomLabels =
   res
     "DetectCustomLabelsResponse"
     "fixture/DetectCustomLabelsResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DetectCustomLabels)
 
 responseRecognizeCelebrities :: RecognizeCelebritiesResponse -> TestTree
@@ -682,7 +682,7 @@ responseRecognizeCelebrities =
   res
     "RecognizeCelebritiesResponse"
     "fixture/RecognizeCelebritiesResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy RecognizeCelebrities)
 
 responseStartFaceDetection :: StartFaceDetectionResponse -> TestTree
@@ -690,7 +690,7 @@ responseStartFaceDetection =
   res
     "StartFaceDetectionResponse"
     "fixture/StartFaceDetectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartFaceDetection)
 
 responseDetectModerationLabels :: DetectModerationLabelsResponse -> TestTree
@@ -698,7 +698,7 @@ responseDetectModerationLabels =
   res
     "DetectModerationLabelsResponse"
     "fixture/DetectModerationLabelsResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DetectModerationLabels)
 
 responseDeleteFaces :: DeleteFacesResponse -> TestTree
@@ -706,7 +706,7 @@ responseDeleteFaces =
   res
     "DeleteFacesResponse"
     "fixture/DeleteFacesResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DeleteFaces)
 
 responseListStreamProcessors :: ListStreamProcessorsResponse -> TestTree
@@ -714,7 +714,7 @@ responseListStreamProcessors =
   res
     "ListStreamProcessorsResponse"
     "fixture/ListStreamProcessorsResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy ListStreamProcessors)
 
 responseDescribeCollection :: DescribeCollectionResponse -> TestTree
@@ -722,7 +722,7 @@ responseDescribeCollection =
   res
     "DescribeCollectionResponse"
     "fixture/DescribeCollectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DescribeCollection)
 
 responseDeleteStreamProcessor :: DeleteStreamProcessorResponse -> TestTree
@@ -730,7 +730,7 @@ responseDeleteStreamProcessor =
   res
     "DeleteStreamProcessorResponse"
     "fixture/DeleteStreamProcessorResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DeleteStreamProcessor)
 
 responseListFaces :: ListFacesResponse -> TestTree
@@ -738,7 +738,7 @@ responseListFaces =
   res
     "ListFacesResponse"
     "fixture/ListFacesResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy ListFaces)
 
 responseSearchFacesByImage :: SearchFacesByImageResponse -> TestTree
@@ -746,7 +746,7 @@ responseSearchFacesByImage =
   res
     "SearchFacesByImageResponse"
     "fixture/SearchFacesByImageResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy SearchFacesByImage)
 
 responseCompareFaces :: CompareFacesResponse -> TestTree
@@ -754,7 +754,7 @@ responseCompareFaces =
   res
     "CompareFacesResponse"
     "fixture/CompareFacesResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy CompareFaces)
 
 responseDetectLabels :: DetectLabelsResponse -> TestTree
@@ -762,7 +762,7 @@ responseDetectLabels =
   res
     "DetectLabelsResponse"
     "fixture/DetectLabelsResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DetectLabels)
 
 responseGetSegmentDetection :: GetSegmentDetectionResponse -> TestTree
@@ -770,7 +770,7 @@ responseGetSegmentDetection =
   res
     "GetSegmentDetectionResponse"
     "fixture/GetSegmentDetectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy GetSegmentDetection)
 
 responseGetCelebrityRecognition :: GetCelebrityRecognitionResponse -> TestTree
@@ -778,7 +778,7 @@ responseGetCelebrityRecognition =
   res
     "GetCelebrityRecognitionResponse"
     "fixture/GetCelebrityRecognitionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy GetCelebrityRecognition)
 
 responseStartPersonTracking :: StartPersonTrackingResponse -> TestTree
@@ -786,7 +786,7 @@ responseStartPersonTracking =
   res
     "StartPersonTrackingResponse"
     "fixture/StartPersonTrackingResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartPersonTracking)
 
 responseCreateCollection :: CreateCollectionResponse -> TestTree
@@ -794,7 +794,7 @@ responseCreateCollection =
   res
     "CreateCollectionResponse"
     "fixture/CreateCollectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy CreateCollection)
 
 responseStopProjectVersion :: StopProjectVersionResponse -> TestTree
@@ -802,7 +802,7 @@ responseStopProjectVersion =
   res
     "StopProjectVersionResponse"
     "fixture/StopProjectVersionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StopProjectVersion)
 
 responseStartProjectVersion :: StartProjectVersionResponse -> TestTree
@@ -810,7 +810,7 @@ responseStartProjectVersion =
   res
     "StartProjectVersionResponse"
     "fixture/StartProjectVersionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartProjectVersion)
 
 responseListCollections :: ListCollectionsResponse -> TestTree
@@ -818,7 +818,7 @@ responseListCollections =
   res
     "ListCollectionsResponse"
     "fixture/ListCollectionsResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy ListCollections)
 
 responseDetectProtectiveEquipment :: DetectProtectiveEquipmentResponse -> TestTree
@@ -826,7 +826,7 @@ responseDetectProtectiveEquipment =
   res
     "DetectProtectiveEquipmentResponse"
     "fixture/DetectProtectiveEquipmentResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DetectProtectiveEquipment)
 
 responseGetPersonTracking :: GetPersonTrackingResponse -> TestTree
@@ -834,7 +834,7 @@ responseGetPersonTracking =
   res
     "GetPersonTrackingResponse"
     "fixture/GetPersonTrackingResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy GetPersonTracking)
 
 responseDeleteProject :: DeleteProjectResponse -> TestTree
@@ -842,7 +842,7 @@ responseDeleteProject =
   res
     "DeleteProjectResponse"
     "fixture/DeleteProjectResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DeleteProject)
 
 responseIndexFaces :: IndexFacesResponse -> TestTree
@@ -850,7 +850,7 @@ responseIndexFaces =
   res
     "IndexFacesResponse"
     "fixture/IndexFacesResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy IndexFaces)
 
 responseStartSegmentDetection :: StartSegmentDetectionResponse -> TestTree
@@ -858,7 +858,7 @@ responseStartSegmentDetection =
   res
     "StartSegmentDetectionResponse"
     "fixture/StartSegmentDetectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartSegmentDetection)
 
 responseStartCelebrityRecognition :: StartCelebrityRecognitionResponse -> TestTree
@@ -866,7 +866,7 @@ responseStartCelebrityRecognition =
   res
     "StartCelebrityRecognitionResponse"
     "fixture/StartCelebrityRecognitionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartCelebrityRecognition)
 
 responseGetFaceSearch :: GetFaceSearchResponse -> TestTree
@@ -874,7 +874,7 @@ responseGetFaceSearch =
   res
     "GetFaceSearchResponse"
     "fixture/GetFaceSearchResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy GetFaceSearch)
 
 responseStartLabelDetection :: StartLabelDetectionResponse -> TestTree
@@ -882,7 +882,7 @@ responseStartLabelDetection =
   res
     "StartLabelDetectionResponse"
     "fixture/StartLabelDetectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartLabelDetection)
 
 responseDescribeProjectVersions :: DescribeProjectVersionsResponse -> TestTree
@@ -890,7 +890,7 @@ responseDescribeProjectVersions =
   res
     "DescribeProjectVersionsResponse"
     "fixture/DescribeProjectVersionsResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DescribeProjectVersions)
 
 responseDeleteProjectVersion :: DeleteProjectVersionResponse -> TestTree
@@ -898,7 +898,7 @@ responseDeleteProjectVersion =
   res
     "DeleteProjectVersionResponse"
     "fixture/DeleteProjectVersionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DeleteProjectVersion)
 
 responseCreateStreamProcessor :: CreateStreamProcessorResponse -> TestTree
@@ -906,7 +906,7 @@ responseCreateStreamProcessor =
   res
     "CreateStreamProcessorResponse"
     "fixture/CreateStreamProcessorResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy CreateStreamProcessor)
 
 responseGetContentModeration :: GetContentModerationResponse -> TestTree
@@ -914,7 +914,7 @@ responseGetContentModeration =
   res
     "GetContentModerationResponse"
     "fixture/GetContentModerationResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy GetContentModeration)
 
 responseGetCelebrityInfo :: GetCelebrityInfoResponse -> TestTree
@@ -922,7 +922,7 @@ responseGetCelebrityInfo =
   res
     "GetCelebrityInfoResponse"
     "fixture/GetCelebrityInfoResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy GetCelebrityInfo)
 
 responseDescribeProjects :: DescribeProjectsResponse -> TestTree
@@ -930,7 +930,7 @@ responseDescribeProjects =
   res
     "DescribeProjectsResponse"
     "fixture/DescribeProjectsResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DescribeProjects)
 
 responseCreateProjectVersion :: CreateProjectVersionResponse -> TestTree
@@ -938,7 +938,7 @@ responseCreateProjectVersion =
   res
     "CreateProjectVersionResponse"
     "fixture/CreateProjectVersionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy CreateProjectVersion)
 
 responseGetFaceDetection :: GetFaceDetectionResponse -> TestTree
@@ -946,7 +946,7 @@ responseGetFaceDetection =
   res
     "GetFaceDetectionResponse"
     "fixture/GetFaceDetectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy GetFaceDetection)
 
 responseStartContentModeration :: StartContentModerationResponse -> TestTree
@@ -954,7 +954,7 @@ responseStartContentModeration =
   res
     "StartContentModerationResponse"
     "fixture/StartContentModerationResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartContentModeration)
 
 responseDetectFaces :: DetectFacesResponse -> TestTree
@@ -962,7 +962,7 @@ responseDetectFaces =
   res
     "DetectFacesResponse"
     "fixture/DetectFacesResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DetectFaces)
 
 responseDetectText :: DetectTextResponse -> TestTree
@@ -970,7 +970,7 @@ responseDetectText =
   res
     "DetectTextResponse"
     "fixture/DetectTextResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy DetectText)
 
 responseStartTextDetection :: StartTextDetectionResponse -> TestTree
@@ -978,7 +978,7 @@ responseStartTextDetection =
   res
     "StartTextDetectionResponse"
     "fixture/StartTextDetectionResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartTextDetection)
 
 responseStopStreamProcessor :: StopStreamProcessorResponse -> TestTree
@@ -986,7 +986,7 @@ responseStopStreamProcessor =
   res
     "StopStreamProcessorResponse"
     "fixture/StopStreamProcessorResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StopStreamProcessor)
 
 responseStartStreamProcessor :: StartStreamProcessorResponse -> TestTree
@@ -994,5 +994,5 @@ responseStartStreamProcessor =
   res
     "StartStreamProcessorResponse"
     "fixture/StartStreamProcessorResponse.proto"
-    rekognition
+    defaultService
     (Proxy :: Proxy StartStreamProcessor)

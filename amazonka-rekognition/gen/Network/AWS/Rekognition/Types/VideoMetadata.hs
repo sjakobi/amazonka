@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.VideoMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a video that Amazon Rekognition analyzed. @Videometadata@ is returned in every page of paginated responses from a Amazon Rekognition video operation.
+-- | Information about a video that Amazon Rekognition analyzed.
+-- @Videometadata@ is returned in every page of paginated responses from a
+-- Amazon Rekognition video operation.
 --
---
---
--- /See:/ 'videoMetadata' smart constructor.
+-- /See:/ 'newVideoMetadata' smart constructor.
 data VideoMetadata = VideoMetadata'
-  { _vmCodec ::
-      !(Maybe Text),
-    _vmFormat :: !(Maybe Text),
-    _vmFrameHeight :: !(Maybe Nat),
-    _vmFrameRate :: !(Maybe Double),
-    _vmFrameWidth :: !(Maybe Nat),
-    _vmDurationMillis :: !(Maybe Nat)
+  { -- | Type of compression used in the analyzed video.
+    codec :: Prelude.Maybe Prelude.Text,
+    -- | Format of the analyzed video. Possible values are MP4, MOV and AVI.
+    format :: Prelude.Maybe Prelude.Text,
+    -- | Vertical pixel dimension of the video.
+    frameHeight :: Prelude.Maybe Prelude.Nat,
+    -- | Number of frames per second in the video.
+    frameRate :: Prelude.Maybe Prelude.Double,
+    -- | Horizontal pixel dimension of the video.
+    frameWidth :: Prelude.Maybe Prelude.Nat,
+    -- | Length of the video in milliseconds.
+    durationMillis :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VideoMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VideoMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vmCodec' - Type of compression used in the analyzed video.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vmFormat' - Format of the analyzed video. Possible values are MP4, MOV and AVI.
+-- 'codec', 'videoMetadata_codec' - Type of compression used in the analyzed video.
 --
--- * 'vmFrameHeight' - Vertical pixel dimension of the video.
+-- 'format', 'videoMetadata_format' - Format of the analyzed video. Possible values are MP4, MOV and AVI.
 --
--- * 'vmFrameRate' - Number of frames per second in the video.
+-- 'frameHeight', 'videoMetadata_frameHeight' - Vertical pixel dimension of the video.
 --
--- * 'vmFrameWidth' - Horizontal pixel dimension of the video.
+-- 'frameRate', 'videoMetadata_frameRate' - Number of frames per second in the video.
 --
--- * 'vmDurationMillis' - Length of the video in milliseconds.
-videoMetadata ::
+-- 'frameWidth', 'videoMetadata_frameWidth' - Horizontal pixel dimension of the video.
+--
+-- 'durationMillis', 'videoMetadata_durationMillis' - Length of the video in milliseconds.
+newVideoMetadata ::
   VideoMetadata
-videoMetadata =
+newVideoMetadata =
   VideoMetadata'
-    { _vmCodec = Nothing,
-      _vmFormat = Nothing,
-      _vmFrameHeight = Nothing,
-      _vmFrameRate = Nothing,
-      _vmFrameWidth = Nothing,
-      _vmDurationMillis = Nothing
+    { codec = Prelude.Nothing,
+      format = Prelude.Nothing,
+      frameHeight = Prelude.Nothing,
+      frameRate = Prelude.Nothing,
+      frameWidth = Prelude.Nothing,
+      durationMillis = Prelude.Nothing
     }
 
 -- | Type of compression used in the analyzed video.
-vmCodec :: Lens' VideoMetadata (Maybe Text)
-vmCodec = lens _vmCodec (\s a -> s {_vmCodec = a})
+videoMetadata_codec :: Lens.Lens' VideoMetadata (Prelude.Maybe Prelude.Text)
+videoMetadata_codec = Lens.lens (\VideoMetadata' {codec} -> codec) (\s@VideoMetadata' {} a -> s {codec = a} :: VideoMetadata)
 
 -- | Format of the analyzed video. Possible values are MP4, MOV and AVI.
-vmFormat :: Lens' VideoMetadata (Maybe Text)
-vmFormat = lens _vmFormat (\s a -> s {_vmFormat = a})
+videoMetadata_format :: Lens.Lens' VideoMetadata (Prelude.Maybe Prelude.Text)
+videoMetadata_format = Lens.lens (\VideoMetadata' {format} -> format) (\s@VideoMetadata' {} a -> s {format = a} :: VideoMetadata)
 
 -- | Vertical pixel dimension of the video.
-vmFrameHeight :: Lens' VideoMetadata (Maybe Natural)
-vmFrameHeight = lens _vmFrameHeight (\s a -> s {_vmFrameHeight = a}) . mapping _Nat
+videoMetadata_frameHeight :: Lens.Lens' VideoMetadata (Prelude.Maybe Prelude.Natural)
+videoMetadata_frameHeight = Lens.lens (\VideoMetadata' {frameHeight} -> frameHeight) (\s@VideoMetadata' {} a -> s {frameHeight = a} :: VideoMetadata) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Number of frames per second in the video.
-vmFrameRate :: Lens' VideoMetadata (Maybe Double)
-vmFrameRate = lens _vmFrameRate (\s a -> s {_vmFrameRate = a})
+videoMetadata_frameRate :: Lens.Lens' VideoMetadata (Prelude.Maybe Prelude.Double)
+videoMetadata_frameRate = Lens.lens (\VideoMetadata' {frameRate} -> frameRate) (\s@VideoMetadata' {} a -> s {frameRate = a} :: VideoMetadata)
 
 -- | Horizontal pixel dimension of the video.
-vmFrameWidth :: Lens' VideoMetadata (Maybe Natural)
-vmFrameWidth = lens _vmFrameWidth (\s a -> s {_vmFrameWidth = a}) . mapping _Nat
+videoMetadata_frameWidth :: Lens.Lens' VideoMetadata (Prelude.Maybe Prelude.Natural)
+videoMetadata_frameWidth = Lens.lens (\VideoMetadata' {frameWidth} -> frameWidth) (\s@VideoMetadata' {} a -> s {frameWidth = a} :: VideoMetadata) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Length of the video in milliseconds.
-vmDurationMillis :: Lens' VideoMetadata (Maybe Natural)
-vmDurationMillis = lens _vmDurationMillis (\s a -> s {_vmDurationMillis = a}) . mapping _Nat
+videoMetadata_durationMillis :: Lens.Lens' VideoMetadata (Prelude.Maybe Prelude.Natural)
+videoMetadata_durationMillis = Lens.lens (\VideoMetadata' {durationMillis} -> durationMillis) (\s@VideoMetadata' {} a -> s {durationMillis = a} :: VideoMetadata) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON VideoMetadata where
+instance Prelude.FromJSON VideoMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VideoMetadata"
       ( \x ->
           VideoMetadata'
-            <$> (x .:? "Codec")
-            <*> (x .:? "Format")
-            <*> (x .:? "FrameHeight")
-            <*> (x .:? "FrameRate")
-            <*> (x .:? "FrameWidth")
-            <*> (x .:? "DurationMillis")
+            Prelude.<$> (x Prelude..:? "Codec")
+            Prelude.<*> (x Prelude..:? "Format")
+            Prelude.<*> (x Prelude..:? "FrameHeight")
+            Prelude.<*> (x Prelude..:? "FrameRate")
+            Prelude.<*> (x Prelude..:? "FrameWidth")
+            Prelude.<*> (x Prelude..:? "DurationMillis")
       )
 
-instance Hashable VideoMetadata
+instance Prelude.Hashable VideoMetadata
 
-instance NFData VideoMetadata
+instance Prelude.NFData VideoMetadata

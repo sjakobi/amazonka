@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.TextDetectionResult where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.TextDetection
 
--- | Information about text detected in a video. Incudes the detected text, the time in milliseconds from the start of the video that the text was detected, and where it was detected on the screen.
+-- | Information about text detected in a video. Incudes the detected text,
+-- the time in milliseconds from the start of the video that the text was
+-- detected, and where it was detected on the screen.
 --
---
---
--- /See:/ 'textDetectionResult' smart constructor.
+-- /See:/ 'newTextDetectionResult' smart constructor.
 data TextDetectionResult = TextDetectionResult'
-  { _tdrTextDetection ::
-      !(Maybe TextDetection),
-    _tdrTimestamp ::
-      !(Maybe Integer)
+  { -- | Details about text detected in a video.
+    textDetection :: Prelude.Maybe TextDetection,
+    -- | The time, in milliseconds from the start of the video, that the text was
+    -- detected.
+    timestamp :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TextDetectionResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TextDetectionResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdrTextDetection' - Details about text detected in a video.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdrTimestamp' - The time, in milliseconds from the start of the video, that the text was detected.
-textDetectionResult ::
+-- 'textDetection', 'textDetectionResult_textDetection' - Details about text detected in a video.
+--
+-- 'timestamp', 'textDetectionResult_timestamp' - The time, in milliseconds from the start of the video, that the text was
+-- detected.
+newTextDetectionResult ::
   TextDetectionResult
-textDetectionResult =
+newTextDetectionResult =
   TextDetectionResult'
-    { _tdrTextDetection = Nothing,
-      _tdrTimestamp = Nothing
+    { textDetection =
+        Prelude.Nothing,
+      timestamp = Prelude.Nothing
     }
 
 -- | Details about text detected in a video.
-tdrTextDetection :: Lens' TextDetectionResult (Maybe TextDetection)
-tdrTextDetection = lens _tdrTextDetection (\s a -> s {_tdrTextDetection = a})
+textDetectionResult_textDetection :: Lens.Lens' TextDetectionResult (Prelude.Maybe TextDetection)
+textDetectionResult_textDetection = Lens.lens (\TextDetectionResult' {textDetection} -> textDetection) (\s@TextDetectionResult' {} a -> s {textDetection = a} :: TextDetectionResult)
 
--- | The time, in milliseconds from the start of the video, that the text was detected.
-tdrTimestamp :: Lens' TextDetectionResult (Maybe Integer)
-tdrTimestamp = lens _tdrTimestamp (\s a -> s {_tdrTimestamp = a})
+-- | The time, in milliseconds from the start of the video, that the text was
+-- detected.
+textDetectionResult_timestamp :: Lens.Lens' TextDetectionResult (Prelude.Maybe Prelude.Integer)
+textDetectionResult_timestamp = Lens.lens (\TextDetectionResult' {timestamp} -> timestamp) (\s@TextDetectionResult' {} a -> s {timestamp = a} :: TextDetectionResult)
 
-instance FromJSON TextDetectionResult where
+instance Prelude.FromJSON TextDetectionResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TextDetectionResult"
       ( \x ->
           TextDetectionResult'
-            <$> (x .:? "TextDetection") <*> (x .:? "Timestamp")
+            Prelude.<$> (x Prelude..:? "TextDetection")
+            Prelude.<*> (x Prelude..:? "Timestamp")
       )
 
-instance Hashable TextDetectionResult
+instance Prelude.Hashable TextDetectionResult
 
-instance NFData TextDetectionResult
+instance Prelude.NFData TextDetectionResult

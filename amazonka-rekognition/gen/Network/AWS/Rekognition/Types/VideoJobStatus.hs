@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Rekognition.Types.VideoJobStatus
   ( VideoJobStatus
       ( ..,
-        Failed,
-        InProgress,
-        Succeeded
+        VideoJobStatusFAILED,
+        VideoJobStatusINPROGRESS,
+        VideoJobStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VideoJobStatus = VideoJobStatus' (CI Text)
+newtype VideoJobStatus = VideoJobStatus'
+  { fromVideoJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: VideoJobStatus
-pattern Failed = VideoJobStatus' "FAILED"
+pattern VideoJobStatusFAILED :: VideoJobStatus
+pattern VideoJobStatusFAILED = VideoJobStatus' "FAILED"
 
-pattern InProgress :: VideoJobStatus
-pattern InProgress = VideoJobStatus' "IN_PROGRESS"
+pattern VideoJobStatusINPROGRESS :: VideoJobStatus
+pattern VideoJobStatusINPROGRESS = VideoJobStatus' "IN_PROGRESS"
 
-pattern Succeeded :: VideoJobStatus
-pattern Succeeded = VideoJobStatus' "SUCCEEDED"
+pattern VideoJobStatusSUCCEEDED :: VideoJobStatus
+pattern VideoJobStatusSUCCEEDED = VideoJobStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  Failed,
-  InProgress,
-  Succeeded,
+  VideoJobStatusFAILED,
+  VideoJobStatusINPROGRESS,
+  VideoJobStatusSUCCEEDED,
   VideoJobStatus'
   #-}
 
-instance FromText VideoJobStatus where
-  parser = (VideoJobStatus' . mk) <$> takeText
+instance Prelude.FromText VideoJobStatus where
+  parser = VideoJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText VideoJobStatus where
-  toText (VideoJobStatus' ci) = original ci
+instance Prelude.ToText VideoJobStatus where
+  toText (VideoJobStatus' x) = x
 
-instance Hashable VideoJobStatus
+instance Prelude.Hashable VideoJobStatus
 
-instance NFData VideoJobStatus
+instance Prelude.NFData VideoJobStatus
 
-instance ToByteString VideoJobStatus
+instance Prelude.ToByteString VideoJobStatus
 
-instance ToQuery VideoJobStatus
+instance Prelude.ToQuery VideoJobStatus
 
-instance ToHeader VideoJobStatus
+instance Prelude.ToHeader VideoJobStatus
 
-instance FromJSON VideoJobStatus where
-  parseJSON = parseJSONText "VideoJobStatus"
+instance Prelude.FromJSON VideoJobStatus where
+  parseJSON = Prelude.parseJSONText "VideoJobStatus"

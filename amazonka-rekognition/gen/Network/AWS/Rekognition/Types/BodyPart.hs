@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.Rekognition.Types.BodyPart
   ( BodyPart
       ( ..,
-        Face,
-        Head,
-        LeftHand,
-        RightHand
+        BodyPartFACE,
+        BodyPartHEAD,
+        BodyPartLEFTHAND,
+        BodyPartRIGHTHAND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BodyPart = BodyPart' (CI Text)
+newtype BodyPart = BodyPart'
+  { fromBodyPart ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Face :: BodyPart
-pattern Face = BodyPart' "FACE"
+pattern BodyPartFACE :: BodyPart
+pattern BodyPartFACE = BodyPart' "FACE"
 
-pattern Head :: BodyPart
-pattern Head = BodyPart' "HEAD"
+pattern BodyPartHEAD :: BodyPart
+pattern BodyPartHEAD = BodyPart' "HEAD"
 
-pattern LeftHand :: BodyPart
-pattern LeftHand = BodyPart' "LEFT_HAND"
+pattern BodyPartLEFTHAND :: BodyPart
+pattern BodyPartLEFTHAND = BodyPart' "LEFT_HAND"
 
-pattern RightHand :: BodyPart
-pattern RightHand = BodyPart' "RIGHT_HAND"
+pattern BodyPartRIGHTHAND :: BodyPart
+pattern BodyPartRIGHTHAND = BodyPart' "RIGHT_HAND"
 
 {-# COMPLETE
-  Face,
-  Head,
-  LeftHand,
-  RightHand,
+  BodyPartFACE,
+  BodyPartHEAD,
+  BodyPartLEFTHAND,
+  BodyPartRIGHTHAND,
   BodyPart'
   #-}
 
-instance FromText BodyPart where
-  parser = (BodyPart' . mk) <$> takeText
+instance Prelude.FromText BodyPart where
+  parser = BodyPart' Prelude.<$> Prelude.takeText
 
-instance ToText BodyPart where
-  toText (BodyPart' ci) = original ci
+instance Prelude.ToText BodyPart where
+  toText (BodyPart' x) = x
 
-instance Hashable BodyPart
+instance Prelude.Hashable BodyPart
 
-instance NFData BodyPart
+instance Prelude.NFData BodyPart
 
-instance ToByteString BodyPart
+instance Prelude.ToByteString BodyPart
 
-instance ToQuery BodyPart
+instance Prelude.ToQuery BodyPart
 
-instance ToHeader BodyPart
+instance Prelude.ToHeader BodyPart
 
-instance FromJSON BodyPart where
-  parseJSON = parseJSONText "BodyPart"
+instance Prelude.FromJSON BodyPart where
+  parseJSON = Prelude.parseJSONText "BodyPart"

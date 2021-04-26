@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.EvaluationResult where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.Summary
 
 -- | The evaluation results for the training of a model.
 --
---
---
--- /See:/ 'evaluationResult' smart constructor.
+-- /See:/ 'newEvaluationResult' smart constructor.
 data EvaluationResult = EvaluationResult'
-  { _erF1Score ::
-      !(Maybe Double),
-    _erSummary :: !(Maybe Summary)
+  { -- | The F1 score for the evaluation of all labels. The F1 score metric
+    -- evaluates the overall precision and recall performance of the model as a
+    -- single value. A higher value indicates better precision and recall
+    -- performance. A lower score indicates that precision, recall, or both are
+    -- performing poorly.
+    f1Score :: Prelude.Maybe Prelude.Double,
+    -- | The S3 bucket that contains the training summary.
+    summary :: Prelude.Maybe Summary
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EvaluationResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EvaluationResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erF1Score' - The F1 score for the evaluation of all labels. The F1 score metric evaluates the overall precision and recall performance of the model as a single value. A higher value indicates better precision and recall performance. A lower score indicates that precision, recall, or both are performing poorly.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'erSummary' - The S3 bucket that contains the training summary.
-evaluationResult ::
+-- 'f1Score', 'evaluationResult_f1Score' - The F1 score for the evaluation of all labels. The F1 score metric
+-- evaluates the overall precision and recall performance of the model as a
+-- single value. A higher value indicates better precision and recall
+-- performance. A lower score indicates that precision, recall, or both are
+-- performing poorly.
+--
+-- 'summary', 'evaluationResult_summary' - The S3 bucket that contains the training summary.
+newEvaluationResult ::
   EvaluationResult
-evaluationResult =
+newEvaluationResult =
   EvaluationResult'
-    { _erF1Score = Nothing,
-      _erSummary = Nothing
+    { f1Score = Prelude.Nothing,
+      summary = Prelude.Nothing
     }
 
--- | The F1 score for the evaluation of all labels. The F1 score metric evaluates the overall precision and recall performance of the model as a single value. A higher value indicates better precision and recall performance. A lower score indicates that precision, recall, or both are performing poorly.
-erF1Score :: Lens' EvaluationResult (Maybe Double)
-erF1Score = lens _erF1Score (\s a -> s {_erF1Score = a})
+-- | The F1 score for the evaluation of all labels. The F1 score metric
+-- evaluates the overall precision and recall performance of the model as a
+-- single value. A higher value indicates better precision and recall
+-- performance. A lower score indicates that precision, recall, or both are
+-- performing poorly.
+evaluationResult_f1Score :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Double)
+evaluationResult_f1Score = Lens.lens (\EvaluationResult' {f1Score} -> f1Score) (\s@EvaluationResult' {} a -> s {f1Score = a} :: EvaluationResult)
 
 -- | The S3 bucket that contains the training summary.
-erSummary :: Lens' EvaluationResult (Maybe Summary)
-erSummary = lens _erSummary (\s a -> s {_erSummary = a})
+evaluationResult_summary :: Lens.Lens' EvaluationResult (Prelude.Maybe Summary)
+evaluationResult_summary = Lens.lens (\EvaluationResult' {summary} -> summary) (\s@EvaluationResult' {} a -> s {summary = a} :: EvaluationResult)
 
-instance FromJSON EvaluationResult where
+instance Prelude.FromJSON EvaluationResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EvaluationResult"
       ( \x ->
           EvaluationResult'
-            <$> (x .:? "F1Score") <*> (x .:? "Summary")
+            Prelude.<$> (x Prelude..:? "F1Score")
+            Prelude.<*> (x Prelude..:? "Summary")
       )
 
-instance Hashable EvaluationResult
+instance Prelude.Hashable EvaluationResult
 
-instance NFData EvaluationResult
+instance Prelude.NFData EvaluationResult

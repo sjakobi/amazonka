@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,108 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.UnindexedFace where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.FaceDetail
 import Network.AWS.Rekognition.Types.Reason
 
--- | A face that 'IndexFaces' detected, but didn't index. Use the @Reasons@ response attribute to determine why a face wasn't indexed.
+-- | A face that IndexFaces detected, but didn\'t index. Use the @Reasons@
+-- response attribute to determine why a face wasn\'t indexed.
 --
---
---
--- /See:/ 'unindexedFace' smart constructor.
+-- /See:/ 'newUnindexedFace' smart constructor.
 data UnindexedFace = UnindexedFace'
-  { _ufFaceDetail ::
-      !(Maybe FaceDetail),
-    _ufReasons :: !(Maybe [Reason])
+  { -- | The structure that contains attributes of a face that
+    -- @IndexFaces@detected, but didn\'t index.
+    faceDetail :: Prelude.Maybe FaceDetail,
+    -- | An array of reasons that specify why a face wasn\'t indexed.
+    --
+    -- -   EXTREME_POSE - The face is at a pose that can\'t be detected. For
+    --     example, the head is turned too far away from the camera.
+    --
+    -- -   EXCEEDS_MAX_FACES - The number of faces detected is already higher
+    --     than that specified by the @MaxFaces@ input parameter for
+    --     @IndexFaces@.
+    --
+    -- -   LOW_BRIGHTNESS - The image is too dark.
+    --
+    -- -   LOW_SHARPNESS - The image is too blurry.
+    --
+    -- -   LOW_CONFIDENCE - The face was detected with a low confidence.
+    --
+    -- -   SMALL_BOUNDING_BOX - The bounding box around the face is too small.
+    reasons :: Prelude.Maybe [Reason]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UnindexedFace' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UnindexedFace' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufFaceDetail' - The structure that contains attributes of a face that @IndexFaces@ detected, but didn't index.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufReasons' - An array of reasons that specify why a face wasn't indexed.      * EXTREME_POSE - The face is at a pose that can't be detected. For example, the head is turned too far away from the camera.     * EXCEEDS_MAX_FACES - The number of faces detected is already higher than that specified by the @MaxFaces@ input parameter for @IndexFaces@ .     * LOW_BRIGHTNESS - The image is too dark.     * LOW_SHARPNESS - The image is too blurry.     * LOW_CONFIDENCE - The face was detected with a low confidence.     * SMALL_BOUNDING_BOX - The bounding box around the face is too small.
-unindexedFace ::
+-- 'faceDetail', 'unindexedFace_faceDetail' - The structure that contains attributes of a face that
+-- @IndexFaces@detected, but didn\'t index.
+--
+-- 'reasons', 'unindexedFace_reasons' - An array of reasons that specify why a face wasn\'t indexed.
+--
+-- -   EXTREME_POSE - The face is at a pose that can\'t be detected. For
+--     example, the head is turned too far away from the camera.
+--
+-- -   EXCEEDS_MAX_FACES - The number of faces detected is already higher
+--     than that specified by the @MaxFaces@ input parameter for
+--     @IndexFaces@.
+--
+-- -   LOW_BRIGHTNESS - The image is too dark.
+--
+-- -   LOW_SHARPNESS - The image is too blurry.
+--
+-- -   LOW_CONFIDENCE - The face was detected with a low confidence.
+--
+-- -   SMALL_BOUNDING_BOX - The bounding box around the face is too small.
+newUnindexedFace ::
   UnindexedFace
-unindexedFace =
+newUnindexedFace =
   UnindexedFace'
-    { _ufFaceDetail = Nothing,
-      _ufReasons = Nothing
+    { faceDetail = Prelude.Nothing,
+      reasons = Prelude.Nothing
     }
 
--- | The structure that contains attributes of a face that @IndexFaces@ detected, but didn't index.
-ufFaceDetail :: Lens' UnindexedFace (Maybe FaceDetail)
-ufFaceDetail = lens _ufFaceDetail (\s a -> s {_ufFaceDetail = a})
+-- | The structure that contains attributes of a face that
+-- @IndexFaces@detected, but didn\'t index.
+unindexedFace_faceDetail :: Lens.Lens' UnindexedFace (Prelude.Maybe FaceDetail)
+unindexedFace_faceDetail = Lens.lens (\UnindexedFace' {faceDetail} -> faceDetail) (\s@UnindexedFace' {} a -> s {faceDetail = a} :: UnindexedFace)
 
--- | An array of reasons that specify why a face wasn't indexed.      * EXTREME_POSE - The face is at a pose that can't be detected. For example, the head is turned too far away from the camera.     * EXCEEDS_MAX_FACES - The number of faces detected is already higher than that specified by the @MaxFaces@ input parameter for @IndexFaces@ .     * LOW_BRIGHTNESS - The image is too dark.     * LOW_SHARPNESS - The image is too blurry.     * LOW_CONFIDENCE - The face was detected with a low confidence.     * SMALL_BOUNDING_BOX - The bounding box around the face is too small.
-ufReasons :: Lens' UnindexedFace [Reason]
-ufReasons = lens _ufReasons (\s a -> s {_ufReasons = a}) . _Default . _Coerce
+-- | An array of reasons that specify why a face wasn\'t indexed.
+--
+-- -   EXTREME_POSE - The face is at a pose that can\'t be detected. For
+--     example, the head is turned too far away from the camera.
+--
+-- -   EXCEEDS_MAX_FACES - The number of faces detected is already higher
+--     than that specified by the @MaxFaces@ input parameter for
+--     @IndexFaces@.
+--
+-- -   LOW_BRIGHTNESS - The image is too dark.
+--
+-- -   LOW_SHARPNESS - The image is too blurry.
+--
+-- -   LOW_CONFIDENCE - The face was detected with a low confidence.
+--
+-- -   SMALL_BOUNDING_BOX - The bounding box around the face is too small.
+unindexedFace_reasons :: Lens.Lens' UnindexedFace (Prelude.Maybe [Reason])
+unindexedFace_reasons = Lens.lens (\UnindexedFace' {reasons} -> reasons) (\s@UnindexedFace' {} a -> s {reasons = a} :: UnindexedFace) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON UnindexedFace where
+instance Prelude.FromJSON UnindexedFace where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UnindexedFace"
       ( \x ->
           UnindexedFace'
-            <$> (x .:? "FaceDetail")
-            <*> (x .:? "Reasons" .!= mempty)
+            Prelude.<$> (x Prelude..:? "FaceDetail")
+            Prelude.<*> (x Prelude..:? "Reasons" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable UnindexedFace
+instance Prelude.Hashable UnindexedFace
 
-instance NFData UnindexedFace
+instance Prelude.NFData UnindexedFace

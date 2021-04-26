@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.Rekognition.Types.StreamProcessorStatus
   ( StreamProcessorStatus
       ( ..,
-        SPSFailed,
-        SPSRunning,
-        SPSStarting,
-        SPSStopped,
-        SPSStopping
+        StreamProcessorStatusFAILED,
+        StreamProcessorStatusRUNNING,
+        StreamProcessorStatusSTARTING,
+        StreamProcessorStatusSTOPPED,
+        StreamProcessorStatusSTOPPING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StreamProcessorStatus
-  = StreamProcessorStatus'
-      ( CI
-          Text
-      )
+newtype StreamProcessorStatus = StreamProcessorStatus'
+  { fromStreamProcessorStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SPSFailed :: StreamProcessorStatus
-pattern SPSFailed = StreamProcessorStatus' "FAILED"
+pattern StreamProcessorStatusFAILED :: StreamProcessorStatus
+pattern StreamProcessorStatusFAILED = StreamProcessorStatus' "FAILED"
 
-pattern SPSRunning :: StreamProcessorStatus
-pattern SPSRunning = StreamProcessorStatus' "RUNNING"
+pattern StreamProcessorStatusRUNNING :: StreamProcessorStatus
+pattern StreamProcessorStatusRUNNING = StreamProcessorStatus' "RUNNING"
 
-pattern SPSStarting :: StreamProcessorStatus
-pattern SPSStarting = StreamProcessorStatus' "STARTING"
+pattern StreamProcessorStatusSTARTING :: StreamProcessorStatus
+pattern StreamProcessorStatusSTARTING = StreamProcessorStatus' "STARTING"
 
-pattern SPSStopped :: StreamProcessorStatus
-pattern SPSStopped = StreamProcessorStatus' "STOPPED"
+pattern StreamProcessorStatusSTOPPED :: StreamProcessorStatus
+pattern StreamProcessorStatusSTOPPED = StreamProcessorStatus' "STOPPED"
 
-pattern SPSStopping :: StreamProcessorStatus
-pattern SPSStopping = StreamProcessorStatus' "STOPPING"
+pattern StreamProcessorStatusSTOPPING :: StreamProcessorStatus
+pattern StreamProcessorStatusSTOPPING = StreamProcessorStatus' "STOPPING"
 
 {-# COMPLETE
-  SPSFailed,
-  SPSRunning,
-  SPSStarting,
-  SPSStopped,
-  SPSStopping,
+  StreamProcessorStatusFAILED,
+  StreamProcessorStatusRUNNING,
+  StreamProcessorStatusSTARTING,
+  StreamProcessorStatusSTOPPED,
+  StreamProcessorStatusSTOPPING,
   StreamProcessorStatus'
   #-}
 
-instance FromText StreamProcessorStatus where
-  parser = (StreamProcessorStatus' . mk) <$> takeText
+instance Prelude.FromText StreamProcessorStatus where
+  parser = StreamProcessorStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StreamProcessorStatus where
-  toText (StreamProcessorStatus' ci) = original ci
+instance Prelude.ToText StreamProcessorStatus where
+  toText (StreamProcessorStatus' x) = x
 
-instance Hashable StreamProcessorStatus
+instance Prelude.Hashable StreamProcessorStatus
 
-instance NFData StreamProcessorStatus
+instance Prelude.NFData StreamProcessorStatus
 
-instance ToByteString StreamProcessorStatus
+instance Prelude.ToByteString StreamProcessorStatus
 
-instance ToQuery StreamProcessorStatus
+instance Prelude.ToQuery StreamProcessorStatus
 
-instance ToHeader StreamProcessorStatus
+instance Prelude.ToHeader StreamProcessorStatus
 
-instance FromJSON StreamProcessorStatus where
-  parseJSON = parseJSONText "StreamProcessorStatus"
+instance Prelude.FromJSON StreamProcessorStatus where
+  parseJSON = Prelude.parseJSONText "StreamProcessorStatus"

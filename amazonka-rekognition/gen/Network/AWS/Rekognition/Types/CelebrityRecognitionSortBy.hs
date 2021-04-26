@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Rekognition.Types.CelebrityRecognitionSortBy
   ( CelebrityRecognitionSortBy
       ( ..,
-        CRSBId,
-        CRSBTimestamp
+        CelebrityRecognitionSortByID,
+        CelebrityRecognitionSortByTIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CelebrityRecognitionSortBy
-  = CelebrityRecognitionSortBy'
-      ( CI
-          Text
-      )
+newtype CelebrityRecognitionSortBy = CelebrityRecognitionSortBy'
+  { fromCelebrityRecognitionSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CRSBId :: CelebrityRecognitionSortBy
-pattern CRSBId = CelebrityRecognitionSortBy' "ID"
+pattern CelebrityRecognitionSortByID :: CelebrityRecognitionSortBy
+pattern CelebrityRecognitionSortByID = CelebrityRecognitionSortBy' "ID"
 
-pattern CRSBTimestamp :: CelebrityRecognitionSortBy
-pattern CRSBTimestamp = CelebrityRecognitionSortBy' "TIMESTAMP"
+pattern CelebrityRecognitionSortByTIMESTAMP :: CelebrityRecognitionSortBy
+pattern CelebrityRecognitionSortByTIMESTAMP = CelebrityRecognitionSortBy' "TIMESTAMP"
 
 {-# COMPLETE
-  CRSBId,
-  CRSBTimestamp,
+  CelebrityRecognitionSortByID,
+  CelebrityRecognitionSortByTIMESTAMP,
   CelebrityRecognitionSortBy'
   #-}
 
-instance FromText CelebrityRecognitionSortBy where
-  parser = (CelebrityRecognitionSortBy' . mk) <$> takeText
+instance Prelude.FromText CelebrityRecognitionSortBy where
+  parser = CelebrityRecognitionSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText CelebrityRecognitionSortBy where
-  toText (CelebrityRecognitionSortBy' ci) = original ci
+instance Prelude.ToText CelebrityRecognitionSortBy where
+  toText (CelebrityRecognitionSortBy' x) = x
 
-instance Hashable CelebrityRecognitionSortBy
+instance Prelude.Hashable CelebrityRecognitionSortBy
 
-instance NFData CelebrityRecognitionSortBy
+instance Prelude.NFData CelebrityRecognitionSortBy
 
-instance ToByteString CelebrityRecognitionSortBy
+instance Prelude.ToByteString CelebrityRecognitionSortBy
 
-instance ToQuery CelebrityRecognitionSortBy
+instance Prelude.ToQuery CelebrityRecognitionSortBy
 
-instance ToHeader CelebrityRecognitionSortBy
+instance Prelude.ToHeader CelebrityRecognitionSortBy
 
-instance ToJSON CelebrityRecognitionSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON CelebrityRecognitionSortBy where
+  toJSON = Prelude.toJSONText

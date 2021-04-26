@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Rekognition.Types.ProjectStatus
   ( ProjectStatus
       ( ..,
-        Created,
-        Creating,
-        Deleting
+        ProjectStatusCREATED,
+        ProjectStatusCREATING,
+        ProjectStatusDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProjectStatus = ProjectStatus' (CI Text)
+newtype ProjectStatus = ProjectStatus'
+  { fromProjectStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Created :: ProjectStatus
-pattern Created = ProjectStatus' "CREATED"
+pattern ProjectStatusCREATED :: ProjectStatus
+pattern ProjectStatusCREATED = ProjectStatus' "CREATED"
 
-pattern Creating :: ProjectStatus
-pattern Creating = ProjectStatus' "CREATING"
+pattern ProjectStatusCREATING :: ProjectStatus
+pattern ProjectStatusCREATING = ProjectStatus' "CREATING"
 
-pattern Deleting :: ProjectStatus
-pattern Deleting = ProjectStatus' "DELETING"
+pattern ProjectStatusDELETING :: ProjectStatus
+pattern ProjectStatusDELETING = ProjectStatus' "DELETING"
 
 {-# COMPLETE
-  Created,
-  Creating,
-  Deleting,
+  ProjectStatusCREATED,
+  ProjectStatusCREATING,
+  ProjectStatusDELETING,
   ProjectStatus'
   #-}
 
-instance FromText ProjectStatus where
-  parser = (ProjectStatus' . mk) <$> takeText
+instance Prelude.FromText ProjectStatus where
+  parser = ProjectStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ProjectStatus where
-  toText (ProjectStatus' ci) = original ci
+instance Prelude.ToText ProjectStatus where
+  toText (ProjectStatus' x) = x
 
-instance Hashable ProjectStatus
+instance Prelude.Hashable ProjectStatus
 
-instance NFData ProjectStatus
+instance Prelude.NFData ProjectStatus
 
-instance ToByteString ProjectStatus
+instance Prelude.ToByteString ProjectStatus
 
-instance ToQuery ProjectStatus
+instance Prelude.ToQuery ProjectStatus
 
-instance ToHeader ProjectStatus
+instance Prelude.ToHeader ProjectStatus
 
-instance FromJSON ProjectStatus where
-  parseJSON = parseJSONText "ProjectStatus"
+instance Prelude.FromJSON ProjectStatus where
+  parseJSON = Prelude.parseJSONText "ProjectStatus"

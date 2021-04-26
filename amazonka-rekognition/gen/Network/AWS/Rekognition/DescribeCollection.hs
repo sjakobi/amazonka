@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified collection. You can use @DescribeCollection@ to get information, such as the number of faces indexed into a collection and the version of the model used by the collection for face detection.
+-- Describes the specified collection. You can use @DescribeCollection@ to
+-- get information, such as the number of faces indexed into a collection
+-- and the version of the model used by the collection for face detection.
 --
---
--- For more information, see Describing a Collection in the Amazon Rekognition Developer Guide.
+-- For more information, see Describing a Collection in the Amazon
+-- Rekognition Developer Guide.
 module Network.AWS.Rekognition.DescribeCollection
   ( -- * Creating a Request
-    describeCollection,
-    DescribeCollection,
+    DescribeCollection (..),
+    newDescribeCollection,
 
     -- * Request Lenses
-    dCollectionId,
+    describeCollection_collectionId,
 
     -- * Destructuring the Response
-    describeCollectionResponse,
-    DescribeCollectionResponse,
+    DescribeCollectionResponse (..),
+    newDescribeCollectionResponse,
 
     -- * Response Lenses
-    desrsCreationTimestamp,
-    desrsFaceModelVersion,
-    desrsCollectionARN,
-    desrsFaceCount,
-    desrsResponseStatus,
+    describeCollectionResponse_creationTimestamp,
+    describeCollectionResponse_faceModelVersion,
+    describeCollectionResponse_collectionARN,
+    describeCollectionResponse_faceCount,
+    describeCollectionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCollection' smart constructor.
-newtype DescribeCollection = DescribeCollection'
-  { _dCollectionId ::
-      Text
+-- | /See:/ 'newDescribeCollection' smart constructor.
+data DescribeCollection = DescribeCollection'
+  { -- | The ID of the collection to describe.
+    collectionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCollection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCollection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dCollectionId' - The ID of the collection to describe.
-describeCollection ::
-  -- | 'dCollectionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'collectionId', 'describeCollection_collectionId' - The ID of the collection to describe.
+newDescribeCollection ::
+  -- | 'collectionId'
+  Prelude.Text ->
   DescribeCollection
-describeCollection pCollectionId_ =
-  DescribeCollection'
-    { _dCollectionId =
-        pCollectionId_
-    }
+newDescribeCollection pCollectionId_ =
+  DescribeCollection' {collectionId = pCollectionId_}
 
 -- | The ID of the collection to describe.
-dCollectionId :: Lens' DescribeCollection Text
-dCollectionId = lens _dCollectionId (\s a -> s {_dCollectionId = a})
+describeCollection_collectionId :: Lens.Lens' DescribeCollection Prelude.Text
+describeCollection_collectionId = Lens.lens (\DescribeCollection' {collectionId} -> collectionId) (\s@DescribeCollection' {} a -> s {collectionId = a} :: DescribeCollection)
 
-instance AWSRequest DescribeCollection where
+instance Prelude.AWSRequest DescribeCollection where
   type
     Rs DescribeCollection =
       DescribeCollectionResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCollectionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "FaceModelVersion")
-            <*> (x .?> "CollectionARN")
-            <*> (x .?> "FaceCount")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "FaceModelVersion")
+            Prelude.<*> (x Prelude..?> "CollectionARN")
+            Prelude.<*> (x Prelude..?> "FaceCount")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCollection
+instance Prelude.Hashable DescribeCollection
 
-instance NFData DescribeCollection
+instance Prelude.NFData DescribeCollection
 
-instance ToHeaders DescribeCollection where
+instance Prelude.ToHeaders DescribeCollection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "RekognitionService.DescribeCollection" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "RekognitionService.DescribeCollection" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCollection where
+instance Prelude.ToJSON DescribeCollection where
   toJSON DescribeCollection' {..} =
-    object
-      (catMaybes [Just ("CollectionId" .= _dCollectionId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CollectionId" Prelude..= collectionId)
+          ]
+      )
 
-instance ToPath DescribeCollection where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCollection where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCollection where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeCollection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeCollectionResponse' smart constructor.
+-- | /See:/ 'newDescribeCollectionResponse' smart constructor.
 data DescribeCollectionResponse = DescribeCollectionResponse'
-  { _desrsCreationTimestamp ::
-      !(Maybe POSIX),
-    _desrsFaceModelVersion ::
-      !(Maybe Text),
-    _desrsCollectionARN ::
-      !(Maybe Text),
-    _desrsFaceCount ::
-      !(Maybe Nat),
-    _desrsResponseStatus ::
-      !Int
+  { -- | The number of milliseconds since the Unix epoch time until the creation
+    -- of the collection. The Unix epoch time is 00:00:00 Coordinated Universal
+    -- Time (UTC), Thursday, 1 January 1970.
+    creationTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The version of the face model that\'s used by the collection for face
+    -- detection.
+    --
+    -- For more information, see Model Versioning in the Amazon Rekognition
+    -- Developer Guide.
+    faceModelVersion :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the collection.
+    collectionARN :: Prelude.Maybe Prelude.Text,
+    -- | The number of faces that are indexed into the collection. To index faces
+    -- into a collection, use IndexFaces.
+    faceCount :: Prelude.Maybe Prelude.Nat,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCollectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCollectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsCreationTimestamp' - The number of milliseconds since the Unix epoch time until the creation of the collection. The Unix epoch time is 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsFaceModelVersion' - The version of the face model that's used by the collection for face detection. For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
+-- 'creationTimestamp', 'describeCollectionResponse_creationTimestamp' - The number of milliseconds since the Unix epoch time until the creation
+-- of the collection. The Unix epoch time is 00:00:00 Coordinated Universal
+-- Time (UTC), Thursday, 1 January 1970.
 --
--- * 'desrsCollectionARN' - The Amazon Resource Name (ARN) of the collection.
+-- 'faceModelVersion', 'describeCollectionResponse_faceModelVersion' - The version of the face model that\'s used by the collection for face
+-- detection.
 --
--- * 'desrsFaceCount' - The number of faces that are indexed into the collection. To index faces into a collection, use 'IndexFaces' .
+-- For more information, see Model Versioning in the Amazon Rekognition
+-- Developer Guide.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeCollectionResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'collectionARN', 'describeCollectionResponse_collectionARN' - The Amazon Resource Name (ARN) of the collection.
+--
+-- 'faceCount', 'describeCollectionResponse_faceCount' - The number of faces that are indexed into the collection. To index faces
+-- into a collection, use IndexFaces.
+--
+-- 'httpStatus', 'describeCollectionResponse_httpStatus' - The response's http status code.
+newDescribeCollectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCollectionResponse
-describeCollectionResponse pResponseStatus_ =
+newDescribeCollectionResponse pHttpStatus_ =
   DescribeCollectionResponse'
-    { _desrsCreationTimestamp =
-        Nothing,
-      _desrsFaceModelVersion = Nothing,
-      _desrsCollectionARN = Nothing,
-      _desrsFaceCount = Nothing,
-      _desrsResponseStatus = pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      faceModelVersion = Prelude.Nothing,
+      collectionARN = Prelude.Nothing,
+      faceCount = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The number of milliseconds since the Unix epoch time until the creation of the collection. The Unix epoch time is 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970.
-desrsCreationTimestamp :: Lens' DescribeCollectionResponse (Maybe UTCTime)
-desrsCreationTimestamp = lens _desrsCreationTimestamp (\s a -> s {_desrsCreationTimestamp = a}) . mapping _Time
+-- | The number of milliseconds since the Unix epoch time until the creation
+-- of the collection. The Unix epoch time is 00:00:00 Coordinated Universal
+-- Time (UTC), Thursday, 1 January 1970.
+describeCollectionResponse_creationTimestamp :: Lens.Lens' DescribeCollectionResponse (Prelude.Maybe Prelude.UTCTime)
+describeCollectionResponse_creationTimestamp = Lens.lens (\DescribeCollectionResponse' {creationTimestamp} -> creationTimestamp) (\s@DescribeCollectionResponse' {} a -> s {creationTimestamp = a} :: DescribeCollectionResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The version of the face model that's used by the collection for face detection. For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
-desrsFaceModelVersion :: Lens' DescribeCollectionResponse (Maybe Text)
-desrsFaceModelVersion = lens _desrsFaceModelVersion (\s a -> s {_desrsFaceModelVersion = a})
+-- | The version of the face model that\'s used by the collection for face
+-- detection.
+--
+-- For more information, see Model Versioning in the Amazon Rekognition
+-- Developer Guide.
+describeCollectionResponse_faceModelVersion :: Lens.Lens' DescribeCollectionResponse (Prelude.Maybe Prelude.Text)
+describeCollectionResponse_faceModelVersion = Lens.lens (\DescribeCollectionResponse' {faceModelVersion} -> faceModelVersion) (\s@DescribeCollectionResponse' {} a -> s {faceModelVersion = a} :: DescribeCollectionResponse)
 
 -- | The Amazon Resource Name (ARN) of the collection.
-desrsCollectionARN :: Lens' DescribeCollectionResponse (Maybe Text)
-desrsCollectionARN = lens _desrsCollectionARN (\s a -> s {_desrsCollectionARN = a})
+describeCollectionResponse_collectionARN :: Lens.Lens' DescribeCollectionResponse (Prelude.Maybe Prelude.Text)
+describeCollectionResponse_collectionARN = Lens.lens (\DescribeCollectionResponse' {collectionARN} -> collectionARN) (\s@DescribeCollectionResponse' {} a -> s {collectionARN = a} :: DescribeCollectionResponse)
 
--- | The number of faces that are indexed into the collection. To index faces into a collection, use 'IndexFaces' .
-desrsFaceCount :: Lens' DescribeCollectionResponse (Maybe Natural)
-desrsFaceCount = lens _desrsFaceCount (\s a -> s {_desrsFaceCount = a}) . mapping _Nat
+-- | The number of faces that are indexed into the collection. To index faces
+-- into a collection, use IndexFaces.
+describeCollectionResponse_faceCount :: Lens.Lens' DescribeCollectionResponse (Prelude.Maybe Prelude.Natural)
+describeCollectionResponse_faceCount = Lens.lens (\DescribeCollectionResponse' {faceCount} -> faceCount) (\s@DescribeCollectionResponse' {} a -> s {faceCount = a} :: DescribeCollectionResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeCollectionResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeCollectionResponse_httpStatus :: Lens.Lens' DescribeCollectionResponse Prelude.Int
+describeCollectionResponse_httpStatus = Lens.lens (\DescribeCollectionResponse' {httpStatus} -> httpStatus) (\s@DescribeCollectionResponse' {} a -> s {httpStatus = a} :: DescribeCollectionResponse)
 
-instance NFData DescribeCollectionResponse
+instance Prelude.NFData DescribeCollectionResponse

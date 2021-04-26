@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified collection. Note that this operation removes all faces in the collection. For an example, see 'delete-collection-procedure' .
+-- Deletes the specified collection. Note that this operation removes all
+-- faces in the collection. For an example, see
+-- delete-collection-procedure.
 --
---
--- This operation requires permissions to perform the @rekognition:DeleteCollection@ action.
+-- This operation requires permissions to perform the
+-- @rekognition:DeleteCollection@ action.
 module Network.AWS.Rekognition.DeleteCollection
   ( -- * Creating a Request
-    deleteCollection,
-    DeleteCollection,
+    DeleteCollection (..),
+    newDeleteCollection,
 
     -- * Request Lenses
-    dcCollectionId,
+    deleteCollection_collectionId,
 
     -- * Destructuring the Response
-    deleteCollectionResponse,
-    DeleteCollectionResponse,
+    DeleteCollectionResponse (..),
+    newDeleteCollectionResponse,
 
     -- * Response Lenses
-    dcrrsStatusCode,
-    dcrrsResponseStatus,
+    deleteCollectionResponse_statusCode,
+    deleteCollectionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteCollection' smart constructor.
-newtype DeleteCollection = DeleteCollection'
-  { _dcCollectionId ::
-      Text
+-- | /See:/ 'newDeleteCollection' smart constructor.
+data DeleteCollection = DeleteCollection'
+  { -- | ID of the collection to delete.
+    collectionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCollection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCollection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcCollectionId' - ID of the collection to delete.
-deleteCollection ::
-  -- | 'dcCollectionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'collectionId', 'deleteCollection_collectionId' - ID of the collection to delete.
+newDeleteCollection ::
+  -- | 'collectionId'
+  Prelude.Text ->
   DeleteCollection
-deleteCollection pCollectionId_ =
-  DeleteCollection' {_dcCollectionId = pCollectionId_}
+newDeleteCollection pCollectionId_ =
+  DeleteCollection' {collectionId = pCollectionId_}
 
 -- | ID of the collection to delete.
-dcCollectionId :: Lens' DeleteCollection Text
-dcCollectionId = lens _dcCollectionId (\s a -> s {_dcCollectionId = a})
+deleteCollection_collectionId :: Lens.Lens' DeleteCollection Prelude.Text
+deleteCollection_collectionId = Lens.lens (\DeleteCollection' {collectionId} -> collectionId) (\s@DeleteCollection' {} a -> s {collectionId = a} :: DeleteCollection)
 
-instance AWSRequest DeleteCollection where
+instance Prelude.AWSRequest DeleteCollection where
   type Rs DeleteCollection = DeleteCollectionResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteCollectionResponse'
-            <$> (x .?> "StatusCode") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "StatusCode")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteCollection
+instance Prelude.Hashable DeleteCollection
 
-instance NFData DeleteCollection
+instance Prelude.NFData DeleteCollection
 
-instance ToHeaders DeleteCollection where
+instance Prelude.ToHeaders DeleteCollection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "RekognitionService.DeleteCollection" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "RekognitionService.DeleteCollection" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteCollection where
+instance Prelude.ToJSON DeleteCollection where
   toJSON DeleteCollection' {..} =
-    object
-      ( catMaybes
-          [Just ("CollectionId" .= _dcCollectionId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CollectionId" Prelude..= collectionId)
+          ]
       )
 
-instance ToPath DeleteCollection where
-  toPath = const "/"
+instance Prelude.ToPath DeleteCollection where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteCollection where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteCollection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteCollectionResponse' smart constructor.
+-- | /See:/ 'newDeleteCollectionResponse' smart constructor.
 data DeleteCollectionResponse = DeleteCollectionResponse'
-  { _dcrrsStatusCode ::
-      !(Maybe Nat),
-    _dcrrsResponseStatus ::
-      !Int
+  { -- | HTTP status code that indicates the result of the operation.
+    statusCode :: Prelude.Maybe Prelude.Nat,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCollectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCollectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsStatusCode' - HTTP status code that indicates the result of the operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-deleteCollectionResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- 'statusCode', 'deleteCollectionResponse_statusCode' - HTTP status code that indicates the result of the operation.
+--
+-- 'httpStatus', 'deleteCollectionResponse_httpStatus' - The response's http status code.
+newDeleteCollectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteCollectionResponse
-deleteCollectionResponse pResponseStatus_ =
+newDeleteCollectionResponse pHttpStatus_ =
   DeleteCollectionResponse'
-    { _dcrrsStatusCode =
-        Nothing,
-      _dcrrsResponseStatus = pResponseStatus_
+    { statusCode =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | HTTP status code that indicates the result of the operation.
-dcrrsStatusCode :: Lens' DeleteCollectionResponse (Maybe Natural)
-dcrrsStatusCode = lens _dcrrsStatusCode (\s a -> s {_dcrrsStatusCode = a}) . mapping _Nat
+deleteCollectionResponse_statusCode :: Lens.Lens' DeleteCollectionResponse (Prelude.Maybe Prelude.Natural)
+deleteCollectionResponse_statusCode = Lens.lens (\DeleteCollectionResponse' {statusCode} -> statusCode) (\s@DeleteCollectionResponse' {} a -> s {statusCode = a} :: DeleteCollectionResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DeleteCollectionResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteCollectionResponse_httpStatus :: Lens.Lens' DeleteCollectionResponse Prelude.Int
+deleteCollectionResponse_httpStatus = Lens.lens (\DeleteCollectionResponse' {httpStatus} -> httpStatus) (\s@DeleteCollectionResponse' {} a -> s {httpStatus = a} :: DeleteCollectionResponse)
 
-instance NFData DeleteCollectionResponse
+instance Prelude.NFData DeleteCollectionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.FaceMatch where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.Face
 
--- | Provides face metadata. In addition, it also provides the confidence in the match of this face with the input face.
+-- | Provides face metadata. In addition, it also provides the confidence in
+-- the match of this face with the input face.
 --
---
---
--- /See:/ 'faceMatch' smart constructor.
+-- /See:/ 'newFaceMatch' smart constructor.
 data FaceMatch = FaceMatch'
-  { _fmSimilarity ::
-      !(Maybe Double),
-    _fmFace :: !(Maybe Face)
+  { -- | Confidence in the match of this face with the input face.
+    similarity :: Prelude.Maybe Prelude.Double,
+    -- | Describes the face properties such as the bounding box, face ID, image
+    -- ID of the source image, and external image ID that you assigned.
+    face :: Prelude.Maybe Face
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FaceMatch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FaceMatch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fmSimilarity' - Confidence in the match of this face with the input face.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fmFace' - Describes the face properties such as the bounding box, face ID, image ID of the source image, and external image ID that you assigned.
-faceMatch ::
+-- 'similarity', 'faceMatch_similarity' - Confidence in the match of this face with the input face.
+--
+-- 'face', 'faceMatch_face' - Describes the face properties such as the bounding box, face ID, image
+-- ID of the source image, and external image ID that you assigned.
+newFaceMatch ::
   FaceMatch
-faceMatch =
+newFaceMatch =
   FaceMatch'
-    { _fmSimilarity = Nothing,
-      _fmFace = Nothing
+    { similarity = Prelude.Nothing,
+      face = Prelude.Nothing
     }
 
 -- | Confidence in the match of this face with the input face.
-fmSimilarity :: Lens' FaceMatch (Maybe Double)
-fmSimilarity = lens _fmSimilarity (\s a -> s {_fmSimilarity = a})
+faceMatch_similarity :: Lens.Lens' FaceMatch (Prelude.Maybe Prelude.Double)
+faceMatch_similarity = Lens.lens (\FaceMatch' {similarity} -> similarity) (\s@FaceMatch' {} a -> s {similarity = a} :: FaceMatch)
 
--- | Describes the face properties such as the bounding box, face ID, image ID of the source image, and external image ID that you assigned.
-fmFace :: Lens' FaceMatch (Maybe Face)
-fmFace = lens _fmFace (\s a -> s {_fmFace = a})
+-- | Describes the face properties such as the bounding box, face ID, image
+-- ID of the source image, and external image ID that you assigned.
+faceMatch_face :: Lens.Lens' FaceMatch (Prelude.Maybe Face)
+faceMatch_face = Lens.lens (\FaceMatch' {face} -> face) (\s@FaceMatch' {} a -> s {face = a} :: FaceMatch)
 
-instance FromJSON FaceMatch where
+instance Prelude.FromJSON FaceMatch where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FaceMatch"
       ( \x ->
           FaceMatch'
-            <$> (x .:? "Similarity") <*> (x .:? "Face")
+            Prelude.<$> (x Prelude..:? "Similarity")
+            Prelude.<*> (x Prelude..:? "Face")
       )
 
-instance Hashable FaceMatch
+instance Prelude.Hashable FaceMatch
 
-instance NFData FaceMatch
+instance Prelude.NFData FaceMatch

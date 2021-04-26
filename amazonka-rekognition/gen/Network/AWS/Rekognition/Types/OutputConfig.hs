@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.OutputConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The S3 bucket and folder location where training output is placed.
 --
---
---
--- /See:/ 'outputConfig' smart constructor.
+-- /See:/ 'newOutputConfig' smart constructor.
 data OutputConfig = OutputConfig'
-  { _ocS3Bucket ::
-      !(Maybe Text),
-    _ocS3KeyPrefix :: !(Maybe Text)
+  { -- | The S3 bucket where training output is placed.
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The prefix applied to the training output files.
+    s3KeyPrefix :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ocS3Bucket' - The S3 bucket where training output is placed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ocS3KeyPrefix' - The prefix applied to the training output files.
-outputConfig ::
+-- 's3Bucket', 'outputConfig_s3Bucket' - The S3 bucket where training output is placed.
+--
+-- 's3KeyPrefix', 'outputConfig_s3KeyPrefix' - The prefix applied to the training output files.
+newOutputConfig ::
   OutputConfig
-outputConfig =
+newOutputConfig =
   OutputConfig'
-    { _ocS3Bucket = Nothing,
-      _ocS3KeyPrefix = Nothing
+    { s3Bucket = Prelude.Nothing,
+      s3KeyPrefix = Prelude.Nothing
     }
 
 -- | The S3 bucket where training output is placed.
-ocS3Bucket :: Lens' OutputConfig (Maybe Text)
-ocS3Bucket = lens _ocS3Bucket (\s a -> s {_ocS3Bucket = a})
+outputConfig_s3Bucket :: Lens.Lens' OutputConfig (Prelude.Maybe Prelude.Text)
+outputConfig_s3Bucket = Lens.lens (\OutputConfig' {s3Bucket} -> s3Bucket) (\s@OutputConfig' {} a -> s {s3Bucket = a} :: OutputConfig)
 
 -- | The prefix applied to the training output files.
-ocS3KeyPrefix :: Lens' OutputConfig (Maybe Text)
-ocS3KeyPrefix = lens _ocS3KeyPrefix (\s a -> s {_ocS3KeyPrefix = a})
+outputConfig_s3KeyPrefix :: Lens.Lens' OutputConfig (Prelude.Maybe Prelude.Text)
+outputConfig_s3KeyPrefix = Lens.lens (\OutputConfig' {s3KeyPrefix} -> s3KeyPrefix) (\s@OutputConfig' {} a -> s {s3KeyPrefix = a} :: OutputConfig)
 
-instance FromJSON OutputConfig where
+instance Prelude.FromJSON OutputConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputConfig"
       ( \x ->
           OutputConfig'
-            <$> (x .:? "S3Bucket") <*> (x .:? "S3KeyPrefix")
+            Prelude.<$> (x Prelude..:? "S3Bucket")
+            Prelude.<*> (x Prelude..:? "S3KeyPrefix")
       )
 
-instance Hashable OutputConfig
+instance Prelude.Hashable OutputConfig
 
-instance NFData OutputConfig
+instance Prelude.NFData OutputConfig
 
-instance ToJSON OutputConfig where
+instance Prelude.ToJSON OutputConfig where
   toJSON OutputConfig' {..} =
-    object
-      ( catMaybes
-          [ ("S3Bucket" .=) <$> _ocS3Bucket,
-            ("S3KeyPrefix" .=) <$> _ocS3KeyPrefix
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3Bucket" Prelude..=) Prelude.<$> s3Bucket,
+            ("S3KeyPrefix" Prelude..=) Prelude.<$> s3KeyPrefix
           ]
       )

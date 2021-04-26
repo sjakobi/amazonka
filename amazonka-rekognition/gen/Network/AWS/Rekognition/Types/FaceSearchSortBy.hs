@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Rekognition.Types.FaceSearchSortBy
   ( FaceSearchSortBy
       ( ..,
-        FSSBIndex,
-        FSSBTimestamp
+        FaceSearchSortByINDEX,
+        FaceSearchSortByTIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FaceSearchSortBy = FaceSearchSortBy' (CI Text)
+newtype FaceSearchSortBy = FaceSearchSortBy'
+  { fromFaceSearchSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FSSBIndex :: FaceSearchSortBy
-pattern FSSBIndex = FaceSearchSortBy' "INDEX"
+pattern FaceSearchSortByINDEX :: FaceSearchSortBy
+pattern FaceSearchSortByINDEX = FaceSearchSortBy' "INDEX"
 
-pattern FSSBTimestamp :: FaceSearchSortBy
-pattern FSSBTimestamp = FaceSearchSortBy' "TIMESTAMP"
+pattern FaceSearchSortByTIMESTAMP :: FaceSearchSortBy
+pattern FaceSearchSortByTIMESTAMP = FaceSearchSortBy' "TIMESTAMP"
 
 {-# COMPLETE
-  FSSBIndex,
-  FSSBTimestamp,
+  FaceSearchSortByINDEX,
+  FaceSearchSortByTIMESTAMP,
   FaceSearchSortBy'
   #-}
 
-instance FromText FaceSearchSortBy where
-  parser = (FaceSearchSortBy' . mk) <$> takeText
+instance Prelude.FromText FaceSearchSortBy where
+  parser = FaceSearchSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText FaceSearchSortBy where
-  toText (FaceSearchSortBy' ci) = original ci
+instance Prelude.ToText FaceSearchSortBy where
+  toText (FaceSearchSortBy' x) = x
 
-instance Hashable FaceSearchSortBy
+instance Prelude.Hashable FaceSearchSortBy
 
-instance NFData FaceSearchSortBy
+instance Prelude.NFData FaceSearchSortBy
 
-instance ToByteString FaceSearchSortBy
+instance Prelude.ToByteString FaceSearchSortBy
 
-instance ToQuery FaceSearchSortBy
+instance Prelude.ToQuery FaceSearchSortBy
 
-instance ToHeader FaceSearchSortBy
+instance Prelude.ToHeader FaceSearchSortBy
 
-instance ToJSON FaceSearchSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON FaceSearchSortBy where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,77 @@
 module Network.AWS.Rekognition.Types.Reason
   ( Reason
       ( ..,
-        ExceedsMaxFaces,
-        ExtremePose,
-        LowBrightness,
-        LowConfidence,
-        LowFaceQuality,
-        LowSharpness,
-        SmallBoundingBox
+        ReasonEXCEEDSMAXFACES,
+        ReasonEXTREMEPOSE,
+        ReasonLOWBRIGHTNESS,
+        ReasonLOWCONFIDENCE,
+        ReasonLOWFACEQUALITY,
+        ReasonLOWSHARPNESS,
+        ReasonSMALLBOUNDINGBOX
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Reason = Reason' (CI Text)
+newtype Reason = Reason' {fromReason :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ExceedsMaxFaces :: Reason
-pattern ExceedsMaxFaces = Reason' "EXCEEDS_MAX_FACES"
+pattern ReasonEXCEEDSMAXFACES :: Reason
+pattern ReasonEXCEEDSMAXFACES = Reason' "EXCEEDS_MAX_FACES"
 
-pattern ExtremePose :: Reason
-pattern ExtremePose = Reason' "EXTREME_POSE"
+pattern ReasonEXTREMEPOSE :: Reason
+pattern ReasonEXTREMEPOSE = Reason' "EXTREME_POSE"
 
-pattern LowBrightness :: Reason
-pattern LowBrightness = Reason' "LOW_BRIGHTNESS"
+pattern ReasonLOWBRIGHTNESS :: Reason
+pattern ReasonLOWBRIGHTNESS = Reason' "LOW_BRIGHTNESS"
 
-pattern LowConfidence :: Reason
-pattern LowConfidence = Reason' "LOW_CONFIDENCE"
+pattern ReasonLOWCONFIDENCE :: Reason
+pattern ReasonLOWCONFIDENCE = Reason' "LOW_CONFIDENCE"
 
-pattern LowFaceQuality :: Reason
-pattern LowFaceQuality = Reason' "LOW_FACE_QUALITY"
+pattern ReasonLOWFACEQUALITY :: Reason
+pattern ReasonLOWFACEQUALITY = Reason' "LOW_FACE_QUALITY"
 
-pattern LowSharpness :: Reason
-pattern LowSharpness = Reason' "LOW_SHARPNESS"
+pattern ReasonLOWSHARPNESS :: Reason
+pattern ReasonLOWSHARPNESS = Reason' "LOW_SHARPNESS"
 
-pattern SmallBoundingBox :: Reason
-pattern SmallBoundingBox = Reason' "SMALL_BOUNDING_BOX"
+pattern ReasonSMALLBOUNDINGBOX :: Reason
+pattern ReasonSMALLBOUNDINGBOX = Reason' "SMALL_BOUNDING_BOX"
 
 {-# COMPLETE
-  ExceedsMaxFaces,
-  ExtremePose,
-  LowBrightness,
-  LowConfidence,
-  LowFaceQuality,
-  LowSharpness,
-  SmallBoundingBox,
+  ReasonEXCEEDSMAXFACES,
+  ReasonEXTREMEPOSE,
+  ReasonLOWBRIGHTNESS,
+  ReasonLOWCONFIDENCE,
+  ReasonLOWFACEQUALITY,
+  ReasonLOWSHARPNESS,
+  ReasonSMALLBOUNDINGBOX,
   Reason'
   #-}
 
-instance FromText Reason where
-  parser = (Reason' . mk) <$> takeText
+instance Prelude.FromText Reason where
+  parser = Reason' Prelude.<$> Prelude.takeText
 
-instance ToText Reason where
-  toText (Reason' ci) = original ci
+instance Prelude.ToText Reason where
+  toText (Reason' x) = x
 
-instance Hashable Reason
+instance Prelude.Hashable Reason
 
-instance NFData Reason
+instance Prelude.NFData Reason
 
-instance ToByteString Reason
+instance Prelude.ToByteString Reason
 
-instance ToQuery Reason
+instance Prelude.ToQuery Reason
 
-instance ToHeader Reason
+instance Prelude.ToHeader Reason
 
-instance FromJSON Reason where
-  parseJSON = parseJSONText "Reason"
+instance Prelude.FromJSON Reason where
+  parseJSON = Prelude.parseJSONText "Reason"

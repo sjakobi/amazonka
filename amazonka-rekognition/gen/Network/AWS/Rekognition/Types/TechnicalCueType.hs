@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Rekognition.Types.TechnicalCueType
   ( TechnicalCueType
       ( ..,
-        BlackFrames,
-        ColorBars,
-        EndCredits
+        TechnicalCueTypeBlackFrames,
+        TechnicalCueTypeColorBars,
+        TechnicalCueTypeEndCredits
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TechnicalCueType = TechnicalCueType' (CI Text)
+newtype TechnicalCueType = TechnicalCueType'
+  { fromTechnicalCueType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BlackFrames :: TechnicalCueType
-pattern BlackFrames = TechnicalCueType' "BlackFrames"
+pattern TechnicalCueTypeBlackFrames :: TechnicalCueType
+pattern TechnicalCueTypeBlackFrames = TechnicalCueType' "BlackFrames"
 
-pattern ColorBars :: TechnicalCueType
-pattern ColorBars = TechnicalCueType' "ColorBars"
+pattern TechnicalCueTypeColorBars :: TechnicalCueType
+pattern TechnicalCueTypeColorBars = TechnicalCueType' "ColorBars"
 
-pattern EndCredits :: TechnicalCueType
-pattern EndCredits = TechnicalCueType' "EndCredits"
+pattern TechnicalCueTypeEndCredits :: TechnicalCueType
+pattern TechnicalCueTypeEndCredits = TechnicalCueType' "EndCredits"
 
 {-# COMPLETE
-  BlackFrames,
-  ColorBars,
-  EndCredits,
+  TechnicalCueTypeBlackFrames,
+  TechnicalCueTypeColorBars,
+  TechnicalCueTypeEndCredits,
   TechnicalCueType'
   #-}
 
-instance FromText TechnicalCueType where
-  parser = (TechnicalCueType' . mk) <$> takeText
+instance Prelude.FromText TechnicalCueType where
+  parser = TechnicalCueType' Prelude.<$> Prelude.takeText
 
-instance ToText TechnicalCueType where
-  toText (TechnicalCueType' ci) = original ci
+instance Prelude.ToText TechnicalCueType where
+  toText (TechnicalCueType' x) = x
 
-instance Hashable TechnicalCueType
+instance Prelude.Hashable TechnicalCueType
 
-instance NFData TechnicalCueType
+instance Prelude.NFData TechnicalCueType
 
-instance ToByteString TechnicalCueType
+instance Prelude.ToByteString TechnicalCueType
 
-instance ToQuery TechnicalCueType
+instance Prelude.ToQuery TechnicalCueType
 
-instance ToHeader TechnicalCueType
+instance Prelude.ToHeader TechnicalCueType
 
-instance FromJSON TechnicalCueType where
-  parseJSON = parseJSONText "TechnicalCueType"
+instance Prelude.FromJSON TechnicalCueType where
+  parseJSON = Prelude.parseJSONText "TechnicalCueType"

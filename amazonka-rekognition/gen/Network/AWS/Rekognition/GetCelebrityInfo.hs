@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the name and additional information about a celebrity based on his or her Amazon Rekognition ID. The additional information is returned as an array of URLs. If there is no additional information about the celebrity, this list is empty.
+-- Gets the name and additional information about a celebrity based on his
+-- or her Amazon Rekognition ID. The additional information is returned as
+-- an array of URLs. If there is no additional information about the
+-- celebrity, this list is empty.
 --
+-- For more information, see Recognizing Celebrities in an Image in the
+-- Amazon Rekognition Developer Guide.
 --
--- For more information, see Recognizing Celebrities in an Image in the Amazon Rekognition Developer Guide.
---
--- This operation requires permissions to perform the @rekognition:GetCelebrityInfo@ action.
+-- This operation requires permissions to perform the
+-- @rekognition:GetCelebrityInfo@ action.
 module Network.AWS.Rekognition.GetCelebrityInfo
   ( -- * Creating a Request
-    getCelebrityInfo,
-    GetCelebrityInfo,
+    GetCelebrityInfo (..),
+    newGetCelebrityInfo,
 
     -- * Request Lenses
-    gciId,
+    getCelebrityInfo_id,
 
     -- * Destructuring the Response
-    getCelebrityInfoResponse,
-    GetCelebrityInfoResponse,
+    GetCelebrityInfoResponse (..),
+    newGetCelebrityInfoResponse,
 
     -- * Response Lenses
-    gcirrsURLs,
-    gcirrsName,
-    gcirrsResponseStatus,
+    getCelebrityInfoResponse_urls,
+    getCelebrityInfoResponse_name,
+    getCelebrityInfoResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCelebrityInfo' smart constructor.
-newtype GetCelebrityInfo = GetCelebrityInfo'
-  { _gciId ::
-      Text
+-- | /See:/ 'newGetCelebrityInfo' smart constructor.
+data GetCelebrityInfo = GetCelebrityInfo'
+  { -- | The ID for the celebrity. You get the celebrity ID from a call to the
+    -- RecognizeCelebrities operation, which recognizes celebrities in an
+    -- image.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCelebrityInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCelebrityInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gciId' - The ID for the celebrity. You get the celebrity ID from a call to the 'RecognizeCelebrities' operation, which recognizes celebrities in an image.
-getCelebrityInfo ::
-  -- | 'gciId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getCelebrityInfo_id' - The ID for the celebrity. You get the celebrity ID from a call to the
+-- RecognizeCelebrities operation, which recognizes celebrities in an
+-- image.
+newGetCelebrityInfo ::
+  -- | 'id'
+  Prelude.Text ->
   GetCelebrityInfo
-getCelebrityInfo pId_ =
-  GetCelebrityInfo' {_gciId = pId_}
+newGetCelebrityInfo pId_ =
+  GetCelebrityInfo' {id = pId_}
 
--- | The ID for the celebrity. You get the celebrity ID from a call to the 'RecognizeCelebrities' operation, which recognizes celebrities in an image.
-gciId :: Lens' GetCelebrityInfo Text
-gciId = lens _gciId (\s a -> s {_gciId = a})
+-- | The ID for the celebrity. You get the celebrity ID from a call to the
+-- RecognizeCelebrities operation, which recognizes celebrities in an
+-- image.
+getCelebrityInfo_id :: Lens.Lens' GetCelebrityInfo Prelude.Text
+getCelebrityInfo_id = Lens.lens (\GetCelebrityInfo' {id} -> id) (\s@GetCelebrityInfo' {} a -> s {id = a} :: GetCelebrityInfo)
 
-instance AWSRequest GetCelebrityInfo where
+instance Prelude.AWSRequest GetCelebrityInfo where
   type Rs GetCelebrityInfo = GetCelebrityInfoResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCelebrityInfoResponse'
-            <$> (x .?> "Urls" .!@ mempty)
-            <*> (x .?> "Name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Urls" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCelebrityInfo
+instance Prelude.Hashable GetCelebrityInfo
 
-instance NFData GetCelebrityInfo
+instance Prelude.NFData GetCelebrityInfo
 
-instance ToHeaders GetCelebrityInfo where
+instance Prelude.ToHeaders GetCelebrityInfo where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "RekognitionService.GetCelebrityInfo" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "RekognitionService.GetCelebrityInfo" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCelebrityInfo where
+instance Prelude.ToJSON GetCelebrityInfo where
   toJSON GetCelebrityInfo' {..} =
-    object (catMaybes [Just ("Id" .= _gciId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Id" Prelude..= id)]
+      )
 
-instance ToPath GetCelebrityInfo where
-  toPath = const "/"
+instance Prelude.ToPath GetCelebrityInfo where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCelebrityInfo where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCelebrityInfo where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCelebrityInfoResponse' smart constructor.
+-- | /See:/ 'newGetCelebrityInfoResponse' smart constructor.
 data GetCelebrityInfoResponse = GetCelebrityInfoResponse'
-  { _gcirrsURLs ::
-      !(Maybe [Text]),
-    _gcirrsName ::
-      !(Maybe Text),
-    _gcirrsResponseStatus ::
-      !Int
+  { -- | An array of URLs pointing to additional celebrity information.
+    urls :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the celebrity.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCelebrityInfoResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCelebrityInfoResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcirrsURLs' - An array of URLs pointing to additional celebrity information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcirrsName' - The name of the celebrity.
+-- 'urls', 'getCelebrityInfoResponse_urls' - An array of URLs pointing to additional celebrity information.
 --
--- * 'gcirrsResponseStatus' - -- | The response status code.
-getCelebrityInfoResponse ::
-  -- | 'gcirrsResponseStatus'
-  Int ->
+-- 'name', 'getCelebrityInfoResponse_name' - The name of the celebrity.
+--
+-- 'httpStatus', 'getCelebrityInfoResponse_httpStatus' - The response's http status code.
+newGetCelebrityInfoResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCelebrityInfoResponse
-getCelebrityInfoResponse pResponseStatus_ =
+newGetCelebrityInfoResponse pHttpStatus_ =
   GetCelebrityInfoResponse'
-    { _gcirrsURLs = Nothing,
-      _gcirrsName = Nothing,
-      _gcirrsResponseStatus = pResponseStatus_
+    { urls = Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An array of URLs pointing to additional celebrity information.
-gcirrsURLs :: Lens' GetCelebrityInfoResponse [Text]
-gcirrsURLs = lens _gcirrsURLs (\s a -> s {_gcirrsURLs = a}) . _Default . _Coerce
+getCelebrityInfoResponse_urls :: Lens.Lens' GetCelebrityInfoResponse (Prelude.Maybe [Prelude.Text])
+getCelebrityInfoResponse_urls = Lens.lens (\GetCelebrityInfoResponse' {urls} -> urls) (\s@GetCelebrityInfoResponse' {} a -> s {urls = a} :: GetCelebrityInfoResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the celebrity.
-gcirrsName :: Lens' GetCelebrityInfoResponse (Maybe Text)
-gcirrsName = lens _gcirrsName (\s a -> s {_gcirrsName = a})
+getCelebrityInfoResponse_name :: Lens.Lens' GetCelebrityInfoResponse (Prelude.Maybe Prelude.Text)
+getCelebrityInfoResponse_name = Lens.lens (\GetCelebrityInfoResponse' {name} -> name) (\s@GetCelebrityInfoResponse' {} a -> s {name = a} :: GetCelebrityInfoResponse)
 
--- | -- | The response status code.
-gcirrsResponseStatus :: Lens' GetCelebrityInfoResponse Int
-gcirrsResponseStatus = lens _gcirrsResponseStatus (\s a -> s {_gcirrsResponseStatus = a})
+-- | The response's http status code.
+getCelebrityInfoResponse_httpStatus :: Lens.Lens' GetCelebrityInfoResponse Prelude.Int
+getCelebrityInfoResponse_httpStatus = Lens.lens (\GetCelebrityInfoResponse' {httpStatus} -> httpStatus) (\s@GetCelebrityInfoResponse' {} a -> s {httpStatus = a} :: GetCelebrityInfoResponse)
 
-instance NFData GetCelebrityInfoResponse
+instance Prelude.NFData GetCelebrityInfoResponse

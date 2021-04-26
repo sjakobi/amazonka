@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.StartSegmentDetectionFilters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.StartShotDetectionFilter
 import Network.AWS.Rekognition.Types.StartTechnicalCueDetectionFilter
 
--- | Filters applied to the technical cue or shot detection segments. For more information, see 'StartSegmentDetection' .
+-- | Filters applied to the technical cue or shot detection segments. For
+-- more information, see StartSegmentDetection.
 --
---
---
--- /See:/ 'startSegmentDetectionFilters' smart constructor.
+-- /See:/ 'newStartSegmentDetectionFilters' smart constructor.
 data StartSegmentDetectionFilters = StartSegmentDetectionFilters'
-  { _ssdfTechnicalCueFilter ::
-      !( Maybe
-           StartTechnicalCueDetectionFilter
-       ),
-    _ssdfShotFilter ::
-      !( Maybe
-           StartShotDetectionFilter
-       )
+  { -- | Filters that are specific to technical cues.
+    technicalCueFilter :: Prelude.Maybe StartTechnicalCueDetectionFilter,
+    -- | Filters that are specific to shot detections.
+    shotFilter :: Prelude.Maybe StartShotDetectionFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartSegmentDetectionFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartSegmentDetectionFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssdfTechnicalCueFilter' - Filters that are specific to technical cues.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssdfShotFilter' - Filters that are specific to shot detections.
-startSegmentDetectionFilters ::
+-- 'technicalCueFilter', 'startSegmentDetectionFilters_technicalCueFilter' - Filters that are specific to technical cues.
+--
+-- 'shotFilter', 'startSegmentDetectionFilters_shotFilter' - Filters that are specific to shot detections.
+newStartSegmentDetectionFilters ::
   StartSegmentDetectionFilters
-startSegmentDetectionFilters =
+newStartSegmentDetectionFilters =
   StartSegmentDetectionFilters'
-    { _ssdfTechnicalCueFilter =
-        Nothing,
-      _ssdfShotFilter = Nothing
+    { technicalCueFilter =
+        Prelude.Nothing,
+      shotFilter = Prelude.Nothing
     }
 
 -- | Filters that are specific to technical cues.
-ssdfTechnicalCueFilter :: Lens' StartSegmentDetectionFilters (Maybe StartTechnicalCueDetectionFilter)
-ssdfTechnicalCueFilter = lens _ssdfTechnicalCueFilter (\s a -> s {_ssdfTechnicalCueFilter = a})
+startSegmentDetectionFilters_technicalCueFilter :: Lens.Lens' StartSegmentDetectionFilters (Prelude.Maybe StartTechnicalCueDetectionFilter)
+startSegmentDetectionFilters_technicalCueFilter = Lens.lens (\StartSegmentDetectionFilters' {technicalCueFilter} -> technicalCueFilter) (\s@StartSegmentDetectionFilters' {} a -> s {technicalCueFilter = a} :: StartSegmentDetectionFilters)
 
 -- | Filters that are specific to shot detections.
-ssdfShotFilter :: Lens' StartSegmentDetectionFilters (Maybe StartShotDetectionFilter)
-ssdfShotFilter = lens _ssdfShotFilter (\s a -> s {_ssdfShotFilter = a})
+startSegmentDetectionFilters_shotFilter :: Lens.Lens' StartSegmentDetectionFilters (Prelude.Maybe StartShotDetectionFilter)
+startSegmentDetectionFilters_shotFilter = Lens.lens (\StartSegmentDetectionFilters' {shotFilter} -> shotFilter) (\s@StartSegmentDetectionFilters' {} a -> s {shotFilter = a} :: StartSegmentDetectionFilters)
 
-instance Hashable StartSegmentDetectionFilters
+instance
+  Prelude.Hashable
+    StartSegmentDetectionFilters
 
-instance NFData StartSegmentDetectionFilters
+instance Prelude.NFData StartSegmentDetectionFilters
 
-instance ToJSON StartSegmentDetectionFilters where
+instance Prelude.ToJSON StartSegmentDetectionFilters where
   toJSON StartSegmentDetectionFilters' {..} =
-    object
-      ( catMaybes
-          [ ("TechnicalCueFilter" .=)
-              <$> _ssdfTechnicalCueFilter,
-            ("ShotFilter" .=) <$> _ssdfShotFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TechnicalCueFilter" Prelude..=)
+              Prelude.<$> technicalCueFilter,
+            ("ShotFilter" Prelude..=) Prelude.<$> shotFilter
           ]
       )

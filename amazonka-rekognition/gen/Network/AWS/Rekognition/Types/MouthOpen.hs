@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.MouthOpen where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates whether or not the mouth on the face is open, and the confidence level in the determination.
+-- | Indicates whether or not the mouth on the face is open, and the
+-- confidence level in the determination.
 --
---
---
--- /See:/ 'mouthOpen' smart constructor.
+-- /See:/ 'newMouthOpen' smart constructor.
 data MouthOpen = MouthOpen'
-  { _moConfidence ::
-      !(Maybe Double),
-    _moValue :: !(Maybe Bool)
+  { -- | Level of confidence in the determination.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | Boolean value that indicates whether the mouth on the face is open or
+    -- not.
+    value :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MouthOpen' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MouthOpen' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'moConfidence' - Level of confidence in the determination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'moValue' - Boolean value that indicates whether the mouth on the face is open or not.
-mouthOpen ::
+-- 'confidence', 'mouthOpen_confidence' - Level of confidence in the determination.
+--
+-- 'value', 'mouthOpen_value' - Boolean value that indicates whether the mouth on the face is open or
+-- not.
+newMouthOpen ::
   MouthOpen
-mouthOpen =
+newMouthOpen =
   MouthOpen'
-    { _moConfidence = Nothing,
-      _moValue = Nothing
+    { confidence = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | Level of confidence in the determination.
-moConfidence :: Lens' MouthOpen (Maybe Double)
-moConfidence = lens _moConfidence (\s a -> s {_moConfidence = a})
+mouthOpen_confidence :: Lens.Lens' MouthOpen (Prelude.Maybe Prelude.Double)
+mouthOpen_confidence = Lens.lens (\MouthOpen' {confidence} -> confidence) (\s@MouthOpen' {} a -> s {confidence = a} :: MouthOpen)
 
--- | Boolean value that indicates whether the mouth on the face is open or not.
-moValue :: Lens' MouthOpen (Maybe Bool)
-moValue = lens _moValue (\s a -> s {_moValue = a})
+-- | Boolean value that indicates whether the mouth on the face is open or
+-- not.
+mouthOpen_value :: Lens.Lens' MouthOpen (Prelude.Maybe Prelude.Bool)
+mouthOpen_value = Lens.lens (\MouthOpen' {value} -> value) (\s@MouthOpen' {} a -> s {value = a} :: MouthOpen)
 
-instance FromJSON MouthOpen where
+instance Prelude.FromJSON MouthOpen where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MouthOpen"
       ( \x ->
           MouthOpen'
-            <$> (x .:? "Confidence") <*> (x .:? "Value")
+            Prelude.<$> (x Prelude..:? "Confidence")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable MouthOpen
+instance Prelude.Hashable MouthOpen
 
-instance NFData MouthOpen
+instance Prelude.NFData MouthOpen

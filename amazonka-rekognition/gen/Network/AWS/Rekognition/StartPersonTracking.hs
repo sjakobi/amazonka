@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,219 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts the asynchronous tracking of a person's path in a stored video.
+-- Starts the asynchronous tracking of a person\'s path in a stored video.
 --
+-- Amazon Rekognition Video can track the path of people in a video stored
+-- in an Amazon S3 bucket. Use Video to specify the bucket name and the
+-- filename of the video. @StartPersonTracking@ returns a job identifier
+-- (@JobId@) which you use to get the results of the operation. When label
+-- detection is finished, Amazon Rekognition publishes a completion status
+-- to the Amazon Simple Notification Service topic that you specify in
+-- @NotificationChannel@.
 --
--- Amazon Rekognition Video can track the path of people in a video stored in an Amazon S3 bucket. Use 'Video' to specify the bucket name and the filename of the video. @StartPersonTracking@ returns a job identifier (@JobId@ ) which you use to get the results of the operation. When label detection is finished, Amazon Rekognition publishes a completion status to the Amazon Simple Notification Service topic that you specify in @NotificationChannel@ .
---
--- To get the results of the person detection operation, first check that the status value published to the Amazon SNS topic is @SUCCEEDED@ . If so, call 'GetPersonTracking' and pass the job identifier (@JobId@ ) from the initial call to @StartPersonTracking@ .
+-- To get the results of the person detection operation, first check that
+-- the status value published to the Amazon SNS topic is @SUCCEEDED@. If
+-- so, call GetPersonTracking and pass the job identifier (@JobId@) from
+-- the initial call to @StartPersonTracking@.
 module Network.AWS.Rekognition.StartPersonTracking
   ( -- * Creating a Request
-    startPersonTracking,
-    StartPersonTracking,
+    StartPersonTracking (..),
+    newStartPersonTracking,
 
     -- * Request Lenses
-    sptNotificationChannel,
-    sptClientRequestToken,
-    sptJobTag,
-    sptVideo,
+    startPersonTracking_notificationChannel,
+    startPersonTracking_clientRequestToken,
+    startPersonTracking_jobTag,
+    startPersonTracking_video,
 
     -- * Destructuring the Response
-    startPersonTrackingResponse,
-    StartPersonTrackingResponse,
+    StartPersonTrackingResponse (..),
+    newStartPersonTrackingResponse,
 
     -- * Response Lenses
-    sptrrsJobId,
-    sptrrsResponseStatus,
+    startPersonTrackingResponse_jobId,
+    startPersonTrackingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startPersonTracking' smart constructor.
+-- | /See:/ 'newStartPersonTracking' smart constructor.
 data StartPersonTracking = StartPersonTracking'
-  { _sptNotificationChannel ::
-      !(Maybe NotificationChannel),
-    _sptClientRequestToken ::
-      !(Maybe Text),
-    _sptJobTag :: !(Maybe Text),
-    _sptVideo :: !Video
+  { -- | The Amazon SNS topic ARN you want Amazon Rekognition Video to publish
+    -- the completion status of the people detection operation to.
+    notificationChannel :: Prelude.Maybe NotificationChannel,
+    -- | Idempotent token used to identify the start request. If you use the same
+    -- token with multiple @StartPersonTracking@ requests, the same @JobId@ is
+    -- returned. Use @ClientRequestToken@ to prevent the same job from being
+    -- accidently started more than once.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | An identifier you specify that\'s returned in the completion
+    -- notification that\'s published to your Amazon Simple Notification
+    -- Service topic. For example, you can use @JobTag@ to group related jobs
+    -- and identify them in the completion notification.
+    jobTag :: Prelude.Maybe Prelude.Text,
+    -- | The video in which you want to detect people. The video must be stored
+    -- in an Amazon S3 bucket.
+    video :: Video
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartPersonTracking' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartPersonTracking' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sptNotificationChannel' - The Amazon SNS topic ARN you want Amazon Rekognition Video to publish the completion status of the people detection operation to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sptClientRequestToken' - Idempotent token used to identify the start request. If you use the same token with multiple @StartPersonTracking@ requests, the same @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job from being accidently started more than once.
+-- 'notificationChannel', 'startPersonTracking_notificationChannel' - The Amazon SNS topic ARN you want Amazon Rekognition Video to publish
+-- the completion status of the people detection operation to.
 --
--- * 'sptJobTag' - An identifier you specify that's returned in the completion notification that's published to your Amazon Simple Notification Service topic. For example, you can use @JobTag@ to group related jobs and identify them in the completion notification.
+-- 'clientRequestToken', 'startPersonTracking_clientRequestToken' - Idempotent token used to identify the start request. If you use the same
+-- token with multiple @StartPersonTracking@ requests, the same @JobId@ is
+-- returned. Use @ClientRequestToken@ to prevent the same job from being
+-- accidently started more than once.
 --
--- * 'sptVideo' - The video in which you want to detect people. The video must be stored in an Amazon S3 bucket.
-startPersonTracking ::
-  -- | 'sptVideo'
+-- 'jobTag', 'startPersonTracking_jobTag' - An identifier you specify that\'s returned in the completion
+-- notification that\'s published to your Amazon Simple Notification
+-- Service topic. For example, you can use @JobTag@ to group related jobs
+-- and identify them in the completion notification.
+--
+-- 'video', 'startPersonTracking_video' - The video in which you want to detect people. The video must be stored
+-- in an Amazon S3 bucket.
+newStartPersonTracking ::
+  -- | 'video'
   Video ->
   StartPersonTracking
-startPersonTracking pVideo_ =
+newStartPersonTracking pVideo_ =
   StartPersonTracking'
-    { _sptNotificationChannel =
-        Nothing,
-      _sptClientRequestToken = Nothing,
-      _sptJobTag = Nothing,
-      _sptVideo = pVideo_
+    { notificationChannel =
+        Prelude.Nothing,
+      clientRequestToken = Prelude.Nothing,
+      jobTag = Prelude.Nothing,
+      video = pVideo_
     }
 
--- | The Amazon SNS topic ARN you want Amazon Rekognition Video to publish the completion status of the people detection operation to.
-sptNotificationChannel :: Lens' StartPersonTracking (Maybe NotificationChannel)
-sptNotificationChannel = lens _sptNotificationChannel (\s a -> s {_sptNotificationChannel = a})
+-- | The Amazon SNS topic ARN you want Amazon Rekognition Video to publish
+-- the completion status of the people detection operation to.
+startPersonTracking_notificationChannel :: Lens.Lens' StartPersonTracking (Prelude.Maybe NotificationChannel)
+startPersonTracking_notificationChannel = Lens.lens (\StartPersonTracking' {notificationChannel} -> notificationChannel) (\s@StartPersonTracking' {} a -> s {notificationChannel = a} :: StartPersonTracking)
 
--- | Idempotent token used to identify the start request. If you use the same token with multiple @StartPersonTracking@ requests, the same @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job from being accidently started more than once.
-sptClientRequestToken :: Lens' StartPersonTracking (Maybe Text)
-sptClientRequestToken = lens _sptClientRequestToken (\s a -> s {_sptClientRequestToken = a})
+-- | Idempotent token used to identify the start request. If you use the same
+-- token with multiple @StartPersonTracking@ requests, the same @JobId@ is
+-- returned. Use @ClientRequestToken@ to prevent the same job from being
+-- accidently started more than once.
+startPersonTracking_clientRequestToken :: Lens.Lens' StartPersonTracking (Prelude.Maybe Prelude.Text)
+startPersonTracking_clientRequestToken = Lens.lens (\StartPersonTracking' {clientRequestToken} -> clientRequestToken) (\s@StartPersonTracking' {} a -> s {clientRequestToken = a} :: StartPersonTracking)
 
--- | An identifier you specify that's returned in the completion notification that's published to your Amazon Simple Notification Service topic. For example, you can use @JobTag@ to group related jobs and identify them in the completion notification.
-sptJobTag :: Lens' StartPersonTracking (Maybe Text)
-sptJobTag = lens _sptJobTag (\s a -> s {_sptJobTag = a})
+-- | An identifier you specify that\'s returned in the completion
+-- notification that\'s published to your Amazon Simple Notification
+-- Service topic. For example, you can use @JobTag@ to group related jobs
+-- and identify them in the completion notification.
+startPersonTracking_jobTag :: Lens.Lens' StartPersonTracking (Prelude.Maybe Prelude.Text)
+startPersonTracking_jobTag = Lens.lens (\StartPersonTracking' {jobTag} -> jobTag) (\s@StartPersonTracking' {} a -> s {jobTag = a} :: StartPersonTracking)
 
--- | The video in which you want to detect people. The video must be stored in an Amazon S3 bucket.
-sptVideo :: Lens' StartPersonTracking Video
-sptVideo = lens _sptVideo (\s a -> s {_sptVideo = a})
+-- | The video in which you want to detect people. The video must be stored
+-- in an Amazon S3 bucket.
+startPersonTracking_video :: Lens.Lens' StartPersonTracking Video
+startPersonTracking_video = Lens.lens (\StartPersonTracking' {video} -> video) (\s@StartPersonTracking' {} a -> s {video = a} :: StartPersonTracking)
 
-instance AWSRequest StartPersonTracking where
+instance Prelude.AWSRequest StartPersonTracking where
   type
     Rs StartPersonTracking =
       StartPersonTrackingResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartPersonTrackingResponse'
-            <$> (x .?> "JobId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartPersonTracking
+instance Prelude.Hashable StartPersonTracking
 
-instance NFData StartPersonTracking
+instance Prelude.NFData StartPersonTracking
 
-instance ToHeaders StartPersonTracking where
+instance Prelude.ToHeaders StartPersonTracking where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "RekognitionService.StartPersonTracking" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "RekognitionService.StartPersonTracking" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartPersonTracking where
+instance Prelude.ToJSON StartPersonTracking where
   toJSON StartPersonTracking' {..} =
-    object
-      ( catMaybes
-          [ ("NotificationChannel" .=)
-              <$> _sptNotificationChannel,
-            ("ClientRequestToken" .=) <$> _sptClientRequestToken,
-            ("JobTag" .=) <$> _sptJobTag,
-            Just ("Video" .= _sptVideo)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotificationChannel" Prelude..=)
+              Prelude.<$> notificationChannel,
+            ("ClientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            ("JobTag" Prelude..=) Prelude.<$> jobTag,
+            Prelude.Just ("Video" Prelude..= video)
           ]
       )
 
-instance ToPath StartPersonTracking where
-  toPath = const "/"
+instance Prelude.ToPath StartPersonTracking where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartPersonTracking where
-  toQuery = const mempty
+instance Prelude.ToQuery StartPersonTracking where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startPersonTrackingResponse' smart constructor.
+-- | /See:/ 'newStartPersonTrackingResponse' smart constructor.
 data StartPersonTrackingResponse = StartPersonTrackingResponse'
-  { _sptrrsJobId ::
-      !(Maybe Text),
-    _sptrrsResponseStatus ::
-      !Int
+  { -- | The identifier for the person detection job. Use @JobId@ to identify the
+    -- job in a subsequent call to @GetPersonTracking@.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartPersonTrackingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartPersonTrackingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sptrrsJobId' - The identifier for the person detection job. Use @JobId@ to identify the job in a subsequent call to @GetPersonTracking@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sptrrsResponseStatus' - -- | The response status code.
-startPersonTrackingResponse ::
-  -- | 'sptrrsResponseStatus'
-  Int ->
+-- 'jobId', 'startPersonTrackingResponse_jobId' - The identifier for the person detection job. Use @JobId@ to identify the
+-- job in a subsequent call to @GetPersonTracking@.
+--
+-- 'httpStatus', 'startPersonTrackingResponse_httpStatus' - The response's http status code.
+newStartPersonTrackingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartPersonTrackingResponse
-startPersonTrackingResponse pResponseStatus_ =
+newStartPersonTrackingResponse pHttpStatus_ =
   StartPersonTrackingResponse'
-    { _sptrrsJobId =
-        Nothing,
-      _sptrrsResponseStatus = pResponseStatus_
+    { jobId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The identifier for the person detection job. Use @JobId@ to identify the job in a subsequent call to @GetPersonTracking@ .
-sptrrsJobId :: Lens' StartPersonTrackingResponse (Maybe Text)
-sptrrsJobId = lens _sptrrsJobId (\s a -> s {_sptrrsJobId = a})
+-- | The identifier for the person detection job. Use @JobId@ to identify the
+-- job in a subsequent call to @GetPersonTracking@.
+startPersonTrackingResponse_jobId :: Lens.Lens' StartPersonTrackingResponse (Prelude.Maybe Prelude.Text)
+startPersonTrackingResponse_jobId = Lens.lens (\StartPersonTrackingResponse' {jobId} -> jobId) (\s@StartPersonTrackingResponse' {} a -> s {jobId = a} :: StartPersonTrackingResponse)
 
--- | -- | The response status code.
-sptrrsResponseStatus :: Lens' StartPersonTrackingResponse Int
-sptrrsResponseStatus = lens _sptrrsResponseStatus (\s a -> s {_sptrrsResponseStatus = a})
+-- | The response's http status code.
+startPersonTrackingResponse_httpStatus :: Lens.Lens' StartPersonTrackingResponse Prelude.Int
+startPersonTrackingResponse_httpStatus = Lens.lens (\StartPersonTrackingResponse' {httpStatus} -> httpStatus) (\s@StartPersonTrackingResponse' {} a -> s {httpStatus = a} :: StartPersonTrackingResponse)
 
-instance NFData StartPersonTrackingResponse
+instance Prelude.NFData StartPersonTrackingResponse

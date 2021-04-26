@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Rekognition.Types.ContentClassifier
   ( ContentClassifier
       ( ..,
-        FreeOfAdultContent,
-        FreeOfPersonallyIdentifiableInformation
+        ContentClassifierFreeOfAdultContent,
+        ContentClassifierFreeOfPersonallyIdentifiableInformation
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContentClassifier = ContentClassifier' (CI Text)
+newtype ContentClassifier = ContentClassifier'
+  { fromContentClassifier ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FreeOfAdultContent :: ContentClassifier
-pattern FreeOfAdultContent = ContentClassifier' "FreeOfAdultContent"
+pattern ContentClassifierFreeOfAdultContent :: ContentClassifier
+pattern ContentClassifierFreeOfAdultContent = ContentClassifier' "FreeOfAdultContent"
 
-pattern FreeOfPersonallyIdentifiableInformation :: ContentClassifier
-pattern FreeOfPersonallyIdentifiableInformation = ContentClassifier' "FreeOfPersonallyIdentifiableInformation"
+pattern ContentClassifierFreeOfPersonallyIdentifiableInformation :: ContentClassifier
+pattern ContentClassifierFreeOfPersonallyIdentifiableInformation = ContentClassifier' "FreeOfPersonallyIdentifiableInformation"
 
 {-# COMPLETE
-  FreeOfAdultContent,
-  FreeOfPersonallyIdentifiableInformation,
+  ContentClassifierFreeOfAdultContent,
+  ContentClassifierFreeOfPersonallyIdentifiableInformation,
   ContentClassifier'
   #-}
 
-instance FromText ContentClassifier where
-  parser = (ContentClassifier' . mk) <$> takeText
+instance Prelude.FromText ContentClassifier where
+  parser = ContentClassifier' Prelude.<$> Prelude.takeText
 
-instance ToText ContentClassifier where
-  toText (ContentClassifier' ci) = original ci
+instance Prelude.ToText ContentClassifier where
+  toText (ContentClassifier' x) = x
 
-instance Hashable ContentClassifier
+instance Prelude.Hashable ContentClassifier
 
-instance NFData ContentClassifier
+instance Prelude.NFData ContentClassifier
 
-instance ToByteString ContentClassifier
+instance Prelude.ToByteString ContentClassifier
 
-instance ToQuery ContentClassifier
+instance Prelude.ToQuery ContentClassifier
 
-instance ToHeader ContentClassifier
+instance Prelude.ToHeader ContentClassifier
 
-instance ToJSON ContentClassifier where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContentClassifier where
+  toJSON = Prelude.toJSONText

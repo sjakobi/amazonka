@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.ComparedSourceImageFace where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.BoundingBox
 
--- | Type that describes the face Amazon Rekognition chose to compare with the faces in the target. This contains a bounding box for the selected face and confidence level that the bounding box contains a face. Note that Amazon Rekognition selects the largest face in the source image for this comparison.
+-- | Type that describes the face Amazon Rekognition chose to compare with
+-- the faces in the target. This contains a bounding box for the selected
+-- face and confidence level that the bounding box contains a face. Note
+-- that Amazon Rekognition selects the largest face in the source image for
+-- this comparison.
 --
---
---
--- /See:/ 'comparedSourceImageFace' smart constructor.
+-- /See:/ 'newComparedSourceImageFace' smart constructor.
 data ComparedSourceImageFace = ComparedSourceImageFace'
-  { _csifBoundingBox ::
-      !(Maybe BoundingBox),
-    _csifConfidence ::
-      !(Maybe Double)
+  { -- | Bounding box of the face.
+    boundingBox :: Prelude.Maybe BoundingBox,
+    -- | Confidence level that the selected bounding box contains a face.
+    confidence :: Prelude.Maybe Prelude.Double
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ComparedSourceImageFace' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ComparedSourceImageFace' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csifBoundingBox' - Bounding box of the face.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csifConfidence' - Confidence level that the selected bounding box contains a face.
-comparedSourceImageFace ::
+-- 'boundingBox', 'comparedSourceImageFace_boundingBox' - Bounding box of the face.
+--
+-- 'confidence', 'comparedSourceImageFace_confidence' - Confidence level that the selected bounding box contains a face.
+newComparedSourceImageFace ::
   ComparedSourceImageFace
-comparedSourceImageFace =
+newComparedSourceImageFace =
   ComparedSourceImageFace'
-    { _csifBoundingBox =
-        Nothing,
-      _csifConfidence = Nothing
+    { boundingBox =
+        Prelude.Nothing,
+      confidence = Prelude.Nothing
     }
 
 -- | Bounding box of the face.
-csifBoundingBox :: Lens' ComparedSourceImageFace (Maybe BoundingBox)
-csifBoundingBox = lens _csifBoundingBox (\s a -> s {_csifBoundingBox = a})
+comparedSourceImageFace_boundingBox :: Lens.Lens' ComparedSourceImageFace (Prelude.Maybe BoundingBox)
+comparedSourceImageFace_boundingBox = Lens.lens (\ComparedSourceImageFace' {boundingBox} -> boundingBox) (\s@ComparedSourceImageFace' {} a -> s {boundingBox = a} :: ComparedSourceImageFace)
 
 -- | Confidence level that the selected bounding box contains a face.
-csifConfidence :: Lens' ComparedSourceImageFace (Maybe Double)
-csifConfidence = lens _csifConfidence (\s a -> s {_csifConfidence = a})
+comparedSourceImageFace_confidence :: Lens.Lens' ComparedSourceImageFace (Prelude.Maybe Prelude.Double)
+comparedSourceImageFace_confidence = Lens.lens (\ComparedSourceImageFace' {confidence} -> confidence) (\s@ComparedSourceImageFace' {} a -> s {confidence = a} :: ComparedSourceImageFace)
 
-instance FromJSON ComparedSourceImageFace where
+instance Prelude.FromJSON ComparedSourceImageFace where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ComparedSourceImageFace"
       ( \x ->
           ComparedSourceImageFace'
-            <$> (x .:? "BoundingBox") <*> (x .:? "Confidence")
+            Prelude.<$> (x Prelude..:? "BoundingBox")
+            Prelude.<*> (x Prelude..:? "Confidence")
       )
 
-instance Hashable ComparedSourceImageFace
+instance Prelude.Hashable ComparedSourceImageFace
 
-instance NFData ComparedSourceImageFace
+instance Prelude.NFData ComparedSourceImageFace

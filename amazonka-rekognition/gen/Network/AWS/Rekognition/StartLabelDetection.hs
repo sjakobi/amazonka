@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,188 +23,258 @@
 --
 -- Starts asynchronous detection of labels in a stored video.
 --
+-- Amazon Rekognition Video can detect labels in a video. Labels are
+-- instances of real-world entities. This includes objects like flower,
+-- tree, and table; events like wedding, graduation, and birthday party;
+-- concepts like landscape, evening, and nature; and activities like a
+-- person getting out of a car or a person skiing.
 --
--- Amazon Rekognition Video can detect labels in a video. Labels are instances of real-world entities. This includes objects like flower, tree, and table; events like wedding, graduation, and birthday party; concepts like landscape, evening, and nature; and activities like a person getting out of a car or a person skiing.
+-- The video must be stored in an Amazon S3 bucket. Use Video to specify
+-- the bucket name and the filename of the video. @StartLabelDetection@
+-- returns a job identifier (@JobId@) which you use to get the results of
+-- the operation. When label detection is finished, Amazon Rekognition
+-- Video publishes a completion status to the Amazon Simple Notification
+-- Service topic that you specify in @NotificationChannel@.
 --
--- The video must be stored in an Amazon S3 bucket. Use 'Video' to specify the bucket name and the filename of the video. @StartLabelDetection@ returns a job identifier (@JobId@ ) which you use to get the results of the operation. When label detection is finished, Amazon Rekognition Video publishes a completion status to the Amazon Simple Notification Service topic that you specify in @NotificationChannel@ .
---
--- To get the results of the label detection operation, first check that the status value published to the Amazon SNS topic is @SUCCEEDED@ . If so, call 'GetLabelDetection' and pass the job identifier (@JobId@ ) from the initial call to @StartLabelDetection@ .
+-- To get the results of the label detection operation, first check that
+-- the status value published to the Amazon SNS topic is @SUCCEEDED@. If
+-- so, call GetLabelDetection and pass the job identifier (@JobId@) from
+-- the initial call to @StartLabelDetection@.
 module Network.AWS.Rekognition.StartLabelDetection
   ( -- * Creating a Request
-    startLabelDetection,
-    StartLabelDetection,
+    StartLabelDetection (..),
+    newStartLabelDetection,
 
     -- * Request Lenses
-    sldNotificationChannel,
-    sldMinConfidence,
-    sldClientRequestToken,
-    sldJobTag,
-    sldVideo,
+    startLabelDetection_notificationChannel,
+    startLabelDetection_minConfidence,
+    startLabelDetection_clientRequestToken,
+    startLabelDetection_jobTag,
+    startLabelDetection_video,
 
     -- * Destructuring the Response
-    startLabelDetectionResponse,
-    StartLabelDetectionResponse,
+    StartLabelDetectionResponse (..),
+    newStartLabelDetectionResponse,
 
     -- * Response Lenses
-    sldrrsJobId,
-    sldrrsResponseStatus,
+    startLabelDetectionResponse_jobId,
+    startLabelDetectionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startLabelDetection' smart constructor.
+-- | /See:/ 'newStartLabelDetection' smart constructor.
 data StartLabelDetection = StartLabelDetection'
-  { _sldNotificationChannel ::
-      !(Maybe NotificationChannel),
-    _sldMinConfidence ::
-      !(Maybe Double),
-    _sldClientRequestToken ::
-      !(Maybe Text),
-    _sldJobTag :: !(Maybe Text),
-    _sldVideo :: !Video
+  { -- | The Amazon SNS topic ARN you want Amazon Rekognition Video to publish
+    -- the completion status of the label detection operation to.
+    notificationChannel :: Prelude.Maybe NotificationChannel,
+    -- | Specifies the minimum confidence that Amazon Rekognition Video must have
+    -- in order to return a detected label. Confidence represents how certain
+    -- Amazon Rekognition is that a label is correctly identified.0 is the
+    -- lowest confidence. 100 is the highest confidence. Amazon Rekognition
+    -- Video doesn\'t return any labels with a confidence level lower than this
+    -- specified value.
+    --
+    -- If you don\'t specify @MinConfidence@, the operation returns labels with
+    -- confidence values greater than or equal to 50 percent.
+    minConfidence :: Prelude.Maybe Prelude.Double,
+    -- | Idempotent token used to identify the start request. If you use the same
+    -- token with multiple @StartLabelDetection@ requests, the same @JobId@ is
+    -- returned. Use @ClientRequestToken@ to prevent the same job from being
+    -- accidently started more than once.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | An identifier you specify that\'s returned in the completion
+    -- notification that\'s published to your Amazon Simple Notification
+    -- Service topic. For example, you can use @JobTag@ to group related jobs
+    -- and identify them in the completion notification.
+    jobTag :: Prelude.Maybe Prelude.Text,
+    -- | The video in which you want to detect labels. The video must be stored
+    -- in an Amazon S3 bucket.
+    video :: Video
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartLabelDetection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartLabelDetection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sldNotificationChannel' - The Amazon SNS topic ARN you want Amazon Rekognition Video to publish the completion status of the label detection operation to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sldMinConfidence' - Specifies the minimum confidence that Amazon Rekognition Video must have in order to return a detected label. Confidence represents how certain Amazon Rekognition is that a label is correctly identified.0 is the lowest confidence. 100 is the highest confidence. Amazon Rekognition Video doesn't return any labels with a confidence level lower than this specified value. If you don't specify @MinConfidence@ , the operation returns labels with confidence values greater than or equal to 50 percent.
+-- 'notificationChannel', 'startLabelDetection_notificationChannel' - The Amazon SNS topic ARN you want Amazon Rekognition Video to publish
+-- the completion status of the label detection operation to.
 --
--- * 'sldClientRequestToken' - Idempotent token used to identify the start request. If you use the same token with multiple @StartLabelDetection@ requests, the same @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job from being accidently started more than once.
+-- 'minConfidence', 'startLabelDetection_minConfidence' - Specifies the minimum confidence that Amazon Rekognition Video must have
+-- in order to return a detected label. Confidence represents how certain
+-- Amazon Rekognition is that a label is correctly identified.0 is the
+-- lowest confidence. 100 is the highest confidence. Amazon Rekognition
+-- Video doesn\'t return any labels with a confidence level lower than this
+-- specified value.
 --
--- * 'sldJobTag' - An identifier you specify that's returned in the completion notification that's published to your Amazon Simple Notification Service topic. For example, you can use @JobTag@ to group related jobs and identify them in the completion notification.
+-- If you don\'t specify @MinConfidence@, the operation returns labels with
+-- confidence values greater than or equal to 50 percent.
 --
--- * 'sldVideo' - The video in which you want to detect labels. The video must be stored in an Amazon S3 bucket.
-startLabelDetection ::
-  -- | 'sldVideo'
+-- 'clientRequestToken', 'startLabelDetection_clientRequestToken' - Idempotent token used to identify the start request. If you use the same
+-- token with multiple @StartLabelDetection@ requests, the same @JobId@ is
+-- returned. Use @ClientRequestToken@ to prevent the same job from being
+-- accidently started more than once.
+--
+-- 'jobTag', 'startLabelDetection_jobTag' - An identifier you specify that\'s returned in the completion
+-- notification that\'s published to your Amazon Simple Notification
+-- Service topic. For example, you can use @JobTag@ to group related jobs
+-- and identify them in the completion notification.
+--
+-- 'video', 'startLabelDetection_video' - The video in which you want to detect labels. The video must be stored
+-- in an Amazon S3 bucket.
+newStartLabelDetection ::
+  -- | 'video'
   Video ->
   StartLabelDetection
-startLabelDetection pVideo_ =
+newStartLabelDetection pVideo_ =
   StartLabelDetection'
-    { _sldNotificationChannel =
-        Nothing,
-      _sldMinConfidence = Nothing,
-      _sldClientRequestToken = Nothing,
-      _sldJobTag = Nothing,
-      _sldVideo = pVideo_
+    { notificationChannel =
+        Prelude.Nothing,
+      minConfidence = Prelude.Nothing,
+      clientRequestToken = Prelude.Nothing,
+      jobTag = Prelude.Nothing,
+      video = pVideo_
     }
 
--- | The Amazon SNS topic ARN you want Amazon Rekognition Video to publish the completion status of the label detection operation to.
-sldNotificationChannel :: Lens' StartLabelDetection (Maybe NotificationChannel)
-sldNotificationChannel = lens _sldNotificationChannel (\s a -> s {_sldNotificationChannel = a})
+-- | The Amazon SNS topic ARN you want Amazon Rekognition Video to publish
+-- the completion status of the label detection operation to.
+startLabelDetection_notificationChannel :: Lens.Lens' StartLabelDetection (Prelude.Maybe NotificationChannel)
+startLabelDetection_notificationChannel = Lens.lens (\StartLabelDetection' {notificationChannel} -> notificationChannel) (\s@StartLabelDetection' {} a -> s {notificationChannel = a} :: StartLabelDetection)
 
--- | Specifies the minimum confidence that Amazon Rekognition Video must have in order to return a detected label. Confidence represents how certain Amazon Rekognition is that a label is correctly identified.0 is the lowest confidence. 100 is the highest confidence. Amazon Rekognition Video doesn't return any labels with a confidence level lower than this specified value. If you don't specify @MinConfidence@ , the operation returns labels with confidence values greater than or equal to 50 percent.
-sldMinConfidence :: Lens' StartLabelDetection (Maybe Double)
-sldMinConfidence = lens _sldMinConfidence (\s a -> s {_sldMinConfidence = a})
+-- | Specifies the minimum confidence that Amazon Rekognition Video must have
+-- in order to return a detected label. Confidence represents how certain
+-- Amazon Rekognition is that a label is correctly identified.0 is the
+-- lowest confidence. 100 is the highest confidence. Amazon Rekognition
+-- Video doesn\'t return any labels with a confidence level lower than this
+-- specified value.
+--
+-- If you don\'t specify @MinConfidence@, the operation returns labels with
+-- confidence values greater than or equal to 50 percent.
+startLabelDetection_minConfidence :: Lens.Lens' StartLabelDetection (Prelude.Maybe Prelude.Double)
+startLabelDetection_minConfidence = Lens.lens (\StartLabelDetection' {minConfidence} -> minConfidence) (\s@StartLabelDetection' {} a -> s {minConfidence = a} :: StartLabelDetection)
 
--- | Idempotent token used to identify the start request. If you use the same token with multiple @StartLabelDetection@ requests, the same @JobId@ is returned. Use @ClientRequestToken@ to prevent the same job from being accidently started more than once.
-sldClientRequestToken :: Lens' StartLabelDetection (Maybe Text)
-sldClientRequestToken = lens _sldClientRequestToken (\s a -> s {_sldClientRequestToken = a})
+-- | Idempotent token used to identify the start request. If you use the same
+-- token with multiple @StartLabelDetection@ requests, the same @JobId@ is
+-- returned. Use @ClientRequestToken@ to prevent the same job from being
+-- accidently started more than once.
+startLabelDetection_clientRequestToken :: Lens.Lens' StartLabelDetection (Prelude.Maybe Prelude.Text)
+startLabelDetection_clientRequestToken = Lens.lens (\StartLabelDetection' {clientRequestToken} -> clientRequestToken) (\s@StartLabelDetection' {} a -> s {clientRequestToken = a} :: StartLabelDetection)
 
--- | An identifier you specify that's returned in the completion notification that's published to your Amazon Simple Notification Service topic. For example, you can use @JobTag@ to group related jobs and identify them in the completion notification.
-sldJobTag :: Lens' StartLabelDetection (Maybe Text)
-sldJobTag = lens _sldJobTag (\s a -> s {_sldJobTag = a})
+-- | An identifier you specify that\'s returned in the completion
+-- notification that\'s published to your Amazon Simple Notification
+-- Service topic. For example, you can use @JobTag@ to group related jobs
+-- and identify them in the completion notification.
+startLabelDetection_jobTag :: Lens.Lens' StartLabelDetection (Prelude.Maybe Prelude.Text)
+startLabelDetection_jobTag = Lens.lens (\StartLabelDetection' {jobTag} -> jobTag) (\s@StartLabelDetection' {} a -> s {jobTag = a} :: StartLabelDetection)
 
--- | The video in which you want to detect labels. The video must be stored in an Amazon S3 bucket.
-sldVideo :: Lens' StartLabelDetection Video
-sldVideo = lens _sldVideo (\s a -> s {_sldVideo = a})
+-- | The video in which you want to detect labels. The video must be stored
+-- in an Amazon S3 bucket.
+startLabelDetection_video :: Lens.Lens' StartLabelDetection Video
+startLabelDetection_video = Lens.lens (\StartLabelDetection' {video} -> video) (\s@StartLabelDetection' {} a -> s {video = a} :: StartLabelDetection)
 
-instance AWSRequest StartLabelDetection where
+instance Prelude.AWSRequest StartLabelDetection where
   type
     Rs StartLabelDetection =
       StartLabelDetectionResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartLabelDetectionResponse'
-            <$> (x .?> "JobId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartLabelDetection
+instance Prelude.Hashable StartLabelDetection
 
-instance NFData StartLabelDetection
+instance Prelude.NFData StartLabelDetection
 
-instance ToHeaders StartLabelDetection where
+instance Prelude.ToHeaders StartLabelDetection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "RekognitionService.StartLabelDetection" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "RekognitionService.StartLabelDetection" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartLabelDetection where
+instance Prelude.ToJSON StartLabelDetection where
   toJSON StartLabelDetection' {..} =
-    object
-      ( catMaybes
-          [ ("NotificationChannel" .=)
-              <$> _sldNotificationChannel,
-            ("MinConfidence" .=) <$> _sldMinConfidence,
-            ("ClientRequestToken" .=) <$> _sldClientRequestToken,
-            ("JobTag" .=) <$> _sldJobTag,
-            Just ("Video" .= _sldVideo)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotificationChannel" Prelude..=)
+              Prelude.<$> notificationChannel,
+            ("MinConfidence" Prelude..=)
+              Prelude.<$> minConfidence,
+            ("ClientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            ("JobTag" Prelude..=) Prelude.<$> jobTag,
+            Prelude.Just ("Video" Prelude..= video)
           ]
       )
 
-instance ToPath StartLabelDetection where
-  toPath = const "/"
+instance Prelude.ToPath StartLabelDetection where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartLabelDetection where
-  toQuery = const mempty
+instance Prelude.ToQuery StartLabelDetection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startLabelDetectionResponse' smart constructor.
+-- | /See:/ 'newStartLabelDetectionResponse' smart constructor.
 data StartLabelDetectionResponse = StartLabelDetectionResponse'
-  { _sldrrsJobId ::
-      !(Maybe Text),
-    _sldrrsResponseStatus ::
-      !Int
+  { -- | The identifier for the label detection job. Use @JobId@ to identify the
+    -- job in a subsequent call to @GetLabelDetection@.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartLabelDetectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartLabelDetectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sldrrsJobId' - The identifier for the label detection job. Use @JobId@ to identify the job in a subsequent call to @GetLabelDetection@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sldrrsResponseStatus' - -- | The response status code.
-startLabelDetectionResponse ::
-  -- | 'sldrrsResponseStatus'
-  Int ->
+-- 'jobId', 'startLabelDetectionResponse_jobId' - The identifier for the label detection job. Use @JobId@ to identify the
+-- job in a subsequent call to @GetLabelDetection@.
+--
+-- 'httpStatus', 'startLabelDetectionResponse_httpStatus' - The response's http status code.
+newStartLabelDetectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartLabelDetectionResponse
-startLabelDetectionResponse pResponseStatus_ =
+newStartLabelDetectionResponse pHttpStatus_ =
   StartLabelDetectionResponse'
-    { _sldrrsJobId =
-        Nothing,
-      _sldrrsResponseStatus = pResponseStatus_
+    { jobId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The identifier for the label detection job. Use @JobId@ to identify the job in a subsequent call to @GetLabelDetection@ .
-sldrrsJobId :: Lens' StartLabelDetectionResponse (Maybe Text)
-sldrrsJobId = lens _sldrrsJobId (\s a -> s {_sldrrsJobId = a})
+-- | The identifier for the label detection job. Use @JobId@ to identify the
+-- job in a subsequent call to @GetLabelDetection@.
+startLabelDetectionResponse_jobId :: Lens.Lens' StartLabelDetectionResponse (Prelude.Maybe Prelude.Text)
+startLabelDetectionResponse_jobId = Lens.lens (\StartLabelDetectionResponse' {jobId} -> jobId) (\s@StartLabelDetectionResponse' {} a -> s {jobId = a} :: StartLabelDetectionResponse)
 
--- | -- | The response status code.
-sldrrsResponseStatus :: Lens' StartLabelDetectionResponse Int
-sldrrsResponseStatus = lens _sldrrsResponseStatus (\s a -> s {_sldrrsResponseStatus = a})
+-- | The response's http status code.
+startLabelDetectionResponse_httpStatus :: Lens.Lens' StartLabelDetectionResponse Prelude.Int
+startLabelDetectionResponse_httpStatus = Lens.lens (\StartLabelDetectionResponse' {httpStatus} -> httpStatus) (\s@StartLabelDetectionResponse' {} a -> s {httpStatus = a} :: StartLabelDetectionResponse)
 
-instance NFData StartLabelDetectionResponse
+instance Prelude.NFData StartLabelDetectionResponse

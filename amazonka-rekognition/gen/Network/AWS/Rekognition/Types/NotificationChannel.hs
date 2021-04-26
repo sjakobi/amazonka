@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.NotificationChannel where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Amazon Simple Notification Service topic to which Amazon Rekognition publishes the completion status of a video analysis operation. For more information, see 'api-video' .
+-- | The Amazon Simple Notification Service topic to which Amazon Rekognition
+-- publishes the completion status of a video analysis operation. For more
+-- information, see api-video.
 --
---
---
--- /See:/ 'notificationChannel' smart constructor.
+-- /See:/ 'newNotificationChannel' smart constructor.
 data NotificationChannel = NotificationChannel'
-  { _ncSNSTopicARN ::
-      !Text,
-    _ncRoleARN :: !Text
+  { -- | The Amazon SNS topic to which Amazon Rekognition to posts the completion
+    -- status.
+    sNSTopicArn :: Prelude.Text,
+    -- | The ARN of an IAM role that gives Amazon Rekognition publishing
+    -- permissions to the Amazon SNS topic.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotificationChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotificationChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncSNSTopicARN' - The Amazon SNS topic to which Amazon Rekognition to posts the completion status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ncRoleARN' - The ARN of an IAM role that gives Amazon Rekognition publishing permissions to the Amazon SNS topic.
-notificationChannel ::
-  -- | 'ncSNSTopicARN'
-  Text ->
-  -- | 'ncRoleARN'
-  Text ->
+-- 'sNSTopicArn', 'notificationChannel_sNSTopicArn' - The Amazon SNS topic to which Amazon Rekognition to posts the completion
+-- status.
+--
+-- 'roleArn', 'notificationChannel_roleArn' - The ARN of an IAM role that gives Amazon Rekognition publishing
+-- permissions to the Amazon SNS topic.
+newNotificationChannel ::
+  -- | 'sNSTopicArn'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   NotificationChannel
-notificationChannel pSNSTopicARN_ pRoleARN_ =
+newNotificationChannel pSNSTopicArn_ pRoleArn_ =
   NotificationChannel'
-    { _ncSNSTopicARN =
-        pSNSTopicARN_,
-      _ncRoleARN = pRoleARN_
+    { sNSTopicArn = pSNSTopicArn_,
+      roleArn = pRoleArn_
     }
 
--- | The Amazon SNS topic to which Amazon Rekognition to posts the completion status.
-ncSNSTopicARN :: Lens' NotificationChannel Text
-ncSNSTopicARN = lens _ncSNSTopicARN (\s a -> s {_ncSNSTopicARN = a})
+-- | The Amazon SNS topic to which Amazon Rekognition to posts the completion
+-- status.
+notificationChannel_sNSTopicArn :: Lens.Lens' NotificationChannel Prelude.Text
+notificationChannel_sNSTopicArn = Lens.lens (\NotificationChannel' {sNSTopicArn} -> sNSTopicArn) (\s@NotificationChannel' {} a -> s {sNSTopicArn = a} :: NotificationChannel)
 
--- | The ARN of an IAM role that gives Amazon Rekognition publishing permissions to the Amazon SNS topic.
-ncRoleARN :: Lens' NotificationChannel Text
-ncRoleARN = lens _ncRoleARN (\s a -> s {_ncRoleARN = a})
+-- | The ARN of an IAM role that gives Amazon Rekognition publishing
+-- permissions to the Amazon SNS topic.
+notificationChannel_roleArn :: Lens.Lens' NotificationChannel Prelude.Text
+notificationChannel_roleArn = Lens.lens (\NotificationChannel' {roleArn} -> roleArn) (\s@NotificationChannel' {} a -> s {roleArn = a} :: NotificationChannel)
 
-instance Hashable NotificationChannel
+instance Prelude.Hashable NotificationChannel
 
-instance NFData NotificationChannel
+instance Prelude.NFData NotificationChannel
 
-instance ToJSON NotificationChannel where
+instance Prelude.ToJSON NotificationChannel where
   toJSON NotificationChannel' {..} =
-    object
-      ( catMaybes
-          [ Just ("SNSTopicArn" .= _ncSNSTopicARN),
-            Just ("RoleArn" .= _ncRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("SNSTopicArn" Prelude..= sNSTopicArn),
+            Prelude.Just ("RoleArn" Prelude..= roleArn)
           ]
       )

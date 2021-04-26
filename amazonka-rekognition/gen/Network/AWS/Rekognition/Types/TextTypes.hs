@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Rekognition.Types.TextTypes
   ( TextTypes
       ( ..,
-        Line,
-        Word
+        TextTypesLINE,
+        TextTypesWORD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TextTypes = TextTypes' (CI Text)
+newtype TextTypes = TextTypes'
+  { fromTextTypes ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Line :: TextTypes
-pattern Line = TextTypes' "LINE"
+pattern TextTypesLINE :: TextTypes
+pattern TextTypesLINE = TextTypes' "LINE"
 
-pattern Word :: TextTypes
-pattern Word = TextTypes' "WORD"
+pattern TextTypesWORD :: TextTypes
+pattern TextTypesWORD = TextTypes' "WORD"
 
 {-# COMPLETE
-  Line,
-  Word,
+  TextTypesLINE,
+  TextTypesWORD,
   TextTypes'
   #-}
 
-instance FromText TextTypes where
-  parser = (TextTypes' . mk) <$> takeText
+instance Prelude.FromText TextTypes where
+  parser = TextTypes' Prelude.<$> Prelude.takeText
 
-instance ToText TextTypes where
-  toText (TextTypes' ci) = original ci
+instance Prelude.ToText TextTypes where
+  toText (TextTypes' x) = x
 
-instance Hashable TextTypes
+instance Prelude.Hashable TextTypes
 
-instance NFData TextTypes
+instance Prelude.NFData TextTypes
 
-instance ToByteString TextTypes
+instance Prelude.ToByteString TextTypes
 
-instance ToQuery TextTypes
+instance Prelude.ToQuery TextTypes
 
-instance ToHeader TextTypes
+instance Prelude.ToHeader TextTypes
 
-instance FromJSON TextTypes where
-  parseJSON = parseJSONText "TextTypes"
+instance Prelude.FromJSON TextTypes where
+  parseJSON = Prelude.parseJSONText "TextTypes"

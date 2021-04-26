@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.AudioMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Metadata information about an audio stream. An array of @AudioMetadata@ objects for the audio streams found in a stored video is returned by 'GetSegmentDetection' .
+-- | Metadata information about an audio stream. An array of @AudioMetadata@
+-- objects for the audio streams found in a stored video is returned by
+-- GetSegmentDetection.
 --
---
---
--- /See:/ 'audioMetadata' smart constructor.
+-- /See:/ 'newAudioMetadata' smart constructor.
 data AudioMetadata = AudioMetadata'
-  { _amCodec ::
-      !(Maybe Text),
-    _amSampleRate :: !(Maybe Nat),
-    _amDurationMillis :: !(Maybe Nat),
-    _amNumberOfChannels :: !(Maybe Nat)
+  { -- | The audio codec used to encode or decode the audio stream.
+    codec :: Prelude.Maybe Prelude.Text,
+    -- | The sample rate for the audio stream.
+    sampleRate :: Prelude.Maybe Prelude.Nat,
+    -- | The duration of the audio stream in milliseconds.
+    durationMillis :: Prelude.Maybe Prelude.Nat,
+    -- | The number of audio channels in the segment.
+    numberOfChannels :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amCodec' - The audio codec used to encode or decode the audio stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amSampleRate' - The sample rate for the audio stream.
+-- 'codec', 'audioMetadata_codec' - The audio codec used to encode or decode the audio stream.
 --
--- * 'amDurationMillis' - The duration of the audio stream in milliseconds.
+-- 'sampleRate', 'audioMetadata_sampleRate' - The sample rate for the audio stream.
 --
--- * 'amNumberOfChannels' - The number of audio channels in the segment.
-audioMetadata ::
+-- 'durationMillis', 'audioMetadata_durationMillis' - The duration of the audio stream in milliseconds.
+--
+-- 'numberOfChannels', 'audioMetadata_numberOfChannels' - The number of audio channels in the segment.
+newAudioMetadata ::
   AudioMetadata
-audioMetadata =
+newAudioMetadata =
   AudioMetadata'
-    { _amCodec = Nothing,
-      _amSampleRate = Nothing,
-      _amDurationMillis = Nothing,
-      _amNumberOfChannels = Nothing
+    { codec = Prelude.Nothing,
+      sampleRate = Prelude.Nothing,
+      durationMillis = Prelude.Nothing,
+      numberOfChannels = Prelude.Nothing
     }
 
 -- | The audio codec used to encode or decode the audio stream.
-amCodec :: Lens' AudioMetadata (Maybe Text)
-amCodec = lens _amCodec (\s a -> s {_amCodec = a})
+audioMetadata_codec :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Text)
+audioMetadata_codec = Lens.lens (\AudioMetadata' {codec} -> codec) (\s@AudioMetadata' {} a -> s {codec = a} :: AudioMetadata)
 
 -- | The sample rate for the audio stream.
-amSampleRate :: Lens' AudioMetadata (Maybe Natural)
-amSampleRate = lens _amSampleRate (\s a -> s {_amSampleRate = a}) . mapping _Nat
+audioMetadata_sampleRate :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Natural)
+audioMetadata_sampleRate = Lens.lens (\AudioMetadata' {sampleRate} -> sampleRate) (\s@AudioMetadata' {} a -> s {sampleRate = a} :: AudioMetadata) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The duration of the audio stream in milliseconds.
-amDurationMillis :: Lens' AudioMetadata (Maybe Natural)
-amDurationMillis = lens _amDurationMillis (\s a -> s {_amDurationMillis = a}) . mapping _Nat
+audioMetadata_durationMillis :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Natural)
+audioMetadata_durationMillis = Lens.lens (\AudioMetadata' {durationMillis} -> durationMillis) (\s@AudioMetadata' {} a -> s {durationMillis = a} :: AudioMetadata) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The number of audio channels in the segment.
-amNumberOfChannels :: Lens' AudioMetadata (Maybe Natural)
-amNumberOfChannels = lens _amNumberOfChannels (\s a -> s {_amNumberOfChannels = a}) . mapping _Nat
+audioMetadata_numberOfChannels :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Natural)
+audioMetadata_numberOfChannels = Lens.lens (\AudioMetadata' {numberOfChannels} -> numberOfChannels) (\s@AudioMetadata' {} a -> s {numberOfChannels = a} :: AudioMetadata) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON AudioMetadata where
+instance Prelude.FromJSON AudioMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioMetadata"
       ( \x ->
           AudioMetadata'
-            <$> (x .:? "Codec")
-            <*> (x .:? "SampleRate")
-            <*> (x .:? "DurationMillis")
-            <*> (x .:? "NumberOfChannels")
+            Prelude.<$> (x Prelude..:? "Codec")
+            Prelude.<*> (x Prelude..:? "SampleRate")
+            Prelude.<*> (x Prelude..:? "DurationMillis")
+            Prelude.<*> (x Prelude..:? "NumberOfChannels")
       )
 
-instance Hashable AudioMetadata
+instance Prelude.Hashable AudioMetadata
 
-instance NFData AudioMetadata
+instance Prelude.NFData AudioMetadata

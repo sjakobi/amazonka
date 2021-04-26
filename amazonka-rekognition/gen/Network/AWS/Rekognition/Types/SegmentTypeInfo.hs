@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.SegmentTypeInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.SegmentType
 
--- | Information about the type of a segment requested in a call to 'StartSegmentDetection' . An array of @SegmentTypeInfo@ objects is returned by the response from 'GetSegmentDetection' .
+-- | Information about the type of a segment requested in a call to
+-- StartSegmentDetection. An array of @SegmentTypeInfo@ objects is returned
+-- by the response from GetSegmentDetection.
 --
---
---
--- /See:/ 'segmentTypeInfo' smart constructor.
+-- /See:/ 'newSegmentTypeInfo' smart constructor.
 data SegmentTypeInfo = SegmentTypeInfo'
-  { _stiModelVersion ::
-      !(Maybe Text),
-    _stiType :: !(Maybe SegmentType)
+  { -- | The version of the model used to detect segments.
+    modelVersion :: Prelude.Maybe Prelude.Text,
+    -- | The type of a segment (technical cue or shot detection).
+    type' :: Prelude.Maybe SegmentType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SegmentTypeInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SegmentTypeInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stiModelVersion' - The version of the model used to detect segments.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stiType' - The type of a segment (technical cue or shot detection).
-segmentTypeInfo ::
+-- 'modelVersion', 'segmentTypeInfo_modelVersion' - The version of the model used to detect segments.
+--
+-- 'type'', 'segmentTypeInfo_type' - The type of a segment (technical cue or shot detection).
+newSegmentTypeInfo ::
   SegmentTypeInfo
-segmentTypeInfo =
+newSegmentTypeInfo =
   SegmentTypeInfo'
-    { _stiModelVersion = Nothing,
-      _stiType = Nothing
+    { modelVersion = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The version of the model used to detect segments.
-stiModelVersion :: Lens' SegmentTypeInfo (Maybe Text)
-stiModelVersion = lens _stiModelVersion (\s a -> s {_stiModelVersion = a})
+segmentTypeInfo_modelVersion :: Lens.Lens' SegmentTypeInfo (Prelude.Maybe Prelude.Text)
+segmentTypeInfo_modelVersion = Lens.lens (\SegmentTypeInfo' {modelVersion} -> modelVersion) (\s@SegmentTypeInfo' {} a -> s {modelVersion = a} :: SegmentTypeInfo)
 
 -- | The type of a segment (technical cue or shot detection).
-stiType :: Lens' SegmentTypeInfo (Maybe SegmentType)
-stiType = lens _stiType (\s a -> s {_stiType = a})
+segmentTypeInfo_type :: Lens.Lens' SegmentTypeInfo (Prelude.Maybe SegmentType)
+segmentTypeInfo_type = Lens.lens (\SegmentTypeInfo' {type'} -> type') (\s@SegmentTypeInfo' {} a -> s {type' = a} :: SegmentTypeInfo)
 
-instance FromJSON SegmentTypeInfo where
+instance Prelude.FromJSON SegmentTypeInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SegmentTypeInfo"
       ( \x ->
           SegmentTypeInfo'
-            <$> (x .:? "ModelVersion") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "ModelVersion")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable SegmentTypeInfo
+instance Prelude.Hashable SegmentTypeInfo
 
-instance NFData SegmentTypeInfo
+instance Prelude.NFData SegmentTypeInfo

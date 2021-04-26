@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Rekognition.Types.SegmentType
   ( SegmentType
       ( ..,
-        Shot,
-        TechnicalCue
+        SegmentTypeSHOT,
+        SegmentTypeTECHNICALCUE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SegmentType = SegmentType' (CI Text)
+newtype SegmentType = SegmentType'
+  { fromSegmentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Shot :: SegmentType
-pattern Shot = SegmentType' "SHOT"
+pattern SegmentTypeSHOT :: SegmentType
+pattern SegmentTypeSHOT = SegmentType' "SHOT"
 
-pattern TechnicalCue :: SegmentType
-pattern TechnicalCue = SegmentType' "TECHNICAL_CUE"
+pattern SegmentTypeTECHNICALCUE :: SegmentType
+pattern SegmentTypeTECHNICALCUE = SegmentType' "TECHNICAL_CUE"
 
 {-# COMPLETE
-  Shot,
-  TechnicalCue,
+  SegmentTypeSHOT,
+  SegmentTypeTECHNICALCUE,
   SegmentType'
   #-}
 
-instance FromText SegmentType where
-  parser = (SegmentType' . mk) <$> takeText
+instance Prelude.FromText SegmentType where
+  parser = SegmentType' Prelude.<$> Prelude.takeText
 
-instance ToText SegmentType where
-  toText (SegmentType' ci) = original ci
+instance Prelude.ToText SegmentType where
+  toText (SegmentType' x) = x
 
-instance Hashable SegmentType
+instance Prelude.Hashable SegmentType
 
-instance NFData SegmentType
+instance Prelude.NFData SegmentType
 
-instance ToByteString SegmentType
+instance Prelude.ToByteString SegmentType
 
-instance ToQuery SegmentType
+instance Prelude.ToQuery SegmentType
 
-instance ToHeader SegmentType
+instance Prelude.ToHeader SegmentType
 
-instance ToJSON SegmentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SegmentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SegmentType where
-  parseJSON = parseJSONText "SegmentType"
+instance Prelude.FromJSON SegmentType where
+  parseJSON = Prelude.parseJSONText "SegmentType"

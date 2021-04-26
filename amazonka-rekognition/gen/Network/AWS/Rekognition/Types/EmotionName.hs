@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,90 @@
 module Network.AWS.Rekognition.Types.EmotionName
   ( EmotionName
       ( ..,
-        Angry,
-        Calm,
-        Confused,
-        Disgusted,
-        Fear,
-        Happy,
-        Sad,
-        Surprised,
-        Unknown
+        EmotionNameANGRY,
+        EmotionNameCALM,
+        EmotionNameCONFUSED,
+        EmotionNameDISGUSTED,
+        EmotionNameFEAR,
+        EmotionNameHAPPY,
+        EmotionNameSAD,
+        EmotionNameSURPRISED,
+        EmotionNameUNKNOWN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EmotionName = EmotionName' (CI Text)
+newtype EmotionName = EmotionName'
+  { fromEmotionName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Angry :: EmotionName
-pattern Angry = EmotionName' "ANGRY"
+pattern EmotionNameANGRY :: EmotionName
+pattern EmotionNameANGRY = EmotionName' "ANGRY"
 
-pattern Calm :: EmotionName
-pattern Calm = EmotionName' "CALM"
+pattern EmotionNameCALM :: EmotionName
+pattern EmotionNameCALM = EmotionName' "CALM"
 
-pattern Confused :: EmotionName
-pattern Confused = EmotionName' "CONFUSED"
+pattern EmotionNameCONFUSED :: EmotionName
+pattern EmotionNameCONFUSED = EmotionName' "CONFUSED"
 
-pattern Disgusted :: EmotionName
-pattern Disgusted = EmotionName' "DISGUSTED"
+pattern EmotionNameDISGUSTED :: EmotionName
+pattern EmotionNameDISGUSTED = EmotionName' "DISGUSTED"
 
-pattern Fear :: EmotionName
-pattern Fear = EmotionName' "FEAR"
+pattern EmotionNameFEAR :: EmotionName
+pattern EmotionNameFEAR = EmotionName' "FEAR"
 
-pattern Happy :: EmotionName
-pattern Happy = EmotionName' "HAPPY"
+pattern EmotionNameHAPPY :: EmotionName
+pattern EmotionNameHAPPY = EmotionName' "HAPPY"
 
-pattern Sad :: EmotionName
-pattern Sad = EmotionName' "SAD"
+pattern EmotionNameSAD :: EmotionName
+pattern EmotionNameSAD = EmotionName' "SAD"
 
-pattern Surprised :: EmotionName
-pattern Surprised = EmotionName' "SURPRISED"
+pattern EmotionNameSURPRISED :: EmotionName
+pattern EmotionNameSURPRISED = EmotionName' "SURPRISED"
 
-pattern Unknown :: EmotionName
-pattern Unknown = EmotionName' "UNKNOWN"
+pattern EmotionNameUNKNOWN :: EmotionName
+pattern EmotionNameUNKNOWN = EmotionName' "UNKNOWN"
 
 {-# COMPLETE
-  Angry,
-  Calm,
-  Confused,
-  Disgusted,
-  Fear,
-  Happy,
-  Sad,
-  Surprised,
-  Unknown,
+  EmotionNameANGRY,
+  EmotionNameCALM,
+  EmotionNameCONFUSED,
+  EmotionNameDISGUSTED,
+  EmotionNameFEAR,
+  EmotionNameHAPPY,
+  EmotionNameSAD,
+  EmotionNameSURPRISED,
+  EmotionNameUNKNOWN,
   EmotionName'
   #-}
 
-instance FromText EmotionName where
-  parser = (EmotionName' . mk) <$> takeText
+instance Prelude.FromText EmotionName where
+  parser = EmotionName' Prelude.<$> Prelude.takeText
 
-instance ToText EmotionName where
-  toText (EmotionName' ci) = original ci
+instance Prelude.ToText EmotionName where
+  toText (EmotionName' x) = x
 
-instance Hashable EmotionName
+instance Prelude.Hashable EmotionName
 
-instance NFData EmotionName
+instance Prelude.NFData EmotionName
 
-instance ToByteString EmotionName
+instance Prelude.ToByteString EmotionName
 
-instance ToQuery EmotionName
+instance Prelude.ToQuery EmotionName
 
-instance ToHeader EmotionName
+instance Prelude.ToHeader EmotionName
 
-instance FromJSON EmotionName where
-  parseJSON = parseJSONText "EmotionName"
+instance Prelude.FromJSON EmotionName where
+  parseJSON = Prelude.parseJSONText "EmotionName"

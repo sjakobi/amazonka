@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.ShotSegment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a shot detection segment detected in a video. For more information, see 'SegmentDetection' .
+-- | Information about a shot detection segment detected in a video. For more
+-- information, see SegmentDetection.
 --
---
---
--- /See:/ 'shotSegment' smart constructor.
+-- /See:/ 'newShotSegment' smart constructor.
 data ShotSegment = ShotSegment'
-  { _ssConfidence ::
-      !(Maybe Double),
-    _ssIndex :: !(Maybe Nat)
+  { -- | The confidence that Amazon Rekognition Video has in the accuracy of the
+    -- detected segment.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | An Identifier for a shot detection segment detected in a video.
+    index :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ShotSegment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ShotSegment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssConfidence' - The confidence that Amazon Rekognition Video has in the accuracy of the detected segment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssIndex' - An Identifier for a shot detection segment detected in a video.
-shotSegment ::
+-- 'confidence', 'shotSegment_confidence' - The confidence that Amazon Rekognition Video has in the accuracy of the
+-- detected segment.
+--
+-- 'index', 'shotSegment_index' - An Identifier for a shot detection segment detected in a video.
+newShotSegment ::
   ShotSegment
-shotSegment =
+newShotSegment =
   ShotSegment'
-    { _ssConfidence = Nothing,
-      _ssIndex = Nothing
+    { confidence = Prelude.Nothing,
+      index = Prelude.Nothing
     }
 
--- | The confidence that Amazon Rekognition Video has in the accuracy of the detected segment.
-ssConfidence :: Lens' ShotSegment (Maybe Double)
-ssConfidence = lens _ssConfidence (\s a -> s {_ssConfidence = a})
+-- | The confidence that Amazon Rekognition Video has in the accuracy of the
+-- detected segment.
+shotSegment_confidence :: Lens.Lens' ShotSegment (Prelude.Maybe Prelude.Double)
+shotSegment_confidence = Lens.lens (\ShotSegment' {confidence} -> confidence) (\s@ShotSegment' {} a -> s {confidence = a} :: ShotSegment)
 
 -- | An Identifier for a shot detection segment detected in a video.
-ssIndex :: Lens' ShotSegment (Maybe Natural)
-ssIndex = lens _ssIndex (\s a -> s {_ssIndex = a}) . mapping _Nat
+shotSegment_index :: Lens.Lens' ShotSegment (Prelude.Maybe Prelude.Natural)
+shotSegment_index = Lens.lens (\ShotSegment' {index} -> index) (\s@ShotSegment' {} a -> s {index = a} :: ShotSegment) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON ShotSegment where
+instance Prelude.FromJSON ShotSegment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ShotSegment"
       ( \x ->
           ShotSegment'
-            <$> (x .:? "Confidence") <*> (x .:? "Index")
+            Prelude.<$> (x Prelude..:? "Confidence")
+            Prelude.<*> (x Prelude..:? "Index")
       )
 
-instance Hashable ShotSegment
+instance Prelude.Hashable ShotSegment
 
-instance NFData ShotSegment
+instance Prelude.NFData ShotSegment

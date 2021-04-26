@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,228 +21,445 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Compares a face in the /source/ input image with each of the 100 largest faces detected in the /target/ input image.
+-- Compares a face in the /source/ input image with each of the 100 largest
+-- faces detected in the /target/ input image.
 --
+-- If the source image contains multiple faces, the service detects the
+-- largest face and compares it with each face detected in the target
+-- image.
 --
--- You pass the input and target images either as base64-encoded image bytes or as references to images in an Amazon S3 bucket. If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes isn't supported. The image must be formatted as a PNG or JPEG file.
+-- You pass the input and target images either as base64-encoded image
+-- bytes or as references to images in an Amazon S3 bucket. If you use the
+-- AWS CLI to call Amazon Rekognition operations, passing image bytes
+-- isn\'t supported. The image must be formatted as a PNG or JPEG file.
 --
--- In response, the operation returns an array of face matches ordered by similarity score in descending order. For each face match, the response provides a bounding box of the face, facial landmarks, pose details (pitch, role, and yaw), quality (brightness and sharpness), and confidence value (indicating the level of confidence that the bounding box contains a face). The response also provides a similarity score, which indicates how closely the faces match.
+-- In response, the operation returns an array of face matches ordered by
+-- similarity score in descending order. For each face match, the response
+-- provides a bounding box of the face, facial landmarks, pose details
+-- (pitch, role, and yaw), quality (brightness and sharpness), and
+-- confidence value (indicating the level of confidence that the bounding
+-- box contains a face). The response also provides a similarity score,
+-- which indicates how closely the faces match.
 --
--- @CompareFaces@ also returns an array of faces that don't match the source image. For each face, it returns a bounding box, confidence value, landmarks, pose details, and quality. The response also returns information about the face in the source image, including the bounding box of the face and confidence value.
+-- By default, only faces with a similarity score of greater than or equal
+-- to 80% are returned in the response. You can change this value by
+-- specifying the @SimilarityThreshold@ parameter.
 --
--- The @QualityFilter@ input parameter allows you to filter out detected faces that don’t meet a required quality bar. The quality bar is based on a variety of common use cases. Use @QualityFilter@ to set the quality bar by specifying @LOW@ , @MEDIUM@ , or @HIGH@ . If you do not want to filter detected faces, specify @NONE@ . The default value is @NONE@ .
+-- @CompareFaces@ also returns an array of faces that don\'t match the
+-- source image. For each face, it returns a bounding box, confidence
+-- value, landmarks, pose details, and quality. The response also returns
+-- information about the face in the source image, including the bounding
+-- box of the face and confidence value.
 --
--- If the image doesn't contain Exif metadata, @CompareFaces@ returns orientation information for the source and target images. Use these values to display the images with the correct image orientation.
+-- The @QualityFilter@ input parameter allows you to filter out detected
+-- faces that don’t meet a required quality bar. The quality bar is based
+-- on a variety of common use cases. Use @QualityFilter@ to set the quality
+-- bar by specifying @LOW@, @MEDIUM@, or @HIGH@. If you do not want to
+-- filter detected faces, specify @NONE@. The default value is @NONE@.
 --
--- If no faces are detected in the source or target images, @CompareFaces@ returns an @InvalidParameterException@ error.
+-- If the image doesn\'t contain Exif metadata, @CompareFaces@ returns
+-- orientation information for the source and target images. Use these
+-- values to display the images with the correct image orientation.
 --
--- For an example, see Comparing Faces in Images in the Amazon Rekognition Developer Guide.
+-- If no faces are detected in the source or target images, @CompareFaces@
+-- returns an @InvalidParameterException@ error.
 --
--- This operation requires permissions to perform the @rekognition:CompareFaces@ action.
+-- This is a stateless API operation. That is, data returned by this
+-- operation doesn\'t persist.
+--
+-- For an example, see Comparing Faces in Images in the Amazon Rekognition
+-- Developer Guide.
+--
+-- This operation requires permissions to perform the
+-- @rekognition:CompareFaces@ action.
 module Network.AWS.Rekognition.CompareFaces
   ( -- * Creating a Request
-    compareFaces,
-    CompareFaces,
+    CompareFaces (..),
+    newCompareFaces,
 
     -- * Request Lenses
-    cfQualityFilter,
-    cfSimilarityThreshold,
-    cfSourceImage,
-    cfTargetImage,
+    compareFaces_qualityFilter,
+    compareFaces_similarityThreshold,
+    compareFaces_sourceImage,
+    compareFaces_targetImage,
 
     -- * Destructuring the Response
-    compareFacesResponse,
-    CompareFacesResponse,
+    CompareFacesResponse (..),
+    newCompareFacesResponse,
 
     -- * Response Lenses
-    cfrrsSourceImageFace,
-    cfrrsUnmatchedFaces,
-    cfrrsFaceMatches,
-    cfrrsTargetImageOrientationCorrection,
-    cfrrsSourceImageOrientationCorrection,
-    cfrrsResponseStatus,
+    compareFacesResponse_sourceImageFace,
+    compareFacesResponse_unmatchedFaces,
+    compareFacesResponse_faceMatches,
+    compareFacesResponse_targetImageOrientationCorrection,
+    compareFacesResponse_sourceImageOrientationCorrection,
+    compareFacesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Rekognition.Types.CompareFacesMatch
+import Network.AWS.Rekognition.Types.ComparedFace
+import Network.AWS.Rekognition.Types.ComparedSourceImageFace
+import Network.AWS.Rekognition.Types.OrientationCorrection
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'compareFaces' smart constructor.
+-- | /See:/ 'newCompareFaces' smart constructor.
 data CompareFaces = CompareFaces'
-  { _cfQualityFilter ::
-      !(Maybe QualityFilter),
-    _cfSimilarityThreshold :: !(Maybe Double),
-    _cfSourceImage :: !Image,
-    _cfTargetImage :: !Image
+  { -- | A filter that specifies a quality bar for how much filtering is done to
+    -- identify faces. Filtered faces aren\'t compared. If you specify @AUTO@,
+    -- Amazon Rekognition chooses the quality bar. If you specify @LOW@,
+    -- @MEDIUM@, or @HIGH@, filtering removes all faces that don’t meet the
+    -- chosen quality bar. The quality bar is based on a variety of common use
+    -- cases. Low-quality detections can occur for a number of reasons. Some
+    -- examples are an object that\'s misidentified as a face, a face that\'s
+    -- too blurry, or a face with a pose that\'s too extreme to use. If you
+    -- specify @NONE@, no filtering is performed. The default value is @NONE@.
+    --
+    -- To use quality filtering, the collection you are using must be
+    -- associated with version 3 of the face model or higher.
+    qualityFilter :: Prelude.Maybe QualityFilter,
+    -- | The minimum level of confidence in the face matches that a match must
+    -- meet to be included in the @FaceMatches@ array.
+    similarityThreshold :: Prelude.Maybe Prelude.Double,
+    -- | The input image as base64-encoded bytes or an S3 object. If you use the
+    -- AWS CLI to call Amazon Rekognition operations, passing base64-encoded
+    -- image bytes is not supported.
+    --
+    -- If you are using an AWS SDK to call Amazon Rekognition, you might not
+    -- need to base64-encode image bytes passed using the @Bytes@ field. For
+    -- more information, see Images in the Amazon Rekognition developer guide.
+    sourceImage :: Image,
+    -- | The target image as base64-encoded bytes or an S3 object. If you use the
+    -- AWS CLI to call Amazon Rekognition operations, passing base64-encoded
+    -- image bytes is not supported.
+    --
+    -- If you are using an AWS SDK to call Amazon Rekognition, you might not
+    -- need to base64-encode image bytes passed using the @Bytes@ field. For
+    -- more information, see Images in the Amazon Rekognition developer guide.
+    targetImage :: Image
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompareFaces' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompareFaces' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfQualityFilter' - A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't compared. If you specify @AUTO@ , Amazon Rekognition chooses the quality bar. If you specify @LOW@ , @MEDIUM@ , or @HIGH@ , filtering removes all faces that don’t meet the chosen quality bar. The quality bar is based on a variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you specify @NONE@ , no filtering is performed. The default value is @NONE@ .  To use quality filtering, the collection you are using must be associated with version 3 of the face model or higher.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfSimilarityThreshold' - The minimum level of confidence in the face matches that a match must meet to be included in the @FaceMatches@ array.
+-- 'qualityFilter', 'compareFaces_qualityFilter' - A filter that specifies a quality bar for how much filtering is done to
+-- identify faces. Filtered faces aren\'t compared. If you specify @AUTO@,
+-- Amazon Rekognition chooses the quality bar. If you specify @LOW@,
+-- @MEDIUM@, or @HIGH@, filtering removes all faces that don’t meet the
+-- chosen quality bar. The quality bar is based on a variety of common use
+-- cases. Low-quality detections can occur for a number of reasons. Some
+-- examples are an object that\'s misidentified as a face, a face that\'s
+-- too blurry, or a face with a pose that\'s too extreme to use. If you
+-- specify @NONE@, no filtering is performed. The default value is @NONE@.
 --
--- * 'cfSourceImage' - The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.  If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the @Bytes@ field. For more information, see Images in the Amazon Rekognition developer guide.
+-- To use quality filtering, the collection you are using must be
+-- associated with version 3 of the face model or higher.
 --
--- * 'cfTargetImage' - The target image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.  If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the @Bytes@ field. For more information, see Images in the Amazon Rekognition developer guide.
-compareFaces ::
-  -- | 'cfSourceImage'
+-- 'similarityThreshold', 'compareFaces_similarityThreshold' - The minimum level of confidence in the face matches that a match must
+-- meet to be included in the @FaceMatches@ array.
+--
+-- 'sourceImage', 'compareFaces_sourceImage' - The input image as base64-encoded bytes or an S3 object. If you use the
+-- AWS CLI to call Amazon Rekognition operations, passing base64-encoded
+-- image bytes is not supported.
+--
+-- If you are using an AWS SDK to call Amazon Rekognition, you might not
+-- need to base64-encode image bytes passed using the @Bytes@ field. For
+-- more information, see Images in the Amazon Rekognition developer guide.
+--
+-- 'targetImage', 'compareFaces_targetImage' - The target image as base64-encoded bytes or an S3 object. If you use the
+-- AWS CLI to call Amazon Rekognition operations, passing base64-encoded
+-- image bytes is not supported.
+--
+-- If you are using an AWS SDK to call Amazon Rekognition, you might not
+-- need to base64-encode image bytes passed using the @Bytes@ field. For
+-- more information, see Images in the Amazon Rekognition developer guide.
+newCompareFaces ::
+  -- | 'sourceImage'
   Image ->
-  -- | 'cfTargetImage'
+  -- | 'targetImage'
   Image ->
   CompareFaces
-compareFaces pSourceImage_ pTargetImage_ =
+newCompareFaces pSourceImage_ pTargetImage_ =
   CompareFaces'
-    { _cfQualityFilter = Nothing,
-      _cfSimilarityThreshold = Nothing,
-      _cfSourceImage = pSourceImage_,
-      _cfTargetImage = pTargetImage_
+    { qualityFilter = Prelude.Nothing,
+      similarityThreshold = Prelude.Nothing,
+      sourceImage = pSourceImage_,
+      targetImage = pTargetImage_
     }
 
--- | A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't compared. If you specify @AUTO@ , Amazon Rekognition chooses the quality bar. If you specify @LOW@ , @MEDIUM@ , or @HIGH@ , filtering removes all faces that don’t meet the chosen quality bar. The quality bar is based on a variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you specify @NONE@ , no filtering is performed. The default value is @NONE@ .  To use quality filtering, the collection you are using must be associated with version 3 of the face model or higher.
-cfQualityFilter :: Lens' CompareFaces (Maybe QualityFilter)
-cfQualityFilter = lens _cfQualityFilter (\s a -> s {_cfQualityFilter = a})
+-- | A filter that specifies a quality bar for how much filtering is done to
+-- identify faces. Filtered faces aren\'t compared. If you specify @AUTO@,
+-- Amazon Rekognition chooses the quality bar. If you specify @LOW@,
+-- @MEDIUM@, or @HIGH@, filtering removes all faces that don’t meet the
+-- chosen quality bar. The quality bar is based on a variety of common use
+-- cases. Low-quality detections can occur for a number of reasons. Some
+-- examples are an object that\'s misidentified as a face, a face that\'s
+-- too blurry, or a face with a pose that\'s too extreme to use. If you
+-- specify @NONE@, no filtering is performed. The default value is @NONE@.
+--
+-- To use quality filtering, the collection you are using must be
+-- associated with version 3 of the face model or higher.
+compareFaces_qualityFilter :: Lens.Lens' CompareFaces (Prelude.Maybe QualityFilter)
+compareFaces_qualityFilter = Lens.lens (\CompareFaces' {qualityFilter} -> qualityFilter) (\s@CompareFaces' {} a -> s {qualityFilter = a} :: CompareFaces)
 
--- | The minimum level of confidence in the face matches that a match must meet to be included in the @FaceMatches@ array.
-cfSimilarityThreshold :: Lens' CompareFaces (Maybe Double)
-cfSimilarityThreshold = lens _cfSimilarityThreshold (\s a -> s {_cfSimilarityThreshold = a})
+-- | The minimum level of confidence in the face matches that a match must
+-- meet to be included in the @FaceMatches@ array.
+compareFaces_similarityThreshold :: Lens.Lens' CompareFaces (Prelude.Maybe Prelude.Double)
+compareFaces_similarityThreshold = Lens.lens (\CompareFaces' {similarityThreshold} -> similarityThreshold) (\s@CompareFaces' {} a -> s {similarityThreshold = a} :: CompareFaces)
 
--- | The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.  If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the @Bytes@ field. For more information, see Images in the Amazon Rekognition developer guide.
-cfSourceImage :: Lens' CompareFaces Image
-cfSourceImage = lens _cfSourceImage (\s a -> s {_cfSourceImage = a})
+-- | The input image as base64-encoded bytes or an S3 object. If you use the
+-- AWS CLI to call Amazon Rekognition operations, passing base64-encoded
+-- image bytes is not supported.
+--
+-- If you are using an AWS SDK to call Amazon Rekognition, you might not
+-- need to base64-encode image bytes passed using the @Bytes@ field. For
+-- more information, see Images in the Amazon Rekognition developer guide.
+compareFaces_sourceImage :: Lens.Lens' CompareFaces Image
+compareFaces_sourceImage = Lens.lens (\CompareFaces' {sourceImage} -> sourceImage) (\s@CompareFaces' {} a -> s {sourceImage = a} :: CompareFaces)
 
--- | The target image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.  If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the @Bytes@ field. For more information, see Images in the Amazon Rekognition developer guide.
-cfTargetImage :: Lens' CompareFaces Image
-cfTargetImage = lens _cfTargetImage (\s a -> s {_cfTargetImage = a})
+-- | The target image as base64-encoded bytes or an S3 object. If you use the
+-- AWS CLI to call Amazon Rekognition operations, passing base64-encoded
+-- image bytes is not supported.
+--
+-- If you are using an AWS SDK to call Amazon Rekognition, you might not
+-- need to base64-encode image bytes passed using the @Bytes@ field. For
+-- more information, see Images in the Amazon Rekognition developer guide.
+compareFaces_targetImage :: Lens.Lens' CompareFaces Image
+compareFaces_targetImage = Lens.lens (\CompareFaces' {targetImage} -> targetImage) (\s@CompareFaces' {} a -> s {targetImage = a} :: CompareFaces)
 
-instance AWSRequest CompareFaces where
+instance Prelude.AWSRequest CompareFaces where
   type Rs CompareFaces = CompareFacesResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CompareFacesResponse'
-            <$> (x .?> "SourceImageFace")
-            <*> (x .?> "UnmatchedFaces" .!@ mempty)
-            <*> (x .?> "FaceMatches" .!@ mempty)
-            <*> (x .?> "TargetImageOrientationCorrection")
-            <*> (x .?> "SourceImageOrientationCorrection")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SourceImageFace")
+            Prelude.<*> ( x Prelude..?> "UnmatchedFaces"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "FaceMatches"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "TargetImageOrientationCorrection")
+            Prelude.<*> (x Prelude..?> "SourceImageOrientationCorrection")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CompareFaces
+instance Prelude.Hashable CompareFaces
 
-instance NFData CompareFaces
+instance Prelude.NFData CompareFaces
 
-instance ToHeaders CompareFaces where
+instance Prelude.ToHeaders CompareFaces where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("RekognitionService.CompareFaces" :: ByteString),
+              Prelude.=# ( "RekognitionService.CompareFaces" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CompareFaces where
+instance Prelude.ToJSON CompareFaces where
   toJSON CompareFaces' {..} =
-    object
-      ( catMaybes
-          [ ("QualityFilter" .=) <$> _cfQualityFilter,
-            ("SimilarityThreshold" .=)
-              <$> _cfSimilarityThreshold,
-            Just ("SourceImage" .= _cfSourceImage),
-            Just ("TargetImage" .= _cfTargetImage)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("QualityFilter" Prelude..=)
+              Prelude.<$> qualityFilter,
+            ("SimilarityThreshold" Prelude..=)
+              Prelude.<$> similarityThreshold,
+            Prelude.Just ("SourceImage" Prelude..= sourceImage),
+            Prelude.Just ("TargetImage" Prelude..= targetImage)
           ]
       )
 
-instance ToPath CompareFaces where
-  toPath = const "/"
+instance Prelude.ToPath CompareFaces where
+  toPath = Prelude.const "/"
 
-instance ToQuery CompareFaces where
-  toQuery = const mempty
+instance Prelude.ToQuery CompareFaces where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'compareFacesResponse' smart constructor.
+-- | /See:/ 'newCompareFacesResponse' smart constructor.
 data CompareFacesResponse = CompareFacesResponse'
-  { _cfrrsSourceImageFace ::
-      !( Maybe
-           ComparedSourceImageFace
-       ),
-    _cfrrsUnmatchedFaces ::
-      !(Maybe [ComparedFace]),
-    _cfrrsFaceMatches ::
-      !(Maybe [CompareFacesMatch]),
-    _cfrrsTargetImageOrientationCorrection ::
-      !( Maybe
-           OrientationCorrection
-       ),
-    _cfrrsSourceImageOrientationCorrection ::
-      !( Maybe
-           OrientationCorrection
-       ),
-    _cfrrsResponseStatus :: !Int
+  { -- | The face in the source image that was used for comparison.
+    sourceImageFace :: Prelude.Maybe ComparedSourceImageFace,
+    -- | An array of faces in the target image that did not match the source
+    -- image face.
+    unmatchedFaces :: Prelude.Maybe [ComparedFace],
+    -- | An array of faces in the target image that match the source image face.
+    -- Each @CompareFacesMatch@ object provides the bounding box, the
+    -- confidence level that the bounding box contains a face, and the
+    -- similarity score for the face in the bounding box and the face in the
+    -- source image.
+    faceMatches :: Prelude.Maybe [CompareFacesMatch],
+    -- | The value of @TargetImageOrientationCorrection@ is always null.
+    --
+    -- If the input image is in .jpeg format, it might contain exchangeable
+    -- image file format (Exif) metadata that includes the image\'s
+    -- orientation. Amazon Rekognition uses this orientation information to
+    -- perform image correction. The bounding box coordinates are translated to
+    -- represent object locations after the orientation information in the Exif
+    -- metadata is used to correct the image orientation. Images in .png format
+    -- don\'t contain Exif metadata.
+    --
+    -- Amazon Rekognition doesn’t perform image correction for images in .png
+    -- format and .jpeg images without orientation information in the image
+    -- Exif metadata. The bounding box coordinates aren\'t translated and
+    -- represent the object locations before the image is rotated.
+    targetImageOrientationCorrection :: Prelude.Maybe OrientationCorrection,
+    -- | The value of @SourceImageOrientationCorrection@ is always null.
+    --
+    -- If the input image is in .jpeg format, it might contain exchangeable
+    -- image file format (Exif) metadata that includes the image\'s
+    -- orientation. Amazon Rekognition uses this orientation information to
+    -- perform image correction. The bounding box coordinates are translated to
+    -- represent object locations after the orientation information in the Exif
+    -- metadata is used to correct the image orientation. Images in .png format
+    -- don\'t contain Exif metadata.
+    --
+    -- Amazon Rekognition doesn’t perform image correction for images in .png
+    -- format and .jpeg images without orientation information in the image
+    -- Exif metadata. The bounding box coordinates aren\'t translated and
+    -- represent the object locations before the image is rotated.
+    sourceImageOrientationCorrection :: Prelude.Maybe OrientationCorrection,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompareFacesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompareFacesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfrrsSourceImageFace' - The face in the source image that was used for comparison.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfrrsUnmatchedFaces' - An array of faces in the target image that did not match the source image face.
+-- 'sourceImageFace', 'compareFacesResponse_sourceImageFace' - The face in the source image that was used for comparison.
 --
--- * 'cfrrsFaceMatches' - An array of faces in the target image that match the source image face. Each @CompareFacesMatch@ object provides the bounding box, the confidence level that the bounding box contains a face, and the similarity score for the face in the bounding box and the face in the source image.
+-- 'unmatchedFaces', 'compareFacesResponse_unmatchedFaces' - An array of faces in the target image that did not match the source
+-- image face.
 --
--- * 'cfrrsTargetImageOrientationCorrection' - The value of @TargetImageOrientationCorrection@ is always null. If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The bounding box coordinates are translated to represent object locations after the orientation information in the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata. Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object locations before the image is rotated.
+-- 'faceMatches', 'compareFacesResponse_faceMatches' - An array of faces in the target image that match the source image face.
+-- Each @CompareFacesMatch@ object provides the bounding box, the
+-- confidence level that the bounding box contains a face, and the
+-- similarity score for the face in the bounding box and the face in the
+-- source image.
 --
--- * 'cfrrsSourceImageOrientationCorrection' - The value of @SourceImageOrientationCorrection@ is always null. If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The bounding box coordinates are translated to represent object locations after the orientation information in the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata. Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object locations before the image is rotated.
+-- 'targetImageOrientationCorrection', 'compareFacesResponse_targetImageOrientationCorrection' - The value of @TargetImageOrientationCorrection@ is always null.
 --
--- * 'cfrrsResponseStatus' - -- | The response status code.
-compareFacesResponse ::
-  -- | 'cfrrsResponseStatus'
-  Int ->
+-- If the input image is in .jpeg format, it might contain exchangeable
+-- image file format (Exif) metadata that includes the image\'s
+-- orientation. Amazon Rekognition uses this orientation information to
+-- perform image correction. The bounding box coordinates are translated to
+-- represent object locations after the orientation information in the Exif
+-- metadata is used to correct the image orientation. Images in .png format
+-- don\'t contain Exif metadata.
+--
+-- Amazon Rekognition doesn’t perform image correction for images in .png
+-- format and .jpeg images without orientation information in the image
+-- Exif metadata. The bounding box coordinates aren\'t translated and
+-- represent the object locations before the image is rotated.
+--
+-- 'sourceImageOrientationCorrection', 'compareFacesResponse_sourceImageOrientationCorrection' - The value of @SourceImageOrientationCorrection@ is always null.
+--
+-- If the input image is in .jpeg format, it might contain exchangeable
+-- image file format (Exif) metadata that includes the image\'s
+-- orientation. Amazon Rekognition uses this orientation information to
+-- perform image correction. The bounding box coordinates are translated to
+-- represent object locations after the orientation information in the Exif
+-- metadata is used to correct the image orientation. Images in .png format
+-- don\'t contain Exif metadata.
+--
+-- Amazon Rekognition doesn’t perform image correction for images in .png
+-- format and .jpeg images without orientation information in the image
+-- Exif metadata. The bounding box coordinates aren\'t translated and
+-- represent the object locations before the image is rotated.
+--
+-- 'httpStatus', 'compareFacesResponse_httpStatus' - The response's http status code.
+newCompareFacesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CompareFacesResponse
-compareFacesResponse pResponseStatus_ =
+newCompareFacesResponse pHttpStatus_ =
   CompareFacesResponse'
-    { _cfrrsSourceImageFace =
-        Nothing,
-      _cfrrsUnmatchedFaces = Nothing,
-      _cfrrsFaceMatches = Nothing,
-      _cfrrsTargetImageOrientationCorrection = Nothing,
-      _cfrrsSourceImageOrientationCorrection = Nothing,
-      _cfrrsResponseStatus = pResponseStatus_
+    { sourceImageFace =
+        Prelude.Nothing,
+      unmatchedFaces = Prelude.Nothing,
+      faceMatches = Prelude.Nothing,
+      targetImageOrientationCorrection = Prelude.Nothing,
+      sourceImageOrientationCorrection = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The face in the source image that was used for comparison.
-cfrrsSourceImageFace :: Lens' CompareFacesResponse (Maybe ComparedSourceImageFace)
-cfrrsSourceImageFace = lens _cfrrsSourceImageFace (\s a -> s {_cfrrsSourceImageFace = a})
+compareFacesResponse_sourceImageFace :: Lens.Lens' CompareFacesResponse (Prelude.Maybe ComparedSourceImageFace)
+compareFacesResponse_sourceImageFace = Lens.lens (\CompareFacesResponse' {sourceImageFace} -> sourceImageFace) (\s@CompareFacesResponse' {} a -> s {sourceImageFace = a} :: CompareFacesResponse)
 
--- | An array of faces in the target image that did not match the source image face.
-cfrrsUnmatchedFaces :: Lens' CompareFacesResponse [ComparedFace]
-cfrrsUnmatchedFaces = lens _cfrrsUnmatchedFaces (\s a -> s {_cfrrsUnmatchedFaces = a}) . _Default . _Coerce
+-- | An array of faces in the target image that did not match the source
+-- image face.
+compareFacesResponse_unmatchedFaces :: Lens.Lens' CompareFacesResponse (Prelude.Maybe [ComparedFace])
+compareFacesResponse_unmatchedFaces = Lens.lens (\CompareFacesResponse' {unmatchedFaces} -> unmatchedFaces) (\s@CompareFacesResponse' {} a -> s {unmatchedFaces = a} :: CompareFacesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An array of faces in the target image that match the source image face. Each @CompareFacesMatch@ object provides the bounding box, the confidence level that the bounding box contains a face, and the similarity score for the face in the bounding box and the face in the source image.
-cfrrsFaceMatches :: Lens' CompareFacesResponse [CompareFacesMatch]
-cfrrsFaceMatches = lens _cfrrsFaceMatches (\s a -> s {_cfrrsFaceMatches = a}) . _Default . _Coerce
+-- | An array of faces in the target image that match the source image face.
+-- Each @CompareFacesMatch@ object provides the bounding box, the
+-- confidence level that the bounding box contains a face, and the
+-- similarity score for the face in the bounding box and the face in the
+-- source image.
+compareFacesResponse_faceMatches :: Lens.Lens' CompareFacesResponse (Prelude.Maybe [CompareFacesMatch])
+compareFacesResponse_faceMatches = Lens.lens (\CompareFacesResponse' {faceMatches} -> faceMatches) (\s@CompareFacesResponse' {} a -> s {faceMatches = a} :: CompareFacesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The value of @TargetImageOrientationCorrection@ is always null. If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The bounding box coordinates are translated to represent object locations after the orientation information in the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata. Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object locations before the image is rotated.
-cfrrsTargetImageOrientationCorrection :: Lens' CompareFacesResponse (Maybe OrientationCorrection)
-cfrrsTargetImageOrientationCorrection = lens _cfrrsTargetImageOrientationCorrection (\s a -> s {_cfrrsTargetImageOrientationCorrection = a})
+-- | The value of @TargetImageOrientationCorrection@ is always null.
+--
+-- If the input image is in .jpeg format, it might contain exchangeable
+-- image file format (Exif) metadata that includes the image\'s
+-- orientation. Amazon Rekognition uses this orientation information to
+-- perform image correction. The bounding box coordinates are translated to
+-- represent object locations after the orientation information in the Exif
+-- metadata is used to correct the image orientation. Images in .png format
+-- don\'t contain Exif metadata.
+--
+-- Amazon Rekognition doesn’t perform image correction for images in .png
+-- format and .jpeg images without orientation information in the image
+-- Exif metadata. The bounding box coordinates aren\'t translated and
+-- represent the object locations before the image is rotated.
+compareFacesResponse_targetImageOrientationCorrection :: Lens.Lens' CompareFacesResponse (Prelude.Maybe OrientationCorrection)
+compareFacesResponse_targetImageOrientationCorrection = Lens.lens (\CompareFacesResponse' {targetImageOrientationCorrection} -> targetImageOrientationCorrection) (\s@CompareFacesResponse' {} a -> s {targetImageOrientationCorrection = a} :: CompareFacesResponse)
 
--- | The value of @SourceImageOrientationCorrection@ is always null. If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The bounding box coordinates are translated to represent object locations after the orientation information in the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata. Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object locations before the image is rotated.
-cfrrsSourceImageOrientationCorrection :: Lens' CompareFacesResponse (Maybe OrientationCorrection)
-cfrrsSourceImageOrientationCorrection = lens _cfrrsSourceImageOrientationCorrection (\s a -> s {_cfrrsSourceImageOrientationCorrection = a})
+-- | The value of @SourceImageOrientationCorrection@ is always null.
+--
+-- If the input image is in .jpeg format, it might contain exchangeable
+-- image file format (Exif) metadata that includes the image\'s
+-- orientation. Amazon Rekognition uses this orientation information to
+-- perform image correction. The bounding box coordinates are translated to
+-- represent object locations after the orientation information in the Exif
+-- metadata is used to correct the image orientation. Images in .png format
+-- don\'t contain Exif metadata.
+--
+-- Amazon Rekognition doesn’t perform image correction for images in .png
+-- format and .jpeg images without orientation information in the image
+-- Exif metadata. The bounding box coordinates aren\'t translated and
+-- represent the object locations before the image is rotated.
+compareFacesResponse_sourceImageOrientationCorrection :: Lens.Lens' CompareFacesResponse (Prelude.Maybe OrientationCorrection)
+compareFacesResponse_sourceImageOrientationCorrection = Lens.lens (\CompareFacesResponse' {sourceImageOrientationCorrection} -> sourceImageOrientationCorrection) (\s@CompareFacesResponse' {} a -> s {sourceImageOrientationCorrection = a} :: CompareFacesResponse)
 
--- | -- | The response status code.
-cfrrsResponseStatus :: Lens' CompareFacesResponse Int
-cfrrsResponseStatus = lens _cfrrsResponseStatus (\s a -> s {_cfrrsResponseStatus = a})
+-- | The response's http status code.
+compareFacesResponse_httpStatus :: Lens.Lens' CompareFacesResponse Prelude.Int
+compareFacesResponse_httpStatus = Lens.lens (\CompareFacesResponse' {httpStatus} -> httpStatus) (\s@CompareFacesResponse' {} a -> s {httpStatus = a} :: CompareFacesResponse)
 
-instance NFData CompareFacesResponse
+instance Prelude.NFData CompareFacesResponse

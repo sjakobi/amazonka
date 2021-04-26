@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.StreamProcessorInput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.KinesisVideoStream
 
 -- | Information about the source streaming video.
 --
---
---
--- /See:/ 'streamProcessorInput' smart constructor.
-newtype StreamProcessorInput = StreamProcessorInput'
-  { _spiKinesisVideoStream ::
-      Maybe KinesisVideoStream
+-- /See:/ 'newStreamProcessorInput' smart constructor.
+data StreamProcessorInput = StreamProcessorInput'
+  { -- | The Kinesis video stream input stream for the source streaming video.
+    kinesisVideoStream :: Prelude.Maybe KinesisVideoStream
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StreamProcessorInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StreamProcessorInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spiKinesisVideoStream' - The Kinesis video stream input stream for the source streaming video.
-streamProcessorInput ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'kinesisVideoStream', 'streamProcessorInput_kinesisVideoStream' - The Kinesis video stream input stream for the source streaming video.
+newStreamProcessorInput ::
   StreamProcessorInput
-streamProcessorInput =
+newStreamProcessorInput =
   StreamProcessorInput'
-    { _spiKinesisVideoStream =
-        Nothing
+    { kinesisVideoStream =
+        Prelude.Nothing
     }
 
 -- | The Kinesis video stream input stream for the source streaming video.
-spiKinesisVideoStream :: Lens' StreamProcessorInput (Maybe KinesisVideoStream)
-spiKinesisVideoStream = lens _spiKinesisVideoStream (\s a -> s {_spiKinesisVideoStream = a})
+streamProcessorInput_kinesisVideoStream :: Lens.Lens' StreamProcessorInput (Prelude.Maybe KinesisVideoStream)
+streamProcessorInput_kinesisVideoStream = Lens.lens (\StreamProcessorInput' {kinesisVideoStream} -> kinesisVideoStream) (\s@StreamProcessorInput' {} a -> s {kinesisVideoStream = a} :: StreamProcessorInput)
 
-instance FromJSON StreamProcessorInput where
+instance Prelude.FromJSON StreamProcessorInput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StreamProcessorInput"
       ( \x ->
           StreamProcessorInput'
-            <$> (x .:? "KinesisVideoStream")
+            Prelude.<$> (x Prelude..:? "KinesisVideoStream")
       )
 
-instance Hashable StreamProcessorInput
+instance Prelude.Hashable StreamProcessorInput
 
-instance NFData StreamProcessorInput
+instance Prelude.NFData StreamProcessorInput
 
-instance ToJSON StreamProcessorInput where
+instance Prelude.ToJSON StreamProcessorInput where
   toJSON StreamProcessorInput' {..} =
-    object
-      ( catMaybes
-          [ ("KinesisVideoStream" .=)
-              <$> _spiKinesisVideoStream
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("KinesisVideoStream" Prelude..=)
+              Prelude.<$> kinesisVideoStream
           ]
       )

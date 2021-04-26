@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.DetectionFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A set of parameters that allow you to filter out certain results from your returned results.
+-- | A set of parameters that allow you to filter out certain results from
+-- your returned results.
 --
---
---
--- /See:/ 'detectionFilter' smart constructor.
+-- /See:/ 'newDetectionFilter' smart constructor.
 data DetectionFilter = DetectionFilter'
-  { _dfMinBoundingBoxWidth ::
-      !(Maybe Double),
-    _dfMinConfidence :: !(Maybe Double),
-    _dfMinBoundingBoxHeight ::
-      !(Maybe Double)
+  { -- | Sets the minimum width of the word bounding box. Words with bounding
+    -- boxes widths lesser than this value will be excluded from the result.
+    -- Value is relative to the video frame width.
+    minBoundingBoxWidth :: Prelude.Maybe Prelude.Double,
+    -- | Sets confidence of word detection. Words with detection confidence below
+    -- this will be excluded from the result. Values should be between 0.5 and
+    -- 1 as Text in Video will not return any result below 0.5.
+    minConfidence :: Prelude.Maybe Prelude.Double,
+    -- | Sets the minimum height of the word bounding box. Words with bounding
+    -- box heights lesser than this value will be excluded from the result.
+    -- Value is relative to the video frame height.
+    minBoundingBoxHeight :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectionFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectionFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfMinBoundingBoxWidth' - Sets the minimum width of the word bounding box. Words with bounding boxes widths lesser than this value will be excluded from the result. Value is relative to the video frame width.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfMinConfidence' - Sets confidence of word detection. Words with detection confidence below this will be excluded from the result. Values should be between 0.5 and 1 as Text in Video will not return any result below 0.5.
+-- 'minBoundingBoxWidth', 'detectionFilter_minBoundingBoxWidth' - Sets the minimum width of the word bounding box. Words with bounding
+-- boxes widths lesser than this value will be excluded from the result.
+-- Value is relative to the video frame width.
 --
--- * 'dfMinBoundingBoxHeight' - Sets the minimum height of the word bounding box. Words with bounding box heights lesser than this value will be excluded from the result. Value is relative to the video frame height.
-detectionFilter ::
+-- 'minConfidence', 'detectionFilter_minConfidence' - Sets confidence of word detection. Words with detection confidence below
+-- this will be excluded from the result. Values should be between 0.5 and
+-- 1 as Text in Video will not return any result below 0.5.
+--
+-- 'minBoundingBoxHeight', 'detectionFilter_minBoundingBoxHeight' - Sets the minimum height of the word bounding box. Words with bounding
+-- box heights lesser than this value will be excluded from the result.
+-- Value is relative to the video frame height.
+newDetectionFilter ::
   DetectionFilter
-detectionFilter =
+newDetectionFilter =
   DetectionFilter'
-    { _dfMinBoundingBoxWidth = Nothing,
-      _dfMinConfidence = Nothing,
-      _dfMinBoundingBoxHeight = Nothing
+    { minBoundingBoxWidth =
+        Prelude.Nothing,
+      minConfidence = Prelude.Nothing,
+      minBoundingBoxHeight = Prelude.Nothing
     }
 
--- | Sets the minimum width of the word bounding box. Words with bounding boxes widths lesser than this value will be excluded from the result. Value is relative to the video frame width.
-dfMinBoundingBoxWidth :: Lens' DetectionFilter (Maybe Double)
-dfMinBoundingBoxWidth = lens _dfMinBoundingBoxWidth (\s a -> s {_dfMinBoundingBoxWidth = a})
+-- | Sets the minimum width of the word bounding box. Words with bounding
+-- boxes widths lesser than this value will be excluded from the result.
+-- Value is relative to the video frame width.
+detectionFilter_minBoundingBoxWidth :: Lens.Lens' DetectionFilter (Prelude.Maybe Prelude.Double)
+detectionFilter_minBoundingBoxWidth = Lens.lens (\DetectionFilter' {minBoundingBoxWidth} -> minBoundingBoxWidth) (\s@DetectionFilter' {} a -> s {minBoundingBoxWidth = a} :: DetectionFilter)
 
--- | Sets confidence of word detection. Words with detection confidence below this will be excluded from the result. Values should be between 0.5 and 1 as Text in Video will not return any result below 0.5.
-dfMinConfidence :: Lens' DetectionFilter (Maybe Double)
-dfMinConfidence = lens _dfMinConfidence (\s a -> s {_dfMinConfidence = a})
+-- | Sets confidence of word detection. Words with detection confidence below
+-- this will be excluded from the result. Values should be between 0.5 and
+-- 1 as Text in Video will not return any result below 0.5.
+detectionFilter_minConfidence :: Lens.Lens' DetectionFilter (Prelude.Maybe Prelude.Double)
+detectionFilter_minConfidence = Lens.lens (\DetectionFilter' {minConfidence} -> minConfidence) (\s@DetectionFilter' {} a -> s {minConfidence = a} :: DetectionFilter)
 
--- | Sets the minimum height of the word bounding box. Words with bounding box heights lesser than this value will be excluded from the result. Value is relative to the video frame height.
-dfMinBoundingBoxHeight :: Lens' DetectionFilter (Maybe Double)
-dfMinBoundingBoxHeight = lens _dfMinBoundingBoxHeight (\s a -> s {_dfMinBoundingBoxHeight = a})
+-- | Sets the minimum height of the word bounding box. Words with bounding
+-- box heights lesser than this value will be excluded from the result.
+-- Value is relative to the video frame height.
+detectionFilter_minBoundingBoxHeight :: Lens.Lens' DetectionFilter (Prelude.Maybe Prelude.Double)
+detectionFilter_minBoundingBoxHeight = Lens.lens (\DetectionFilter' {minBoundingBoxHeight} -> minBoundingBoxHeight) (\s@DetectionFilter' {} a -> s {minBoundingBoxHeight = a} :: DetectionFilter)
 
-instance Hashable DetectionFilter
+instance Prelude.Hashable DetectionFilter
 
-instance NFData DetectionFilter
+instance Prelude.NFData DetectionFilter
 
-instance ToJSON DetectionFilter where
+instance Prelude.ToJSON DetectionFilter where
   toJSON DetectionFilter' {..} =
-    object
-      ( catMaybes
-          [ ("MinBoundingBoxWidth" .=)
-              <$> _dfMinBoundingBoxWidth,
-            ("MinConfidence" .=) <$> _dfMinConfidence,
-            ("MinBoundingBoxHeight" .=)
-              <$> _dfMinBoundingBoxHeight
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MinBoundingBoxWidth" Prelude..=)
+              Prelude.<$> minBoundingBoxWidth,
+            ("MinConfidence" Prelude..=)
+              Prelude.<$> minConfidence,
+            ("MinBoundingBoxHeight" Prelude..=)
+              Prelude.<$> minBoundingBoxHeight
           ]
       )

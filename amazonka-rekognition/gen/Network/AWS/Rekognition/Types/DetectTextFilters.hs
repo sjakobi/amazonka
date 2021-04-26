@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.DetectTextFilters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.DetectionFilter
 import Network.AWS.Rekognition.Types.RegionOfInterest
 
--- | A set of optional parameters that you can use to set the criteria that the text must meet to be included in your response. @WordFilter@ looks at a word’s height, width, and minimum confidence. @RegionOfInterest@ lets you set a specific region of the image to look for text in.
+-- | A set of optional parameters that you can use to set the criteria that
+-- the text must meet to be included in your response. @WordFilter@ looks
+-- at a word’s height, width, and minimum confidence. @RegionOfInterest@
+-- lets you set a specific region of the image to look for text in.
 --
---
---
--- /See:/ 'detectTextFilters' smart constructor.
+-- /See:/ 'newDetectTextFilters' smart constructor.
 data DetectTextFilters = DetectTextFilters'
-  { _dtfRegionsOfInterest ::
-      !(Maybe [RegionOfInterest]),
-    _dtfWordFilter ::
-      !(Maybe DetectionFilter)
+  { -- | A Filter focusing on a certain area of the image. Uses a @BoundingBox@
+    -- object to set the region of the image.
+    regionsOfInterest :: Prelude.Maybe [RegionOfInterest],
+    wordFilter :: Prelude.Maybe DetectionFilter
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectTextFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectTextFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtfRegionsOfInterest' - A Filter focusing on a certain area of the image. Uses a @BoundingBox@ object to set the region of the image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtfWordFilter' - Undocumented member.
-detectTextFilters ::
+-- 'regionsOfInterest', 'detectTextFilters_regionsOfInterest' - A Filter focusing on a certain area of the image. Uses a @BoundingBox@
+-- object to set the region of the image.
+--
+-- 'wordFilter', 'detectTextFilters_wordFilter' - Undocumented member.
+newDetectTextFilters ::
   DetectTextFilters
-detectTextFilters =
+newDetectTextFilters =
   DetectTextFilters'
-    { _dtfRegionsOfInterest = Nothing,
-      _dtfWordFilter = Nothing
+    { regionsOfInterest =
+        Prelude.Nothing,
+      wordFilter = Prelude.Nothing
     }
 
--- | A Filter focusing on a certain area of the image. Uses a @BoundingBox@ object to set the region of the image.
-dtfRegionsOfInterest :: Lens' DetectTextFilters [RegionOfInterest]
-dtfRegionsOfInterest = lens _dtfRegionsOfInterest (\s a -> s {_dtfRegionsOfInterest = a}) . _Default . _Coerce
+-- | A Filter focusing on a certain area of the image. Uses a @BoundingBox@
+-- object to set the region of the image.
+detectTextFilters_regionsOfInterest :: Lens.Lens' DetectTextFilters (Prelude.Maybe [RegionOfInterest])
+detectTextFilters_regionsOfInterest = Lens.lens (\DetectTextFilters' {regionsOfInterest} -> regionsOfInterest) (\s@DetectTextFilters' {} a -> s {regionsOfInterest = a} :: DetectTextFilters) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-dtfWordFilter :: Lens' DetectTextFilters (Maybe DetectionFilter)
-dtfWordFilter = lens _dtfWordFilter (\s a -> s {_dtfWordFilter = a})
+detectTextFilters_wordFilter :: Lens.Lens' DetectTextFilters (Prelude.Maybe DetectionFilter)
+detectTextFilters_wordFilter = Lens.lens (\DetectTextFilters' {wordFilter} -> wordFilter) (\s@DetectTextFilters' {} a -> s {wordFilter = a} :: DetectTextFilters)
 
-instance Hashable DetectTextFilters
+instance Prelude.Hashable DetectTextFilters
 
-instance NFData DetectTextFilters
+instance Prelude.NFData DetectTextFilters
 
-instance ToJSON DetectTextFilters where
+instance Prelude.ToJSON DetectTextFilters where
   toJSON DetectTextFilters' {..} =
-    object
-      ( catMaybes
-          [ ("RegionsOfInterest" .=) <$> _dtfRegionsOfInterest,
-            ("WordFilter" .=) <$> _dtfWordFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RegionsOfInterest" Prelude..=)
+              Prelude.<$> regionsOfInterest,
+            ("WordFilter" Prelude..=) Prelude.<$> wordFilter
           ]
       )

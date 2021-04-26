@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.TrainingDataResult where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.TrainingData
 import Network.AWS.Rekognition.Types.ValidationData
 
--- | Sagemaker Groundtruth format manifest files for the input, output and validation datasets that are used and created during testing.
+-- | Sagemaker Groundtruth format manifest files for the input, output and
+-- validation datasets that are used and created during testing.
 --
---
---
--- /See:/ 'trainingDataResult' smart constructor.
+-- /See:/ 'newTrainingDataResult' smart constructor.
 data TrainingDataResult = TrainingDataResult'
-  { _tInput ::
-      !(Maybe TrainingData),
-    _tOutput :: !(Maybe TrainingData),
-    _tValidation ::
-      !(Maybe ValidationData)
+  { -- | The training assets that you supplied for training.
+    input :: Prelude.Maybe TrainingData,
+    -- | The images (assets) that were actually trained by Amazon Rekognition
+    -- Custom Labels.
+    output :: Prelude.Maybe TrainingData,
+    -- | The location of the data validation manifest. The data validation
+    -- manifest is created for the training dataset during model training.
+    validation :: Prelude.Maybe ValidationData
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrainingDataResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrainingDataResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tInput' - The training assets that you supplied for training.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tOutput' - The images (assets) that were actually trained by Amazon Rekognition Custom Labels.
+-- 'input', 'trainingDataResult_input' - The training assets that you supplied for training.
 --
--- * 'tValidation' - The location of the data validation manifest. The data validation manifest is created for the training dataset during model training.
-trainingDataResult ::
+-- 'output', 'trainingDataResult_output' - The images (assets) that were actually trained by Amazon Rekognition
+-- Custom Labels.
+--
+-- 'validation', 'trainingDataResult_validation' - The location of the data validation manifest. The data validation
+-- manifest is created for the training dataset during model training.
+newTrainingDataResult ::
   TrainingDataResult
-trainingDataResult =
+newTrainingDataResult =
   TrainingDataResult'
-    { _tInput = Nothing,
-      _tOutput = Nothing,
-      _tValidation = Nothing
+    { input = Prelude.Nothing,
+      output = Prelude.Nothing,
+      validation = Prelude.Nothing
     }
 
 -- | The training assets that you supplied for training.
-tInput :: Lens' TrainingDataResult (Maybe TrainingData)
-tInput = lens _tInput (\s a -> s {_tInput = a})
+trainingDataResult_input :: Lens.Lens' TrainingDataResult (Prelude.Maybe TrainingData)
+trainingDataResult_input = Lens.lens (\TrainingDataResult' {input} -> input) (\s@TrainingDataResult' {} a -> s {input = a} :: TrainingDataResult)
 
--- | The images (assets) that were actually trained by Amazon Rekognition Custom Labels.
-tOutput :: Lens' TrainingDataResult (Maybe TrainingData)
-tOutput = lens _tOutput (\s a -> s {_tOutput = a})
+-- | The images (assets) that were actually trained by Amazon Rekognition
+-- Custom Labels.
+trainingDataResult_output :: Lens.Lens' TrainingDataResult (Prelude.Maybe TrainingData)
+trainingDataResult_output = Lens.lens (\TrainingDataResult' {output} -> output) (\s@TrainingDataResult' {} a -> s {output = a} :: TrainingDataResult)
 
--- | The location of the data validation manifest. The data validation manifest is created for the training dataset during model training.
-tValidation :: Lens' TrainingDataResult (Maybe ValidationData)
-tValidation = lens _tValidation (\s a -> s {_tValidation = a})
+-- | The location of the data validation manifest. The data validation
+-- manifest is created for the training dataset during model training.
+trainingDataResult_validation :: Lens.Lens' TrainingDataResult (Prelude.Maybe ValidationData)
+trainingDataResult_validation = Lens.lens (\TrainingDataResult' {validation} -> validation) (\s@TrainingDataResult' {} a -> s {validation = a} :: TrainingDataResult)
 
-instance FromJSON TrainingDataResult where
+instance Prelude.FromJSON TrainingDataResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrainingDataResult"
       ( \x ->
           TrainingDataResult'
-            <$> (x .:? "Input")
-            <*> (x .:? "Output")
-            <*> (x .:? "Validation")
+            Prelude.<$> (x Prelude..:? "Input")
+            Prelude.<*> (x Prelude..:? "Output")
+            Prelude.<*> (x Prelude..:? "Validation")
       )
 
-instance Hashable TrainingDataResult
+instance Prelude.Hashable TrainingDataResult
 
-instance NFData TrainingDataResult
+instance Prelude.NFData TrainingDataResult

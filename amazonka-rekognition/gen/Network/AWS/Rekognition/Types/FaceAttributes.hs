@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Rekognition.Types.FaceAttributes
   ( FaceAttributes
       ( ..,
-        All,
-        Default
+        FaceAttributesALL,
+        FaceAttributesDEFAULT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FaceAttributes = FaceAttributes' (CI Text)
+newtype FaceAttributes = FaceAttributes'
+  { fromFaceAttributes ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: FaceAttributes
-pattern All = FaceAttributes' "ALL"
+pattern FaceAttributesALL :: FaceAttributes
+pattern FaceAttributesALL = FaceAttributes' "ALL"
 
-pattern Default :: FaceAttributes
-pattern Default = FaceAttributes' "DEFAULT"
+pattern FaceAttributesDEFAULT :: FaceAttributes
+pattern FaceAttributesDEFAULT = FaceAttributes' "DEFAULT"
 
 {-# COMPLETE
-  All,
-  Default,
+  FaceAttributesALL,
+  FaceAttributesDEFAULT,
   FaceAttributes'
   #-}
 
-instance FromText FaceAttributes where
-  parser = (FaceAttributes' . mk) <$> takeText
+instance Prelude.FromText FaceAttributes where
+  parser = FaceAttributes' Prelude.<$> Prelude.takeText
 
-instance ToText FaceAttributes where
-  toText (FaceAttributes' ci) = original ci
+instance Prelude.ToText FaceAttributes where
+  toText (FaceAttributes' x) = x
 
-instance Hashable FaceAttributes
+instance Prelude.Hashable FaceAttributes
 
-instance NFData FaceAttributes
+instance Prelude.NFData FaceAttributes
 
-instance ToByteString FaceAttributes
+instance Prelude.ToByteString FaceAttributes
 
-instance ToQuery FaceAttributes
+instance Prelude.ToQuery FaceAttributes
 
-instance ToHeader FaceAttributes
+instance Prelude.ToHeader FaceAttributes
 
-instance ToJSON FaceAttributes where
-  toJSON = toJSONText
+instance Prelude.ToJSON FaceAttributes where
+  toJSON = Prelude.toJSONText

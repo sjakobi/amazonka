@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,189 +21,237 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For a given input face ID, searches for matching faces in the collection the face belongs to. You get a face ID when you add a face to the collection using the 'IndexFaces' operation. The operation compares the features of the input face with faces in the specified collection.
+-- For a given input face ID, searches for matching faces in the collection
+-- the face belongs to. You get a face ID when you add a face to the
+-- collection using the IndexFaces operation. The operation compares the
+-- features of the input face with faces in the specified collection.
 --
+-- You can also search faces without indexing faces by using the
+-- @SearchFacesByImage@ operation.
 --
--- The operation response returns an array of faces that match, ordered by similarity score with the highest similarity first. More specifically, it is an array of metadata for each face match that is found. Along with the metadata, the response also includes a @confidence@ value for each face match, indicating the confidence that the specific face matches the input face.
+-- The operation response returns an array of faces that match, ordered by
+-- similarity score with the highest similarity first. More specifically,
+-- it is an array of metadata for each face match that is found. Along with
+-- the metadata, the response also includes a @confidence@ value for each
+-- face match, indicating the confidence that the specific face matches the
+-- input face.
 --
--- For an example, see Searching for a Face Using Its Face ID in the Amazon Rekognition Developer Guide.
+-- For an example, see Searching for a Face Using Its Face ID in the Amazon
+-- Rekognition Developer Guide.
 --
--- This operation requires permissions to perform the @rekognition:SearchFaces@ action.
+-- This operation requires permissions to perform the
+-- @rekognition:SearchFaces@ action.
 module Network.AWS.Rekognition.SearchFaces
   ( -- * Creating a Request
-    searchFaces,
-    SearchFaces,
+    SearchFaces (..),
+    newSearchFaces,
 
     -- * Request Lenses
-    sfMaxFaces,
-    sfFaceMatchThreshold,
-    sfCollectionId,
-    sfFaceId,
+    searchFaces_maxFaces,
+    searchFaces_faceMatchThreshold,
+    searchFaces_collectionId,
+    searchFaces_faceId,
 
     -- * Destructuring the Response
-    searchFacesResponse,
-    SearchFacesResponse,
+    SearchFacesResponse (..),
+    newSearchFacesResponse,
 
     -- * Response Lenses
-    sfrrsFaceModelVersion,
-    sfrrsFaceMatches,
-    sfrrsSearchedFaceId,
-    sfrrsResponseStatus,
+    searchFacesResponse_faceModelVersion,
+    searchFacesResponse_faceMatches,
+    searchFacesResponse_searchedFaceId,
+    searchFacesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Rekognition.Types.FaceMatch
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'searchFaces' smart constructor.
+-- | /See:/ 'newSearchFaces' smart constructor.
 data SearchFaces = SearchFaces'
-  { _sfMaxFaces ::
-      !(Maybe Nat),
-    _sfFaceMatchThreshold :: !(Maybe Double),
-    _sfCollectionId :: !Text,
-    _sfFaceId :: !Text
+  { -- | Maximum number of faces to return. The operation returns the maximum
+    -- number of faces with the highest confidence in the match.
+    maxFaces :: Prelude.Maybe Prelude.Nat,
+    -- | Optional value specifying the minimum confidence in the face match to
+    -- return. For example, don\'t return any matches where confidence in
+    -- matches is less than 70%. The default value is 80%.
+    faceMatchThreshold :: Prelude.Maybe Prelude.Double,
+    -- | ID of the collection the face belongs to.
+    collectionId :: Prelude.Text,
+    -- | ID of a face to find matches for in the collection.
+    faceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchFaces' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchFaces' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfMaxFaces' - Maximum number of faces to return. The operation returns the maximum number of faces with the highest confidence in the match.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sfFaceMatchThreshold' - Optional value specifying the minimum confidence in the face match to return. For example, don't return any matches where confidence in matches is less than 70%. The default value is 80%.
+-- 'maxFaces', 'searchFaces_maxFaces' - Maximum number of faces to return. The operation returns the maximum
+-- number of faces with the highest confidence in the match.
 --
--- * 'sfCollectionId' - ID of the collection the face belongs to.
+-- 'faceMatchThreshold', 'searchFaces_faceMatchThreshold' - Optional value specifying the minimum confidence in the face match to
+-- return. For example, don\'t return any matches where confidence in
+-- matches is less than 70%. The default value is 80%.
 --
--- * 'sfFaceId' - ID of a face to find matches for in the collection.
-searchFaces ::
-  -- | 'sfCollectionId'
-  Text ->
-  -- | 'sfFaceId'
-  Text ->
+-- 'collectionId', 'searchFaces_collectionId' - ID of the collection the face belongs to.
+--
+-- 'faceId', 'searchFaces_faceId' - ID of a face to find matches for in the collection.
+newSearchFaces ::
+  -- | 'collectionId'
+  Prelude.Text ->
+  -- | 'faceId'
+  Prelude.Text ->
   SearchFaces
-searchFaces pCollectionId_ pFaceId_ =
+newSearchFaces pCollectionId_ pFaceId_ =
   SearchFaces'
-    { _sfMaxFaces = Nothing,
-      _sfFaceMatchThreshold = Nothing,
-      _sfCollectionId = pCollectionId_,
-      _sfFaceId = pFaceId_
+    { maxFaces = Prelude.Nothing,
+      faceMatchThreshold = Prelude.Nothing,
+      collectionId = pCollectionId_,
+      faceId = pFaceId_
     }
 
--- | Maximum number of faces to return. The operation returns the maximum number of faces with the highest confidence in the match.
-sfMaxFaces :: Lens' SearchFaces (Maybe Natural)
-sfMaxFaces = lens _sfMaxFaces (\s a -> s {_sfMaxFaces = a}) . mapping _Nat
+-- | Maximum number of faces to return. The operation returns the maximum
+-- number of faces with the highest confidence in the match.
+searchFaces_maxFaces :: Lens.Lens' SearchFaces (Prelude.Maybe Prelude.Natural)
+searchFaces_maxFaces = Lens.lens (\SearchFaces' {maxFaces} -> maxFaces) (\s@SearchFaces' {} a -> s {maxFaces = a} :: SearchFaces) Prelude.. Lens.mapping Prelude._Nat
 
--- | Optional value specifying the minimum confidence in the face match to return. For example, don't return any matches where confidence in matches is less than 70%. The default value is 80%.
-sfFaceMatchThreshold :: Lens' SearchFaces (Maybe Double)
-sfFaceMatchThreshold = lens _sfFaceMatchThreshold (\s a -> s {_sfFaceMatchThreshold = a})
+-- | Optional value specifying the minimum confidence in the face match to
+-- return. For example, don\'t return any matches where confidence in
+-- matches is less than 70%. The default value is 80%.
+searchFaces_faceMatchThreshold :: Lens.Lens' SearchFaces (Prelude.Maybe Prelude.Double)
+searchFaces_faceMatchThreshold = Lens.lens (\SearchFaces' {faceMatchThreshold} -> faceMatchThreshold) (\s@SearchFaces' {} a -> s {faceMatchThreshold = a} :: SearchFaces)
 
 -- | ID of the collection the face belongs to.
-sfCollectionId :: Lens' SearchFaces Text
-sfCollectionId = lens _sfCollectionId (\s a -> s {_sfCollectionId = a})
+searchFaces_collectionId :: Lens.Lens' SearchFaces Prelude.Text
+searchFaces_collectionId = Lens.lens (\SearchFaces' {collectionId} -> collectionId) (\s@SearchFaces' {} a -> s {collectionId = a} :: SearchFaces)
 
 -- | ID of a face to find matches for in the collection.
-sfFaceId :: Lens' SearchFaces Text
-sfFaceId = lens _sfFaceId (\s a -> s {_sfFaceId = a})
+searchFaces_faceId :: Lens.Lens' SearchFaces Prelude.Text
+searchFaces_faceId = Lens.lens (\SearchFaces' {faceId} -> faceId) (\s@SearchFaces' {} a -> s {faceId = a} :: SearchFaces)
 
-instance AWSRequest SearchFaces where
+instance Prelude.AWSRequest SearchFaces where
   type Rs SearchFaces = SearchFacesResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SearchFacesResponse'
-            <$> (x .?> "FaceModelVersion")
-            <*> (x .?> "FaceMatches" .!@ mempty)
-            <*> (x .?> "SearchedFaceId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "FaceModelVersion")
+            Prelude.<*> ( x Prelude..?> "FaceMatches"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "SearchedFaceId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SearchFaces
+instance Prelude.Hashable SearchFaces
 
-instance NFData SearchFaces
+instance Prelude.NFData SearchFaces
 
-instance ToHeaders SearchFaces where
+instance Prelude.ToHeaders SearchFaces where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("RekognitionService.SearchFaces" :: ByteString),
+              Prelude.=# ( "RekognitionService.SearchFaces" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SearchFaces where
+instance Prelude.ToJSON SearchFaces where
   toJSON SearchFaces' {..} =
-    object
-      ( catMaybes
-          [ ("MaxFaces" .=) <$> _sfMaxFaces,
-            ("FaceMatchThreshold" .=) <$> _sfFaceMatchThreshold,
-            Just ("CollectionId" .= _sfCollectionId),
-            Just ("FaceId" .= _sfFaceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxFaces" Prelude..=) Prelude.<$> maxFaces,
+            ("FaceMatchThreshold" Prelude..=)
+              Prelude.<$> faceMatchThreshold,
+            Prelude.Just
+              ("CollectionId" Prelude..= collectionId),
+            Prelude.Just ("FaceId" Prelude..= faceId)
           ]
       )
 
-instance ToPath SearchFaces where
-  toPath = const "/"
+instance Prelude.ToPath SearchFaces where
+  toPath = Prelude.const "/"
 
-instance ToQuery SearchFaces where
-  toQuery = const mempty
+instance Prelude.ToQuery SearchFaces where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'searchFacesResponse' smart constructor.
+-- | /See:/ 'newSearchFacesResponse' smart constructor.
 data SearchFacesResponse = SearchFacesResponse'
-  { _sfrrsFaceModelVersion ::
-      !(Maybe Text),
-    _sfrrsFaceMatches ::
-      !(Maybe [FaceMatch]),
-    _sfrrsSearchedFaceId ::
-      !(Maybe Text),
-    _sfrrsResponseStatus :: !Int
+  { -- | Version number of the face detection model associated with the input
+    -- collection (@CollectionId@).
+    faceModelVersion :: Prelude.Maybe Prelude.Text,
+    -- | An array of faces that matched the input face, along with the confidence
+    -- in the match.
+    faceMatches :: Prelude.Maybe [FaceMatch],
+    -- | ID of the face that was searched for matches in a collection.
+    searchedFaceId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchFacesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchFacesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfrrsFaceModelVersion' - Version number of the face detection model associated with the input collection (@CollectionId@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sfrrsFaceMatches' - An array of faces that matched the input face, along with the confidence in the match.
+-- 'faceModelVersion', 'searchFacesResponse_faceModelVersion' - Version number of the face detection model associated with the input
+-- collection (@CollectionId@).
 --
--- * 'sfrrsSearchedFaceId' - ID of the face that was searched for matches in a collection.
+-- 'faceMatches', 'searchFacesResponse_faceMatches' - An array of faces that matched the input face, along with the confidence
+-- in the match.
 --
--- * 'sfrrsResponseStatus' - -- | The response status code.
-searchFacesResponse ::
-  -- | 'sfrrsResponseStatus'
-  Int ->
+-- 'searchedFaceId', 'searchFacesResponse_searchedFaceId' - ID of the face that was searched for matches in a collection.
+--
+-- 'httpStatus', 'searchFacesResponse_httpStatus' - The response's http status code.
+newSearchFacesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SearchFacesResponse
-searchFacesResponse pResponseStatus_ =
+newSearchFacesResponse pHttpStatus_ =
   SearchFacesResponse'
-    { _sfrrsFaceModelVersion =
-        Nothing,
-      _sfrrsFaceMatches = Nothing,
-      _sfrrsSearchedFaceId = Nothing,
-      _sfrrsResponseStatus = pResponseStatus_
+    { faceModelVersion =
+        Prelude.Nothing,
+      faceMatches = Prelude.Nothing,
+      searchedFaceId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Version number of the face detection model associated with the input collection (@CollectionId@ ).
-sfrrsFaceModelVersion :: Lens' SearchFacesResponse (Maybe Text)
-sfrrsFaceModelVersion = lens _sfrrsFaceModelVersion (\s a -> s {_sfrrsFaceModelVersion = a})
+-- | Version number of the face detection model associated with the input
+-- collection (@CollectionId@).
+searchFacesResponse_faceModelVersion :: Lens.Lens' SearchFacesResponse (Prelude.Maybe Prelude.Text)
+searchFacesResponse_faceModelVersion = Lens.lens (\SearchFacesResponse' {faceModelVersion} -> faceModelVersion) (\s@SearchFacesResponse' {} a -> s {faceModelVersion = a} :: SearchFacesResponse)
 
--- | An array of faces that matched the input face, along with the confidence in the match.
-sfrrsFaceMatches :: Lens' SearchFacesResponse [FaceMatch]
-sfrrsFaceMatches = lens _sfrrsFaceMatches (\s a -> s {_sfrrsFaceMatches = a}) . _Default . _Coerce
+-- | An array of faces that matched the input face, along with the confidence
+-- in the match.
+searchFacesResponse_faceMatches :: Lens.Lens' SearchFacesResponse (Prelude.Maybe [FaceMatch])
+searchFacesResponse_faceMatches = Lens.lens (\SearchFacesResponse' {faceMatches} -> faceMatches) (\s@SearchFacesResponse' {} a -> s {faceMatches = a} :: SearchFacesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | ID of the face that was searched for matches in a collection.
-sfrrsSearchedFaceId :: Lens' SearchFacesResponse (Maybe Text)
-sfrrsSearchedFaceId = lens _sfrrsSearchedFaceId (\s a -> s {_sfrrsSearchedFaceId = a})
+searchFacesResponse_searchedFaceId :: Lens.Lens' SearchFacesResponse (Prelude.Maybe Prelude.Text)
+searchFacesResponse_searchedFaceId = Lens.lens (\SearchFacesResponse' {searchedFaceId} -> searchedFaceId) (\s@SearchFacesResponse' {} a -> s {searchedFaceId = a} :: SearchFacesResponse)
 
--- | -- | The response status code.
-sfrrsResponseStatus :: Lens' SearchFacesResponse Int
-sfrrsResponseStatus = lens _sfrrsResponseStatus (\s a -> s {_sfrrsResponseStatus = a})
+-- | The response's http status code.
+searchFacesResponse_httpStatus :: Lens.Lens' SearchFacesResponse Prelude.Int
+searchFacesResponse_httpStatus = Lens.lens (\SearchFacesResponse' {httpStatus} -> httpStatus) (\s@SearchFacesResponse' {} a -> s {httpStatus = a} :: SearchFacesResponse)
 
-instance NFData SearchFacesResponse
+instance Prelude.NFData SearchFacesResponse

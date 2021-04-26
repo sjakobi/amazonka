@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Rekognition.Types.LabelDetectionSortBy
   ( LabelDetectionSortBy
       ( ..,
-        Name,
-        Timestamp
+        LabelDetectionSortByNAME,
+        LabelDetectionSortByTIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LabelDetectionSortBy
-  = LabelDetectionSortBy'
-      ( CI
-          Text
-      )
+newtype LabelDetectionSortBy = LabelDetectionSortBy'
+  { fromLabelDetectionSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Name :: LabelDetectionSortBy
-pattern Name = LabelDetectionSortBy' "NAME"
+pattern LabelDetectionSortByNAME :: LabelDetectionSortBy
+pattern LabelDetectionSortByNAME = LabelDetectionSortBy' "NAME"
 
-pattern Timestamp :: LabelDetectionSortBy
-pattern Timestamp = LabelDetectionSortBy' "TIMESTAMP"
+pattern LabelDetectionSortByTIMESTAMP :: LabelDetectionSortBy
+pattern LabelDetectionSortByTIMESTAMP = LabelDetectionSortBy' "TIMESTAMP"
 
 {-# COMPLETE
-  Name,
-  Timestamp,
+  LabelDetectionSortByNAME,
+  LabelDetectionSortByTIMESTAMP,
   LabelDetectionSortBy'
   #-}
 
-instance FromText LabelDetectionSortBy where
-  parser = (LabelDetectionSortBy' . mk) <$> takeText
+instance Prelude.FromText LabelDetectionSortBy where
+  parser = LabelDetectionSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText LabelDetectionSortBy where
-  toText (LabelDetectionSortBy' ci) = original ci
+instance Prelude.ToText LabelDetectionSortBy where
+  toText (LabelDetectionSortBy' x) = x
 
-instance Hashable LabelDetectionSortBy
+instance Prelude.Hashable LabelDetectionSortBy
 
-instance NFData LabelDetectionSortBy
+instance Prelude.NFData LabelDetectionSortBy
 
-instance ToByteString LabelDetectionSortBy
+instance Prelude.ToByteString LabelDetectionSortBy
 
-instance ToQuery LabelDetectionSortBy
+instance Prelude.ToQuery LabelDetectionSortBy
 
-instance ToHeader LabelDetectionSortBy
+instance Prelude.ToHeader LabelDetectionSortBy
 
-instance ToJSON LabelDetectionSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON LabelDetectionSortBy where
+  toJSON = Prelude.toJSONText

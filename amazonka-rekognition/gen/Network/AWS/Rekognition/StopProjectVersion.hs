@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops a running model. The operation might take a while to complete. To check the current status, call 'DescribeProjectVersions' .
+-- Stops a running model. The operation might take a while to complete. To
+-- check the current status, call DescribeProjectVersions.
 module Network.AWS.Rekognition.StopProjectVersion
   ( -- * Creating a Request
-    stopProjectVersion,
-    StopProjectVersion,
+    StopProjectVersion (..),
+    newStopProjectVersion,
 
     -- * Request Lenses
-    spvProjectVersionARN,
+    stopProjectVersion_projectVersionArn,
 
     -- * Destructuring the Response
-    stopProjectVersionResponse,
-    StopProjectVersionResponse,
+    StopProjectVersionResponse (..),
+    newStopProjectVersionResponse,
 
     -- * Response Lenses
-    srsStatus,
-    srsResponseStatus,
+    stopProjectVersionResponse_status,
+    stopProjectVersionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Rekognition.Types.ProjectVersionStatus
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopProjectVersion' smart constructor.
-newtype StopProjectVersion = StopProjectVersion'
-  { _spvProjectVersionARN ::
-      Text
+-- | /See:/ 'newStopProjectVersion' smart constructor.
+data StopProjectVersion = StopProjectVersion'
+  { -- | The Amazon Resource Name (ARN) of the model version that you want to
+    -- delete.
+    --
+    -- This operation requires permissions to perform the
+    -- @rekognition:StopProjectVersion@ action.
+    projectVersionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopProjectVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopProjectVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spvProjectVersionARN' - The Amazon Resource Name (ARN) of the model version that you want to delete. This operation requires permissions to perform the @rekognition:StopProjectVersion@ action.
-stopProjectVersion ::
-  -- | 'spvProjectVersionARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'projectVersionArn', 'stopProjectVersion_projectVersionArn' - The Amazon Resource Name (ARN) of the model version that you want to
+-- delete.
+--
+-- This operation requires permissions to perform the
+-- @rekognition:StopProjectVersion@ action.
+newStopProjectVersion ::
+  -- | 'projectVersionArn'
+  Prelude.Text ->
   StopProjectVersion
-stopProjectVersion pProjectVersionARN_ =
+newStopProjectVersion pProjectVersionArn_ =
   StopProjectVersion'
-    { _spvProjectVersionARN =
-        pProjectVersionARN_
+    { projectVersionArn =
+        pProjectVersionArn_
     }
 
--- | The Amazon Resource Name (ARN) of the model version that you want to delete. This operation requires permissions to perform the @rekognition:StopProjectVersion@ action.
-spvProjectVersionARN :: Lens' StopProjectVersion Text
-spvProjectVersionARN = lens _spvProjectVersionARN (\s a -> s {_spvProjectVersionARN = a})
+-- | The Amazon Resource Name (ARN) of the model version that you want to
+-- delete.
+--
+-- This operation requires permissions to perform the
+-- @rekognition:StopProjectVersion@ action.
+stopProjectVersion_projectVersionArn :: Lens.Lens' StopProjectVersion Prelude.Text
+stopProjectVersion_projectVersionArn = Lens.lens (\StopProjectVersion' {projectVersionArn} -> projectVersionArn) (\s@StopProjectVersion' {} a -> s {projectVersionArn = a} :: StopProjectVersion)
 
-instance AWSRequest StopProjectVersion where
+instance Prelude.AWSRequest StopProjectVersion where
   type
     Rs StopProjectVersion =
       StopProjectVersionResponse
-  request = postJSON rekognition
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopProjectVersionResponse'
-            <$> (x .?> "Status") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopProjectVersion
+instance Prelude.Hashable StopProjectVersion
 
-instance NFData StopProjectVersion
+instance Prelude.NFData StopProjectVersion
 
-instance ToHeaders StopProjectVersion where
+instance Prelude.ToHeaders StopProjectVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "RekognitionService.StopProjectVersion" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "RekognitionService.StopProjectVersion" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopProjectVersion where
+instance Prelude.ToJSON StopProjectVersion where
   toJSON StopProjectVersion' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("ProjectVersionArn" .= _spvProjectVersionARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ProjectVersionArn" Prelude..= projectVersionArn)
           ]
       )
 
-instance ToPath StopProjectVersion where
-  toPath = const "/"
+instance Prelude.ToPath StopProjectVersion where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopProjectVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery StopProjectVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopProjectVersionResponse' smart constructor.
+-- | /See:/ 'newStopProjectVersionResponse' smart constructor.
 data StopProjectVersionResponse = StopProjectVersionResponse'
-  { _srsStatus ::
-      !( Maybe
-           ProjectVersionStatus
-       ),
-    _srsResponseStatus ::
-      !Int
+  { -- | The current status of the stop operation.
+    status :: Prelude.Maybe ProjectVersionStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopProjectVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopProjectVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsStatus' - The current status of the stop operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srsResponseStatus' - -- | The response status code.
-stopProjectVersionResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- 'status', 'stopProjectVersionResponse_status' - The current status of the stop operation.
+--
+-- 'httpStatus', 'stopProjectVersionResponse_httpStatus' - The response's http status code.
+newStopProjectVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopProjectVersionResponse
-stopProjectVersionResponse pResponseStatus_ =
+newStopProjectVersionResponse pHttpStatus_ =
   StopProjectVersionResponse'
-    { _srsStatus = Nothing,
-      _srsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current status of the stop operation.
-srsStatus :: Lens' StopProjectVersionResponse (Maybe ProjectVersionStatus)
-srsStatus = lens _srsStatus (\s a -> s {_srsStatus = a})
+stopProjectVersionResponse_status :: Lens.Lens' StopProjectVersionResponse (Prelude.Maybe ProjectVersionStatus)
+stopProjectVersionResponse_status = Lens.lens (\StopProjectVersionResponse' {status} -> status) (\s@StopProjectVersionResponse' {} a -> s {status = a} :: StopProjectVersionResponse)
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StopProjectVersionResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+stopProjectVersionResponse_httpStatus :: Lens.Lens' StopProjectVersionResponse Prelude.Int
+stopProjectVersionResponse_httpStatus = Lens.lens (\StopProjectVersionResponse' {httpStatus} -> httpStatus) (\s@StopProjectVersionResponse' {} a -> s {httpStatus = a} :: StopProjectVersionResponse)
 
-instance NFData StopProjectVersionResponse
+instance Prelude.NFData StopProjectVersionResponse

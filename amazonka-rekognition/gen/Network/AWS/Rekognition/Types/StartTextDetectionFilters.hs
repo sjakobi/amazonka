@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Rekognition.Types.StartTextDetectionFilters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Rekognition.Types.DetectionFilter
 import Network.AWS.Rekognition.Types.RegionOfInterest
 
--- | Set of optional parameters that let you set the criteria text must meet to be included in your response. @WordFilter@ looks at a word's height, width and minimum confidence. @RegionOfInterest@ lets you set a specific region of the screen to look for text in.
+-- | Set of optional parameters that let you set the criteria text must meet
+-- to be included in your response. @WordFilter@ looks at a word\'s height,
+-- width and minimum confidence. @RegionOfInterest@ lets you set a specific
+-- region of the screen to look for text in.
 --
---
---
--- /See:/ 'startTextDetectionFilters' smart constructor.
+-- /See:/ 'newStartTextDetectionFilters' smart constructor.
 data StartTextDetectionFilters = StartTextDetectionFilters'
-  { _stdfRegionsOfInterest ::
-      !( Maybe
-           [RegionOfInterest]
-       ),
-    _stdfWordFilter ::
-      !( Maybe
-           DetectionFilter
-       )
+  { -- | Filter focusing on a certain area of the frame. Uses a @BoundingBox@
+    -- object to set the region of the screen.
+    regionsOfInterest :: Prelude.Maybe [RegionOfInterest],
+    -- | Filters focusing on qualities of the text, such as confidence or size.
+    wordFilter :: Prelude.Maybe DetectionFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartTextDetectionFilters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartTextDetectionFilters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stdfRegionsOfInterest' - Filter focusing on a certain area of the frame. Uses a @BoundingBox@ object to set the region of the screen.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stdfWordFilter' - Filters focusing on qualities of the text, such as confidence or size.
-startTextDetectionFilters ::
+-- 'regionsOfInterest', 'startTextDetectionFilters_regionsOfInterest' - Filter focusing on a certain area of the frame. Uses a @BoundingBox@
+-- object to set the region of the screen.
+--
+-- 'wordFilter', 'startTextDetectionFilters_wordFilter' - Filters focusing on qualities of the text, such as confidence or size.
+newStartTextDetectionFilters ::
   StartTextDetectionFilters
-startTextDetectionFilters =
+newStartTextDetectionFilters =
   StartTextDetectionFilters'
-    { _stdfRegionsOfInterest =
-        Nothing,
-      _stdfWordFilter = Nothing
+    { regionsOfInterest =
+        Prelude.Nothing,
+      wordFilter = Prelude.Nothing
     }
 
--- | Filter focusing on a certain area of the frame. Uses a @BoundingBox@ object to set the region of the screen.
-stdfRegionsOfInterest :: Lens' StartTextDetectionFilters [RegionOfInterest]
-stdfRegionsOfInterest = lens _stdfRegionsOfInterest (\s a -> s {_stdfRegionsOfInterest = a}) . _Default . _Coerce
+-- | Filter focusing on a certain area of the frame. Uses a @BoundingBox@
+-- object to set the region of the screen.
+startTextDetectionFilters_regionsOfInterest :: Lens.Lens' StartTextDetectionFilters (Prelude.Maybe [RegionOfInterest])
+startTextDetectionFilters_regionsOfInterest = Lens.lens (\StartTextDetectionFilters' {regionsOfInterest} -> regionsOfInterest) (\s@StartTextDetectionFilters' {} a -> s {regionsOfInterest = a} :: StartTextDetectionFilters) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Filters focusing on qualities of the text, such as confidence or size.
-stdfWordFilter :: Lens' StartTextDetectionFilters (Maybe DetectionFilter)
-stdfWordFilter = lens _stdfWordFilter (\s a -> s {_stdfWordFilter = a})
+startTextDetectionFilters_wordFilter :: Lens.Lens' StartTextDetectionFilters (Prelude.Maybe DetectionFilter)
+startTextDetectionFilters_wordFilter = Lens.lens (\StartTextDetectionFilters' {wordFilter} -> wordFilter) (\s@StartTextDetectionFilters' {} a -> s {wordFilter = a} :: StartTextDetectionFilters)
 
-instance Hashable StartTextDetectionFilters
+instance Prelude.Hashable StartTextDetectionFilters
 
-instance NFData StartTextDetectionFilters
+instance Prelude.NFData StartTextDetectionFilters
 
-instance ToJSON StartTextDetectionFilters where
+instance Prelude.ToJSON StartTextDetectionFilters where
   toJSON StartTextDetectionFilters' {..} =
-    object
-      ( catMaybes
-          [ ("RegionsOfInterest" .=) <$> _stdfRegionsOfInterest,
-            ("WordFilter" .=) <$> _stdfWordFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RegionsOfInterest" Prelude..=)
+              Prelude.<$> regionsOfInterest,
+            ("WordFilter" Prelude..=) Prelude.<$> wordFilter
           ]
       )

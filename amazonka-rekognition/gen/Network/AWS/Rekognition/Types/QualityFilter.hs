@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.Rekognition.Types.QualityFilter
   ( QualityFilter
       ( ..,
-        Auto,
-        High,
-        Low,
-        Medium,
-        None
+        QualityFilterAUTO,
+        QualityFilterHIGH,
+        QualityFilterLOW,
+        QualityFilterMEDIUM,
+        QualityFilterNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QualityFilter = QualityFilter' (CI Text)
+newtype QualityFilter = QualityFilter'
+  { fromQualityFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Auto :: QualityFilter
-pattern Auto = QualityFilter' "AUTO"
+pattern QualityFilterAUTO :: QualityFilter
+pattern QualityFilterAUTO = QualityFilter' "AUTO"
 
-pattern High :: QualityFilter
-pattern High = QualityFilter' "HIGH"
+pattern QualityFilterHIGH :: QualityFilter
+pattern QualityFilterHIGH = QualityFilter' "HIGH"
 
-pattern Low :: QualityFilter
-pattern Low = QualityFilter' "LOW"
+pattern QualityFilterLOW :: QualityFilter
+pattern QualityFilterLOW = QualityFilter' "LOW"
 
-pattern Medium :: QualityFilter
-pattern Medium = QualityFilter' "MEDIUM"
+pattern QualityFilterMEDIUM :: QualityFilter
+pattern QualityFilterMEDIUM = QualityFilter' "MEDIUM"
 
-pattern None :: QualityFilter
-pattern None = QualityFilter' "NONE"
+pattern QualityFilterNONE :: QualityFilter
+pattern QualityFilterNONE = QualityFilter' "NONE"
 
 {-# COMPLETE
-  Auto,
-  High,
-  Low,
-  Medium,
-  None,
+  QualityFilterAUTO,
+  QualityFilterHIGH,
+  QualityFilterLOW,
+  QualityFilterMEDIUM,
+  QualityFilterNONE,
   QualityFilter'
   #-}
 
-instance FromText QualityFilter where
-  parser = (QualityFilter' . mk) <$> takeText
+instance Prelude.FromText QualityFilter where
+  parser = QualityFilter' Prelude.<$> Prelude.takeText
 
-instance ToText QualityFilter where
-  toText (QualityFilter' ci) = original ci
+instance Prelude.ToText QualityFilter where
+  toText (QualityFilter' x) = x
 
-instance Hashable QualityFilter
+instance Prelude.Hashable QualityFilter
 
-instance NFData QualityFilter
+instance Prelude.NFData QualityFilter
 
-instance ToByteString QualityFilter
+instance Prelude.ToByteString QualityFilter
 
-instance ToQuery QualityFilter
+instance Prelude.ToQuery QualityFilter
 
-instance ToHeader QualityFilter
+instance Prelude.ToHeader QualityFilter
 
-instance ToJSON QualityFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON QualityFilter where
+  toJSON = Prelude.toJSONText

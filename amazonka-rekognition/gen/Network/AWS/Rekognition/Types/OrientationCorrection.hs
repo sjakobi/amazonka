@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.Rekognition.Types.OrientationCorrection
   ( OrientationCorrection
       ( ..,
-        Rotate0,
-        Rotate180,
-        Rotate270,
-        Rotate90
+        OrientationCorrectionROTATE0,
+        OrientationCorrectionROTATE180,
+        OrientationCorrectionROTATE270,
+        OrientationCorrectionROTATE90
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrientationCorrection
-  = OrientationCorrection'
-      ( CI
-          Text
-      )
+newtype OrientationCorrection = OrientationCorrection'
+  { fromOrientationCorrection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Rotate0 :: OrientationCorrection
-pattern Rotate0 = OrientationCorrection' "ROTATE_0"
+pattern OrientationCorrectionROTATE0 :: OrientationCorrection
+pattern OrientationCorrectionROTATE0 = OrientationCorrection' "ROTATE_0"
 
-pattern Rotate180 :: OrientationCorrection
-pattern Rotate180 = OrientationCorrection' "ROTATE_180"
+pattern OrientationCorrectionROTATE180 :: OrientationCorrection
+pattern OrientationCorrectionROTATE180 = OrientationCorrection' "ROTATE_180"
 
-pattern Rotate270 :: OrientationCorrection
-pattern Rotate270 = OrientationCorrection' "ROTATE_270"
+pattern OrientationCorrectionROTATE270 :: OrientationCorrection
+pattern OrientationCorrectionROTATE270 = OrientationCorrection' "ROTATE_270"
 
-pattern Rotate90 :: OrientationCorrection
-pattern Rotate90 = OrientationCorrection' "ROTATE_90"
+pattern OrientationCorrectionROTATE90 :: OrientationCorrection
+pattern OrientationCorrectionROTATE90 = OrientationCorrection' "ROTATE_90"
 
 {-# COMPLETE
-  Rotate0,
-  Rotate180,
-  Rotate270,
-  Rotate90,
+  OrientationCorrectionROTATE0,
+  OrientationCorrectionROTATE180,
+  OrientationCorrectionROTATE270,
+  OrientationCorrectionROTATE90,
   OrientationCorrection'
   #-}
 
-instance FromText OrientationCorrection where
-  parser = (OrientationCorrection' . mk) <$> takeText
+instance Prelude.FromText OrientationCorrection where
+  parser = OrientationCorrection' Prelude.<$> Prelude.takeText
 
-instance ToText OrientationCorrection where
-  toText (OrientationCorrection' ci) = original ci
+instance Prelude.ToText OrientationCorrection where
+  toText (OrientationCorrection' x) = x
 
-instance Hashable OrientationCorrection
+instance Prelude.Hashable OrientationCorrection
 
-instance NFData OrientationCorrection
+instance Prelude.NFData OrientationCorrection
 
-instance ToByteString OrientationCorrection
+instance Prelude.ToByteString OrientationCorrection
 
-instance ToQuery OrientationCorrection
+instance Prelude.ToQuery OrientationCorrection
 
-instance ToHeader OrientationCorrection
+instance Prelude.ToHeader OrientationCorrection
 
-instance FromJSON OrientationCorrection where
-  parseJSON = parseJSONText "OrientationCorrection"
+instance Prelude.FromJSON OrientationCorrection where
+  parseJSON = Prelude.parseJSONText "OrientationCorrection"
