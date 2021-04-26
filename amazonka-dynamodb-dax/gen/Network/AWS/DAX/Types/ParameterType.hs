@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.DAX.Types.ParameterType
   ( ParameterType
       ( ..,
-        Default,
-        NodeTypeSpecific
+        ParameterTypeDEFAULT,
+        ParameterTypeNODETYPESPECIFIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParameterType = ParameterType' (CI Text)
+newtype ParameterType = ParameterType'
+  { fromParameterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Default :: ParameterType
-pattern Default = ParameterType' "DEFAULT"
+pattern ParameterTypeDEFAULT :: ParameterType
+pattern ParameterTypeDEFAULT = ParameterType' "DEFAULT"
 
-pattern NodeTypeSpecific :: ParameterType
-pattern NodeTypeSpecific = ParameterType' "NODE_TYPE_SPECIFIC"
+pattern ParameterTypeNODETYPESPECIFIC :: ParameterType
+pattern ParameterTypeNODETYPESPECIFIC = ParameterType' "NODE_TYPE_SPECIFIC"
 
 {-# COMPLETE
-  Default,
-  NodeTypeSpecific,
+  ParameterTypeDEFAULT,
+  ParameterTypeNODETYPESPECIFIC,
   ParameterType'
   #-}
 
-instance FromText ParameterType where
-  parser = (ParameterType' . mk) <$> takeText
+instance Prelude.FromText ParameterType where
+  parser = ParameterType' Prelude.<$> Prelude.takeText
 
-instance ToText ParameterType where
-  toText (ParameterType' ci) = original ci
+instance Prelude.ToText ParameterType where
+  toText (ParameterType' x) = x
 
-instance Hashable ParameterType
+instance Prelude.Hashable ParameterType
 
-instance NFData ParameterType
+instance Prelude.NFData ParameterType
 
-instance ToByteString ParameterType
+instance Prelude.ToByteString ParameterType
 
-instance ToQuery ParameterType
+instance Prelude.ToQuery ParameterType
 
-instance ToHeader ParameterType
+instance Prelude.ToHeader ParameterType
 
-instance FromJSON ParameterType where
-  parseJSON = parseJSONText "ParameterType"
+instance Prelude.FromJSON ParameterType where
+  parseJSON = Prelude.parseJSONText "ParameterType"

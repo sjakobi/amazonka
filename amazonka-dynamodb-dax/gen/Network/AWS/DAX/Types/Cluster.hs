@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,191 +25,256 @@ import Network.AWS.DAX.Types.NotificationConfiguration
 import Network.AWS.DAX.Types.ParameterGroupStatus
 import Network.AWS.DAX.Types.SSEDescription
 import Network.AWS.DAX.Types.SecurityGroupMembership
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains all of the attributes of a specific DAX cluster.
 --
---
---
--- /See:/ 'cluster' smart constructor.
+-- /See:/ 'newCluster' smart constructor.
 data Cluster = Cluster'
-  { _cClusterARN ::
-      !(Maybe Text),
-    _cSubnetGroup :: !(Maybe Text),
-    _cIAMRoleARN :: !(Maybe Text),
-    _cStatus :: !(Maybe Text),
-    _cTotalNodes :: !(Maybe Int),
-    _cParameterGroup :: !(Maybe ParameterGroupStatus),
-    _cNodes :: !(Maybe [Node]),
-    _cNotificationConfiguration ::
-      !(Maybe NotificationConfiguration),
-    _cSecurityGroups ::
-      !(Maybe [SecurityGroupMembership]),
-    _cActiveNodes :: !(Maybe Int),
-    _cPreferredMaintenanceWindow :: !(Maybe Text),
-    _cDescription :: !(Maybe Text),
-    _cSSEDescription :: !(Maybe SSEDescription),
-    _cClusterDiscoveryEndpoint :: !(Maybe Endpoint),
-    _cNodeIdsToRemove :: !(Maybe [Text]),
-    _cNodeType :: !(Maybe Text),
-    _cClusterName :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) that uniquely identifies the cluster.
+    clusterArn :: Prelude.Maybe Prelude.Text,
+    -- | The subnet group where the DAX cluster is running.
+    subnetGroup :: Prelude.Maybe Prelude.Text,
+    -- | A valid Amazon Resource Name (ARN) that identifies an IAM role. At
+    -- runtime, DAX will assume this role and use the role\'s permissions to
+    -- access DynamoDB on your behalf.
+    iamRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the cluster.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The total number of nodes in the cluster.
+    totalNodes :: Prelude.Maybe Prelude.Int,
+    -- | The parameter group being used by nodes in the cluster.
+    parameterGroup :: Prelude.Maybe ParameterGroupStatus,
+    -- | A list of nodes that are currently in the cluster.
+    nodes :: Prelude.Maybe [Node],
+    -- | Describes a notification topic and its status. Notification topics are
+    -- used for publishing DAX events to subscribers using Amazon Simple
+    -- Notification Service (SNS).
+    notificationConfiguration :: Prelude.Maybe NotificationConfiguration,
+    -- | A list of security groups, and the status of each, for the nodes in the
+    -- cluster.
+    securityGroups :: Prelude.Maybe [SecurityGroupMembership],
+    -- | The number of nodes in the cluster that are active (i.e., capable of
+    -- serving requests).
+    activeNodes :: Prelude.Maybe Prelude.Int,
+    -- | A range of time when maintenance of DAX cluster software will be
+    -- performed. For example: @sun:01:00-sun:09:00@. Cluster maintenance
+    -- normally takes less than 30 minutes, and is performed automatically
+    -- within the maintenance window.
+    preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
+    -- | The description of the cluster.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The description of the server-side encryption status on the specified
+    -- DAX cluster.
+    sSEDescription :: Prelude.Maybe SSEDescription,
+    -- | The configuration endpoint for this DAX cluster, consisting of a DNS
+    -- name and a port number. Client applications can specify this endpoint,
+    -- rather than an individual node endpoint, and allow the DAX client
+    -- software to intelligently route requests and responses to nodes in the
+    -- DAX cluster.
+    clusterDiscoveryEndpoint :: Prelude.Maybe Endpoint,
+    -- | A list of nodes to be removed from the cluster.
+    nodeIdsToRemove :: Prelude.Maybe [Prelude.Text],
+    -- | The node type for the nodes in the cluster. (All nodes in a DAX cluster
+    -- are of the same type.)
+    nodeType :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DAX cluster.
+    clusterName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Cluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Cluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cClusterARN' - The Amazon Resource Name (ARN) that uniquely identifies the cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cSubnetGroup' - The subnet group where the DAX cluster is running.
+-- 'clusterArn', 'cluster_clusterArn' - The Amazon Resource Name (ARN) that uniquely identifies the cluster.
 --
--- * 'cIAMRoleARN' - A valid Amazon Resource Name (ARN) that identifies an IAM role. At runtime, DAX will assume this role and use the role's permissions to access DynamoDB on your behalf.
+-- 'subnetGroup', 'cluster_subnetGroup' - The subnet group where the DAX cluster is running.
 --
--- * 'cStatus' - The current status of the cluster.
+-- 'iamRoleArn', 'cluster_iamRoleArn' - A valid Amazon Resource Name (ARN) that identifies an IAM role. At
+-- runtime, DAX will assume this role and use the role\'s permissions to
+-- access DynamoDB on your behalf.
 --
--- * 'cTotalNodes' - The total number of nodes in the cluster.
+-- 'status', 'cluster_status' - The current status of the cluster.
 --
--- * 'cParameterGroup' - The parameter group being used by nodes in the cluster.
+-- 'totalNodes', 'cluster_totalNodes' - The total number of nodes in the cluster.
 --
--- * 'cNodes' - A list of nodes that are currently in the cluster.
+-- 'parameterGroup', 'cluster_parameterGroup' - The parameter group being used by nodes in the cluster.
 --
--- * 'cNotificationConfiguration' - Describes a notification topic and its status. Notification topics are used for publishing DAX events to subscribers using Amazon Simple Notification Service (SNS).
+-- 'nodes', 'cluster_nodes' - A list of nodes that are currently in the cluster.
 --
--- * 'cSecurityGroups' - A list of security groups, and the status of each, for the nodes in the cluster.
+-- 'notificationConfiguration', 'cluster_notificationConfiguration' - Describes a notification topic and its status. Notification topics are
+-- used for publishing DAX events to subscribers using Amazon Simple
+-- Notification Service (SNS).
 --
--- * 'cActiveNodes' - The number of nodes in the cluster that are active (i.e., capable of serving requests).
+-- 'securityGroups', 'cluster_securityGroups' - A list of security groups, and the status of each, for the nodes in the
+-- cluster.
 --
--- * 'cPreferredMaintenanceWindow' - A range of time when maintenance of DAX cluster software will be performed. For example: @sun:01:00-sun:09:00@ . Cluster maintenance normally takes less than 30 minutes, and is performed automatically within the maintenance window.
+-- 'activeNodes', 'cluster_activeNodes' - The number of nodes in the cluster that are active (i.e., capable of
+-- serving requests).
 --
--- * 'cDescription' - The description of the cluster.
+-- 'preferredMaintenanceWindow', 'cluster_preferredMaintenanceWindow' - A range of time when maintenance of DAX cluster software will be
+-- performed. For example: @sun:01:00-sun:09:00@. Cluster maintenance
+-- normally takes less than 30 minutes, and is performed automatically
+-- within the maintenance window.
 --
--- * 'cSSEDescription' - The description of the server-side encryption status on the specified DAX cluster.
+-- 'description', 'cluster_description' - The description of the cluster.
 --
--- * 'cClusterDiscoveryEndpoint' - The configuration endpoint for this DAX cluster, consisting of a DNS name and a port number. Client applications can specify this endpoint, rather than an individual node endpoint, and allow the DAX client software to intelligently route requests and responses to nodes in the DAX cluster.
+-- 'sSEDescription', 'cluster_sSEDescription' - The description of the server-side encryption status on the specified
+-- DAX cluster.
 --
--- * 'cNodeIdsToRemove' - A list of nodes to be removed from the cluster.
+-- 'clusterDiscoveryEndpoint', 'cluster_clusterDiscoveryEndpoint' - The configuration endpoint for this DAX cluster, consisting of a DNS
+-- name and a port number. Client applications can specify this endpoint,
+-- rather than an individual node endpoint, and allow the DAX client
+-- software to intelligently route requests and responses to nodes in the
+-- DAX cluster.
 --
--- * 'cNodeType' - The node type for the nodes in the cluster. (All nodes in a DAX cluster are of the same type.)
+-- 'nodeIdsToRemove', 'cluster_nodeIdsToRemove' - A list of nodes to be removed from the cluster.
 --
--- * 'cClusterName' - The name of the DAX cluster.
-cluster ::
+-- 'nodeType', 'cluster_nodeType' - The node type for the nodes in the cluster. (All nodes in a DAX cluster
+-- are of the same type.)
+--
+-- 'clusterName', 'cluster_clusterName' - The name of the DAX cluster.
+newCluster ::
   Cluster
-cluster =
+newCluster =
   Cluster'
-    { _cClusterARN = Nothing,
-      _cSubnetGroup = Nothing,
-      _cIAMRoleARN = Nothing,
-      _cStatus = Nothing,
-      _cTotalNodes = Nothing,
-      _cParameterGroup = Nothing,
-      _cNodes = Nothing,
-      _cNotificationConfiguration = Nothing,
-      _cSecurityGroups = Nothing,
-      _cActiveNodes = Nothing,
-      _cPreferredMaintenanceWindow = Nothing,
-      _cDescription = Nothing,
-      _cSSEDescription = Nothing,
-      _cClusterDiscoveryEndpoint = Nothing,
-      _cNodeIdsToRemove = Nothing,
-      _cNodeType = Nothing,
-      _cClusterName = Nothing
+    { clusterArn = Prelude.Nothing,
+      subnetGroup = Prelude.Nothing,
+      iamRoleArn = Prelude.Nothing,
+      status = Prelude.Nothing,
+      totalNodes = Prelude.Nothing,
+      parameterGroup = Prelude.Nothing,
+      nodes = Prelude.Nothing,
+      notificationConfiguration = Prelude.Nothing,
+      securityGroups = Prelude.Nothing,
+      activeNodes = Prelude.Nothing,
+      preferredMaintenanceWindow = Prelude.Nothing,
+      description = Prelude.Nothing,
+      sSEDescription = Prelude.Nothing,
+      clusterDiscoveryEndpoint = Prelude.Nothing,
+      nodeIdsToRemove = Prelude.Nothing,
+      nodeType = Prelude.Nothing,
+      clusterName = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) that uniquely identifies the cluster.
-cClusterARN :: Lens' Cluster (Maybe Text)
-cClusterARN = lens _cClusterARN (\s a -> s {_cClusterARN = a})
+cluster_clusterArn :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_clusterArn = Lens.lens (\Cluster' {clusterArn} -> clusterArn) (\s@Cluster' {} a -> s {clusterArn = a} :: Cluster)
 
 -- | The subnet group where the DAX cluster is running.
-cSubnetGroup :: Lens' Cluster (Maybe Text)
-cSubnetGroup = lens _cSubnetGroup (\s a -> s {_cSubnetGroup = a})
+cluster_subnetGroup :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_subnetGroup = Lens.lens (\Cluster' {subnetGroup} -> subnetGroup) (\s@Cluster' {} a -> s {subnetGroup = a} :: Cluster)
 
--- | A valid Amazon Resource Name (ARN) that identifies an IAM role. At runtime, DAX will assume this role and use the role's permissions to access DynamoDB on your behalf.
-cIAMRoleARN :: Lens' Cluster (Maybe Text)
-cIAMRoleARN = lens _cIAMRoleARN (\s a -> s {_cIAMRoleARN = a})
+-- | A valid Amazon Resource Name (ARN) that identifies an IAM role. At
+-- runtime, DAX will assume this role and use the role\'s permissions to
+-- access DynamoDB on your behalf.
+cluster_iamRoleArn :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_iamRoleArn = Lens.lens (\Cluster' {iamRoleArn} -> iamRoleArn) (\s@Cluster' {} a -> s {iamRoleArn = a} :: Cluster)
 
 -- | The current status of the cluster.
-cStatus :: Lens' Cluster (Maybe Text)
-cStatus = lens _cStatus (\s a -> s {_cStatus = a})
+cluster_status :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_status = Lens.lens (\Cluster' {status} -> status) (\s@Cluster' {} a -> s {status = a} :: Cluster)
 
 -- | The total number of nodes in the cluster.
-cTotalNodes :: Lens' Cluster (Maybe Int)
-cTotalNodes = lens _cTotalNodes (\s a -> s {_cTotalNodes = a})
+cluster_totalNodes :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Int)
+cluster_totalNodes = Lens.lens (\Cluster' {totalNodes} -> totalNodes) (\s@Cluster' {} a -> s {totalNodes = a} :: Cluster)
 
 -- | The parameter group being used by nodes in the cluster.
-cParameterGroup :: Lens' Cluster (Maybe ParameterGroupStatus)
-cParameterGroup = lens _cParameterGroup (\s a -> s {_cParameterGroup = a})
+cluster_parameterGroup :: Lens.Lens' Cluster (Prelude.Maybe ParameterGroupStatus)
+cluster_parameterGroup = Lens.lens (\Cluster' {parameterGroup} -> parameterGroup) (\s@Cluster' {} a -> s {parameterGroup = a} :: Cluster)
 
 -- | A list of nodes that are currently in the cluster.
-cNodes :: Lens' Cluster [Node]
-cNodes = lens _cNodes (\s a -> s {_cNodes = a}) . _Default . _Coerce
+cluster_nodes :: Lens.Lens' Cluster (Prelude.Maybe [Node])
+cluster_nodes = Lens.lens (\Cluster' {nodes} -> nodes) (\s@Cluster' {} a -> s {nodes = a} :: Cluster) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Describes a notification topic and its status. Notification topics are used for publishing DAX events to subscribers using Amazon Simple Notification Service (SNS).
-cNotificationConfiguration :: Lens' Cluster (Maybe NotificationConfiguration)
-cNotificationConfiguration = lens _cNotificationConfiguration (\s a -> s {_cNotificationConfiguration = a})
+-- | Describes a notification topic and its status. Notification topics are
+-- used for publishing DAX events to subscribers using Amazon Simple
+-- Notification Service (SNS).
+cluster_notificationConfiguration :: Lens.Lens' Cluster (Prelude.Maybe NotificationConfiguration)
+cluster_notificationConfiguration = Lens.lens (\Cluster' {notificationConfiguration} -> notificationConfiguration) (\s@Cluster' {} a -> s {notificationConfiguration = a} :: Cluster)
 
--- | A list of security groups, and the status of each, for the nodes in the cluster.
-cSecurityGroups :: Lens' Cluster [SecurityGroupMembership]
-cSecurityGroups = lens _cSecurityGroups (\s a -> s {_cSecurityGroups = a}) . _Default . _Coerce
+-- | A list of security groups, and the status of each, for the nodes in the
+-- cluster.
+cluster_securityGroups :: Lens.Lens' Cluster (Prelude.Maybe [SecurityGroupMembership])
+cluster_securityGroups = Lens.lens (\Cluster' {securityGroups} -> securityGroups) (\s@Cluster' {} a -> s {securityGroups = a} :: Cluster) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of nodes in the cluster that are active (i.e., capable of serving requests).
-cActiveNodes :: Lens' Cluster (Maybe Int)
-cActiveNodes = lens _cActiveNodes (\s a -> s {_cActiveNodes = a})
+-- | The number of nodes in the cluster that are active (i.e., capable of
+-- serving requests).
+cluster_activeNodes :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Int)
+cluster_activeNodes = Lens.lens (\Cluster' {activeNodes} -> activeNodes) (\s@Cluster' {} a -> s {activeNodes = a} :: Cluster)
 
--- | A range of time when maintenance of DAX cluster software will be performed. For example: @sun:01:00-sun:09:00@ . Cluster maintenance normally takes less than 30 minutes, and is performed automatically within the maintenance window.
-cPreferredMaintenanceWindow :: Lens' Cluster (Maybe Text)
-cPreferredMaintenanceWindow = lens _cPreferredMaintenanceWindow (\s a -> s {_cPreferredMaintenanceWindow = a})
+-- | A range of time when maintenance of DAX cluster software will be
+-- performed. For example: @sun:01:00-sun:09:00@. Cluster maintenance
+-- normally takes less than 30 minutes, and is performed automatically
+-- within the maintenance window.
+cluster_preferredMaintenanceWindow :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_preferredMaintenanceWindow = Lens.lens (\Cluster' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@Cluster' {} a -> s {preferredMaintenanceWindow = a} :: Cluster)
 
 -- | The description of the cluster.
-cDescription :: Lens' Cluster (Maybe Text)
-cDescription = lens _cDescription (\s a -> s {_cDescription = a})
+cluster_description :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_description = Lens.lens (\Cluster' {description} -> description) (\s@Cluster' {} a -> s {description = a} :: Cluster)
 
--- | The description of the server-side encryption status on the specified DAX cluster.
-cSSEDescription :: Lens' Cluster (Maybe SSEDescription)
-cSSEDescription = lens _cSSEDescription (\s a -> s {_cSSEDescription = a})
+-- | The description of the server-side encryption status on the specified
+-- DAX cluster.
+cluster_sSEDescription :: Lens.Lens' Cluster (Prelude.Maybe SSEDescription)
+cluster_sSEDescription = Lens.lens (\Cluster' {sSEDescription} -> sSEDescription) (\s@Cluster' {} a -> s {sSEDescription = a} :: Cluster)
 
--- | The configuration endpoint for this DAX cluster, consisting of a DNS name and a port number. Client applications can specify this endpoint, rather than an individual node endpoint, and allow the DAX client software to intelligently route requests and responses to nodes in the DAX cluster.
-cClusterDiscoveryEndpoint :: Lens' Cluster (Maybe Endpoint)
-cClusterDiscoveryEndpoint = lens _cClusterDiscoveryEndpoint (\s a -> s {_cClusterDiscoveryEndpoint = a})
+-- | The configuration endpoint for this DAX cluster, consisting of a DNS
+-- name and a port number. Client applications can specify this endpoint,
+-- rather than an individual node endpoint, and allow the DAX client
+-- software to intelligently route requests and responses to nodes in the
+-- DAX cluster.
+cluster_clusterDiscoveryEndpoint :: Lens.Lens' Cluster (Prelude.Maybe Endpoint)
+cluster_clusterDiscoveryEndpoint = Lens.lens (\Cluster' {clusterDiscoveryEndpoint} -> clusterDiscoveryEndpoint) (\s@Cluster' {} a -> s {clusterDiscoveryEndpoint = a} :: Cluster)
 
 -- | A list of nodes to be removed from the cluster.
-cNodeIdsToRemove :: Lens' Cluster [Text]
-cNodeIdsToRemove = lens _cNodeIdsToRemove (\s a -> s {_cNodeIdsToRemove = a}) . _Default . _Coerce
+cluster_nodeIdsToRemove :: Lens.Lens' Cluster (Prelude.Maybe [Prelude.Text])
+cluster_nodeIdsToRemove = Lens.lens (\Cluster' {nodeIdsToRemove} -> nodeIdsToRemove) (\s@Cluster' {} a -> s {nodeIdsToRemove = a} :: Cluster) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The node type for the nodes in the cluster. (All nodes in a DAX cluster are of the same type.)
-cNodeType :: Lens' Cluster (Maybe Text)
-cNodeType = lens _cNodeType (\s a -> s {_cNodeType = a})
+-- | The node type for the nodes in the cluster. (All nodes in a DAX cluster
+-- are of the same type.)
+cluster_nodeType :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_nodeType = Lens.lens (\Cluster' {nodeType} -> nodeType) (\s@Cluster' {} a -> s {nodeType = a} :: Cluster)
 
 -- | The name of the DAX cluster.
-cClusterName :: Lens' Cluster (Maybe Text)
-cClusterName = lens _cClusterName (\s a -> s {_cClusterName = a})
+cluster_clusterName :: Lens.Lens' Cluster (Prelude.Maybe Prelude.Text)
+cluster_clusterName = Lens.lens (\Cluster' {clusterName} -> clusterName) (\s@Cluster' {} a -> s {clusterName = a} :: Cluster)
 
-instance FromJSON Cluster where
+instance Prelude.FromJSON Cluster where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Cluster"
       ( \x ->
           Cluster'
-            <$> (x .:? "ClusterArn")
-            <*> (x .:? "SubnetGroup")
-            <*> (x .:? "IamRoleArn")
-            <*> (x .:? "Status")
-            <*> (x .:? "TotalNodes")
-            <*> (x .:? "ParameterGroup")
-            <*> (x .:? "Nodes" .!= mempty)
-            <*> (x .:? "NotificationConfiguration")
-            <*> (x .:? "SecurityGroups" .!= mempty)
-            <*> (x .:? "ActiveNodes")
-            <*> (x .:? "PreferredMaintenanceWindow")
-            <*> (x .:? "Description")
-            <*> (x .:? "SSEDescription")
-            <*> (x .:? "ClusterDiscoveryEndpoint")
-            <*> (x .:? "NodeIdsToRemove" .!= mempty)
-            <*> (x .:? "NodeType")
-            <*> (x .:? "ClusterName")
+            Prelude.<$> (x Prelude..:? "ClusterArn")
+            Prelude.<*> (x Prelude..:? "SubnetGroup")
+            Prelude.<*> (x Prelude..:? "IamRoleArn")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "TotalNodes")
+            Prelude.<*> (x Prelude..:? "ParameterGroup")
+            Prelude.<*> (x Prelude..:? "Nodes" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "NotificationConfiguration")
+            Prelude.<*> ( x Prelude..:? "SecurityGroups"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ActiveNodes")
+            Prelude.<*> (x Prelude..:? "PreferredMaintenanceWindow")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "SSEDescription")
+            Prelude.<*> (x Prelude..:? "ClusterDiscoveryEndpoint")
+            Prelude.<*> ( x Prelude..:? "NodeIdsToRemove"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "NodeType")
+            Prelude.<*> (x Prelude..:? "ClusterName")
       )
 
-instance Hashable Cluster
+instance Prelude.Hashable Cluster
 
-instance NFData Cluster
+instance Prelude.NFData Cluster

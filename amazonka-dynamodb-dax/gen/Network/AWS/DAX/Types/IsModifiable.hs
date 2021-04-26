@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.DAX.Types.IsModifiable
   ( IsModifiable
       ( ..,
-        Conditional,
-        False',
-        True'
+        IsModifiableCONDITIONAL,
+        IsModifiableFALSE,
+        IsModifiableTRUE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data IsModifiable = IsModifiable' (CI Text)
+newtype IsModifiable = IsModifiable'
+  { fromIsModifiable ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Conditional :: IsModifiable
-pattern Conditional = IsModifiable' "CONDITIONAL"
+pattern IsModifiableCONDITIONAL :: IsModifiable
+pattern IsModifiableCONDITIONAL = IsModifiable' "CONDITIONAL"
 
-pattern False' :: IsModifiable
-pattern False' = IsModifiable' "FALSE"
+pattern IsModifiableFALSE :: IsModifiable
+pattern IsModifiableFALSE = IsModifiable' "FALSE"
 
-pattern True' :: IsModifiable
-pattern True' = IsModifiable' "TRUE"
+pattern IsModifiableTRUE :: IsModifiable
+pattern IsModifiableTRUE = IsModifiable' "TRUE"
 
 {-# COMPLETE
-  Conditional,
-  False',
-  True',
+  IsModifiableCONDITIONAL,
+  IsModifiableFALSE,
+  IsModifiableTRUE,
   IsModifiable'
   #-}
 
-instance FromText IsModifiable where
-  parser = (IsModifiable' . mk) <$> takeText
+instance Prelude.FromText IsModifiable where
+  parser = IsModifiable' Prelude.<$> Prelude.takeText
 
-instance ToText IsModifiable where
-  toText (IsModifiable' ci) = original ci
+instance Prelude.ToText IsModifiable where
+  toText (IsModifiable' x) = x
 
-instance Hashable IsModifiable
+instance Prelude.Hashable IsModifiable
 
-instance NFData IsModifiable
+instance Prelude.NFData IsModifiable
 
-instance ToByteString IsModifiable
+instance Prelude.ToByteString IsModifiable
 
-instance ToQuery IsModifiable
+instance Prelude.ToQuery IsModifiable
 
-instance ToHeader IsModifiable
+instance Prelude.ToHeader IsModifiable
 
-instance FromJSON IsModifiable where
-  parseJSON = parseJSONText "IsModifiable"
+instance Prelude.FromJSON IsModifiable where
+  parseJSON = Prelude.parseJSONText "IsModifiable"

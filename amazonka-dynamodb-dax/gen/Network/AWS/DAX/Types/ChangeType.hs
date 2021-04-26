@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.DAX.Types.ChangeType
   ( ChangeType
       ( ..,
-        Immediate,
-        RequiresReboot
+        ChangeTypeIMMEDIATE,
+        ChangeTypeREQUIRESREBOOT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChangeType = ChangeType' (CI Text)
+newtype ChangeType = ChangeType'
+  { fromChangeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Immediate :: ChangeType
-pattern Immediate = ChangeType' "IMMEDIATE"
+pattern ChangeTypeIMMEDIATE :: ChangeType
+pattern ChangeTypeIMMEDIATE = ChangeType' "IMMEDIATE"
 
-pattern RequiresReboot :: ChangeType
-pattern RequiresReboot = ChangeType' "REQUIRES_REBOOT"
+pattern ChangeTypeREQUIRESREBOOT :: ChangeType
+pattern ChangeTypeREQUIRESREBOOT = ChangeType' "REQUIRES_REBOOT"
 
 {-# COMPLETE
-  Immediate,
-  RequiresReboot,
+  ChangeTypeIMMEDIATE,
+  ChangeTypeREQUIRESREBOOT,
   ChangeType'
   #-}
 
-instance FromText ChangeType where
-  parser = (ChangeType' . mk) <$> takeText
+instance Prelude.FromText ChangeType where
+  parser = ChangeType' Prelude.<$> Prelude.takeText
 
-instance ToText ChangeType where
-  toText (ChangeType' ci) = original ci
+instance Prelude.ToText ChangeType where
+  toText (ChangeType' x) = x
 
-instance Hashable ChangeType
+instance Prelude.Hashable ChangeType
 
-instance NFData ChangeType
+instance Prelude.NFData ChangeType
 
-instance ToByteString ChangeType
+instance Prelude.ToByteString ChangeType
 
-instance ToQuery ChangeType
+instance Prelude.ToQuery ChangeType
 
-instance ToHeader ChangeType
+instance Prelude.ToHeader ChangeType
 
-instance FromJSON ChangeType where
-  parseJSON = parseJSONText "ChangeType"
+instance Prelude.FromJSON ChangeType where
+  parseJSON = Prelude.parseJSONText "ChangeType"

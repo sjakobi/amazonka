@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new parameter group. A parameter group is a collection of parameters that you apply to all of the nodes in a DAX cluster.
+-- Creates a new parameter group. A parameter group is a collection of
+-- parameters that you apply to all of the nodes in a DAX cluster.
 module Network.AWS.DAX.CreateParameterGroup
   ( -- * Creating a Request
-    createParameterGroup,
-    CreateParameterGroup,
+    CreateParameterGroup (..),
+    newCreateParameterGroup,
 
     -- * Request Lenses
-    cpgDescription,
-    cpgParameterGroupName,
+    createParameterGroup_description,
+    createParameterGroup_parameterGroupName,
 
     -- * Destructuring the Response
-    createParameterGroupResponse,
-    CreateParameterGroupResponse,
+    CreateParameterGroupResponse (..),
+    newCreateParameterGroupResponse,
 
     -- * Response Lenses
-    cpgrrsParameterGroup,
-    cpgrrsResponseStatus,
+    createParameterGroupResponse_parameterGroup,
+    createParameterGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.DAX.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DAX.Types.ParameterGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createParameterGroup' smart constructor.
+-- | /See:/ 'newCreateParameterGroup' smart constructor.
 data CreateParameterGroup = CreateParameterGroup'
-  { _cpgDescription ::
-      !(Maybe Text),
-    _cpgParameterGroupName ::
-      !Text
+  { -- | A description of the parameter group.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the parameter group to apply to all of the clusters in this
+    -- replication group.
+    parameterGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateParameterGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateParameterGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpgDescription' - A description of the parameter group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpgParameterGroupName' - The name of the parameter group to apply to all of the clusters in this replication group.
-createParameterGroup ::
-  -- | 'cpgParameterGroupName'
-  Text ->
+-- 'description', 'createParameterGroup_description' - A description of the parameter group.
+--
+-- 'parameterGroupName', 'createParameterGroup_parameterGroupName' - The name of the parameter group to apply to all of the clusters in this
+-- replication group.
+newCreateParameterGroup ::
+  -- | 'parameterGroupName'
+  Prelude.Text ->
   CreateParameterGroup
-createParameterGroup pParameterGroupName_ =
+newCreateParameterGroup pParameterGroupName_ =
   CreateParameterGroup'
-    { _cpgDescription = Nothing,
-      _cpgParameterGroupName = pParameterGroupName_
+    { description =
+        Prelude.Nothing,
+      parameterGroupName = pParameterGroupName_
     }
 
 -- | A description of the parameter group.
-cpgDescription :: Lens' CreateParameterGroup (Maybe Text)
-cpgDescription = lens _cpgDescription (\s a -> s {_cpgDescription = a})
+createParameterGroup_description :: Lens.Lens' CreateParameterGroup (Prelude.Maybe Prelude.Text)
+createParameterGroup_description = Lens.lens (\CreateParameterGroup' {description} -> description) (\s@CreateParameterGroup' {} a -> s {description = a} :: CreateParameterGroup)
 
--- | The name of the parameter group to apply to all of the clusters in this replication group.
-cpgParameterGroupName :: Lens' CreateParameterGroup Text
-cpgParameterGroupName = lens _cpgParameterGroupName (\s a -> s {_cpgParameterGroupName = a})
+-- | The name of the parameter group to apply to all of the clusters in this
+-- replication group.
+createParameterGroup_parameterGroupName :: Lens.Lens' CreateParameterGroup Prelude.Text
+createParameterGroup_parameterGroupName = Lens.lens (\CreateParameterGroup' {parameterGroupName} -> parameterGroupName) (\s@CreateParameterGroup' {} a -> s {parameterGroupName = a} :: CreateParameterGroup)
 
-instance AWSRequest CreateParameterGroup where
+instance Prelude.AWSRequest CreateParameterGroup where
   type
     Rs CreateParameterGroup =
       CreateParameterGroupResponse
-  request = postJSON dax
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateParameterGroupResponse'
-            <$> (x .?> "ParameterGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ParameterGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateParameterGroup
+instance Prelude.Hashable CreateParameterGroup
 
-instance NFData CreateParameterGroup
+instance Prelude.NFData CreateParameterGroup
 
-instance ToHeaders CreateParameterGroup where
+instance Prelude.ToHeaders CreateParameterGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonDAXV3.CreateParameterGroup" :: ByteString),
+              Prelude.=# ( "AmazonDAXV3.CreateParameterGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateParameterGroup where
+instance Prelude.ToJSON CreateParameterGroup where
   toJSON CreateParameterGroup' {..} =
-    object
-      ( catMaybes
-          [ ("Description" .=) <$> _cpgDescription,
-            Just
-              ("ParameterGroupName" .= _cpgParameterGroupName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just
+              ( "ParameterGroupName"
+                  Prelude..= parameterGroupName
+              )
           ]
       )
 
-instance ToPath CreateParameterGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateParameterGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateParameterGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateParameterGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createParameterGroupResponse' smart constructor.
+-- | /See:/ 'newCreateParameterGroupResponse' smart constructor.
 data CreateParameterGroupResponse = CreateParameterGroupResponse'
-  { _cpgrrsParameterGroup ::
-      !( Maybe
-           ParameterGroup
-       ),
-    _cpgrrsResponseStatus ::
-      !Int
+  { -- | Represents the output of a /CreateParameterGroup/ action.
+    parameterGroup :: Prelude.Maybe ParameterGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateParameterGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateParameterGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpgrrsParameterGroup' - Represents the output of a /CreateParameterGroup/ action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpgrrsResponseStatus' - -- | The response status code.
-createParameterGroupResponse ::
-  -- | 'cpgrrsResponseStatus'
-  Int ->
+-- 'parameterGroup', 'createParameterGroupResponse_parameterGroup' - Represents the output of a /CreateParameterGroup/ action.
+--
+-- 'httpStatus', 'createParameterGroupResponse_httpStatus' - The response's http status code.
+newCreateParameterGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateParameterGroupResponse
-createParameterGroupResponse pResponseStatus_ =
+newCreateParameterGroupResponse pHttpStatus_ =
   CreateParameterGroupResponse'
-    { _cpgrrsParameterGroup =
-        Nothing,
-      _cpgrrsResponseStatus = pResponseStatus_
+    { parameterGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Represents the output of a /CreateParameterGroup/ action.
-cpgrrsParameterGroup :: Lens' CreateParameterGroupResponse (Maybe ParameterGroup)
-cpgrrsParameterGroup = lens _cpgrrsParameterGroup (\s a -> s {_cpgrrsParameterGroup = a})
+createParameterGroupResponse_parameterGroup :: Lens.Lens' CreateParameterGroupResponse (Prelude.Maybe ParameterGroup)
+createParameterGroupResponse_parameterGroup = Lens.lens (\CreateParameterGroupResponse' {parameterGroup} -> parameterGroup) (\s@CreateParameterGroupResponse' {} a -> s {parameterGroup = a} :: CreateParameterGroupResponse)
 
--- | -- | The response status code.
-cpgrrsResponseStatus :: Lens' CreateParameterGroupResponse Int
-cpgrrsResponseStatus = lens _cpgrrsResponseStatus (\s a -> s {_cpgrrsResponseStatus = a})
+-- | The response's http status code.
+createParameterGroupResponse_httpStatus :: Lens.Lens' CreateParameterGroupResponse Prelude.Int
+createParameterGroupResponse_httpStatus = Lens.lens (\CreateParameterGroupResponse' {httpStatus} -> httpStatus) (\s@CreateParameterGroupResponse' {} a -> s {httpStatus = a} :: CreateParameterGroupResponse)
 
-instance NFData CreateParameterGroupResponse
+instance Prelude.NFData CreateParameterGroupResponse

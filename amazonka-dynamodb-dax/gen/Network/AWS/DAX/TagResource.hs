@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,152 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates a set of tags with a DAX resource. You can call @TagResource@ up to 5 times per second, per account.
+-- Associates a set of tags with a DAX resource. You can call @TagResource@
+-- up to 5 times per second, per account.
 module Network.AWS.DAX.TagResource
   ( -- * Creating a Request
-    tagResource,
-    TagResource,
+    TagResource (..),
+    newTagResource,
 
     -- * Request Lenses
-    trResourceName,
-    trTags,
+    tagResource_resourceName,
+    tagResource_tags,
 
     -- * Destructuring the Response
-    tagResourceResponse,
-    TagResourceResponse,
+    TagResourceResponse (..),
+    newTagResourceResponse,
 
     -- * Response Lenses
-    trrrsTags,
-    trrrsResponseStatus,
+    tagResourceResponse_tags,
+    tagResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.DAX.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DAX.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagResource' smart constructor.
+-- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { _trResourceName ::
-      !Text,
-    _trTags :: ![Tag]
+  { -- | The name of the DAX resource to which tags should be added.
+    resourceName :: Prelude.Text,
+    -- | The tags to be assigned to the DAX resource.
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trResourceName' - The name of the DAX resource to which tags should be added.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTags' - The tags to be assigned to the DAX resource.
-tagResource ::
-  -- | 'trResourceName'
-  Text ->
+-- 'resourceName', 'tagResource_resourceName' - The name of the DAX resource to which tags should be added.
+--
+-- 'tags', 'tagResource_tags' - The tags to be assigned to the DAX resource.
+newTagResource ::
+  -- | 'resourceName'
+  Prelude.Text ->
   TagResource
-tagResource pResourceName_ =
+newTagResource pResourceName_ =
   TagResource'
-    { _trResourceName = pResourceName_,
-      _trTags = mempty
+    { resourceName = pResourceName_,
+      tags = Prelude.mempty
     }
 
 -- | The name of the DAX resource to which tags should be added.
-trResourceName :: Lens' TagResource Text
-trResourceName = lens _trResourceName (\s a -> s {_trResourceName = a})
+tagResource_resourceName :: Lens.Lens' TagResource Prelude.Text
+tagResource_resourceName = Lens.lens (\TagResource' {resourceName} -> resourceName) (\s@TagResource' {} a -> s {resourceName = a} :: TagResource)
 
 -- | The tags to be assigned to the DAX resource.
-trTags :: Lens' TagResource [Tag]
-trTags = lens _trTags (\s a -> s {_trTags = a}) . _Coerce
+tagResource_tags :: Lens.Lens' TagResource [Tag]
+tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest TagResource where
+instance Prelude.AWSRequest TagResource where
   type Rs TagResource = TagResourceResponse
-  request = postJSON dax
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TagResourceResponse'
-            <$> (x .?> "Tags" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TagResource
+instance Prelude.Hashable TagResource
 
-instance NFData TagResource
+instance Prelude.NFData TagResource
 
-instance ToHeaders TagResource where
+instance Prelude.ToHeaders TagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonDAXV3.TagResource" :: ByteString),
+              Prelude.=# ("AmazonDAXV3.TagResource" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TagResource where
+instance Prelude.ToJSON TagResource where
   toJSON TagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceName" .= _trResourceName),
-            Just ("Tags" .= _trTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceName" Prelude..= resourceName),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath TagResource where
-  toPath = const "/"
+instance Prelude.ToPath TagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery TagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagResourceResponse' smart constructor.
+-- | /See:/ 'newTagResourceResponse' smart constructor.
 data TagResourceResponse = TagResourceResponse'
-  { _trrrsTags ::
-      !(Maybe [Tag]),
-    _trrrsResponseStatus :: !Int
+  { -- | The list of tags that are associated with the DAX resource.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trrrsTags' - The list of tags that are associated with the DAX resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trrrsResponseStatus' - -- | The response status code.
-tagResourceResponse ::
-  -- | 'trrrsResponseStatus'
-  Int ->
+-- 'tags', 'tagResourceResponse_tags' - The list of tags that are associated with the DAX resource.
+--
+-- 'httpStatus', 'tagResourceResponse_httpStatus' - The response's http status code.
+newTagResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TagResourceResponse
-tagResourceResponse pResponseStatus_ =
+newTagResourceResponse pHttpStatus_ =
   TagResourceResponse'
-    { _trrrsTags = Nothing,
-      _trrrsResponseStatus = pResponseStatus_
+    { tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of tags that are associated with the DAX resource.
-trrrsTags :: Lens' TagResourceResponse [Tag]
-trrrsTags = lens _trrrsTags (\s a -> s {_trrrsTags = a}) . _Default . _Coerce
+tagResourceResponse_tags :: Lens.Lens' TagResourceResponse (Prelude.Maybe [Tag])
+tagResourceResponse_tags = Lens.lens (\TagResourceResponse' {tags} -> tags) (\s@TagResourceResponse' {} a -> s {tags = a} :: TagResourceResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-trrrsResponseStatus :: Lens' TagResourceResponse Int
-trrrsResponseStatus = lens _trrrsResponseStatus (\s a -> s {_trrrsResponseStatus = a})
+-- | The response's http status code.
+tagResourceResponse_httpStatus :: Lens.Lens' TagResourceResponse Prelude.Int
+tagResourceResponse_httpStatus = Lens.lens (\TagResourceResponse' {httpStatus} -> httpStatus) (\s@TagResourceResponse' {} a -> s {httpStatus = a} :: TagResourceResponse)
 
-instance NFData TagResourceResponse
+instance Prelude.NFData TagResourceResponse

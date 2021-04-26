@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DAX.Types.SecurityGroupMembership where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An individual VPC security group and its status.
 --
---
---
--- /See:/ 'securityGroupMembership' smart constructor.
+-- /See:/ 'newSecurityGroupMembership' smart constructor.
 data SecurityGroupMembership = SecurityGroupMembership'
-  { _sgmStatus ::
-      !(Maybe Text),
-    _sgmSecurityGroupIdentifier ::
-      !(Maybe Text)
+  { -- | The status of this security group.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID for this security group.
+    securityGroupIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SecurityGroupMembership' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SecurityGroupMembership' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgmStatus' - The status of this security group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgmSecurityGroupIdentifier' - The unique ID for this security group.
-securityGroupMembership ::
+-- 'status', 'securityGroupMembership_status' - The status of this security group.
+--
+-- 'securityGroupIdentifier', 'securityGroupMembership_securityGroupIdentifier' - The unique ID for this security group.
+newSecurityGroupMembership ::
   SecurityGroupMembership
-securityGroupMembership =
+newSecurityGroupMembership =
   SecurityGroupMembership'
-    { _sgmStatus = Nothing,
-      _sgmSecurityGroupIdentifier = Nothing
+    { status = Prelude.Nothing,
+      securityGroupIdentifier = Prelude.Nothing
     }
 
 -- | The status of this security group.
-sgmStatus :: Lens' SecurityGroupMembership (Maybe Text)
-sgmStatus = lens _sgmStatus (\s a -> s {_sgmStatus = a})
+securityGroupMembership_status :: Lens.Lens' SecurityGroupMembership (Prelude.Maybe Prelude.Text)
+securityGroupMembership_status = Lens.lens (\SecurityGroupMembership' {status} -> status) (\s@SecurityGroupMembership' {} a -> s {status = a} :: SecurityGroupMembership)
 
 -- | The unique ID for this security group.
-sgmSecurityGroupIdentifier :: Lens' SecurityGroupMembership (Maybe Text)
-sgmSecurityGroupIdentifier = lens _sgmSecurityGroupIdentifier (\s a -> s {_sgmSecurityGroupIdentifier = a})
+securityGroupMembership_securityGroupIdentifier :: Lens.Lens' SecurityGroupMembership (Prelude.Maybe Prelude.Text)
+securityGroupMembership_securityGroupIdentifier = Lens.lens (\SecurityGroupMembership' {securityGroupIdentifier} -> securityGroupIdentifier) (\s@SecurityGroupMembership' {} a -> s {securityGroupIdentifier = a} :: SecurityGroupMembership)
 
-instance FromJSON SecurityGroupMembership where
+instance Prelude.FromJSON SecurityGroupMembership where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SecurityGroupMembership"
       ( \x ->
           SecurityGroupMembership'
-            <$> (x .:? "Status")
-            <*> (x .:? "SecurityGroupIdentifier")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "SecurityGroupIdentifier")
       )
 
-instance Hashable SecurityGroupMembership
+instance Prelude.Hashable SecurityGroupMembership
 
-instance NFData SecurityGroupMembership
+instance Prelude.NFData SecurityGroupMembership

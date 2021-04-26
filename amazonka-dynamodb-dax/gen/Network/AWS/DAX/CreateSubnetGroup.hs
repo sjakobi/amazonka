@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,154 +24,162 @@
 -- Creates a new subnet group.
 module Network.AWS.DAX.CreateSubnetGroup
   ( -- * Creating a Request
-    createSubnetGroup,
-    CreateSubnetGroup,
+    CreateSubnetGroup (..),
+    newCreateSubnetGroup,
 
     -- * Request Lenses
-    csgDescription,
-    csgSubnetGroupName,
-    csgSubnetIds,
+    createSubnetGroup_description,
+    createSubnetGroup_subnetGroupName,
+    createSubnetGroup_subnetIds,
 
     -- * Destructuring the Response
-    createSubnetGroupResponse,
-    CreateSubnetGroupResponse,
+    CreateSubnetGroupResponse (..),
+    newCreateSubnetGroupResponse,
 
     -- * Response Lenses
-    csgrrsSubnetGroup,
-    csgrrsResponseStatus,
+    createSubnetGroupResponse_subnetGroup,
+    createSubnetGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.DAX.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DAX.Types.SubnetGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createSubnetGroup' smart constructor.
+-- | /See:/ 'newCreateSubnetGroup' smart constructor.
 data CreateSubnetGroup = CreateSubnetGroup'
-  { _csgDescription ::
-      !(Maybe Text),
-    _csgSubnetGroupName :: !Text,
-    _csgSubnetIds :: ![Text]
+  { -- | A description for the subnet group
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A name for the subnet group. This value is stored as a lowercase string.
+    subnetGroupName :: Prelude.Text,
+    -- | A list of VPC subnet IDs for the subnet group.
+    subnetIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSubnetGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSubnetGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csgDescription' - A description for the subnet group
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csgSubnetGroupName' - A name for the subnet group. This value is stored as a lowercase string.
+-- 'description', 'createSubnetGroup_description' - A description for the subnet group
 --
--- * 'csgSubnetIds' - A list of VPC subnet IDs for the subnet group.
-createSubnetGroup ::
-  -- | 'csgSubnetGroupName'
-  Text ->
+-- 'subnetGroupName', 'createSubnetGroup_subnetGroupName' - A name for the subnet group. This value is stored as a lowercase string.
+--
+-- 'subnetIds', 'createSubnetGroup_subnetIds' - A list of VPC subnet IDs for the subnet group.
+newCreateSubnetGroup ::
+  -- | 'subnetGroupName'
+  Prelude.Text ->
   CreateSubnetGroup
-createSubnetGroup pSubnetGroupName_ =
+newCreateSubnetGroup pSubnetGroupName_ =
   CreateSubnetGroup'
-    { _csgDescription = Nothing,
-      _csgSubnetGroupName = pSubnetGroupName_,
-      _csgSubnetIds = mempty
+    { description = Prelude.Nothing,
+      subnetGroupName = pSubnetGroupName_,
+      subnetIds = Prelude.mempty
     }
 
 -- | A description for the subnet group
-csgDescription :: Lens' CreateSubnetGroup (Maybe Text)
-csgDescription = lens _csgDescription (\s a -> s {_csgDescription = a})
+createSubnetGroup_description :: Lens.Lens' CreateSubnetGroup (Prelude.Maybe Prelude.Text)
+createSubnetGroup_description = Lens.lens (\CreateSubnetGroup' {description} -> description) (\s@CreateSubnetGroup' {} a -> s {description = a} :: CreateSubnetGroup)
 
 -- | A name for the subnet group. This value is stored as a lowercase string.
-csgSubnetGroupName :: Lens' CreateSubnetGroup Text
-csgSubnetGroupName = lens _csgSubnetGroupName (\s a -> s {_csgSubnetGroupName = a})
+createSubnetGroup_subnetGroupName :: Lens.Lens' CreateSubnetGroup Prelude.Text
+createSubnetGroup_subnetGroupName = Lens.lens (\CreateSubnetGroup' {subnetGroupName} -> subnetGroupName) (\s@CreateSubnetGroup' {} a -> s {subnetGroupName = a} :: CreateSubnetGroup)
 
 -- | A list of VPC subnet IDs for the subnet group.
-csgSubnetIds :: Lens' CreateSubnetGroup [Text]
-csgSubnetIds = lens _csgSubnetIds (\s a -> s {_csgSubnetIds = a}) . _Coerce
+createSubnetGroup_subnetIds :: Lens.Lens' CreateSubnetGroup [Prelude.Text]
+createSubnetGroup_subnetIds = Lens.lens (\CreateSubnetGroup' {subnetIds} -> subnetIds) (\s@CreateSubnetGroup' {} a -> s {subnetIds = a} :: CreateSubnetGroup) Prelude.. Prelude._Coerce
 
-instance AWSRequest CreateSubnetGroup where
+instance Prelude.AWSRequest CreateSubnetGroup where
   type Rs CreateSubnetGroup = CreateSubnetGroupResponse
-  request = postJSON dax
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateSubnetGroupResponse'
-            <$> (x .?> "SubnetGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SubnetGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSubnetGroup
+instance Prelude.Hashable CreateSubnetGroup
 
-instance NFData CreateSubnetGroup
+instance Prelude.NFData CreateSubnetGroup
 
-instance ToHeaders CreateSubnetGroup where
+instance Prelude.ToHeaders CreateSubnetGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonDAXV3.CreateSubnetGroup" :: ByteString),
+              Prelude.=# ( "AmazonDAXV3.CreateSubnetGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateSubnetGroup where
+instance Prelude.ToJSON CreateSubnetGroup where
   toJSON CreateSubnetGroup' {..} =
-    object
-      ( catMaybes
-          [ ("Description" .=) <$> _csgDescription,
-            Just ("SubnetGroupName" .= _csgSubnetGroupName),
-            Just ("SubnetIds" .= _csgSubnetIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just
+              ("SubnetGroupName" Prelude..= subnetGroupName),
+            Prelude.Just ("SubnetIds" Prelude..= subnetIds)
           ]
       )
 
-instance ToPath CreateSubnetGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateSubnetGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateSubnetGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateSubnetGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createSubnetGroupResponse' smart constructor.
+-- | /See:/ 'newCreateSubnetGroupResponse' smart constructor.
 data CreateSubnetGroupResponse = CreateSubnetGroupResponse'
-  { _csgrrsSubnetGroup ::
-      !( Maybe
-           SubnetGroup
-       ),
-    _csgrrsResponseStatus ::
-      !Int
+  { -- | Represents the output of a /CreateSubnetGroup/ operation.
+    subnetGroup :: Prelude.Maybe SubnetGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSubnetGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSubnetGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csgrrsSubnetGroup' - Represents the output of a /CreateSubnetGroup/ operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csgrrsResponseStatus' - -- | The response status code.
-createSubnetGroupResponse ::
-  -- | 'csgrrsResponseStatus'
-  Int ->
+-- 'subnetGroup', 'createSubnetGroupResponse_subnetGroup' - Represents the output of a /CreateSubnetGroup/ operation.
+--
+-- 'httpStatus', 'createSubnetGroupResponse_httpStatus' - The response's http status code.
+newCreateSubnetGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSubnetGroupResponse
-createSubnetGroupResponse pResponseStatus_ =
+newCreateSubnetGroupResponse pHttpStatus_ =
   CreateSubnetGroupResponse'
-    { _csgrrsSubnetGroup =
-        Nothing,
-      _csgrrsResponseStatus = pResponseStatus_
+    { subnetGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Represents the output of a /CreateSubnetGroup/ operation.
-csgrrsSubnetGroup :: Lens' CreateSubnetGroupResponse (Maybe SubnetGroup)
-csgrrsSubnetGroup = lens _csgrrsSubnetGroup (\s a -> s {_csgrrsSubnetGroup = a})
+createSubnetGroupResponse_subnetGroup :: Lens.Lens' CreateSubnetGroupResponse (Prelude.Maybe SubnetGroup)
+createSubnetGroupResponse_subnetGroup = Lens.lens (\CreateSubnetGroupResponse' {subnetGroup} -> subnetGroup) (\s@CreateSubnetGroupResponse' {} a -> s {subnetGroup = a} :: CreateSubnetGroupResponse)
 
--- | -- | The response status code.
-csgrrsResponseStatus :: Lens' CreateSubnetGroupResponse Int
-csgrrsResponseStatus = lens _csgrrsResponseStatus (\s a -> s {_csgrrsResponseStatus = a})
+-- | The response's http status code.
+createSubnetGroupResponse_httpStatus :: Lens.Lens' CreateSubnetGroupResponse Prelude.Int
+createSubnetGroupResponse_httpStatus = Lens.lens (\CreateSubnetGroupResponse' {httpStatus} -> httpStatus) (\s@CreateSubnetGroupResponse' {} a -> s {httpStatus = a} :: CreateSubnetGroupResponse)
 
-instance NFData CreateSubnetGroupResponse
+instance Prelude.NFData CreateSubnetGroupResponse

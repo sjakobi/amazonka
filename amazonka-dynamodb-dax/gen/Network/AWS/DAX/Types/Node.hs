@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,89 +20,109 @@
 module Network.AWS.DAX.Types.Node where
 
 import Network.AWS.DAX.Types.Endpoint
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents an individual node within a DAX cluster.
 --
---
---
--- /See:/ 'node' smart constructor.
+-- /See:/ 'newNode' smart constructor.
 data Node = Node'
-  { _nNodeStatus :: !(Maybe Text),
-    _nNodeId :: !(Maybe Text),
-    _nParameterGroupStatus :: !(Maybe Text),
-    _nAvailabilityZone :: !(Maybe Text),
-    _nNodeCreateTime :: !(Maybe POSIX),
-    _nEndpoint :: !(Maybe Endpoint)
+  { -- | The current status of the node. For example: @available@.
+    nodeStatus :: Prelude.Maybe Prelude.Text,
+    -- | A system-generated identifier for the node.
+    nodeId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the parameter group associated with this node. For
+    -- example, @in-sync@.
+    parameterGroupStatus :: Prelude.Maybe Prelude.Text,
+    -- | The Availability Zone (AZ) in which the node has been deployed.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The date and time (in UNIX epoch format) when the node was launched.
+    nodeCreateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The endpoint for the node, consisting of a DNS name and a port number.
+    -- Client applications can connect directly to a node endpoint, if desired
+    -- (as an alternative to allowing DAX client software to intelligently
+    -- route requests and responses to nodes in the DAX cluster.
+    endpoint :: Prelude.Maybe Endpoint
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Node' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Node' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nNodeStatus' - The current status of the node. For example: @available@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nNodeId' - A system-generated identifier for the node.
+-- 'nodeStatus', 'node_nodeStatus' - The current status of the node. For example: @available@.
 --
--- * 'nParameterGroupStatus' - The status of the parameter group associated with this node. For example, @in-sync@ .
+-- 'nodeId', 'node_nodeId' - A system-generated identifier for the node.
 --
--- * 'nAvailabilityZone' - The Availability Zone (AZ) in which the node has been deployed.
+-- 'parameterGroupStatus', 'node_parameterGroupStatus' - The status of the parameter group associated with this node. For
+-- example, @in-sync@.
 --
--- * 'nNodeCreateTime' - The date and time (in UNIX epoch format) when the node was launched.
+-- 'availabilityZone', 'node_availabilityZone' - The Availability Zone (AZ) in which the node has been deployed.
 --
--- * 'nEndpoint' - The endpoint for the node, consisting of a DNS name and a port number. Client applications can connect directly to a node endpoint, if desired (as an alternative to allowing DAX client software to intelligently route requests and responses to nodes in the DAX cluster.
-node ::
+-- 'nodeCreateTime', 'node_nodeCreateTime' - The date and time (in UNIX epoch format) when the node was launched.
+--
+-- 'endpoint', 'node_endpoint' - The endpoint for the node, consisting of a DNS name and a port number.
+-- Client applications can connect directly to a node endpoint, if desired
+-- (as an alternative to allowing DAX client software to intelligently
+-- route requests and responses to nodes in the DAX cluster.
+newNode ::
   Node
-node =
+newNode =
   Node'
-    { _nNodeStatus = Nothing,
-      _nNodeId = Nothing,
-      _nParameterGroupStatus = Nothing,
-      _nAvailabilityZone = Nothing,
-      _nNodeCreateTime = Nothing,
-      _nEndpoint = Nothing
+    { nodeStatus = Prelude.Nothing,
+      nodeId = Prelude.Nothing,
+      parameterGroupStatus = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      nodeCreateTime = Prelude.Nothing,
+      endpoint = Prelude.Nothing
     }
 
--- | The current status of the node. For example: @available@ .
-nNodeStatus :: Lens' Node (Maybe Text)
-nNodeStatus = lens _nNodeStatus (\s a -> s {_nNodeStatus = a})
+-- | The current status of the node. For example: @available@.
+node_nodeStatus :: Lens.Lens' Node (Prelude.Maybe Prelude.Text)
+node_nodeStatus = Lens.lens (\Node' {nodeStatus} -> nodeStatus) (\s@Node' {} a -> s {nodeStatus = a} :: Node)
 
 -- | A system-generated identifier for the node.
-nNodeId :: Lens' Node (Maybe Text)
-nNodeId = lens _nNodeId (\s a -> s {_nNodeId = a})
+node_nodeId :: Lens.Lens' Node (Prelude.Maybe Prelude.Text)
+node_nodeId = Lens.lens (\Node' {nodeId} -> nodeId) (\s@Node' {} a -> s {nodeId = a} :: Node)
 
--- | The status of the parameter group associated with this node. For example, @in-sync@ .
-nParameterGroupStatus :: Lens' Node (Maybe Text)
-nParameterGroupStatus = lens _nParameterGroupStatus (\s a -> s {_nParameterGroupStatus = a})
+-- | The status of the parameter group associated with this node. For
+-- example, @in-sync@.
+node_parameterGroupStatus :: Lens.Lens' Node (Prelude.Maybe Prelude.Text)
+node_parameterGroupStatus = Lens.lens (\Node' {parameterGroupStatus} -> parameterGroupStatus) (\s@Node' {} a -> s {parameterGroupStatus = a} :: Node)
 
 -- | The Availability Zone (AZ) in which the node has been deployed.
-nAvailabilityZone :: Lens' Node (Maybe Text)
-nAvailabilityZone = lens _nAvailabilityZone (\s a -> s {_nAvailabilityZone = a})
+node_availabilityZone :: Lens.Lens' Node (Prelude.Maybe Prelude.Text)
+node_availabilityZone = Lens.lens (\Node' {availabilityZone} -> availabilityZone) (\s@Node' {} a -> s {availabilityZone = a} :: Node)
 
 -- | The date and time (in UNIX epoch format) when the node was launched.
-nNodeCreateTime :: Lens' Node (Maybe UTCTime)
-nNodeCreateTime = lens _nNodeCreateTime (\s a -> s {_nNodeCreateTime = a}) . mapping _Time
+node_nodeCreateTime :: Lens.Lens' Node (Prelude.Maybe Prelude.UTCTime)
+node_nodeCreateTime = Lens.lens (\Node' {nodeCreateTime} -> nodeCreateTime) (\s@Node' {} a -> s {nodeCreateTime = a} :: Node) Prelude.. Lens.mapping Prelude._Time
 
--- | The endpoint for the node, consisting of a DNS name and a port number. Client applications can connect directly to a node endpoint, if desired (as an alternative to allowing DAX client software to intelligently route requests and responses to nodes in the DAX cluster.
-nEndpoint :: Lens' Node (Maybe Endpoint)
-nEndpoint = lens _nEndpoint (\s a -> s {_nEndpoint = a})
+-- | The endpoint for the node, consisting of a DNS name and a port number.
+-- Client applications can connect directly to a node endpoint, if desired
+-- (as an alternative to allowing DAX client software to intelligently
+-- route requests and responses to nodes in the DAX cluster.
+node_endpoint :: Lens.Lens' Node (Prelude.Maybe Endpoint)
+node_endpoint = Lens.lens (\Node' {endpoint} -> endpoint) (\s@Node' {} a -> s {endpoint = a} :: Node)
 
-instance FromJSON Node where
+instance Prelude.FromJSON Node where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Node"
       ( \x ->
           Node'
-            <$> (x .:? "NodeStatus")
-            <*> (x .:? "NodeId")
-            <*> (x .:? "ParameterGroupStatus")
-            <*> (x .:? "AvailabilityZone")
-            <*> (x .:? "NodeCreateTime")
-            <*> (x .:? "Endpoint")
+            Prelude.<$> (x Prelude..:? "NodeStatus")
+            Prelude.<*> (x Prelude..:? "NodeId")
+            Prelude.<*> (x Prelude..:? "ParameterGroupStatus")
+            Prelude.<*> (x Prelude..:? "AvailabilityZone")
+            Prelude.<*> (x Prelude..:? "NodeCreateTime")
+            Prelude.<*> (x Prelude..:? "Endpoint")
       )
 
-instance Hashable Node
+instance Prelude.Hashable Node
 
-instance NFData Node
+instance Prelude.NFData Node

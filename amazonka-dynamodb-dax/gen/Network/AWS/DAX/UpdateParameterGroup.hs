@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the parameters of a parameter group. You can modify up to 20 parameters in a single request by submitting a list parameter name and value pairs.
+-- Modifies the parameters of a parameter group. You can modify up to 20
+-- parameters in a single request by submitting a list parameter name and
+-- value pairs.
 module Network.AWS.DAX.UpdateParameterGroup
   ( -- * Creating a Request
-    updateParameterGroup,
-    UpdateParameterGroup,
+    UpdateParameterGroup (..),
+    newUpdateParameterGroup,
 
     -- * Request Lenses
-    upgParameterGroupName,
-    upgParameterNameValues,
+    updateParameterGroup_parameterGroupName,
+    updateParameterGroup_parameterNameValues,
 
     -- * Destructuring the Response
-    updateParameterGroupResponse,
-    UpdateParameterGroupResponse,
+    UpdateParameterGroupResponse (..),
+    newUpdateParameterGroupResponse,
 
     -- * Response Lenses
-    upgrrsParameterGroup,
-    upgrrsResponseStatus,
+    updateParameterGroupResponse_parameterGroup,
+    updateParameterGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.DAX.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DAX.Types.ParameterGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateParameterGroup' smart constructor.
+-- | /See:/ 'newUpdateParameterGroup' smart constructor.
 data UpdateParameterGroup = UpdateParameterGroup'
-  { _upgParameterGroupName ::
-      !Text,
-    _upgParameterNameValues ::
-      ![ParameterNameValue]
+  { -- | The name of the parameter group.
+    parameterGroupName :: Prelude.Text,
+    -- | An array of name-value pairs for the parameters in the group. Each
+    -- element in the array represents a single parameter.
+    parameterNameValues :: [ParameterNameValue]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateParameterGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateParameterGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upgParameterGroupName' - The name of the parameter group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upgParameterNameValues' - An array of name-value pairs for the parameters in the group. Each element in the array represents a single parameter.
-updateParameterGroup ::
-  -- | 'upgParameterGroupName'
-  Text ->
+-- 'parameterGroupName', 'updateParameterGroup_parameterGroupName' - The name of the parameter group.
+--
+-- 'parameterNameValues', 'updateParameterGroup_parameterNameValues' - An array of name-value pairs for the parameters in the group. Each
+-- element in the array represents a single parameter.
+newUpdateParameterGroup ::
+  -- | 'parameterGroupName'
+  Prelude.Text ->
   UpdateParameterGroup
-updateParameterGroup pParameterGroupName_ =
+newUpdateParameterGroup pParameterGroupName_ =
   UpdateParameterGroup'
-    { _upgParameterGroupName =
+    { parameterGroupName =
         pParameterGroupName_,
-      _upgParameterNameValues = mempty
+      parameterNameValues = Prelude.mempty
     }
 
 -- | The name of the parameter group.
-upgParameterGroupName :: Lens' UpdateParameterGroup Text
-upgParameterGroupName = lens _upgParameterGroupName (\s a -> s {_upgParameterGroupName = a})
+updateParameterGroup_parameterGroupName :: Lens.Lens' UpdateParameterGroup Prelude.Text
+updateParameterGroup_parameterGroupName = Lens.lens (\UpdateParameterGroup' {parameterGroupName} -> parameterGroupName) (\s@UpdateParameterGroup' {} a -> s {parameterGroupName = a} :: UpdateParameterGroup)
 
--- | An array of name-value pairs for the parameters in the group. Each element in the array represents a single parameter.
-upgParameterNameValues :: Lens' UpdateParameterGroup [ParameterNameValue]
-upgParameterNameValues = lens _upgParameterNameValues (\s a -> s {_upgParameterNameValues = a}) . _Coerce
+-- | An array of name-value pairs for the parameters in the group. Each
+-- element in the array represents a single parameter.
+updateParameterGroup_parameterNameValues :: Lens.Lens' UpdateParameterGroup [ParameterNameValue]
+updateParameterGroup_parameterNameValues = Lens.lens (\UpdateParameterGroup' {parameterNameValues} -> parameterNameValues) (\s@UpdateParameterGroup' {} a -> s {parameterNameValues = a} :: UpdateParameterGroup) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateParameterGroup where
+instance Prelude.AWSRequest UpdateParameterGroup where
   type
     Rs UpdateParameterGroup =
       UpdateParameterGroupResponse
-  request = postJSON dax
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateParameterGroupResponse'
-            <$> (x .?> "ParameterGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ParameterGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateParameterGroup
+instance Prelude.Hashable UpdateParameterGroup
 
-instance NFData UpdateParameterGroup
+instance Prelude.NFData UpdateParameterGroup
 
-instance ToHeaders UpdateParameterGroup where
+instance Prelude.ToHeaders UpdateParameterGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonDAXV3.UpdateParameterGroup" :: ByteString),
+              Prelude.=# ( "AmazonDAXV3.UpdateParameterGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateParameterGroup where
+instance Prelude.ToJSON UpdateParameterGroup where
   toJSON UpdateParameterGroup' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("ParameterGroupName" .= _upgParameterGroupName),
-            Just
-              ("ParameterNameValues" .= _upgParameterNameValues)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ParameterGroupName" Prelude..= parameterGroupName),
+            Prelude.Just
+              ( "ParameterNameValues"
+                  Prelude..= parameterNameValues
+              )
           ]
       )
 
-instance ToPath UpdateParameterGroup where
-  toPath = const "/"
+instance Prelude.ToPath UpdateParameterGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateParameterGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateParameterGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateParameterGroupResponse' smart constructor.
+-- | /See:/ 'newUpdateParameterGroupResponse' smart constructor.
 data UpdateParameterGroupResponse = UpdateParameterGroupResponse'
-  { _upgrrsParameterGroup ::
-      !( Maybe
-           ParameterGroup
-       ),
-    _upgrrsResponseStatus ::
-      !Int
+  { -- | The parameter group that has been modified.
+    parameterGroup :: Prelude.Maybe ParameterGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateParameterGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateParameterGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upgrrsParameterGroup' - The parameter group that has been modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upgrrsResponseStatus' - -- | The response status code.
-updateParameterGroupResponse ::
-  -- | 'upgrrsResponseStatus'
-  Int ->
+-- 'parameterGroup', 'updateParameterGroupResponse_parameterGroup' - The parameter group that has been modified.
+--
+-- 'httpStatus', 'updateParameterGroupResponse_httpStatus' - The response's http status code.
+newUpdateParameterGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateParameterGroupResponse
-updateParameterGroupResponse pResponseStatus_ =
+newUpdateParameterGroupResponse pHttpStatus_ =
   UpdateParameterGroupResponse'
-    { _upgrrsParameterGroup =
-        Nothing,
-      _upgrrsResponseStatus = pResponseStatus_
+    { parameterGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The parameter group that has been modified.
-upgrrsParameterGroup :: Lens' UpdateParameterGroupResponse (Maybe ParameterGroup)
-upgrrsParameterGroup = lens _upgrrsParameterGroup (\s a -> s {_upgrrsParameterGroup = a})
+updateParameterGroupResponse_parameterGroup :: Lens.Lens' UpdateParameterGroupResponse (Prelude.Maybe ParameterGroup)
+updateParameterGroupResponse_parameterGroup = Lens.lens (\UpdateParameterGroupResponse' {parameterGroup} -> parameterGroup) (\s@UpdateParameterGroupResponse' {} a -> s {parameterGroup = a} :: UpdateParameterGroupResponse)
 
--- | -- | The response status code.
-upgrrsResponseStatus :: Lens' UpdateParameterGroupResponse Int
-upgrrsResponseStatus = lens _upgrrsResponseStatus (\s a -> s {_upgrrsResponseStatus = a})
+-- | The response's http status code.
+updateParameterGroupResponse_httpStatus :: Lens.Lens' UpdateParameterGroupResponse Prelude.Int
+updateParameterGroupResponse_httpStatus = Lens.lens (\UpdateParameterGroupResponse' {httpStatus} -> httpStatus) (\s@UpdateParameterGroupResponse' {} a -> s {httpStatus = a} :: UpdateParameterGroupResponse)
 
-instance NFData UpdateParameterGroupResponse
+instance Prelude.NFData UpdateParameterGroupResponse

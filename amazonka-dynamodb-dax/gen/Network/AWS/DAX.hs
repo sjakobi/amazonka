@@ -11,10 +11,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- DAX is a managed caching service engineered for Amazon DynamoDB. DAX dramatically speeds up database reads by caching frequently-accessed data from DynamoDB, so applications can access that data with sub-millisecond latency. You can create a DAX cluster easily, using the AWS Management Console. With a few simple modifications to your code, your application can begin taking advantage of the DAX cluster and realize significant improvements in read performance.
+-- DAX is a managed caching service engineered for Amazon DynamoDB. DAX
+-- dramatically speeds up database reads by caching frequently-accessed
+-- data from DynamoDB, so applications can access that data with
+-- sub-millisecond latency. You can create a DAX cluster easily, using the
+-- AWS Management Console. With a few simple modifications to your code,
+-- your application can begin taking advantage of the DAX cluster and
+-- realize significant improvements in read performance.
 module Network.AWS.DAX
   ( -- * Service Configuration
-    dax,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -104,67 +110,130 @@ module Network.AWS.DAX
     -- $operations
 
     -- ** DescribeParameters (Paginated)
-    module Network.AWS.DAX.DescribeParameters,
+    DescribeParameters (DescribeParameters'),
+    newDescribeParameters,
+    DescribeParametersResponse (DescribeParametersResponse'),
+    newDescribeParametersResponse,
 
     -- ** DescribeDefaultParameters (Paginated)
-    module Network.AWS.DAX.DescribeDefaultParameters,
+    DescribeDefaultParameters (DescribeDefaultParameters'),
+    newDescribeDefaultParameters,
+    DescribeDefaultParametersResponse (DescribeDefaultParametersResponse'),
+    newDescribeDefaultParametersResponse,
 
     -- ** DescribeClusters (Paginated)
-    module Network.AWS.DAX.DescribeClusters,
+    DescribeClusters (DescribeClusters'),
+    newDescribeClusters,
+    DescribeClustersResponse (DescribeClustersResponse'),
+    newDescribeClustersResponse,
 
     -- ** CreateCluster
-    module Network.AWS.DAX.CreateCluster,
+    CreateCluster (CreateCluster'),
+    newCreateCluster,
+    CreateClusterResponse (CreateClusterResponse'),
+    newCreateClusterResponse,
 
     -- ** UntagResource
-    module Network.AWS.DAX.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DecreaseReplicationFactor
-    module Network.AWS.DAX.DecreaseReplicationFactor,
+    DecreaseReplicationFactor (DecreaseReplicationFactor'),
+    newDecreaseReplicationFactor,
+    DecreaseReplicationFactorResponse (DecreaseReplicationFactorResponse'),
+    newDecreaseReplicationFactorResponse,
 
     -- ** DescribeParameterGroups (Paginated)
-    module Network.AWS.DAX.DescribeParameterGroups,
+    DescribeParameterGroups (DescribeParameterGroups'),
+    newDescribeParameterGroups,
+    DescribeParameterGroupsResponse (DescribeParameterGroupsResponse'),
+    newDescribeParameterGroupsResponse,
 
     -- ** TagResource
-    module Network.AWS.DAX.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** IncreaseReplicationFactor
-    module Network.AWS.DAX.IncreaseReplicationFactor,
+    IncreaseReplicationFactor (IncreaseReplicationFactor'),
+    newIncreaseReplicationFactor,
+    IncreaseReplicationFactorResponse (IncreaseReplicationFactorResponse'),
+    newIncreaseReplicationFactorResponse,
 
     -- ** DescribeEvents (Paginated)
-    module Network.AWS.DAX.DescribeEvents,
+    DescribeEvents (DescribeEvents'),
+    newDescribeEvents,
+    DescribeEventsResponse (DescribeEventsResponse'),
+    newDescribeEventsResponse,
 
     -- ** DeleteParameterGroup
-    module Network.AWS.DAX.DeleteParameterGroup,
+    DeleteParameterGroup (DeleteParameterGroup'),
+    newDeleteParameterGroup,
+    DeleteParameterGroupResponse (DeleteParameterGroupResponse'),
+    newDeleteParameterGroupResponse,
 
     -- ** UpdateParameterGroup
-    module Network.AWS.DAX.UpdateParameterGroup,
+    UpdateParameterGroup (UpdateParameterGroup'),
+    newUpdateParameterGroup,
+    UpdateParameterGroupResponse (UpdateParameterGroupResponse'),
+    newUpdateParameterGroupResponse,
 
     -- ** RebootNode
-    module Network.AWS.DAX.RebootNode,
+    RebootNode (RebootNode'),
+    newRebootNode,
+    RebootNodeResponse (RebootNodeResponse'),
+    newRebootNodeResponse,
 
     -- ** DeleteCluster
-    module Network.AWS.DAX.DeleteCluster,
+    DeleteCluster (DeleteCluster'),
+    newDeleteCluster,
+    DeleteClusterResponse (DeleteClusterResponse'),
+    newDeleteClusterResponse,
 
     -- ** UpdateCluster
-    module Network.AWS.DAX.UpdateCluster,
+    UpdateCluster (UpdateCluster'),
+    newUpdateCluster,
+    UpdateClusterResponse (UpdateClusterResponse'),
+    newUpdateClusterResponse,
 
     -- ** ListTags (Paginated)
-    module Network.AWS.DAX.ListTags,
+    ListTags (ListTags'),
+    newListTags,
+    ListTagsResponse (ListTagsResponse'),
+    newListTagsResponse,
 
     -- ** CreateSubnetGroup
-    module Network.AWS.DAX.CreateSubnetGroup,
+    CreateSubnetGroup (CreateSubnetGroup'),
+    newCreateSubnetGroup,
+    CreateSubnetGroupResponse (CreateSubnetGroupResponse'),
+    newCreateSubnetGroupResponse,
 
     -- ** UpdateSubnetGroup
-    module Network.AWS.DAX.UpdateSubnetGroup,
+    UpdateSubnetGroup (UpdateSubnetGroup'),
+    newUpdateSubnetGroup,
+    UpdateSubnetGroupResponse (UpdateSubnetGroupResponse'),
+    newUpdateSubnetGroupResponse,
 
     -- ** DeleteSubnetGroup
-    module Network.AWS.DAX.DeleteSubnetGroup,
+    DeleteSubnetGroup (DeleteSubnetGroup'),
+    newDeleteSubnetGroup,
+    DeleteSubnetGroupResponse (DeleteSubnetGroupResponse'),
+    newDeleteSubnetGroupResponse,
 
     -- ** DescribeSubnetGroups (Paginated)
-    module Network.AWS.DAX.DescribeSubnetGroups,
+    DescribeSubnetGroups (DescribeSubnetGroups'),
+    newDescribeSubnetGroups,
+    DescribeSubnetGroupsResponse (DescribeSubnetGroupsResponse'),
+    newDescribeSubnetGroupsResponse,
 
     -- ** CreateParameterGroup
-    module Network.AWS.DAX.CreateParameterGroup,
+    CreateParameterGroup (CreateParameterGroup'),
+    newCreateParameterGroup,
+    CreateParameterGroupResponse (CreateParameterGroupResponse'),
+    newCreateParameterGroupResponse,
 
     -- * Types
 
@@ -184,130 +253,68 @@ module Network.AWS.DAX
     SourceType (..),
 
     -- ** Cluster
-    Cluster,
-    cluster,
-    cClusterARN,
-    cSubnetGroup,
-    cIAMRoleARN,
-    cStatus,
-    cTotalNodes,
-    cParameterGroup,
-    cNodes,
-    cNotificationConfiguration,
-    cSecurityGroups,
-    cActiveNodes,
-    cPreferredMaintenanceWindow,
-    cDescription,
-    cSSEDescription,
-    cClusterDiscoveryEndpoint,
-    cNodeIdsToRemove,
-    cNodeType,
-    cClusterName,
+    Cluster (Cluster'),
+    newCluster,
 
     -- ** Endpoint
-    Endpoint,
-    endpoint,
-    eAddress,
-    ePort,
+    Endpoint (Endpoint'),
+    newEndpoint,
 
     -- ** Event
-    Event,
-    event,
-    eMessage,
-    eSourceName,
-    eDate,
-    eSourceType,
+    Event (Event'),
+    newEvent,
 
     -- ** Node
-    Node,
-    node,
-    nNodeStatus,
-    nNodeId,
-    nParameterGroupStatus,
-    nAvailabilityZone,
-    nNodeCreateTime,
-    nEndpoint,
+    Node (Node'),
+    newNode,
 
     -- ** NodeTypeSpecificValue
-    NodeTypeSpecificValue,
-    nodeTypeSpecificValue,
-    ntsvValue,
-    ntsvNodeType,
+    NodeTypeSpecificValue (NodeTypeSpecificValue'),
+    newNodeTypeSpecificValue,
 
     -- ** NotificationConfiguration
-    NotificationConfiguration,
-    notificationConfiguration,
-    ncTopicStatus,
-    ncTopicARN,
+    NotificationConfiguration (NotificationConfiguration'),
+    newNotificationConfiguration,
 
     -- ** Parameter
-    Parameter,
-    parameter,
-    pChangeType,
-    pAllowedValues,
-    pSource,
-    pParameterValue,
-    pParameterType,
-    pParameterName,
-    pDescription,
-    pDataType,
-    pIsModifiable,
-    pNodeTypeSpecificValues,
+    Parameter (Parameter'),
+    newParameter,
 
     -- ** ParameterGroup
-    ParameterGroup,
-    parameterGroup,
-    pgParameterGroupName,
-    pgDescription,
+    ParameterGroup (ParameterGroup'),
+    newParameterGroup,
 
     -- ** ParameterGroupStatus
-    ParameterGroupStatus,
-    parameterGroupStatus,
-    pgsNodeIdsToReboot,
-    pgsParameterGroupName,
-    pgsParameterApplyStatus,
+    ParameterGroupStatus (ParameterGroupStatus'),
+    newParameterGroupStatus,
 
     -- ** ParameterNameValue
-    ParameterNameValue,
-    parameterNameValue,
-    pnvParameterValue,
-    pnvParameterName,
+    ParameterNameValue (ParameterNameValue'),
+    newParameterNameValue,
 
     -- ** SSEDescription
-    SSEDescription,
-    sSEDescription,
-    ssedStatus,
+    SSEDescription (SSEDescription'),
+    newSSEDescription,
 
     -- ** SSESpecification
-    SSESpecification,
-    sSESpecification,
-    ssesEnabled,
+    SSESpecification (SSESpecification'),
+    newSSESpecification,
 
     -- ** SecurityGroupMembership
-    SecurityGroupMembership,
-    securityGroupMembership,
-    sgmStatus,
-    sgmSecurityGroupIdentifier,
+    SecurityGroupMembership (SecurityGroupMembership'),
+    newSecurityGroupMembership,
 
     -- ** Subnet
-    Subnet,
-    subnet,
-    sSubnetIdentifier,
-    sSubnetAvailabilityZone,
+    Subnet (Subnet'),
+    newSubnet,
 
     -- ** SubnetGroup
-    SubnetGroup,
-    subnetGroup,
-    sgDescription,
-    sgSubnetGroupName,
-    sgSubnets,
-    sgVPCId,
+    SubnetGroup (SubnetGroup'),
+    newSubnetGroup,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -325,6 +332,7 @@ import Network.AWS.DAX.DescribeParameterGroups
 import Network.AWS.DAX.DescribeParameters
 import Network.AWS.DAX.DescribeSubnetGroups
 import Network.AWS.DAX.IncreaseReplicationFactor
+import Network.AWS.DAX.Lens
 import Network.AWS.DAX.ListTags
 import Network.AWS.DAX.RebootNode
 import Network.AWS.DAX.TagResource

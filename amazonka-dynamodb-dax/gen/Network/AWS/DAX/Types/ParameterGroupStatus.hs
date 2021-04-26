@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DAX.Types.ParameterGroupStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of a parameter group.
 --
---
---
--- /See:/ 'parameterGroupStatus' smart constructor.
+-- /See:/ 'newParameterGroupStatus' smart constructor.
 data ParameterGroupStatus = ParameterGroupStatus'
-  { _pgsNodeIdsToReboot ::
-      !(Maybe [Text]),
-    _pgsParameterGroupName ::
-      !(Maybe Text),
-    _pgsParameterApplyStatus ::
-      !(Maybe Text)
+  { -- | The node IDs of one or more nodes to be rebooted.
+    nodeIdsToReboot :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the parameter group.
+    parameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The status of parameter updates.
+    parameterApplyStatus :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParameterGroupStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParameterGroupStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pgsNodeIdsToReboot' - The node IDs of one or more nodes to be rebooted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pgsParameterGroupName' - The name of the parameter group.
+-- 'nodeIdsToReboot', 'parameterGroupStatus_nodeIdsToReboot' - The node IDs of one or more nodes to be rebooted.
 --
--- * 'pgsParameterApplyStatus' - The status of parameter updates.
-parameterGroupStatus ::
+-- 'parameterGroupName', 'parameterGroupStatus_parameterGroupName' - The name of the parameter group.
+--
+-- 'parameterApplyStatus', 'parameterGroupStatus_parameterApplyStatus' - The status of parameter updates.
+newParameterGroupStatus ::
   ParameterGroupStatus
-parameterGroupStatus =
+newParameterGroupStatus =
   ParameterGroupStatus'
-    { _pgsNodeIdsToReboot =
-        Nothing,
-      _pgsParameterGroupName = Nothing,
-      _pgsParameterApplyStatus = Nothing
+    { nodeIdsToReboot =
+        Prelude.Nothing,
+      parameterGroupName = Prelude.Nothing,
+      parameterApplyStatus = Prelude.Nothing
     }
 
 -- | The node IDs of one or more nodes to be rebooted.
-pgsNodeIdsToReboot :: Lens' ParameterGroupStatus [Text]
-pgsNodeIdsToReboot = lens _pgsNodeIdsToReboot (\s a -> s {_pgsNodeIdsToReboot = a}) . _Default . _Coerce
+parameterGroupStatus_nodeIdsToReboot :: Lens.Lens' ParameterGroupStatus (Prelude.Maybe [Prelude.Text])
+parameterGroupStatus_nodeIdsToReboot = Lens.lens (\ParameterGroupStatus' {nodeIdsToReboot} -> nodeIdsToReboot) (\s@ParameterGroupStatus' {} a -> s {nodeIdsToReboot = a} :: ParameterGroupStatus) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the parameter group.
-pgsParameterGroupName :: Lens' ParameterGroupStatus (Maybe Text)
-pgsParameterGroupName = lens _pgsParameterGroupName (\s a -> s {_pgsParameterGroupName = a})
+parameterGroupStatus_parameterGroupName :: Lens.Lens' ParameterGroupStatus (Prelude.Maybe Prelude.Text)
+parameterGroupStatus_parameterGroupName = Lens.lens (\ParameterGroupStatus' {parameterGroupName} -> parameterGroupName) (\s@ParameterGroupStatus' {} a -> s {parameterGroupName = a} :: ParameterGroupStatus)
 
 -- | The status of parameter updates.
-pgsParameterApplyStatus :: Lens' ParameterGroupStatus (Maybe Text)
-pgsParameterApplyStatus = lens _pgsParameterApplyStatus (\s a -> s {_pgsParameterApplyStatus = a})
+parameterGroupStatus_parameterApplyStatus :: Lens.Lens' ParameterGroupStatus (Prelude.Maybe Prelude.Text)
+parameterGroupStatus_parameterApplyStatus = Lens.lens (\ParameterGroupStatus' {parameterApplyStatus} -> parameterApplyStatus) (\s@ParameterGroupStatus' {} a -> s {parameterApplyStatus = a} :: ParameterGroupStatus)
 
-instance FromJSON ParameterGroupStatus where
+instance Prelude.FromJSON ParameterGroupStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ParameterGroupStatus"
       ( \x ->
           ParameterGroupStatus'
-            <$> (x .:? "NodeIdsToReboot" .!= mempty)
-            <*> (x .:? "ParameterGroupName")
-            <*> (x .:? "ParameterApplyStatus")
+            Prelude.<$> ( x Prelude..:? "NodeIdsToReboot"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ParameterGroupName")
+            Prelude.<*> (x Prelude..:? "ParameterApplyStatus")
       )
 
-instance Hashable ParameterGroupStatus
+instance Prelude.Hashable ParameterGroupStatus
 
-instance NFData ParameterGroupStatus
+instance Prelude.NFData ParameterGroupStatus

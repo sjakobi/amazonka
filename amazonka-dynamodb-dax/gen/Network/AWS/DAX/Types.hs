@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DAX.Types
   ( -- * Service Configuration
-    dax,
+    defaultService,
 
     -- * Errors
     _SubnetInUse,
@@ -58,129 +61,67 @@ module Network.AWS.DAX.Types
 
     -- * Cluster
     Cluster (..),
-    cluster,
-    cClusterARN,
-    cSubnetGroup,
-    cIAMRoleARN,
-    cStatus,
-    cTotalNodes,
-    cParameterGroup,
-    cNodes,
-    cNotificationConfiguration,
-    cSecurityGroups,
-    cActiveNodes,
-    cPreferredMaintenanceWindow,
-    cDescription,
-    cSSEDescription,
-    cClusterDiscoveryEndpoint,
-    cNodeIdsToRemove,
-    cNodeType,
-    cClusterName,
+    newCluster,
 
     -- * Endpoint
     Endpoint (..),
-    endpoint,
-    eAddress,
-    ePort,
+    newEndpoint,
 
     -- * Event
     Event (..),
-    event,
-    eMessage,
-    eSourceName,
-    eDate,
-    eSourceType,
+    newEvent,
 
     -- * Node
     Node (..),
-    node,
-    nNodeStatus,
-    nNodeId,
-    nParameterGroupStatus,
-    nAvailabilityZone,
-    nNodeCreateTime,
-    nEndpoint,
+    newNode,
 
     -- * NodeTypeSpecificValue
     NodeTypeSpecificValue (..),
-    nodeTypeSpecificValue,
-    ntsvValue,
-    ntsvNodeType,
+    newNodeTypeSpecificValue,
 
     -- * NotificationConfiguration
     NotificationConfiguration (..),
-    notificationConfiguration,
-    ncTopicStatus,
-    ncTopicARN,
+    newNotificationConfiguration,
 
     -- * Parameter
     Parameter (..),
-    parameter,
-    pChangeType,
-    pAllowedValues,
-    pSource,
-    pParameterValue,
-    pParameterType,
-    pParameterName,
-    pDescription,
-    pDataType,
-    pIsModifiable,
-    pNodeTypeSpecificValues,
+    newParameter,
 
     -- * ParameterGroup
     ParameterGroup (..),
-    parameterGroup,
-    pgParameterGroupName,
-    pgDescription,
+    newParameterGroup,
 
     -- * ParameterGroupStatus
     ParameterGroupStatus (..),
-    parameterGroupStatus,
-    pgsNodeIdsToReboot,
-    pgsParameterGroupName,
-    pgsParameterApplyStatus,
+    newParameterGroupStatus,
 
     -- * ParameterNameValue
     ParameterNameValue (..),
-    parameterNameValue,
-    pnvParameterValue,
-    pnvParameterName,
+    newParameterNameValue,
 
     -- * SSEDescription
     SSEDescription (..),
-    sSEDescription,
-    ssedStatus,
+    newSSEDescription,
 
     -- * SSESpecification
     SSESpecification (..),
-    sSESpecification,
-    ssesEnabled,
+    newSSESpecification,
 
     -- * SecurityGroupMembership
     SecurityGroupMembership (..),
-    securityGroupMembership,
-    sgmStatus,
-    sgmSecurityGroupIdentifier,
+    newSecurityGroupMembership,
 
     -- * Subnet
     Subnet (..),
-    subnet,
-    sSubnetIdentifier,
-    sSubnetAvailabilityZone,
+    newSubnet,
 
     -- * SubnetGroup
     SubnetGroup (..),
-    subnetGroup,
-    sgDescription,
-    sgSubnetGroupName,
-    sgSubnets,
-    sgVPCId,
+    newSubnetGroup,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
   )
 where
 
@@ -205,216 +146,264 @@ import Network.AWS.DAX.Types.SourceType
 import Network.AWS.DAX.Types.Subnet
 import Network.AWS.DAX.Types.SubnetGroup
 import Network.AWS.DAX.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-04-19@ of the Amazon DynamoDB Accelerator (DAX) SDK configuration.
-dax :: Service
-dax =
-  Service
-    { _svcAbbrev = "DAX",
-      _svcSigner = v4,
-      _svcPrefix = "dax",
-      _svcVersion = "2017-04-19",
-      _svcEndpoint = defaultEndpoint dax,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "DAX",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "DAX",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "dax",
+      Prelude._svcVersion = "2017-04-19",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "DAX",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The requested subnet is being used by another subnet group.
-_SubnetInUse :: AsError a => Getting (First ServiceError) a ServiceError
-_SubnetInUse = _MatchServiceError dax "SubnetInUse"
+_SubnetInUse :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_SubnetInUse =
+  Prelude._MatchServiceError
+    defaultService
+    "SubnetInUse"
 
 -- | The VPC network is in an invalid state.
-_InvalidVPCNetworkStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidVPCNetworkStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidVPCNetworkStateFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "InvalidVPCNetworkStateFault"
 
--- | The request cannot be processed because it would exceed the allowed number of subnets in a subnet group.
-_SubnetQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request cannot be processed because it would exceed the allowed
+-- number of subnets in a subnet group.
+_SubnetQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubnetQuotaExceededFault =
-  _MatchServiceError dax "SubnetQuotaExceededFault"
+  Prelude._MatchServiceError
+    defaultService
+    "SubnetQuotaExceededFault"
 
 -- | You have attempted to exceed the maximum number of parameter groups.
-_ParameterGroupQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ParameterGroupQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ParameterGroupQuotaExceededFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "ParameterGroupQuotaExceededFault"
 
--- | There are not enough system resources to create the cluster you requested (or to resize an already-existing cluster).
-_InsufficientClusterCapacityFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | There are not enough system resources to create the cluster you
+-- requested (or to resize an already-existing cluster).
+_InsufficientClusterCapacityFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientClusterCapacityFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientClusterCapacityFault"
 
 -- | The specified service linked role (SLR) was not found.
-_ServiceLinkedRoleNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceLinkedRoleNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceLinkedRoleNotFoundFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "ServiceLinkedRoleNotFoundFault"
 
 -- | Two or more incompatible parameters were specified.
-_InvalidParameterCombinationException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterCombinationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterCombinationException =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterCombinationException"
 
--- | The request cannot be processed because it would exceed the allowed number of subnets in a subnet group.
-_SubnetGroupQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request cannot be processed because it would exceed the allowed
+-- number of subnets in a subnet group.
+_SubnetGroupQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubnetGroupQuotaExceededFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "SubnetGroupQuotaExceededFault"
 
 -- | The tag does not exist.
-_TagNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_TagNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TagNotFoundFault =
-  _MatchServiceError dax "TagNotFoundFault"
+  Prelude._MatchServiceError
+    defaultService
+    "TagNotFoundFault"
 
 -- | The requested cluster ID does not refer to an existing DAX cluster.
-_ClusterNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ClusterNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ClusterNotFoundFault =
-  _MatchServiceError dax "ClusterNotFoundFault"
+  Prelude._MatchServiceError
+    defaultService
+    "ClusterNotFoundFault"
 
 -- | The specified subnet group already exists.
-_SubnetGroupAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SubnetGroupAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubnetGroupAlreadyExistsFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "SubnetGroupAlreadyExistsFault"
 
--- | You have attempted to exceed the maximum number of nodes for your AWS account.
-_NodeQuotaForCustomerExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have attempted to exceed the maximum number of nodes for your AWS
+-- account.
+_NodeQuotaForCustomerExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NodeQuotaForCustomerExceededFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "NodeQuotaForCustomerExceededFault"
 
--- | The requested subnet group name does not refer to an existing subnet group.
-_SubnetGroupNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested subnet group name does not refer to an existing subnet
+-- group.
+_SubnetGroupNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubnetGroupNotFoundFault =
-  _MatchServiceError dax "SubnetGroupNotFoundFault"
+  Prelude._MatchServiceError
+    defaultService
+    "SubnetGroupNotFoundFault"
 
 -- | The specified parameter group already exists.
-_ParameterGroupAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ParameterGroupAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ParameterGroupAlreadyExistsFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "ParameterGroupAlreadyExistsFault"
 
 -- | The specified parameter group does not exist.
-_ParameterGroupNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ParameterGroupNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ParameterGroupNotFoundFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "ParameterGroupNotFoundFault"
 
 -- | The value for a parameter is invalid.
-_InvalidParameterValueException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterValueException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterValueException =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterValueException"
 
 -- | None of the nodes in the cluster have the given node ID.
-_NodeNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_NodeNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NodeNotFoundFault =
-  _MatchServiceError dax "NodeNotFoundFault"
+  Prelude._MatchServiceError
+    defaultService
+    "NodeNotFoundFault"
 
 -- | The Amazon Resource Name (ARN) supplied in the request is not valid.
-_InvalidARNFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidARNFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidARNFault =
-  _MatchServiceError dax "InvalidARNFault"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidARNFault"
 
 -- | You already have a DAX cluster with the given identifier.
-_ClusterAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ClusterAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ClusterAlreadyExistsFault =
-  _MatchServiceError dax "ClusterAlreadyExistsFault"
+  Prelude._MatchServiceError
+    defaultService
+    "ClusterAlreadyExistsFault"
 
 -- | The requested DAX cluster is not in the /available/ state.
-_InvalidClusterStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidClusterStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidClusterStateFault =
-  _MatchServiceError dax "InvalidClusterStateFault"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidClusterStateFault"
 
--- | You have attempted to exceed the maximum number of nodes for a DAX cluster.
-_NodeQuotaForClusterExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have attempted to exceed the maximum number of nodes for a DAX
+-- cluster.
+_NodeQuotaForClusterExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NodeQuotaForClusterExceededFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "NodeQuotaForClusterExceededFault"
 
 -- | An invalid subnet identifier was specified.
-_InvalidSubnet :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidSubnet :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidSubnet =
-  _MatchServiceError dax "InvalidSubnet"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidSubnet"
 
--- | You have attempted to exceed the maximum number of DAX clusters for your AWS account.
-_ClusterQuotaForCustomerExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have attempted to exceed the maximum number of DAX clusters for your
+-- AWS account.
+_ClusterQuotaForCustomerExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ClusterQuotaForCustomerExceededFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "ClusterQuotaForCustomerExceededFault"
 
 -- | The specified subnet group is currently in use.
-_SubnetGroupInUseFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SubnetGroupInUseFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubnetGroupInUseFault =
-  _MatchServiceError dax "SubnetGroupInUseFault"
+  Prelude._MatchServiceError
+    defaultService
+    "SubnetGroupInUseFault"
 
 -- | One or more parameters in a parameter group are in an invalid state.
-_InvalidParameterGroupStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterGroupStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterGroupStateFault =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterGroupStateFault"
 
 -- | You have exceeded the maximum number of tags for this DAX cluster.
-_TagQuotaPerResourceExceeded :: AsError a => Getting (First ServiceError) a ServiceError
+_TagQuotaPerResourceExceeded :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TagQuotaPerResourceExceeded =
-  _MatchServiceError
-    dax
+  Prelude._MatchServiceError
+    defaultService
     "TagQuotaPerResourceExceeded"

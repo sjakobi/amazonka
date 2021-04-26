@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DAX.Types.SSEStatus
   ( SSEStatus
       ( ..,
-        Disabled,
-        Disabling,
-        Enabled,
-        Enabling
+        SSEStatusDISABLED,
+        SSEStatusDISABLING,
+        SSEStatusENABLED,
+        SSEStatusENABLING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SSEStatus = SSEStatus' (CI Text)
+newtype SSEStatus = SSEStatus'
+  { fromSSEStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: SSEStatus
-pattern Disabled = SSEStatus' "DISABLED"
+pattern SSEStatusDISABLED :: SSEStatus
+pattern SSEStatusDISABLED = SSEStatus' "DISABLED"
 
-pattern Disabling :: SSEStatus
-pattern Disabling = SSEStatus' "DISABLING"
+pattern SSEStatusDISABLING :: SSEStatus
+pattern SSEStatusDISABLING = SSEStatus' "DISABLING"
 
-pattern Enabled :: SSEStatus
-pattern Enabled = SSEStatus' "ENABLED"
+pattern SSEStatusENABLED :: SSEStatus
+pattern SSEStatusENABLED = SSEStatus' "ENABLED"
 
-pattern Enabling :: SSEStatus
-pattern Enabling = SSEStatus' "ENABLING"
+pattern SSEStatusENABLING :: SSEStatus
+pattern SSEStatusENABLING = SSEStatus' "ENABLING"
 
 {-# COMPLETE
-  Disabled,
-  Disabling,
-  Enabled,
-  Enabling,
+  SSEStatusDISABLED,
+  SSEStatusDISABLING,
+  SSEStatusENABLED,
+  SSEStatusENABLING,
   SSEStatus'
   #-}
 
-instance FromText SSEStatus where
-  parser = (SSEStatus' . mk) <$> takeText
+instance Prelude.FromText SSEStatus where
+  parser = SSEStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SSEStatus where
-  toText (SSEStatus' ci) = original ci
+instance Prelude.ToText SSEStatus where
+  toText (SSEStatus' x) = x
 
-instance Hashable SSEStatus
+instance Prelude.Hashable SSEStatus
 
-instance NFData SSEStatus
+instance Prelude.NFData SSEStatus
 
-instance ToByteString SSEStatus
+instance Prelude.ToByteString SSEStatus
 
-instance ToQuery SSEStatus
+instance Prelude.ToQuery SSEStatus
 
-instance ToHeader SSEStatus
+instance Prelude.ToHeader SSEStatus
 
-instance FromJSON SSEStatus where
-  parseJSON = parseJSONText "SSEStatus"
+instance Prelude.FromJSON SSEStatus where
+  parseJSON = Prelude.parseJSONText "SSEStatus"

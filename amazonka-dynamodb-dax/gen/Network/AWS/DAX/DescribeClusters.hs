@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,185 +21,239 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about all provisioned DAX clusters if no cluster identifier is specified, or about a specific DAX cluster if a cluster identifier is supplied.
+-- Returns information about all provisioned DAX clusters if no cluster
+-- identifier is specified, or about a specific DAX cluster if a cluster
+-- identifier is supplied.
 --
+-- If the cluster is in the CREATING state, only cluster level information
+-- will be displayed until all of the nodes are successfully provisioned.
 --
--- If the cluster is in the CREATING state, only cluster level information will be displayed until all of the nodes are successfully provisioned.
+-- If the cluster is in the DELETING state, only cluster level information
+-- will be displayed.
 --
--- If the cluster is in the DELETING state, only cluster level information will be displayed.
+-- If nodes are currently being added to the DAX cluster, node endpoint
+-- information and creation time for the additional nodes will not be
+-- displayed until they are completely provisioned. When the DAX cluster
+-- state is /available/, the cluster is ready for use.
 --
--- If nodes are currently being added to the DAX cluster, node endpoint information and creation time for the additional nodes will not be displayed until they are completely provisioned. When the DAX cluster state is /available/ , the cluster is ready for use.
---
--- If nodes are currently being removed from the DAX cluster, no endpoint information for the removed nodes is displayed.
---
+-- If nodes are currently being removed from the DAX cluster, no endpoint
+-- information for the removed nodes is displayed.
 --
 -- This operation returns paginated results.
 module Network.AWS.DAX.DescribeClusters
   ( -- * Creating a Request
-    describeClusters,
-    DescribeClusters,
+    DescribeClusters (..),
+    newDescribeClusters,
 
     -- * Request Lenses
-    dcNextToken,
-    dcMaxResults,
-    dcClusterNames,
+    describeClusters_nextToken,
+    describeClusters_maxResults,
+    describeClusters_clusterNames,
 
     -- * Destructuring the Response
-    describeClustersResponse,
-    DescribeClustersResponse,
+    DescribeClustersResponse (..),
+    newDescribeClustersResponse,
 
     -- * Response Lenses
-    dcrrsNextToken,
-    dcrrsClusters,
-    dcrrsResponseStatus,
+    describeClustersResponse_nextToken,
+    describeClustersResponse_clusters,
+    describeClustersResponse_httpStatus,
   )
 where
 
 import Network.AWS.DAX.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DAX.Types.Cluster
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeClusters' smart constructor.
+-- | /See:/ 'newDescribeClusters' smart constructor.
 data DescribeClusters = DescribeClusters'
-  { _dcNextToken ::
-      !(Maybe Text),
-    _dcMaxResults :: !(Maybe Int),
-    _dcClusterNames :: !(Maybe [Text])
+  { -- | An optional token returned from a prior request. Use this token for
+    -- pagination of results from this action. If this parameter is specified,
+    -- the response includes only results beyond the token, up to the value
+    -- specified by @MaxResults@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to include in the response. If more
+    -- results exist than the specified @MaxResults@ value, a token is included
+    -- in the response so that the remaining results can be retrieved.
+    --
+    -- The value for @MaxResults@ must be between 20 and 100.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The names of the DAX clusters being described.
+    clusterNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeClusters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeClusters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcNextToken' - An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response includes only results beyond the token, up to the value specified by @MaxResults@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcMaxResults' - The maximum number of results to include in the response. If more results exist than the specified @MaxResults@ value, a token is included in the response so that the remaining results can be retrieved. The value for @MaxResults@ must be between 20 and 100.
+-- 'nextToken', 'describeClusters_nextToken' - An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
 --
--- * 'dcClusterNames' - The names of the DAX clusters being described.
-describeClusters ::
+-- 'maxResults', 'describeClusters_maxResults' - The maximum number of results to include in the response. If more
+-- results exist than the specified @MaxResults@ value, a token is included
+-- in the response so that the remaining results can be retrieved.
+--
+-- The value for @MaxResults@ must be between 20 and 100.
+--
+-- 'clusterNames', 'describeClusters_clusterNames' - The names of the DAX clusters being described.
+newDescribeClusters ::
   DescribeClusters
-describeClusters =
+newDescribeClusters =
   DescribeClusters'
-    { _dcNextToken = Nothing,
-      _dcMaxResults = Nothing,
-      _dcClusterNames = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      clusterNames = Prelude.Nothing
     }
 
--- | An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response includes only results beyond the token, up to the value specified by @MaxResults@ .
-dcNextToken :: Lens' DescribeClusters (Maybe Text)
-dcNextToken = lens _dcNextToken (\s a -> s {_dcNextToken = a})
+-- | An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
+describeClusters_nextToken :: Lens.Lens' DescribeClusters (Prelude.Maybe Prelude.Text)
+describeClusters_nextToken = Lens.lens (\DescribeClusters' {nextToken} -> nextToken) (\s@DescribeClusters' {} a -> s {nextToken = a} :: DescribeClusters)
 
--- | The maximum number of results to include in the response. If more results exist than the specified @MaxResults@ value, a token is included in the response so that the remaining results can be retrieved. The value for @MaxResults@ must be between 20 and 100.
-dcMaxResults :: Lens' DescribeClusters (Maybe Int)
-dcMaxResults = lens _dcMaxResults (\s a -> s {_dcMaxResults = a})
+-- | The maximum number of results to include in the response. If more
+-- results exist than the specified @MaxResults@ value, a token is included
+-- in the response so that the remaining results can be retrieved.
+--
+-- The value for @MaxResults@ must be between 20 and 100.
+describeClusters_maxResults :: Lens.Lens' DescribeClusters (Prelude.Maybe Prelude.Int)
+describeClusters_maxResults = Lens.lens (\DescribeClusters' {maxResults} -> maxResults) (\s@DescribeClusters' {} a -> s {maxResults = a} :: DescribeClusters)
 
 -- | The names of the DAX clusters being described.
-dcClusterNames :: Lens' DescribeClusters [Text]
-dcClusterNames = lens _dcClusterNames (\s a -> s {_dcClusterNames = a}) . _Default . _Coerce
+describeClusters_clusterNames :: Lens.Lens' DescribeClusters (Prelude.Maybe [Prelude.Text])
+describeClusters_clusterNames = Lens.lens (\DescribeClusters' {clusterNames} -> clusterNames) (\s@DescribeClusters' {} a -> s {clusterNames = a} :: DescribeClusters) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeClusters where
+instance Pager.AWSPager DescribeClusters where
   page rq rs
-    | stop (rs ^. dcrrsNextToken) = Nothing
-    | stop (rs ^. dcrrsClusters) = Nothing
-    | otherwise =
-      Just $ rq & dcNextToken .~ rs ^. dcrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeClustersResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeClustersResponse_clusters
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeClusters_nextToken
+          Lens..~ rs
+          Lens.^? describeClustersResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeClusters where
+instance Prelude.AWSRequest DescribeClusters where
   type Rs DescribeClusters = DescribeClustersResponse
-  request = postJSON dax
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeClustersResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Clusters" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Clusters" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeClusters
+instance Prelude.Hashable DescribeClusters
 
-instance NFData DescribeClusters
+instance Prelude.NFData DescribeClusters
 
-instance ToHeaders DescribeClusters where
+instance Prelude.ToHeaders DescribeClusters where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonDAXV3.DescribeClusters" :: ByteString),
+              Prelude.=# ( "AmazonDAXV3.DescribeClusters" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeClusters where
+instance Prelude.ToJSON DescribeClusters where
   toJSON DescribeClusters' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dcNextToken,
-            ("MaxResults" .=) <$> _dcMaxResults,
-            ("ClusterNames" .=) <$> _dcClusterNames
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("ClusterNames" Prelude..=)
+              Prelude.<$> clusterNames
           ]
       )
 
-instance ToPath DescribeClusters where
-  toPath = const "/"
+instance Prelude.ToPath DescribeClusters where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeClusters where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeClusters where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeClustersResponse' smart constructor.
+-- | /See:/ 'newDescribeClustersResponse' smart constructor.
 data DescribeClustersResponse = DescribeClustersResponse'
-  { _dcrrsNextToken ::
-      !(Maybe Text),
-    _dcrrsClusters ::
-      !(Maybe [Cluster]),
-    _dcrrsResponseStatus ::
-      !Int
+  { -- | Provides an identifier to allow retrieval of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The descriptions of your DAX clusters, in response to a
+    -- /DescribeClusters/ request.
+    clusters :: Prelude.Maybe [Cluster],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeClustersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeClustersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsNextToken' - Provides an identifier to allow retrieval of paginated results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrsClusters' - The descriptions of your DAX clusters, in response to a /DescribeClusters/ request.
+-- 'nextToken', 'describeClustersResponse_nextToken' - Provides an identifier to allow retrieval of paginated results.
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-describeClustersResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- 'clusters', 'describeClustersResponse_clusters' - The descriptions of your DAX clusters, in response to a
+-- /DescribeClusters/ request.
+--
+-- 'httpStatus', 'describeClustersResponse_httpStatus' - The response's http status code.
+newDescribeClustersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeClustersResponse
-describeClustersResponse pResponseStatus_ =
+newDescribeClustersResponse pHttpStatus_ =
   DescribeClustersResponse'
-    { _dcrrsNextToken =
-        Nothing,
-      _dcrrsClusters = Nothing,
-      _dcrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      clusters = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Provides an identifier to allow retrieval of paginated results.
-dcrrsNextToken :: Lens' DescribeClustersResponse (Maybe Text)
-dcrrsNextToken = lens _dcrrsNextToken (\s a -> s {_dcrrsNextToken = a})
+describeClustersResponse_nextToken :: Lens.Lens' DescribeClustersResponse (Prelude.Maybe Prelude.Text)
+describeClustersResponse_nextToken = Lens.lens (\DescribeClustersResponse' {nextToken} -> nextToken) (\s@DescribeClustersResponse' {} a -> s {nextToken = a} :: DescribeClustersResponse)
 
--- | The descriptions of your DAX clusters, in response to a /DescribeClusters/ request.
-dcrrsClusters :: Lens' DescribeClustersResponse [Cluster]
-dcrrsClusters = lens _dcrrsClusters (\s a -> s {_dcrrsClusters = a}) . _Default . _Coerce
+-- | The descriptions of your DAX clusters, in response to a
+-- /DescribeClusters/ request.
+describeClustersResponse_clusters :: Lens.Lens' DescribeClustersResponse (Prelude.Maybe [Cluster])
+describeClustersResponse_clusters = Lens.lens (\DescribeClustersResponse' {clusters} -> clusters) (\s@DescribeClustersResponse' {} a -> s {clusters = a} :: DescribeClustersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DescribeClustersResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+describeClustersResponse_httpStatus :: Lens.Lens' DescribeClustersResponse Prelude.Int
+describeClustersResponse_httpStatus = Lens.lens (\DescribeClustersResponse' {httpStatus} -> httpStatus) (\s@DescribeClustersResponse' {} a -> s {httpStatus = a} :: DescribeClustersResponse)
 
-instance NFData DescribeClustersResponse
+instance Prelude.NFData DescribeClustersResponse

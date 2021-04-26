@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DAX.Types.NodeTypeSpecificValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a parameter value that is applicable to a particular node type.
+-- | Represents a parameter value that is applicable to a particular node
+-- type.
 --
---
---
--- /See:/ 'nodeTypeSpecificValue' smart constructor.
+-- /See:/ 'newNodeTypeSpecificValue' smart constructor.
 data NodeTypeSpecificValue = NodeTypeSpecificValue'
-  { _ntsvValue ::
-      !(Maybe Text),
-    _ntsvNodeType ::
-      !(Maybe Text)
+  { -- | The parameter value for this node type.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | A node type to which the parameter value applies.
+    nodeType :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodeTypeSpecificValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodeTypeSpecificValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ntsvValue' - The parameter value for this node type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ntsvNodeType' - A node type to which the parameter value applies.
-nodeTypeSpecificValue ::
+-- 'value', 'nodeTypeSpecificValue_value' - The parameter value for this node type.
+--
+-- 'nodeType', 'nodeTypeSpecificValue_nodeType' - A node type to which the parameter value applies.
+newNodeTypeSpecificValue ::
   NodeTypeSpecificValue
-nodeTypeSpecificValue =
+newNodeTypeSpecificValue =
   NodeTypeSpecificValue'
-    { _ntsvValue = Nothing,
-      _ntsvNodeType = Nothing
+    { value = Prelude.Nothing,
+      nodeType = Prelude.Nothing
     }
 
 -- | The parameter value for this node type.
-ntsvValue :: Lens' NodeTypeSpecificValue (Maybe Text)
-ntsvValue = lens _ntsvValue (\s a -> s {_ntsvValue = a})
+nodeTypeSpecificValue_value :: Lens.Lens' NodeTypeSpecificValue (Prelude.Maybe Prelude.Text)
+nodeTypeSpecificValue_value = Lens.lens (\NodeTypeSpecificValue' {value} -> value) (\s@NodeTypeSpecificValue' {} a -> s {value = a} :: NodeTypeSpecificValue)
 
 -- | A node type to which the parameter value applies.
-ntsvNodeType :: Lens' NodeTypeSpecificValue (Maybe Text)
-ntsvNodeType = lens _ntsvNodeType (\s a -> s {_ntsvNodeType = a})
+nodeTypeSpecificValue_nodeType :: Lens.Lens' NodeTypeSpecificValue (Prelude.Maybe Prelude.Text)
+nodeTypeSpecificValue_nodeType = Lens.lens (\NodeTypeSpecificValue' {nodeType} -> nodeType) (\s@NodeTypeSpecificValue' {} a -> s {nodeType = a} :: NodeTypeSpecificValue)
 
-instance FromJSON NodeTypeSpecificValue where
+instance Prelude.FromJSON NodeTypeSpecificValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NodeTypeSpecificValue"
       ( \x ->
           NodeTypeSpecificValue'
-            <$> (x .:? "Value") <*> (x .:? "NodeType")
+            Prelude.<$> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "NodeType")
       )
 
-instance Hashable NodeTypeSpecificValue
+instance Prelude.Hashable NodeTypeSpecificValue
 
-instance NFData NodeTypeSpecificValue
+instance Prelude.NFData NodeTypeSpecificValue

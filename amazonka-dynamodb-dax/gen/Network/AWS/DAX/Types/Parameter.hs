@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,127 +23,152 @@ import Network.AWS.DAX.Types.ChangeType
 import Network.AWS.DAX.Types.IsModifiable
 import Network.AWS.DAX.Types.NodeTypeSpecificValue
 import Network.AWS.DAX.Types.ParameterType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an individual setting that controls some aspect of DAX behavior.
+-- | Describes an individual setting that controls some aspect of DAX
+-- behavior.
 --
---
---
--- /See:/ 'parameter' smart constructor.
+-- /See:/ 'newParameter' smart constructor.
 data Parameter = Parameter'
-  { _pChangeType ::
-      !(Maybe ChangeType),
-    _pAllowedValues :: !(Maybe Text),
-    _pSource :: !(Maybe Text),
-    _pParameterValue :: !(Maybe Text),
-    _pParameterType :: !(Maybe ParameterType),
-    _pParameterName :: !(Maybe Text),
-    _pDescription :: !(Maybe Text),
-    _pDataType :: !(Maybe Text),
-    _pIsModifiable :: !(Maybe IsModifiable),
-    _pNodeTypeSpecificValues ::
-      !(Maybe [NodeTypeSpecificValue])
+  { -- | The conditions under which changes to this parameter can be applied. For
+    -- example, @requires-reboot@ indicates that a new value for this parameter
+    -- will only take effect if a node is rebooted.
+    changeType :: Prelude.Maybe ChangeType,
+    -- | A range of values within which the parameter can be set.
+    allowedValues :: Prelude.Maybe Prelude.Text,
+    -- | How the parameter is defined. For example, @system@ denotes a
+    -- system-defined parameter.
+    source :: Prelude.Maybe Prelude.Text,
+    -- | The value for the parameter.
+    parameterValue :: Prelude.Maybe Prelude.Text,
+    -- | Determines whether the parameter can be applied to any nodes, or only
+    -- nodes of a particular type.
+    parameterType :: Prelude.Maybe ParameterType,
+    -- | The name of the parameter.
+    parameterName :: Prelude.Maybe Prelude.Text,
+    -- | A description of the parameter
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The data type of the parameter. For example, @integer@:
+    dataType :: Prelude.Maybe Prelude.Text,
+    -- | Whether the customer is allowed to modify the parameter.
+    isModifiable :: Prelude.Maybe IsModifiable,
+    -- | A list of node types, and specific parameter values for each node.
+    nodeTypeSpecificValues :: Prelude.Maybe [NodeTypeSpecificValue]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Parameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Parameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pChangeType' - The conditions under which changes to this parameter can be applied. For example, @requires-reboot@ indicates that a new value for this parameter will only take effect if a node is rebooted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pAllowedValues' - A range of values within which the parameter can be set.
+-- 'changeType', 'parameter_changeType' - The conditions under which changes to this parameter can be applied. For
+-- example, @requires-reboot@ indicates that a new value for this parameter
+-- will only take effect if a node is rebooted.
 --
--- * 'pSource' - How the parameter is defined. For example, @system@ denotes a system-defined parameter.
+-- 'allowedValues', 'parameter_allowedValues' - A range of values within which the parameter can be set.
 --
--- * 'pParameterValue' - The value for the parameter.
+-- 'source', 'parameter_source' - How the parameter is defined. For example, @system@ denotes a
+-- system-defined parameter.
 --
--- * 'pParameterType' - Determines whether the parameter can be applied to any nodes, or only nodes of a particular type.
+-- 'parameterValue', 'parameter_parameterValue' - The value for the parameter.
 --
--- * 'pParameterName' - The name of the parameter.
+-- 'parameterType', 'parameter_parameterType' - Determines whether the parameter can be applied to any nodes, or only
+-- nodes of a particular type.
 --
--- * 'pDescription' - A description of the parameter
+-- 'parameterName', 'parameter_parameterName' - The name of the parameter.
 --
--- * 'pDataType' - The data type of the parameter. For example, @integer@ :
+-- 'description', 'parameter_description' - A description of the parameter
 --
--- * 'pIsModifiable' - Whether the customer is allowed to modify the parameter.
+-- 'dataType', 'parameter_dataType' - The data type of the parameter. For example, @integer@:
 --
--- * 'pNodeTypeSpecificValues' - A list of node types, and specific parameter values for each node.
-parameter ::
+-- 'isModifiable', 'parameter_isModifiable' - Whether the customer is allowed to modify the parameter.
+--
+-- 'nodeTypeSpecificValues', 'parameter_nodeTypeSpecificValues' - A list of node types, and specific parameter values for each node.
+newParameter ::
   Parameter
-parameter =
+newParameter =
   Parameter'
-    { _pChangeType = Nothing,
-      _pAllowedValues = Nothing,
-      _pSource = Nothing,
-      _pParameterValue = Nothing,
-      _pParameterType = Nothing,
-      _pParameterName = Nothing,
-      _pDescription = Nothing,
-      _pDataType = Nothing,
-      _pIsModifiable = Nothing,
-      _pNodeTypeSpecificValues = Nothing
+    { changeType = Prelude.Nothing,
+      allowedValues = Prelude.Nothing,
+      source = Prelude.Nothing,
+      parameterValue = Prelude.Nothing,
+      parameterType = Prelude.Nothing,
+      parameterName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      dataType = Prelude.Nothing,
+      isModifiable = Prelude.Nothing,
+      nodeTypeSpecificValues = Prelude.Nothing
     }
 
--- | The conditions under which changes to this parameter can be applied. For example, @requires-reboot@ indicates that a new value for this parameter will only take effect if a node is rebooted.
-pChangeType :: Lens' Parameter (Maybe ChangeType)
-pChangeType = lens _pChangeType (\s a -> s {_pChangeType = a})
+-- | The conditions under which changes to this parameter can be applied. For
+-- example, @requires-reboot@ indicates that a new value for this parameter
+-- will only take effect if a node is rebooted.
+parameter_changeType :: Lens.Lens' Parameter (Prelude.Maybe ChangeType)
+parameter_changeType = Lens.lens (\Parameter' {changeType} -> changeType) (\s@Parameter' {} a -> s {changeType = a} :: Parameter)
 
 -- | A range of values within which the parameter can be set.
-pAllowedValues :: Lens' Parameter (Maybe Text)
-pAllowedValues = lens _pAllowedValues (\s a -> s {_pAllowedValues = a})
+parameter_allowedValues :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_allowedValues = Lens.lens (\Parameter' {allowedValues} -> allowedValues) (\s@Parameter' {} a -> s {allowedValues = a} :: Parameter)
 
--- | How the parameter is defined. For example, @system@ denotes a system-defined parameter.
-pSource :: Lens' Parameter (Maybe Text)
-pSource = lens _pSource (\s a -> s {_pSource = a})
+-- | How the parameter is defined. For example, @system@ denotes a
+-- system-defined parameter.
+parameter_source :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_source = Lens.lens (\Parameter' {source} -> source) (\s@Parameter' {} a -> s {source = a} :: Parameter)
 
 -- | The value for the parameter.
-pParameterValue :: Lens' Parameter (Maybe Text)
-pParameterValue = lens _pParameterValue (\s a -> s {_pParameterValue = a})
+parameter_parameterValue :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_parameterValue = Lens.lens (\Parameter' {parameterValue} -> parameterValue) (\s@Parameter' {} a -> s {parameterValue = a} :: Parameter)
 
--- | Determines whether the parameter can be applied to any nodes, or only nodes of a particular type.
-pParameterType :: Lens' Parameter (Maybe ParameterType)
-pParameterType = lens _pParameterType (\s a -> s {_pParameterType = a})
+-- | Determines whether the parameter can be applied to any nodes, or only
+-- nodes of a particular type.
+parameter_parameterType :: Lens.Lens' Parameter (Prelude.Maybe ParameterType)
+parameter_parameterType = Lens.lens (\Parameter' {parameterType} -> parameterType) (\s@Parameter' {} a -> s {parameterType = a} :: Parameter)
 
 -- | The name of the parameter.
-pParameterName :: Lens' Parameter (Maybe Text)
-pParameterName = lens _pParameterName (\s a -> s {_pParameterName = a})
+parameter_parameterName :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_parameterName = Lens.lens (\Parameter' {parameterName} -> parameterName) (\s@Parameter' {} a -> s {parameterName = a} :: Parameter)
 
 -- | A description of the parameter
-pDescription :: Lens' Parameter (Maybe Text)
-pDescription = lens _pDescription (\s a -> s {_pDescription = a})
+parameter_description :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_description = Lens.lens (\Parameter' {description} -> description) (\s@Parameter' {} a -> s {description = a} :: Parameter)
 
--- | The data type of the parameter. For example, @integer@ :
-pDataType :: Lens' Parameter (Maybe Text)
-pDataType = lens _pDataType (\s a -> s {_pDataType = a})
+-- | The data type of the parameter. For example, @integer@:
+parameter_dataType :: Lens.Lens' Parameter (Prelude.Maybe Prelude.Text)
+parameter_dataType = Lens.lens (\Parameter' {dataType} -> dataType) (\s@Parameter' {} a -> s {dataType = a} :: Parameter)
 
 -- | Whether the customer is allowed to modify the parameter.
-pIsModifiable :: Lens' Parameter (Maybe IsModifiable)
-pIsModifiable = lens _pIsModifiable (\s a -> s {_pIsModifiable = a})
+parameter_isModifiable :: Lens.Lens' Parameter (Prelude.Maybe IsModifiable)
+parameter_isModifiable = Lens.lens (\Parameter' {isModifiable} -> isModifiable) (\s@Parameter' {} a -> s {isModifiable = a} :: Parameter)
 
 -- | A list of node types, and specific parameter values for each node.
-pNodeTypeSpecificValues :: Lens' Parameter [NodeTypeSpecificValue]
-pNodeTypeSpecificValues = lens _pNodeTypeSpecificValues (\s a -> s {_pNodeTypeSpecificValues = a}) . _Default . _Coerce
+parameter_nodeTypeSpecificValues :: Lens.Lens' Parameter (Prelude.Maybe [NodeTypeSpecificValue])
+parameter_nodeTypeSpecificValues = Lens.lens (\Parameter' {nodeTypeSpecificValues} -> nodeTypeSpecificValues) (\s@Parameter' {} a -> s {nodeTypeSpecificValues = a} :: Parameter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Parameter where
+instance Prelude.FromJSON Parameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Parameter"
       ( \x ->
           Parameter'
-            <$> (x .:? "ChangeType")
-            <*> (x .:? "AllowedValues")
-            <*> (x .:? "Source")
-            <*> (x .:? "ParameterValue")
-            <*> (x .:? "ParameterType")
-            <*> (x .:? "ParameterName")
-            <*> (x .:? "Description")
-            <*> (x .:? "DataType")
-            <*> (x .:? "IsModifiable")
-            <*> (x .:? "NodeTypeSpecificValues" .!= mempty)
+            Prelude.<$> (x Prelude..:? "ChangeType")
+            Prelude.<*> (x Prelude..:? "AllowedValues")
+            Prelude.<*> (x Prelude..:? "Source")
+            Prelude.<*> (x Prelude..:? "ParameterValue")
+            Prelude.<*> (x Prelude..:? "ParameterType")
+            Prelude.<*> (x Prelude..:? "ParameterName")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "DataType")
+            Prelude.<*> (x Prelude..:? "IsModifiable")
+            Prelude.<*> ( x Prelude..:? "NodeTypeSpecificValues"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Parameter
+instance Prelude.Hashable Parameter
 
-instance NFData Parameter
+instance Prelude.NFData Parameter
