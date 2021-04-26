@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Connect.Types.UseCaseType
   ( UseCaseType
       ( ..,
-        RulesEvaluation
+        UseCaseTypeRULESEVALUATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UseCaseType = UseCaseType' (CI Text)
+newtype UseCaseType = UseCaseType'
+  { fromUseCaseType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RulesEvaluation :: UseCaseType
-pattern RulesEvaluation = UseCaseType' "RULES_EVALUATION"
+pattern UseCaseTypeRULESEVALUATION :: UseCaseType
+pattern UseCaseTypeRULESEVALUATION = UseCaseType' "RULES_EVALUATION"
 
 {-# COMPLETE
-  RulesEvaluation,
+  UseCaseTypeRULESEVALUATION,
   UseCaseType'
   #-}
 
-instance FromText UseCaseType where
-  parser = (UseCaseType' . mk) <$> takeText
+instance Prelude.FromText UseCaseType where
+  parser = UseCaseType' Prelude.<$> Prelude.takeText
 
-instance ToText UseCaseType where
-  toText (UseCaseType' ci) = original ci
+instance Prelude.ToText UseCaseType where
+  toText (UseCaseType' x) = x
 
-instance Hashable UseCaseType
+instance Prelude.Hashable UseCaseType
 
-instance NFData UseCaseType
+instance Prelude.NFData UseCaseType
 
-instance ToByteString UseCaseType
+instance Prelude.ToByteString UseCaseType
 
-instance ToQuery UseCaseType
+instance Prelude.ToQuery UseCaseType
 
-instance ToHeader UseCaseType
+instance Prelude.ToHeader UseCaseType
 
-instance ToJSON UseCaseType where
-  toJSON = toJSONText
+instance Prelude.ToJSON UseCaseType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON UseCaseType where
-  parseJSON = parseJSONText "UseCaseType"
+instance Prelude.FromJSON UseCaseType where
+  parseJSON = Prelude.parseJSONText "UseCaseType"

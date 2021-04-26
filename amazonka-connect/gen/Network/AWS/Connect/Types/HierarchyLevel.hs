@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Connect.Types.HierarchyLevel where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a hierarchy level.
 --
---
---
--- /See:/ 'hierarchyLevel' smart constructor.
+-- /See:/ 'newHierarchyLevel' smart constructor.
 data HierarchyLevel = HierarchyLevel'
-  { _hlARN ::
-      !(Maybe Text),
-    _hlId :: !(Maybe Text),
-    _hlName :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the hierarchy level.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the hierarchy level.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the hierarchy level.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HierarchyLevel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HierarchyLevel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hlARN' - The Amazon Resource Name (ARN) of the hierarchy level.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hlId' - The identifier of the hierarchy level.
+-- 'arn', 'hierarchyLevel_arn' - The Amazon Resource Name (ARN) of the hierarchy level.
 --
--- * 'hlName' - The name of the hierarchy level.
-hierarchyLevel ::
+-- 'id', 'hierarchyLevel_id' - The identifier of the hierarchy level.
+--
+-- 'name', 'hierarchyLevel_name' - The name of the hierarchy level.
+newHierarchyLevel ::
   HierarchyLevel
-hierarchyLevel =
+newHierarchyLevel =
   HierarchyLevel'
-    { _hlARN = Nothing,
-      _hlId = Nothing,
-      _hlName = Nothing
+    { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the hierarchy level.
-hlARN :: Lens' HierarchyLevel (Maybe Text)
-hlARN = lens _hlARN (\s a -> s {_hlARN = a})
+hierarchyLevel_arn :: Lens.Lens' HierarchyLevel (Prelude.Maybe Prelude.Text)
+hierarchyLevel_arn = Lens.lens (\HierarchyLevel' {arn} -> arn) (\s@HierarchyLevel' {} a -> s {arn = a} :: HierarchyLevel)
 
 -- | The identifier of the hierarchy level.
-hlId :: Lens' HierarchyLevel (Maybe Text)
-hlId = lens _hlId (\s a -> s {_hlId = a})
+hierarchyLevel_id :: Lens.Lens' HierarchyLevel (Prelude.Maybe Prelude.Text)
+hierarchyLevel_id = Lens.lens (\HierarchyLevel' {id} -> id) (\s@HierarchyLevel' {} a -> s {id = a} :: HierarchyLevel)
 
 -- | The name of the hierarchy level.
-hlName :: Lens' HierarchyLevel (Maybe Text)
-hlName = lens _hlName (\s a -> s {_hlName = a})
+hierarchyLevel_name :: Lens.Lens' HierarchyLevel (Prelude.Maybe Prelude.Text)
+hierarchyLevel_name = Lens.lens (\HierarchyLevel' {name} -> name) (\s@HierarchyLevel' {} a -> s {name = a} :: HierarchyLevel)
 
-instance FromJSON HierarchyLevel where
+instance Prelude.FromJSON HierarchyLevel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HierarchyLevel"
       ( \x ->
           HierarchyLevel'
-            <$> (x .:? "Arn") <*> (x .:? "Id") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable HierarchyLevel
+instance Prelude.Hashable HierarchyLevel
 
-instance NFData HierarchyLevel
+instance Prelude.NFData HierarchyLevel

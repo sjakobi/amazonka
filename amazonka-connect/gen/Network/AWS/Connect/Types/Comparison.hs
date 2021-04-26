@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Connect.Types.Comparison
   ( Comparison
       ( ..,
-        LT'
+        ComparisonLT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Comparison = Comparison' (CI Text)
+newtype Comparison = Comparison'
+  { fromComparison ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LT' :: Comparison
-pattern LT' = Comparison' "LT"
+pattern ComparisonLT :: Comparison
+pattern ComparisonLT = Comparison' "LT"
 
 {-# COMPLETE
-  LT',
+  ComparisonLT,
   Comparison'
   #-}
 
-instance FromText Comparison where
-  parser = (Comparison' . mk) <$> takeText
+instance Prelude.FromText Comparison where
+  parser = Comparison' Prelude.<$> Prelude.takeText
 
-instance ToText Comparison where
-  toText (Comparison' ci) = original ci
+instance Prelude.ToText Comparison where
+  toText (Comparison' x) = x
 
-instance Hashable Comparison
+instance Prelude.Hashable Comparison
 
-instance NFData Comparison
+instance Prelude.NFData Comparison
 
-instance ToByteString Comparison
+instance Prelude.ToByteString Comparison
 
-instance ToQuery Comparison
+instance Prelude.ToQuery Comparison
 
-instance ToHeader Comparison
+instance Prelude.ToHeader Comparison
 
-instance ToJSON Comparison where
-  toJSON = toJSONText
+instance Prelude.ToJSON Comparison where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Comparison where
-  parseJSON = parseJSONText "Comparison"
+instance Prelude.FromJSON Comparison where
+  parseJSON = Prelude.parseJSONText "Comparison"

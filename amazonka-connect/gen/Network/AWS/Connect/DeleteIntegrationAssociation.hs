@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,126 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Deletes an AppIntegration association from an Amazon Connect instance. The association must not have any use cases associated with it.
+-- Deletes an AppIntegration association from an Amazon Connect instance.
+-- The association must not have any use cases associated with it.
 module Network.AWS.Connect.DeleteIntegrationAssociation
   ( -- * Creating a Request
-    deleteIntegrationAssociation,
-    DeleteIntegrationAssociation,
+    DeleteIntegrationAssociation (..),
+    newDeleteIntegrationAssociation,
 
     -- * Request Lenses
-    diaInstanceId,
-    diaIntegrationAssociationId,
+    deleteIntegrationAssociation_instanceId,
+    deleteIntegrationAssociation_integrationAssociationId,
 
     -- * Destructuring the Response
-    deleteIntegrationAssociationResponse,
-    DeleteIntegrationAssociationResponse,
+    DeleteIntegrationAssociationResponse (..),
+    newDeleteIntegrationAssociationResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteIntegrationAssociation' smart constructor.
+-- | /See:/ 'newDeleteIntegrationAssociation' smart constructor.
 data DeleteIntegrationAssociation = DeleteIntegrationAssociation'
-  { _diaInstanceId ::
-      !Text,
-    _diaIntegrationAssociationId ::
-      !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the AppIntegration association.
+    integrationAssociationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIntegrationAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIntegrationAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diaInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diaIntegrationAssociationId' - The identifier for the AppIntegration association.
-deleteIntegrationAssociation ::
-  -- | 'diaInstanceId'
-  Text ->
-  -- | 'diaIntegrationAssociationId'
-  Text ->
+-- 'instanceId', 'deleteIntegrationAssociation_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'integrationAssociationId', 'deleteIntegrationAssociation_integrationAssociationId' - The identifier for the AppIntegration association.
+newDeleteIntegrationAssociation ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'integrationAssociationId'
+  Prelude.Text ->
   DeleteIntegrationAssociation
-deleteIntegrationAssociation
+newDeleteIntegrationAssociation
   pInstanceId_
   pIntegrationAssociationId_ =
     DeleteIntegrationAssociation'
-      { _diaInstanceId =
+      { instanceId =
           pInstanceId_,
-        _diaIntegrationAssociationId =
+        integrationAssociationId =
           pIntegrationAssociationId_
       }
 
 -- | The identifier of the Amazon Connect instance.
-diaInstanceId :: Lens' DeleteIntegrationAssociation Text
-diaInstanceId = lens _diaInstanceId (\s a -> s {_diaInstanceId = a})
+deleteIntegrationAssociation_instanceId :: Lens.Lens' DeleteIntegrationAssociation Prelude.Text
+deleteIntegrationAssociation_instanceId = Lens.lens (\DeleteIntegrationAssociation' {instanceId} -> instanceId) (\s@DeleteIntegrationAssociation' {} a -> s {instanceId = a} :: DeleteIntegrationAssociation)
 
 -- | The identifier for the AppIntegration association.
-diaIntegrationAssociationId :: Lens' DeleteIntegrationAssociation Text
-diaIntegrationAssociationId = lens _diaIntegrationAssociationId (\s a -> s {_diaIntegrationAssociationId = a})
+deleteIntegrationAssociation_integrationAssociationId :: Lens.Lens' DeleteIntegrationAssociation Prelude.Text
+deleteIntegrationAssociation_integrationAssociationId = Lens.lens (\DeleteIntegrationAssociation' {integrationAssociationId} -> integrationAssociationId) (\s@DeleteIntegrationAssociation' {} a -> s {integrationAssociationId = a} :: DeleteIntegrationAssociation)
 
-instance AWSRequest DeleteIntegrationAssociation where
+instance
+  Prelude.AWSRequest
+    DeleteIntegrationAssociation
+  where
   type
     Rs DeleteIntegrationAssociation =
       DeleteIntegrationAssociationResponse
-  request = delete connect
+  request = Request.delete defaultService
   response =
-    receiveNull DeleteIntegrationAssociationResponse'
+    Response.receiveNull
+      DeleteIntegrationAssociationResponse'
 
-instance Hashable DeleteIntegrationAssociation
+instance
+  Prelude.Hashable
+    DeleteIntegrationAssociation
 
-instance NFData DeleteIntegrationAssociation
+instance Prelude.NFData DeleteIntegrationAssociation
 
-instance ToHeaders DeleteIntegrationAssociation where
+instance
+  Prelude.ToHeaders
+    DeleteIntegrationAssociation
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteIntegrationAssociation where
+instance Prelude.ToPath DeleteIntegrationAssociation where
   toPath DeleteIntegrationAssociation' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _diaInstanceId,
+        Prelude.toBS instanceId,
         "/integration-associations/",
-        toBS _diaIntegrationAssociationId
+        Prelude.toBS integrationAssociationId
       ]
 
-instance ToQuery DeleteIntegrationAssociation where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteIntegrationAssociation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteIntegrationAssociationResponse' smart constructor.
+-- | /See:/ 'newDeleteIntegrationAssociationResponse' smart constructor.
 data DeleteIntegrationAssociationResponse = DeleteIntegrationAssociationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIntegrationAssociationResponse' with the minimum fields required to make a request.
-deleteIntegrationAssociationResponse ::
+-- |
+-- Create a value of 'DeleteIntegrationAssociationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteIntegrationAssociationResponse ::
   DeleteIntegrationAssociationResponse
-deleteIntegrationAssociationResponse =
+newDeleteIntegrationAssociationResponse =
   DeleteIntegrationAssociationResponse'
 
-instance NFData DeleteIntegrationAssociationResponse
+instance
+  Prelude.NFData
+    DeleteIntegrationAssociationResponse

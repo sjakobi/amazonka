@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,148 +24,150 @@
 -- Retrieves the contact attributes for the specified contact.
 module Network.AWS.Connect.GetContactAttributes
   ( -- * Creating a Request
-    getContactAttributes,
-    GetContactAttributes,
+    GetContactAttributes (..),
+    newGetContactAttributes,
 
     -- * Request Lenses
-    gcaInstanceId,
-    gcaInitialContactId,
+    getContactAttributes_instanceId,
+    getContactAttributes_initialContactId,
 
     -- * Destructuring the Response
-    getContactAttributesResponse,
-    GetContactAttributesResponse,
+    GetContactAttributesResponse (..),
+    newGetContactAttributesResponse,
 
     -- * Response Lenses
-    gcarrsAttributes,
-    gcarrsResponseStatus,
+    getContactAttributesResponse_attributes,
+    getContactAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContactAttributes' smart constructor.
+-- | /See:/ 'newGetContactAttributes' smart constructor.
 data GetContactAttributes = GetContactAttributes'
-  { _gcaInstanceId ::
-      !Text,
-    _gcaInitialContactId :: !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the initial contact.
+    initialContactId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContactAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContactAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcaInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcaInitialContactId' - The identifier of the initial contact.
-getContactAttributes ::
-  -- | 'gcaInstanceId'
-  Text ->
-  -- | 'gcaInitialContactId'
-  Text ->
+-- 'instanceId', 'getContactAttributes_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'initialContactId', 'getContactAttributes_initialContactId' - The identifier of the initial contact.
+newGetContactAttributes ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'initialContactId'
+  Prelude.Text ->
   GetContactAttributes
-getContactAttributes pInstanceId_ pInitialContactId_ =
-  GetContactAttributes'
-    { _gcaInstanceId =
-        pInstanceId_,
-      _gcaInitialContactId = pInitialContactId_
-    }
+newGetContactAttributes
+  pInstanceId_
+  pInitialContactId_ =
+    GetContactAttributes'
+      { instanceId = pInstanceId_,
+        initialContactId = pInitialContactId_
+      }
 
 -- | The identifier of the Amazon Connect instance.
-gcaInstanceId :: Lens' GetContactAttributes Text
-gcaInstanceId = lens _gcaInstanceId (\s a -> s {_gcaInstanceId = a})
+getContactAttributes_instanceId :: Lens.Lens' GetContactAttributes Prelude.Text
+getContactAttributes_instanceId = Lens.lens (\GetContactAttributes' {instanceId} -> instanceId) (\s@GetContactAttributes' {} a -> s {instanceId = a} :: GetContactAttributes)
 
 -- | The identifier of the initial contact.
-gcaInitialContactId :: Lens' GetContactAttributes Text
-gcaInitialContactId = lens _gcaInitialContactId (\s a -> s {_gcaInitialContactId = a})
+getContactAttributes_initialContactId :: Lens.Lens' GetContactAttributes Prelude.Text
+getContactAttributes_initialContactId = Lens.lens (\GetContactAttributes' {initialContactId} -> initialContactId) (\s@GetContactAttributes' {} a -> s {initialContactId = a} :: GetContactAttributes)
 
-instance AWSRequest GetContactAttributes where
+instance Prelude.AWSRequest GetContactAttributes where
   type
     Rs GetContactAttributes =
       GetContactAttributesResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContactAttributesResponse'
-            <$> (x .?> "Attributes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Attributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContactAttributes
+instance Prelude.Hashable GetContactAttributes
 
-instance NFData GetContactAttributes
+instance Prelude.NFData GetContactAttributes
 
-instance ToHeaders GetContactAttributes where
+instance Prelude.ToHeaders GetContactAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetContactAttributes where
+instance Prelude.ToPath GetContactAttributes where
   toPath GetContactAttributes' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/contact/attributes/",
-        toBS _gcaInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _gcaInitialContactId
+        Prelude.toBS initialContactId
       ]
 
-instance ToQuery GetContactAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery GetContactAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContactAttributesResponse' smart constructor.
+-- | /See:/ 'newGetContactAttributesResponse' smart constructor.
 data GetContactAttributesResponse = GetContactAttributesResponse'
-  { _gcarrsAttributes ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _gcarrsResponseStatus ::
-      !Int
+  { -- | Information about the attributes.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContactAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContactAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcarrsAttributes' - Information about the attributes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcarrsResponseStatus' - -- | The response status code.
-getContactAttributesResponse ::
-  -- | 'gcarrsResponseStatus'
-  Int ->
+-- 'attributes', 'getContactAttributesResponse_attributes' - Information about the attributes.
+--
+-- 'httpStatus', 'getContactAttributesResponse_httpStatus' - The response's http status code.
+newGetContactAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContactAttributesResponse
-getContactAttributesResponse pResponseStatus_ =
+newGetContactAttributesResponse pHttpStatus_ =
   GetContactAttributesResponse'
-    { _gcarrsAttributes =
-        Nothing,
-      _gcarrsResponseStatus = pResponseStatus_
+    { attributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the attributes.
-gcarrsAttributes :: Lens' GetContactAttributesResponse (HashMap Text Text)
-gcarrsAttributes = lens _gcarrsAttributes (\s a -> s {_gcarrsAttributes = a}) . _Default . _Map
+getContactAttributesResponse_attributes :: Lens.Lens' GetContactAttributesResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getContactAttributesResponse_attributes = Lens.lens (\GetContactAttributesResponse' {attributes} -> attributes) (\s@GetContactAttributesResponse' {} a -> s {attributes = a} :: GetContactAttributesResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gcarrsResponseStatus :: Lens' GetContactAttributesResponse Int
-gcarrsResponseStatus = lens _gcarrsResponseStatus (\s a -> s {_gcarrsResponseStatus = a})
+-- | The response's http status code.
+getContactAttributesResponse_httpStatus :: Lens.Lens' GetContactAttributesResponse Prelude.Int
+getContactAttributesResponse_httpStatus = Lens.lens (\GetContactAttributesResponse' {httpStatus} -> httpStatus) (\s@GetContactAttributesResponse' {} a -> s {httpStatus = a} :: GetContactAttributesResponse)
 
-instance NFData GetContactAttributesResponse
+instance Prelude.NFData GetContactAttributesResponse

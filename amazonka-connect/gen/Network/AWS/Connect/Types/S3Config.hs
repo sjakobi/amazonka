@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,77 +20,84 @@
 module Network.AWS.Connect.Types.S3Config where
 
 import Network.AWS.Connect.Types.EncryptionConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the Amazon Simple Storage Service (Amazon S3) storage type.
+-- | Information about the Amazon Simple Storage Service (Amazon S3) storage
+-- type.
 --
---
---
--- /See:/ 's3Config' smart constructor.
+-- /See:/ 'newS3Config' smart constructor.
 data S3Config = S3Config'
-  { _scEncryptionConfig ::
-      !(Maybe EncryptionConfig),
-    _scBucketName :: !Text,
-    _scBucketPrefix :: !Text
+  { -- | The Amazon S3 encryption configuration.
+    encryptionConfig :: Prelude.Maybe EncryptionConfig,
+    -- | The S3 bucket name.
+    bucketName :: Prelude.Text,
+    -- | The S3 bucket prefix.
+    bucketPrefix :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3Config' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3Config' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scEncryptionConfig' - The Amazon S3 encryption configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scBucketName' - The S3 bucket name.
+-- 'encryptionConfig', 's3Config_encryptionConfig' - The Amazon S3 encryption configuration.
 --
--- * 'scBucketPrefix' - The S3 bucket prefix.
-s3Config ::
-  -- | 'scBucketName'
-  Text ->
-  -- | 'scBucketPrefix'
-  Text ->
+-- 'bucketName', 's3Config_bucketName' - The S3 bucket name.
+--
+-- 'bucketPrefix', 's3Config_bucketPrefix' - The S3 bucket prefix.
+newS3Config ::
+  -- | 'bucketName'
+  Prelude.Text ->
+  -- | 'bucketPrefix'
+  Prelude.Text ->
   S3Config
-s3Config pBucketName_ pBucketPrefix_ =
+newS3Config pBucketName_ pBucketPrefix_ =
   S3Config'
-    { _scEncryptionConfig = Nothing,
-      _scBucketName = pBucketName_,
-      _scBucketPrefix = pBucketPrefix_
+    { encryptionConfig = Prelude.Nothing,
+      bucketName = pBucketName_,
+      bucketPrefix = pBucketPrefix_
     }
 
 -- | The Amazon S3 encryption configuration.
-scEncryptionConfig :: Lens' S3Config (Maybe EncryptionConfig)
-scEncryptionConfig = lens _scEncryptionConfig (\s a -> s {_scEncryptionConfig = a})
+s3Config_encryptionConfig :: Lens.Lens' S3Config (Prelude.Maybe EncryptionConfig)
+s3Config_encryptionConfig = Lens.lens (\S3Config' {encryptionConfig} -> encryptionConfig) (\s@S3Config' {} a -> s {encryptionConfig = a} :: S3Config)
 
 -- | The S3 bucket name.
-scBucketName :: Lens' S3Config Text
-scBucketName = lens _scBucketName (\s a -> s {_scBucketName = a})
+s3Config_bucketName :: Lens.Lens' S3Config Prelude.Text
+s3Config_bucketName = Lens.lens (\S3Config' {bucketName} -> bucketName) (\s@S3Config' {} a -> s {bucketName = a} :: S3Config)
 
 -- | The S3 bucket prefix.
-scBucketPrefix :: Lens' S3Config Text
-scBucketPrefix = lens _scBucketPrefix (\s a -> s {_scBucketPrefix = a})
+s3Config_bucketPrefix :: Lens.Lens' S3Config Prelude.Text
+s3Config_bucketPrefix = Lens.lens (\S3Config' {bucketPrefix} -> bucketPrefix) (\s@S3Config' {} a -> s {bucketPrefix = a} :: S3Config)
 
-instance FromJSON S3Config where
+instance Prelude.FromJSON S3Config where
   parseJSON =
-    withObject
+    Prelude.withObject
       "S3Config"
       ( \x ->
           S3Config'
-            <$> (x .:? "EncryptionConfig")
-            <*> (x .: "BucketName")
-            <*> (x .: "BucketPrefix")
+            Prelude.<$> (x Prelude..:? "EncryptionConfig")
+            Prelude.<*> (x Prelude..: "BucketName")
+            Prelude.<*> (x Prelude..: "BucketPrefix")
       )
 
-instance Hashable S3Config
+instance Prelude.Hashable S3Config
 
-instance NFData S3Config
+instance Prelude.NFData S3Config
 
-instance ToJSON S3Config where
+instance Prelude.ToJSON S3Config where
   toJSON S3Config' {..} =
-    object
-      ( catMaybes
-          [ ("EncryptionConfig" .=) <$> _scEncryptionConfig,
-            Just ("BucketName" .= _scBucketName),
-            Just ("BucketPrefix" .= _scBucketPrefix)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EncryptionConfig" Prelude..=)
+              Prelude.<$> encryptionConfig,
+            Prelude.Just ("BucketName" Prelude..= bucketName),
+            Prelude.Just
+              ("BucketPrefix" Prelude..= bucketPrefix)
           ]
       )

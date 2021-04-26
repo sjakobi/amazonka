@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Returns a paginated list of all the Amazon Lex bots currently associated with the instance.
---
+-- Returns a paginated list of all the Amazon Lex bots currently associated
+-- with the instance.
 --
 -- This operation returns paginated results.
 module Network.AWS.Connect.ListLexBots
   ( -- * Creating a Request
-    listLexBots,
-    ListLexBots,
+    ListLexBots (..),
+    newListLexBots,
 
     -- * Request Lenses
-    llbNextToken,
-    llbMaxResults,
-    llbInstanceId,
+    listLexBots_nextToken,
+    listLexBots_maxResults,
+    listLexBots_instanceId,
 
     -- * Destructuring the Response
-    listLexBotsResponse,
-    ListLexBotsResponse,
+    ListLexBotsResponse (..),
+    newListLexBotsResponse,
 
     -- * Response Lenses
-    llbrrsNextToken,
-    llbrrsLexBots,
-    llbrrsResponseStatus,
+    listLexBotsResponse_nextToken,
+    listLexBotsResponse_lexBots,
+    listLexBotsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.LexBot
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listLexBots' smart constructor.
+-- | /See:/ 'newListLexBots' smart constructor.
 data ListLexBots = ListLexBots'
-  { _llbNextToken ::
-      !(Maybe Text),
-    _llbMaxResults :: !(Maybe Nat),
-    _llbInstanceId :: !Text
+  { -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListLexBots' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListLexBots' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llbNextToken' - The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llbMaxResults' - The maximum number of results to return per page.
+-- 'nextToken', 'listLexBots_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
 --
--- * 'llbInstanceId' - The identifier of the Amazon Connect instance.
-listLexBots ::
-  -- | 'llbInstanceId'
-  Text ->
+-- 'maxResults', 'listLexBots_maxResults' - The maximum number of results to return per page.
+--
+-- 'instanceId', 'listLexBots_instanceId' - The identifier of the Amazon Connect instance.
+newListLexBots ::
+  -- | 'instanceId'
+  Prelude.Text ->
   ListLexBots
-listLexBots pInstanceId_ =
+newListLexBots pInstanceId_ =
   ListLexBots'
-    { _llbNextToken = Nothing,
-      _llbMaxResults = Nothing,
-      _llbInstanceId = pInstanceId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
-llbNextToken :: Lens' ListLexBots (Maybe Text)
-llbNextToken = lens _llbNextToken (\s a -> s {_llbNextToken = a})
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+listLexBots_nextToken :: Lens.Lens' ListLexBots (Prelude.Maybe Prelude.Text)
+listLexBots_nextToken = Lens.lens (\ListLexBots' {nextToken} -> nextToken) (\s@ListLexBots' {} a -> s {nextToken = a} :: ListLexBots)
 
 -- | The maximum number of results to return per page.
-llbMaxResults :: Lens' ListLexBots (Maybe Natural)
-llbMaxResults = lens _llbMaxResults (\s a -> s {_llbMaxResults = a}) . mapping _Nat
+listLexBots_maxResults :: Lens.Lens' ListLexBots (Prelude.Maybe Prelude.Natural)
+listLexBots_maxResults = Lens.lens (\ListLexBots' {maxResults} -> maxResults) (\s@ListLexBots' {} a -> s {maxResults = a} :: ListLexBots) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The identifier of the Amazon Connect instance.
-llbInstanceId :: Lens' ListLexBots Text
-llbInstanceId = lens _llbInstanceId (\s a -> s {_llbInstanceId = a})
+listLexBots_instanceId :: Lens.Lens' ListLexBots Prelude.Text
+listLexBots_instanceId = Lens.lens (\ListLexBots' {instanceId} -> instanceId) (\s@ListLexBots' {} a -> s {instanceId = a} :: ListLexBots)
 
-instance AWSPager ListLexBots where
+instance Pager.AWSPager ListLexBots where
   page rq rs
-    | stop (rs ^. llbrrsNextToken) = Nothing
-    | stop (rs ^. llbrrsLexBots) = Nothing
-    | otherwise =
-      Just $ rq & llbNextToken .~ rs ^. llbrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listLexBotsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listLexBotsResponse_lexBots Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listLexBots_nextToken
+          Lens..~ rs
+          Lens.^? listLexBotsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListLexBots where
+instance Prelude.AWSRequest ListLexBots where
   type Rs ListLexBots = ListLexBotsResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListLexBotsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "LexBots" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "LexBots" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListLexBots
+instance Prelude.Hashable ListLexBots
 
-instance NFData ListLexBots
+instance Prelude.NFData ListLexBots
 
-instance ToHeaders ListLexBots where
+instance Prelude.ToHeaders ListLexBots where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListLexBots where
+instance Prelude.ToPath ListLexBots where
   toPath ListLexBots' {..} =
-    mconcat
-      ["/instance/", toBS _llbInstanceId, "/lex-bots"]
+    Prelude.mconcat
+      ["/instance/", Prelude.toBS instanceId, "/lex-bots"]
 
-instance ToQuery ListLexBots where
+instance Prelude.ToQuery ListLexBots where
   toQuery ListLexBots' {..} =
-    mconcat
-      [ "nextToken" =: _llbNextToken,
-        "maxResults" =: _llbMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listLexBotsResponse' smart constructor.
+-- | /See:/ 'newListLexBotsResponse' smart constructor.
 data ListLexBotsResponse = ListLexBotsResponse'
-  { _llbrrsNextToken ::
-      !(Maybe Text),
-    _llbrrsLexBots ::
-      !(Maybe [LexBot]),
-    _llbrrsResponseStatus :: !Int
+  { -- | If there are additional results, this is the token for the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The names and Regions of the Amazon Lex bots associated with the
+    -- specified instance.
+    lexBots :: Prelude.Maybe [LexBot],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListLexBotsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListLexBotsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llbrrsNextToken' - If there are additional results, this is the token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llbrrsLexBots' - The names and Regions of the Amazon Lex bots associated with the specified instance.
+-- 'nextToken', 'listLexBotsResponse_nextToken' - If there are additional results, this is the token for the next set of
+-- results.
 --
--- * 'llbrrsResponseStatus' - -- | The response status code.
-listLexBotsResponse ::
-  -- | 'llbrrsResponseStatus'
-  Int ->
+-- 'lexBots', 'listLexBotsResponse_lexBots' - The names and Regions of the Amazon Lex bots associated with the
+-- specified instance.
+--
+-- 'httpStatus', 'listLexBotsResponse_httpStatus' - The response's http status code.
+newListLexBotsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListLexBotsResponse
-listLexBotsResponse pResponseStatus_ =
+newListLexBotsResponse pHttpStatus_ =
   ListLexBotsResponse'
-    { _llbrrsNextToken = Nothing,
-      _llbrrsLexBots = Nothing,
-      _llbrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      lexBots = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are additional results, this is the token for the next set of results.
-llbrrsNextToken :: Lens' ListLexBotsResponse (Maybe Text)
-llbrrsNextToken = lens _llbrrsNextToken (\s a -> s {_llbrrsNextToken = a})
+-- | If there are additional results, this is the token for the next set of
+-- results.
+listLexBotsResponse_nextToken :: Lens.Lens' ListLexBotsResponse (Prelude.Maybe Prelude.Text)
+listLexBotsResponse_nextToken = Lens.lens (\ListLexBotsResponse' {nextToken} -> nextToken) (\s@ListLexBotsResponse' {} a -> s {nextToken = a} :: ListLexBotsResponse)
 
--- | The names and Regions of the Amazon Lex bots associated with the specified instance.
-llbrrsLexBots :: Lens' ListLexBotsResponse [LexBot]
-llbrrsLexBots = lens _llbrrsLexBots (\s a -> s {_llbrrsLexBots = a}) . _Default . _Coerce
+-- | The names and Regions of the Amazon Lex bots associated with the
+-- specified instance.
+listLexBotsResponse_lexBots :: Lens.Lens' ListLexBotsResponse (Prelude.Maybe [LexBot])
+listLexBotsResponse_lexBots = Lens.lens (\ListLexBotsResponse' {lexBots} -> lexBots) (\s@ListLexBotsResponse' {} a -> s {lexBots = a} :: ListLexBotsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-llbrrsResponseStatus :: Lens' ListLexBotsResponse Int
-llbrrsResponseStatus = lens _llbrrsResponseStatus (\s a -> s {_llbrrsResponseStatus = a})
+-- | The response's http status code.
+listLexBotsResponse_httpStatus :: Lens.Lens' ListLexBotsResponse Prelude.Int
+listLexBotsResponse_httpStatus = Lens.lens (\ListLexBotsResponse' {httpStatus} -> httpStatus) (\s@ListLexBotsResponse' {} a -> s {httpStatus = a} :: ListLexBotsResponse)
 
-instance NFData ListLexBotsResponse
+instance Prelude.NFData ListLexBotsResponse

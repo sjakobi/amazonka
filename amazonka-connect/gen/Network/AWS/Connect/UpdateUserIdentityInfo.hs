@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,142 +23,152 @@
 --
 -- Updates the identity information for the specified user.
 --
---
--- /Important:/ We strongly recommend limiting who has the ability to invoke @UpdateUserIdentityInfo@ . Someone with that ability can change the login credentials of other users by changing their email address. This poses a security risk to your organization. They can change the email address of a user to the attacker's email address, and then reset the password through email. For more information, see <https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-best-practices.html Best Practices for Security Profiles> in the /Amazon Connect Administrator Guide/ .
+-- We strongly recommend limiting who has the ability to invoke
+-- @UpdateUserIdentityInfo@. Someone with that ability can change the login
+-- credentials of other users by changing their email address. This poses a
+-- security risk to your organization. They can change the email address of
+-- a user to the attacker\'s email address, and then reset the password
+-- through email. For more information, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-best-practices.html Best Practices for Security Profiles>
+-- in the /Amazon Connect Administrator Guide/.
 module Network.AWS.Connect.UpdateUserIdentityInfo
   ( -- * Creating a Request
-    updateUserIdentityInfo,
-    UpdateUserIdentityInfo,
+    UpdateUserIdentityInfo (..),
+    newUpdateUserIdentityInfo,
 
     -- * Request Lenses
-    uuiiIdentityInfo,
-    uuiiUserId,
-    uuiiInstanceId,
+    updateUserIdentityInfo_identityInfo,
+    updateUserIdentityInfo_userId,
+    updateUserIdentityInfo_instanceId,
 
     -- * Destructuring the Response
-    updateUserIdentityInfoResponse,
-    UpdateUserIdentityInfoResponse,
+    UpdateUserIdentityInfoResponse (..),
+    newUpdateUserIdentityInfoResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateUserIdentityInfo' smart constructor.
+-- | /See:/ 'newUpdateUserIdentityInfo' smart constructor.
 data UpdateUserIdentityInfo = UpdateUserIdentityInfo'
-  { _uuiiIdentityInfo ::
-      !UserIdentityInfo,
-    _uuiiUserId :: !Text,
-    _uuiiInstanceId :: !Text
+  { -- | The identity information for the user.
+    identityInfo :: UserIdentityInfo,
+    -- | The identifier of the user account.
+    userId :: Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserIdentityInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserIdentityInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uuiiIdentityInfo' - The identity information for the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uuiiUserId' - The identifier of the user account.
+-- 'identityInfo', 'updateUserIdentityInfo_identityInfo' - The identity information for the user.
 --
--- * 'uuiiInstanceId' - The identifier of the Amazon Connect instance.
-updateUserIdentityInfo ::
-  -- | 'uuiiIdentityInfo'
+-- 'userId', 'updateUserIdentityInfo_userId' - The identifier of the user account.
+--
+-- 'instanceId', 'updateUserIdentityInfo_instanceId' - The identifier of the Amazon Connect instance.
+newUpdateUserIdentityInfo ::
+  -- | 'identityInfo'
   UserIdentityInfo ->
-  -- | 'uuiiUserId'
-  Text ->
-  -- | 'uuiiInstanceId'
-  Text ->
+  -- | 'userId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   UpdateUserIdentityInfo
-updateUserIdentityInfo
+newUpdateUserIdentityInfo
   pIdentityInfo_
   pUserId_
   pInstanceId_ =
     UpdateUserIdentityInfo'
-      { _uuiiIdentityInfo =
+      { identityInfo =
           pIdentityInfo_,
-        _uuiiUserId = pUserId_,
-        _uuiiInstanceId = pInstanceId_
+        userId = pUserId_,
+        instanceId = pInstanceId_
       }
 
 -- | The identity information for the user.
-uuiiIdentityInfo :: Lens' UpdateUserIdentityInfo UserIdentityInfo
-uuiiIdentityInfo = lens _uuiiIdentityInfo (\s a -> s {_uuiiIdentityInfo = a})
+updateUserIdentityInfo_identityInfo :: Lens.Lens' UpdateUserIdentityInfo UserIdentityInfo
+updateUserIdentityInfo_identityInfo = Lens.lens (\UpdateUserIdentityInfo' {identityInfo} -> identityInfo) (\s@UpdateUserIdentityInfo' {} a -> s {identityInfo = a} :: UpdateUserIdentityInfo)
 
 -- | The identifier of the user account.
-uuiiUserId :: Lens' UpdateUserIdentityInfo Text
-uuiiUserId = lens _uuiiUserId (\s a -> s {_uuiiUserId = a})
+updateUserIdentityInfo_userId :: Lens.Lens' UpdateUserIdentityInfo Prelude.Text
+updateUserIdentityInfo_userId = Lens.lens (\UpdateUserIdentityInfo' {userId} -> userId) (\s@UpdateUserIdentityInfo' {} a -> s {userId = a} :: UpdateUserIdentityInfo)
 
 -- | The identifier of the Amazon Connect instance.
-uuiiInstanceId :: Lens' UpdateUserIdentityInfo Text
-uuiiInstanceId = lens _uuiiInstanceId (\s a -> s {_uuiiInstanceId = a})
+updateUserIdentityInfo_instanceId :: Lens.Lens' UpdateUserIdentityInfo Prelude.Text
+updateUserIdentityInfo_instanceId = Lens.lens (\UpdateUserIdentityInfo' {instanceId} -> instanceId) (\s@UpdateUserIdentityInfo' {} a -> s {instanceId = a} :: UpdateUserIdentityInfo)
 
-instance AWSRequest UpdateUserIdentityInfo where
+instance Prelude.AWSRequest UpdateUserIdentityInfo where
   type
     Rs UpdateUserIdentityInfo =
       UpdateUserIdentityInfoResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateUserIdentityInfoResponse'
+    Response.receiveNull
+      UpdateUserIdentityInfoResponse'
 
-instance Hashable UpdateUserIdentityInfo
+instance Prelude.Hashable UpdateUserIdentityInfo
 
-instance NFData UpdateUserIdentityInfo
+instance Prelude.NFData UpdateUserIdentityInfo
 
-instance ToHeaders UpdateUserIdentityInfo where
+instance Prelude.ToHeaders UpdateUserIdentityInfo where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateUserIdentityInfo where
+instance Prelude.ToJSON UpdateUserIdentityInfo where
   toJSON UpdateUserIdentityInfo' {..} =
-    object
-      ( catMaybes
-          [Just ("IdentityInfo" .= _uuiiIdentityInfo)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("IdentityInfo" Prelude..= identityInfo)
+          ]
       )
 
-instance ToPath UpdateUserIdentityInfo where
+instance Prelude.ToPath UpdateUserIdentityInfo where
   toPath UpdateUserIdentityInfo' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/users/",
-        toBS _uuiiInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _uuiiUserId,
+        Prelude.toBS userId,
         "/identity-info"
       ]
 
-instance ToQuery UpdateUserIdentityInfo where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateUserIdentityInfo where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateUserIdentityInfoResponse' smart constructor.
+-- | /See:/ 'newUpdateUserIdentityInfoResponse' smart constructor.
 data UpdateUserIdentityInfoResponse = UpdateUserIdentityInfoResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserIdentityInfoResponse' with the minimum fields required to make a request.
-updateUserIdentityInfoResponse ::
+-- |
+-- Create a value of 'UpdateUserIdentityInfoResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateUserIdentityInfoResponse ::
   UpdateUserIdentityInfoResponse
-updateUserIdentityInfoResponse =
+newUpdateUserIdentityInfoResponse =
   UpdateUserIdentityInfoResponse'
 
-instance NFData UpdateUserIdentityInfoResponse
+instance
+  Prelude.NFData
+    UpdateUserIdentityInfoResponse

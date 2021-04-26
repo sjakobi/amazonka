@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,209 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Returns a paginated list of all approved origins associated with the instance.
---
+-- Returns a paginated list of all approved origins associated with the
+-- instance.
 --
 -- This operation returns paginated results.
 module Network.AWS.Connect.ListApprovedOrigins
   ( -- * Creating a Request
-    listApprovedOrigins,
-    ListApprovedOrigins,
+    ListApprovedOrigins (..),
+    newListApprovedOrigins,
 
     -- * Request Lenses
-    laoNextToken,
-    laoMaxResults,
-    laoInstanceId,
+    listApprovedOrigins_nextToken,
+    listApprovedOrigins_maxResults,
+    listApprovedOrigins_instanceId,
 
     -- * Destructuring the Response
-    listApprovedOriginsResponse,
-    ListApprovedOriginsResponse,
+    ListApprovedOriginsResponse (..),
+    newListApprovedOriginsResponse,
 
     -- * Response Lenses
-    laorrsOrigins,
-    laorrsNextToken,
-    laorrsResponseStatus,
+    listApprovedOriginsResponse_origins,
+    listApprovedOriginsResponse_nextToken,
+    listApprovedOriginsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listApprovedOrigins' smart constructor.
+-- | /See:/ 'newListApprovedOrigins' smart constructor.
 data ListApprovedOrigins = ListApprovedOrigins'
-  { _laoNextToken ::
-      !(Maybe Text),
-    _laoMaxResults :: !(Maybe Nat),
-    _laoInstanceId :: !Text
+  { -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListApprovedOrigins' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListApprovedOrigins' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laoNextToken' - The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laoMaxResults' - The maximum number of results to return per page.
+-- 'nextToken', 'listApprovedOrigins_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
 --
--- * 'laoInstanceId' - The identifier of the Amazon Connect instance.
-listApprovedOrigins ::
-  -- | 'laoInstanceId'
-  Text ->
+-- 'maxResults', 'listApprovedOrigins_maxResults' - The maximum number of results to return per page.
+--
+-- 'instanceId', 'listApprovedOrigins_instanceId' - The identifier of the Amazon Connect instance.
+newListApprovedOrigins ::
+  -- | 'instanceId'
+  Prelude.Text ->
   ListApprovedOrigins
-listApprovedOrigins pInstanceId_ =
+newListApprovedOrigins pInstanceId_ =
   ListApprovedOrigins'
-    { _laoNextToken = Nothing,
-      _laoMaxResults = Nothing,
-      _laoInstanceId = pInstanceId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
-laoNextToken :: Lens' ListApprovedOrigins (Maybe Text)
-laoNextToken = lens _laoNextToken (\s a -> s {_laoNextToken = a})
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+listApprovedOrigins_nextToken :: Lens.Lens' ListApprovedOrigins (Prelude.Maybe Prelude.Text)
+listApprovedOrigins_nextToken = Lens.lens (\ListApprovedOrigins' {nextToken} -> nextToken) (\s@ListApprovedOrigins' {} a -> s {nextToken = a} :: ListApprovedOrigins)
 
 -- | The maximum number of results to return per page.
-laoMaxResults :: Lens' ListApprovedOrigins (Maybe Natural)
-laoMaxResults = lens _laoMaxResults (\s a -> s {_laoMaxResults = a}) . mapping _Nat
+listApprovedOrigins_maxResults :: Lens.Lens' ListApprovedOrigins (Prelude.Maybe Prelude.Natural)
+listApprovedOrigins_maxResults = Lens.lens (\ListApprovedOrigins' {maxResults} -> maxResults) (\s@ListApprovedOrigins' {} a -> s {maxResults = a} :: ListApprovedOrigins) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The identifier of the Amazon Connect instance.
-laoInstanceId :: Lens' ListApprovedOrigins Text
-laoInstanceId = lens _laoInstanceId (\s a -> s {_laoInstanceId = a})
+listApprovedOrigins_instanceId :: Lens.Lens' ListApprovedOrigins Prelude.Text
+listApprovedOrigins_instanceId = Lens.lens (\ListApprovedOrigins' {instanceId} -> instanceId) (\s@ListApprovedOrigins' {} a -> s {instanceId = a} :: ListApprovedOrigins)
 
-instance AWSPager ListApprovedOrigins where
+instance Pager.AWSPager ListApprovedOrigins where
   page rq rs
-    | stop (rs ^. laorrsNextToken) = Nothing
-    | stop (rs ^. laorrsOrigins) = Nothing
-    | otherwise =
-      Just $ rq & laoNextToken .~ rs ^. laorrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listApprovedOriginsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listApprovedOriginsResponse_origins
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listApprovedOrigins_nextToken
+          Lens..~ rs
+          Lens.^? listApprovedOriginsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListApprovedOrigins where
+instance Prelude.AWSRequest ListApprovedOrigins where
   type
     Rs ListApprovedOrigins =
       ListApprovedOriginsResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListApprovedOriginsResponse'
-            <$> (x .?> "Origins" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Origins" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListApprovedOrigins
+instance Prelude.Hashable ListApprovedOrigins
 
-instance NFData ListApprovedOrigins
+instance Prelude.NFData ListApprovedOrigins
 
-instance ToHeaders ListApprovedOrigins where
+instance Prelude.ToHeaders ListApprovedOrigins where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListApprovedOrigins where
+instance Prelude.ToPath ListApprovedOrigins where
   toPath ListApprovedOrigins' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _laoInstanceId,
+        Prelude.toBS instanceId,
         "/approved-origins"
       ]
 
-instance ToQuery ListApprovedOrigins where
+instance Prelude.ToQuery ListApprovedOrigins where
   toQuery ListApprovedOrigins' {..} =
-    mconcat
-      [ "nextToken" =: _laoNextToken,
-        "maxResults" =: _laoMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listApprovedOriginsResponse' smart constructor.
+-- | /See:/ 'newListApprovedOriginsResponse' smart constructor.
 data ListApprovedOriginsResponse = ListApprovedOriginsResponse'
-  { _laorrsOrigins ::
-      !(Maybe [Text]),
-    _laorrsNextToken ::
-      !(Maybe Text),
-    _laorrsResponseStatus ::
-      !Int
+  { -- | The approved origins.
+    origins :: Prelude.Maybe [Prelude.Text],
+    -- | If there are additional results, this is the token for the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListApprovedOriginsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListApprovedOriginsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laorrsOrigins' - The approved origins.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laorrsNextToken' - If there are additional results, this is the token for the next set of results.
+-- 'origins', 'listApprovedOriginsResponse_origins' - The approved origins.
 --
--- * 'laorrsResponseStatus' - -- | The response status code.
-listApprovedOriginsResponse ::
-  -- | 'laorrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listApprovedOriginsResponse_nextToken' - If there are additional results, this is the token for the next set of
+-- results.
+--
+-- 'httpStatus', 'listApprovedOriginsResponse_httpStatus' - The response's http status code.
+newListApprovedOriginsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListApprovedOriginsResponse
-listApprovedOriginsResponse pResponseStatus_ =
+newListApprovedOriginsResponse pHttpStatus_ =
   ListApprovedOriginsResponse'
-    { _laorrsOrigins =
-        Nothing,
-      _laorrsNextToken = Nothing,
-      _laorrsResponseStatus = pResponseStatus_
+    { origins =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The approved origins.
-laorrsOrigins :: Lens' ListApprovedOriginsResponse [Text]
-laorrsOrigins = lens _laorrsOrigins (\s a -> s {_laorrsOrigins = a}) . _Default . _Coerce
+listApprovedOriginsResponse_origins :: Lens.Lens' ListApprovedOriginsResponse (Prelude.Maybe [Prelude.Text])
+listApprovedOriginsResponse_origins = Lens.lens (\ListApprovedOriginsResponse' {origins} -> origins) (\s@ListApprovedOriginsResponse' {} a -> s {origins = a} :: ListApprovedOriginsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If there are additional results, this is the token for the next set of results.
-laorrsNextToken :: Lens' ListApprovedOriginsResponse (Maybe Text)
-laorrsNextToken = lens _laorrsNextToken (\s a -> s {_laorrsNextToken = a})
+-- | If there are additional results, this is the token for the next set of
+-- results.
+listApprovedOriginsResponse_nextToken :: Lens.Lens' ListApprovedOriginsResponse (Prelude.Maybe Prelude.Text)
+listApprovedOriginsResponse_nextToken = Lens.lens (\ListApprovedOriginsResponse' {nextToken} -> nextToken) (\s@ListApprovedOriginsResponse' {} a -> s {nextToken = a} :: ListApprovedOriginsResponse)
 
--- | -- | The response status code.
-laorrsResponseStatus :: Lens' ListApprovedOriginsResponse Int
-laorrsResponseStatus = lens _laorrsResponseStatus (\s a -> s {_laorrsResponseStatus = a})
+-- | The response's http status code.
+listApprovedOriginsResponse_httpStatus :: Lens.Lens' ListApprovedOriginsResponse Prelude.Int
+listApprovedOriginsResponse_httpStatus = Lens.lens (\ListApprovedOriginsResponse' {httpStatus} -> httpStatus) (\s@ListApprovedOriginsResponse' {} a -> s {httpStatus = a} :: ListApprovedOriginsResponse)
 
-instance NFData ListApprovedOriginsResponse
+instance Prelude.NFData ListApprovedOriginsResponse

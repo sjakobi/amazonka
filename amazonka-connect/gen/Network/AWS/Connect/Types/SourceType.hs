@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Connect.Types.SourceType
   ( SourceType
       ( ..,
-        Salesforce,
-        Zendesk
+        SourceTypeSALESFORCE,
+        SourceTypeZENDESK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SourceType = SourceType' (CI Text)
+newtype SourceType = SourceType'
+  { fromSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Salesforce :: SourceType
-pattern Salesforce = SourceType' "SALESFORCE"
+pattern SourceTypeSALESFORCE :: SourceType
+pattern SourceTypeSALESFORCE = SourceType' "SALESFORCE"
 
-pattern Zendesk :: SourceType
-pattern Zendesk = SourceType' "ZENDESK"
+pattern SourceTypeZENDESK :: SourceType
+pattern SourceTypeZENDESK = SourceType' "ZENDESK"
 
 {-# COMPLETE
-  Salesforce,
-  Zendesk,
+  SourceTypeSALESFORCE,
+  SourceTypeZENDESK,
   SourceType'
   #-}
 
-instance FromText SourceType where
-  parser = (SourceType' . mk) <$> takeText
+instance Prelude.FromText SourceType where
+  parser = SourceType' Prelude.<$> Prelude.takeText
 
-instance ToText SourceType where
-  toText (SourceType' ci) = original ci
+instance Prelude.ToText SourceType where
+  toText (SourceType' x) = x
 
-instance Hashable SourceType
+instance Prelude.Hashable SourceType
 
-instance NFData SourceType
+instance Prelude.NFData SourceType
 
-instance ToByteString SourceType
+instance Prelude.ToByteString SourceType
 
-instance ToQuery SourceType
+instance Prelude.ToQuery SourceType
 
-instance ToHeader SourceType
+instance Prelude.ToHeader SourceType
 
-instance ToJSON SourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SourceType where
-  parseJSON = parseJSONText "SourceType"
+instance Prelude.FromJSON SourceType where
+  parseJSON = Prelude.parseJSONText "SourceType"

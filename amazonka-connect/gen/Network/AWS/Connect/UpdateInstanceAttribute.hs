@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,141 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Updates the value for the specified attribute type.
 module Network.AWS.Connect.UpdateInstanceAttribute
   ( -- * Creating a Request
-    updateInstanceAttribute,
-    UpdateInstanceAttribute,
+    UpdateInstanceAttribute (..),
+    newUpdateInstanceAttribute,
 
     -- * Request Lenses
-    uiaInstanceId,
-    uiaAttributeType,
-    uiaValue,
+    updateInstanceAttribute_instanceId,
+    updateInstanceAttribute_attributeType,
+    updateInstanceAttribute_value,
 
     -- * Destructuring the Response
-    updateInstanceAttributeResponse,
-    UpdateInstanceAttributeResponse,
+    UpdateInstanceAttributeResponse (..),
+    newUpdateInstanceAttributeResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateInstanceAttribute' smart constructor.
+-- | /See:/ 'newUpdateInstanceAttribute' smart constructor.
 data UpdateInstanceAttribute = UpdateInstanceAttribute'
-  { _uiaInstanceId ::
-      !Text,
-    _uiaAttributeType ::
-      !InstanceAttributeType,
-    _uiaValue :: !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The type of attribute.
+    attributeType :: InstanceAttributeType,
+    -- | The value for the attribute. Maximum character limit is 100.
+    value :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateInstanceAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateInstanceAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uiaInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uiaAttributeType' - The type of attribute.
+-- 'instanceId', 'updateInstanceAttribute_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'uiaValue' - The value for the attribute. Maximum character limit is 100.
-updateInstanceAttribute ::
-  -- | 'uiaInstanceId'
-  Text ->
-  -- | 'uiaAttributeType'
+-- 'attributeType', 'updateInstanceAttribute_attributeType' - The type of attribute.
+--
+-- 'value', 'updateInstanceAttribute_value' - The value for the attribute. Maximum character limit is 100.
+newUpdateInstanceAttribute ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'attributeType'
   InstanceAttributeType ->
-  -- | 'uiaValue'
-  Text ->
+  -- | 'value'
+  Prelude.Text ->
   UpdateInstanceAttribute
-updateInstanceAttribute
+newUpdateInstanceAttribute
   pInstanceId_
   pAttributeType_
   pValue_ =
     UpdateInstanceAttribute'
-      { _uiaInstanceId =
-          pInstanceId_,
-        _uiaAttributeType = pAttributeType_,
-        _uiaValue = pValue_
+      { instanceId = pInstanceId_,
+        attributeType = pAttributeType_,
+        value = pValue_
       }
 
 -- | The identifier of the Amazon Connect instance.
-uiaInstanceId :: Lens' UpdateInstanceAttribute Text
-uiaInstanceId = lens _uiaInstanceId (\s a -> s {_uiaInstanceId = a})
+updateInstanceAttribute_instanceId :: Lens.Lens' UpdateInstanceAttribute Prelude.Text
+updateInstanceAttribute_instanceId = Lens.lens (\UpdateInstanceAttribute' {instanceId} -> instanceId) (\s@UpdateInstanceAttribute' {} a -> s {instanceId = a} :: UpdateInstanceAttribute)
 
 -- | The type of attribute.
-uiaAttributeType :: Lens' UpdateInstanceAttribute InstanceAttributeType
-uiaAttributeType = lens _uiaAttributeType (\s a -> s {_uiaAttributeType = a})
+updateInstanceAttribute_attributeType :: Lens.Lens' UpdateInstanceAttribute InstanceAttributeType
+updateInstanceAttribute_attributeType = Lens.lens (\UpdateInstanceAttribute' {attributeType} -> attributeType) (\s@UpdateInstanceAttribute' {} a -> s {attributeType = a} :: UpdateInstanceAttribute)
 
 -- | The value for the attribute. Maximum character limit is 100.
-uiaValue :: Lens' UpdateInstanceAttribute Text
-uiaValue = lens _uiaValue (\s a -> s {_uiaValue = a})
+updateInstanceAttribute_value :: Lens.Lens' UpdateInstanceAttribute Prelude.Text
+updateInstanceAttribute_value = Lens.lens (\UpdateInstanceAttribute' {value} -> value) (\s@UpdateInstanceAttribute' {} a -> s {value = a} :: UpdateInstanceAttribute)
 
-instance AWSRequest UpdateInstanceAttribute where
+instance Prelude.AWSRequest UpdateInstanceAttribute where
   type
     Rs UpdateInstanceAttribute =
       UpdateInstanceAttributeResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateInstanceAttributeResponse'
+    Response.receiveNull
+      UpdateInstanceAttributeResponse'
 
-instance Hashable UpdateInstanceAttribute
+instance Prelude.Hashable UpdateInstanceAttribute
 
-instance NFData UpdateInstanceAttribute
+instance Prelude.NFData UpdateInstanceAttribute
 
-instance ToHeaders UpdateInstanceAttribute where
+instance Prelude.ToHeaders UpdateInstanceAttribute where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateInstanceAttribute where
+instance Prelude.ToJSON UpdateInstanceAttribute where
   toJSON UpdateInstanceAttribute' {..} =
-    object (catMaybes [Just ("Value" .= _uiaValue)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Value" Prelude..= value)]
+      )
 
-instance ToPath UpdateInstanceAttribute where
+instance Prelude.ToPath UpdateInstanceAttribute where
   toPath UpdateInstanceAttribute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _uiaInstanceId,
+        Prelude.toBS instanceId,
         "/attribute/",
-        toBS _uiaAttributeType
+        Prelude.toBS attributeType
       ]
 
-instance ToQuery UpdateInstanceAttribute where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateInstanceAttribute where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateInstanceAttributeResponse' smart constructor.
+-- | /See:/ 'newUpdateInstanceAttributeResponse' smart constructor.
 data UpdateInstanceAttributeResponse = UpdateInstanceAttributeResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateInstanceAttributeResponse' with the minimum fields required to make a request.
-updateInstanceAttributeResponse ::
+-- |
+-- Create a value of 'UpdateInstanceAttributeResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateInstanceAttributeResponse ::
   UpdateInstanceAttributeResponse
-updateInstanceAttributeResponse =
+newUpdateInstanceAttributeResponse =
   UpdateInstanceAttributeResponse'
 
-instance NFData UpdateInstanceAttributeResponse
+instance
+  Prelude.NFData
+    UpdateInstanceAttributeResponse

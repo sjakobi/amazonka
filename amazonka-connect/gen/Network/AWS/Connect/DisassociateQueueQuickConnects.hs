@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,168 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Disassociates a set of quick connects from a queue.
 module Network.AWS.Connect.DisassociateQueueQuickConnects
   ( -- * Creating a Request
-    disassociateQueueQuickConnects,
-    DisassociateQueueQuickConnects,
+    DisassociateQueueQuickConnects (..),
+    newDisassociateQueueQuickConnects,
 
     -- * Request Lenses
-    dqqcInstanceId,
-    dqqcQueueId,
-    dqqcQuickConnectIds,
+    disassociateQueueQuickConnects_instanceId,
+    disassociateQueueQuickConnects_queueId,
+    disassociateQueueQuickConnects_quickConnectIds,
 
     -- * Destructuring the Response
-    disassociateQueueQuickConnectsResponse,
-    DisassociateQueueQuickConnectsResponse,
+    DisassociateQueueQuickConnectsResponse (..),
+    newDisassociateQueueQuickConnectsResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateQueueQuickConnects' smart constructor.
+-- | /See:/ 'newDisassociateQueueQuickConnects' smart constructor.
 data DisassociateQueueQuickConnects = DisassociateQueueQuickConnects'
-  { _dqqcInstanceId ::
-      !Text,
-    _dqqcQueueId ::
-      !Text,
-    _dqqcQuickConnectIds ::
-      !( List1
-           Text
-       )
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the queue.
+    queueId :: Prelude.Text,
+    -- | The quick connects to disassociate from the queue.
+    quickConnectIds :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateQueueQuickConnects' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateQueueQuickConnects' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dqqcInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dqqcQueueId' - The identifier for the queue.
+-- 'instanceId', 'disassociateQueueQuickConnects_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'dqqcQuickConnectIds' - The quick connects to disassociate from the queue.
-disassociateQueueQuickConnects ::
-  -- | 'dqqcInstanceId'
-  Text ->
-  -- | 'dqqcQueueId'
-  Text ->
-  -- | 'dqqcQuickConnectIds'
-  NonEmpty Text ->
+-- 'queueId', 'disassociateQueueQuickConnects_queueId' - The identifier for the queue.
+--
+-- 'quickConnectIds', 'disassociateQueueQuickConnects_quickConnectIds' - The quick connects to disassociate from the queue.
+newDisassociateQueueQuickConnects ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'queueId'
+  Prelude.Text ->
+  -- | 'quickConnectIds'
+  Prelude.NonEmpty Prelude.Text ->
   DisassociateQueueQuickConnects
-disassociateQueueQuickConnects
+newDisassociateQueueQuickConnects
   pInstanceId_
   pQueueId_
   pQuickConnectIds_ =
     DisassociateQueueQuickConnects'
-      { _dqqcInstanceId =
+      { instanceId =
           pInstanceId_,
-        _dqqcQueueId = pQueueId_,
-        _dqqcQuickConnectIds =
-          _List1 # pQuickConnectIds_
+        queueId = pQueueId_,
+        quickConnectIds =
+          Prelude._List1 Lens.# pQuickConnectIds_
       }
 
 -- | The identifier of the Amazon Connect instance.
-dqqcInstanceId :: Lens' DisassociateQueueQuickConnects Text
-dqqcInstanceId = lens _dqqcInstanceId (\s a -> s {_dqqcInstanceId = a})
+disassociateQueueQuickConnects_instanceId :: Lens.Lens' DisassociateQueueQuickConnects Prelude.Text
+disassociateQueueQuickConnects_instanceId = Lens.lens (\DisassociateQueueQuickConnects' {instanceId} -> instanceId) (\s@DisassociateQueueQuickConnects' {} a -> s {instanceId = a} :: DisassociateQueueQuickConnects)
 
 -- | The identifier for the queue.
-dqqcQueueId :: Lens' DisassociateQueueQuickConnects Text
-dqqcQueueId = lens _dqqcQueueId (\s a -> s {_dqqcQueueId = a})
+disassociateQueueQuickConnects_queueId :: Lens.Lens' DisassociateQueueQuickConnects Prelude.Text
+disassociateQueueQuickConnects_queueId = Lens.lens (\DisassociateQueueQuickConnects' {queueId} -> queueId) (\s@DisassociateQueueQuickConnects' {} a -> s {queueId = a} :: DisassociateQueueQuickConnects)
 
 -- | The quick connects to disassociate from the queue.
-dqqcQuickConnectIds :: Lens' DisassociateQueueQuickConnects (NonEmpty Text)
-dqqcQuickConnectIds = lens _dqqcQuickConnectIds (\s a -> s {_dqqcQuickConnectIds = a}) . _List1
+disassociateQueueQuickConnects_quickConnectIds :: Lens.Lens' DisassociateQueueQuickConnects (Prelude.NonEmpty Prelude.Text)
+disassociateQueueQuickConnects_quickConnectIds = Lens.lens (\DisassociateQueueQuickConnects' {quickConnectIds} -> quickConnectIds) (\s@DisassociateQueueQuickConnects' {} a -> s {quickConnectIds = a} :: DisassociateQueueQuickConnects) Prelude.. Prelude._List1
 
-instance AWSRequest DisassociateQueueQuickConnects where
+instance
+  Prelude.AWSRequest
+    DisassociateQueueQuickConnects
+  where
   type
     Rs DisassociateQueueQuickConnects =
       DisassociateQueueQuickConnectsResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull DisassociateQueueQuickConnectsResponse'
+    Response.receiveNull
+      DisassociateQueueQuickConnectsResponse'
 
-instance Hashable DisassociateQueueQuickConnects
+instance
+  Prelude.Hashable
+    DisassociateQueueQuickConnects
 
-instance NFData DisassociateQueueQuickConnects
+instance
+  Prelude.NFData
+    DisassociateQueueQuickConnects
 
-instance ToHeaders DisassociateQueueQuickConnects where
+instance
+  Prelude.ToHeaders
+    DisassociateQueueQuickConnects
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisassociateQueueQuickConnects where
+instance
+  Prelude.ToJSON
+    DisassociateQueueQuickConnects
+  where
   toJSON DisassociateQueueQuickConnects' {..} =
-    object
-      ( catMaybes
-          [Just ("QuickConnectIds" .= _dqqcQuickConnectIds)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("QuickConnectIds" Prelude..= quickConnectIds)
+          ]
       )
 
-instance ToPath DisassociateQueueQuickConnects where
+instance
+  Prelude.ToPath
+    DisassociateQueueQuickConnects
+  where
   toPath DisassociateQueueQuickConnects' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/queues/",
-        toBS _dqqcInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _dqqcQueueId,
+        Prelude.toBS queueId,
         "/disassociate-quick-connects"
       ]
 
-instance ToQuery DisassociateQueueQuickConnects where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DisassociateQueueQuickConnects
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disassociateQueueQuickConnectsResponse' smart constructor.
+-- | /See:/ 'newDisassociateQueueQuickConnectsResponse' smart constructor.
 data DisassociateQueueQuickConnectsResponse = DisassociateQueueQuickConnectsResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateQueueQuickConnectsResponse' with the minimum fields required to make a request.
-disassociateQueueQuickConnectsResponse ::
+-- |
+-- Create a value of 'DisassociateQueueQuickConnectsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDisassociateQueueQuickConnectsResponse ::
   DisassociateQueueQuickConnectsResponse
-disassociateQueueQuickConnectsResponse =
+newDisassociateQueueQuickConnectsResponse =
   DisassociateQueueQuickConnectsResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DisassociateQueueQuickConnectsResponse

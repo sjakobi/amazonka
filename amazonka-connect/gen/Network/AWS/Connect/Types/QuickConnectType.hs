@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Connect.Types.QuickConnectType
   ( QuickConnectType
       ( ..,
-        PhoneNumber,
-        Queue,
-        User
+        QuickConnectTypePHONENUMBER,
+        QuickConnectTypeQUEUE,
+        QuickConnectTypeUSER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QuickConnectType = QuickConnectType' (CI Text)
+newtype QuickConnectType = QuickConnectType'
+  { fromQuickConnectType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PhoneNumber :: QuickConnectType
-pattern PhoneNumber = QuickConnectType' "PHONE_NUMBER"
+pattern QuickConnectTypePHONENUMBER :: QuickConnectType
+pattern QuickConnectTypePHONENUMBER = QuickConnectType' "PHONE_NUMBER"
 
-pattern Queue :: QuickConnectType
-pattern Queue = QuickConnectType' "QUEUE"
+pattern QuickConnectTypeQUEUE :: QuickConnectType
+pattern QuickConnectTypeQUEUE = QuickConnectType' "QUEUE"
 
-pattern User :: QuickConnectType
-pattern User = QuickConnectType' "USER"
+pattern QuickConnectTypeUSER :: QuickConnectType
+pattern QuickConnectTypeUSER = QuickConnectType' "USER"
 
 {-# COMPLETE
-  PhoneNumber,
-  Queue,
-  User,
+  QuickConnectTypePHONENUMBER,
+  QuickConnectTypeQUEUE,
+  QuickConnectTypeUSER,
   QuickConnectType'
   #-}
 
-instance FromText QuickConnectType where
-  parser = (QuickConnectType' . mk) <$> takeText
+instance Prelude.FromText QuickConnectType where
+  parser = QuickConnectType' Prelude.<$> Prelude.takeText
 
-instance ToText QuickConnectType where
-  toText (QuickConnectType' ci) = original ci
+instance Prelude.ToText QuickConnectType where
+  toText (QuickConnectType' x) = x
 
-instance Hashable QuickConnectType
+instance Prelude.Hashable QuickConnectType
 
-instance NFData QuickConnectType
+instance Prelude.NFData QuickConnectType
 
-instance ToByteString QuickConnectType
+instance Prelude.ToByteString QuickConnectType
 
-instance ToQuery QuickConnectType
+instance Prelude.ToQuery QuickConnectType
 
-instance ToHeader QuickConnectType
+instance Prelude.ToHeader QuickConnectType
 
-instance ToJSON QuickConnectType where
-  toJSON = toJSONText
+instance Prelude.ToJSON QuickConnectType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON QuickConnectType where
-  parseJSON = parseJSONText "QuickConnectType"
+instance Prelude.FromJSON QuickConnectType where
+  parseJSON = Prelude.parseJSONText "QuickConnectType"

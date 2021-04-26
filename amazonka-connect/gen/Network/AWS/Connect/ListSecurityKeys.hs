@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Returns a paginated list of all security keys associated with the instance.
---
+-- Returns a paginated list of all security keys associated with the
+-- instance.
 --
 -- This operation returns paginated results.
 module Network.AWS.Connect.ListSecurityKeys
   ( -- * Creating a Request
-    listSecurityKeys,
-    ListSecurityKeys,
+    ListSecurityKeys (..),
+    newListSecurityKeys,
 
     -- * Request Lenses
-    lskNextToken,
-    lskMaxResults,
-    lskInstanceId,
+    listSecurityKeys_nextToken,
+    listSecurityKeys_maxResults,
+    listSecurityKeys_instanceId,
 
     -- * Destructuring the Response
-    listSecurityKeysResponse,
-    ListSecurityKeysResponse,
+    ListSecurityKeysResponse (..),
+    newListSecurityKeysResponse,
 
     -- * Response Lenses
-    lskrrsNextToken,
-    lskrrsSecurityKeys,
-    lskrrsResponseStatus,
+    listSecurityKeysResponse_nextToken,
+    listSecurityKeysResponse_securityKeys,
+    listSecurityKeysResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.SecurityKey
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSecurityKeys' smart constructor.
+-- | /See:/ 'newListSecurityKeys' smart constructor.
 data ListSecurityKeys = ListSecurityKeys'
-  { _lskNextToken ::
-      !(Maybe Text),
-    _lskMaxResults :: !(Maybe Nat),
-    _lskInstanceId :: !Text
+  { -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSecurityKeys' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSecurityKeys' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lskNextToken' - The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lskMaxResults' - The maximum number of results to return per page.
+-- 'nextToken', 'listSecurityKeys_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
 --
--- * 'lskInstanceId' - The identifier of the Amazon Connect instance.
-listSecurityKeys ::
-  -- | 'lskInstanceId'
-  Text ->
+-- 'maxResults', 'listSecurityKeys_maxResults' - The maximum number of results to return per page.
+--
+-- 'instanceId', 'listSecurityKeys_instanceId' - The identifier of the Amazon Connect instance.
+newListSecurityKeys ::
+  -- | 'instanceId'
+  Prelude.Text ->
   ListSecurityKeys
-listSecurityKeys pInstanceId_ =
+newListSecurityKeys pInstanceId_ =
   ListSecurityKeys'
-    { _lskNextToken = Nothing,
-      _lskMaxResults = Nothing,
-      _lskInstanceId = pInstanceId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
-lskNextToken :: Lens' ListSecurityKeys (Maybe Text)
-lskNextToken = lens _lskNextToken (\s a -> s {_lskNextToken = a})
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+listSecurityKeys_nextToken :: Lens.Lens' ListSecurityKeys (Prelude.Maybe Prelude.Text)
+listSecurityKeys_nextToken = Lens.lens (\ListSecurityKeys' {nextToken} -> nextToken) (\s@ListSecurityKeys' {} a -> s {nextToken = a} :: ListSecurityKeys)
 
 -- | The maximum number of results to return per page.
-lskMaxResults :: Lens' ListSecurityKeys (Maybe Natural)
-lskMaxResults = lens _lskMaxResults (\s a -> s {_lskMaxResults = a}) . mapping _Nat
+listSecurityKeys_maxResults :: Lens.Lens' ListSecurityKeys (Prelude.Maybe Prelude.Natural)
+listSecurityKeys_maxResults = Lens.lens (\ListSecurityKeys' {maxResults} -> maxResults) (\s@ListSecurityKeys' {} a -> s {maxResults = a} :: ListSecurityKeys) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The identifier of the Amazon Connect instance.
-lskInstanceId :: Lens' ListSecurityKeys Text
-lskInstanceId = lens _lskInstanceId (\s a -> s {_lskInstanceId = a})
+listSecurityKeys_instanceId :: Lens.Lens' ListSecurityKeys Prelude.Text
+listSecurityKeys_instanceId = Lens.lens (\ListSecurityKeys' {instanceId} -> instanceId) (\s@ListSecurityKeys' {} a -> s {instanceId = a} :: ListSecurityKeys)
 
-instance AWSPager ListSecurityKeys where
+instance Pager.AWSPager ListSecurityKeys where
   page rq rs
-    | stop (rs ^. lskrrsNextToken) = Nothing
-    | stop (rs ^. lskrrsSecurityKeys) = Nothing
-    | otherwise =
-      Just $ rq & lskNextToken .~ rs ^. lskrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSecurityKeysResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSecurityKeysResponse_securityKeys
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSecurityKeys_nextToken
+          Lens..~ rs
+          Lens.^? listSecurityKeysResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSecurityKeys where
+instance Prelude.AWSRequest ListSecurityKeys where
   type Rs ListSecurityKeys = ListSecurityKeysResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSecurityKeysResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "SecurityKeys" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "SecurityKeys"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSecurityKeys
+instance Prelude.Hashable ListSecurityKeys
 
-instance NFData ListSecurityKeys
+instance Prelude.NFData ListSecurityKeys
 
-instance ToHeaders ListSecurityKeys where
+instance Prelude.ToHeaders ListSecurityKeys where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListSecurityKeys where
+instance Prelude.ToPath ListSecurityKeys where
   toPath ListSecurityKeys' {..} =
-    mconcat
-      ["/instance/", toBS _lskInstanceId, "/security-keys"]
-
-instance ToQuery ListSecurityKeys where
-  toQuery ListSecurityKeys' {..} =
-    mconcat
-      [ "nextToken" =: _lskNextToken,
-        "maxResults" =: _lskMaxResults
+    Prelude.mconcat
+      [ "/instance/",
+        Prelude.toBS instanceId,
+        "/security-keys"
       ]
 
--- | /See:/ 'listSecurityKeysResponse' smart constructor.
-data ListSecurityKeysResponse = ListSecurityKeysResponse'
-  { _lskrrsNextToken ::
-      !(Maybe Text),
-    _lskrrsSecurityKeys ::
-      !( Maybe
-           [SecurityKey]
-       ),
-    _lskrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+instance Prelude.ToQuery ListSecurityKeys where
+  toQuery ListSecurityKeys' {..} =
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
+      ]
 
--- | Creates a value of 'ListSecurityKeysResponse' with the minimum fields required to make a request.
+-- | /See:/ 'newListSecurityKeysResponse' smart constructor.
+data ListSecurityKeysResponse = ListSecurityKeysResponse'
+  { -- | If there are additional results, this is the token for the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The security keys.
+    securityKeys :: Prelude.Maybe [SecurityKey],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ListSecurityKeysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lskrrsNextToken' - If there are additional results, this is the token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lskrrsSecurityKeys' - The security keys.
+-- 'nextToken', 'listSecurityKeysResponse_nextToken' - If there are additional results, this is the token for the next set of
+-- results.
 --
--- * 'lskrrsResponseStatus' - -- | The response status code.
-listSecurityKeysResponse ::
-  -- | 'lskrrsResponseStatus'
-  Int ->
+-- 'securityKeys', 'listSecurityKeysResponse_securityKeys' - The security keys.
+--
+-- 'httpStatus', 'listSecurityKeysResponse_httpStatus' - The response's http status code.
+newListSecurityKeysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSecurityKeysResponse
-listSecurityKeysResponse pResponseStatus_ =
+newListSecurityKeysResponse pHttpStatus_ =
   ListSecurityKeysResponse'
-    { _lskrrsNextToken =
-        Nothing,
-      _lskrrsSecurityKeys = Nothing,
-      _lskrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      securityKeys = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are additional results, this is the token for the next set of results.
-lskrrsNextToken :: Lens' ListSecurityKeysResponse (Maybe Text)
-lskrrsNextToken = lens _lskrrsNextToken (\s a -> s {_lskrrsNextToken = a})
+-- | If there are additional results, this is the token for the next set of
+-- results.
+listSecurityKeysResponse_nextToken :: Lens.Lens' ListSecurityKeysResponse (Prelude.Maybe Prelude.Text)
+listSecurityKeysResponse_nextToken = Lens.lens (\ListSecurityKeysResponse' {nextToken} -> nextToken) (\s@ListSecurityKeysResponse' {} a -> s {nextToken = a} :: ListSecurityKeysResponse)
 
 -- | The security keys.
-lskrrsSecurityKeys :: Lens' ListSecurityKeysResponse [SecurityKey]
-lskrrsSecurityKeys = lens _lskrrsSecurityKeys (\s a -> s {_lskrrsSecurityKeys = a}) . _Default . _Coerce
+listSecurityKeysResponse_securityKeys :: Lens.Lens' ListSecurityKeysResponse (Prelude.Maybe [SecurityKey])
+listSecurityKeysResponse_securityKeys = Lens.lens (\ListSecurityKeysResponse' {securityKeys} -> securityKeys) (\s@ListSecurityKeysResponse' {} a -> s {securityKeys = a} :: ListSecurityKeysResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lskrrsResponseStatus :: Lens' ListSecurityKeysResponse Int
-lskrrsResponseStatus = lens _lskrrsResponseStatus (\s a -> s {_lskrrsResponseStatus = a})
+-- | The response's http status code.
+listSecurityKeysResponse_httpStatus :: Lens.Lens' ListSecurityKeysResponse Prelude.Int
+listSecurityKeysResponse_httpStatus = Lens.lens (\ListSecurityKeysResponse' {httpStatus} -> httpStatus) (\s@ListSecurityKeysResponse' {} a -> s {httpStatus = a} :: ListSecurityKeysResponse)
 
-instance NFData ListSecurityKeysResponse
+instance Prelude.NFData ListSecurityKeysResponse

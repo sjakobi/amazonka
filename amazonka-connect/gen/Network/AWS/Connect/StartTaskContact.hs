@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,206 +24,272 @@
 -- Initiates a contact flow to start a new task.
 module Network.AWS.Connect.StartTaskContact
   ( -- * Creating a Request
-    startTaskContact,
-    StartTaskContact,
+    StartTaskContact (..),
+    newStartTaskContact,
 
     -- * Request Lenses
-    stcPreviousContactId,
-    stcReferences,
-    stcAttributes,
-    stcDescription,
-    stcClientToken,
-    stcInstanceId,
-    stcContactFlowId,
-    stcName,
+    startTaskContact_previousContactId,
+    startTaskContact_references,
+    startTaskContact_attributes,
+    startTaskContact_description,
+    startTaskContact_clientToken,
+    startTaskContact_instanceId,
+    startTaskContact_contactFlowId,
+    startTaskContact_name,
 
     -- * Destructuring the Response
-    startTaskContactResponse,
-    StartTaskContactResponse,
+    StartTaskContactResponse (..),
+    newStartTaskContactResponse,
 
     -- * Response Lenses
-    stcrrsContactId,
-    stcrrsResponseStatus,
+    startTaskContactResponse_contactId,
+    startTaskContactResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startTaskContact' smart constructor.
+-- | /See:/ 'newStartTaskContact' smart constructor.
 data StartTaskContact = StartTaskContact'
-  { _stcPreviousContactId ::
-      !(Maybe Text),
-    _stcReferences ::
-      !(Maybe (Map Text Reference)),
-    _stcAttributes ::
-      !(Maybe (Map Text Text)),
-    _stcDescription :: !(Maybe Text),
-    _stcClientToken :: !(Maybe Text),
-    _stcInstanceId :: !Text,
-    _stcContactFlowId :: !Text,
-    _stcName :: !Text
+  { -- | The identifier of the previous chat, voice, or task contact.
+    previousContactId :: Prelude.Maybe Prelude.Text,
+    -- | A formatted URL that is shown to an agent in the Contact Control Panel
+    -- (CCP).
+    references :: Prelude.Maybe (Prelude.Map Prelude.Text Reference),
+    -- | A custom key-value pair using an attribute map. The attributes are
+    -- standard Amazon Connect attributes, and can be accessed in contact flows
+    -- just like any other contact attributes.
+    --
+    -- There can be up to 32,768 UTF-8 bytes across all key-value pairs per
+    -- contact. Attribute keys can include only alphanumeric, dash, and
+    -- underscore characters.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A description of the task that is shown to an agent in the Contact
+    -- Control Panel (CCP).
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the contact flow for initiating the tasks. To see the
+    -- ContactFlowId in the Amazon Connect console user interface, on the
+    -- navigation menu go to __Routing__, __Contact Flows__. Choose the contact
+    -- flow. On the contact flow page, under the name of the contact flow,
+    -- choose __Show additional flow information__. The ContactFlowId is the
+    -- last part of the ARN, shown here in bold:
+    --
+    -- arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance\/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\/contact-flow\/__846ec553-a005-41c0-8341-xxxxxxxxxxxx__
+    contactFlowId :: Prelude.Text,
+    -- | The name of a task that is shown to an agent in the Contact Control
+    -- Panel (CCP).
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartTaskContact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartTaskContact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stcPreviousContactId' - The identifier of the previous chat, voice, or task contact.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stcReferences' - A formatted URL that is shown to an agent in the Contact Control Panel (CCP).
+-- 'previousContactId', 'startTaskContact_previousContactId' - The identifier of the previous chat, voice, or task contact.
 --
--- * 'stcAttributes' - A custom key-value pair using an attribute map. The attributes are standard Amazon Connect attributes, and can be accessed in contact flows just like any other contact attributes. There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only alphanumeric, dash, and underscore characters.
+-- 'references', 'startTaskContact_references' - A formatted URL that is shown to an agent in the Contact Control Panel
+-- (CCP).
 --
--- * 'stcDescription' - A description of the task that is shown to an agent in the Contact Control Panel (CCP).
+-- 'attributes', 'startTaskContact_attributes' - A custom key-value pair using an attribute map. The attributes are
+-- standard Amazon Connect attributes, and can be accessed in contact flows
+-- just like any other contact attributes.
 --
--- * 'stcClientToken' - A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+-- There can be up to 32,768 UTF-8 bytes across all key-value pairs per
+-- contact. Attribute keys can include only alphanumeric, dash, and
+-- underscore characters.
 --
--- * 'stcInstanceId' - The identifier of the Amazon Connect instance.
+-- 'description', 'startTaskContact_description' - A description of the task that is shown to an agent in the Contact
+-- Control Panel (CCP).
 --
--- * 'stcContactFlowId' - The identifier of the contact flow for initiating the tasks. To see the ContactFlowId in the Amazon Connect console user interface, on the navigation menu go to __Routing__ , __Contact Flows__ . Choose the contact flow. On the contact flow page, under the name of the contact flow, choose __Show additional flow information__ . The ContactFlowId is the last part of the ARN, shown here in bold:  arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/contact-flow/__846ec553-a005-41c0-8341-xxxxxxxxxxxx__
+-- 'clientToken', 'startTaskContact_clientToken' - A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
 --
--- * 'stcName' - The name of a task that is shown to an agent in the Contact Control Panel (CCP).
-startTaskContact ::
-  -- | 'stcInstanceId'
-  Text ->
-  -- | 'stcContactFlowId'
-  Text ->
-  -- | 'stcName'
-  Text ->
+-- 'instanceId', 'startTaskContact_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'contactFlowId', 'startTaskContact_contactFlowId' - The identifier of the contact flow for initiating the tasks. To see the
+-- ContactFlowId in the Amazon Connect console user interface, on the
+-- navigation menu go to __Routing__, __Contact Flows__. Choose the contact
+-- flow. On the contact flow page, under the name of the contact flow,
+-- choose __Show additional flow information__. The ContactFlowId is the
+-- last part of the ARN, shown here in bold:
+--
+-- arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance\/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\/contact-flow\/__846ec553-a005-41c0-8341-xxxxxxxxxxxx__
+--
+-- 'name', 'startTaskContact_name' - The name of a task that is shown to an agent in the Contact Control
+-- Panel (CCP).
+newStartTaskContact ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'contactFlowId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   StartTaskContact
-startTaskContact pInstanceId_ pContactFlowId_ pName_ =
-  StartTaskContact'
-    { _stcPreviousContactId = Nothing,
-      _stcReferences = Nothing,
-      _stcAttributes = Nothing,
-      _stcDescription = Nothing,
-      _stcClientToken = Nothing,
-      _stcInstanceId = pInstanceId_,
-      _stcContactFlowId = pContactFlowId_,
-      _stcName = pName_
-    }
+newStartTaskContact
+  pInstanceId_
+  pContactFlowId_
+  pName_ =
+    StartTaskContact'
+      { previousContactId =
+          Prelude.Nothing,
+        references = Prelude.Nothing,
+        attributes = Prelude.Nothing,
+        description = Prelude.Nothing,
+        clientToken = Prelude.Nothing,
+        instanceId = pInstanceId_,
+        contactFlowId = pContactFlowId_,
+        name = pName_
+      }
 
 -- | The identifier of the previous chat, voice, or task contact.
-stcPreviousContactId :: Lens' StartTaskContact (Maybe Text)
-stcPreviousContactId = lens _stcPreviousContactId (\s a -> s {_stcPreviousContactId = a})
+startTaskContact_previousContactId :: Lens.Lens' StartTaskContact (Prelude.Maybe Prelude.Text)
+startTaskContact_previousContactId = Lens.lens (\StartTaskContact' {previousContactId} -> previousContactId) (\s@StartTaskContact' {} a -> s {previousContactId = a} :: StartTaskContact)
 
--- | A formatted URL that is shown to an agent in the Contact Control Panel (CCP).
-stcReferences :: Lens' StartTaskContact (HashMap Text Reference)
-stcReferences = lens _stcReferences (\s a -> s {_stcReferences = a}) . _Default . _Map
+-- | A formatted URL that is shown to an agent in the Contact Control Panel
+-- (CCP).
+startTaskContact_references :: Lens.Lens' StartTaskContact (Prelude.Maybe (Prelude.HashMap Prelude.Text Reference))
+startTaskContact_references = Lens.lens (\StartTaskContact' {references} -> references) (\s@StartTaskContact' {} a -> s {references = a} :: StartTaskContact) Prelude.. Lens.mapping Prelude._Map
 
--- | A custom key-value pair using an attribute map. The attributes are standard Amazon Connect attributes, and can be accessed in contact flows just like any other contact attributes. There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only alphanumeric, dash, and underscore characters.
-stcAttributes :: Lens' StartTaskContact (HashMap Text Text)
-stcAttributes = lens _stcAttributes (\s a -> s {_stcAttributes = a}) . _Default . _Map
+-- | A custom key-value pair using an attribute map. The attributes are
+-- standard Amazon Connect attributes, and can be accessed in contact flows
+-- just like any other contact attributes.
+--
+-- There can be up to 32,768 UTF-8 bytes across all key-value pairs per
+-- contact. Attribute keys can include only alphanumeric, dash, and
+-- underscore characters.
+startTaskContact_attributes :: Lens.Lens' StartTaskContact (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+startTaskContact_attributes = Lens.lens (\StartTaskContact' {attributes} -> attributes) (\s@StartTaskContact' {} a -> s {attributes = a} :: StartTaskContact) Prelude.. Lens.mapping Prelude._Map
 
--- | A description of the task that is shown to an agent in the Contact Control Panel (CCP).
-stcDescription :: Lens' StartTaskContact (Maybe Text)
-stcDescription = lens _stcDescription (\s a -> s {_stcDescription = a})
+-- | A description of the task that is shown to an agent in the Contact
+-- Control Panel (CCP).
+startTaskContact_description :: Lens.Lens' StartTaskContact (Prelude.Maybe Prelude.Text)
+startTaskContact_description = Lens.lens (\StartTaskContact' {description} -> description) (\s@StartTaskContact' {} a -> s {description = a} :: StartTaskContact)
 
--- | A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
-stcClientToken :: Lens' StartTaskContact (Maybe Text)
-stcClientToken = lens _stcClientToken (\s a -> s {_stcClientToken = a})
+-- | A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
+startTaskContact_clientToken :: Lens.Lens' StartTaskContact (Prelude.Maybe Prelude.Text)
+startTaskContact_clientToken = Lens.lens (\StartTaskContact' {clientToken} -> clientToken) (\s@StartTaskContact' {} a -> s {clientToken = a} :: StartTaskContact)
 
 -- | The identifier of the Amazon Connect instance.
-stcInstanceId :: Lens' StartTaskContact Text
-stcInstanceId = lens _stcInstanceId (\s a -> s {_stcInstanceId = a})
+startTaskContact_instanceId :: Lens.Lens' StartTaskContact Prelude.Text
+startTaskContact_instanceId = Lens.lens (\StartTaskContact' {instanceId} -> instanceId) (\s@StartTaskContact' {} a -> s {instanceId = a} :: StartTaskContact)
 
--- | The identifier of the contact flow for initiating the tasks. To see the ContactFlowId in the Amazon Connect console user interface, on the navigation menu go to __Routing__ , __Contact Flows__ . Choose the contact flow. On the contact flow page, under the name of the contact flow, choose __Show additional flow information__ . The ContactFlowId is the last part of the ARN, shown here in bold:  arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/contact-flow/__846ec553-a005-41c0-8341-xxxxxxxxxxxx__
-stcContactFlowId :: Lens' StartTaskContact Text
-stcContactFlowId = lens _stcContactFlowId (\s a -> s {_stcContactFlowId = a})
+-- | The identifier of the contact flow for initiating the tasks. To see the
+-- ContactFlowId in the Amazon Connect console user interface, on the
+-- navigation menu go to __Routing__, __Contact Flows__. Choose the contact
+-- flow. On the contact flow page, under the name of the contact flow,
+-- choose __Show additional flow information__. The ContactFlowId is the
+-- last part of the ARN, shown here in bold:
+--
+-- arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance\/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\/contact-flow\/__846ec553-a005-41c0-8341-xxxxxxxxxxxx__
+startTaskContact_contactFlowId :: Lens.Lens' StartTaskContact Prelude.Text
+startTaskContact_contactFlowId = Lens.lens (\StartTaskContact' {contactFlowId} -> contactFlowId) (\s@StartTaskContact' {} a -> s {contactFlowId = a} :: StartTaskContact)
 
--- | The name of a task that is shown to an agent in the Contact Control Panel (CCP).
-stcName :: Lens' StartTaskContact Text
-stcName = lens _stcName (\s a -> s {_stcName = a})
+-- | The name of a task that is shown to an agent in the Contact Control
+-- Panel (CCP).
+startTaskContact_name :: Lens.Lens' StartTaskContact Prelude.Text
+startTaskContact_name = Lens.lens (\StartTaskContact' {name} -> name) (\s@StartTaskContact' {} a -> s {name = a} :: StartTaskContact)
 
-instance AWSRequest StartTaskContact where
+instance Prelude.AWSRequest StartTaskContact where
   type Rs StartTaskContact = StartTaskContactResponse
-  request = putJSON connect
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartTaskContactResponse'
-            <$> (x .?> "ContactId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ContactId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartTaskContact
+instance Prelude.Hashable StartTaskContact
 
-instance NFData StartTaskContact
+instance Prelude.NFData StartTaskContact
 
-instance ToHeaders StartTaskContact where
+instance Prelude.ToHeaders StartTaskContact where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartTaskContact where
+instance Prelude.ToJSON StartTaskContact where
   toJSON StartTaskContact' {..} =
-    object
-      ( catMaybes
-          [ ("PreviousContactId" .=) <$> _stcPreviousContactId,
-            ("References" .=) <$> _stcReferences,
-            ("Attributes" .=) <$> _stcAttributes,
-            ("Description" .=) <$> _stcDescription,
-            ("ClientToken" .=) <$> _stcClientToken,
-            Just ("InstanceId" .= _stcInstanceId),
-            Just ("ContactFlowId" .= _stcContactFlowId),
-            Just ("Name" .= _stcName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PreviousContactId" Prelude..=)
+              Prelude.<$> previousContactId,
+            ("References" Prelude..=) Prelude.<$> references,
+            ("Attributes" Prelude..=) Prelude.<$> attributes,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("ClientToken" Prelude..=) Prelude.<$> clientToken,
+            Prelude.Just ("InstanceId" Prelude..= instanceId),
+            Prelude.Just
+              ("ContactFlowId" Prelude..= contactFlowId),
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath StartTaskContact where
-  toPath = const "/contact/task"
+instance Prelude.ToPath StartTaskContact where
+  toPath = Prelude.const "/contact/task"
 
-instance ToQuery StartTaskContact where
-  toQuery = const mempty
+instance Prelude.ToQuery StartTaskContact where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startTaskContactResponse' smart constructor.
+-- | /See:/ 'newStartTaskContactResponse' smart constructor.
 data StartTaskContactResponse = StartTaskContactResponse'
-  { _stcrrsContactId ::
-      !(Maybe Text),
-    _stcrrsResponseStatus ::
-      !Int
+  { -- | The identifier of this contact within the Amazon Connect instance.
+    contactId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartTaskContactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartTaskContactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stcrrsContactId' - The identifier of this contact within the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stcrrsResponseStatus' - -- | The response status code.
-startTaskContactResponse ::
-  -- | 'stcrrsResponseStatus'
-  Int ->
+-- 'contactId', 'startTaskContactResponse_contactId' - The identifier of this contact within the Amazon Connect instance.
+--
+-- 'httpStatus', 'startTaskContactResponse_httpStatus' - The response's http status code.
+newStartTaskContactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartTaskContactResponse
-startTaskContactResponse pResponseStatus_ =
+newStartTaskContactResponse pHttpStatus_ =
   StartTaskContactResponse'
-    { _stcrrsContactId =
-        Nothing,
-      _stcrrsResponseStatus = pResponseStatus_
+    { contactId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier of this contact within the Amazon Connect instance.
-stcrrsContactId :: Lens' StartTaskContactResponse (Maybe Text)
-stcrrsContactId = lens _stcrrsContactId (\s a -> s {_stcrrsContactId = a})
+startTaskContactResponse_contactId :: Lens.Lens' StartTaskContactResponse (Prelude.Maybe Prelude.Text)
+startTaskContactResponse_contactId = Lens.lens (\StartTaskContactResponse' {contactId} -> contactId) (\s@StartTaskContactResponse' {} a -> s {contactId = a} :: StartTaskContactResponse)
 
--- | -- | The response status code.
-stcrrsResponseStatus :: Lens' StartTaskContactResponse Int
-stcrrsResponseStatus = lens _stcrrsResponseStatus (\s a -> s {_stcrrsResponseStatus = a})
+-- | The response's http status code.
+startTaskContactResponse_httpStatus :: Lens.Lens' StartTaskContactResponse Prelude.Int
+startTaskContactResponse_httpStatus = Lens.lens (\StartTaskContactResponse' {httpStatus} -> httpStatus) (\s@StartTaskContactResponse' {} a -> s {httpStatus = a} :: StartTaskContactResponse)
 
-instance NFData StartTaskContactResponse
+instance Prelude.NFData StartTaskContactResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Updates the hours of operation for the specified queue.
 module Network.AWS.Connect.UpdateQueueHoursOfOperation
   ( -- * Creating a Request
-    updateQueueHoursOfOperation,
-    UpdateQueueHoursOfOperation,
+    UpdateQueueHoursOfOperation (..),
+    newUpdateQueueHoursOfOperation,
 
     -- * Request Lenses
-    uqhooInstanceId,
-    uqhooQueueId,
-    uqhooHoursOfOperationId,
+    updateQueueHoursOfOperation_instanceId,
+    updateQueueHoursOfOperation_queueId,
+    updateQueueHoursOfOperation_hoursOfOperationId,
 
     -- * Destructuring the Response
-    updateQueueHoursOfOperationResponse,
-    UpdateQueueHoursOfOperationResponse,
+    UpdateQueueHoursOfOperationResponse (..),
+    newUpdateQueueHoursOfOperationResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateQueueHoursOfOperation' smart constructor.
+-- | /See:/ 'newUpdateQueueHoursOfOperation' smart constructor.
 data UpdateQueueHoursOfOperation = UpdateQueueHoursOfOperation'
-  { _uqhooInstanceId ::
-      !Text,
-    _uqhooQueueId ::
-      !Text,
-    _uqhooHoursOfOperationId ::
-      !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the queue.
+    queueId :: Prelude.Text,
+    -- | The identifier for the hours of operation.
+    hoursOfOperationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueueHoursOfOperation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateQueueHoursOfOperation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uqhooInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uqhooQueueId' - The identifier for the queue.
+-- 'instanceId', 'updateQueueHoursOfOperation_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'uqhooHoursOfOperationId' - The identifier for the hours of operation.
-updateQueueHoursOfOperation ::
-  -- | 'uqhooInstanceId'
-  Text ->
-  -- | 'uqhooQueueId'
-  Text ->
-  -- | 'uqhooHoursOfOperationId'
-  Text ->
+-- 'queueId', 'updateQueueHoursOfOperation_queueId' - The identifier for the queue.
+--
+-- 'hoursOfOperationId', 'updateQueueHoursOfOperation_hoursOfOperationId' - The identifier for the hours of operation.
+newUpdateQueueHoursOfOperation ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'queueId'
+  Prelude.Text ->
+  -- | 'hoursOfOperationId'
+  Prelude.Text ->
   UpdateQueueHoursOfOperation
-updateQueueHoursOfOperation
+newUpdateQueueHoursOfOperation
   pInstanceId_
   pQueueId_
   pHoursOfOperationId_ =
     UpdateQueueHoursOfOperation'
-      { _uqhooInstanceId =
+      { instanceId =
           pInstanceId_,
-        _uqhooQueueId = pQueueId_,
-        _uqhooHoursOfOperationId =
-          pHoursOfOperationId_
+        queueId = pQueueId_,
+        hoursOfOperationId = pHoursOfOperationId_
       }
 
 -- | The identifier of the Amazon Connect instance.
-uqhooInstanceId :: Lens' UpdateQueueHoursOfOperation Text
-uqhooInstanceId = lens _uqhooInstanceId (\s a -> s {_uqhooInstanceId = a})
+updateQueueHoursOfOperation_instanceId :: Lens.Lens' UpdateQueueHoursOfOperation Prelude.Text
+updateQueueHoursOfOperation_instanceId = Lens.lens (\UpdateQueueHoursOfOperation' {instanceId} -> instanceId) (\s@UpdateQueueHoursOfOperation' {} a -> s {instanceId = a} :: UpdateQueueHoursOfOperation)
 
 -- | The identifier for the queue.
-uqhooQueueId :: Lens' UpdateQueueHoursOfOperation Text
-uqhooQueueId = lens _uqhooQueueId (\s a -> s {_uqhooQueueId = a})
+updateQueueHoursOfOperation_queueId :: Lens.Lens' UpdateQueueHoursOfOperation Prelude.Text
+updateQueueHoursOfOperation_queueId = Lens.lens (\UpdateQueueHoursOfOperation' {queueId} -> queueId) (\s@UpdateQueueHoursOfOperation' {} a -> s {queueId = a} :: UpdateQueueHoursOfOperation)
 
 -- | The identifier for the hours of operation.
-uqhooHoursOfOperationId :: Lens' UpdateQueueHoursOfOperation Text
-uqhooHoursOfOperationId = lens _uqhooHoursOfOperationId (\s a -> s {_uqhooHoursOfOperationId = a})
+updateQueueHoursOfOperation_hoursOfOperationId :: Lens.Lens' UpdateQueueHoursOfOperation Prelude.Text
+updateQueueHoursOfOperation_hoursOfOperationId = Lens.lens (\UpdateQueueHoursOfOperation' {hoursOfOperationId} -> hoursOfOperationId) (\s@UpdateQueueHoursOfOperation' {} a -> s {hoursOfOperationId = a} :: UpdateQueueHoursOfOperation)
 
-instance AWSRequest UpdateQueueHoursOfOperation where
+instance
+  Prelude.AWSRequest
+    UpdateQueueHoursOfOperation
+  where
   type
     Rs UpdateQueueHoursOfOperation =
       UpdateQueueHoursOfOperationResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateQueueHoursOfOperationResponse'
+    Response.receiveNull
+      UpdateQueueHoursOfOperationResponse'
 
-instance Hashable UpdateQueueHoursOfOperation
+instance Prelude.Hashable UpdateQueueHoursOfOperation
 
-instance NFData UpdateQueueHoursOfOperation
+instance Prelude.NFData UpdateQueueHoursOfOperation
 
-instance ToHeaders UpdateQueueHoursOfOperation where
+instance
+  Prelude.ToHeaders
+    UpdateQueueHoursOfOperation
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateQueueHoursOfOperation where
+instance Prelude.ToJSON UpdateQueueHoursOfOperation where
   toJSON UpdateQueueHoursOfOperation' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("HoursOfOperationId" .= _uqhooHoursOfOperationId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "HoursOfOperationId"
+                  Prelude..= hoursOfOperationId
+              )
           ]
       )
 
-instance ToPath UpdateQueueHoursOfOperation where
+instance Prelude.ToPath UpdateQueueHoursOfOperation where
   toPath UpdateQueueHoursOfOperation' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/queues/",
-        toBS _uqhooInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _uqhooQueueId,
+        Prelude.toBS queueId,
         "/hours-of-operation"
       ]
 
-instance ToQuery UpdateQueueHoursOfOperation where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateQueueHoursOfOperation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateQueueHoursOfOperationResponse' smart constructor.
+-- | /See:/ 'newUpdateQueueHoursOfOperationResponse' smart constructor.
 data UpdateQueueHoursOfOperationResponse = UpdateQueueHoursOfOperationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueueHoursOfOperationResponse' with the minimum fields required to make a request.
-updateQueueHoursOfOperationResponse ::
+-- |
+-- Create a value of 'UpdateQueueHoursOfOperationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateQueueHoursOfOperationResponse ::
   UpdateQueueHoursOfOperationResponse
-updateQueueHoursOfOperationResponse =
+newUpdateQueueHoursOfOperationResponse =
   UpdateQueueHoursOfOperationResponse'
 
-instance NFData UpdateQueueHoursOfOperationResponse
+instance
+  Prelude.NFData
+    UpdateQueueHoursOfOperationResponse

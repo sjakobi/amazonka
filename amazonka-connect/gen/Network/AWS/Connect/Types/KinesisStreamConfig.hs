@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Connect.Types.KinesisStreamConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration information of a Kinesis data stream.
 --
---
---
--- /See:/ 'kinesisStreamConfig' smart constructor.
-newtype KinesisStreamConfig = KinesisStreamConfig'
-  { _kscStreamARN ::
-      Text
+-- /See:/ 'newKinesisStreamConfig' smart constructor.
+data KinesisStreamConfig = KinesisStreamConfig'
+  { -- | The Amazon Resource Name (ARN) of the data stream.
+    streamArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KinesisStreamConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KinesisStreamConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kscStreamARN' - The Amazon Resource Name (ARN) of the data stream.
-kinesisStreamConfig ::
-  -- | 'kscStreamARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'streamArn', 'kinesisStreamConfig_streamArn' - The Amazon Resource Name (ARN) of the data stream.
+newKinesisStreamConfig ::
+  -- | 'streamArn'
+  Prelude.Text ->
   KinesisStreamConfig
-kinesisStreamConfig pStreamARN_ =
-  KinesisStreamConfig' {_kscStreamARN = pStreamARN_}
+newKinesisStreamConfig pStreamArn_ =
+  KinesisStreamConfig' {streamArn = pStreamArn_}
 
 -- | The Amazon Resource Name (ARN) of the data stream.
-kscStreamARN :: Lens' KinesisStreamConfig Text
-kscStreamARN = lens _kscStreamARN (\s a -> s {_kscStreamARN = a})
+kinesisStreamConfig_streamArn :: Lens.Lens' KinesisStreamConfig Prelude.Text
+kinesisStreamConfig_streamArn = Lens.lens (\KinesisStreamConfig' {streamArn} -> streamArn) (\s@KinesisStreamConfig' {} a -> s {streamArn = a} :: KinesisStreamConfig)
 
-instance FromJSON KinesisStreamConfig where
+instance Prelude.FromJSON KinesisStreamConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KinesisStreamConfig"
-      (\x -> KinesisStreamConfig' <$> (x .: "StreamArn"))
+      ( \x ->
+          KinesisStreamConfig'
+            Prelude.<$> (x Prelude..: "StreamArn")
+      )
 
-instance Hashable KinesisStreamConfig
+instance Prelude.Hashable KinesisStreamConfig
 
-instance NFData KinesisStreamConfig
+instance Prelude.NFData KinesisStreamConfig
 
-instance ToJSON KinesisStreamConfig where
+instance Prelude.ToJSON KinesisStreamConfig where
   toJSON KinesisStreamConfig' {..} =
-    object
-      (catMaybes [Just ("StreamArn" .= _kscStreamARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("StreamArn" Prelude..= streamArn)]
+      )

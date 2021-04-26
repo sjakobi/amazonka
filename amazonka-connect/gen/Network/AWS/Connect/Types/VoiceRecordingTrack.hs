@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Connect.Types.VoiceRecordingTrack
   ( VoiceRecordingTrack
       ( ..,
-        All,
-        FromAgent,
-        ToAgent
+        VoiceRecordingTrackALL,
+        VoiceRecordingTrackFROMAGENT,
+        VoiceRecordingTrackTOAGENT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VoiceRecordingTrack
-  = VoiceRecordingTrack'
-      ( CI
-          Text
-      )
+newtype VoiceRecordingTrack = VoiceRecordingTrack'
+  { fromVoiceRecordingTrack ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: VoiceRecordingTrack
-pattern All = VoiceRecordingTrack' "ALL"
+pattern VoiceRecordingTrackALL :: VoiceRecordingTrack
+pattern VoiceRecordingTrackALL = VoiceRecordingTrack' "ALL"
 
-pattern FromAgent :: VoiceRecordingTrack
-pattern FromAgent = VoiceRecordingTrack' "FROM_AGENT"
+pattern VoiceRecordingTrackFROMAGENT :: VoiceRecordingTrack
+pattern VoiceRecordingTrackFROMAGENT = VoiceRecordingTrack' "FROM_AGENT"
 
-pattern ToAgent :: VoiceRecordingTrack
-pattern ToAgent = VoiceRecordingTrack' "TO_AGENT"
+pattern VoiceRecordingTrackTOAGENT :: VoiceRecordingTrack
+pattern VoiceRecordingTrackTOAGENT = VoiceRecordingTrack' "TO_AGENT"
 
 {-# COMPLETE
-  All,
-  FromAgent,
-  ToAgent,
+  VoiceRecordingTrackALL,
+  VoiceRecordingTrackFROMAGENT,
+  VoiceRecordingTrackTOAGENT,
   VoiceRecordingTrack'
   #-}
 
-instance FromText VoiceRecordingTrack where
-  parser = (VoiceRecordingTrack' . mk) <$> takeText
+instance Prelude.FromText VoiceRecordingTrack where
+  parser = VoiceRecordingTrack' Prelude.<$> Prelude.takeText
 
-instance ToText VoiceRecordingTrack where
-  toText (VoiceRecordingTrack' ci) = original ci
+instance Prelude.ToText VoiceRecordingTrack where
+  toText (VoiceRecordingTrack' x) = x
 
-instance Hashable VoiceRecordingTrack
+instance Prelude.Hashable VoiceRecordingTrack
 
-instance NFData VoiceRecordingTrack
+instance Prelude.NFData VoiceRecordingTrack
 
-instance ToByteString VoiceRecordingTrack
+instance Prelude.ToByteString VoiceRecordingTrack
 
-instance ToQuery VoiceRecordingTrack
+instance Prelude.ToQuery VoiceRecordingTrack
 
-instance ToHeader VoiceRecordingTrack
+instance Prelude.ToHeader VoiceRecordingTrack
 
-instance ToJSON VoiceRecordingTrack where
-  toJSON = toJSONText
+instance Prelude.ToJSON VoiceRecordingTrack where
+  toJSON = Prelude.toJSONText

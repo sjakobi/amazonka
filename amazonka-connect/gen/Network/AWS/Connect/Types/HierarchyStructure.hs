@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,85 +20,87 @@
 module Network.AWS.Connect.Types.HierarchyStructure where
 
 import Network.AWS.Connect.Types.HierarchyLevel
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a hierarchy structure.
 --
---
---
--- /See:/ 'hierarchyStructure' smart constructor.
+-- /See:/ 'newHierarchyStructure' smart constructor.
 data HierarchyStructure = HierarchyStructure'
-  { _hsLevelThree ::
-      !(Maybe HierarchyLevel),
-    _hsLevelFour ::
-      !(Maybe HierarchyLevel),
-    _hsLevelTwo ::
-      !(Maybe HierarchyLevel),
-    _hsLevelOne ::
-      !(Maybe HierarchyLevel),
-    _hsLevelFive ::
-      !(Maybe HierarchyLevel)
+  { -- | Information about level three.
+    levelThree :: Prelude.Maybe HierarchyLevel,
+    -- | Information about level four.
+    levelFour :: Prelude.Maybe HierarchyLevel,
+    -- | Information about level two.
+    levelTwo :: Prelude.Maybe HierarchyLevel,
+    -- | Information about level one.
+    levelOne :: Prelude.Maybe HierarchyLevel,
+    -- | Information about level five.
+    levelFive :: Prelude.Maybe HierarchyLevel
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HierarchyStructure' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HierarchyStructure' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hsLevelThree' - Information about level three.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hsLevelFour' - Information about level four.
+-- 'levelThree', 'hierarchyStructure_levelThree' - Information about level three.
 --
--- * 'hsLevelTwo' - Information about level two.
+-- 'levelFour', 'hierarchyStructure_levelFour' - Information about level four.
 --
--- * 'hsLevelOne' - Information about level one.
+-- 'levelTwo', 'hierarchyStructure_levelTwo' - Information about level two.
 --
--- * 'hsLevelFive' - Information about level five.
-hierarchyStructure ::
+-- 'levelOne', 'hierarchyStructure_levelOne' - Information about level one.
+--
+-- 'levelFive', 'hierarchyStructure_levelFive' - Information about level five.
+newHierarchyStructure ::
   HierarchyStructure
-hierarchyStructure =
+newHierarchyStructure =
   HierarchyStructure'
-    { _hsLevelThree = Nothing,
-      _hsLevelFour = Nothing,
-      _hsLevelTwo = Nothing,
-      _hsLevelOne = Nothing,
-      _hsLevelFive = Nothing
+    { levelThree = Prelude.Nothing,
+      levelFour = Prelude.Nothing,
+      levelTwo = Prelude.Nothing,
+      levelOne = Prelude.Nothing,
+      levelFive = Prelude.Nothing
     }
 
 -- | Information about level three.
-hsLevelThree :: Lens' HierarchyStructure (Maybe HierarchyLevel)
-hsLevelThree = lens _hsLevelThree (\s a -> s {_hsLevelThree = a})
+hierarchyStructure_levelThree :: Lens.Lens' HierarchyStructure (Prelude.Maybe HierarchyLevel)
+hierarchyStructure_levelThree = Lens.lens (\HierarchyStructure' {levelThree} -> levelThree) (\s@HierarchyStructure' {} a -> s {levelThree = a} :: HierarchyStructure)
 
 -- | Information about level four.
-hsLevelFour :: Lens' HierarchyStructure (Maybe HierarchyLevel)
-hsLevelFour = lens _hsLevelFour (\s a -> s {_hsLevelFour = a})
+hierarchyStructure_levelFour :: Lens.Lens' HierarchyStructure (Prelude.Maybe HierarchyLevel)
+hierarchyStructure_levelFour = Lens.lens (\HierarchyStructure' {levelFour} -> levelFour) (\s@HierarchyStructure' {} a -> s {levelFour = a} :: HierarchyStructure)
 
 -- | Information about level two.
-hsLevelTwo :: Lens' HierarchyStructure (Maybe HierarchyLevel)
-hsLevelTwo = lens _hsLevelTwo (\s a -> s {_hsLevelTwo = a})
+hierarchyStructure_levelTwo :: Lens.Lens' HierarchyStructure (Prelude.Maybe HierarchyLevel)
+hierarchyStructure_levelTwo = Lens.lens (\HierarchyStructure' {levelTwo} -> levelTwo) (\s@HierarchyStructure' {} a -> s {levelTwo = a} :: HierarchyStructure)
 
 -- | Information about level one.
-hsLevelOne :: Lens' HierarchyStructure (Maybe HierarchyLevel)
-hsLevelOne = lens _hsLevelOne (\s a -> s {_hsLevelOne = a})
+hierarchyStructure_levelOne :: Lens.Lens' HierarchyStructure (Prelude.Maybe HierarchyLevel)
+hierarchyStructure_levelOne = Lens.lens (\HierarchyStructure' {levelOne} -> levelOne) (\s@HierarchyStructure' {} a -> s {levelOne = a} :: HierarchyStructure)
 
 -- | Information about level five.
-hsLevelFive :: Lens' HierarchyStructure (Maybe HierarchyLevel)
-hsLevelFive = lens _hsLevelFive (\s a -> s {_hsLevelFive = a})
+hierarchyStructure_levelFive :: Lens.Lens' HierarchyStructure (Prelude.Maybe HierarchyLevel)
+hierarchyStructure_levelFive = Lens.lens (\HierarchyStructure' {levelFive} -> levelFive) (\s@HierarchyStructure' {} a -> s {levelFive = a} :: HierarchyStructure)
 
-instance FromJSON HierarchyStructure where
+instance Prelude.FromJSON HierarchyStructure where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HierarchyStructure"
       ( \x ->
           HierarchyStructure'
-            <$> (x .:? "LevelThree")
-            <*> (x .:? "LevelFour")
-            <*> (x .:? "LevelTwo")
-            <*> (x .:? "LevelOne")
-            <*> (x .:? "LevelFive")
+            Prelude.<$> (x Prelude..:? "LevelThree")
+            Prelude.<*> (x Prelude..:? "LevelFour")
+            Prelude.<*> (x Prelude..:? "LevelTwo")
+            Prelude.<*> (x Prelude..:? "LevelOne")
+            Prelude.<*> (x Prelude..:? "LevelFive")
       )
 
-instance Hashable HierarchyStructure
+instance Prelude.Hashable HierarchyStructure
 
-instance NFData HierarchyStructure
+instance Prelude.NFData HierarchyStructure

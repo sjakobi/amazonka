@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,158 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Describes the hours of operation.
 module Network.AWS.Connect.DescribeHoursOfOperation
   ( -- * Creating a Request
-    describeHoursOfOperation,
-    DescribeHoursOfOperation,
+    DescribeHoursOfOperation (..),
+    newDescribeHoursOfOperation,
 
     -- * Request Lenses
-    dhooInstanceId,
-    dhooHoursOfOperationId,
+    describeHoursOfOperation_instanceId,
+    describeHoursOfOperation_hoursOfOperationId,
 
     -- * Destructuring the Response
-    describeHoursOfOperationResponse,
-    DescribeHoursOfOperationResponse,
+    DescribeHoursOfOperationResponse (..),
+    newDescribeHoursOfOperationResponse,
 
     -- * Response Lenses
-    dhoorrsHoursOfOperation,
-    dhoorrsResponseStatus,
+    describeHoursOfOperationResponse_hoursOfOperation,
+    describeHoursOfOperationResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.HoursOfOperation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeHoursOfOperation' smart constructor.
+-- | /See:/ 'newDescribeHoursOfOperation' smart constructor.
 data DescribeHoursOfOperation = DescribeHoursOfOperation'
-  { _dhooInstanceId ::
-      !Text,
-    _dhooHoursOfOperationId ::
-      !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the hours of operation.
+    hoursOfOperationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHoursOfOperation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeHoursOfOperation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhooInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dhooHoursOfOperationId' - The identifier for the hours of operation.
-describeHoursOfOperation ::
-  -- | 'dhooInstanceId'
-  Text ->
-  -- | 'dhooHoursOfOperationId'
-  Text ->
+-- 'instanceId', 'describeHoursOfOperation_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'hoursOfOperationId', 'describeHoursOfOperation_hoursOfOperationId' - The identifier for the hours of operation.
+newDescribeHoursOfOperation ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'hoursOfOperationId'
+  Prelude.Text ->
   DescribeHoursOfOperation
-describeHoursOfOperation
+newDescribeHoursOfOperation
   pInstanceId_
   pHoursOfOperationId_ =
     DescribeHoursOfOperation'
-      { _dhooInstanceId =
+      { instanceId =
           pInstanceId_,
-        _dhooHoursOfOperationId = pHoursOfOperationId_
+        hoursOfOperationId = pHoursOfOperationId_
       }
 
 -- | The identifier of the Amazon Connect instance.
-dhooInstanceId :: Lens' DescribeHoursOfOperation Text
-dhooInstanceId = lens _dhooInstanceId (\s a -> s {_dhooInstanceId = a})
+describeHoursOfOperation_instanceId :: Lens.Lens' DescribeHoursOfOperation Prelude.Text
+describeHoursOfOperation_instanceId = Lens.lens (\DescribeHoursOfOperation' {instanceId} -> instanceId) (\s@DescribeHoursOfOperation' {} a -> s {instanceId = a} :: DescribeHoursOfOperation)
 
 -- | The identifier for the hours of operation.
-dhooHoursOfOperationId :: Lens' DescribeHoursOfOperation Text
-dhooHoursOfOperationId = lens _dhooHoursOfOperationId (\s a -> s {_dhooHoursOfOperationId = a})
+describeHoursOfOperation_hoursOfOperationId :: Lens.Lens' DescribeHoursOfOperation Prelude.Text
+describeHoursOfOperation_hoursOfOperationId = Lens.lens (\DescribeHoursOfOperation' {hoursOfOperationId} -> hoursOfOperationId) (\s@DescribeHoursOfOperation' {} a -> s {hoursOfOperationId = a} :: DescribeHoursOfOperation)
 
-instance AWSRequest DescribeHoursOfOperation where
+instance Prelude.AWSRequest DescribeHoursOfOperation where
   type
     Rs DescribeHoursOfOperation =
       DescribeHoursOfOperationResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeHoursOfOperationResponse'
-            <$> (x .?> "HoursOfOperation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "HoursOfOperation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeHoursOfOperation
+instance Prelude.Hashable DescribeHoursOfOperation
 
-instance NFData DescribeHoursOfOperation
+instance Prelude.NFData DescribeHoursOfOperation
 
-instance ToHeaders DescribeHoursOfOperation where
+instance Prelude.ToHeaders DescribeHoursOfOperation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeHoursOfOperation where
+instance Prelude.ToPath DescribeHoursOfOperation where
   toPath DescribeHoursOfOperation' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/hours-of-operations/",
-        toBS _dhooInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _dhooHoursOfOperationId
+        Prelude.toBS hoursOfOperationId
       ]
 
-instance ToQuery DescribeHoursOfOperation where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeHoursOfOperation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeHoursOfOperationResponse' smart constructor.
+-- | /See:/ 'newDescribeHoursOfOperationResponse' smart constructor.
 data DescribeHoursOfOperationResponse = DescribeHoursOfOperationResponse'
-  { _dhoorrsHoursOfOperation ::
-      !( Maybe
-           HoursOfOperation
-       ),
-    _dhoorrsResponseStatus ::
-      !Int
+  { -- | The hours of operation.
+    hoursOfOperation :: Prelude.Maybe HoursOfOperation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHoursOfOperationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeHoursOfOperationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhoorrsHoursOfOperation' - The hours of operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dhoorrsResponseStatus' - -- | The response status code.
-describeHoursOfOperationResponse ::
-  -- | 'dhoorrsResponseStatus'
-  Int ->
+-- 'hoursOfOperation', 'describeHoursOfOperationResponse_hoursOfOperation' - The hours of operation.
+--
+-- 'httpStatus', 'describeHoursOfOperationResponse_httpStatus' - The response's http status code.
+newDescribeHoursOfOperationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeHoursOfOperationResponse
-describeHoursOfOperationResponse pResponseStatus_ =
+newDescribeHoursOfOperationResponse pHttpStatus_ =
   DescribeHoursOfOperationResponse'
-    { _dhoorrsHoursOfOperation =
-        Nothing,
-      _dhoorrsResponseStatus = pResponseStatus_
+    { hoursOfOperation =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The hours of operation.
-dhoorrsHoursOfOperation :: Lens' DescribeHoursOfOperationResponse (Maybe HoursOfOperation)
-dhoorrsHoursOfOperation = lens _dhoorrsHoursOfOperation (\s a -> s {_dhoorrsHoursOfOperation = a})
+describeHoursOfOperationResponse_hoursOfOperation :: Lens.Lens' DescribeHoursOfOperationResponse (Prelude.Maybe HoursOfOperation)
+describeHoursOfOperationResponse_hoursOfOperation = Lens.lens (\DescribeHoursOfOperationResponse' {hoursOfOperation} -> hoursOfOperation) (\s@DescribeHoursOfOperationResponse' {} a -> s {hoursOfOperation = a} :: DescribeHoursOfOperationResponse)
 
--- | -- | The response status code.
-dhoorrsResponseStatus :: Lens' DescribeHoursOfOperationResponse Int
-dhoorrsResponseStatus = lens _dhoorrsResponseStatus (\s a -> s {_dhoorrsResponseStatus = a})
+-- | The response's http status code.
+describeHoursOfOperationResponse_httpStatus :: Lens.Lens' DescribeHoursOfOperationResponse Prelude.Int
+describeHoursOfOperationResponse_httpStatus = Lens.lens (\DescribeHoursOfOperationResponse' {httpStatus} -> httpStatus) (\s@DescribeHoursOfOperationResponse' {} a -> s {httpStatus = a} :: DescribeHoursOfOperationResponse)
 
-instance NFData DescribeHoursOfOperationResponse
+instance
+  Prelude.NFData
+    DescribeHoursOfOperationResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Updates the name and description of a quick connect. The request accepts the following data in JSON format. At least @Name@ or @Description@ must be provided.
+-- Updates the name and description of a quick connect. The request accepts
+-- the following data in JSON format. At least @Name@ or @Description@ must
+-- be provided.
 module Network.AWS.Connect.UpdateQuickConnectName
   ( -- * Creating a Request
-    updateQuickConnectName,
-    UpdateQuickConnectName,
+    UpdateQuickConnectName (..),
+    newUpdateQuickConnectName,
 
     -- * Request Lenses
-    uqcnName,
-    uqcnDescription,
-    uqcnInstanceId,
-    uqcnQuickConnectId,
+    updateQuickConnectName_name,
+    updateQuickConnectName_description,
+    updateQuickConnectName_instanceId,
+    updateQuickConnectName_quickConnectId,
 
     -- * Destructuring the Response
-    updateQuickConnectNameResponse,
-    UpdateQuickConnectNameResponse,
+    UpdateQuickConnectNameResponse (..),
+    newUpdateQuickConnectNameResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateQuickConnectName' smart constructor.
+-- | /See:/ 'newUpdateQuickConnectName' smart constructor.
 data UpdateQuickConnectName = UpdateQuickConnectName'
-  { _uqcnName ::
-      !(Maybe Text),
-    _uqcnDescription ::
-      !(Maybe Text),
-    _uqcnInstanceId :: !Text,
-    _uqcnQuickConnectId ::
-      !Text
+  { -- | The name of the quick connect.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the quick connect.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the quick connect.
+    quickConnectId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQuickConnectName' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateQuickConnectName' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uqcnName' - The name of the quick connect.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uqcnDescription' - The description of the quick connect.
+-- 'name', 'updateQuickConnectName_name' - The name of the quick connect.
 --
--- * 'uqcnInstanceId' - The identifier of the Amazon Connect instance.
+-- 'description', 'updateQuickConnectName_description' - The description of the quick connect.
 --
--- * 'uqcnQuickConnectId' - The identifier for the quick connect.
-updateQuickConnectName ::
-  -- | 'uqcnInstanceId'
-  Text ->
-  -- | 'uqcnQuickConnectId'
-  Text ->
+-- 'instanceId', 'updateQuickConnectName_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'quickConnectId', 'updateQuickConnectName_quickConnectId' - The identifier for the quick connect.
+newUpdateQuickConnectName ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'quickConnectId'
+  Prelude.Text ->
   UpdateQuickConnectName
-updateQuickConnectName pInstanceId_ pQuickConnectId_ =
-  UpdateQuickConnectName'
-    { _uqcnName = Nothing,
-      _uqcnDescription = Nothing,
-      _uqcnInstanceId = pInstanceId_,
-      _uqcnQuickConnectId = pQuickConnectId_
-    }
+newUpdateQuickConnectName
+  pInstanceId_
+  pQuickConnectId_ =
+    UpdateQuickConnectName'
+      { name = Prelude.Nothing,
+        description = Prelude.Nothing,
+        instanceId = pInstanceId_,
+        quickConnectId = pQuickConnectId_
+      }
 
 -- | The name of the quick connect.
-uqcnName :: Lens' UpdateQuickConnectName (Maybe Text)
-uqcnName = lens _uqcnName (\s a -> s {_uqcnName = a})
+updateQuickConnectName_name :: Lens.Lens' UpdateQuickConnectName (Prelude.Maybe Prelude.Text)
+updateQuickConnectName_name = Lens.lens (\UpdateQuickConnectName' {name} -> name) (\s@UpdateQuickConnectName' {} a -> s {name = a} :: UpdateQuickConnectName)
 
 -- | The description of the quick connect.
-uqcnDescription :: Lens' UpdateQuickConnectName (Maybe Text)
-uqcnDescription = lens _uqcnDescription (\s a -> s {_uqcnDescription = a})
+updateQuickConnectName_description :: Lens.Lens' UpdateQuickConnectName (Prelude.Maybe Prelude.Text)
+updateQuickConnectName_description = Lens.lens (\UpdateQuickConnectName' {description} -> description) (\s@UpdateQuickConnectName' {} a -> s {description = a} :: UpdateQuickConnectName)
 
 -- | The identifier of the Amazon Connect instance.
-uqcnInstanceId :: Lens' UpdateQuickConnectName Text
-uqcnInstanceId = lens _uqcnInstanceId (\s a -> s {_uqcnInstanceId = a})
+updateQuickConnectName_instanceId :: Lens.Lens' UpdateQuickConnectName Prelude.Text
+updateQuickConnectName_instanceId = Lens.lens (\UpdateQuickConnectName' {instanceId} -> instanceId) (\s@UpdateQuickConnectName' {} a -> s {instanceId = a} :: UpdateQuickConnectName)
 
 -- | The identifier for the quick connect.
-uqcnQuickConnectId :: Lens' UpdateQuickConnectName Text
-uqcnQuickConnectId = lens _uqcnQuickConnectId (\s a -> s {_uqcnQuickConnectId = a})
+updateQuickConnectName_quickConnectId :: Lens.Lens' UpdateQuickConnectName Prelude.Text
+updateQuickConnectName_quickConnectId = Lens.lens (\UpdateQuickConnectName' {quickConnectId} -> quickConnectId) (\s@UpdateQuickConnectName' {} a -> s {quickConnectId = a} :: UpdateQuickConnectName)
 
-instance AWSRequest UpdateQuickConnectName where
+instance Prelude.AWSRequest UpdateQuickConnectName where
   type
     Rs UpdateQuickConnectName =
       UpdateQuickConnectNameResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateQuickConnectNameResponse'
+    Response.receiveNull
+      UpdateQuickConnectNameResponse'
 
-instance Hashable UpdateQuickConnectName
+instance Prelude.Hashable UpdateQuickConnectName
 
-instance NFData UpdateQuickConnectName
+instance Prelude.NFData UpdateQuickConnectName
 
-instance ToHeaders UpdateQuickConnectName where
+instance Prelude.ToHeaders UpdateQuickConnectName where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateQuickConnectName where
+instance Prelude.ToJSON UpdateQuickConnectName where
   toJSON UpdateQuickConnectName' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _uqcnName,
-            ("Description" .=) <$> _uqcnDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("Description" Prelude..=) Prelude.<$> description
           ]
       )
 
-instance ToPath UpdateQuickConnectName where
+instance Prelude.ToPath UpdateQuickConnectName where
   toPath UpdateQuickConnectName' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/quick-connects/",
-        toBS _uqcnInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _uqcnQuickConnectId,
+        Prelude.toBS quickConnectId,
         "/name"
       ]
 
-instance ToQuery UpdateQuickConnectName where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateQuickConnectName where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateQuickConnectNameResponse' smart constructor.
+-- | /See:/ 'newUpdateQuickConnectNameResponse' smart constructor.
 data UpdateQuickConnectNameResponse = UpdateQuickConnectNameResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQuickConnectNameResponse' with the minimum fields required to make a request.
-updateQuickConnectNameResponse ::
+-- |
+-- Create a value of 'UpdateQuickConnectNameResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateQuickConnectNameResponse ::
   UpdateQuickConnectNameResponse
-updateQuickConnectNameResponse =
+newUpdateQuickConnectNameResponse =
   UpdateQuickConnectNameResponse'
 
-instance NFData UpdateQuickConnectNameResponse
+instance
+  Prelude.NFData
+    UpdateQuickConnectNameResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.Connect.Types.ReferenceType
   ( ReferenceType
       ( ..,
-        URL
+        ReferenceTypeURL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReferenceType = ReferenceType' (CI Text)
+newtype ReferenceType = ReferenceType'
+  { fromReferenceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern URL :: ReferenceType
-pattern URL = ReferenceType' "URL"
+pattern ReferenceTypeURL :: ReferenceType
+pattern ReferenceTypeURL = ReferenceType' "URL"
 
 {-# COMPLETE
-  URL,
+  ReferenceTypeURL,
   ReferenceType'
   #-}
 
-instance FromText ReferenceType where
-  parser = (ReferenceType' . mk) <$> takeText
+instance Prelude.FromText ReferenceType where
+  parser = ReferenceType' Prelude.<$> Prelude.takeText
 
-instance ToText ReferenceType where
-  toText (ReferenceType' ci) = original ci
+instance Prelude.ToText ReferenceType where
+  toText (ReferenceType' x) = x
 
-instance Hashable ReferenceType
+instance Prelude.Hashable ReferenceType
 
-instance NFData ReferenceType
+instance Prelude.NFData ReferenceType
 
-instance ToByteString ReferenceType
+instance Prelude.ToByteString ReferenceType
 
-instance ToQuery ReferenceType
+instance Prelude.ToQuery ReferenceType
 
-instance ToHeader ReferenceType
+instance Prelude.ToHeader ReferenceType
 
-instance ToJSON ReferenceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReferenceType where
+  toJSON = Prelude.toJSONText

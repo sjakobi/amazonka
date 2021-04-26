@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Connect.Types.SecurityKey where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration information of the security key.
 --
---
---
--- /See:/ 'securityKey' smart constructor.
+-- /See:/ 'newSecurityKey' smart constructor.
 data SecurityKey = SecurityKey'
-  { _skKey ::
-      !(Maybe Text),
-    _skCreationTime :: !(Maybe POSIX),
-    _skAssociationId :: !(Maybe Text)
+  { -- | The key of the security key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | When the security key was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The existing association identifier that uniquely identifies the
+    -- resource type and storage config for the given instance ID.
+    associationId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SecurityKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SecurityKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'skKey' - The key of the security key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'skCreationTime' - When the security key was created.
+-- 'key', 'securityKey_key' - The key of the security key.
 --
--- * 'skAssociationId' - The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.
-securityKey ::
+-- 'creationTime', 'securityKey_creationTime' - When the security key was created.
+--
+-- 'associationId', 'securityKey_associationId' - The existing association identifier that uniquely identifies the
+-- resource type and storage config for the given instance ID.
+newSecurityKey ::
   SecurityKey
-securityKey =
+newSecurityKey =
   SecurityKey'
-    { _skKey = Nothing,
-      _skCreationTime = Nothing,
-      _skAssociationId = Nothing
+    { key = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      associationId = Prelude.Nothing
     }
 
 -- | The key of the security key.
-skKey :: Lens' SecurityKey (Maybe Text)
-skKey = lens _skKey (\s a -> s {_skKey = a})
+securityKey_key :: Lens.Lens' SecurityKey (Prelude.Maybe Prelude.Text)
+securityKey_key = Lens.lens (\SecurityKey' {key} -> key) (\s@SecurityKey' {} a -> s {key = a} :: SecurityKey)
 
 -- | When the security key was created.
-skCreationTime :: Lens' SecurityKey (Maybe UTCTime)
-skCreationTime = lens _skCreationTime (\s a -> s {_skCreationTime = a}) . mapping _Time
+securityKey_creationTime :: Lens.Lens' SecurityKey (Prelude.Maybe Prelude.UTCTime)
+securityKey_creationTime = Lens.lens (\SecurityKey' {creationTime} -> creationTime) (\s@SecurityKey' {} a -> s {creationTime = a} :: SecurityKey) Prelude.. Lens.mapping Prelude._Time
 
--- | The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.
-skAssociationId :: Lens' SecurityKey (Maybe Text)
-skAssociationId = lens _skAssociationId (\s a -> s {_skAssociationId = a})
+-- | The existing association identifier that uniquely identifies the
+-- resource type and storage config for the given instance ID.
+securityKey_associationId :: Lens.Lens' SecurityKey (Prelude.Maybe Prelude.Text)
+securityKey_associationId = Lens.lens (\SecurityKey' {associationId} -> associationId) (\s@SecurityKey' {} a -> s {associationId = a} :: SecurityKey)
 
-instance FromJSON SecurityKey where
+instance Prelude.FromJSON SecurityKey where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SecurityKey"
       ( \x ->
           SecurityKey'
-            <$> (x .:? "Key")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "AssociationId")
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "AssociationId")
       )
 
-instance Hashable SecurityKey
+instance Prelude.Hashable SecurityKey
 
-instance NFData SecurityKey
+instance Prelude.NFData SecurityKey

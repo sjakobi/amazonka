@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,206 +23,224 @@
 --
 -- Creates a contact flow for the specified Amazon Connect instance.
 --
---
--- You can also create and update contact flows using the <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html Amazon Connect Flow language> .
+-- You can also create and update contact flows using the
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html Amazon Connect Flow language>.
 module Network.AWS.Connect.CreateContactFlow
   ( -- * Creating a Request
-    createContactFlow,
-    CreateContactFlow,
+    CreateContactFlow (..),
+    newCreateContactFlow,
 
     -- * Request Lenses
-    ccfTags,
-    ccfDescription,
-    ccfInstanceId,
-    ccfName,
-    ccfType,
-    ccfContent,
+    createContactFlow_tags,
+    createContactFlow_description,
+    createContactFlow_instanceId,
+    createContactFlow_name,
+    createContactFlow_type,
+    createContactFlow_content,
 
     -- * Destructuring the Response
-    createContactFlowResponse,
-    CreateContactFlowResponse,
+    CreateContactFlowResponse (..),
+    newCreateContactFlowResponse,
 
     -- * Response Lenses
-    ccfrrsContactFlowARN,
-    ccfrrsContactFlowId,
-    ccfrrsResponseStatus,
+    createContactFlowResponse_contactFlowArn,
+    createContactFlowResponse_contactFlowId,
+    createContactFlowResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createContactFlow' smart constructor.
+-- | /See:/ 'newCreateContactFlow' smart constructor.
 data CreateContactFlow = CreateContactFlow'
-  { _ccfTags ::
-      !(Maybe (Map Text Text)),
-    _ccfDescription :: !(Maybe Text),
-    _ccfInstanceId :: !Text,
-    _ccfName :: !Text,
-    _ccfType :: !ContactFlowType,
-    _ccfContent :: !Text
+  { -- | One or more tags.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The description of the contact flow.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The name of the contact flow.
+    name :: Prelude.Text,
+    -- | The type of the contact flow. For descriptions of the available types,
+    -- see
+    -- <https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html#contact-flow-types Choose a Contact Flow Type>
+    -- in the /Amazon Connect Administrator Guide/.
+    type' :: ContactFlowType,
+    -- | The content of the contact flow.
+    content :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateContactFlow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateContactFlow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccfTags' - One or more tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccfDescription' - The description of the contact flow.
+-- 'tags', 'createContactFlow_tags' - One or more tags.
 --
--- * 'ccfInstanceId' - The identifier of the Amazon Connect instance.
+-- 'description', 'createContactFlow_description' - The description of the contact flow.
 --
--- * 'ccfName' - The name of the contact flow.
+-- 'instanceId', 'createContactFlow_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'ccfType' - The type of the contact flow. For descriptions of the available types, see <https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html#contact-flow-types Choose a Contact Flow Type> in the /Amazon Connect Administrator Guide/ .
+-- 'name', 'createContactFlow_name' - The name of the contact flow.
 --
--- * 'ccfContent' - The content of the contact flow.
-createContactFlow ::
-  -- | 'ccfInstanceId'
-  Text ->
-  -- | 'ccfName'
-  Text ->
-  -- | 'ccfType'
+-- 'type'', 'createContactFlow_type' - The type of the contact flow. For descriptions of the available types,
+-- see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html#contact-flow-types Choose a Contact Flow Type>
+-- in the /Amazon Connect Administrator Guide/.
+--
+-- 'content', 'createContactFlow_content' - The content of the contact flow.
+newCreateContactFlow ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   ContactFlowType ->
-  -- | 'ccfContent'
-  Text ->
+  -- | 'content'
+  Prelude.Text ->
   CreateContactFlow
-createContactFlow
+newCreateContactFlow
   pInstanceId_
   pName_
   pType_
   pContent_ =
     CreateContactFlow'
-      { _ccfTags = Nothing,
-        _ccfDescription = Nothing,
-        _ccfInstanceId = pInstanceId_,
-        _ccfName = pName_,
-        _ccfType = pType_,
-        _ccfContent = pContent_
+      { tags = Prelude.Nothing,
+        description = Prelude.Nothing,
+        instanceId = pInstanceId_,
+        name = pName_,
+        type' = pType_,
+        content = pContent_
       }
 
 -- | One or more tags.
-ccfTags :: Lens' CreateContactFlow (HashMap Text Text)
-ccfTags = lens _ccfTags (\s a -> s {_ccfTags = a}) . _Default . _Map
+createContactFlow_tags :: Lens.Lens' CreateContactFlow (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createContactFlow_tags = Lens.lens (\CreateContactFlow' {tags} -> tags) (\s@CreateContactFlow' {} a -> s {tags = a} :: CreateContactFlow) Prelude.. Lens.mapping Prelude._Map
 
 -- | The description of the contact flow.
-ccfDescription :: Lens' CreateContactFlow (Maybe Text)
-ccfDescription = lens _ccfDescription (\s a -> s {_ccfDescription = a})
+createContactFlow_description :: Lens.Lens' CreateContactFlow (Prelude.Maybe Prelude.Text)
+createContactFlow_description = Lens.lens (\CreateContactFlow' {description} -> description) (\s@CreateContactFlow' {} a -> s {description = a} :: CreateContactFlow)
 
 -- | The identifier of the Amazon Connect instance.
-ccfInstanceId :: Lens' CreateContactFlow Text
-ccfInstanceId = lens _ccfInstanceId (\s a -> s {_ccfInstanceId = a})
+createContactFlow_instanceId :: Lens.Lens' CreateContactFlow Prelude.Text
+createContactFlow_instanceId = Lens.lens (\CreateContactFlow' {instanceId} -> instanceId) (\s@CreateContactFlow' {} a -> s {instanceId = a} :: CreateContactFlow)
 
 -- | The name of the contact flow.
-ccfName :: Lens' CreateContactFlow Text
-ccfName = lens _ccfName (\s a -> s {_ccfName = a})
+createContactFlow_name :: Lens.Lens' CreateContactFlow Prelude.Text
+createContactFlow_name = Lens.lens (\CreateContactFlow' {name} -> name) (\s@CreateContactFlow' {} a -> s {name = a} :: CreateContactFlow)
 
--- | The type of the contact flow. For descriptions of the available types, see <https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html#contact-flow-types Choose a Contact Flow Type> in the /Amazon Connect Administrator Guide/ .
-ccfType :: Lens' CreateContactFlow ContactFlowType
-ccfType = lens _ccfType (\s a -> s {_ccfType = a})
+-- | The type of the contact flow. For descriptions of the available types,
+-- see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html#contact-flow-types Choose a Contact Flow Type>
+-- in the /Amazon Connect Administrator Guide/.
+createContactFlow_type :: Lens.Lens' CreateContactFlow ContactFlowType
+createContactFlow_type = Lens.lens (\CreateContactFlow' {type'} -> type') (\s@CreateContactFlow' {} a -> s {type' = a} :: CreateContactFlow)
 
 -- | The content of the contact flow.
-ccfContent :: Lens' CreateContactFlow Text
-ccfContent = lens _ccfContent (\s a -> s {_ccfContent = a})
+createContactFlow_content :: Lens.Lens' CreateContactFlow Prelude.Text
+createContactFlow_content = Lens.lens (\CreateContactFlow' {content} -> content) (\s@CreateContactFlow' {} a -> s {content = a} :: CreateContactFlow)
 
-instance AWSRequest CreateContactFlow where
+instance Prelude.AWSRequest CreateContactFlow where
   type Rs CreateContactFlow = CreateContactFlowResponse
-  request = putJSON connect
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateContactFlowResponse'
-            <$> (x .?> "ContactFlowArn")
-            <*> (x .?> "ContactFlowId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ContactFlowArn")
+            Prelude.<*> (x Prelude..?> "ContactFlowId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateContactFlow
+instance Prelude.Hashable CreateContactFlow
 
-instance NFData CreateContactFlow
+instance Prelude.NFData CreateContactFlow
 
-instance ToHeaders CreateContactFlow where
+instance Prelude.ToHeaders CreateContactFlow where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateContactFlow where
+instance Prelude.ToJSON CreateContactFlow where
   toJSON CreateContactFlow' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _ccfTags,
-            ("Description" .=) <$> _ccfDescription,
-            Just ("Name" .= _ccfName),
-            Just ("Type" .= _ccfType),
-            Just ("Content" .= _ccfContent)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Type" Prelude..= type'),
+            Prelude.Just ("Content" Prelude..= content)
           ]
       )
 
-instance ToPath CreateContactFlow where
+instance Prelude.ToPath CreateContactFlow where
   toPath CreateContactFlow' {..} =
-    mconcat ["/contact-flows/", toBS _ccfInstanceId]
+    Prelude.mconcat
+      ["/contact-flows/", Prelude.toBS instanceId]
 
-instance ToQuery CreateContactFlow where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateContactFlow where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createContactFlowResponse' smart constructor.
+-- | /See:/ 'newCreateContactFlowResponse' smart constructor.
 data CreateContactFlowResponse = CreateContactFlowResponse'
-  { _ccfrrsContactFlowARN ::
-      !(Maybe Text),
-    _ccfrrsContactFlowId ::
-      !(Maybe Text),
-    _ccfrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the contact flow.
+    contactFlowArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the contact flow.
+    contactFlowId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateContactFlowResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateContactFlowResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccfrrsContactFlowARN' - The Amazon Resource Name (ARN) of the contact flow.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccfrrsContactFlowId' - The identifier of the contact flow.
+-- 'contactFlowArn', 'createContactFlowResponse_contactFlowArn' - The Amazon Resource Name (ARN) of the contact flow.
 --
--- * 'ccfrrsResponseStatus' - -- | The response status code.
-createContactFlowResponse ::
-  -- | 'ccfrrsResponseStatus'
-  Int ->
+-- 'contactFlowId', 'createContactFlowResponse_contactFlowId' - The identifier of the contact flow.
+--
+-- 'httpStatus', 'createContactFlowResponse_httpStatus' - The response's http status code.
+newCreateContactFlowResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateContactFlowResponse
-createContactFlowResponse pResponseStatus_ =
+newCreateContactFlowResponse pHttpStatus_ =
   CreateContactFlowResponse'
-    { _ccfrrsContactFlowARN =
-        Nothing,
-      _ccfrrsContactFlowId = Nothing,
-      _ccfrrsResponseStatus = pResponseStatus_
+    { contactFlowArn =
+        Prelude.Nothing,
+      contactFlowId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the contact flow.
-ccfrrsContactFlowARN :: Lens' CreateContactFlowResponse (Maybe Text)
-ccfrrsContactFlowARN = lens _ccfrrsContactFlowARN (\s a -> s {_ccfrrsContactFlowARN = a})
+createContactFlowResponse_contactFlowArn :: Lens.Lens' CreateContactFlowResponse (Prelude.Maybe Prelude.Text)
+createContactFlowResponse_contactFlowArn = Lens.lens (\CreateContactFlowResponse' {contactFlowArn} -> contactFlowArn) (\s@CreateContactFlowResponse' {} a -> s {contactFlowArn = a} :: CreateContactFlowResponse)
 
 -- | The identifier of the contact flow.
-ccfrrsContactFlowId :: Lens' CreateContactFlowResponse (Maybe Text)
-ccfrrsContactFlowId = lens _ccfrrsContactFlowId (\s a -> s {_ccfrrsContactFlowId = a})
+createContactFlowResponse_contactFlowId :: Lens.Lens' CreateContactFlowResponse (Prelude.Maybe Prelude.Text)
+createContactFlowResponse_contactFlowId = Lens.lens (\CreateContactFlowResponse' {contactFlowId} -> contactFlowId) (\s@CreateContactFlowResponse' {} a -> s {contactFlowId = a} :: CreateContactFlowResponse)
 
--- | -- | The response status code.
-ccfrrsResponseStatus :: Lens' CreateContactFlowResponse Int
-ccfrrsResponseStatus = lens _ccfrrsResponseStatus (\s a -> s {_ccfrrsResponseStatus = a})
+-- | The response's http status code.
+createContactFlowResponse_httpStatus :: Lens.Lens' CreateContactFlowResponse Prelude.Int
+createContactFlowResponse_httpStatus = Lens.lens (\CreateContactFlowResponse' {httpStatus} -> httpStatus) (\s@CreateContactFlowResponse' {} a -> s {httpStatus = a} :: CreateContactFlowResponse)
 
-instance NFData CreateContactFlowResponse
+instance Prelude.NFData CreateContactFlowResponse

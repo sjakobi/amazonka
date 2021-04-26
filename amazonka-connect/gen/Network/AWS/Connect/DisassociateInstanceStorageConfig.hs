@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,160 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Removes the storage type configurations for the specified resource type and association ID.
+-- Removes the storage type configurations for the specified resource type
+-- and association ID.
 module Network.AWS.Connect.DisassociateInstanceStorageConfig
   ( -- * Creating a Request
-    disassociateInstanceStorageConfig,
-    DisassociateInstanceStorageConfig,
+    DisassociateInstanceStorageConfig (..),
+    newDisassociateInstanceStorageConfig,
 
     -- * Request Lenses
-    disInstanceId,
-    disAssociationId,
-    disResourceType,
+    disassociateInstanceStorageConfig_instanceId,
+    disassociateInstanceStorageConfig_associationId,
+    disassociateInstanceStorageConfig_resourceType,
 
     -- * Destructuring the Response
-    disassociateInstanceStorageConfigResponse,
-    DisassociateInstanceStorageConfigResponse,
+    DisassociateInstanceStorageConfigResponse (..),
+    newDisassociateInstanceStorageConfigResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateInstanceStorageConfig' smart constructor.
+-- | /See:/ 'newDisassociateInstanceStorageConfig' smart constructor.
 data DisassociateInstanceStorageConfig = DisassociateInstanceStorageConfig'
-  { _disInstanceId ::
-      !Text,
-    _disAssociationId ::
-      !Text,
-    _disResourceType ::
-      !InstanceStorageResourceType
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The existing association identifier that uniquely identifies the
+    -- resource type and storage config for the given instance ID.
+    associationId :: Prelude.Text,
+    -- | A valid resource type.
+    resourceType :: InstanceStorageResourceType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateInstanceStorageConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateInstanceStorageConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'disAssociationId' - The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.
+-- 'instanceId', 'disassociateInstanceStorageConfig_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'disResourceType' - A valid resource type.
-disassociateInstanceStorageConfig ::
-  -- | 'disInstanceId'
-  Text ->
-  -- | 'disAssociationId'
-  Text ->
-  -- | 'disResourceType'
+-- 'associationId', 'disassociateInstanceStorageConfig_associationId' - The existing association identifier that uniquely identifies the
+-- resource type and storage config for the given instance ID.
+--
+-- 'resourceType', 'disassociateInstanceStorageConfig_resourceType' - A valid resource type.
+newDisassociateInstanceStorageConfig ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'associationId'
+  Prelude.Text ->
+  -- | 'resourceType'
   InstanceStorageResourceType ->
   DisassociateInstanceStorageConfig
-disassociateInstanceStorageConfig
+newDisassociateInstanceStorageConfig
   pInstanceId_
   pAssociationId_
   pResourceType_ =
     DisassociateInstanceStorageConfig'
-      { _disInstanceId =
+      { instanceId =
           pInstanceId_,
-        _disAssociationId = pAssociationId_,
-        _disResourceType = pResourceType_
+        associationId = pAssociationId_,
+        resourceType = pResourceType_
       }
 
 -- | The identifier of the Amazon Connect instance.
-disInstanceId :: Lens' DisassociateInstanceStorageConfig Text
-disInstanceId = lens _disInstanceId (\s a -> s {_disInstanceId = a})
+disassociateInstanceStorageConfig_instanceId :: Lens.Lens' DisassociateInstanceStorageConfig Prelude.Text
+disassociateInstanceStorageConfig_instanceId = Lens.lens (\DisassociateInstanceStorageConfig' {instanceId} -> instanceId) (\s@DisassociateInstanceStorageConfig' {} a -> s {instanceId = a} :: DisassociateInstanceStorageConfig)
 
--- | The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.
-disAssociationId :: Lens' DisassociateInstanceStorageConfig Text
-disAssociationId = lens _disAssociationId (\s a -> s {_disAssociationId = a})
+-- | The existing association identifier that uniquely identifies the
+-- resource type and storage config for the given instance ID.
+disassociateInstanceStorageConfig_associationId :: Lens.Lens' DisassociateInstanceStorageConfig Prelude.Text
+disassociateInstanceStorageConfig_associationId = Lens.lens (\DisassociateInstanceStorageConfig' {associationId} -> associationId) (\s@DisassociateInstanceStorageConfig' {} a -> s {associationId = a} :: DisassociateInstanceStorageConfig)
 
 -- | A valid resource type.
-disResourceType :: Lens' DisassociateInstanceStorageConfig InstanceStorageResourceType
-disResourceType = lens _disResourceType (\s a -> s {_disResourceType = a})
+disassociateInstanceStorageConfig_resourceType :: Lens.Lens' DisassociateInstanceStorageConfig InstanceStorageResourceType
+disassociateInstanceStorageConfig_resourceType = Lens.lens (\DisassociateInstanceStorageConfig' {resourceType} -> resourceType) (\s@DisassociateInstanceStorageConfig' {} a -> s {resourceType = a} :: DisassociateInstanceStorageConfig)
 
-instance AWSRequest DisassociateInstanceStorageConfig where
+instance
+  Prelude.AWSRequest
+    DisassociateInstanceStorageConfig
+  where
   type
     Rs DisassociateInstanceStorageConfig =
       DisassociateInstanceStorageConfigResponse
-  request = delete connect
+  request = Request.delete defaultService
   response =
-    receiveNull
+    Response.receiveNull
       DisassociateInstanceStorageConfigResponse'
 
-instance Hashable DisassociateInstanceStorageConfig
+instance
+  Prelude.Hashable
+    DisassociateInstanceStorageConfig
 
-instance NFData DisassociateInstanceStorageConfig
+instance
+  Prelude.NFData
+    DisassociateInstanceStorageConfig
 
-instance ToHeaders DisassociateInstanceStorageConfig where
+instance
+  Prelude.ToHeaders
+    DisassociateInstanceStorageConfig
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DisassociateInstanceStorageConfig where
+instance
+  Prelude.ToPath
+    DisassociateInstanceStorageConfig
+  where
   toPath DisassociateInstanceStorageConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _disInstanceId,
+        Prelude.toBS instanceId,
         "/storage-config/",
-        toBS _disAssociationId
+        Prelude.toBS associationId
       ]
 
-instance ToQuery DisassociateInstanceStorageConfig where
+instance
+  Prelude.ToQuery
+    DisassociateInstanceStorageConfig
+  where
   toQuery DisassociateInstanceStorageConfig' {..} =
-    mconcat ["resourceType" =: _disResourceType]
+    Prelude.mconcat
+      ["resourceType" Prelude.=: resourceType]
 
--- | /See:/ 'disassociateInstanceStorageConfigResponse' smart constructor.
+-- | /See:/ 'newDisassociateInstanceStorageConfigResponse' smart constructor.
 data DisassociateInstanceStorageConfigResponse = DisassociateInstanceStorageConfigResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateInstanceStorageConfigResponse' with the minimum fields required to make a request.
-disassociateInstanceStorageConfigResponse ::
+-- |
+-- Create a value of 'DisassociateInstanceStorageConfigResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDisassociateInstanceStorageConfigResponse ::
   DisassociateInstanceStorageConfigResponse
-disassociateInstanceStorageConfigResponse =
+newDisassociateInstanceStorageConfigResponse =
   DisassociateInstanceStorageConfigResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DisassociateInstanceStorageConfigResponse

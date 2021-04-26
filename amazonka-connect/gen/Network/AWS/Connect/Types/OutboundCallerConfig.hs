@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Connect.Types.OutboundCallerConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The outbound caller ID name, number, and outbound whisper flow.
 --
---
---
--- /See:/ 'outboundCallerConfig' smart constructor.
+-- /See:/ 'newOutboundCallerConfig' smart constructor.
 data OutboundCallerConfig = OutboundCallerConfig'
-  { _occOutboundCallerIdNumberId ::
-      !(Maybe Text),
-    _occOutboundFlowId ::
-      !(Maybe Text),
-    _occOutboundCallerIdName ::
-      !(Maybe Text)
+  { -- | The caller ID number.
+    outboundCallerIdNumberId :: Prelude.Maybe Prelude.Text,
+    -- | The outbound whisper flow to be used during an outbound call.
+    outboundFlowId :: Prelude.Maybe Prelude.Text,
+    -- | The caller ID name.
+    outboundCallerIdName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutboundCallerConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutboundCallerConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'occOutboundCallerIdNumberId' - The caller ID number.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'occOutboundFlowId' - The outbound whisper flow to be used during an outbound call.
+-- 'outboundCallerIdNumberId', 'outboundCallerConfig_outboundCallerIdNumberId' - The caller ID number.
 --
--- * 'occOutboundCallerIdName' - The caller ID name.
-outboundCallerConfig ::
+-- 'outboundFlowId', 'outboundCallerConfig_outboundFlowId' - The outbound whisper flow to be used during an outbound call.
+--
+-- 'outboundCallerIdName', 'outboundCallerConfig_outboundCallerIdName' - The caller ID name.
+newOutboundCallerConfig ::
   OutboundCallerConfig
-outboundCallerConfig =
+newOutboundCallerConfig =
   OutboundCallerConfig'
-    { _occOutboundCallerIdNumberId =
-        Nothing,
-      _occOutboundFlowId = Nothing,
-      _occOutboundCallerIdName = Nothing
+    { outboundCallerIdNumberId =
+        Prelude.Nothing,
+      outboundFlowId = Prelude.Nothing,
+      outboundCallerIdName = Prelude.Nothing
     }
 
 -- | The caller ID number.
-occOutboundCallerIdNumberId :: Lens' OutboundCallerConfig (Maybe Text)
-occOutboundCallerIdNumberId = lens _occOutboundCallerIdNumberId (\s a -> s {_occOutboundCallerIdNumberId = a})
+outboundCallerConfig_outboundCallerIdNumberId :: Lens.Lens' OutboundCallerConfig (Prelude.Maybe Prelude.Text)
+outboundCallerConfig_outboundCallerIdNumberId = Lens.lens (\OutboundCallerConfig' {outboundCallerIdNumberId} -> outboundCallerIdNumberId) (\s@OutboundCallerConfig' {} a -> s {outboundCallerIdNumberId = a} :: OutboundCallerConfig)
 
 -- | The outbound whisper flow to be used during an outbound call.
-occOutboundFlowId :: Lens' OutboundCallerConfig (Maybe Text)
-occOutboundFlowId = lens _occOutboundFlowId (\s a -> s {_occOutboundFlowId = a})
+outboundCallerConfig_outboundFlowId :: Lens.Lens' OutboundCallerConfig (Prelude.Maybe Prelude.Text)
+outboundCallerConfig_outboundFlowId = Lens.lens (\OutboundCallerConfig' {outboundFlowId} -> outboundFlowId) (\s@OutboundCallerConfig' {} a -> s {outboundFlowId = a} :: OutboundCallerConfig)
 
 -- | The caller ID name.
-occOutboundCallerIdName :: Lens' OutboundCallerConfig (Maybe Text)
-occOutboundCallerIdName = lens _occOutboundCallerIdName (\s a -> s {_occOutboundCallerIdName = a})
+outboundCallerConfig_outboundCallerIdName :: Lens.Lens' OutboundCallerConfig (Prelude.Maybe Prelude.Text)
+outboundCallerConfig_outboundCallerIdName = Lens.lens (\OutboundCallerConfig' {outboundCallerIdName} -> outboundCallerIdName) (\s@OutboundCallerConfig' {} a -> s {outboundCallerIdName = a} :: OutboundCallerConfig)
 
-instance FromJSON OutboundCallerConfig where
+instance Prelude.FromJSON OutboundCallerConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutboundCallerConfig"
       ( \x ->
           OutboundCallerConfig'
-            <$> (x .:? "OutboundCallerIdNumberId")
-            <*> (x .:? "OutboundFlowId")
-            <*> (x .:? "OutboundCallerIdName")
+            Prelude.<$> (x Prelude..:? "OutboundCallerIdNumberId")
+            Prelude.<*> (x Prelude..:? "OutboundFlowId")
+            Prelude.<*> (x Prelude..:? "OutboundCallerIdName")
       )
 
-instance Hashable OutboundCallerConfig
+instance Prelude.Hashable OutboundCallerConfig
 
-instance NFData OutboundCallerConfig
+instance Prelude.NFData OutboundCallerConfig
 
-instance ToJSON OutboundCallerConfig where
+instance Prelude.ToJSON OutboundCallerConfig where
   toJSON OutboundCallerConfig' {..} =
-    object
-      ( catMaybes
-          [ ("OutboundCallerIdNumberId" .=)
-              <$> _occOutboundCallerIdNumberId,
-            ("OutboundFlowId" .=) <$> _occOutboundFlowId,
-            ("OutboundCallerIdName" .=)
-              <$> _occOutboundCallerIdName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OutboundCallerIdNumberId" Prelude..=)
+              Prelude.<$> outboundCallerIdNumberId,
+            ("OutboundFlowId" Prelude..=)
+              Prelude.<$> outboundFlowId,
+            ("OutboundCallerIdName" Prelude..=)
+              Prelude.<$> outboundCallerIdName
           ]
       )

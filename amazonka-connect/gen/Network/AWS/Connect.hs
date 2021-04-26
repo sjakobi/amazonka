@@ -11,17 +11,29 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon Connect is a cloud-based contact center solution that you use to set up and manage a customer contact center and provide reliable customer engagement at any scale.
+-- Amazon Connect is a cloud-based contact center solution that you use to
+-- set up and manage a customer contact center and provide reliable
+-- customer engagement at any scale.
 --
+-- Amazon Connect provides metrics and real-time reporting that enable you
+-- to optimize contact routing. You can also resolve customer issues more
+-- efficiently by getting customers in touch with the appropriate agents.
 --
--- Amazon Connect provides metrics and real-time reporting that enable you to optimize contact routing. You can also resolve customer issues more efficiently by getting customers in touch with the appropriate agents.
+-- There are limits to the number of Amazon Connect resources that you can
+-- create. There are also limits to the number of requests that you can
+-- make per second. For more information, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html Amazon Connect Service Quotas>
+-- in the /Amazon Connect Administrator Guide/.
 --
--- There are limits to the number of Amazon Connect resources that you can create. There are also limits to the number of requests that you can make per second. For more information, see <https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html Amazon Connect Service Quotas> in the /Amazon Connect Administrator Guide/ .
+-- You can connect programmatically to an AWS service by using an endpoint.
+-- For a list of Amazon Connect endpoints, see
+-- <https://docs.aws.amazon.com/general/latest/gr/connect_region.html Amazon Connect Endpoints>.
 --
--- You can connect programmatically to an AWS service by using an endpoint. For a list of Amazon Connect endpoints, see <https://docs.aws.amazon.com/general/latest/gr/connect_region.html Amazon Connect Endpoints> .
+-- Working with contact flows? Check out the
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html Amazon Connect Flow language>.
 module Network.AWS.Connect
   ( -- * Service Configuration
-    connect,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -81,301 +93,598 @@ module Network.AWS.Connect
     -- $operations
 
     -- ** SuspendContactRecording
-    module Network.AWS.Connect.SuspendContactRecording,
+    SuspendContactRecording (SuspendContactRecording'),
+    newSuspendContactRecording,
+    SuspendContactRecordingResponse (SuspendContactRecordingResponse'),
+    newSuspendContactRecordingResponse,
 
     -- ** UpdateQueueName
-    module Network.AWS.Connect.UpdateQueueName,
+    UpdateQueueName (UpdateQueueName'),
+    newUpdateQueueName,
+    UpdateQueueNameResponse (UpdateQueueNameResponse'),
+    newUpdateQueueNameResponse,
 
     -- ** CreateQuickConnect
-    module Network.AWS.Connect.CreateQuickConnect,
+    CreateQuickConnect (CreateQuickConnect'),
+    newCreateQuickConnect,
+    CreateQuickConnectResponse (CreateQuickConnectResponse'),
+    newCreateQuickConnectResponse,
 
     -- ** UpdateUserRoutingProfile
-    module Network.AWS.Connect.UpdateUserRoutingProfile,
+    UpdateUserRoutingProfile (UpdateUserRoutingProfile'),
+    newUpdateUserRoutingProfile,
+    UpdateUserRoutingProfileResponse (UpdateUserRoutingProfileResponse'),
+    newUpdateUserRoutingProfileResponse,
 
     -- ** UpdateUserHierarchyGroupName
-    module Network.AWS.Connect.UpdateUserHierarchyGroupName,
+    UpdateUserHierarchyGroupName (UpdateUserHierarchyGroupName'),
+    newUpdateUserHierarchyGroupName,
+    UpdateUserHierarchyGroupNameResponse (UpdateUserHierarchyGroupNameResponse'),
+    newUpdateUserHierarchyGroupNameResponse,
 
     -- ** UpdateContactFlowName
-    module Network.AWS.Connect.UpdateContactFlowName,
+    UpdateContactFlowName (UpdateContactFlowName'),
+    newUpdateContactFlowName,
+    UpdateContactFlowNameResponse (UpdateContactFlowNameResponse'),
+    newUpdateContactFlowNameResponse,
 
     -- ** ListSecurityProfiles (Paginated)
-    module Network.AWS.Connect.ListSecurityProfiles,
+    ListSecurityProfiles (ListSecurityProfiles'),
+    newListSecurityProfiles,
+    ListSecurityProfilesResponse (ListSecurityProfilesResponse'),
+    newListSecurityProfilesResponse,
 
     -- ** DescribeInstance
-    module Network.AWS.Connect.DescribeInstance,
+    DescribeInstance (DescribeInstance'),
+    newDescribeInstance,
+    DescribeInstanceResponse (DescribeInstanceResponse'),
+    newDescribeInstanceResponse,
 
     -- ** ListInstanceAttributes (Paginated)
-    module Network.AWS.Connect.ListInstanceAttributes,
+    ListInstanceAttributes (ListInstanceAttributes'),
+    newListInstanceAttributes,
+    ListInstanceAttributesResponse (ListInstanceAttributesResponse'),
+    newListInstanceAttributesResponse,
 
     -- ** ListLambdaFunctions (Paginated)
-    module Network.AWS.Connect.ListLambdaFunctions,
+    ListLambdaFunctions (ListLambdaFunctions'),
+    newListLambdaFunctions,
+    ListLambdaFunctionsResponse (ListLambdaFunctionsResponse'),
+    newListLambdaFunctionsResponse,
 
     -- ** UpdateRoutingProfileQueues
-    module Network.AWS.Connect.UpdateRoutingProfileQueues,
+    UpdateRoutingProfileQueues (UpdateRoutingProfileQueues'),
+    newUpdateRoutingProfileQueues,
+    UpdateRoutingProfileQueuesResponse (UpdateRoutingProfileQueuesResponse'),
+    newUpdateRoutingProfileQueuesResponse,
 
     -- ** AssociateRoutingProfileQueues
-    module Network.AWS.Connect.AssociateRoutingProfileQueues,
+    AssociateRoutingProfileQueues (AssociateRoutingProfileQueues'),
+    newAssociateRoutingProfileQueues,
+    AssociateRoutingProfileQueuesResponse (AssociateRoutingProfileQueuesResponse'),
+    newAssociateRoutingProfileQueuesResponse,
 
     -- ** GetContactAttributes
-    module Network.AWS.Connect.GetContactAttributes,
+    GetContactAttributes (GetContactAttributes'),
+    newGetContactAttributes,
+    GetContactAttributesResponse (GetContactAttributesResponse'),
+    newGetContactAttributesResponse,
 
     -- ** ListLexBots (Paginated)
-    module Network.AWS.Connect.ListLexBots,
+    ListLexBots (ListLexBots'),
+    newListLexBots,
+    ListLexBotsResponse (ListLexBotsResponse'),
+    newListLexBotsResponse,
 
     -- ** AssociateLambdaFunction
-    module Network.AWS.Connect.AssociateLambdaFunction,
+    AssociateLambdaFunction (AssociateLambdaFunction'),
+    newAssociateLambdaFunction,
+    AssociateLambdaFunctionResponse (AssociateLambdaFunctionResponse'),
+    newAssociateLambdaFunctionResponse,
 
     -- ** ListApprovedOrigins (Paginated)
-    module Network.AWS.Connect.ListApprovedOrigins,
+    ListApprovedOrigins (ListApprovedOrigins'),
+    newListApprovedOrigins,
+    ListApprovedOriginsResponse (ListApprovedOriginsResponse'),
+    newListApprovedOriginsResponse,
 
     -- ** AssociateInstanceStorageConfig
-    module Network.AWS.Connect.AssociateInstanceStorageConfig,
+    AssociateInstanceStorageConfig (AssociateInstanceStorageConfig'),
+    newAssociateInstanceStorageConfig,
+    AssociateInstanceStorageConfigResponse (AssociateInstanceStorageConfigResponse'),
+    newAssociateInstanceStorageConfigResponse,
 
     -- ** CreateContactFlow
-    module Network.AWS.Connect.CreateContactFlow,
+    CreateContactFlow (CreateContactFlow'),
+    newCreateContactFlow,
+    CreateContactFlowResponse (CreateContactFlowResponse'),
+    newCreateContactFlowResponse,
 
     -- ** UpdateUserPhoneConfig
-    module Network.AWS.Connect.UpdateUserPhoneConfig,
+    UpdateUserPhoneConfig (UpdateUserPhoneConfig'),
+    newUpdateUserPhoneConfig,
+    UpdateUserPhoneConfigResponse (UpdateUserPhoneConfigResponse'),
+    newUpdateUserPhoneConfigResponse,
 
     -- ** UpdateContactAttributes
-    module Network.AWS.Connect.UpdateContactAttributes,
+    UpdateContactAttributes (UpdateContactAttributes'),
+    newUpdateContactAttributes,
+    UpdateContactAttributesResponse (UpdateContactAttributesResponse'),
+    newUpdateContactAttributesResponse,
 
     -- ** ListRoutingProfiles (Paginated)
-    module Network.AWS.Connect.ListRoutingProfiles,
+    ListRoutingProfiles (ListRoutingProfiles'),
+    newListRoutingProfiles,
+    ListRoutingProfilesResponse (ListRoutingProfilesResponse'),
+    newListRoutingProfilesResponse,
 
     -- ** DeleteUseCase
-    module Network.AWS.Connect.DeleteUseCase,
+    DeleteUseCase (DeleteUseCase'),
+    newDeleteUseCase,
+    DeleteUseCaseResponse (DeleteUseCaseResponse'),
+    newDeleteUseCaseResponse,
 
     -- ** DescribeQuickConnect
-    module Network.AWS.Connect.DescribeQuickConnect,
+    DescribeQuickConnect (DescribeQuickConnect'),
+    newDescribeQuickConnect,
+    DescribeQuickConnectResponse (DescribeQuickConnectResponse'),
+    newDescribeQuickConnectResponse,
 
     -- ** ListQueueQuickConnects (Paginated)
-    module Network.AWS.Connect.ListQueueQuickConnects,
+    ListQueueQuickConnects (ListQueueQuickConnects'),
+    newListQueueQuickConnects,
+    ListQueueQuickConnectsResponse (ListQueueQuickConnectsResponse'),
+    newListQueueQuickConnectsResponse,
 
     -- ** CreateRoutingProfile
-    module Network.AWS.Connect.CreateRoutingProfile,
+    CreateRoutingProfile (CreateRoutingProfile'),
+    newCreateRoutingProfile,
+    CreateRoutingProfileResponse (CreateRoutingProfileResponse'),
+    newCreateRoutingProfileResponse,
 
     -- ** AssociateApprovedOrigin
-    module Network.AWS.Connect.AssociateApprovedOrigin,
+    AssociateApprovedOrigin (AssociateApprovedOrigin'),
+    newAssociateApprovedOrigin,
+    AssociateApprovedOriginResponse (AssociateApprovedOriginResponse'),
+    newAssociateApprovedOriginResponse,
 
     -- ** DisassociateQueueQuickConnects
-    module Network.AWS.Connect.DisassociateQueueQuickConnects,
+    DisassociateQueueQuickConnects (DisassociateQueueQuickConnects'),
+    newDisassociateQueueQuickConnects,
+    DisassociateQueueQuickConnectsResponse (DisassociateQueueQuickConnectsResponse'),
+    newDisassociateQueueQuickConnectsResponse,
 
     -- ** UpdateRoutingProfileConcurrency
-    module Network.AWS.Connect.UpdateRoutingProfileConcurrency,
+    UpdateRoutingProfileConcurrency (UpdateRoutingProfileConcurrency'),
+    newUpdateRoutingProfileConcurrency,
+    UpdateRoutingProfileConcurrencyResponse (UpdateRoutingProfileConcurrencyResponse'),
+    newUpdateRoutingProfileConcurrencyResponse,
 
     -- ** UpdateQueueOutboundCallerConfig
-    module Network.AWS.Connect.UpdateQueueOutboundCallerConfig,
+    UpdateQueueOutboundCallerConfig (UpdateQueueOutboundCallerConfig'),
+    newUpdateQueueOutboundCallerConfig,
+    UpdateQueueOutboundCallerConfigResponse (UpdateQueueOutboundCallerConfigResponse'),
+    newUpdateQueueOutboundCallerConfigResponse,
 
     -- ** DisassociateSecurityKey
-    module Network.AWS.Connect.DisassociateSecurityKey,
+    DisassociateSecurityKey (DisassociateSecurityKey'),
+    newDisassociateSecurityKey,
+    DisassociateSecurityKeyResponse (DisassociateSecurityKeyResponse'),
+    newDisassociateSecurityKeyResponse,
 
     -- ** UntagResource
-    module Network.AWS.Connect.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** GetCurrentMetricData
-    module Network.AWS.Connect.GetCurrentMetricData,
+    GetCurrentMetricData (GetCurrentMetricData'),
+    newGetCurrentMetricData,
+    GetCurrentMetricDataResponse (GetCurrentMetricDataResponse'),
+    newGetCurrentMetricDataResponse,
 
     -- ** UpdateQuickConnectConfig
-    module Network.AWS.Connect.UpdateQuickConnectConfig,
+    UpdateQuickConnectConfig (UpdateQuickConnectConfig'),
+    newUpdateQuickConnectConfig,
+    UpdateQuickConnectConfigResponse (UpdateQuickConnectConfigResponse'),
+    newUpdateQuickConnectConfigResponse,
 
     -- ** ListInstances (Paginated)
-    module Network.AWS.Connect.ListInstances,
+    ListInstances (ListInstances'),
+    newListInstances,
+    ListInstancesResponse (ListInstancesResponse'),
+    newListInstancesResponse,
 
     -- ** ListQueues (Paginated)
-    module Network.AWS.Connect.ListQueues,
+    ListQueues (ListQueues'),
+    newListQueues,
+    ListQueuesResponse (ListQueuesResponse'),
+    newListQueuesResponse,
 
     -- ** DeleteInstance
-    module Network.AWS.Connect.DeleteInstance,
+    DeleteInstance (DeleteInstance'),
+    newDeleteInstance,
+    DeleteInstanceResponse (DeleteInstanceResponse'),
+    newDeleteInstanceResponse,
 
     -- ** TagResource
-    module Network.AWS.Connect.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** StopContact
-    module Network.AWS.Connect.StopContact,
+    StopContact (StopContact'),
+    newStopContact,
+    StopContactResponse (StopContactResponse'),
+    newStopContactResponse,
 
     -- ** CreateUserHierarchyGroup
-    module Network.AWS.Connect.CreateUserHierarchyGroup,
+    CreateUserHierarchyGroup (CreateUserHierarchyGroup'),
+    newCreateUserHierarchyGroup,
+    CreateUserHierarchyGroupResponse (CreateUserHierarchyGroupResponse'),
+    newCreateUserHierarchyGroupResponse,
 
     -- ** StartContactRecording
-    module Network.AWS.Connect.StartContactRecording,
+    StartContactRecording (StartContactRecording'),
+    newStartContactRecording,
+    StartContactRecordingResponse (StartContactRecordingResponse'),
+    newStartContactRecordingResponse,
 
     -- ** CreateUser
-    module Network.AWS.Connect.CreateUser,
+    CreateUser (CreateUser'),
+    newCreateUser,
+    CreateUserResponse (CreateUserResponse'),
+    newCreateUserResponse,
 
     -- ** AssociateSecurityKey
-    module Network.AWS.Connect.AssociateSecurityKey,
+    AssociateSecurityKey (AssociateSecurityKey'),
+    newAssociateSecurityKey,
+    AssociateSecurityKeyResponse (AssociateSecurityKeyResponse'),
+    newAssociateSecurityKeyResponse,
 
     -- ** AssociateQueueQuickConnects
-    module Network.AWS.Connect.AssociateQueueQuickConnects,
+    AssociateQueueQuickConnects (AssociateQueueQuickConnects'),
+    newAssociateQueueQuickConnects,
+    AssociateQueueQuickConnectsResponse (AssociateQueueQuickConnectsResponse'),
+    newAssociateQueueQuickConnectsResponse,
 
     -- ** StopContactRecording
-    module Network.AWS.Connect.StopContactRecording,
+    StopContactRecording (StopContactRecording'),
+    newStopContactRecording,
+    StopContactRecordingResponse (StopContactRecordingResponse'),
+    newStopContactRecordingResponse,
 
     -- ** DisassociateApprovedOrigin
-    module Network.AWS.Connect.DisassociateApprovedOrigin,
+    DisassociateApprovedOrigin (DisassociateApprovedOrigin'),
+    newDisassociateApprovedOrigin,
+    DisassociateApprovedOriginResponse (DisassociateApprovedOriginResponse'),
+    newDisassociateApprovedOriginResponse,
 
     -- ** UpdateQuickConnectName
-    module Network.AWS.Connect.UpdateQuickConnectName,
+    UpdateQuickConnectName (UpdateQuickConnectName'),
+    newUpdateQuickConnectName,
+    UpdateQuickConnectNameResponse (UpdateQuickConnectNameResponse'),
+    newUpdateQuickConnectNameResponse,
 
     -- ** DescribeRoutingProfile
-    module Network.AWS.Connect.DescribeRoutingProfile,
+    DescribeRoutingProfile (DescribeRoutingProfile'),
+    newDescribeRoutingProfile,
+    DescribeRoutingProfileResponse (DescribeRoutingProfileResponse'),
+    newDescribeRoutingProfileResponse,
 
     -- ** ListQuickConnects (Paginated)
-    module Network.AWS.Connect.ListQuickConnects,
+    ListQuickConnects (ListQuickConnects'),
+    newListQuickConnects,
+    ListQuickConnectsResponse (ListQuickConnectsResponse'),
+    newListQuickConnectsResponse,
 
     -- ** DisassociateLexBot
-    module Network.AWS.Connect.DisassociateLexBot,
+    DisassociateLexBot (DisassociateLexBot'),
+    newDisassociateLexBot,
+    DisassociateLexBotResponse (DisassociateLexBotResponse'),
+    newDisassociateLexBotResponse,
 
     -- ** DeleteQuickConnect
-    module Network.AWS.Connect.DeleteQuickConnect,
+    DeleteQuickConnect (DeleteQuickConnect'),
+    newDeleteQuickConnect,
+    DeleteQuickConnectResponse (DeleteQuickConnectResponse'),
+    newDeleteQuickConnectResponse,
 
     -- ** ListRoutingProfileQueues (Paginated)
-    module Network.AWS.Connect.ListRoutingProfileQueues,
+    ListRoutingProfileQueues (ListRoutingProfileQueues'),
+    newListRoutingProfileQueues,
+    ListRoutingProfileQueuesResponse (ListRoutingProfileQueuesResponse'),
+    newListRoutingProfileQueuesResponse,
 
     -- ** UpdateUserHierarchy
-    module Network.AWS.Connect.UpdateUserHierarchy,
+    UpdateUserHierarchy (UpdateUserHierarchy'),
+    newUpdateUserHierarchy,
+    UpdateUserHierarchyResponse (UpdateUserHierarchyResponse'),
+    newUpdateUserHierarchyResponse,
 
     -- ** DisassociateLambdaFunction
-    module Network.AWS.Connect.DisassociateLambdaFunction,
+    DisassociateLambdaFunction (DisassociateLambdaFunction'),
+    newDisassociateLambdaFunction,
+    DisassociateLambdaFunctionResponse (DisassociateLambdaFunctionResponse'),
+    newDisassociateLambdaFunctionResponse,
 
     -- ** UpdateQueueMaxContacts
-    module Network.AWS.Connect.UpdateQueueMaxContacts,
+    UpdateQueueMaxContacts (UpdateQueueMaxContacts'),
+    newUpdateQueueMaxContacts,
+    UpdateQueueMaxContactsResponse (UpdateQueueMaxContactsResponse'),
+    newUpdateQueueMaxContactsResponse,
 
     -- ** DescribeInstanceStorageConfig
-    module Network.AWS.Connect.DescribeInstanceStorageConfig,
+    DescribeInstanceStorageConfig (DescribeInstanceStorageConfig'),
+    newDescribeInstanceStorageConfig,
+    DescribeInstanceStorageConfigResponse (DescribeInstanceStorageConfigResponse'),
+    newDescribeInstanceStorageConfigResponse,
 
     -- ** UpdateQueueHoursOfOperation
-    module Network.AWS.Connect.UpdateQueueHoursOfOperation,
+    UpdateQueueHoursOfOperation (UpdateQueueHoursOfOperation'),
+    newUpdateQueueHoursOfOperation,
+    UpdateQueueHoursOfOperationResponse (UpdateQueueHoursOfOperationResponse'),
+    newUpdateQueueHoursOfOperationResponse,
 
     -- ** DisassociateRoutingProfileQueues
-    module Network.AWS.Connect.DisassociateRoutingProfileQueues,
+    DisassociateRoutingProfileQueues (DisassociateRoutingProfileQueues'),
+    newDisassociateRoutingProfileQueues,
+    DisassociateRoutingProfileQueuesResponse (DisassociateRoutingProfileQueuesResponse'),
+    newDisassociateRoutingProfileQueuesResponse,
 
     -- ** DescribeContactFlow
-    module Network.AWS.Connect.DescribeContactFlow,
+    DescribeContactFlow (DescribeContactFlow'),
+    newDescribeContactFlow,
+    DescribeContactFlowResponse (DescribeContactFlowResponse'),
+    newDescribeContactFlowResponse,
 
     -- ** UpdateQueueStatus
-    module Network.AWS.Connect.UpdateQueueStatus,
+    UpdateQueueStatus (UpdateQueueStatus'),
+    newUpdateQueueStatus,
+    UpdateQueueStatusResponse (UpdateQueueStatusResponse'),
+    newUpdateQueueStatusResponse,
 
     -- ** DescribeQueue
-    module Network.AWS.Connect.DescribeQueue,
+    DescribeQueue (DescribeQueue'),
+    newDescribeQueue,
+    DescribeQueueResponse (DescribeQueueResponse'),
+    newDescribeQueueResponse,
 
     -- ** AssociateLexBot
-    module Network.AWS.Connect.AssociateLexBot,
+    AssociateLexBot (AssociateLexBot'),
+    newAssociateLexBot,
+    AssociateLexBotResponse (AssociateLexBotResponse'),
+    newAssociateLexBotResponse,
 
     -- ** UpdateInstanceAttribute
-    module Network.AWS.Connect.UpdateInstanceAttribute,
+    UpdateInstanceAttribute (UpdateInstanceAttribute'),
+    newUpdateInstanceAttribute,
+    UpdateInstanceAttributeResponse (UpdateInstanceAttributeResponse'),
+    newUpdateInstanceAttributeResponse,
 
     -- ** DescribeUser
-    module Network.AWS.Connect.DescribeUser,
+    DescribeUser (DescribeUser'),
+    newDescribeUser,
+    DescribeUserResponse (DescribeUserResponse'),
+    newDescribeUserResponse,
 
     -- ** DescribeUserHierarchyGroup
-    module Network.AWS.Connect.DescribeUserHierarchyGroup,
+    DescribeUserHierarchyGroup (DescribeUserHierarchyGroup'),
+    newDescribeUserHierarchyGroup,
+    DescribeUserHierarchyGroupResponse (DescribeUserHierarchyGroupResponse'),
+    newDescribeUserHierarchyGroupResponse,
 
     -- ** ResumeContactRecording
-    module Network.AWS.Connect.ResumeContactRecording,
+    ResumeContactRecording (ResumeContactRecording'),
+    newResumeContactRecording,
+    ResumeContactRecordingResponse (ResumeContactRecordingResponse'),
+    newResumeContactRecordingResponse,
 
     -- ** UpdateRoutingProfileName
-    module Network.AWS.Connect.UpdateRoutingProfileName,
+    UpdateRoutingProfileName (UpdateRoutingProfileName'),
+    newUpdateRoutingProfileName,
+    UpdateRoutingProfileNameResponse (UpdateRoutingProfileNameResponse'),
+    newUpdateRoutingProfileNameResponse,
 
     -- ** StartChatContact
-    module Network.AWS.Connect.StartChatContact,
+    StartChatContact (StartChatContact'),
+    newStartChatContact,
+    StartChatContactResponse (StartChatContactResponse'),
+    newStartChatContactResponse,
 
     -- ** DeleteIntegrationAssociation
-    module Network.AWS.Connect.DeleteIntegrationAssociation,
+    DeleteIntegrationAssociation (DeleteIntegrationAssociation'),
+    newDeleteIntegrationAssociation,
+    DeleteIntegrationAssociationResponse (DeleteIntegrationAssociationResponse'),
+    newDeleteIntegrationAssociationResponse,
 
     -- ** ListPhoneNumbers (Paginated)
-    module Network.AWS.Connect.ListPhoneNumbers,
+    ListPhoneNumbers (ListPhoneNumbers'),
+    newListPhoneNumbers,
+    ListPhoneNumbersResponse (ListPhoneNumbersResponse'),
+    newListPhoneNumbersResponse,
 
     -- ** ListIntegrationAssociations (Paginated)
-    module Network.AWS.Connect.ListIntegrationAssociations,
+    ListIntegrationAssociations (ListIntegrationAssociations'),
+    newListIntegrationAssociations,
+    ListIntegrationAssociationsResponse (ListIntegrationAssociationsResponse'),
+    newListIntegrationAssociationsResponse,
 
     -- ** ListUseCases (Paginated)
-    module Network.AWS.Connect.ListUseCases,
+    ListUseCases (ListUseCases'),
+    newListUseCases,
+    ListUseCasesResponse (ListUseCasesResponse'),
+    newListUseCasesResponse,
 
     -- ** UpdateUserSecurityProfiles
-    module Network.AWS.Connect.UpdateUserSecurityProfiles,
+    UpdateUserSecurityProfiles (UpdateUserSecurityProfiles'),
+    newUpdateUserSecurityProfiles,
+    UpdateUserSecurityProfilesResponse (UpdateUserSecurityProfilesResponse'),
+    newUpdateUserSecurityProfilesResponse,
 
     -- ** DescribeUserHierarchyStructure
-    module Network.AWS.Connect.DescribeUserHierarchyStructure,
+    DescribeUserHierarchyStructure (DescribeUserHierarchyStructure'),
+    newDescribeUserHierarchyStructure,
+    DescribeUserHierarchyStructureResponse (DescribeUserHierarchyStructureResponse'),
+    newDescribeUserHierarchyStructureResponse,
 
     -- ** ListHoursOfOperations (Paginated)
-    module Network.AWS.Connect.ListHoursOfOperations,
+    ListHoursOfOperations (ListHoursOfOperations'),
+    newListHoursOfOperations,
+    ListHoursOfOperationsResponse (ListHoursOfOperationsResponse'),
+    newListHoursOfOperationsResponse,
 
     -- ** CreateUseCase
-    module Network.AWS.Connect.CreateUseCase,
+    CreateUseCase (CreateUseCase'),
+    newCreateUseCase,
+    CreateUseCaseResponse (CreateUseCaseResponse'),
+    newCreateUseCaseResponse,
 
     -- ** ListContactFlows (Paginated)
-    module Network.AWS.Connect.ListContactFlows,
+    ListContactFlows (ListContactFlows'),
+    newListContactFlows,
+    ListContactFlowsResponse (ListContactFlowsResponse'),
+    newListContactFlowsResponse,
 
     -- ** UpdateInstanceStorageConfig
-    module Network.AWS.Connect.UpdateInstanceStorageConfig,
+    UpdateInstanceStorageConfig (UpdateInstanceStorageConfig'),
+    newUpdateInstanceStorageConfig,
+    UpdateInstanceStorageConfigResponse (UpdateInstanceStorageConfigResponse'),
+    newUpdateInstanceStorageConfigResponse,
 
     -- ** ListInstanceStorageConfigs (Paginated)
-    module Network.AWS.Connect.ListInstanceStorageConfigs,
+    ListInstanceStorageConfigs (ListInstanceStorageConfigs'),
+    newListInstanceStorageConfigs,
+    ListInstanceStorageConfigsResponse (ListInstanceStorageConfigsResponse'),
+    newListInstanceStorageConfigsResponse,
 
     -- ** CreateIntegrationAssociation
-    module Network.AWS.Connect.CreateIntegrationAssociation,
+    CreateIntegrationAssociation (CreateIntegrationAssociation'),
+    newCreateIntegrationAssociation,
+    CreateIntegrationAssociationResponse (CreateIntegrationAssociationResponse'),
+    newCreateIntegrationAssociationResponse,
 
     -- ** DeleteUserHierarchyGroup
-    module Network.AWS.Connect.DeleteUserHierarchyGroup,
+    DeleteUserHierarchyGroup (DeleteUserHierarchyGroup'),
+    newDeleteUserHierarchyGroup,
+    DeleteUserHierarchyGroupResponse (DeleteUserHierarchyGroupResponse'),
+    newDeleteUserHierarchyGroupResponse,
 
     -- ** DeleteUser
-    module Network.AWS.Connect.DeleteUser,
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    DeleteUserResponse (DeleteUserResponse'),
+    newDeleteUserResponse,
 
     -- ** DisassociateInstanceStorageConfig
-    module Network.AWS.Connect.DisassociateInstanceStorageConfig,
+    DisassociateInstanceStorageConfig (DisassociateInstanceStorageConfig'),
+    newDisassociateInstanceStorageConfig,
+    DisassociateInstanceStorageConfigResponse (DisassociateInstanceStorageConfigResponse'),
+    newDisassociateInstanceStorageConfigResponse,
 
     -- ** ListUserHierarchyGroups (Paginated)
-    module Network.AWS.Connect.ListUserHierarchyGroups,
+    ListUserHierarchyGroups (ListUserHierarchyGroups'),
+    newListUserHierarchyGroups,
+    ListUserHierarchyGroupsResponse (ListUserHierarchyGroupsResponse'),
+    newListUserHierarchyGroupsResponse,
 
     -- ** UpdateUserIdentityInfo
-    module Network.AWS.Connect.UpdateUserIdentityInfo,
+    UpdateUserIdentityInfo (UpdateUserIdentityInfo'),
+    newUpdateUserIdentityInfo,
+    UpdateUserIdentityInfoResponse (UpdateUserIdentityInfoResponse'),
+    newUpdateUserIdentityInfoResponse,
 
     -- ** ListUsers (Paginated)
-    module Network.AWS.Connect.ListUsers,
+    ListUsers (ListUsers'),
+    newListUsers,
+    ListUsersResponse (ListUsersResponse'),
+    newListUsersResponse,
 
     -- ** GetFederationToken
-    module Network.AWS.Connect.GetFederationToken,
+    GetFederationToken (GetFederationToken'),
+    newGetFederationToken,
+    GetFederationTokenResponse (GetFederationTokenResponse'),
+    newGetFederationTokenResponse,
 
     -- ** DescribeInstanceAttribute
-    module Network.AWS.Connect.DescribeInstanceAttribute,
+    DescribeInstanceAttribute (DescribeInstanceAttribute'),
+    newDescribeInstanceAttribute,
+    DescribeInstanceAttributeResponse (DescribeInstanceAttributeResponse'),
+    newDescribeInstanceAttributeResponse,
 
     -- ** ListSecurityKeys (Paginated)
-    module Network.AWS.Connect.ListSecurityKeys,
+    ListSecurityKeys (ListSecurityKeys'),
+    newListSecurityKeys,
+    ListSecurityKeysResponse (ListSecurityKeysResponse'),
+    newListSecurityKeysResponse,
 
     -- ** UpdateRoutingProfileDefaultOutboundQueue
-    module Network.AWS.Connect.UpdateRoutingProfileDefaultOutboundQueue,
+    UpdateRoutingProfileDefaultOutboundQueue (UpdateRoutingProfileDefaultOutboundQueue'),
+    newUpdateRoutingProfileDefaultOutboundQueue,
+    UpdateRoutingProfileDefaultOutboundQueueResponse (UpdateRoutingProfileDefaultOutboundQueueResponse'),
+    newUpdateRoutingProfileDefaultOutboundQueueResponse,
 
     -- ** CreateQueue
-    module Network.AWS.Connect.CreateQueue,
+    CreateQueue (CreateQueue'),
+    newCreateQueue,
+    CreateQueueResponse (CreateQueueResponse'),
+    newCreateQueueResponse,
 
     -- ** CreateInstance
-    module Network.AWS.Connect.CreateInstance,
+    CreateInstance (CreateInstance'),
+    newCreateInstance,
+    CreateInstanceResponse (CreateInstanceResponse'),
+    newCreateInstanceResponse,
 
     -- ** StartTaskContact
-    module Network.AWS.Connect.StartTaskContact,
+    StartTaskContact (StartTaskContact'),
+    newStartTaskContact,
+    StartTaskContactResponse (StartTaskContactResponse'),
+    newStartTaskContactResponse,
 
     -- ** ListPrompts (Paginated)
-    module Network.AWS.Connect.ListPrompts,
+    ListPrompts (ListPrompts'),
+    newListPrompts,
+    ListPromptsResponse (ListPromptsResponse'),
+    newListPromptsResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.Connect.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** StartOutboundVoiceContact
-    module Network.AWS.Connect.StartOutboundVoiceContact,
+    StartOutboundVoiceContact (StartOutboundVoiceContact'),
+    newStartOutboundVoiceContact,
+    StartOutboundVoiceContactResponse (StartOutboundVoiceContactResponse'),
+    newStartOutboundVoiceContactResponse,
 
     -- ** UpdateUserHierarchyStructure
-    module Network.AWS.Connect.UpdateUserHierarchyStructure,
+    UpdateUserHierarchyStructure (UpdateUserHierarchyStructure'),
+    newUpdateUserHierarchyStructure,
+    UpdateUserHierarchyStructureResponse (UpdateUserHierarchyStructureResponse'),
+    newUpdateUserHierarchyStructureResponse,
 
     -- ** UpdateContactFlowContent
-    module Network.AWS.Connect.UpdateContactFlowContent,
+    UpdateContactFlowContent (UpdateContactFlowContent'),
+    newUpdateContactFlowContent,
+    UpdateContactFlowContentResponse (UpdateContactFlowContentResponse'),
+    newUpdateContactFlowContentResponse,
 
     -- ** GetMetricData (Paginated)
-    module Network.AWS.Connect.GetMetricData,
+    GetMetricData (GetMetricData'),
+    newGetMetricData,
+    GetMetricDataResponse (GetMetricDataResponse'),
+    newGetMetricDataResponse,
 
     -- ** DescribeHoursOfOperation
-    module Network.AWS.Connect.DescribeHoursOfOperation,
+    DescribeHoursOfOperation (DescribeHoursOfOperation'),
+    newDescribeHoursOfOperation,
+    DescribeHoursOfOperationResponse (DescribeHoursOfOperationResponse'),
+    newDescribeHoursOfOperationResponse,
 
     -- * Types
 
@@ -458,489 +767,260 @@ module Network.AWS.Connect
     VoiceRecordingTrack (..),
 
     -- ** Attribute
-    Attribute,
-    attribute,
-    aAttributeType,
-    aValue,
+    Attribute (Attribute'),
+    newAttribute,
 
     -- ** ChatMessage
-    ChatMessage,
-    chatMessage,
-    cmContentType,
-    cmContent,
+    ChatMessage (ChatMessage'),
+    newChatMessage,
 
     -- ** ContactFlow
-    ContactFlow,
-    contactFlow,
-    cfARN,
-    cfId,
-    cfName,
-    cfContent,
-    cfTags,
-    cfDescription,
-    cfType,
+    ContactFlow (ContactFlow'),
+    newContactFlow,
 
     -- ** ContactFlowSummary
-    ContactFlowSummary,
-    contactFlowSummary,
-    cfsARN,
-    cfsId,
-    cfsContactFlowType,
-    cfsName,
+    ContactFlowSummary (ContactFlowSummary'),
+    newContactFlowSummary,
 
     -- ** Credentials
-    Credentials,
-    credentials,
-    cRefreshTokenExpiration,
-    cAccessToken,
-    cAccessTokenExpiration,
-    cRefreshToken,
+    Credentials (Credentials'),
+    newCredentials,
 
     -- ** CurrentMetric
-    CurrentMetric,
-    currentMetric,
-    cmUnit,
-    cmName,
+    CurrentMetric (CurrentMetric'),
+    newCurrentMetric,
 
     -- ** CurrentMetricData
-    CurrentMetricData,
-    currentMetricData,
-    cmdMetric,
-    cmdValue,
+    CurrentMetricData (CurrentMetricData'),
+    newCurrentMetricData,
 
     -- ** CurrentMetricResult
-    CurrentMetricResult,
-    currentMetricResult,
-    cmrCollections,
-    cmrDimensions,
+    CurrentMetricResult (CurrentMetricResult'),
+    newCurrentMetricResult,
 
     -- ** Dimensions
-    Dimensions,
-    dimensions,
-    dQueue,
-    dChannel,
+    Dimensions (Dimensions'),
+    newDimensions,
 
     -- ** EncryptionConfig
-    EncryptionConfig,
-    encryptionConfig,
-    ecEncryptionType,
-    ecKeyId,
+    EncryptionConfig (EncryptionConfig'),
+    newEncryptionConfig,
 
     -- ** Filters
-    Filters,
-    filters,
-    fChannels,
-    fQueues,
+    Filters (Filters'),
+    newFilters,
 
     -- ** HierarchyGroup
-    HierarchyGroup,
-    hierarchyGroup,
-    hgLevelId,
-    hgARN,
-    hgId,
-    hgHierarchyPath,
-    hgName,
+    HierarchyGroup (HierarchyGroup'),
+    newHierarchyGroup,
 
     -- ** HierarchyGroupSummary
-    HierarchyGroupSummary,
-    hierarchyGroupSummary,
-    hgsARN,
-    hgsId,
-    hgsName,
+    HierarchyGroupSummary (HierarchyGroupSummary'),
+    newHierarchyGroupSummary,
 
     -- ** HierarchyLevel
-    HierarchyLevel,
-    hierarchyLevel,
-    hlARN,
-    hlId,
-    hlName,
+    HierarchyLevel (HierarchyLevel'),
+    newHierarchyLevel,
 
     -- ** HierarchyLevelUpdate
-    HierarchyLevelUpdate,
-    hierarchyLevelUpdate,
-    hluName,
+    HierarchyLevelUpdate (HierarchyLevelUpdate'),
+    newHierarchyLevelUpdate,
 
     -- ** HierarchyPath
-    HierarchyPath,
-    hierarchyPath,
-    hpLevelThree,
-    hpLevelFour,
-    hpLevelTwo,
-    hpLevelOne,
-    hpLevelFive,
+    HierarchyPath (HierarchyPath'),
+    newHierarchyPath,
 
     -- ** HierarchyStructure
-    HierarchyStructure,
-    hierarchyStructure,
-    hsLevelThree,
-    hsLevelFour,
-    hsLevelTwo,
-    hsLevelOne,
-    hsLevelFive,
+    HierarchyStructure (HierarchyStructure'),
+    newHierarchyStructure,
 
     -- ** HierarchyStructureUpdate
-    HierarchyStructureUpdate,
-    hierarchyStructureUpdate,
-    hsuLevelThree,
-    hsuLevelFour,
-    hsuLevelTwo,
-    hsuLevelOne,
-    hsuLevelFive,
+    HierarchyStructureUpdate (HierarchyStructureUpdate'),
+    newHierarchyStructureUpdate,
 
     -- ** HistoricalMetric
-    HistoricalMetric,
-    historicalMetric,
-    hmThreshold,
-    hmUnit,
-    hmName,
-    hmStatistic,
+    HistoricalMetric (HistoricalMetric'),
+    newHistoricalMetric,
 
     -- ** HistoricalMetricData
-    HistoricalMetricData,
-    historicalMetricData,
-    hmdMetric,
-    hmdValue,
+    HistoricalMetricData (HistoricalMetricData'),
+    newHistoricalMetricData,
 
     -- ** HistoricalMetricResult
-    HistoricalMetricResult,
-    historicalMetricResult,
-    hmrCollections,
-    hmrDimensions,
+    HistoricalMetricResult (HistoricalMetricResult'),
+    newHistoricalMetricResult,
 
     -- ** HoursOfOperation
-    HoursOfOperation,
-    hoursOfOperation,
-    hooConfig,
-    hooHoursOfOperationARN,
-    hooName,
-    hooTags,
-    hooDescription,
-    hooTimeZone,
-    hooHoursOfOperationId,
+    HoursOfOperation (HoursOfOperation'),
+    newHoursOfOperation,
 
     -- ** HoursOfOperationConfig
-    HoursOfOperationConfig,
-    hoursOfOperationConfig,
-    hoocDay,
-    hoocStartTime,
-    hoocEndTime,
+    HoursOfOperationConfig (HoursOfOperationConfig'),
+    newHoursOfOperationConfig,
 
     -- ** HoursOfOperationSummary
-    HoursOfOperationSummary,
-    hoursOfOperationSummary,
-    hoosARN,
-    hoosId,
-    hoosName,
+    HoursOfOperationSummary (HoursOfOperationSummary'),
+    newHoursOfOperationSummary,
 
     -- ** HoursOfOperationTimeSlice
-    HoursOfOperationTimeSlice,
-    hoursOfOperationTimeSlice,
-    hootsHours,
-    hootsMinutes,
+    HoursOfOperationTimeSlice (HoursOfOperationTimeSlice'),
+    newHoursOfOperationTimeSlice,
 
     -- ** Instance
-    Instance,
-    instance',
-    iInstanceAlias,
-    iServiceRole,
-    iOutboundCallsEnabled,
-    iARN,
-    iId,
-    iInstanceStatus,
-    iIdentityManagementType,
-    iCreatedTime,
-    iInboundCallsEnabled,
-    iStatusReason,
+    Instance (Instance'),
+    newInstance,
 
     -- ** InstanceStatusReason
-    InstanceStatusReason,
-    instanceStatusReason,
-    isrMessage,
+    InstanceStatusReason (InstanceStatusReason'),
+    newInstanceStatusReason,
 
     -- ** InstanceStorageConfig
-    InstanceStorageConfig,
-    instanceStorageConfig,
-    iscKinesisStreamConfig,
-    iscKinesisFirehoseConfig,
-    iscKinesisVideoStreamConfig,
-    iscAssociationId,
-    iscS3Config,
-    iscStorageType,
+    InstanceStorageConfig (InstanceStorageConfig'),
+    newInstanceStorageConfig,
 
     -- ** InstanceSummary
-    InstanceSummary,
-    instanceSummary,
-    isInstanceAlias,
-    isServiceRole,
-    isOutboundCallsEnabled,
-    isARN,
-    isId,
-    isInstanceStatus,
-    isIdentityManagementType,
-    isCreatedTime,
-    isInboundCallsEnabled,
+    InstanceSummary (InstanceSummary'),
+    newInstanceSummary,
 
     -- ** IntegrationAssociationSummary
-    IntegrationAssociationSummary,
-    integrationAssociationSummary,
-    iasInstanceId,
-    iasSourceApplicationName,
-    iasIntegrationAssociationARN,
-    iasSourceApplicationURL,
-    iasIntegrationType,
-    iasIntegrationARN,
-    iasSourceType,
-    iasIntegrationAssociationId,
+    IntegrationAssociationSummary (IntegrationAssociationSummary'),
+    newIntegrationAssociationSummary,
 
     -- ** KinesisFirehoseConfig
-    KinesisFirehoseConfig,
-    kinesisFirehoseConfig,
-    kfcFirehoseARN,
+    KinesisFirehoseConfig (KinesisFirehoseConfig'),
+    newKinesisFirehoseConfig,
 
     -- ** KinesisStreamConfig
-    KinesisStreamConfig,
-    kinesisStreamConfig,
-    kscStreamARN,
+    KinesisStreamConfig (KinesisStreamConfig'),
+    newKinesisStreamConfig,
 
     -- ** KinesisVideoStreamConfig
-    KinesisVideoStreamConfig,
-    kinesisVideoStreamConfig,
-    kvscPrefix,
-    kvscRetentionPeriodHours,
-    kvscEncryptionConfig,
+    KinesisVideoStreamConfig (KinesisVideoStreamConfig'),
+    newKinesisVideoStreamConfig,
 
     -- ** LexBot
-    LexBot,
-    lexBot,
-    lbName,
-    lbLexRegion,
+    LexBot (LexBot'),
+    newLexBot,
 
     -- ** MediaConcurrency
-    MediaConcurrency,
-    mediaConcurrency,
-    mcChannel,
-    mcConcurrency,
+    MediaConcurrency (MediaConcurrency'),
+    newMediaConcurrency,
 
     -- ** OutboundCallerConfig
-    OutboundCallerConfig,
-    outboundCallerConfig,
-    occOutboundCallerIdNumberId,
-    occOutboundFlowId,
-    occOutboundCallerIdName,
+    OutboundCallerConfig (OutboundCallerConfig'),
+    newOutboundCallerConfig,
 
     -- ** ParticipantDetails
-    ParticipantDetails,
-    participantDetails,
-    pdDisplayName,
+    ParticipantDetails (ParticipantDetails'),
+    newParticipantDetails,
 
     -- ** PhoneNumberQuickConnectConfig
-    PhoneNumberQuickConnectConfig,
-    phoneNumberQuickConnectConfig,
-    pnqccPhoneNumber,
+    PhoneNumberQuickConnectConfig (PhoneNumberQuickConnectConfig'),
+    newPhoneNumberQuickConnectConfig,
 
     -- ** PhoneNumberSummary
-    PhoneNumberSummary,
-    phoneNumberSummary,
-    pnsPhoneNumber,
-    pnsARN,
-    pnsId,
-    pnsPhoneNumberType,
-    pnsPhoneNumberCountryCode,
+    PhoneNumberSummary (PhoneNumberSummary'),
+    newPhoneNumberSummary,
 
     -- ** PromptSummary
-    PromptSummary,
-    promptSummary,
-    psARN,
-    psId,
-    psName,
+    PromptSummary (PromptSummary'),
+    newPromptSummary,
 
     -- ** Queue
-    Queue,
-    queue,
-    qMaxContacts,
-    qStatus,
-    qQueueId,
-    qName,
-    qQueueARN,
-    qTags,
-    qDescription,
-    qOutboundCallerConfig,
-    qHoursOfOperationId,
+    Queue (Queue'),
+    newQueue,
 
     -- ** QueueQuickConnectConfig
-    QueueQuickConnectConfig,
-    queueQuickConnectConfig,
-    qqccQueueId,
-    qqccContactFlowId,
+    QueueQuickConnectConfig (QueueQuickConnectConfig'),
+    newQueueQuickConnectConfig,
 
     -- ** QueueReference
-    QueueReference,
-    queueReference,
-    qrARN,
-    qrId,
+    QueueReference (QueueReference'),
+    newQueueReference,
 
     -- ** QueueSummary
-    QueueSummary,
-    queueSummary,
-    qsQueueType,
-    qsARN,
-    qsId,
-    qsName,
+    QueueSummary (QueueSummary'),
+    newQueueSummary,
 
     -- ** QuickConnect
-    QuickConnect,
-    quickConnect,
-    qcQuickConnectId,
-    qcName,
-    qcTags,
-    qcQuickConnectConfig,
-    qcQuickConnectARN,
-    qcDescription,
+    QuickConnect (QuickConnect'),
+    newQuickConnect,
 
     -- ** QuickConnectConfig
-    QuickConnectConfig,
-    quickConnectConfig,
-    qccUserConfig,
-    qccPhoneConfig,
-    qccQueueConfig,
-    qccQuickConnectType,
+    QuickConnectConfig (QuickConnectConfig'),
+    newQuickConnectConfig,
 
     -- ** QuickConnectSummary
-    QuickConnectSummary,
-    quickConnectSummary,
-    qcsQuickConnectType,
-    qcsARN,
-    qcsId,
-    qcsName,
+    QuickConnectSummary (QuickConnectSummary'),
+    newQuickConnectSummary,
 
     -- ** Reference
-    Reference,
-    reference,
-    rValue,
-    rType,
+    Reference (Reference'),
+    newReference,
 
     -- ** RoutingProfile
-    RoutingProfile,
-    routingProfile,
-    rpInstanceId,
-    rpDefaultOutboundQueueId,
-    rpRoutingProfileId,
-    rpMediaConcurrencies,
-    rpName,
-    rpTags,
-    rpDescription,
-    rpRoutingProfileARN,
+    RoutingProfile (RoutingProfile'),
+    newRoutingProfile,
 
     -- ** RoutingProfileQueueConfig
-    RoutingProfileQueueConfig,
-    routingProfileQueueConfig,
-    rpqcQueueReference,
-    rpqcPriority,
-    rpqcDelay,
+    RoutingProfileQueueConfig (RoutingProfileQueueConfig'),
+    newRoutingProfileQueueConfig,
 
     -- ** RoutingProfileQueueConfigSummary
-    RoutingProfileQueueConfigSummary,
-    routingProfileQueueConfigSummary,
-    rpqcsQueueId,
-    rpqcsQueueARN,
-    rpqcsQueueName,
-    rpqcsPriority,
-    rpqcsDelay,
-    rpqcsChannel,
+    RoutingProfileQueueConfigSummary (RoutingProfileQueueConfigSummary'),
+    newRoutingProfileQueueConfigSummary,
 
     -- ** RoutingProfileQueueReference
-    RoutingProfileQueueReference,
-    routingProfileQueueReference,
-    rpqrQueueId,
-    rpqrChannel,
+    RoutingProfileQueueReference (RoutingProfileQueueReference'),
+    newRoutingProfileQueueReference,
 
     -- ** RoutingProfileSummary
-    RoutingProfileSummary,
-    routingProfileSummary,
-    rpsARN,
-    rpsId,
-    rpsName,
+    RoutingProfileSummary (RoutingProfileSummary'),
+    newRoutingProfileSummary,
 
     -- ** S3Config
-    S3Config,
-    s3Config,
-    scEncryptionConfig,
-    scBucketName,
-    scBucketPrefix,
+    S3Config (S3Config'),
+    newS3Config,
 
     -- ** SecurityKey
-    SecurityKey,
-    securityKey,
-    skKey,
-    skCreationTime,
-    skAssociationId,
+    SecurityKey (SecurityKey'),
+    newSecurityKey,
 
     -- ** SecurityProfileSummary
-    SecurityProfileSummary,
-    securityProfileSummary,
-    spsARN,
-    spsId,
-    spsName,
+    SecurityProfileSummary (SecurityProfileSummary'),
+    newSecurityProfileSummary,
 
     -- ** Threshold
-    Threshold,
-    threshold,
-    tThresholdValue,
-    tComparison,
+    Threshold (Threshold'),
+    newThreshold,
 
     -- ** UseCase
-    UseCase,
-    useCase,
-    ucUseCaseARN,
-    ucUseCaseType,
-    ucUseCaseId,
+    UseCase (UseCase'),
+    newUseCase,
 
     -- ** User
-    User,
-    user,
-    uSecurityProfileIds,
-    uIdentityInfo,
-    uARN,
-    uId,
-    uHierarchyGroupId,
-    uDirectoryUserId,
-    uRoutingProfileId,
-    uTags,
-    uPhoneConfig,
-    uUsername,
+    User (User'),
+    newUser,
 
     -- ** UserIdentityInfo
-    UserIdentityInfo,
-    userIdentityInfo,
-    uiiEmail,
-    uiiFirstName,
-    uiiLastName,
+    UserIdentityInfo (UserIdentityInfo'),
+    newUserIdentityInfo,
 
     -- ** UserPhoneConfig
-    UserPhoneConfig,
-    userPhoneConfig,
-    upcAutoAccept,
-    upcAfterContactWorkTimeLimit,
-    upcDeskPhoneNumber,
-    upcPhoneType,
+    UserPhoneConfig (UserPhoneConfig'),
+    newUserPhoneConfig,
 
     -- ** UserQuickConnectConfig
-    UserQuickConnectConfig,
-    userQuickConnectConfig,
-    uqccUserId,
-    uqccContactFlowId,
+    UserQuickConnectConfig (UserQuickConnectConfig'),
+    newUserQuickConnectConfig,
 
     -- ** UserSummary
-    UserSummary,
-    userSummary,
-    usARN,
-    usId,
-    usUsername,
+    UserSummary (UserSummary'),
+    newUserSummary,
 
     -- ** VoiceRecordingConfiguration
-    VoiceRecordingConfiguration,
-    voiceRecordingConfiguration,
-    vrcVoiceRecordingTrack,
+    VoiceRecordingConfiguration (VoiceRecordingConfiguration'),
+    newVoiceRecordingConfiguration,
   )
 where
 
@@ -988,6 +1068,7 @@ import Network.AWS.Connect.GetContactAttributes
 import Network.AWS.Connect.GetCurrentMetricData
 import Network.AWS.Connect.GetFederationToken
 import Network.AWS.Connect.GetMetricData
+import Network.AWS.Connect.Lens
 import Network.AWS.Connect.ListApprovedOrigins
 import Network.AWS.Connect.ListContactFlows
 import Network.AWS.Connect.ListHoursOfOperations

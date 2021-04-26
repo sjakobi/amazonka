@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,122 +21,123 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an existing user hierarchy group. It must not be associated with any agents or have any active child groups.
+-- Deletes an existing user hierarchy group. It must not be associated with
+-- any agents or have any active child groups.
 module Network.AWS.Connect.DeleteUserHierarchyGroup
   ( -- * Creating a Request
-    deleteUserHierarchyGroup,
-    DeleteUserHierarchyGroup,
+    DeleteUserHierarchyGroup (..),
+    newDeleteUserHierarchyGroup,
 
     -- * Request Lenses
-    duhguHierarchyGroupId,
-    duhguInstanceId,
+    deleteUserHierarchyGroup_hierarchyGroupId,
+    deleteUserHierarchyGroup_instanceId,
 
     -- * Destructuring the Response
-    deleteUserHierarchyGroupResponse,
-    DeleteUserHierarchyGroupResponse,
+    DeleteUserHierarchyGroupResponse (..),
+    newDeleteUserHierarchyGroupResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUserHierarchyGroup' smart constructor.
+-- | /See:/ 'newDeleteUserHierarchyGroup' smart constructor.
 data DeleteUserHierarchyGroup = DeleteUserHierarchyGroup'
-  { _duhguHierarchyGroupId ::
-      !Text,
-    _duhguInstanceId ::
-      !Text
+  { -- | The identifier of the hierarchy group.
+    hierarchyGroupId :: Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserHierarchyGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserHierarchyGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duhguHierarchyGroupId' - The identifier of the hierarchy group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duhguInstanceId' - The identifier of the Amazon Connect instance.
-deleteUserHierarchyGroup ::
-  -- | 'duhguHierarchyGroupId'
-  Text ->
-  -- | 'duhguInstanceId'
-  Text ->
+-- 'hierarchyGroupId', 'deleteUserHierarchyGroup_hierarchyGroupId' - The identifier of the hierarchy group.
+--
+-- 'instanceId', 'deleteUserHierarchyGroup_instanceId' - The identifier of the Amazon Connect instance.
+newDeleteUserHierarchyGroup ::
+  -- | 'hierarchyGroupId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   DeleteUserHierarchyGroup
-deleteUserHierarchyGroup
+newDeleteUserHierarchyGroup
   pHierarchyGroupId_
   pInstanceId_ =
     DeleteUserHierarchyGroup'
-      { _duhguHierarchyGroupId =
+      { hierarchyGroupId =
           pHierarchyGroupId_,
-        _duhguInstanceId = pInstanceId_
+        instanceId = pInstanceId_
       }
 
 -- | The identifier of the hierarchy group.
-duhguHierarchyGroupId :: Lens' DeleteUserHierarchyGroup Text
-duhguHierarchyGroupId = lens _duhguHierarchyGroupId (\s a -> s {_duhguHierarchyGroupId = a})
+deleteUserHierarchyGroup_hierarchyGroupId :: Lens.Lens' DeleteUserHierarchyGroup Prelude.Text
+deleteUserHierarchyGroup_hierarchyGroupId = Lens.lens (\DeleteUserHierarchyGroup' {hierarchyGroupId} -> hierarchyGroupId) (\s@DeleteUserHierarchyGroup' {} a -> s {hierarchyGroupId = a} :: DeleteUserHierarchyGroup)
 
 -- | The identifier of the Amazon Connect instance.
-duhguInstanceId :: Lens' DeleteUserHierarchyGroup Text
-duhguInstanceId = lens _duhguInstanceId (\s a -> s {_duhguInstanceId = a})
+deleteUserHierarchyGroup_instanceId :: Lens.Lens' DeleteUserHierarchyGroup Prelude.Text
+deleteUserHierarchyGroup_instanceId = Lens.lens (\DeleteUserHierarchyGroup' {instanceId} -> instanceId) (\s@DeleteUserHierarchyGroup' {} a -> s {instanceId = a} :: DeleteUserHierarchyGroup)
 
-instance AWSRequest DeleteUserHierarchyGroup where
+instance Prelude.AWSRequest DeleteUserHierarchyGroup where
   type
     Rs DeleteUserHierarchyGroup =
       DeleteUserHierarchyGroupResponse
-  request = delete connect
+  request = Request.delete defaultService
   response =
-    receiveNull DeleteUserHierarchyGroupResponse'
+    Response.receiveNull
+      DeleteUserHierarchyGroupResponse'
 
-instance Hashable DeleteUserHierarchyGroup
+instance Prelude.Hashable DeleteUserHierarchyGroup
 
-instance NFData DeleteUserHierarchyGroup
+instance Prelude.NFData DeleteUserHierarchyGroup
 
-instance ToHeaders DeleteUserHierarchyGroup where
+instance Prelude.ToHeaders DeleteUserHierarchyGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteUserHierarchyGroup where
+instance Prelude.ToPath DeleteUserHierarchyGroup where
   toPath DeleteUserHierarchyGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/user-hierarchy-groups/",
-        toBS _duhguInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _duhguHierarchyGroupId
+        Prelude.toBS hierarchyGroupId
       ]
 
-instance ToQuery DeleteUserHierarchyGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUserHierarchyGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUserHierarchyGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteUserHierarchyGroupResponse' smart constructor.
 data DeleteUserHierarchyGroupResponse = DeleteUserHierarchyGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserHierarchyGroupResponse' with the minimum fields required to make a request.
-deleteUserHierarchyGroupResponse ::
+-- |
+-- Create a value of 'DeleteUserHierarchyGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteUserHierarchyGroupResponse ::
   DeleteUserHierarchyGroupResponse
-deleteUserHierarchyGroupResponse =
+newDeleteUserHierarchyGroupResponse =
   DeleteUserHierarchyGroupResponse'
 
-instance NFData DeleteUserHierarchyGroupResponse
+instance
+  Prelude.NFData
+    DeleteUserHierarchyGroupResponse

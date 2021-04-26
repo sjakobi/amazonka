@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,168 +24,165 @@
 -- Updates the default outbound queue of a routing profile.
 module Network.AWS.Connect.UpdateRoutingProfileDefaultOutboundQueue
   ( -- * Creating a Request
-    updateRoutingProfileDefaultOutboundQueue,
-    UpdateRoutingProfileDefaultOutboundQueue,
+    UpdateRoutingProfileDefaultOutboundQueue (..),
+    newUpdateRoutingProfileDefaultOutboundQueue,
 
     -- * Request Lenses
-    urpdoqInstanceId,
-    urpdoqRoutingProfileId,
-    urpdoqDefaultOutboundQueueId,
+    updateRoutingProfileDefaultOutboundQueue_instanceId,
+    updateRoutingProfileDefaultOutboundQueue_routingProfileId,
+    updateRoutingProfileDefaultOutboundQueue_defaultOutboundQueueId,
 
     -- * Destructuring the Response
-    updateRoutingProfileDefaultOutboundQueueResponse,
-    UpdateRoutingProfileDefaultOutboundQueueResponse,
+    UpdateRoutingProfileDefaultOutboundQueueResponse (..),
+    newUpdateRoutingProfileDefaultOutboundQueueResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateRoutingProfileDefaultOutboundQueue' smart constructor.
+-- | /See:/ 'newUpdateRoutingProfileDefaultOutboundQueue' smart constructor.
 data UpdateRoutingProfileDefaultOutboundQueue = UpdateRoutingProfileDefaultOutboundQueue'
-  { _urpdoqInstanceId ::
-      !Text,
-    _urpdoqRoutingProfileId ::
-      !Text,
-    _urpdoqDefaultOutboundQueueId ::
-      !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the routing profile.
+    routingProfileId :: Prelude.Text,
+    -- | The identifier for the default outbound queue.
+    defaultOutboundQueueId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoutingProfileDefaultOutboundQueue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoutingProfileDefaultOutboundQueue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urpdoqInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urpdoqRoutingProfileId' - The identifier of the routing profile.
+-- 'instanceId', 'updateRoutingProfileDefaultOutboundQueue_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'urpdoqDefaultOutboundQueueId' - The identifier for the default outbound queue.
-updateRoutingProfileDefaultOutboundQueue ::
-  -- | 'urpdoqInstanceId'
-  Text ->
-  -- | 'urpdoqRoutingProfileId'
-  Text ->
-  -- | 'urpdoqDefaultOutboundQueueId'
-  Text ->
+-- 'routingProfileId', 'updateRoutingProfileDefaultOutboundQueue_routingProfileId' - The identifier of the routing profile.
+--
+-- 'defaultOutboundQueueId', 'updateRoutingProfileDefaultOutboundQueue_defaultOutboundQueueId' - The identifier for the default outbound queue.
+newUpdateRoutingProfileDefaultOutboundQueue ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'routingProfileId'
+  Prelude.Text ->
+  -- | 'defaultOutboundQueueId'
+  Prelude.Text ->
   UpdateRoutingProfileDefaultOutboundQueue
-updateRoutingProfileDefaultOutboundQueue
+newUpdateRoutingProfileDefaultOutboundQueue
   pInstanceId_
   pRoutingProfileId_
   pDefaultOutboundQueueId_ =
     UpdateRoutingProfileDefaultOutboundQueue'
-      { _urpdoqInstanceId =
+      { instanceId =
           pInstanceId_,
-        _urpdoqRoutingProfileId =
+        routingProfileId =
           pRoutingProfileId_,
-        _urpdoqDefaultOutboundQueueId =
+        defaultOutboundQueueId =
           pDefaultOutboundQueueId_
       }
 
 -- | The identifier of the Amazon Connect instance.
-urpdoqInstanceId :: Lens' UpdateRoutingProfileDefaultOutboundQueue Text
-urpdoqInstanceId = lens _urpdoqInstanceId (\s a -> s {_urpdoqInstanceId = a})
+updateRoutingProfileDefaultOutboundQueue_instanceId :: Lens.Lens' UpdateRoutingProfileDefaultOutboundQueue Prelude.Text
+updateRoutingProfileDefaultOutboundQueue_instanceId = Lens.lens (\UpdateRoutingProfileDefaultOutboundQueue' {instanceId} -> instanceId) (\s@UpdateRoutingProfileDefaultOutboundQueue' {} a -> s {instanceId = a} :: UpdateRoutingProfileDefaultOutboundQueue)
 
 -- | The identifier of the routing profile.
-urpdoqRoutingProfileId :: Lens' UpdateRoutingProfileDefaultOutboundQueue Text
-urpdoqRoutingProfileId = lens _urpdoqRoutingProfileId (\s a -> s {_urpdoqRoutingProfileId = a})
+updateRoutingProfileDefaultOutboundQueue_routingProfileId :: Lens.Lens' UpdateRoutingProfileDefaultOutboundQueue Prelude.Text
+updateRoutingProfileDefaultOutboundQueue_routingProfileId = Lens.lens (\UpdateRoutingProfileDefaultOutboundQueue' {routingProfileId} -> routingProfileId) (\s@UpdateRoutingProfileDefaultOutboundQueue' {} a -> s {routingProfileId = a} :: UpdateRoutingProfileDefaultOutboundQueue)
 
 -- | The identifier for the default outbound queue.
-urpdoqDefaultOutboundQueueId :: Lens' UpdateRoutingProfileDefaultOutboundQueue Text
-urpdoqDefaultOutboundQueueId = lens _urpdoqDefaultOutboundQueueId (\s a -> s {_urpdoqDefaultOutboundQueueId = a})
+updateRoutingProfileDefaultOutboundQueue_defaultOutboundQueueId :: Lens.Lens' UpdateRoutingProfileDefaultOutboundQueue Prelude.Text
+updateRoutingProfileDefaultOutboundQueue_defaultOutboundQueueId = Lens.lens (\UpdateRoutingProfileDefaultOutboundQueue' {defaultOutboundQueueId} -> defaultOutboundQueueId) (\s@UpdateRoutingProfileDefaultOutboundQueue' {} a -> s {defaultOutboundQueueId = a} :: UpdateRoutingProfileDefaultOutboundQueue)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     UpdateRoutingProfileDefaultOutboundQueue
   where
   type
     Rs UpdateRoutingProfileDefaultOutboundQueue =
       UpdateRoutingProfileDefaultOutboundQueueResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull
+    Response.receiveNull
       UpdateRoutingProfileDefaultOutboundQueueResponse'
 
 instance
-  Hashable
+  Prelude.Hashable
     UpdateRoutingProfileDefaultOutboundQueue
 
 instance
-  NFData
+  Prelude.NFData
     UpdateRoutingProfileDefaultOutboundQueue
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     UpdateRoutingProfileDefaultOutboundQueue
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     UpdateRoutingProfileDefaultOutboundQueue
   where
   toJSON UpdateRoutingProfileDefaultOutboundQueue' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "DefaultOutboundQueueId"
-                  .= _urpdoqDefaultOutboundQueueId
+                  Prelude..= defaultOutboundQueueId
               )
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     UpdateRoutingProfileDefaultOutboundQueue
   where
   toPath UpdateRoutingProfileDefaultOutboundQueue' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/routing-profiles/",
-        toBS _urpdoqInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _urpdoqRoutingProfileId,
+        Prelude.toBS routingProfileId,
         "/default-outbound-queue"
       ]
 
 instance
-  ToQuery
+  Prelude.ToQuery
     UpdateRoutingProfileDefaultOutboundQueue
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRoutingProfileDefaultOutboundQueueResponse' smart constructor.
+-- | /See:/ 'newUpdateRoutingProfileDefaultOutboundQueueResponse' smart constructor.
 data UpdateRoutingProfileDefaultOutboundQueueResponse = UpdateRoutingProfileDefaultOutboundQueueResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoutingProfileDefaultOutboundQueueResponse' with the minimum fields required to make a request.
-updateRoutingProfileDefaultOutboundQueueResponse ::
+-- |
+-- Create a value of 'UpdateRoutingProfileDefaultOutboundQueueResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateRoutingProfileDefaultOutboundQueueResponse ::
   UpdateRoutingProfileDefaultOutboundQueueResponse
-updateRoutingProfileDefaultOutboundQueueResponse =
+newUpdateRoutingProfileDefaultOutboundQueueResponse =
   UpdateRoutingProfileDefaultOutboundQueueResponse'
 
 instance
-  NFData
+  Prelude.NFData
     UpdateRoutingProfileDefaultOutboundQueueResponse

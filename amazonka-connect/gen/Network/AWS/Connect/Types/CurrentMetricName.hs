@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,112 +19,114 @@
 module Network.AWS.Connect.Types.CurrentMetricName
   ( CurrentMetricName
       ( ..,
-        AgentsAfterContactWork,
-        AgentsAvailable,
-        AgentsError,
-        AgentsNonProductive,
-        AgentsOnCall,
-        AgentsOnContact,
-        AgentsOnline,
-        AgentsStaffed,
-        ContactsInQueue,
-        ContactsScheduled,
-        OldestContactAge,
-        SlotsActive,
-        SlotsAvailable
+        CurrentMetricNameAGENTSAFTERCONTACTWORK,
+        CurrentMetricNameAGENTSAVAILABLE,
+        CurrentMetricNameAGENTSERROR,
+        CurrentMetricNameAGENTSNONPRODUCTIVE,
+        CurrentMetricNameAGENTSONCALL,
+        CurrentMetricNameAGENTSONCONTACT,
+        CurrentMetricNameAGENTSONLINE,
+        CurrentMetricNameAGENTSSTAFFED,
+        CurrentMetricNameCONTACTSINQUEUE,
+        CurrentMetricNameCONTACTSSCHEDULED,
+        CurrentMetricNameOLDESTCONTACTAGE,
+        CurrentMetricNameSLOTSACTIVE,
+        CurrentMetricNameSLOTSAVAILABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The current metric names.
-data CurrentMetricName = CurrentMetricName' (CI Text)
+newtype CurrentMetricName = CurrentMetricName'
+  { fromCurrentMetricName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AgentsAfterContactWork :: CurrentMetricName
-pattern AgentsAfterContactWork = CurrentMetricName' "AGENTS_AFTER_CONTACT_WORK"
+pattern CurrentMetricNameAGENTSAFTERCONTACTWORK :: CurrentMetricName
+pattern CurrentMetricNameAGENTSAFTERCONTACTWORK = CurrentMetricName' "AGENTS_AFTER_CONTACT_WORK"
 
-pattern AgentsAvailable :: CurrentMetricName
-pattern AgentsAvailable = CurrentMetricName' "AGENTS_AVAILABLE"
+pattern CurrentMetricNameAGENTSAVAILABLE :: CurrentMetricName
+pattern CurrentMetricNameAGENTSAVAILABLE = CurrentMetricName' "AGENTS_AVAILABLE"
 
-pattern AgentsError :: CurrentMetricName
-pattern AgentsError = CurrentMetricName' "AGENTS_ERROR"
+pattern CurrentMetricNameAGENTSERROR :: CurrentMetricName
+pattern CurrentMetricNameAGENTSERROR = CurrentMetricName' "AGENTS_ERROR"
 
-pattern AgentsNonProductive :: CurrentMetricName
-pattern AgentsNonProductive = CurrentMetricName' "AGENTS_NON_PRODUCTIVE"
+pattern CurrentMetricNameAGENTSNONPRODUCTIVE :: CurrentMetricName
+pattern CurrentMetricNameAGENTSNONPRODUCTIVE = CurrentMetricName' "AGENTS_NON_PRODUCTIVE"
 
-pattern AgentsOnCall :: CurrentMetricName
-pattern AgentsOnCall = CurrentMetricName' "AGENTS_ON_CALL"
+pattern CurrentMetricNameAGENTSONCALL :: CurrentMetricName
+pattern CurrentMetricNameAGENTSONCALL = CurrentMetricName' "AGENTS_ON_CALL"
 
-pattern AgentsOnContact :: CurrentMetricName
-pattern AgentsOnContact = CurrentMetricName' "AGENTS_ON_CONTACT"
+pattern CurrentMetricNameAGENTSONCONTACT :: CurrentMetricName
+pattern CurrentMetricNameAGENTSONCONTACT = CurrentMetricName' "AGENTS_ON_CONTACT"
 
-pattern AgentsOnline :: CurrentMetricName
-pattern AgentsOnline = CurrentMetricName' "AGENTS_ONLINE"
+pattern CurrentMetricNameAGENTSONLINE :: CurrentMetricName
+pattern CurrentMetricNameAGENTSONLINE = CurrentMetricName' "AGENTS_ONLINE"
 
-pattern AgentsStaffed :: CurrentMetricName
-pattern AgentsStaffed = CurrentMetricName' "AGENTS_STAFFED"
+pattern CurrentMetricNameAGENTSSTAFFED :: CurrentMetricName
+pattern CurrentMetricNameAGENTSSTAFFED = CurrentMetricName' "AGENTS_STAFFED"
 
-pattern ContactsInQueue :: CurrentMetricName
-pattern ContactsInQueue = CurrentMetricName' "CONTACTS_IN_QUEUE"
+pattern CurrentMetricNameCONTACTSINQUEUE :: CurrentMetricName
+pattern CurrentMetricNameCONTACTSINQUEUE = CurrentMetricName' "CONTACTS_IN_QUEUE"
 
-pattern ContactsScheduled :: CurrentMetricName
-pattern ContactsScheduled = CurrentMetricName' "CONTACTS_SCHEDULED"
+pattern CurrentMetricNameCONTACTSSCHEDULED :: CurrentMetricName
+pattern CurrentMetricNameCONTACTSSCHEDULED = CurrentMetricName' "CONTACTS_SCHEDULED"
 
-pattern OldestContactAge :: CurrentMetricName
-pattern OldestContactAge = CurrentMetricName' "OLDEST_CONTACT_AGE"
+pattern CurrentMetricNameOLDESTCONTACTAGE :: CurrentMetricName
+pattern CurrentMetricNameOLDESTCONTACTAGE = CurrentMetricName' "OLDEST_CONTACT_AGE"
 
-pattern SlotsActive :: CurrentMetricName
-pattern SlotsActive = CurrentMetricName' "SLOTS_ACTIVE"
+pattern CurrentMetricNameSLOTSACTIVE :: CurrentMetricName
+pattern CurrentMetricNameSLOTSACTIVE = CurrentMetricName' "SLOTS_ACTIVE"
 
-pattern SlotsAvailable :: CurrentMetricName
-pattern SlotsAvailable = CurrentMetricName' "SLOTS_AVAILABLE"
+pattern CurrentMetricNameSLOTSAVAILABLE :: CurrentMetricName
+pattern CurrentMetricNameSLOTSAVAILABLE = CurrentMetricName' "SLOTS_AVAILABLE"
 
 {-# COMPLETE
-  AgentsAfterContactWork,
-  AgentsAvailable,
-  AgentsError,
-  AgentsNonProductive,
-  AgentsOnCall,
-  AgentsOnContact,
-  AgentsOnline,
-  AgentsStaffed,
-  ContactsInQueue,
-  ContactsScheduled,
-  OldestContactAge,
-  SlotsActive,
-  SlotsAvailable,
+  CurrentMetricNameAGENTSAFTERCONTACTWORK,
+  CurrentMetricNameAGENTSAVAILABLE,
+  CurrentMetricNameAGENTSERROR,
+  CurrentMetricNameAGENTSNONPRODUCTIVE,
+  CurrentMetricNameAGENTSONCALL,
+  CurrentMetricNameAGENTSONCONTACT,
+  CurrentMetricNameAGENTSONLINE,
+  CurrentMetricNameAGENTSSTAFFED,
+  CurrentMetricNameCONTACTSINQUEUE,
+  CurrentMetricNameCONTACTSSCHEDULED,
+  CurrentMetricNameOLDESTCONTACTAGE,
+  CurrentMetricNameSLOTSACTIVE,
+  CurrentMetricNameSLOTSAVAILABLE,
   CurrentMetricName'
   #-}
 
-instance FromText CurrentMetricName where
-  parser = (CurrentMetricName' . mk) <$> takeText
+instance Prelude.FromText CurrentMetricName where
+  parser = CurrentMetricName' Prelude.<$> Prelude.takeText
 
-instance ToText CurrentMetricName where
-  toText (CurrentMetricName' ci) = original ci
+instance Prelude.ToText CurrentMetricName where
+  toText (CurrentMetricName' x) = x
 
-instance Hashable CurrentMetricName
+instance Prelude.Hashable CurrentMetricName
 
-instance NFData CurrentMetricName
+instance Prelude.NFData CurrentMetricName
 
-instance ToByteString CurrentMetricName
+instance Prelude.ToByteString CurrentMetricName
 
-instance ToQuery CurrentMetricName
+instance Prelude.ToQuery CurrentMetricName
 
-instance ToHeader CurrentMetricName
+instance Prelude.ToHeader CurrentMetricName
 
-instance ToJSON CurrentMetricName where
-  toJSON = toJSONText
+instance Prelude.ToJSON CurrentMetricName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CurrentMetricName where
-  parseJSON = parseJSONText "CurrentMetricName"
+instance Prelude.FromJSON CurrentMetricName where
+  parseJSON = Prelude.parseJSONText "CurrentMetricName"

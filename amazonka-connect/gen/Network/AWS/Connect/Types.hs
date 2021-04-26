@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Connect.Types
   ( -- * Service Configuration
-    connect,
+    defaultService,
 
     -- * Errors
     _ServiceQuotaExceededException,
@@ -111,488 +114,259 @@ module Network.AWS.Connect.Types
 
     -- * Attribute
     Attribute (..),
-    attribute,
-    aAttributeType,
-    aValue,
+    newAttribute,
 
     -- * ChatMessage
     ChatMessage (..),
-    chatMessage,
-    cmContentType,
-    cmContent,
+    newChatMessage,
 
     -- * ContactFlow
     ContactFlow (..),
-    contactFlow,
-    cfARN,
-    cfId,
-    cfName,
-    cfContent,
-    cfTags,
-    cfDescription,
-    cfType,
+    newContactFlow,
 
     -- * ContactFlowSummary
     ContactFlowSummary (..),
-    contactFlowSummary,
-    cfsARN,
-    cfsId,
-    cfsContactFlowType,
-    cfsName,
+    newContactFlowSummary,
 
     -- * Credentials
     Credentials (..),
-    credentials,
-    cRefreshTokenExpiration,
-    cAccessToken,
-    cAccessTokenExpiration,
-    cRefreshToken,
+    newCredentials,
 
     -- * CurrentMetric
     CurrentMetric (..),
-    currentMetric,
-    cmUnit,
-    cmName,
+    newCurrentMetric,
 
     -- * CurrentMetricData
     CurrentMetricData (..),
-    currentMetricData,
-    cmdMetric,
-    cmdValue,
+    newCurrentMetricData,
 
     -- * CurrentMetricResult
     CurrentMetricResult (..),
-    currentMetricResult,
-    cmrCollections,
-    cmrDimensions,
+    newCurrentMetricResult,
 
     -- * Dimensions
     Dimensions (..),
-    dimensions,
-    dQueue,
-    dChannel,
+    newDimensions,
 
     -- * EncryptionConfig
     EncryptionConfig (..),
-    encryptionConfig,
-    ecEncryptionType,
-    ecKeyId,
+    newEncryptionConfig,
 
     -- * Filters
     Filters (..),
-    filters,
-    fChannels,
-    fQueues,
+    newFilters,
 
     -- * HierarchyGroup
     HierarchyGroup (..),
-    hierarchyGroup,
-    hgLevelId,
-    hgARN,
-    hgId,
-    hgHierarchyPath,
-    hgName,
+    newHierarchyGroup,
 
     -- * HierarchyGroupSummary
     HierarchyGroupSummary (..),
-    hierarchyGroupSummary,
-    hgsARN,
-    hgsId,
-    hgsName,
+    newHierarchyGroupSummary,
 
     -- * HierarchyLevel
     HierarchyLevel (..),
-    hierarchyLevel,
-    hlARN,
-    hlId,
-    hlName,
+    newHierarchyLevel,
 
     -- * HierarchyLevelUpdate
     HierarchyLevelUpdate (..),
-    hierarchyLevelUpdate,
-    hluName,
+    newHierarchyLevelUpdate,
 
     -- * HierarchyPath
     HierarchyPath (..),
-    hierarchyPath,
-    hpLevelThree,
-    hpLevelFour,
-    hpLevelTwo,
-    hpLevelOne,
-    hpLevelFive,
+    newHierarchyPath,
 
     -- * HierarchyStructure
     HierarchyStructure (..),
-    hierarchyStructure,
-    hsLevelThree,
-    hsLevelFour,
-    hsLevelTwo,
-    hsLevelOne,
-    hsLevelFive,
+    newHierarchyStructure,
 
     -- * HierarchyStructureUpdate
     HierarchyStructureUpdate (..),
-    hierarchyStructureUpdate,
-    hsuLevelThree,
-    hsuLevelFour,
-    hsuLevelTwo,
-    hsuLevelOne,
-    hsuLevelFive,
+    newHierarchyStructureUpdate,
 
     -- * HistoricalMetric
     HistoricalMetric (..),
-    historicalMetric,
-    hmThreshold,
-    hmUnit,
-    hmName,
-    hmStatistic,
+    newHistoricalMetric,
 
     -- * HistoricalMetricData
     HistoricalMetricData (..),
-    historicalMetricData,
-    hmdMetric,
-    hmdValue,
+    newHistoricalMetricData,
 
     -- * HistoricalMetricResult
     HistoricalMetricResult (..),
-    historicalMetricResult,
-    hmrCollections,
-    hmrDimensions,
+    newHistoricalMetricResult,
 
     -- * HoursOfOperation
     HoursOfOperation (..),
-    hoursOfOperation,
-    hooConfig,
-    hooHoursOfOperationARN,
-    hooName,
-    hooTags,
-    hooDescription,
-    hooTimeZone,
-    hooHoursOfOperationId,
+    newHoursOfOperation,
 
     -- * HoursOfOperationConfig
     HoursOfOperationConfig (..),
-    hoursOfOperationConfig,
-    hoocDay,
-    hoocStartTime,
-    hoocEndTime,
+    newHoursOfOperationConfig,
 
     -- * HoursOfOperationSummary
     HoursOfOperationSummary (..),
-    hoursOfOperationSummary,
-    hoosARN,
-    hoosId,
-    hoosName,
+    newHoursOfOperationSummary,
 
     -- * HoursOfOperationTimeSlice
     HoursOfOperationTimeSlice (..),
-    hoursOfOperationTimeSlice,
-    hootsHours,
-    hootsMinutes,
+    newHoursOfOperationTimeSlice,
 
     -- * Instance
     Instance (..),
-    instance',
-    iInstanceAlias,
-    iServiceRole,
-    iOutboundCallsEnabled,
-    iARN,
-    iId,
-    iInstanceStatus,
-    iIdentityManagementType,
-    iCreatedTime,
-    iInboundCallsEnabled,
-    iStatusReason,
+    newInstance,
 
     -- * InstanceStatusReason
     InstanceStatusReason (..),
-    instanceStatusReason,
-    isrMessage,
+    newInstanceStatusReason,
 
     -- * InstanceStorageConfig
     InstanceStorageConfig (..),
-    instanceStorageConfig,
-    iscKinesisStreamConfig,
-    iscKinesisFirehoseConfig,
-    iscKinesisVideoStreamConfig,
-    iscAssociationId,
-    iscS3Config,
-    iscStorageType,
+    newInstanceStorageConfig,
 
     -- * InstanceSummary
     InstanceSummary (..),
-    instanceSummary,
-    isInstanceAlias,
-    isServiceRole,
-    isOutboundCallsEnabled,
-    isARN,
-    isId,
-    isInstanceStatus,
-    isIdentityManagementType,
-    isCreatedTime,
-    isInboundCallsEnabled,
+    newInstanceSummary,
 
     -- * IntegrationAssociationSummary
     IntegrationAssociationSummary (..),
-    integrationAssociationSummary,
-    iasInstanceId,
-    iasSourceApplicationName,
-    iasIntegrationAssociationARN,
-    iasSourceApplicationURL,
-    iasIntegrationType,
-    iasIntegrationARN,
-    iasSourceType,
-    iasIntegrationAssociationId,
+    newIntegrationAssociationSummary,
 
     -- * KinesisFirehoseConfig
     KinesisFirehoseConfig (..),
-    kinesisFirehoseConfig,
-    kfcFirehoseARN,
+    newKinesisFirehoseConfig,
 
     -- * KinesisStreamConfig
     KinesisStreamConfig (..),
-    kinesisStreamConfig,
-    kscStreamARN,
+    newKinesisStreamConfig,
 
     -- * KinesisVideoStreamConfig
     KinesisVideoStreamConfig (..),
-    kinesisVideoStreamConfig,
-    kvscPrefix,
-    kvscRetentionPeriodHours,
-    kvscEncryptionConfig,
+    newKinesisVideoStreamConfig,
 
     -- * LexBot
     LexBot (..),
-    lexBot,
-    lbName,
-    lbLexRegion,
+    newLexBot,
 
     -- * MediaConcurrency
     MediaConcurrency (..),
-    mediaConcurrency,
-    mcChannel,
-    mcConcurrency,
+    newMediaConcurrency,
 
     -- * OutboundCallerConfig
     OutboundCallerConfig (..),
-    outboundCallerConfig,
-    occOutboundCallerIdNumberId,
-    occOutboundFlowId,
-    occOutboundCallerIdName,
+    newOutboundCallerConfig,
 
     -- * ParticipantDetails
     ParticipantDetails (..),
-    participantDetails,
-    pdDisplayName,
+    newParticipantDetails,
 
     -- * PhoneNumberQuickConnectConfig
     PhoneNumberQuickConnectConfig (..),
-    phoneNumberQuickConnectConfig,
-    pnqccPhoneNumber,
+    newPhoneNumberQuickConnectConfig,
 
     -- * PhoneNumberSummary
     PhoneNumberSummary (..),
-    phoneNumberSummary,
-    pnsPhoneNumber,
-    pnsARN,
-    pnsId,
-    pnsPhoneNumberType,
-    pnsPhoneNumberCountryCode,
+    newPhoneNumberSummary,
 
     -- * PromptSummary
     PromptSummary (..),
-    promptSummary,
-    psARN,
-    psId,
-    psName,
+    newPromptSummary,
 
     -- * Queue
     Queue (..),
-    queue,
-    qMaxContacts,
-    qStatus,
-    qQueueId,
-    qName,
-    qQueueARN,
-    qTags,
-    qDescription,
-    qOutboundCallerConfig,
-    qHoursOfOperationId,
+    newQueue,
 
     -- * QueueQuickConnectConfig
     QueueQuickConnectConfig (..),
-    queueQuickConnectConfig,
-    qqccQueueId,
-    qqccContactFlowId,
+    newQueueQuickConnectConfig,
 
     -- * QueueReference
     QueueReference (..),
-    queueReference,
-    qrARN,
-    qrId,
+    newQueueReference,
 
     -- * QueueSummary
     QueueSummary (..),
-    queueSummary,
-    qsQueueType,
-    qsARN,
-    qsId,
-    qsName,
+    newQueueSummary,
 
     -- * QuickConnect
     QuickConnect (..),
-    quickConnect,
-    qcQuickConnectId,
-    qcName,
-    qcTags,
-    qcQuickConnectConfig,
-    qcQuickConnectARN,
-    qcDescription,
+    newQuickConnect,
 
     -- * QuickConnectConfig
     QuickConnectConfig (..),
-    quickConnectConfig,
-    qccUserConfig,
-    qccPhoneConfig,
-    qccQueueConfig,
-    qccQuickConnectType,
+    newQuickConnectConfig,
 
     -- * QuickConnectSummary
     QuickConnectSummary (..),
-    quickConnectSummary,
-    qcsQuickConnectType,
-    qcsARN,
-    qcsId,
-    qcsName,
+    newQuickConnectSummary,
 
     -- * Reference
     Reference (..),
-    reference,
-    rValue,
-    rType,
+    newReference,
 
     -- * RoutingProfile
     RoutingProfile (..),
-    routingProfile,
-    rpInstanceId,
-    rpDefaultOutboundQueueId,
-    rpRoutingProfileId,
-    rpMediaConcurrencies,
-    rpName,
-    rpTags,
-    rpDescription,
-    rpRoutingProfileARN,
+    newRoutingProfile,
 
     -- * RoutingProfileQueueConfig
     RoutingProfileQueueConfig (..),
-    routingProfileQueueConfig,
-    rpqcQueueReference,
-    rpqcPriority,
-    rpqcDelay,
+    newRoutingProfileQueueConfig,
 
     -- * RoutingProfileQueueConfigSummary
     RoutingProfileQueueConfigSummary (..),
-    routingProfileQueueConfigSummary,
-    rpqcsQueueId,
-    rpqcsQueueARN,
-    rpqcsQueueName,
-    rpqcsPriority,
-    rpqcsDelay,
-    rpqcsChannel,
+    newRoutingProfileQueueConfigSummary,
 
     -- * RoutingProfileQueueReference
     RoutingProfileQueueReference (..),
-    routingProfileQueueReference,
-    rpqrQueueId,
-    rpqrChannel,
+    newRoutingProfileQueueReference,
 
     -- * RoutingProfileSummary
     RoutingProfileSummary (..),
-    routingProfileSummary,
-    rpsARN,
-    rpsId,
-    rpsName,
+    newRoutingProfileSummary,
 
     -- * S3Config
     S3Config (..),
-    s3Config,
-    scEncryptionConfig,
-    scBucketName,
-    scBucketPrefix,
+    newS3Config,
 
     -- * SecurityKey
     SecurityKey (..),
-    securityKey,
-    skKey,
-    skCreationTime,
-    skAssociationId,
+    newSecurityKey,
 
     -- * SecurityProfileSummary
     SecurityProfileSummary (..),
-    securityProfileSummary,
-    spsARN,
-    spsId,
-    spsName,
+    newSecurityProfileSummary,
 
     -- * Threshold
     Threshold (..),
-    threshold,
-    tThresholdValue,
-    tComparison,
+    newThreshold,
 
     -- * UseCase
     UseCase (..),
-    useCase,
-    ucUseCaseARN,
-    ucUseCaseType,
-    ucUseCaseId,
+    newUseCase,
 
     -- * User
     User (..),
-    user,
-    uSecurityProfileIds,
-    uIdentityInfo,
-    uARN,
-    uId,
-    uHierarchyGroupId,
-    uDirectoryUserId,
-    uRoutingProfileId,
-    uTags,
-    uPhoneConfig,
-    uUsername,
+    newUser,
 
     -- * UserIdentityInfo
     UserIdentityInfo (..),
-    userIdentityInfo,
-    uiiEmail,
-    uiiFirstName,
-    uiiLastName,
+    newUserIdentityInfo,
 
     -- * UserPhoneConfig
     UserPhoneConfig (..),
-    userPhoneConfig,
-    upcAutoAccept,
-    upcAfterContactWorkTimeLimit,
-    upcDeskPhoneNumber,
-    upcPhoneType,
+    newUserPhoneConfig,
 
     -- * UserQuickConnectConfig
     UserQuickConnectConfig (..),
-    userQuickConnectConfig,
-    uqccUserId,
-    uqccContactFlowId,
+    newUserQuickConnectConfig,
 
     -- * UserSummary
     UserSummary (..),
-    userSummary,
-    usARN,
-    usId,
-    usUsername,
+    newUserSummary,
 
     -- * VoiceRecordingConfiguration
     VoiceRecordingConfiguration (..),
-    voiceRecordingConfiguration,
-    vrcVoiceRecordingTrack,
+    newVoiceRecordingConfiguration,
   )
 where
 
@@ -686,177 +460,205 @@ import Network.AWS.Connect.Types.UserQuickConnectConfig
 import Network.AWS.Connect.Types.UserSummary
 import Network.AWS.Connect.Types.VoiceRecordingConfiguration
 import Network.AWS.Connect.Types.VoiceRecordingTrack
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-08-08@ of the Amazon Connect Service SDK configuration.
-connect :: Service
-connect =
-  Service
-    { _svcAbbrev = "Connect",
-      _svcSigner = v4,
-      _svcPrefix = "connect",
-      _svcVersion = "2017-08-08",
-      _svcEndpoint = defaultEndpoint connect,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Connect",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Connect",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "connect",
+      Prelude._svcVersion = "2017-08-08",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "Connect",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The service quota has been exceeded.
-_ServiceQuotaExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceQuotaExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceQuotaExceededException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "ServiceQuotaExceededException"
-    . hasStatus 402
+    Prelude.. Prelude.hasStatus 402
 
 -- | The contact is not permitted.
-_OutboundContactNotPermittedException :: AsError a => Getting (First ServiceError) a ServiceError
+_OutboundContactNotPermittedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OutboundContactNotPermittedException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "OutboundContactNotPermittedException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
 -- | A resource already has that name.
-_ResourceConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceConflictException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "ResourceConflictException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The contact flow has not been published.
-_ContactFlowNotPublishedException :: AsError a => Getting (First ServiceError) a ServiceError
+_ContactFlowNotPublishedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ContactFlowNotPublishedException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "ContactFlowNotPublishedException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | Request processing failed because of an error or failure with the service.
-_InternalServiceException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Request processing failed because of an error or failure with the
+-- service.
+_InternalServiceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServiceException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "InternalServiceException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
--- | No user with the specified credentials was found in the Amazon Connect instance.
-_UserNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | No user with the specified credentials was found in the Amazon Connect
+-- instance.
+_UserNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UserNotFoundException =
-  _MatchServiceError connect "UserNotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "UserNotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
 -- | A resource with the specified name already exists.
-_DuplicateResourceException :: AsError a => Getting (First ServiceError) a ServiceError
+_DuplicateResourceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DuplicateResourceException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "DuplicateResourceException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The throttling limit has been exceeded.
-_ThrottlingException :: AsError a => Getting (First ServiceError) a ServiceError
+_ThrottlingException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ThrottlingException =
-  _MatchServiceError connect "ThrottlingException"
-    . hasStatus 429
+  Prelude._MatchServiceError
+    defaultService
+    "ThrottlingException"
+    Prelude.. Prelude.hasStatus 429
 
 -- | The request is not valid.
-_InvalidRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRequestException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRequestException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | One or more of the specified parameters are not valid.
-_InvalidParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The contact with the specified ID is not active or does not exist.
-_ContactNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ContactNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ContactNotFoundException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "ContactNotFoundException"
-    . hasStatus 410
+    Prelude.. Prelude.hasStatus 410
 
 -- | The contact flow is not valid.
-_InvalidContactFlowException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidContactFlowException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidContactFlowException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "InvalidContactFlowException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | That resource is already in use. Please try another.
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError connect "ResourceInUseException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceInUseException"
+    Prelude.. Prelude.hasStatus 409
 
 -- | The allowed limit for the resource has been exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError connect "LimitExceededException"
-    . hasStatus 429
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceededException"
+    Prelude.. Prelude.hasStatus 429
 
 -- | Outbound calls to the destination number are not allowed.
-_DestinationNotAllowedException :: AsError a => Getting (First ServiceError) a ServiceError
+_DestinationNotAllowedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DestinationNotAllowedException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "DestinationNotAllowedException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
 -- | The specified resource was not found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    connect
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404

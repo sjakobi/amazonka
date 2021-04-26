@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,113 +21,119 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Deletes a quick connect.
 module Network.AWS.Connect.DeleteQuickConnect
   ( -- * Creating a Request
-    deleteQuickConnect,
-    DeleteQuickConnect,
+    DeleteQuickConnect (..),
+    newDeleteQuickConnect,
 
     -- * Request Lenses
-    delInstanceId,
-    delQuickConnectId,
+    deleteQuickConnect_instanceId,
+    deleteQuickConnect_quickConnectId,
 
     -- * Destructuring the Response
-    deleteQuickConnectResponse,
-    DeleteQuickConnectResponse,
+    DeleteQuickConnectResponse (..),
+    newDeleteQuickConnectResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteQuickConnect' smart constructor.
+-- | /See:/ 'newDeleteQuickConnect' smart constructor.
 data DeleteQuickConnect = DeleteQuickConnect'
-  { _delInstanceId ::
-      !Text,
-    _delQuickConnectId :: !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the quick connect.
+    quickConnectId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteQuickConnect' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteQuickConnect' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delQuickConnectId' - The identifier for the quick connect.
-deleteQuickConnect ::
-  -- | 'delInstanceId'
-  Text ->
-  -- | 'delQuickConnectId'
-  Text ->
+-- 'instanceId', 'deleteQuickConnect_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'quickConnectId', 'deleteQuickConnect_quickConnectId' - The identifier for the quick connect.
+newDeleteQuickConnect ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'quickConnectId'
+  Prelude.Text ->
   DeleteQuickConnect
-deleteQuickConnect pInstanceId_ pQuickConnectId_ =
+newDeleteQuickConnect pInstanceId_ pQuickConnectId_ =
   DeleteQuickConnect'
-    { _delInstanceId = pInstanceId_,
-      _delQuickConnectId = pQuickConnectId_
+    { instanceId = pInstanceId_,
+      quickConnectId = pQuickConnectId_
     }
 
 -- | The identifier of the Amazon Connect instance.
-delInstanceId :: Lens' DeleteQuickConnect Text
-delInstanceId = lens _delInstanceId (\s a -> s {_delInstanceId = a})
+deleteQuickConnect_instanceId :: Lens.Lens' DeleteQuickConnect Prelude.Text
+deleteQuickConnect_instanceId = Lens.lens (\DeleteQuickConnect' {instanceId} -> instanceId) (\s@DeleteQuickConnect' {} a -> s {instanceId = a} :: DeleteQuickConnect)
 
 -- | The identifier for the quick connect.
-delQuickConnectId :: Lens' DeleteQuickConnect Text
-delQuickConnectId = lens _delQuickConnectId (\s a -> s {_delQuickConnectId = a})
+deleteQuickConnect_quickConnectId :: Lens.Lens' DeleteQuickConnect Prelude.Text
+deleteQuickConnect_quickConnectId = Lens.lens (\DeleteQuickConnect' {quickConnectId} -> quickConnectId) (\s@DeleteQuickConnect' {} a -> s {quickConnectId = a} :: DeleteQuickConnect)
 
-instance AWSRequest DeleteQuickConnect where
+instance Prelude.AWSRequest DeleteQuickConnect where
   type
     Rs DeleteQuickConnect =
       DeleteQuickConnectResponse
-  request = delete connect
-  response = receiveNull DeleteQuickConnectResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteQuickConnectResponse'
 
-instance Hashable DeleteQuickConnect
+instance Prelude.Hashable DeleteQuickConnect
 
-instance NFData DeleteQuickConnect
+instance Prelude.NFData DeleteQuickConnect
 
-instance ToHeaders DeleteQuickConnect where
+instance Prelude.ToHeaders DeleteQuickConnect where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteQuickConnect where
+instance Prelude.ToPath DeleteQuickConnect where
   toPath DeleteQuickConnect' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/quick-connects/",
-        toBS _delInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _delQuickConnectId
+        Prelude.toBS quickConnectId
       ]
 
-instance ToQuery DeleteQuickConnect where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteQuickConnect where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteQuickConnectResponse' smart constructor.
+-- | /See:/ 'newDeleteQuickConnectResponse' smart constructor.
 data DeleteQuickConnectResponse = DeleteQuickConnectResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteQuickConnectResponse' with the minimum fields required to make a request.
-deleteQuickConnectResponse ::
+-- |
+-- Create a value of 'DeleteQuickConnectResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteQuickConnectResponse ::
   DeleteQuickConnectResponse
-deleteQuickConnectResponse =
+newDeleteQuickConnectResponse =
   DeleteQuickConnectResponse'
 
-instance NFData DeleteQuickConnectResponse
+instance Prelude.NFData DeleteQuickConnectResponse

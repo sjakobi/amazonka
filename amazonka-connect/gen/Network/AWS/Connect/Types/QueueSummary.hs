@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,77 @@
 module Network.AWS.Connect.Types.QueueSummary where
 
 import Network.AWS.Connect.Types.QueueType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains summary information about a queue.
 --
---
---
--- /See:/ 'queueSummary' smart constructor.
+-- /See:/ 'newQueueSummary' smart constructor.
 data QueueSummary = QueueSummary'
-  { _qsQueueType ::
-      !(Maybe QueueType),
-    _qsARN :: !(Maybe Text),
-    _qsId :: !(Maybe Text),
-    _qsName :: !(Maybe Text)
+  { -- | The type of queue.
+    queueType :: Prelude.Maybe QueueType,
+    -- | The Amazon Resource Name (ARN) of the queue.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the queue.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the queue.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueueSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueueSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qsQueueType' - The type of queue.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qsARN' - The Amazon Resource Name (ARN) of the queue.
+-- 'queueType', 'queueSummary_queueType' - The type of queue.
 --
--- * 'qsId' - The identifier of the queue.
+-- 'arn', 'queueSummary_arn' - The Amazon Resource Name (ARN) of the queue.
 --
--- * 'qsName' - The name of the queue.
-queueSummary ::
+-- 'id', 'queueSummary_id' - The identifier of the queue.
+--
+-- 'name', 'queueSummary_name' - The name of the queue.
+newQueueSummary ::
   QueueSummary
-queueSummary =
+newQueueSummary =
   QueueSummary'
-    { _qsQueueType = Nothing,
-      _qsARN = Nothing,
-      _qsId = Nothing,
-      _qsName = Nothing
+    { queueType = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The type of queue.
-qsQueueType :: Lens' QueueSummary (Maybe QueueType)
-qsQueueType = lens _qsQueueType (\s a -> s {_qsQueueType = a})
+queueSummary_queueType :: Lens.Lens' QueueSummary (Prelude.Maybe QueueType)
+queueSummary_queueType = Lens.lens (\QueueSummary' {queueType} -> queueType) (\s@QueueSummary' {} a -> s {queueType = a} :: QueueSummary)
 
 -- | The Amazon Resource Name (ARN) of the queue.
-qsARN :: Lens' QueueSummary (Maybe Text)
-qsARN = lens _qsARN (\s a -> s {_qsARN = a})
+queueSummary_arn :: Lens.Lens' QueueSummary (Prelude.Maybe Prelude.Text)
+queueSummary_arn = Lens.lens (\QueueSummary' {arn} -> arn) (\s@QueueSummary' {} a -> s {arn = a} :: QueueSummary)
 
 -- | The identifier of the queue.
-qsId :: Lens' QueueSummary (Maybe Text)
-qsId = lens _qsId (\s a -> s {_qsId = a})
+queueSummary_id :: Lens.Lens' QueueSummary (Prelude.Maybe Prelude.Text)
+queueSummary_id = Lens.lens (\QueueSummary' {id} -> id) (\s@QueueSummary' {} a -> s {id = a} :: QueueSummary)
 
 -- | The name of the queue.
-qsName :: Lens' QueueSummary (Maybe Text)
-qsName = lens _qsName (\s a -> s {_qsName = a})
+queueSummary_name :: Lens.Lens' QueueSummary (Prelude.Maybe Prelude.Text)
+queueSummary_name = Lens.lens (\QueueSummary' {name} -> name) (\s@QueueSummary' {} a -> s {name = a} :: QueueSummary)
 
-instance FromJSON QueueSummary where
+instance Prelude.FromJSON QueueSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueueSummary"
       ( \x ->
           QueueSummary'
-            <$> (x .:? "QueueType")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "QueueType")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable QueueSummary
+instance Prelude.Hashable QueueSummary
 
-instance NFData QueueSummary
+instance Prelude.NFData QueueSummary

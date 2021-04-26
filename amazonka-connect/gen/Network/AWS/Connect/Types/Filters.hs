@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,50 +20,59 @@
 module Network.AWS.Connect.Types.Filters where
 
 import Network.AWS.Connect.Types.Channel
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the filter to apply when retrieving metrics.
 --
---
---
--- /See:/ 'filters' smart constructor.
+-- /See:/ 'newFilters' smart constructor.
 data Filters = Filters'
-  { _fChannels ::
-      !(Maybe [Channel]),
-    _fQueues :: !(Maybe (List1 Text))
+  { -- | The channel to use to filter the metrics.
+    channels :: Prelude.Maybe [Channel],
+    -- | The queues to use to filter the metrics. You can specify up to 100
+    -- queues per request.
+    queues :: Prelude.Maybe (Prelude.List1 Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Filters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Filters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fChannels' - The channel to use to filter the metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fQueues' - The queues to use to filter the metrics. You can specify up to 100 queues per request.
-filters ::
+-- 'channels', 'filters_channels' - The channel to use to filter the metrics.
+--
+-- 'queues', 'filters_queues' - The queues to use to filter the metrics. You can specify up to 100
+-- queues per request.
+newFilters ::
   Filters
-filters =
-  Filters' {_fChannels = Nothing, _fQueues = Nothing}
+newFilters =
+  Filters'
+    { channels = Prelude.Nothing,
+      queues = Prelude.Nothing
+    }
 
 -- | The channel to use to filter the metrics.
-fChannels :: Lens' Filters [Channel]
-fChannels = lens _fChannels (\s a -> s {_fChannels = a}) . _Default . _Coerce
+filters_channels :: Lens.Lens' Filters (Prelude.Maybe [Channel])
+filters_channels = Lens.lens (\Filters' {channels} -> channels) (\s@Filters' {} a -> s {channels = a} :: Filters) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The queues to use to filter the metrics. You can specify up to 100 queues per request.
-fQueues :: Lens' Filters (Maybe (NonEmpty Text))
-fQueues = lens _fQueues (\s a -> s {_fQueues = a}) . mapping _List1
+-- | The queues to use to filter the metrics. You can specify up to 100
+-- queues per request.
+filters_queues :: Lens.Lens' Filters (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+filters_queues = Lens.lens (\Filters' {queues} -> queues) (\s@Filters' {} a -> s {queues = a} :: Filters) Prelude.. Lens.mapping Prelude._List1
 
-instance Hashable Filters
+instance Prelude.Hashable Filters
 
-instance NFData Filters
+instance Prelude.NFData Filters
 
-instance ToJSON Filters where
+instance Prelude.ToJSON Filters where
   toJSON Filters' {..} =
-    object
-      ( catMaybes
-          [ ("Channels" .=) <$> _fChannels,
-            ("Queues" .=) <$> _fQueues
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Channels" Prelude..=) Prelude.<$> channels,
+            ("Queues" Prelude..=) Prelude.<$> queues
           ]
       )

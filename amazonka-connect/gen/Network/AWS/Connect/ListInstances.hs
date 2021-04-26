@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,192 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Return a list of instances which are in active state, creation-in-progress state, and failed state. Instances that aren't successfully created (they are in a failed state) are returned only for 24 hours after the CreateInstance API was invoked.
---
+-- Return a list of instances which are in active state,
+-- creation-in-progress state, and failed state. Instances that aren\'t
+-- successfully created (they are in a failed state) are returned only for
+-- 24 hours after the CreateInstance API was invoked.
 --
 -- This operation returns paginated results.
 module Network.AWS.Connect.ListInstances
   ( -- * Creating a Request
-    listInstances,
-    ListInstances,
+    ListInstances (..),
+    newListInstances,
 
     -- * Request Lenses
-    liNextToken,
-    liMaxResults,
+    listInstances_nextToken,
+    listInstances_maxResults,
 
     -- * Destructuring the Response
-    listInstancesResponse,
-    ListInstancesResponse,
+    ListInstancesResponse (..),
+    newListInstancesResponse,
 
     -- * Response Lenses
-    lirrsNextToken,
-    lirrsInstanceSummaryList,
-    lirrsResponseStatus,
+    listInstancesResponse_nextToken,
+    listInstancesResponse_instanceSummaryList,
+    listInstancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.InstanceSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listInstances' smart constructor.
+-- | /See:/ 'newListInstances' smart constructor.
 data ListInstances = ListInstances'
-  { _liNextToken ::
-      !(Maybe Text),
-    _liMaxResults :: !(Maybe Nat)
+  { -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'liNextToken' - The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'liMaxResults' - The maximum number of results to return per page.
-listInstances ::
+-- 'nextToken', 'listInstances_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+--
+-- 'maxResults', 'listInstances_maxResults' - The maximum number of results to return per page.
+newListInstances ::
   ListInstances
-listInstances =
+newListInstances =
   ListInstances'
-    { _liNextToken = Nothing,
-      _liMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
-liNextToken :: Lens' ListInstances (Maybe Text)
-liNextToken = lens _liNextToken (\s a -> s {_liNextToken = a})
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+listInstances_nextToken :: Lens.Lens' ListInstances (Prelude.Maybe Prelude.Text)
+listInstances_nextToken = Lens.lens (\ListInstances' {nextToken} -> nextToken) (\s@ListInstances' {} a -> s {nextToken = a} :: ListInstances)
 
 -- | The maximum number of results to return per page.
-liMaxResults :: Lens' ListInstances (Maybe Natural)
-liMaxResults = lens _liMaxResults (\s a -> s {_liMaxResults = a}) . mapping _Nat
+listInstances_maxResults :: Lens.Lens' ListInstances (Prelude.Maybe Prelude.Natural)
+listInstances_maxResults = Lens.lens (\ListInstances' {maxResults} -> maxResults) (\s@ListInstances' {} a -> s {maxResults = a} :: ListInstances) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListInstances where
+instance Pager.AWSPager ListInstances where
   page rq rs
-    | stop (rs ^. lirrsNextToken) = Nothing
-    | stop (rs ^. lirrsInstanceSummaryList) = Nothing
-    | otherwise =
-      Just $ rq & liNextToken .~ rs ^. lirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listInstancesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listInstancesResponse_instanceSummaryList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listInstances_nextToken
+          Lens..~ rs
+          Lens.^? listInstancesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListInstances where
+instance Prelude.AWSRequest ListInstances where
   type Rs ListInstances = ListInstancesResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListInstancesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "InstanceSummaryList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "InstanceSummaryList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListInstances
+instance Prelude.Hashable ListInstances
 
-instance NFData ListInstances
+instance Prelude.NFData ListInstances
 
-instance ToHeaders ListInstances where
+instance Prelude.ToHeaders ListInstances where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListInstances where
-  toPath = const "/instance"
+instance Prelude.ToPath ListInstances where
+  toPath = Prelude.const "/instance"
 
-instance ToQuery ListInstances where
+instance Prelude.ToQuery ListInstances where
   toQuery ListInstances' {..} =
-    mconcat
-      [ "nextToken" =: _liNextToken,
-        "maxResults" =: _liMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listInstancesResponse' smart constructor.
+-- | /See:/ 'newListInstancesResponse' smart constructor.
 data ListInstancesResponse = ListInstancesResponse'
-  { _lirrsNextToken ::
-      !(Maybe Text),
-    _lirrsInstanceSummaryList ::
-      !(Maybe [InstanceSummary]),
-    _lirrsResponseStatus ::
-      !Int
+  { -- | If there are additional results, this is the token for the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the instances.
+    instanceSummaryList :: Prelude.Maybe [InstanceSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lirrsNextToken' - If there are additional results, this is the token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lirrsInstanceSummaryList' - Information about the instances.
+-- 'nextToken', 'listInstancesResponse_nextToken' - If there are additional results, this is the token for the next set of
+-- results.
 --
--- * 'lirrsResponseStatus' - -- | The response status code.
-listInstancesResponse ::
-  -- | 'lirrsResponseStatus'
-  Int ->
+-- 'instanceSummaryList', 'listInstancesResponse_instanceSummaryList' - Information about the instances.
+--
+-- 'httpStatus', 'listInstancesResponse_httpStatus' - The response's http status code.
+newListInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListInstancesResponse
-listInstancesResponse pResponseStatus_ =
+newListInstancesResponse pHttpStatus_ =
   ListInstancesResponse'
-    { _lirrsNextToken = Nothing,
-      _lirrsInstanceSummaryList = Nothing,
-      _lirrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      instanceSummaryList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are additional results, this is the token for the next set of results.
-lirrsNextToken :: Lens' ListInstancesResponse (Maybe Text)
-lirrsNextToken = lens _lirrsNextToken (\s a -> s {_lirrsNextToken = a})
+-- | If there are additional results, this is the token for the next set of
+-- results.
+listInstancesResponse_nextToken :: Lens.Lens' ListInstancesResponse (Prelude.Maybe Prelude.Text)
+listInstancesResponse_nextToken = Lens.lens (\ListInstancesResponse' {nextToken} -> nextToken) (\s@ListInstancesResponse' {} a -> s {nextToken = a} :: ListInstancesResponse)
 
 -- | Information about the instances.
-lirrsInstanceSummaryList :: Lens' ListInstancesResponse [InstanceSummary]
-lirrsInstanceSummaryList = lens _lirrsInstanceSummaryList (\s a -> s {_lirrsInstanceSummaryList = a}) . _Default . _Coerce
+listInstancesResponse_instanceSummaryList :: Lens.Lens' ListInstancesResponse (Prelude.Maybe [InstanceSummary])
+listInstancesResponse_instanceSummaryList = Lens.lens (\ListInstancesResponse' {instanceSummaryList} -> instanceSummaryList) (\s@ListInstancesResponse' {} a -> s {instanceSummaryList = a} :: ListInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lirrsResponseStatus :: Lens' ListInstancesResponse Int
-lirrsResponseStatus = lens _lirrsResponseStatus (\s a -> s {_lirrsResponseStatus = a})
+-- | The response's http status code.
+listInstancesResponse_httpStatus :: Lens.Lens' ListInstancesResponse Prelude.Int
+listInstancesResponse_httpStatus = Lens.lens (\ListInstancesResponse' {httpStatus} -> httpStatus) (\s@ListInstancesResponse' {} a -> s {httpStatus = a} :: ListInstancesResponse)
 
-instance NFData ListInstancesResponse
+instance Prelude.NFData ListInstancesResponse

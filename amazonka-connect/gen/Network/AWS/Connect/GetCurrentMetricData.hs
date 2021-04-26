@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,220 +21,558 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the real-time metric data from the specified Amazon Connect instance.
+-- Gets the real-time metric data from the specified Amazon Connect
+-- instance.
 --
---
--- For a description of each metric, see <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html Real-time Metrics Definitions> in the /Amazon Connect Administrator Guide/ .
+-- For a description of each metric, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html Real-time Metrics Definitions>
+-- in the /Amazon Connect Administrator Guide/.
 module Network.AWS.Connect.GetCurrentMetricData
   ( -- * Creating a Request
-    getCurrentMetricData,
-    GetCurrentMetricData,
+    GetCurrentMetricData (..),
+    newGetCurrentMetricData,
 
     -- * Request Lenses
-    gcmdNextToken,
-    gcmdGroupings,
-    gcmdMaxResults,
-    gcmdInstanceId,
-    gcmdFilters,
-    gcmdCurrentMetrics,
+    getCurrentMetricData_nextToken,
+    getCurrentMetricData_groupings,
+    getCurrentMetricData_maxResults,
+    getCurrentMetricData_instanceId,
+    getCurrentMetricData_filters,
+    getCurrentMetricData_currentMetrics,
 
     -- * Destructuring the Response
-    getCurrentMetricDataResponse,
-    GetCurrentMetricDataResponse,
+    GetCurrentMetricDataResponse (..),
+    newGetCurrentMetricDataResponse,
 
     -- * Response Lenses
-    gcmdrrsNextToken,
-    gcmdrrsDataSnapshotTime,
-    gcmdrrsMetricResults,
-    gcmdrrsResponseStatus,
+    getCurrentMetricDataResponse_nextToken,
+    getCurrentMetricDataResponse_dataSnapshotTime,
+    getCurrentMetricDataResponse_metricResults,
+    getCurrentMetricDataResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.CurrentMetricResult
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCurrentMetricData' smart constructor.
+-- | /See:/ 'newGetCurrentMetricData' smart constructor.
 data GetCurrentMetricData = GetCurrentMetricData'
-  { _gcmdNextToken ::
-      !(Maybe Text),
-    _gcmdGroupings ::
-      !(Maybe [Grouping]),
-    _gcmdMaxResults ::
-      !(Maybe Nat),
-    _gcmdInstanceId :: !Text,
-    _gcmdFilters :: !Filters,
-    _gcmdCurrentMetrics ::
-      ![CurrentMetric]
+  { -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    --
+    -- The token expires after 5 minutes from the time it is created.
+    -- Subsequent requests that use the token must use the same request
+    -- parameters as the request that generated the token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The grouping applied to the metrics returned. For example, when grouped
+    -- by @QUEUE@, the metrics returned apply to each queue rather than
+    -- aggregated for all queues. If you group by @CHANNEL@, you should include
+    -- a Channels filter. VOICE, CHAT, and TASK channels are supported.
+    --
+    -- If no @Grouping@ is included in the request, a summary of metrics is
+    -- returned.
+    groupings :: Prelude.Maybe [Grouping],
+    -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The queues, up to 100, or channels, to use to filter the metrics
+    -- returned. Metric data is retrieved only for the resources associated
+    -- with the queues or channels included in the filter. You can include both
+    -- queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK
+    -- channels are supported.
+    filters :: Filters,
+    -- | The metrics to retrieve. Specify the name and unit for each metric. The
+    -- following metrics are available. For a description of all the metrics,
+    -- see
+    -- <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html Real-time Metrics Definitions>
+    -- in the /Amazon Connect Administrator Guide/.
+    --
+    -- [AGENTS_AFTER_CONTACT_WORK]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#aftercallwork-real-time ACW>
+    --
+    -- [AGENTS_AVAILABLE]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#available-real-time Available>
+    --
+    -- [AGENTS_ERROR]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#error-real-time Error>
+    --
+    -- [AGENTS_NON_PRODUCTIVE]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#non-productive-time-real-time NPT (Non-Productive Time)>
+    --
+    -- [AGENTS_ON_CALL]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>
+    --
+    -- [AGENTS_ON_CONTACT]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>
+    --
+    -- [AGENTS_ONLINE]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#online-real-time Online>
+    --
+    -- [AGENTS_STAFFED]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#staffed-real-time Staffed>
+    --
+    -- [CONTACTS_IN_QUEUE]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#in-queue-real-time In queue>
+    --
+    -- [CONTACTS_SCHEDULED]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#scheduled-real-time Scheduled>
+    --
+    -- [OLDEST_CONTACT_AGE]
+    --     Unit: SECONDS
+    --
+    --     When you use groupings, Unit says SECONDS but the Value is returned
+    --     in MILLISECONDS. For example, if you get a response like this:
+    --
+    --     @{ \"Metric\": { \"Name\": \"OLDEST_CONTACT_AGE\", \"Unit\": \"SECONDS\" }, \"Value\": 24113.0 @}
+    --
+    --     The actual OLDEST_CONTACT_AGE is 24 seconds.
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#oldest-real-time Oldest>
+    --
+    -- [SLOTS_ACTIVE]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#active-real-time Active>
+    --
+    -- [SLOTS_AVAILABLE]
+    --     Unit: COUNT
+    --
+    --     Name in real-time metrics report:
+    --     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#availability-real-time Availability>
+    currentMetrics :: [CurrentMetric]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCurrentMetricData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCurrentMetricData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcmdNextToken' - The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results. The token expires after 5 minutes from the time it is created. Subsequent requests that use the token must use the same request parameters as the request that generated the token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcmdGroupings' - The grouping applied to the metrics returned. For example, when grouped by @QUEUE@ , the metrics returned apply to each queue rather than aggregated for all queues. If you group by @CHANNEL@ , you should include a Channels filter. VOICE, CHAT, and TASK channels are supported. If no @Grouping@ is included in the request, a summary of metrics is returned.
+-- 'nextToken', 'getCurrentMetricData_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
 --
--- * 'gcmdMaxResults' - The maximum number of results to return per page.
+-- The token expires after 5 minutes from the time it is created.
+-- Subsequent requests that use the token must use the same request
+-- parameters as the request that generated the token.
 --
--- * 'gcmdInstanceId' - The identifier of the Amazon Connect instance.
+-- 'groupings', 'getCurrentMetricData_groupings' - The grouping applied to the metrics returned. For example, when grouped
+-- by @QUEUE@, the metrics returned apply to each queue rather than
+-- aggregated for all queues. If you group by @CHANNEL@, you should include
+-- a Channels filter. VOICE, CHAT, and TASK channels are supported.
 --
--- * 'gcmdFilters' - The queues, up to 100, or channels, to use to filter the metrics returned. Metric data is retrieved only for the resources associated with the queues or channels included in the filter. You can include both queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK channels are supported.
+-- If no @Grouping@ is included in the request, a summary of metrics is
+-- returned.
 --
--- * 'gcmdCurrentMetrics' - The metrics to retrieve. Specify the name and unit for each metric. The following metrics are available. For a description of all the metrics, see <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html Real-time Metrics Definitions> in the /Amazon Connect Administrator Guide/ .     * AGENTS_AFTER_CONTACT_WORK    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#aftercallwork-real-time ACW>      * AGENTS_AVAILABLE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#available-real-time Available>      * AGENTS_ERROR    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#error-real-time Error>      * AGENTS_NON_PRODUCTIVE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#non-productive-time-real-time NPT (Non-Productive Time)>      * AGENTS_ON_CALL    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>      * AGENTS_ON_CONTACT    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>      * AGENTS_ONLINE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#online-real-time Online>      * AGENTS_STAFFED    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#staffed-real-time Staffed>      * CONTACTS_IN_QUEUE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#in-queue-real-time In queue>      * CONTACTS_SCHEDULED    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#scheduled-real-time Scheduled>      * OLDEST_CONTACT_AGE    * Unit: SECONDS When you use groupings, Unit says SECONDS but the Value is returned in MILLISECONDS. For example, if you get a response like this: @{ "Metric": { "Name": "OLDEST_CONTACT_AGE", "Unit": "SECONDS" }, "Value": 24113.0 @ } The actual OLDEST_CONTACT_AGE is 24 seconds. Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#oldest-real-time Oldest>      * SLOTS_ACTIVE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#active-real-time Active>      * SLOTS_AVAILABLE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#availability-real-time Availability>
-getCurrentMetricData ::
-  -- | 'gcmdInstanceId'
-  Text ->
-  -- | 'gcmdFilters'
+-- 'maxResults', 'getCurrentMetricData_maxResults' - The maximum number of results to return per page.
+--
+-- 'instanceId', 'getCurrentMetricData_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'filters', 'getCurrentMetricData_filters' - The queues, up to 100, or channels, to use to filter the metrics
+-- returned. Metric data is retrieved only for the resources associated
+-- with the queues or channels included in the filter. You can include both
+-- queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK
+-- channels are supported.
+--
+-- 'currentMetrics', 'getCurrentMetricData_currentMetrics' - The metrics to retrieve. Specify the name and unit for each metric. The
+-- following metrics are available. For a description of all the metrics,
+-- see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html Real-time Metrics Definitions>
+-- in the /Amazon Connect Administrator Guide/.
+--
+-- [AGENTS_AFTER_CONTACT_WORK]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#aftercallwork-real-time ACW>
+--
+-- [AGENTS_AVAILABLE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#available-real-time Available>
+--
+-- [AGENTS_ERROR]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#error-real-time Error>
+--
+-- [AGENTS_NON_PRODUCTIVE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#non-productive-time-real-time NPT (Non-Productive Time)>
+--
+-- [AGENTS_ON_CALL]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>
+--
+-- [AGENTS_ON_CONTACT]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>
+--
+-- [AGENTS_ONLINE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#online-real-time Online>
+--
+-- [AGENTS_STAFFED]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#staffed-real-time Staffed>
+--
+-- [CONTACTS_IN_QUEUE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#in-queue-real-time In queue>
+--
+-- [CONTACTS_SCHEDULED]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#scheduled-real-time Scheduled>
+--
+-- [OLDEST_CONTACT_AGE]
+--     Unit: SECONDS
+--
+--     When you use groupings, Unit says SECONDS but the Value is returned
+--     in MILLISECONDS. For example, if you get a response like this:
+--
+--     @{ \"Metric\": { \"Name\": \"OLDEST_CONTACT_AGE\", \"Unit\": \"SECONDS\" }, \"Value\": 24113.0 @}
+--
+--     The actual OLDEST_CONTACT_AGE is 24 seconds.
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#oldest-real-time Oldest>
+--
+-- [SLOTS_ACTIVE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#active-real-time Active>
+--
+-- [SLOTS_AVAILABLE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#availability-real-time Availability>
+newGetCurrentMetricData ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'filters'
   Filters ->
   GetCurrentMetricData
-getCurrentMetricData pInstanceId_ pFilters_ =
+newGetCurrentMetricData pInstanceId_ pFilters_ =
   GetCurrentMetricData'
-    { _gcmdNextToken = Nothing,
-      _gcmdGroupings = Nothing,
-      _gcmdMaxResults = Nothing,
-      _gcmdInstanceId = pInstanceId_,
-      _gcmdFilters = pFilters_,
-      _gcmdCurrentMetrics = mempty
+    { nextToken = Prelude.Nothing,
+      groupings = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      instanceId = pInstanceId_,
+      filters = pFilters_,
+      currentMetrics = Prelude.mempty
     }
 
--- | The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results. The token expires after 5 minutes from the time it is created. Subsequent requests that use the token must use the same request parameters as the request that generated the token.
-gcmdNextToken :: Lens' GetCurrentMetricData (Maybe Text)
-gcmdNextToken = lens _gcmdNextToken (\s a -> s {_gcmdNextToken = a})
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+--
+-- The token expires after 5 minutes from the time it is created.
+-- Subsequent requests that use the token must use the same request
+-- parameters as the request that generated the token.
+getCurrentMetricData_nextToken :: Lens.Lens' GetCurrentMetricData (Prelude.Maybe Prelude.Text)
+getCurrentMetricData_nextToken = Lens.lens (\GetCurrentMetricData' {nextToken} -> nextToken) (\s@GetCurrentMetricData' {} a -> s {nextToken = a} :: GetCurrentMetricData)
 
--- | The grouping applied to the metrics returned. For example, when grouped by @QUEUE@ , the metrics returned apply to each queue rather than aggregated for all queues. If you group by @CHANNEL@ , you should include a Channels filter. VOICE, CHAT, and TASK channels are supported. If no @Grouping@ is included in the request, a summary of metrics is returned.
-gcmdGroupings :: Lens' GetCurrentMetricData [Grouping]
-gcmdGroupings = lens _gcmdGroupings (\s a -> s {_gcmdGroupings = a}) . _Default . _Coerce
+-- | The grouping applied to the metrics returned. For example, when grouped
+-- by @QUEUE@, the metrics returned apply to each queue rather than
+-- aggregated for all queues. If you group by @CHANNEL@, you should include
+-- a Channels filter. VOICE, CHAT, and TASK channels are supported.
+--
+-- If no @Grouping@ is included in the request, a summary of metrics is
+-- returned.
+getCurrentMetricData_groupings :: Lens.Lens' GetCurrentMetricData (Prelude.Maybe [Grouping])
+getCurrentMetricData_groupings = Lens.lens (\GetCurrentMetricData' {groupings} -> groupings) (\s@GetCurrentMetricData' {} a -> s {groupings = a} :: GetCurrentMetricData) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The maximum number of results to return per page.
-gcmdMaxResults :: Lens' GetCurrentMetricData (Maybe Natural)
-gcmdMaxResults = lens _gcmdMaxResults (\s a -> s {_gcmdMaxResults = a}) . mapping _Nat
+getCurrentMetricData_maxResults :: Lens.Lens' GetCurrentMetricData (Prelude.Maybe Prelude.Natural)
+getCurrentMetricData_maxResults = Lens.lens (\GetCurrentMetricData' {maxResults} -> maxResults) (\s@GetCurrentMetricData' {} a -> s {maxResults = a} :: GetCurrentMetricData) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The identifier of the Amazon Connect instance.
-gcmdInstanceId :: Lens' GetCurrentMetricData Text
-gcmdInstanceId = lens _gcmdInstanceId (\s a -> s {_gcmdInstanceId = a})
+getCurrentMetricData_instanceId :: Lens.Lens' GetCurrentMetricData Prelude.Text
+getCurrentMetricData_instanceId = Lens.lens (\GetCurrentMetricData' {instanceId} -> instanceId) (\s@GetCurrentMetricData' {} a -> s {instanceId = a} :: GetCurrentMetricData)
 
--- | The queues, up to 100, or channels, to use to filter the metrics returned. Metric data is retrieved only for the resources associated with the queues or channels included in the filter. You can include both queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK channels are supported.
-gcmdFilters :: Lens' GetCurrentMetricData Filters
-gcmdFilters = lens _gcmdFilters (\s a -> s {_gcmdFilters = a})
+-- | The queues, up to 100, or channels, to use to filter the metrics
+-- returned. Metric data is retrieved only for the resources associated
+-- with the queues or channels included in the filter. You can include both
+-- queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK
+-- channels are supported.
+getCurrentMetricData_filters :: Lens.Lens' GetCurrentMetricData Filters
+getCurrentMetricData_filters = Lens.lens (\GetCurrentMetricData' {filters} -> filters) (\s@GetCurrentMetricData' {} a -> s {filters = a} :: GetCurrentMetricData)
 
--- | The metrics to retrieve. Specify the name and unit for each metric. The following metrics are available. For a description of all the metrics, see <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html Real-time Metrics Definitions> in the /Amazon Connect Administrator Guide/ .     * AGENTS_AFTER_CONTACT_WORK    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#aftercallwork-real-time ACW>      * AGENTS_AVAILABLE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#available-real-time Available>      * AGENTS_ERROR    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#error-real-time Error>      * AGENTS_NON_PRODUCTIVE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#non-productive-time-real-time NPT (Non-Productive Time)>      * AGENTS_ON_CALL    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>      * AGENTS_ON_CONTACT    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>      * AGENTS_ONLINE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#online-real-time Online>      * AGENTS_STAFFED    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#staffed-real-time Staffed>      * CONTACTS_IN_QUEUE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#in-queue-real-time In queue>      * CONTACTS_SCHEDULED    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#scheduled-real-time Scheduled>      * OLDEST_CONTACT_AGE    * Unit: SECONDS When you use groupings, Unit says SECONDS but the Value is returned in MILLISECONDS. For example, if you get a response like this: @{ "Metric": { "Name": "OLDEST_CONTACT_AGE", "Unit": "SECONDS" }, "Value": 24113.0 @ } The actual OLDEST_CONTACT_AGE is 24 seconds. Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#oldest-real-time Oldest>      * SLOTS_ACTIVE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#active-real-time Active>      * SLOTS_AVAILABLE    * Unit: COUNT Name in real-time metrics report: <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#availability-real-time Availability>
-gcmdCurrentMetrics :: Lens' GetCurrentMetricData [CurrentMetric]
-gcmdCurrentMetrics = lens _gcmdCurrentMetrics (\s a -> s {_gcmdCurrentMetrics = a}) . _Coerce
+-- | The metrics to retrieve. Specify the name and unit for each metric. The
+-- following metrics are available. For a description of all the metrics,
+-- see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html Real-time Metrics Definitions>
+-- in the /Amazon Connect Administrator Guide/.
+--
+-- [AGENTS_AFTER_CONTACT_WORK]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#aftercallwork-real-time ACW>
+--
+-- [AGENTS_AVAILABLE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#available-real-time Available>
+--
+-- [AGENTS_ERROR]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#error-real-time Error>
+--
+-- [AGENTS_NON_PRODUCTIVE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#non-productive-time-real-time NPT (Non-Productive Time)>
+--
+-- [AGENTS_ON_CALL]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>
+--
+-- [AGENTS_ON_CONTACT]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#on-call-real-time On contact>
+--
+-- [AGENTS_ONLINE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#online-real-time Online>
+--
+-- [AGENTS_STAFFED]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#staffed-real-time Staffed>
+--
+-- [CONTACTS_IN_QUEUE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#in-queue-real-time In queue>
+--
+-- [CONTACTS_SCHEDULED]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#scheduled-real-time Scheduled>
+--
+-- [OLDEST_CONTACT_AGE]
+--     Unit: SECONDS
+--
+--     When you use groupings, Unit says SECONDS but the Value is returned
+--     in MILLISECONDS. For example, if you get a response like this:
+--
+--     @{ \"Metric\": { \"Name\": \"OLDEST_CONTACT_AGE\", \"Unit\": \"SECONDS\" }, \"Value\": 24113.0 @}
+--
+--     The actual OLDEST_CONTACT_AGE is 24 seconds.
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#oldest-real-time Oldest>
+--
+-- [SLOTS_ACTIVE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#active-real-time Active>
+--
+-- [SLOTS_AVAILABLE]
+--     Unit: COUNT
+--
+--     Name in real-time metrics report:
+--     <https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics-definitions.html#availability-real-time Availability>
+getCurrentMetricData_currentMetrics :: Lens.Lens' GetCurrentMetricData [CurrentMetric]
+getCurrentMetricData_currentMetrics = Lens.lens (\GetCurrentMetricData' {currentMetrics} -> currentMetrics) (\s@GetCurrentMetricData' {} a -> s {currentMetrics = a} :: GetCurrentMetricData) Prelude.. Prelude._Coerce
 
-instance AWSRequest GetCurrentMetricData where
+instance Prelude.AWSRequest GetCurrentMetricData where
   type
     Rs GetCurrentMetricData =
       GetCurrentMetricDataResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCurrentMetricDataResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "DataSnapshotTime")
-            <*> (x .?> "MetricResults" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "DataSnapshotTime")
+            Prelude.<*> ( x Prelude..?> "MetricResults"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCurrentMetricData
+instance Prelude.Hashable GetCurrentMetricData
 
-instance NFData GetCurrentMetricData
+instance Prelude.NFData GetCurrentMetricData
 
-instance ToHeaders GetCurrentMetricData where
+instance Prelude.ToHeaders GetCurrentMetricData where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCurrentMetricData where
+instance Prelude.ToJSON GetCurrentMetricData where
   toJSON GetCurrentMetricData' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gcmdNextToken,
-            ("Groupings" .=) <$> _gcmdGroupings,
-            ("MaxResults" .=) <$> _gcmdMaxResults,
-            Just ("Filters" .= _gcmdFilters),
-            Just ("CurrentMetrics" .= _gcmdCurrentMetrics)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Groupings" Prelude..=) Prelude.<$> groupings,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("Filters" Prelude..= filters),
+            Prelude.Just
+              ("CurrentMetrics" Prelude..= currentMetrics)
           ]
       )
 
-instance ToPath GetCurrentMetricData where
+instance Prelude.ToPath GetCurrentMetricData where
   toPath GetCurrentMetricData' {..} =
-    mconcat ["/metrics/current/", toBS _gcmdInstanceId]
+    Prelude.mconcat
+      ["/metrics/current/", Prelude.toBS instanceId]
 
-instance ToQuery GetCurrentMetricData where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCurrentMetricData where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCurrentMetricDataResponse' smart constructor.
+-- | /See:/ 'newGetCurrentMetricDataResponse' smart constructor.
 data GetCurrentMetricDataResponse = GetCurrentMetricDataResponse'
-  { _gcmdrrsNextToken ::
-      !(Maybe Text),
-    _gcmdrrsDataSnapshotTime ::
-      !( Maybe
-           POSIX
-       ),
-    _gcmdrrsMetricResults ::
-      !( Maybe
-           [CurrentMetricResult]
-       ),
-    _gcmdrrsResponseStatus ::
-      !Int
+  { -- | If there are additional results, this is the token for the next set of
+    -- results.
+    --
+    -- The token expires after 5 minutes from the time it is created.
+    -- Subsequent requests that use the token must use the same request
+    -- parameters as the request that generated the token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The time at which the metrics were retrieved and cached for pagination.
+    dataSnapshotTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Information about the real-time metrics.
+    metricResults :: Prelude.Maybe [CurrentMetricResult],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCurrentMetricDataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCurrentMetricDataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcmdrrsNextToken' - If there are additional results, this is the token for the next set of results. The token expires after 5 minutes from the time it is created. Subsequent requests that use the token must use the same request parameters as the request that generated the token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcmdrrsDataSnapshotTime' - The time at which the metrics were retrieved and cached for pagination.
+-- 'nextToken', 'getCurrentMetricDataResponse_nextToken' - If there are additional results, this is the token for the next set of
+-- results.
 --
--- * 'gcmdrrsMetricResults' - Information about the real-time metrics.
+-- The token expires after 5 minutes from the time it is created.
+-- Subsequent requests that use the token must use the same request
+-- parameters as the request that generated the token.
 --
--- * 'gcmdrrsResponseStatus' - -- | The response status code.
-getCurrentMetricDataResponse ::
-  -- | 'gcmdrrsResponseStatus'
-  Int ->
+-- 'dataSnapshotTime', 'getCurrentMetricDataResponse_dataSnapshotTime' - The time at which the metrics were retrieved and cached for pagination.
+--
+-- 'metricResults', 'getCurrentMetricDataResponse_metricResults' - Information about the real-time metrics.
+--
+-- 'httpStatus', 'getCurrentMetricDataResponse_httpStatus' - The response's http status code.
+newGetCurrentMetricDataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCurrentMetricDataResponse
-getCurrentMetricDataResponse pResponseStatus_ =
+newGetCurrentMetricDataResponse pHttpStatus_ =
   GetCurrentMetricDataResponse'
-    { _gcmdrrsNextToken =
-        Nothing,
-      _gcmdrrsDataSnapshotTime = Nothing,
-      _gcmdrrsMetricResults = Nothing,
-      _gcmdrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      dataSnapshotTime = Prelude.Nothing,
+      metricResults = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are additional results, this is the token for the next set of results. The token expires after 5 minutes from the time it is created. Subsequent requests that use the token must use the same request parameters as the request that generated the token.
-gcmdrrsNextToken :: Lens' GetCurrentMetricDataResponse (Maybe Text)
-gcmdrrsNextToken = lens _gcmdrrsNextToken (\s a -> s {_gcmdrrsNextToken = a})
+-- | If there are additional results, this is the token for the next set of
+-- results.
+--
+-- The token expires after 5 minutes from the time it is created.
+-- Subsequent requests that use the token must use the same request
+-- parameters as the request that generated the token.
+getCurrentMetricDataResponse_nextToken :: Lens.Lens' GetCurrentMetricDataResponse (Prelude.Maybe Prelude.Text)
+getCurrentMetricDataResponse_nextToken = Lens.lens (\GetCurrentMetricDataResponse' {nextToken} -> nextToken) (\s@GetCurrentMetricDataResponse' {} a -> s {nextToken = a} :: GetCurrentMetricDataResponse)
 
 -- | The time at which the metrics were retrieved and cached for pagination.
-gcmdrrsDataSnapshotTime :: Lens' GetCurrentMetricDataResponse (Maybe UTCTime)
-gcmdrrsDataSnapshotTime = lens _gcmdrrsDataSnapshotTime (\s a -> s {_gcmdrrsDataSnapshotTime = a}) . mapping _Time
+getCurrentMetricDataResponse_dataSnapshotTime :: Lens.Lens' GetCurrentMetricDataResponse (Prelude.Maybe Prelude.UTCTime)
+getCurrentMetricDataResponse_dataSnapshotTime = Lens.lens (\GetCurrentMetricDataResponse' {dataSnapshotTime} -> dataSnapshotTime) (\s@GetCurrentMetricDataResponse' {} a -> s {dataSnapshotTime = a} :: GetCurrentMetricDataResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Information about the real-time metrics.
-gcmdrrsMetricResults :: Lens' GetCurrentMetricDataResponse [CurrentMetricResult]
-gcmdrrsMetricResults = lens _gcmdrrsMetricResults (\s a -> s {_gcmdrrsMetricResults = a}) . _Default . _Coerce
+getCurrentMetricDataResponse_metricResults :: Lens.Lens' GetCurrentMetricDataResponse (Prelude.Maybe [CurrentMetricResult])
+getCurrentMetricDataResponse_metricResults = Lens.lens (\GetCurrentMetricDataResponse' {metricResults} -> metricResults) (\s@GetCurrentMetricDataResponse' {} a -> s {metricResults = a} :: GetCurrentMetricDataResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcmdrrsResponseStatus :: Lens' GetCurrentMetricDataResponse Int
-gcmdrrsResponseStatus = lens _gcmdrrsResponseStatus (\s a -> s {_gcmdrrsResponseStatus = a})
+-- | The response's http status code.
+getCurrentMetricDataResponse_httpStatus :: Lens.Lens' GetCurrentMetricDataResponse Prelude.Int
+getCurrentMetricDataResponse_httpStatus = Lens.lens (\GetCurrentMetricDataResponse' {httpStatus} -> httpStatus) (\s@GetCurrentMetricDataResponse' {} a -> s {httpStatus = a} :: GetCurrentMetricDataResponse)
 
-instance NFData GetCurrentMetricDataResponse
+instance Prelude.NFData GetCurrentMetricDataResponse

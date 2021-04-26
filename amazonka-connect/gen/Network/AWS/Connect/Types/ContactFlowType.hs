@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,91 +19,93 @@
 module Network.AWS.Connect.Types.ContactFlowType
   ( ContactFlowType
       ( ..,
-        AgentHold,
-        AgentTransfer,
-        AgentWhisper,
-        ContactFlow,
-        CustomerHold,
-        CustomerQueue,
-        CustomerWhisper,
-        OutboundWhisper,
-        QueueTransfer
+        ContactFlowTypeAGENTHOLD,
+        ContactFlowTypeAGENTTRANSFER,
+        ContactFlowTypeAGENTWHISPER,
+        ContactFlowTypeCONTACTFLOW,
+        ContactFlowTypeCUSTOMERHOLD,
+        ContactFlowTypeCUSTOMERQUEUE,
+        ContactFlowTypeCUSTOMERWHISPER,
+        ContactFlowTypeOUTBOUNDWHISPER,
+        ContactFlowTypeQUEUETRANSFER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContactFlowType = ContactFlowType' (CI Text)
+newtype ContactFlowType = ContactFlowType'
+  { fromContactFlowType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AgentHold :: ContactFlowType
-pattern AgentHold = ContactFlowType' "AGENT_HOLD"
+pattern ContactFlowTypeAGENTHOLD :: ContactFlowType
+pattern ContactFlowTypeAGENTHOLD = ContactFlowType' "AGENT_HOLD"
 
-pattern AgentTransfer :: ContactFlowType
-pattern AgentTransfer = ContactFlowType' "AGENT_TRANSFER"
+pattern ContactFlowTypeAGENTTRANSFER :: ContactFlowType
+pattern ContactFlowTypeAGENTTRANSFER = ContactFlowType' "AGENT_TRANSFER"
 
-pattern AgentWhisper :: ContactFlowType
-pattern AgentWhisper = ContactFlowType' "AGENT_WHISPER"
+pattern ContactFlowTypeAGENTWHISPER :: ContactFlowType
+pattern ContactFlowTypeAGENTWHISPER = ContactFlowType' "AGENT_WHISPER"
 
-pattern ContactFlow :: ContactFlowType
-pattern ContactFlow = ContactFlowType' "CONTACT_FLOW"
+pattern ContactFlowTypeCONTACTFLOW :: ContactFlowType
+pattern ContactFlowTypeCONTACTFLOW = ContactFlowType' "CONTACT_FLOW"
 
-pattern CustomerHold :: ContactFlowType
-pattern CustomerHold = ContactFlowType' "CUSTOMER_HOLD"
+pattern ContactFlowTypeCUSTOMERHOLD :: ContactFlowType
+pattern ContactFlowTypeCUSTOMERHOLD = ContactFlowType' "CUSTOMER_HOLD"
 
-pattern CustomerQueue :: ContactFlowType
-pattern CustomerQueue = ContactFlowType' "CUSTOMER_QUEUE"
+pattern ContactFlowTypeCUSTOMERQUEUE :: ContactFlowType
+pattern ContactFlowTypeCUSTOMERQUEUE = ContactFlowType' "CUSTOMER_QUEUE"
 
-pattern CustomerWhisper :: ContactFlowType
-pattern CustomerWhisper = ContactFlowType' "CUSTOMER_WHISPER"
+pattern ContactFlowTypeCUSTOMERWHISPER :: ContactFlowType
+pattern ContactFlowTypeCUSTOMERWHISPER = ContactFlowType' "CUSTOMER_WHISPER"
 
-pattern OutboundWhisper :: ContactFlowType
-pattern OutboundWhisper = ContactFlowType' "OUTBOUND_WHISPER"
+pattern ContactFlowTypeOUTBOUNDWHISPER :: ContactFlowType
+pattern ContactFlowTypeOUTBOUNDWHISPER = ContactFlowType' "OUTBOUND_WHISPER"
 
-pattern QueueTransfer :: ContactFlowType
-pattern QueueTransfer = ContactFlowType' "QUEUE_TRANSFER"
+pattern ContactFlowTypeQUEUETRANSFER :: ContactFlowType
+pattern ContactFlowTypeQUEUETRANSFER = ContactFlowType' "QUEUE_TRANSFER"
 
 {-# COMPLETE
-  AgentHold,
-  AgentTransfer,
-  AgentWhisper,
-  ContactFlow,
-  CustomerHold,
-  CustomerQueue,
-  CustomerWhisper,
-  OutboundWhisper,
-  QueueTransfer,
+  ContactFlowTypeAGENTHOLD,
+  ContactFlowTypeAGENTTRANSFER,
+  ContactFlowTypeAGENTWHISPER,
+  ContactFlowTypeCONTACTFLOW,
+  ContactFlowTypeCUSTOMERHOLD,
+  ContactFlowTypeCUSTOMERQUEUE,
+  ContactFlowTypeCUSTOMERWHISPER,
+  ContactFlowTypeOUTBOUNDWHISPER,
+  ContactFlowTypeQUEUETRANSFER,
   ContactFlowType'
   #-}
 
-instance FromText ContactFlowType where
-  parser = (ContactFlowType' . mk) <$> takeText
+instance Prelude.FromText ContactFlowType where
+  parser = ContactFlowType' Prelude.<$> Prelude.takeText
 
-instance ToText ContactFlowType where
-  toText (ContactFlowType' ci) = original ci
+instance Prelude.ToText ContactFlowType where
+  toText (ContactFlowType' x) = x
 
-instance Hashable ContactFlowType
+instance Prelude.Hashable ContactFlowType
 
-instance NFData ContactFlowType
+instance Prelude.NFData ContactFlowType
 
-instance ToByteString ContactFlowType
+instance Prelude.ToByteString ContactFlowType
 
-instance ToQuery ContactFlowType
+instance Prelude.ToQuery ContactFlowType
 
-instance ToHeader ContactFlowType
+instance Prelude.ToHeader ContactFlowType
 
-instance ToJSON ContactFlowType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContactFlowType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContactFlowType where
-  parseJSON = parseJSONText "ContactFlowType"
+instance Prelude.FromJSON ContactFlowType where
+  parseJSON = Prelude.parseJSONText "ContactFlowType"

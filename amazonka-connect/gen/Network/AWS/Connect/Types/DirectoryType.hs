@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Connect.Types.DirectoryType
   ( DirectoryType
       ( ..,
-        ConnectManaged,
-        ExistingDirectory,
-        Saml
+        DirectoryTypeCONNECTMANAGED,
+        DirectoryTypeEXISTINGDIRECTORY,
+        DirectoryTypeSAML
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectoryType = DirectoryType' (CI Text)
+newtype DirectoryType = DirectoryType'
+  { fromDirectoryType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConnectManaged :: DirectoryType
-pattern ConnectManaged = DirectoryType' "CONNECT_MANAGED"
+pattern DirectoryTypeCONNECTMANAGED :: DirectoryType
+pattern DirectoryTypeCONNECTMANAGED = DirectoryType' "CONNECT_MANAGED"
 
-pattern ExistingDirectory :: DirectoryType
-pattern ExistingDirectory = DirectoryType' "EXISTING_DIRECTORY"
+pattern DirectoryTypeEXISTINGDIRECTORY :: DirectoryType
+pattern DirectoryTypeEXISTINGDIRECTORY = DirectoryType' "EXISTING_DIRECTORY"
 
-pattern Saml :: DirectoryType
-pattern Saml = DirectoryType' "SAML"
+pattern DirectoryTypeSAML :: DirectoryType
+pattern DirectoryTypeSAML = DirectoryType' "SAML"
 
 {-# COMPLETE
-  ConnectManaged,
-  ExistingDirectory,
-  Saml,
+  DirectoryTypeCONNECTMANAGED,
+  DirectoryTypeEXISTINGDIRECTORY,
+  DirectoryTypeSAML,
   DirectoryType'
   #-}
 
-instance FromText DirectoryType where
-  parser = (DirectoryType' . mk) <$> takeText
+instance Prelude.FromText DirectoryType where
+  parser = DirectoryType' Prelude.<$> Prelude.takeText
 
-instance ToText DirectoryType where
-  toText (DirectoryType' ci) = original ci
+instance Prelude.ToText DirectoryType where
+  toText (DirectoryType' x) = x
 
-instance Hashable DirectoryType
+instance Prelude.Hashable DirectoryType
 
-instance NFData DirectoryType
+instance Prelude.NFData DirectoryType
 
-instance ToByteString DirectoryType
+instance Prelude.ToByteString DirectoryType
 
-instance ToQuery DirectoryType
+instance Prelude.ToQuery DirectoryType
 
-instance ToHeader DirectoryType
+instance Prelude.ToHeader DirectoryType
 
-instance ToJSON DirectoryType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DirectoryType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DirectoryType where
-  parseJSON = parseJSONText "DirectoryType"
+instance Prelude.FromJSON DirectoryType where
+  parseJSON = Prelude.parseJSONText "DirectoryType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,75 +20,80 @@
 module Network.AWS.Connect.Types.ContactFlowSummary where
 
 import Network.AWS.Connect.Types.ContactFlowType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains summary information about a contact flow.
 --
+-- You can also create and update contact flows using the
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html Amazon Connect Flow language>.
 --
--- You can also create and update contact flows using the <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html Amazon Connect Flow language> .
---
---
--- /See:/ 'contactFlowSummary' smart constructor.
+-- /See:/ 'newContactFlowSummary' smart constructor.
 data ContactFlowSummary = ContactFlowSummary'
-  { _cfsARN ::
-      !(Maybe Text),
-    _cfsId :: !(Maybe Text),
-    _cfsContactFlowType ::
-      !(Maybe ContactFlowType),
-    _cfsName :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the contact flow.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the contact flow.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The type of contact flow.
+    contactFlowType :: Prelude.Maybe ContactFlowType,
+    -- | The name of the contact flow.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContactFlowSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContactFlowSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfsARN' - The Amazon Resource Name (ARN) of the contact flow.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfsId' - The identifier of the contact flow.
+-- 'arn', 'contactFlowSummary_arn' - The Amazon Resource Name (ARN) of the contact flow.
 --
--- * 'cfsContactFlowType' - The type of contact flow.
+-- 'id', 'contactFlowSummary_id' - The identifier of the contact flow.
 --
--- * 'cfsName' - The name of the contact flow.
-contactFlowSummary ::
+-- 'contactFlowType', 'contactFlowSummary_contactFlowType' - The type of contact flow.
+--
+-- 'name', 'contactFlowSummary_name' - The name of the contact flow.
+newContactFlowSummary ::
   ContactFlowSummary
-contactFlowSummary =
+newContactFlowSummary =
   ContactFlowSummary'
-    { _cfsARN = Nothing,
-      _cfsId = Nothing,
-      _cfsContactFlowType = Nothing,
-      _cfsName = Nothing
+    { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      contactFlowType = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the contact flow.
-cfsARN :: Lens' ContactFlowSummary (Maybe Text)
-cfsARN = lens _cfsARN (\s a -> s {_cfsARN = a})
+contactFlowSummary_arn :: Lens.Lens' ContactFlowSummary (Prelude.Maybe Prelude.Text)
+contactFlowSummary_arn = Lens.lens (\ContactFlowSummary' {arn} -> arn) (\s@ContactFlowSummary' {} a -> s {arn = a} :: ContactFlowSummary)
 
 -- | The identifier of the contact flow.
-cfsId :: Lens' ContactFlowSummary (Maybe Text)
-cfsId = lens _cfsId (\s a -> s {_cfsId = a})
+contactFlowSummary_id :: Lens.Lens' ContactFlowSummary (Prelude.Maybe Prelude.Text)
+contactFlowSummary_id = Lens.lens (\ContactFlowSummary' {id} -> id) (\s@ContactFlowSummary' {} a -> s {id = a} :: ContactFlowSummary)
 
 -- | The type of contact flow.
-cfsContactFlowType :: Lens' ContactFlowSummary (Maybe ContactFlowType)
-cfsContactFlowType = lens _cfsContactFlowType (\s a -> s {_cfsContactFlowType = a})
+contactFlowSummary_contactFlowType :: Lens.Lens' ContactFlowSummary (Prelude.Maybe ContactFlowType)
+contactFlowSummary_contactFlowType = Lens.lens (\ContactFlowSummary' {contactFlowType} -> contactFlowType) (\s@ContactFlowSummary' {} a -> s {contactFlowType = a} :: ContactFlowSummary)
 
 -- | The name of the contact flow.
-cfsName :: Lens' ContactFlowSummary (Maybe Text)
-cfsName = lens _cfsName (\s a -> s {_cfsName = a})
+contactFlowSummary_name :: Lens.Lens' ContactFlowSummary (Prelude.Maybe Prelude.Text)
+contactFlowSummary_name = Lens.lens (\ContactFlowSummary' {name} -> name) (\s@ContactFlowSummary' {} a -> s {name = a} :: ContactFlowSummary)
 
-instance FromJSON ContactFlowSummary where
+instance Prelude.FromJSON ContactFlowSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ContactFlowSummary"
       ( \x ->
           ContactFlowSummary'
-            <$> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "ContactFlowType")
-            <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "ContactFlowType")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable ContactFlowSummary
+instance Prelude.Hashable ContactFlowSummary
 
-instance NFData ContactFlowSummary
+instance Prelude.NFData ContactFlowSummary

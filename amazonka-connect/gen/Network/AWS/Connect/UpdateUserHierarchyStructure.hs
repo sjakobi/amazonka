@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,140 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the user hierarchy structure: add, remove, and rename user hierarchy levels.
+-- Updates the user hierarchy structure: add, remove, and rename user
+-- hierarchy levels.
 module Network.AWS.Connect.UpdateUserHierarchyStructure
   ( -- * Creating a Request
-    updateUserHierarchyStructure,
-    UpdateUserHierarchyStructure,
+    UpdateUserHierarchyStructure (..),
+    newUpdateUserHierarchyStructure,
 
     -- * Request Lenses
-    uuhsHierarchyStructure,
-    uuhsInstanceId,
+    updateUserHierarchyStructure_hierarchyStructure,
+    updateUserHierarchyStructure_instanceId,
 
     -- * Destructuring the Response
-    updateUserHierarchyStructureResponse,
-    UpdateUserHierarchyStructureResponse,
+    UpdateUserHierarchyStructureResponse (..),
+    newUpdateUserHierarchyStructureResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateUserHierarchyStructure' smart constructor.
+-- | /See:/ 'newUpdateUserHierarchyStructure' smart constructor.
 data UpdateUserHierarchyStructure = UpdateUserHierarchyStructure'
-  { _uuhsHierarchyStructure ::
-      !HierarchyStructureUpdate,
-    _uuhsInstanceId ::
-      !Text
+  { -- | The hierarchy levels to update.
+    hierarchyStructure :: HierarchyStructureUpdate,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserHierarchyStructure' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserHierarchyStructure' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uuhsHierarchyStructure' - The hierarchy levels to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uuhsInstanceId' - The identifier of the Amazon Connect instance.
-updateUserHierarchyStructure ::
-  -- | 'uuhsHierarchyStructure'
+-- 'hierarchyStructure', 'updateUserHierarchyStructure_hierarchyStructure' - The hierarchy levels to update.
+--
+-- 'instanceId', 'updateUserHierarchyStructure_instanceId' - The identifier of the Amazon Connect instance.
+newUpdateUserHierarchyStructure ::
+  -- | 'hierarchyStructure'
   HierarchyStructureUpdate ->
-  -- | 'uuhsInstanceId'
-  Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   UpdateUserHierarchyStructure
-updateUserHierarchyStructure
+newUpdateUserHierarchyStructure
   pHierarchyStructure_
   pInstanceId_ =
     UpdateUserHierarchyStructure'
-      { _uuhsHierarchyStructure =
+      { hierarchyStructure =
           pHierarchyStructure_,
-        _uuhsInstanceId = pInstanceId_
+        instanceId = pInstanceId_
       }
 
 -- | The hierarchy levels to update.
-uuhsHierarchyStructure :: Lens' UpdateUserHierarchyStructure HierarchyStructureUpdate
-uuhsHierarchyStructure = lens _uuhsHierarchyStructure (\s a -> s {_uuhsHierarchyStructure = a})
+updateUserHierarchyStructure_hierarchyStructure :: Lens.Lens' UpdateUserHierarchyStructure HierarchyStructureUpdate
+updateUserHierarchyStructure_hierarchyStructure = Lens.lens (\UpdateUserHierarchyStructure' {hierarchyStructure} -> hierarchyStructure) (\s@UpdateUserHierarchyStructure' {} a -> s {hierarchyStructure = a} :: UpdateUserHierarchyStructure)
 
 -- | The identifier of the Amazon Connect instance.
-uuhsInstanceId :: Lens' UpdateUserHierarchyStructure Text
-uuhsInstanceId = lens _uuhsInstanceId (\s a -> s {_uuhsInstanceId = a})
+updateUserHierarchyStructure_instanceId :: Lens.Lens' UpdateUserHierarchyStructure Prelude.Text
+updateUserHierarchyStructure_instanceId = Lens.lens (\UpdateUserHierarchyStructure' {instanceId} -> instanceId) (\s@UpdateUserHierarchyStructure' {} a -> s {instanceId = a} :: UpdateUserHierarchyStructure)
 
-instance AWSRequest UpdateUserHierarchyStructure where
+instance
+  Prelude.AWSRequest
+    UpdateUserHierarchyStructure
+  where
   type
     Rs UpdateUserHierarchyStructure =
       UpdateUserHierarchyStructureResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateUserHierarchyStructureResponse'
+    Response.receiveNull
+      UpdateUserHierarchyStructureResponse'
 
-instance Hashable UpdateUserHierarchyStructure
+instance
+  Prelude.Hashable
+    UpdateUserHierarchyStructure
 
-instance NFData UpdateUserHierarchyStructure
+instance Prelude.NFData UpdateUserHierarchyStructure
 
-instance ToHeaders UpdateUserHierarchyStructure where
+instance
+  Prelude.ToHeaders
+    UpdateUserHierarchyStructure
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateUserHierarchyStructure where
+instance Prelude.ToJSON UpdateUserHierarchyStructure where
   toJSON UpdateUserHierarchyStructure' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("HierarchyStructure" .= _uuhsHierarchyStructure)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "HierarchyStructure"
+                  Prelude..= hierarchyStructure
+              )
           ]
       )
 
-instance ToPath UpdateUserHierarchyStructure where
+instance Prelude.ToPath UpdateUserHierarchyStructure where
   toPath UpdateUserHierarchyStructure' {..} =
-    mconcat
-      ["/user-hierarchy-structure/", toBS _uuhsInstanceId]
+    Prelude.mconcat
+      [ "/user-hierarchy-structure/",
+        Prelude.toBS instanceId
+      ]
 
-instance ToQuery UpdateUserHierarchyStructure where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateUserHierarchyStructure where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateUserHierarchyStructureResponse' smart constructor.
+-- | /See:/ 'newUpdateUserHierarchyStructureResponse' smart constructor.
 data UpdateUserHierarchyStructureResponse = UpdateUserHierarchyStructureResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserHierarchyStructureResponse' with the minimum fields required to make a request.
-updateUserHierarchyStructureResponse ::
+-- |
+-- Create a value of 'UpdateUserHierarchyStructureResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateUserHierarchyStructureResponse ::
   UpdateUserHierarchyStructureResponse
-updateUserHierarchyStructureResponse =
+newUpdateUserHierarchyStructureResponse =
   UpdateUserHierarchyStructureResponse'
 
-instance NFData UpdateUserHierarchyStructureResponse
+instance
+  Prelude.NFData
+    UpdateUserHierarchyStructureResponse

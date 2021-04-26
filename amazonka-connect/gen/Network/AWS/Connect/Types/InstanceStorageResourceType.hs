@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.Connect.Types.InstanceStorageResourceType
   ( InstanceStorageResourceType
       ( ..,
-        AgentEvents,
-        CallRecordings,
-        ChatTranscripts,
-        ContactTraceRecords,
-        MediaStreams,
-        ScheduledReports
+        InstanceStorageResourceTypeAGENTEVENTS,
+        InstanceStorageResourceTypeCALLRECORDINGS,
+        InstanceStorageResourceTypeCHATTRANSCRIPTS,
+        InstanceStorageResourceTypeCONTACTTRACERECORDS,
+        InstanceStorageResourceTypeMEDIASTREAMS,
+        InstanceStorageResourceTypeSCHEDULEDREPORTS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceStorageResourceType
-  = InstanceStorageResourceType'
-      ( CI
-          Text
-      )
+newtype InstanceStorageResourceType = InstanceStorageResourceType'
+  { fromInstanceStorageResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AgentEvents :: InstanceStorageResourceType
-pattern AgentEvents = InstanceStorageResourceType' "AGENT_EVENTS"
+pattern InstanceStorageResourceTypeAGENTEVENTS :: InstanceStorageResourceType
+pattern InstanceStorageResourceTypeAGENTEVENTS = InstanceStorageResourceType' "AGENT_EVENTS"
 
-pattern CallRecordings :: InstanceStorageResourceType
-pattern CallRecordings = InstanceStorageResourceType' "CALL_RECORDINGS"
+pattern InstanceStorageResourceTypeCALLRECORDINGS :: InstanceStorageResourceType
+pattern InstanceStorageResourceTypeCALLRECORDINGS = InstanceStorageResourceType' "CALL_RECORDINGS"
 
-pattern ChatTranscripts :: InstanceStorageResourceType
-pattern ChatTranscripts = InstanceStorageResourceType' "CHAT_TRANSCRIPTS"
+pattern InstanceStorageResourceTypeCHATTRANSCRIPTS :: InstanceStorageResourceType
+pattern InstanceStorageResourceTypeCHATTRANSCRIPTS = InstanceStorageResourceType' "CHAT_TRANSCRIPTS"
 
-pattern ContactTraceRecords :: InstanceStorageResourceType
-pattern ContactTraceRecords = InstanceStorageResourceType' "CONTACT_TRACE_RECORDS"
+pattern InstanceStorageResourceTypeCONTACTTRACERECORDS :: InstanceStorageResourceType
+pattern InstanceStorageResourceTypeCONTACTTRACERECORDS = InstanceStorageResourceType' "CONTACT_TRACE_RECORDS"
 
-pattern MediaStreams :: InstanceStorageResourceType
-pattern MediaStreams = InstanceStorageResourceType' "MEDIA_STREAMS"
+pattern InstanceStorageResourceTypeMEDIASTREAMS :: InstanceStorageResourceType
+pattern InstanceStorageResourceTypeMEDIASTREAMS = InstanceStorageResourceType' "MEDIA_STREAMS"
 
-pattern ScheduledReports :: InstanceStorageResourceType
-pattern ScheduledReports = InstanceStorageResourceType' "SCHEDULED_REPORTS"
+pattern InstanceStorageResourceTypeSCHEDULEDREPORTS :: InstanceStorageResourceType
+pattern InstanceStorageResourceTypeSCHEDULEDREPORTS = InstanceStorageResourceType' "SCHEDULED_REPORTS"
 
 {-# COMPLETE
-  AgentEvents,
-  CallRecordings,
-  ChatTranscripts,
-  ContactTraceRecords,
-  MediaStreams,
-  ScheduledReports,
+  InstanceStorageResourceTypeAGENTEVENTS,
+  InstanceStorageResourceTypeCALLRECORDINGS,
+  InstanceStorageResourceTypeCHATTRANSCRIPTS,
+  InstanceStorageResourceTypeCONTACTTRACERECORDS,
+  InstanceStorageResourceTypeMEDIASTREAMS,
+  InstanceStorageResourceTypeSCHEDULEDREPORTS,
   InstanceStorageResourceType'
   #-}
 
-instance FromText InstanceStorageResourceType where
-  parser = (InstanceStorageResourceType' . mk) <$> takeText
+instance Prelude.FromText InstanceStorageResourceType where
+  parser = InstanceStorageResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceStorageResourceType where
-  toText (InstanceStorageResourceType' ci) = original ci
+instance Prelude.ToText InstanceStorageResourceType where
+  toText (InstanceStorageResourceType' x) = x
 
-instance Hashable InstanceStorageResourceType
+instance Prelude.Hashable InstanceStorageResourceType
 
-instance NFData InstanceStorageResourceType
+instance Prelude.NFData InstanceStorageResourceType
 
-instance ToByteString InstanceStorageResourceType
+instance Prelude.ToByteString InstanceStorageResourceType
 
-instance ToQuery InstanceStorageResourceType
+instance Prelude.ToQuery InstanceStorageResourceType
 
-instance ToHeader InstanceStorageResourceType
+instance Prelude.ToHeader InstanceStorageResourceType
 
-instance ToJSON InstanceStorageResourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceStorageResourceType where
+  toJSON = Prelude.toJSONText

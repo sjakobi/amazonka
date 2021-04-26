@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,92 @@
 module Network.AWS.Connect.Types.UserPhoneConfig where
 
 import Network.AWS.Connect.Types.PhoneType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the phone configuration settings for a user.
 --
---
---
--- /See:/ 'userPhoneConfig' smart constructor.
+-- /See:/ 'newUserPhoneConfig' smart constructor.
 data UserPhoneConfig = UserPhoneConfig'
-  { _upcAutoAccept ::
-      !(Maybe Bool),
-    _upcAfterContactWorkTimeLimit ::
-      !(Maybe Nat),
-    _upcDeskPhoneNumber :: !(Maybe Text),
-    _upcPhoneType :: !PhoneType
+  { -- | The Auto accept setting.
+    autoAccept :: Prelude.Maybe Prelude.Bool,
+    -- | The After Call Work (ACW) timeout setting, in seconds.
+    afterContactWorkTimeLimit :: Prelude.Maybe Prelude.Nat,
+    -- | The phone number for the user\'s desk phone.
+    deskPhoneNumber :: Prelude.Maybe Prelude.Text,
+    -- | The phone type.
+    phoneType :: PhoneType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserPhoneConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserPhoneConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upcAutoAccept' - The Auto accept setting.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upcAfterContactWorkTimeLimit' - The After Call Work (ACW) timeout setting, in seconds.
+-- 'autoAccept', 'userPhoneConfig_autoAccept' - The Auto accept setting.
 --
--- * 'upcDeskPhoneNumber' - The phone number for the user's desk phone.
+-- 'afterContactWorkTimeLimit', 'userPhoneConfig_afterContactWorkTimeLimit' - The After Call Work (ACW) timeout setting, in seconds.
 --
--- * 'upcPhoneType' - The phone type.
-userPhoneConfig ::
-  -- | 'upcPhoneType'
+-- 'deskPhoneNumber', 'userPhoneConfig_deskPhoneNumber' - The phone number for the user\'s desk phone.
+--
+-- 'phoneType', 'userPhoneConfig_phoneType' - The phone type.
+newUserPhoneConfig ::
+  -- | 'phoneType'
   PhoneType ->
   UserPhoneConfig
-userPhoneConfig pPhoneType_ =
+newUserPhoneConfig pPhoneType_ =
   UserPhoneConfig'
-    { _upcAutoAccept = Nothing,
-      _upcAfterContactWorkTimeLimit = Nothing,
-      _upcDeskPhoneNumber = Nothing,
-      _upcPhoneType = pPhoneType_
+    { autoAccept = Prelude.Nothing,
+      afterContactWorkTimeLimit = Prelude.Nothing,
+      deskPhoneNumber = Prelude.Nothing,
+      phoneType = pPhoneType_
     }
 
 -- | The Auto accept setting.
-upcAutoAccept :: Lens' UserPhoneConfig (Maybe Bool)
-upcAutoAccept = lens _upcAutoAccept (\s a -> s {_upcAutoAccept = a})
+userPhoneConfig_autoAccept :: Lens.Lens' UserPhoneConfig (Prelude.Maybe Prelude.Bool)
+userPhoneConfig_autoAccept = Lens.lens (\UserPhoneConfig' {autoAccept} -> autoAccept) (\s@UserPhoneConfig' {} a -> s {autoAccept = a} :: UserPhoneConfig)
 
 -- | The After Call Work (ACW) timeout setting, in seconds.
-upcAfterContactWorkTimeLimit :: Lens' UserPhoneConfig (Maybe Natural)
-upcAfterContactWorkTimeLimit = lens _upcAfterContactWorkTimeLimit (\s a -> s {_upcAfterContactWorkTimeLimit = a}) . mapping _Nat
+userPhoneConfig_afterContactWorkTimeLimit :: Lens.Lens' UserPhoneConfig (Prelude.Maybe Prelude.Natural)
+userPhoneConfig_afterContactWorkTimeLimit = Lens.lens (\UserPhoneConfig' {afterContactWorkTimeLimit} -> afterContactWorkTimeLimit) (\s@UserPhoneConfig' {} a -> s {afterContactWorkTimeLimit = a} :: UserPhoneConfig) Prelude.. Lens.mapping Prelude._Nat
 
--- | The phone number for the user's desk phone.
-upcDeskPhoneNumber :: Lens' UserPhoneConfig (Maybe Text)
-upcDeskPhoneNumber = lens _upcDeskPhoneNumber (\s a -> s {_upcDeskPhoneNumber = a})
+-- | The phone number for the user\'s desk phone.
+userPhoneConfig_deskPhoneNumber :: Lens.Lens' UserPhoneConfig (Prelude.Maybe Prelude.Text)
+userPhoneConfig_deskPhoneNumber = Lens.lens (\UserPhoneConfig' {deskPhoneNumber} -> deskPhoneNumber) (\s@UserPhoneConfig' {} a -> s {deskPhoneNumber = a} :: UserPhoneConfig)
 
 -- | The phone type.
-upcPhoneType :: Lens' UserPhoneConfig PhoneType
-upcPhoneType = lens _upcPhoneType (\s a -> s {_upcPhoneType = a})
+userPhoneConfig_phoneType :: Lens.Lens' UserPhoneConfig PhoneType
+userPhoneConfig_phoneType = Lens.lens (\UserPhoneConfig' {phoneType} -> phoneType) (\s@UserPhoneConfig' {} a -> s {phoneType = a} :: UserPhoneConfig)
 
-instance FromJSON UserPhoneConfig where
+instance Prelude.FromJSON UserPhoneConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserPhoneConfig"
       ( \x ->
           UserPhoneConfig'
-            <$> (x .:? "AutoAccept")
-            <*> (x .:? "AfterContactWorkTimeLimit")
-            <*> (x .:? "DeskPhoneNumber")
-            <*> (x .: "PhoneType")
+            Prelude.<$> (x Prelude..:? "AutoAccept")
+            Prelude.<*> (x Prelude..:? "AfterContactWorkTimeLimit")
+            Prelude.<*> (x Prelude..:? "DeskPhoneNumber")
+            Prelude.<*> (x Prelude..: "PhoneType")
       )
 
-instance Hashable UserPhoneConfig
+instance Prelude.Hashable UserPhoneConfig
 
-instance NFData UserPhoneConfig
+instance Prelude.NFData UserPhoneConfig
 
-instance ToJSON UserPhoneConfig where
+instance Prelude.ToJSON UserPhoneConfig where
   toJSON UserPhoneConfig' {..} =
-    object
-      ( catMaybes
-          [ ("AutoAccept" .=) <$> _upcAutoAccept,
-            ("AfterContactWorkTimeLimit" .=)
-              <$> _upcAfterContactWorkTimeLimit,
-            ("DeskPhoneNumber" .=) <$> _upcDeskPhoneNumber,
-            Just ("PhoneType" .= _upcPhoneType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AutoAccept" Prelude..=) Prelude.<$> autoAccept,
+            ("AfterContactWorkTimeLimit" Prelude..=)
+              Prelude.<$> afterContactWorkTimeLimit,
+            ("DeskPhoneNumber" Prelude..=)
+              Prelude.<$> deskPhoneNumber,
+            Prelude.Just ("PhoneType" Prelude..= phoneType)
           ]
       )

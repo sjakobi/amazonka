@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Connect.Types.QueueStatus
   ( QueueStatus
       ( ..,
-        Disabled,
-        Enabled
+        QueueStatusDISABLED,
+        QueueStatusENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QueueStatus = QueueStatus' (CI Text)
+newtype QueueStatus = QueueStatus'
+  { fromQueueStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: QueueStatus
-pattern Disabled = QueueStatus' "DISABLED"
+pattern QueueStatusDISABLED :: QueueStatus
+pattern QueueStatusDISABLED = QueueStatus' "DISABLED"
 
-pattern Enabled :: QueueStatus
-pattern Enabled = QueueStatus' "ENABLED"
+pattern QueueStatusENABLED :: QueueStatus
+pattern QueueStatusENABLED = QueueStatus' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  QueueStatusDISABLED,
+  QueueStatusENABLED,
   QueueStatus'
   #-}
 
-instance FromText QueueStatus where
-  parser = (QueueStatus' . mk) <$> takeText
+instance Prelude.FromText QueueStatus where
+  parser = QueueStatus' Prelude.<$> Prelude.takeText
 
-instance ToText QueueStatus where
-  toText (QueueStatus' ci) = original ci
+instance Prelude.ToText QueueStatus where
+  toText (QueueStatus' x) = x
 
-instance Hashable QueueStatus
+instance Prelude.Hashable QueueStatus
 
-instance NFData QueueStatus
+instance Prelude.NFData QueueStatus
 
-instance ToByteString QueueStatus
+instance Prelude.ToByteString QueueStatus
 
-instance ToQuery QueueStatus
+instance Prelude.ToQuery QueueStatus
 
-instance ToHeader QueueStatus
+instance Prelude.ToHeader QueueStatus
 
-instance ToJSON QueueStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON QueueStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON QueueStatus where
-  parseJSON = parseJSONText "QueueStatus"
+instance Prelude.FromJSON QueueStatus where
+  parseJSON = Prelude.parseJSONText "QueueStatus"

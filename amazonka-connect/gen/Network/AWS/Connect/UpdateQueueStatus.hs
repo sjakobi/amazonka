@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,137 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Updates the status of the queue.
 module Network.AWS.Connect.UpdateQueueStatus
   ( -- * Creating a Request
-    updateQueueStatus,
-    UpdateQueueStatus,
+    UpdateQueueStatus (..),
+    newUpdateQueueStatus,
 
     -- * Request Lenses
-    uqsInstanceId,
-    uqsQueueId,
-    uqsStatus,
+    updateQueueStatus_instanceId,
+    updateQueueStatus_queueId,
+    updateQueueStatus_status,
 
     -- * Destructuring the Response
-    updateQueueStatusResponse,
-    UpdateQueueStatusResponse,
+    UpdateQueueStatusResponse (..),
+    newUpdateQueueStatusResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateQueueStatus' smart constructor.
+-- | /See:/ 'newUpdateQueueStatus' smart constructor.
 data UpdateQueueStatus = UpdateQueueStatus'
-  { _uqsInstanceId ::
-      !Text,
-    _uqsQueueId :: !Text,
-    _uqsStatus :: !QueueStatus
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the queue.
+    queueId :: Prelude.Text,
+    -- | The status of the queue.
+    status :: QueueStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueueStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateQueueStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uqsInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uqsQueueId' - The identifier for the queue.
+-- 'instanceId', 'updateQueueStatus_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'uqsStatus' - The status of the queue.
-updateQueueStatus ::
-  -- | 'uqsInstanceId'
-  Text ->
-  -- | 'uqsQueueId'
-  Text ->
-  -- | 'uqsStatus'
+-- 'queueId', 'updateQueueStatus_queueId' - The identifier for the queue.
+--
+-- 'status', 'updateQueueStatus_status' - The status of the queue.
+newUpdateQueueStatus ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'queueId'
+  Prelude.Text ->
+  -- | 'status'
   QueueStatus ->
   UpdateQueueStatus
-updateQueueStatus pInstanceId_ pQueueId_ pStatus_ =
+newUpdateQueueStatus pInstanceId_ pQueueId_ pStatus_ =
   UpdateQueueStatus'
-    { _uqsInstanceId = pInstanceId_,
-      _uqsQueueId = pQueueId_,
-      _uqsStatus = pStatus_
+    { instanceId = pInstanceId_,
+      queueId = pQueueId_,
+      status = pStatus_
     }
 
 -- | The identifier of the Amazon Connect instance.
-uqsInstanceId :: Lens' UpdateQueueStatus Text
-uqsInstanceId = lens _uqsInstanceId (\s a -> s {_uqsInstanceId = a})
+updateQueueStatus_instanceId :: Lens.Lens' UpdateQueueStatus Prelude.Text
+updateQueueStatus_instanceId = Lens.lens (\UpdateQueueStatus' {instanceId} -> instanceId) (\s@UpdateQueueStatus' {} a -> s {instanceId = a} :: UpdateQueueStatus)
 
 -- | The identifier for the queue.
-uqsQueueId :: Lens' UpdateQueueStatus Text
-uqsQueueId = lens _uqsQueueId (\s a -> s {_uqsQueueId = a})
+updateQueueStatus_queueId :: Lens.Lens' UpdateQueueStatus Prelude.Text
+updateQueueStatus_queueId = Lens.lens (\UpdateQueueStatus' {queueId} -> queueId) (\s@UpdateQueueStatus' {} a -> s {queueId = a} :: UpdateQueueStatus)
 
 -- | The status of the queue.
-uqsStatus :: Lens' UpdateQueueStatus QueueStatus
-uqsStatus = lens _uqsStatus (\s a -> s {_uqsStatus = a})
+updateQueueStatus_status :: Lens.Lens' UpdateQueueStatus QueueStatus
+updateQueueStatus_status = Lens.lens (\UpdateQueueStatus' {status} -> status) (\s@UpdateQueueStatus' {} a -> s {status = a} :: UpdateQueueStatus)
 
-instance AWSRequest UpdateQueueStatus where
+instance Prelude.AWSRequest UpdateQueueStatus where
   type Rs UpdateQueueStatus = UpdateQueueStatusResponse
-  request = postJSON connect
-  response = receiveNull UpdateQueueStatusResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull UpdateQueueStatusResponse'
 
-instance Hashable UpdateQueueStatus
+instance Prelude.Hashable UpdateQueueStatus
 
-instance NFData UpdateQueueStatus
+instance Prelude.NFData UpdateQueueStatus
 
-instance ToHeaders UpdateQueueStatus where
+instance Prelude.ToHeaders UpdateQueueStatus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateQueueStatus where
+instance Prelude.ToJSON UpdateQueueStatus where
   toJSON UpdateQueueStatus' {..} =
-    object (catMaybes [Just ("Status" .= _uqsStatus)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Status" Prelude..= status)]
+      )
 
-instance ToPath UpdateQueueStatus where
+instance Prelude.ToPath UpdateQueueStatus where
   toPath UpdateQueueStatus' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/queues/",
-        toBS _uqsInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _uqsQueueId,
+        Prelude.toBS queueId,
         "/status"
       ]
 
-instance ToQuery UpdateQueueStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateQueueStatus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateQueueStatusResponse' smart constructor.
+-- | /See:/ 'newUpdateQueueStatusResponse' smart constructor.
 data UpdateQueueStatusResponse = UpdateQueueStatusResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueueStatusResponse' with the minimum fields required to make a request.
-updateQueueStatusResponse ::
+-- |
+-- Create a value of 'UpdateQueueStatusResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateQueueStatusResponse ::
   UpdateQueueStatusResponse
-updateQueueStatusResponse =
+newUpdateQueueStatusResponse =
   UpdateQueueStatusResponse'
 
-instance NFData UpdateQueueStatusResponse
+instance Prelude.NFData UpdateQueueStatusResponse

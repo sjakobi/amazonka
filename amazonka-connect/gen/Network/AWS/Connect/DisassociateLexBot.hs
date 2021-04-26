@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,124 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Revokes authorization from the specified instance to access the specified Amazon Lex bot.
+-- Revokes authorization from the specified instance to access the
+-- specified Amazon Lex bot.
 module Network.AWS.Connect.DisassociateLexBot
   ( -- * Creating a Request
-    disassociateLexBot,
-    DisassociateLexBot,
+    DisassociateLexBot (..),
+    newDisassociateLexBot,
 
     -- * Request Lenses
-    dlbInstanceId,
-    dlbBotName,
-    dlbLexRegion,
+    disassociateLexBot_instanceId,
+    disassociateLexBot_botName,
+    disassociateLexBot_lexRegion,
 
     -- * Destructuring the Response
-    disassociateLexBotResponse,
-    DisassociateLexBotResponse,
+    DisassociateLexBotResponse (..),
+    newDisassociateLexBotResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateLexBot' smart constructor.
+-- | /See:/ 'newDisassociateLexBot' smart constructor.
 data DisassociateLexBot = DisassociateLexBot'
-  { _dlbInstanceId ::
-      !Text,
-    _dlbBotName :: !Text,
-    _dlbLexRegion :: !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The name of the Amazon Lex bot. Maximum character limit of 50.
+    botName :: Prelude.Text,
+    -- | The Region in which the Amazon Lex bot has been created.
+    lexRegion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateLexBot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateLexBot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlbInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlbBotName' - The name of the Amazon Lex bot. Maximum character limit of 50.
+-- 'instanceId', 'disassociateLexBot_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'dlbLexRegion' - The Region in which the Amazon Lex bot has been created.
-disassociateLexBot ::
-  -- | 'dlbInstanceId'
-  Text ->
-  -- | 'dlbBotName'
-  Text ->
-  -- | 'dlbLexRegion'
-  Text ->
+-- 'botName', 'disassociateLexBot_botName' - The name of the Amazon Lex bot. Maximum character limit of 50.
+--
+-- 'lexRegion', 'disassociateLexBot_lexRegion' - The Region in which the Amazon Lex bot has been created.
+newDisassociateLexBot ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'botName'
+  Prelude.Text ->
+  -- | 'lexRegion'
+  Prelude.Text ->
   DisassociateLexBot
-disassociateLexBot pInstanceId_ pBotName_ pLexRegion_ =
-  DisassociateLexBot'
-    { _dlbInstanceId = pInstanceId_,
-      _dlbBotName = pBotName_,
-      _dlbLexRegion = pLexRegion_
-    }
+newDisassociateLexBot
+  pInstanceId_
+  pBotName_
+  pLexRegion_ =
+    DisassociateLexBot'
+      { instanceId = pInstanceId_,
+        botName = pBotName_,
+        lexRegion = pLexRegion_
+      }
 
 -- | The identifier of the Amazon Connect instance.
-dlbInstanceId :: Lens' DisassociateLexBot Text
-dlbInstanceId = lens _dlbInstanceId (\s a -> s {_dlbInstanceId = a})
+disassociateLexBot_instanceId :: Lens.Lens' DisassociateLexBot Prelude.Text
+disassociateLexBot_instanceId = Lens.lens (\DisassociateLexBot' {instanceId} -> instanceId) (\s@DisassociateLexBot' {} a -> s {instanceId = a} :: DisassociateLexBot)
 
 -- | The name of the Amazon Lex bot. Maximum character limit of 50.
-dlbBotName :: Lens' DisassociateLexBot Text
-dlbBotName = lens _dlbBotName (\s a -> s {_dlbBotName = a})
+disassociateLexBot_botName :: Lens.Lens' DisassociateLexBot Prelude.Text
+disassociateLexBot_botName = Lens.lens (\DisassociateLexBot' {botName} -> botName) (\s@DisassociateLexBot' {} a -> s {botName = a} :: DisassociateLexBot)
 
 -- | The Region in which the Amazon Lex bot has been created.
-dlbLexRegion :: Lens' DisassociateLexBot Text
-dlbLexRegion = lens _dlbLexRegion (\s a -> s {_dlbLexRegion = a})
+disassociateLexBot_lexRegion :: Lens.Lens' DisassociateLexBot Prelude.Text
+disassociateLexBot_lexRegion = Lens.lens (\DisassociateLexBot' {lexRegion} -> lexRegion) (\s@DisassociateLexBot' {} a -> s {lexRegion = a} :: DisassociateLexBot)
 
-instance AWSRequest DisassociateLexBot where
+instance Prelude.AWSRequest DisassociateLexBot where
   type
     Rs DisassociateLexBot =
       DisassociateLexBotResponse
-  request = delete connect
-  response = receiveNull DisassociateLexBotResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DisassociateLexBotResponse'
 
-instance Hashable DisassociateLexBot
+instance Prelude.Hashable DisassociateLexBot
 
-instance NFData DisassociateLexBot
+instance Prelude.NFData DisassociateLexBot
 
-instance ToHeaders DisassociateLexBot where
+instance Prelude.ToHeaders DisassociateLexBot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DisassociateLexBot where
+instance Prelude.ToPath DisassociateLexBot where
   toPath DisassociateLexBot' {..} =
-    mconcat
-      ["/instance/", toBS _dlbInstanceId, "/lex-bot"]
+    Prelude.mconcat
+      ["/instance/", Prelude.toBS instanceId, "/lex-bot"]
 
-instance ToQuery DisassociateLexBot where
+instance Prelude.ToQuery DisassociateLexBot where
   toQuery DisassociateLexBot' {..} =
-    mconcat
-      [ "botName" =: _dlbBotName,
-        "lexRegion" =: _dlbLexRegion
+    Prelude.mconcat
+      [ "botName" Prelude.=: botName,
+        "lexRegion" Prelude.=: lexRegion
       ]
 
--- | /See:/ 'disassociateLexBotResponse' smart constructor.
+-- | /See:/ 'newDisassociateLexBotResponse' smart constructor.
 data DisassociateLexBotResponse = DisassociateLexBotResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateLexBotResponse' with the minimum fields required to make a request.
-disassociateLexBotResponse ::
+-- |
+-- Create a value of 'DisassociateLexBotResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDisassociateLexBotResponse ::
   DisassociateLexBotResponse
-disassociateLexBotResponse =
+newDisassociateLexBotResponse =
   DisassociateLexBotResponse'
 
-instance NFData DisassociateLexBotResponse
+instance Prelude.NFData DisassociateLexBotResponse

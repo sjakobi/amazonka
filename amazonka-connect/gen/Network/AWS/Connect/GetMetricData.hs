@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,240 +23,762 @@
 --
 -- Gets historical metric data from the specified Amazon Connect instance.
 --
---
--- For a description of each historical metric, see <https://docs.aws.amazon.com/connect/latest/adminguide/historical-metrics-definitions.html Historical Metrics Definitions> in the /Amazon Connect Administrator Guide/ .
---
+-- For a description of each historical metric, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/historical-metrics-definitions.html Historical Metrics Definitions>
+-- in the /Amazon Connect Administrator Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.Connect.GetMetricData
   ( -- * Creating a Request
-    getMetricData,
-    GetMetricData,
+    GetMetricData (..),
+    newGetMetricData,
 
     -- * Request Lenses
-    gmdNextToken,
-    gmdGroupings,
-    gmdMaxResults,
-    gmdInstanceId,
-    gmdStartTime,
-    gmdEndTime,
-    gmdFilters,
-    gmdHistoricalMetrics,
+    getMetricData_nextToken,
+    getMetricData_groupings,
+    getMetricData_maxResults,
+    getMetricData_instanceId,
+    getMetricData_startTime,
+    getMetricData_endTime,
+    getMetricData_filters,
+    getMetricData_historicalMetrics,
 
     -- * Destructuring the Response
-    getMetricDataResponse,
-    GetMetricDataResponse,
+    GetMetricDataResponse (..),
+    newGetMetricDataResponse,
 
     -- * Response Lenses
-    gmdrrsNextToken,
-    gmdrrsMetricResults,
-    gmdrrsResponseStatus,
+    getMetricDataResponse_nextToken,
+    getMetricDataResponse_metricResults,
+    getMetricDataResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.HistoricalMetricResult
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getMetricData' smart constructor.
+-- | /See:/ 'newGetMetricData' smart constructor.
 data GetMetricData = GetMetricData'
-  { _gmdNextToken ::
-      !(Maybe Text),
-    _gmdGroupings :: !(Maybe [Grouping]),
-    _gmdMaxResults :: !(Maybe Nat),
-    _gmdInstanceId :: !Text,
-    _gmdStartTime :: !POSIX,
-    _gmdEndTime :: !POSIX,
-    _gmdFilters :: !Filters,
-    _gmdHistoricalMetrics ::
-      ![HistoricalMetric]
+  { -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The grouping applied to the metrics returned. For example, when results
+    -- are grouped by queue, the metrics returned are grouped by queue. The
+    -- values returned apply to the metrics for each queue rather than
+    -- aggregated for all queues.
+    --
+    -- The only supported grouping is @QUEUE@.
+    --
+    -- If no grouping is specified, a summary of metrics for all queues is
+    -- returned.
+    groupings :: Prelude.Maybe [Grouping],
+    -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The timestamp, in UNIX Epoch time format, at which to start the
+    -- reporting interval for the retrieval of historical metrics data. The
+    -- time must be specified using a multiple of 5 minutes, such as 10:05,
+    -- 10:10, 10:15.
+    --
+    -- The start time cannot be earlier than 24 hours before the time of the
+    -- request. Historical metrics are available only for 24 hours.
+    startTime :: Prelude.POSIX,
+    -- | The timestamp, in UNIX Epoch time format, at which to end the reporting
+    -- interval for the retrieval of historical metrics data. The time must be
+    -- specified using an interval of 5 minutes, such as 11:00, 11:05, 11:10,
+    -- and must be later than the start time timestamp.
+    --
+    -- The time range between the start and end time must be less than 24
+    -- hours.
+    endTime :: Prelude.POSIX,
+    -- | The queues, up to 100, or channels, to use to filter the metrics
+    -- returned. Metric data is retrieved only for the resources associated
+    -- with the queues or channels included in the filter. You can include both
+    -- queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK
+    -- channels are supported.
+    filters :: Filters,
+    -- | The metrics to retrieve. Specify the name, unit, and statistic for each
+    -- metric. The following historical metrics are available. For a
+    -- description of each metric, see
+    -- <https://docs.aws.amazon.com/connect/latest/adminguide/historical-metrics-definitions.html Historical Metrics Definitions>
+    -- in the /Amazon Connect Administrator Guide/.
+    --
+    -- [ABANDON_TIME]
+    --     Unit: SECONDS
+    --
+    --     Statistic: AVG
+    --
+    -- [AFTER_CONTACT_WORK_TIME]
+    --     Unit: SECONDS
+    --
+    --     Statistic: AVG
+    --
+    -- [API_CONTACTS_HANDLED]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CALLBACK_CONTACTS_HANDLED]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_ABANDONED]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_AGENT_HUNG_UP_FIRST]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_CONSULTED]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_HANDLED]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_HANDLED_INCOMING]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_HANDLED_OUTBOUND]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_HOLD_ABANDONS]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_MISSED]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_QUEUED]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_TRANSFERRED_IN]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_TRANSFERRED_IN_FROM_QUEUE]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_TRANSFERRED_OUT]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [CONTACTS_TRANSFERRED_OUT_FROM_QUEUE]
+    --     Unit: COUNT
+    --
+    --     Statistic: SUM
+    --
+    -- [HANDLE_TIME]
+    --     Unit: SECONDS
+    --
+    --     Statistic: AVG
+    --
+    -- [HOLD_TIME]
+    --     Unit: SECONDS
+    --
+    --     Statistic: AVG
+    --
+    -- [INTERACTION_AND_HOLD_TIME]
+    --     Unit: SECONDS
+    --
+    --     Statistic: AVG
+    --
+    -- [INTERACTION_TIME]
+    --     Unit: SECONDS
+    --
+    --     Statistic: AVG
+    --
+    -- [OCCUPANCY]
+    --     Unit: PERCENT
+    --
+    --     Statistic: AVG
+    --
+    -- [QUEUE_ANSWER_TIME]
+    --     Unit: SECONDS
+    --
+    --     Statistic: AVG
+    --
+    -- [QUEUED_TIME]
+    --     Unit: SECONDS
+    --
+    --     Statistic: MAX
+    --
+    -- [SERVICE_LEVEL]
+    --     Unit: PERCENT
+    --
+    --     Statistic: AVG
+    --
+    --     Threshold: Only \"Less than\" comparisons are supported, with the
+    --     following service level thresholds: 15, 20, 25, 30, 45, 60, 90, 120,
+    --     180, 240, 300, 600
+    historicalMetrics :: [HistoricalMetric]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMetricData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMetricData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmdNextToken' - The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmdGroupings' - The grouping applied to the metrics returned. For example, when results are grouped by queue, the metrics returned are grouped by queue. The values returned apply to the metrics for each queue rather than aggregated for all queues. The only supported grouping is @QUEUE@ . If no grouping is specified, a summary of metrics for all queues is returned.
+-- 'nextToken', 'getMetricData_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
 --
--- * 'gmdMaxResults' - The maximum number of results to return per page.
+-- 'groupings', 'getMetricData_groupings' - The grouping applied to the metrics returned. For example, when results
+-- are grouped by queue, the metrics returned are grouped by queue. The
+-- values returned apply to the metrics for each queue rather than
+-- aggregated for all queues.
 --
--- * 'gmdInstanceId' - The identifier of the Amazon Connect instance.
+-- The only supported grouping is @QUEUE@.
 --
--- * 'gmdStartTime' - The timestamp, in UNIX Epoch time format, at which to start the reporting interval for the retrieval of historical metrics data. The time must be specified using a multiple of 5 minutes, such as 10:05, 10:10, 10:15. The start time cannot be earlier than 24 hours before the time of the request. Historical metrics are available only for 24 hours.
+-- If no grouping is specified, a summary of metrics for all queues is
+-- returned.
 --
--- * 'gmdEndTime' - The timestamp, in UNIX Epoch time format, at which to end the reporting interval for the retrieval of historical metrics data. The time must be specified using an interval of 5 minutes, such as 11:00, 11:05, 11:10, and must be later than the start time timestamp. The time range between the start and end time must be less than 24 hours.
+-- 'maxResults', 'getMetricData_maxResults' - The maximum number of results to return per page.
 --
--- * 'gmdFilters' - The queues, up to 100, or channels, to use to filter the metrics returned. Metric data is retrieved only for the resources associated with the queues or channels included in the filter. You can include both queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK channels are supported.
+-- 'instanceId', 'getMetricData_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'gmdHistoricalMetrics' - The metrics to retrieve. Specify the name, unit, and statistic for each metric. The following historical metrics are available. For a description of each metric, see <https://docs.aws.amazon.com/connect/latest/adminguide/historical-metrics-definitions.html Historical Metrics Definitions> in the /Amazon Connect Administrator Guide/ .     * ABANDON_TIME    * Unit: SECONDS Statistic: AVG     * AFTER_CONTACT_WORK_TIME    * Unit: SECONDS Statistic: AVG     * API_CONTACTS_HANDLED    * Unit: COUNT Statistic: SUM     * CALLBACK_CONTACTS_HANDLED    * Unit: COUNT Statistic: SUM     * CONTACTS_ABANDONED    * Unit: COUNT Statistic: SUM     * CONTACTS_AGENT_HUNG_UP_FIRST    * Unit: COUNT Statistic: SUM     * CONTACTS_CONSULTED    * Unit: COUNT Statistic: SUM     * CONTACTS_HANDLED    * Unit: COUNT Statistic: SUM     * CONTACTS_HANDLED_INCOMING    * Unit: COUNT Statistic: SUM     * CONTACTS_HANDLED_OUTBOUND    * Unit: COUNT Statistic: SUM     * CONTACTS_HOLD_ABANDONS    * Unit: COUNT Statistic: SUM     * CONTACTS_MISSED    * Unit: COUNT Statistic: SUM     * CONTACTS_QUEUED    * Unit: COUNT Statistic: SUM     * CONTACTS_TRANSFERRED_IN    * Unit: COUNT Statistic: SUM     * CONTACTS_TRANSFERRED_IN_FROM_QUEUE    * Unit: COUNT Statistic: SUM     * CONTACTS_TRANSFERRED_OUT    * Unit: COUNT Statistic: SUM     * CONTACTS_TRANSFERRED_OUT_FROM_QUEUE    * Unit: COUNT Statistic: SUM     * HANDLE_TIME    * Unit: SECONDS Statistic: AVG     * HOLD_TIME    * Unit: SECONDS Statistic: AVG     * INTERACTION_AND_HOLD_TIME    * Unit: SECONDS Statistic: AVG     * INTERACTION_TIME    * Unit: SECONDS Statistic: AVG     * OCCUPANCY    * Unit: PERCENT Statistic: AVG     * QUEUE_ANSWER_TIME    * Unit: SECONDS Statistic: AVG     * QUEUED_TIME    * Unit: SECONDS Statistic: MAX     * SERVICE_LEVEL    * Unit: PERCENT Statistic: AVG Threshold: Only "Less than" comparisons are supported, with the following service level thresholds: 15, 20, 25, 30, 45, 60, 90, 120, 180, 240, 300, 600
-getMetricData ::
-  -- | 'gmdInstanceId'
-  Text ->
-  -- | 'gmdStartTime'
-  UTCTime ->
-  -- | 'gmdEndTime'
-  UTCTime ->
-  -- | 'gmdFilters'
+-- 'startTime', 'getMetricData_startTime' - The timestamp, in UNIX Epoch time format, at which to start the
+-- reporting interval for the retrieval of historical metrics data. The
+-- time must be specified using a multiple of 5 minutes, such as 10:05,
+-- 10:10, 10:15.
+--
+-- The start time cannot be earlier than 24 hours before the time of the
+-- request. Historical metrics are available only for 24 hours.
+--
+-- 'endTime', 'getMetricData_endTime' - The timestamp, in UNIX Epoch time format, at which to end the reporting
+-- interval for the retrieval of historical metrics data. The time must be
+-- specified using an interval of 5 minutes, such as 11:00, 11:05, 11:10,
+-- and must be later than the start time timestamp.
+--
+-- The time range between the start and end time must be less than 24
+-- hours.
+--
+-- 'filters', 'getMetricData_filters' - The queues, up to 100, or channels, to use to filter the metrics
+-- returned. Metric data is retrieved only for the resources associated
+-- with the queues or channels included in the filter. You can include both
+-- queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK
+-- channels are supported.
+--
+-- 'historicalMetrics', 'getMetricData_historicalMetrics' - The metrics to retrieve. Specify the name, unit, and statistic for each
+-- metric. The following historical metrics are available. For a
+-- description of each metric, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/historical-metrics-definitions.html Historical Metrics Definitions>
+-- in the /Amazon Connect Administrator Guide/.
+--
+-- [ABANDON_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [AFTER_CONTACT_WORK_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [API_CONTACTS_HANDLED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CALLBACK_CONTACTS_HANDLED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_ABANDONED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_AGENT_HUNG_UP_FIRST]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_CONSULTED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_HANDLED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_HANDLED_INCOMING]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_HANDLED_OUTBOUND]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_HOLD_ABANDONS]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_MISSED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_QUEUED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_TRANSFERRED_IN]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_TRANSFERRED_IN_FROM_QUEUE]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_TRANSFERRED_OUT]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_TRANSFERRED_OUT_FROM_QUEUE]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [HANDLE_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [HOLD_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [INTERACTION_AND_HOLD_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [INTERACTION_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [OCCUPANCY]
+--     Unit: PERCENT
+--
+--     Statistic: AVG
+--
+-- [QUEUE_ANSWER_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [QUEUED_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: MAX
+--
+-- [SERVICE_LEVEL]
+--     Unit: PERCENT
+--
+--     Statistic: AVG
+--
+--     Threshold: Only \"Less than\" comparisons are supported, with the
+--     following service level thresholds: 15, 20, 25, 30, 45, 60, 90, 120,
+--     180, 240, 300, 600
+newGetMetricData ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
+  -- | 'filters'
   Filters ->
   GetMetricData
-getMetricData
+newGetMetricData
   pInstanceId_
   pStartTime_
   pEndTime_
   pFilters_ =
     GetMetricData'
-      { _gmdNextToken = Nothing,
-        _gmdGroupings = Nothing,
-        _gmdMaxResults = Nothing,
-        _gmdInstanceId = pInstanceId_,
-        _gmdStartTime = _Time # pStartTime_,
-        _gmdEndTime = _Time # pEndTime_,
-        _gmdFilters = pFilters_,
-        _gmdHistoricalMetrics = mempty
+      { nextToken = Prelude.Nothing,
+        groupings = Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        instanceId = pInstanceId_,
+        startTime = Prelude._Time Lens.# pStartTime_,
+        endTime = Prelude._Time Lens.# pEndTime_,
+        filters = pFilters_,
+        historicalMetrics = Prelude.mempty
       }
 
--- | The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
-gmdNextToken :: Lens' GetMetricData (Maybe Text)
-gmdNextToken = lens _gmdNextToken (\s a -> s {_gmdNextToken = a})
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+getMetricData_nextToken :: Lens.Lens' GetMetricData (Prelude.Maybe Prelude.Text)
+getMetricData_nextToken = Lens.lens (\GetMetricData' {nextToken} -> nextToken) (\s@GetMetricData' {} a -> s {nextToken = a} :: GetMetricData)
 
--- | The grouping applied to the metrics returned. For example, when results are grouped by queue, the metrics returned are grouped by queue. The values returned apply to the metrics for each queue rather than aggregated for all queues. The only supported grouping is @QUEUE@ . If no grouping is specified, a summary of metrics for all queues is returned.
-gmdGroupings :: Lens' GetMetricData [Grouping]
-gmdGroupings = lens _gmdGroupings (\s a -> s {_gmdGroupings = a}) . _Default . _Coerce
+-- | The grouping applied to the metrics returned. For example, when results
+-- are grouped by queue, the metrics returned are grouped by queue. The
+-- values returned apply to the metrics for each queue rather than
+-- aggregated for all queues.
+--
+-- The only supported grouping is @QUEUE@.
+--
+-- If no grouping is specified, a summary of metrics for all queues is
+-- returned.
+getMetricData_groupings :: Lens.Lens' GetMetricData (Prelude.Maybe [Grouping])
+getMetricData_groupings = Lens.lens (\GetMetricData' {groupings} -> groupings) (\s@GetMetricData' {} a -> s {groupings = a} :: GetMetricData) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The maximum number of results to return per page.
-gmdMaxResults :: Lens' GetMetricData (Maybe Natural)
-gmdMaxResults = lens _gmdMaxResults (\s a -> s {_gmdMaxResults = a}) . mapping _Nat
+getMetricData_maxResults :: Lens.Lens' GetMetricData (Prelude.Maybe Prelude.Natural)
+getMetricData_maxResults = Lens.lens (\GetMetricData' {maxResults} -> maxResults) (\s@GetMetricData' {} a -> s {maxResults = a} :: GetMetricData) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The identifier of the Amazon Connect instance.
-gmdInstanceId :: Lens' GetMetricData Text
-gmdInstanceId = lens _gmdInstanceId (\s a -> s {_gmdInstanceId = a})
+getMetricData_instanceId :: Lens.Lens' GetMetricData Prelude.Text
+getMetricData_instanceId = Lens.lens (\GetMetricData' {instanceId} -> instanceId) (\s@GetMetricData' {} a -> s {instanceId = a} :: GetMetricData)
 
--- | The timestamp, in UNIX Epoch time format, at which to start the reporting interval for the retrieval of historical metrics data. The time must be specified using a multiple of 5 minutes, such as 10:05, 10:10, 10:15. The start time cannot be earlier than 24 hours before the time of the request. Historical metrics are available only for 24 hours.
-gmdStartTime :: Lens' GetMetricData UTCTime
-gmdStartTime = lens _gmdStartTime (\s a -> s {_gmdStartTime = a}) . _Time
+-- | The timestamp, in UNIX Epoch time format, at which to start the
+-- reporting interval for the retrieval of historical metrics data. The
+-- time must be specified using a multiple of 5 minutes, such as 10:05,
+-- 10:10, 10:15.
+--
+-- The start time cannot be earlier than 24 hours before the time of the
+-- request. Historical metrics are available only for 24 hours.
+getMetricData_startTime :: Lens.Lens' GetMetricData Prelude.UTCTime
+getMetricData_startTime = Lens.lens (\GetMetricData' {startTime} -> startTime) (\s@GetMetricData' {} a -> s {startTime = a} :: GetMetricData) Prelude.. Prelude._Time
 
--- | The timestamp, in UNIX Epoch time format, at which to end the reporting interval for the retrieval of historical metrics data. The time must be specified using an interval of 5 minutes, such as 11:00, 11:05, 11:10, and must be later than the start time timestamp. The time range between the start and end time must be less than 24 hours.
-gmdEndTime :: Lens' GetMetricData UTCTime
-gmdEndTime = lens _gmdEndTime (\s a -> s {_gmdEndTime = a}) . _Time
+-- | The timestamp, in UNIX Epoch time format, at which to end the reporting
+-- interval for the retrieval of historical metrics data. The time must be
+-- specified using an interval of 5 minutes, such as 11:00, 11:05, 11:10,
+-- and must be later than the start time timestamp.
+--
+-- The time range between the start and end time must be less than 24
+-- hours.
+getMetricData_endTime :: Lens.Lens' GetMetricData Prelude.UTCTime
+getMetricData_endTime = Lens.lens (\GetMetricData' {endTime} -> endTime) (\s@GetMetricData' {} a -> s {endTime = a} :: GetMetricData) Prelude.. Prelude._Time
 
--- | The queues, up to 100, or channels, to use to filter the metrics returned. Metric data is retrieved only for the resources associated with the queues or channels included in the filter. You can include both queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK channels are supported.
-gmdFilters :: Lens' GetMetricData Filters
-gmdFilters = lens _gmdFilters (\s a -> s {_gmdFilters = a})
+-- | The queues, up to 100, or channels, to use to filter the metrics
+-- returned. Metric data is retrieved only for the resources associated
+-- with the queues or channels included in the filter. You can include both
+-- queue IDs and queue ARNs in the same request. VOICE, CHAT, and TASK
+-- channels are supported.
+getMetricData_filters :: Lens.Lens' GetMetricData Filters
+getMetricData_filters = Lens.lens (\GetMetricData' {filters} -> filters) (\s@GetMetricData' {} a -> s {filters = a} :: GetMetricData)
 
--- | The metrics to retrieve. Specify the name, unit, and statistic for each metric. The following historical metrics are available. For a description of each metric, see <https://docs.aws.amazon.com/connect/latest/adminguide/historical-metrics-definitions.html Historical Metrics Definitions> in the /Amazon Connect Administrator Guide/ .     * ABANDON_TIME    * Unit: SECONDS Statistic: AVG     * AFTER_CONTACT_WORK_TIME    * Unit: SECONDS Statistic: AVG     * API_CONTACTS_HANDLED    * Unit: COUNT Statistic: SUM     * CALLBACK_CONTACTS_HANDLED    * Unit: COUNT Statistic: SUM     * CONTACTS_ABANDONED    * Unit: COUNT Statistic: SUM     * CONTACTS_AGENT_HUNG_UP_FIRST    * Unit: COUNT Statistic: SUM     * CONTACTS_CONSULTED    * Unit: COUNT Statistic: SUM     * CONTACTS_HANDLED    * Unit: COUNT Statistic: SUM     * CONTACTS_HANDLED_INCOMING    * Unit: COUNT Statistic: SUM     * CONTACTS_HANDLED_OUTBOUND    * Unit: COUNT Statistic: SUM     * CONTACTS_HOLD_ABANDONS    * Unit: COUNT Statistic: SUM     * CONTACTS_MISSED    * Unit: COUNT Statistic: SUM     * CONTACTS_QUEUED    * Unit: COUNT Statistic: SUM     * CONTACTS_TRANSFERRED_IN    * Unit: COUNT Statistic: SUM     * CONTACTS_TRANSFERRED_IN_FROM_QUEUE    * Unit: COUNT Statistic: SUM     * CONTACTS_TRANSFERRED_OUT    * Unit: COUNT Statistic: SUM     * CONTACTS_TRANSFERRED_OUT_FROM_QUEUE    * Unit: COUNT Statistic: SUM     * HANDLE_TIME    * Unit: SECONDS Statistic: AVG     * HOLD_TIME    * Unit: SECONDS Statistic: AVG     * INTERACTION_AND_HOLD_TIME    * Unit: SECONDS Statistic: AVG     * INTERACTION_TIME    * Unit: SECONDS Statistic: AVG     * OCCUPANCY    * Unit: PERCENT Statistic: AVG     * QUEUE_ANSWER_TIME    * Unit: SECONDS Statistic: AVG     * QUEUED_TIME    * Unit: SECONDS Statistic: MAX     * SERVICE_LEVEL    * Unit: PERCENT Statistic: AVG Threshold: Only "Less than" comparisons are supported, with the following service level thresholds: 15, 20, 25, 30, 45, 60, 90, 120, 180, 240, 300, 600
-gmdHistoricalMetrics :: Lens' GetMetricData [HistoricalMetric]
-gmdHistoricalMetrics = lens _gmdHistoricalMetrics (\s a -> s {_gmdHistoricalMetrics = a}) . _Coerce
+-- | The metrics to retrieve. Specify the name, unit, and statistic for each
+-- metric. The following historical metrics are available. For a
+-- description of each metric, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/historical-metrics-definitions.html Historical Metrics Definitions>
+-- in the /Amazon Connect Administrator Guide/.
+--
+-- [ABANDON_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [AFTER_CONTACT_WORK_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [API_CONTACTS_HANDLED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CALLBACK_CONTACTS_HANDLED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_ABANDONED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_AGENT_HUNG_UP_FIRST]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_CONSULTED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_HANDLED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_HANDLED_INCOMING]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_HANDLED_OUTBOUND]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_HOLD_ABANDONS]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_MISSED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_QUEUED]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_TRANSFERRED_IN]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_TRANSFERRED_IN_FROM_QUEUE]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_TRANSFERRED_OUT]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [CONTACTS_TRANSFERRED_OUT_FROM_QUEUE]
+--     Unit: COUNT
+--
+--     Statistic: SUM
+--
+-- [HANDLE_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [HOLD_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [INTERACTION_AND_HOLD_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [INTERACTION_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [OCCUPANCY]
+--     Unit: PERCENT
+--
+--     Statistic: AVG
+--
+-- [QUEUE_ANSWER_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: AVG
+--
+-- [QUEUED_TIME]
+--     Unit: SECONDS
+--
+--     Statistic: MAX
+--
+-- [SERVICE_LEVEL]
+--     Unit: PERCENT
+--
+--     Statistic: AVG
+--
+--     Threshold: Only \"Less than\" comparisons are supported, with the
+--     following service level thresholds: 15, 20, 25, 30, 45, 60, 90, 120,
+--     180, 240, 300, 600
+getMetricData_historicalMetrics :: Lens.Lens' GetMetricData [HistoricalMetric]
+getMetricData_historicalMetrics = Lens.lens (\GetMetricData' {historicalMetrics} -> historicalMetrics) (\s@GetMetricData' {} a -> s {historicalMetrics = a} :: GetMetricData) Prelude.. Prelude._Coerce
 
-instance AWSPager GetMetricData where
+instance Pager.AWSPager GetMetricData where
   page rq rs
-    | stop (rs ^. gmdrrsNextToken) = Nothing
-    | stop (rs ^. gmdrrsMetricResults) = Nothing
-    | otherwise =
-      Just $ rq & gmdNextToken .~ rs ^. gmdrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getMetricDataResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getMetricDataResponse_metricResults
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getMetricData_nextToken
+          Lens..~ rs
+          Lens.^? getMetricDataResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest GetMetricData where
+instance Prelude.AWSRequest GetMetricData where
   type Rs GetMetricData = GetMetricDataResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetMetricDataResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "MetricResults" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "MetricResults"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetMetricData
+instance Prelude.Hashable GetMetricData
 
-instance NFData GetMetricData
+instance Prelude.NFData GetMetricData
 
-instance ToHeaders GetMetricData where
+instance Prelude.ToHeaders GetMetricData where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetMetricData where
+instance Prelude.ToJSON GetMetricData where
   toJSON GetMetricData' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gmdNextToken,
-            ("Groupings" .=) <$> _gmdGroupings,
-            ("MaxResults" .=) <$> _gmdMaxResults,
-            Just ("StartTime" .= _gmdStartTime),
-            Just ("EndTime" .= _gmdEndTime),
-            Just ("Filters" .= _gmdFilters),
-            Just ("HistoricalMetrics" .= _gmdHistoricalMetrics)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Groupings" Prelude..=) Prelude.<$> groupings,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("StartTime" Prelude..= startTime),
+            Prelude.Just ("EndTime" Prelude..= endTime),
+            Prelude.Just ("Filters" Prelude..= filters),
+            Prelude.Just
+              ("HistoricalMetrics" Prelude..= historicalMetrics)
           ]
       )
 
-instance ToPath GetMetricData where
+instance Prelude.ToPath GetMetricData where
   toPath GetMetricData' {..} =
-    mconcat
-      ["/metrics/historical/", toBS _gmdInstanceId]
+    Prelude.mconcat
+      ["/metrics/historical/", Prelude.toBS instanceId]
 
-instance ToQuery GetMetricData where
-  toQuery = const mempty
+instance Prelude.ToQuery GetMetricData where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMetricDataResponse' smart constructor.
+-- | /See:/ 'newGetMetricDataResponse' smart constructor.
 data GetMetricDataResponse = GetMetricDataResponse'
-  { _gmdrrsNextToken ::
-      !(Maybe Text),
-    _gmdrrsMetricResults ::
-      !( Maybe
-           [HistoricalMetricResult]
-       ),
-    _gmdrrsResponseStatus ::
-      !Int
+  { -- | If there are additional results, this is the token for the next set of
+    -- results.
+    --
+    -- The token expires after 5 minutes from the time it is created.
+    -- Subsequent requests that use the token must use the same request
+    -- parameters as the request that generated the token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the historical metrics.
+    --
+    -- If no grouping is specified, a summary of metric data is returned.
+    metricResults :: Prelude.Maybe [HistoricalMetricResult],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMetricDataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMetricDataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmdrrsNextToken' - If there are additional results, this is the token for the next set of results. The token expires after 5 minutes from the time it is created. Subsequent requests that use the token must use the same request parameters as the request that generated the token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmdrrsMetricResults' - Information about the historical metrics. If no grouping is specified, a summary of metric data is returned.
+-- 'nextToken', 'getMetricDataResponse_nextToken' - If there are additional results, this is the token for the next set of
+-- results.
 --
--- * 'gmdrrsResponseStatus' - -- | The response status code.
-getMetricDataResponse ::
-  -- | 'gmdrrsResponseStatus'
-  Int ->
+-- The token expires after 5 minutes from the time it is created.
+-- Subsequent requests that use the token must use the same request
+-- parameters as the request that generated the token.
+--
+-- 'metricResults', 'getMetricDataResponse_metricResults' - Information about the historical metrics.
+--
+-- If no grouping is specified, a summary of metric data is returned.
+--
+-- 'httpStatus', 'getMetricDataResponse_httpStatus' - The response's http status code.
+newGetMetricDataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetMetricDataResponse
-getMetricDataResponse pResponseStatus_ =
+newGetMetricDataResponse pHttpStatus_ =
   GetMetricDataResponse'
-    { _gmdrrsNextToken = Nothing,
-      _gmdrrsMetricResults = Nothing,
-      _gmdrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      metricResults = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are additional results, this is the token for the next set of results. The token expires after 5 minutes from the time it is created. Subsequent requests that use the token must use the same request parameters as the request that generated the token.
-gmdrrsNextToken :: Lens' GetMetricDataResponse (Maybe Text)
-gmdrrsNextToken = lens _gmdrrsNextToken (\s a -> s {_gmdrrsNextToken = a})
+-- | If there are additional results, this is the token for the next set of
+-- results.
+--
+-- The token expires after 5 minutes from the time it is created.
+-- Subsequent requests that use the token must use the same request
+-- parameters as the request that generated the token.
+getMetricDataResponse_nextToken :: Lens.Lens' GetMetricDataResponse (Prelude.Maybe Prelude.Text)
+getMetricDataResponse_nextToken = Lens.lens (\GetMetricDataResponse' {nextToken} -> nextToken) (\s@GetMetricDataResponse' {} a -> s {nextToken = a} :: GetMetricDataResponse)
 
--- | Information about the historical metrics. If no grouping is specified, a summary of metric data is returned.
-gmdrrsMetricResults :: Lens' GetMetricDataResponse [HistoricalMetricResult]
-gmdrrsMetricResults = lens _gmdrrsMetricResults (\s a -> s {_gmdrrsMetricResults = a}) . _Default . _Coerce
+-- | Information about the historical metrics.
+--
+-- If no grouping is specified, a summary of metric data is returned.
+getMetricDataResponse_metricResults :: Lens.Lens' GetMetricDataResponse (Prelude.Maybe [HistoricalMetricResult])
+getMetricDataResponse_metricResults = Lens.lens (\GetMetricDataResponse' {metricResults} -> metricResults) (\s@GetMetricDataResponse' {} a -> s {metricResults = a} :: GetMetricDataResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gmdrrsResponseStatus :: Lens' GetMetricDataResponse Int
-gmdrrsResponseStatus = lens _gmdrrsResponseStatus (\s a -> s {_gmdrrsResponseStatus = a})
+-- | The response's http status code.
+getMetricDataResponse_httpStatus :: Lens.Lens' GetMetricDataResponse Prelude.Int
+getMetricDataResponse_httpStatus = Lens.lens (\GetMetricDataResponse' {httpStatus} -> httpStatus) (\s@GetMetricDataResponse' {} a -> s {httpStatus = a} :: GetMetricDataResponse)
 
-instance NFData GetMetricDataResponse
+instance Prelude.NFData GetMetricDataResponse

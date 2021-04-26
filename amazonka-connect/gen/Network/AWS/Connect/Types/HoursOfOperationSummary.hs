@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Connect.Types.HoursOfOperationSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains summary information about hours of operation for a contact center.
+-- | Contains summary information about hours of operation for a contact
+-- center.
 --
---
---
--- /See:/ 'hoursOfOperationSummary' smart constructor.
+-- /See:/ 'newHoursOfOperationSummary' smart constructor.
 data HoursOfOperationSummary = HoursOfOperationSummary'
-  { _hoosARN ::
-      !(Maybe Text),
-    _hoosId ::
-      !(Maybe Text),
-    _hoosName ::
-      !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the hours of operation.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the hours of operation.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the hours of operation.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HoursOfOperationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HoursOfOperationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hoosARN' - The Amazon Resource Name (ARN) of the hours of operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hoosId' - The identifier of the hours of operation.
+-- 'arn', 'hoursOfOperationSummary_arn' - The Amazon Resource Name (ARN) of the hours of operation.
 --
--- * 'hoosName' - The name of the hours of operation.
-hoursOfOperationSummary ::
+-- 'id', 'hoursOfOperationSummary_id' - The identifier of the hours of operation.
+--
+-- 'name', 'hoursOfOperationSummary_name' - The name of the hours of operation.
+newHoursOfOperationSummary ::
   HoursOfOperationSummary
-hoursOfOperationSummary =
+newHoursOfOperationSummary =
   HoursOfOperationSummary'
-    { _hoosARN = Nothing,
-      _hoosId = Nothing,
-      _hoosName = Nothing
+    { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the hours of operation.
-hoosARN :: Lens' HoursOfOperationSummary (Maybe Text)
-hoosARN = lens _hoosARN (\s a -> s {_hoosARN = a})
+hoursOfOperationSummary_arn :: Lens.Lens' HoursOfOperationSummary (Prelude.Maybe Prelude.Text)
+hoursOfOperationSummary_arn = Lens.lens (\HoursOfOperationSummary' {arn} -> arn) (\s@HoursOfOperationSummary' {} a -> s {arn = a} :: HoursOfOperationSummary)
 
 -- | The identifier of the hours of operation.
-hoosId :: Lens' HoursOfOperationSummary (Maybe Text)
-hoosId = lens _hoosId (\s a -> s {_hoosId = a})
+hoursOfOperationSummary_id :: Lens.Lens' HoursOfOperationSummary (Prelude.Maybe Prelude.Text)
+hoursOfOperationSummary_id = Lens.lens (\HoursOfOperationSummary' {id} -> id) (\s@HoursOfOperationSummary' {} a -> s {id = a} :: HoursOfOperationSummary)
 
 -- | The name of the hours of operation.
-hoosName :: Lens' HoursOfOperationSummary (Maybe Text)
-hoosName = lens _hoosName (\s a -> s {_hoosName = a})
+hoursOfOperationSummary_name :: Lens.Lens' HoursOfOperationSummary (Prelude.Maybe Prelude.Text)
+hoursOfOperationSummary_name = Lens.lens (\HoursOfOperationSummary' {name} -> name) (\s@HoursOfOperationSummary' {} a -> s {name = a} :: HoursOfOperationSummary)
 
-instance FromJSON HoursOfOperationSummary where
+instance Prelude.FromJSON HoursOfOperationSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HoursOfOperationSummary"
       ( \x ->
           HoursOfOperationSummary'
-            <$> (x .:? "Arn") <*> (x .:? "Id") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable HoursOfOperationSummary
+instance Prelude.Hashable HoursOfOperationSummary
 
-instance NFData HoursOfOperationSummary
+instance Prelude.NFData HoursOfOperationSummary

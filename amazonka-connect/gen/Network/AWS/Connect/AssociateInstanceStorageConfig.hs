@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,211 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
+-- Associates a storage resource type for the first time. You can only
+-- associate one type of storage configuration in a single call. This
+-- means, for example, that you can\'t define an instance with multiple S3
+-- buckets for storing chat transcripts.
 --
--- Associates a storage resource type for the first time. You can only associate one type of storage configuration in a single call. This means, for example, that you can't define an instance with multiple S3 buckets for storing chat transcripts.
---
--- This API does not create a resource that doesn't exist. It only associates it to the instance. Ensure that the resource being specified in the storage configuration, like an S3 bucket, exists when being used for association.
+-- This API does not create a resource that doesn\'t exist. It only
+-- associates it to the instance. Ensure that the resource being specified
+-- in the storage configuration, like an S3 bucket, exists when being used
+-- for association.
 module Network.AWS.Connect.AssociateInstanceStorageConfig
   ( -- * Creating a Request
-    associateInstanceStorageConfig,
-    AssociateInstanceStorageConfig,
+    AssociateInstanceStorageConfig (..),
+    newAssociateInstanceStorageConfig,
 
     -- * Request Lenses
-    aiscInstanceId,
-    aiscResourceType,
-    aiscStorageConfig,
+    associateInstanceStorageConfig_instanceId,
+    associateInstanceStorageConfig_resourceType,
+    associateInstanceStorageConfig_storageConfig,
 
     -- * Destructuring the Response
-    associateInstanceStorageConfigResponse,
-    AssociateInstanceStorageConfigResponse,
+    AssociateInstanceStorageConfigResponse (..),
+    newAssociateInstanceStorageConfigResponse,
 
     -- * Response Lenses
-    aiscrrsAssociationId,
-    aiscrrsResponseStatus,
+    associateInstanceStorageConfigResponse_associationId,
+    associateInstanceStorageConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateInstanceStorageConfig' smart constructor.
+-- | /See:/ 'newAssociateInstanceStorageConfig' smart constructor.
 data AssociateInstanceStorageConfig = AssociateInstanceStorageConfig'
-  { _aiscInstanceId ::
-      !Text,
-    _aiscResourceType ::
-      !InstanceStorageResourceType,
-    _aiscStorageConfig ::
-      !InstanceStorageConfig
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | A valid resource type.
+    resourceType :: InstanceStorageResourceType,
+    -- | A valid storage type.
+    storageConfig :: InstanceStorageConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateInstanceStorageConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateInstanceStorageConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aiscInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aiscResourceType' - A valid resource type.
+-- 'instanceId', 'associateInstanceStorageConfig_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'aiscStorageConfig' - A valid storage type.
-associateInstanceStorageConfig ::
-  -- | 'aiscInstanceId'
-  Text ->
-  -- | 'aiscResourceType'
+-- 'resourceType', 'associateInstanceStorageConfig_resourceType' - A valid resource type.
+--
+-- 'storageConfig', 'associateInstanceStorageConfig_storageConfig' - A valid storage type.
+newAssociateInstanceStorageConfig ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'resourceType'
   InstanceStorageResourceType ->
-  -- | 'aiscStorageConfig'
+  -- | 'storageConfig'
   InstanceStorageConfig ->
   AssociateInstanceStorageConfig
-associateInstanceStorageConfig
+newAssociateInstanceStorageConfig
   pInstanceId_
   pResourceType_
   pStorageConfig_ =
     AssociateInstanceStorageConfig'
-      { _aiscInstanceId =
+      { instanceId =
           pInstanceId_,
-        _aiscResourceType = pResourceType_,
-        _aiscStorageConfig = pStorageConfig_
+        resourceType = pResourceType_,
+        storageConfig = pStorageConfig_
       }
 
 -- | The identifier of the Amazon Connect instance.
-aiscInstanceId :: Lens' AssociateInstanceStorageConfig Text
-aiscInstanceId = lens _aiscInstanceId (\s a -> s {_aiscInstanceId = a})
+associateInstanceStorageConfig_instanceId :: Lens.Lens' AssociateInstanceStorageConfig Prelude.Text
+associateInstanceStorageConfig_instanceId = Lens.lens (\AssociateInstanceStorageConfig' {instanceId} -> instanceId) (\s@AssociateInstanceStorageConfig' {} a -> s {instanceId = a} :: AssociateInstanceStorageConfig)
 
 -- | A valid resource type.
-aiscResourceType :: Lens' AssociateInstanceStorageConfig InstanceStorageResourceType
-aiscResourceType = lens _aiscResourceType (\s a -> s {_aiscResourceType = a})
+associateInstanceStorageConfig_resourceType :: Lens.Lens' AssociateInstanceStorageConfig InstanceStorageResourceType
+associateInstanceStorageConfig_resourceType = Lens.lens (\AssociateInstanceStorageConfig' {resourceType} -> resourceType) (\s@AssociateInstanceStorageConfig' {} a -> s {resourceType = a} :: AssociateInstanceStorageConfig)
 
 -- | A valid storage type.
-aiscStorageConfig :: Lens' AssociateInstanceStorageConfig InstanceStorageConfig
-aiscStorageConfig = lens _aiscStorageConfig (\s a -> s {_aiscStorageConfig = a})
+associateInstanceStorageConfig_storageConfig :: Lens.Lens' AssociateInstanceStorageConfig InstanceStorageConfig
+associateInstanceStorageConfig_storageConfig = Lens.lens (\AssociateInstanceStorageConfig' {storageConfig} -> storageConfig) (\s@AssociateInstanceStorageConfig' {} a -> s {storageConfig = a} :: AssociateInstanceStorageConfig)
 
-instance AWSRequest AssociateInstanceStorageConfig where
+instance
+  Prelude.AWSRequest
+    AssociateInstanceStorageConfig
+  where
   type
     Rs AssociateInstanceStorageConfig =
       AssociateInstanceStorageConfigResponse
-  request = putJSON connect
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AssociateInstanceStorageConfigResponse'
-            <$> (x .?> "AssociationId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AssociationId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateInstanceStorageConfig
+instance
+  Prelude.Hashable
+    AssociateInstanceStorageConfig
 
-instance NFData AssociateInstanceStorageConfig
+instance
+  Prelude.NFData
+    AssociateInstanceStorageConfig
 
-instance ToHeaders AssociateInstanceStorageConfig where
+instance
+  Prelude.ToHeaders
+    AssociateInstanceStorageConfig
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateInstanceStorageConfig where
+instance
+  Prelude.ToJSON
+    AssociateInstanceStorageConfig
+  where
   toJSON AssociateInstanceStorageConfig' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceType" .= _aiscResourceType),
-            Just ("StorageConfig" .= _aiscStorageConfig)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceType" Prelude..= resourceType),
+            Prelude.Just
+              ("StorageConfig" Prelude..= storageConfig)
           ]
       )
 
-instance ToPath AssociateInstanceStorageConfig where
+instance
+  Prelude.ToPath
+    AssociateInstanceStorageConfig
+  where
   toPath AssociateInstanceStorageConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _aiscInstanceId,
+        Prelude.toBS instanceId,
         "/storage-config"
       ]
 
-instance ToQuery AssociateInstanceStorageConfig where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    AssociateInstanceStorageConfig
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateInstanceStorageConfigResponse' smart constructor.
+-- | /See:/ 'newAssociateInstanceStorageConfigResponse' smart constructor.
 data AssociateInstanceStorageConfigResponse = AssociateInstanceStorageConfigResponse'
-  { _aiscrrsAssociationId ::
-      !( Maybe
-           Text
-       ),
-    _aiscrrsResponseStatus ::
-      !Int
+  { -- | The existing association identifier that uniquely identifies the
+    -- resource type and storage config for the given instance ID.
+    associationId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateInstanceStorageConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateInstanceStorageConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aiscrrsAssociationId' - The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aiscrrsResponseStatus' - -- | The response status code.
-associateInstanceStorageConfigResponse ::
-  -- | 'aiscrrsResponseStatus'
-  Int ->
+-- 'associationId', 'associateInstanceStorageConfigResponse_associationId' - The existing association identifier that uniquely identifies the
+-- resource type and storage config for the given instance ID.
+--
+-- 'httpStatus', 'associateInstanceStorageConfigResponse_httpStatus' - The response's http status code.
+newAssociateInstanceStorageConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateInstanceStorageConfigResponse
-associateInstanceStorageConfigResponse
-  pResponseStatus_ =
+newAssociateInstanceStorageConfigResponse
+  pHttpStatus_ =
     AssociateInstanceStorageConfigResponse'
-      { _aiscrrsAssociationId =
-          Nothing,
-        _aiscrrsResponseStatus =
-          pResponseStatus_
+      { associationId =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.
-aiscrrsAssociationId :: Lens' AssociateInstanceStorageConfigResponse (Maybe Text)
-aiscrrsAssociationId = lens _aiscrrsAssociationId (\s a -> s {_aiscrrsAssociationId = a})
+-- | The existing association identifier that uniquely identifies the
+-- resource type and storage config for the given instance ID.
+associateInstanceStorageConfigResponse_associationId :: Lens.Lens' AssociateInstanceStorageConfigResponse (Prelude.Maybe Prelude.Text)
+associateInstanceStorageConfigResponse_associationId = Lens.lens (\AssociateInstanceStorageConfigResponse' {associationId} -> associationId) (\s@AssociateInstanceStorageConfigResponse' {} a -> s {associationId = a} :: AssociateInstanceStorageConfigResponse)
 
--- | -- | The response status code.
-aiscrrsResponseStatus :: Lens' AssociateInstanceStorageConfigResponse Int
-aiscrrsResponseStatus = lens _aiscrrsResponseStatus (\s a -> s {_aiscrrsResponseStatus = a})
+-- | The response's http status code.
+associateInstanceStorageConfigResponse_httpStatus :: Lens.Lens' AssociateInstanceStorageConfigResponse Prelude.Int
+associateInstanceStorageConfigResponse_httpStatus = Lens.lens (\AssociateInstanceStorageConfigResponse' {httpStatus} -> httpStatus) (\s@AssociateInstanceStorageConfigResponse' {} a -> s {httpStatus = a} :: AssociateInstanceStorageConfigResponse)
 
 instance
-  NFData
+  Prelude.NFData
     AssociateInstanceStorageConfigResponse

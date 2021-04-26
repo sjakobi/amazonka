@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,142 +24,147 @@
 -- Assigns the specified security profiles to the specified user.
 module Network.AWS.Connect.UpdateUserSecurityProfiles
   ( -- * Creating a Request
-    updateUserSecurityProfiles,
-    UpdateUserSecurityProfiles,
+    UpdateUserSecurityProfiles (..),
+    newUpdateUserSecurityProfiles,
 
     -- * Request Lenses
-    uuspSecurityProfileIds,
-    uuspUserId,
-    uuspInstanceId,
+    updateUserSecurityProfiles_securityProfileIds,
+    updateUserSecurityProfiles_userId,
+    updateUserSecurityProfiles_instanceId,
 
     -- * Destructuring the Response
-    updateUserSecurityProfilesResponse,
-    UpdateUserSecurityProfilesResponse,
+    UpdateUserSecurityProfilesResponse (..),
+    newUpdateUserSecurityProfilesResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateUserSecurityProfiles' smart constructor.
+-- | /See:/ 'newUpdateUserSecurityProfiles' smart constructor.
 data UpdateUserSecurityProfiles = UpdateUserSecurityProfiles'
-  { _uuspSecurityProfileIds ::
-      !(List1 Text),
-    _uuspUserId ::
-      !Text,
-    _uuspInstanceId ::
-      !Text
+  { -- | The identifiers of the security profiles for the user.
+    securityProfileIds :: Prelude.List1 Prelude.Text,
+    -- | The identifier of the user account.
+    userId :: Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserSecurityProfiles' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserSecurityProfiles' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uuspSecurityProfileIds' - The identifiers of the security profiles for the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uuspUserId' - The identifier of the user account.
+-- 'securityProfileIds', 'updateUserSecurityProfiles_securityProfileIds' - The identifiers of the security profiles for the user.
 --
--- * 'uuspInstanceId' - The identifier of the Amazon Connect instance.
-updateUserSecurityProfiles ::
-  -- | 'uuspSecurityProfileIds'
-  NonEmpty Text ->
-  -- | 'uuspUserId'
-  Text ->
-  -- | 'uuspInstanceId'
-  Text ->
+-- 'userId', 'updateUserSecurityProfiles_userId' - The identifier of the user account.
+--
+-- 'instanceId', 'updateUserSecurityProfiles_instanceId' - The identifier of the Amazon Connect instance.
+newUpdateUserSecurityProfiles ::
+  -- | 'securityProfileIds'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'userId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   UpdateUserSecurityProfiles
-updateUserSecurityProfiles
+newUpdateUserSecurityProfiles
   pSecurityProfileIds_
   pUserId_
   pInstanceId_ =
     UpdateUserSecurityProfiles'
-      { _uuspSecurityProfileIds =
-          _List1 # pSecurityProfileIds_,
-        _uuspUserId = pUserId_,
-        _uuspInstanceId = pInstanceId_
+      { securityProfileIds =
+          Prelude._List1 Lens.# pSecurityProfileIds_,
+        userId = pUserId_,
+        instanceId = pInstanceId_
       }
 
 -- | The identifiers of the security profiles for the user.
-uuspSecurityProfileIds :: Lens' UpdateUserSecurityProfiles (NonEmpty Text)
-uuspSecurityProfileIds = lens _uuspSecurityProfileIds (\s a -> s {_uuspSecurityProfileIds = a}) . _List1
+updateUserSecurityProfiles_securityProfileIds :: Lens.Lens' UpdateUserSecurityProfiles (Prelude.NonEmpty Prelude.Text)
+updateUserSecurityProfiles_securityProfileIds = Lens.lens (\UpdateUserSecurityProfiles' {securityProfileIds} -> securityProfileIds) (\s@UpdateUserSecurityProfiles' {} a -> s {securityProfileIds = a} :: UpdateUserSecurityProfiles) Prelude.. Prelude._List1
 
 -- | The identifier of the user account.
-uuspUserId :: Lens' UpdateUserSecurityProfiles Text
-uuspUserId = lens _uuspUserId (\s a -> s {_uuspUserId = a})
+updateUserSecurityProfiles_userId :: Lens.Lens' UpdateUserSecurityProfiles Prelude.Text
+updateUserSecurityProfiles_userId = Lens.lens (\UpdateUserSecurityProfiles' {userId} -> userId) (\s@UpdateUserSecurityProfiles' {} a -> s {userId = a} :: UpdateUserSecurityProfiles)
 
 -- | The identifier of the Amazon Connect instance.
-uuspInstanceId :: Lens' UpdateUserSecurityProfiles Text
-uuspInstanceId = lens _uuspInstanceId (\s a -> s {_uuspInstanceId = a})
+updateUserSecurityProfiles_instanceId :: Lens.Lens' UpdateUserSecurityProfiles Prelude.Text
+updateUserSecurityProfiles_instanceId = Lens.lens (\UpdateUserSecurityProfiles' {instanceId} -> instanceId) (\s@UpdateUserSecurityProfiles' {} a -> s {instanceId = a} :: UpdateUserSecurityProfiles)
 
-instance AWSRequest UpdateUserSecurityProfiles where
+instance
+  Prelude.AWSRequest
+    UpdateUserSecurityProfiles
+  where
   type
     Rs UpdateUserSecurityProfiles =
       UpdateUserSecurityProfilesResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateUserSecurityProfilesResponse'
+    Response.receiveNull
+      UpdateUserSecurityProfilesResponse'
 
-instance Hashable UpdateUserSecurityProfiles
+instance Prelude.Hashable UpdateUserSecurityProfiles
 
-instance NFData UpdateUserSecurityProfiles
+instance Prelude.NFData UpdateUserSecurityProfiles
 
-instance ToHeaders UpdateUserSecurityProfiles where
+instance Prelude.ToHeaders UpdateUserSecurityProfiles where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateUserSecurityProfiles where
+instance Prelude.ToJSON UpdateUserSecurityProfiles where
   toJSON UpdateUserSecurityProfiles' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("SecurityProfileIds" .= _uuspSecurityProfileIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "SecurityProfileIds"
+                  Prelude..= securityProfileIds
+              )
           ]
       )
 
-instance ToPath UpdateUserSecurityProfiles where
+instance Prelude.ToPath UpdateUserSecurityProfiles where
   toPath UpdateUserSecurityProfiles' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/users/",
-        toBS _uuspInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _uuspUserId,
+        Prelude.toBS userId,
         "/security-profiles"
       ]
 
-instance ToQuery UpdateUserSecurityProfiles where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateUserSecurityProfiles where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateUserSecurityProfilesResponse' smart constructor.
+-- | /See:/ 'newUpdateUserSecurityProfilesResponse' smart constructor.
 data UpdateUserSecurityProfilesResponse = UpdateUserSecurityProfilesResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserSecurityProfilesResponse' with the minimum fields required to make a request.
-updateUserSecurityProfilesResponse ::
+-- |
+-- Create a value of 'UpdateUserSecurityProfilesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateUserSecurityProfilesResponse ::
   UpdateUserSecurityProfilesResponse
-updateUserSecurityProfilesResponse =
+newUpdateUserSecurityProfilesResponse =
   UpdateUserSecurityProfilesResponse'
 
-instance NFData UpdateUserSecurityProfilesResponse
+instance
+  Prelude.NFData
+    UpdateUserSecurityProfilesResponse

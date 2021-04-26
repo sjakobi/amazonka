@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,134 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Deletes a use case from an AppIntegration association.
 module Network.AWS.Connect.DeleteUseCase
   ( -- * Creating a Request
-    deleteUseCase,
-    DeleteUseCase,
+    DeleteUseCase (..),
+    newDeleteUseCase,
 
     -- * Request Lenses
-    ducInstanceId,
-    ducIntegrationAssociationId,
-    ducUseCaseId,
+    deleteUseCase_instanceId,
+    deleteUseCase_integrationAssociationId,
+    deleteUseCase_useCaseId,
 
     -- * Destructuring the Response
-    deleteUseCaseResponse,
-    DeleteUseCaseResponse,
+    DeleteUseCaseResponse (..),
+    newDeleteUseCaseResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUseCase' smart constructor.
+-- | /See:/ 'newDeleteUseCase' smart constructor.
 data DeleteUseCase = DeleteUseCase'
-  { _ducInstanceId ::
-      !Text,
-    _ducIntegrationAssociationId :: !Text,
-    _ducUseCaseId :: !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the AppIntegration association.
+    integrationAssociationId :: Prelude.Text,
+    -- | The identifier for the use case.
+    useCaseId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUseCase' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUseCase' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ducInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ducIntegrationAssociationId' - The identifier for the AppIntegration association.
+-- 'instanceId', 'deleteUseCase_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'ducUseCaseId' - The identifier for the use case.
-deleteUseCase ::
-  -- | 'ducInstanceId'
-  Text ->
-  -- | 'ducIntegrationAssociationId'
-  Text ->
-  -- | 'ducUseCaseId'
-  Text ->
+-- 'integrationAssociationId', 'deleteUseCase_integrationAssociationId' - The identifier for the AppIntegration association.
+--
+-- 'useCaseId', 'deleteUseCase_useCaseId' - The identifier for the use case.
+newDeleteUseCase ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'integrationAssociationId'
+  Prelude.Text ->
+  -- | 'useCaseId'
+  Prelude.Text ->
   DeleteUseCase
-deleteUseCase
+newDeleteUseCase
   pInstanceId_
   pIntegrationAssociationId_
   pUseCaseId_ =
     DeleteUseCase'
-      { _ducInstanceId = pInstanceId_,
-        _ducIntegrationAssociationId =
+      { instanceId = pInstanceId_,
+        integrationAssociationId =
           pIntegrationAssociationId_,
-        _ducUseCaseId = pUseCaseId_
+        useCaseId = pUseCaseId_
       }
 
 -- | The identifier of the Amazon Connect instance.
-ducInstanceId :: Lens' DeleteUseCase Text
-ducInstanceId = lens _ducInstanceId (\s a -> s {_ducInstanceId = a})
+deleteUseCase_instanceId :: Lens.Lens' DeleteUseCase Prelude.Text
+deleteUseCase_instanceId = Lens.lens (\DeleteUseCase' {instanceId} -> instanceId) (\s@DeleteUseCase' {} a -> s {instanceId = a} :: DeleteUseCase)
 
 -- | The identifier for the AppIntegration association.
-ducIntegrationAssociationId :: Lens' DeleteUseCase Text
-ducIntegrationAssociationId = lens _ducIntegrationAssociationId (\s a -> s {_ducIntegrationAssociationId = a})
+deleteUseCase_integrationAssociationId :: Lens.Lens' DeleteUseCase Prelude.Text
+deleteUseCase_integrationAssociationId = Lens.lens (\DeleteUseCase' {integrationAssociationId} -> integrationAssociationId) (\s@DeleteUseCase' {} a -> s {integrationAssociationId = a} :: DeleteUseCase)
 
 -- | The identifier for the use case.
-ducUseCaseId :: Lens' DeleteUseCase Text
-ducUseCaseId = lens _ducUseCaseId (\s a -> s {_ducUseCaseId = a})
+deleteUseCase_useCaseId :: Lens.Lens' DeleteUseCase Prelude.Text
+deleteUseCase_useCaseId = Lens.lens (\DeleteUseCase' {useCaseId} -> useCaseId) (\s@DeleteUseCase' {} a -> s {useCaseId = a} :: DeleteUseCase)
 
-instance AWSRequest DeleteUseCase where
+instance Prelude.AWSRequest DeleteUseCase where
   type Rs DeleteUseCase = DeleteUseCaseResponse
-  request = delete connect
-  response = receiveNull DeleteUseCaseResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteUseCaseResponse'
 
-instance Hashable DeleteUseCase
+instance Prelude.Hashable DeleteUseCase
 
-instance NFData DeleteUseCase
+instance Prelude.NFData DeleteUseCase
 
-instance ToHeaders DeleteUseCase where
+instance Prelude.ToHeaders DeleteUseCase where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteUseCase where
+instance Prelude.ToPath DeleteUseCase where
   toPath DeleteUseCase' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _ducInstanceId,
+        Prelude.toBS instanceId,
         "/integration-associations/",
-        toBS _ducIntegrationAssociationId,
+        Prelude.toBS integrationAssociationId,
         "/use-cases/",
-        toBS _ducUseCaseId
+        Prelude.toBS useCaseId
       ]
 
-instance ToQuery DeleteUseCase where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUseCase where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUseCaseResponse' smart constructor.
+-- | /See:/ 'newDeleteUseCaseResponse' smart constructor.
 data DeleteUseCaseResponse = DeleteUseCaseResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUseCaseResponse' with the minimum fields required to make a request.
-deleteUseCaseResponse ::
+-- |
+-- Create a value of 'DeleteUseCaseResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteUseCaseResponse ::
   DeleteUseCaseResponse
-deleteUseCaseResponse = DeleteUseCaseResponse'
+newDeleteUseCaseResponse = DeleteUseCaseResponse'
 
-instance NFData DeleteUseCaseResponse
+instance Prelude.NFData DeleteUseCaseResponse

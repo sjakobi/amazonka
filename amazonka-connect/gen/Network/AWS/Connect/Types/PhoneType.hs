@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Connect.Types.PhoneType
   ( PhoneType
       ( ..,
-        DeskPhone,
-        SoftPhone
+        PhoneTypeDESKPHONE,
+        PhoneTypeSOFTPHONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PhoneType = PhoneType' (CI Text)
+newtype PhoneType = PhoneType'
+  { fromPhoneType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeskPhone :: PhoneType
-pattern DeskPhone = PhoneType' "DESK_PHONE"
+pattern PhoneTypeDESKPHONE :: PhoneType
+pattern PhoneTypeDESKPHONE = PhoneType' "DESK_PHONE"
 
-pattern SoftPhone :: PhoneType
-pattern SoftPhone = PhoneType' "SOFT_PHONE"
+pattern PhoneTypeSOFTPHONE :: PhoneType
+pattern PhoneTypeSOFTPHONE = PhoneType' "SOFT_PHONE"
 
 {-# COMPLETE
-  DeskPhone,
-  SoftPhone,
+  PhoneTypeDESKPHONE,
+  PhoneTypeSOFTPHONE,
   PhoneType'
   #-}
 
-instance FromText PhoneType where
-  parser = (PhoneType' . mk) <$> takeText
+instance Prelude.FromText PhoneType where
+  parser = PhoneType' Prelude.<$> Prelude.takeText
 
-instance ToText PhoneType where
-  toText (PhoneType' ci) = original ci
+instance Prelude.ToText PhoneType where
+  toText (PhoneType' x) = x
 
-instance Hashable PhoneType
+instance Prelude.Hashable PhoneType
 
-instance NFData PhoneType
+instance Prelude.NFData PhoneType
 
-instance ToByteString PhoneType
+instance Prelude.ToByteString PhoneType
 
-instance ToQuery PhoneType
+instance Prelude.ToQuery PhoneType
 
-instance ToHeader PhoneType
+instance Prelude.ToHeader PhoneType
 
-instance ToJSON PhoneType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PhoneType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PhoneType where
-  parseJSON = parseJSONText "PhoneType"
+instance Prelude.FromJSON PhoneType where
+  parseJSON = Prelude.parseJSONText "PhoneType"

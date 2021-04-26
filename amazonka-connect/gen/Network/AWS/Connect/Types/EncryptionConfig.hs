@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,72 @@
 module Network.AWS.Connect.Types.EncryptionConfig where
 
 import Network.AWS.Connect.Types.EncryptionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The encryption configuration.
 --
---
---
--- /See:/ 'encryptionConfig' smart constructor.
+-- /See:/ 'newEncryptionConfig' smart constructor.
 data EncryptionConfig = EncryptionConfig'
-  { _ecEncryptionType ::
-      !EncryptionType,
-    _ecKeyId :: !Text
+  { -- | The type of encryption.
+    encryptionType :: EncryptionType,
+    -- | The identifier of the encryption key.
+    keyId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EncryptionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EncryptionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecEncryptionType' - The type of encryption.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecKeyId' - The identifier of the encryption key.
-encryptionConfig ::
-  -- | 'ecEncryptionType'
+-- 'encryptionType', 'encryptionConfig_encryptionType' - The type of encryption.
+--
+-- 'keyId', 'encryptionConfig_keyId' - The identifier of the encryption key.
+newEncryptionConfig ::
+  -- | 'encryptionType'
   EncryptionType ->
-  -- | 'ecKeyId'
-  Text ->
+  -- | 'keyId'
+  Prelude.Text ->
   EncryptionConfig
-encryptionConfig pEncryptionType_ pKeyId_ =
+newEncryptionConfig pEncryptionType_ pKeyId_ =
   EncryptionConfig'
-    { _ecEncryptionType =
+    { encryptionType =
         pEncryptionType_,
-      _ecKeyId = pKeyId_
+      keyId = pKeyId_
     }
 
 -- | The type of encryption.
-ecEncryptionType :: Lens' EncryptionConfig EncryptionType
-ecEncryptionType = lens _ecEncryptionType (\s a -> s {_ecEncryptionType = a})
+encryptionConfig_encryptionType :: Lens.Lens' EncryptionConfig EncryptionType
+encryptionConfig_encryptionType = Lens.lens (\EncryptionConfig' {encryptionType} -> encryptionType) (\s@EncryptionConfig' {} a -> s {encryptionType = a} :: EncryptionConfig)
 
 -- | The identifier of the encryption key.
-ecKeyId :: Lens' EncryptionConfig Text
-ecKeyId = lens _ecKeyId (\s a -> s {_ecKeyId = a})
+encryptionConfig_keyId :: Lens.Lens' EncryptionConfig Prelude.Text
+encryptionConfig_keyId = Lens.lens (\EncryptionConfig' {keyId} -> keyId) (\s@EncryptionConfig' {} a -> s {keyId = a} :: EncryptionConfig)
 
-instance FromJSON EncryptionConfig where
+instance Prelude.FromJSON EncryptionConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EncryptionConfig"
       ( \x ->
           EncryptionConfig'
-            <$> (x .: "EncryptionType") <*> (x .: "KeyId")
+            Prelude.<$> (x Prelude..: "EncryptionType")
+            Prelude.<*> (x Prelude..: "KeyId")
       )
 
-instance Hashable EncryptionConfig
+instance Prelude.Hashable EncryptionConfig
 
-instance NFData EncryptionConfig
+instance Prelude.NFData EncryptionConfig
 
-instance ToJSON EncryptionConfig where
+instance Prelude.ToJSON EncryptionConfig where
   toJSON EncryptionConfig' {..} =
-    object
-      ( catMaybes
-          [ Just ("EncryptionType" .= _ecEncryptionType),
-            Just ("KeyId" .= _ecKeyId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("EncryptionType" Prelude..= encryptionType),
+            Prelude.Just ("KeyId" Prelude..= keyId)
           ]
       )

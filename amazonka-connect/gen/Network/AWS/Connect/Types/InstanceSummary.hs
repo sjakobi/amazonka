@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,120 +21,127 @@ module Network.AWS.Connect.Types.InstanceSummary where
 
 import Network.AWS.Connect.Types.DirectoryType
 import Network.AWS.Connect.Types.InstanceStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the instance.
 --
---
---
--- /See:/ 'instanceSummary' smart constructor.
+-- /See:/ 'newInstanceSummary' smart constructor.
 data InstanceSummary = InstanceSummary'
-  { _isInstanceAlias ::
-      !(Maybe (Sensitive Text)),
-    _isServiceRole :: !(Maybe Text),
-    _isOutboundCallsEnabled ::
-      !(Maybe Bool),
-    _isARN :: !(Maybe Text),
-    _isId :: !(Maybe Text),
-    _isInstanceStatus ::
-      !(Maybe InstanceStatus),
-    _isIdentityManagementType ::
-      !(Maybe DirectoryType),
-    _isCreatedTime :: !(Maybe POSIX),
-    _isInboundCallsEnabled :: !(Maybe Bool)
+  { -- | The alias of the instance.
+    instanceAlias :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The service role of the instance.
+    serviceRole :: Prelude.Maybe Prelude.Text,
+    -- | Whether outbound calls are enabled.
+    outboundCallsEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the instance.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the instance.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The state of the instance.
+    instanceStatus :: Prelude.Maybe InstanceStatus,
+    -- | The identity management type of the instance.
+    identityManagementType :: Prelude.Maybe DirectoryType,
+    -- | When the instance was created.
+    createdTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Whether inbound calls are enabled.
+    inboundCallsEnabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isInstanceAlias' - The alias of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isServiceRole' - The service role of the instance.
+-- 'instanceAlias', 'instanceSummary_instanceAlias' - The alias of the instance.
 --
--- * 'isOutboundCallsEnabled' - Whether outbound calls are enabled.
+-- 'serviceRole', 'instanceSummary_serviceRole' - The service role of the instance.
 --
--- * 'isARN' - The Amazon Resource Name (ARN) of the instance.
+-- 'outboundCallsEnabled', 'instanceSummary_outboundCallsEnabled' - Whether outbound calls are enabled.
 --
--- * 'isId' - The identifier of the instance.
+-- 'arn', 'instanceSummary_arn' - The Amazon Resource Name (ARN) of the instance.
 --
--- * 'isInstanceStatus' - The state of the instance.
+-- 'id', 'instanceSummary_id' - The identifier of the instance.
 --
--- * 'isIdentityManagementType' - The identity management type of the instance.
+-- 'instanceStatus', 'instanceSummary_instanceStatus' - The state of the instance.
 --
--- * 'isCreatedTime' - When the instance was created.
+-- 'identityManagementType', 'instanceSummary_identityManagementType' - The identity management type of the instance.
 --
--- * 'isInboundCallsEnabled' - Whether inbound calls are enabled.
-instanceSummary ::
+-- 'createdTime', 'instanceSummary_createdTime' - When the instance was created.
+--
+-- 'inboundCallsEnabled', 'instanceSummary_inboundCallsEnabled' - Whether inbound calls are enabled.
+newInstanceSummary ::
   InstanceSummary
-instanceSummary =
+newInstanceSummary =
   InstanceSummary'
-    { _isInstanceAlias = Nothing,
-      _isServiceRole = Nothing,
-      _isOutboundCallsEnabled = Nothing,
-      _isARN = Nothing,
-      _isId = Nothing,
-      _isInstanceStatus = Nothing,
-      _isIdentityManagementType = Nothing,
-      _isCreatedTime = Nothing,
-      _isInboundCallsEnabled = Nothing
+    { instanceAlias = Prelude.Nothing,
+      serviceRole = Prelude.Nothing,
+      outboundCallsEnabled = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      instanceStatus = Prelude.Nothing,
+      identityManagementType = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      inboundCallsEnabled = Prelude.Nothing
     }
 
 -- | The alias of the instance.
-isInstanceAlias :: Lens' InstanceSummary (Maybe Text)
-isInstanceAlias = lens _isInstanceAlias (\s a -> s {_isInstanceAlias = a}) . mapping _Sensitive
+instanceSummary_instanceAlias :: Lens.Lens' InstanceSummary (Prelude.Maybe Prelude.Text)
+instanceSummary_instanceAlias = Lens.lens (\InstanceSummary' {instanceAlias} -> instanceAlias) (\s@InstanceSummary' {} a -> s {instanceAlias = a} :: InstanceSummary) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The service role of the instance.
-isServiceRole :: Lens' InstanceSummary (Maybe Text)
-isServiceRole = lens _isServiceRole (\s a -> s {_isServiceRole = a})
+instanceSummary_serviceRole :: Lens.Lens' InstanceSummary (Prelude.Maybe Prelude.Text)
+instanceSummary_serviceRole = Lens.lens (\InstanceSummary' {serviceRole} -> serviceRole) (\s@InstanceSummary' {} a -> s {serviceRole = a} :: InstanceSummary)
 
 -- | Whether outbound calls are enabled.
-isOutboundCallsEnabled :: Lens' InstanceSummary (Maybe Bool)
-isOutboundCallsEnabled = lens _isOutboundCallsEnabled (\s a -> s {_isOutboundCallsEnabled = a})
+instanceSummary_outboundCallsEnabled :: Lens.Lens' InstanceSummary (Prelude.Maybe Prelude.Bool)
+instanceSummary_outboundCallsEnabled = Lens.lens (\InstanceSummary' {outboundCallsEnabled} -> outboundCallsEnabled) (\s@InstanceSummary' {} a -> s {outboundCallsEnabled = a} :: InstanceSummary)
 
 -- | The Amazon Resource Name (ARN) of the instance.
-isARN :: Lens' InstanceSummary (Maybe Text)
-isARN = lens _isARN (\s a -> s {_isARN = a})
+instanceSummary_arn :: Lens.Lens' InstanceSummary (Prelude.Maybe Prelude.Text)
+instanceSummary_arn = Lens.lens (\InstanceSummary' {arn} -> arn) (\s@InstanceSummary' {} a -> s {arn = a} :: InstanceSummary)
 
 -- | The identifier of the instance.
-isId :: Lens' InstanceSummary (Maybe Text)
-isId = lens _isId (\s a -> s {_isId = a})
+instanceSummary_id :: Lens.Lens' InstanceSummary (Prelude.Maybe Prelude.Text)
+instanceSummary_id = Lens.lens (\InstanceSummary' {id} -> id) (\s@InstanceSummary' {} a -> s {id = a} :: InstanceSummary)
 
 -- | The state of the instance.
-isInstanceStatus :: Lens' InstanceSummary (Maybe InstanceStatus)
-isInstanceStatus = lens _isInstanceStatus (\s a -> s {_isInstanceStatus = a})
+instanceSummary_instanceStatus :: Lens.Lens' InstanceSummary (Prelude.Maybe InstanceStatus)
+instanceSummary_instanceStatus = Lens.lens (\InstanceSummary' {instanceStatus} -> instanceStatus) (\s@InstanceSummary' {} a -> s {instanceStatus = a} :: InstanceSummary)
 
 -- | The identity management type of the instance.
-isIdentityManagementType :: Lens' InstanceSummary (Maybe DirectoryType)
-isIdentityManagementType = lens _isIdentityManagementType (\s a -> s {_isIdentityManagementType = a})
+instanceSummary_identityManagementType :: Lens.Lens' InstanceSummary (Prelude.Maybe DirectoryType)
+instanceSummary_identityManagementType = Lens.lens (\InstanceSummary' {identityManagementType} -> identityManagementType) (\s@InstanceSummary' {} a -> s {identityManagementType = a} :: InstanceSummary)
 
 -- | When the instance was created.
-isCreatedTime :: Lens' InstanceSummary (Maybe UTCTime)
-isCreatedTime = lens _isCreatedTime (\s a -> s {_isCreatedTime = a}) . mapping _Time
+instanceSummary_createdTime :: Lens.Lens' InstanceSummary (Prelude.Maybe Prelude.UTCTime)
+instanceSummary_createdTime = Lens.lens (\InstanceSummary' {createdTime} -> createdTime) (\s@InstanceSummary' {} a -> s {createdTime = a} :: InstanceSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Whether inbound calls are enabled.
-isInboundCallsEnabled :: Lens' InstanceSummary (Maybe Bool)
-isInboundCallsEnabled = lens _isInboundCallsEnabled (\s a -> s {_isInboundCallsEnabled = a})
+instanceSummary_inboundCallsEnabled :: Lens.Lens' InstanceSummary (Prelude.Maybe Prelude.Bool)
+instanceSummary_inboundCallsEnabled = Lens.lens (\InstanceSummary' {inboundCallsEnabled} -> inboundCallsEnabled) (\s@InstanceSummary' {} a -> s {inboundCallsEnabled = a} :: InstanceSummary)
 
-instance FromJSON InstanceSummary where
+instance Prelude.FromJSON InstanceSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceSummary"
       ( \x ->
           InstanceSummary'
-            <$> (x .:? "InstanceAlias")
-            <*> (x .:? "ServiceRole")
-            <*> (x .:? "OutboundCallsEnabled")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "InstanceStatus")
-            <*> (x .:? "IdentityManagementType")
-            <*> (x .:? "CreatedTime")
-            <*> (x .:? "InboundCallsEnabled")
+            Prelude.<$> (x Prelude..:? "InstanceAlias")
+            Prelude.<*> (x Prelude..:? "ServiceRole")
+            Prelude.<*> (x Prelude..:? "OutboundCallsEnabled")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "InstanceStatus")
+            Prelude.<*> (x Prelude..:? "IdentityManagementType")
+            Prelude.<*> (x Prelude..:? "CreatedTime")
+            Prelude.<*> (x Prelude..:? "InboundCallsEnabled")
       )
 
-instance Hashable InstanceSummary
+instance Prelude.Hashable InstanceSummary
 
-instance NFData InstanceSummary
+instance Prelude.NFData InstanceSummary

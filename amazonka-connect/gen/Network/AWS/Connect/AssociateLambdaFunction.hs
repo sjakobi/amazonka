@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,134 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Allows the specified Amazon Connect instance to access the specified Lambda function.
+-- Allows the specified Amazon Connect instance to access the specified
+-- Lambda function.
 module Network.AWS.Connect.AssociateLambdaFunction
   ( -- * Creating a Request
-    associateLambdaFunction,
-    AssociateLambdaFunction,
+    AssociateLambdaFunction (..),
+    newAssociateLambdaFunction,
 
     -- * Request Lenses
-    alfInstanceId,
-    alfFunctionARN,
+    associateLambdaFunction_instanceId,
+    associateLambdaFunction_functionArn,
 
     -- * Destructuring the Response
-    associateLambdaFunctionResponse,
-    AssociateLambdaFunctionResponse,
+    AssociateLambdaFunctionResponse (..),
+    newAssociateLambdaFunctionResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateLambdaFunction' smart constructor.
+-- | /See:/ 'newAssociateLambdaFunction' smart constructor.
 data AssociateLambdaFunction = AssociateLambdaFunction'
-  { _alfInstanceId ::
-      !Text,
-    _alfFunctionARN ::
-      !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the Lambda function being associated.
+    -- Maximum number of characters allowed is 140.
+    functionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateLambdaFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateLambdaFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'alfInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'alfFunctionARN' - The Amazon Resource Name (ARN) for the Lambda function being associated. Maximum number of characters allowed is 140.
-associateLambdaFunction ::
-  -- | 'alfInstanceId'
-  Text ->
-  -- | 'alfFunctionARN'
-  Text ->
+-- 'instanceId', 'associateLambdaFunction_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'functionArn', 'associateLambdaFunction_functionArn' - The Amazon Resource Name (ARN) for the Lambda function being associated.
+-- Maximum number of characters allowed is 140.
+newAssociateLambdaFunction ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'functionArn'
+  Prelude.Text ->
   AssociateLambdaFunction
-associateLambdaFunction pInstanceId_ pFunctionARN_ =
+newAssociateLambdaFunction pInstanceId_ pFunctionArn_ =
   AssociateLambdaFunction'
-    { _alfInstanceId =
-        pInstanceId_,
-      _alfFunctionARN = pFunctionARN_
+    { instanceId = pInstanceId_,
+      functionArn = pFunctionArn_
     }
 
 -- | The identifier of the Amazon Connect instance.
-alfInstanceId :: Lens' AssociateLambdaFunction Text
-alfInstanceId = lens _alfInstanceId (\s a -> s {_alfInstanceId = a})
+associateLambdaFunction_instanceId :: Lens.Lens' AssociateLambdaFunction Prelude.Text
+associateLambdaFunction_instanceId = Lens.lens (\AssociateLambdaFunction' {instanceId} -> instanceId) (\s@AssociateLambdaFunction' {} a -> s {instanceId = a} :: AssociateLambdaFunction)
 
--- | The Amazon Resource Name (ARN) for the Lambda function being associated. Maximum number of characters allowed is 140.
-alfFunctionARN :: Lens' AssociateLambdaFunction Text
-alfFunctionARN = lens _alfFunctionARN (\s a -> s {_alfFunctionARN = a})
+-- | The Amazon Resource Name (ARN) for the Lambda function being associated.
+-- Maximum number of characters allowed is 140.
+associateLambdaFunction_functionArn :: Lens.Lens' AssociateLambdaFunction Prelude.Text
+associateLambdaFunction_functionArn = Lens.lens (\AssociateLambdaFunction' {functionArn} -> functionArn) (\s@AssociateLambdaFunction' {} a -> s {functionArn = a} :: AssociateLambdaFunction)
 
-instance AWSRequest AssociateLambdaFunction where
+instance Prelude.AWSRequest AssociateLambdaFunction where
   type
     Rs AssociateLambdaFunction =
       AssociateLambdaFunctionResponse
-  request = putJSON connect
+  request = Request.putJSON defaultService
   response =
-    receiveNull AssociateLambdaFunctionResponse'
+    Response.receiveNull
+      AssociateLambdaFunctionResponse'
 
-instance Hashable AssociateLambdaFunction
+instance Prelude.Hashable AssociateLambdaFunction
 
-instance NFData AssociateLambdaFunction
+instance Prelude.NFData AssociateLambdaFunction
 
-instance ToHeaders AssociateLambdaFunction where
+instance Prelude.ToHeaders AssociateLambdaFunction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateLambdaFunction where
+instance Prelude.ToJSON AssociateLambdaFunction where
   toJSON AssociateLambdaFunction' {..} =
-    object
-      (catMaybes [Just ("FunctionArn" .= _alfFunctionARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("FunctionArn" Prelude..= functionArn)
+          ]
+      )
 
-instance ToPath AssociateLambdaFunction where
+instance Prelude.ToPath AssociateLambdaFunction where
   toPath AssociateLambdaFunction' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _alfInstanceId,
+        Prelude.toBS instanceId,
         "/lambda-function"
       ]
 
-instance ToQuery AssociateLambdaFunction where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateLambdaFunction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateLambdaFunctionResponse' smart constructor.
+-- | /See:/ 'newAssociateLambdaFunctionResponse' smart constructor.
 data AssociateLambdaFunctionResponse = AssociateLambdaFunctionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateLambdaFunctionResponse' with the minimum fields required to make a request.
-associateLambdaFunctionResponse ::
+-- |
+-- Create a value of 'AssociateLambdaFunctionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAssociateLambdaFunctionResponse ::
   AssociateLambdaFunctionResponse
-associateLambdaFunctionResponse =
+newAssociateLambdaFunctionResponse =
   AssociateLambdaFunctionResponse'
 
-instance NFData AssociateLambdaFunctionResponse
+instance
+  Prelude.NFData
+    AssociateLambdaFunctionResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,140 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
+-- Returns the current state of the specified instance identifier. It
+-- tracks the instance while it is being created and returns an error
+-- status, if applicable.
 --
--- Returns the current state of the specified instance identifier. It tracks the instance while it is being created and returns an error status, if applicable.
---
--- If an instance is not created successfully, the instance status reason field returns details relevant to the reason. The instance in a failed state is returned only for 24 hours after the CreateInstance API was invoked.
+-- If an instance is not created successfully, the instance status reason
+-- field returns details relevant to the reason. The instance in a failed
+-- state is returned only for 24 hours after the CreateInstance API was
+-- invoked.
 module Network.AWS.Connect.DescribeInstance
   ( -- * Creating a Request
-    describeInstance,
-    DescribeInstance,
+    DescribeInstance (..),
+    newDescribeInstance,
 
     -- * Request Lenses
-    diInstanceId,
+    describeInstance_instanceId,
 
     -- * Destructuring the Response
-    describeInstanceResponse,
-    DescribeInstanceResponse,
+    DescribeInstanceResponse (..),
+    newDescribeInstanceResponse,
 
     -- * Response Lenses
-    dirrsInstance,
-    dirrsResponseStatus,
+    describeInstanceResponse_instance,
+    describeInstanceResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.Instance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeInstance' smart constructor.
-newtype DescribeInstance = DescribeInstance'
-  { _diInstanceId ::
-      Text
+-- | /See:/ 'newDescribeInstance' smart constructor.
+data DescribeInstance = DescribeInstance'
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diInstanceId' - The identifier of the Amazon Connect instance.
-describeInstance ::
-  -- | 'diInstanceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceId', 'describeInstance_instanceId' - The identifier of the Amazon Connect instance.
+newDescribeInstance ::
+  -- | 'instanceId'
+  Prelude.Text ->
   DescribeInstance
-describeInstance pInstanceId_ =
-  DescribeInstance' {_diInstanceId = pInstanceId_}
+newDescribeInstance pInstanceId_ =
+  DescribeInstance' {instanceId = pInstanceId_}
 
 -- | The identifier of the Amazon Connect instance.
-diInstanceId :: Lens' DescribeInstance Text
-diInstanceId = lens _diInstanceId (\s a -> s {_diInstanceId = a})
+describeInstance_instanceId :: Lens.Lens' DescribeInstance Prelude.Text
+describeInstance_instanceId = Lens.lens (\DescribeInstance' {instanceId} -> instanceId) (\s@DescribeInstance' {} a -> s {instanceId = a} :: DescribeInstance)
 
-instance AWSRequest DescribeInstance where
+instance Prelude.AWSRequest DescribeInstance where
   type Rs DescribeInstance = DescribeInstanceResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeInstanceResponse'
-            <$> (x .?> "Instance") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Instance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeInstance
+instance Prelude.Hashable DescribeInstance
 
-instance NFData DescribeInstance
+instance Prelude.NFData DescribeInstance
 
-instance ToHeaders DescribeInstance where
+instance Prelude.ToHeaders DescribeInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeInstance where
+instance Prelude.ToPath DescribeInstance where
   toPath DescribeInstance' {..} =
-    mconcat ["/instance/", toBS _diInstanceId]
+    Prelude.mconcat
+      ["/instance/", Prelude.toBS instanceId]
 
-instance ToQuery DescribeInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeInstanceResponse' smart constructor.
+-- | /See:/ 'newDescribeInstanceResponse' smart constructor.
 data DescribeInstanceResponse = DescribeInstanceResponse'
-  { _dirrsInstance ::
-      !(Maybe Instance),
-    _dirrsResponseStatus ::
-      !Int
+  { -- | The name of the instance.
+    instance' :: Prelude.Maybe Instance,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirrsInstance' - The name of the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dirrsResponseStatus' - -- | The response status code.
-describeInstanceResponse ::
-  -- | 'dirrsResponseStatus'
-  Int ->
+-- 'instance'', 'describeInstanceResponse_instance' - The name of the instance.
+--
+-- 'httpStatus', 'describeInstanceResponse_httpStatus' - The response's http status code.
+newDescribeInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeInstanceResponse
-describeInstanceResponse pResponseStatus_ =
+newDescribeInstanceResponse pHttpStatus_ =
   DescribeInstanceResponse'
-    { _dirrsInstance = Nothing,
-      _dirrsResponseStatus = pResponseStatus_
+    { instance' =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the instance.
-dirrsInstance :: Lens' DescribeInstanceResponse (Maybe Instance)
-dirrsInstance = lens _dirrsInstance (\s a -> s {_dirrsInstance = a})
+describeInstanceResponse_instance :: Lens.Lens' DescribeInstanceResponse (Prelude.Maybe Instance)
+describeInstanceResponse_instance = Lens.lens (\DescribeInstanceResponse' {instance'} -> instance') (\s@DescribeInstanceResponse' {} a -> s {instance' = a} :: DescribeInstanceResponse)
 
--- | -- | The response status code.
-dirrsResponseStatus :: Lens' DescribeInstanceResponse Int
-dirrsResponseStatus = lens _dirrsResponseStatus (\s a -> s {_dirrsResponseStatus = a})
+-- | The response's http status code.
+describeInstanceResponse_httpStatus :: Lens.Lens' DescribeInstanceResponse Prelude.Int
+describeInstanceResponse_httpStatus = Lens.lens (\DescribeInstanceResponse' {httpStatus} -> httpStatus) (\s@DescribeInstanceResponse' {} a -> s {httpStatus = a} :: DescribeInstanceResponse)
 
-instance NFData DescribeInstanceResponse
+instance Prelude.NFData DescribeInstanceResponse

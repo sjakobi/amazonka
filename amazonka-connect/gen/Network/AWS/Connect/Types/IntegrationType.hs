@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Connect.Types.IntegrationType
   ( IntegrationType
       ( ..,
-        Event
+        IntegrationTypeEVENT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data IntegrationType = IntegrationType' (CI Text)
+newtype IntegrationType = IntegrationType'
+  { fromIntegrationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Event :: IntegrationType
-pattern Event = IntegrationType' "EVENT"
+pattern IntegrationTypeEVENT :: IntegrationType
+pattern IntegrationTypeEVENT = IntegrationType' "EVENT"
 
 {-# COMPLETE
-  Event,
+  IntegrationTypeEVENT,
   IntegrationType'
   #-}
 
-instance FromText IntegrationType where
-  parser = (IntegrationType' . mk) <$> takeText
+instance Prelude.FromText IntegrationType where
+  parser = IntegrationType' Prelude.<$> Prelude.takeText
 
-instance ToText IntegrationType where
-  toText (IntegrationType' ci) = original ci
+instance Prelude.ToText IntegrationType where
+  toText (IntegrationType' x) = x
 
-instance Hashable IntegrationType
+instance Prelude.Hashable IntegrationType
 
-instance NFData IntegrationType
+instance Prelude.NFData IntegrationType
 
-instance ToByteString IntegrationType
+instance Prelude.ToByteString IntegrationType
 
-instance ToQuery IntegrationType
+instance Prelude.ToQuery IntegrationType
 
-instance ToHeader IntegrationType
+instance Prelude.ToHeader IntegrationType
 
-instance ToJSON IntegrationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON IntegrationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON IntegrationType where
-  parseJSON = parseJSONText "IntegrationType"
+instance Prelude.FromJSON IntegrationType where
+  parseJSON = Prelude.parseJSONText "IntegrationType"

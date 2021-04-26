@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,158 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Describes the specified instance attribute.
 module Network.AWS.Connect.DescribeInstanceAttribute
   ( -- * Creating a Request
-    describeInstanceAttribute,
-    DescribeInstanceAttribute,
+    DescribeInstanceAttribute (..),
+    newDescribeInstanceAttribute,
 
     -- * Request Lenses
-    desInstanceId,
-    desAttributeType,
+    describeInstanceAttribute_instanceId,
+    describeInstanceAttribute_attributeType,
 
     -- * Destructuring the Response
-    describeInstanceAttributeResponse,
-    DescribeInstanceAttributeResponse,
+    DescribeInstanceAttributeResponse (..),
+    newDescribeInstanceAttributeResponse,
 
     -- * Response Lenses
-    diarrsAttribute,
-    diarrsResponseStatus,
+    describeInstanceAttributeResponse_attribute,
+    describeInstanceAttributeResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.Attribute
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeInstanceAttribute' smart constructor.
+-- | /See:/ 'newDescribeInstanceAttribute' smart constructor.
 data DescribeInstanceAttribute = DescribeInstanceAttribute'
-  { _desInstanceId ::
-      !Text,
-    _desAttributeType ::
-      !InstanceAttributeType
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The type of attribute.
+    attributeType :: InstanceAttributeType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstanceAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstanceAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desAttributeType' - The type of attribute.
-describeInstanceAttribute ::
-  -- | 'desInstanceId'
-  Text ->
-  -- | 'desAttributeType'
+-- 'instanceId', 'describeInstanceAttribute_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'attributeType', 'describeInstanceAttribute_attributeType' - The type of attribute.
+newDescribeInstanceAttribute ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'attributeType'
   InstanceAttributeType ->
   DescribeInstanceAttribute
-describeInstanceAttribute
+newDescribeInstanceAttribute
   pInstanceId_
   pAttributeType_ =
     DescribeInstanceAttribute'
-      { _desInstanceId =
+      { instanceId =
           pInstanceId_,
-        _desAttributeType = pAttributeType_
+        attributeType = pAttributeType_
       }
 
 -- | The identifier of the Amazon Connect instance.
-desInstanceId :: Lens' DescribeInstanceAttribute Text
-desInstanceId = lens _desInstanceId (\s a -> s {_desInstanceId = a})
+describeInstanceAttribute_instanceId :: Lens.Lens' DescribeInstanceAttribute Prelude.Text
+describeInstanceAttribute_instanceId = Lens.lens (\DescribeInstanceAttribute' {instanceId} -> instanceId) (\s@DescribeInstanceAttribute' {} a -> s {instanceId = a} :: DescribeInstanceAttribute)
 
 -- | The type of attribute.
-desAttributeType :: Lens' DescribeInstanceAttribute InstanceAttributeType
-desAttributeType = lens _desAttributeType (\s a -> s {_desAttributeType = a})
+describeInstanceAttribute_attributeType :: Lens.Lens' DescribeInstanceAttribute InstanceAttributeType
+describeInstanceAttribute_attributeType = Lens.lens (\DescribeInstanceAttribute' {attributeType} -> attributeType) (\s@DescribeInstanceAttribute' {} a -> s {attributeType = a} :: DescribeInstanceAttribute)
 
-instance AWSRequest DescribeInstanceAttribute where
+instance Prelude.AWSRequest DescribeInstanceAttribute where
   type
     Rs DescribeInstanceAttribute =
       DescribeInstanceAttributeResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeInstanceAttributeResponse'
-            <$> (x .?> "Attribute") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Attribute")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeInstanceAttribute
+instance Prelude.Hashable DescribeInstanceAttribute
 
-instance NFData DescribeInstanceAttribute
+instance Prelude.NFData DescribeInstanceAttribute
 
-instance ToHeaders DescribeInstanceAttribute where
+instance Prelude.ToHeaders DescribeInstanceAttribute where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeInstanceAttribute where
+instance Prelude.ToPath DescribeInstanceAttribute where
   toPath DescribeInstanceAttribute' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _desInstanceId,
+        Prelude.toBS instanceId,
         "/attribute/",
-        toBS _desAttributeType
+        Prelude.toBS attributeType
       ]
 
-instance ToQuery DescribeInstanceAttribute where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeInstanceAttribute where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeInstanceAttributeResponse' smart constructor.
+-- | /See:/ 'newDescribeInstanceAttributeResponse' smart constructor.
 data DescribeInstanceAttributeResponse = DescribeInstanceAttributeResponse'
-  { _diarrsAttribute ::
-      !( Maybe
-           Attribute
-       ),
-    _diarrsResponseStatus ::
-      !Int
+  { -- | The type of attribute.
+    attribute :: Prelude.Maybe Attribute,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstanceAttributeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstanceAttributeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diarrsAttribute' - The type of attribute.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diarrsResponseStatus' - -- | The response status code.
-describeInstanceAttributeResponse ::
-  -- | 'diarrsResponseStatus'
-  Int ->
+-- 'attribute', 'describeInstanceAttributeResponse_attribute' - The type of attribute.
+--
+-- 'httpStatus', 'describeInstanceAttributeResponse_httpStatus' - The response's http status code.
+newDescribeInstanceAttributeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeInstanceAttributeResponse
-describeInstanceAttributeResponse pResponseStatus_ =
+newDescribeInstanceAttributeResponse pHttpStatus_ =
   DescribeInstanceAttributeResponse'
-    { _diarrsAttribute =
-        Nothing,
-      _diarrsResponseStatus = pResponseStatus_
+    { attribute =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The type of attribute.
-diarrsAttribute :: Lens' DescribeInstanceAttributeResponse (Maybe Attribute)
-diarrsAttribute = lens _diarrsAttribute (\s a -> s {_diarrsAttribute = a})
+describeInstanceAttributeResponse_attribute :: Lens.Lens' DescribeInstanceAttributeResponse (Prelude.Maybe Attribute)
+describeInstanceAttributeResponse_attribute = Lens.lens (\DescribeInstanceAttributeResponse' {attribute} -> attribute) (\s@DescribeInstanceAttributeResponse' {} a -> s {attribute = a} :: DescribeInstanceAttributeResponse)
 
--- | -- | The response status code.
-diarrsResponseStatus :: Lens' DescribeInstanceAttributeResponse Int
-diarrsResponseStatus = lens _diarrsResponseStatus (\s a -> s {_diarrsResponseStatus = a})
+-- | The response's http status code.
+describeInstanceAttributeResponse_httpStatus :: Lens.Lens' DescribeInstanceAttributeResponse Prelude.Int
+describeInstanceAttributeResponse_httpStatus = Lens.lens (\DescribeInstanceAttributeResponse' {httpStatus} -> httpStatus) (\s@DescribeInstanceAttributeResponse' {} a -> s {httpStatus = a} :: DescribeInstanceAttributeResponse)
 
-instance NFData DescribeInstanceAttributeResponse
+instance
+  Prelude.NFData
+    DescribeInstanceAttributeResponse

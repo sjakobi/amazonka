@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,142 +24,154 @@
 -- Associates a set of queues with a routing profile.
 module Network.AWS.Connect.AssociateRoutingProfileQueues
   ( -- * Creating a Request
-    associateRoutingProfileQueues,
-    AssociateRoutingProfileQueues,
+    AssociateRoutingProfileQueues (..),
+    newAssociateRoutingProfileQueues,
 
     -- * Request Lenses
-    arpqInstanceId,
-    arpqRoutingProfileId,
-    arpqQueueConfigs,
+    associateRoutingProfileQueues_instanceId,
+    associateRoutingProfileQueues_routingProfileId,
+    associateRoutingProfileQueues_queueConfigs,
 
     -- * Destructuring the Response
-    associateRoutingProfileQueuesResponse,
-    AssociateRoutingProfileQueuesResponse,
+    AssociateRoutingProfileQueuesResponse (..),
+    newAssociateRoutingProfileQueuesResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateRoutingProfileQueues' smart constructor.
+-- | /See:/ 'newAssociateRoutingProfileQueues' smart constructor.
 data AssociateRoutingProfileQueues = AssociateRoutingProfileQueues'
-  { _arpqInstanceId ::
-      !Text,
-    _arpqRoutingProfileId ::
-      !Text,
-    _arpqQueueConfigs ::
-      !( List1
-           RoutingProfileQueueConfig
-       )
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the routing profile.
+    routingProfileId :: Prelude.Text,
+    -- | The queues to associate with this routing profile.
+    queueConfigs :: Prelude.List1 RoutingProfileQueueConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateRoutingProfileQueues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateRoutingProfileQueues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'arpqInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'arpqRoutingProfileId' - The identifier of the routing profile.
+-- 'instanceId', 'associateRoutingProfileQueues_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'arpqQueueConfigs' - The queues to associate with this routing profile.
-associateRoutingProfileQueues ::
-  -- | 'arpqInstanceId'
-  Text ->
-  -- | 'arpqRoutingProfileId'
-  Text ->
-  -- | 'arpqQueueConfigs'
-  NonEmpty RoutingProfileQueueConfig ->
+-- 'routingProfileId', 'associateRoutingProfileQueues_routingProfileId' - The identifier of the routing profile.
+--
+-- 'queueConfigs', 'associateRoutingProfileQueues_queueConfigs' - The queues to associate with this routing profile.
+newAssociateRoutingProfileQueues ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'routingProfileId'
+  Prelude.Text ->
+  -- | 'queueConfigs'
+  Prelude.NonEmpty RoutingProfileQueueConfig ->
   AssociateRoutingProfileQueues
-associateRoutingProfileQueues
+newAssociateRoutingProfileQueues
   pInstanceId_
   pRoutingProfileId_
   pQueueConfigs_ =
     AssociateRoutingProfileQueues'
-      { _arpqInstanceId =
+      { instanceId =
           pInstanceId_,
-        _arpqRoutingProfileId = pRoutingProfileId_,
-        _arpqQueueConfigs = _List1 # pQueueConfigs_
+        routingProfileId = pRoutingProfileId_,
+        queueConfigs =
+          Prelude._List1 Lens.# pQueueConfigs_
       }
 
 -- | The identifier of the Amazon Connect instance.
-arpqInstanceId :: Lens' AssociateRoutingProfileQueues Text
-arpqInstanceId = lens _arpqInstanceId (\s a -> s {_arpqInstanceId = a})
+associateRoutingProfileQueues_instanceId :: Lens.Lens' AssociateRoutingProfileQueues Prelude.Text
+associateRoutingProfileQueues_instanceId = Lens.lens (\AssociateRoutingProfileQueues' {instanceId} -> instanceId) (\s@AssociateRoutingProfileQueues' {} a -> s {instanceId = a} :: AssociateRoutingProfileQueues)
 
 -- | The identifier of the routing profile.
-arpqRoutingProfileId :: Lens' AssociateRoutingProfileQueues Text
-arpqRoutingProfileId = lens _arpqRoutingProfileId (\s a -> s {_arpqRoutingProfileId = a})
+associateRoutingProfileQueues_routingProfileId :: Lens.Lens' AssociateRoutingProfileQueues Prelude.Text
+associateRoutingProfileQueues_routingProfileId = Lens.lens (\AssociateRoutingProfileQueues' {routingProfileId} -> routingProfileId) (\s@AssociateRoutingProfileQueues' {} a -> s {routingProfileId = a} :: AssociateRoutingProfileQueues)
 
 -- | The queues to associate with this routing profile.
-arpqQueueConfigs :: Lens' AssociateRoutingProfileQueues (NonEmpty RoutingProfileQueueConfig)
-arpqQueueConfigs = lens _arpqQueueConfigs (\s a -> s {_arpqQueueConfigs = a}) . _List1
+associateRoutingProfileQueues_queueConfigs :: Lens.Lens' AssociateRoutingProfileQueues (Prelude.NonEmpty RoutingProfileQueueConfig)
+associateRoutingProfileQueues_queueConfigs = Lens.lens (\AssociateRoutingProfileQueues' {queueConfigs} -> queueConfigs) (\s@AssociateRoutingProfileQueues' {} a -> s {queueConfigs = a} :: AssociateRoutingProfileQueues) Prelude.. Prelude._List1
 
-instance AWSRequest AssociateRoutingProfileQueues where
+instance
+  Prelude.AWSRequest
+    AssociateRoutingProfileQueues
+  where
   type
     Rs AssociateRoutingProfileQueues =
       AssociateRoutingProfileQueuesResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull AssociateRoutingProfileQueuesResponse'
+    Response.receiveNull
+      AssociateRoutingProfileQueuesResponse'
 
-instance Hashable AssociateRoutingProfileQueues
+instance
+  Prelude.Hashable
+    AssociateRoutingProfileQueues
 
-instance NFData AssociateRoutingProfileQueues
+instance Prelude.NFData AssociateRoutingProfileQueues
 
-instance ToHeaders AssociateRoutingProfileQueues where
+instance
+  Prelude.ToHeaders
+    AssociateRoutingProfileQueues
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateRoutingProfileQueues where
+instance Prelude.ToJSON AssociateRoutingProfileQueues where
   toJSON AssociateRoutingProfileQueues' {..} =
-    object
-      ( catMaybes
-          [Just ("QueueConfigs" .= _arpqQueueConfigs)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("QueueConfigs" Prelude..= queueConfigs)
+          ]
       )
 
-instance ToPath AssociateRoutingProfileQueues where
+instance Prelude.ToPath AssociateRoutingProfileQueues where
   toPath AssociateRoutingProfileQueues' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/routing-profiles/",
-        toBS _arpqInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _arpqRoutingProfileId,
+        Prelude.toBS routingProfileId,
         "/associate-queues"
       ]
 
-instance ToQuery AssociateRoutingProfileQueues where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    AssociateRoutingProfileQueues
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateRoutingProfileQueuesResponse' smart constructor.
+-- | /See:/ 'newAssociateRoutingProfileQueuesResponse' smart constructor.
 data AssociateRoutingProfileQueuesResponse = AssociateRoutingProfileQueuesResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateRoutingProfileQueuesResponse' with the minimum fields required to make a request.
-associateRoutingProfileQueuesResponse ::
+-- |
+-- Create a value of 'AssociateRoutingProfileQueuesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAssociateRoutingProfileQueuesResponse ::
   AssociateRoutingProfileQueuesResponse
-associateRoutingProfileQueuesResponse =
+newAssociateRoutingProfileQueuesResponse =
   AssociateRoutingProfileQueuesResponse'
 
-instance NFData AssociateRoutingProfileQueuesResponse
+instance
+  Prelude.NFData
+    AssociateRoutingProfileQueuesResponse

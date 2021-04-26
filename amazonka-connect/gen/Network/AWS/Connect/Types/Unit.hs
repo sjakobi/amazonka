@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.Connect.Types.Unit
   ( Unit
       ( ..,
-        Count,
-        Percent,
-        Seconds
+        UnitCOUNT,
+        UnitPERCENT,
+        UnitSECONDS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Unit = Unit' (CI Text)
+newtype Unit = Unit' {fromUnit :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Count :: Unit
-pattern Count = Unit' "COUNT"
+pattern UnitCOUNT :: Unit
+pattern UnitCOUNT = Unit' "COUNT"
 
-pattern Percent :: Unit
-pattern Percent = Unit' "PERCENT"
+pattern UnitPERCENT :: Unit
+pattern UnitPERCENT = Unit' "PERCENT"
 
-pattern Seconds :: Unit
-pattern Seconds = Unit' "SECONDS"
+pattern UnitSECONDS :: Unit
+pattern UnitSECONDS = Unit' "SECONDS"
 
 {-# COMPLETE
-  Count,
-  Percent,
-  Seconds,
+  UnitCOUNT,
+  UnitPERCENT,
+  UnitSECONDS,
   Unit'
   #-}
 
-instance FromText Unit where
-  parser = (Unit' . mk) <$> takeText
+instance Prelude.FromText Unit where
+  parser = Unit' Prelude.<$> Prelude.takeText
 
-instance ToText Unit where
-  toText (Unit' ci) = original ci
+instance Prelude.ToText Unit where
+  toText (Unit' x) = x
 
-instance Hashable Unit
+instance Prelude.Hashable Unit
 
-instance NFData Unit
+instance Prelude.NFData Unit
 
-instance ToByteString Unit
+instance Prelude.ToByteString Unit
 
-instance ToQuery Unit
+instance Prelude.ToQuery Unit
 
-instance ToHeader Unit
+instance Prelude.ToHeader Unit
 
-instance ToJSON Unit where
-  toJSON = toJSONText
+instance Prelude.ToJSON Unit where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Unit where
-  parseJSON = parseJSONText "Unit"
+instance Prelude.FromJSON Unit where
+  parseJSON = Prelude.parseJSONText "Unit"

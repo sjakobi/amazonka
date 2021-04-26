@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,128 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Associates an approved origin to an Amazon Connect instance.
 module Network.AWS.Connect.AssociateApprovedOrigin
   ( -- * Creating a Request
-    associateApprovedOrigin,
-    AssociateApprovedOrigin,
+    AssociateApprovedOrigin (..),
+    newAssociateApprovedOrigin,
 
     -- * Request Lenses
-    aaoInstanceId,
-    aaoOrigin,
+    associateApprovedOrigin_instanceId,
+    associateApprovedOrigin_origin,
 
     -- * Destructuring the Response
-    associateApprovedOriginResponse,
-    AssociateApprovedOriginResponse,
+    AssociateApprovedOriginResponse (..),
+    newAssociateApprovedOriginResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateApprovedOrigin' smart constructor.
+-- | /See:/ 'newAssociateApprovedOrigin' smart constructor.
 data AssociateApprovedOrigin = AssociateApprovedOrigin'
-  { _aaoInstanceId ::
-      !Text,
-    _aaoOrigin :: !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The domain to add to your allow list.
+    origin :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateApprovedOrigin' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateApprovedOrigin' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaoInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aaoOrigin' - The domain to add to your allow list.
-associateApprovedOrigin ::
-  -- | 'aaoInstanceId'
-  Text ->
-  -- | 'aaoOrigin'
-  Text ->
+-- 'instanceId', 'associateApprovedOrigin_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'origin', 'associateApprovedOrigin_origin' - The domain to add to your allow list.
+newAssociateApprovedOrigin ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'origin'
+  Prelude.Text ->
   AssociateApprovedOrigin
-associateApprovedOrigin pInstanceId_ pOrigin_ =
+newAssociateApprovedOrigin pInstanceId_ pOrigin_ =
   AssociateApprovedOrigin'
-    { _aaoInstanceId =
-        pInstanceId_,
-      _aaoOrigin = pOrigin_
+    { instanceId = pInstanceId_,
+      origin = pOrigin_
     }
 
 -- | The identifier of the Amazon Connect instance.
-aaoInstanceId :: Lens' AssociateApprovedOrigin Text
-aaoInstanceId = lens _aaoInstanceId (\s a -> s {_aaoInstanceId = a})
+associateApprovedOrigin_instanceId :: Lens.Lens' AssociateApprovedOrigin Prelude.Text
+associateApprovedOrigin_instanceId = Lens.lens (\AssociateApprovedOrigin' {instanceId} -> instanceId) (\s@AssociateApprovedOrigin' {} a -> s {instanceId = a} :: AssociateApprovedOrigin)
 
 -- | The domain to add to your allow list.
-aaoOrigin :: Lens' AssociateApprovedOrigin Text
-aaoOrigin = lens _aaoOrigin (\s a -> s {_aaoOrigin = a})
+associateApprovedOrigin_origin :: Lens.Lens' AssociateApprovedOrigin Prelude.Text
+associateApprovedOrigin_origin = Lens.lens (\AssociateApprovedOrigin' {origin} -> origin) (\s@AssociateApprovedOrigin' {} a -> s {origin = a} :: AssociateApprovedOrigin)
 
-instance AWSRequest AssociateApprovedOrigin where
+instance Prelude.AWSRequest AssociateApprovedOrigin where
   type
     Rs AssociateApprovedOrigin =
       AssociateApprovedOriginResponse
-  request = putJSON connect
+  request = Request.putJSON defaultService
   response =
-    receiveNull AssociateApprovedOriginResponse'
+    Response.receiveNull
+      AssociateApprovedOriginResponse'
 
-instance Hashable AssociateApprovedOrigin
+instance Prelude.Hashable AssociateApprovedOrigin
 
-instance NFData AssociateApprovedOrigin
+instance Prelude.NFData AssociateApprovedOrigin
 
-instance ToHeaders AssociateApprovedOrigin where
+instance Prelude.ToHeaders AssociateApprovedOrigin where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateApprovedOrigin where
+instance Prelude.ToJSON AssociateApprovedOrigin where
   toJSON AssociateApprovedOrigin' {..} =
-    object (catMaybes [Just ("Origin" .= _aaoOrigin)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Origin" Prelude..= origin)]
+      )
 
-instance ToPath AssociateApprovedOrigin where
+instance Prelude.ToPath AssociateApprovedOrigin where
   toPath AssociateApprovedOrigin' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _aaoInstanceId,
+        Prelude.toBS instanceId,
         "/approved-origin"
       ]
 
-instance ToQuery AssociateApprovedOrigin where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateApprovedOrigin where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateApprovedOriginResponse' smart constructor.
+-- | /See:/ 'newAssociateApprovedOriginResponse' smart constructor.
 data AssociateApprovedOriginResponse = AssociateApprovedOriginResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateApprovedOriginResponse' with the minimum fields required to make a request.
-associateApprovedOriginResponse ::
+-- |
+-- Create a value of 'AssociateApprovedOriginResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAssociateApprovedOriginResponse ::
   AssociateApprovedOriginResponse
-associateApprovedOriginResponse =
+newAssociateApprovedOriginResponse =
   AssociateApprovedOriginResponse'
 
-instance NFData AssociateApprovedOriginResponse
+instance
+  Prelude.NFData
+    AssociateApprovedOriginResponse

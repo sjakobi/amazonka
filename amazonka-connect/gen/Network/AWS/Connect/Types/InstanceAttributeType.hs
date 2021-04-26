@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,85 +19,83 @@
 module Network.AWS.Connect.Types.InstanceAttributeType
   ( InstanceAttributeType
       ( ..,
-        AutoResolveBestVoices,
-        ContactLens,
-        ContactflowLogs,
-        EarlyMedia,
-        InboundCalls,
-        OutboundCalls,
-        UseCustomTtsVoices
+        InstanceAttributeTypeAUTORESOLVEBESTVOICES,
+        InstanceAttributeTypeCONTACTFLOWLOGS,
+        InstanceAttributeTypeCONTACTLENS,
+        InstanceAttributeTypeEARLYMEDIA,
+        InstanceAttributeTypeINBOUNDCALLS,
+        InstanceAttributeTypeOUTBOUNDCALLS,
+        InstanceAttributeTypeUSECUSTOMTTSVOICES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceAttributeType
-  = InstanceAttributeType'
-      ( CI
-          Text
-      )
+newtype InstanceAttributeType = InstanceAttributeType'
+  { fromInstanceAttributeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AutoResolveBestVoices :: InstanceAttributeType
-pattern AutoResolveBestVoices = InstanceAttributeType' "AUTO_RESOLVE_BEST_VOICES"
+pattern InstanceAttributeTypeAUTORESOLVEBESTVOICES :: InstanceAttributeType
+pattern InstanceAttributeTypeAUTORESOLVEBESTVOICES = InstanceAttributeType' "AUTO_RESOLVE_BEST_VOICES"
 
-pattern ContactLens :: InstanceAttributeType
-pattern ContactLens = InstanceAttributeType' "CONTACT_LENS"
+pattern InstanceAttributeTypeCONTACTFLOWLOGS :: InstanceAttributeType
+pattern InstanceAttributeTypeCONTACTFLOWLOGS = InstanceAttributeType' "CONTACTFLOW_LOGS"
 
-pattern ContactflowLogs :: InstanceAttributeType
-pattern ContactflowLogs = InstanceAttributeType' "CONTACTFLOW_LOGS"
+pattern InstanceAttributeTypeCONTACTLENS :: InstanceAttributeType
+pattern InstanceAttributeTypeCONTACTLENS = InstanceAttributeType' "CONTACT_LENS"
 
-pattern EarlyMedia :: InstanceAttributeType
-pattern EarlyMedia = InstanceAttributeType' "EARLY_MEDIA"
+pattern InstanceAttributeTypeEARLYMEDIA :: InstanceAttributeType
+pattern InstanceAttributeTypeEARLYMEDIA = InstanceAttributeType' "EARLY_MEDIA"
 
-pattern InboundCalls :: InstanceAttributeType
-pattern InboundCalls = InstanceAttributeType' "INBOUND_CALLS"
+pattern InstanceAttributeTypeINBOUNDCALLS :: InstanceAttributeType
+pattern InstanceAttributeTypeINBOUNDCALLS = InstanceAttributeType' "INBOUND_CALLS"
 
-pattern OutboundCalls :: InstanceAttributeType
-pattern OutboundCalls = InstanceAttributeType' "OUTBOUND_CALLS"
+pattern InstanceAttributeTypeOUTBOUNDCALLS :: InstanceAttributeType
+pattern InstanceAttributeTypeOUTBOUNDCALLS = InstanceAttributeType' "OUTBOUND_CALLS"
 
-pattern UseCustomTtsVoices :: InstanceAttributeType
-pattern UseCustomTtsVoices = InstanceAttributeType' "USE_CUSTOM_TTS_VOICES"
+pattern InstanceAttributeTypeUSECUSTOMTTSVOICES :: InstanceAttributeType
+pattern InstanceAttributeTypeUSECUSTOMTTSVOICES = InstanceAttributeType' "USE_CUSTOM_TTS_VOICES"
 
 {-# COMPLETE
-  AutoResolveBestVoices,
-  ContactLens,
-  ContactflowLogs,
-  EarlyMedia,
-  InboundCalls,
-  OutboundCalls,
-  UseCustomTtsVoices,
+  InstanceAttributeTypeAUTORESOLVEBESTVOICES,
+  InstanceAttributeTypeCONTACTFLOWLOGS,
+  InstanceAttributeTypeCONTACTLENS,
+  InstanceAttributeTypeEARLYMEDIA,
+  InstanceAttributeTypeINBOUNDCALLS,
+  InstanceAttributeTypeOUTBOUNDCALLS,
+  InstanceAttributeTypeUSECUSTOMTTSVOICES,
   InstanceAttributeType'
   #-}
 
-instance FromText InstanceAttributeType where
-  parser = (InstanceAttributeType' . mk) <$> takeText
+instance Prelude.FromText InstanceAttributeType where
+  parser = InstanceAttributeType' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceAttributeType where
-  toText (InstanceAttributeType' ci) = original ci
+instance Prelude.ToText InstanceAttributeType where
+  toText (InstanceAttributeType' x) = x
 
-instance Hashable InstanceAttributeType
+instance Prelude.Hashable InstanceAttributeType
 
-instance NFData InstanceAttributeType
+instance Prelude.NFData InstanceAttributeType
 
-instance ToByteString InstanceAttributeType
+instance Prelude.ToByteString InstanceAttributeType
 
-instance ToQuery InstanceAttributeType
+instance Prelude.ToQuery InstanceAttributeType
 
-instance ToHeader InstanceAttributeType
+instance Prelude.ToHeader InstanceAttributeType
 
-instance ToJSON InstanceAttributeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceAttributeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InstanceAttributeType where
-  parseJSON = parseJSONText "InstanceAttributeType"
+instance Prelude.FromJSON InstanceAttributeType where
+  parseJSON = Prelude.parseJSONText "InstanceAttributeType"

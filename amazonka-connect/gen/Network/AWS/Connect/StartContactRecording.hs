@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,192 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts recording the contact when the agent joins the call. StartContactRecording is a one-time action. For example, if you use StopContactRecording to stop recording an ongoing call, you can't use StartContactRecording to restart it. For scenarios where the recording has started and you want to suspend and resume it, such as when collecting sensitive information (for example, a credit card number), use SuspendContactRecording and ResumeContactRecording.
+-- Starts recording the contact when the agent joins the call.
+-- StartContactRecording is a one-time action. For example, if you use
+-- StopContactRecording to stop recording an ongoing call, you can\'t use
+-- StartContactRecording to restart it. For scenarios where the recording
+-- has started and you want to suspend and resume it, such as when
+-- collecting sensitive information (for example, a credit card number),
+-- use SuspendContactRecording and ResumeContactRecording.
 --
---
--- You can use this API to override the recording behavior configured in the <https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html Set recording behavior> block.
+-- You can use this API to override the recording behavior configured in
+-- the
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html Set recording behavior>
+-- block.
 --
 -- Only voice recordings are supported at this time.
 module Network.AWS.Connect.StartContactRecording
   ( -- * Creating a Request
-    startContactRecording,
-    StartContactRecording,
+    StartContactRecording (..),
+    newStartContactRecording,
 
     -- * Request Lenses
-    sInstanceId,
-    sContactId,
-    sInitialContactId,
-    sVoiceRecordingConfiguration,
+    startContactRecording_instanceId,
+    startContactRecording_contactId,
+    startContactRecording_initialContactId,
+    startContactRecording_voiceRecordingConfiguration,
 
     -- * Destructuring the Response
-    startContactRecordingResponse,
-    StartContactRecordingResponse,
+    StartContactRecordingResponse (..),
+    newStartContactRecordingResponse,
 
     -- * Response Lenses
-    srsResponseStatus,
+    startContactRecordingResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startContactRecording' smart constructor.
+-- | /See:/ 'newStartContactRecording' smart constructor.
 data StartContactRecording = StartContactRecording'
-  { _sInstanceId ::
-      !Text,
-    _sContactId :: !Text,
-    _sInitialContactId :: !Text,
-    _sVoiceRecordingConfiguration ::
-      !VoiceRecordingConfiguration
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the contact.
+    contactId :: Prelude.Text,
+    -- | The identifier of the contact. This is the identifier of the contact
+    -- associated with the first interaction with the contact center.
+    initialContactId :: Prelude.Text,
+    -- | The person being recorded.
+    voiceRecordingConfiguration :: VoiceRecordingConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartContactRecording' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartContactRecording' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sContactId' - The identifier of the contact.
+-- 'instanceId', 'startContactRecording_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'sInitialContactId' - The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.
+-- 'contactId', 'startContactRecording_contactId' - The identifier of the contact.
 --
--- * 'sVoiceRecordingConfiguration' - The person being recorded.
-startContactRecording ::
-  -- | 'sInstanceId'
-  Text ->
-  -- | 'sContactId'
-  Text ->
-  -- | 'sInitialContactId'
-  Text ->
-  -- | 'sVoiceRecordingConfiguration'
+-- 'initialContactId', 'startContactRecording_initialContactId' - The identifier of the contact. This is the identifier of the contact
+-- associated with the first interaction with the contact center.
+--
+-- 'voiceRecordingConfiguration', 'startContactRecording_voiceRecordingConfiguration' - The person being recorded.
+newStartContactRecording ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'contactId'
+  Prelude.Text ->
+  -- | 'initialContactId'
+  Prelude.Text ->
+  -- | 'voiceRecordingConfiguration'
   VoiceRecordingConfiguration ->
   StartContactRecording
-startContactRecording
+newStartContactRecording
   pInstanceId_
   pContactId_
   pInitialContactId_
   pVoiceRecordingConfiguration_ =
     StartContactRecording'
-      { _sInstanceId = pInstanceId_,
-        _sContactId = pContactId_,
-        _sInitialContactId = pInitialContactId_,
-        _sVoiceRecordingConfiguration =
+      { instanceId = pInstanceId_,
+        contactId = pContactId_,
+        initialContactId = pInitialContactId_,
+        voiceRecordingConfiguration =
           pVoiceRecordingConfiguration_
       }
 
 -- | The identifier of the Amazon Connect instance.
-sInstanceId :: Lens' StartContactRecording Text
-sInstanceId = lens _sInstanceId (\s a -> s {_sInstanceId = a})
+startContactRecording_instanceId :: Lens.Lens' StartContactRecording Prelude.Text
+startContactRecording_instanceId = Lens.lens (\StartContactRecording' {instanceId} -> instanceId) (\s@StartContactRecording' {} a -> s {instanceId = a} :: StartContactRecording)
 
 -- | The identifier of the contact.
-sContactId :: Lens' StartContactRecording Text
-sContactId = lens _sContactId (\s a -> s {_sContactId = a})
+startContactRecording_contactId :: Lens.Lens' StartContactRecording Prelude.Text
+startContactRecording_contactId = Lens.lens (\StartContactRecording' {contactId} -> contactId) (\s@StartContactRecording' {} a -> s {contactId = a} :: StartContactRecording)
 
--- | The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.
-sInitialContactId :: Lens' StartContactRecording Text
-sInitialContactId = lens _sInitialContactId (\s a -> s {_sInitialContactId = a})
+-- | The identifier of the contact. This is the identifier of the contact
+-- associated with the first interaction with the contact center.
+startContactRecording_initialContactId :: Lens.Lens' StartContactRecording Prelude.Text
+startContactRecording_initialContactId = Lens.lens (\StartContactRecording' {initialContactId} -> initialContactId) (\s@StartContactRecording' {} a -> s {initialContactId = a} :: StartContactRecording)
 
 -- | The person being recorded.
-sVoiceRecordingConfiguration :: Lens' StartContactRecording VoiceRecordingConfiguration
-sVoiceRecordingConfiguration = lens _sVoiceRecordingConfiguration (\s a -> s {_sVoiceRecordingConfiguration = a})
+startContactRecording_voiceRecordingConfiguration :: Lens.Lens' StartContactRecording VoiceRecordingConfiguration
+startContactRecording_voiceRecordingConfiguration = Lens.lens (\StartContactRecording' {voiceRecordingConfiguration} -> voiceRecordingConfiguration) (\s@StartContactRecording' {} a -> s {voiceRecordingConfiguration = a} :: StartContactRecording)
 
-instance AWSRequest StartContactRecording where
+instance Prelude.AWSRequest StartContactRecording where
   type
     Rs StartContactRecording =
       StartContactRecordingResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           StartContactRecordingResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartContactRecording
+instance Prelude.Hashable StartContactRecording
 
-instance NFData StartContactRecording
+instance Prelude.NFData StartContactRecording
 
-instance ToHeaders StartContactRecording where
+instance Prelude.ToHeaders StartContactRecording where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartContactRecording where
+instance Prelude.ToJSON StartContactRecording where
   toJSON StartContactRecording' {..} =
-    object
-      ( catMaybes
-          [ Just ("InstanceId" .= _sInstanceId),
-            Just ("ContactId" .= _sContactId),
-            Just ("InitialContactId" .= _sInitialContactId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("InstanceId" Prelude..= instanceId),
+            Prelude.Just ("ContactId" Prelude..= contactId),
+            Prelude.Just
+              ("InitialContactId" Prelude..= initialContactId),
+            Prelude.Just
               ( "VoiceRecordingConfiguration"
-                  .= _sVoiceRecordingConfiguration
+                  Prelude..= voiceRecordingConfiguration
               )
           ]
       )
 
-instance ToPath StartContactRecording where
-  toPath = const "/contact/start-recording"
+instance Prelude.ToPath StartContactRecording where
+  toPath = Prelude.const "/contact/start-recording"
 
-instance ToQuery StartContactRecording where
-  toQuery = const mempty
+instance Prelude.ToQuery StartContactRecording where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startContactRecordingResponse' smart constructor.
-newtype StartContactRecordingResponse = StartContactRecordingResponse'
-  { _srsResponseStatus ::
-      Int
+-- | /See:/ 'newStartContactRecordingResponse' smart constructor.
+data StartContactRecordingResponse = StartContactRecordingResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartContactRecordingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartContactRecordingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsResponseStatus' - -- | The response status code.
-startContactRecordingResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startContactRecordingResponse_httpStatus' - The response's http status code.
+newStartContactRecordingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartContactRecordingResponse
-startContactRecordingResponse pResponseStatus_ =
+newStartContactRecordingResponse pHttpStatus_ =
   StartContactRecordingResponse'
-    { _srsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StartContactRecordingResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+startContactRecordingResponse_httpStatus :: Lens.Lens' StartContactRecordingResponse Prelude.Int
+startContactRecordingResponse_httpStatus = Lens.lens (\StartContactRecordingResponse' {httpStatus} -> httpStatus) (\s@StartContactRecordingResponse' {} a -> s {httpStatus = a} :: StartContactRecordingResponse)
 
-instance NFData StartContactRecordingResponse
+instance Prelude.NFData StartContactRecordingResponse

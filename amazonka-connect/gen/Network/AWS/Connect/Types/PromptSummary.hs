@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Connect.Types.PromptSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the prompt.
 --
---
---
--- /See:/ 'promptSummary' smart constructor.
+-- /See:/ 'newPromptSummary' smart constructor.
 data PromptSummary = PromptSummary'
-  { _psARN ::
-      !(Maybe Text),
-    _psId :: !(Maybe Text),
-    _psName :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the prompt.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the prompt.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the prompt.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PromptSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PromptSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psARN' - The Amazon Resource Name (ARN) of the prompt.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psId' - The identifier of the prompt.
+-- 'arn', 'promptSummary_arn' - The Amazon Resource Name (ARN) of the prompt.
 --
--- * 'psName' - The name of the prompt.
-promptSummary ::
+-- 'id', 'promptSummary_id' - The identifier of the prompt.
+--
+-- 'name', 'promptSummary_name' - The name of the prompt.
+newPromptSummary ::
   PromptSummary
-promptSummary =
+newPromptSummary =
   PromptSummary'
-    { _psARN = Nothing,
-      _psId = Nothing,
-      _psName = Nothing
+    { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the prompt.
-psARN :: Lens' PromptSummary (Maybe Text)
-psARN = lens _psARN (\s a -> s {_psARN = a})
+promptSummary_arn :: Lens.Lens' PromptSummary (Prelude.Maybe Prelude.Text)
+promptSummary_arn = Lens.lens (\PromptSummary' {arn} -> arn) (\s@PromptSummary' {} a -> s {arn = a} :: PromptSummary)
 
 -- | The identifier of the prompt.
-psId :: Lens' PromptSummary (Maybe Text)
-psId = lens _psId (\s a -> s {_psId = a})
+promptSummary_id :: Lens.Lens' PromptSummary (Prelude.Maybe Prelude.Text)
+promptSummary_id = Lens.lens (\PromptSummary' {id} -> id) (\s@PromptSummary' {} a -> s {id = a} :: PromptSummary)
 
 -- | The name of the prompt.
-psName :: Lens' PromptSummary (Maybe Text)
-psName = lens _psName (\s a -> s {_psName = a})
+promptSummary_name :: Lens.Lens' PromptSummary (Prelude.Maybe Prelude.Text)
+promptSummary_name = Lens.lens (\PromptSummary' {name} -> name) (\s@PromptSummary' {} a -> s {name = a} :: PromptSummary)
 
-instance FromJSON PromptSummary where
+instance Prelude.FromJSON PromptSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PromptSummary"
       ( \x ->
           PromptSummary'
-            <$> (x .:? "Arn") <*> (x .:? "Id") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable PromptSummary
+instance Prelude.Hashable PromptSummary
 
-instance NFData PromptSummary
+instance Prelude.NFData PromptSummary

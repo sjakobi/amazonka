@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,240 +23,314 @@
 --
 -- Creates a user account for the specified Amazon Connect instance.
 --
---
--- For information about how to create user accounts using the Amazon Connect console, see <https://docs.aws.amazon.com/connect/latest/adminguide/user-management.html Add Users> in the /Amazon Connect Administrator Guide/ .
+-- For information about how to create user accounts using the Amazon
+-- Connect console, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/user-management.html Add Users>
+-- in the /Amazon Connect Administrator Guide/.
 module Network.AWS.Connect.CreateUser
   ( -- * Creating a Request
-    createUser,
-    CreateUser,
+    CreateUser (..),
+    newCreateUser,
 
     -- * Request Lenses
-    cuIdentityInfo,
-    cuHierarchyGroupId,
-    cuDirectoryUserId,
-    cuPassword,
-    cuTags,
-    cuUsername,
-    cuPhoneConfig,
-    cuSecurityProfileIds,
-    cuRoutingProfileId,
-    cuInstanceId,
+    createUser_identityInfo,
+    createUser_hierarchyGroupId,
+    createUser_directoryUserId,
+    createUser_password,
+    createUser_tags,
+    createUser_username,
+    createUser_phoneConfig,
+    createUser_securityProfileIds,
+    createUser_routingProfileId,
+    createUser_instanceId,
 
     -- * Destructuring the Response
-    createUserResponse,
-    CreateUserResponse,
+    CreateUserResponse (..),
+    newCreateUserResponse,
 
     -- * Response Lenses
-    currsUserARN,
-    currsUserId,
-    currsResponseStatus,
+    createUserResponse_userArn,
+    createUserResponse_userId,
+    createUserResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createUser' smart constructor.
+-- | /See:/ 'newCreateUser' smart constructor.
 data CreateUser = CreateUser'
-  { _cuIdentityInfo ::
-      !(Maybe UserIdentityInfo),
-    _cuHierarchyGroupId :: !(Maybe Text),
-    _cuDirectoryUserId :: !(Maybe Text),
-    _cuPassword :: !(Maybe Text),
-    _cuTags :: !(Maybe (Map Text Text)),
-    _cuUsername :: !Text,
-    _cuPhoneConfig :: !UserPhoneConfig,
-    _cuSecurityProfileIds :: !(List1 Text),
-    _cuRoutingProfileId :: !Text,
-    _cuInstanceId :: !Text
+  { -- | The information about the identity of the user.
+    identityInfo :: Prelude.Maybe UserIdentityInfo,
+    -- | The identifier of the hierarchy group for the user.
+    hierarchyGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the user account in the directory used for identity
+    -- management. If Amazon Connect cannot access the directory, you can
+    -- specify this identifier to authenticate users. If you include the
+    -- identifier, we assume that Amazon Connect cannot access the directory.
+    -- Otherwise, the identity information is used to authenticate users from
+    -- your directory.
+    --
+    -- This parameter is required if you are using an existing directory for
+    -- identity management in Amazon Connect when Amazon Connect cannot access
+    -- your directory to authenticate users. If you are using SAML for identity
+    -- management and include this parameter, an error is returned.
+    directoryUserId :: Prelude.Maybe Prelude.Text,
+    -- | The password for the user account. A password is required if you are
+    -- using Amazon Connect for identity management. Otherwise, it is an error
+    -- to include a password.
+    password :: Prelude.Maybe Prelude.Text,
+    -- | One or more tags.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The user name for the account. For instances not using SAML for identity
+    -- management, the user name can include up to 20 characters. If you are
+    -- using SAML for identity management, the user name can include up to 64
+    -- characters from [a-zA-Z0-9_-.\\\@]+.
+    username :: Prelude.Text,
+    -- | The phone settings for the user.
+    phoneConfig :: UserPhoneConfig,
+    -- | The identifier of the security profile for the user.
+    securityProfileIds :: Prelude.List1 Prelude.Text,
+    -- | The identifier of the routing profile for the user.
+    routingProfileId :: Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cuIdentityInfo' - The information about the identity of the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cuHierarchyGroupId' - The identifier of the hierarchy group for the user.
+-- 'identityInfo', 'createUser_identityInfo' - The information about the identity of the user.
 --
--- * 'cuDirectoryUserId' - The identifier of the user account in the directory used for identity management. If Amazon Connect cannot access the directory, you can specify this identifier to authenticate users. If you include the identifier, we assume that Amazon Connect cannot access the directory. Otherwise, the identity information is used to authenticate users from your directory. This parameter is required if you are using an existing directory for identity management in Amazon Connect when Amazon Connect cannot access your directory to authenticate users. If you are using SAML for identity management and include this parameter, an error is returned.
+-- 'hierarchyGroupId', 'createUser_hierarchyGroupId' - The identifier of the hierarchy group for the user.
 --
--- * 'cuPassword' - The password for the user account. A password is required if you are using Amazon Connect for identity management. Otherwise, it is an error to include a password.
+-- 'directoryUserId', 'createUser_directoryUserId' - The identifier of the user account in the directory used for identity
+-- management. If Amazon Connect cannot access the directory, you can
+-- specify this identifier to authenticate users. If you include the
+-- identifier, we assume that Amazon Connect cannot access the directory.
+-- Otherwise, the identity information is used to authenticate users from
+-- your directory.
 --
--- * 'cuTags' - One or more tags.
+-- This parameter is required if you are using an existing directory for
+-- identity management in Amazon Connect when Amazon Connect cannot access
+-- your directory to authenticate users. If you are using SAML for identity
+-- management and include this parameter, an error is returned.
 --
--- * 'cuUsername' - The user name for the account. For instances not using SAML for identity management, the user name can include up to 20 characters. If you are using SAML for identity management, the user name can include up to 64 characters from [a-zA-Z0-9_-.\@]+.
+-- 'password', 'createUser_password' - The password for the user account. A password is required if you are
+-- using Amazon Connect for identity management. Otherwise, it is an error
+-- to include a password.
 --
--- * 'cuPhoneConfig' - The phone settings for the user.
+-- 'tags', 'createUser_tags' - One or more tags.
 --
--- * 'cuSecurityProfileIds' - The identifier of the security profile for the user.
+-- 'username', 'createUser_username' - The user name for the account. For instances not using SAML for identity
+-- management, the user name can include up to 20 characters. If you are
+-- using SAML for identity management, the user name can include up to 64
+-- characters from [a-zA-Z0-9_-.\\\@]+.
 --
--- * 'cuRoutingProfileId' - The identifier of the routing profile for the user.
+-- 'phoneConfig', 'createUser_phoneConfig' - The phone settings for the user.
 --
--- * 'cuInstanceId' - The identifier of the Amazon Connect instance.
-createUser ::
-  -- | 'cuUsername'
-  Text ->
-  -- | 'cuPhoneConfig'
+-- 'securityProfileIds', 'createUser_securityProfileIds' - The identifier of the security profile for the user.
+--
+-- 'routingProfileId', 'createUser_routingProfileId' - The identifier of the routing profile for the user.
+--
+-- 'instanceId', 'createUser_instanceId' - The identifier of the Amazon Connect instance.
+newCreateUser ::
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'phoneConfig'
   UserPhoneConfig ->
-  -- | 'cuSecurityProfileIds'
-  NonEmpty Text ->
-  -- | 'cuRoutingProfileId'
-  Text ->
-  -- | 'cuInstanceId'
-  Text ->
+  -- | 'securityProfileIds'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'routingProfileId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   CreateUser
-createUser
+newCreateUser
   pUsername_
   pPhoneConfig_
   pSecurityProfileIds_
   pRoutingProfileId_
   pInstanceId_ =
     CreateUser'
-      { _cuIdentityInfo = Nothing,
-        _cuHierarchyGroupId = Nothing,
-        _cuDirectoryUserId = Nothing,
-        _cuPassword = Nothing,
-        _cuTags = Nothing,
-        _cuUsername = pUsername_,
-        _cuPhoneConfig = pPhoneConfig_,
-        _cuSecurityProfileIds =
-          _List1 # pSecurityProfileIds_,
-        _cuRoutingProfileId = pRoutingProfileId_,
-        _cuInstanceId = pInstanceId_
+      { identityInfo = Prelude.Nothing,
+        hierarchyGroupId = Prelude.Nothing,
+        directoryUserId = Prelude.Nothing,
+        password = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        username = pUsername_,
+        phoneConfig = pPhoneConfig_,
+        securityProfileIds =
+          Prelude._List1 Lens.# pSecurityProfileIds_,
+        routingProfileId = pRoutingProfileId_,
+        instanceId = pInstanceId_
       }
 
 -- | The information about the identity of the user.
-cuIdentityInfo :: Lens' CreateUser (Maybe UserIdentityInfo)
-cuIdentityInfo = lens _cuIdentityInfo (\s a -> s {_cuIdentityInfo = a})
+createUser_identityInfo :: Lens.Lens' CreateUser (Prelude.Maybe UserIdentityInfo)
+createUser_identityInfo = Lens.lens (\CreateUser' {identityInfo} -> identityInfo) (\s@CreateUser' {} a -> s {identityInfo = a} :: CreateUser)
 
 -- | The identifier of the hierarchy group for the user.
-cuHierarchyGroupId :: Lens' CreateUser (Maybe Text)
-cuHierarchyGroupId = lens _cuHierarchyGroupId (\s a -> s {_cuHierarchyGroupId = a})
+createUser_hierarchyGroupId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_hierarchyGroupId = Lens.lens (\CreateUser' {hierarchyGroupId} -> hierarchyGroupId) (\s@CreateUser' {} a -> s {hierarchyGroupId = a} :: CreateUser)
 
--- | The identifier of the user account in the directory used for identity management. If Amazon Connect cannot access the directory, you can specify this identifier to authenticate users. If you include the identifier, we assume that Amazon Connect cannot access the directory. Otherwise, the identity information is used to authenticate users from your directory. This parameter is required if you are using an existing directory for identity management in Amazon Connect when Amazon Connect cannot access your directory to authenticate users. If you are using SAML for identity management and include this parameter, an error is returned.
-cuDirectoryUserId :: Lens' CreateUser (Maybe Text)
-cuDirectoryUserId = lens _cuDirectoryUserId (\s a -> s {_cuDirectoryUserId = a})
+-- | The identifier of the user account in the directory used for identity
+-- management. If Amazon Connect cannot access the directory, you can
+-- specify this identifier to authenticate users. If you include the
+-- identifier, we assume that Amazon Connect cannot access the directory.
+-- Otherwise, the identity information is used to authenticate users from
+-- your directory.
+--
+-- This parameter is required if you are using an existing directory for
+-- identity management in Amazon Connect when Amazon Connect cannot access
+-- your directory to authenticate users. If you are using SAML for identity
+-- management and include this parameter, an error is returned.
+createUser_directoryUserId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_directoryUserId = Lens.lens (\CreateUser' {directoryUserId} -> directoryUserId) (\s@CreateUser' {} a -> s {directoryUserId = a} :: CreateUser)
 
--- | The password for the user account. A password is required if you are using Amazon Connect for identity management. Otherwise, it is an error to include a password.
-cuPassword :: Lens' CreateUser (Maybe Text)
-cuPassword = lens _cuPassword (\s a -> s {_cuPassword = a})
+-- | The password for the user account. A password is required if you are
+-- using Amazon Connect for identity management. Otherwise, it is an error
+-- to include a password.
+createUser_password :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_password = Lens.lens (\CreateUser' {password} -> password) (\s@CreateUser' {} a -> s {password = a} :: CreateUser)
 
 -- | One or more tags.
-cuTags :: Lens' CreateUser (HashMap Text Text)
-cuTags = lens _cuTags (\s a -> s {_cuTags = a}) . _Default . _Map
+createUser_tags :: Lens.Lens' CreateUser (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createUser_tags = Lens.lens (\CreateUser' {tags} -> tags) (\s@CreateUser' {} a -> s {tags = a} :: CreateUser) Prelude.. Lens.mapping Prelude._Map
 
--- | The user name for the account. For instances not using SAML for identity management, the user name can include up to 20 characters. If you are using SAML for identity management, the user name can include up to 64 characters from [a-zA-Z0-9_-.\@]+.
-cuUsername :: Lens' CreateUser Text
-cuUsername = lens _cuUsername (\s a -> s {_cuUsername = a})
+-- | The user name for the account. For instances not using SAML for identity
+-- management, the user name can include up to 20 characters. If you are
+-- using SAML for identity management, the user name can include up to 64
+-- characters from [a-zA-Z0-9_-.\\\@]+.
+createUser_username :: Lens.Lens' CreateUser Prelude.Text
+createUser_username = Lens.lens (\CreateUser' {username} -> username) (\s@CreateUser' {} a -> s {username = a} :: CreateUser)
 
 -- | The phone settings for the user.
-cuPhoneConfig :: Lens' CreateUser UserPhoneConfig
-cuPhoneConfig = lens _cuPhoneConfig (\s a -> s {_cuPhoneConfig = a})
+createUser_phoneConfig :: Lens.Lens' CreateUser UserPhoneConfig
+createUser_phoneConfig = Lens.lens (\CreateUser' {phoneConfig} -> phoneConfig) (\s@CreateUser' {} a -> s {phoneConfig = a} :: CreateUser)
 
 -- | The identifier of the security profile for the user.
-cuSecurityProfileIds :: Lens' CreateUser (NonEmpty Text)
-cuSecurityProfileIds = lens _cuSecurityProfileIds (\s a -> s {_cuSecurityProfileIds = a}) . _List1
+createUser_securityProfileIds :: Lens.Lens' CreateUser (Prelude.NonEmpty Prelude.Text)
+createUser_securityProfileIds = Lens.lens (\CreateUser' {securityProfileIds} -> securityProfileIds) (\s@CreateUser' {} a -> s {securityProfileIds = a} :: CreateUser) Prelude.. Prelude._List1
 
 -- | The identifier of the routing profile for the user.
-cuRoutingProfileId :: Lens' CreateUser Text
-cuRoutingProfileId = lens _cuRoutingProfileId (\s a -> s {_cuRoutingProfileId = a})
+createUser_routingProfileId :: Lens.Lens' CreateUser Prelude.Text
+createUser_routingProfileId = Lens.lens (\CreateUser' {routingProfileId} -> routingProfileId) (\s@CreateUser' {} a -> s {routingProfileId = a} :: CreateUser)
 
 -- | The identifier of the Amazon Connect instance.
-cuInstanceId :: Lens' CreateUser Text
-cuInstanceId = lens _cuInstanceId (\s a -> s {_cuInstanceId = a})
+createUser_instanceId :: Lens.Lens' CreateUser Prelude.Text
+createUser_instanceId = Lens.lens (\CreateUser' {instanceId} -> instanceId) (\s@CreateUser' {} a -> s {instanceId = a} :: CreateUser)
 
-instance AWSRequest CreateUser where
+instance Prelude.AWSRequest CreateUser where
   type Rs CreateUser = CreateUserResponse
-  request = putJSON connect
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateUserResponse'
-            <$> (x .?> "UserArn")
-            <*> (x .?> "UserId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UserArn")
+            Prelude.<*> (x Prelude..?> "UserId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateUser
+instance Prelude.Hashable CreateUser
 
-instance NFData CreateUser
+instance Prelude.NFData CreateUser
 
-instance ToHeaders CreateUser where
+instance Prelude.ToHeaders CreateUser where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateUser where
+instance Prelude.ToJSON CreateUser where
   toJSON CreateUser' {..} =
-    object
-      ( catMaybes
-          [ ("IdentityInfo" .=) <$> _cuIdentityInfo,
-            ("HierarchyGroupId" .=) <$> _cuHierarchyGroupId,
-            ("DirectoryUserId" .=) <$> _cuDirectoryUserId,
-            ("Password" .=) <$> _cuPassword,
-            ("Tags" .=) <$> _cuTags,
-            Just ("Username" .= _cuUsername),
-            Just ("PhoneConfig" .= _cuPhoneConfig),
-            Just ("SecurityProfileIds" .= _cuSecurityProfileIds),
-            Just ("RoutingProfileId" .= _cuRoutingProfileId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IdentityInfo" Prelude..=)
+              Prelude.<$> identityInfo,
+            ("HierarchyGroupId" Prelude..=)
+              Prelude.<$> hierarchyGroupId,
+            ("DirectoryUserId" Prelude..=)
+              Prelude.<$> directoryUserId,
+            ("Password" Prelude..=) Prelude.<$> password,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("Username" Prelude..= username),
+            Prelude.Just ("PhoneConfig" Prelude..= phoneConfig),
+            Prelude.Just
+              ("SecurityProfileIds" Prelude..= securityProfileIds),
+            Prelude.Just
+              ("RoutingProfileId" Prelude..= routingProfileId)
           ]
       )
 
-instance ToPath CreateUser where
+instance Prelude.ToPath CreateUser where
   toPath CreateUser' {..} =
-    mconcat ["/users/", toBS _cuInstanceId]
+    Prelude.mconcat
+      ["/users/", Prelude.toBS instanceId]
 
-instance ToQuery CreateUser where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createUserResponse' smart constructor.
+-- | /See:/ 'newCreateUserResponse' smart constructor.
 data CreateUserResponse = CreateUserResponse'
-  { _currsUserARN ::
-      !(Maybe Text),
-    _currsUserId :: !(Maybe Text),
-    _currsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the user account.
+    userArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the user account.
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'currsUserARN' - The Amazon Resource Name (ARN) of the user account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'currsUserId' - The identifier of the user account.
+-- 'userArn', 'createUserResponse_userArn' - The Amazon Resource Name (ARN) of the user account.
 --
--- * 'currsResponseStatus' - -- | The response status code.
-createUserResponse ::
-  -- | 'currsResponseStatus'
-  Int ->
+-- 'userId', 'createUserResponse_userId' - The identifier of the user account.
+--
+-- 'httpStatus', 'createUserResponse_httpStatus' - The response's http status code.
+newCreateUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateUserResponse
-createUserResponse pResponseStatus_ =
+newCreateUserResponse pHttpStatus_ =
   CreateUserResponse'
-    { _currsUserARN = Nothing,
-      _currsUserId = Nothing,
-      _currsResponseStatus = pResponseStatus_
+    { userArn = Prelude.Nothing,
+      userId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the user account.
-currsUserARN :: Lens' CreateUserResponse (Maybe Text)
-currsUserARN = lens _currsUserARN (\s a -> s {_currsUserARN = a})
+createUserResponse_userArn :: Lens.Lens' CreateUserResponse (Prelude.Maybe Prelude.Text)
+createUserResponse_userArn = Lens.lens (\CreateUserResponse' {userArn} -> userArn) (\s@CreateUserResponse' {} a -> s {userArn = a} :: CreateUserResponse)
 
 -- | The identifier of the user account.
-currsUserId :: Lens' CreateUserResponse (Maybe Text)
-currsUserId = lens _currsUserId (\s a -> s {_currsUserId = a})
+createUserResponse_userId :: Lens.Lens' CreateUserResponse (Prelude.Maybe Prelude.Text)
+createUserResponse_userId = Lens.lens (\CreateUserResponse' {userId} -> userId) (\s@CreateUserResponse' {} a -> s {userId = a} :: CreateUserResponse)
 
--- | -- | The response status code.
-currsResponseStatus :: Lens' CreateUserResponse Int
-currsResponseStatus = lens _currsResponseStatus (\s a -> s {_currsResponseStatus = a})
+-- | The response's http status code.
+createUserResponse_httpStatus :: Lens.Lens' CreateUserResponse Prelude.Int
+createUserResponse_httpStatus = Lens.lens (\CreateUserResponse' {httpStatus} -> httpStatus) (\s@CreateUserResponse' {} a -> s {httpStatus = a} :: CreateUserResponse)
 
-instance NFData CreateUserResponse
+instance Prelude.NFData CreateUserResponse

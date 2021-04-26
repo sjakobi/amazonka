@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,151 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Updates the maximum number of contacts allowed in a queue before it is considered full.
+-- Updates the maximum number of contacts allowed in a queue before it is
+-- considered full.
 module Network.AWS.Connect.UpdateQueueMaxContacts
   ( -- * Creating a Request
-    updateQueueMaxContacts,
-    UpdateQueueMaxContacts,
+    UpdateQueueMaxContacts (..),
+    newUpdateQueueMaxContacts,
 
     -- * Request Lenses
-    uqmcInstanceId,
-    uqmcQueueId,
-    uqmcMaxContacts,
+    updateQueueMaxContacts_instanceId,
+    updateQueueMaxContacts_queueId,
+    updateQueueMaxContacts_maxContacts,
 
     -- * Destructuring the Response
-    updateQueueMaxContactsResponse,
-    UpdateQueueMaxContactsResponse,
+    UpdateQueueMaxContactsResponse (..),
+    newUpdateQueueMaxContactsResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateQueueMaxContacts' smart constructor.
+-- | /See:/ 'newUpdateQueueMaxContacts' smart constructor.
 data UpdateQueueMaxContacts = UpdateQueueMaxContacts'
-  { _uqmcInstanceId ::
-      !Text,
-    _uqmcQueueId :: !Text,
-    _uqmcMaxContacts :: !Nat
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the queue.
+    queueId :: Prelude.Text,
+    -- | The maximum number of contacts that can be in the queue before it is
+    -- considered full.
+    maxContacts :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueueMaxContacts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateQueueMaxContacts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uqmcInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uqmcQueueId' - The identifier for the queue.
+-- 'instanceId', 'updateQueueMaxContacts_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'uqmcMaxContacts' - The maximum number of contacts that can be in the queue before it is considered full.
-updateQueueMaxContacts ::
-  -- | 'uqmcInstanceId'
-  Text ->
-  -- | 'uqmcQueueId'
-  Text ->
-  -- | 'uqmcMaxContacts'
-  Natural ->
+-- 'queueId', 'updateQueueMaxContacts_queueId' - The identifier for the queue.
+--
+-- 'maxContacts', 'updateQueueMaxContacts_maxContacts' - The maximum number of contacts that can be in the queue before it is
+-- considered full.
+newUpdateQueueMaxContacts ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'queueId'
+  Prelude.Text ->
+  -- | 'maxContacts'
+  Prelude.Natural ->
   UpdateQueueMaxContacts
-updateQueueMaxContacts
+newUpdateQueueMaxContacts
   pInstanceId_
   pQueueId_
   pMaxContacts_ =
     UpdateQueueMaxContacts'
-      { _uqmcInstanceId =
-          pInstanceId_,
-        _uqmcQueueId = pQueueId_,
-        _uqmcMaxContacts = _Nat # pMaxContacts_
+      { instanceId = pInstanceId_,
+        queueId = pQueueId_,
+        maxContacts = Prelude._Nat Lens.# pMaxContacts_
       }
 
 -- | The identifier of the Amazon Connect instance.
-uqmcInstanceId :: Lens' UpdateQueueMaxContacts Text
-uqmcInstanceId = lens _uqmcInstanceId (\s a -> s {_uqmcInstanceId = a})
+updateQueueMaxContacts_instanceId :: Lens.Lens' UpdateQueueMaxContacts Prelude.Text
+updateQueueMaxContacts_instanceId = Lens.lens (\UpdateQueueMaxContacts' {instanceId} -> instanceId) (\s@UpdateQueueMaxContacts' {} a -> s {instanceId = a} :: UpdateQueueMaxContacts)
 
 -- | The identifier for the queue.
-uqmcQueueId :: Lens' UpdateQueueMaxContacts Text
-uqmcQueueId = lens _uqmcQueueId (\s a -> s {_uqmcQueueId = a})
+updateQueueMaxContacts_queueId :: Lens.Lens' UpdateQueueMaxContacts Prelude.Text
+updateQueueMaxContacts_queueId = Lens.lens (\UpdateQueueMaxContacts' {queueId} -> queueId) (\s@UpdateQueueMaxContacts' {} a -> s {queueId = a} :: UpdateQueueMaxContacts)
 
--- | The maximum number of contacts that can be in the queue before it is considered full.
-uqmcMaxContacts :: Lens' UpdateQueueMaxContacts Natural
-uqmcMaxContacts = lens _uqmcMaxContacts (\s a -> s {_uqmcMaxContacts = a}) . _Nat
+-- | The maximum number of contacts that can be in the queue before it is
+-- considered full.
+updateQueueMaxContacts_maxContacts :: Lens.Lens' UpdateQueueMaxContacts Prelude.Natural
+updateQueueMaxContacts_maxContacts = Lens.lens (\UpdateQueueMaxContacts' {maxContacts} -> maxContacts) (\s@UpdateQueueMaxContacts' {} a -> s {maxContacts = a} :: UpdateQueueMaxContacts) Prelude.. Prelude._Nat
 
-instance AWSRequest UpdateQueueMaxContacts where
+instance Prelude.AWSRequest UpdateQueueMaxContacts where
   type
     Rs UpdateQueueMaxContacts =
       UpdateQueueMaxContactsResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateQueueMaxContactsResponse'
+    Response.receiveNull
+      UpdateQueueMaxContactsResponse'
 
-instance Hashable UpdateQueueMaxContacts
+instance Prelude.Hashable UpdateQueueMaxContacts
 
-instance NFData UpdateQueueMaxContacts
+instance Prelude.NFData UpdateQueueMaxContacts
 
-instance ToHeaders UpdateQueueMaxContacts where
+instance Prelude.ToHeaders UpdateQueueMaxContacts where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateQueueMaxContacts where
+instance Prelude.ToJSON UpdateQueueMaxContacts where
   toJSON UpdateQueueMaxContacts' {..} =
-    object
-      ( catMaybes
-          [Just ("MaxContacts" .= _uqmcMaxContacts)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("MaxContacts" Prelude..= maxContacts)
+          ]
       )
 
-instance ToPath UpdateQueueMaxContacts where
+instance Prelude.ToPath UpdateQueueMaxContacts where
   toPath UpdateQueueMaxContacts' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/queues/",
-        toBS _uqmcInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _uqmcQueueId,
+        Prelude.toBS queueId,
         "/max-contacts"
       ]
 
-instance ToQuery UpdateQueueMaxContacts where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateQueueMaxContacts where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateQueueMaxContactsResponse' smart constructor.
+-- | /See:/ 'newUpdateQueueMaxContactsResponse' smart constructor.
 data UpdateQueueMaxContactsResponse = UpdateQueueMaxContactsResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueueMaxContactsResponse' with the minimum fields required to make a request.
-updateQueueMaxContactsResponse ::
+-- |
+-- Create a value of 'UpdateQueueMaxContactsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateQueueMaxContactsResponse ::
   UpdateQueueMaxContactsResponse
-updateQueueMaxContactsResponse =
+newUpdateQueueMaxContactsResponse =
   UpdateQueueMaxContactsResponse'
 
-instance NFData UpdateQueueMaxContactsResponse
+instance
+  Prelude.NFData
+    UpdateQueueMaxContactsResponse

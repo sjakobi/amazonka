@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Connect.Types.Channel
   ( Channel
       ( ..,
-        Chat,
-        Task,
-        Voice
+        ChannelCHAT,
+        ChannelTASK,
+        ChannelVOICE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Channel = Channel' (CI Text)
+newtype Channel = Channel'
+  { fromChannel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Chat :: Channel
-pattern Chat = Channel' "CHAT"
+pattern ChannelCHAT :: Channel
+pattern ChannelCHAT = Channel' "CHAT"
 
-pattern Task :: Channel
-pattern Task = Channel' "TASK"
+pattern ChannelTASK :: Channel
+pattern ChannelTASK = Channel' "TASK"
 
-pattern Voice :: Channel
-pattern Voice = Channel' "VOICE"
+pattern ChannelVOICE :: Channel
+pattern ChannelVOICE = Channel' "VOICE"
 
 {-# COMPLETE
-  Chat,
-  Task,
-  Voice,
+  ChannelCHAT,
+  ChannelTASK,
+  ChannelVOICE,
   Channel'
   #-}
 
-instance FromText Channel where
-  parser = (Channel' . mk) <$> takeText
+instance Prelude.FromText Channel where
+  parser = Channel' Prelude.<$> Prelude.takeText
 
-instance ToText Channel where
-  toText (Channel' ci) = original ci
+instance Prelude.ToText Channel where
+  toText (Channel' x) = x
 
-instance Hashable Channel
+instance Prelude.Hashable Channel
 
-instance NFData Channel
+instance Prelude.NFData Channel
 
-instance ToByteString Channel
+instance Prelude.ToByteString Channel
 
-instance ToQuery Channel
+instance Prelude.ToQuery Channel
 
-instance ToHeader Channel
+instance Prelude.ToHeader Channel
 
-instance ToJSON Channel where
-  toJSON = toJSONText
+instance Prelude.ToJSON Channel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Channel where
-  parseJSON = parseJSONText "Channel"
+instance Prelude.FromJSON Channel where
+  parseJSON = Prelude.parseJSONText "Channel"

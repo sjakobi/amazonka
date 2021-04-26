@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +21,87 @@ module Network.AWS.Connect.Types.PhoneNumberSummary where
 
 import Network.AWS.Connect.Types.PhoneNumberCountryCode
 import Network.AWS.Connect.Types.PhoneNumberType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains summary information about a phone number for a contact center.
 --
---
---
--- /See:/ 'phoneNumberSummary' smart constructor.
+-- /See:/ 'newPhoneNumberSummary' smart constructor.
 data PhoneNumberSummary = PhoneNumberSummary'
-  { _pnsPhoneNumber ::
-      !(Maybe Text),
-    _pnsARN :: !(Maybe Text),
-    _pnsId :: !(Maybe Text),
-    _pnsPhoneNumberType ::
-      !(Maybe PhoneNumberType),
-    _pnsPhoneNumberCountryCode ::
-      !(Maybe PhoneNumberCountryCode)
+  { -- | The phone number.
+    phoneNumber :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the phone number.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the phone number.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The type of phone number.
+    phoneNumberType :: Prelude.Maybe PhoneNumberType,
+    -- | The ISO country code.
+    phoneNumberCountryCode :: Prelude.Maybe PhoneNumberCountryCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PhoneNumberSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PhoneNumberSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pnsPhoneNumber' - The phone number.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pnsARN' - The Amazon Resource Name (ARN) of the phone number.
+-- 'phoneNumber', 'phoneNumberSummary_phoneNumber' - The phone number.
 --
--- * 'pnsId' - The identifier of the phone number.
+-- 'arn', 'phoneNumberSummary_arn' - The Amazon Resource Name (ARN) of the phone number.
 --
--- * 'pnsPhoneNumberType' - The type of phone number.
+-- 'id', 'phoneNumberSummary_id' - The identifier of the phone number.
 --
--- * 'pnsPhoneNumberCountryCode' - The ISO country code.
-phoneNumberSummary ::
+-- 'phoneNumberType', 'phoneNumberSummary_phoneNumberType' - The type of phone number.
+--
+-- 'phoneNumberCountryCode', 'phoneNumberSummary_phoneNumberCountryCode' - The ISO country code.
+newPhoneNumberSummary ::
   PhoneNumberSummary
-phoneNumberSummary =
+newPhoneNumberSummary =
   PhoneNumberSummary'
-    { _pnsPhoneNumber = Nothing,
-      _pnsARN = Nothing,
-      _pnsId = Nothing,
-      _pnsPhoneNumberType = Nothing,
-      _pnsPhoneNumberCountryCode = Nothing
+    { phoneNumber = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      phoneNumberType = Prelude.Nothing,
+      phoneNumberCountryCode = Prelude.Nothing
     }
 
 -- | The phone number.
-pnsPhoneNumber :: Lens' PhoneNumberSummary (Maybe Text)
-pnsPhoneNumber = lens _pnsPhoneNumber (\s a -> s {_pnsPhoneNumber = a})
+phoneNumberSummary_phoneNumber :: Lens.Lens' PhoneNumberSummary (Prelude.Maybe Prelude.Text)
+phoneNumberSummary_phoneNumber = Lens.lens (\PhoneNumberSummary' {phoneNumber} -> phoneNumber) (\s@PhoneNumberSummary' {} a -> s {phoneNumber = a} :: PhoneNumberSummary)
 
 -- | The Amazon Resource Name (ARN) of the phone number.
-pnsARN :: Lens' PhoneNumberSummary (Maybe Text)
-pnsARN = lens _pnsARN (\s a -> s {_pnsARN = a})
+phoneNumberSummary_arn :: Lens.Lens' PhoneNumberSummary (Prelude.Maybe Prelude.Text)
+phoneNumberSummary_arn = Lens.lens (\PhoneNumberSummary' {arn} -> arn) (\s@PhoneNumberSummary' {} a -> s {arn = a} :: PhoneNumberSummary)
 
 -- | The identifier of the phone number.
-pnsId :: Lens' PhoneNumberSummary (Maybe Text)
-pnsId = lens _pnsId (\s a -> s {_pnsId = a})
+phoneNumberSummary_id :: Lens.Lens' PhoneNumberSummary (Prelude.Maybe Prelude.Text)
+phoneNumberSummary_id = Lens.lens (\PhoneNumberSummary' {id} -> id) (\s@PhoneNumberSummary' {} a -> s {id = a} :: PhoneNumberSummary)
 
 -- | The type of phone number.
-pnsPhoneNumberType :: Lens' PhoneNumberSummary (Maybe PhoneNumberType)
-pnsPhoneNumberType = lens _pnsPhoneNumberType (\s a -> s {_pnsPhoneNumberType = a})
+phoneNumberSummary_phoneNumberType :: Lens.Lens' PhoneNumberSummary (Prelude.Maybe PhoneNumberType)
+phoneNumberSummary_phoneNumberType = Lens.lens (\PhoneNumberSummary' {phoneNumberType} -> phoneNumberType) (\s@PhoneNumberSummary' {} a -> s {phoneNumberType = a} :: PhoneNumberSummary)
 
 -- | The ISO country code.
-pnsPhoneNumberCountryCode :: Lens' PhoneNumberSummary (Maybe PhoneNumberCountryCode)
-pnsPhoneNumberCountryCode = lens _pnsPhoneNumberCountryCode (\s a -> s {_pnsPhoneNumberCountryCode = a})
+phoneNumberSummary_phoneNumberCountryCode :: Lens.Lens' PhoneNumberSummary (Prelude.Maybe PhoneNumberCountryCode)
+phoneNumberSummary_phoneNumberCountryCode = Lens.lens (\PhoneNumberSummary' {phoneNumberCountryCode} -> phoneNumberCountryCode) (\s@PhoneNumberSummary' {} a -> s {phoneNumberCountryCode = a} :: PhoneNumberSummary)
 
-instance FromJSON PhoneNumberSummary where
+instance Prelude.FromJSON PhoneNumberSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PhoneNumberSummary"
       ( \x ->
           PhoneNumberSummary'
-            <$> (x .:? "PhoneNumber")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "PhoneNumberType")
-            <*> (x .:? "PhoneNumberCountryCode")
+            Prelude.<$> (x Prelude..:? "PhoneNumber")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "PhoneNumberType")
+            Prelude.<*> (x Prelude..:? "PhoneNumberCountryCode")
       )
 
-instance Hashable PhoneNumberSummary
+instance Prelude.Hashable PhoneNumberSummary
 
-instance NFData PhoneNumberSummary
+instance Prelude.NFData PhoneNumberSummary

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Connect.Types.Grouping
   ( Grouping
       ( ..,
-        GChannel,
-        GQueue
+        GroupingCHANNEL,
+        GroupingQUEUE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Grouping = Grouping' (CI Text)
+newtype Grouping = Grouping'
+  { fromGrouping ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GChannel :: Grouping
-pattern GChannel = Grouping' "CHANNEL"
+pattern GroupingCHANNEL :: Grouping
+pattern GroupingCHANNEL = Grouping' "CHANNEL"
 
-pattern GQueue :: Grouping
-pattern GQueue = Grouping' "QUEUE"
+pattern GroupingQUEUE :: Grouping
+pattern GroupingQUEUE = Grouping' "QUEUE"
 
 {-# COMPLETE
-  GChannel,
-  GQueue,
+  GroupingCHANNEL,
+  GroupingQUEUE,
   Grouping'
   #-}
 
-instance FromText Grouping where
-  parser = (Grouping' . mk) <$> takeText
+instance Prelude.FromText Grouping where
+  parser = Grouping' Prelude.<$> Prelude.takeText
 
-instance ToText Grouping where
-  toText (Grouping' ci) = original ci
+instance Prelude.ToText Grouping where
+  toText (Grouping' x) = x
 
-instance Hashable Grouping
+instance Prelude.Hashable Grouping
 
-instance NFData Grouping
+instance Prelude.NFData Grouping
 
-instance ToByteString Grouping
+instance Prelude.ToByteString Grouping
 
-instance ToQuery Grouping
+instance Prelude.ToQuery Grouping
 
-instance ToHeader Grouping
+instance Prelude.ToHeader Grouping
 
-instance ToJSON Grouping where
-  toJSON = toJSONText
+instance Prelude.ToJSON Grouping where
+  toJSON = Prelude.toJSONText

@@ -28,601 +28,601 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestSuspendContactRecording $
---             suspendContactRecording
+--             newSuspendContactRecording
 --
 --         , requestUpdateQueueName $
---             updateQueueName
+--             newUpdateQueueName
 --
 --         , requestCreateQuickConnect $
---             createQuickConnect
+--             newCreateQuickConnect
 --
 --         , requestUpdateUserRoutingProfile $
---             updateUserRoutingProfile
+--             newUpdateUserRoutingProfile
 --
 --         , requestUpdateUserHierarchyGroupName $
---             updateUserHierarchyGroupName
+--             newUpdateUserHierarchyGroupName
 --
 --         , requestUpdateContactFlowName $
---             updateContactFlowName
+--             newUpdateContactFlowName
 --
 --         , requestListSecurityProfiles $
---             listSecurityProfiles
+--             newListSecurityProfiles
 --
 --         , requestDescribeInstance $
---             describeInstance
+--             newDescribeInstance
 --
 --         , requestListInstanceAttributes $
---             listInstanceAttributes
+--             newListInstanceAttributes
 --
 --         , requestListLambdaFunctions $
---             listLambdaFunctions
+--             newListLambdaFunctions
 --
 --         , requestUpdateRoutingProfileQueues $
---             updateRoutingProfileQueues
+--             newUpdateRoutingProfileQueues
 --
 --         , requestAssociateRoutingProfileQueues $
---             associateRoutingProfileQueues
+--             newAssociateRoutingProfileQueues
 --
 --         , requestGetContactAttributes $
---             getContactAttributes
+--             newGetContactAttributes
 --
 --         , requestListLexBots $
---             listLexBots
+--             newListLexBots
 --
 --         , requestAssociateLambdaFunction $
---             associateLambdaFunction
+--             newAssociateLambdaFunction
 --
 --         , requestListApprovedOrigins $
---             listApprovedOrigins
+--             newListApprovedOrigins
 --
 --         , requestAssociateInstanceStorageConfig $
---             associateInstanceStorageConfig
+--             newAssociateInstanceStorageConfig
 --
 --         , requestCreateContactFlow $
---             createContactFlow
+--             newCreateContactFlow
 --
 --         , requestUpdateUserPhoneConfig $
---             updateUserPhoneConfig
+--             newUpdateUserPhoneConfig
 --
 --         , requestUpdateContactAttributes $
---             updateContactAttributes
+--             newUpdateContactAttributes
 --
 --         , requestListRoutingProfiles $
---             listRoutingProfiles
+--             newListRoutingProfiles
 --
 --         , requestDeleteUseCase $
---             deleteUseCase
+--             newDeleteUseCase
 --
 --         , requestDescribeQuickConnect $
---             describeQuickConnect
+--             newDescribeQuickConnect
 --
 --         , requestListQueueQuickConnects $
---             listQueueQuickConnects
+--             newListQueueQuickConnects
 --
 --         , requestCreateRoutingProfile $
---             createRoutingProfile
+--             newCreateRoutingProfile
 --
 --         , requestAssociateApprovedOrigin $
---             associateApprovedOrigin
+--             newAssociateApprovedOrigin
 --
 --         , requestDisassociateQueueQuickConnects $
---             disassociateQueueQuickConnects
+--             newDisassociateQueueQuickConnects
 --
 --         , requestUpdateRoutingProfileConcurrency $
---             updateRoutingProfileConcurrency
+--             newUpdateRoutingProfileConcurrency
 --
 --         , requestUpdateQueueOutboundCallerConfig $
---             updateQueueOutboundCallerConfig
+--             newUpdateQueueOutboundCallerConfig
 --
 --         , requestDisassociateSecurityKey $
---             disassociateSecurityKey
+--             newDisassociateSecurityKey
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestGetCurrentMetricData $
---             getCurrentMetricData
+--             newGetCurrentMetricData
 --
 --         , requestUpdateQuickConnectConfig $
---             updateQuickConnectConfig
+--             newUpdateQuickConnectConfig
 --
 --         , requestListInstances $
---             listInstances
+--             newListInstances
 --
 --         , requestListQueues $
---             listQueues
+--             newListQueues
 --
 --         , requestDeleteInstance $
---             deleteInstance
+--             newDeleteInstance
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestStopContact $
---             stopContact
+--             newStopContact
 --
 --         , requestCreateUserHierarchyGroup $
---             createUserHierarchyGroup
+--             newCreateUserHierarchyGroup
 --
 --         , requestStartContactRecording $
---             startContactRecording
+--             newStartContactRecording
 --
 --         , requestCreateUser $
---             createUser
+--             newCreateUser
 --
 --         , requestAssociateSecurityKey $
---             associateSecurityKey
+--             newAssociateSecurityKey
 --
 --         , requestAssociateQueueQuickConnects $
---             associateQueueQuickConnects
+--             newAssociateQueueQuickConnects
 --
 --         , requestStopContactRecording $
---             stopContactRecording
+--             newStopContactRecording
 --
 --         , requestDisassociateApprovedOrigin $
---             disassociateApprovedOrigin
+--             newDisassociateApprovedOrigin
 --
 --         , requestUpdateQuickConnectName $
---             updateQuickConnectName
+--             newUpdateQuickConnectName
 --
 --         , requestDescribeRoutingProfile $
---             describeRoutingProfile
+--             newDescribeRoutingProfile
 --
 --         , requestListQuickConnects $
---             listQuickConnects
+--             newListQuickConnects
 --
 --         , requestDisassociateLexBot $
---             disassociateLexBot
+--             newDisassociateLexBot
 --
 --         , requestDeleteQuickConnect $
---             deleteQuickConnect
+--             newDeleteQuickConnect
 --
 --         , requestListRoutingProfileQueues $
---             listRoutingProfileQueues
+--             newListRoutingProfileQueues
 --
 --         , requestUpdateUserHierarchy $
---             updateUserHierarchy
+--             newUpdateUserHierarchy
 --
 --         , requestDisassociateLambdaFunction $
---             disassociateLambdaFunction
+--             newDisassociateLambdaFunction
 --
 --         , requestUpdateQueueMaxContacts $
---             updateQueueMaxContacts
+--             newUpdateQueueMaxContacts
 --
 --         , requestDescribeInstanceStorageConfig $
---             describeInstanceStorageConfig
+--             newDescribeInstanceStorageConfig
 --
 --         , requestUpdateQueueHoursOfOperation $
---             updateQueueHoursOfOperation
+--             newUpdateQueueHoursOfOperation
 --
 --         , requestDisassociateRoutingProfileQueues $
---             disassociateRoutingProfileQueues
+--             newDisassociateRoutingProfileQueues
 --
 --         , requestDescribeContactFlow $
---             describeContactFlow
+--             newDescribeContactFlow
 --
 --         , requestUpdateQueueStatus $
---             updateQueueStatus
+--             newUpdateQueueStatus
 --
 --         , requestDescribeQueue $
---             describeQueue
+--             newDescribeQueue
 --
 --         , requestAssociateLexBot $
---             associateLexBot
+--             newAssociateLexBot
 --
 --         , requestUpdateInstanceAttribute $
---             updateInstanceAttribute
+--             newUpdateInstanceAttribute
 --
 --         , requestDescribeUser $
---             describeUser
+--             newDescribeUser
 --
 --         , requestDescribeUserHierarchyGroup $
---             describeUserHierarchyGroup
+--             newDescribeUserHierarchyGroup
 --
 --         , requestResumeContactRecording $
---             resumeContactRecording
+--             newResumeContactRecording
 --
 --         , requestUpdateRoutingProfileName $
---             updateRoutingProfileName
+--             newUpdateRoutingProfileName
 --
 --         , requestStartChatContact $
---             startChatContact
+--             newStartChatContact
 --
 --         , requestDeleteIntegrationAssociation $
---             deleteIntegrationAssociation
+--             newDeleteIntegrationAssociation
 --
 --         , requestListPhoneNumbers $
---             listPhoneNumbers
+--             newListPhoneNumbers
 --
 --         , requestListIntegrationAssociations $
---             listIntegrationAssociations
+--             newListIntegrationAssociations
 --
 --         , requestListUseCases $
---             listUseCases
+--             newListUseCases
 --
 --         , requestUpdateUserSecurityProfiles $
---             updateUserSecurityProfiles
+--             newUpdateUserSecurityProfiles
 --
 --         , requestDescribeUserHierarchyStructure $
---             describeUserHierarchyStructure
+--             newDescribeUserHierarchyStructure
 --
 --         , requestListHoursOfOperations $
---             listHoursOfOperations
+--             newListHoursOfOperations
 --
 --         , requestCreateUseCase $
---             createUseCase
+--             newCreateUseCase
 --
 --         , requestListContactFlows $
---             listContactFlows
+--             newListContactFlows
 --
 --         , requestUpdateInstanceStorageConfig $
---             updateInstanceStorageConfig
+--             newUpdateInstanceStorageConfig
 --
 --         , requestListInstanceStorageConfigs $
---             listInstanceStorageConfigs
+--             newListInstanceStorageConfigs
 --
 --         , requestCreateIntegrationAssociation $
---             createIntegrationAssociation
+--             newCreateIntegrationAssociation
 --
 --         , requestDeleteUserHierarchyGroup $
---             deleteUserHierarchyGroup
+--             newDeleteUserHierarchyGroup
 --
 --         , requestDeleteUser $
---             deleteUser
+--             newDeleteUser
 --
 --         , requestDisassociateInstanceStorageConfig $
---             disassociateInstanceStorageConfig
+--             newDisassociateInstanceStorageConfig
 --
 --         , requestListUserHierarchyGroups $
---             listUserHierarchyGroups
+--             newListUserHierarchyGroups
 --
 --         , requestUpdateUserIdentityInfo $
---             updateUserIdentityInfo
+--             newUpdateUserIdentityInfo
 --
 --         , requestListUsers $
---             listUsers
+--             newListUsers
 --
 --         , requestGetFederationToken $
---             getFederationToken
+--             newGetFederationToken
 --
 --         , requestDescribeInstanceAttribute $
---             describeInstanceAttribute
+--             newDescribeInstanceAttribute
 --
 --         , requestListSecurityKeys $
---             listSecurityKeys
+--             newListSecurityKeys
 --
 --         , requestUpdateRoutingProfileDefaultOutboundQueue $
---             updateRoutingProfileDefaultOutboundQueue
+--             newUpdateRoutingProfileDefaultOutboundQueue
 --
 --         , requestCreateQueue $
---             createQueue
+--             newCreateQueue
 --
 --         , requestCreateInstance $
---             createInstance
+--             newCreateInstance
 --
 --         , requestStartTaskContact $
---             startTaskContact
+--             newStartTaskContact
 --
 --         , requestListPrompts $
---             listPrompts
+--             newListPrompts
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestStartOutboundVoiceContact $
---             startOutboundVoiceContact
+--             newStartOutboundVoiceContact
 --
 --         , requestUpdateUserHierarchyStructure $
---             updateUserHierarchyStructure
+--             newUpdateUserHierarchyStructure
 --
 --         , requestUpdateContactFlowContent $
---             updateContactFlowContent
+--             newUpdateContactFlowContent
 --
 --         , requestGetMetricData $
---             getMetricData
+--             newGetMetricData
 --
 --         , requestDescribeHoursOfOperation $
---             describeHoursOfOperation
+--             newDescribeHoursOfOperation
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseSuspendContactRecording $
---             suspendContactRecordingResponse
+--             newSuspendContactRecordingResponse
 --
 --         , responseUpdateQueueName $
---             updateQueueNameResponse
+--             newUpdateQueueNameResponse
 --
 --         , responseCreateQuickConnect $
---             createQuickConnectResponse
+--             newCreateQuickConnectResponse
 --
 --         , responseUpdateUserRoutingProfile $
---             updateUserRoutingProfileResponse
+--             newUpdateUserRoutingProfileResponse
 --
 --         , responseUpdateUserHierarchyGroupName $
---             updateUserHierarchyGroupNameResponse
+--             newUpdateUserHierarchyGroupNameResponse
 --
 --         , responseUpdateContactFlowName $
---             updateContactFlowNameResponse
+--             newUpdateContactFlowNameResponse
 --
 --         , responseListSecurityProfiles $
---             listSecurityProfilesResponse
+--             newListSecurityProfilesResponse
 --
 --         , responseDescribeInstance $
---             describeInstanceResponse
+--             newDescribeInstanceResponse
 --
 --         , responseListInstanceAttributes $
---             listInstanceAttributesResponse
+--             newListInstanceAttributesResponse
 --
 --         , responseListLambdaFunctions $
---             listLambdaFunctionsResponse
+--             newListLambdaFunctionsResponse
 --
 --         , responseUpdateRoutingProfileQueues $
---             updateRoutingProfileQueuesResponse
+--             newUpdateRoutingProfileQueuesResponse
 --
 --         , responseAssociateRoutingProfileQueues $
---             associateRoutingProfileQueuesResponse
+--             newAssociateRoutingProfileQueuesResponse
 --
 --         , responseGetContactAttributes $
---             getContactAttributesResponse
+--             newGetContactAttributesResponse
 --
 --         , responseListLexBots $
---             listLexBotsResponse
+--             newListLexBotsResponse
 --
 --         , responseAssociateLambdaFunction $
---             associateLambdaFunctionResponse
+--             newAssociateLambdaFunctionResponse
 --
 --         , responseListApprovedOrigins $
---             listApprovedOriginsResponse
+--             newListApprovedOriginsResponse
 --
 --         , responseAssociateInstanceStorageConfig $
---             associateInstanceStorageConfigResponse
+--             newAssociateInstanceStorageConfigResponse
 --
 --         , responseCreateContactFlow $
---             createContactFlowResponse
+--             newCreateContactFlowResponse
 --
 --         , responseUpdateUserPhoneConfig $
---             updateUserPhoneConfigResponse
+--             newUpdateUserPhoneConfigResponse
 --
 --         , responseUpdateContactAttributes $
---             updateContactAttributesResponse
+--             newUpdateContactAttributesResponse
 --
 --         , responseListRoutingProfiles $
---             listRoutingProfilesResponse
+--             newListRoutingProfilesResponse
 --
 --         , responseDeleteUseCase $
---             deleteUseCaseResponse
+--             newDeleteUseCaseResponse
 --
 --         , responseDescribeQuickConnect $
---             describeQuickConnectResponse
+--             newDescribeQuickConnectResponse
 --
 --         , responseListQueueQuickConnects $
---             listQueueQuickConnectsResponse
+--             newListQueueQuickConnectsResponse
 --
 --         , responseCreateRoutingProfile $
---             createRoutingProfileResponse
+--             newCreateRoutingProfileResponse
 --
 --         , responseAssociateApprovedOrigin $
---             associateApprovedOriginResponse
+--             newAssociateApprovedOriginResponse
 --
 --         , responseDisassociateQueueQuickConnects $
---             disassociateQueueQuickConnectsResponse
+--             newDisassociateQueueQuickConnectsResponse
 --
 --         , responseUpdateRoutingProfileConcurrency $
---             updateRoutingProfileConcurrencyResponse
+--             newUpdateRoutingProfileConcurrencyResponse
 --
 --         , responseUpdateQueueOutboundCallerConfig $
---             updateQueueOutboundCallerConfigResponse
+--             newUpdateQueueOutboundCallerConfigResponse
 --
 --         , responseDisassociateSecurityKey $
---             disassociateSecurityKeyResponse
+--             newDisassociateSecurityKeyResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseGetCurrentMetricData $
---             getCurrentMetricDataResponse
+--             newGetCurrentMetricDataResponse
 --
 --         , responseUpdateQuickConnectConfig $
---             updateQuickConnectConfigResponse
+--             newUpdateQuickConnectConfigResponse
 --
 --         , responseListInstances $
---             listInstancesResponse
+--             newListInstancesResponse
 --
 --         , responseListQueues $
---             listQueuesResponse
+--             newListQueuesResponse
 --
 --         , responseDeleteInstance $
---             deleteInstanceResponse
+--             newDeleteInstanceResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseStopContact $
---             stopContactResponse
+--             newStopContactResponse
 --
 --         , responseCreateUserHierarchyGroup $
---             createUserHierarchyGroupResponse
+--             newCreateUserHierarchyGroupResponse
 --
 --         , responseStartContactRecording $
---             startContactRecordingResponse
+--             newStartContactRecordingResponse
 --
 --         , responseCreateUser $
---             createUserResponse
+--             newCreateUserResponse
 --
 --         , responseAssociateSecurityKey $
---             associateSecurityKeyResponse
+--             newAssociateSecurityKeyResponse
 --
 --         , responseAssociateQueueQuickConnects $
---             associateQueueQuickConnectsResponse
+--             newAssociateQueueQuickConnectsResponse
 --
 --         , responseStopContactRecording $
---             stopContactRecordingResponse
+--             newStopContactRecordingResponse
 --
 --         , responseDisassociateApprovedOrigin $
---             disassociateApprovedOriginResponse
+--             newDisassociateApprovedOriginResponse
 --
 --         , responseUpdateQuickConnectName $
---             updateQuickConnectNameResponse
+--             newUpdateQuickConnectNameResponse
 --
 --         , responseDescribeRoutingProfile $
---             describeRoutingProfileResponse
+--             newDescribeRoutingProfileResponse
 --
 --         , responseListQuickConnects $
---             listQuickConnectsResponse
+--             newListQuickConnectsResponse
 --
 --         , responseDisassociateLexBot $
---             disassociateLexBotResponse
+--             newDisassociateLexBotResponse
 --
 --         , responseDeleteQuickConnect $
---             deleteQuickConnectResponse
+--             newDeleteQuickConnectResponse
 --
 --         , responseListRoutingProfileQueues $
---             listRoutingProfileQueuesResponse
+--             newListRoutingProfileQueuesResponse
 --
 --         , responseUpdateUserHierarchy $
---             updateUserHierarchyResponse
+--             newUpdateUserHierarchyResponse
 --
 --         , responseDisassociateLambdaFunction $
---             disassociateLambdaFunctionResponse
+--             newDisassociateLambdaFunctionResponse
 --
 --         , responseUpdateQueueMaxContacts $
---             updateQueueMaxContactsResponse
+--             newUpdateQueueMaxContactsResponse
 --
 --         , responseDescribeInstanceStorageConfig $
---             describeInstanceStorageConfigResponse
+--             newDescribeInstanceStorageConfigResponse
 --
 --         , responseUpdateQueueHoursOfOperation $
---             updateQueueHoursOfOperationResponse
+--             newUpdateQueueHoursOfOperationResponse
 --
 --         , responseDisassociateRoutingProfileQueues $
---             disassociateRoutingProfileQueuesResponse
+--             newDisassociateRoutingProfileQueuesResponse
 --
 --         , responseDescribeContactFlow $
---             describeContactFlowResponse
+--             newDescribeContactFlowResponse
 --
 --         , responseUpdateQueueStatus $
---             updateQueueStatusResponse
+--             newUpdateQueueStatusResponse
 --
 --         , responseDescribeQueue $
---             describeQueueResponse
+--             newDescribeQueueResponse
 --
 --         , responseAssociateLexBot $
---             associateLexBotResponse
+--             newAssociateLexBotResponse
 --
 --         , responseUpdateInstanceAttribute $
---             updateInstanceAttributeResponse
+--             newUpdateInstanceAttributeResponse
 --
 --         , responseDescribeUser $
---             describeUserResponse
+--             newDescribeUserResponse
 --
 --         , responseDescribeUserHierarchyGroup $
---             describeUserHierarchyGroupResponse
+--             newDescribeUserHierarchyGroupResponse
 --
 --         , responseResumeContactRecording $
---             resumeContactRecordingResponse
+--             newResumeContactRecordingResponse
 --
 --         , responseUpdateRoutingProfileName $
---             updateRoutingProfileNameResponse
+--             newUpdateRoutingProfileNameResponse
 --
 --         , responseStartChatContact $
---             startChatContactResponse
+--             newStartChatContactResponse
 --
 --         , responseDeleteIntegrationAssociation $
---             deleteIntegrationAssociationResponse
+--             newDeleteIntegrationAssociationResponse
 --
 --         , responseListPhoneNumbers $
---             listPhoneNumbersResponse
+--             newListPhoneNumbersResponse
 --
 --         , responseListIntegrationAssociations $
---             listIntegrationAssociationsResponse
+--             newListIntegrationAssociationsResponse
 --
 --         , responseListUseCases $
---             listUseCasesResponse
+--             newListUseCasesResponse
 --
 --         , responseUpdateUserSecurityProfiles $
---             updateUserSecurityProfilesResponse
+--             newUpdateUserSecurityProfilesResponse
 --
 --         , responseDescribeUserHierarchyStructure $
---             describeUserHierarchyStructureResponse
+--             newDescribeUserHierarchyStructureResponse
 --
 --         , responseListHoursOfOperations $
---             listHoursOfOperationsResponse
+--             newListHoursOfOperationsResponse
 --
 --         , responseCreateUseCase $
---             createUseCaseResponse
+--             newCreateUseCaseResponse
 --
 --         , responseListContactFlows $
---             listContactFlowsResponse
+--             newListContactFlowsResponse
 --
 --         , responseUpdateInstanceStorageConfig $
---             updateInstanceStorageConfigResponse
+--             newUpdateInstanceStorageConfigResponse
 --
 --         , responseListInstanceStorageConfigs $
---             listInstanceStorageConfigsResponse
+--             newListInstanceStorageConfigsResponse
 --
 --         , responseCreateIntegrationAssociation $
---             createIntegrationAssociationResponse
+--             newCreateIntegrationAssociationResponse
 --
 --         , responseDeleteUserHierarchyGroup $
---             deleteUserHierarchyGroupResponse
+--             newDeleteUserHierarchyGroupResponse
 --
 --         , responseDeleteUser $
---             deleteUserResponse
+--             newDeleteUserResponse
 --
 --         , responseDisassociateInstanceStorageConfig $
---             disassociateInstanceStorageConfigResponse
+--             newDisassociateInstanceStorageConfigResponse
 --
 --         , responseListUserHierarchyGroups $
---             listUserHierarchyGroupsResponse
+--             newListUserHierarchyGroupsResponse
 --
 --         , responseUpdateUserIdentityInfo $
---             updateUserIdentityInfoResponse
+--             newUpdateUserIdentityInfoResponse
 --
 --         , responseListUsers $
---             listUsersResponse
+--             newListUsersResponse
 --
 --         , responseGetFederationToken $
---             getFederationTokenResponse
+--             newGetFederationTokenResponse
 --
 --         , responseDescribeInstanceAttribute $
---             describeInstanceAttributeResponse
+--             newDescribeInstanceAttributeResponse
 --
 --         , responseListSecurityKeys $
---             listSecurityKeysResponse
+--             newListSecurityKeysResponse
 --
 --         , responseUpdateRoutingProfileDefaultOutboundQueue $
---             updateRoutingProfileDefaultOutboundQueueResponse
+--             newUpdateRoutingProfileDefaultOutboundQueueResponse
 --
 --         , responseCreateQueue $
---             createQueueResponse
+--             newCreateQueueResponse
 --
 --         , responseCreateInstance $
---             createInstanceResponse
+--             newCreateInstanceResponse
 --
 --         , responseStartTaskContact $
---             startTaskContactResponse
+--             newStartTaskContactResponse
 --
 --         , responseListPrompts $
---             listPromptsResponse
+--             newListPromptsResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseStartOutboundVoiceContact $
---             startOutboundVoiceContactResponse
+--             newStartOutboundVoiceContactResponse
 --
 --         , responseUpdateUserHierarchyStructure $
---             updateUserHierarchyStructureResponse
+--             newUpdateUserHierarchyStructureResponse
 --
 --         , responseUpdateContactFlowContent $
---             updateContactFlowContentResponse
+--             newUpdateContactFlowContentResponse
 --
 --         , responseGetMetricData $
---             getMetricDataResponse
+--             newGetMetricDataResponse
 --
 --         , responseDescribeHoursOfOperation $
---             describeHoursOfOperationResponse
+--             newDescribeHoursOfOperationResponse
 --
 --           ]
 --     ]
@@ -1230,7 +1230,7 @@ responseSuspendContactRecording =
   res
     "SuspendContactRecordingResponse"
     "fixture/SuspendContactRecordingResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy SuspendContactRecording)
 
 responseUpdateQueueName :: UpdateQueueNameResponse -> TestTree
@@ -1238,7 +1238,7 @@ responseUpdateQueueName =
   res
     "UpdateQueueNameResponse"
     "fixture/UpdateQueueNameResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateQueueName)
 
 responseCreateQuickConnect :: CreateQuickConnectResponse -> TestTree
@@ -1246,7 +1246,7 @@ responseCreateQuickConnect =
   res
     "CreateQuickConnectResponse"
     "fixture/CreateQuickConnectResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy CreateQuickConnect)
 
 responseUpdateUserRoutingProfile :: UpdateUserRoutingProfileResponse -> TestTree
@@ -1254,7 +1254,7 @@ responseUpdateUserRoutingProfile =
   res
     "UpdateUserRoutingProfileResponse"
     "fixture/UpdateUserRoutingProfileResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateUserRoutingProfile)
 
 responseUpdateUserHierarchyGroupName :: UpdateUserHierarchyGroupNameResponse -> TestTree
@@ -1262,7 +1262,7 @@ responseUpdateUserHierarchyGroupName =
   res
     "UpdateUserHierarchyGroupNameResponse"
     "fixture/UpdateUserHierarchyGroupNameResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateUserHierarchyGroupName)
 
 responseUpdateContactFlowName :: UpdateContactFlowNameResponse -> TestTree
@@ -1270,7 +1270,7 @@ responseUpdateContactFlowName =
   res
     "UpdateContactFlowNameResponse"
     "fixture/UpdateContactFlowNameResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateContactFlowName)
 
 responseListSecurityProfiles :: ListSecurityProfilesResponse -> TestTree
@@ -1278,7 +1278,7 @@ responseListSecurityProfiles =
   res
     "ListSecurityProfilesResponse"
     "fixture/ListSecurityProfilesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListSecurityProfiles)
 
 responseDescribeInstance :: DescribeInstanceResponse -> TestTree
@@ -1286,7 +1286,7 @@ responseDescribeInstance =
   res
     "DescribeInstanceResponse"
     "fixture/DescribeInstanceResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeInstance)
 
 responseListInstanceAttributes :: ListInstanceAttributesResponse -> TestTree
@@ -1294,7 +1294,7 @@ responseListInstanceAttributes =
   res
     "ListInstanceAttributesResponse"
     "fixture/ListInstanceAttributesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListInstanceAttributes)
 
 responseListLambdaFunctions :: ListLambdaFunctionsResponse -> TestTree
@@ -1302,7 +1302,7 @@ responseListLambdaFunctions =
   res
     "ListLambdaFunctionsResponse"
     "fixture/ListLambdaFunctionsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListLambdaFunctions)
 
 responseUpdateRoutingProfileQueues :: UpdateRoutingProfileQueuesResponse -> TestTree
@@ -1310,7 +1310,7 @@ responseUpdateRoutingProfileQueues =
   res
     "UpdateRoutingProfileQueuesResponse"
     "fixture/UpdateRoutingProfileQueuesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateRoutingProfileQueues)
 
 responseAssociateRoutingProfileQueues :: AssociateRoutingProfileQueuesResponse -> TestTree
@@ -1318,7 +1318,7 @@ responseAssociateRoutingProfileQueues =
   res
     "AssociateRoutingProfileQueuesResponse"
     "fixture/AssociateRoutingProfileQueuesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy AssociateRoutingProfileQueues)
 
 responseGetContactAttributes :: GetContactAttributesResponse -> TestTree
@@ -1326,7 +1326,7 @@ responseGetContactAttributes =
   res
     "GetContactAttributesResponse"
     "fixture/GetContactAttributesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy GetContactAttributes)
 
 responseListLexBots :: ListLexBotsResponse -> TestTree
@@ -1334,7 +1334,7 @@ responseListLexBots =
   res
     "ListLexBotsResponse"
     "fixture/ListLexBotsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListLexBots)
 
 responseAssociateLambdaFunction :: AssociateLambdaFunctionResponse -> TestTree
@@ -1342,7 +1342,7 @@ responseAssociateLambdaFunction =
   res
     "AssociateLambdaFunctionResponse"
     "fixture/AssociateLambdaFunctionResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy AssociateLambdaFunction)
 
 responseListApprovedOrigins :: ListApprovedOriginsResponse -> TestTree
@@ -1350,7 +1350,7 @@ responseListApprovedOrigins =
   res
     "ListApprovedOriginsResponse"
     "fixture/ListApprovedOriginsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListApprovedOrigins)
 
 responseAssociateInstanceStorageConfig :: AssociateInstanceStorageConfigResponse -> TestTree
@@ -1358,7 +1358,7 @@ responseAssociateInstanceStorageConfig =
   res
     "AssociateInstanceStorageConfigResponse"
     "fixture/AssociateInstanceStorageConfigResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy AssociateInstanceStorageConfig)
 
 responseCreateContactFlow :: CreateContactFlowResponse -> TestTree
@@ -1366,7 +1366,7 @@ responseCreateContactFlow =
   res
     "CreateContactFlowResponse"
     "fixture/CreateContactFlowResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy CreateContactFlow)
 
 responseUpdateUserPhoneConfig :: UpdateUserPhoneConfigResponse -> TestTree
@@ -1374,7 +1374,7 @@ responseUpdateUserPhoneConfig =
   res
     "UpdateUserPhoneConfigResponse"
     "fixture/UpdateUserPhoneConfigResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateUserPhoneConfig)
 
 responseUpdateContactAttributes :: UpdateContactAttributesResponse -> TestTree
@@ -1382,7 +1382,7 @@ responseUpdateContactAttributes =
   res
     "UpdateContactAttributesResponse"
     "fixture/UpdateContactAttributesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateContactAttributes)
 
 responseListRoutingProfiles :: ListRoutingProfilesResponse -> TestTree
@@ -1390,7 +1390,7 @@ responseListRoutingProfiles =
   res
     "ListRoutingProfilesResponse"
     "fixture/ListRoutingProfilesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListRoutingProfiles)
 
 responseDeleteUseCase :: DeleteUseCaseResponse -> TestTree
@@ -1398,7 +1398,7 @@ responseDeleteUseCase =
   res
     "DeleteUseCaseResponse"
     "fixture/DeleteUseCaseResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DeleteUseCase)
 
 responseDescribeQuickConnect :: DescribeQuickConnectResponse -> TestTree
@@ -1406,7 +1406,7 @@ responseDescribeQuickConnect =
   res
     "DescribeQuickConnectResponse"
     "fixture/DescribeQuickConnectResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeQuickConnect)
 
 responseListQueueQuickConnects :: ListQueueQuickConnectsResponse -> TestTree
@@ -1414,7 +1414,7 @@ responseListQueueQuickConnects =
   res
     "ListQueueQuickConnectsResponse"
     "fixture/ListQueueQuickConnectsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListQueueQuickConnects)
 
 responseCreateRoutingProfile :: CreateRoutingProfileResponse -> TestTree
@@ -1422,7 +1422,7 @@ responseCreateRoutingProfile =
   res
     "CreateRoutingProfileResponse"
     "fixture/CreateRoutingProfileResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy CreateRoutingProfile)
 
 responseAssociateApprovedOrigin :: AssociateApprovedOriginResponse -> TestTree
@@ -1430,7 +1430,7 @@ responseAssociateApprovedOrigin =
   res
     "AssociateApprovedOriginResponse"
     "fixture/AssociateApprovedOriginResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy AssociateApprovedOrigin)
 
 responseDisassociateQueueQuickConnects :: DisassociateQueueQuickConnectsResponse -> TestTree
@@ -1438,7 +1438,7 @@ responseDisassociateQueueQuickConnects =
   res
     "DisassociateQueueQuickConnectsResponse"
     "fixture/DisassociateQueueQuickConnectsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DisassociateQueueQuickConnects)
 
 responseUpdateRoutingProfileConcurrency :: UpdateRoutingProfileConcurrencyResponse -> TestTree
@@ -1446,7 +1446,7 @@ responseUpdateRoutingProfileConcurrency =
   res
     "UpdateRoutingProfileConcurrencyResponse"
     "fixture/UpdateRoutingProfileConcurrencyResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateRoutingProfileConcurrency)
 
 responseUpdateQueueOutboundCallerConfig :: UpdateQueueOutboundCallerConfigResponse -> TestTree
@@ -1454,7 +1454,7 @@ responseUpdateQueueOutboundCallerConfig =
   res
     "UpdateQueueOutboundCallerConfigResponse"
     "fixture/UpdateQueueOutboundCallerConfigResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateQueueOutboundCallerConfig)
 
 responseDisassociateSecurityKey :: DisassociateSecurityKeyResponse -> TestTree
@@ -1462,7 +1462,7 @@ responseDisassociateSecurityKey =
   res
     "DisassociateSecurityKeyResponse"
     "fixture/DisassociateSecurityKeyResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DisassociateSecurityKey)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -1470,7 +1470,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseGetCurrentMetricData :: GetCurrentMetricDataResponse -> TestTree
@@ -1478,7 +1478,7 @@ responseGetCurrentMetricData =
   res
     "GetCurrentMetricDataResponse"
     "fixture/GetCurrentMetricDataResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy GetCurrentMetricData)
 
 responseUpdateQuickConnectConfig :: UpdateQuickConnectConfigResponse -> TestTree
@@ -1486,7 +1486,7 @@ responseUpdateQuickConnectConfig =
   res
     "UpdateQuickConnectConfigResponse"
     "fixture/UpdateQuickConnectConfigResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateQuickConnectConfig)
 
 responseListInstances :: ListInstancesResponse -> TestTree
@@ -1494,7 +1494,7 @@ responseListInstances =
   res
     "ListInstancesResponse"
     "fixture/ListInstancesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListInstances)
 
 responseListQueues :: ListQueuesResponse -> TestTree
@@ -1502,7 +1502,7 @@ responseListQueues =
   res
     "ListQueuesResponse"
     "fixture/ListQueuesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListQueues)
 
 responseDeleteInstance :: DeleteInstanceResponse -> TestTree
@@ -1510,7 +1510,7 @@ responseDeleteInstance =
   res
     "DeleteInstanceResponse"
     "fixture/DeleteInstanceResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DeleteInstance)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -1518,7 +1518,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseStopContact :: StopContactResponse -> TestTree
@@ -1526,7 +1526,7 @@ responseStopContact =
   res
     "StopContactResponse"
     "fixture/StopContactResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy StopContact)
 
 responseCreateUserHierarchyGroup :: CreateUserHierarchyGroupResponse -> TestTree
@@ -1534,7 +1534,7 @@ responseCreateUserHierarchyGroup =
   res
     "CreateUserHierarchyGroupResponse"
     "fixture/CreateUserHierarchyGroupResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy CreateUserHierarchyGroup)
 
 responseStartContactRecording :: StartContactRecordingResponse -> TestTree
@@ -1542,7 +1542,7 @@ responseStartContactRecording =
   res
     "StartContactRecordingResponse"
     "fixture/StartContactRecordingResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy StartContactRecording)
 
 responseCreateUser :: CreateUserResponse -> TestTree
@@ -1550,7 +1550,7 @@ responseCreateUser =
   res
     "CreateUserResponse"
     "fixture/CreateUserResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy CreateUser)
 
 responseAssociateSecurityKey :: AssociateSecurityKeyResponse -> TestTree
@@ -1558,7 +1558,7 @@ responseAssociateSecurityKey =
   res
     "AssociateSecurityKeyResponse"
     "fixture/AssociateSecurityKeyResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy AssociateSecurityKey)
 
 responseAssociateQueueQuickConnects :: AssociateQueueQuickConnectsResponse -> TestTree
@@ -1566,7 +1566,7 @@ responseAssociateQueueQuickConnects =
   res
     "AssociateQueueQuickConnectsResponse"
     "fixture/AssociateQueueQuickConnectsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy AssociateQueueQuickConnects)
 
 responseStopContactRecording :: StopContactRecordingResponse -> TestTree
@@ -1574,7 +1574,7 @@ responseStopContactRecording =
   res
     "StopContactRecordingResponse"
     "fixture/StopContactRecordingResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy StopContactRecording)
 
 responseDisassociateApprovedOrigin :: DisassociateApprovedOriginResponse -> TestTree
@@ -1582,7 +1582,7 @@ responseDisassociateApprovedOrigin =
   res
     "DisassociateApprovedOriginResponse"
     "fixture/DisassociateApprovedOriginResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DisassociateApprovedOrigin)
 
 responseUpdateQuickConnectName :: UpdateQuickConnectNameResponse -> TestTree
@@ -1590,7 +1590,7 @@ responseUpdateQuickConnectName =
   res
     "UpdateQuickConnectNameResponse"
     "fixture/UpdateQuickConnectNameResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateQuickConnectName)
 
 responseDescribeRoutingProfile :: DescribeRoutingProfileResponse -> TestTree
@@ -1598,7 +1598,7 @@ responseDescribeRoutingProfile =
   res
     "DescribeRoutingProfileResponse"
     "fixture/DescribeRoutingProfileResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeRoutingProfile)
 
 responseListQuickConnects :: ListQuickConnectsResponse -> TestTree
@@ -1606,7 +1606,7 @@ responseListQuickConnects =
   res
     "ListQuickConnectsResponse"
     "fixture/ListQuickConnectsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListQuickConnects)
 
 responseDisassociateLexBot :: DisassociateLexBotResponse -> TestTree
@@ -1614,7 +1614,7 @@ responseDisassociateLexBot =
   res
     "DisassociateLexBotResponse"
     "fixture/DisassociateLexBotResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DisassociateLexBot)
 
 responseDeleteQuickConnect :: DeleteQuickConnectResponse -> TestTree
@@ -1622,7 +1622,7 @@ responseDeleteQuickConnect =
   res
     "DeleteQuickConnectResponse"
     "fixture/DeleteQuickConnectResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DeleteQuickConnect)
 
 responseListRoutingProfileQueues :: ListRoutingProfileQueuesResponse -> TestTree
@@ -1630,7 +1630,7 @@ responseListRoutingProfileQueues =
   res
     "ListRoutingProfileQueuesResponse"
     "fixture/ListRoutingProfileQueuesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListRoutingProfileQueues)
 
 responseUpdateUserHierarchy :: UpdateUserHierarchyResponse -> TestTree
@@ -1638,7 +1638,7 @@ responseUpdateUserHierarchy =
   res
     "UpdateUserHierarchyResponse"
     "fixture/UpdateUserHierarchyResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateUserHierarchy)
 
 responseDisassociateLambdaFunction :: DisassociateLambdaFunctionResponse -> TestTree
@@ -1646,7 +1646,7 @@ responseDisassociateLambdaFunction =
   res
     "DisassociateLambdaFunctionResponse"
     "fixture/DisassociateLambdaFunctionResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DisassociateLambdaFunction)
 
 responseUpdateQueueMaxContacts :: UpdateQueueMaxContactsResponse -> TestTree
@@ -1654,7 +1654,7 @@ responseUpdateQueueMaxContacts =
   res
     "UpdateQueueMaxContactsResponse"
     "fixture/UpdateQueueMaxContactsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateQueueMaxContacts)
 
 responseDescribeInstanceStorageConfig :: DescribeInstanceStorageConfigResponse -> TestTree
@@ -1662,7 +1662,7 @@ responseDescribeInstanceStorageConfig =
   res
     "DescribeInstanceStorageConfigResponse"
     "fixture/DescribeInstanceStorageConfigResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeInstanceStorageConfig)
 
 responseUpdateQueueHoursOfOperation :: UpdateQueueHoursOfOperationResponse -> TestTree
@@ -1670,7 +1670,7 @@ responseUpdateQueueHoursOfOperation =
   res
     "UpdateQueueHoursOfOperationResponse"
     "fixture/UpdateQueueHoursOfOperationResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateQueueHoursOfOperation)
 
 responseDisassociateRoutingProfileQueues :: DisassociateRoutingProfileQueuesResponse -> TestTree
@@ -1678,7 +1678,7 @@ responseDisassociateRoutingProfileQueues =
   res
     "DisassociateRoutingProfileQueuesResponse"
     "fixture/DisassociateRoutingProfileQueuesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DisassociateRoutingProfileQueues)
 
 responseDescribeContactFlow :: DescribeContactFlowResponse -> TestTree
@@ -1686,7 +1686,7 @@ responseDescribeContactFlow =
   res
     "DescribeContactFlowResponse"
     "fixture/DescribeContactFlowResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeContactFlow)
 
 responseUpdateQueueStatus :: UpdateQueueStatusResponse -> TestTree
@@ -1694,7 +1694,7 @@ responseUpdateQueueStatus =
   res
     "UpdateQueueStatusResponse"
     "fixture/UpdateQueueStatusResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateQueueStatus)
 
 responseDescribeQueue :: DescribeQueueResponse -> TestTree
@@ -1702,7 +1702,7 @@ responseDescribeQueue =
   res
     "DescribeQueueResponse"
     "fixture/DescribeQueueResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeQueue)
 
 responseAssociateLexBot :: AssociateLexBotResponse -> TestTree
@@ -1710,7 +1710,7 @@ responseAssociateLexBot =
   res
     "AssociateLexBotResponse"
     "fixture/AssociateLexBotResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy AssociateLexBot)
 
 responseUpdateInstanceAttribute :: UpdateInstanceAttributeResponse -> TestTree
@@ -1718,7 +1718,7 @@ responseUpdateInstanceAttribute =
   res
     "UpdateInstanceAttributeResponse"
     "fixture/UpdateInstanceAttributeResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateInstanceAttribute)
 
 responseDescribeUser :: DescribeUserResponse -> TestTree
@@ -1726,7 +1726,7 @@ responseDescribeUser =
   res
     "DescribeUserResponse"
     "fixture/DescribeUserResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeUser)
 
 responseDescribeUserHierarchyGroup :: DescribeUserHierarchyGroupResponse -> TestTree
@@ -1734,7 +1734,7 @@ responseDescribeUserHierarchyGroup =
   res
     "DescribeUserHierarchyGroupResponse"
     "fixture/DescribeUserHierarchyGroupResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeUserHierarchyGroup)
 
 responseResumeContactRecording :: ResumeContactRecordingResponse -> TestTree
@@ -1742,7 +1742,7 @@ responseResumeContactRecording =
   res
     "ResumeContactRecordingResponse"
     "fixture/ResumeContactRecordingResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ResumeContactRecording)
 
 responseUpdateRoutingProfileName :: UpdateRoutingProfileNameResponse -> TestTree
@@ -1750,7 +1750,7 @@ responseUpdateRoutingProfileName =
   res
     "UpdateRoutingProfileNameResponse"
     "fixture/UpdateRoutingProfileNameResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateRoutingProfileName)
 
 responseStartChatContact :: StartChatContactResponse -> TestTree
@@ -1758,7 +1758,7 @@ responseStartChatContact =
   res
     "StartChatContactResponse"
     "fixture/StartChatContactResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy StartChatContact)
 
 responseDeleteIntegrationAssociation :: DeleteIntegrationAssociationResponse -> TestTree
@@ -1766,7 +1766,7 @@ responseDeleteIntegrationAssociation =
   res
     "DeleteIntegrationAssociationResponse"
     "fixture/DeleteIntegrationAssociationResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DeleteIntegrationAssociation)
 
 responseListPhoneNumbers :: ListPhoneNumbersResponse -> TestTree
@@ -1774,7 +1774,7 @@ responseListPhoneNumbers =
   res
     "ListPhoneNumbersResponse"
     "fixture/ListPhoneNumbersResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListPhoneNumbers)
 
 responseListIntegrationAssociations :: ListIntegrationAssociationsResponse -> TestTree
@@ -1782,7 +1782,7 @@ responseListIntegrationAssociations =
   res
     "ListIntegrationAssociationsResponse"
     "fixture/ListIntegrationAssociationsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListIntegrationAssociations)
 
 responseListUseCases :: ListUseCasesResponse -> TestTree
@@ -1790,7 +1790,7 @@ responseListUseCases =
   res
     "ListUseCasesResponse"
     "fixture/ListUseCasesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListUseCases)
 
 responseUpdateUserSecurityProfiles :: UpdateUserSecurityProfilesResponse -> TestTree
@@ -1798,7 +1798,7 @@ responseUpdateUserSecurityProfiles =
   res
     "UpdateUserSecurityProfilesResponse"
     "fixture/UpdateUserSecurityProfilesResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateUserSecurityProfiles)
 
 responseDescribeUserHierarchyStructure :: DescribeUserHierarchyStructureResponse -> TestTree
@@ -1806,7 +1806,7 @@ responseDescribeUserHierarchyStructure =
   res
     "DescribeUserHierarchyStructureResponse"
     "fixture/DescribeUserHierarchyStructureResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeUserHierarchyStructure)
 
 responseListHoursOfOperations :: ListHoursOfOperationsResponse -> TestTree
@@ -1814,7 +1814,7 @@ responseListHoursOfOperations =
   res
     "ListHoursOfOperationsResponse"
     "fixture/ListHoursOfOperationsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListHoursOfOperations)
 
 responseCreateUseCase :: CreateUseCaseResponse -> TestTree
@@ -1822,7 +1822,7 @@ responseCreateUseCase =
   res
     "CreateUseCaseResponse"
     "fixture/CreateUseCaseResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy CreateUseCase)
 
 responseListContactFlows :: ListContactFlowsResponse -> TestTree
@@ -1830,7 +1830,7 @@ responseListContactFlows =
   res
     "ListContactFlowsResponse"
     "fixture/ListContactFlowsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListContactFlows)
 
 responseUpdateInstanceStorageConfig :: UpdateInstanceStorageConfigResponse -> TestTree
@@ -1838,7 +1838,7 @@ responseUpdateInstanceStorageConfig =
   res
     "UpdateInstanceStorageConfigResponse"
     "fixture/UpdateInstanceStorageConfigResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateInstanceStorageConfig)
 
 responseListInstanceStorageConfigs :: ListInstanceStorageConfigsResponse -> TestTree
@@ -1846,7 +1846,7 @@ responseListInstanceStorageConfigs =
   res
     "ListInstanceStorageConfigsResponse"
     "fixture/ListInstanceStorageConfigsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListInstanceStorageConfigs)
 
 responseCreateIntegrationAssociation :: CreateIntegrationAssociationResponse -> TestTree
@@ -1854,7 +1854,7 @@ responseCreateIntegrationAssociation =
   res
     "CreateIntegrationAssociationResponse"
     "fixture/CreateIntegrationAssociationResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy CreateIntegrationAssociation)
 
 responseDeleteUserHierarchyGroup :: DeleteUserHierarchyGroupResponse -> TestTree
@@ -1862,7 +1862,7 @@ responseDeleteUserHierarchyGroup =
   res
     "DeleteUserHierarchyGroupResponse"
     "fixture/DeleteUserHierarchyGroupResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DeleteUserHierarchyGroup)
 
 responseDeleteUser :: DeleteUserResponse -> TestTree
@@ -1870,7 +1870,7 @@ responseDeleteUser =
   res
     "DeleteUserResponse"
     "fixture/DeleteUserResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DeleteUser)
 
 responseDisassociateInstanceStorageConfig :: DisassociateInstanceStorageConfigResponse -> TestTree
@@ -1878,7 +1878,7 @@ responseDisassociateInstanceStorageConfig =
   res
     "DisassociateInstanceStorageConfigResponse"
     "fixture/DisassociateInstanceStorageConfigResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DisassociateInstanceStorageConfig)
 
 responseListUserHierarchyGroups :: ListUserHierarchyGroupsResponse -> TestTree
@@ -1886,7 +1886,7 @@ responseListUserHierarchyGroups =
   res
     "ListUserHierarchyGroupsResponse"
     "fixture/ListUserHierarchyGroupsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListUserHierarchyGroups)
 
 responseUpdateUserIdentityInfo :: UpdateUserIdentityInfoResponse -> TestTree
@@ -1894,7 +1894,7 @@ responseUpdateUserIdentityInfo =
   res
     "UpdateUserIdentityInfoResponse"
     "fixture/UpdateUserIdentityInfoResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateUserIdentityInfo)
 
 responseListUsers :: ListUsersResponse -> TestTree
@@ -1902,7 +1902,7 @@ responseListUsers =
   res
     "ListUsersResponse"
     "fixture/ListUsersResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListUsers)
 
 responseGetFederationToken :: GetFederationTokenResponse -> TestTree
@@ -1910,7 +1910,7 @@ responseGetFederationToken =
   res
     "GetFederationTokenResponse"
     "fixture/GetFederationTokenResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy GetFederationToken)
 
 responseDescribeInstanceAttribute :: DescribeInstanceAttributeResponse -> TestTree
@@ -1918,7 +1918,7 @@ responseDescribeInstanceAttribute =
   res
     "DescribeInstanceAttributeResponse"
     "fixture/DescribeInstanceAttributeResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeInstanceAttribute)
 
 responseListSecurityKeys :: ListSecurityKeysResponse -> TestTree
@@ -1926,7 +1926,7 @@ responseListSecurityKeys =
   res
     "ListSecurityKeysResponse"
     "fixture/ListSecurityKeysResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListSecurityKeys)
 
 responseUpdateRoutingProfileDefaultOutboundQueue :: UpdateRoutingProfileDefaultOutboundQueueResponse -> TestTree
@@ -1934,7 +1934,7 @@ responseUpdateRoutingProfileDefaultOutboundQueue =
   res
     "UpdateRoutingProfileDefaultOutboundQueueResponse"
     "fixture/UpdateRoutingProfileDefaultOutboundQueueResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateRoutingProfileDefaultOutboundQueue)
 
 responseCreateQueue :: CreateQueueResponse -> TestTree
@@ -1942,7 +1942,7 @@ responseCreateQueue =
   res
     "CreateQueueResponse"
     "fixture/CreateQueueResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy CreateQueue)
 
 responseCreateInstance :: CreateInstanceResponse -> TestTree
@@ -1950,7 +1950,7 @@ responseCreateInstance =
   res
     "CreateInstanceResponse"
     "fixture/CreateInstanceResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy CreateInstance)
 
 responseStartTaskContact :: StartTaskContactResponse -> TestTree
@@ -1958,7 +1958,7 @@ responseStartTaskContact =
   res
     "StartTaskContactResponse"
     "fixture/StartTaskContactResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy StartTaskContact)
 
 responseListPrompts :: ListPromptsResponse -> TestTree
@@ -1966,7 +1966,7 @@ responseListPrompts =
   res
     "ListPromptsResponse"
     "fixture/ListPromptsResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListPrompts)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -1974,7 +1974,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseStartOutboundVoiceContact :: StartOutboundVoiceContactResponse -> TestTree
@@ -1982,7 +1982,7 @@ responseStartOutboundVoiceContact =
   res
     "StartOutboundVoiceContactResponse"
     "fixture/StartOutboundVoiceContactResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy StartOutboundVoiceContact)
 
 responseUpdateUserHierarchyStructure :: UpdateUserHierarchyStructureResponse -> TestTree
@@ -1990,7 +1990,7 @@ responseUpdateUserHierarchyStructure =
   res
     "UpdateUserHierarchyStructureResponse"
     "fixture/UpdateUserHierarchyStructureResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateUserHierarchyStructure)
 
 responseUpdateContactFlowContent :: UpdateContactFlowContentResponse -> TestTree
@@ -1998,7 +1998,7 @@ responseUpdateContactFlowContent =
   res
     "UpdateContactFlowContentResponse"
     "fixture/UpdateContactFlowContentResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy UpdateContactFlowContent)
 
 responseGetMetricData :: GetMetricDataResponse -> TestTree
@@ -2006,7 +2006,7 @@ responseGetMetricData =
   res
     "GetMetricDataResponse"
     "fixture/GetMetricDataResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy GetMetricData)
 
 responseDescribeHoursOfOperation :: DescribeHoursOfOperationResponse -> TestTree
@@ -2014,5 +2014,5 @@ responseDescribeHoursOfOperation =
   res
     "DescribeHoursOfOperationResponse"
     "fixture/DescribeHoursOfOperationResponse.proto"
-    connect
+    defaultService
     (Proxy :: Proxy DescribeHoursOfOperation)

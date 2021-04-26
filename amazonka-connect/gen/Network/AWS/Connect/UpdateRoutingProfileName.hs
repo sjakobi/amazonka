@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the name and description of a routing profile. The request accepts the following data in JSON format. At least @Name@ or @Description@ must be provided.
+-- Updates the name and description of a routing profile. The request
+-- accepts the following data in JSON format. At least @Name@ or
+-- @Description@ must be provided.
 module Network.AWS.Connect.UpdateRoutingProfileName
   ( -- * Creating a Request
-    updateRoutingProfileName,
-    UpdateRoutingProfileName,
+    UpdateRoutingProfileName (..),
+    newUpdateRoutingProfileName,
 
     -- * Request Lenses
-    urpnName,
-    urpnDescription,
-    urpnInstanceId,
-    urpnRoutingProfileId,
+    updateRoutingProfileName_name,
+    updateRoutingProfileName_description,
+    updateRoutingProfileName_instanceId,
+    updateRoutingProfileName_routingProfileId,
 
     -- * Destructuring the Response
-    updateRoutingProfileNameResponse,
-    UpdateRoutingProfileNameResponse,
+    UpdateRoutingProfileNameResponse (..),
+    newUpdateRoutingProfileNameResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateRoutingProfileName' smart constructor.
+-- | /See:/ 'newUpdateRoutingProfileName' smart constructor.
 data UpdateRoutingProfileName = UpdateRoutingProfileName'
-  { _urpnName ::
-      !(Maybe Text),
-    _urpnDescription ::
-      !(Maybe Text),
-    _urpnInstanceId ::
-      !Text,
-    _urpnRoutingProfileId ::
-      !Text
+  { -- | The name of the routing profile. Must not be more than 127 characters.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the routing profile. Must not be more than 250
+    -- characters.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the routing profile.
+    routingProfileId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoutingProfileName' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoutingProfileName' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urpnName' - The name of the routing profile. Must not be more than 127 characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urpnDescription' - The description of the routing profile. Must not be more than 250 characters.
+-- 'name', 'updateRoutingProfileName_name' - The name of the routing profile. Must not be more than 127 characters.
 --
--- * 'urpnInstanceId' - The identifier of the Amazon Connect instance.
+-- 'description', 'updateRoutingProfileName_description' - The description of the routing profile. Must not be more than 250
+-- characters.
 --
--- * 'urpnRoutingProfileId' - The identifier of the routing profile.
-updateRoutingProfileName ::
-  -- | 'urpnInstanceId'
-  Text ->
-  -- | 'urpnRoutingProfileId'
-  Text ->
+-- 'instanceId', 'updateRoutingProfileName_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'routingProfileId', 'updateRoutingProfileName_routingProfileId' - The identifier of the routing profile.
+newUpdateRoutingProfileName ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'routingProfileId'
+  Prelude.Text ->
   UpdateRoutingProfileName
-updateRoutingProfileName
+newUpdateRoutingProfileName
   pInstanceId_
   pRoutingProfileId_ =
     UpdateRoutingProfileName'
-      { _urpnName = Nothing,
-        _urpnDescription = Nothing,
-        _urpnInstanceId = pInstanceId_,
-        _urpnRoutingProfileId = pRoutingProfileId_
+      { name = Prelude.Nothing,
+        description = Prelude.Nothing,
+        instanceId = pInstanceId_,
+        routingProfileId = pRoutingProfileId_
       }
 
 -- | The name of the routing profile. Must not be more than 127 characters.
-urpnName :: Lens' UpdateRoutingProfileName (Maybe Text)
-urpnName = lens _urpnName (\s a -> s {_urpnName = a})
+updateRoutingProfileName_name :: Lens.Lens' UpdateRoutingProfileName (Prelude.Maybe Prelude.Text)
+updateRoutingProfileName_name = Lens.lens (\UpdateRoutingProfileName' {name} -> name) (\s@UpdateRoutingProfileName' {} a -> s {name = a} :: UpdateRoutingProfileName)
 
--- | The description of the routing profile. Must not be more than 250 characters.
-urpnDescription :: Lens' UpdateRoutingProfileName (Maybe Text)
-urpnDescription = lens _urpnDescription (\s a -> s {_urpnDescription = a})
+-- | The description of the routing profile. Must not be more than 250
+-- characters.
+updateRoutingProfileName_description :: Lens.Lens' UpdateRoutingProfileName (Prelude.Maybe Prelude.Text)
+updateRoutingProfileName_description = Lens.lens (\UpdateRoutingProfileName' {description} -> description) (\s@UpdateRoutingProfileName' {} a -> s {description = a} :: UpdateRoutingProfileName)
 
 -- | The identifier of the Amazon Connect instance.
-urpnInstanceId :: Lens' UpdateRoutingProfileName Text
-urpnInstanceId = lens _urpnInstanceId (\s a -> s {_urpnInstanceId = a})
+updateRoutingProfileName_instanceId :: Lens.Lens' UpdateRoutingProfileName Prelude.Text
+updateRoutingProfileName_instanceId = Lens.lens (\UpdateRoutingProfileName' {instanceId} -> instanceId) (\s@UpdateRoutingProfileName' {} a -> s {instanceId = a} :: UpdateRoutingProfileName)
 
 -- | The identifier of the routing profile.
-urpnRoutingProfileId :: Lens' UpdateRoutingProfileName Text
-urpnRoutingProfileId = lens _urpnRoutingProfileId (\s a -> s {_urpnRoutingProfileId = a})
+updateRoutingProfileName_routingProfileId :: Lens.Lens' UpdateRoutingProfileName Prelude.Text
+updateRoutingProfileName_routingProfileId = Lens.lens (\UpdateRoutingProfileName' {routingProfileId} -> routingProfileId) (\s@UpdateRoutingProfileName' {} a -> s {routingProfileId = a} :: UpdateRoutingProfileName)
 
-instance AWSRequest UpdateRoutingProfileName where
+instance Prelude.AWSRequest UpdateRoutingProfileName where
   type
     Rs UpdateRoutingProfileName =
       UpdateRoutingProfileNameResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateRoutingProfileNameResponse'
+    Response.receiveNull
+      UpdateRoutingProfileNameResponse'
 
-instance Hashable UpdateRoutingProfileName
+instance Prelude.Hashable UpdateRoutingProfileName
 
-instance NFData UpdateRoutingProfileName
+instance Prelude.NFData UpdateRoutingProfileName
 
-instance ToHeaders UpdateRoutingProfileName where
+instance Prelude.ToHeaders UpdateRoutingProfileName where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateRoutingProfileName where
+instance Prelude.ToJSON UpdateRoutingProfileName where
   toJSON UpdateRoutingProfileName' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _urpnName,
-            ("Description" .=) <$> _urpnDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("Description" Prelude..=) Prelude.<$> description
           ]
       )
 
-instance ToPath UpdateRoutingProfileName where
+instance Prelude.ToPath UpdateRoutingProfileName where
   toPath UpdateRoutingProfileName' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/routing-profiles/",
-        toBS _urpnInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _urpnRoutingProfileId,
+        Prelude.toBS routingProfileId,
         "/name"
       ]
 
-instance ToQuery UpdateRoutingProfileName where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateRoutingProfileName where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRoutingProfileNameResponse' smart constructor.
+-- | /See:/ 'newUpdateRoutingProfileNameResponse' smart constructor.
 data UpdateRoutingProfileNameResponse = UpdateRoutingProfileNameResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoutingProfileNameResponse' with the minimum fields required to make a request.
-updateRoutingProfileNameResponse ::
+-- |
+-- Create a value of 'UpdateRoutingProfileNameResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateRoutingProfileNameResponse ::
   UpdateRoutingProfileNameResponse
-updateRoutingProfileNameResponse =
+newUpdateRoutingProfileNameResponse =
   UpdateRoutingProfileNameResponse'
 
-instance NFData UpdateRoutingProfileNameResponse
+instance
+  Prelude.NFData
+    UpdateRoutingProfileNameResponse

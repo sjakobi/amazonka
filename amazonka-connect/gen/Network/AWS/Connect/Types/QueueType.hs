@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Connect.Types.QueueType
   ( QueueType
       ( ..,
-        Agent,
-        Standard
+        QueueTypeAGENT,
+        QueueTypeSTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QueueType = QueueType' (CI Text)
+newtype QueueType = QueueType'
+  { fromQueueType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Agent :: QueueType
-pattern Agent = QueueType' "AGENT"
+pattern QueueTypeAGENT :: QueueType
+pattern QueueTypeAGENT = QueueType' "AGENT"
 
-pattern Standard :: QueueType
-pattern Standard = QueueType' "STANDARD"
+pattern QueueTypeSTANDARD :: QueueType
+pattern QueueTypeSTANDARD = QueueType' "STANDARD"
 
 {-# COMPLETE
-  Agent,
-  Standard,
+  QueueTypeAGENT,
+  QueueTypeSTANDARD,
   QueueType'
   #-}
 
-instance FromText QueueType where
-  parser = (QueueType' . mk) <$> takeText
+instance Prelude.FromText QueueType where
+  parser = QueueType' Prelude.<$> Prelude.takeText
 
-instance ToText QueueType where
-  toText (QueueType' ci) = original ci
+instance Prelude.ToText QueueType where
+  toText (QueueType' x) = x
 
-instance Hashable QueueType
+instance Prelude.Hashable QueueType
 
-instance NFData QueueType
+instance Prelude.NFData QueueType
 
-instance ToByteString QueueType
+instance Prelude.ToByteString QueueType
 
-instance ToQuery QueueType
+instance Prelude.ToQuery QueueType
 
-instance ToHeader QueueType
+instance Prelude.ToHeader QueueType
 
-instance ToJSON QueueType where
-  toJSON = toJSONText
+instance Prelude.ToJSON QueueType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON QueueType where
-  parseJSON = parseJSONText "QueueType"
+instance Prelude.FromJSON QueueType where
+  parseJSON = Prelude.parseJSONText "QueueType"

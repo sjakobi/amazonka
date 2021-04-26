@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,110 +21,120 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Allows the specified Amazon Connect instance to access the specified Amazon Lex bot.
+-- Allows the specified Amazon Connect instance to access the specified
+-- Amazon Lex bot.
 module Network.AWS.Connect.AssociateLexBot
   ( -- * Creating a Request
-    associateLexBot,
-    AssociateLexBot,
+    AssociateLexBot (..),
+    newAssociateLexBot,
 
     -- * Request Lenses
-    albInstanceId,
-    albLexBot,
+    associateLexBot_instanceId,
+    associateLexBot_lexBot,
 
     -- * Destructuring the Response
-    associateLexBotResponse,
-    AssociateLexBotResponse,
+    AssociateLexBotResponse (..),
+    newAssociateLexBotResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateLexBot' smart constructor.
+-- | /See:/ 'newAssociateLexBot' smart constructor.
 data AssociateLexBot = AssociateLexBot'
-  { _albInstanceId ::
-      !Text,
-    _albLexBot :: !LexBot
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The Amazon Lex box to associate with the instance.
+    lexBot :: LexBot
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateLexBot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateLexBot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'albInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'albLexBot' - The Amazon Lex box to associate with the instance.
-associateLexBot ::
-  -- | 'albInstanceId'
-  Text ->
-  -- | 'albLexBot'
+-- 'instanceId', 'associateLexBot_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'lexBot', 'associateLexBot_lexBot' - The Amazon Lex box to associate with the instance.
+newAssociateLexBot ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'lexBot'
   LexBot ->
   AssociateLexBot
-associateLexBot pInstanceId_ pLexBot_ =
+newAssociateLexBot pInstanceId_ pLexBot_ =
   AssociateLexBot'
-    { _albInstanceId = pInstanceId_,
-      _albLexBot = pLexBot_
+    { instanceId = pInstanceId_,
+      lexBot = pLexBot_
     }
 
 -- | The identifier of the Amazon Connect instance.
-albInstanceId :: Lens' AssociateLexBot Text
-albInstanceId = lens _albInstanceId (\s a -> s {_albInstanceId = a})
+associateLexBot_instanceId :: Lens.Lens' AssociateLexBot Prelude.Text
+associateLexBot_instanceId = Lens.lens (\AssociateLexBot' {instanceId} -> instanceId) (\s@AssociateLexBot' {} a -> s {instanceId = a} :: AssociateLexBot)
 
 -- | The Amazon Lex box to associate with the instance.
-albLexBot :: Lens' AssociateLexBot LexBot
-albLexBot = lens _albLexBot (\s a -> s {_albLexBot = a})
+associateLexBot_lexBot :: Lens.Lens' AssociateLexBot LexBot
+associateLexBot_lexBot = Lens.lens (\AssociateLexBot' {lexBot} -> lexBot) (\s@AssociateLexBot' {} a -> s {lexBot = a} :: AssociateLexBot)
 
-instance AWSRequest AssociateLexBot where
+instance Prelude.AWSRequest AssociateLexBot where
   type Rs AssociateLexBot = AssociateLexBotResponse
-  request = putJSON connect
-  response = receiveNull AssociateLexBotResponse'
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveNull AssociateLexBotResponse'
 
-instance Hashable AssociateLexBot
+instance Prelude.Hashable AssociateLexBot
 
-instance NFData AssociateLexBot
+instance Prelude.NFData AssociateLexBot
 
-instance ToHeaders AssociateLexBot where
+instance Prelude.ToHeaders AssociateLexBot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateLexBot where
+instance Prelude.ToJSON AssociateLexBot where
   toJSON AssociateLexBot' {..} =
-    object (catMaybes [Just ("LexBot" .= _albLexBot)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("LexBot" Prelude..= lexBot)]
+      )
 
-instance ToPath AssociateLexBot where
+instance Prelude.ToPath AssociateLexBot where
   toPath AssociateLexBot' {..} =
-    mconcat
-      ["/instance/", toBS _albInstanceId, "/lex-bot"]
+    Prelude.mconcat
+      ["/instance/", Prelude.toBS instanceId, "/lex-bot"]
 
-instance ToQuery AssociateLexBot where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateLexBot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateLexBotResponse' smart constructor.
+-- | /See:/ 'newAssociateLexBotResponse' smart constructor.
 data AssociateLexBotResponse = AssociateLexBotResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateLexBotResponse' with the minimum fields required to make a request.
-associateLexBotResponse ::
+-- |
+-- Create a value of 'AssociateLexBotResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAssociateLexBotResponse ::
   AssociateLexBotResponse
-associateLexBotResponse = AssociateLexBotResponse'
+newAssociateLexBotResponse = AssociateLexBotResponse'
 
-instance NFData AssociateLexBotResponse
+instance Prelude.NFData AssociateLexBotResponse

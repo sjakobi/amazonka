@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,180 +24,182 @@
 -- Creates a new user hierarchy group.
 module Network.AWS.Connect.CreateUserHierarchyGroup
   ( -- * Creating a Request
-    createUserHierarchyGroup,
-    CreateUserHierarchyGroup,
+    CreateUserHierarchyGroup (..),
+    newCreateUserHierarchyGroup,
 
     -- * Request Lenses
-    cuhgParentGroupId,
-    cuhgName,
-    cuhgInstanceId,
+    createUserHierarchyGroup_parentGroupId,
+    createUserHierarchyGroup_name,
+    createUserHierarchyGroup_instanceId,
 
     -- * Destructuring the Response
-    createUserHierarchyGroupResponse,
-    CreateUserHierarchyGroupResponse,
+    CreateUserHierarchyGroupResponse (..),
+    newCreateUserHierarchyGroupResponse,
 
     -- * Response Lenses
-    cuhgrrsHierarchyGroupARN,
-    cuhgrrsHierarchyGroupId,
-    cuhgrrsResponseStatus,
+    createUserHierarchyGroupResponse_hierarchyGroupArn,
+    createUserHierarchyGroupResponse_hierarchyGroupId,
+    createUserHierarchyGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createUserHierarchyGroup' smart constructor.
+-- | /See:/ 'newCreateUserHierarchyGroup' smart constructor.
 data CreateUserHierarchyGroup = CreateUserHierarchyGroup'
-  { _cuhgParentGroupId ::
-      !(Maybe Text),
-    _cuhgName :: !Text,
-    _cuhgInstanceId ::
-      !Text
+  { -- | The identifier for the parent hierarchy group. The user hierarchy is
+    -- created at level one if the parent group ID is null.
+    parentGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the user hierarchy group. Must not be more than 100
+    -- characters.
+    name :: Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserHierarchyGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserHierarchyGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cuhgParentGroupId' - The identifier for the parent hierarchy group. The user hierarchy is created at level one if the parent group ID is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cuhgName' - The name of the user hierarchy group. Must not be more than 100 characters.
+-- 'parentGroupId', 'createUserHierarchyGroup_parentGroupId' - The identifier for the parent hierarchy group. The user hierarchy is
+-- created at level one if the parent group ID is null.
 --
--- * 'cuhgInstanceId' - The identifier of the Amazon Connect instance.
-createUserHierarchyGroup ::
-  -- | 'cuhgName'
-  Text ->
-  -- | 'cuhgInstanceId'
-  Text ->
+-- 'name', 'createUserHierarchyGroup_name' - The name of the user hierarchy group. Must not be more than 100
+-- characters.
+--
+-- 'instanceId', 'createUserHierarchyGroup_instanceId' - The identifier of the Amazon Connect instance.
+newCreateUserHierarchyGroup ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   CreateUserHierarchyGroup
-createUserHierarchyGroup pName_ pInstanceId_ =
+newCreateUserHierarchyGroup pName_ pInstanceId_ =
   CreateUserHierarchyGroup'
-    { _cuhgParentGroupId =
-        Nothing,
-      _cuhgName = pName_,
-      _cuhgInstanceId = pInstanceId_
+    { parentGroupId =
+        Prelude.Nothing,
+      name = pName_,
+      instanceId = pInstanceId_
     }
 
--- | The identifier for the parent hierarchy group. The user hierarchy is created at level one if the parent group ID is null.
-cuhgParentGroupId :: Lens' CreateUserHierarchyGroup (Maybe Text)
-cuhgParentGroupId = lens _cuhgParentGroupId (\s a -> s {_cuhgParentGroupId = a})
+-- | The identifier for the parent hierarchy group. The user hierarchy is
+-- created at level one if the parent group ID is null.
+createUserHierarchyGroup_parentGroupId :: Lens.Lens' CreateUserHierarchyGroup (Prelude.Maybe Prelude.Text)
+createUserHierarchyGroup_parentGroupId = Lens.lens (\CreateUserHierarchyGroup' {parentGroupId} -> parentGroupId) (\s@CreateUserHierarchyGroup' {} a -> s {parentGroupId = a} :: CreateUserHierarchyGroup)
 
--- | The name of the user hierarchy group. Must not be more than 100 characters.
-cuhgName :: Lens' CreateUserHierarchyGroup Text
-cuhgName = lens _cuhgName (\s a -> s {_cuhgName = a})
+-- | The name of the user hierarchy group. Must not be more than 100
+-- characters.
+createUserHierarchyGroup_name :: Lens.Lens' CreateUserHierarchyGroup Prelude.Text
+createUserHierarchyGroup_name = Lens.lens (\CreateUserHierarchyGroup' {name} -> name) (\s@CreateUserHierarchyGroup' {} a -> s {name = a} :: CreateUserHierarchyGroup)
 
 -- | The identifier of the Amazon Connect instance.
-cuhgInstanceId :: Lens' CreateUserHierarchyGroup Text
-cuhgInstanceId = lens _cuhgInstanceId (\s a -> s {_cuhgInstanceId = a})
+createUserHierarchyGroup_instanceId :: Lens.Lens' CreateUserHierarchyGroup Prelude.Text
+createUserHierarchyGroup_instanceId = Lens.lens (\CreateUserHierarchyGroup' {instanceId} -> instanceId) (\s@CreateUserHierarchyGroup' {} a -> s {instanceId = a} :: CreateUserHierarchyGroup)
 
-instance AWSRequest CreateUserHierarchyGroup where
+instance Prelude.AWSRequest CreateUserHierarchyGroup where
   type
     Rs CreateUserHierarchyGroup =
       CreateUserHierarchyGroupResponse
-  request = putJSON connect
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateUserHierarchyGroupResponse'
-            <$> (x .?> "HierarchyGroupArn")
-            <*> (x .?> "HierarchyGroupId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "HierarchyGroupArn")
+            Prelude.<*> (x Prelude..?> "HierarchyGroupId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateUserHierarchyGroup
+instance Prelude.Hashable CreateUserHierarchyGroup
 
-instance NFData CreateUserHierarchyGroup
+instance Prelude.NFData CreateUserHierarchyGroup
 
-instance ToHeaders CreateUserHierarchyGroup where
+instance Prelude.ToHeaders CreateUserHierarchyGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateUserHierarchyGroup where
+instance Prelude.ToJSON CreateUserHierarchyGroup where
   toJSON CreateUserHierarchyGroup' {..} =
-    object
-      ( catMaybes
-          [ ("ParentGroupId" .=) <$> _cuhgParentGroupId,
-            Just ("Name" .= _cuhgName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ParentGroupId" Prelude..=)
+              Prelude.<$> parentGroupId,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateUserHierarchyGroup where
+instance Prelude.ToPath CreateUserHierarchyGroup where
   toPath CreateUserHierarchyGroup' {..} =
-    mconcat
-      ["/user-hierarchy-groups/", toBS _cuhgInstanceId]
+    Prelude.mconcat
+      ["/user-hierarchy-groups/", Prelude.toBS instanceId]
 
-instance ToQuery CreateUserHierarchyGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateUserHierarchyGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createUserHierarchyGroupResponse' smart constructor.
+-- | /See:/ 'newCreateUserHierarchyGroupResponse' smart constructor.
 data CreateUserHierarchyGroupResponse = CreateUserHierarchyGroupResponse'
-  { _cuhgrrsHierarchyGroupARN ::
-      !( Maybe
-           Text
-       ),
-    _cuhgrrsHierarchyGroupId ::
-      !( Maybe
-           Text
-       ),
-    _cuhgrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the hierarchy group.
+    hierarchyGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the hierarchy group.
+    hierarchyGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserHierarchyGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserHierarchyGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cuhgrrsHierarchyGroupARN' - The Amazon Resource Name (ARN) of the hierarchy group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cuhgrrsHierarchyGroupId' - The identifier of the hierarchy group.
+-- 'hierarchyGroupArn', 'createUserHierarchyGroupResponse_hierarchyGroupArn' - The Amazon Resource Name (ARN) of the hierarchy group.
 --
--- * 'cuhgrrsResponseStatus' - -- | The response status code.
-createUserHierarchyGroupResponse ::
-  -- | 'cuhgrrsResponseStatus'
-  Int ->
+-- 'hierarchyGroupId', 'createUserHierarchyGroupResponse_hierarchyGroupId' - The identifier of the hierarchy group.
+--
+-- 'httpStatus', 'createUserHierarchyGroupResponse_httpStatus' - The response's http status code.
+newCreateUserHierarchyGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateUserHierarchyGroupResponse
-createUserHierarchyGroupResponse pResponseStatus_ =
+newCreateUserHierarchyGroupResponse pHttpStatus_ =
   CreateUserHierarchyGroupResponse'
-    { _cuhgrrsHierarchyGroupARN =
-        Nothing,
-      _cuhgrrsHierarchyGroupId = Nothing,
-      _cuhgrrsResponseStatus = pResponseStatus_
+    { hierarchyGroupArn =
+        Prelude.Nothing,
+      hierarchyGroupId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the hierarchy group.
-cuhgrrsHierarchyGroupARN :: Lens' CreateUserHierarchyGroupResponse (Maybe Text)
-cuhgrrsHierarchyGroupARN = lens _cuhgrrsHierarchyGroupARN (\s a -> s {_cuhgrrsHierarchyGroupARN = a})
+createUserHierarchyGroupResponse_hierarchyGroupArn :: Lens.Lens' CreateUserHierarchyGroupResponse (Prelude.Maybe Prelude.Text)
+createUserHierarchyGroupResponse_hierarchyGroupArn = Lens.lens (\CreateUserHierarchyGroupResponse' {hierarchyGroupArn} -> hierarchyGroupArn) (\s@CreateUserHierarchyGroupResponse' {} a -> s {hierarchyGroupArn = a} :: CreateUserHierarchyGroupResponse)
 
 -- | The identifier of the hierarchy group.
-cuhgrrsHierarchyGroupId :: Lens' CreateUserHierarchyGroupResponse (Maybe Text)
-cuhgrrsHierarchyGroupId = lens _cuhgrrsHierarchyGroupId (\s a -> s {_cuhgrrsHierarchyGroupId = a})
+createUserHierarchyGroupResponse_hierarchyGroupId :: Lens.Lens' CreateUserHierarchyGroupResponse (Prelude.Maybe Prelude.Text)
+createUserHierarchyGroupResponse_hierarchyGroupId = Lens.lens (\CreateUserHierarchyGroupResponse' {hierarchyGroupId} -> hierarchyGroupId) (\s@CreateUserHierarchyGroupResponse' {} a -> s {hierarchyGroupId = a} :: CreateUserHierarchyGroupResponse)
 
--- | -- | The response status code.
-cuhgrrsResponseStatus :: Lens' CreateUserHierarchyGroupResponse Int
-cuhgrrsResponseStatus = lens _cuhgrrsResponseStatus (\s a -> s {_cuhgrrsResponseStatus = a})
+-- | The response's http status code.
+createUserHierarchyGroupResponse_httpStatus :: Lens.Lens' CreateUserHierarchyGroupResponse Prelude.Int
+createUserHierarchyGroupResponse_httpStatus = Lens.lens (\CreateUserHierarchyGroupResponse' {httpStatus} -> httpStatus) (\s@CreateUserHierarchyGroupResponse' {} a -> s {httpStatus = a} :: CreateUserHierarchyGroupResponse)
 
-instance NFData CreateUserHierarchyGroupResponse
+instance
+  Prelude.NFData
+    CreateUserHierarchyGroupResponse

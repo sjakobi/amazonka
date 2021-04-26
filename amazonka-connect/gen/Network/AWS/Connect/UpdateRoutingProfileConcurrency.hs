@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the channels that agents can handle in the Contact Control Panel (CCP) for a routing profile.
+-- Updates the channels that agents can handle in the Contact Control Panel
+-- (CCP) for a routing profile.
 module Network.AWS.Connect.UpdateRoutingProfileConcurrency
   ( -- * Creating a Request
-    updateRoutingProfileConcurrency,
-    UpdateRoutingProfileConcurrency,
+    UpdateRoutingProfileConcurrency (..),
+    newUpdateRoutingProfileConcurrency,
 
     -- * Request Lenses
-    urpcInstanceId,
-    urpcRoutingProfileId,
-    urpcMediaConcurrencies,
+    updateRoutingProfileConcurrency_instanceId,
+    updateRoutingProfileConcurrency_routingProfileId,
+    updateRoutingProfileConcurrency_mediaConcurrencies,
 
     -- * Destructuring the Response
-    updateRoutingProfileConcurrencyResponse,
-    UpdateRoutingProfileConcurrencyResponse,
+    UpdateRoutingProfileConcurrencyResponse (..),
+    newUpdateRoutingProfileConcurrencyResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateRoutingProfileConcurrency' smart constructor.
+-- | /See:/ 'newUpdateRoutingProfileConcurrency' smart constructor.
 data UpdateRoutingProfileConcurrency = UpdateRoutingProfileConcurrency'
-  { _urpcInstanceId ::
-      !Text,
-    _urpcRoutingProfileId ::
-      !Text,
-    _urpcMediaConcurrencies ::
-      ![MediaConcurrency]
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the routing profile.
+    routingProfileId :: Prelude.Text,
+    -- | The channels that agents can handle in the Contact Control Panel (CCP).
+    mediaConcurrencies :: [MediaConcurrency]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoutingProfileConcurrency' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoutingProfileConcurrency' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urpcInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urpcRoutingProfileId' - The identifier of the routing profile.
+-- 'instanceId', 'updateRoutingProfileConcurrency_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'urpcMediaConcurrencies' - The channels that agents can handle in the Contact Control Panel (CCP).
-updateRoutingProfileConcurrency ::
-  -- | 'urpcInstanceId'
-  Text ->
-  -- | 'urpcRoutingProfileId'
-  Text ->
+-- 'routingProfileId', 'updateRoutingProfileConcurrency_routingProfileId' - The identifier of the routing profile.
+--
+-- 'mediaConcurrencies', 'updateRoutingProfileConcurrency_mediaConcurrencies' - The channels that agents can handle in the Contact Control Panel (CCP).
+newUpdateRoutingProfileConcurrency ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'routingProfileId'
+  Prelude.Text ->
   UpdateRoutingProfileConcurrency
-updateRoutingProfileConcurrency
+newUpdateRoutingProfileConcurrency
   pInstanceId_
   pRoutingProfileId_ =
     UpdateRoutingProfileConcurrency'
-      { _urpcInstanceId =
+      { instanceId =
           pInstanceId_,
-        _urpcRoutingProfileId = pRoutingProfileId_,
-        _urpcMediaConcurrencies = mempty
+        routingProfileId = pRoutingProfileId_,
+        mediaConcurrencies = Prelude.mempty
       }
 
 -- | The identifier of the Amazon Connect instance.
-urpcInstanceId :: Lens' UpdateRoutingProfileConcurrency Text
-urpcInstanceId = lens _urpcInstanceId (\s a -> s {_urpcInstanceId = a})
+updateRoutingProfileConcurrency_instanceId :: Lens.Lens' UpdateRoutingProfileConcurrency Prelude.Text
+updateRoutingProfileConcurrency_instanceId = Lens.lens (\UpdateRoutingProfileConcurrency' {instanceId} -> instanceId) (\s@UpdateRoutingProfileConcurrency' {} a -> s {instanceId = a} :: UpdateRoutingProfileConcurrency)
 
 -- | The identifier of the routing profile.
-urpcRoutingProfileId :: Lens' UpdateRoutingProfileConcurrency Text
-urpcRoutingProfileId = lens _urpcRoutingProfileId (\s a -> s {_urpcRoutingProfileId = a})
+updateRoutingProfileConcurrency_routingProfileId :: Lens.Lens' UpdateRoutingProfileConcurrency Prelude.Text
+updateRoutingProfileConcurrency_routingProfileId = Lens.lens (\UpdateRoutingProfileConcurrency' {routingProfileId} -> routingProfileId) (\s@UpdateRoutingProfileConcurrency' {} a -> s {routingProfileId = a} :: UpdateRoutingProfileConcurrency)
 
 -- | The channels that agents can handle in the Contact Control Panel (CCP).
-urpcMediaConcurrencies :: Lens' UpdateRoutingProfileConcurrency [MediaConcurrency]
-urpcMediaConcurrencies = lens _urpcMediaConcurrencies (\s a -> s {_urpcMediaConcurrencies = a}) . _Coerce
+updateRoutingProfileConcurrency_mediaConcurrencies :: Lens.Lens' UpdateRoutingProfileConcurrency [MediaConcurrency]
+updateRoutingProfileConcurrency_mediaConcurrencies = Lens.lens (\UpdateRoutingProfileConcurrency' {mediaConcurrencies} -> mediaConcurrencies) (\s@UpdateRoutingProfileConcurrency' {} a -> s {mediaConcurrencies = a} :: UpdateRoutingProfileConcurrency) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateRoutingProfileConcurrency where
+instance
+  Prelude.AWSRequest
+    UpdateRoutingProfileConcurrency
+  where
   type
     Rs UpdateRoutingProfileConcurrency =
       UpdateRoutingProfileConcurrencyResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull
+    Response.receiveNull
       UpdateRoutingProfileConcurrencyResponse'
 
-instance Hashable UpdateRoutingProfileConcurrency
+instance
+  Prelude.Hashable
+    UpdateRoutingProfileConcurrency
 
-instance NFData UpdateRoutingProfileConcurrency
+instance
+  Prelude.NFData
+    UpdateRoutingProfileConcurrency
 
-instance ToHeaders UpdateRoutingProfileConcurrency where
+instance
+  Prelude.ToHeaders
+    UpdateRoutingProfileConcurrency
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateRoutingProfileConcurrency where
+instance
+  Prelude.ToJSON
+    UpdateRoutingProfileConcurrency
+  where
   toJSON UpdateRoutingProfileConcurrency' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("MediaConcurrencies" .= _urpcMediaConcurrencies)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "MediaConcurrencies"
+                  Prelude..= mediaConcurrencies
+              )
           ]
       )
 
-instance ToPath UpdateRoutingProfileConcurrency where
+instance
+  Prelude.ToPath
+    UpdateRoutingProfileConcurrency
+  where
   toPath UpdateRoutingProfileConcurrency' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/routing-profiles/",
-        toBS _urpcInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _urpcRoutingProfileId,
+        Prelude.toBS routingProfileId,
         "/concurrency"
       ]
 
-instance ToQuery UpdateRoutingProfileConcurrency where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdateRoutingProfileConcurrency
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRoutingProfileConcurrencyResponse' smart constructor.
+-- | /See:/ 'newUpdateRoutingProfileConcurrencyResponse' smart constructor.
 data UpdateRoutingProfileConcurrencyResponse = UpdateRoutingProfileConcurrencyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoutingProfileConcurrencyResponse' with the minimum fields required to make a request.
-updateRoutingProfileConcurrencyResponse ::
+-- |
+-- Create a value of 'UpdateRoutingProfileConcurrencyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateRoutingProfileConcurrencyResponse ::
   UpdateRoutingProfileConcurrencyResponse
-updateRoutingProfileConcurrencyResponse =
+newUpdateRoutingProfileConcurrencyResponse =
   UpdateRoutingProfileConcurrencyResponse'
 
 instance
-  NFData
+  Prelude.NFData
     UpdateRoutingProfileConcurrencyResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- When a contact is being recorded, and the recording has been suspended using SuspendContactRecording, this API resumes recording the call.
---
+-- When a contact is being recorded, and the recording has been suspended
+-- using SuspendContactRecording, this API resumes recording the call.
 --
 -- Only voice recordings are supported at this time.
 module Network.AWS.Connect.ResumeContactRecording
   ( -- * Creating a Request
-    resumeContactRecording,
-    ResumeContactRecording,
+    ResumeContactRecording (..),
+    newResumeContactRecording,
 
     -- * Request Lenses
-    rcrInstanceId,
-    rcrContactId,
-    rcrInitialContactId,
+    resumeContactRecording_instanceId,
+    resumeContactRecording_contactId,
+    resumeContactRecording_initialContactId,
 
     -- * Destructuring the Response
-    resumeContactRecordingResponse,
-    ResumeContactRecordingResponse,
+    ResumeContactRecordingResponse (..),
+    newResumeContactRecordingResponse,
 
     -- * Response Lenses
-    rcrrrsResponseStatus,
+    resumeContactRecordingResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'resumeContactRecording' smart constructor.
+-- | /See:/ 'newResumeContactRecording' smart constructor.
 data ResumeContactRecording = ResumeContactRecording'
-  { _rcrInstanceId ::
-      !Text,
-    _rcrContactId :: !Text,
-    _rcrInitialContactId ::
-      !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the contact.
+    contactId :: Prelude.Text,
+    -- | The identifier of the contact. This is the identifier of the contact
+    -- associated with the first interaction with the contact center.
+    initialContactId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResumeContactRecording' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResumeContactRecording' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcrInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcrContactId' - The identifier of the contact.
+-- 'instanceId', 'resumeContactRecording_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'rcrInitialContactId' - The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.
-resumeContactRecording ::
-  -- | 'rcrInstanceId'
-  Text ->
-  -- | 'rcrContactId'
-  Text ->
-  -- | 'rcrInitialContactId'
-  Text ->
+-- 'contactId', 'resumeContactRecording_contactId' - The identifier of the contact.
+--
+-- 'initialContactId', 'resumeContactRecording_initialContactId' - The identifier of the contact. This is the identifier of the contact
+-- associated with the first interaction with the contact center.
+newResumeContactRecording ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'contactId'
+  Prelude.Text ->
+  -- | 'initialContactId'
+  Prelude.Text ->
   ResumeContactRecording
-resumeContactRecording
+newResumeContactRecording
   pInstanceId_
   pContactId_
   pInitialContactId_ =
     ResumeContactRecording'
-      { _rcrInstanceId =
-          pInstanceId_,
-        _rcrContactId = pContactId_,
-        _rcrInitialContactId = pInitialContactId_
+      { instanceId = pInstanceId_,
+        contactId = pContactId_,
+        initialContactId = pInitialContactId_
       }
 
 -- | The identifier of the Amazon Connect instance.
-rcrInstanceId :: Lens' ResumeContactRecording Text
-rcrInstanceId = lens _rcrInstanceId (\s a -> s {_rcrInstanceId = a})
+resumeContactRecording_instanceId :: Lens.Lens' ResumeContactRecording Prelude.Text
+resumeContactRecording_instanceId = Lens.lens (\ResumeContactRecording' {instanceId} -> instanceId) (\s@ResumeContactRecording' {} a -> s {instanceId = a} :: ResumeContactRecording)
 
 -- | The identifier of the contact.
-rcrContactId :: Lens' ResumeContactRecording Text
-rcrContactId = lens _rcrContactId (\s a -> s {_rcrContactId = a})
+resumeContactRecording_contactId :: Lens.Lens' ResumeContactRecording Prelude.Text
+resumeContactRecording_contactId = Lens.lens (\ResumeContactRecording' {contactId} -> contactId) (\s@ResumeContactRecording' {} a -> s {contactId = a} :: ResumeContactRecording)
 
--- | The identifier of the contact. This is the identifier of the contact associated with the first interaction with the contact center.
-rcrInitialContactId :: Lens' ResumeContactRecording Text
-rcrInitialContactId = lens _rcrInitialContactId (\s a -> s {_rcrInitialContactId = a})
+-- | The identifier of the contact. This is the identifier of the contact
+-- associated with the first interaction with the contact center.
+resumeContactRecording_initialContactId :: Lens.Lens' ResumeContactRecording Prelude.Text
+resumeContactRecording_initialContactId = Lens.lens (\ResumeContactRecording' {initialContactId} -> initialContactId) (\s@ResumeContactRecording' {} a -> s {initialContactId = a} :: ResumeContactRecording)
 
-instance AWSRequest ResumeContactRecording where
+instance Prelude.AWSRequest ResumeContactRecording where
   type
     Rs ResumeContactRecording =
       ResumeContactRecordingResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ResumeContactRecordingResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ResumeContactRecording
+instance Prelude.Hashable ResumeContactRecording
 
-instance NFData ResumeContactRecording
+instance Prelude.NFData ResumeContactRecording
 
-instance ToHeaders ResumeContactRecording where
+instance Prelude.ToHeaders ResumeContactRecording where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ResumeContactRecording where
+instance Prelude.ToJSON ResumeContactRecording where
   toJSON ResumeContactRecording' {..} =
-    object
-      ( catMaybes
-          [ Just ("InstanceId" .= _rcrInstanceId),
-            Just ("ContactId" .= _rcrContactId),
-            Just ("InitialContactId" .= _rcrInitialContactId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("InstanceId" Prelude..= instanceId),
+            Prelude.Just ("ContactId" Prelude..= contactId),
+            Prelude.Just
+              ("InitialContactId" Prelude..= initialContactId)
           ]
       )
 
-instance ToPath ResumeContactRecording where
-  toPath = const "/contact/resume-recording"
+instance Prelude.ToPath ResumeContactRecording where
+  toPath = Prelude.const "/contact/resume-recording"
 
-instance ToQuery ResumeContactRecording where
-  toQuery = const mempty
+instance Prelude.ToQuery ResumeContactRecording where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'resumeContactRecordingResponse' smart constructor.
-newtype ResumeContactRecordingResponse = ResumeContactRecordingResponse'
-  { _rcrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newResumeContactRecordingResponse' smart constructor.
+data ResumeContactRecordingResponse = ResumeContactRecordingResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResumeContactRecordingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResumeContactRecordingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcrrrsResponseStatus' - -- | The response status code.
-resumeContactRecordingResponse ::
-  -- | 'rcrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'resumeContactRecordingResponse_httpStatus' - The response's http status code.
+newResumeContactRecordingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ResumeContactRecordingResponse
-resumeContactRecordingResponse pResponseStatus_ =
+newResumeContactRecordingResponse pHttpStatus_ =
   ResumeContactRecordingResponse'
-    { _rcrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-rcrrrsResponseStatus :: Lens' ResumeContactRecordingResponse Int
-rcrrrsResponseStatus = lens _rcrrrsResponseStatus (\s a -> s {_rcrrrsResponseStatus = a})
+-- | The response's http status code.
+resumeContactRecordingResponse_httpStatus :: Lens.Lens' ResumeContactRecordingResponse Prelude.Int
+resumeContactRecordingResponse_httpStatus = Lens.lens (\ResumeContactRecordingResponse' {httpStatus} -> httpStatus) (\s@ResumeContactRecordingResponse' {} a -> s {httpStatus = a} :: ResumeContactRecordingResponse)
 
-instance NFData ResumeContactRecordingResponse
+instance
+  Prelude.NFData
+    ResumeContactRecordingResponse

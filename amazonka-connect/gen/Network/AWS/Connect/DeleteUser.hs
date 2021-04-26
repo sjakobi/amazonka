@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,101 +23,115 @@
 --
 -- Deletes a user account from the specified Amazon Connect instance.
 --
---
--- For information about what happens to a user's data when their account is deleted, see <https://docs.aws.amazon.com/connect/latest/adminguide/delete-users.html Delete Users from Your Amazon Connect Instance> in the /Amazon Connect Administrator Guide/ .
+-- For information about what happens to a user\'s data when their account
+-- is deleted, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/delete-users.html Delete Users from Your Amazon Connect Instance>
+-- in the /Amazon Connect Administrator Guide/.
 module Network.AWS.Connect.DeleteUser
   ( -- * Creating a Request
-    deleteUser,
-    DeleteUser,
+    DeleteUser (..),
+    newDeleteUser,
 
     -- * Request Lenses
-    duuInstanceId,
-    duuUserId,
+    deleteUser_instanceId,
+    deleteUser_userId,
 
     -- * Destructuring the Response
-    deleteUserResponse,
-    DeleteUserResponse,
+    DeleteUserResponse (..),
+    newDeleteUserResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUser' smart constructor.
+-- | /See:/ 'newDeleteUser' smart constructor.
 data DeleteUser = DeleteUser'
-  { _duuInstanceId ::
-      !Text,
-    _duuUserId :: !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the user.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duuInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duuUserId' - The identifier of the user.
-deleteUser ::
-  -- | 'duuInstanceId'
-  Text ->
-  -- | 'duuUserId'
-  Text ->
+-- 'instanceId', 'deleteUser_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'userId', 'deleteUser_userId' - The identifier of the user.
+newDeleteUser ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'userId'
+  Prelude.Text ->
   DeleteUser
-deleteUser pInstanceId_ pUserId_ =
+newDeleteUser pInstanceId_ pUserId_ =
   DeleteUser'
-    { _duuInstanceId = pInstanceId_,
-      _duuUserId = pUserId_
+    { instanceId = pInstanceId_,
+      userId = pUserId_
     }
 
 -- | The identifier of the Amazon Connect instance.
-duuInstanceId :: Lens' DeleteUser Text
-duuInstanceId = lens _duuInstanceId (\s a -> s {_duuInstanceId = a})
+deleteUser_instanceId :: Lens.Lens' DeleteUser Prelude.Text
+deleteUser_instanceId = Lens.lens (\DeleteUser' {instanceId} -> instanceId) (\s@DeleteUser' {} a -> s {instanceId = a} :: DeleteUser)
 
 -- | The identifier of the user.
-duuUserId :: Lens' DeleteUser Text
-duuUserId = lens _duuUserId (\s a -> s {_duuUserId = a})
+deleteUser_userId :: Lens.Lens' DeleteUser Prelude.Text
+deleteUser_userId = Lens.lens (\DeleteUser' {userId} -> userId) (\s@DeleteUser' {} a -> s {userId = a} :: DeleteUser)
 
-instance AWSRequest DeleteUser where
+instance Prelude.AWSRequest DeleteUser where
   type Rs DeleteUser = DeleteUserResponse
-  request = delete connect
-  response = receiveNull DeleteUserResponse'
+  request = Request.delete defaultService
+  response = Response.receiveNull DeleteUserResponse'
 
-instance Hashable DeleteUser
+instance Prelude.Hashable DeleteUser
 
-instance NFData DeleteUser
+instance Prelude.NFData DeleteUser
 
-instance ToHeaders DeleteUser where
+instance Prelude.ToHeaders DeleteUser where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteUser where
+instance Prelude.ToPath DeleteUser where
   toPath DeleteUser' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/users/",
-        toBS _duuInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _duuUserId
+        Prelude.toBS userId
       ]
 
-instance ToQuery DeleteUser where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUserResponse' smart constructor.
+-- | /See:/ 'newDeleteUserResponse' smart constructor.
 data DeleteUserResponse = DeleteUserResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserResponse' with the minimum fields required to make a request.
-deleteUserResponse ::
+-- |
+-- Create a value of 'DeleteUserResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteUserResponse ::
   DeleteUserResponse
-deleteUserResponse = DeleteUserResponse'
+newDeleteUserResponse = DeleteUserResponse'
 
-instance NFData DeleteUserResponse
+instance Prelude.NFData DeleteUserResponse

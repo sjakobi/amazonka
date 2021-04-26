@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides information about the queues for the specified Amazon Connect instance.
+-- Provides information about the queues for the specified Amazon Connect
+-- instance.
 --
---
--- For more information about queues, see <https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html Queues: Standard and Agent> in the /Amazon Connect Administrator Guide/ .
---
+-- For more information about queues, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html Queues: Standard and Agent>
+-- in the /Amazon Connect Administrator Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.Connect.ListQueues
   ( -- * Creating a Request
-    listQueues,
-    ListQueues,
+    ListQueues (..),
+    newListQueues,
 
     -- * Request Lenses
-    lqNextToken,
-    lqMaxResults,
-    lqQueueTypes,
-    lqInstanceId,
+    listQueues_nextToken,
+    listQueues_maxResults,
+    listQueues_queueTypes,
+    listQueues_instanceId,
 
     -- * Destructuring the Response
-    listQueuesResponse,
-    ListQueuesResponse,
+    ListQueuesResponse (..),
+    newListQueuesResponse,
 
     -- * Response Lenses
-    lqrrsNextToken,
-    lqrrsQueueSummaryList,
-    lqrrsResponseStatus,
+    listQueuesResponse_nextToken,
+    listQueuesResponse_queueSummaryList,
+    listQueuesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.QueueSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listQueues' smart constructor.
+-- | /See:/ 'newListQueues' smart constructor.
 data ListQueues = ListQueues'
-  { _lqNextToken ::
-      !(Maybe Text),
-    _lqMaxResults :: !(Maybe Nat),
-    _lqQueueTypes :: !(Maybe [QueueType]),
-    _lqInstanceId :: !Text
+  { -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The type of queue.
+    queueTypes :: Prelude.Maybe [QueueType],
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListQueues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListQueues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lqNextToken' - The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lqMaxResults' - The maximum number of results to return per page.
+-- 'nextToken', 'listQueues_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
 --
--- * 'lqQueueTypes' - The type of queue.
+-- 'maxResults', 'listQueues_maxResults' - The maximum number of results to return per page.
 --
--- * 'lqInstanceId' - The identifier of the Amazon Connect instance.
-listQueues ::
-  -- | 'lqInstanceId'
-  Text ->
+-- 'queueTypes', 'listQueues_queueTypes' - The type of queue.
+--
+-- 'instanceId', 'listQueues_instanceId' - The identifier of the Amazon Connect instance.
+newListQueues ::
+  -- | 'instanceId'
+  Prelude.Text ->
   ListQueues
-listQueues pInstanceId_ =
+newListQueues pInstanceId_ =
   ListQueues'
-    { _lqNextToken = Nothing,
-      _lqMaxResults = Nothing,
-      _lqQueueTypes = Nothing,
-      _lqInstanceId = pInstanceId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      queueTypes = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
-lqNextToken :: Lens' ListQueues (Maybe Text)
-lqNextToken = lens _lqNextToken (\s a -> s {_lqNextToken = a})
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+listQueues_nextToken :: Lens.Lens' ListQueues (Prelude.Maybe Prelude.Text)
+listQueues_nextToken = Lens.lens (\ListQueues' {nextToken} -> nextToken) (\s@ListQueues' {} a -> s {nextToken = a} :: ListQueues)
 
 -- | The maximum number of results to return per page.
-lqMaxResults :: Lens' ListQueues (Maybe Natural)
-lqMaxResults = lens _lqMaxResults (\s a -> s {_lqMaxResults = a}) . mapping _Nat
+listQueues_maxResults :: Lens.Lens' ListQueues (Prelude.Maybe Prelude.Natural)
+listQueues_maxResults = Lens.lens (\ListQueues' {maxResults} -> maxResults) (\s@ListQueues' {} a -> s {maxResults = a} :: ListQueues) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The type of queue.
-lqQueueTypes :: Lens' ListQueues [QueueType]
-lqQueueTypes = lens _lqQueueTypes (\s a -> s {_lqQueueTypes = a}) . _Default . _Coerce
+listQueues_queueTypes :: Lens.Lens' ListQueues (Prelude.Maybe [QueueType])
+listQueues_queueTypes = Lens.lens (\ListQueues' {queueTypes} -> queueTypes) (\s@ListQueues' {} a -> s {queueTypes = a} :: ListQueues) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The identifier of the Amazon Connect instance.
-lqInstanceId :: Lens' ListQueues Text
-lqInstanceId = lens _lqInstanceId (\s a -> s {_lqInstanceId = a})
+listQueues_instanceId :: Lens.Lens' ListQueues Prelude.Text
+listQueues_instanceId = Lens.lens (\ListQueues' {instanceId} -> instanceId) (\s@ListQueues' {} a -> s {instanceId = a} :: ListQueues)
 
-instance AWSPager ListQueues where
+instance Pager.AWSPager ListQueues where
   page rq rs
-    | stop (rs ^. lqrrsNextToken) = Nothing
-    | stop (rs ^. lqrrsQueueSummaryList) = Nothing
-    | otherwise =
-      Just $ rq & lqNextToken .~ rs ^. lqrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listQueuesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listQueuesResponse_queueSummaryList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listQueues_nextToken
+          Lens..~ rs
+          Lens.^? listQueuesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListQueues where
+instance Prelude.AWSRequest ListQueues where
   type Rs ListQueues = ListQueuesResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListQueuesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "QueueSummaryList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "QueueSummaryList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListQueues
+instance Prelude.Hashable ListQueues
 
-instance NFData ListQueues
+instance Prelude.NFData ListQueues
 
-instance ToHeaders ListQueues where
+instance Prelude.ToHeaders ListQueues where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListQueues where
+instance Prelude.ToPath ListQueues where
   toPath ListQueues' {..} =
-    mconcat ["/queues-summary/", toBS _lqInstanceId]
+    Prelude.mconcat
+      ["/queues-summary/", Prelude.toBS instanceId]
 
-instance ToQuery ListQueues where
+instance Prelude.ToQuery ListQueues where
   toQuery ListQueues' {..} =
-    mconcat
-      [ "nextToken" =: _lqNextToken,
-        "maxResults" =: _lqMaxResults,
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
         "queueTypes"
-          =: toQuery (toQueryList "member" <$> _lqQueueTypes)
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> queueTypes
+            )
       ]
 
--- | /See:/ 'listQueuesResponse' smart constructor.
+-- | /See:/ 'newListQueuesResponse' smart constructor.
 data ListQueuesResponse = ListQueuesResponse'
-  { _lqrrsNextToken ::
-      !(Maybe Text),
-    _lqrrsQueueSummaryList ::
-      !(Maybe [QueueSummary]),
-    _lqrrsResponseStatus :: !Int
+  { -- | If there are additional results, this is the token for the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the queues.
+    queueSummaryList :: Prelude.Maybe [QueueSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListQueuesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListQueuesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lqrrsNextToken' - If there are additional results, this is the token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lqrrsQueueSummaryList' - Information about the queues.
+-- 'nextToken', 'listQueuesResponse_nextToken' - If there are additional results, this is the token for the next set of
+-- results.
 --
--- * 'lqrrsResponseStatus' - -- | The response status code.
-listQueuesResponse ::
-  -- | 'lqrrsResponseStatus'
-  Int ->
+-- 'queueSummaryList', 'listQueuesResponse_queueSummaryList' - Information about the queues.
+--
+-- 'httpStatus', 'listQueuesResponse_httpStatus' - The response's http status code.
+newListQueuesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListQueuesResponse
-listQueuesResponse pResponseStatus_ =
+newListQueuesResponse pHttpStatus_ =
   ListQueuesResponse'
-    { _lqrrsNextToken = Nothing,
-      _lqrrsQueueSummaryList = Nothing,
-      _lqrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      queueSummaryList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are additional results, this is the token for the next set of results.
-lqrrsNextToken :: Lens' ListQueuesResponse (Maybe Text)
-lqrrsNextToken = lens _lqrrsNextToken (\s a -> s {_lqrrsNextToken = a})
+-- | If there are additional results, this is the token for the next set of
+-- results.
+listQueuesResponse_nextToken :: Lens.Lens' ListQueuesResponse (Prelude.Maybe Prelude.Text)
+listQueuesResponse_nextToken = Lens.lens (\ListQueuesResponse' {nextToken} -> nextToken) (\s@ListQueuesResponse' {} a -> s {nextToken = a} :: ListQueuesResponse)
 
 -- | Information about the queues.
-lqrrsQueueSummaryList :: Lens' ListQueuesResponse [QueueSummary]
-lqrrsQueueSummaryList = lens _lqrrsQueueSummaryList (\s a -> s {_lqrrsQueueSummaryList = a}) . _Default . _Coerce
+listQueuesResponse_queueSummaryList :: Lens.Lens' ListQueuesResponse (Prelude.Maybe [QueueSummary])
+listQueuesResponse_queueSummaryList = Lens.lens (\ListQueuesResponse' {queueSummaryList} -> queueSummaryList) (\s@ListQueuesResponse' {} a -> s {queueSummaryList = a} :: ListQueuesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lqrrsResponseStatus :: Lens' ListQueuesResponse Int
-lqrrsResponseStatus = lens _lqrrsResponseStatus (\s a -> s {_lqrrsResponseStatus = a})
+-- | The response's http status code.
+listQueuesResponse_httpStatus :: Lens.Lens' ListQueuesResponse Prelude.Int
+listQueuesResponse_httpStatus = Lens.lens (\ListQueuesResponse' {httpStatus} -> httpStatus) (\s@ListQueuesResponse' {} a -> s {httpStatus = a} :: ListQueuesResponse)
 
-instance NFData ListQueuesResponse
+instance Prelude.NFData ListQueuesResponse

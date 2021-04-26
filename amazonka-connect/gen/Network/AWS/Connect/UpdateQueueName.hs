@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
---
--- Updates the name and description of a queue. At least @Name@ or @Description@ must be provided.
+-- Updates the name and description of a queue. At least @Name@ or
+-- @Description@ must be provided.
 module Network.AWS.Connect.UpdateQueueName
   ( -- * Creating a Request
-    updateQueueName,
-    UpdateQueueName,
+    UpdateQueueName (..),
+    newUpdateQueueName,
 
     -- * Request Lenses
-    uqnName,
-    uqnDescription,
-    uqnInstanceId,
-    uqnQueueId,
+    updateQueueName_name,
+    updateQueueName_description,
+    updateQueueName_instanceId,
+    updateQueueName_queueId,
 
     -- * Destructuring the Response
-    updateQueueNameResponse,
-    UpdateQueueNameResponse,
+    UpdateQueueNameResponse (..),
+    newUpdateQueueNameResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateQueueName' smart constructor.
+-- | /See:/ 'newUpdateQueueName' smart constructor.
 data UpdateQueueName = UpdateQueueName'
-  { _uqnName ::
-      !(Maybe Text),
-    _uqnDescription :: !(Maybe Text),
-    _uqnInstanceId :: !Text,
-    _uqnQueueId :: !Text
+  { -- | The name of the queue.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the queue.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier for the queue.
+    queueId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueueName' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateQueueName' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uqnName' - The name of the queue.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uqnDescription' - The description of the queue.
+-- 'name', 'updateQueueName_name' - The name of the queue.
 --
--- * 'uqnInstanceId' - The identifier of the Amazon Connect instance.
+-- 'description', 'updateQueueName_description' - The description of the queue.
 --
--- * 'uqnQueueId' - The identifier for the queue.
-updateQueueName ::
-  -- | 'uqnInstanceId'
-  Text ->
-  -- | 'uqnQueueId'
-  Text ->
+-- 'instanceId', 'updateQueueName_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'queueId', 'updateQueueName_queueId' - The identifier for the queue.
+newUpdateQueueName ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'queueId'
+  Prelude.Text ->
   UpdateQueueName
-updateQueueName pInstanceId_ pQueueId_ =
+newUpdateQueueName pInstanceId_ pQueueId_ =
   UpdateQueueName'
-    { _uqnName = Nothing,
-      _uqnDescription = Nothing,
-      _uqnInstanceId = pInstanceId_,
-      _uqnQueueId = pQueueId_
+    { name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      instanceId = pInstanceId_,
+      queueId = pQueueId_
     }
 
 -- | The name of the queue.
-uqnName :: Lens' UpdateQueueName (Maybe Text)
-uqnName = lens _uqnName (\s a -> s {_uqnName = a})
+updateQueueName_name :: Lens.Lens' UpdateQueueName (Prelude.Maybe Prelude.Text)
+updateQueueName_name = Lens.lens (\UpdateQueueName' {name} -> name) (\s@UpdateQueueName' {} a -> s {name = a} :: UpdateQueueName)
 
 -- | The description of the queue.
-uqnDescription :: Lens' UpdateQueueName (Maybe Text)
-uqnDescription = lens _uqnDescription (\s a -> s {_uqnDescription = a})
+updateQueueName_description :: Lens.Lens' UpdateQueueName (Prelude.Maybe Prelude.Text)
+updateQueueName_description = Lens.lens (\UpdateQueueName' {description} -> description) (\s@UpdateQueueName' {} a -> s {description = a} :: UpdateQueueName)
 
 -- | The identifier of the Amazon Connect instance.
-uqnInstanceId :: Lens' UpdateQueueName Text
-uqnInstanceId = lens _uqnInstanceId (\s a -> s {_uqnInstanceId = a})
+updateQueueName_instanceId :: Lens.Lens' UpdateQueueName Prelude.Text
+updateQueueName_instanceId = Lens.lens (\UpdateQueueName' {instanceId} -> instanceId) (\s@UpdateQueueName' {} a -> s {instanceId = a} :: UpdateQueueName)
 
 -- | The identifier for the queue.
-uqnQueueId :: Lens' UpdateQueueName Text
-uqnQueueId = lens _uqnQueueId (\s a -> s {_uqnQueueId = a})
+updateQueueName_queueId :: Lens.Lens' UpdateQueueName Prelude.Text
+updateQueueName_queueId = Lens.lens (\UpdateQueueName' {queueId} -> queueId) (\s@UpdateQueueName' {} a -> s {queueId = a} :: UpdateQueueName)
 
-instance AWSRequest UpdateQueueName where
+instance Prelude.AWSRequest UpdateQueueName where
   type Rs UpdateQueueName = UpdateQueueNameResponse
-  request = postJSON connect
-  response = receiveNull UpdateQueueNameResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull UpdateQueueNameResponse'
 
-instance Hashable UpdateQueueName
+instance Prelude.Hashable UpdateQueueName
 
-instance NFData UpdateQueueName
+instance Prelude.NFData UpdateQueueName
 
-instance ToHeaders UpdateQueueName where
+instance Prelude.ToHeaders UpdateQueueName where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateQueueName where
+instance Prelude.ToJSON UpdateQueueName where
   toJSON UpdateQueueName' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _uqnName,
-            ("Description" .=) <$> _uqnDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("Description" Prelude..=) Prelude.<$> description
           ]
       )
 
-instance ToPath UpdateQueueName where
+instance Prelude.ToPath UpdateQueueName where
   toPath UpdateQueueName' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/queues/",
-        toBS _uqnInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _uqnQueueId,
+        Prelude.toBS queueId,
         "/name"
       ]
 
-instance ToQuery UpdateQueueName where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateQueueName where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateQueueNameResponse' smart constructor.
+-- | /See:/ 'newUpdateQueueNameResponse' smart constructor.
 data UpdateQueueNameResponse = UpdateQueueNameResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueueNameResponse' with the minimum fields required to make a request.
-updateQueueNameResponse ::
+-- |
+-- Create a value of 'UpdateQueueNameResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateQueueNameResponse ::
   UpdateQueueNameResponse
-updateQueueNameResponse = UpdateQueueNameResponse'
+newUpdateQueueNameResponse = UpdateQueueNameResponse'
 
-instance NFData UpdateQueueNameResponse
+instance Prelude.NFData UpdateQueueNameResponse

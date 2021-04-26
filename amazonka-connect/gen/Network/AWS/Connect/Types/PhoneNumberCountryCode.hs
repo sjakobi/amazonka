@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,1235 +19,1233 @@
 module Network.AWS.Connect.Types.PhoneNumberCountryCode
   ( PhoneNumberCountryCode
       ( ..,
-        PNCCAD,
-        PNCCAE,
-        PNCCAF,
-        PNCCAG,
-        PNCCAI,
-        PNCCAL,
-        PNCCAM,
-        PNCCAN,
-        PNCCAO,
-        PNCCAQ,
-        PNCCAR,
-        PNCCAS,
-        PNCCAT,
-        PNCCAU,
-        PNCCAW,
-        PNCCAZ,
-        PNCCBA,
-        PNCCBB,
-        PNCCBD,
-        PNCCBE,
-        PNCCBF,
-        PNCCBG,
-        PNCCBH,
-        PNCCBI,
-        PNCCBJ,
-        PNCCBL,
-        PNCCBM,
-        PNCCBN,
-        PNCCBO,
-        PNCCBR,
-        PNCCBS,
-        PNCCBT,
-        PNCCBW,
-        PNCCBY,
-        PNCCBZ,
-        PNCCCA,
-        PNCCCC,
-        PNCCCD,
-        PNCCCF,
-        PNCCCG,
-        PNCCCH,
-        PNCCCI,
-        PNCCCK,
-        PNCCCL,
-        PNCCCM,
-        PNCCCN,
-        PNCCCO,
-        PNCCCR,
-        PNCCCU,
-        PNCCCV,
-        PNCCCW,
-        PNCCCX,
-        PNCCCY,
-        PNCCCZ,
-        PNCCDE,
-        PNCCDJ,
-        PNCCDK,
-        PNCCDM,
-        PNCCDO,
-        PNCCDZ,
-        PNCCEC,
-        PNCCEE,
-        PNCCEG,
-        PNCCEH,
-        PNCCER,
-        PNCCES,
-        PNCCET,
-        PNCCFI,
-        PNCCFJ,
-        PNCCFK,
-        PNCCFM,
-        PNCCFO,
-        PNCCFR,
-        PNCCGA,
-        PNCCGB,
-        PNCCGD,
-        PNCCGE,
-        PNCCGG,
-        PNCCGH,
-        PNCCGI,
-        PNCCGL,
-        PNCCGM,
-        PNCCGN,
-        PNCCGQ,
-        PNCCGR,
-        PNCCGT',
-        PNCCGU,
-        PNCCGW,
-        PNCCGY,
-        PNCCHK,
-        PNCCHN,
-        PNCCHR,
-        PNCCHT,
-        PNCCHU,
-        PNCCIE,
-        PNCCIL,
-        PNCCIM,
-        PNCCIN,
-        PNCCIO,
-        PNCCIQ,
-        PNCCIR,
-        PNCCIS,
-        PNCCIT,
-        PNCCId,
-        PNCCJE,
-        PNCCJM,
-        PNCCJO,
-        PNCCJP,
-        PNCCKE,
-        PNCCKG,
-        PNCCKH,
-        PNCCKI,
-        PNCCKM,
-        PNCCKN,
-        PNCCKP,
-        PNCCKR,
-        PNCCKW,
-        PNCCKY,
-        PNCCKZ,
-        PNCCLA,
-        PNCCLB,
-        PNCCLC,
-        PNCCLI,
-        PNCCLK,
-        PNCCLR,
-        PNCCLS,
-        PNCCLT',
-        PNCCLU,
-        PNCCLV,
-        PNCCLY,
-        PNCCMA,
-        PNCCMC,
-        PNCCMD,
-        PNCCME,
-        PNCCMF,
-        PNCCMG,
-        PNCCMH,
-        PNCCMK,
-        PNCCML,
-        PNCCMM,
-        PNCCMN,
-        PNCCMO,
-        PNCCMP,
-        PNCCMR,
-        PNCCMS,
-        PNCCMT,
-        PNCCMU,
-        PNCCMV,
-        PNCCMW,
-        PNCCMX,
-        PNCCMY,
-        PNCCMZ,
-        PNCCNA,
-        PNCCNC,
-        PNCCNE,
-        PNCCNG,
-        PNCCNI,
-        PNCCNL,
-        PNCCNO,
-        PNCCNP,
-        PNCCNR,
-        PNCCNU,
-        PNCCNZ,
-        PNCCOM,
-        PNCCPA,
-        PNCCPE,
-        PNCCPF,
-        PNCCPG,
-        PNCCPH,
-        PNCCPK,
-        PNCCPL,
-        PNCCPM,
-        PNCCPN,
-        PNCCPR,
-        PNCCPT,
-        PNCCPW,
-        PNCCPY,
-        PNCCQA,
-        PNCCRE,
-        PNCCRO,
-        PNCCRS,
-        PNCCRU,
-        PNCCRW,
-        PNCCSA,
-        PNCCSB,
-        PNCCSC,
-        PNCCSD,
-        PNCCSE,
-        PNCCSG,
-        PNCCSH,
-        PNCCSI,
-        PNCCSJ,
-        PNCCSK,
-        PNCCSL,
-        PNCCSM,
-        PNCCSN,
-        PNCCSO,
-        PNCCSR,
-        PNCCST,
-        PNCCSV,
-        PNCCSX,
-        PNCCSY,
-        PNCCSZ,
-        PNCCTC,
-        PNCCTD,
-        PNCCTG,
-        PNCCTH,
-        PNCCTJ,
-        PNCCTK,
-        PNCCTL,
-        PNCCTM,
-        PNCCTN,
-        PNCCTO,
-        PNCCTR,
-        PNCCTT,
-        PNCCTV,
-        PNCCTW,
-        PNCCTZ,
-        PNCCUA,
-        PNCCUG,
-        PNCCUS,
-        PNCCUY,
-        PNCCUZ,
-        PNCCVA,
-        PNCCVC,
-        PNCCVE,
-        PNCCVG,
-        PNCCVI,
-        PNCCVN,
-        PNCCVU,
-        PNCCWF,
-        PNCCWS,
-        PNCCYE,
-        PNCCYT,
-        PNCCZA,
-        PNCCZM,
-        PNCCZW
+        PhoneNumberCountryCodeAD,
+        PhoneNumberCountryCodeAE,
+        PhoneNumberCountryCodeAF,
+        PhoneNumberCountryCodeAG,
+        PhoneNumberCountryCodeAI,
+        PhoneNumberCountryCodeAL,
+        PhoneNumberCountryCodeAM,
+        PhoneNumberCountryCodeAN,
+        PhoneNumberCountryCodeAO,
+        PhoneNumberCountryCodeAQ,
+        PhoneNumberCountryCodeAR,
+        PhoneNumberCountryCodeAS,
+        PhoneNumberCountryCodeAT,
+        PhoneNumberCountryCodeAU,
+        PhoneNumberCountryCodeAW,
+        PhoneNumberCountryCodeAZ,
+        PhoneNumberCountryCodeBA,
+        PhoneNumberCountryCodeBB,
+        PhoneNumberCountryCodeBD,
+        PhoneNumberCountryCodeBE,
+        PhoneNumberCountryCodeBF,
+        PhoneNumberCountryCodeBG,
+        PhoneNumberCountryCodeBH,
+        PhoneNumberCountryCodeBI,
+        PhoneNumberCountryCodeBJ,
+        PhoneNumberCountryCodeBL,
+        PhoneNumberCountryCodeBM,
+        PhoneNumberCountryCodeBN,
+        PhoneNumberCountryCodeBO,
+        PhoneNumberCountryCodeBR,
+        PhoneNumberCountryCodeBS,
+        PhoneNumberCountryCodeBT,
+        PhoneNumberCountryCodeBW,
+        PhoneNumberCountryCodeBY,
+        PhoneNumberCountryCodeBZ,
+        PhoneNumberCountryCodeCA,
+        PhoneNumberCountryCodeCC,
+        PhoneNumberCountryCodeCD,
+        PhoneNumberCountryCodeCF,
+        PhoneNumberCountryCodeCG,
+        PhoneNumberCountryCodeCH,
+        PhoneNumberCountryCodeCI,
+        PhoneNumberCountryCodeCK,
+        PhoneNumberCountryCodeCL,
+        PhoneNumberCountryCodeCM,
+        PhoneNumberCountryCodeCN,
+        PhoneNumberCountryCodeCO,
+        PhoneNumberCountryCodeCR,
+        PhoneNumberCountryCodeCU,
+        PhoneNumberCountryCodeCV,
+        PhoneNumberCountryCodeCW,
+        PhoneNumberCountryCodeCX,
+        PhoneNumberCountryCodeCY,
+        PhoneNumberCountryCodeCZ,
+        PhoneNumberCountryCodeDE,
+        PhoneNumberCountryCodeDJ,
+        PhoneNumberCountryCodeDK,
+        PhoneNumberCountryCodeDM,
+        PhoneNumberCountryCodeDO,
+        PhoneNumberCountryCodeDZ,
+        PhoneNumberCountryCodeEC,
+        PhoneNumberCountryCodeEE,
+        PhoneNumberCountryCodeEG,
+        PhoneNumberCountryCodeEH,
+        PhoneNumberCountryCodeER,
+        PhoneNumberCountryCodeES,
+        PhoneNumberCountryCodeET,
+        PhoneNumberCountryCodeFI,
+        PhoneNumberCountryCodeFJ,
+        PhoneNumberCountryCodeFK,
+        PhoneNumberCountryCodeFM,
+        PhoneNumberCountryCodeFO,
+        PhoneNumberCountryCodeFR,
+        PhoneNumberCountryCodeGA,
+        PhoneNumberCountryCodeGB,
+        PhoneNumberCountryCodeGD,
+        PhoneNumberCountryCodeGE,
+        PhoneNumberCountryCodeGG,
+        PhoneNumberCountryCodeGH,
+        PhoneNumberCountryCodeGI,
+        PhoneNumberCountryCodeGL,
+        PhoneNumberCountryCodeGM,
+        PhoneNumberCountryCodeGN,
+        PhoneNumberCountryCodeGQ,
+        PhoneNumberCountryCodeGR,
+        PhoneNumberCountryCodeGT,
+        PhoneNumberCountryCodeGU,
+        PhoneNumberCountryCodeGW,
+        PhoneNumberCountryCodeGY,
+        PhoneNumberCountryCodeHK,
+        PhoneNumberCountryCodeHN,
+        PhoneNumberCountryCodeHR,
+        PhoneNumberCountryCodeHT,
+        PhoneNumberCountryCodeHU,
+        PhoneNumberCountryCodeID,
+        PhoneNumberCountryCodeIE,
+        PhoneNumberCountryCodeIL,
+        PhoneNumberCountryCodeIM,
+        PhoneNumberCountryCodeIN,
+        PhoneNumberCountryCodeIO,
+        PhoneNumberCountryCodeIQ,
+        PhoneNumberCountryCodeIR,
+        PhoneNumberCountryCodeIS,
+        PhoneNumberCountryCodeIT,
+        PhoneNumberCountryCodeJE,
+        PhoneNumberCountryCodeJM,
+        PhoneNumberCountryCodeJO,
+        PhoneNumberCountryCodeJP,
+        PhoneNumberCountryCodeKE,
+        PhoneNumberCountryCodeKG,
+        PhoneNumberCountryCodeKH,
+        PhoneNumberCountryCodeKI,
+        PhoneNumberCountryCodeKM,
+        PhoneNumberCountryCodeKN,
+        PhoneNumberCountryCodeKP,
+        PhoneNumberCountryCodeKR,
+        PhoneNumberCountryCodeKW,
+        PhoneNumberCountryCodeKY,
+        PhoneNumberCountryCodeKZ,
+        PhoneNumberCountryCodeLA,
+        PhoneNumberCountryCodeLB,
+        PhoneNumberCountryCodeLC,
+        PhoneNumberCountryCodeLI,
+        PhoneNumberCountryCodeLK,
+        PhoneNumberCountryCodeLR,
+        PhoneNumberCountryCodeLS,
+        PhoneNumberCountryCodeLT,
+        PhoneNumberCountryCodeLU,
+        PhoneNumberCountryCodeLV,
+        PhoneNumberCountryCodeLY,
+        PhoneNumberCountryCodeMA,
+        PhoneNumberCountryCodeMC,
+        PhoneNumberCountryCodeMD,
+        PhoneNumberCountryCodeME,
+        PhoneNumberCountryCodeMF,
+        PhoneNumberCountryCodeMG,
+        PhoneNumberCountryCodeMH,
+        PhoneNumberCountryCodeMK,
+        PhoneNumberCountryCodeML,
+        PhoneNumberCountryCodeMM,
+        PhoneNumberCountryCodeMN,
+        PhoneNumberCountryCodeMO,
+        PhoneNumberCountryCodeMP,
+        PhoneNumberCountryCodeMR,
+        PhoneNumberCountryCodeMS,
+        PhoneNumberCountryCodeMT,
+        PhoneNumberCountryCodeMU,
+        PhoneNumberCountryCodeMV,
+        PhoneNumberCountryCodeMW,
+        PhoneNumberCountryCodeMX,
+        PhoneNumberCountryCodeMY,
+        PhoneNumberCountryCodeMZ,
+        PhoneNumberCountryCodeNA,
+        PhoneNumberCountryCodeNC,
+        PhoneNumberCountryCodeNE,
+        PhoneNumberCountryCodeNG,
+        PhoneNumberCountryCodeNI,
+        PhoneNumberCountryCodeNL,
+        PhoneNumberCountryCodeNO,
+        PhoneNumberCountryCodeNP,
+        PhoneNumberCountryCodeNR,
+        PhoneNumberCountryCodeNU,
+        PhoneNumberCountryCodeNZ,
+        PhoneNumberCountryCodeOM,
+        PhoneNumberCountryCodePA,
+        PhoneNumberCountryCodePE,
+        PhoneNumberCountryCodePF,
+        PhoneNumberCountryCodePG,
+        PhoneNumberCountryCodePH,
+        PhoneNumberCountryCodePK,
+        PhoneNumberCountryCodePL,
+        PhoneNumberCountryCodePM,
+        PhoneNumberCountryCodePN,
+        PhoneNumberCountryCodePR,
+        PhoneNumberCountryCodePT,
+        PhoneNumberCountryCodePW,
+        PhoneNumberCountryCodePY,
+        PhoneNumberCountryCodeQA,
+        PhoneNumberCountryCodeRE,
+        PhoneNumberCountryCodeRO,
+        PhoneNumberCountryCodeRS,
+        PhoneNumberCountryCodeRU,
+        PhoneNumberCountryCodeRW,
+        PhoneNumberCountryCodeSA,
+        PhoneNumberCountryCodeSB,
+        PhoneNumberCountryCodeSC,
+        PhoneNumberCountryCodeSD,
+        PhoneNumberCountryCodeSE,
+        PhoneNumberCountryCodeSG,
+        PhoneNumberCountryCodeSH,
+        PhoneNumberCountryCodeSI,
+        PhoneNumberCountryCodeSJ,
+        PhoneNumberCountryCodeSK,
+        PhoneNumberCountryCodeSL,
+        PhoneNumberCountryCodeSM,
+        PhoneNumberCountryCodeSN,
+        PhoneNumberCountryCodeSO,
+        PhoneNumberCountryCodeSR,
+        PhoneNumberCountryCodeST,
+        PhoneNumberCountryCodeSV,
+        PhoneNumberCountryCodeSX,
+        PhoneNumberCountryCodeSY,
+        PhoneNumberCountryCodeSZ,
+        PhoneNumberCountryCodeTC,
+        PhoneNumberCountryCodeTD,
+        PhoneNumberCountryCodeTG,
+        PhoneNumberCountryCodeTH,
+        PhoneNumberCountryCodeTJ,
+        PhoneNumberCountryCodeTK,
+        PhoneNumberCountryCodeTL,
+        PhoneNumberCountryCodeTM,
+        PhoneNumberCountryCodeTN,
+        PhoneNumberCountryCodeTO,
+        PhoneNumberCountryCodeTR,
+        PhoneNumberCountryCodeTT,
+        PhoneNumberCountryCodeTV,
+        PhoneNumberCountryCodeTW,
+        PhoneNumberCountryCodeTZ,
+        PhoneNumberCountryCodeUA,
+        PhoneNumberCountryCodeUG,
+        PhoneNumberCountryCodeUS,
+        PhoneNumberCountryCodeUY,
+        PhoneNumberCountryCodeUZ,
+        PhoneNumberCountryCodeVA,
+        PhoneNumberCountryCodeVC,
+        PhoneNumberCountryCodeVE,
+        PhoneNumberCountryCodeVG,
+        PhoneNumberCountryCodeVI,
+        PhoneNumberCountryCodeVN,
+        PhoneNumberCountryCodeVU,
+        PhoneNumberCountryCodeWF,
+        PhoneNumberCountryCodeWS,
+        PhoneNumberCountryCodeYE,
+        PhoneNumberCountryCodeYT,
+        PhoneNumberCountryCodeZA,
+        PhoneNumberCountryCodeZM,
+        PhoneNumberCountryCodeZW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PhoneNumberCountryCode
-  = PhoneNumberCountryCode'
-      ( CI
-          Text
-      )
+newtype PhoneNumberCountryCode = PhoneNumberCountryCode'
+  { fromPhoneNumberCountryCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PNCCAD :: PhoneNumberCountryCode
-pattern PNCCAD = PhoneNumberCountryCode' "AD"
+pattern PhoneNumberCountryCodeAD :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAD = PhoneNumberCountryCode' "AD"
 
-pattern PNCCAE :: PhoneNumberCountryCode
-pattern PNCCAE = PhoneNumberCountryCode' "AE"
+pattern PhoneNumberCountryCodeAE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAE = PhoneNumberCountryCode' "AE"
 
-pattern PNCCAF :: PhoneNumberCountryCode
-pattern PNCCAF = PhoneNumberCountryCode' "AF"
+pattern PhoneNumberCountryCodeAF :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAF = PhoneNumberCountryCode' "AF"
 
-pattern PNCCAG :: PhoneNumberCountryCode
-pattern PNCCAG = PhoneNumberCountryCode' "AG"
+pattern PhoneNumberCountryCodeAG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAG = PhoneNumberCountryCode' "AG"
 
-pattern PNCCAI :: PhoneNumberCountryCode
-pattern PNCCAI = PhoneNumberCountryCode' "AI"
+pattern PhoneNumberCountryCodeAI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAI = PhoneNumberCountryCode' "AI"
 
-pattern PNCCAL :: PhoneNumberCountryCode
-pattern PNCCAL = PhoneNumberCountryCode' "AL"
+pattern PhoneNumberCountryCodeAL :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAL = PhoneNumberCountryCode' "AL"
 
-pattern PNCCAM :: PhoneNumberCountryCode
-pattern PNCCAM = PhoneNumberCountryCode' "AM"
+pattern PhoneNumberCountryCodeAM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAM = PhoneNumberCountryCode' "AM"
 
-pattern PNCCAN :: PhoneNumberCountryCode
-pattern PNCCAN = PhoneNumberCountryCode' "AN"
+pattern PhoneNumberCountryCodeAN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAN = PhoneNumberCountryCode' "AN"
 
-pattern PNCCAO :: PhoneNumberCountryCode
-pattern PNCCAO = PhoneNumberCountryCode' "AO"
+pattern PhoneNumberCountryCodeAO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAO = PhoneNumberCountryCode' "AO"
 
-pattern PNCCAQ :: PhoneNumberCountryCode
-pattern PNCCAQ = PhoneNumberCountryCode' "AQ"
+pattern PhoneNumberCountryCodeAQ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAQ = PhoneNumberCountryCode' "AQ"
 
-pattern PNCCAR :: PhoneNumberCountryCode
-pattern PNCCAR = PhoneNumberCountryCode' "AR"
+pattern PhoneNumberCountryCodeAR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAR = PhoneNumberCountryCode' "AR"
 
-pattern PNCCAS :: PhoneNumberCountryCode
-pattern PNCCAS = PhoneNumberCountryCode' "AS"
+pattern PhoneNumberCountryCodeAS :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAS = PhoneNumberCountryCode' "AS"
 
-pattern PNCCAT :: PhoneNumberCountryCode
-pattern PNCCAT = PhoneNumberCountryCode' "AT"
+pattern PhoneNumberCountryCodeAT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAT = PhoneNumberCountryCode' "AT"
 
-pattern PNCCAU :: PhoneNumberCountryCode
-pattern PNCCAU = PhoneNumberCountryCode' "AU"
+pattern PhoneNumberCountryCodeAU :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAU = PhoneNumberCountryCode' "AU"
 
-pattern PNCCAW :: PhoneNumberCountryCode
-pattern PNCCAW = PhoneNumberCountryCode' "AW"
+pattern PhoneNumberCountryCodeAW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAW = PhoneNumberCountryCode' "AW"
 
-pattern PNCCAZ :: PhoneNumberCountryCode
-pattern PNCCAZ = PhoneNumberCountryCode' "AZ"
+pattern PhoneNumberCountryCodeAZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeAZ = PhoneNumberCountryCode' "AZ"
 
-pattern PNCCBA :: PhoneNumberCountryCode
-pattern PNCCBA = PhoneNumberCountryCode' "BA"
+pattern PhoneNumberCountryCodeBA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBA = PhoneNumberCountryCode' "BA"
 
-pattern PNCCBB :: PhoneNumberCountryCode
-pattern PNCCBB = PhoneNumberCountryCode' "BB"
+pattern PhoneNumberCountryCodeBB :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBB = PhoneNumberCountryCode' "BB"
 
-pattern PNCCBD :: PhoneNumberCountryCode
-pattern PNCCBD = PhoneNumberCountryCode' "BD"
+pattern PhoneNumberCountryCodeBD :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBD = PhoneNumberCountryCode' "BD"
 
-pattern PNCCBE :: PhoneNumberCountryCode
-pattern PNCCBE = PhoneNumberCountryCode' "BE"
+pattern PhoneNumberCountryCodeBE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBE = PhoneNumberCountryCode' "BE"
 
-pattern PNCCBF :: PhoneNumberCountryCode
-pattern PNCCBF = PhoneNumberCountryCode' "BF"
+pattern PhoneNumberCountryCodeBF :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBF = PhoneNumberCountryCode' "BF"
 
-pattern PNCCBG :: PhoneNumberCountryCode
-pattern PNCCBG = PhoneNumberCountryCode' "BG"
+pattern PhoneNumberCountryCodeBG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBG = PhoneNumberCountryCode' "BG"
 
-pattern PNCCBH :: PhoneNumberCountryCode
-pattern PNCCBH = PhoneNumberCountryCode' "BH"
+pattern PhoneNumberCountryCodeBH :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBH = PhoneNumberCountryCode' "BH"
 
-pattern PNCCBI :: PhoneNumberCountryCode
-pattern PNCCBI = PhoneNumberCountryCode' "BI"
+pattern PhoneNumberCountryCodeBI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBI = PhoneNumberCountryCode' "BI"
 
-pattern PNCCBJ :: PhoneNumberCountryCode
-pattern PNCCBJ = PhoneNumberCountryCode' "BJ"
+pattern PhoneNumberCountryCodeBJ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBJ = PhoneNumberCountryCode' "BJ"
 
-pattern PNCCBL :: PhoneNumberCountryCode
-pattern PNCCBL = PhoneNumberCountryCode' "BL"
+pattern PhoneNumberCountryCodeBL :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBL = PhoneNumberCountryCode' "BL"
 
-pattern PNCCBM :: PhoneNumberCountryCode
-pattern PNCCBM = PhoneNumberCountryCode' "BM"
+pattern PhoneNumberCountryCodeBM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBM = PhoneNumberCountryCode' "BM"
 
-pattern PNCCBN :: PhoneNumberCountryCode
-pattern PNCCBN = PhoneNumberCountryCode' "BN"
+pattern PhoneNumberCountryCodeBN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBN = PhoneNumberCountryCode' "BN"
 
-pattern PNCCBO :: PhoneNumberCountryCode
-pattern PNCCBO = PhoneNumberCountryCode' "BO"
+pattern PhoneNumberCountryCodeBO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBO = PhoneNumberCountryCode' "BO"
 
-pattern PNCCBR :: PhoneNumberCountryCode
-pattern PNCCBR = PhoneNumberCountryCode' "BR"
+pattern PhoneNumberCountryCodeBR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBR = PhoneNumberCountryCode' "BR"
 
-pattern PNCCBS :: PhoneNumberCountryCode
-pattern PNCCBS = PhoneNumberCountryCode' "BS"
+pattern PhoneNumberCountryCodeBS :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBS = PhoneNumberCountryCode' "BS"
 
-pattern PNCCBT :: PhoneNumberCountryCode
-pattern PNCCBT = PhoneNumberCountryCode' "BT"
+pattern PhoneNumberCountryCodeBT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBT = PhoneNumberCountryCode' "BT"
 
-pattern PNCCBW :: PhoneNumberCountryCode
-pattern PNCCBW = PhoneNumberCountryCode' "BW"
+pattern PhoneNumberCountryCodeBW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBW = PhoneNumberCountryCode' "BW"
 
-pattern PNCCBY :: PhoneNumberCountryCode
-pattern PNCCBY = PhoneNumberCountryCode' "BY"
+pattern PhoneNumberCountryCodeBY :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBY = PhoneNumberCountryCode' "BY"
 
-pattern PNCCBZ :: PhoneNumberCountryCode
-pattern PNCCBZ = PhoneNumberCountryCode' "BZ"
+pattern PhoneNumberCountryCodeBZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeBZ = PhoneNumberCountryCode' "BZ"
 
-pattern PNCCCA :: PhoneNumberCountryCode
-pattern PNCCCA = PhoneNumberCountryCode' "CA"
+pattern PhoneNumberCountryCodeCA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCA = PhoneNumberCountryCode' "CA"
 
-pattern PNCCCC :: PhoneNumberCountryCode
-pattern PNCCCC = PhoneNumberCountryCode' "CC"
+pattern PhoneNumberCountryCodeCC :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCC = PhoneNumberCountryCode' "CC"
 
-pattern PNCCCD :: PhoneNumberCountryCode
-pattern PNCCCD = PhoneNumberCountryCode' "CD"
+pattern PhoneNumberCountryCodeCD :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCD = PhoneNumberCountryCode' "CD"
 
-pattern PNCCCF :: PhoneNumberCountryCode
-pattern PNCCCF = PhoneNumberCountryCode' "CF"
+pattern PhoneNumberCountryCodeCF :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCF = PhoneNumberCountryCode' "CF"
 
-pattern PNCCCG :: PhoneNumberCountryCode
-pattern PNCCCG = PhoneNumberCountryCode' "CG"
+pattern PhoneNumberCountryCodeCG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCG = PhoneNumberCountryCode' "CG"
 
-pattern PNCCCH :: PhoneNumberCountryCode
-pattern PNCCCH = PhoneNumberCountryCode' "CH"
+pattern PhoneNumberCountryCodeCH :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCH = PhoneNumberCountryCode' "CH"
 
-pattern PNCCCI :: PhoneNumberCountryCode
-pattern PNCCCI = PhoneNumberCountryCode' "CI"
+pattern PhoneNumberCountryCodeCI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCI = PhoneNumberCountryCode' "CI"
 
-pattern PNCCCK :: PhoneNumberCountryCode
-pattern PNCCCK = PhoneNumberCountryCode' "CK"
+pattern PhoneNumberCountryCodeCK :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCK = PhoneNumberCountryCode' "CK"
 
-pattern PNCCCL :: PhoneNumberCountryCode
-pattern PNCCCL = PhoneNumberCountryCode' "CL"
+pattern PhoneNumberCountryCodeCL :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCL = PhoneNumberCountryCode' "CL"
 
-pattern PNCCCM :: PhoneNumberCountryCode
-pattern PNCCCM = PhoneNumberCountryCode' "CM"
+pattern PhoneNumberCountryCodeCM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCM = PhoneNumberCountryCode' "CM"
 
-pattern PNCCCN :: PhoneNumberCountryCode
-pattern PNCCCN = PhoneNumberCountryCode' "CN"
+pattern PhoneNumberCountryCodeCN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCN = PhoneNumberCountryCode' "CN"
 
-pattern PNCCCO :: PhoneNumberCountryCode
-pattern PNCCCO = PhoneNumberCountryCode' "CO"
+pattern PhoneNumberCountryCodeCO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCO = PhoneNumberCountryCode' "CO"
 
-pattern PNCCCR :: PhoneNumberCountryCode
-pattern PNCCCR = PhoneNumberCountryCode' "CR"
+pattern PhoneNumberCountryCodeCR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCR = PhoneNumberCountryCode' "CR"
 
-pattern PNCCCU :: PhoneNumberCountryCode
-pattern PNCCCU = PhoneNumberCountryCode' "CU"
+pattern PhoneNumberCountryCodeCU :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCU = PhoneNumberCountryCode' "CU"
 
-pattern PNCCCV :: PhoneNumberCountryCode
-pattern PNCCCV = PhoneNumberCountryCode' "CV"
+pattern PhoneNumberCountryCodeCV :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCV = PhoneNumberCountryCode' "CV"
 
-pattern PNCCCW :: PhoneNumberCountryCode
-pattern PNCCCW = PhoneNumberCountryCode' "CW"
+pattern PhoneNumberCountryCodeCW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCW = PhoneNumberCountryCode' "CW"
 
-pattern PNCCCX :: PhoneNumberCountryCode
-pattern PNCCCX = PhoneNumberCountryCode' "CX"
+pattern PhoneNumberCountryCodeCX :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCX = PhoneNumberCountryCode' "CX"
 
-pattern PNCCCY :: PhoneNumberCountryCode
-pattern PNCCCY = PhoneNumberCountryCode' "CY"
+pattern PhoneNumberCountryCodeCY :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCY = PhoneNumberCountryCode' "CY"
 
-pattern PNCCCZ :: PhoneNumberCountryCode
-pattern PNCCCZ = PhoneNumberCountryCode' "CZ"
+pattern PhoneNumberCountryCodeCZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeCZ = PhoneNumberCountryCode' "CZ"
 
-pattern PNCCDE :: PhoneNumberCountryCode
-pattern PNCCDE = PhoneNumberCountryCode' "DE"
+pattern PhoneNumberCountryCodeDE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeDE = PhoneNumberCountryCode' "DE"
 
-pattern PNCCDJ :: PhoneNumberCountryCode
-pattern PNCCDJ = PhoneNumberCountryCode' "DJ"
+pattern PhoneNumberCountryCodeDJ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeDJ = PhoneNumberCountryCode' "DJ"
 
-pattern PNCCDK :: PhoneNumberCountryCode
-pattern PNCCDK = PhoneNumberCountryCode' "DK"
+pattern PhoneNumberCountryCodeDK :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeDK = PhoneNumberCountryCode' "DK"
 
-pattern PNCCDM :: PhoneNumberCountryCode
-pattern PNCCDM = PhoneNumberCountryCode' "DM"
+pattern PhoneNumberCountryCodeDM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeDM = PhoneNumberCountryCode' "DM"
 
-pattern PNCCDO :: PhoneNumberCountryCode
-pattern PNCCDO = PhoneNumberCountryCode' "DO"
+pattern PhoneNumberCountryCodeDO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeDO = PhoneNumberCountryCode' "DO"
 
-pattern PNCCDZ :: PhoneNumberCountryCode
-pattern PNCCDZ = PhoneNumberCountryCode' "DZ"
+pattern PhoneNumberCountryCodeDZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeDZ = PhoneNumberCountryCode' "DZ"
 
-pattern PNCCEC :: PhoneNumberCountryCode
-pattern PNCCEC = PhoneNumberCountryCode' "EC"
+pattern PhoneNumberCountryCodeEC :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeEC = PhoneNumberCountryCode' "EC"
 
-pattern PNCCEE :: PhoneNumberCountryCode
-pattern PNCCEE = PhoneNumberCountryCode' "EE"
+pattern PhoneNumberCountryCodeEE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeEE = PhoneNumberCountryCode' "EE"
 
-pattern PNCCEG :: PhoneNumberCountryCode
-pattern PNCCEG = PhoneNumberCountryCode' "EG"
+pattern PhoneNumberCountryCodeEG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeEG = PhoneNumberCountryCode' "EG"
 
-pattern PNCCEH :: PhoneNumberCountryCode
-pattern PNCCEH = PhoneNumberCountryCode' "EH"
+pattern PhoneNumberCountryCodeEH :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeEH = PhoneNumberCountryCode' "EH"
 
-pattern PNCCER :: PhoneNumberCountryCode
-pattern PNCCER = PhoneNumberCountryCode' "ER"
+pattern PhoneNumberCountryCodeER :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeER = PhoneNumberCountryCode' "ER"
 
-pattern PNCCES :: PhoneNumberCountryCode
-pattern PNCCES = PhoneNumberCountryCode' "ES"
+pattern PhoneNumberCountryCodeES :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeES = PhoneNumberCountryCode' "ES"
 
-pattern PNCCET :: PhoneNumberCountryCode
-pattern PNCCET = PhoneNumberCountryCode' "ET"
+pattern PhoneNumberCountryCodeET :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeET = PhoneNumberCountryCode' "ET"
 
-pattern PNCCFI :: PhoneNumberCountryCode
-pattern PNCCFI = PhoneNumberCountryCode' "FI"
+pattern PhoneNumberCountryCodeFI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeFI = PhoneNumberCountryCode' "FI"
 
-pattern PNCCFJ :: PhoneNumberCountryCode
-pattern PNCCFJ = PhoneNumberCountryCode' "FJ"
+pattern PhoneNumberCountryCodeFJ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeFJ = PhoneNumberCountryCode' "FJ"
 
-pattern PNCCFK :: PhoneNumberCountryCode
-pattern PNCCFK = PhoneNumberCountryCode' "FK"
+pattern PhoneNumberCountryCodeFK :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeFK = PhoneNumberCountryCode' "FK"
 
-pattern PNCCFM :: PhoneNumberCountryCode
-pattern PNCCFM = PhoneNumberCountryCode' "FM"
+pattern PhoneNumberCountryCodeFM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeFM = PhoneNumberCountryCode' "FM"
 
-pattern PNCCFO :: PhoneNumberCountryCode
-pattern PNCCFO = PhoneNumberCountryCode' "FO"
+pattern PhoneNumberCountryCodeFO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeFO = PhoneNumberCountryCode' "FO"
 
-pattern PNCCFR :: PhoneNumberCountryCode
-pattern PNCCFR = PhoneNumberCountryCode' "FR"
+pattern PhoneNumberCountryCodeFR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeFR = PhoneNumberCountryCode' "FR"
 
-pattern PNCCGA :: PhoneNumberCountryCode
-pattern PNCCGA = PhoneNumberCountryCode' "GA"
+pattern PhoneNumberCountryCodeGA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGA = PhoneNumberCountryCode' "GA"
 
-pattern PNCCGB :: PhoneNumberCountryCode
-pattern PNCCGB = PhoneNumberCountryCode' "GB"
+pattern PhoneNumberCountryCodeGB :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGB = PhoneNumberCountryCode' "GB"
 
-pattern PNCCGD :: PhoneNumberCountryCode
-pattern PNCCGD = PhoneNumberCountryCode' "GD"
+pattern PhoneNumberCountryCodeGD :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGD = PhoneNumberCountryCode' "GD"
 
-pattern PNCCGE :: PhoneNumberCountryCode
-pattern PNCCGE = PhoneNumberCountryCode' "GE"
+pattern PhoneNumberCountryCodeGE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGE = PhoneNumberCountryCode' "GE"
 
-pattern PNCCGG :: PhoneNumberCountryCode
-pattern PNCCGG = PhoneNumberCountryCode' "GG"
+pattern PhoneNumberCountryCodeGG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGG = PhoneNumberCountryCode' "GG"
 
-pattern PNCCGH :: PhoneNumberCountryCode
-pattern PNCCGH = PhoneNumberCountryCode' "GH"
+pattern PhoneNumberCountryCodeGH :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGH = PhoneNumberCountryCode' "GH"
 
-pattern PNCCGI :: PhoneNumberCountryCode
-pattern PNCCGI = PhoneNumberCountryCode' "GI"
+pattern PhoneNumberCountryCodeGI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGI = PhoneNumberCountryCode' "GI"
 
-pattern PNCCGL :: PhoneNumberCountryCode
-pattern PNCCGL = PhoneNumberCountryCode' "GL"
+pattern PhoneNumberCountryCodeGL :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGL = PhoneNumberCountryCode' "GL"
 
-pattern PNCCGM :: PhoneNumberCountryCode
-pattern PNCCGM = PhoneNumberCountryCode' "GM"
+pattern PhoneNumberCountryCodeGM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGM = PhoneNumberCountryCode' "GM"
 
-pattern PNCCGN :: PhoneNumberCountryCode
-pattern PNCCGN = PhoneNumberCountryCode' "GN"
+pattern PhoneNumberCountryCodeGN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGN = PhoneNumberCountryCode' "GN"
 
-pattern PNCCGQ :: PhoneNumberCountryCode
-pattern PNCCGQ = PhoneNumberCountryCode' "GQ"
+pattern PhoneNumberCountryCodeGQ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGQ = PhoneNumberCountryCode' "GQ"
 
-pattern PNCCGR :: PhoneNumberCountryCode
-pattern PNCCGR = PhoneNumberCountryCode' "GR"
+pattern PhoneNumberCountryCodeGR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGR = PhoneNumberCountryCode' "GR"
 
-pattern PNCCGT' :: PhoneNumberCountryCode
-pattern PNCCGT' = PhoneNumberCountryCode' "GT"
+pattern PhoneNumberCountryCodeGT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGT = PhoneNumberCountryCode' "GT"
 
-pattern PNCCGU :: PhoneNumberCountryCode
-pattern PNCCGU = PhoneNumberCountryCode' "GU"
+pattern PhoneNumberCountryCodeGU :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGU = PhoneNumberCountryCode' "GU"
 
-pattern PNCCGW :: PhoneNumberCountryCode
-pattern PNCCGW = PhoneNumberCountryCode' "GW"
+pattern PhoneNumberCountryCodeGW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGW = PhoneNumberCountryCode' "GW"
 
-pattern PNCCGY :: PhoneNumberCountryCode
-pattern PNCCGY = PhoneNumberCountryCode' "GY"
+pattern PhoneNumberCountryCodeGY :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeGY = PhoneNumberCountryCode' "GY"
 
-pattern PNCCHK :: PhoneNumberCountryCode
-pattern PNCCHK = PhoneNumberCountryCode' "HK"
+pattern PhoneNumberCountryCodeHK :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeHK = PhoneNumberCountryCode' "HK"
 
-pattern PNCCHN :: PhoneNumberCountryCode
-pattern PNCCHN = PhoneNumberCountryCode' "HN"
+pattern PhoneNumberCountryCodeHN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeHN = PhoneNumberCountryCode' "HN"
 
-pattern PNCCHR :: PhoneNumberCountryCode
-pattern PNCCHR = PhoneNumberCountryCode' "HR"
+pattern PhoneNumberCountryCodeHR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeHR = PhoneNumberCountryCode' "HR"
 
-pattern PNCCHT :: PhoneNumberCountryCode
-pattern PNCCHT = PhoneNumberCountryCode' "HT"
+pattern PhoneNumberCountryCodeHT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeHT = PhoneNumberCountryCode' "HT"
 
-pattern PNCCHU :: PhoneNumberCountryCode
-pattern PNCCHU = PhoneNumberCountryCode' "HU"
+pattern PhoneNumberCountryCodeHU :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeHU = PhoneNumberCountryCode' "HU"
 
-pattern PNCCIE :: PhoneNumberCountryCode
-pattern PNCCIE = PhoneNumberCountryCode' "IE"
+pattern PhoneNumberCountryCodeID :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeID = PhoneNumberCountryCode' "ID"
 
-pattern PNCCIL :: PhoneNumberCountryCode
-pattern PNCCIL = PhoneNumberCountryCode' "IL"
+pattern PhoneNumberCountryCodeIE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeIE = PhoneNumberCountryCode' "IE"
 
-pattern PNCCIM :: PhoneNumberCountryCode
-pattern PNCCIM = PhoneNumberCountryCode' "IM"
+pattern PhoneNumberCountryCodeIL :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeIL = PhoneNumberCountryCode' "IL"
 
-pattern PNCCIN :: PhoneNumberCountryCode
-pattern PNCCIN = PhoneNumberCountryCode' "IN"
+pattern PhoneNumberCountryCodeIM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeIM = PhoneNumberCountryCode' "IM"
 
-pattern PNCCIO :: PhoneNumberCountryCode
-pattern PNCCIO = PhoneNumberCountryCode' "IO"
+pattern PhoneNumberCountryCodeIN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeIN = PhoneNumberCountryCode' "IN"
 
-pattern PNCCIQ :: PhoneNumberCountryCode
-pattern PNCCIQ = PhoneNumberCountryCode' "IQ"
+pattern PhoneNumberCountryCodeIO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeIO = PhoneNumberCountryCode' "IO"
 
-pattern PNCCIR :: PhoneNumberCountryCode
-pattern PNCCIR = PhoneNumberCountryCode' "IR"
+pattern PhoneNumberCountryCodeIQ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeIQ = PhoneNumberCountryCode' "IQ"
 
-pattern PNCCIS :: PhoneNumberCountryCode
-pattern PNCCIS = PhoneNumberCountryCode' "IS"
+pattern PhoneNumberCountryCodeIR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeIR = PhoneNumberCountryCode' "IR"
 
-pattern PNCCIT :: PhoneNumberCountryCode
-pattern PNCCIT = PhoneNumberCountryCode' "IT"
+pattern PhoneNumberCountryCodeIS :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeIS = PhoneNumberCountryCode' "IS"
 
-pattern PNCCId :: PhoneNumberCountryCode
-pattern PNCCId = PhoneNumberCountryCode' "ID"
+pattern PhoneNumberCountryCodeIT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeIT = PhoneNumberCountryCode' "IT"
 
-pattern PNCCJE :: PhoneNumberCountryCode
-pattern PNCCJE = PhoneNumberCountryCode' "JE"
+pattern PhoneNumberCountryCodeJE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeJE = PhoneNumberCountryCode' "JE"
 
-pattern PNCCJM :: PhoneNumberCountryCode
-pattern PNCCJM = PhoneNumberCountryCode' "JM"
+pattern PhoneNumberCountryCodeJM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeJM = PhoneNumberCountryCode' "JM"
 
-pattern PNCCJO :: PhoneNumberCountryCode
-pattern PNCCJO = PhoneNumberCountryCode' "JO"
+pattern PhoneNumberCountryCodeJO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeJO = PhoneNumberCountryCode' "JO"
 
-pattern PNCCJP :: PhoneNumberCountryCode
-pattern PNCCJP = PhoneNumberCountryCode' "JP"
+pattern PhoneNumberCountryCodeJP :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeJP = PhoneNumberCountryCode' "JP"
 
-pattern PNCCKE :: PhoneNumberCountryCode
-pattern PNCCKE = PhoneNumberCountryCode' "KE"
+pattern PhoneNumberCountryCodeKE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKE = PhoneNumberCountryCode' "KE"
 
-pattern PNCCKG :: PhoneNumberCountryCode
-pattern PNCCKG = PhoneNumberCountryCode' "KG"
+pattern PhoneNumberCountryCodeKG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKG = PhoneNumberCountryCode' "KG"
 
-pattern PNCCKH :: PhoneNumberCountryCode
-pattern PNCCKH = PhoneNumberCountryCode' "KH"
+pattern PhoneNumberCountryCodeKH :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKH = PhoneNumberCountryCode' "KH"
 
-pattern PNCCKI :: PhoneNumberCountryCode
-pattern PNCCKI = PhoneNumberCountryCode' "KI"
+pattern PhoneNumberCountryCodeKI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKI = PhoneNumberCountryCode' "KI"
 
-pattern PNCCKM :: PhoneNumberCountryCode
-pattern PNCCKM = PhoneNumberCountryCode' "KM"
+pattern PhoneNumberCountryCodeKM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKM = PhoneNumberCountryCode' "KM"
 
-pattern PNCCKN :: PhoneNumberCountryCode
-pattern PNCCKN = PhoneNumberCountryCode' "KN"
+pattern PhoneNumberCountryCodeKN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKN = PhoneNumberCountryCode' "KN"
 
-pattern PNCCKP :: PhoneNumberCountryCode
-pattern PNCCKP = PhoneNumberCountryCode' "KP"
+pattern PhoneNumberCountryCodeKP :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKP = PhoneNumberCountryCode' "KP"
 
-pattern PNCCKR :: PhoneNumberCountryCode
-pattern PNCCKR = PhoneNumberCountryCode' "KR"
+pattern PhoneNumberCountryCodeKR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKR = PhoneNumberCountryCode' "KR"
 
-pattern PNCCKW :: PhoneNumberCountryCode
-pattern PNCCKW = PhoneNumberCountryCode' "KW"
+pattern PhoneNumberCountryCodeKW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKW = PhoneNumberCountryCode' "KW"
 
-pattern PNCCKY :: PhoneNumberCountryCode
-pattern PNCCKY = PhoneNumberCountryCode' "KY"
+pattern PhoneNumberCountryCodeKY :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKY = PhoneNumberCountryCode' "KY"
 
-pattern PNCCKZ :: PhoneNumberCountryCode
-pattern PNCCKZ = PhoneNumberCountryCode' "KZ"
+pattern PhoneNumberCountryCodeKZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeKZ = PhoneNumberCountryCode' "KZ"
 
-pattern PNCCLA :: PhoneNumberCountryCode
-pattern PNCCLA = PhoneNumberCountryCode' "LA"
+pattern PhoneNumberCountryCodeLA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLA = PhoneNumberCountryCode' "LA"
 
-pattern PNCCLB :: PhoneNumberCountryCode
-pattern PNCCLB = PhoneNumberCountryCode' "LB"
+pattern PhoneNumberCountryCodeLB :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLB = PhoneNumberCountryCode' "LB"
 
-pattern PNCCLC :: PhoneNumberCountryCode
-pattern PNCCLC = PhoneNumberCountryCode' "LC"
+pattern PhoneNumberCountryCodeLC :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLC = PhoneNumberCountryCode' "LC"
 
-pattern PNCCLI :: PhoneNumberCountryCode
-pattern PNCCLI = PhoneNumberCountryCode' "LI"
+pattern PhoneNumberCountryCodeLI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLI = PhoneNumberCountryCode' "LI"
 
-pattern PNCCLK :: PhoneNumberCountryCode
-pattern PNCCLK = PhoneNumberCountryCode' "LK"
+pattern PhoneNumberCountryCodeLK :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLK = PhoneNumberCountryCode' "LK"
 
-pattern PNCCLR :: PhoneNumberCountryCode
-pattern PNCCLR = PhoneNumberCountryCode' "LR"
+pattern PhoneNumberCountryCodeLR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLR = PhoneNumberCountryCode' "LR"
 
-pattern PNCCLS :: PhoneNumberCountryCode
-pattern PNCCLS = PhoneNumberCountryCode' "LS"
+pattern PhoneNumberCountryCodeLS :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLS = PhoneNumberCountryCode' "LS"
 
-pattern PNCCLT' :: PhoneNumberCountryCode
-pattern PNCCLT' = PhoneNumberCountryCode' "LT"
+pattern PhoneNumberCountryCodeLT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLT = PhoneNumberCountryCode' "LT"
 
-pattern PNCCLU :: PhoneNumberCountryCode
-pattern PNCCLU = PhoneNumberCountryCode' "LU"
+pattern PhoneNumberCountryCodeLU :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLU = PhoneNumberCountryCode' "LU"
 
-pattern PNCCLV :: PhoneNumberCountryCode
-pattern PNCCLV = PhoneNumberCountryCode' "LV"
+pattern PhoneNumberCountryCodeLV :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLV = PhoneNumberCountryCode' "LV"
 
-pattern PNCCLY :: PhoneNumberCountryCode
-pattern PNCCLY = PhoneNumberCountryCode' "LY"
+pattern PhoneNumberCountryCodeLY :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeLY = PhoneNumberCountryCode' "LY"
 
-pattern PNCCMA :: PhoneNumberCountryCode
-pattern PNCCMA = PhoneNumberCountryCode' "MA"
+pattern PhoneNumberCountryCodeMA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMA = PhoneNumberCountryCode' "MA"
 
-pattern PNCCMC :: PhoneNumberCountryCode
-pattern PNCCMC = PhoneNumberCountryCode' "MC"
+pattern PhoneNumberCountryCodeMC :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMC = PhoneNumberCountryCode' "MC"
 
-pattern PNCCMD :: PhoneNumberCountryCode
-pattern PNCCMD = PhoneNumberCountryCode' "MD"
+pattern PhoneNumberCountryCodeMD :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMD = PhoneNumberCountryCode' "MD"
 
-pattern PNCCME :: PhoneNumberCountryCode
-pattern PNCCME = PhoneNumberCountryCode' "ME"
+pattern PhoneNumberCountryCodeME :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeME = PhoneNumberCountryCode' "ME"
 
-pattern PNCCMF :: PhoneNumberCountryCode
-pattern PNCCMF = PhoneNumberCountryCode' "MF"
+pattern PhoneNumberCountryCodeMF :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMF = PhoneNumberCountryCode' "MF"
 
-pattern PNCCMG :: PhoneNumberCountryCode
-pattern PNCCMG = PhoneNumberCountryCode' "MG"
+pattern PhoneNumberCountryCodeMG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMG = PhoneNumberCountryCode' "MG"
 
-pattern PNCCMH :: PhoneNumberCountryCode
-pattern PNCCMH = PhoneNumberCountryCode' "MH"
+pattern PhoneNumberCountryCodeMH :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMH = PhoneNumberCountryCode' "MH"
 
-pattern PNCCMK :: PhoneNumberCountryCode
-pattern PNCCMK = PhoneNumberCountryCode' "MK"
+pattern PhoneNumberCountryCodeMK :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMK = PhoneNumberCountryCode' "MK"
 
-pattern PNCCML :: PhoneNumberCountryCode
-pattern PNCCML = PhoneNumberCountryCode' "ML"
+pattern PhoneNumberCountryCodeML :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeML = PhoneNumberCountryCode' "ML"
 
-pattern PNCCMM :: PhoneNumberCountryCode
-pattern PNCCMM = PhoneNumberCountryCode' "MM"
+pattern PhoneNumberCountryCodeMM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMM = PhoneNumberCountryCode' "MM"
 
-pattern PNCCMN :: PhoneNumberCountryCode
-pattern PNCCMN = PhoneNumberCountryCode' "MN"
+pattern PhoneNumberCountryCodeMN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMN = PhoneNumberCountryCode' "MN"
 
-pattern PNCCMO :: PhoneNumberCountryCode
-pattern PNCCMO = PhoneNumberCountryCode' "MO"
+pattern PhoneNumberCountryCodeMO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMO = PhoneNumberCountryCode' "MO"
 
-pattern PNCCMP :: PhoneNumberCountryCode
-pattern PNCCMP = PhoneNumberCountryCode' "MP"
+pattern PhoneNumberCountryCodeMP :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMP = PhoneNumberCountryCode' "MP"
 
-pattern PNCCMR :: PhoneNumberCountryCode
-pattern PNCCMR = PhoneNumberCountryCode' "MR"
+pattern PhoneNumberCountryCodeMR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMR = PhoneNumberCountryCode' "MR"
 
-pattern PNCCMS :: PhoneNumberCountryCode
-pattern PNCCMS = PhoneNumberCountryCode' "MS"
+pattern PhoneNumberCountryCodeMS :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMS = PhoneNumberCountryCode' "MS"
 
-pattern PNCCMT :: PhoneNumberCountryCode
-pattern PNCCMT = PhoneNumberCountryCode' "MT"
+pattern PhoneNumberCountryCodeMT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMT = PhoneNumberCountryCode' "MT"
 
-pattern PNCCMU :: PhoneNumberCountryCode
-pattern PNCCMU = PhoneNumberCountryCode' "MU"
+pattern PhoneNumberCountryCodeMU :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMU = PhoneNumberCountryCode' "MU"
 
-pattern PNCCMV :: PhoneNumberCountryCode
-pattern PNCCMV = PhoneNumberCountryCode' "MV"
+pattern PhoneNumberCountryCodeMV :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMV = PhoneNumberCountryCode' "MV"
 
-pattern PNCCMW :: PhoneNumberCountryCode
-pattern PNCCMW = PhoneNumberCountryCode' "MW"
+pattern PhoneNumberCountryCodeMW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMW = PhoneNumberCountryCode' "MW"
 
-pattern PNCCMX :: PhoneNumberCountryCode
-pattern PNCCMX = PhoneNumberCountryCode' "MX"
+pattern PhoneNumberCountryCodeMX :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMX = PhoneNumberCountryCode' "MX"
 
-pattern PNCCMY :: PhoneNumberCountryCode
-pattern PNCCMY = PhoneNumberCountryCode' "MY"
+pattern PhoneNumberCountryCodeMY :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMY = PhoneNumberCountryCode' "MY"
 
-pattern PNCCMZ :: PhoneNumberCountryCode
-pattern PNCCMZ = PhoneNumberCountryCode' "MZ"
+pattern PhoneNumberCountryCodeMZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeMZ = PhoneNumberCountryCode' "MZ"
 
-pattern PNCCNA :: PhoneNumberCountryCode
-pattern PNCCNA = PhoneNumberCountryCode' "NA"
+pattern PhoneNumberCountryCodeNA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNA = PhoneNumberCountryCode' "NA"
 
-pattern PNCCNC :: PhoneNumberCountryCode
-pattern PNCCNC = PhoneNumberCountryCode' "NC"
+pattern PhoneNumberCountryCodeNC :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNC = PhoneNumberCountryCode' "NC"
 
-pattern PNCCNE :: PhoneNumberCountryCode
-pattern PNCCNE = PhoneNumberCountryCode' "NE"
+pattern PhoneNumberCountryCodeNE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNE = PhoneNumberCountryCode' "NE"
 
-pattern PNCCNG :: PhoneNumberCountryCode
-pattern PNCCNG = PhoneNumberCountryCode' "NG"
+pattern PhoneNumberCountryCodeNG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNG = PhoneNumberCountryCode' "NG"
 
-pattern PNCCNI :: PhoneNumberCountryCode
-pattern PNCCNI = PhoneNumberCountryCode' "NI"
+pattern PhoneNumberCountryCodeNI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNI = PhoneNumberCountryCode' "NI"
 
-pattern PNCCNL :: PhoneNumberCountryCode
-pattern PNCCNL = PhoneNumberCountryCode' "NL"
+pattern PhoneNumberCountryCodeNL :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNL = PhoneNumberCountryCode' "NL"
 
-pattern PNCCNO :: PhoneNumberCountryCode
-pattern PNCCNO = PhoneNumberCountryCode' "NO"
+pattern PhoneNumberCountryCodeNO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNO = PhoneNumberCountryCode' "NO"
 
-pattern PNCCNP :: PhoneNumberCountryCode
-pattern PNCCNP = PhoneNumberCountryCode' "NP"
+pattern PhoneNumberCountryCodeNP :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNP = PhoneNumberCountryCode' "NP"
 
-pattern PNCCNR :: PhoneNumberCountryCode
-pattern PNCCNR = PhoneNumberCountryCode' "NR"
+pattern PhoneNumberCountryCodeNR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNR = PhoneNumberCountryCode' "NR"
 
-pattern PNCCNU :: PhoneNumberCountryCode
-pattern PNCCNU = PhoneNumberCountryCode' "NU"
+pattern PhoneNumberCountryCodeNU :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNU = PhoneNumberCountryCode' "NU"
 
-pattern PNCCNZ :: PhoneNumberCountryCode
-pattern PNCCNZ = PhoneNumberCountryCode' "NZ"
+pattern PhoneNumberCountryCodeNZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeNZ = PhoneNumberCountryCode' "NZ"
 
-pattern PNCCOM :: PhoneNumberCountryCode
-pattern PNCCOM = PhoneNumberCountryCode' "OM"
+pattern PhoneNumberCountryCodeOM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeOM = PhoneNumberCountryCode' "OM"
 
-pattern PNCCPA :: PhoneNumberCountryCode
-pattern PNCCPA = PhoneNumberCountryCode' "PA"
+pattern PhoneNumberCountryCodePA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePA = PhoneNumberCountryCode' "PA"
 
-pattern PNCCPE :: PhoneNumberCountryCode
-pattern PNCCPE = PhoneNumberCountryCode' "PE"
+pattern PhoneNumberCountryCodePE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePE = PhoneNumberCountryCode' "PE"
 
-pattern PNCCPF :: PhoneNumberCountryCode
-pattern PNCCPF = PhoneNumberCountryCode' "PF"
+pattern PhoneNumberCountryCodePF :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePF = PhoneNumberCountryCode' "PF"
 
-pattern PNCCPG :: PhoneNumberCountryCode
-pattern PNCCPG = PhoneNumberCountryCode' "PG"
+pattern PhoneNumberCountryCodePG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePG = PhoneNumberCountryCode' "PG"
 
-pattern PNCCPH :: PhoneNumberCountryCode
-pattern PNCCPH = PhoneNumberCountryCode' "PH"
+pattern PhoneNumberCountryCodePH :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePH = PhoneNumberCountryCode' "PH"
 
-pattern PNCCPK :: PhoneNumberCountryCode
-pattern PNCCPK = PhoneNumberCountryCode' "PK"
+pattern PhoneNumberCountryCodePK :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePK = PhoneNumberCountryCode' "PK"
 
-pattern PNCCPL :: PhoneNumberCountryCode
-pattern PNCCPL = PhoneNumberCountryCode' "PL"
+pattern PhoneNumberCountryCodePL :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePL = PhoneNumberCountryCode' "PL"
 
-pattern PNCCPM :: PhoneNumberCountryCode
-pattern PNCCPM = PhoneNumberCountryCode' "PM"
+pattern PhoneNumberCountryCodePM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePM = PhoneNumberCountryCode' "PM"
 
-pattern PNCCPN :: PhoneNumberCountryCode
-pattern PNCCPN = PhoneNumberCountryCode' "PN"
+pattern PhoneNumberCountryCodePN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePN = PhoneNumberCountryCode' "PN"
 
-pattern PNCCPR :: PhoneNumberCountryCode
-pattern PNCCPR = PhoneNumberCountryCode' "PR"
+pattern PhoneNumberCountryCodePR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePR = PhoneNumberCountryCode' "PR"
 
-pattern PNCCPT :: PhoneNumberCountryCode
-pattern PNCCPT = PhoneNumberCountryCode' "PT"
+pattern PhoneNumberCountryCodePT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePT = PhoneNumberCountryCode' "PT"
 
-pattern PNCCPW :: PhoneNumberCountryCode
-pattern PNCCPW = PhoneNumberCountryCode' "PW"
+pattern PhoneNumberCountryCodePW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePW = PhoneNumberCountryCode' "PW"
 
-pattern PNCCPY :: PhoneNumberCountryCode
-pattern PNCCPY = PhoneNumberCountryCode' "PY"
+pattern PhoneNumberCountryCodePY :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodePY = PhoneNumberCountryCode' "PY"
 
-pattern PNCCQA :: PhoneNumberCountryCode
-pattern PNCCQA = PhoneNumberCountryCode' "QA"
+pattern PhoneNumberCountryCodeQA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeQA = PhoneNumberCountryCode' "QA"
 
-pattern PNCCRE :: PhoneNumberCountryCode
-pattern PNCCRE = PhoneNumberCountryCode' "RE"
+pattern PhoneNumberCountryCodeRE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeRE = PhoneNumberCountryCode' "RE"
 
-pattern PNCCRO :: PhoneNumberCountryCode
-pattern PNCCRO = PhoneNumberCountryCode' "RO"
+pattern PhoneNumberCountryCodeRO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeRO = PhoneNumberCountryCode' "RO"
 
-pattern PNCCRS :: PhoneNumberCountryCode
-pattern PNCCRS = PhoneNumberCountryCode' "RS"
+pattern PhoneNumberCountryCodeRS :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeRS = PhoneNumberCountryCode' "RS"
 
-pattern PNCCRU :: PhoneNumberCountryCode
-pattern PNCCRU = PhoneNumberCountryCode' "RU"
+pattern PhoneNumberCountryCodeRU :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeRU = PhoneNumberCountryCode' "RU"
 
-pattern PNCCRW :: PhoneNumberCountryCode
-pattern PNCCRW = PhoneNumberCountryCode' "RW"
+pattern PhoneNumberCountryCodeRW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeRW = PhoneNumberCountryCode' "RW"
 
-pattern PNCCSA :: PhoneNumberCountryCode
-pattern PNCCSA = PhoneNumberCountryCode' "SA"
+pattern PhoneNumberCountryCodeSA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSA = PhoneNumberCountryCode' "SA"
 
-pattern PNCCSB :: PhoneNumberCountryCode
-pattern PNCCSB = PhoneNumberCountryCode' "SB"
+pattern PhoneNumberCountryCodeSB :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSB = PhoneNumberCountryCode' "SB"
 
-pattern PNCCSC :: PhoneNumberCountryCode
-pattern PNCCSC = PhoneNumberCountryCode' "SC"
+pattern PhoneNumberCountryCodeSC :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSC = PhoneNumberCountryCode' "SC"
 
-pattern PNCCSD :: PhoneNumberCountryCode
-pattern PNCCSD = PhoneNumberCountryCode' "SD"
+pattern PhoneNumberCountryCodeSD :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSD = PhoneNumberCountryCode' "SD"
 
-pattern PNCCSE :: PhoneNumberCountryCode
-pattern PNCCSE = PhoneNumberCountryCode' "SE"
+pattern PhoneNumberCountryCodeSE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSE = PhoneNumberCountryCode' "SE"
 
-pattern PNCCSG :: PhoneNumberCountryCode
-pattern PNCCSG = PhoneNumberCountryCode' "SG"
+pattern PhoneNumberCountryCodeSG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSG = PhoneNumberCountryCode' "SG"
 
-pattern PNCCSH :: PhoneNumberCountryCode
-pattern PNCCSH = PhoneNumberCountryCode' "SH"
+pattern PhoneNumberCountryCodeSH :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSH = PhoneNumberCountryCode' "SH"
 
-pattern PNCCSI :: PhoneNumberCountryCode
-pattern PNCCSI = PhoneNumberCountryCode' "SI"
+pattern PhoneNumberCountryCodeSI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSI = PhoneNumberCountryCode' "SI"
 
-pattern PNCCSJ :: PhoneNumberCountryCode
-pattern PNCCSJ = PhoneNumberCountryCode' "SJ"
+pattern PhoneNumberCountryCodeSJ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSJ = PhoneNumberCountryCode' "SJ"
 
-pattern PNCCSK :: PhoneNumberCountryCode
-pattern PNCCSK = PhoneNumberCountryCode' "SK"
+pattern PhoneNumberCountryCodeSK :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSK = PhoneNumberCountryCode' "SK"
 
-pattern PNCCSL :: PhoneNumberCountryCode
-pattern PNCCSL = PhoneNumberCountryCode' "SL"
+pattern PhoneNumberCountryCodeSL :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSL = PhoneNumberCountryCode' "SL"
 
-pattern PNCCSM :: PhoneNumberCountryCode
-pattern PNCCSM = PhoneNumberCountryCode' "SM"
+pattern PhoneNumberCountryCodeSM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSM = PhoneNumberCountryCode' "SM"
 
-pattern PNCCSN :: PhoneNumberCountryCode
-pattern PNCCSN = PhoneNumberCountryCode' "SN"
+pattern PhoneNumberCountryCodeSN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSN = PhoneNumberCountryCode' "SN"
 
-pattern PNCCSO :: PhoneNumberCountryCode
-pattern PNCCSO = PhoneNumberCountryCode' "SO"
+pattern PhoneNumberCountryCodeSO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSO = PhoneNumberCountryCode' "SO"
 
-pattern PNCCSR :: PhoneNumberCountryCode
-pattern PNCCSR = PhoneNumberCountryCode' "SR"
+pattern PhoneNumberCountryCodeSR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSR = PhoneNumberCountryCode' "SR"
 
-pattern PNCCST :: PhoneNumberCountryCode
-pattern PNCCST = PhoneNumberCountryCode' "ST"
+pattern PhoneNumberCountryCodeST :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeST = PhoneNumberCountryCode' "ST"
 
-pattern PNCCSV :: PhoneNumberCountryCode
-pattern PNCCSV = PhoneNumberCountryCode' "SV"
+pattern PhoneNumberCountryCodeSV :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSV = PhoneNumberCountryCode' "SV"
 
-pattern PNCCSX :: PhoneNumberCountryCode
-pattern PNCCSX = PhoneNumberCountryCode' "SX"
+pattern PhoneNumberCountryCodeSX :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSX = PhoneNumberCountryCode' "SX"
 
-pattern PNCCSY :: PhoneNumberCountryCode
-pattern PNCCSY = PhoneNumberCountryCode' "SY"
+pattern PhoneNumberCountryCodeSY :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSY = PhoneNumberCountryCode' "SY"
 
-pattern PNCCSZ :: PhoneNumberCountryCode
-pattern PNCCSZ = PhoneNumberCountryCode' "SZ"
+pattern PhoneNumberCountryCodeSZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeSZ = PhoneNumberCountryCode' "SZ"
 
-pattern PNCCTC :: PhoneNumberCountryCode
-pattern PNCCTC = PhoneNumberCountryCode' "TC"
+pattern PhoneNumberCountryCodeTC :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTC = PhoneNumberCountryCode' "TC"
 
-pattern PNCCTD :: PhoneNumberCountryCode
-pattern PNCCTD = PhoneNumberCountryCode' "TD"
+pattern PhoneNumberCountryCodeTD :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTD = PhoneNumberCountryCode' "TD"
 
-pattern PNCCTG :: PhoneNumberCountryCode
-pattern PNCCTG = PhoneNumberCountryCode' "TG"
+pattern PhoneNumberCountryCodeTG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTG = PhoneNumberCountryCode' "TG"
 
-pattern PNCCTH :: PhoneNumberCountryCode
-pattern PNCCTH = PhoneNumberCountryCode' "TH"
+pattern PhoneNumberCountryCodeTH :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTH = PhoneNumberCountryCode' "TH"
 
-pattern PNCCTJ :: PhoneNumberCountryCode
-pattern PNCCTJ = PhoneNumberCountryCode' "TJ"
+pattern PhoneNumberCountryCodeTJ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTJ = PhoneNumberCountryCode' "TJ"
 
-pattern PNCCTK :: PhoneNumberCountryCode
-pattern PNCCTK = PhoneNumberCountryCode' "TK"
+pattern PhoneNumberCountryCodeTK :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTK = PhoneNumberCountryCode' "TK"
 
-pattern PNCCTL :: PhoneNumberCountryCode
-pattern PNCCTL = PhoneNumberCountryCode' "TL"
+pattern PhoneNumberCountryCodeTL :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTL = PhoneNumberCountryCode' "TL"
 
-pattern PNCCTM :: PhoneNumberCountryCode
-pattern PNCCTM = PhoneNumberCountryCode' "TM"
+pattern PhoneNumberCountryCodeTM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTM = PhoneNumberCountryCode' "TM"
 
-pattern PNCCTN :: PhoneNumberCountryCode
-pattern PNCCTN = PhoneNumberCountryCode' "TN"
+pattern PhoneNumberCountryCodeTN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTN = PhoneNumberCountryCode' "TN"
 
-pattern PNCCTO :: PhoneNumberCountryCode
-pattern PNCCTO = PhoneNumberCountryCode' "TO"
+pattern PhoneNumberCountryCodeTO :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTO = PhoneNumberCountryCode' "TO"
 
-pattern PNCCTR :: PhoneNumberCountryCode
-pattern PNCCTR = PhoneNumberCountryCode' "TR"
+pattern PhoneNumberCountryCodeTR :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTR = PhoneNumberCountryCode' "TR"
 
-pattern PNCCTT :: PhoneNumberCountryCode
-pattern PNCCTT = PhoneNumberCountryCode' "TT"
+pattern PhoneNumberCountryCodeTT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTT = PhoneNumberCountryCode' "TT"
 
-pattern PNCCTV :: PhoneNumberCountryCode
-pattern PNCCTV = PhoneNumberCountryCode' "TV"
+pattern PhoneNumberCountryCodeTV :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTV = PhoneNumberCountryCode' "TV"
 
-pattern PNCCTW :: PhoneNumberCountryCode
-pattern PNCCTW = PhoneNumberCountryCode' "TW"
+pattern PhoneNumberCountryCodeTW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTW = PhoneNumberCountryCode' "TW"
 
-pattern PNCCTZ :: PhoneNumberCountryCode
-pattern PNCCTZ = PhoneNumberCountryCode' "TZ"
+pattern PhoneNumberCountryCodeTZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeTZ = PhoneNumberCountryCode' "TZ"
 
-pattern PNCCUA :: PhoneNumberCountryCode
-pattern PNCCUA = PhoneNumberCountryCode' "UA"
+pattern PhoneNumberCountryCodeUA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeUA = PhoneNumberCountryCode' "UA"
 
-pattern PNCCUG :: PhoneNumberCountryCode
-pattern PNCCUG = PhoneNumberCountryCode' "UG"
+pattern PhoneNumberCountryCodeUG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeUG = PhoneNumberCountryCode' "UG"
 
-pattern PNCCUS :: PhoneNumberCountryCode
-pattern PNCCUS = PhoneNumberCountryCode' "US"
+pattern PhoneNumberCountryCodeUS :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeUS = PhoneNumberCountryCode' "US"
 
-pattern PNCCUY :: PhoneNumberCountryCode
-pattern PNCCUY = PhoneNumberCountryCode' "UY"
+pattern PhoneNumberCountryCodeUY :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeUY = PhoneNumberCountryCode' "UY"
 
-pattern PNCCUZ :: PhoneNumberCountryCode
-pattern PNCCUZ = PhoneNumberCountryCode' "UZ"
+pattern PhoneNumberCountryCodeUZ :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeUZ = PhoneNumberCountryCode' "UZ"
 
-pattern PNCCVA :: PhoneNumberCountryCode
-pattern PNCCVA = PhoneNumberCountryCode' "VA"
+pattern PhoneNumberCountryCodeVA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeVA = PhoneNumberCountryCode' "VA"
 
-pattern PNCCVC :: PhoneNumberCountryCode
-pattern PNCCVC = PhoneNumberCountryCode' "VC"
+pattern PhoneNumberCountryCodeVC :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeVC = PhoneNumberCountryCode' "VC"
 
-pattern PNCCVE :: PhoneNumberCountryCode
-pattern PNCCVE = PhoneNumberCountryCode' "VE"
+pattern PhoneNumberCountryCodeVE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeVE = PhoneNumberCountryCode' "VE"
 
-pattern PNCCVG :: PhoneNumberCountryCode
-pattern PNCCVG = PhoneNumberCountryCode' "VG"
+pattern PhoneNumberCountryCodeVG :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeVG = PhoneNumberCountryCode' "VG"
 
-pattern PNCCVI :: PhoneNumberCountryCode
-pattern PNCCVI = PhoneNumberCountryCode' "VI"
+pattern PhoneNumberCountryCodeVI :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeVI = PhoneNumberCountryCode' "VI"
 
-pattern PNCCVN :: PhoneNumberCountryCode
-pattern PNCCVN = PhoneNumberCountryCode' "VN"
+pattern PhoneNumberCountryCodeVN :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeVN = PhoneNumberCountryCode' "VN"
 
-pattern PNCCVU :: PhoneNumberCountryCode
-pattern PNCCVU = PhoneNumberCountryCode' "VU"
+pattern PhoneNumberCountryCodeVU :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeVU = PhoneNumberCountryCode' "VU"
 
-pattern PNCCWF :: PhoneNumberCountryCode
-pattern PNCCWF = PhoneNumberCountryCode' "WF"
+pattern PhoneNumberCountryCodeWF :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeWF = PhoneNumberCountryCode' "WF"
 
-pattern PNCCWS :: PhoneNumberCountryCode
-pattern PNCCWS = PhoneNumberCountryCode' "WS"
+pattern PhoneNumberCountryCodeWS :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeWS = PhoneNumberCountryCode' "WS"
 
-pattern PNCCYE :: PhoneNumberCountryCode
-pattern PNCCYE = PhoneNumberCountryCode' "YE"
+pattern PhoneNumberCountryCodeYE :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeYE = PhoneNumberCountryCode' "YE"
 
-pattern PNCCYT :: PhoneNumberCountryCode
-pattern PNCCYT = PhoneNumberCountryCode' "YT"
+pattern PhoneNumberCountryCodeYT :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeYT = PhoneNumberCountryCode' "YT"
 
-pattern PNCCZA :: PhoneNumberCountryCode
-pattern PNCCZA = PhoneNumberCountryCode' "ZA"
+pattern PhoneNumberCountryCodeZA :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeZA = PhoneNumberCountryCode' "ZA"
 
-pattern PNCCZM :: PhoneNumberCountryCode
-pattern PNCCZM = PhoneNumberCountryCode' "ZM"
+pattern PhoneNumberCountryCodeZM :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeZM = PhoneNumberCountryCode' "ZM"
 
-pattern PNCCZW :: PhoneNumberCountryCode
-pattern PNCCZW = PhoneNumberCountryCode' "ZW"
+pattern PhoneNumberCountryCodeZW :: PhoneNumberCountryCode
+pattern PhoneNumberCountryCodeZW = PhoneNumberCountryCode' "ZW"
 
 {-# COMPLETE
-  PNCCAD,
-  PNCCAE,
-  PNCCAF,
-  PNCCAG,
-  PNCCAI,
-  PNCCAL,
-  PNCCAM,
-  PNCCAN,
-  PNCCAO,
-  PNCCAQ,
-  PNCCAR,
-  PNCCAS,
-  PNCCAT,
-  PNCCAU,
-  PNCCAW,
-  PNCCAZ,
-  PNCCBA,
-  PNCCBB,
-  PNCCBD,
-  PNCCBE,
-  PNCCBF,
-  PNCCBG,
-  PNCCBH,
-  PNCCBI,
-  PNCCBJ,
-  PNCCBL,
-  PNCCBM,
-  PNCCBN,
-  PNCCBO,
-  PNCCBR,
-  PNCCBS,
-  PNCCBT,
-  PNCCBW,
-  PNCCBY,
-  PNCCBZ,
-  PNCCCA,
-  PNCCCC,
-  PNCCCD,
-  PNCCCF,
-  PNCCCG,
-  PNCCCH,
-  PNCCCI,
-  PNCCCK,
-  PNCCCL,
-  PNCCCM,
-  PNCCCN,
-  PNCCCO,
-  PNCCCR,
-  PNCCCU,
-  PNCCCV,
-  PNCCCW,
-  PNCCCX,
-  PNCCCY,
-  PNCCCZ,
-  PNCCDE,
-  PNCCDJ,
-  PNCCDK,
-  PNCCDM,
-  PNCCDO,
-  PNCCDZ,
-  PNCCEC,
-  PNCCEE,
-  PNCCEG,
-  PNCCEH,
-  PNCCER,
-  PNCCES,
-  PNCCET,
-  PNCCFI,
-  PNCCFJ,
-  PNCCFK,
-  PNCCFM,
-  PNCCFO,
-  PNCCFR,
-  PNCCGA,
-  PNCCGB,
-  PNCCGD,
-  PNCCGE,
-  PNCCGG,
-  PNCCGH,
-  PNCCGI,
-  PNCCGL,
-  PNCCGM,
-  PNCCGN,
-  PNCCGQ,
-  PNCCGR,
-  PNCCGT',
-  PNCCGU,
-  PNCCGW,
-  PNCCGY,
-  PNCCHK,
-  PNCCHN,
-  PNCCHR,
-  PNCCHT,
-  PNCCHU,
-  PNCCIE,
-  PNCCIL,
-  PNCCIM,
-  PNCCIN,
-  PNCCIO,
-  PNCCIQ,
-  PNCCIR,
-  PNCCIS,
-  PNCCIT,
-  PNCCId,
-  PNCCJE,
-  PNCCJM,
-  PNCCJO,
-  PNCCJP,
-  PNCCKE,
-  PNCCKG,
-  PNCCKH,
-  PNCCKI,
-  PNCCKM,
-  PNCCKN,
-  PNCCKP,
-  PNCCKR,
-  PNCCKW,
-  PNCCKY,
-  PNCCKZ,
-  PNCCLA,
-  PNCCLB,
-  PNCCLC,
-  PNCCLI,
-  PNCCLK,
-  PNCCLR,
-  PNCCLS,
-  PNCCLT',
-  PNCCLU,
-  PNCCLV,
-  PNCCLY,
-  PNCCMA,
-  PNCCMC,
-  PNCCMD,
-  PNCCME,
-  PNCCMF,
-  PNCCMG,
-  PNCCMH,
-  PNCCMK,
-  PNCCML,
-  PNCCMM,
-  PNCCMN,
-  PNCCMO,
-  PNCCMP,
-  PNCCMR,
-  PNCCMS,
-  PNCCMT,
-  PNCCMU,
-  PNCCMV,
-  PNCCMW,
-  PNCCMX,
-  PNCCMY,
-  PNCCMZ,
-  PNCCNA,
-  PNCCNC,
-  PNCCNE,
-  PNCCNG,
-  PNCCNI,
-  PNCCNL,
-  PNCCNO,
-  PNCCNP,
-  PNCCNR,
-  PNCCNU,
-  PNCCNZ,
-  PNCCOM,
-  PNCCPA,
-  PNCCPE,
-  PNCCPF,
-  PNCCPG,
-  PNCCPH,
-  PNCCPK,
-  PNCCPL,
-  PNCCPM,
-  PNCCPN,
-  PNCCPR,
-  PNCCPT,
-  PNCCPW,
-  PNCCPY,
-  PNCCQA,
-  PNCCRE,
-  PNCCRO,
-  PNCCRS,
-  PNCCRU,
-  PNCCRW,
-  PNCCSA,
-  PNCCSB,
-  PNCCSC,
-  PNCCSD,
-  PNCCSE,
-  PNCCSG,
-  PNCCSH,
-  PNCCSI,
-  PNCCSJ,
-  PNCCSK,
-  PNCCSL,
-  PNCCSM,
-  PNCCSN,
-  PNCCSO,
-  PNCCSR,
-  PNCCST,
-  PNCCSV,
-  PNCCSX,
-  PNCCSY,
-  PNCCSZ,
-  PNCCTC,
-  PNCCTD,
-  PNCCTG,
-  PNCCTH,
-  PNCCTJ,
-  PNCCTK,
-  PNCCTL,
-  PNCCTM,
-  PNCCTN,
-  PNCCTO,
-  PNCCTR,
-  PNCCTT,
-  PNCCTV,
-  PNCCTW,
-  PNCCTZ,
-  PNCCUA,
-  PNCCUG,
-  PNCCUS,
-  PNCCUY,
-  PNCCUZ,
-  PNCCVA,
-  PNCCVC,
-  PNCCVE,
-  PNCCVG,
-  PNCCVI,
-  PNCCVN,
-  PNCCVU,
-  PNCCWF,
-  PNCCWS,
-  PNCCYE,
-  PNCCYT,
-  PNCCZA,
-  PNCCZM,
-  PNCCZW,
+  PhoneNumberCountryCodeAD,
+  PhoneNumberCountryCodeAE,
+  PhoneNumberCountryCodeAF,
+  PhoneNumberCountryCodeAG,
+  PhoneNumberCountryCodeAI,
+  PhoneNumberCountryCodeAL,
+  PhoneNumberCountryCodeAM,
+  PhoneNumberCountryCodeAN,
+  PhoneNumberCountryCodeAO,
+  PhoneNumberCountryCodeAQ,
+  PhoneNumberCountryCodeAR,
+  PhoneNumberCountryCodeAS,
+  PhoneNumberCountryCodeAT,
+  PhoneNumberCountryCodeAU,
+  PhoneNumberCountryCodeAW,
+  PhoneNumberCountryCodeAZ,
+  PhoneNumberCountryCodeBA,
+  PhoneNumberCountryCodeBB,
+  PhoneNumberCountryCodeBD,
+  PhoneNumberCountryCodeBE,
+  PhoneNumberCountryCodeBF,
+  PhoneNumberCountryCodeBG,
+  PhoneNumberCountryCodeBH,
+  PhoneNumberCountryCodeBI,
+  PhoneNumberCountryCodeBJ,
+  PhoneNumberCountryCodeBL,
+  PhoneNumberCountryCodeBM,
+  PhoneNumberCountryCodeBN,
+  PhoneNumberCountryCodeBO,
+  PhoneNumberCountryCodeBR,
+  PhoneNumberCountryCodeBS,
+  PhoneNumberCountryCodeBT,
+  PhoneNumberCountryCodeBW,
+  PhoneNumberCountryCodeBY,
+  PhoneNumberCountryCodeBZ,
+  PhoneNumberCountryCodeCA,
+  PhoneNumberCountryCodeCC,
+  PhoneNumberCountryCodeCD,
+  PhoneNumberCountryCodeCF,
+  PhoneNumberCountryCodeCG,
+  PhoneNumberCountryCodeCH,
+  PhoneNumberCountryCodeCI,
+  PhoneNumberCountryCodeCK,
+  PhoneNumberCountryCodeCL,
+  PhoneNumberCountryCodeCM,
+  PhoneNumberCountryCodeCN,
+  PhoneNumberCountryCodeCO,
+  PhoneNumberCountryCodeCR,
+  PhoneNumberCountryCodeCU,
+  PhoneNumberCountryCodeCV,
+  PhoneNumberCountryCodeCW,
+  PhoneNumberCountryCodeCX,
+  PhoneNumberCountryCodeCY,
+  PhoneNumberCountryCodeCZ,
+  PhoneNumberCountryCodeDE,
+  PhoneNumberCountryCodeDJ,
+  PhoneNumberCountryCodeDK,
+  PhoneNumberCountryCodeDM,
+  PhoneNumberCountryCodeDO,
+  PhoneNumberCountryCodeDZ,
+  PhoneNumberCountryCodeEC,
+  PhoneNumberCountryCodeEE,
+  PhoneNumberCountryCodeEG,
+  PhoneNumberCountryCodeEH,
+  PhoneNumberCountryCodeER,
+  PhoneNumberCountryCodeES,
+  PhoneNumberCountryCodeET,
+  PhoneNumberCountryCodeFI,
+  PhoneNumberCountryCodeFJ,
+  PhoneNumberCountryCodeFK,
+  PhoneNumberCountryCodeFM,
+  PhoneNumberCountryCodeFO,
+  PhoneNumberCountryCodeFR,
+  PhoneNumberCountryCodeGA,
+  PhoneNumberCountryCodeGB,
+  PhoneNumberCountryCodeGD,
+  PhoneNumberCountryCodeGE,
+  PhoneNumberCountryCodeGG,
+  PhoneNumberCountryCodeGH,
+  PhoneNumberCountryCodeGI,
+  PhoneNumberCountryCodeGL,
+  PhoneNumberCountryCodeGM,
+  PhoneNumberCountryCodeGN,
+  PhoneNumberCountryCodeGQ,
+  PhoneNumberCountryCodeGR,
+  PhoneNumberCountryCodeGT,
+  PhoneNumberCountryCodeGU,
+  PhoneNumberCountryCodeGW,
+  PhoneNumberCountryCodeGY,
+  PhoneNumberCountryCodeHK,
+  PhoneNumberCountryCodeHN,
+  PhoneNumberCountryCodeHR,
+  PhoneNumberCountryCodeHT,
+  PhoneNumberCountryCodeHU,
+  PhoneNumberCountryCodeID,
+  PhoneNumberCountryCodeIE,
+  PhoneNumberCountryCodeIL,
+  PhoneNumberCountryCodeIM,
+  PhoneNumberCountryCodeIN,
+  PhoneNumberCountryCodeIO,
+  PhoneNumberCountryCodeIQ,
+  PhoneNumberCountryCodeIR,
+  PhoneNumberCountryCodeIS,
+  PhoneNumberCountryCodeIT,
+  PhoneNumberCountryCodeJE,
+  PhoneNumberCountryCodeJM,
+  PhoneNumberCountryCodeJO,
+  PhoneNumberCountryCodeJP,
+  PhoneNumberCountryCodeKE,
+  PhoneNumberCountryCodeKG,
+  PhoneNumberCountryCodeKH,
+  PhoneNumberCountryCodeKI,
+  PhoneNumberCountryCodeKM,
+  PhoneNumberCountryCodeKN,
+  PhoneNumberCountryCodeKP,
+  PhoneNumberCountryCodeKR,
+  PhoneNumberCountryCodeKW,
+  PhoneNumberCountryCodeKY,
+  PhoneNumberCountryCodeKZ,
+  PhoneNumberCountryCodeLA,
+  PhoneNumberCountryCodeLB,
+  PhoneNumberCountryCodeLC,
+  PhoneNumberCountryCodeLI,
+  PhoneNumberCountryCodeLK,
+  PhoneNumberCountryCodeLR,
+  PhoneNumberCountryCodeLS,
+  PhoneNumberCountryCodeLT,
+  PhoneNumberCountryCodeLU,
+  PhoneNumberCountryCodeLV,
+  PhoneNumberCountryCodeLY,
+  PhoneNumberCountryCodeMA,
+  PhoneNumberCountryCodeMC,
+  PhoneNumberCountryCodeMD,
+  PhoneNumberCountryCodeME,
+  PhoneNumberCountryCodeMF,
+  PhoneNumberCountryCodeMG,
+  PhoneNumberCountryCodeMH,
+  PhoneNumberCountryCodeMK,
+  PhoneNumberCountryCodeML,
+  PhoneNumberCountryCodeMM,
+  PhoneNumberCountryCodeMN,
+  PhoneNumberCountryCodeMO,
+  PhoneNumberCountryCodeMP,
+  PhoneNumberCountryCodeMR,
+  PhoneNumberCountryCodeMS,
+  PhoneNumberCountryCodeMT,
+  PhoneNumberCountryCodeMU,
+  PhoneNumberCountryCodeMV,
+  PhoneNumberCountryCodeMW,
+  PhoneNumberCountryCodeMX,
+  PhoneNumberCountryCodeMY,
+  PhoneNumberCountryCodeMZ,
+  PhoneNumberCountryCodeNA,
+  PhoneNumberCountryCodeNC,
+  PhoneNumberCountryCodeNE,
+  PhoneNumberCountryCodeNG,
+  PhoneNumberCountryCodeNI,
+  PhoneNumberCountryCodeNL,
+  PhoneNumberCountryCodeNO,
+  PhoneNumberCountryCodeNP,
+  PhoneNumberCountryCodeNR,
+  PhoneNumberCountryCodeNU,
+  PhoneNumberCountryCodeNZ,
+  PhoneNumberCountryCodeOM,
+  PhoneNumberCountryCodePA,
+  PhoneNumberCountryCodePE,
+  PhoneNumberCountryCodePF,
+  PhoneNumberCountryCodePG,
+  PhoneNumberCountryCodePH,
+  PhoneNumberCountryCodePK,
+  PhoneNumberCountryCodePL,
+  PhoneNumberCountryCodePM,
+  PhoneNumberCountryCodePN,
+  PhoneNumberCountryCodePR,
+  PhoneNumberCountryCodePT,
+  PhoneNumberCountryCodePW,
+  PhoneNumberCountryCodePY,
+  PhoneNumberCountryCodeQA,
+  PhoneNumberCountryCodeRE,
+  PhoneNumberCountryCodeRO,
+  PhoneNumberCountryCodeRS,
+  PhoneNumberCountryCodeRU,
+  PhoneNumberCountryCodeRW,
+  PhoneNumberCountryCodeSA,
+  PhoneNumberCountryCodeSB,
+  PhoneNumberCountryCodeSC,
+  PhoneNumberCountryCodeSD,
+  PhoneNumberCountryCodeSE,
+  PhoneNumberCountryCodeSG,
+  PhoneNumberCountryCodeSH,
+  PhoneNumberCountryCodeSI,
+  PhoneNumberCountryCodeSJ,
+  PhoneNumberCountryCodeSK,
+  PhoneNumberCountryCodeSL,
+  PhoneNumberCountryCodeSM,
+  PhoneNumberCountryCodeSN,
+  PhoneNumberCountryCodeSO,
+  PhoneNumberCountryCodeSR,
+  PhoneNumberCountryCodeST,
+  PhoneNumberCountryCodeSV,
+  PhoneNumberCountryCodeSX,
+  PhoneNumberCountryCodeSY,
+  PhoneNumberCountryCodeSZ,
+  PhoneNumberCountryCodeTC,
+  PhoneNumberCountryCodeTD,
+  PhoneNumberCountryCodeTG,
+  PhoneNumberCountryCodeTH,
+  PhoneNumberCountryCodeTJ,
+  PhoneNumberCountryCodeTK,
+  PhoneNumberCountryCodeTL,
+  PhoneNumberCountryCodeTM,
+  PhoneNumberCountryCodeTN,
+  PhoneNumberCountryCodeTO,
+  PhoneNumberCountryCodeTR,
+  PhoneNumberCountryCodeTT,
+  PhoneNumberCountryCodeTV,
+  PhoneNumberCountryCodeTW,
+  PhoneNumberCountryCodeTZ,
+  PhoneNumberCountryCodeUA,
+  PhoneNumberCountryCodeUG,
+  PhoneNumberCountryCodeUS,
+  PhoneNumberCountryCodeUY,
+  PhoneNumberCountryCodeUZ,
+  PhoneNumberCountryCodeVA,
+  PhoneNumberCountryCodeVC,
+  PhoneNumberCountryCodeVE,
+  PhoneNumberCountryCodeVG,
+  PhoneNumberCountryCodeVI,
+  PhoneNumberCountryCodeVN,
+  PhoneNumberCountryCodeVU,
+  PhoneNumberCountryCodeWF,
+  PhoneNumberCountryCodeWS,
+  PhoneNumberCountryCodeYE,
+  PhoneNumberCountryCodeYT,
+  PhoneNumberCountryCodeZA,
+  PhoneNumberCountryCodeZM,
+  PhoneNumberCountryCodeZW,
   PhoneNumberCountryCode'
   #-}
 
-instance FromText PhoneNumberCountryCode where
-  parser = (PhoneNumberCountryCode' . mk) <$> takeText
+instance Prelude.FromText PhoneNumberCountryCode where
+  parser = PhoneNumberCountryCode' Prelude.<$> Prelude.takeText
 
-instance ToText PhoneNumberCountryCode where
-  toText (PhoneNumberCountryCode' ci) = original ci
+instance Prelude.ToText PhoneNumberCountryCode where
+  toText (PhoneNumberCountryCode' x) = x
 
-instance Hashable PhoneNumberCountryCode
+instance Prelude.Hashable PhoneNumberCountryCode
 
-instance NFData PhoneNumberCountryCode
+instance Prelude.NFData PhoneNumberCountryCode
 
-instance ToByteString PhoneNumberCountryCode
+instance Prelude.ToByteString PhoneNumberCountryCode
 
-instance ToQuery PhoneNumberCountryCode
+instance Prelude.ToQuery PhoneNumberCountryCode
 
-instance ToHeader PhoneNumberCountryCode
+instance Prelude.ToHeader PhoneNumberCountryCode
 
-instance ToJSON PhoneNumberCountryCode where
-  toJSON = toJSONText
+instance Prelude.ToJSON PhoneNumberCountryCode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PhoneNumberCountryCode where
-  parseJSON = parseJSONText "PhoneNumberCountryCode"
+instance Prelude.FromJSON PhoneNumberCountryCode where
+  parseJSON = Prelude.parseJSONText "PhoneNumberCountryCode"

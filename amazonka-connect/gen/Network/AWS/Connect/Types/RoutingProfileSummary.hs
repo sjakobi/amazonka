@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Connect.Types.RoutingProfileSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains summary information about a routing profile.
 --
---
---
--- /See:/ 'routingProfileSummary' smart constructor.
+-- /See:/ 'newRoutingProfileSummary' smart constructor.
 data RoutingProfileSummary = RoutingProfileSummary'
-  { _rpsARN ::
-      !(Maybe Text),
-    _rpsId :: !(Maybe Text),
-    _rpsName :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the routing profile.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the routing profile.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the routing profile.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RoutingProfileSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RoutingProfileSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpsARN' - The Amazon Resource Name (ARN) of the routing profile.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpsId' - The identifier of the routing profile.
+-- 'arn', 'routingProfileSummary_arn' - The Amazon Resource Name (ARN) of the routing profile.
 --
--- * 'rpsName' - The name of the routing profile.
-routingProfileSummary ::
+-- 'id', 'routingProfileSummary_id' - The identifier of the routing profile.
+--
+-- 'name', 'routingProfileSummary_name' - The name of the routing profile.
+newRoutingProfileSummary ::
   RoutingProfileSummary
-routingProfileSummary =
+newRoutingProfileSummary =
   RoutingProfileSummary'
-    { _rpsARN = Nothing,
-      _rpsId = Nothing,
-      _rpsName = Nothing
+    { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the routing profile.
-rpsARN :: Lens' RoutingProfileSummary (Maybe Text)
-rpsARN = lens _rpsARN (\s a -> s {_rpsARN = a})
+routingProfileSummary_arn :: Lens.Lens' RoutingProfileSummary (Prelude.Maybe Prelude.Text)
+routingProfileSummary_arn = Lens.lens (\RoutingProfileSummary' {arn} -> arn) (\s@RoutingProfileSummary' {} a -> s {arn = a} :: RoutingProfileSummary)
 
 -- | The identifier of the routing profile.
-rpsId :: Lens' RoutingProfileSummary (Maybe Text)
-rpsId = lens _rpsId (\s a -> s {_rpsId = a})
+routingProfileSummary_id :: Lens.Lens' RoutingProfileSummary (Prelude.Maybe Prelude.Text)
+routingProfileSummary_id = Lens.lens (\RoutingProfileSummary' {id} -> id) (\s@RoutingProfileSummary' {} a -> s {id = a} :: RoutingProfileSummary)
 
 -- | The name of the routing profile.
-rpsName :: Lens' RoutingProfileSummary (Maybe Text)
-rpsName = lens _rpsName (\s a -> s {_rpsName = a})
+routingProfileSummary_name :: Lens.Lens' RoutingProfileSummary (Prelude.Maybe Prelude.Text)
+routingProfileSummary_name = Lens.lens (\RoutingProfileSummary' {name} -> name) (\s@RoutingProfileSummary' {} a -> s {name = a} :: RoutingProfileSummary)
 
-instance FromJSON RoutingProfileSummary where
+instance Prelude.FromJSON RoutingProfileSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RoutingProfileSummary"
       ( \x ->
           RoutingProfileSummary'
-            <$> (x .:? "Arn") <*> (x .:? "Id") <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable RoutingProfileSummary
+instance Prelude.Hashable RoutingProfileSummary
 
-instance NFData RoutingProfileSummary
+instance Prelude.NFData RoutingProfileSummary

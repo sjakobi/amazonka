@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the hierarchy structure of the specified Amazon Connect instance.
+-- Describes the hierarchy structure of the specified Amazon Connect
+-- instance.
 module Network.AWS.Connect.DescribeUserHierarchyStructure
   ( -- * Creating a Request
-    describeUserHierarchyStructure,
-    DescribeUserHierarchyStructure,
+    DescribeUserHierarchyStructure (..),
+    newDescribeUserHierarchyStructure,
 
     -- * Request Lenses
-    duhsInstanceId,
+    describeUserHierarchyStructure_instanceId,
 
     -- * Destructuring the Response
-    describeUserHierarchyStructureResponse,
-    DescribeUserHierarchyStructureResponse,
+    DescribeUserHierarchyStructureResponse (..),
+    newDescribeUserHierarchyStructureResponse,
 
     -- * Response Lenses
-    duhsrrsHierarchyStructure,
-    duhsrrsResponseStatus,
+    describeUserHierarchyStructureResponse_hierarchyStructure,
+    describeUserHierarchyStructureResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.HierarchyStructure
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeUserHierarchyStructure' smart constructor.
-newtype DescribeUserHierarchyStructure = DescribeUserHierarchyStructure'
-  { _duhsInstanceId ::
-      Text
+-- | /See:/ 'newDescribeUserHierarchyStructure' smart constructor.
+data DescribeUserHierarchyStructure = DescribeUserHierarchyStructure'
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserHierarchyStructure' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserHierarchyStructure' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duhsInstanceId' - The identifier of the Amazon Connect instance.
-describeUserHierarchyStructure ::
-  -- | 'duhsInstanceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceId', 'describeUserHierarchyStructure_instanceId' - The identifier of the Amazon Connect instance.
+newDescribeUserHierarchyStructure ::
+  -- | 'instanceId'
+  Prelude.Text ->
   DescribeUserHierarchyStructure
-describeUserHierarchyStructure pInstanceId_ =
+newDescribeUserHierarchyStructure pInstanceId_ =
   DescribeUserHierarchyStructure'
-    { _duhsInstanceId =
+    { instanceId =
         pInstanceId_
     }
 
 -- | The identifier of the Amazon Connect instance.
-duhsInstanceId :: Lens' DescribeUserHierarchyStructure Text
-duhsInstanceId = lens _duhsInstanceId (\s a -> s {_duhsInstanceId = a})
+describeUserHierarchyStructure_instanceId :: Lens.Lens' DescribeUserHierarchyStructure Prelude.Text
+describeUserHierarchyStructure_instanceId = Lens.lens (\DescribeUserHierarchyStructure' {instanceId} -> instanceId) (\s@DescribeUserHierarchyStructure' {} a -> s {instanceId = a} :: DescribeUserHierarchyStructure)
 
-instance AWSRequest DescribeUserHierarchyStructure where
+instance
+  Prelude.AWSRequest
+    DescribeUserHierarchyStructure
+  where
   type
     Rs DescribeUserHierarchyStructure =
       DescribeUserHierarchyStructureResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeUserHierarchyStructureResponse'
-            <$> (x .?> "HierarchyStructure") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "HierarchyStructure")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeUserHierarchyStructure
+instance
+  Prelude.Hashable
+    DescribeUserHierarchyStructure
 
-instance NFData DescribeUserHierarchyStructure
+instance
+  Prelude.NFData
+    DescribeUserHierarchyStructure
 
-instance ToHeaders DescribeUserHierarchyStructure where
+instance
+  Prelude.ToHeaders
+    DescribeUserHierarchyStructure
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeUserHierarchyStructure where
+instance
+  Prelude.ToPath
+    DescribeUserHierarchyStructure
+  where
   toPath DescribeUserHierarchyStructure' {..} =
-    mconcat
-      ["/user-hierarchy-structure/", toBS _duhsInstanceId]
+    Prelude.mconcat
+      [ "/user-hierarchy-structure/",
+        Prelude.toBS instanceId
+      ]
 
-instance ToQuery DescribeUserHierarchyStructure where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeUserHierarchyStructure
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeUserHierarchyStructureResponse' smart constructor.
+-- | /See:/ 'newDescribeUserHierarchyStructureResponse' smart constructor.
 data DescribeUserHierarchyStructureResponse = DescribeUserHierarchyStructureResponse'
-  { _duhsrrsHierarchyStructure ::
-      !( Maybe
-           HierarchyStructure
-       ),
-    _duhsrrsResponseStatus ::
-      !Int
+  { -- | Information about the hierarchy structure.
+    hierarchyStructure :: Prelude.Maybe HierarchyStructure,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserHierarchyStructureResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserHierarchyStructureResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duhsrrsHierarchyStructure' - Information about the hierarchy structure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duhsrrsResponseStatus' - -- | The response status code.
-describeUserHierarchyStructureResponse ::
-  -- | 'duhsrrsResponseStatus'
-  Int ->
+-- 'hierarchyStructure', 'describeUserHierarchyStructureResponse_hierarchyStructure' - Information about the hierarchy structure.
+--
+-- 'httpStatus', 'describeUserHierarchyStructureResponse_httpStatus' - The response's http status code.
+newDescribeUserHierarchyStructureResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeUserHierarchyStructureResponse
-describeUserHierarchyStructureResponse
-  pResponseStatus_ =
+newDescribeUserHierarchyStructureResponse
+  pHttpStatus_ =
     DescribeUserHierarchyStructureResponse'
-      { _duhsrrsHierarchyStructure =
-          Nothing,
-        _duhsrrsResponseStatus =
-          pResponseStatus_
+      { hierarchyStructure =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Information about the hierarchy structure.
-duhsrrsHierarchyStructure :: Lens' DescribeUserHierarchyStructureResponse (Maybe HierarchyStructure)
-duhsrrsHierarchyStructure = lens _duhsrrsHierarchyStructure (\s a -> s {_duhsrrsHierarchyStructure = a})
+describeUserHierarchyStructureResponse_hierarchyStructure :: Lens.Lens' DescribeUserHierarchyStructureResponse (Prelude.Maybe HierarchyStructure)
+describeUserHierarchyStructureResponse_hierarchyStructure = Lens.lens (\DescribeUserHierarchyStructureResponse' {hierarchyStructure} -> hierarchyStructure) (\s@DescribeUserHierarchyStructureResponse' {} a -> s {hierarchyStructure = a} :: DescribeUserHierarchyStructureResponse)
 
--- | -- | The response status code.
-duhsrrsResponseStatus :: Lens' DescribeUserHierarchyStructureResponse Int
-duhsrrsResponseStatus = lens _duhsrrsResponseStatus (\s a -> s {_duhsrrsResponseStatus = a})
+-- | The response's http status code.
+describeUserHierarchyStructureResponse_httpStatus :: Lens.Lens' DescribeUserHierarchyStructureResponse Prelude.Int
+describeUserHierarchyStructureResponse_httpStatus = Lens.lens (\DescribeUserHierarchyStructureResponse' {httpStatus} -> httpStatus) (\s@DescribeUserHierarchyStructureResponse' {} a -> s {httpStatus = a} :: DescribeUserHierarchyStructureResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeUserHierarchyStructureResponse

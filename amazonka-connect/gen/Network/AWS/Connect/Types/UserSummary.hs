@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Connect.Types.UserSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains summary information about a user.
 --
---
---
--- /See:/ 'userSummary' smart constructor.
+-- /See:/ 'newUserSummary' smart constructor.
 data UserSummary = UserSummary'
-  { _usARN ::
-      !(Maybe Text),
-    _usId :: !(Maybe Text),
-    _usUsername :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the user account.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the user account.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Connect user name of the user account.
+    username :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usARN' - The Amazon Resource Name (ARN) of the user account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usId' - The identifier of the user account.
+-- 'arn', 'userSummary_arn' - The Amazon Resource Name (ARN) of the user account.
 --
--- * 'usUsername' - The Amazon Connect user name of the user account.
-userSummary ::
+-- 'id', 'userSummary_id' - The identifier of the user account.
+--
+-- 'username', 'userSummary_username' - The Amazon Connect user name of the user account.
+newUserSummary ::
   UserSummary
-userSummary =
+newUserSummary =
   UserSummary'
-    { _usARN = Nothing,
-      _usId = Nothing,
-      _usUsername = Nothing
+    { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      username = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the user account.
-usARN :: Lens' UserSummary (Maybe Text)
-usARN = lens _usARN (\s a -> s {_usARN = a})
+userSummary_arn :: Lens.Lens' UserSummary (Prelude.Maybe Prelude.Text)
+userSummary_arn = Lens.lens (\UserSummary' {arn} -> arn) (\s@UserSummary' {} a -> s {arn = a} :: UserSummary)
 
 -- | The identifier of the user account.
-usId :: Lens' UserSummary (Maybe Text)
-usId = lens _usId (\s a -> s {_usId = a})
+userSummary_id :: Lens.Lens' UserSummary (Prelude.Maybe Prelude.Text)
+userSummary_id = Lens.lens (\UserSummary' {id} -> id) (\s@UserSummary' {} a -> s {id = a} :: UserSummary)
 
 -- | The Amazon Connect user name of the user account.
-usUsername :: Lens' UserSummary (Maybe Text)
-usUsername = lens _usUsername (\s a -> s {_usUsername = a})
+userSummary_username :: Lens.Lens' UserSummary (Prelude.Maybe Prelude.Text)
+userSummary_username = Lens.lens (\UserSummary' {username} -> username) (\s@UserSummary' {} a -> s {username = a} :: UserSummary)
 
-instance FromJSON UserSummary where
+instance Prelude.FromJSON UserSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserSummary"
       ( \x ->
           UserSummary'
-            <$> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Username")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Username")
       )
 
-instance Hashable UserSummary
+instance Prelude.Hashable UserSummary
 
-instance NFData UserSummary
+instance Prelude.NFData UserSummary

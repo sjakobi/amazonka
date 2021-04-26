@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +21,59 @@ module Network.AWS.Connect.Types.CurrentMetricResult where
 
 import Network.AWS.Connect.Types.CurrentMetricData
 import Network.AWS.Connect.Types.Dimensions
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a set of real-time metrics.
 --
---
---
--- /See:/ 'currentMetricResult' smart constructor.
+-- /See:/ 'newCurrentMetricResult' smart constructor.
 data CurrentMetricResult = CurrentMetricResult'
-  { _cmrCollections ::
-      !(Maybe [CurrentMetricData]),
-    _cmrDimensions ::
-      !(Maybe Dimensions)
+  { -- | The set of metrics.
+    collections :: Prelude.Maybe [CurrentMetricData],
+    -- | The dimensions for the metrics.
+    dimensions :: Prelude.Maybe Dimensions
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CurrentMetricResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CurrentMetricResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmrCollections' - The set of metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmrDimensions' - The dimensions for the metrics.
-currentMetricResult ::
+-- 'collections', 'currentMetricResult_collections' - The set of metrics.
+--
+-- 'dimensions', 'currentMetricResult_dimensions' - The dimensions for the metrics.
+newCurrentMetricResult ::
   CurrentMetricResult
-currentMetricResult =
+newCurrentMetricResult =
   CurrentMetricResult'
-    { _cmrCollections = Nothing,
-      _cmrDimensions = Nothing
+    { collections = Prelude.Nothing,
+      dimensions = Prelude.Nothing
     }
 
 -- | The set of metrics.
-cmrCollections :: Lens' CurrentMetricResult [CurrentMetricData]
-cmrCollections = lens _cmrCollections (\s a -> s {_cmrCollections = a}) . _Default . _Coerce
+currentMetricResult_collections :: Lens.Lens' CurrentMetricResult (Prelude.Maybe [CurrentMetricData])
+currentMetricResult_collections = Lens.lens (\CurrentMetricResult' {collections} -> collections) (\s@CurrentMetricResult' {} a -> s {collections = a} :: CurrentMetricResult) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The dimensions for the metrics.
-cmrDimensions :: Lens' CurrentMetricResult (Maybe Dimensions)
-cmrDimensions = lens _cmrDimensions (\s a -> s {_cmrDimensions = a})
+currentMetricResult_dimensions :: Lens.Lens' CurrentMetricResult (Prelude.Maybe Dimensions)
+currentMetricResult_dimensions = Lens.lens (\CurrentMetricResult' {dimensions} -> dimensions) (\s@CurrentMetricResult' {} a -> s {dimensions = a} :: CurrentMetricResult)
 
-instance FromJSON CurrentMetricResult where
+instance Prelude.FromJSON CurrentMetricResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CurrentMetricResult"
       ( \x ->
           CurrentMetricResult'
-            <$> (x .:? "Collections" .!= mempty)
-            <*> (x .:? "Dimensions")
+            Prelude.<$> ( x Prelude..:? "Collections"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Dimensions")
       )
 
-instance Hashable CurrentMetricResult
+instance Prelude.Hashable CurrentMetricResult
 
-instance NFData CurrentMetricResult
+instance Prelude.NFData CurrentMetricResult

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,117 +21,130 @@ module Network.AWS.Connect.Types.Queue where
 
 import Network.AWS.Connect.Types.OutboundCallerConfig
 import Network.AWS.Connect.Types.QueueStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a queue.
 --
---
---
--- /See:/ 'queue' smart constructor.
+-- /See:/ 'newQueue' smart constructor.
 data Queue = Queue'
-  { _qMaxContacts :: !(Maybe Nat),
-    _qStatus :: !(Maybe QueueStatus),
-    _qQueueId :: !(Maybe Text),
-    _qName :: !(Maybe Text),
-    _qQueueARN :: !(Maybe Text),
-    _qTags :: !(Maybe (Map Text Text)),
-    _qDescription :: !(Maybe Text),
-    _qOutboundCallerConfig ::
-      !(Maybe OutboundCallerConfig),
-    _qHoursOfOperationId :: !(Maybe Text)
+  { -- | The maximum number of contacts that can be in the queue before it is
+    -- considered full.
+    maxContacts :: Prelude.Maybe Prelude.Nat,
+    -- | The status of the queue.
+    status :: Prelude.Maybe QueueStatus,
+    -- | The identifier for the queue.
+    queueId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the queue.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the queue.
+    queueArn :: Prelude.Maybe Prelude.Text,
+    -- | One or more tags.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The description of the queue.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The outbound caller ID name, number, and outbound whisper flow.
+    outboundCallerConfig :: Prelude.Maybe OutboundCallerConfig,
+    -- | The identifier for the hours of operation.
+    hoursOfOperationId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Queue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Queue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qMaxContacts' - The maximum number of contacts that can be in the queue before it is considered full.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qStatus' - The status of the queue.
+-- 'maxContacts', 'queue_maxContacts' - The maximum number of contacts that can be in the queue before it is
+-- considered full.
 --
--- * 'qQueueId' - The identifier for the queue.
+-- 'status', 'queue_status' - The status of the queue.
 --
--- * 'qName' - The name of the queue.
+-- 'queueId', 'queue_queueId' - The identifier for the queue.
 --
--- * 'qQueueARN' - The Amazon Resource Name (ARN) for the queue.
+-- 'name', 'queue_name' - The name of the queue.
 --
--- * 'qTags' - One or more tags.
+-- 'queueArn', 'queue_queueArn' - The Amazon Resource Name (ARN) for the queue.
 --
--- * 'qDescription' - The description of the queue.
+-- 'tags', 'queue_tags' - One or more tags.
 --
--- * 'qOutboundCallerConfig' - The outbound caller ID name, number, and outbound whisper flow.
+-- 'description', 'queue_description' - The description of the queue.
 --
--- * 'qHoursOfOperationId' - The identifier for the hours of operation.
-queue ::
+-- 'outboundCallerConfig', 'queue_outboundCallerConfig' - The outbound caller ID name, number, and outbound whisper flow.
+--
+-- 'hoursOfOperationId', 'queue_hoursOfOperationId' - The identifier for the hours of operation.
+newQueue ::
   Queue
-queue =
+newQueue =
   Queue'
-    { _qMaxContacts = Nothing,
-      _qStatus = Nothing,
-      _qQueueId = Nothing,
-      _qName = Nothing,
-      _qQueueARN = Nothing,
-      _qTags = Nothing,
-      _qDescription = Nothing,
-      _qOutboundCallerConfig = Nothing,
-      _qHoursOfOperationId = Nothing
+    { maxContacts = Prelude.Nothing,
+      status = Prelude.Nothing,
+      queueId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      queueArn = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      outboundCallerConfig = Prelude.Nothing,
+      hoursOfOperationId = Prelude.Nothing
     }
 
--- | The maximum number of contacts that can be in the queue before it is considered full.
-qMaxContacts :: Lens' Queue (Maybe Natural)
-qMaxContacts = lens _qMaxContacts (\s a -> s {_qMaxContacts = a}) . mapping _Nat
+-- | The maximum number of contacts that can be in the queue before it is
+-- considered full.
+queue_maxContacts :: Lens.Lens' Queue (Prelude.Maybe Prelude.Natural)
+queue_maxContacts = Lens.lens (\Queue' {maxContacts} -> maxContacts) (\s@Queue' {} a -> s {maxContacts = a} :: Queue) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The status of the queue.
-qStatus :: Lens' Queue (Maybe QueueStatus)
-qStatus = lens _qStatus (\s a -> s {_qStatus = a})
+queue_status :: Lens.Lens' Queue (Prelude.Maybe QueueStatus)
+queue_status = Lens.lens (\Queue' {status} -> status) (\s@Queue' {} a -> s {status = a} :: Queue)
 
 -- | The identifier for the queue.
-qQueueId :: Lens' Queue (Maybe Text)
-qQueueId = lens _qQueueId (\s a -> s {_qQueueId = a})
+queue_queueId :: Lens.Lens' Queue (Prelude.Maybe Prelude.Text)
+queue_queueId = Lens.lens (\Queue' {queueId} -> queueId) (\s@Queue' {} a -> s {queueId = a} :: Queue)
 
 -- | The name of the queue.
-qName :: Lens' Queue (Maybe Text)
-qName = lens _qName (\s a -> s {_qName = a})
+queue_name :: Lens.Lens' Queue (Prelude.Maybe Prelude.Text)
+queue_name = Lens.lens (\Queue' {name} -> name) (\s@Queue' {} a -> s {name = a} :: Queue)
 
 -- | The Amazon Resource Name (ARN) for the queue.
-qQueueARN :: Lens' Queue (Maybe Text)
-qQueueARN = lens _qQueueARN (\s a -> s {_qQueueARN = a})
+queue_queueArn :: Lens.Lens' Queue (Prelude.Maybe Prelude.Text)
+queue_queueArn = Lens.lens (\Queue' {queueArn} -> queueArn) (\s@Queue' {} a -> s {queueArn = a} :: Queue)
 
 -- | One or more tags.
-qTags :: Lens' Queue (HashMap Text Text)
-qTags = lens _qTags (\s a -> s {_qTags = a}) . _Default . _Map
+queue_tags :: Lens.Lens' Queue (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+queue_tags = Lens.lens (\Queue' {tags} -> tags) (\s@Queue' {} a -> s {tags = a} :: Queue) Prelude.. Lens.mapping Prelude._Map
 
 -- | The description of the queue.
-qDescription :: Lens' Queue (Maybe Text)
-qDescription = lens _qDescription (\s a -> s {_qDescription = a})
+queue_description :: Lens.Lens' Queue (Prelude.Maybe Prelude.Text)
+queue_description = Lens.lens (\Queue' {description} -> description) (\s@Queue' {} a -> s {description = a} :: Queue)
 
 -- | The outbound caller ID name, number, and outbound whisper flow.
-qOutboundCallerConfig :: Lens' Queue (Maybe OutboundCallerConfig)
-qOutboundCallerConfig = lens _qOutboundCallerConfig (\s a -> s {_qOutboundCallerConfig = a})
+queue_outboundCallerConfig :: Lens.Lens' Queue (Prelude.Maybe OutboundCallerConfig)
+queue_outboundCallerConfig = Lens.lens (\Queue' {outboundCallerConfig} -> outboundCallerConfig) (\s@Queue' {} a -> s {outboundCallerConfig = a} :: Queue)
 
 -- | The identifier for the hours of operation.
-qHoursOfOperationId :: Lens' Queue (Maybe Text)
-qHoursOfOperationId = lens _qHoursOfOperationId (\s a -> s {_qHoursOfOperationId = a})
+queue_hoursOfOperationId :: Lens.Lens' Queue (Prelude.Maybe Prelude.Text)
+queue_hoursOfOperationId = Lens.lens (\Queue' {hoursOfOperationId} -> hoursOfOperationId) (\s@Queue' {} a -> s {hoursOfOperationId = a} :: Queue)
 
-instance FromJSON Queue where
+instance Prelude.FromJSON Queue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Queue"
       ( \x ->
           Queue'
-            <$> (x .:? "MaxContacts")
-            <*> (x .:? "Status")
-            <*> (x .:? "QueueId")
-            <*> (x .:? "Name")
-            <*> (x .:? "QueueArn")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "Description")
-            <*> (x .:? "OutboundCallerConfig")
-            <*> (x .:? "HoursOfOperationId")
+            Prelude.<$> (x Prelude..:? "MaxContacts")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "QueueId")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "QueueArn")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "OutboundCallerConfig")
+            Prelude.<*> (x Prelude..:? "HoursOfOperationId")
       )
 
-instance Hashable Queue
+instance Prelude.Hashable Queue
 
-instance NFData Queue
+instance Prelude.NFData Queue

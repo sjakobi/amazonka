@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides summary information about the users for the specified Amazon Connect instance.
---
---
+-- Provides summary information about the users for the specified Amazon
+-- Connect instance.
 --
 -- This operation returns paginated results.
 module Network.AWS.Connect.ListUsers
   ( -- * Creating a Request
-    listUsers,
-    ListUsers,
+    ListUsers (..),
+    newListUsers,
 
     -- * Request Lenses
-    luNextToken,
-    luMaxResults,
-    luInstanceId,
+    listUsers_nextToken,
+    listUsers_maxResults,
+    listUsers_instanceId,
 
     -- * Destructuring the Response
-    listUsersResponse,
-    ListUsersResponse,
+    ListUsersResponse (..),
+    newListUsersResponse,
 
     -- * Response Lenses
-    lurrsUserSummaryList,
-    lurrsNextToken,
-    lurrsResponseStatus,
+    listUsersResponse_userSummaryList,
+    listUsersResponse_nextToken,
+    listUsersResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.UserSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listUsers' smart constructor.
+-- | /See:/ 'newListUsers' smart constructor.
 data ListUsers = ListUsers'
-  { _luNextToken ::
-      !(Maybe Text),
-    _luMaxResults :: !(Maybe Nat),
-    _luInstanceId :: !Text
+  { -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUsers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUsers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'luNextToken' - The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'luMaxResults' - The maximum number of results to return per page.
+-- 'nextToken', 'listUsers_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
 --
--- * 'luInstanceId' - The identifier of the Amazon Connect instance.
-listUsers ::
-  -- | 'luInstanceId'
-  Text ->
+-- 'maxResults', 'listUsers_maxResults' - The maximum number of results to return per page.
+--
+-- 'instanceId', 'listUsers_instanceId' - The identifier of the Amazon Connect instance.
+newListUsers ::
+  -- | 'instanceId'
+  Prelude.Text ->
   ListUsers
-listUsers pInstanceId_ =
+newListUsers pInstanceId_ =
   ListUsers'
-    { _luNextToken = Nothing,
-      _luMaxResults = Nothing,
-      _luInstanceId = pInstanceId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      instanceId = pInstanceId_
     }
 
--- | The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.
-luNextToken :: Lens' ListUsers (Maybe Text)
-luNextToken = lens _luNextToken (\s a -> s {_luNextToken = a})
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+listUsers_nextToken :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Text)
+listUsers_nextToken = Lens.lens (\ListUsers' {nextToken} -> nextToken) (\s@ListUsers' {} a -> s {nextToken = a} :: ListUsers)
 
 -- | The maximum number of results to return per page.
-luMaxResults :: Lens' ListUsers (Maybe Natural)
-luMaxResults = lens _luMaxResults (\s a -> s {_luMaxResults = a}) . mapping _Nat
+listUsers_maxResults :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Natural)
+listUsers_maxResults = Lens.lens (\ListUsers' {maxResults} -> maxResults) (\s@ListUsers' {} a -> s {maxResults = a} :: ListUsers) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The identifier of the Amazon Connect instance.
-luInstanceId :: Lens' ListUsers Text
-luInstanceId = lens _luInstanceId (\s a -> s {_luInstanceId = a})
+listUsers_instanceId :: Lens.Lens' ListUsers Prelude.Text
+listUsers_instanceId = Lens.lens (\ListUsers' {instanceId} -> instanceId) (\s@ListUsers' {} a -> s {instanceId = a} :: ListUsers)
 
-instance AWSPager ListUsers where
+instance Pager.AWSPager ListUsers where
   page rq rs
-    | stop (rs ^. lurrsNextToken) = Nothing
-    | stop (rs ^. lurrsUserSummaryList) = Nothing
-    | otherwise =
-      Just $ rq & luNextToken .~ rs ^. lurrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listUsersResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listUsersResponse_userSummaryList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listUsers_nextToken
+          Lens..~ rs
+          Lens.^? listUsersResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListUsers where
+instance Prelude.AWSRequest ListUsers where
   type Rs ListUsers = ListUsersResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListUsersResponse'
-            <$> (x .?> "UserSummaryList" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "UserSummaryList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListUsers
+instance Prelude.Hashable ListUsers
 
-instance NFData ListUsers
+instance Prelude.NFData ListUsers
 
-instance ToHeaders ListUsers where
+instance Prelude.ToHeaders ListUsers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListUsers where
+instance Prelude.ToPath ListUsers where
   toPath ListUsers' {..} =
-    mconcat ["/users-summary/", toBS _luInstanceId]
+    Prelude.mconcat
+      ["/users-summary/", Prelude.toBS instanceId]
 
-instance ToQuery ListUsers where
+instance Prelude.ToQuery ListUsers where
   toQuery ListUsers' {..} =
-    mconcat
-      [ "nextToken" =: _luNextToken,
-        "maxResults" =: _luMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listUsersResponse' smart constructor.
+-- | /See:/ 'newListUsersResponse' smart constructor.
 data ListUsersResponse = ListUsersResponse'
-  { _lurrsUserSummaryList ::
-      !(Maybe [UserSummary]),
-    _lurrsNextToken :: !(Maybe Text),
-    _lurrsResponseStatus :: !Int
+  { -- | Information about the users.
+    userSummaryList :: Prelude.Maybe [UserSummary],
+    -- | If there are additional results, this is the token for the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUsersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUsersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lurrsUserSummaryList' - Information about the users.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lurrsNextToken' - If there are additional results, this is the token for the next set of results.
+-- 'userSummaryList', 'listUsersResponse_userSummaryList' - Information about the users.
 --
--- * 'lurrsResponseStatus' - -- | The response status code.
-listUsersResponse ::
-  -- | 'lurrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listUsersResponse_nextToken' - If there are additional results, this is the token for the next set of
+-- results.
+--
+-- 'httpStatus', 'listUsersResponse_httpStatus' - The response's http status code.
+newListUsersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListUsersResponse
-listUsersResponse pResponseStatus_ =
+newListUsersResponse pHttpStatus_ =
   ListUsersResponse'
-    { _lurrsUserSummaryList = Nothing,
-      _lurrsNextToken = Nothing,
-      _lurrsResponseStatus = pResponseStatus_
+    { userSummaryList =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the users.
-lurrsUserSummaryList :: Lens' ListUsersResponse [UserSummary]
-lurrsUserSummaryList = lens _lurrsUserSummaryList (\s a -> s {_lurrsUserSummaryList = a}) . _Default . _Coerce
+listUsersResponse_userSummaryList :: Lens.Lens' ListUsersResponse (Prelude.Maybe [UserSummary])
+listUsersResponse_userSummaryList = Lens.lens (\ListUsersResponse' {userSummaryList} -> userSummaryList) (\s@ListUsersResponse' {} a -> s {userSummaryList = a} :: ListUsersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If there are additional results, this is the token for the next set of results.
-lurrsNextToken :: Lens' ListUsersResponse (Maybe Text)
-lurrsNextToken = lens _lurrsNextToken (\s a -> s {_lurrsNextToken = a})
+-- | If there are additional results, this is the token for the next set of
+-- results.
+listUsersResponse_nextToken :: Lens.Lens' ListUsersResponse (Prelude.Maybe Prelude.Text)
+listUsersResponse_nextToken = Lens.lens (\ListUsersResponse' {nextToken} -> nextToken) (\s@ListUsersResponse' {} a -> s {nextToken = a} :: ListUsersResponse)
 
--- | -- | The response status code.
-lurrsResponseStatus :: Lens' ListUsersResponse Int
-lurrsResponseStatus = lens _lurrsResponseStatus (\s a -> s {_lurrsResponseStatus = a})
+-- | The response's http status code.
+listUsersResponse_httpStatus :: Lens.Lens' ListUsersResponse Prelude.Int
+listUsersResponse_httpStatus = Lens.lens (\ListUsersResponse' {httpStatus} -> httpStatus) (\s@ListUsersResponse' {} a -> s {httpStatus = a} :: ListUsersResponse)
 
-instance NFData ListUsersResponse
+instance Prelude.NFData ListUsersResponse

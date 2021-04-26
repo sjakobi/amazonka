@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,161 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Associates a security key to the instance.
 module Network.AWS.Connect.AssociateSecurityKey
   ( -- * Creating a Request
-    associateSecurityKey,
-    AssociateSecurityKey,
+    AssociateSecurityKey (..),
+    newAssociateSecurityKey,
 
     -- * Request Lenses
-    askInstanceId,
-    askKey,
+    associateSecurityKey_instanceId,
+    associateSecurityKey_key,
 
     -- * Destructuring the Response
-    associateSecurityKeyResponse,
-    AssociateSecurityKeyResponse,
+    AssociateSecurityKeyResponse (..),
+    newAssociateSecurityKeyResponse,
 
     -- * Response Lenses
-    askrrsAssociationId,
-    askrrsResponseStatus,
+    associateSecurityKeyResponse_associationId,
+    associateSecurityKeyResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateSecurityKey' smart constructor.
+-- | /See:/ 'newAssociateSecurityKey' smart constructor.
 data AssociateSecurityKey = AssociateSecurityKey'
-  { _askInstanceId ::
-      !Text,
-    _askKey :: !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | A valid security key in PEM format.
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateSecurityKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateSecurityKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'askInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'askKey' - A valid security key in PEM format.
-associateSecurityKey ::
-  -- | 'askInstanceId'
-  Text ->
-  -- | 'askKey'
-  Text ->
+-- 'instanceId', 'associateSecurityKey_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'key', 'associateSecurityKey_key' - A valid security key in PEM format.
+newAssociateSecurityKey ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'key'
+  Prelude.Text ->
   AssociateSecurityKey
-associateSecurityKey pInstanceId_ pKey_ =
+newAssociateSecurityKey pInstanceId_ pKey_ =
   AssociateSecurityKey'
-    { _askInstanceId =
-        pInstanceId_,
-      _askKey = pKey_
+    { instanceId = pInstanceId_,
+      key = pKey_
     }
 
 -- | The identifier of the Amazon Connect instance.
-askInstanceId :: Lens' AssociateSecurityKey Text
-askInstanceId = lens _askInstanceId (\s a -> s {_askInstanceId = a})
+associateSecurityKey_instanceId :: Lens.Lens' AssociateSecurityKey Prelude.Text
+associateSecurityKey_instanceId = Lens.lens (\AssociateSecurityKey' {instanceId} -> instanceId) (\s@AssociateSecurityKey' {} a -> s {instanceId = a} :: AssociateSecurityKey)
 
 -- | A valid security key in PEM format.
-askKey :: Lens' AssociateSecurityKey Text
-askKey = lens _askKey (\s a -> s {_askKey = a})
+associateSecurityKey_key :: Lens.Lens' AssociateSecurityKey Prelude.Text
+associateSecurityKey_key = Lens.lens (\AssociateSecurityKey' {key} -> key) (\s@AssociateSecurityKey' {} a -> s {key = a} :: AssociateSecurityKey)
 
-instance AWSRequest AssociateSecurityKey where
+instance Prelude.AWSRequest AssociateSecurityKey where
   type
     Rs AssociateSecurityKey =
       AssociateSecurityKeyResponse
-  request = putJSON connect
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AssociateSecurityKeyResponse'
-            <$> (x .?> "AssociationId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AssociationId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateSecurityKey
+instance Prelude.Hashable AssociateSecurityKey
 
-instance NFData AssociateSecurityKey
+instance Prelude.NFData AssociateSecurityKey
 
-instance ToHeaders AssociateSecurityKey where
+instance Prelude.ToHeaders AssociateSecurityKey where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateSecurityKey where
+instance Prelude.ToJSON AssociateSecurityKey where
   toJSON AssociateSecurityKey' {..} =
-    object (catMaybes [Just ("Key" .= _askKey)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Key" Prelude..= key)]
+      )
 
-instance ToPath AssociateSecurityKey where
+instance Prelude.ToPath AssociateSecurityKey where
   toPath AssociateSecurityKey' {..} =
-    mconcat
-      ["/instance/", toBS _askInstanceId, "/security-key"]
+    Prelude.mconcat
+      [ "/instance/",
+        Prelude.toBS instanceId,
+        "/security-key"
+      ]
 
-instance ToQuery AssociateSecurityKey where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateSecurityKey where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateSecurityKeyResponse' smart constructor.
+-- | /See:/ 'newAssociateSecurityKeyResponse' smart constructor.
 data AssociateSecurityKeyResponse = AssociateSecurityKeyResponse'
-  { _askrrsAssociationId ::
-      !(Maybe Text),
-    _askrrsResponseStatus ::
-      !Int
+  { -- | The existing association identifier that uniquely identifies the
+    -- resource type and storage config for the given instance ID.
+    associationId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateSecurityKeyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateSecurityKeyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'askrrsAssociationId' - The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'askrrsResponseStatus' - -- | The response status code.
-associateSecurityKeyResponse ::
-  -- | 'askrrsResponseStatus'
-  Int ->
+-- 'associationId', 'associateSecurityKeyResponse_associationId' - The existing association identifier that uniquely identifies the
+-- resource type and storage config for the given instance ID.
+--
+-- 'httpStatus', 'associateSecurityKeyResponse_httpStatus' - The response's http status code.
+newAssociateSecurityKeyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateSecurityKeyResponse
-associateSecurityKeyResponse pResponseStatus_ =
+newAssociateSecurityKeyResponse pHttpStatus_ =
   AssociateSecurityKeyResponse'
-    { _askrrsAssociationId =
-        Nothing,
-      _askrrsResponseStatus = pResponseStatus_
+    { associationId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The existing association identifier that uniquely identifies the resource type and storage config for the given instance ID.
-askrrsAssociationId :: Lens' AssociateSecurityKeyResponse (Maybe Text)
-askrrsAssociationId = lens _askrrsAssociationId (\s a -> s {_askrrsAssociationId = a})
+-- | The existing association identifier that uniquely identifies the
+-- resource type and storage config for the given instance ID.
+associateSecurityKeyResponse_associationId :: Lens.Lens' AssociateSecurityKeyResponse (Prelude.Maybe Prelude.Text)
+associateSecurityKeyResponse_associationId = Lens.lens (\AssociateSecurityKeyResponse' {associationId} -> associationId) (\s@AssociateSecurityKeyResponse' {} a -> s {associationId = a} :: AssociateSecurityKeyResponse)
 
--- | -- | The response status code.
-askrrsResponseStatus :: Lens' AssociateSecurityKeyResponse Int
-askrrsResponseStatus = lens _askrrsResponseStatus (\s a -> s {_askrrsResponseStatus = a})
+-- | The response's http status code.
+associateSecurityKeyResponse_httpStatus :: Lens.Lens' AssociateSecurityKeyResponse Prelude.Int
+associateSecurityKeyResponse_httpStatus = Lens.lens (\AssociateSecurityKeyResponse' {httpStatus} -> httpStatus) (\s@AssociateSecurityKeyResponse' {} a -> s {httpStatus = a} :: AssociateSecurityKeyResponse)
 
-instance NFData AssociateSecurityKeyResponse
+instance Prelude.NFData AssociateSecurityKeyResponse

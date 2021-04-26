@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Connect.Types.StorageType
   ( StorageType
       ( ..,
-        KinesisFirehose,
-        KinesisStream,
-        KinesisVideoStream,
-        S3
+        StorageTypeKINESISFIREHOSE,
+        StorageTypeKINESISSTREAM,
+        StorageTypeKINESISVIDEOSTREAM,
+        StorageTypeS3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StorageType = StorageType' (CI Text)
+newtype StorageType = StorageType'
+  { fromStorageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern KinesisFirehose :: StorageType
-pattern KinesisFirehose = StorageType' "KINESIS_FIREHOSE"
+pattern StorageTypeKINESISFIREHOSE :: StorageType
+pattern StorageTypeKINESISFIREHOSE = StorageType' "KINESIS_FIREHOSE"
 
-pattern KinesisStream :: StorageType
-pattern KinesisStream = StorageType' "KINESIS_STREAM"
+pattern StorageTypeKINESISSTREAM :: StorageType
+pattern StorageTypeKINESISSTREAM = StorageType' "KINESIS_STREAM"
 
-pattern KinesisVideoStream :: StorageType
-pattern KinesisVideoStream = StorageType' "KINESIS_VIDEO_STREAM"
+pattern StorageTypeKINESISVIDEOSTREAM :: StorageType
+pattern StorageTypeKINESISVIDEOSTREAM = StorageType' "KINESIS_VIDEO_STREAM"
 
-pattern S3 :: StorageType
-pattern S3 = StorageType' "S3"
+pattern StorageTypeS3 :: StorageType
+pattern StorageTypeS3 = StorageType' "S3"
 
 {-# COMPLETE
-  KinesisFirehose,
-  KinesisStream,
-  KinesisVideoStream,
-  S3,
+  StorageTypeKINESISFIREHOSE,
+  StorageTypeKINESISSTREAM,
+  StorageTypeKINESISVIDEOSTREAM,
+  StorageTypeS3,
   StorageType'
   #-}
 
-instance FromText StorageType where
-  parser = (StorageType' . mk) <$> takeText
+instance Prelude.FromText StorageType where
+  parser = StorageType' Prelude.<$> Prelude.takeText
 
-instance ToText StorageType where
-  toText (StorageType' ci) = original ci
+instance Prelude.ToText StorageType where
+  toText (StorageType' x) = x
 
-instance Hashable StorageType
+instance Prelude.Hashable StorageType
 
-instance NFData StorageType
+instance Prelude.NFData StorageType
 
-instance ToByteString StorageType
+instance Prelude.ToByteString StorageType
 
-instance ToQuery StorageType
+instance Prelude.ToQuery StorageType
 
-instance ToHeader StorageType
+instance Prelude.ToHeader StorageType
 
-instance ToJSON StorageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON StorageType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StorageType where
-  parseJSON = parseJSONText "StorageType"
+instance Prelude.FromJSON StorageType where
+  parseJSON = Prelude.parseJSONText "StorageType"

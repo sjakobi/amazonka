@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,57 @@
 module Network.AWS.Connect.Types.CurrentMetricData where
 
 import Network.AWS.Connect.Types.CurrentMetric
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the data for a real-time metric.
 --
---
---
--- /See:/ 'currentMetricData' smart constructor.
+-- /See:/ 'newCurrentMetricData' smart constructor.
 data CurrentMetricData = CurrentMetricData'
-  { _cmdMetric ::
-      !(Maybe CurrentMetric),
-    _cmdValue :: !(Maybe Double)
+  { -- | Information about the metric.
+    metric :: Prelude.Maybe CurrentMetric,
+    -- | The value of the metric.
+    value :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CurrentMetricData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CurrentMetricData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmdMetric' - Information about the metric.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmdValue' - The value of the metric.
-currentMetricData ::
+-- 'metric', 'currentMetricData_metric' - Information about the metric.
+--
+-- 'value', 'currentMetricData_value' - The value of the metric.
+newCurrentMetricData ::
   CurrentMetricData
-currentMetricData =
+newCurrentMetricData =
   CurrentMetricData'
-    { _cmdMetric = Nothing,
-      _cmdValue = Nothing
+    { metric = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | Information about the metric.
-cmdMetric :: Lens' CurrentMetricData (Maybe CurrentMetric)
-cmdMetric = lens _cmdMetric (\s a -> s {_cmdMetric = a})
+currentMetricData_metric :: Lens.Lens' CurrentMetricData (Prelude.Maybe CurrentMetric)
+currentMetricData_metric = Lens.lens (\CurrentMetricData' {metric} -> metric) (\s@CurrentMetricData' {} a -> s {metric = a} :: CurrentMetricData)
 
 -- | The value of the metric.
-cmdValue :: Lens' CurrentMetricData (Maybe Double)
-cmdValue = lens _cmdValue (\s a -> s {_cmdValue = a})
+currentMetricData_value :: Lens.Lens' CurrentMetricData (Prelude.Maybe Prelude.Double)
+currentMetricData_value = Lens.lens (\CurrentMetricData' {value} -> value) (\s@CurrentMetricData' {} a -> s {value = a} :: CurrentMetricData)
 
-instance FromJSON CurrentMetricData where
+instance Prelude.FromJSON CurrentMetricData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CurrentMetricData"
       ( \x ->
           CurrentMetricData'
-            <$> (x .:? "Metric") <*> (x .:? "Value")
+            Prelude.<$> (x Prelude..:? "Metric")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable CurrentMetricData
+instance Prelude.Hashable CurrentMetricData
 
-instance NFData CurrentMetricData
+instance Prelude.NFData CurrentMetricData

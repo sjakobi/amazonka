@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,155 +24,155 @@
 -- Describes the specified hierarchy group.
 module Network.AWS.Connect.DescribeUserHierarchyGroup
   ( -- * Creating a Request
-    describeUserHierarchyGroup,
-    DescribeUserHierarchyGroup,
+    DescribeUserHierarchyGroup (..),
+    newDescribeUserHierarchyGroup,
 
     -- * Request Lenses
-    duhgHierarchyGroupId,
-    duhgInstanceId,
+    describeUserHierarchyGroup_hierarchyGroupId,
+    describeUserHierarchyGroup_instanceId,
 
     -- * Destructuring the Response
-    describeUserHierarchyGroupResponse,
-    DescribeUserHierarchyGroupResponse,
+    DescribeUserHierarchyGroupResponse (..),
+    newDescribeUserHierarchyGroupResponse,
 
     -- * Response Lenses
-    duhgrrsHierarchyGroup,
-    duhgrrsResponseStatus,
+    describeUserHierarchyGroupResponse_hierarchyGroup,
+    describeUserHierarchyGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.HierarchyGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeUserHierarchyGroup' smart constructor.
+-- | /See:/ 'newDescribeUserHierarchyGroup' smart constructor.
 data DescribeUserHierarchyGroup = DescribeUserHierarchyGroup'
-  { _duhgHierarchyGroupId ::
-      !Text,
-    _duhgInstanceId ::
-      !Text
+  { -- | The identifier of the hierarchy group.
+    hierarchyGroupId :: Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserHierarchyGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserHierarchyGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duhgHierarchyGroupId' - The identifier of the hierarchy group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duhgInstanceId' - The identifier of the Amazon Connect instance.
-describeUserHierarchyGroup ::
-  -- | 'duhgHierarchyGroupId'
-  Text ->
-  -- | 'duhgInstanceId'
-  Text ->
+-- 'hierarchyGroupId', 'describeUserHierarchyGroup_hierarchyGroupId' - The identifier of the hierarchy group.
+--
+-- 'instanceId', 'describeUserHierarchyGroup_instanceId' - The identifier of the Amazon Connect instance.
+newDescribeUserHierarchyGroup ::
+  -- | 'hierarchyGroupId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   DescribeUserHierarchyGroup
-describeUserHierarchyGroup
+newDescribeUserHierarchyGroup
   pHierarchyGroupId_
   pInstanceId_ =
     DescribeUserHierarchyGroup'
-      { _duhgHierarchyGroupId =
+      { hierarchyGroupId =
           pHierarchyGroupId_,
-        _duhgInstanceId = pInstanceId_
+        instanceId = pInstanceId_
       }
 
 -- | The identifier of the hierarchy group.
-duhgHierarchyGroupId :: Lens' DescribeUserHierarchyGroup Text
-duhgHierarchyGroupId = lens _duhgHierarchyGroupId (\s a -> s {_duhgHierarchyGroupId = a})
+describeUserHierarchyGroup_hierarchyGroupId :: Lens.Lens' DescribeUserHierarchyGroup Prelude.Text
+describeUserHierarchyGroup_hierarchyGroupId = Lens.lens (\DescribeUserHierarchyGroup' {hierarchyGroupId} -> hierarchyGroupId) (\s@DescribeUserHierarchyGroup' {} a -> s {hierarchyGroupId = a} :: DescribeUserHierarchyGroup)
 
 -- | The identifier of the Amazon Connect instance.
-duhgInstanceId :: Lens' DescribeUserHierarchyGroup Text
-duhgInstanceId = lens _duhgInstanceId (\s a -> s {_duhgInstanceId = a})
+describeUserHierarchyGroup_instanceId :: Lens.Lens' DescribeUserHierarchyGroup Prelude.Text
+describeUserHierarchyGroup_instanceId = Lens.lens (\DescribeUserHierarchyGroup' {instanceId} -> instanceId) (\s@DescribeUserHierarchyGroup' {} a -> s {instanceId = a} :: DescribeUserHierarchyGroup)
 
-instance AWSRequest DescribeUserHierarchyGroup where
+instance
+  Prelude.AWSRequest
+    DescribeUserHierarchyGroup
+  where
   type
     Rs DescribeUserHierarchyGroup =
       DescribeUserHierarchyGroupResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeUserHierarchyGroupResponse'
-            <$> (x .?> "HierarchyGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "HierarchyGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeUserHierarchyGroup
+instance Prelude.Hashable DescribeUserHierarchyGroup
 
-instance NFData DescribeUserHierarchyGroup
+instance Prelude.NFData DescribeUserHierarchyGroup
 
-instance ToHeaders DescribeUserHierarchyGroup where
+instance Prelude.ToHeaders DescribeUserHierarchyGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeUserHierarchyGroup where
+instance Prelude.ToPath DescribeUserHierarchyGroup where
   toPath DescribeUserHierarchyGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/user-hierarchy-groups/",
-        toBS _duhgInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _duhgHierarchyGroupId
+        Prelude.toBS hierarchyGroupId
       ]
 
-instance ToQuery DescribeUserHierarchyGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeUserHierarchyGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeUserHierarchyGroupResponse' smart constructor.
+-- | /See:/ 'newDescribeUserHierarchyGroupResponse' smart constructor.
 data DescribeUserHierarchyGroupResponse = DescribeUserHierarchyGroupResponse'
-  { _duhgrrsHierarchyGroup ::
-      !( Maybe
-           HierarchyGroup
-       ),
-    _duhgrrsResponseStatus ::
-      !Int
+  { -- | Information about the hierarchy group.
+    hierarchyGroup :: Prelude.Maybe HierarchyGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserHierarchyGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserHierarchyGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duhgrrsHierarchyGroup' - Information about the hierarchy group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duhgrrsResponseStatus' - -- | The response status code.
-describeUserHierarchyGroupResponse ::
-  -- | 'duhgrrsResponseStatus'
-  Int ->
+-- 'hierarchyGroup', 'describeUserHierarchyGroupResponse_hierarchyGroup' - Information about the hierarchy group.
+--
+-- 'httpStatus', 'describeUserHierarchyGroupResponse_httpStatus' - The response's http status code.
+newDescribeUserHierarchyGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeUserHierarchyGroupResponse
-describeUserHierarchyGroupResponse pResponseStatus_ =
+newDescribeUserHierarchyGroupResponse pHttpStatus_ =
   DescribeUserHierarchyGroupResponse'
-    { _duhgrrsHierarchyGroup =
-        Nothing,
-      _duhgrrsResponseStatus =
-        pResponseStatus_
+    { hierarchyGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the hierarchy group.
-duhgrrsHierarchyGroup :: Lens' DescribeUserHierarchyGroupResponse (Maybe HierarchyGroup)
-duhgrrsHierarchyGroup = lens _duhgrrsHierarchyGroup (\s a -> s {_duhgrrsHierarchyGroup = a})
+describeUserHierarchyGroupResponse_hierarchyGroup :: Lens.Lens' DescribeUserHierarchyGroupResponse (Prelude.Maybe HierarchyGroup)
+describeUserHierarchyGroupResponse_hierarchyGroup = Lens.lens (\DescribeUserHierarchyGroupResponse' {hierarchyGroup} -> hierarchyGroup) (\s@DescribeUserHierarchyGroupResponse' {} a -> s {hierarchyGroup = a} :: DescribeUserHierarchyGroupResponse)
 
--- | -- | The response status code.
-duhgrrsResponseStatus :: Lens' DescribeUserHierarchyGroupResponse Int
-duhgrrsResponseStatus = lens _duhgrrsResponseStatus (\s a -> s {_duhgrrsResponseStatus = a})
+-- | The response's http status code.
+describeUserHierarchyGroupResponse_httpStatus :: Lens.Lens' DescribeUserHierarchyGroupResponse Prelude.Int
+describeUserHierarchyGroupResponse_httpStatus = Lens.lens (\DescribeUserHierarchyGroupResponse' {httpStatus} -> httpStatus) (\s@DescribeUserHierarchyGroupResponse' {} a -> s {httpStatus = a} :: DescribeUserHierarchyGroupResponse)
 
-instance NFData DescribeUserHierarchyGroupResponse
+instance
+  Prelude.NFData
+    DescribeUserHierarchyGroupResponse

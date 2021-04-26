@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,126 +21,140 @@ module Network.AWS.Connect.Types.User where
 
 import Network.AWS.Connect.Types.UserIdentityInfo
 import Network.AWS.Connect.Types.UserPhoneConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a user account for a Amazon Connect instance.
 --
---
---
--- /See:/ 'user' smart constructor.
+-- /See:/ 'newUser' smart constructor.
 data User = User'
-  { _uSecurityProfileIds ::
-      !(Maybe (List1 Text)),
-    _uIdentityInfo :: !(Maybe UserIdentityInfo),
-    _uARN :: !(Maybe Text),
-    _uId :: !(Maybe Text),
-    _uHierarchyGroupId :: !(Maybe Text),
-    _uDirectoryUserId :: !(Maybe Text),
-    _uRoutingProfileId :: !(Maybe Text),
-    _uTags :: !(Maybe (Map Text Text)),
-    _uPhoneConfig :: !(Maybe UserPhoneConfig),
-    _uUsername :: !(Maybe Text)
+  { -- | The identifiers of the security profiles for the user.
+    securityProfileIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | Information about the user identity.
+    identityInfo :: Prelude.Maybe UserIdentityInfo,
+    -- | The Amazon Resource Name (ARN) of the user account.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the user account.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the hierarchy group for the user.
+    hierarchyGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the user account in the directory used for identity
+    -- management.
+    directoryUserId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the routing profile for the user.
+    routingProfileId :: Prelude.Maybe Prelude.Text,
+    -- | The tags.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Information about the phone configuration for the user.
+    phoneConfig :: Prelude.Maybe UserPhoneConfig,
+    -- | The user name assigned to the user account.
+    username :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'User' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'User' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uSecurityProfileIds' - The identifiers of the security profiles for the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uIdentityInfo' - Information about the user identity.
+-- 'securityProfileIds', 'user_securityProfileIds' - The identifiers of the security profiles for the user.
 --
--- * 'uARN' - The Amazon Resource Name (ARN) of the user account.
+-- 'identityInfo', 'user_identityInfo' - Information about the user identity.
 --
--- * 'uId' - The identifier of the user account.
+-- 'arn', 'user_arn' - The Amazon Resource Name (ARN) of the user account.
 --
--- * 'uHierarchyGroupId' - The identifier of the hierarchy group for the user.
+-- 'id', 'user_id' - The identifier of the user account.
 --
--- * 'uDirectoryUserId' - The identifier of the user account in the directory used for identity management.
+-- 'hierarchyGroupId', 'user_hierarchyGroupId' - The identifier of the hierarchy group for the user.
 --
--- * 'uRoutingProfileId' - The identifier of the routing profile for the user.
+-- 'directoryUserId', 'user_directoryUserId' - The identifier of the user account in the directory used for identity
+-- management.
 --
--- * 'uTags' - The tags.
+-- 'routingProfileId', 'user_routingProfileId' - The identifier of the routing profile for the user.
 --
--- * 'uPhoneConfig' - Information about the phone configuration for the user.
+-- 'tags', 'user_tags' - The tags.
 --
--- * 'uUsername' - The user name assigned to the user account.
-user ::
+-- 'phoneConfig', 'user_phoneConfig' - Information about the phone configuration for the user.
+--
+-- 'username', 'user_username' - The user name assigned to the user account.
+newUser ::
   User
-user =
+newUser =
   User'
-    { _uSecurityProfileIds = Nothing,
-      _uIdentityInfo = Nothing,
-      _uARN = Nothing,
-      _uId = Nothing,
-      _uHierarchyGroupId = Nothing,
-      _uDirectoryUserId = Nothing,
-      _uRoutingProfileId = Nothing,
-      _uTags = Nothing,
-      _uPhoneConfig = Nothing,
-      _uUsername = Nothing
+    { securityProfileIds = Prelude.Nothing,
+      identityInfo = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      hierarchyGroupId = Prelude.Nothing,
+      directoryUserId = Prelude.Nothing,
+      routingProfileId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      phoneConfig = Prelude.Nothing,
+      username = Prelude.Nothing
     }
 
 -- | The identifiers of the security profiles for the user.
-uSecurityProfileIds :: Lens' User (Maybe (NonEmpty Text))
-uSecurityProfileIds = lens _uSecurityProfileIds (\s a -> s {_uSecurityProfileIds = a}) . mapping _List1
+user_securityProfileIds :: Lens.Lens' User (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+user_securityProfileIds = Lens.lens (\User' {securityProfileIds} -> securityProfileIds) (\s@User' {} a -> s {securityProfileIds = a} :: User) Prelude.. Lens.mapping Prelude._List1
 
 -- | Information about the user identity.
-uIdentityInfo :: Lens' User (Maybe UserIdentityInfo)
-uIdentityInfo = lens _uIdentityInfo (\s a -> s {_uIdentityInfo = a})
+user_identityInfo :: Lens.Lens' User (Prelude.Maybe UserIdentityInfo)
+user_identityInfo = Lens.lens (\User' {identityInfo} -> identityInfo) (\s@User' {} a -> s {identityInfo = a} :: User)
 
 -- | The Amazon Resource Name (ARN) of the user account.
-uARN :: Lens' User (Maybe Text)
-uARN = lens _uARN (\s a -> s {_uARN = a})
+user_arn :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_arn = Lens.lens (\User' {arn} -> arn) (\s@User' {} a -> s {arn = a} :: User)
 
 -- | The identifier of the user account.
-uId :: Lens' User (Maybe Text)
-uId = lens _uId (\s a -> s {_uId = a})
+user_id :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_id = Lens.lens (\User' {id} -> id) (\s@User' {} a -> s {id = a} :: User)
 
 -- | The identifier of the hierarchy group for the user.
-uHierarchyGroupId :: Lens' User (Maybe Text)
-uHierarchyGroupId = lens _uHierarchyGroupId (\s a -> s {_uHierarchyGroupId = a})
+user_hierarchyGroupId :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_hierarchyGroupId = Lens.lens (\User' {hierarchyGroupId} -> hierarchyGroupId) (\s@User' {} a -> s {hierarchyGroupId = a} :: User)
 
--- | The identifier of the user account in the directory used for identity management.
-uDirectoryUserId :: Lens' User (Maybe Text)
-uDirectoryUserId = lens _uDirectoryUserId (\s a -> s {_uDirectoryUserId = a})
+-- | The identifier of the user account in the directory used for identity
+-- management.
+user_directoryUserId :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_directoryUserId = Lens.lens (\User' {directoryUserId} -> directoryUserId) (\s@User' {} a -> s {directoryUserId = a} :: User)
 
 -- | The identifier of the routing profile for the user.
-uRoutingProfileId :: Lens' User (Maybe Text)
-uRoutingProfileId = lens _uRoutingProfileId (\s a -> s {_uRoutingProfileId = a})
+user_routingProfileId :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_routingProfileId = Lens.lens (\User' {routingProfileId} -> routingProfileId) (\s@User' {} a -> s {routingProfileId = a} :: User)
 
 -- | The tags.
-uTags :: Lens' User (HashMap Text Text)
-uTags = lens _uTags (\s a -> s {_uTags = a}) . _Default . _Map
+user_tags :: Lens.Lens' User (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+user_tags = Lens.lens (\User' {tags} -> tags) (\s@User' {} a -> s {tags = a} :: User) Prelude.. Lens.mapping Prelude._Map
 
 -- | Information about the phone configuration for the user.
-uPhoneConfig :: Lens' User (Maybe UserPhoneConfig)
-uPhoneConfig = lens _uPhoneConfig (\s a -> s {_uPhoneConfig = a})
+user_phoneConfig :: Lens.Lens' User (Prelude.Maybe UserPhoneConfig)
+user_phoneConfig = Lens.lens (\User' {phoneConfig} -> phoneConfig) (\s@User' {} a -> s {phoneConfig = a} :: User)
 
 -- | The user name assigned to the user account.
-uUsername :: Lens' User (Maybe Text)
-uUsername = lens _uUsername (\s a -> s {_uUsername = a})
+user_username :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_username = Lens.lens (\User' {username} -> username) (\s@User' {} a -> s {username = a} :: User)
 
-instance FromJSON User where
+instance Prelude.FromJSON User where
   parseJSON =
-    withObject
+    Prelude.withObject
       "User"
       ( \x ->
           User'
-            <$> (x .:? "SecurityProfileIds")
-            <*> (x .:? "IdentityInfo")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "HierarchyGroupId")
-            <*> (x .:? "DirectoryUserId")
-            <*> (x .:? "RoutingProfileId")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "PhoneConfig")
-            <*> (x .:? "Username")
+            Prelude.<$> (x Prelude..:? "SecurityProfileIds")
+            Prelude.<*> (x Prelude..:? "IdentityInfo")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "HierarchyGroupId")
+            Prelude.<*> (x Prelude..:? "DirectoryUserId")
+            Prelude.<*> (x Prelude..:? "RoutingProfileId")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "PhoneConfig")
+            Prelude.<*> (x Prelude..:? "Username")
       )
 
-instance Hashable User
+instance Prelude.Hashable User
 
-instance NFData User
+instance Prelude.NFData User

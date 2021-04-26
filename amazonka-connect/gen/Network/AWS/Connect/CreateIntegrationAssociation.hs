@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,245 +21,249 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Create an AppIntegration association with an Amazon Connect instance.
 module Network.AWS.Connect.CreateIntegrationAssociation
   ( -- * Creating a Request
-    createIntegrationAssociation,
-    CreateIntegrationAssociation,
+    CreateIntegrationAssociation (..),
+    newCreateIntegrationAssociation,
 
     -- * Request Lenses
-    ciaInstanceId,
-    ciaIntegrationType,
-    ciaIntegrationARN,
-    ciaSourceApplicationURL,
-    ciaSourceApplicationName,
-    ciaSourceType,
+    createIntegrationAssociation_instanceId,
+    createIntegrationAssociation_integrationType,
+    createIntegrationAssociation_integrationArn,
+    createIntegrationAssociation_sourceApplicationUrl,
+    createIntegrationAssociation_sourceApplicationName,
+    createIntegrationAssociation_sourceType,
 
     -- * Destructuring the Response
-    createIntegrationAssociationResponse,
-    CreateIntegrationAssociationResponse,
+    CreateIntegrationAssociationResponse (..),
+    newCreateIntegrationAssociationResponse,
 
     -- * Response Lenses
-    ciarrsIntegrationAssociationARN,
-    ciarrsIntegrationAssociationId,
-    ciarrsResponseStatus,
+    createIntegrationAssociationResponse_integrationAssociationArn,
+    createIntegrationAssociationResponse_integrationAssociationId,
+    createIntegrationAssociationResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createIntegrationAssociation' smart constructor.
+-- | /See:/ 'newCreateIntegrationAssociation' smart constructor.
 data CreateIntegrationAssociation = CreateIntegrationAssociation'
-  { _ciaInstanceId ::
-      !Text,
-    _ciaIntegrationType ::
-      !IntegrationType,
-    _ciaIntegrationARN ::
-      !Text,
-    _ciaSourceApplicationURL ::
-      !Text,
-    _ciaSourceApplicationName ::
-      !Text,
-    _ciaSourceType ::
-      !SourceType
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The type of information to be ingested.
+    integrationType :: IntegrationType,
+    -- | The Amazon Resource Name (ARN) of the integration.
+    integrationArn :: Prelude.Text,
+    -- | The URL for the external application.
+    sourceApplicationUrl :: Prelude.Text,
+    -- | The name of the external application.
+    sourceApplicationName :: Prelude.Text,
+    -- | The type of the data source.
+    sourceType :: SourceType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateIntegrationAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateIntegrationAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciaInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciaIntegrationType' - The type of information to be ingested.
+-- 'instanceId', 'createIntegrationAssociation_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'ciaIntegrationARN' - The Amazon Resource Name (ARN) of the integration.
+-- 'integrationType', 'createIntegrationAssociation_integrationType' - The type of information to be ingested.
 --
--- * 'ciaSourceApplicationURL' - The URL for the external application.
+-- 'integrationArn', 'createIntegrationAssociation_integrationArn' - The Amazon Resource Name (ARN) of the integration.
 --
--- * 'ciaSourceApplicationName' - The name of the external application.
+-- 'sourceApplicationUrl', 'createIntegrationAssociation_sourceApplicationUrl' - The URL for the external application.
 --
--- * 'ciaSourceType' - The type of the data source.
-createIntegrationAssociation ::
-  -- | 'ciaInstanceId'
-  Text ->
-  -- | 'ciaIntegrationType'
+-- 'sourceApplicationName', 'createIntegrationAssociation_sourceApplicationName' - The name of the external application.
+--
+-- 'sourceType', 'createIntegrationAssociation_sourceType' - The type of the data source.
+newCreateIntegrationAssociation ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'integrationType'
   IntegrationType ->
-  -- | 'ciaIntegrationARN'
-  Text ->
-  -- | 'ciaSourceApplicationURL'
-  Text ->
-  -- | 'ciaSourceApplicationName'
-  Text ->
-  -- | 'ciaSourceType'
+  -- | 'integrationArn'
+  Prelude.Text ->
+  -- | 'sourceApplicationUrl'
+  Prelude.Text ->
+  -- | 'sourceApplicationName'
+  Prelude.Text ->
+  -- | 'sourceType'
   SourceType ->
   CreateIntegrationAssociation
-createIntegrationAssociation
+newCreateIntegrationAssociation
   pInstanceId_
   pIntegrationType_
-  pIntegrationARN_
-  pSourceApplicationURL_
+  pIntegrationArn_
+  pSourceApplicationUrl_
   pSourceApplicationName_
   pSourceType_ =
     CreateIntegrationAssociation'
-      { _ciaInstanceId =
+      { instanceId =
           pInstanceId_,
-        _ciaIntegrationType = pIntegrationType_,
-        _ciaIntegrationARN = pIntegrationARN_,
-        _ciaSourceApplicationURL =
-          pSourceApplicationURL_,
-        _ciaSourceApplicationName =
+        integrationType = pIntegrationType_,
+        integrationArn = pIntegrationArn_,
+        sourceApplicationUrl = pSourceApplicationUrl_,
+        sourceApplicationName =
           pSourceApplicationName_,
-        _ciaSourceType = pSourceType_
+        sourceType = pSourceType_
       }
 
 -- | The identifier of the Amazon Connect instance.
-ciaInstanceId :: Lens' CreateIntegrationAssociation Text
-ciaInstanceId = lens _ciaInstanceId (\s a -> s {_ciaInstanceId = a})
+createIntegrationAssociation_instanceId :: Lens.Lens' CreateIntegrationAssociation Prelude.Text
+createIntegrationAssociation_instanceId = Lens.lens (\CreateIntegrationAssociation' {instanceId} -> instanceId) (\s@CreateIntegrationAssociation' {} a -> s {instanceId = a} :: CreateIntegrationAssociation)
 
 -- | The type of information to be ingested.
-ciaIntegrationType :: Lens' CreateIntegrationAssociation IntegrationType
-ciaIntegrationType = lens _ciaIntegrationType (\s a -> s {_ciaIntegrationType = a})
+createIntegrationAssociation_integrationType :: Lens.Lens' CreateIntegrationAssociation IntegrationType
+createIntegrationAssociation_integrationType = Lens.lens (\CreateIntegrationAssociation' {integrationType} -> integrationType) (\s@CreateIntegrationAssociation' {} a -> s {integrationType = a} :: CreateIntegrationAssociation)
 
 -- | The Amazon Resource Name (ARN) of the integration.
-ciaIntegrationARN :: Lens' CreateIntegrationAssociation Text
-ciaIntegrationARN = lens _ciaIntegrationARN (\s a -> s {_ciaIntegrationARN = a})
+createIntegrationAssociation_integrationArn :: Lens.Lens' CreateIntegrationAssociation Prelude.Text
+createIntegrationAssociation_integrationArn = Lens.lens (\CreateIntegrationAssociation' {integrationArn} -> integrationArn) (\s@CreateIntegrationAssociation' {} a -> s {integrationArn = a} :: CreateIntegrationAssociation)
 
 -- | The URL for the external application.
-ciaSourceApplicationURL :: Lens' CreateIntegrationAssociation Text
-ciaSourceApplicationURL = lens _ciaSourceApplicationURL (\s a -> s {_ciaSourceApplicationURL = a})
+createIntegrationAssociation_sourceApplicationUrl :: Lens.Lens' CreateIntegrationAssociation Prelude.Text
+createIntegrationAssociation_sourceApplicationUrl = Lens.lens (\CreateIntegrationAssociation' {sourceApplicationUrl} -> sourceApplicationUrl) (\s@CreateIntegrationAssociation' {} a -> s {sourceApplicationUrl = a} :: CreateIntegrationAssociation)
 
 -- | The name of the external application.
-ciaSourceApplicationName :: Lens' CreateIntegrationAssociation Text
-ciaSourceApplicationName = lens _ciaSourceApplicationName (\s a -> s {_ciaSourceApplicationName = a})
+createIntegrationAssociation_sourceApplicationName :: Lens.Lens' CreateIntegrationAssociation Prelude.Text
+createIntegrationAssociation_sourceApplicationName = Lens.lens (\CreateIntegrationAssociation' {sourceApplicationName} -> sourceApplicationName) (\s@CreateIntegrationAssociation' {} a -> s {sourceApplicationName = a} :: CreateIntegrationAssociation)
 
 -- | The type of the data source.
-ciaSourceType :: Lens' CreateIntegrationAssociation SourceType
-ciaSourceType = lens _ciaSourceType (\s a -> s {_ciaSourceType = a})
+createIntegrationAssociation_sourceType :: Lens.Lens' CreateIntegrationAssociation SourceType
+createIntegrationAssociation_sourceType = Lens.lens (\CreateIntegrationAssociation' {sourceType} -> sourceType) (\s@CreateIntegrationAssociation' {} a -> s {sourceType = a} :: CreateIntegrationAssociation)
 
-instance AWSRequest CreateIntegrationAssociation where
+instance
+  Prelude.AWSRequest
+    CreateIntegrationAssociation
+  where
   type
     Rs CreateIntegrationAssociation =
       CreateIntegrationAssociationResponse
-  request = putJSON connect
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateIntegrationAssociationResponse'
-            <$> (x .?> "IntegrationAssociationArn")
-            <*> (x .?> "IntegrationAssociationId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "IntegrationAssociationArn")
+            Prelude.<*> (x Prelude..?> "IntegrationAssociationId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateIntegrationAssociation
+instance
+  Prelude.Hashable
+    CreateIntegrationAssociation
 
-instance NFData CreateIntegrationAssociation
+instance Prelude.NFData CreateIntegrationAssociation
 
-instance ToHeaders CreateIntegrationAssociation where
+instance
+  Prelude.ToHeaders
+    CreateIntegrationAssociation
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateIntegrationAssociation where
+instance Prelude.ToJSON CreateIntegrationAssociation where
   toJSON CreateIntegrationAssociation' {..} =
-    object
-      ( catMaybes
-          [ Just ("IntegrationType" .= _ciaIntegrationType),
-            Just ("IntegrationArn" .= _ciaIntegrationARN),
-            Just
-              ("SourceApplicationUrl" .= _ciaSourceApplicationURL),
-            Just
-              ( "SourceApplicationName"
-                  .= _ciaSourceApplicationName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("IntegrationType" Prelude..= integrationType),
+            Prelude.Just
+              ("IntegrationArn" Prelude..= integrationArn),
+            Prelude.Just
+              ( "SourceApplicationUrl"
+                  Prelude..= sourceApplicationUrl
               ),
-            Just ("SourceType" .= _ciaSourceType)
+            Prelude.Just
+              ( "SourceApplicationName"
+                  Prelude..= sourceApplicationName
+              ),
+            Prelude.Just ("SourceType" Prelude..= sourceType)
           ]
       )
 
-instance ToPath CreateIntegrationAssociation where
+instance Prelude.ToPath CreateIntegrationAssociation where
   toPath CreateIntegrationAssociation' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _ciaInstanceId,
+        Prelude.toBS instanceId,
         "/integration-associations"
       ]
 
-instance ToQuery CreateIntegrationAssociation where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateIntegrationAssociation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createIntegrationAssociationResponse' smart constructor.
+-- | /See:/ 'newCreateIntegrationAssociationResponse' smart constructor.
 data CreateIntegrationAssociationResponse = CreateIntegrationAssociationResponse'
-  { _ciarrsIntegrationAssociationARN ::
-      !( Maybe
-           Text
-       ),
-    _ciarrsIntegrationAssociationId ::
-      !( Maybe
-           Text
-       ),
-    _ciarrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) for the association.
+    integrationAssociationArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the association.
+    integrationAssociationId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateIntegrationAssociationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateIntegrationAssociationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciarrsIntegrationAssociationARN' - The Amazon Resource Name (ARN) for the association.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciarrsIntegrationAssociationId' - The identifier for the association.
+-- 'integrationAssociationArn', 'createIntegrationAssociationResponse_integrationAssociationArn' - The Amazon Resource Name (ARN) for the association.
 --
--- * 'ciarrsResponseStatus' - -- | The response status code.
-createIntegrationAssociationResponse ::
-  -- | 'ciarrsResponseStatus'
-  Int ->
+-- 'integrationAssociationId', 'createIntegrationAssociationResponse_integrationAssociationId' - The identifier for the association.
+--
+-- 'httpStatus', 'createIntegrationAssociationResponse_httpStatus' - The response's http status code.
+newCreateIntegrationAssociationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateIntegrationAssociationResponse
-createIntegrationAssociationResponse pResponseStatus_ =
+newCreateIntegrationAssociationResponse pHttpStatus_ =
   CreateIntegrationAssociationResponse'
-    { _ciarrsIntegrationAssociationARN =
-        Nothing,
-      _ciarrsIntegrationAssociationId =
-        Nothing,
-      _ciarrsResponseStatus =
-        pResponseStatus_
+    { integrationAssociationArn =
+        Prelude.Nothing,
+      integrationAssociationId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) for the association.
-ciarrsIntegrationAssociationARN :: Lens' CreateIntegrationAssociationResponse (Maybe Text)
-ciarrsIntegrationAssociationARN = lens _ciarrsIntegrationAssociationARN (\s a -> s {_ciarrsIntegrationAssociationARN = a})
+createIntegrationAssociationResponse_integrationAssociationArn :: Lens.Lens' CreateIntegrationAssociationResponse (Prelude.Maybe Prelude.Text)
+createIntegrationAssociationResponse_integrationAssociationArn = Lens.lens (\CreateIntegrationAssociationResponse' {integrationAssociationArn} -> integrationAssociationArn) (\s@CreateIntegrationAssociationResponse' {} a -> s {integrationAssociationArn = a} :: CreateIntegrationAssociationResponse)
 
 -- | The identifier for the association.
-ciarrsIntegrationAssociationId :: Lens' CreateIntegrationAssociationResponse (Maybe Text)
-ciarrsIntegrationAssociationId = lens _ciarrsIntegrationAssociationId (\s a -> s {_ciarrsIntegrationAssociationId = a})
+createIntegrationAssociationResponse_integrationAssociationId :: Lens.Lens' CreateIntegrationAssociationResponse (Prelude.Maybe Prelude.Text)
+createIntegrationAssociationResponse_integrationAssociationId = Lens.lens (\CreateIntegrationAssociationResponse' {integrationAssociationId} -> integrationAssociationId) (\s@CreateIntegrationAssociationResponse' {} a -> s {integrationAssociationId = a} :: CreateIntegrationAssociationResponse)
 
--- | -- | The response status code.
-ciarrsResponseStatus :: Lens' CreateIntegrationAssociationResponse Int
-ciarrsResponseStatus = lens _ciarrsResponseStatus (\s a -> s {_ciarrsResponseStatus = a})
+-- | The response's http status code.
+createIntegrationAssociationResponse_httpStatus :: Lens.Lens' CreateIntegrationAssociationResponse Prelude.Int
+createIntegrationAssociationResponse_httpStatus = Lens.lens (\CreateIntegrationAssociationResponse' {httpStatus} -> httpStatus) (\s@CreateIntegrationAssociationResponse' {} a -> s {httpStatus = a} :: CreateIntegrationAssociationResponse)
 
-instance NFData CreateIntegrationAssociationResponse
+instance
+  Prelude.NFData
+    CreateIntegrationAssociationResponse

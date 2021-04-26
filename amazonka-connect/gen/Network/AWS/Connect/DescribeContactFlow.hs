@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,147 +23,151 @@
 --
 -- Describes the specified contact flow.
 --
---
--- You can also create and update contact flows using the <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html Amazon Connect Flow language> .
+-- You can also create and update contact flows using the
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html Amazon Connect Flow language>.
 module Network.AWS.Connect.DescribeContactFlow
   ( -- * Creating a Request
-    describeContactFlow,
-    DescribeContactFlow,
+    DescribeContactFlow (..),
+    newDescribeContactFlow,
 
     -- * Request Lenses
-    dcfInstanceId,
-    dcfContactFlowId,
+    describeContactFlow_instanceId,
+    describeContactFlow_contactFlowId,
 
     -- * Destructuring the Response
-    describeContactFlowResponse,
-    DescribeContactFlowResponse,
+    DescribeContactFlowResponse (..),
+    newDescribeContactFlowResponse,
 
     -- * Response Lenses
-    dcfrrsContactFlow,
-    dcfrrsResponseStatus,
+    describeContactFlowResponse_contactFlow,
+    describeContactFlowResponse_httpStatus,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Connect.Types.ContactFlow
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeContactFlow' smart constructor.
+-- | /See:/ 'newDescribeContactFlow' smart constructor.
 data DescribeContactFlow = DescribeContactFlow'
-  { _dcfInstanceId ::
-      !Text,
-    _dcfContactFlowId :: !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the contact flow.
+    contactFlowId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContactFlow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContactFlow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcfInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcfContactFlowId' - The identifier of the contact flow.
-describeContactFlow ::
-  -- | 'dcfInstanceId'
-  Text ->
-  -- | 'dcfContactFlowId'
-  Text ->
+-- 'instanceId', 'describeContactFlow_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'contactFlowId', 'describeContactFlow_contactFlowId' - The identifier of the contact flow.
+newDescribeContactFlow ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'contactFlowId'
+  Prelude.Text ->
   DescribeContactFlow
-describeContactFlow pInstanceId_ pContactFlowId_ =
+newDescribeContactFlow pInstanceId_ pContactFlowId_ =
   DescribeContactFlow'
-    { _dcfInstanceId = pInstanceId_,
-      _dcfContactFlowId = pContactFlowId_
+    { instanceId = pInstanceId_,
+      contactFlowId = pContactFlowId_
     }
 
 -- | The identifier of the Amazon Connect instance.
-dcfInstanceId :: Lens' DescribeContactFlow Text
-dcfInstanceId = lens _dcfInstanceId (\s a -> s {_dcfInstanceId = a})
+describeContactFlow_instanceId :: Lens.Lens' DescribeContactFlow Prelude.Text
+describeContactFlow_instanceId = Lens.lens (\DescribeContactFlow' {instanceId} -> instanceId) (\s@DescribeContactFlow' {} a -> s {instanceId = a} :: DescribeContactFlow)
 
 -- | The identifier of the contact flow.
-dcfContactFlowId :: Lens' DescribeContactFlow Text
-dcfContactFlowId = lens _dcfContactFlowId (\s a -> s {_dcfContactFlowId = a})
+describeContactFlow_contactFlowId :: Lens.Lens' DescribeContactFlow Prelude.Text
+describeContactFlow_contactFlowId = Lens.lens (\DescribeContactFlow' {contactFlowId} -> contactFlowId) (\s@DescribeContactFlow' {} a -> s {contactFlowId = a} :: DescribeContactFlow)
 
-instance AWSRequest DescribeContactFlow where
+instance Prelude.AWSRequest DescribeContactFlow where
   type
     Rs DescribeContactFlow =
       DescribeContactFlowResponse
-  request = get connect
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeContactFlowResponse'
-            <$> (x .?> "ContactFlow") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ContactFlow")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeContactFlow
+instance Prelude.Hashable DescribeContactFlow
 
-instance NFData DescribeContactFlow
+instance Prelude.NFData DescribeContactFlow
 
-instance ToHeaders DescribeContactFlow where
+instance Prelude.ToHeaders DescribeContactFlow where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeContactFlow where
+instance Prelude.ToPath DescribeContactFlow where
   toPath DescribeContactFlow' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/contact-flows/",
-        toBS _dcfInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _dcfContactFlowId
+        Prelude.toBS contactFlowId
       ]
 
-instance ToQuery DescribeContactFlow where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeContactFlow where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeContactFlowResponse' smart constructor.
+-- | /See:/ 'newDescribeContactFlowResponse' smart constructor.
 data DescribeContactFlowResponse = DescribeContactFlowResponse'
-  { _dcfrrsContactFlow ::
-      !( Maybe
-           ContactFlow
-       ),
-    _dcfrrsResponseStatus ::
-      !Int
+  { -- | Information about the contact flow.
+    contactFlow :: Prelude.Maybe ContactFlow,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContactFlowResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContactFlowResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcfrrsContactFlow' - Information about the contact flow.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcfrrsResponseStatus' - -- | The response status code.
-describeContactFlowResponse ::
-  -- | 'dcfrrsResponseStatus'
-  Int ->
+-- 'contactFlow', 'describeContactFlowResponse_contactFlow' - Information about the contact flow.
+--
+-- 'httpStatus', 'describeContactFlowResponse_httpStatus' - The response's http status code.
+newDescribeContactFlowResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeContactFlowResponse
-describeContactFlowResponse pResponseStatus_ =
+newDescribeContactFlowResponse pHttpStatus_ =
   DescribeContactFlowResponse'
-    { _dcfrrsContactFlow =
-        Nothing,
-      _dcfrrsResponseStatus = pResponseStatus_
+    { contactFlow =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the contact flow.
-dcfrrsContactFlow :: Lens' DescribeContactFlowResponse (Maybe ContactFlow)
-dcfrrsContactFlow = lens _dcfrrsContactFlow (\s a -> s {_dcfrrsContactFlow = a})
+describeContactFlowResponse_contactFlow :: Lens.Lens' DescribeContactFlowResponse (Prelude.Maybe ContactFlow)
+describeContactFlowResponse_contactFlow = Lens.lens (\DescribeContactFlowResponse' {contactFlow} -> contactFlow) (\s@DescribeContactFlowResponse' {} a -> s {contactFlow = a} :: DescribeContactFlowResponse)
 
--- | -- | The response status code.
-dcfrrsResponseStatus :: Lens' DescribeContactFlowResponse Int
-dcfrrsResponseStatus = lens _dcfrrsResponseStatus (\s a -> s {_dcfrrsResponseStatus = a})
+-- | The response's http status code.
+describeContactFlowResponse_httpStatus :: Lens.Lens' DescribeContactFlowResponse Prelude.Int
+describeContactFlowResponse_httpStatus = Lens.lens (\DescribeContactFlowResponse' {httpStatus} -> httpStatus) (\s@DescribeContactFlowResponse' {} a -> s {httpStatus = a} :: DescribeContactFlowResponse)
 
-instance NFData DescribeContactFlowResponse
+instance Prelude.NFData DescribeContactFlowResponse

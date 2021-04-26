@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the properties associated with a set of queues for a routing profile.
+-- Updates the properties associated with a set of queues for a routing
+-- profile.
 module Network.AWS.Connect.UpdateRoutingProfileQueues
   ( -- * Creating a Request
-    updateRoutingProfileQueues,
-    UpdateRoutingProfileQueues,
+    UpdateRoutingProfileQueues (..),
+    newUpdateRoutingProfileQueues,
 
     -- * Request Lenses
-    urpqInstanceId,
-    urpqRoutingProfileId,
-    urpqQueueConfigs,
+    updateRoutingProfileQueues_instanceId,
+    updateRoutingProfileQueues_routingProfileId,
+    updateRoutingProfileQueues_queueConfigs,
 
     -- * Destructuring the Response
-    updateRoutingProfileQueuesResponse,
-    UpdateRoutingProfileQueuesResponse,
+    UpdateRoutingProfileQueuesResponse (..),
+    newUpdateRoutingProfileQueuesResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateRoutingProfileQueues' smart constructor.
+-- | /See:/ 'newUpdateRoutingProfileQueues' smart constructor.
 data UpdateRoutingProfileQueues = UpdateRoutingProfileQueues'
-  { _urpqInstanceId ::
-      !Text,
-    _urpqRoutingProfileId ::
-      !Text,
-    _urpqQueueConfigs ::
-      !( List1
-           RoutingProfileQueueConfig
-       )
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The identifier of the routing profile.
+    routingProfileId :: Prelude.Text,
+    -- | The queues to be updated for this routing profile. Queues must first be
+    -- associated to the routing profile. You can do this using
+    -- AssociateRoutingProfileQueues.
+    queueConfigs :: Prelude.List1 RoutingProfileQueueConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoutingProfileQueues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoutingProfileQueues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urpqInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urpqRoutingProfileId' - The identifier of the routing profile.
+-- 'instanceId', 'updateRoutingProfileQueues_instanceId' - The identifier of the Amazon Connect instance.
 --
--- * 'urpqQueueConfigs' - The queues to be updated for this routing profile. Queues must first be associated to the routing profile. You can do this using AssociateRoutingProfileQueues.
-updateRoutingProfileQueues ::
-  -- | 'urpqInstanceId'
-  Text ->
-  -- | 'urpqRoutingProfileId'
-  Text ->
-  -- | 'urpqQueueConfigs'
-  NonEmpty RoutingProfileQueueConfig ->
+-- 'routingProfileId', 'updateRoutingProfileQueues_routingProfileId' - The identifier of the routing profile.
+--
+-- 'queueConfigs', 'updateRoutingProfileQueues_queueConfigs' - The queues to be updated for this routing profile. Queues must first be
+-- associated to the routing profile. You can do this using
+-- AssociateRoutingProfileQueues.
+newUpdateRoutingProfileQueues ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'routingProfileId'
+  Prelude.Text ->
+  -- | 'queueConfigs'
+  Prelude.NonEmpty RoutingProfileQueueConfig ->
   UpdateRoutingProfileQueues
-updateRoutingProfileQueues
+newUpdateRoutingProfileQueues
   pInstanceId_
   pRoutingProfileId_
   pQueueConfigs_ =
     UpdateRoutingProfileQueues'
-      { _urpqInstanceId =
+      { instanceId =
           pInstanceId_,
-        _urpqRoutingProfileId = pRoutingProfileId_,
-        _urpqQueueConfigs = _List1 # pQueueConfigs_
+        routingProfileId = pRoutingProfileId_,
+        queueConfigs =
+          Prelude._List1 Lens.# pQueueConfigs_
       }
 
 -- | The identifier of the Amazon Connect instance.
-urpqInstanceId :: Lens' UpdateRoutingProfileQueues Text
-urpqInstanceId = lens _urpqInstanceId (\s a -> s {_urpqInstanceId = a})
+updateRoutingProfileQueues_instanceId :: Lens.Lens' UpdateRoutingProfileQueues Prelude.Text
+updateRoutingProfileQueues_instanceId = Lens.lens (\UpdateRoutingProfileQueues' {instanceId} -> instanceId) (\s@UpdateRoutingProfileQueues' {} a -> s {instanceId = a} :: UpdateRoutingProfileQueues)
 
 -- | The identifier of the routing profile.
-urpqRoutingProfileId :: Lens' UpdateRoutingProfileQueues Text
-urpqRoutingProfileId = lens _urpqRoutingProfileId (\s a -> s {_urpqRoutingProfileId = a})
+updateRoutingProfileQueues_routingProfileId :: Lens.Lens' UpdateRoutingProfileQueues Prelude.Text
+updateRoutingProfileQueues_routingProfileId = Lens.lens (\UpdateRoutingProfileQueues' {routingProfileId} -> routingProfileId) (\s@UpdateRoutingProfileQueues' {} a -> s {routingProfileId = a} :: UpdateRoutingProfileQueues)
 
--- | The queues to be updated for this routing profile. Queues must first be associated to the routing profile. You can do this using AssociateRoutingProfileQueues.
-urpqQueueConfigs :: Lens' UpdateRoutingProfileQueues (NonEmpty RoutingProfileQueueConfig)
-urpqQueueConfigs = lens _urpqQueueConfigs (\s a -> s {_urpqQueueConfigs = a}) . _List1
+-- | The queues to be updated for this routing profile. Queues must first be
+-- associated to the routing profile. You can do this using
+-- AssociateRoutingProfileQueues.
+updateRoutingProfileQueues_queueConfigs :: Lens.Lens' UpdateRoutingProfileQueues (Prelude.NonEmpty RoutingProfileQueueConfig)
+updateRoutingProfileQueues_queueConfigs = Lens.lens (\UpdateRoutingProfileQueues' {queueConfigs} -> queueConfigs) (\s@UpdateRoutingProfileQueues' {} a -> s {queueConfigs = a} :: UpdateRoutingProfileQueues) Prelude.. Prelude._List1
 
-instance AWSRequest UpdateRoutingProfileQueues where
+instance
+  Prelude.AWSRequest
+    UpdateRoutingProfileQueues
+  where
   type
     Rs UpdateRoutingProfileQueues =
       UpdateRoutingProfileQueuesResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateRoutingProfileQueuesResponse'
+    Response.receiveNull
+      UpdateRoutingProfileQueuesResponse'
 
-instance Hashable UpdateRoutingProfileQueues
+instance Prelude.Hashable UpdateRoutingProfileQueues
 
-instance NFData UpdateRoutingProfileQueues
+instance Prelude.NFData UpdateRoutingProfileQueues
 
-instance ToHeaders UpdateRoutingProfileQueues where
+instance Prelude.ToHeaders UpdateRoutingProfileQueues where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateRoutingProfileQueues where
+instance Prelude.ToJSON UpdateRoutingProfileQueues where
   toJSON UpdateRoutingProfileQueues' {..} =
-    object
-      ( catMaybes
-          [Just ("QueueConfigs" .= _urpqQueueConfigs)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("QueueConfigs" Prelude..= queueConfigs)
+          ]
       )
 
-instance ToPath UpdateRoutingProfileQueues where
+instance Prelude.ToPath UpdateRoutingProfileQueues where
   toPath UpdateRoutingProfileQueues' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/routing-profiles/",
-        toBS _urpqInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _urpqRoutingProfileId,
+        Prelude.toBS routingProfileId,
         "/queues"
       ]
 
-instance ToQuery UpdateRoutingProfileQueues where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateRoutingProfileQueues where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRoutingProfileQueuesResponse' smart constructor.
+-- | /See:/ 'newUpdateRoutingProfileQueuesResponse' smart constructor.
 data UpdateRoutingProfileQueuesResponse = UpdateRoutingProfileQueuesResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoutingProfileQueuesResponse' with the minimum fields required to make a request.
-updateRoutingProfileQueuesResponse ::
+-- |
+-- Create a value of 'UpdateRoutingProfileQueuesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateRoutingProfileQueuesResponse ::
   UpdateRoutingProfileQueuesResponse
-updateRoutingProfileQueuesResponse =
+newUpdateRoutingProfileQueuesResponse =
   UpdateRoutingProfileQueuesResponse'
 
-instance NFData UpdateRoutingProfileQueuesResponse
+instance
+  Prelude.NFData
+    UpdateRoutingProfileQueuesResponse

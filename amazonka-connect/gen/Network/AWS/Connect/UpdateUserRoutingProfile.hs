@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,139 +24,142 @@
 -- Assigns the specified routing profile to the specified user.
 module Network.AWS.Connect.UpdateUserRoutingProfile
   ( -- * Creating a Request
-    updateUserRoutingProfile,
-    UpdateUserRoutingProfile,
+    UpdateUserRoutingProfile (..),
+    newUpdateUserRoutingProfile,
 
     -- * Request Lenses
-    uurpRoutingProfileId,
-    uurpUserId,
-    uurpInstanceId,
+    updateUserRoutingProfile_routingProfileId,
+    updateUserRoutingProfile_userId,
+    updateUserRoutingProfile_instanceId,
 
     -- * Destructuring the Response
-    updateUserRoutingProfileResponse,
-    UpdateUserRoutingProfileResponse,
+    UpdateUserRoutingProfileResponse (..),
+    newUpdateUserRoutingProfileResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateUserRoutingProfile' smart constructor.
+-- | /See:/ 'newUpdateUserRoutingProfile' smart constructor.
 data UpdateUserRoutingProfile = UpdateUserRoutingProfile'
-  { _uurpRoutingProfileId ::
-      !Text,
-    _uurpUserId :: !Text,
-    _uurpInstanceId ::
-      !Text
+  { -- | The identifier of the routing profile for the user.
+    routingProfileId :: Prelude.Text,
+    -- | The identifier of the user account.
+    userId :: Prelude.Text,
+    -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserRoutingProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserRoutingProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uurpRoutingProfileId' - The identifier of the routing profile for the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uurpUserId' - The identifier of the user account.
+-- 'routingProfileId', 'updateUserRoutingProfile_routingProfileId' - The identifier of the routing profile for the user.
 --
--- * 'uurpInstanceId' - The identifier of the Amazon Connect instance.
-updateUserRoutingProfile ::
-  -- | 'uurpRoutingProfileId'
-  Text ->
-  -- | 'uurpUserId'
-  Text ->
-  -- | 'uurpInstanceId'
-  Text ->
+-- 'userId', 'updateUserRoutingProfile_userId' - The identifier of the user account.
+--
+-- 'instanceId', 'updateUserRoutingProfile_instanceId' - The identifier of the Amazon Connect instance.
+newUpdateUserRoutingProfile ::
+  -- | 'routingProfileId'
+  Prelude.Text ->
+  -- | 'userId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   UpdateUserRoutingProfile
-updateUserRoutingProfile
+newUpdateUserRoutingProfile
   pRoutingProfileId_
   pUserId_
   pInstanceId_ =
     UpdateUserRoutingProfile'
-      { _uurpRoutingProfileId =
+      { routingProfileId =
           pRoutingProfileId_,
-        _uurpUserId = pUserId_,
-        _uurpInstanceId = pInstanceId_
+        userId = pUserId_,
+        instanceId = pInstanceId_
       }
 
 -- | The identifier of the routing profile for the user.
-uurpRoutingProfileId :: Lens' UpdateUserRoutingProfile Text
-uurpRoutingProfileId = lens _uurpRoutingProfileId (\s a -> s {_uurpRoutingProfileId = a})
+updateUserRoutingProfile_routingProfileId :: Lens.Lens' UpdateUserRoutingProfile Prelude.Text
+updateUserRoutingProfile_routingProfileId = Lens.lens (\UpdateUserRoutingProfile' {routingProfileId} -> routingProfileId) (\s@UpdateUserRoutingProfile' {} a -> s {routingProfileId = a} :: UpdateUserRoutingProfile)
 
 -- | The identifier of the user account.
-uurpUserId :: Lens' UpdateUserRoutingProfile Text
-uurpUserId = lens _uurpUserId (\s a -> s {_uurpUserId = a})
+updateUserRoutingProfile_userId :: Lens.Lens' UpdateUserRoutingProfile Prelude.Text
+updateUserRoutingProfile_userId = Lens.lens (\UpdateUserRoutingProfile' {userId} -> userId) (\s@UpdateUserRoutingProfile' {} a -> s {userId = a} :: UpdateUserRoutingProfile)
 
 -- | The identifier of the Amazon Connect instance.
-uurpInstanceId :: Lens' UpdateUserRoutingProfile Text
-uurpInstanceId = lens _uurpInstanceId (\s a -> s {_uurpInstanceId = a})
+updateUserRoutingProfile_instanceId :: Lens.Lens' UpdateUserRoutingProfile Prelude.Text
+updateUserRoutingProfile_instanceId = Lens.lens (\UpdateUserRoutingProfile' {instanceId} -> instanceId) (\s@UpdateUserRoutingProfile' {} a -> s {instanceId = a} :: UpdateUserRoutingProfile)
 
-instance AWSRequest UpdateUserRoutingProfile where
+instance Prelude.AWSRequest UpdateUserRoutingProfile where
   type
     Rs UpdateUserRoutingProfile =
       UpdateUserRoutingProfileResponse
-  request = postJSON connect
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateUserRoutingProfileResponse'
+    Response.receiveNull
+      UpdateUserRoutingProfileResponse'
 
-instance Hashable UpdateUserRoutingProfile
+instance Prelude.Hashable UpdateUserRoutingProfile
 
-instance NFData UpdateUserRoutingProfile
+instance Prelude.NFData UpdateUserRoutingProfile
 
-instance ToHeaders UpdateUserRoutingProfile where
+instance Prelude.ToHeaders UpdateUserRoutingProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateUserRoutingProfile where
+instance Prelude.ToJSON UpdateUserRoutingProfile where
   toJSON UpdateUserRoutingProfile' {..} =
-    object
-      ( catMaybes
-          [Just ("RoutingProfileId" .= _uurpRoutingProfileId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("RoutingProfileId" Prelude..= routingProfileId)
+          ]
       )
 
-instance ToPath UpdateUserRoutingProfile where
+instance Prelude.ToPath UpdateUserRoutingProfile where
   toPath UpdateUserRoutingProfile' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/users/",
-        toBS _uurpInstanceId,
+        Prelude.toBS instanceId,
         "/",
-        toBS _uurpUserId,
+        Prelude.toBS userId,
         "/routing-profile"
       ]
 
-instance ToQuery UpdateUserRoutingProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateUserRoutingProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateUserRoutingProfileResponse' smart constructor.
+-- | /See:/ 'newUpdateUserRoutingProfileResponse' smart constructor.
 data UpdateUserRoutingProfileResponse = UpdateUserRoutingProfileResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserRoutingProfileResponse' with the minimum fields required to make a request.
-updateUserRoutingProfileResponse ::
+-- |
+-- Create a value of 'UpdateUserRoutingProfileResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateUserRoutingProfileResponse ::
   UpdateUserRoutingProfileResponse
-updateUserRoutingProfileResponse =
+newUpdateUserRoutingProfileResponse =
   UpdateUserRoutingProfileResponse'
 
-instance NFData UpdateUserRoutingProfileResponse
+instance
+  Prelude.NFData
+    UpdateUserRoutingProfileResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,101 +20,107 @@
 module Network.AWS.Connect.Types.HoursOfOperation where
 
 import Network.AWS.Connect.Types.HoursOfOperationConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about of the hours of operation.
 --
---
---
--- /See:/ 'hoursOfOperation' smart constructor.
+-- /See:/ 'newHoursOfOperation' smart constructor.
 data HoursOfOperation = HoursOfOperation'
-  { _hooConfig ::
-      !(Maybe [HoursOfOperationConfig]),
-    _hooHoursOfOperationARN ::
-      !(Maybe Text),
-    _hooName :: !(Maybe Text),
-    _hooTags :: !(Maybe (Map Text Text)),
-    _hooDescription :: !(Maybe Text),
-    _hooTimeZone :: !(Maybe Text),
-    _hooHoursOfOperationId ::
-      !(Maybe Text)
+  { -- | Configuration information for the hours of operation.
+    config :: Prelude.Maybe [HoursOfOperationConfig],
+    -- | The Amazon Resource Name (ARN) for the hours of operation.
+    hoursOfOperationArn :: Prelude.Maybe Prelude.Text,
+    -- | The name for the hours of operation.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | One or more tags.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The description for the hours of operation.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The time zone for the hours of operation.
+    timeZone :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the hours of operation.
+    hoursOfOperationId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HoursOfOperation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HoursOfOperation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hooConfig' - Configuration information for the hours of operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hooHoursOfOperationARN' - The Amazon Resource Name (ARN) for the hours of operation.
+-- 'config', 'hoursOfOperation_config' - Configuration information for the hours of operation.
 --
--- * 'hooName' - The name for the hours of operation.
+-- 'hoursOfOperationArn', 'hoursOfOperation_hoursOfOperationArn' - The Amazon Resource Name (ARN) for the hours of operation.
 --
--- * 'hooTags' - One or more tags.
+-- 'name', 'hoursOfOperation_name' - The name for the hours of operation.
 --
--- * 'hooDescription' - The description for the hours of operation.
+-- 'tags', 'hoursOfOperation_tags' - One or more tags.
 --
--- * 'hooTimeZone' - The time zone for the hours of operation.
+-- 'description', 'hoursOfOperation_description' - The description for the hours of operation.
 --
--- * 'hooHoursOfOperationId' - The identifier for the hours of operation.
-hoursOfOperation ::
+-- 'timeZone', 'hoursOfOperation_timeZone' - The time zone for the hours of operation.
+--
+-- 'hoursOfOperationId', 'hoursOfOperation_hoursOfOperationId' - The identifier for the hours of operation.
+newHoursOfOperation ::
   HoursOfOperation
-hoursOfOperation =
+newHoursOfOperation =
   HoursOfOperation'
-    { _hooConfig = Nothing,
-      _hooHoursOfOperationARN = Nothing,
-      _hooName = Nothing,
-      _hooTags = Nothing,
-      _hooDescription = Nothing,
-      _hooTimeZone = Nothing,
-      _hooHoursOfOperationId = Nothing
+    { config = Prelude.Nothing,
+      hoursOfOperationArn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      timeZone = Prelude.Nothing,
+      hoursOfOperationId = Prelude.Nothing
     }
 
 -- | Configuration information for the hours of operation.
-hooConfig :: Lens' HoursOfOperation [HoursOfOperationConfig]
-hooConfig = lens _hooConfig (\s a -> s {_hooConfig = a}) . _Default . _Coerce
+hoursOfOperation_config :: Lens.Lens' HoursOfOperation (Prelude.Maybe [HoursOfOperationConfig])
+hoursOfOperation_config = Lens.lens (\HoursOfOperation' {config} -> config) (\s@HoursOfOperation' {} a -> s {config = a} :: HoursOfOperation) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon Resource Name (ARN) for the hours of operation.
-hooHoursOfOperationARN :: Lens' HoursOfOperation (Maybe Text)
-hooHoursOfOperationARN = lens _hooHoursOfOperationARN (\s a -> s {_hooHoursOfOperationARN = a})
+hoursOfOperation_hoursOfOperationArn :: Lens.Lens' HoursOfOperation (Prelude.Maybe Prelude.Text)
+hoursOfOperation_hoursOfOperationArn = Lens.lens (\HoursOfOperation' {hoursOfOperationArn} -> hoursOfOperationArn) (\s@HoursOfOperation' {} a -> s {hoursOfOperationArn = a} :: HoursOfOperation)
 
 -- | The name for the hours of operation.
-hooName :: Lens' HoursOfOperation (Maybe Text)
-hooName = lens _hooName (\s a -> s {_hooName = a})
+hoursOfOperation_name :: Lens.Lens' HoursOfOperation (Prelude.Maybe Prelude.Text)
+hoursOfOperation_name = Lens.lens (\HoursOfOperation' {name} -> name) (\s@HoursOfOperation' {} a -> s {name = a} :: HoursOfOperation)
 
 -- | One or more tags.
-hooTags :: Lens' HoursOfOperation (HashMap Text Text)
-hooTags = lens _hooTags (\s a -> s {_hooTags = a}) . _Default . _Map
+hoursOfOperation_tags :: Lens.Lens' HoursOfOperation (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+hoursOfOperation_tags = Lens.lens (\HoursOfOperation' {tags} -> tags) (\s@HoursOfOperation' {} a -> s {tags = a} :: HoursOfOperation) Prelude.. Lens.mapping Prelude._Map
 
 -- | The description for the hours of operation.
-hooDescription :: Lens' HoursOfOperation (Maybe Text)
-hooDescription = lens _hooDescription (\s a -> s {_hooDescription = a})
+hoursOfOperation_description :: Lens.Lens' HoursOfOperation (Prelude.Maybe Prelude.Text)
+hoursOfOperation_description = Lens.lens (\HoursOfOperation' {description} -> description) (\s@HoursOfOperation' {} a -> s {description = a} :: HoursOfOperation)
 
 -- | The time zone for the hours of operation.
-hooTimeZone :: Lens' HoursOfOperation (Maybe Text)
-hooTimeZone = lens _hooTimeZone (\s a -> s {_hooTimeZone = a})
+hoursOfOperation_timeZone :: Lens.Lens' HoursOfOperation (Prelude.Maybe Prelude.Text)
+hoursOfOperation_timeZone = Lens.lens (\HoursOfOperation' {timeZone} -> timeZone) (\s@HoursOfOperation' {} a -> s {timeZone = a} :: HoursOfOperation)
 
 -- | The identifier for the hours of operation.
-hooHoursOfOperationId :: Lens' HoursOfOperation (Maybe Text)
-hooHoursOfOperationId = lens _hooHoursOfOperationId (\s a -> s {_hooHoursOfOperationId = a})
+hoursOfOperation_hoursOfOperationId :: Lens.Lens' HoursOfOperation (Prelude.Maybe Prelude.Text)
+hoursOfOperation_hoursOfOperationId = Lens.lens (\HoursOfOperation' {hoursOfOperationId} -> hoursOfOperationId) (\s@HoursOfOperation' {} a -> s {hoursOfOperationId = a} :: HoursOfOperation)
 
-instance FromJSON HoursOfOperation where
+instance Prelude.FromJSON HoursOfOperation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HoursOfOperation"
       ( \x ->
           HoursOfOperation'
-            <$> (x .:? "Config" .!= mempty)
-            <*> (x .:? "HoursOfOperationArn")
-            <*> (x .:? "Name")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "Description")
-            <*> (x .:? "TimeZone")
-            <*> (x .:? "HoursOfOperationId")
+            Prelude.<$> (x Prelude..:? "Config" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "HoursOfOperationArn")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "TimeZone")
+            Prelude.<*> (x Prelude..:? "HoursOfOperationId")
       )
 
-instance Hashable HoursOfOperation
+instance Prelude.Hashable HoursOfOperation
 
-instance NFData HoursOfOperation
+instance Prelude.NFData HoursOfOperation

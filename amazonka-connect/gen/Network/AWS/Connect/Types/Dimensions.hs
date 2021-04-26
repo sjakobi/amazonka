@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +21,57 @@ module Network.AWS.Connect.Types.Dimensions where
 
 import Network.AWS.Connect.Types.Channel
 import Network.AWS.Connect.Types.QueueReference
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the dimensions for a set of metrics.
 --
---
---
--- /See:/ 'dimensions' smart constructor.
+-- /See:/ 'newDimensions' smart constructor.
 data Dimensions = Dimensions'
-  { _dQueue ::
-      !(Maybe QueueReference),
-    _dChannel :: !(Maybe Channel)
+  { -- | Information about the queue for which metrics are returned.
+    queue :: Prelude.Maybe QueueReference,
+    -- | The channel used for grouping and filters.
+    channel :: Prelude.Maybe Channel
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Dimensions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Dimensions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dQueue' - Information about the queue for which metrics are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dChannel' - The channel used for grouping and filters.
-dimensions ::
+-- 'queue', 'dimensions_queue' - Information about the queue for which metrics are returned.
+--
+-- 'channel', 'dimensions_channel' - The channel used for grouping and filters.
+newDimensions ::
   Dimensions
-dimensions =
-  Dimensions' {_dQueue = Nothing, _dChannel = Nothing}
+newDimensions =
+  Dimensions'
+    { queue = Prelude.Nothing,
+      channel = Prelude.Nothing
+    }
 
 -- | Information about the queue for which metrics are returned.
-dQueue :: Lens' Dimensions (Maybe QueueReference)
-dQueue = lens _dQueue (\s a -> s {_dQueue = a})
+dimensions_queue :: Lens.Lens' Dimensions (Prelude.Maybe QueueReference)
+dimensions_queue = Lens.lens (\Dimensions' {queue} -> queue) (\s@Dimensions' {} a -> s {queue = a} :: Dimensions)
 
 -- | The channel used for grouping and filters.
-dChannel :: Lens' Dimensions (Maybe Channel)
-dChannel = lens _dChannel (\s a -> s {_dChannel = a})
+dimensions_channel :: Lens.Lens' Dimensions (Prelude.Maybe Channel)
+dimensions_channel = Lens.lens (\Dimensions' {channel} -> channel) (\s@Dimensions' {} a -> s {channel = a} :: Dimensions)
 
-instance FromJSON Dimensions where
+instance Prelude.FromJSON Dimensions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Dimensions"
       ( \x ->
           Dimensions'
-            <$> (x .:? "Queue") <*> (x .:? "Channel")
+            Prelude.<$> (x Prelude..:? "Queue")
+            Prelude.<*> (x Prelude..:? "Channel")
       )
 
-instance Hashable Dimensions
+instance Prelude.Hashable Dimensions
 
-instance NFData Dimensions
+instance Prelude.NFData Dimensions

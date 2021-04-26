@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,82 +20,87 @@
 module Network.AWS.Connect.Types.HierarchyGroup where
 
 import Network.AWS.Connect.Types.HierarchyPath
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a hierarchy group.
 --
---
---
--- /See:/ 'hierarchyGroup' smart constructor.
+-- /See:/ 'newHierarchyGroup' smart constructor.
 data HierarchyGroup = HierarchyGroup'
-  { _hgLevelId ::
-      !(Maybe Text),
-    _hgARN :: !(Maybe Text),
-    _hgId :: !(Maybe Text),
-    _hgHierarchyPath ::
-      !(Maybe HierarchyPath),
-    _hgName :: !(Maybe Text)
+  { -- | The identifier of the level in the hierarchy group.
+    levelId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the hierarchy group.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the hierarchy group.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Information about the levels in the hierarchy group.
+    hierarchyPath :: Prelude.Maybe HierarchyPath,
+    -- | The name of the hierarchy group.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HierarchyGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HierarchyGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hgLevelId' - The identifier of the level in the hierarchy group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hgARN' - The Amazon Resource Name (ARN) of the hierarchy group.
+-- 'levelId', 'hierarchyGroup_levelId' - The identifier of the level in the hierarchy group.
 --
--- * 'hgId' - The identifier of the hierarchy group.
+-- 'arn', 'hierarchyGroup_arn' - The Amazon Resource Name (ARN) of the hierarchy group.
 --
--- * 'hgHierarchyPath' - Information about the levels in the hierarchy group.
+-- 'id', 'hierarchyGroup_id' - The identifier of the hierarchy group.
 --
--- * 'hgName' - The name of the hierarchy group.
-hierarchyGroup ::
+-- 'hierarchyPath', 'hierarchyGroup_hierarchyPath' - Information about the levels in the hierarchy group.
+--
+-- 'name', 'hierarchyGroup_name' - The name of the hierarchy group.
+newHierarchyGroup ::
   HierarchyGroup
-hierarchyGroup =
+newHierarchyGroup =
   HierarchyGroup'
-    { _hgLevelId = Nothing,
-      _hgARN = Nothing,
-      _hgId = Nothing,
-      _hgHierarchyPath = Nothing,
-      _hgName = Nothing
+    { levelId = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      hierarchyPath = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The identifier of the level in the hierarchy group.
-hgLevelId :: Lens' HierarchyGroup (Maybe Text)
-hgLevelId = lens _hgLevelId (\s a -> s {_hgLevelId = a})
+hierarchyGroup_levelId :: Lens.Lens' HierarchyGroup (Prelude.Maybe Prelude.Text)
+hierarchyGroup_levelId = Lens.lens (\HierarchyGroup' {levelId} -> levelId) (\s@HierarchyGroup' {} a -> s {levelId = a} :: HierarchyGroup)
 
 -- | The Amazon Resource Name (ARN) of the hierarchy group.
-hgARN :: Lens' HierarchyGroup (Maybe Text)
-hgARN = lens _hgARN (\s a -> s {_hgARN = a})
+hierarchyGroup_arn :: Lens.Lens' HierarchyGroup (Prelude.Maybe Prelude.Text)
+hierarchyGroup_arn = Lens.lens (\HierarchyGroup' {arn} -> arn) (\s@HierarchyGroup' {} a -> s {arn = a} :: HierarchyGroup)
 
 -- | The identifier of the hierarchy group.
-hgId :: Lens' HierarchyGroup (Maybe Text)
-hgId = lens _hgId (\s a -> s {_hgId = a})
+hierarchyGroup_id :: Lens.Lens' HierarchyGroup (Prelude.Maybe Prelude.Text)
+hierarchyGroup_id = Lens.lens (\HierarchyGroup' {id} -> id) (\s@HierarchyGroup' {} a -> s {id = a} :: HierarchyGroup)
 
 -- | Information about the levels in the hierarchy group.
-hgHierarchyPath :: Lens' HierarchyGroup (Maybe HierarchyPath)
-hgHierarchyPath = lens _hgHierarchyPath (\s a -> s {_hgHierarchyPath = a})
+hierarchyGroup_hierarchyPath :: Lens.Lens' HierarchyGroup (Prelude.Maybe HierarchyPath)
+hierarchyGroup_hierarchyPath = Lens.lens (\HierarchyGroup' {hierarchyPath} -> hierarchyPath) (\s@HierarchyGroup' {} a -> s {hierarchyPath = a} :: HierarchyGroup)
 
 -- | The name of the hierarchy group.
-hgName :: Lens' HierarchyGroup (Maybe Text)
-hgName = lens _hgName (\s a -> s {_hgName = a})
+hierarchyGroup_name :: Lens.Lens' HierarchyGroup (Prelude.Maybe Prelude.Text)
+hierarchyGroup_name = Lens.lens (\HierarchyGroup' {name} -> name) (\s@HierarchyGroup' {} a -> s {name = a} :: HierarchyGroup)
 
-instance FromJSON HierarchyGroup where
+instance Prelude.FromJSON HierarchyGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HierarchyGroup"
       ( \x ->
           HierarchyGroup'
-            <$> (x .:? "LevelId")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "HierarchyPath")
-            <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "LevelId")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "HierarchyPath")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable HierarchyGroup
+instance Prelude.Hashable HierarchyGroup
 
-instance NFData HierarchyGroup
+instance Prelude.NFData HierarchyGroup

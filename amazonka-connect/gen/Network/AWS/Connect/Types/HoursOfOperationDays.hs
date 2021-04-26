@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.Connect.Types.HoursOfOperationDays
   ( HoursOfOperationDays
       ( ..,
-        Friday,
-        Monday,
-        Saturday,
-        Sunday,
-        Thursday,
-        Tuesday,
-        Wednesday
+        HoursOfOperationDaysFRIDAY,
+        HoursOfOperationDaysMONDAY,
+        HoursOfOperationDaysSATURDAY,
+        HoursOfOperationDaysSUNDAY,
+        HoursOfOperationDaysTHURSDAY,
+        HoursOfOperationDaysTUESDAY,
+        HoursOfOperationDaysWEDNESDAY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HoursOfOperationDays
-  = HoursOfOperationDays'
-      ( CI
-          Text
-      )
+newtype HoursOfOperationDays = HoursOfOperationDays'
+  { fromHoursOfOperationDays ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Friday :: HoursOfOperationDays
-pattern Friday = HoursOfOperationDays' "FRIDAY"
+pattern HoursOfOperationDaysFRIDAY :: HoursOfOperationDays
+pattern HoursOfOperationDaysFRIDAY = HoursOfOperationDays' "FRIDAY"
 
-pattern Monday :: HoursOfOperationDays
-pattern Monday = HoursOfOperationDays' "MONDAY"
+pattern HoursOfOperationDaysMONDAY :: HoursOfOperationDays
+pattern HoursOfOperationDaysMONDAY = HoursOfOperationDays' "MONDAY"
 
-pattern Saturday :: HoursOfOperationDays
-pattern Saturday = HoursOfOperationDays' "SATURDAY"
+pattern HoursOfOperationDaysSATURDAY :: HoursOfOperationDays
+pattern HoursOfOperationDaysSATURDAY = HoursOfOperationDays' "SATURDAY"
 
-pattern Sunday :: HoursOfOperationDays
-pattern Sunday = HoursOfOperationDays' "SUNDAY"
+pattern HoursOfOperationDaysSUNDAY :: HoursOfOperationDays
+pattern HoursOfOperationDaysSUNDAY = HoursOfOperationDays' "SUNDAY"
 
-pattern Thursday :: HoursOfOperationDays
-pattern Thursday = HoursOfOperationDays' "THURSDAY"
+pattern HoursOfOperationDaysTHURSDAY :: HoursOfOperationDays
+pattern HoursOfOperationDaysTHURSDAY = HoursOfOperationDays' "THURSDAY"
 
-pattern Tuesday :: HoursOfOperationDays
-pattern Tuesday = HoursOfOperationDays' "TUESDAY"
+pattern HoursOfOperationDaysTUESDAY :: HoursOfOperationDays
+pattern HoursOfOperationDaysTUESDAY = HoursOfOperationDays' "TUESDAY"
 
-pattern Wednesday :: HoursOfOperationDays
-pattern Wednesday = HoursOfOperationDays' "WEDNESDAY"
+pattern HoursOfOperationDaysWEDNESDAY :: HoursOfOperationDays
+pattern HoursOfOperationDaysWEDNESDAY = HoursOfOperationDays' "WEDNESDAY"
 
 {-# COMPLETE
-  Friday,
-  Monday,
-  Saturday,
-  Sunday,
-  Thursday,
-  Tuesday,
-  Wednesday,
+  HoursOfOperationDaysFRIDAY,
+  HoursOfOperationDaysMONDAY,
+  HoursOfOperationDaysSATURDAY,
+  HoursOfOperationDaysSUNDAY,
+  HoursOfOperationDaysTHURSDAY,
+  HoursOfOperationDaysTUESDAY,
+  HoursOfOperationDaysWEDNESDAY,
   HoursOfOperationDays'
   #-}
 
-instance FromText HoursOfOperationDays where
-  parser = (HoursOfOperationDays' . mk) <$> takeText
+instance Prelude.FromText HoursOfOperationDays where
+  parser = HoursOfOperationDays' Prelude.<$> Prelude.takeText
 
-instance ToText HoursOfOperationDays where
-  toText (HoursOfOperationDays' ci) = original ci
+instance Prelude.ToText HoursOfOperationDays where
+  toText (HoursOfOperationDays' x) = x
 
-instance Hashable HoursOfOperationDays
+instance Prelude.Hashable HoursOfOperationDays
 
-instance NFData HoursOfOperationDays
+instance Prelude.NFData HoursOfOperationDays
 
-instance ToByteString HoursOfOperationDays
+instance Prelude.ToByteString HoursOfOperationDays
 
-instance ToQuery HoursOfOperationDays
+instance Prelude.ToQuery HoursOfOperationDays
 
-instance ToHeader HoursOfOperationDays
+instance Prelude.ToHeader HoursOfOperationDays
 
-instance FromJSON HoursOfOperationDays where
-  parseJSON = parseJSONText "HoursOfOperationDays"
+instance Prelude.FromJSON HoursOfOperationDays where
+  parseJSON = Prelude.parseJSONText "HoursOfOperationDays"

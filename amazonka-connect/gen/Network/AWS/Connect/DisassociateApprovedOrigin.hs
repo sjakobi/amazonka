@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,123 +21,126 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This API is in preview release for Amazon Connect and is subject to change.
---
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Revokes access to integrated applications from Amazon Connect.
 module Network.AWS.Connect.DisassociateApprovedOrigin
   ( -- * Creating a Request
-    disassociateApprovedOrigin,
-    DisassociateApprovedOrigin,
+    DisassociateApprovedOrigin (..),
+    newDisassociateApprovedOrigin,
 
     -- * Request Lenses
-    daoInstanceId,
-    daoOrigin,
+    disassociateApprovedOrigin_instanceId,
+    disassociateApprovedOrigin_origin,
 
     -- * Destructuring the Response
-    disassociateApprovedOriginResponse,
-    DisassociateApprovedOriginResponse,
+    DisassociateApprovedOriginResponse (..),
+    newDisassociateApprovedOriginResponse,
   )
 where
 
 import Network.AWS.Connect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateApprovedOrigin' smart constructor.
+-- | /See:/ 'newDisassociateApprovedOrigin' smart constructor.
 data DisassociateApprovedOrigin = DisassociateApprovedOrigin'
-  { _daoInstanceId ::
-      !Text,
-    _daoOrigin ::
-      !Text
+  { -- | The identifier of the Amazon Connect instance.
+    instanceId :: Prelude.Text,
+    -- | The domain URL of the integrated application.
+    origin :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateApprovedOrigin' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateApprovedOrigin' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daoInstanceId' - The identifier of the Amazon Connect instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daoOrigin' - The domain URL of the integrated application.
-disassociateApprovedOrigin ::
-  -- | 'daoInstanceId'
-  Text ->
-  -- | 'daoOrigin'
-  Text ->
+-- 'instanceId', 'disassociateApprovedOrigin_instanceId' - The identifier of the Amazon Connect instance.
+--
+-- 'origin', 'disassociateApprovedOrigin_origin' - The domain URL of the integrated application.
+newDisassociateApprovedOrigin ::
+  -- | 'instanceId'
+  Prelude.Text ->
+  -- | 'origin'
+  Prelude.Text ->
   DisassociateApprovedOrigin
-disassociateApprovedOrigin pInstanceId_ pOrigin_ =
+newDisassociateApprovedOrigin pInstanceId_ pOrigin_ =
   DisassociateApprovedOrigin'
-    { _daoInstanceId =
+    { instanceId =
         pInstanceId_,
-      _daoOrigin = pOrigin_
+      origin = pOrigin_
     }
 
 -- | The identifier of the Amazon Connect instance.
-daoInstanceId :: Lens' DisassociateApprovedOrigin Text
-daoInstanceId = lens _daoInstanceId (\s a -> s {_daoInstanceId = a})
+disassociateApprovedOrigin_instanceId :: Lens.Lens' DisassociateApprovedOrigin Prelude.Text
+disassociateApprovedOrigin_instanceId = Lens.lens (\DisassociateApprovedOrigin' {instanceId} -> instanceId) (\s@DisassociateApprovedOrigin' {} a -> s {instanceId = a} :: DisassociateApprovedOrigin)
 
 -- | The domain URL of the integrated application.
-daoOrigin :: Lens' DisassociateApprovedOrigin Text
-daoOrigin = lens _daoOrigin (\s a -> s {_daoOrigin = a})
+disassociateApprovedOrigin_origin :: Lens.Lens' DisassociateApprovedOrigin Prelude.Text
+disassociateApprovedOrigin_origin = Lens.lens (\DisassociateApprovedOrigin' {origin} -> origin) (\s@DisassociateApprovedOrigin' {} a -> s {origin = a} :: DisassociateApprovedOrigin)
 
-instance AWSRequest DisassociateApprovedOrigin where
+instance
+  Prelude.AWSRequest
+    DisassociateApprovedOrigin
+  where
   type
     Rs DisassociateApprovedOrigin =
       DisassociateApprovedOriginResponse
-  request = delete connect
+  request = Request.delete defaultService
   response =
-    receiveNull DisassociateApprovedOriginResponse'
+    Response.receiveNull
+      DisassociateApprovedOriginResponse'
 
-instance Hashable DisassociateApprovedOrigin
+instance Prelude.Hashable DisassociateApprovedOrigin
 
-instance NFData DisassociateApprovedOrigin
+instance Prelude.NFData DisassociateApprovedOrigin
 
-instance ToHeaders DisassociateApprovedOrigin where
+instance Prelude.ToHeaders DisassociateApprovedOrigin where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DisassociateApprovedOrigin where
+instance Prelude.ToPath DisassociateApprovedOrigin where
   toPath DisassociateApprovedOrigin' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/instance/",
-        toBS _daoInstanceId,
+        Prelude.toBS instanceId,
         "/approved-origin"
       ]
 
-instance ToQuery DisassociateApprovedOrigin where
+instance Prelude.ToQuery DisassociateApprovedOrigin where
   toQuery DisassociateApprovedOrigin' {..} =
-    mconcat ["origin" =: _daoOrigin]
+    Prelude.mconcat ["origin" Prelude.=: origin]
 
--- | /See:/ 'disassociateApprovedOriginResponse' smart constructor.
+-- | /See:/ 'newDisassociateApprovedOriginResponse' smart constructor.
 data DisassociateApprovedOriginResponse = DisassociateApprovedOriginResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateApprovedOriginResponse' with the minimum fields required to make a request.
-disassociateApprovedOriginResponse ::
+-- |
+-- Create a value of 'DisassociateApprovedOriginResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDisassociateApprovedOriginResponse ::
   DisassociateApprovedOriginResponse
-disassociateApprovedOriginResponse =
+newDisassociateApprovedOriginResponse =
   DisassociateApprovedOriginResponse'
 
-instance NFData DisassociateApprovedOriginResponse
+instance
+  Prelude.NFData
+    DisassociateApprovedOriginResponse

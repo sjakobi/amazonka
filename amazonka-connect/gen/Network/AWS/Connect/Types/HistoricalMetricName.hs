@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,176 +19,174 @@
 module Network.AWS.Connect.Types.HistoricalMetricName
   ( HistoricalMetricName
       ( ..,
-        APIContactsHandled,
-        AbandonTime,
-        AfterContactWorkTime,
-        CallbackContactsHandled,
-        ContactsAbandoned,
-        ContactsAgentHungUpFirst,
-        ContactsConsulted,
-        ContactsHandled,
-        ContactsHandledIncoming,
-        ContactsHandledOutbound,
-        ContactsHoldAbandons,
-        ContactsMissed,
-        ContactsQueued,
-        ContactsTransferredIn,
-        ContactsTransferredInFromQueue,
-        ContactsTransferredOut,
-        ContactsTransferredOutFromQueue,
-        HandleTime,
-        HoldTime,
-        InteractionAndHoldTime,
-        InteractionTime,
-        Occupancy,
-        QueueAnswerTime,
-        QueuedTime,
-        ServiceLevel
+        HistoricalMetricNameABANDONTIME,
+        HistoricalMetricNameAFTERCONTACTWORKTIME,
+        HistoricalMetricNameAPICONTACTSHANDLED,
+        HistoricalMetricNameCALLBACKCONTACTSHANDLED,
+        HistoricalMetricNameCONTACTSABANDONED,
+        HistoricalMetricNameCONTACTSAGENTHUNGUPFIRST,
+        HistoricalMetricNameCONTACTSCONSULTED,
+        HistoricalMetricNameCONTACTSHANDLED,
+        HistoricalMetricNameCONTACTSHANDLEDINCOMING,
+        HistoricalMetricNameCONTACTSHANDLEDOUTBOUND,
+        HistoricalMetricNameCONTACTSHOLDABANDONS,
+        HistoricalMetricNameCONTACTSMISSED,
+        HistoricalMetricNameCONTACTSQUEUED,
+        HistoricalMetricNameCONTACTSTRANSFERREDIN,
+        HistoricalMetricNameCONTACTSTRANSFERREDINFROMQUEUE,
+        HistoricalMetricNameCONTACTSTRANSFERREDOUT,
+        HistoricalMetricNameCONTACTSTRANSFERREDOUTFROMQUEUE,
+        HistoricalMetricNameHANDLETIME,
+        HistoricalMetricNameHOLDTIME,
+        HistoricalMetricNameINTERACTIONANDHOLDTIME,
+        HistoricalMetricNameINTERACTIONTIME,
+        HistoricalMetricNameOCCUPANCY,
+        HistoricalMetricNameQUEUEANSWERTIME,
+        HistoricalMetricNameQUEUEDTIME,
+        HistoricalMetricNameSERVICELEVEL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The historical metric names.
-data HistoricalMetricName
-  = HistoricalMetricName'
-      ( CI
-          Text
-      )
+newtype HistoricalMetricName = HistoricalMetricName'
+  { fromHistoricalMetricName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern APIContactsHandled :: HistoricalMetricName
-pattern APIContactsHandled = HistoricalMetricName' "API_CONTACTS_HANDLED"
+pattern HistoricalMetricNameABANDONTIME :: HistoricalMetricName
+pattern HistoricalMetricNameABANDONTIME = HistoricalMetricName' "ABANDON_TIME"
 
-pattern AbandonTime :: HistoricalMetricName
-pattern AbandonTime = HistoricalMetricName' "ABANDON_TIME"
+pattern HistoricalMetricNameAFTERCONTACTWORKTIME :: HistoricalMetricName
+pattern HistoricalMetricNameAFTERCONTACTWORKTIME = HistoricalMetricName' "AFTER_CONTACT_WORK_TIME"
 
-pattern AfterContactWorkTime :: HistoricalMetricName
-pattern AfterContactWorkTime = HistoricalMetricName' "AFTER_CONTACT_WORK_TIME"
+pattern HistoricalMetricNameAPICONTACTSHANDLED :: HistoricalMetricName
+pattern HistoricalMetricNameAPICONTACTSHANDLED = HistoricalMetricName' "API_CONTACTS_HANDLED"
 
-pattern CallbackContactsHandled :: HistoricalMetricName
-pattern CallbackContactsHandled = HistoricalMetricName' "CALLBACK_CONTACTS_HANDLED"
+pattern HistoricalMetricNameCALLBACKCONTACTSHANDLED :: HistoricalMetricName
+pattern HistoricalMetricNameCALLBACKCONTACTSHANDLED = HistoricalMetricName' "CALLBACK_CONTACTS_HANDLED"
 
-pattern ContactsAbandoned :: HistoricalMetricName
-pattern ContactsAbandoned = HistoricalMetricName' "CONTACTS_ABANDONED"
+pattern HistoricalMetricNameCONTACTSABANDONED :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSABANDONED = HistoricalMetricName' "CONTACTS_ABANDONED"
 
-pattern ContactsAgentHungUpFirst :: HistoricalMetricName
-pattern ContactsAgentHungUpFirst = HistoricalMetricName' "CONTACTS_AGENT_HUNG_UP_FIRST"
+pattern HistoricalMetricNameCONTACTSAGENTHUNGUPFIRST :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSAGENTHUNGUPFIRST = HistoricalMetricName' "CONTACTS_AGENT_HUNG_UP_FIRST"
 
-pattern ContactsConsulted :: HistoricalMetricName
-pattern ContactsConsulted = HistoricalMetricName' "CONTACTS_CONSULTED"
+pattern HistoricalMetricNameCONTACTSCONSULTED :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSCONSULTED = HistoricalMetricName' "CONTACTS_CONSULTED"
 
-pattern ContactsHandled :: HistoricalMetricName
-pattern ContactsHandled = HistoricalMetricName' "CONTACTS_HANDLED"
+pattern HistoricalMetricNameCONTACTSHANDLED :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSHANDLED = HistoricalMetricName' "CONTACTS_HANDLED"
 
-pattern ContactsHandledIncoming :: HistoricalMetricName
-pattern ContactsHandledIncoming = HistoricalMetricName' "CONTACTS_HANDLED_INCOMING"
+pattern HistoricalMetricNameCONTACTSHANDLEDINCOMING :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSHANDLEDINCOMING = HistoricalMetricName' "CONTACTS_HANDLED_INCOMING"
 
-pattern ContactsHandledOutbound :: HistoricalMetricName
-pattern ContactsHandledOutbound = HistoricalMetricName' "CONTACTS_HANDLED_OUTBOUND"
+pattern HistoricalMetricNameCONTACTSHANDLEDOUTBOUND :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSHANDLEDOUTBOUND = HistoricalMetricName' "CONTACTS_HANDLED_OUTBOUND"
 
-pattern ContactsHoldAbandons :: HistoricalMetricName
-pattern ContactsHoldAbandons = HistoricalMetricName' "CONTACTS_HOLD_ABANDONS"
+pattern HistoricalMetricNameCONTACTSHOLDABANDONS :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSHOLDABANDONS = HistoricalMetricName' "CONTACTS_HOLD_ABANDONS"
 
-pattern ContactsMissed :: HistoricalMetricName
-pattern ContactsMissed = HistoricalMetricName' "CONTACTS_MISSED"
+pattern HistoricalMetricNameCONTACTSMISSED :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSMISSED = HistoricalMetricName' "CONTACTS_MISSED"
 
-pattern ContactsQueued :: HistoricalMetricName
-pattern ContactsQueued = HistoricalMetricName' "CONTACTS_QUEUED"
+pattern HistoricalMetricNameCONTACTSQUEUED :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSQUEUED = HistoricalMetricName' "CONTACTS_QUEUED"
 
-pattern ContactsTransferredIn :: HistoricalMetricName
-pattern ContactsTransferredIn = HistoricalMetricName' "CONTACTS_TRANSFERRED_IN"
+pattern HistoricalMetricNameCONTACTSTRANSFERREDIN :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSTRANSFERREDIN = HistoricalMetricName' "CONTACTS_TRANSFERRED_IN"
 
-pattern ContactsTransferredInFromQueue :: HistoricalMetricName
-pattern ContactsTransferredInFromQueue = HistoricalMetricName' "CONTACTS_TRANSFERRED_IN_FROM_QUEUE"
+pattern HistoricalMetricNameCONTACTSTRANSFERREDINFROMQUEUE :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSTRANSFERREDINFROMQUEUE = HistoricalMetricName' "CONTACTS_TRANSFERRED_IN_FROM_QUEUE"
 
-pattern ContactsTransferredOut :: HistoricalMetricName
-pattern ContactsTransferredOut = HistoricalMetricName' "CONTACTS_TRANSFERRED_OUT"
+pattern HistoricalMetricNameCONTACTSTRANSFERREDOUT :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSTRANSFERREDOUT = HistoricalMetricName' "CONTACTS_TRANSFERRED_OUT"
 
-pattern ContactsTransferredOutFromQueue :: HistoricalMetricName
-pattern ContactsTransferredOutFromQueue = HistoricalMetricName' "CONTACTS_TRANSFERRED_OUT_FROM_QUEUE"
+pattern HistoricalMetricNameCONTACTSTRANSFERREDOUTFROMQUEUE :: HistoricalMetricName
+pattern HistoricalMetricNameCONTACTSTRANSFERREDOUTFROMQUEUE = HistoricalMetricName' "CONTACTS_TRANSFERRED_OUT_FROM_QUEUE"
 
-pattern HandleTime :: HistoricalMetricName
-pattern HandleTime = HistoricalMetricName' "HANDLE_TIME"
+pattern HistoricalMetricNameHANDLETIME :: HistoricalMetricName
+pattern HistoricalMetricNameHANDLETIME = HistoricalMetricName' "HANDLE_TIME"
 
-pattern HoldTime :: HistoricalMetricName
-pattern HoldTime = HistoricalMetricName' "HOLD_TIME"
+pattern HistoricalMetricNameHOLDTIME :: HistoricalMetricName
+pattern HistoricalMetricNameHOLDTIME = HistoricalMetricName' "HOLD_TIME"
 
-pattern InteractionAndHoldTime :: HistoricalMetricName
-pattern InteractionAndHoldTime = HistoricalMetricName' "INTERACTION_AND_HOLD_TIME"
+pattern HistoricalMetricNameINTERACTIONANDHOLDTIME :: HistoricalMetricName
+pattern HistoricalMetricNameINTERACTIONANDHOLDTIME = HistoricalMetricName' "INTERACTION_AND_HOLD_TIME"
 
-pattern InteractionTime :: HistoricalMetricName
-pattern InteractionTime = HistoricalMetricName' "INTERACTION_TIME"
+pattern HistoricalMetricNameINTERACTIONTIME :: HistoricalMetricName
+pattern HistoricalMetricNameINTERACTIONTIME = HistoricalMetricName' "INTERACTION_TIME"
 
-pattern Occupancy :: HistoricalMetricName
-pattern Occupancy = HistoricalMetricName' "OCCUPANCY"
+pattern HistoricalMetricNameOCCUPANCY :: HistoricalMetricName
+pattern HistoricalMetricNameOCCUPANCY = HistoricalMetricName' "OCCUPANCY"
 
-pattern QueueAnswerTime :: HistoricalMetricName
-pattern QueueAnswerTime = HistoricalMetricName' "QUEUE_ANSWER_TIME"
+pattern HistoricalMetricNameQUEUEANSWERTIME :: HistoricalMetricName
+pattern HistoricalMetricNameQUEUEANSWERTIME = HistoricalMetricName' "QUEUE_ANSWER_TIME"
 
-pattern QueuedTime :: HistoricalMetricName
-pattern QueuedTime = HistoricalMetricName' "QUEUED_TIME"
+pattern HistoricalMetricNameQUEUEDTIME :: HistoricalMetricName
+pattern HistoricalMetricNameQUEUEDTIME = HistoricalMetricName' "QUEUED_TIME"
 
-pattern ServiceLevel :: HistoricalMetricName
-pattern ServiceLevel = HistoricalMetricName' "SERVICE_LEVEL"
+pattern HistoricalMetricNameSERVICELEVEL :: HistoricalMetricName
+pattern HistoricalMetricNameSERVICELEVEL = HistoricalMetricName' "SERVICE_LEVEL"
 
 {-# COMPLETE
-  APIContactsHandled,
-  AbandonTime,
-  AfterContactWorkTime,
-  CallbackContactsHandled,
-  ContactsAbandoned,
-  ContactsAgentHungUpFirst,
-  ContactsConsulted,
-  ContactsHandled,
-  ContactsHandledIncoming,
-  ContactsHandledOutbound,
-  ContactsHoldAbandons,
-  ContactsMissed,
-  ContactsQueued,
-  ContactsTransferredIn,
-  ContactsTransferredInFromQueue,
-  ContactsTransferredOut,
-  ContactsTransferredOutFromQueue,
-  HandleTime,
-  HoldTime,
-  InteractionAndHoldTime,
-  InteractionTime,
-  Occupancy,
-  QueueAnswerTime,
-  QueuedTime,
-  ServiceLevel,
+  HistoricalMetricNameABANDONTIME,
+  HistoricalMetricNameAFTERCONTACTWORKTIME,
+  HistoricalMetricNameAPICONTACTSHANDLED,
+  HistoricalMetricNameCALLBACKCONTACTSHANDLED,
+  HistoricalMetricNameCONTACTSABANDONED,
+  HistoricalMetricNameCONTACTSAGENTHUNGUPFIRST,
+  HistoricalMetricNameCONTACTSCONSULTED,
+  HistoricalMetricNameCONTACTSHANDLED,
+  HistoricalMetricNameCONTACTSHANDLEDINCOMING,
+  HistoricalMetricNameCONTACTSHANDLEDOUTBOUND,
+  HistoricalMetricNameCONTACTSHOLDABANDONS,
+  HistoricalMetricNameCONTACTSMISSED,
+  HistoricalMetricNameCONTACTSQUEUED,
+  HistoricalMetricNameCONTACTSTRANSFERREDIN,
+  HistoricalMetricNameCONTACTSTRANSFERREDINFROMQUEUE,
+  HistoricalMetricNameCONTACTSTRANSFERREDOUT,
+  HistoricalMetricNameCONTACTSTRANSFERREDOUTFROMQUEUE,
+  HistoricalMetricNameHANDLETIME,
+  HistoricalMetricNameHOLDTIME,
+  HistoricalMetricNameINTERACTIONANDHOLDTIME,
+  HistoricalMetricNameINTERACTIONTIME,
+  HistoricalMetricNameOCCUPANCY,
+  HistoricalMetricNameQUEUEANSWERTIME,
+  HistoricalMetricNameQUEUEDTIME,
+  HistoricalMetricNameSERVICELEVEL,
   HistoricalMetricName'
   #-}
 
-instance FromText HistoricalMetricName where
-  parser = (HistoricalMetricName' . mk) <$> takeText
+instance Prelude.FromText HistoricalMetricName where
+  parser = HistoricalMetricName' Prelude.<$> Prelude.takeText
 
-instance ToText HistoricalMetricName where
-  toText (HistoricalMetricName' ci) = original ci
+instance Prelude.ToText HistoricalMetricName where
+  toText (HistoricalMetricName' x) = x
 
-instance Hashable HistoricalMetricName
+instance Prelude.Hashable HistoricalMetricName
 
-instance NFData HistoricalMetricName
+instance Prelude.NFData HistoricalMetricName
 
-instance ToByteString HistoricalMetricName
+instance Prelude.ToByteString HistoricalMetricName
 
-instance ToQuery HistoricalMetricName
+instance Prelude.ToQuery HistoricalMetricName
 
-instance ToHeader HistoricalMetricName
+instance Prelude.ToHeader HistoricalMetricName
 
-instance ToJSON HistoricalMetricName where
-  toJSON = toJSONText
+instance Prelude.ToJSON HistoricalMetricName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HistoricalMetricName where
-  parseJSON = parseJSONText "HistoricalMetricName"
+instance Prelude.FromJSON HistoricalMetricName where
+  parseJSON = Prelude.parseJSONText "HistoricalMetricName"
