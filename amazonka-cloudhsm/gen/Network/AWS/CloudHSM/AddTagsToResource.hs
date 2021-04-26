@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This is documentation for __AWS CloudHSM Classic__ . For more information, see <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs> , the <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference> .
+-- This is documentation for __AWS CloudHSM Classic__. For more
+-- information, see
+-- <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs>,
+-- the
+-- <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide>,
+-- and the
+-- <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference>.
 --
+-- __For information about the current version of AWS CloudHSM__, see
+-- <http://aws.amazon.com/cloudhsm/ AWS CloudHSM>, the
+-- <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide>,
+-- and the
+-- <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference>.
 --
--- __For information about the current version of AWS CloudHSM__ , see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> , the <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference> .
+-- Adds or overwrites one or more tags for the specified AWS CloudHSM
+-- resource.
 --
--- Adds or overwrites one or more tags for the specified AWS CloudHSM resource.
---
--- Each tag consists of a key and a value. Tag keys must be unique to each resource.
+-- Each tag consists of a key and a value. Tag keys must be unique to each
+-- resource.
 module Network.AWS.CloudHSM.AddTagsToResource
   ( -- * Creating a Request
-    addTagsToResource,
-    AddTagsToResource,
+    AddTagsToResource (..),
+    newAddTagsToResource,
 
     -- * Request Lenses
-    attrResourceARN,
-    attrTagList,
+    addTagsToResource_resourceArn,
+    addTagsToResource_tagList,
 
     -- * Destructuring the Response
-    addTagsToResourceResponse,
-    AddTagsToResourceResponse,
+    AddTagsToResourceResponse (..),
+    newAddTagsToResourceResponse,
 
     -- * Response Lenses
-    attrrrsResponseStatus,
-    attrrrsStatus,
+    addTagsToResourceResponse_httpStatus,
+    addTagsToResourceResponse_status,
   )
 where
 
 import Network.AWS.CloudHSM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addTagsToResource' smart constructor.
+-- | /See:/ 'newAddTagsToResource' smart constructor.
 data AddTagsToResource = AddTagsToResource'
-  { _attrResourceARN ::
-      !Text,
-    _attrTagList :: ![Tag]
+  { -- | The Amazon Resource Name (ARN) of the AWS CloudHSM resource to tag.
+    resourceArn :: Prelude.Text,
+    -- | One or more tags.
+    tagList :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsToResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTagsToResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'attrResourceARN' - The Amazon Resource Name (ARN) of the AWS CloudHSM resource to tag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'attrTagList' - One or more tags.
-addTagsToResource ::
-  -- | 'attrResourceARN'
-  Text ->
+-- 'resourceArn', 'addTagsToResource_resourceArn' - The Amazon Resource Name (ARN) of the AWS CloudHSM resource to tag.
+--
+-- 'tagList', 'addTagsToResource_tagList' - One or more tags.
+newAddTagsToResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   AddTagsToResource
-addTagsToResource pResourceARN_ =
+newAddTagsToResource pResourceArn_ =
   AddTagsToResource'
-    { _attrResourceARN =
-        pResourceARN_,
-      _attrTagList = mempty
+    { resourceArn = pResourceArn_,
+      tagList = Prelude.mempty
     }
 
 -- | The Amazon Resource Name (ARN) of the AWS CloudHSM resource to tag.
-attrResourceARN :: Lens' AddTagsToResource Text
-attrResourceARN = lens _attrResourceARN (\s a -> s {_attrResourceARN = a})
+addTagsToResource_resourceArn :: Lens.Lens' AddTagsToResource Prelude.Text
+addTagsToResource_resourceArn = Lens.lens (\AddTagsToResource' {resourceArn} -> resourceArn) (\s@AddTagsToResource' {} a -> s {resourceArn = a} :: AddTagsToResource)
 
 -- | One or more tags.
-attrTagList :: Lens' AddTagsToResource [Tag]
-attrTagList = lens _attrTagList (\s a -> s {_attrTagList = a}) . _Coerce
+addTagsToResource_tagList :: Lens.Lens' AddTagsToResource [Tag]
+addTagsToResource_tagList = Lens.lens (\AddTagsToResource' {tagList} -> tagList) (\s@AddTagsToResource' {} a -> s {tagList = a} :: AddTagsToResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest AddTagsToResource where
+instance Prelude.AWSRequest AddTagsToResource where
   type Rs AddTagsToResource = AddTagsToResourceResponse
-  request = postJSON cloudHSM
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AddTagsToResourceResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Status")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Status")
       )
 
-instance Hashable AddTagsToResource
+instance Prelude.Hashable AddTagsToResource
 
-instance NFData AddTagsToResource
+instance Prelude.NFData AddTagsToResource
 
-instance ToHeaders AddTagsToResource where
+instance Prelude.ToHeaders AddTagsToResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CloudHsmFrontendService.AddTagsToResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CloudHsmFrontendService.AddTagsToResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddTagsToResource where
+instance Prelude.ToJSON AddTagsToResource where
   toJSON AddTagsToResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceArn" .= _attrResourceARN),
-            Just ("TagList" .= _attrTagList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceArn" Prelude..= resourceArn),
+            Prelude.Just ("TagList" Prelude..= tagList)
           ]
       )
 
-instance ToPath AddTagsToResource where
-  toPath = const "/"
+instance Prelude.ToPath AddTagsToResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddTagsToResource where
-  toQuery = const mempty
+instance Prelude.ToQuery AddTagsToResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'addTagsToResourceResponse' smart constructor.
+-- | /See:/ 'newAddTagsToResourceResponse' smart constructor.
 data AddTagsToResourceResponse = AddTagsToResourceResponse'
-  { _attrrrsResponseStatus ::
-      !Int,
-    _attrrrsStatus ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The status of the operation.
+    status :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsToResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTagsToResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'attrrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'attrrrsStatus' - The status of the operation.
-addTagsToResourceResponse ::
-  -- | 'attrrrsResponseStatus'
-  Int ->
-  -- | 'attrrrsStatus'
-  Text ->
+-- 'httpStatus', 'addTagsToResourceResponse_httpStatus' - The response's http status code.
+--
+-- 'status', 'addTagsToResourceResponse_status' - The status of the operation.
+newAddTagsToResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'status'
+  Prelude.Text ->
   AddTagsToResourceResponse
-addTagsToResourceResponse pResponseStatus_ pStatus_ =
+newAddTagsToResourceResponse pHttpStatus_ pStatus_ =
   AddTagsToResourceResponse'
-    { _attrrrsResponseStatus =
-        pResponseStatus_,
-      _attrrrsStatus = pStatus_
+    { httpStatus =
+        pHttpStatus_,
+      status = pStatus_
     }
 
--- | -- | The response status code.
-attrrrsResponseStatus :: Lens' AddTagsToResourceResponse Int
-attrrrsResponseStatus = lens _attrrrsResponseStatus (\s a -> s {_attrrrsResponseStatus = a})
+-- | The response's http status code.
+addTagsToResourceResponse_httpStatus :: Lens.Lens' AddTagsToResourceResponse Prelude.Int
+addTagsToResourceResponse_httpStatus = Lens.lens (\AddTagsToResourceResponse' {httpStatus} -> httpStatus) (\s@AddTagsToResourceResponse' {} a -> s {httpStatus = a} :: AddTagsToResourceResponse)
 
 -- | The status of the operation.
-attrrrsStatus :: Lens' AddTagsToResourceResponse Text
-attrrrsStatus = lens _attrrrsStatus (\s a -> s {_attrrrsStatus = a})
+addTagsToResourceResponse_status :: Lens.Lens' AddTagsToResourceResponse Prelude.Text
+addTagsToResourceResponse_status = Lens.lens (\AddTagsToResourceResponse' {status} -> status) (\s@AddTagsToResourceResponse' {} a -> s {status = a} :: AddTagsToResourceResponse)
 
-instance NFData AddTagsToResourceResponse
+instance Prelude.NFData AddTagsToResourceResponse

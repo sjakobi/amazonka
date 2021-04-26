@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This is documentation for __AWS CloudHSM Classic__ . For more information, see <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs> , the <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference> .
+-- This is documentation for __AWS CloudHSM Classic__. For more
+-- information, see
+-- <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs>,
+-- the
+-- <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide>,
+-- and the
+-- <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference>.
 --
---
--- __For information about the current version of AWS CloudHSM__ , see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> , the <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference> .
+-- __For information about the current version of AWS CloudHSM__, see
+-- <http://aws.amazon.com/cloudhsm/ AWS CloudHSM>, the
+-- <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide>,
+-- and the
+-- <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference>.
 --
 -- Creates an HSM client.
 module Network.AWS.CloudHSM.CreateLunaClient
   ( -- * Creating a Request
-    createLunaClient,
-    CreateLunaClient,
+    CreateLunaClient (..),
+    newCreateLunaClient,
 
     -- * Request Lenses
-    clcLabel,
-    clcCertificate,
+    createLunaClient_label,
+    createLunaClient_certificate,
 
     -- * Destructuring the Response
-    createLunaClientResponse,
-    CreateLunaClientResponse,
+    CreateLunaClientResponse (..),
+    newCreateLunaClientResponse,
 
     -- * Response Lenses
-    clcrrsClientARN,
-    clcrrsResponseStatus,
+    createLunaClientResponse_clientArn,
+    createLunaClientResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudHSM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Contains the inputs for the 'CreateLunaClient' action.
+-- | Contains the inputs for the CreateLunaClient action.
 --
---
---
--- /See:/ 'createLunaClient' smart constructor.
+-- /See:/ 'newCreateLunaClient' smart constructor.
 data CreateLunaClient = CreateLunaClient'
-  { _clcLabel ::
-      !(Maybe Text),
-    _clcCertificate :: !Text
+  { -- | The label for the client.
+    label :: Prelude.Maybe Prelude.Text,
+    -- | The contents of a Base64-Encoded X.509 v3 certificate to be installed on
+    -- the HSMs used by this client.
+    certificate :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLunaClient' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLunaClient' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clcLabel' - The label for the client.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clcCertificate' - The contents of a Base64-Encoded X.509 v3 certificate to be installed on the HSMs used by this client.
-createLunaClient ::
-  -- | 'clcCertificate'
-  Text ->
+-- 'label', 'createLunaClient_label' - The label for the client.
+--
+-- 'certificate', 'createLunaClient_certificate' - The contents of a Base64-Encoded X.509 v3 certificate to be installed on
+-- the HSMs used by this client.
+newCreateLunaClient ::
+  -- | 'certificate'
+  Prelude.Text ->
   CreateLunaClient
-createLunaClient pCertificate_ =
+newCreateLunaClient pCertificate_ =
   CreateLunaClient'
-    { _clcLabel = Nothing,
-      _clcCertificate = pCertificate_
+    { label = Prelude.Nothing,
+      certificate = pCertificate_
     }
 
 -- | The label for the client.
-clcLabel :: Lens' CreateLunaClient (Maybe Text)
-clcLabel = lens _clcLabel (\s a -> s {_clcLabel = a})
+createLunaClient_label :: Lens.Lens' CreateLunaClient (Prelude.Maybe Prelude.Text)
+createLunaClient_label = Lens.lens (\CreateLunaClient' {label} -> label) (\s@CreateLunaClient' {} a -> s {label = a} :: CreateLunaClient)
 
--- | The contents of a Base64-Encoded X.509 v3 certificate to be installed on the HSMs used by this client.
-clcCertificate :: Lens' CreateLunaClient Text
-clcCertificate = lens _clcCertificate (\s a -> s {_clcCertificate = a})
+-- | The contents of a Base64-Encoded X.509 v3 certificate to be installed on
+-- the HSMs used by this client.
+createLunaClient_certificate :: Lens.Lens' CreateLunaClient Prelude.Text
+createLunaClient_certificate = Lens.lens (\CreateLunaClient' {certificate} -> certificate) (\s@CreateLunaClient' {} a -> s {certificate = a} :: CreateLunaClient)
 
-instance AWSRequest CreateLunaClient where
+instance Prelude.AWSRequest CreateLunaClient where
   type Rs CreateLunaClient = CreateLunaClientResponse
-  request = postJSON cloudHSM
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateLunaClientResponse'
-            <$> (x .?> "ClientArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ClientArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateLunaClient
+instance Prelude.Hashable CreateLunaClient
 
-instance NFData CreateLunaClient
+instance Prelude.NFData CreateLunaClient
 
-instance ToHeaders CreateLunaClient where
+instance Prelude.ToHeaders CreateLunaClient where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CloudHsmFrontendService.CreateLunaClient" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CloudHsmFrontendService.CreateLunaClient" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateLunaClient where
+instance Prelude.ToJSON CreateLunaClient where
   toJSON CreateLunaClient' {..} =
-    object
-      ( catMaybes
-          [ ("Label" .=) <$> _clcLabel,
-            Just ("Certificate" .= _clcCertificate)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Label" Prelude..=) Prelude.<$> label,
+            Prelude.Just ("Certificate" Prelude..= certificate)
           ]
       )
 
-instance ToPath CreateLunaClient where
-  toPath = const "/"
+instance Prelude.ToPath CreateLunaClient where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateLunaClient where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateLunaClient where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Contains the output of the 'CreateLunaClient' action.
+-- | Contains the output of the CreateLunaClient action.
 --
---
---
--- /See:/ 'createLunaClientResponse' smart constructor.
+-- /See:/ 'newCreateLunaClientResponse' smart constructor.
 data CreateLunaClientResponse = CreateLunaClientResponse'
-  { _clcrrsClientARN ::
-      !(Maybe Text),
-    _clcrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the client.
+    clientArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLunaClientResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLunaClientResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clcrrsClientARN' - The ARN of the client.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clcrrsResponseStatus' - -- | The response status code.
-createLunaClientResponse ::
-  -- | 'clcrrsResponseStatus'
-  Int ->
+-- 'clientArn', 'createLunaClientResponse_clientArn' - The ARN of the client.
+--
+-- 'httpStatus', 'createLunaClientResponse_httpStatus' - The response's http status code.
+newCreateLunaClientResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateLunaClientResponse
-createLunaClientResponse pResponseStatus_ =
+newCreateLunaClientResponse pHttpStatus_ =
   CreateLunaClientResponse'
-    { _clcrrsClientARN =
-        Nothing,
-      _clcrrsResponseStatus = pResponseStatus_
+    { clientArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the client.
-clcrrsClientARN :: Lens' CreateLunaClientResponse (Maybe Text)
-clcrrsClientARN = lens _clcrrsClientARN (\s a -> s {_clcrrsClientARN = a})
+createLunaClientResponse_clientArn :: Lens.Lens' CreateLunaClientResponse (Prelude.Maybe Prelude.Text)
+createLunaClientResponse_clientArn = Lens.lens (\CreateLunaClientResponse' {clientArn} -> clientArn) (\s@CreateLunaClientResponse' {} a -> s {clientArn = a} :: CreateLunaClientResponse)
 
--- | -- | The response status code.
-clcrrsResponseStatus :: Lens' CreateLunaClientResponse Int
-clcrrsResponseStatus = lens _clcrrsResponseStatus (\s a -> s {_clcrrsResponseStatus = a})
+-- | The response's http status code.
+createLunaClientResponse_httpStatus :: Lens.Lens' CreateLunaClientResponse Prelude.Int
+createLunaClientResponse_httpStatus = Lens.lens (\CreateLunaClientResponse' {httpStatus} -> httpStatus) (\s@CreateLunaClientResponse' {} a -> s {httpStatus = a} :: CreateLunaClientResponse)
 
-instance NFData CreateLunaClientResponse
+instance Prelude.NFData CreateLunaClientResponse

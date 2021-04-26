@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudHSM.Types.ClientVersion
   ( ClientVersion
       ( ..,
-        VD5_1,
-        VD5_3
+        ClientVersionVD5_1,
+        ClientVersionVD5_3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ClientVersion = ClientVersion' (CI Text)
+newtype ClientVersion = ClientVersion'
+  { fromClientVersion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VD5_1 :: ClientVersion
-pattern VD5_1 = ClientVersion' "5.1"
+pattern ClientVersionVD5_1 :: ClientVersion
+pattern ClientVersionVD5_1 = ClientVersion' "5.1"
 
-pattern VD5_3 :: ClientVersion
-pattern VD5_3 = ClientVersion' "5.3"
+pattern ClientVersionVD5_3 :: ClientVersion
+pattern ClientVersionVD5_3 = ClientVersion' "5.3"
 
 {-# COMPLETE
-  VD5_1,
-  VD5_3,
+  ClientVersionVD5_1,
+  ClientVersionVD5_3,
   ClientVersion'
   #-}
 
-instance FromText ClientVersion where
-  parser = (ClientVersion' . mk) <$> takeText
+instance Prelude.FromText ClientVersion where
+  parser = ClientVersion' Prelude.<$> Prelude.takeText
 
-instance ToText ClientVersion where
-  toText (ClientVersion' ci) = original ci
+instance Prelude.ToText ClientVersion where
+  toText (ClientVersion' x) = x
 
-instance Hashable ClientVersion
+instance Prelude.Hashable ClientVersion
 
-instance NFData ClientVersion
+instance Prelude.NFData ClientVersion
 
-instance ToByteString ClientVersion
+instance Prelude.ToByteString ClientVersion
 
-instance ToQuery ClientVersion
+instance Prelude.ToQuery ClientVersion
 
-instance ToHeader ClientVersion
+instance Prelude.ToHeader ClientVersion
 
-instance ToJSON ClientVersion where
-  toJSON = toJSONText
+instance Prelude.ToJSON ClientVersion where
+  toJSON = Prelude.toJSONText

@@ -27,145 +27,145 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestListHSMs $
---             listHSMs
+--         [ requestListHsms $
+--             newListHsms
 --
---         , requestDeleteHSM $
---             deleteHSM
+--         , requestDeleteHsm $
+--             newDeleteHsm
 --
 --         , requestModifyLunaClient $
---             modifyLunaClient
+--             newModifyLunaClient
 --
---         , requestDeleteHAPG $
---             deleteHAPG
+--         , requestDeleteHapg $
+--             newDeleteHapg
 --
 --         , requestGetConfig $
---             getConfig
+--             newGetConfig
 --
 --         , requestDeleteLunaClient $
---             deleteLunaClient
+--             newDeleteLunaClient
 --
 --         , requestListAvailableZones $
---             listAvailableZones
+--             newListAvailableZones
 --
---         , requestModifyHAPG $
---             modifyHAPG
+--         , requestModifyHapg $
+--             newModifyHapg
 --
 --         , requestListLunaClients $
---             listLunaClients
+--             newListLunaClients
 --
 --         , requestRemoveTagsFromResource $
---             removeTagsFromResource
+--             newRemoveTagsFromResource
 --
---         , requestDescribeHAPG $
---             describeHAPG
+--         , requestDescribeHapg $
+--             newDescribeHapg
 --
 --         , requestCreateLunaClient $
---             createLunaClient
+--             newCreateLunaClient
 --
---         , requestDescribeHSM $
---             describeHSM
+--         , requestDescribeHsm $
+--             newDescribeHsm
 --
---         , requestCreateHAPG $
---             createHAPG
+--         , requestCreateHapg $
+--             newCreateHapg
 --
 --         , requestDescribeLunaClient $
---             describeLunaClient
+--             newDescribeLunaClient
 --
---         , requestListHAPGs $
---             listHAPGs
+--         , requestListHapgs $
+--             newListHapgs
 --
 --         , requestAddTagsToResource $
---             addTagsToResource
+--             newAddTagsToResource
 --
---         , requestModifyHSM $
---             modifyHSM
+--         , requestModifyHsm $
+--             newModifyHsm
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
---         , requestCreateHSM $
---             createHSM
+--         , requestCreateHsm $
+--             newCreateHsm
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseListHSMs $
---             listHSMsResponse
+--         [ responseListHsms $
+--             newListHsmsResponse
 --
---         , responseDeleteHSM $
---             deleteHSMResponse
+--         , responseDeleteHsm $
+--             newDeleteHsmResponse
 --
 --         , responseModifyLunaClient $
---             modifyLunaClientResponse
+--             newModifyLunaClientResponse
 --
---         , responseDeleteHAPG $
---             deleteHAPGResponse
+--         , responseDeleteHapg $
+--             newDeleteHapgResponse
 --
 --         , responseGetConfig $
---             getConfigResponse
+--             newGetConfigResponse
 --
 --         , responseDeleteLunaClient $
---             deleteLunaClientResponse
+--             newDeleteLunaClientResponse
 --
 --         , responseListAvailableZones $
---             listAvailableZonesResponse
+--             newListAvailableZonesResponse
 --
---         , responseModifyHAPG $
---             modifyHAPGResponse
+--         , responseModifyHapg $
+--             newModifyHapgResponse
 --
 --         , responseListLunaClients $
---             listLunaClientsResponse
+--             newListLunaClientsResponse
 --
 --         , responseRemoveTagsFromResource $
---             removeTagsFromResourceResponse
+--             newRemoveTagsFromResourceResponse
 --
---         , responseDescribeHAPG $
---             describeHAPGResponse
+--         , responseDescribeHapg $
+--             newDescribeHapgResponse
 --
 --         , responseCreateLunaClient $
---             createLunaClientResponse
+--             newCreateLunaClientResponse
 --
---         , responseDescribeHSM $
---             describeHSMResponse
+--         , responseDescribeHsm $
+--             newDescribeHsmResponse
 --
---         , responseCreateHAPG $
---             createHAPGResponse
+--         , responseCreateHapg $
+--             newCreateHapgResponse
 --
 --         , responseDescribeLunaClient $
---             describeLunaClientResponse
+--             newDescribeLunaClientResponse
 --
---         , responseListHAPGs $
---             listHAPGsResponse
+--         , responseListHapgs $
+--             newListHapgsResponse
 --
 --         , responseAddTagsToResource $
---             addTagsToResourceResponse
+--             newAddTagsToResourceResponse
 --
---         , responseModifyHSM $
---             modifyHSMResponse
+--         , responseModifyHsm $
+--             newModifyHsmResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
---         , responseCreateHSM $
---             createHSMResponse
+--         , responseCreateHsm $
+--             newCreateHsmResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestListHSMs :: ListHSMs -> TestTree
-requestListHSMs =
+requestListHsms :: ListHsms -> TestTree
+requestListHsms =
   req
-    "ListHSMs"
-    "fixture/ListHSMs.yaml"
+    "ListHsms"
+    "fixture/ListHsms.yaml"
 
-requestDeleteHSM :: DeleteHSM -> TestTree
-requestDeleteHSM =
+requestDeleteHsm :: DeleteHsm -> TestTree
+requestDeleteHsm =
   req
-    "DeleteHSM"
-    "fixture/DeleteHSM.yaml"
+    "DeleteHsm"
+    "fixture/DeleteHsm.yaml"
 
 requestModifyLunaClient :: ModifyLunaClient -> TestTree
 requestModifyLunaClient =
@@ -173,11 +173,11 @@ requestModifyLunaClient =
     "ModifyLunaClient"
     "fixture/ModifyLunaClient.yaml"
 
-requestDeleteHAPG :: DeleteHAPG -> TestTree
-requestDeleteHAPG =
+requestDeleteHapg :: DeleteHapg -> TestTree
+requestDeleteHapg =
   req
-    "DeleteHAPG"
-    "fixture/DeleteHAPG.yaml"
+    "DeleteHapg"
+    "fixture/DeleteHapg.yaml"
 
 requestGetConfig :: GetConfig -> TestTree
 requestGetConfig =
@@ -197,11 +197,11 @@ requestListAvailableZones =
     "ListAvailableZones"
     "fixture/ListAvailableZones.yaml"
 
-requestModifyHAPG :: ModifyHAPG -> TestTree
-requestModifyHAPG =
+requestModifyHapg :: ModifyHapg -> TestTree
+requestModifyHapg =
   req
-    "ModifyHAPG"
-    "fixture/ModifyHAPG.yaml"
+    "ModifyHapg"
+    "fixture/ModifyHapg.yaml"
 
 requestListLunaClients :: ListLunaClients -> TestTree
 requestListLunaClients =
@@ -215,11 +215,11 @@ requestRemoveTagsFromResource =
     "RemoveTagsFromResource"
     "fixture/RemoveTagsFromResource.yaml"
 
-requestDescribeHAPG :: DescribeHAPG -> TestTree
-requestDescribeHAPG =
+requestDescribeHapg :: DescribeHapg -> TestTree
+requestDescribeHapg =
   req
-    "DescribeHAPG"
-    "fixture/DescribeHAPG.yaml"
+    "DescribeHapg"
+    "fixture/DescribeHapg.yaml"
 
 requestCreateLunaClient :: CreateLunaClient -> TestTree
 requestCreateLunaClient =
@@ -227,17 +227,17 @@ requestCreateLunaClient =
     "CreateLunaClient"
     "fixture/CreateLunaClient.yaml"
 
-requestDescribeHSM :: DescribeHSM -> TestTree
-requestDescribeHSM =
+requestDescribeHsm :: DescribeHsm -> TestTree
+requestDescribeHsm =
   req
-    "DescribeHSM"
-    "fixture/DescribeHSM.yaml"
+    "DescribeHsm"
+    "fixture/DescribeHsm.yaml"
 
-requestCreateHAPG :: CreateHAPG -> TestTree
-requestCreateHAPG =
+requestCreateHapg :: CreateHapg -> TestTree
+requestCreateHapg =
   req
-    "CreateHAPG"
-    "fixture/CreateHAPG.yaml"
+    "CreateHapg"
+    "fixture/CreateHapg.yaml"
 
 requestDescribeLunaClient :: DescribeLunaClient -> TestTree
 requestDescribeLunaClient =
@@ -245,11 +245,11 @@ requestDescribeLunaClient =
     "DescribeLunaClient"
     "fixture/DescribeLunaClient.yaml"
 
-requestListHAPGs :: ListHAPGs -> TestTree
-requestListHAPGs =
+requestListHapgs :: ListHapgs -> TestTree
+requestListHapgs =
   req
-    "ListHAPGs"
-    "fixture/ListHAPGs.yaml"
+    "ListHapgs"
+    "fixture/ListHapgs.yaml"
 
 requestAddTagsToResource :: AddTagsToResource -> TestTree
 requestAddTagsToResource =
@@ -257,11 +257,11 @@ requestAddTagsToResource =
     "AddTagsToResource"
     "fixture/AddTagsToResource.yaml"
 
-requestModifyHSM :: ModifyHSM -> TestTree
-requestModifyHSM =
+requestModifyHsm :: ModifyHsm -> TestTree
+requestModifyHsm =
   req
-    "ModifyHSM"
-    "fixture/ModifyHSM.yaml"
+    "ModifyHsm"
+    "fixture/ModifyHsm.yaml"
 
 requestListTagsForResource :: ListTagsForResource -> TestTree
 requestListTagsForResource =
@@ -269,52 +269,52 @@ requestListTagsForResource =
     "ListTagsForResource"
     "fixture/ListTagsForResource.yaml"
 
-requestCreateHSM :: CreateHSM -> TestTree
-requestCreateHSM =
+requestCreateHsm :: CreateHsm -> TestTree
+requestCreateHsm =
   req
-    "CreateHSM"
-    "fixture/CreateHSM.yaml"
+    "CreateHsm"
+    "fixture/CreateHsm.yaml"
 
 -- Responses
 
-responseListHSMs :: ListHSMsResponse -> TestTree
-responseListHSMs =
+responseListHsms :: ListHsmsResponse -> TestTree
+responseListHsms =
   res
-    "ListHSMsResponse"
-    "fixture/ListHSMsResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy ListHSMs)
+    "ListHsmsResponse"
+    "fixture/ListHsmsResponse.proto"
+    defaultService
+    (Proxy :: Proxy ListHsms)
 
-responseDeleteHSM :: DeleteHSMResponse -> TestTree
-responseDeleteHSM =
+responseDeleteHsm :: DeleteHsmResponse -> TestTree
+responseDeleteHsm =
   res
-    "DeleteHSMResponse"
-    "fixture/DeleteHSMResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy DeleteHSM)
+    "DeleteHsmResponse"
+    "fixture/DeleteHsmResponse.proto"
+    defaultService
+    (Proxy :: Proxy DeleteHsm)
 
 responseModifyLunaClient :: ModifyLunaClientResponse -> TestTree
 responseModifyLunaClient =
   res
     "ModifyLunaClientResponse"
     "fixture/ModifyLunaClientResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy ModifyLunaClient)
 
-responseDeleteHAPG :: DeleteHAPGResponse -> TestTree
-responseDeleteHAPG =
+responseDeleteHapg :: DeleteHapgResponse -> TestTree
+responseDeleteHapg =
   res
-    "DeleteHAPGResponse"
-    "fixture/DeleteHAPGResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy DeleteHAPG)
+    "DeleteHapgResponse"
+    "fixture/DeleteHapgResponse.proto"
+    defaultService
+    (Proxy :: Proxy DeleteHapg)
 
 responseGetConfig :: GetConfigResponse -> TestTree
 responseGetConfig =
   res
     "GetConfigResponse"
     "fixture/GetConfigResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy GetConfig)
 
 responseDeleteLunaClient :: DeleteLunaClientResponse -> TestTree
@@ -322,7 +322,7 @@ responseDeleteLunaClient =
   res
     "DeleteLunaClientResponse"
     "fixture/DeleteLunaClientResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy DeleteLunaClient)
 
 responseListAvailableZones :: ListAvailableZonesResponse -> TestTree
@@ -330,23 +330,23 @@ responseListAvailableZones =
   res
     "ListAvailableZonesResponse"
     "fixture/ListAvailableZonesResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy ListAvailableZones)
 
-responseModifyHAPG :: ModifyHAPGResponse -> TestTree
-responseModifyHAPG =
+responseModifyHapg :: ModifyHapgResponse -> TestTree
+responseModifyHapg =
   res
-    "ModifyHAPGResponse"
-    "fixture/ModifyHAPGResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy ModifyHAPG)
+    "ModifyHapgResponse"
+    "fixture/ModifyHapgResponse.proto"
+    defaultService
+    (Proxy :: Proxy ModifyHapg)
 
 responseListLunaClients :: ListLunaClientsResponse -> TestTree
 responseListLunaClients =
   res
     "ListLunaClientsResponse"
     "fixture/ListLunaClientsResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy ListLunaClients)
 
 responseRemoveTagsFromResource :: RemoveTagsFromResourceResponse -> TestTree
@@ -354,85 +354,85 @@ responseRemoveTagsFromResource =
   res
     "RemoveTagsFromResourceResponse"
     "fixture/RemoveTagsFromResourceResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy RemoveTagsFromResource)
 
-responseDescribeHAPG :: DescribeHAPGResponse -> TestTree
-responseDescribeHAPG =
+responseDescribeHapg :: DescribeHapgResponse -> TestTree
+responseDescribeHapg =
   res
-    "DescribeHAPGResponse"
-    "fixture/DescribeHAPGResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy DescribeHAPG)
+    "DescribeHapgResponse"
+    "fixture/DescribeHapgResponse.proto"
+    defaultService
+    (Proxy :: Proxy DescribeHapg)
 
 responseCreateLunaClient :: CreateLunaClientResponse -> TestTree
 responseCreateLunaClient =
   res
     "CreateLunaClientResponse"
     "fixture/CreateLunaClientResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy CreateLunaClient)
 
-responseDescribeHSM :: DescribeHSMResponse -> TestTree
-responseDescribeHSM =
+responseDescribeHsm :: DescribeHsmResponse -> TestTree
+responseDescribeHsm =
   res
-    "DescribeHSMResponse"
-    "fixture/DescribeHSMResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy DescribeHSM)
+    "DescribeHsmResponse"
+    "fixture/DescribeHsmResponse.proto"
+    defaultService
+    (Proxy :: Proxy DescribeHsm)
 
-responseCreateHAPG :: CreateHAPGResponse -> TestTree
-responseCreateHAPG =
+responseCreateHapg :: CreateHapgResponse -> TestTree
+responseCreateHapg =
   res
-    "CreateHAPGResponse"
-    "fixture/CreateHAPGResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy CreateHAPG)
+    "CreateHapgResponse"
+    "fixture/CreateHapgResponse.proto"
+    defaultService
+    (Proxy :: Proxy CreateHapg)
 
 responseDescribeLunaClient :: DescribeLunaClientResponse -> TestTree
 responseDescribeLunaClient =
   res
     "DescribeLunaClientResponse"
     "fixture/DescribeLunaClientResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy DescribeLunaClient)
 
-responseListHAPGs :: ListHAPGsResponse -> TestTree
-responseListHAPGs =
+responseListHapgs :: ListHapgsResponse -> TestTree
+responseListHapgs =
   res
-    "ListHAPGsResponse"
-    "fixture/ListHAPGsResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy ListHAPGs)
+    "ListHapgsResponse"
+    "fixture/ListHapgsResponse.proto"
+    defaultService
+    (Proxy :: Proxy ListHapgs)
 
 responseAddTagsToResource :: AddTagsToResourceResponse -> TestTree
 responseAddTagsToResource =
   res
     "AddTagsToResourceResponse"
     "fixture/AddTagsToResourceResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy AddTagsToResource)
 
-responseModifyHSM :: ModifyHSMResponse -> TestTree
-responseModifyHSM =
+responseModifyHsm :: ModifyHsmResponse -> TestTree
+responseModifyHsm =
   res
-    "ModifyHSMResponse"
-    "fixture/ModifyHSMResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy ModifyHSM)
+    "ModifyHsmResponse"
+    "fixture/ModifyHsmResponse.proto"
+    defaultService
+    (Proxy :: Proxy ModifyHsm)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
 responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    cloudHSM
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
-responseCreateHSM :: CreateHSMResponse -> TestTree
-responseCreateHSM =
+responseCreateHsm :: CreateHsmResponse -> TestTree
+responseCreateHsm =
   res
-    "CreateHSMResponse"
-    "fixture/CreateHSMResponse.proto"
-    cloudHSM
-    (Proxy :: Proxy CreateHSM)
+    "CreateHsmResponse"
+    "fixture/CreateHsmResponse.proto"
+    defaultService
+    (Proxy :: Proxy CreateHsm)

@@ -14,7 +14,7 @@
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
--- Module      : Network.AWS.CloudHSM.DeleteLunaClient
+-- Module      : Network.AWS.CloudHSM.DeleteHapg
 -- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
@@ -35,22 +35,22 @@
 -- and the
 -- <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference>.
 --
--- Deletes a client.
-module Network.AWS.CloudHSM.DeleteLunaClient
+-- Deletes a high-availability partition group.
+module Network.AWS.CloudHSM.DeleteHapg
   ( -- * Creating a Request
-    DeleteLunaClient (..),
-    newDeleteLunaClient,
+    DeleteHapg (..),
+    newDeleteHapg,
 
     -- * Request Lenses
-    deleteLunaClient_clientArn,
+    deleteHapg_hapgArn,
 
     -- * Destructuring the Response
-    DeleteLunaClientResponse (..),
-    newDeleteLunaClientResponse,
+    DeleteHapgResponse (..),
+    newDeleteHapgResponse,
 
     -- * Response Lenses
-    deleteLunaClientResponse_httpStatus,
-    deleteLunaClientResponse_status,
+    deleteHapgResponse_httpStatus,
+    deleteHapgResponse_status,
   )
 where
 
@@ -60,54 +60,56 @@ import qualified Network.AWS.Prelude as Prelude
 import qualified Network.AWS.Request as Request
 import qualified Network.AWS.Response as Response
 
--- | /See:/ 'newDeleteLunaClient' smart constructor.
-data DeleteLunaClient = DeleteLunaClient'
-  { -- | The ARN of the client to delete.
-    clientArn :: Prelude.Text
+-- | Contains the inputs for the DeleteHapg action.
+--
+-- /See:/ 'newDeleteHapg' smart constructor.
+data DeleteHapg = DeleteHapg'
+  { -- | The ARN of the high-availability partition group to delete.
+    hapgArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
 -- |
--- Create a value of 'DeleteLunaClient' with all optional fields omitted.
+-- Create a value of 'DeleteHapg' with all optional fields omitted.
 --
 -- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientArn', 'deleteLunaClient_clientArn' - The ARN of the client to delete.
-newDeleteLunaClient ::
-  -- | 'clientArn'
+-- 'hapgArn', 'deleteHapg_hapgArn' - The ARN of the high-availability partition group to delete.
+newDeleteHapg ::
+  -- | 'hapgArn'
   Prelude.Text ->
-  DeleteLunaClient
-newDeleteLunaClient pClientArn_ =
-  DeleteLunaClient' {clientArn = pClientArn_}
+  DeleteHapg
+newDeleteHapg pHapgArn_ =
+  DeleteHapg' {hapgArn = pHapgArn_}
 
--- | The ARN of the client to delete.
-deleteLunaClient_clientArn :: Lens.Lens' DeleteLunaClient Prelude.Text
-deleteLunaClient_clientArn = Lens.lens (\DeleteLunaClient' {clientArn} -> clientArn) (\s@DeleteLunaClient' {} a -> s {clientArn = a} :: DeleteLunaClient)
+-- | The ARN of the high-availability partition group to delete.
+deleteHapg_hapgArn :: Lens.Lens' DeleteHapg Prelude.Text
+deleteHapg_hapgArn = Lens.lens (\DeleteHapg' {hapgArn} -> hapgArn) (\s@DeleteHapg' {} a -> s {hapgArn = a} :: DeleteHapg)
 
-instance Prelude.AWSRequest DeleteLunaClient where
-  type Rs DeleteLunaClient = DeleteLunaClientResponse
+instance Prelude.AWSRequest DeleteHapg where
+  type Rs DeleteHapg = DeleteHapgResponse
   request = Request.postJSON defaultService
   response =
     Response.receiveJSON
       ( \s h x ->
-          DeleteLunaClientResponse'
+          DeleteHapgResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
             Prelude.<*> (x Prelude..:> "Status")
       )
 
-instance Prelude.Hashable DeleteLunaClient
+instance Prelude.Hashable DeleteHapg
 
-instance Prelude.NFData DeleteLunaClient
+instance Prelude.NFData DeleteHapg
 
-instance Prelude.ToHeaders DeleteLunaClient where
+instance Prelude.ToHeaders DeleteHapg where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Prelude.=# ( "CloudHsmFrontendService.DeleteLunaClient" ::
+              Prelude.=# ( "CloudHsmFrontendService.DeleteHapg" ::
                              Prelude.ByteString
                          ),
             "Content-Type"
@@ -117,21 +119,23 @@ instance Prelude.ToHeaders DeleteLunaClient where
           ]
       )
 
-instance Prelude.ToJSON DeleteLunaClient where
-  toJSON DeleteLunaClient' {..} =
+instance Prelude.ToJSON DeleteHapg where
+  toJSON DeleteHapg' {..} =
     Prelude.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ClientArn" Prelude..= clientArn)]
+          [Prelude.Just ("HapgArn" Prelude..= hapgArn)]
       )
 
-instance Prelude.ToPath DeleteLunaClient where
+instance Prelude.ToPath DeleteHapg where
   toPath = Prelude.const "/"
 
-instance Prelude.ToQuery DeleteLunaClient where
+instance Prelude.ToQuery DeleteHapg where
   toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'newDeleteLunaClientResponse' smart constructor.
-data DeleteLunaClientResponse = DeleteLunaClientResponse'
+-- | Contains the output of the DeleteHapg action.
+--
+-- /See:/ 'newDeleteHapgResponse' smart constructor.
+data DeleteHapgResponse = DeleteHapgResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The status of the action.
@@ -140,35 +144,34 @@ data DeleteLunaClientResponse = DeleteLunaClientResponse'
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
 -- |
--- Create a value of 'DeleteLunaClientResponse' with all optional fields omitted.
+-- Create a value of 'DeleteHapgResponse' with all optional fields omitted.
 --
 -- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'httpStatus', 'deleteLunaClientResponse_httpStatus' - The response's http status code.
+-- 'httpStatus', 'deleteHapgResponse_httpStatus' - The response's http status code.
 --
--- 'status', 'deleteLunaClientResponse_status' - The status of the action.
-newDeleteLunaClientResponse ::
+-- 'status', 'deleteHapgResponse_status' - The status of the action.
+newDeleteHapgResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
   -- | 'status'
   Prelude.Text ->
-  DeleteLunaClientResponse
-newDeleteLunaClientResponse pHttpStatus_ pStatus_ =
-  DeleteLunaClientResponse'
-    { httpStatus =
-        pHttpStatus_,
+  DeleteHapgResponse
+newDeleteHapgResponse pHttpStatus_ pStatus_ =
+  DeleteHapgResponse'
+    { httpStatus = pHttpStatus_,
       status = pStatus_
     }
 
 -- | The response's http status code.
-deleteLunaClientResponse_httpStatus :: Lens.Lens' DeleteLunaClientResponse Prelude.Int
-deleteLunaClientResponse_httpStatus = Lens.lens (\DeleteLunaClientResponse' {httpStatus} -> httpStatus) (\s@DeleteLunaClientResponse' {} a -> s {httpStatus = a} :: DeleteLunaClientResponse)
+deleteHapgResponse_httpStatus :: Lens.Lens' DeleteHapgResponse Prelude.Int
+deleteHapgResponse_httpStatus = Lens.lens (\DeleteHapgResponse' {httpStatus} -> httpStatus) (\s@DeleteHapgResponse' {} a -> s {httpStatus = a} :: DeleteHapgResponse)
 
 -- | The status of the action.
-deleteLunaClientResponse_status :: Lens.Lens' DeleteLunaClientResponse Prelude.Text
-deleteLunaClientResponse_status = Lens.lens (\DeleteLunaClientResponse' {status} -> status) (\s@DeleteLunaClientResponse' {} a -> s {status = a} :: DeleteLunaClientResponse)
+deleteHapgResponse_status :: Lens.Lens' DeleteHapgResponse Prelude.Text
+deleteHapgResponse_status = Lens.lens (\DeleteHapgResponse' {status} -> status) (\s@DeleteHapgResponse' {} a -> s {status = a} :: DeleteHapgResponse)
 
-instance Prelude.NFData DeleteLunaClientResponse
+instance Prelude.NFData DeleteHapgResponse

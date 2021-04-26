@@ -11,26 +11,36 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS CloudHSM Service__
+-- AWS CloudHSM Service
 --
--- This is documentation for __AWS CloudHSM Classic__ . For more information, see <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs> , the <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference> .
+-- This is documentation for __AWS CloudHSM Classic__. For more
+-- information, see
+-- <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs>,
+-- the
+-- <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide>,
+-- and the
+-- <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference>.
 --
--- __For information about the current version of AWS CloudHSM__ , see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> , the <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference> .
+-- __For information about the current version of AWS CloudHSM__, see
+-- <http://aws.amazon.com/cloudhsm/ AWS CloudHSM>, the
+-- <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide>,
+-- and the
+-- <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference>.
 module Network.AWS.CloudHSM
   ( -- * Service Configuration
-    cloudHSM,
+    defaultService,
 
     -- * Errors
     -- $errors
 
-    -- ** CloudHSMInternalException
-    _CloudHSMInternalException,
+    -- ** CloudHsmInternalException
+    _CloudHsmInternalException,
 
     -- ** InvalidRequestException
     _InvalidRequestException,
 
-    -- ** CloudHSMServiceException
-    _CloudHSMServiceException,
+    -- ** CloudHsmServiceException
+    _CloudHsmServiceException,
 
     -- * Waiters
     -- $waiters
@@ -38,106 +48,165 @@ module Network.AWS.CloudHSM
     -- * Operations
     -- $operations
 
-    -- ** ListHSMs (Paginated)
-    module Network.AWS.CloudHSM.ListHSMs,
+    -- ** ListHsms (Paginated)
+    ListHsms (ListHsms'),
+    newListHsms,
+    ListHsmsResponse (ListHsmsResponse'),
+    newListHsmsResponse,
 
-    -- ** DeleteHSM
-    module Network.AWS.CloudHSM.DeleteHSM,
+    -- ** DeleteHsm
+    DeleteHsm (DeleteHsm'),
+    newDeleteHsm,
+    DeleteHsmResponse (DeleteHsmResponse'),
+    newDeleteHsmResponse,
 
     -- ** ModifyLunaClient
-    module Network.AWS.CloudHSM.ModifyLunaClient,
+    ModifyLunaClient (ModifyLunaClient'),
+    newModifyLunaClient,
+    ModifyLunaClientResponse (ModifyLunaClientResponse'),
+    newModifyLunaClientResponse,
 
-    -- ** DeleteHAPG
-    module Network.AWS.CloudHSM.DeleteHAPG,
+    -- ** DeleteHapg
+    DeleteHapg (DeleteHapg'),
+    newDeleteHapg,
+    DeleteHapgResponse (DeleteHapgResponse'),
+    newDeleteHapgResponse,
 
     -- ** GetConfig
-    module Network.AWS.CloudHSM.GetConfig,
+    GetConfig (GetConfig'),
+    newGetConfig,
+    GetConfigResponse (GetConfigResponse'),
+    newGetConfigResponse,
 
     -- ** DeleteLunaClient
-    module Network.AWS.CloudHSM.DeleteLunaClient,
+    DeleteLunaClient (DeleteLunaClient'),
+    newDeleteLunaClient,
+    DeleteLunaClientResponse (DeleteLunaClientResponse'),
+    newDeleteLunaClientResponse,
 
     -- ** ListAvailableZones
-    module Network.AWS.CloudHSM.ListAvailableZones,
+    ListAvailableZones (ListAvailableZones'),
+    newListAvailableZones,
+    ListAvailableZonesResponse (ListAvailableZonesResponse'),
+    newListAvailableZonesResponse,
 
-    -- ** ModifyHAPG
-    module Network.AWS.CloudHSM.ModifyHAPG,
+    -- ** ModifyHapg
+    ModifyHapg (ModifyHapg'),
+    newModifyHapg,
+    ModifyHapgResponse (ModifyHapgResponse'),
+    newModifyHapgResponse,
 
     -- ** ListLunaClients (Paginated)
-    module Network.AWS.CloudHSM.ListLunaClients,
+    ListLunaClients (ListLunaClients'),
+    newListLunaClients,
+    ListLunaClientsResponse (ListLunaClientsResponse'),
+    newListLunaClientsResponse,
 
     -- ** RemoveTagsFromResource
-    module Network.AWS.CloudHSM.RemoveTagsFromResource,
+    RemoveTagsFromResource (RemoveTagsFromResource'),
+    newRemoveTagsFromResource,
+    RemoveTagsFromResourceResponse (RemoveTagsFromResourceResponse'),
+    newRemoveTagsFromResourceResponse,
 
-    -- ** DescribeHAPG
-    module Network.AWS.CloudHSM.DescribeHAPG,
+    -- ** DescribeHapg
+    DescribeHapg (DescribeHapg'),
+    newDescribeHapg,
+    DescribeHapgResponse (DescribeHapgResponse'),
+    newDescribeHapgResponse,
 
     -- ** CreateLunaClient
-    module Network.AWS.CloudHSM.CreateLunaClient,
+    CreateLunaClient (CreateLunaClient'),
+    newCreateLunaClient,
+    CreateLunaClientResponse (CreateLunaClientResponse'),
+    newCreateLunaClientResponse,
 
-    -- ** DescribeHSM
-    module Network.AWS.CloudHSM.DescribeHSM,
+    -- ** DescribeHsm
+    DescribeHsm (DescribeHsm'),
+    newDescribeHsm,
+    DescribeHsmResponse (DescribeHsmResponse'),
+    newDescribeHsmResponse,
 
-    -- ** CreateHAPG
-    module Network.AWS.CloudHSM.CreateHAPG,
+    -- ** CreateHapg
+    CreateHapg (CreateHapg'),
+    newCreateHapg,
+    CreateHapgResponse (CreateHapgResponse'),
+    newCreateHapgResponse,
 
     -- ** DescribeLunaClient
-    module Network.AWS.CloudHSM.DescribeLunaClient,
+    DescribeLunaClient (DescribeLunaClient'),
+    newDescribeLunaClient,
+    DescribeLunaClientResponse (DescribeLunaClientResponse'),
+    newDescribeLunaClientResponse,
 
-    -- ** ListHAPGs (Paginated)
-    module Network.AWS.CloudHSM.ListHAPGs,
+    -- ** ListHapgs (Paginated)
+    ListHapgs (ListHapgs'),
+    newListHapgs,
+    ListHapgsResponse (ListHapgsResponse'),
+    newListHapgsResponse,
 
     -- ** AddTagsToResource
-    module Network.AWS.CloudHSM.AddTagsToResource,
+    AddTagsToResource (AddTagsToResource'),
+    newAddTagsToResource,
+    AddTagsToResourceResponse (AddTagsToResourceResponse'),
+    newAddTagsToResourceResponse,
 
-    -- ** ModifyHSM
-    module Network.AWS.CloudHSM.ModifyHSM,
+    -- ** ModifyHsm
+    ModifyHsm (ModifyHsm'),
+    newModifyHsm,
+    ModifyHsmResponse (ModifyHsmResponse'),
+    newModifyHsmResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.CloudHSM.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
-    -- ** CreateHSM
-    module Network.AWS.CloudHSM.CreateHSM,
+    -- ** CreateHsm
+    CreateHsm (CreateHsm'),
+    newCreateHsm,
+    CreateHsmResponse (CreateHsmResponse'),
+    newCreateHsmResponse,
 
     -- * Types
 
     -- ** ClientVersion
     ClientVersion (..),
 
-    -- ** CloudHSMObjectState
-    CloudHSMObjectState (..),
+    -- ** CloudHsmObjectState
+    CloudHsmObjectState (..),
 
-    -- ** HSMStatus
-    HSMStatus (..),
+    -- ** HsmStatus
+    HsmStatus (..),
 
     -- ** SubscriptionType
     SubscriptionType (..),
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
 import Network.AWS.CloudHSM.AddTagsToResource
-import Network.AWS.CloudHSM.CreateHAPG
-import Network.AWS.CloudHSM.CreateHSM
+import Network.AWS.CloudHSM.CreateHapg
+import Network.AWS.CloudHSM.CreateHsm
 import Network.AWS.CloudHSM.CreateLunaClient
-import Network.AWS.CloudHSM.DeleteHAPG
-import Network.AWS.CloudHSM.DeleteHSM
+import Network.AWS.CloudHSM.DeleteHapg
+import Network.AWS.CloudHSM.DeleteHsm
 import Network.AWS.CloudHSM.DeleteLunaClient
-import Network.AWS.CloudHSM.DescribeHAPG
-import Network.AWS.CloudHSM.DescribeHSM
+import Network.AWS.CloudHSM.DescribeHapg
+import Network.AWS.CloudHSM.DescribeHsm
 import Network.AWS.CloudHSM.DescribeLunaClient
 import Network.AWS.CloudHSM.GetConfig
+import Network.AWS.CloudHSM.Lens
 import Network.AWS.CloudHSM.ListAvailableZones
-import Network.AWS.CloudHSM.ListHAPGs
-import Network.AWS.CloudHSM.ListHSMs
+import Network.AWS.CloudHSM.ListHapgs
+import Network.AWS.CloudHSM.ListHsms
 import Network.AWS.CloudHSM.ListLunaClients
 import Network.AWS.CloudHSM.ListTagsForResource
-import Network.AWS.CloudHSM.ModifyHAPG
-import Network.AWS.CloudHSM.ModifyHSM
+import Network.AWS.CloudHSM.ModifyHapg
+import Network.AWS.CloudHSM.ModifyHsm
 import Network.AWS.CloudHSM.ModifyLunaClient
 import Network.AWS.CloudHSM.RemoveTagsFromResource
 import Network.AWS.CloudHSM.Types

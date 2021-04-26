@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,187 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This is documentation for __AWS CloudHSM Classic__ . For more information, see <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs> , the <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference> .
+-- This is documentation for __AWS CloudHSM Classic__. For more
+-- information, see
+-- <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs>,
+-- the
+-- <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide>,
+-- and the
+-- <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference>.
 --
---
--- __For information about the current version of AWS CloudHSM__ , see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> , the <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference> .
+-- __For information about the current version of AWS CloudHSM__, see
+-- <http://aws.amazon.com/cloudhsm/ AWS CloudHSM>, the
+-- <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide>,
+-- and the
+-- <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference>.
 --
 -- Removes one or more tags from the specified AWS CloudHSM resource.
 --
--- To remove a tag, specify only the tag key to remove (not the value). To overwrite the value for an existing tag, use 'AddTagsToResource' .
+-- To remove a tag, specify only the tag key to remove (not the value). To
+-- overwrite the value for an existing tag, use AddTagsToResource.
 module Network.AWS.CloudHSM.RemoveTagsFromResource
   ( -- * Creating a Request
-    removeTagsFromResource,
-    RemoveTagsFromResource,
+    RemoveTagsFromResource (..),
+    newRemoveTagsFromResource,
 
     -- * Request Lenses
-    rtfrResourceARN,
-    rtfrTagKeyList,
+    removeTagsFromResource_resourceArn,
+    removeTagsFromResource_tagKeyList,
 
     -- * Destructuring the Response
-    removeTagsFromResourceResponse,
-    RemoveTagsFromResourceResponse,
+    RemoveTagsFromResourceResponse (..),
+    newRemoveTagsFromResourceResponse,
 
     -- * Response Lenses
-    rtfrrrsResponseStatus,
-    rtfrrrsStatus,
+    removeTagsFromResourceResponse_httpStatus,
+    removeTagsFromResourceResponse_status,
   )
 where
 
 import Network.AWS.CloudHSM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'removeTagsFromResource' smart constructor.
+-- | /See:/ 'newRemoveTagsFromResource' smart constructor.
 data RemoveTagsFromResource = RemoveTagsFromResource'
-  { _rtfrResourceARN ::
-      !Text,
-    _rtfrTagKeyList ::
-      ![Text]
+  { -- | The Amazon Resource Name (ARN) of the AWS CloudHSM resource.
+    resourceArn :: Prelude.Text,
+    -- | The tag key or keys to remove.
+    --
+    -- Specify only the tag key to remove (not the value). To overwrite the
+    -- value for an existing tag, use AddTagsToResource.
+    tagKeyList :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveTagsFromResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveTagsFromResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtfrResourceARN' - The Amazon Resource Name (ARN) of the AWS CloudHSM resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtfrTagKeyList' - The tag key or keys to remove. Specify only the tag key to remove (not the value). To overwrite the value for an existing tag, use 'AddTagsToResource' .
-removeTagsFromResource ::
-  -- | 'rtfrResourceARN'
-  Text ->
+-- 'resourceArn', 'removeTagsFromResource_resourceArn' - The Amazon Resource Name (ARN) of the AWS CloudHSM resource.
+--
+-- 'tagKeyList', 'removeTagsFromResource_tagKeyList' - The tag key or keys to remove.
+--
+-- Specify only the tag key to remove (not the value). To overwrite the
+-- value for an existing tag, use AddTagsToResource.
+newRemoveTagsFromResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   RemoveTagsFromResource
-removeTagsFromResource pResourceARN_ =
+newRemoveTagsFromResource pResourceArn_ =
   RemoveTagsFromResource'
-    { _rtfrResourceARN =
-        pResourceARN_,
-      _rtfrTagKeyList = mempty
+    { resourceArn =
+        pResourceArn_,
+      tagKeyList = Prelude.mempty
     }
 
 -- | The Amazon Resource Name (ARN) of the AWS CloudHSM resource.
-rtfrResourceARN :: Lens' RemoveTagsFromResource Text
-rtfrResourceARN = lens _rtfrResourceARN (\s a -> s {_rtfrResourceARN = a})
+removeTagsFromResource_resourceArn :: Lens.Lens' RemoveTagsFromResource Prelude.Text
+removeTagsFromResource_resourceArn = Lens.lens (\RemoveTagsFromResource' {resourceArn} -> resourceArn) (\s@RemoveTagsFromResource' {} a -> s {resourceArn = a} :: RemoveTagsFromResource)
 
--- | The tag key or keys to remove. Specify only the tag key to remove (not the value). To overwrite the value for an existing tag, use 'AddTagsToResource' .
-rtfrTagKeyList :: Lens' RemoveTagsFromResource [Text]
-rtfrTagKeyList = lens _rtfrTagKeyList (\s a -> s {_rtfrTagKeyList = a}) . _Coerce
+-- | The tag key or keys to remove.
+--
+-- Specify only the tag key to remove (not the value). To overwrite the
+-- value for an existing tag, use AddTagsToResource.
+removeTagsFromResource_tagKeyList :: Lens.Lens' RemoveTagsFromResource [Prelude.Text]
+removeTagsFromResource_tagKeyList = Lens.lens (\RemoveTagsFromResource' {tagKeyList} -> tagKeyList) (\s@RemoveTagsFromResource' {} a -> s {tagKeyList = a} :: RemoveTagsFromResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest RemoveTagsFromResource where
+instance Prelude.AWSRequest RemoveTagsFromResource where
   type
     Rs RemoveTagsFromResource =
       RemoveTagsFromResourceResponse
-  request = postJSON cloudHSM
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RemoveTagsFromResourceResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Status")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Status")
       )
 
-instance Hashable RemoveTagsFromResource
+instance Prelude.Hashable RemoveTagsFromResource
 
-instance NFData RemoveTagsFromResource
+instance Prelude.NFData RemoveTagsFromResource
 
-instance ToHeaders RemoveTagsFromResource where
+instance Prelude.ToHeaders RemoveTagsFromResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CloudHsmFrontendService.RemoveTagsFromResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CloudHsmFrontendService.RemoveTagsFromResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RemoveTagsFromResource where
+instance Prelude.ToJSON RemoveTagsFromResource where
   toJSON RemoveTagsFromResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceArn" .= _rtfrResourceARN),
-            Just ("TagKeyList" .= _rtfrTagKeyList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceArn" Prelude..= resourceArn),
+            Prelude.Just ("TagKeyList" Prelude..= tagKeyList)
           ]
       )
 
-instance ToPath RemoveTagsFromResource where
-  toPath = const "/"
+instance Prelude.ToPath RemoveTagsFromResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemoveTagsFromResource where
-  toQuery = const mempty
+instance Prelude.ToQuery RemoveTagsFromResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'removeTagsFromResourceResponse' smart constructor.
+-- | /See:/ 'newRemoveTagsFromResourceResponse' smart constructor.
 data RemoveTagsFromResourceResponse = RemoveTagsFromResourceResponse'
-  { _rtfrrrsResponseStatus ::
-      !Int,
-    _rtfrrrsStatus ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The status of the operation.
+    status :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveTagsFromResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveTagsFromResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtfrrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtfrrrsStatus' - The status of the operation.
-removeTagsFromResourceResponse ::
-  -- | 'rtfrrrsResponseStatus'
-  Int ->
-  -- | 'rtfrrrsStatus'
-  Text ->
+-- 'httpStatus', 'removeTagsFromResourceResponse_httpStatus' - The response's http status code.
+--
+-- 'status', 'removeTagsFromResourceResponse_status' - The status of the operation.
+newRemoveTagsFromResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'status'
+  Prelude.Text ->
   RemoveTagsFromResourceResponse
-removeTagsFromResourceResponse
-  pResponseStatus_
+newRemoveTagsFromResourceResponse
+  pHttpStatus_
   pStatus_ =
     RemoveTagsFromResourceResponse'
-      { _rtfrrrsResponseStatus =
-          pResponseStatus_,
-        _rtfrrrsStatus = pStatus_
+      { httpStatus =
+          pHttpStatus_,
+        status = pStatus_
       }
 
--- | -- | The response status code.
-rtfrrrsResponseStatus :: Lens' RemoveTagsFromResourceResponse Int
-rtfrrrsResponseStatus = lens _rtfrrrsResponseStatus (\s a -> s {_rtfrrrsResponseStatus = a})
+-- | The response's http status code.
+removeTagsFromResourceResponse_httpStatus :: Lens.Lens' RemoveTagsFromResourceResponse Prelude.Int
+removeTagsFromResourceResponse_httpStatus = Lens.lens (\RemoveTagsFromResourceResponse' {httpStatus} -> httpStatus) (\s@RemoveTagsFromResourceResponse' {} a -> s {httpStatus = a} :: RemoveTagsFromResourceResponse)
 
 -- | The status of the operation.
-rtfrrrsStatus :: Lens' RemoveTagsFromResourceResponse Text
-rtfrrrsStatus = lens _rtfrrrsStatus (\s a -> s {_rtfrrrsStatus = a})
+removeTagsFromResourceResponse_status :: Lens.Lens' RemoveTagsFromResourceResponse Prelude.Text
+removeTagsFromResourceResponse_status = Lens.lens (\RemoveTagsFromResourceResponse' {status} -> status) (\s@RemoveTagsFromResourceResponse' {} a -> s {status = a} :: RemoveTagsFromResourceResponse)
 
-instance NFData RemoveTagsFromResourceResponse
+instance
+  Prelude.NFData
+    RemoveTagsFromResourceResponse
