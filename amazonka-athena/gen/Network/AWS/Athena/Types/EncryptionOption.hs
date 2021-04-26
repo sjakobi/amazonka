@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Athena.Types.EncryptionOption
   ( EncryptionOption
       ( ..,
-        CseKMS,
-        SseKMS,
-        SseS3
+        EncryptionOptionCSEKMS,
+        EncryptionOptionSSEKMS,
+        EncryptionOptionSSES3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EncryptionOption = EncryptionOption' (CI Text)
+newtype EncryptionOption = EncryptionOption'
+  { fromEncryptionOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CseKMS :: EncryptionOption
-pattern CseKMS = EncryptionOption' "CSE_KMS"
+pattern EncryptionOptionCSEKMS :: EncryptionOption
+pattern EncryptionOptionCSEKMS = EncryptionOption' "CSE_KMS"
 
-pattern SseKMS :: EncryptionOption
-pattern SseKMS = EncryptionOption' "SSE_KMS"
+pattern EncryptionOptionSSEKMS :: EncryptionOption
+pattern EncryptionOptionSSEKMS = EncryptionOption' "SSE_KMS"
 
-pattern SseS3 :: EncryptionOption
-pattern SseS3 = EncryptionOption' "SSE_S3"
+pattern EncryptionOptionSSES3 :: EncryptionOption
+pattern EncryptionOptionSSES3 = EncryptionOption' "SSE_S3"
 
 {-# COMPLETE
-  CseKMS,
-  SseKMS,
-  SseS3,
+  EncryptionOptionCSEKMS,
+  EncryptionOptionSSEKMS,
+  EncryptionOptionSSES3,
   EncryptionOption'
   #-}
 
-instance FromText EncryptionOption where
-  parser = (EncryptionOption' . mk) <$> takeText
+instance Prelude.FromText EncryptionOption where
+  parser = EncryptionOption' Prelude.<$> Prelude.takeText
 
-instance ToText EncryptionOption where
-  toText (EncryptionOption' ci) = original ci
+instance Prelude.ToText EncryptionOption where
+  toText (EncryptionOption' x) = x
 
-instance Hashable EncryptionOption
+instance Prelude.Hashable EncryptionOption
 
-instance NFData EncryptionOption
+instance Prelude.NFData EncryptionOption
 
-instance ToByteString EncryptionOption
+instance Prelude.ToByteString EncryptionOption
 
-instance ToQuery EncryptionOption
+instance Prelude.ToQuery EncryptionOption
 
-instance ToHeader EncryptionOption
+instance Prelude.ToHeader EncryptionOption
 
-instance ToJSON EncryptionOption where
-  toJSON = toJSONText
+instance Prelude.ToJSON EncryptionOption where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EncryptionOption where
-  parseJSON = parseJSONText "EncryptionOption"
+instance Prelude.FromJSON EncryptionOption where
+  parseJSON = Prelude.parseJSONText "EncryptionOption"

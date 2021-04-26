@@ -11,15 +11,28 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon Athena is an interactive query service that lets you use standard SQL to analyze data directly in Amazon S3. You can point Athena at your data in Amazon S3 and run ad-hoc queries and get results in seconds. Athena is serverless, so there is no infrastructure to set up or manage. You pay only for the queries you run. Athena scales automatically—executing queries in parallel—so results are fast, even with large datasets and complex queries. For more information, see <http://docs.aws.amazon.com/athena/latest/ug/what-is.html What is Amazon Athena> in the /Amazon Athena User Guide/ .
+-- Amazon Athena is an interactive query service that lets you use standard
+-- SQL to analyze data directly in Amazon S3. You can point Athena at your
+-- data in Amazon S3 and run ad-hoc queries and get results in seconds.
+-- Athena is serverless, so there is no infrastructure to set up or manage.
+-- You pay only for the queries you run. Athena scales
+-- automatically—executing queries in parallel—so results are fast, even
+-- with large datasets and complex queries. For more information, see
+-- <http://docs.aws.amazon.com/athena/latest/ug/what-is.html What is Amazon Athena>
+-- in the /Amazon Athena User Guide/.
 --
+-- If you connect to Athena using the JDBC driver, use version 1.1.0 of the
+-- driver or later with the Amazon Athena API. Earlier version drivers do
+-- not support the API. For more information and to download the driver,
+-- see
+-- <https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html Accessing Amazon Athena with JDBC>.
 --
--- If you connect to Athena using the JDBC driver, use version 1.1.0 of the driver or later with the Amazon Athena API. Earlier version drivers do not support the API. For more information and to download the driver, see <https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html Accessing Amazon Athena with JDBC> .
---
--- For code samples using the AWS SDK for Java, see <https://docs.aws.amazon.com/athena/latest/ug/code-samples.html Examples and Code Samples> in the /Amazon Athena User Guide/ .
+-- For code samples using the AWS SDK for Java, see
+-- <https://docs.aws.amazon.com/athena/latest/ug/code-samples.html Examples and Code Samples>
+-- in the /Amazon Athena User Guide/.
 module Network.AWS.Athena
   ( -- * Service Configuration
-    athena,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -46,91 +59,178 @@ module Network.AWS.Athena
     -- $operations
 
     -- ** CreateDataCatalog
-    module Network.AWS.Athena.CreateDataCatalog,
+    CreateDataCatalog (CreateDataCatalog'),
+    newCreateDataCatalog,
+    CreateDataCatalogResponse (CreateDataCatalogResponse'),
+    newCreateDataCatalogResponse,
 
     -- ** ListQueryExecutions (Paginated)
-    module Network.AWS.Athena.ListQueryExecutions,
+    ListQueryExecutions (ListQueryExecutions'),
+    newListQueryExecutions,
+    ListQueryExecutionsResponse (ListQueryExecutionsResponse'),
+    newListQueryExecutionsResponse,
 
     -- ** ListTableMetadata (Paginated)
-    module Network.AWS.Athena.ListTableMetadata,
+    ListTableMetadata (ListTableMetadata'),
+    newListTableMetadata,
+    ListTableMetadataResponse (ListTableMetadataResponse'),
+    newListTableMetadataResponse,
 
     -- ** GetQueryExecution
-    module Network.AWS.Athena.GetQueryExecution,
+    GetQueryExecution (GetQueryExecution'),
+    newGetQueryExecution,
+    GetQueryExecutionResponse (GetQueryExecutionResponse'),
+    newGetQueryExecutionResponse,
 
     -- ** BatchGetNamedQuery
-    module Network.AWS.Athena.BatchGetNamedQuery,
+    BatchGetNamedQuery (BatchGetNamedQuery'),
+    newBatchGetNamedQuery,
+    BatchGetNamedQueryResponse (BatchGetNamedQueryResponse'),
+    newBatchGetNamedQueryResponse,
 
     -- ** UntagResource
-    module Network.AWS.Athena.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** GetDatabase
-    module Network.AWS.Athena.GetDatabase,
+    GetDatabase (GetDatabase'),
+    newGetDatabase,
+    GetDatabaseResponse (GetDatabaseResponse'),
+    newGetDatabaseResponse,
 
     -- ** DeleteNamedQuery
-    module Network.AWS.Athena.DeleteNamedQuery,
+    DeleteNamedQuery (DeleteNamedQuery'),
+    newDeleteNamedQuery,
+    DeleteNamedQueryResponse (DeleteNamedQueryResponse'),
+    newDeleteNamedQueryResponse,
 
     -- ** TagResource
-    module Network.AWS.Athena.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** ListEngineVersions
-    module Network.AWS.Athena.ListEngineVersions,
+    ListEngineVersions (ListEngineVersions'),
+    newListEngineVersions,
+    ListEngineVersionsResponse (ListEngineVersionsResponse'),
+    newListEngineVersionsResponse,
 
     -- ** GetDataCatalog
-    module Network.AWS.Athena.GetDataCatalog,
+    GetDataCatalog (GetDataCatalog'),
+    newGetDataCatalog,
+    GetDataCatalogResponse (GetDataCatalogResponse'),
+    newGetDataCatalogResponse,
 
     -- ** ListDataCatalogs (Paginated)
-    module Network.AWS.Athena.ListDataCatalogs,
+    ListDataCatalogs (ListDataCatalogs'),
+    newListDataCatalogs,
+    ListDataCatalogsResponse (ListDataCatalogsResponse'),
+    newListDataCatalogsResponse,
 
     -- ** CreateWorkGroup
-    module Network.AWS.Athena.CreateWorkGroup,
+    CreateWorkGroup (CreateWorkGroup'),
+    newCreateWorkGroup,
+    CreateWorkGroupResponse (CreateWorkGroupResponse'),
+    newCreateWorkGroupResponse,
 
     -- ** GetNamedQuery
-    module Network.AWS.Athena.GetNamedQuery,
+    GetNamedQuery (GetNamedQuery'),
+    newGetNamedQuery,
+    GetNamedQueryResponse (GetNamedQueryResponse'),
+    newGetNamedQueryResponse,
 
     -- ** UpdateWorkGroup
-    module Network.AWS.Athena.UpdateWorkGroup,
+    UpdateWorkGroup (UpdateWorkGroup'),
+    newUpdateWorkGroup,
+    UpdateWorkGroupResponse (UpdateWorkGroupResponse'),
+    newUpdateWorkGroupResponse,
 
     -- ** DeleteWorkGroup
-    module Network.AWS.Athena.DeleteWorkGroup,
+    DeleteWorkGroup (DeleteWorkGroup'),
+    newDeleteWorkGroup,
+    DeleteWorkGroupResponse (DeleteWorkGroupResponse'),
+    newDeleteWorkGroupResponse,
 
     -- ** ListWorkGroups
-    module Network.AWS.Athena.ListWorkGroups,
+    ListWorkGroups (ListWorkGroups'),
+    newListWorkGroups,
+    ListWorkGroupsResponse (ListWorkGroupsResponse'),
+    newListWorkGroupsResponse,
 
     -- ** ListDatabases (Paginated)
-    module Network.AWS.Athena.ListDatabases,
+    ListDatabases (ListDatabases'),
+    newListDatabases,
+    ListDatabasesResponse (ListDatabasesResponse'),
+    newListDatabasesResponse,
 
     -- ** GetQueryResults (Paginated)
-    module Network.AWS.Athena.GetQueryResults,
+    GetQueryResults (GetQueryResults'),
+    newGetQueryResults,
+    GetQueryResultsResponse (GetQueryResultsResponse'),
+    newGetQueryResultsResponse,
 
     -- ** GetWorkGroup
-    module Network.AWS.Athena.GetWorkGroup,
+    GetWorkGroup (GetWorkGroup'),
+    newGetWorkGroup,
+    GetWorkGroupResponse (GetWorkGroupResponse'),
+    newGetWorkGroupResponse,
 
     -- ** StartQueryExecution
-    module Network.AWS.Athena.StartQueryExecution,
+    StartQueryExecution (StartQueryExecution'),
+    newStartQueryExecution,
+    StartQueryExecutionResponse (StartQueryExecutionResponse'),
+    newStartQueryExecutionResponse,
 
     -- ** StopQueryExecution
-    module Network.AWS.Athena.StopQueryExecution,
+    StopQueryExecution (StopQueryExecution'),
+    newStopQueryExecution,
+    StopQueryExecutionResponse (StopQueryExecutionResponse'),
+    newStopQueryExecutionResponse,
 
     -- ** GetTableMetadata
-    module Network.AWS.Athena.GetTableMetadata,
+    GetTableMetadata (GetTableMetadata'),
+    newGetTableMetadata,
+    GetTableMetadataResponse (GetTableMetadataResponse'),
+    newGetTableMetadataResponse,
 
     -- ** CreateNamedQuery
-    module Network.AWS.Athena.CreateNamedQuery,
+    CreateNamedQuery (CreateNamedQuery'),
+    newCreateNamedQuery,
+    CreateNamedQueryResponse (CreateNamedQueryResponse'),
+    newCreateNamedQueryResponse,
 
     -- ** ListNamedQueries (Paginated)
-    module Network.AWS.Athena.ListNamedQueries,
+    ListNamedQueries (ListNamedQueries'),
+    newListNamedQueries,
+    ListNamedQueriesResponse (ListNamedQueriesResponse'),
+    newListNamedQueriesResponse,
 
     -- ** BatchGetQueryExecution
-    module Network.AWS.Athena.BatchGetQueryExecution,
+    BatchGetQueryExecution (BatchGetQueryExecution'),
+    newBatchGetQueryExecution,
+    BatchGetQueryExecutionResponse (BatchGetQueryExecutionResponse'),
+    newBatchGetQueryExecutionResponse,
 
     -- ** ListTagsForResource (Paginated)
-    module Network.AWS.Athena.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DeleteDataCatalog
-    module Network.AWS.Athena.DeleteDataCatalog,
+    DeleteDataCatalog (DeleteDataCatalog'),
+    newDeleteDataCatalog,
+    DeleteDataCatalogResponse (DeleteDataCatalogResponse'),
+    newDeleteDataCatalogResponse,
 
     -- ** UpdateDataCatalog
-    module Network.AWS.Athena.UpdateDataCatalog,
+    UpdateDataCatalog (UpdateDataCatalog'),
+    newUpdateDataCatalog,
+    UpdateDataCatalogResponse (UpdateDataCatalogResponse'),
+    newUpdateDataCatalogResponse,
 
     -- * Types
 
@@ -153,211 +253,108 @@ module Network.AWS.Athena
     WorkGroupState (..),
 
     -- ** Column
-    Column,
-    column,
-    cComment,
-    cType,
-    cName,
+    Column (Column'),
+    newColumn,
 
     -- ** ColumnInfo
-    ColumnInfo,
-    columnInfo,
-    ciCatalogName,
-    ciTableName,
-    ciPrecision,
-    ciCaseSensitive,
-    ciNullable,
-    ciLabel,
-    ciSchemaName,
-    ciScale,
-    ciName,
-    ciType,
+    ColumnInfo (ColumnInfo'),
+    newColumnInfo,
 
     -- ** DataCatalog
-    DataCatalog,
-    dataCatalog,
-    dcDescription,
-    dcParameters,
-    dcName,
-    dcType,
+    DataCatalog (DataCatalog'),
+    newDataCatalog,
 
     -- ** DataCatalogSummary
-    DataCatalogSummary,
-    dataCatalogSummary,
-    dcsCatalogName,
-    dcsType,
+    DataCatalogSummary (DataCatalogSummary'),
+    newDataCatalogSummary,
 
     -- ** Database
-    Database,
-    database,
-    dDescription,
-    dParameters,
-    dName,
+    Database (Database'),
+    newDatabase,
 
     -- ** Datum
-    Datum,
-    datum,
-    dVarCharValue,
+    Datum (Datum'),
+    newDatum,
 
     -- ** EncryptionConfiguration
-    EncryptionConfiguration,
-    encryptionConfiguration,
-    ecKMSKey,
-    ecEncryptionOption,
+    EncryptionConfiguration (EncryptionConfiguration'),
+    newEncryptionConfiguration,
 
     -- ** EngineVersion
-    EngineVersion,
-    engineVersion,
-    evEffectiveEngineVersion,
-    evSelectedEngineVersion,
+    EngineVersion (EngineVersion'),
+    newEngineVersion,
 
     -- ** NamedQuery
-    NamedQuery,
-    namedQuery,
-    nqNamedQueryId,
-    nqWorkGroup,
-    nqDescription,
-    nqName,
-    nqDatabase,
-    nqQueryString,
+    NamedQuery (NamedQuery'),
+    newNamedQuery,
 
     -- ** QueryExecution
-    QueryExecution,
-    queryExecution,
-    qeStatus,
-    qeQueryExecutionId,
-    qeStatistics,
-    qeQuery,
-    qeQueryExecutionContext,
-    qeEngineVersion,
-    qeResultConfiguration,
-    qeWorkGroup,
-    qeStatementType,
+    QueryExecution (QueryExecution'),
+    newQueryExecution,
 
     -- ** QueryExecutionContext
-    QueryExecutionContext,
-    queryExecutionContext,
-    qecCatalog,
-    qecDatabase,
+    QueryExecutionContext (QueryExecutionContext'),
+    newQueryExecutionContext,
 
     -- ** QueryExecutionStatistics
-    QueryExecutionStatistics,
-    queryExecutionStatistics,
-    qesTotalExecutionTimeInMillis,
-    qesServiceProcessingTimeInMillis,
-    qesQueryQueueTimeInMillis,
-    qesDataScannedInBytes,
-    qesQueryPlanningTimeInMillis,
-    qesEngineExecutionTimeInMillis,
-    qesDataManifestLocation,
+    QueryExecutionStatistics (QueryExecutionStatistics'),
+    newQueryExecutionStatistics,
 
     -- ** QueryExecutionStatus
-    QueryExecutionStatus,
-    queryExecutionStatus,
-    qesSubmissionDateTime,
-    qesStateChangeReason,
-    qesCompletionDateTime,
-    qesState,
+    QueryExecutionStatus (QueryExecutionStatus'),
+    newQueryExecutionStatus,
 
     -- ** ResultConfiguration
-    ResultConfiguration,
-    resultConfiguration,
-    rcEncryptionConfiguration,
-    rcOutputLocation,
+    ResultConfiguration (ResultConfiguration'),
+    newResultConfiguration,
 
     -- ** ResultConfigurationUpdates
-    ResultConfigurationUpdates,
-    resultConfigurationUpdates,
-    rcuEncryptionConfiguration,
-    rcuRemoveOutputLocation,
-    rcuRemoveEncryptionConfiguration,
-    rcuOutputLocation,
+    ResultConfigurationUpdates (ResultConfigurationUpdates'),
+    newResultConfigurationUpdates,
 
     -- ** ResultSet
-    ResultSet,
-    resultSet,
-    rsRows,
-    rsResultSetMetadata,
+    ResultSet (ResultSet'),
+    newResultSet,
 
     -- ** ResultSetMetadata
-    ResultSetMetadata,
-    resultSetMetadata,
-    rsmColumnInfo,
+    ResultSetMetadata (ResultSetMetadata'),
+    newResultSetMetadata,
 
     -- ** Row
-    Row,
-    row,
-    rowData,
+    Row (Row'),
+    newRow,
 
     -- ** TableMetadata
-    TableMetadata,
-    tableMetadata,
-    tmTableType,
-    tmCreateTime,
-    tmPartitionKeys,
-    tmLastAccessTime,
-    tmColumns,
-    tmParameters,
-    tmName,
+    TableMetadata (TableMetadata'),
+    newTableMetadata,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** UnprocessedNamedQueryId
-    UnprocessedNamedQueryId,
-    unprocessedNamedQueryId,
-    unqiNamedQueryId,
-    unqiErrorMessage,
-    unqiErrorCode,
+    UnprocessedNamedQueryId (UnprocessedNamedQueryId'),
+    newUnprocessedNamedQueryId,
 
     -- ** UnprocessedQueryExecutionId
-    UnprocessedQueryExecutionId,
-    unprocessedQueryExecutionId,
-    uqeiQueryExecutionId,
-    uqeiErrorMessage,
-    uqeiErrorCode,
+    UnprocessedQueryExecutionId (UnprocessedQueryExecutionId'),
+    newUnprocessedQueryExecutionId,
 
     -- ** WorkGroup
-    WorkGroup,
-    workGroup,
-    wgCreationTime,
-    wgConfiguration,
-    wgState,
-    wgDescription,
-    wgName,
+    WorkGroup (WorkGroup'),
+    newWorkGroup,
 
     -- ** WorkGroupConfiguration
-    WorkGroupConfiguration,
-    workGroupConfiguration,
-    wgcBytesScannedCutoffPerQuery,
-    wgcPublishCloudWatchMetricsEnabled,
-    wgcEnforceWorkGroupConfiguration,
-    wgcRequesterPaysEnabled,
-    wgcEngineVersion,
-    wgcResultConfiguration,
+    WorkGroupConfiguration (WorkGroupConfiguration'),
+    newWorkGroupConfiguration,
 
     -- ** WorkGroupConfigurationUpdates
-    WorkGroupConfigurationUpdates,
-    workGroupConfigurationUpdates,
-    wgcuBytesScannedCutoffPerQuery,
-    wgcuResultConfigurationUpdates,
-    wgcuPublishCloudWatchMetricsEnabled,
-    wgcuEnforceWorkGroupConfiguration,
-    wgcuRequesterPaysEnabled,
-    wgcuRemoveBytesScannedCutoffPerQuery,
-    wgcuEngineVersion,
+    WorkGroupConfigurationUpdates (WorkGroupConfigurationUpdates'),
+    newWorkGroupConfigurationUpdates,
 
     -- ** WorkGroupSummary
-    WorkGroupSummary,
-    workGroupSummary,
-    wgsCreationTime,
-    wgsState,
-    wgsName,
-    wgsEngineVersion,
-    wgsDescription,
+    WorkGroupSummary (WorkGroupSummary'),
+    newWorkGroupSummary,
   )
 where
 
@@ -376,6 +373,7 @@ import Network.AWS.Athena.GetQueryExecution
 import Network.AWS.Athena.GetQueryResults
 import Network.AWS.Athena.GetTableMetadata
 import Network.AWS.Athena.GetWorkGroup
+import Network.AWS.Athena.Lens
 import Network.AWS.Athena.ListDataCatalogs
 import Network.AWS.Athena.ListDatabases
 import Network.AWS.Athena.ListEngineVersions

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,126 +24,136 @@
 -- Returns the specified data catalog.
 module Network.AWS.Athena.GetDataCatalog
   ( -- * Creating a Request
-    getDataCatalog,
-    GetDataCatalog,
+    GetDataCatalog (..),
+    newGetDataCatalog,
 
     -- * Request Lenses
-    gdcName,
+    getDataCatalog_name,
 
     -- * Destructuring the Response
-    getDataCatalogResponse,
-    GetDataCatalogResponse,
+    GetDataCatalogResponse (..),
+    newGetDataCatalogResponse,
 
     -- * Response Lenses
-    gdcrrsDataCatalog,
-    gdcrrsResponseStatus,
+    getDataCatalogResponse_dataCatalog,
+    getDataCatalogResponse_httpStatus,
   )
 where
 
 import Network.AWS.Athena.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Athena.Types.DataCatalog
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDataCatalog' smart constructor.
-newtype GetDataCatalog = GetDataCatalog'
-  { _gdcName ::
-      Text
+-- | /See:/ 'newGetDataCatalog' smart constructor.
+data GetDataCatalog = GetDataCatalog'
+  { -- | The name of the data catalog to return.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDataCatalog' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDataCatalog' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdcName' - The name of the data catalog to return.
-getDataCatalog ::
-  -- | 'gdcName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'getDataCatalog_name' - The name of the data catalog to return.
+newGetDataCatalog ::
+  -- | 'name'
+  Prelude.Text ->
   GetDataCatalog
-getDataCatalog pName_ =
-  GetDataCatalog' {_gdcName = pName_}
+newGetDataCatalog pName_ =
+  GetDataCatalog' {name = pName_}
 
 -- | The name of the data catalog to return.
-gdcName :: Lens' GetDataCatalog Text
-gdcName = lens _gdcName (\s a -> s {_gdcName = a})
+getDataCatalog_name :: Lens.Lens' GetDataCatalog Prelude.Text
+getDataCatalog_name = Lens.lens (\GetDataCatalog' {name} -> name) (\s@GetDataCatalog' {} a -> s {name = a} :: GetDataCatalog)
 
-instance AWSRequest GetDataCatalog where
+instance Prelude.AWSRequest GetDataCatalog where
   type Rs GetDataCatalog = GetDataCatalogResponse
-  request = postJSON athena
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDataCatalogResponse'
-            <$> (x .?> "DataCatalog") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DataCatalog")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDataCatalog
+instance Prelude.Hashable GetDataCatalog
 
-instance NFData GetDataCatalog
+instance Prelude.NFData GetDataCatalog
 
-instance ToHeaders GetDataCatalog where
+instance Prelude.ToHeaders GetDataCatalog where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonAthena.GetDataCatalog" :: ByteString),
+              Prelude.=# ( "AmazonAthena.GetDataCatalog" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDataCatalog where
+instance Prelude.ToJSON GetDataCatalog where
   toJSON GetDataCatalog' {..} =
-    object (catMaybes [Just ("Name" .= _gdcName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath GetDataCatalog where
-  toPath = const "/"
+instance Prelude.ToPath GetDataCatalog where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDataCatalog where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDataCatalog where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDataCatalogResponse' smart constructor.
+-- | /See:/ 'newGetDataCatalogResponse' smart constructor.
 data GetDataCatalogResponse = GetDataCatalogResponse'
-  { _gdcrrsDataCatalog ::
-      !(Maybe DataCatalog),
-    _gdcrrsResponseStatus ::
-      !Int
+  { -- | The data catalog returned.
+    dataCatalog :: Prelude.Maybe DataCatalog,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDataCatalogResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDataCatalogResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdcrrsDataCatalog' - The data catalog returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdcrrsResponseStatus' - -- | The response status code.
-getDataCatalogResponse ::
-  -- | 'gdcrrsResponseStatus'
-  Int ->
+-- 'dataCatalog', 'getDataCatalogResponse_dataCatalog' - The data catalog returned.
+--
+-- 'httpStatus', 'getDataCatalogResponse_httpStatus' - The response's http status code.
+newGetDataCatalogResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDataCatalogResponse
-getDataCatalogResponse pResponseStatus_ =
+newGetDataCatalogResponse pHttpStatus_ =
   GetDataCatalogResponse'
-    { _gdcrrsDataCatalog =
-        Nothing,
-      _gdcrrsResponseStatus = pResponseStatus_
+    { dataCatalog =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The data catalog returned.
-gdcrrsDataCatalog :: Lens' GetDataCatalogResponse (Maybe DataCatalog)
-gdcrrsDataCatalog = lens _gdcrrsDataCatalog (\s a -> s {_gdcrrsDataCatalog = a})
+getDataCatalogResponse_dataCatalog :: Lens.Lens' GetDataCatalogResponse (Prelude.Maybe DataCatalog)
+getDataCatalogResponse_dataCatalog = Lens.lens (\GetDataCatalogResponse' {dataCatalog} -> dataCatalog) (\s@GetDataCatalogResponse' {} a -> s {dataCatalog = a} :: GetDataCatalogResponse)
 
--- | -- | The response status code.
-gdcrrsResponseStatus :: Lens' GetDataCatalogResponse Int
-gdcrrsResponseStatus = lens _gdcrrsResponseStatus (\s a -> s {_gdcrrsResponseStatus = a})
+-- | The response's http status code.
+getDataCatalogResponse_httpStatus :: Lens.Lens' GetDataCatalogResponse Prelude.Int
+getDataCatalogResponse_httpStatus = Lens.lens (\GetDataCatalogResponse' {httpStatus} -> httpStatus) (\s@GetDataCatalogResponse' {} a -> s {httpStatus = a} :: GetDataCatalogResponse)
 
-instance NFData GetDataCatalogResponse
+instance Prelude.NFData GetDataCatalogResponse

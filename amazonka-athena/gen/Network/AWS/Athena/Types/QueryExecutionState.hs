@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.Athena.Types.QueryExecutionState
   ( QueryExecutionState
       ( ..,
-        Cancelled,
-        Failed,
-        Queued,
-        Running,
-        Succeeded
+        QueryExecutionStateCANCELLED,
+        QueryExecutionStateFAILED,
+        QueryExecutionStateQUEUED,
+        QueryExecutionStateRUNNING,
+        QueryExecutionStateSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QueryExecutionState
-  = QueryExecutionState'
-      ( CI
-          Text
-      )
+newtype QueryExecutionState = QueryExecutionState'
+  { fromQueryExecutionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cancelled :: QueryExecutionState
-pattern Cancelled = QueryExecutionState' "CANCELLED"
+pattern QueryExecutionStateCANCELLED :: QueryExecutionState
+pattern QueryExecutionStateCANCELLED = QueryExecutionState' "CANCELLED"
 
-pattern Failed :: QueryExecutionState
-pattern Failed = QueryExecutionState' "FAILED"
+pattern QueryExecutionStateFAILED :: QueryExecutionState
+pattern QueryExecutionStateFAILED = QueryExecutionState' "FAILED"
 
-pattern Queued :: QueryExecutionState
-pattern Queued = QueryExecutionState' "QUEUED"
+pattern QueryExecutionStateQUEUED :: QueryExecutionState
+pattern QueryExecutionStateQUEUED = QueryExecutionState' "QUEUED"
 
-pattern Running :: QueryExecutionState
-pattern Running = QueryExecutionState' "RUNNING"
+pattern QueryExecutionStateRUNNING :: QueryExecutionState
+pattern QueryExecutionStateRUNNING = QueryExecutionState' "RUNNING"
 
-pattern Succeeded :: QueryExecutionState
-pattern Succeeded = QueryExecutionState' "SUCCEEDED"
+pattern QueryExecutionStateSUCCEEDED :: QueryExecutionState
+pattern QueryExecutionStateSUCCEEDED = QueryExecutionState' "SUCCEEDED"
 
 {-# COMPLETE
-  Cancelled,
-  Failed,
-  Queued,
-  Running,
-  Succeeded,
+  QueryExecutionStateCANCELLED,
+  QueryExecutionStateFAILED,
+  QueryExecutionStateQUEUED,
+  QueryExecutionStateRUNNING,
+  QueryExecutionStateSUCCEEDED,
   QueryExecutionState'
   #-}
 
-instance FromText QueryExecutionState where
-  parser = (QueryExecutionState' . mk) <$> takeText
+instance Prelude.FromText QueryExecutionState where
+  parser = QueryExecutionState' Prelude.<$> Prelude.takeText
 
-instance ToText QueryExecutionState where
-  toText (QueryExecutionState' ci) = original ci
+instance Prelude.ToText QueryExecutionState where
+  toText (QueryExecutionState' x) = x
 
-instance Hashable QueryExecutionState
+instance Prelude.Hashable QueryExecutionState
 
-instance NFData QueryExecutionState
+instance Prelude.NFData QueryExecutionState
 
-instance ToByteString QueryExecutionState
+instance Prelude.ToByteString QueryExecutionState
 
-instance ToQuery QueryExecutionState
+instance Prelude.ToQuery QueryExecutionState
 
-instance ToHeader QueryExecutionState
+instance Prelude.ToHeader QueryExecutionState
 
-instance FromJSON QueryExecutionState where
-  parseJSON = parseJSONText "QueryExecutionState"
+instance Prelude.FromJSON QueryExecutionState where
+  parseJSON = Prelude.parseJSONText "QueryExecutionState"

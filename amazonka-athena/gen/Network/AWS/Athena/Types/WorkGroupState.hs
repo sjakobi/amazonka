@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Athena.Types.WorkGroupState
   ( WorkGroupState
       ( ..,
-        Disabled,
-        Enabled
+        WorkGroupStateDISABLED,
+        WorkGroupStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WorkGroupState = WorkGroupState' (CI Text)
+newtype WorkGroupState = WorkGroupState'
+  { fromWorkGroupState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: WorkGroupState
-pattern Disabled = WorkGroupState' "DISABLED"
+pattern WorkGroupStateDISABLED :: WorkGroupState
+pattern WorkGroupStateDISABLED = WorkGroupState' "DISABLED"
 
-pattern Enabled :: WorkGroupState
-pattern Enabled = WorkGroupState' "ENABLED"
+pattern WorkGroupStateENABLED :: WorkGroupState
+pattern WorkGroupStateENABLED = WorkGroupState' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  WorkGroupStateDISABLED,
+  WorkGroupStateENABLED,
   WorkGroupState'
   #-}
 
-instance FromText WorkGroupState where
-  parser = (WorkGroupState' . mk) <$> takeText
+instance Prelude.FromText WorkGroupState where
+  parser = WorkGroupState' Prelude.<$> Prelude.takeText
 
-instance ToText WorkGroupState where
-  toText (WorkGroupState' ci) = original ci
+instance Prelude.ToText WorkGroupState where
+  toText (WorkGroupState' x) = x
 
-instance Hashable WorkGroupState
+instance Prelude.Hashable WorkGroupState
 
-instance NFData WorkGroupState
+instance Prelude.NFData WorkGroupState
 
-instance ToByteString WorkGroupState
+instance Prelude.ToByteString WorkGroupState
 
-instance ToQuery WorkGroupState
+instance Prelude.ToQuery WorkGroupState
 
-instance ToHeader WorkGroupState
+instance Prelude.ToHeader WorkGroupState
 
-instance ToJSON WorkGroupState where
-  toJSON = toJSONText
+instance Prelude.ToJSON WorkGroupState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WorkGroupState where
-  parseJSON = parseJSONText "WorkGroupState"
+instance Prelude.FromJSON WorkGroupState where
+  parseJSON = Prelude.parseJSONText "WorkGroupState"

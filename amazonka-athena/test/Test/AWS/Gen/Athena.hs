@@ -28,181 +28,181 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestCreateDataCatalog $
---             createDataCatalog
+--             newCreateDataCatalog
 --
 --         , requestListQueryExecutions $
---             listQueryExecutions
+--             newListQueryExecutions
 --
 --         , requestListTableMetadata $
---             listTableMetadata
+--             newListTableMetadata
 --
 --         , requestGetQueryExecution $
---             getQueryExecution
+--             newGetQueryExecution
 --
 --         , requestBatchGetNamedQuery $
---             batchGetNamedQuery
+--             newBatchGetNamedQuery
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestGetDatabase $
---             getDatabase
+--             newGetDatabase
 --
 --         , requestDeleteNamedQuery $
---             deleteNamedQuery
+--             newDeleteNamedQuery
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestListEngineVersions $
---             listEngineVersions
+--             newListEngineVersions
 --
 --         , requestGetDataCatalog $
---             getDataCatalog
+--             newGetDataCatalog
 --
 --         , requestListDataCatalogs $
---             listDataCatalogs
+--             newListDataCatalogs
 --
 --         , requestCreateWorkGroup $
---             createWorkGroup
+--             newCreateWorkGroup
 --
 --         , requestGetNamedQuery $
---             getNamedQuery
+--             newGetNamedQuery
 --
 --         , requestUpdateWorkGroup $
---             updateWorkGroup
+--             newUpdateWorkGroup
 --
 --         , requestDeleteWorkGroup $
---             deleteWorkGroup
+--             newDeleteWorkGroup
 --
 --         , requestListWorkGroups $
---             listWorkGroups
+--             newListWorkGroups
 --
 --         , requestListDatabases $
---             listDatabases
+--             newListDatabases
 --
 --         , requestGetQueryResults $
---             getQueryResults
+--             newGetQueryResults
 --
 --         , requestGetWorkGroup $
---             getWorkGroup
+--             newGetWorkGroup
 --
 --         , requestStartQueryExecution $
---             startQueryExecution
+--             newStartQueryExecution
 --
 --         , requestStopQueryExecution $
---             stopQueryExecution
+--             newStopQueryExecution
 --
 --         , requestGetTableMetadata $
---             getTableMetadata
+--             newGetTableMetadata
 --
 --         , requestCreateNamedQuery $
---             createNamedQuery
+--             newCreateNamedQuery
 --
 --         , requestListNamedQueries $
---             listNamedQueries
+--             newListNamedQueries
 --
 --         , requestBatchGetQueryExecution $
---             batchGetQueryExecution
+--             newBatchGetQueryExecution
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestDeleteDataCatalog $
---             deleteDataCatalog
+--             newDeleteDataCatalog
 --
 --         , requestUpdateDataCatalog $
---             updateDataCatalog
+--             newUpdateDataCatalog
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseCreateDataCatalog $
---             createDataCatalogResponse
+--             newCreateDataCatalogResponse
 --
 --         , responseListQueryExecutions $
---             listQueryExecutionsResponse
+--             newListQueryExecutionsResponse
 --
 --         , responseListTableMetadata $
---             listTableMetadataResponse
+--             newListTableMetadataResponse
 --
 --         , responseGetQueryExecution $
---             getQueryExecutionResponse
+--             newGetQueryExecutionResponse
 --
 --         , responseBatchGetNamedQuery $
---             batchGetNamedQueryResponse
+--             newBatchGetNamedQueryResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseGetDatabase $
---             getDatabaseResponse
+--             newGetDatabaseResponse
 --
 --         , responseDeleteNamedQuery $
---             deleteNamedQueryResponse
+--             newDeleteNamedQueryResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseListEngineVersions $
---             listEngineVersionsResponse
+--             newListEngineVersionsResponse
 --
 --         , responseGetDataCatalog $
---             getDataCatalogResponse
+--             newGetDataCatalogResponse
 --
 --         , responseListDataCatalogs $
---             listDataCatalogsResponse
+--             newListDataCatalogsResponse
 --
 --         , responseCreateWorkGroup $
---             createWorkGroupResponse
+--             newCreateWorkGroupResponse
 --
 --         , responseGetNamedQuery $
---             getNamedQueryResponse
+--             newGetNamedQueryResponse
 --
 --         , responseUpdateWorkGroup $
---             updateWorkGroupResponse
+--             newUpdateWorkGroupResponse
 --
 --         , responseDeleteWorkGroup $
---             deleteWorkGroupResponse
+--             newDeleteWorkGroupResponse
 --
 --         , responseListWorkGroups $
---             listWorkGroupsResponse
+--             newListWorkGroupsResponse
 --
 --         , responseListDatabases $
---             listDatabasesResponse
+--             newListDatabasesResponse
 --
 --         , responseGetQueryResults $
---             getQueryResultsResponse
+--             newGetQueryResultsResponse
 --
 --         , responseGetWorkGroup $
---             getWorkGroupResponse
+--             newGetWorkGroupResponse
 --
 --         , responseStartQueryExecution $
---             startQueryExecutionResponse
+--             newStartQueryExecutionResponse
 --
 --         , responseStopQueryExecution $
---             stopQueryExecutionResponse
+--             newStopQueryExecutionResponse
 --
 --         , responseGetTableMetadata $
---             getTableMetadataResponse
+--             newGetTableMetadataResponse
 --
 --         , responseCreateNamedQuery $
---             createNamedQueryResponse
+--             newCreateNamedQueryResponse
 --
 --         , responseListNamedQueries $
---             listNamedQueriesResponse
+--             newListNamedQueriesResponse
 --
 --         , responseBatchGetQueryExecution $
---             batchGetQueryExecutionResponse
+--             newBatchGetQueryExecutionResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseDeleteDataCatalog $
---             deleteDataCatalogResponse
+--             newDeleteDataCatalogResponse
 --
 --         , responseUpdateDataCatalog $
---             updateDataCatalogResponse
+--             newUpdateDataCatalogResponse
 --
 --           ]
 --     ]
@@ -390,7 +390,7 @@ responseCreateDataCatalog =
   res
     "CreateDataCatalogResponse"
     "fixture/CreateDataCatalogResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy CreateDataCatalog)
 
 responseListQueryExecutions :: ListQueryExecutionsResponse -> TestTree
@@ -398,7 +398,7 @@ responseListQueryExecutions =
   res
     "ListQueryExecutionsResponse"
     "fixture/ListQueryExecutionsResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy ListQueryExecutions)
 
 responseListTableMetadata :: ListTableMetadataResponse -> TestTree
@@ -406,7 +406,7 @@ responseListTableMetadata =
   res
     "ListTableMetadataResponse"
     "fixture/ListTableMetadataResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy ListTableMetadata)
 
 responseGetQueryExecution :: GetQueryExecutionResponse -> TestTree
@@ -414,7 +414,7 @@ responseGetQueryExecution =
   res
     "GetQueryExecutionResponse"
     "fixture/GetQueryExecutionResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy GetQueryExecution)
 
 responseBatchGetNamedQuery :: BatchGetNamedQueryResponse -> TestTree
@@ -422,7 +422,7 @@ responseBatchGetNamedQuery =
   res
     "BatchGetNamedQueryResponse"
     "fixture/BatchGetNamedQueryResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy BatchGetNamedQuery)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -430,7 +430,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseGetDatabase :: GetDatabaseResponse -> TestTree
@@ -438,7 +438,7 @@ responseGetDatabase =
   res
     "GetDatabaseResponse"
     "fixture/GetDatabaseResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy GetDatabase)
 
 responseDeleteNamedQuery :: DeleteNamedQueryResponse -> TestTree
@@ -446,7 +446,7 @@ responseDeleteNamedQuery =
   res
     "DeleteNamedQueryResponse"
     "fixture/DeleteNamedQueryResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy DeleteNamedQuery)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -454,7 +454,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseListEngineVersions :: ListEngineVersionsResponse -> TestTree
@@ -462,7 +462,7 @@ responseListEngineVersions =
   res
     "ListEngineVersionsResponse"
     "fixture/ListEngineVersionsResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy ListEngineVersions)
 
 responseGetDataCatalog :: GetDataCatalogResponse -> TestTree
@@ -470,7 +470,7 @@ responseGetDataCatalog =
   res
     "GetDataCatalogResponse"
     "fixture/GetDataCatalogResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy GetDataCatalog)
 
 responseListDataCatalogs :: ListDataCatalogsResponse -> TestTree
@@ -478,7 +478,7 @@ responseListDataCatalogs =
   res
     "ListDataCatalogsResponse"
     "fixture/ListDataCatalogsResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy ListDataCatalogs)
 
 responseCreateWorkGroup :: CreateWorkGroupResponse -> TestTree
@@ -486,7 +486,7 @@ responseCreateWorkGroup =
   res
     "CreateWorkGroupResponse"
     "fixture/CreateWorkGroupResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy CreateWorkGroup)
 
 responseGetNamedQuery :: GetNamedQueryResponse -> TestTree
@@ -494,7 +494,7 @@ responseGetNamedQuery =
   res
     "GetNamedQueryResponse"
     "fixture/GetNamedQueryResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy GetNamedQuery)
 
 responseUpdateWorkGroup :: UpdateWorkGroupResponse -> TestTree
@@ -502,7 +502,7 @@ responseUpdateWorkGroup =
   res
     "UpdateWorkGroupResponse"
     "fixture/UpdateWorkGroupResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy UpdateWorkGroup)
 
 responseDeleteWorkGroup :: DeleteWorkGroupResponse -> TestTree
@@ -510,7 +510,7 @@ responseDeleteWorkGroup =
   res
     "DeleteWorkGroupResponse"
     "fixture/DeleteWorkGroupResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy DeleteWorkGroup)
 
 responseListWorkGroups :: ListWorkGroupsResponse -> TestTree
@@ -518,7 +518,7 @@ responseListWorkGroups =
   res
     "ListWorkGroupsResponse"
     "fixture/ListWorkGroupsResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy ListWorkGroups)
 
 responseListDatabases :: ListDatabasesResponse -> TestTree
@@ -526,7 +526,7 @@ responseListDatabases =
   res
     "ListDatabasesResponse"
     "fixture/ListDatabasesResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy ListDatabases)
 
 responseGetQueryResults :: GetQueryResultsResponse -> TestTree
@@ -534,7 +534,7 @@ responseGetQueryResults =
   res
     "GetQueryResultsResponse"
     "fixture/GetQueryResultsResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy GetQueryResults)
 
 responseGetWorkGroup :: GetWorkGroupResponse -> TestTree
@@ -542,7 +542,7 @@ responseGetWorkGroup =
   res
     "GetWorkGroupResponse"
     "fixture/GetWorkGroupResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy GetWorkGroup)
 
 responseStartQueryExecution :: StartQueryExecutionResponse -> TestTree
@@ -550,7 +550,7 @@ responseStartQueryExecution =
   res
     "StartQueryExecutionResponse"
     "fixture/StartQueryExecutionResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy StartQueryExecution)
 
 responseStopQueryExecution :: StopQueryExecutionResponse -> TestTree
@@ -558,7 +558,7 @@ responseStopQueryExecution =
   res
     "StopQueryExecutionResponse"
     "fixture/StopQueryExecutionResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy StopQueryExecution)
 
 responseGetTableMetadata :: GetTableMetadataResponse -> TestTree
@@ -566,7 +566,7 @@ responseGetTableMetadata =
   res
     "GetTableMetadataResponse"
     "fixture/GetTableMetadataResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy GetTableMetadata)
 
 responseCreateNamedQuery :: CreateNamedQueryResponse -> TestTree
@@ -574,7 +574,7 @@ responseCreateNamedQuery =
   res
     "CreateNamedQueryResponse"
     "fixture/CreateNamedQueryResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy CreateNamedQuery)
 
 responseListNamedQueries :: ListNamedQueriesResponse -> TestTree
@@ -582,7 +582,7 @@ responseListNamedQueries =
   res
     "ListNamedQueriesResponse"
     "fixture/ListNamedQueriesResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy ListNamedQueries)
 
 responseBatchGetQueryExecution :: BatchGetQueryExecutionResponse -> TestTree
@@ -590,7 +590,7 @@ responseBatchGetQueryExecution =
   res
     "BatchGetQueryExecutionResponse"
     "fixture/BatchGetQueryExecutionResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy BatchGetQueryExecution)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -598,7 +598,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseDeleteDataCatalog :: DeleteDataCatalogResponse -> TestTree
@@ -606,7 +606,7 @@ responseDeleteDataCatalog =
   res
     "DeleteDataCatalogResponse"
     "fixture/DeleteDataCatalogResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy DeleteDataCatalog)
 
 responseUpdateDataCatalog :: UpdateDataCatalogResponse -> TestTree
@@ -614,5 +614,5 @@ responseUpdateDataCatalog =
   res
     "UpdateDataCatalogResponse"
     "fixture/UpdateDataCatalogResponse.proto"
-    athena
+    defaultService
     (Proxy :: Proxy UpdateDataCatalog)

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,76 +20,109 @@
 module Network.AWS.Athena.Types.QueryExecutionStatus where
 
 import Network.AWS.Athena.Types.QueryExecutionState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The completion date, current state, submission time, and state change reason (if applicable) for the query execution.
+-- | The completion date, current state, submission time, and state change
+-- reason (if applicable) for the query execution.
 --
---
---
--- /See:/ 'queryExecutionStatus' smart constructor.
+-- /See:/ 'newQueryExecutionStatus' smart constructor.
 data QueryExecutionStatus = QueryExecutionStatus'
-  { _qesSubmissionDateTime ::
-      !(Maybe POSIX),
-    _qesStateChangeReason ::
-      !(Maybe Text),
-    _qesCompletionDateTime ::
-      !(Maybe POSIX),
-    _qesState ::
-      !(Maybe QueryExecutionState)
+  { -- | The date and time that the query was submitted.
+    submissionDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Further detail about the status of the query.
+    stateChangeReason :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the query completed.
+    completionDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The state of query execution. @QUEUED@ indicates that the query has been
+    -- submitted to the service, and Athena will execute the query as soon as
+    -- resources are available. @RUNNING@ indicates that the query is in
+    -- execution phase. @SUCCEEDED@ indicates that the query completed without
+    -- errors. @FAILED@ indicates that the query experienced an error and did
+    -- not complete processing. @CANCELLED@ indicates that a user input
+    -- interrupted query execution.
+    --
+    -- Athena automatically retries your queries in cases of certain transient
+    -- errors. As a result, you may see the query state transition from
+    -- @RUNNING@ or @FAILED@ to @QUEUED@.
+    state :: Prelude.Maybe QueryExecutionState
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryExecutionStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryExecutionStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qesSubmissionDateTime' - The date and time that the query was submitted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qesStateChangeReason' - Further detail about the status of the query.
+-- 'submissionDateTime', 'queryExecutionStatus_submissionDateTime' - The date and time that the query was submitted.
 --
--- * 'qesCompletionDateTime' - The date and time that the query completed.
+-- 'stateChangeReason', 'queryExecutionStatus_stateChangeReason' - Further detail about the status of the query.
 --
--- * 'qesState' - The state of query execution. @QUEUED@ indicates that the query has been submitted to the service, and Athena will execute the query as soon as resources are available. @RUNNING@ indicates that the query is in execution phase. @SUCCEEDED@ indicates that the query completed without errors. @FAILED@ indicates that the query experienced an error and did not complete processing. @CANCELLED@ indicates that a user input interrupted query execution.
-queryExecutionStatus ::
+-- 'completionDateTime', 'queryExecutionStatus_completionDateTime' - The date and time that the query completed.
+--
+-- 'state', 'queryExecutionStatus_state' - The state of query execution. @QUEUED@ indicates that the query has been
+-- submitted to the service, and Athena will execute the query as soon as
+-- resources are available. @RUNNING@ indicates that the query is in
+-- execution phase. @SUCCEEDED@ indicates that the query completed without
+-- errors. @FAILED@ indicates that the query experienced an error and did
+-- not complete processing. @CANCELLED@ indicates that a user input
+-- interrupted query execution.
+--
+-- Athena automatically retries your queries in cases of certain transient
+-- errors. As a result, you may see the query state transition from
+-- @RUNNING@ or @FAILED@ to @QUEUED@.
+newQueryExecutionStatus ::
   QueryExecutionStatus
-queryExecutionStatus =
+newQueryExecutionStatus =
   QueryExecutionStatus'
-    { _qesSubmissionDateTime =
-        Nothing,
-      _qesStateChangeReason = Nothing,
-      _qesCompletionDateTime = Nothing,
-      _qesState = Nothing
+    { submissionDateTime =
+        Prelude.Nothing,
+      stateChangeReason = Prelude.Nothing,
+      completionDateTime = Prelude.Nothing,
+      state = Prelude.Nothing
     }
 
 -- | The date and time that the query was submitted.
-qesSubmissionDateTime :: Lens' QueryExecutionStatus (Maybe UTCTime)
-qesSubmissionDateTime = lens _qesSubmissionDateTime (\s a -> s {_qesSubmissionDateTime = a}) . mapping _Time
+queryExecutionStatus_submissionDateTime :: Lens.Lens' QueryExecutionStatus (Prelude.Maybe Prelude.UTCTime)
+queryExecutionStatus_submissionDateTime = Lens.lens (\QueryExecutionStatus' {submissionDateTime} -> submissionDateTime) (\s@QueryExecutionStatus' {} a -> s {submissionDateTime = a} :: QueryExecutionStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | Further detail about the status of the query.
-qesStateChangeReason :: Lens' QueryExecutionStatus (Maybe Text)
-qesStateChangeReason = lens _qesStateChangeReason (\s a -> s {_qesStateChangeReason = a})
+queryExecutionStatus_stateChangeReason :: Lens.Lens' QueryExecutionStatus (Prelude.Maybe Prelude.Text)
+queryExecutionStatus_stateChangeReason = Lens.lens (\QueryExecutionStatus' {stateChangeReason} -> stateChangeReason) (\s@QueryExecutionStatus' {} a -> s {stateChangeReason = a} :: QueryExecutionStatus)
 
 -- | The date and time that the query completed.
-qesCompletionDateTime :: Lens' QueryExecutionStatus (Maybe UTCTime)
-qesCompletionDateTime = lens _qesCompletionDateTime (\s a -> s {_qesCompletionDateTime = a}) . mapping _Time
+queryExecutionStatus_completionDateTime :: Lens.Lens' QueryExecutionStatus (Prelude.Maybe Prelude.UTCTime)
+queryExecutionStatus_completionDateTime = Lens.lens (\QueryExecutionStatus' {completionDateTime} -> completionDateTime) (\s@QueryExecutionStatus' {} a -> s {completionDateTime = a} :: QueryExecutionStatus) Prelude.. Lens.mapping Prelude._Time
 
--- | The state of query execution. @QUEUED@ indicates that the query has been submitted to the service, and Athena will execute the query as soon as resources are available. @RUNNING@ indicates that the query is in execution phase. @SUCCEEDED@ indicates that the query completed without errors. @FAILED@ indicates that the query experienced an error and did not complete processing. @CANCELLED@ indicates that a user input interrupted query execution.
-qesState :: Lens' QueryExecutionStatus (Maybe QueryExecutionState)
-qesState = lens _qesState (\s a -> s {_qesState = a})
+-- | The state of query execution. @QUEUED@ indicates that the query has been
+-- submitted to the service, and Athena will execute the query as soon as
+-- resources are available. @RUNNING@ indicates that the query is in
+-- execution phase. @SUCCEEDED@ indicates that the query completed without
+-- errors. @FAILED@ indicates that the query experienced an error and did
+-- not complete processing. @CANCELLED@ indicates that a user input
+-- interrupted query execution.
+--
+-- Athena automatically retries your queries in cases of certain transient
+-- errors. As a result, you may see the query state transition from
+-- @RUNNING@ or @FAILED@ to @QUEUED@.
+queryExecutionStatus_state :: Lens.Lens' QueryExecutionStatus (Prelude.Maybe QueryExecutionState)
+queryExecutionStatus_state = Lens.lens (\QueryExecutionStatus' {state} -> state) (\s@QueryExecutionStatus' {} a -> s {state = a} :: QueryExecutionStatus)
 
-instance FromJSON QueryExecutionStatus where
+instance Prelude.FromJSON QueryExecutionStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueryExecutionStatus"
       ( \x ->
           QueryExecutionStatus'
-            <$> (x .:? "SubmissionDateTime")
-            <*> (x .:? "StateChangeReason")
-            <*> (x .:? "CompletionDateTime")
-            <*> (x .:? "State")
+            Prelude.<$> (x Prelude..:? "SubmissionDateTime")
+            Prelude.<*> (x Prelude..:? "StateChangeReason")
+            Prelude.<*> (x Prelude..:? "CompletionDateTime")
+            Prelude.<*> (x Prelude..:? "State")
       )
 
-instance Hashable QueryExecutionStatus
+instance Prelude.Hashable QueryExecutionStatus
 
-instance NFData QueryExecutionStatus
+instance Prelude.NFData QueryExecutionStatus

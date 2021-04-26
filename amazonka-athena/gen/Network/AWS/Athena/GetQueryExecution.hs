@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a single execution of a query if you have access to the workgroup in which the query ran. Each time a query executes, information about the query execution is saved with a unique ID.
+-- Returns information about a single execution of a query if you have
+-- access to the workgroup in which the query ran. Each time a query
+-- executes, information about the query execution is saved with a unique
+-- ID.
 module Network.AWS.Athena.GetQueryExecution
   ( -- * Creating a Request
-    getQueryExecution,
-    GetQueryExecution,
+    GetQueryExecution (..),
+    newGetQueryExecution,
 
     -- * Request Lenses
-    gqeQueryExecutionId,
+    getQueryExecution_queryExecutionId,
 
     -- * Destructuring the Response
-    getQueryExecutionResponse,
-    GetQueryExecutionResponse,
+    GetQueryExecutionResponse (..),
+    newGetQueryExecutionResponse,
 
     -- * Response Lenses
-    gqerrsQueryExecution,
-    gqerrsResponseStatus,
+    getQueryExecutionResponse_queryExecution,
+    getQueryExecutionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Athena.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Athena.Types.QueryExecution
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getQueryExecution' smart constructor.
-newtype GetQueryExecution = GetQueryExecution'
-  { _gqeQueryExecutionId ::
-      Text
+-- | /See:/ 'newGetQueryExecution' smart constructor.
+data GetQueryExecution = GetQueryExecution'
+  { -- | The unique ID of the query execution.
+    queryExecutionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetQueryExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetQueryExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gqeQueryExecutionId' - The unique ID of the query execution.
-getQueryExecution ::
-  -- | 'gqeQueryExecutionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'queryExecutionId', 'getQueryExecution_queryExecutionId' - The unique ID of the query execution.
+newGetQueryExecution ::
+  -- | 'queryExecutionId'
+  Prelude.Text ->
   GetQueryExecution
-getQueryExecution pQueryExecutionId_ =
+newGetQueryExecution pQueryExecutionId_ =
   GetQueryExecution'
-    { _gqeQueryExecutionId =
+    { queryExecutionId =
         pQueryExecutionId_
     }
 
 -- | The unique ID of the query execution.
-gqeQueryExecutionId :: Lens' GetQueryExecution Text
-gqeQueryExecutionId = lens _gqeQueryExecutionId (\s a -> s {_gqeQueryExecutionId = a})
+getQueryExecution_queryExecutionId :: Lens.Lens' GetQueryExecution Prelude.Text
+getQueryExecution_queryExecutionId = Lens.lens (\GetQueryExecution' {queryExecutionId} -> queryExecutionId) (\s@GetQueryExecution' {} a -> s {queryExecutionId = a} :: GetQueryExecution)
 
-instance AWSRequest GetQueryExecution where
+instance Prelude.AWSRequest GetQueryExecution where
   type Rs GetQueryExecution = GetQueryExecutionResponse
-  request = postJSON athena
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetQueryExecutionResponse'
-            <$> (x .?> "QueryExecution") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "QueryExecution")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetQueryExecution
+instance Prelude.Hashable GetQueryExecution
 
-instance NFData GetQueryExecution
+instance Prelude.NFData GetQueryExecution
 
-instance ToHeaders GetQueryExecution where
+instance Prelude.ToHeaders GetQueryExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonAthena.GetQueryExecution" :: ByteString),
+              Prelude.=# ( "AmazonAthena.GetQueryExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetQueryExecution where
+instance Prelude.ToJSON GetQueryExecution where
   toJSON GetQueryExecution' {..} =
-    object
-      ( catMaybes
-          [Just ("QueryExecutionId" .= _gqeQueryExecutionId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("QueryExecutionId" Prelude..= queryExecutionId)
+          ]
       )
 
-instance ToPath GetQueryExecution where
-  toPath = const "/"
+instance Prelude.ToPath GetQueryExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetQueryExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery GetQueryExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getQueryExecutionResponse' smart constructor.
+-- | /See:/ 'newGetQueryExecutionResponse' smart constructor.
 data GetQueryExecutionResponse = GetQueryExecutionResponse'
-  { _gqerrsQueryExecution ::
-      !( Maybe
-           QueryExecution
-       ),
-    _gqerrsResponseStatus ::
-      !Int
+  { -- | Information about the query execution.
+    queryExecution :: Prelude.Maybe QueryExecution,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetQueryExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetQueryExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gqerrsQueryExecution' - Information about the query execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gqerrsResponseStatus' - -- | The response status code.
-getQueryExecutionResponse ::
-  -- | 'gqerrsResponseStatus'
-  Int ->
+-- 'queryExecution', 'getQueryExecutionResponse_queryExecution' - Information about the query execution.
+--
+-- 'httpStatus', 'getQueryExecutionResponse_httpStatus' - The response's http status code.
+newGetQueryExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetQueryExecutionResponse
-getQueryExecutionResponse pResponseStatus_ =
+newGetQueryExecutionResponse pHttpStatus_ =
   GetQueryExecutionResponse'
-    { _gqerrsQueryExecution =
-        Nothing,
-      _gqerrsResponseStatus = pResponseStatus_
+    { queryExecution =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the query execution.
-gqerrsQueryExecution :: Lens' GetQueryExecutionResponse (Maybe QueryExecution)
-gqerrsQueryExecution = lens _gqerrsQueryExecution (\s a -> s {_gqerrsQueryExecution = a})
+getQueryExecutionResponse_queryExecution :: Lens.Lens' GetQueryExecutionResponse (Prelude.Maybe QueryExecution)
+getQueryExecutionResponse_queryExecution = Lens.lens (\GetQueryExecutionResponse' {queryExecution} -> queryExecution) (\s@GetQueryExecutionResponse' {} a -> s {queryExecution = a} :: GetQueryExecutionResponse)
 
--- | -- | The response status code.
-gqerrsResponseStatus :: Lens' GetQueryExecutionResponse Int
-gqerrsResponseStatus = lens _gqerrsResponseStatus (\s a -> s {_gqerrsResponseStatus = a})
+-- | The response's http status code.
+getQueryExecutionResponse_httpStatus :: Lens.Lens' GetQueryExecutionResponse Prelude.Int
+getQueryExecutionResponse_httpStatus = Lens.lens (\GetQueryExecutionResponse' {httpStatus} -> httpStatus) (\s@GetQueryExecutionResponse' {} a -> s {httpStatus = a} :: GetQueryExecutionResponse)
 
-instance NFData GetQueryExecutionResponse
+instance Prelude.NFData GetQueryExecutionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,43 +20,49 @@
 module Network.AWS.Athena.Types.ResultSetMetadata where
 
 import Network.AWS.Athena.Types.ColumnInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The metadata that describes the column structure and data types of a table of query results. To return a @ResultSetMetadata@ object, use 'GetQueryResults' .
+-- | The metadata that describes the column structure and data types of a
+-- table of query results. To return a @ResultSetMetadata@ object, use
+-- GetQueryResults.
 --
---
---
--- /See:/ 'resultSetMetadata' smart constructor.
-newtype ResultSetMetadata = ResultSetMetadata'
-  { _rsmColumnInfo ::
-      Maybe [ColumnInfo]
+-- /See:/ 'newResultSetMetadata' smart constructor.
+data ResultSetMetadata = ResultSetMetadata'
+  { -- | Information about the columns returned in a query result metadata.
+    columnInfo :: Prelude.Maybe [ColumnInfo]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResultSetMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResultSetMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsmColumnInfo' - Information about the columns returned in a query result metadata.
-resultSetMetadata ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'columnInfo', 'resultSetMetadata_columnInfo' - Information about the columns returned in a query result metadata.
+newResultSetMetadata ::
   ResultSetMetadata
-resultSetMetadata =
-  ResultSetMetadata' {_rsmColumnInfo = Nothing}
+newResultSetMetadata =
+  ResultSetMetadata' {columnInfo = Prelude.Nothing}
 
 -- | Information about the columns returned in a query result metadata.
-rsmColumnInfo :: Lens' ResultSetMetadata [ColumnInfo]
-rsmColumnInfo = lens _rsmColumnInfo (\s a -> s {_rsmColumnInfo = a}) . _Default . _Coerce
+resultSetMetadata_columnInfo :: Lens.Lens' ResultSetMetadata (Prelude.Maybe [ColumnInfo])
+resultSetMetadata_columnInfo = Lens.lens (\ResultSetMetadata' {columnInfo} -> columnInfo) (\s@ResultSetMetadata' {} a -> s {columnInfo = a} :: ResultSetMetadata) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ResultSetMetadata where
+instance Prelude.FromJSON ResultSetMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResultSetMetadata"
       ( \x ->
           ResultSetMetadata'
-            <$> (x .:? "ColumnInfo" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "ColumnInfo"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ResultSetMetadata
+instance Prelude.Hashable ResultSetMetadata
 
-instance NFData ResultSetMetadata
+instance Prelude.NFData ResultSetMetadata

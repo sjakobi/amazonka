@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,68 +20,120 @@
 module Network.AWS.Athena.Types.ResultConfiguration where
 
 import Network.AWS.Athena.Types.EncryptionConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The location in Amazon S3 where query results are stored and the encryption option, if any, used for query results. These are known as "client-side settings". If workgroup settings override client-side settings, then the query uses the workgroup settings.
+-- | The location in Amazon S3 where query results are stored and the
+-- encryption option, if any, used for query results. These are known as
+-- \"client-side settings\". If workgroup settings override client-side
+-- settings, then the query uses the workgroup settings.
 --
---
---
--- /See:/ 'resultConfiguration' smart constructor.
+-- /See:/ 'newResultConfiguration' smart constructor.
 data ResultConfiguration = ResultConfiguration'
-  { _rcEncryptionConfiguration ::
-      !( Maybe
-           EncryptionConfiguration
-       ),
-    _rcOutputLocation ::
-      !(Maybe Text)
+  { -- | If query results are encrypted in Amazon S3, indicates the encryption
+    -- option used (for example, @SSE-KMS@ or @CSE-KMS@) and key information.
+    -- This is a client-side setting. If workgroup settings override
+    -- client-side settings, then the query uses the encryption configuration
+    -- that is specified for the workgroup, and also uses the location for
+    -- storing query results specified in the workgroup. See
+    -- WorkGroupConfiguration$EnforceWorkGroupConfiguration and
+    -- <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings>.
+    encryptionConfiguration :: Prelude.Maybe EncryptionConfiguration,
+    -- | The location in Amazon S3 where your query results are stored, such as
+    -- @s3:\/\/path\/to\/query\/bucket\/@. To run the query, you must specify
+    -- the query results location using one of the ways: either for individual
+    -- queries using either this setting (client-side), or in the workgroup,
+    -- using WorkGroupConfiguration. If none of them is set, Athena issues an
+    -- error that no output location is provided. For more information, see
+    -- <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results>.
+    -- If workgroup settings override client-side settings, then the query uses
+    -- the settings specified for the workgroup. See
+    -- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+    outputLocation :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResultConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResultConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcEncryptionConfiguration' - If query results are encrypted in Amazon S3, indicates the encryption option used (for example, @SSE-KMS@ or @CSE-KMS@ ) and key information. This is a client-side setting. If workgroup settings override client-side settings, then the query uses the encryption configuration that is specified for the workgroup, and also uses the location for storing query results specified in the workgroup. See 'WorkGroupConfiguration$EnforceWorkGroupConfiguration' and <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcOutputLocation' - The location in Amazon S3 where your query results are stored, such as @s3://path/to/query/bucket/@ . To run the query, you must specify the query results location using one of the ways: either for individual queries using either this setting (client-side), or in the workgroup, using 'WorkGroupConfiguration' . If none of them is set, Athena issues an error that no output location is provided. For more information, see <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results> . If workgroup settings override client-side settings, then the query uses the settings specified for the workgroup. See 'WorkGroupConfiguration$EnforceWorkGroupConfiguration' .
-resultConfiguration ::
+-- 'encryptionConfiguration', 'resultConfiguration_encryptionConfiguration' - If query results are encrypted in Amazon S3, indicates the encryption
+-- option used (for example, @SSE-KMS@ or @CSE-KMS@) and key information.
+-- This is a client-side setting. If workgroup settings override
+-- client-side settings, then the query uses the encryption configuration
+-- that is specified for the workgroup, and also uses the location for
+-- storing query results specified in the workgroup. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration and
+-- <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings>.
+--
+-- 'outputLocation', 'resultConfiguration_outputLocation' - The location in Amazon S3 where your query results are stored, such as
+-- @s3:\/\/path\/to\/query\/bucket\/@. To run the query, you must specify
+-- the query results location using one of the ways: either for individual
+-- queries using either this setting (client-side), or in the workgroup,
+-- using WorkGroupConfiguration. If none of them is set, Athena issues an
+-- error that no output location is provided. For more information, see
+-- <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results>.
+-- If workgroup settings override client-side settings, then the query uses
+-- the settings specified for the workgroup. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+newResultConfiguration ::
   ResultConfiguration
-resultConfiguration =
+newResultConfiguration =
   ResultConfiguration'
-    { _rcEncryptionConfiguration =
-        Nothing,
-      _rcOutputLocation = Nothing
+    { encryptionConfiguration =
+        Prelude.Nothing,
+      outputLocation = Prelude.Nothing
     }
 
--- | If query results are encrypted in Amazon S3, indicates the encryption option used (for example, @SSE-KMS@ or @CSE-KMS@ ) and key information. This is a client-side setting. If workgroup settings override client-side settings, then the query uses the encryption configuration that is specified for the workgroup, and also uses the location for storing query results specified in the workgroup. See 'WorkGroupConfiguration$EnforceWorkGroupConfiguration' and <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings> .
-rcEncryptionConfiguration :: Lens' ResultConfiguration (Maybe EncryptionConfiguration)
-rcEncryptionConfiguration = lens _rcEncryptionConfiguration (\s a -> s {_rcEncryptionConfiguration = a})
+-- | If query results are encrypted in Amazon S3, indicates the encryption
+-- option used (for example, @SSE-KMS@ or @CSE-KMS@) and key information.
+-- This is a client-side setting. If workgroup settings override
+-- client-side settings, then the query uses the encryption configuration
+-- that is specified for the workgroup, and also uses the location for
+-- storing query results specified in the workgroup. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration and
+-- <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings>.
+resultConfiguration_encryptionConfiguration :: Lens.Lens' ResultConfiguration (Prelude.Maybe EncryptionConfiguration)
+resultConfiguration_encryptionConfiguration = Lens.lens (\ResultConfiguration' {encryptionConfiguration} -> encryptionConfiguration) (\s@ResultConfiguration' {} a -> s {encryptionConfiguration = a} :: ResultConfiguration)
 
--- | The location in Amazon S3 where your query results are stored, such as @s3://path/to/query/bucket/@ . To run the query, you must specify the query results location using one of the ways: either for individual queries using either this setting (client-side), or in the workgroup, using 'WorkGroupConfiguration' . If none of them is set, Athena issues an error that no output location is provided. For more information, see <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results> . If workgroup settings override client-side settings, then the query uses the settings specified for the workgroup. See 'WorkGroupConfiguration$EnforceWorkGroupConfiguration' .
-rcOutputLocation :: Lens' ResultConfiguration (Maybe Text)
-rcOutputLocation = lens _rcOutputLocation (\s a -> s {_rcOutputLocation = a})
+-- | The location in Amazon S3 where your query results are stored, such as
+-- @s3:\/\/path\/to\/query\/bucket\/@. To run the query, you must specify
+-- the query results location using one of the ways: either for individual
+-- queries using either this setting (client-side), or in the workgroup,
+-- using WorkGroupConfiguration. If none of them is set, Athena issues an
+-- error that no output location is provided. For more information, see
+-- <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results>.
+-- If workgroup settings override client-side settings, then the query uses
+-- the settings specified for the workgroup. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+resultConfiguration_outputLocation :: Lens.Lens' ResultConfiguration (Prelude.Maybe Prelude.Text)
+resultConfiguration_outputLocation = Lens.lens (\ResultConfiguration' {outputLocation} -> outputLocation) (\s@ResultConfiguration' {} a -> s {outputLocation = a} :: ResultConfiguration)
 
-instance FromJSON ResultConfiguration where
+instance Prelude.FromJSON ResultConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResultConfiguration"
       ( \x ->
           ResultConfiguration'
-            <$> (x .:? "EncryptionConfiguration")
-            <*> (x .:? "OutputLocation")
+            Prelude.<$> (x Prelude..:? "EncryptionConfiguration")
+            Prelude.<*> (x Prelude..:? "OutputLocation")
       )
 
-instance Hashable ResultConfiguration
+instance Prelude.Hashable ResultConfiguration
 
-instance NFData ResultConfiguration
+instance Prelude.NFData ResultConfiguration
 
-instance ToJSON ResultConfiguration where
+instance Prelude.ToJSON ResultConfiguration where
   toJSON ResultConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("EncryptionConfiguration" .=)
-              <$> _rcEncryptionConfiguration,
-            ("OutputLocation" .=) <$> _rcOutputLocation
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EncryptionConfiguration" Prelude..=)
+              Prelude.<$> encryptionConfiguration,
+            ("OutputLocation" Prelude..=)
+              Prelude.<$> outputLocation
           ]
       )

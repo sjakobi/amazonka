@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,36 +19,43 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Athena.Types.Datum where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A piece of data (a field in the table).
 --
---
---
--- /See:/ 'datum' smart constructor.
-newtype Datum = Datum' {_dVarCharValue :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newDatum' smart constructor.
+data Datum = Datum'
+  { -- | The value of the datum.
+    varCharValue :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Datum' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Datum' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dVarCharValue' - The value of the datum.
-datum ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'varCharValue', 'datum_varCharValue' - The value of the datum.
+newDatum ::
   Datum
-datum = Datum' {_dVarCharValue = Nothing}
+newDatum = Datum' {varCharValue = Prelude.Nothing}
 
 -- | The value of the datum.
-dVarCharValue :: Lens' Datum (Maybe Text)
-dVarCharValue = lens _dVarCharValue (\s a -> s {_dVarCharValue = a})
+datum_varCharValue :: Lens.Lens' Datum (Prelude.Maybe Prelude.Text)
+datum_varCharValue = Lens.lens (\Datum' {varCharValue} -> varCharValue) (\s@Datum' {} a -> s {varCharValue = a} :: Datum)
 
-instance FromJSON Datum where
+instance Prelude.FromJSON Datum where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Datum"
-      (\x -> Datum' <$> (x .:? "VarCharValue"))
+      ( \x ->
+          Datum' Prelude.<$> (x Prelude..:? "VarCharValue")
+      )
 
-instance Hashable Datum
+instance Prelude.Hashable Datum
 
-instance NFData Datum
+instance Prelude.NFData Datum

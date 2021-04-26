@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,130 +20,147 @@
 module Network.AWS.Athena.Types.ColumnInfo where
 
 import Network.AWS.Athena.Types.ColumnNullable
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the columns in a query execution result.
 --
---
---
--- /See:/ 'columnInfo' smart constructor.
+-- /See:/ 'newColumnInfo' smart constructor.
 data ColumnInfo = ColumnInfo'
-  { _ciCatalogName ::
-      !(Maybe Text),
-    _ciTableName :: !(Maybe Text),
-    _ciPrecision :: !(Maybe Int),
-    _ciCaseSensitive :: !(Maybe Bool),
-    _ciNullable :: !(Maybe ColumnNullable),
-    _ciLabel :: !(Maybe Text),
-    _ciSchemaName :: !(Maybe Text),
-    _ciScale :: !(Maybe Int),
-    _ciName :: !Text,
-    _ciType :: !Text
+  { -- | The catalog to which the query results belong.
+    catalogName :: Prelude.Maybe Prelude.Text,
+    -- | The table name for the query results.
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | For @DECIMAL@ data types, specifies the total number of digits, up to
+    -- 38. For performance reasons, we recommend up to 18 digits.
+    precision :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether values in the column are case-sensitive.
+    caseSensitive :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates the column\'s nullable status.
+    nullable :: Prelude.Maybe ColumnNullable,
+    -- | A column label.
+    label :: Prelude.Maybe Prelude.Text,
+    -- | The schema name (database name) to which the query results belong.
+    schemaName :: Prelude.Maybe Prelude.Text,
+    -- | For @DECIMAL@ data types, specifies the total number of digits in the
+    -- fractional part of the value. Defaults to 0.
+    scale :: Prelude.Maybe Prelude.Int,
+    -- | The name of the column.
+    name :: Prelude.Text,
+    -- | The data type of the column.
+    type' :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ColumnInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ColumnInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciCatalogName' - The catalog to which the query results belong.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciTableName' - The table name for the query results.
+-- 'catalogName', 'columnInfo_catalogName' - The catalog to which the query results belong.
 --
--- * 'ciPrecision' - For @DECIMAL@ data types, specifies the total number of digits, up to 38. For performance reasons, we recommend up to 18 digits.
+-- 'tableName', 'columnInfo_tableName' - The table name for the query results.
 --
--- * 'ciCaseSensitive' - Indicates whether values in the column are case-sensitive.
+-- 'precision', 'columnInfo_precision' - For @DECIMAL@ data types, specifies the total number of digits, up to
+-- 38. For performance reasons, we recommend up to 18 digits.
 --
--- * 'ciNullable' - Indicates the column's nullable status.
+-- 'caseSensitive', 'columnInfo_caseSensitive' - Indicates whether values in the column are case-sensitive.
 --
--- * 'ciLabel' - A column label.
+-- 'nullable', 'columnInfo_nullable' - Indicates the column\'s nullable status.
 --
--- * 'ciSchemaName' - The schema name (database name) to which the query results belong.
+-- 'label', 'columnInfo_label' - A column label.
 --
--- * 'ciScale' - For @DECIMAL@ data types, specifies the total number of digits in the fractional part of the value. Defaults to 0.
+-- 'schemaName', 'columnInfo_schemaName' - The schema name (database name) to which the query results belong.
 --
--- * 'ciName' - The name of the column.
+-- 'scale', 'columnInfo_scale' - For @DECIMAL@ data types, specifies the total number of digits in the
+-- fractional part of the value. Defaults to 0.
 --
--- * 'ciType' - The data type of the column.
-columnInfo ::
-  -- | 'ciName'
-  Text ->
-  -- | 'ciType'
-  Text ->
+-- 'name', 'columnInfo_name' - The name of the column.
+--
+-- 'type'', 'columnInfo_type' - The data type of the column.
+newColumnInfo ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
+  Prelude.Text ->
   ColumnInfo
-columnInfo pName_ pType_ =
+newColumnInfo pName_ pType_ =
   ColumnInfo'
-    { _ciCatalogName = Nothing,
-      _ciTableName = Nothing,
-      _ciPrecision = Nothing,
-      _ciCaseSensitive = Nothing,
-      _ciNullable = Nothing,
-      _ciLabel = Nothing,
-      _ciSchemaName = Nothing,
-      _ciScale = Nothing,
-      _ciName = pName_,
-      _ciType = pType_
+    { catalogName = Prelude.Nothing,
+      tableName = Prelude.Nothing,
+      precision = Prelude.Nothing,
+      caseSensitive = Prelude.Nothing,
+      nullable = Prelude.Nothing,
+      label = Prelude.Nothing,
+      schemaName = Prelude.Nothing,
+      scale = Prelude.Nothing,
+      name = pName_,
+      type' = pType_
     }
 
 -- | The catalog to which the query results belong.
-ciCatalogName :: Lens' ColumnInfo (Maybe Text)
-ciCatalogName = lens _ciCatalogName (\s a -> s {_ciCatalogName = a})
+columnInfo_catalogName :: Lens.Lens' ColumnInfo (Prelude.Maybe Prelude.Text)
+columnInfo_catalogName = Lens.lens (\ColumnInfo' {catalogName} -> catalogName) (\s@ColumnInfo' {} a -> s {catalogName = a} :: ColumnInfo)
 
 -- | The table name for the query results.
-ciTableName :: Lens' ColumnInfo (Maybe Text)
-ciTableName = lens _ciTableName (\s a -> s {_ciTableName = a})
+columnInfo_tableName :: Lens.Lens' ColumnInfo (Prelude.Maybe Prelude.Text)
+columnInfo_tableName = Lens.lens (\ColumnInfo' {tableName} -> tableName) (\s@ColumnInfo' {} a -> s {tableName = a} :: ColumnInfo)
 
--- | For @DECIMAL@ data types, specifies the total number of digits, up to 38. For performance reasons, we recommend up to 18 digits.
-ciPrecision :: Lens' ColumnInfo (Maybe Int)
-ciPrecision = lens _ciPrecision (\s a -> s {_ciPrecision = a})
+-- | For @DECIMAL@ data types, specifies the total number of digits, up to
+-- 38. For performance reasons, we recommend up to 18 digits.
+columnInfo_precision :: Lens.Lens' ColumnInfo (Prelude.Maybe Prelude.Int)
+columnInfo_precision = Lens.lens (\ColumnInfo' {precision} -> precision) (\s@ColumnInfo' {} a -> s {precision = a} :: ColumnInfo)
 
 -- | Indicates whether values in the column are case-sensitive.
-ciCaseSensitive :: Lens' ColumnInfo (Maybe Bool)
-ciCaseSensitive = lens _ciCaseSensitive (\s a -> s {_ciCaseSensitive = a})
+columnInfo_caseSensitive :: Lens.Lens' ColumnInfo (Prelude.Maybe Prelude.Bool)
+columnInfo_caseSensitive = Lens.lens (\ColumnInfo' {caseSensitive} -> caseSensitive) (\s@ColumnInfo' {} a -> s {caseSensitive = a} :: ColumnInfo)
 
--- | Indicates the column's nullable status.
-ciNullable :: Lens' ColumnInfo (Maybe ColumnNullable)
-ciNullable = lens _ciNullable (\s a -> s {_ciNullable = a})
+-- | Indicates the column\'s nullable status.
+columnInfo_nullable :: Lens.Lens' ColumnInfo (Prelude.Maybe ColumnNullable)
+columnInfo_nullable = Lens.lens (\ColumnInfo' {nullable} -> nullable) (\s@ColumnInfo' {} a -> s {nullable = a} :: ColumnInfo)
 
 -- | A column label.
-ciLabel :: Lens' ColumnInfo (Maybe Text)
-ciLabel = lens _ciLabel (\s a -> s {_ciLabel = a})
+columnInfo_label :: Lens.Lens' ColumnInfo (Prelude.Maybe Prelude.Text)
+columnInfo_label = Lens.lens (\ColumnInfo' {label} -> label) (\s@ColumnInfo' {} a -> s {label = a} :: ColumnInfo)
 
 -- | The schema name (database name) to which the query results belong.
-ciSchemaName :: Lens' ColumnInfo (Maybe Text)
-ciSchemaName = lens _ciSchemaName (\s a -> s {_ciSchemaName = a})
+columnInfo_schemaName :: Lens.Lens' ColumnInfo (Prelude.Maybe Prelude.Text)
+columnInfo_schemaName = Lens.lens (\ColumnInfo' {schemaName} -> schemaName) (\s@ColumnInfo' {} a -> s {schemaName = a} :: ColumnInfo)
 
--- | For @DECIMAL@ data types, specifies the total number of digits in the fractional part of the value. Defaults to 0.
-ciScale :: Lens' ColumnInfo (Maybe Int)
-ciScale = lens _ciScale (\s a -> s {_ciScale = a})
+-- | For @DECIMAL@ data types, specifies the total number of digits in the
+-- fractional part of the value. Defaults to 0.
+columnInfo_scale :: Lens.Lens' ColumnInfo (Prelude.Maybe Prelude.Int)
+columnInfo_scale = Lens.lens (\ColumnInfo' {scale} -> scale) (\s@ColumnInfo' {} a -> s {scale = a} :: ColumnInfo)
 
 -- | The name of the column.
-ciName :: Lens' ColumnInfo Text
-ciName = lens _ciName (\s a -> s {_ciName = a})
+columnInfo_name :: Lens.Lens' ColumnInfo Prelude.Text
+columnInfo_name = Lens.lens (\ColumnInfo' {name} -> name) (\s@ColumnInfo' {} a -> s {name = a} :: ColumnInfo)
 
 -- | The data type of the column.
-ciType :: Lens' ColumnInfo Text
-ciType = lens _ciType (\s a -> s {_ciType = a})
+columnInfo_type :: Lens.Lens' ColumnInfo Prelude.Text
+columnInfo_type = Lens.lens (\ColumnInfo' {type'} -> type') (\s@ColumnInfo' {} a -> s {type' = a} :: ColumnInfo)
 
-instance FromJSON ColumnInfo where
+instance Prelude.FromJSON ColumnInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ColumnInfo"
       ( \x ->
           ColumnInfo'
-            <$> (x .:? "CatalogName")
-            <*> (x .:? "TableName")
-            <*> (x .:? "Precision")
-            <*> (x .:? "CaseSensitive")
-            <*> (x .:? "Nullable")
-            <*> (x .:? "Label")
-            <*> (x .:? "SchemaName")
-            <*> (x .:? "Scale")
-            <*> (x .: "Name")
-            <*> (x .: "Type")
+            Prelude.<$> (x Prelude..:? "CatalogName")
+            Prelude.<*> (x Prelude..:? "TableName")
+            Prelude.<*> (x Prelude..:? "Precision")
+            Prelude.<*> (x Prelude..:? "CaseSensitive")
+            Prelude.<*> (x Prelude..:? "Nullable")
+            Prelude.<*> (x Prelude..:? "Label")
+            Prelude.<*> (x Prelude..:? "SchemaName")
+            Prelude.<*> (x Prelude..:? "Scale")
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Type")
       )
 
-instance Hashable ColumnInfo
+instance Prelude.Hashable ColumnInfo
 
-instance NFData ColumnInfo
+instance Prelude.NFData ColumnInfo

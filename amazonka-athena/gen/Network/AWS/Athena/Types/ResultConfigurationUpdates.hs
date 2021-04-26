@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,148 @@
 module Network.AWS.Athena.Types.ResultConfigurationUpdates where
 
 import Network.AWS.Athena.Types.EncryptionConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The information about the updates in the query results, such as output location and encryption configuration for the query results.
+-- | The information about the updates in the query results, such as output
+-- location and encryption configuration for the query results.
 --
---
---
--- /See:/ 'resultConfigurationUpdates' smart constructor.
+-- /See:/ 'newResultConfigurationUpdates' smart constructor.
 data ResultConfigurationUpdates = ResultConfigurationUpdates'
-  { _rcuEncryptionConfiguration ::
-      !( Maybe
-           EncryptionConfiguration
-       ),
-    _rcuRemoveOutputLocation ::
-      !(Maybe Bool),
-    _rcuRemoveEncryptionConfiguration ::
-      !(Maybe Bool),
-    _rcuOutputLocation ::
-      !(Maybe Text)
+  { -- | The encryption configuration for the query results.
+    encryptionConfiguration :: Prelude.Maybe EncryptionConfiguration,
+    -- | If set to \"true\", indicates that the previously-specified query
+    -- results location (also known as a client-side setting) for queries in
+    -- this workgroup should be ignored and set to null. If set to \"false\" or
+    -- not set, and a value is present in the OutputLocation in
+    -- ResultConfigurationUpdates (the client-side setting), the OutputLocation
+    -- in the workgroup\'s ResultConfiguration will be updated with the new
+    -- value. For more information, see
+    -- <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings>.
+    removeOutputLocation :: Prelude.Maybe Prelude.Bool,
+    -- | If set to \"true\", indicates that the previously-specified encryption
+    -- configuration (also known as the client-side setting) for queries in
+    -- this workgroup should be ignored and set to null. If set to \"false\" or
+    -- not set, and a value is present in the EncryptionConfiguration in
+    -- ResultConfigurationUpdates (the client-side setting), the
+    -- EncryptionConfiguration in the workgroup\'s ResultConfiguration will be
+    -- updated with the new value. For more information, see
+    -- <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings>.
+    removeEncryptionConfiguration :: Prelude.Maybe Prelude.Bool,
+    -- | The location in Amazon S3 where your query results are stored, such as
+    -- @s3:\/\/path\/to\/query\/bucket\/@. For more information, see
+    -- <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results>
+    -- If workgroup settings override client-side settings, then the query uses
+    -- the location for the query results and the encryption configuration that
+    -- are specified for the workgroup. The \"workgroup settings override\" is
+    -- specified in EnforceWorkGroupConfiguration (true\/false) in the
+    -- WorkGroupConfiguration. See
+    -- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+    outputLocation :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResultConfigurationUpdates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResultConfigurationUpdates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcuEncryptionConfiguration' - The encryption configuration for the query results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcuRemoveOutputLocation' - If set to "true", indicates that the previously-specified query results location (also known as a client-side setting) for queries in this workgroup should be ignored and set to null. If set to "false" or not set, and a value is present in the OutputLocation in ResultConfigurationUpdates (the client-side setting), the OutputLocation in the workgroup's ResultConfiguration will be updated with the new value. For more information, see <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings> .
+-- 'encryptionConfiguration', 'resultConfigurationUpdates_encryptionConfiguration' - The encryption configuration for the query results.
 --
--- * 'rcuRemoveEncryptionConfiguration' - If set to "true", indicates that the previously-specified encryption configuration (also known as the client-side setting) for queries in this workgroup should be ignored and set to null. If set to "false" or not set, and a value is present in the EncryptionConfiguration in ResultConfigurationUpdates (the client-side setting), the EncryptionConfiguration in the workgroup's ResultConfiguration will be updated with the new value. For more information, see <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings> .
+-- 'removeOutputLocation', 'resultConfigurationUpdates_removeOutputLocation' - If set to \"true\", indicates that the previously-specified query
+-- results location (also known as a client-side setting) for queries in
+-- this workgroup should be ignored and set to null. If set to \"false\" or
+-- not set, and a value is present in the OutputLocation in
+-- ResultConfigurationUpdates (the client-side setting), the OutputLocation
+-- in the workgroup\'s ResultConfiguration will be updated with the new
+-- value. For more information, see
+-- <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings>.
 --
--- * 'rcuOutputLocation' - The location in Amazon S3 where your query results are stored, such as @s3://path/to/query/bucket/@ . For more information, see <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results> If workgroup settings override client-side settings, then the query uses the location for the query results and the encryption configuration that are specified for the workgroup. The "workgroup settings override" is specified in EnforceWorkGroupConfiguration (true/false) in the WorkGroupConfiguration. See 'WorkGroupConfiguration$EnforceWorkGroupConfiguration' .
-resultConfigurationUpdates ::
+-- 'removeEncryptionConfiguration', 'resultConfigurationUpdates_removeEncryptionConfiguration' - If set to \"true\", indicates that the previously-specified encryption
+-- configuration (also known as the client-side setting) for queries in
+-- this workgroup should be ignored and set to null. If set to \"false\" or
+-- not set, and a value is present in the EncryptionConfiguration in
+-- ResultConfigurationUpdates (the client-side setting), the
+-- EncryptionConfiguration in the workgroup\'s ResultConfiguration will be
+-- updated with the new value. For more information, see
+-- <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings>.
+--
+-- 'outputLocation', 'resultConfigurationUpdates_outputLocation' - The location in Amazon S3 where your query results are stored, such as
+-- @s3:\/\/path\/to\/query\/bucket\/@. For more information, see
+-- <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results>
+-- If workgroup settings override client-side settings, then the query uses
+-- the location for the query results and the encryption configuration that
+-- are specified for the workgroup. The \"workgroup settings override\" is
+-- specified in EnforceWorkGroupConfiguration (true\/false) in the
+-- WorkGroupConfiguration. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+newResultConfigurationUpdates ::
   ResultConfigurationUpdates
-resultConfigurationUpdates =
+newResultConfigurationUpdates =
   ResultConfigurationUpdates'
-    { _rcuEncryptionConfiguration =
-        Nothing,
-      _rcuRemoveOutputLocation = Nothing,
-      _rcuRemoveEncryptionConfiguration = Nothing,
-      _rcuOutputLocation = Nothing
+    { encryptionConfiguration =
+        Prelude.Nothing,
+      removeOutputLocation = Prelude.Nothing,
+      removeEncryptionConfiguration = Prelude.Nothing,
+      outputLocation = Prelude.Nothing
     }
 
 -- | The encryption configuration for the query results.
-rcuEncryptionConfiguration :: Lens' ResultConfigurationUpdates (Maybe EncryptionConfiguration)
-rcuEncryptionConfiguration = lens _rcuEncryptionConfiguration (\s a -> s {_rcuEncryptionConfiguration = a})
+resultConfigurationUpdates_encryptionConfiguration :: Lens.Lens' ResultConfigurationUpdates (Prelude.Maybe EncryptionConfiguration)
+resultConfigurationUpdates_encryptionConfiguration = Lens.lens (\ResultConfigurationUpdates' {encryptionConfiguration} -> encryptionConfiguration) (\s@ResultConfigurationUpdates' {} a -> s {encryptionConfiguration = a} :: ResultConfigurationUpdates)
 
--- | If set to "true", indicates that the previously-specified query results location (also known as a client-side setting) for queries in this workgroup should be ignored and set to null. If set to "false" or not set, and a value is present in the OutputLocation in ResultConfigurationUpdates (the client-side setting), the OutputLocation in the workgroup's ResultConfiguration will be updated with the new value. For more information, see <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings> .
-rcuRemoveOutputLocation :: Lens' ResultConfigurationUpdates (Maybe Bool)
-rcuRemoveOutputLocation = lens _rcuRemoveOutputLocation (\s a -> s {_rcuRemoveOutputLocation = a})
+-- | If set to \"true\", indicates that the previously-specified query
+-- results location (also known as a client-side setting) for queries in
+-- this workgroup should be ignored and set to null. If set to \"false\" or
+-- not set, and a value is present in the OutputLocation in
+-- ResultConfigurationUpdates (the client-side setting), the OutputLocation
+-- in the workgroup\'s ResultConfiguration will be updated with the new
+-- value. For more information, see
+-- <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings>.
+resultConfigurationUpdates_removeOutputLocation :: Lens.Lens' ResultConfigurationUpdates (Prelude.Maybe Prelude.Bool)
+resultConfigurationUpdates_removeOutputLocation = Lens.lens (\ResultConfigurationUpdates' {removeOutputLocation} -> removeOutputLocation) (\s@ResultConfigurationUpdates' {} a -> s {removeOutputLocation = a} :: ResultConfigurationUpdates)
 
--- | If set to "true", indicates that the previously-specified encryption configuration (also known as the client-side setting) for queries in this workgroup should be ignored and set to null. If set to "false" or not set, and a value is present in the EncryptionConfiguration in ResultConfigurationUpdates (the client-side setting), the EncryptionConfiguration in the workgroup's ResultConfiguration will be updated with the new value. For more information, see <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings> .
-rcuRemoveEncryptionConfiguration :: Lens' ResultConfigurationUpdates (Maybe Bool)
-rcuRemoveEncryptionConfiguration = lens _rcuRemoveEncryptionConfiguration (\s a -> s {_rcuRemoveEncryptionConfiguration = a})
+-- | If set to \"true\", indicates that the previously-specified encryption
+-- configuration (also known as the client-side setting) for queries in
+-- this workgroup should be ignored and set to null. If set to \"false\" or
+-- not set, and a value is present in the EncryptionConfiguration in
+-- ResultConfigurationUpdates (the client-side setting), the
+-- EncryptionConfiguration in the workgroup\'s ResultConfiguration will be
+-- updated with the new value. For more information, see
+-- <https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html Workgroup Settings Override Client-Side Settings>.
+resultConfigurationUpdates_removeEncryptionConfiguration :: Lens.Lens' ResultConfigurationUpdates (Prelude.Maybe Prelude.Bool)
+resultConfigurationUpdates_removeEncryptionConfiguration = Lens.lens (\ResultConfigurationUpdates' {removeEncryptionConfiguration} -> removeEncryptionConfiguration) (\s@ResultConfigurationUpdates' {} a -> s {removeEncryptionConfiguration = a} :: ResultConfigurationUpdates)
 
--- | The location in Amazon S3 where your query results are stored, such as @s3://path/to/query/bucket/@ . For more information, see <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results> If workgroup settings override client-side settings, then the query uses the location for the query results and the encryption configuration that are specified for the workgroup. The "workgroup settings override" is specified in EnforceWorkGroupConfiguration (true/false) in the WorkGroupConfiguration. See 'WorkGroupConfiguration$EnforceWorkGroupConfiguration' .
-rcuOutputLocation :: Lens' ResultConfigurationUpdates (Maybe Text)
-rcuOutputLocation = lens _rcuOutputLocation (\s a -> s {_rcuOutputLocation = a})
+-- | The location in Amazon S3 where your query results are stored, such as
+-- @s3:\/\/path\/to\/query\/bucket\/@. For more information, see
+-- <https://docs.aws.amazon.com/athena/latest/ug/querying.html Query Results>
+-- If workgroup settings override client-side settings, then the query uses
+-- the location for the query results and the encryption configuration that
+-- are specified for the workgroup. The \"workgroup settings override\" is
+-- specified in EnforceWorkGroupConfiguration (true\/false) in the
+-- WorkGroupConfiguration. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+resultConfigurationUpdates_outputLocation :: Lens.Lens' ResultConfigurationUpdates (Prelude.Maybe Prelude.Text)
+resultConfigurationUpdates_outputLocation = Lens.lens (\ResultConfigurationUpdates' {outputLocation} -> outputLocation) (\s@ResultConfigurationUpdates' {} a -> s {outputLocation = a} :: ResultConfigurationUpdates)
 
-instance Hashable ResultConfigurationUpdates
+instance Prelude.Hashable ResultConfigurationUpdates
 
-instance NFData ResultConfigurationUpdates
+instance Prelude.NFData ResultConfigurationUpdates
 
-instance ToJSON ResultConfigurationUpdates where
+instance Prelude.ToJSON ResultConfigurationUpdates where
   toJSON ResultConfigurationUpdates' {..} =
-    object
-      ( catMaybes
-          [ ("EncryptionConfiguration" .=)
-              <$> _rcuEncryptionConfiguration,
-            ("RemoveOutputLocation" .=)
-              <$> _rcuRemoveOutputLocation,
-            ("RemoveEncryptionConfiguration" .=)
-              <$> _rcuRemoveEncryptionConfiguration,
-            ("OutputLocation" .=) <$> _rcuOutputLocation
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EncryptionConfiguration" Prelude..=)
+              Prelude.<$> encryptionConfiguration,
+            ("RemoveOutputLocation" Prelude..=)
+              Prelude.<$> removeOutputLocation,
+            ("RemoveEncryptionConfiguration" Prelude..=)
+              Prelude.<$> removeEncryptionConfiguration,
+            ("OutputLocation" Prelude..=)
+              Prelude.<$> outputLocation
           ]
       )

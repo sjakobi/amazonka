@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,151 +24,179 @@
 -- Creates a workgroup with the specified name.
 module Network.AWS.Athena.CreateWorkGroup
   ( -- * Creating a Request
-    createWorkGroup,
-    CreateWorkGroup,
+    CreateWorkGroup (..),
+    newCreateWorkGroup,
 
     -- * Request Lenses
-    cwgConfiguration,
-    cwgTags,
-    cwgDescription,
-    cwgName,
+    createWorkGroup_configuration,
+    createWorkGroup_tags,
+    createWorkGroup_description,
+    createWorkGroup_name,
 
     -- * Destructuring the Response
-    createWorkGroupResponse,
-    CreateWorkGroupResponse,
+    CreateWorkGroupResponse (..),
+    newCreateWorkGroupResponse,
 
     -- * Response Lenses
-    cwgrrsResponseStatus,
+    createWorkGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.Athena.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createWorkGroup' smart constructor.
+-- | /See:/ 'newCreateWorkGroup' smart constructor.
 data CreateWorkGroup = CreateWorkGroup'
-  { _cwgConfiguration ::
-      !(Maybe WorkGroupConfiguration),
-    _cwgTags :: !(Maybe [Tag]),
-    _cwgDescription :: !(Maybe Text),
-    _cwgName :: !Text
+  { -- | The configuration for the workgroup, which includes the location in
+    -- Amazon S3 where query results are stored, the encryption configuration,
+    -- if any, used for encrypting query results, whether the Amazon CloudWatch
+    -- Metrics are enabled for the workgroup, the limit for the amount of bytes
+    -- scanned (cutoff) per query, if it is specified, and whether workgroup\'s
+    -- settings (specified with EnforceWorkGroupConfiguration) in the
+    -- WorkGroupConfiguration override client-side settings. See
+    -- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+    configuration :: Prelude.Maybe WorkGroupConfiguration,
+    -- | A list of comma separated tags to add to the workgroup that is created.
+    tags :: Prelude.Maybe [Tag],
+    -- | The workgroup description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The workgroup name.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateWorkGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateWorkGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwgConfiguration' - The configuration for the workgroup, which includes the location in Amazon S3 where query results are stored, the encryption configuration, if any, used for encrypting query results, whether the Amazon CloudWatch Metrics are enabled for the workgroup, the limit for the amount of bytes scanned (cutoff) per query, if it is specified, and whether workgroup's settings (specified with EnforceWorkGroupConfiguration) in the WorkGroupConfiguration override client-side settings. See 'WorkGroupConfiguration$EnforceWorkGroupConfiguration' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwgTags' - A list of comma separated tags to add to the workgroup that is created.
+-- 'configuration', 'createWorkGroup_configuration' - The configuration for the workgroup, which includes the location in
+-- Amazon S3 where query results are stored, the encryption configuration,
+-- if any, used for encrypting query results, whether the Amazon CloudWatch
+-- Metrics are enabled for the workgroup, the limit for the amount of bytes
+-- scanned (cutoff) per query, if it is specified, and whether workgroup\'s
+-- settings (specified with EnforceWorkGroupConfiguration) in the
+-- WorkGroupConfiguration override client-side settings. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
 --
--- * 'cwgDescription' - The workgroup description.
+-- 'tags', 'createWorkGroup_tags' - A list of comma separated tags to add to the workgroup that is created.
 --
--- * 'cwgName' - The workgroup name.
-createWorkGroup ::
-  -- | 'cwgName'
-  Text ->
+-- 'description', 'createWorkGroup_description' - The workgroup description.
+--
+-- 'name', 'createWorkGroup_name' - The workgroup name.
+newCreateWorkGroup ::
+  -- | 'name'
+  Prelude.Text ->
   CreateWorkGroup
-createWorkGroup pName_ =
+newCreateWorkGroup pName_ =
   CreateWorkGroup'
-    { _cwgConfiguration = Nothing,
-      _cwgTags = Nothing,
-      _cwgDescription = Nothing,
-      _cwgName = pName_
+    { configuration = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      name = pName_
     }
 
--- | The configuration for the workgroup, which includes the location in Amazon S3 where query results are stored, the encryption configuration, if any, used for encrypting query results, whether the Amazon CloudWatch Metrics are enabled for the workgroup, the limit for the amount of bytes scanned (cutoff) per query, if it is specified, and whether workgroup's settings (specified with EnforceWorkGroupConfiguration) in the WorkGroupConfiguration override client-side settings. See 'WorkGroupConfiguration$EnforceWorkGroupConfiguration' .
-cwgConfiguration :: Lens' CreateWorkGroup (Maybe WorkGroupConfiguration)
-cwgConfiguration = lens _cwgConfiguration (\s a -> s {_cwgConfiguration = a})
+-- | The configuration for the workgroup, which includes the location in
+-- Amazon S3 where query results are stored, the encryption configuration,
+-- if any, used for encrypting query results, whether the Amazon CloudWatch
+-- Metrics are enabled for the workgroup, the limit for the amount of bytes
+-- scanned (cutoff) per query, if it is specified, and whether workgroup\'s
+-- settings (specified with EnforceWorkGroupConfiguration) in the
+-- WorkGroupConfiguration override client-side settings. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+createWorkGroup_configuration :: Lens.Lens' CreateWorkGroup (Prelude.Maybe WorkGroupConfiguration)
+createWorkGroup_configuration = Lens.lens (\CreateWorkGroup' {configuration} -> configuration) (\s@CreateWorkGroup' {} a -> s {configuration = a} :: CreateWorkGroup)
 
 -- | A list of comma separated tags to add to the workgroup that is created.
-cwgTags :: Lens' CreateWorkGroup [Tag]
-cwgTags = lens _cwgTags (\s a -> s {_cwgTags = a}) . _Default . _Coerce
+createWorkGroup_tags :: Lens.Lens' CreateWorkGroup (Prelude.Maybe [Tag])
+createWorkGroup_tags = Lens.lens (\CreateWorkGroup' {tags} -> tags) (\s@CreateWorkGroup' {} a -> s {tags = a} :: CreateWorkGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The workgroup description.
-cwgDescription :: Lens' CreateWorkGroup (Maybe Text)
-cwgDescription = lens _cwgDescription (\s a -> s {_cwgDescription = a})
+createWorkGroup_description :: Lens.Lens' CreateWorkGroup (Prelude.Maybe Prelude.Text)
+createWorkGroup_description = Lens.lens (\CreateWorkGroup' {description} -> description) (\s@CreateWorkGroup' {} a -> s {description = a} :: CreateWorkGroup)
 
 -- | The workgroup name.
-cwgName :: Lens' CreateWorkGroup Text
-cwgName = lens _cwgName (\s a -> s {_cwgName = a})
+createWorkGroup_name :: Lens.Lens' CreateWorkGroup Prelude.Text
+createWorkGroup_name = Lens.lens (\CreateWorkGroup' {name} -> name) (\s@CreateWorkGroup' {} a -> s {name = a} :: CreateWorkGroup)
 
-instance AWSRequest CreateWorkGroup where
+instance Prelude.AWSRequest CreateWorkGroup where
   type Rs CreateWorkGroup = CreateWorkGroupResponse
-  request = postJSON athena
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CreateWorkGroupResponse' <$> (pure (fromEnum s))
+          CreateWorkGroupResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateWorkGroup
+instance Prelude.Hashable CreateWorkGroup
 
-instance NFData CreateWorkGroup
+instance Prelude.NFData CreateWorkGroup
 
-instance ToHeaders CreateWorkGroup where
+instance Prelude.ToHeaders CreateWorkGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonAthena.CreateWorkGroup" :: ByteString),
+              Prelude.=# ( "AmazonAthena.CreateWorkGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateWorkGroup where
+instance Prelude.ToJSON CreateWorkGroup where
   toJSON CreateWorkGroup' {..} =
-    object
-      ( catMaybes
-          [ ("Configuration" .=) <$> _cwgConfiguration,
-            ("Tags" .=) <$> _cwgTags,
-            ("Description" .=) <$> _cwgDescription,
-            Just ("Name" .= _cwgName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Configuration" Prelude..=)
+              Prelude.<$> configuration,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateWorkGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateWorkGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateWorkGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateWorkGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createWorkGroupResponse' smart constructor.
-newtype CreateWorkGroupResponse = CreateWorkGroupResponse'
-  { _cwgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newCreateWorkGroupResponse' smart constructor.
+data CreateWorkGroupResponse = CreateWorkGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateWorkGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateWorkGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwgrrsResponseStatus' - -- | The response status code.
-createWorkGroupResponse ::
-  -- | 'cwgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createWorkGroupResponse_httpStatus' - The response's http status code.
+newCreateWorkGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateWorkGroupResponse
-createWorkGroupResponse pResponseStatus_ =
-  CreateWorkGroupResponse'
-    { _cwgrrsResponseStatus =
-        pResponseStatus_
-    }
+newCreateWorkGroupResponse pHttpStatus_ =
+  CreateWorkGroupResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-cwgrrsResponseStatus :: Lens' CreateWorkGroupResponse Int
-cwgrrsResponseStatus = lens _cwgrrsResponseStatus (\s a -> s {_cwgrrsResponseStatus = a})
+-- | The response's http status code.
+createWorkGroupResponse_httpStatus :: Lens.Lens' CreateWorkGroupResponse Prelude.Int
+createWorkGroupResponse_httpStatus = Lens.lens (\CreateWorkGroupResponse' {httpStatus} -> httpStatus) (\s@CreateWorkGroupResponse' {} a -> s {httpStatus = a} :: CreateWorkGroupResponse)
 
-instance NFData CreateWorkGroupResponse
+instance Prelude.NFData CreateWorkGroupResponse

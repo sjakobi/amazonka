@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,76 +20,164 @@
 module Network.AWS.Athena.Types.DataCatalog where
 
 import Network.AWS.Athena.Types.DataCatalogType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a data catalog in an AWS account.
 --
---
---
--- /See:/ 'dataCatalog' smart constructor.
+-- /See:/ 'newDataCatalog' smart constructor.
 data DataCatalog = DataCatalog'
-  { _dcDescription ::
-      !(Maybe Text),
-    _dcParameters :: !(Maybe (Map Text Text)),
-    _dcName :: !Text,
-    _dcType :: !DataCatalogType
+  { -- | An optional description of the data catalog.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the Lambda function or functions to use for the data catalog.
+    -- This is a mapping whose values depend on the catalog type.
+    --
+    -- -   For the @HIVE@ data catalog type, use the following syntax. The
+    --     @metadata-function@ parameter is required. @The sdk-version@
+    --     parameter is optional and defaults to the currently supported
+    --     version.
+    --
+    --     @metadata-function=lambda_arn, sdk-version=version_number @
+    --
+    -- -   For the @LAMBDA@ data catalog type, use one of the following sets of
+    --     required parameters, but not both.
+    --
+    --     -   If you have one Lambda function that processes metadata and
+    --         another for reading the actual data, use the following syntax.
+    --         Both parameters are required.
+    --
+    --         @metadata-function=lambda_arn, record-function=lambda_arn @
+    --
+    --     -   If you have a composite Lambda function that processes both
+    --         metadata and data, use the following syntax to specify your
+    --         Lambda function.
+    --
+    --         @function=lambda_arn @
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the data catalog. The catalog name must be unique for the
+    -- AWS account and can use a maximum of 128 alphanumeric, underscore, at
+    -- sign, or hyphen characters.
+    name :: Prelude.Text,
+    -- | The type of data catalog: @LAMBDA@ for a federated catalog or @HIVE@ for
+    -- an external hive metastore. @GLUE@ refers to the @AwsDataCatalog@ that
+    -- already exists in your account, of which you can have only one.
+    type' :: DataCatalogType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataCatalog' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataCatalog' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcDescription' - An optional description of the data catalog.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcParameters' - Specifies the Lambda function or functions to use for the data catalog. This is a mapping whose values depend on the catalog type.      * For the @HIVE@ data catalog type, use the following syntax. The @metadata-function@ parameter is required. @The sdk-version@ parameter is optional and defaults to the currently supported version. @metadata-function=/lambda_arn/ , sdk-version=/version_number/ @      * For the @LAMBDA@ data catalog type, use one of the following sets of required parameters, but not both.     * If you have one Lambda function that processes metadata and another for reading the actual data, use the following syntax. Both parameters are required. @metadata-function=/lambda_arn/ , record-function=/lambda_arn/ @      * If you have a composite Lambda function that processes both metadata and data, use the following syntax to specify your Lambda function. @function=/lambda_arn/ @
+-- 'description', 'dataCatalog_description' - An optional description of the data catalog.
 --
--- * 'dcName' - The name of the data catalog. The catalog name must be unique for the AWS account and can use a maximum of 128 alphanumeric, underscore, at sign, or hyphen characters.
+-- 'parameters', 'dataCatalog_parameters' - Specifies the Lambda function or functions to use for the data catalog.
+-- This is a mapping whose values depend on the catalog type.
 --
--- * 'dcType' - The type of data catalog: @LAMBDA@ for a federated catalog or @HIVE@ for an external hive metastore. @GLUE@ refers to the @AwsDataCatalog@ that already exists in your account, of which you can have only one.
-dataCatalog ::
-  -- | 'dcName'
-  Text ->
-  -- | 'dcType'
+-- -   For the @HIVE@ data catalog type, use the following syntax. The
+--     @metadata-function@ parameter is required. @The sdk-version@
+--     parameter is optional and defaults to the currently supported
+--     version.
+--
+--     @metadata-function=lambda_arn, sdk-version=version_number @
+--
+-- -   For the @LAMBDA@ data catalog type, use one of the following sets of
+--     required parameters, but not both.
+--
+--     -   If you have one Lambda function that processes metadata and
+--         another for reading the actual data, use the following syntax.
+--         Both parameters are required.
+--
+--         @metadata-function=lambda_arn, record-function=lambda_arn @
+--
+--     -   If you have a composite Lambda function that processes both
+--         metadata and data, use the following syntax to specify your
+--         Lambda function.
+--
+--         @function=lambda_arn @
+--
+-- 'name', 'dataCatalog_name' - The name of the data catalog. The catalog name must be unique for the
+-- AWS account and can use a maximum of 128 alphanumeric, underscore, at
+-- sign, or hyphen characters.
+--
+-- 'type'', 'dataCatalog_type' - The type of data catalog: @LAMBDA@ for a federated catalog or @HIVE@ for
+-- an external hive metastore. @GLUE@ refers to the @AwsDataCatalog@ that
+-- already exists in your account, of which you can have only one.
+newDataCatalog ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   DataCatalogType ->
   DataCatalog
-dataCatalog pName_ pType_ =
+newDataCatalog pName_ pType_ =
   DataCatalog'
-    { _dcDescription = Nothing,
-      _dcParameters = Nothing,
-      _dcName = pName_,
-      _dcType = pType_
+    { description = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      name = pName_,
+      type' = pType_
     }
 
 -- | An optional description of the data catalog.
-dcDescription :: Lens' DataCatalog (Maybe Text)
-dcDescription = lens _dcDescription (\s a -> s {_dcDescription = a})
+dataCatalog_description :: Lens.Lens' DataCatalog (Prelude.Maybe Prelude.Text)
+dataCatalog_description = Lens.lens (\DataCatalog' {description} -> description) (\s@DataCatalog' {} a -> s {description = a} :: DataCatalog)
 
--- | Specifies the Lambda function or functions to use for the data catalog. This is a mapping whose values depend on the catalog type.      * For the @HIVE@ data catalog type, use the following syntax. The @metadata-function@ parameter is required. @The sdk-version@ parameter is optional and defaults to the currently supported version. @metadata-function=/lambda_arn/ , sdk-version=/version_number/ @      * For the @LAMBDA@ data catalog type, use one of the following sets of required parameters, but not both.     * If you have one Lambda function that processes metadata and another for reading the actual data, use the following syntax. Both parameters are required. @metadata-function=/lambda_arn/ , record-function=/lambda_arn/ @      * If you have a composite Lambda function that processes both metadata and data, use the following syntax to specify your Lambda function. @function=/lambda_arn/ @
-dcParameters :: Lens' DataCatalog (HashMap Text Text)
-dcParameters = lens _dcParameters (\s a -> s {_dcParameters = a}) . _Default . _Map
+-- | Specifies the Lambda function or functions to use for the data catalog.
+-- This is a mapping whose values depend on the catalog type.
+--
+-- -   For the @HIVE@ data catalog type, use the following syntax. The
+--     @metadata-function@ parameter is required. @The sdk-version@
+--     parameter is optional and defaults to the currently supported
+--     version.
+--
+--     @metadata-function=lambda_arn, sdk-version=version_number @
+--
+-- -   For the @LAMBDA@ data catalog type, use one of the following sets of
+--     required parameters, but not both.
+--
+--     -   If you have one Lambda function that processes metadata and
+--         another for reading the actual data, use the following syntax.
+--         Both parameters are required.
+--
+--         @metadata-function=lambda_arn, record-function=lambda_arn @
+--
+--     -   If you have a composite Lambda function that processes both
+--         metadata and data, use the following syntax to specify your
+--         Lambda function.
+--
+--         @function=lambda_arn @
+dataCatalog_parameters :: Lens.Lens' DataCatalog (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+dataCatalog_parameters = Lens.lens (\DataCatalog' {parameters} -> parameters) (\s@DataCatalog' {} a -> s {parameters = a} :: DataCatalog) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the data catalog. The catalog name must be unique for the AWS account and can use a maximum of 128 alphanumeric, underscore, at sign, or hyphen characters.
-dcName :: Lens' DataCatalog Text
-dcName = lens _dcName (\s a -> s {_dcName = a})
+-- | The name of the data catalog. The catalog name must be unique for the
+-- AWS account and can use a maximum of 128 alphanumeric, underscore, at
+-- sign, or hyphen characters.
+dataCatalog_name :: Lens.Lens' DataCatalog Prelude.Text
+dataCatalog_name = Lens.lens (\DataCatalog' {name} -> name) (\s@DataCatalog' {} a -> s {name = a} :: DataCatalog)
 
--- | The type of data catalog: @LAMBDA@ for a federated catalog or @HIVE@ for an external hive metastore. @GLUE@ refers to the @AwsDataCatalog@ that already exists in your account, of which you can have only one.
-dcType :: Lens' DataCatalog DataCatalogType
-dcType = lens _dcType (\s a -> s {_dcType = a})
+-- | The type of data catalog: @LAMBDA@ for a federated catalog or @HIVE@ for
+-- an external hive metastore. @GLUE@ refers to the @AwsDataCatalog@ that
+-- already exists in your account, of which you can have only one.
+dataCatalog_type :: Lens.Lens' DataCatalog DataCatalogType
+dataCatalog_type = Lens.lens (\DataCatalog' {type'} -> type') (\s@DataCatalog' {} a -> s {type' = a} :: DataCatalog)
 
-instance FromJSON DataCatalog where
+instance Prelude.FromJSON DataCatalog where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DataCatalog"
       ( \x ->
           DataCatalog'
-            <$> (x .:? "Description")
-            <*> (x .:? "Parameters" .!= mempty)
-            <*> (x .: "Name")
-            <*> (x .: "Type")
+            Prelude.<$> (x Prelude..:? "Description")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Type")
       )
 
-instance Hashable DataCatalog
+instance Prelude.Hashable DataCatalog
 
-instance NFData DataCatalog
+instance Prelude.NFData DataCatalog

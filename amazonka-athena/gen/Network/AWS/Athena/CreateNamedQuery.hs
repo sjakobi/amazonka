@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,193 +21,233 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a named query in the specified workgroup. Requires that you have access to the workgroup.
+-- Creates a named query in the specified workgroup. Requires that you have
+-- access to the workgroup.
 --
---
--- For code samples using the AWS SDK for Java, see <http://docs.aws.amazon.com/athena/latest/ug/code-samples.html Examples and Code Samples> in the /Amazon Athena User Guide/ .
+-- For code samples using the AWS SDK for Java, see
+-- <http://docs.aws.amazon.com/athena/latest/ug/code-samples.html Examples and Code Samples>
+-- in the /Amazon Athena User Guide/.
 module Network.AWS.Athena.CreateNamedQuery
   ( -- * Creating a Request
-    createNamedQuery,
-    CreateNamedQuery,
+    CreateNamedQuery (..),
+    newCreateNamedQuery,
 
     -- * Request Lenses
-    cnqWorkGroup,
-    cnqDescription,
-    cnqClientRequestToken,
-    cnqName,
-    cnqDatabase,
-    cnqQueryString,
+    createNamedQuery_workGroup,
+    createNamedQuery_description,
+    createNamedQuery_clientRequestToken,
+    createNamedQuery_name,
+    createNamedQuery_database,
+    createNamedQuery_queryString,
 
     -- * Destructuring the Response
-    createNamedQueryResponse,
-    CreateNamedQueryResponse,
+    CreateNamedQueryResponse (..),
+    newCreateNamedQueryResponse,
 
     -- * Response Lenses
-    cnqrrsNamedQueryId,
-    cnqrrsResponseStatus,
+    createNamedQueryResponse_namedQueryId,
+    createNamedQueryResponse_httpStatus,
   )
 where
 
 import Network.AWS.Athena.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createNamedQuery' smart constructor.
+-- | /See:/ 'newCreateNamedQuery' smart constructor.
 data CreateNamedQuery = CreateNamedQuery'
-  { _cnqWorkGroup ::
-      !(Maybe Text),
-    _cnqDescription :: !(Maybe Text),
-    _cnqClientRequestToken ::
-      !(Maybe Text),
-    _cnqName :: !Text,
-    _cnqDatabase :: !Text,
-    _cnqQueryString :: !Text
+  { -- | The name of the workgroup in which the named query is being created.
+    workGroup :: Prelude.Maybe Prelude.Text,
+    -- | The query description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A unique case-sensitive string used to ensure the request to create the
+    -- query is idempotent (executes only once). If another @CreateNamedQuery@
+    -- request is received, the same response is returned and another query is
+    -- not created. If a parameter has changed, for example, the @QueryString@,
+    -- an error is returned.
+    --
+    -- This token is listed as not required because AWS SDKs (for example the
+    -- AWS SDK for Java) auto-generate the token for users. If you are not
+    -- using the AWS SDK or the AWS CLI, you must provide this token or the
+    -- action will fail.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The query name.
+    name :: Prelude.Text,
+    -- | The database to which the query belongs.
+    database :: Prelude.Text,
+    -- | The contents of the query with all query statements.
+    queryString :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateNamedQuery' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateNamedQuery' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cnqWorkGroup' - The name of the workgroup in which the named query is being created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cnqDescription' - The query description.
+-- 'workGroup', 'createNamedQuery_workGroup' - The name of the workgroup in which the named query is being created.
 --
--- * 'cnqClientRequestToken' - A unique case-sensitive string used to ensure the request to create the query is idempotent (executes only once). If another @CreateNamedQuery@ request is received, the same response is returned and another query is not created. If a parameter has changed, for example, the @QueryString@ , an error is returned. /Important:/ This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
+-- 'description', 'createNamedQuery_description' - The query description.
 --
--- * 'cnqName' - The query name.
+-- 'clientRequestToken', 'createNamedQuery_clientRequestToken' - A unique case-sensitive string used to ensure the request to create the
+-- query is idempotent (executes only once). If another @CreateNamedQuery@
+-- request is received, the same response is returned and another query is
+-- not created. If a parameter has changed, for example, the @QueryString@,
+-- an error is returned.
 --
--- * 'cnqDatabase' - The database to which the query belongs.
+-- This token is listed as not required because AWS SDKs (for example the
+-- AWS SDK for Java) auto-generate the token for users. If you are not
+-- using the AWS SDK or the AWS CLI, you must provide this token or the
+-- action will fail.
 --
--- * 'cnqQueryString' - The contents of the query with all query statements.
-createNamedQuery ::
-  -- | 'cnqName'
-  Text ->
-  -- | 'cnqDatabase'
-  Text ->
-  -- | 'cnqQueryString'
-  Text ->
+-- 'name', 'createNamedQuery_name' - The query name.
+--
+-- 'database', 'createNamedQuery_database' - The database to which the query belongs.
+--
+-- 'queryString', 'createNamedQuery_queryString' - The contents of the query with all query statements.
+newCreateNamedQuery ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'database'
+  Prelude.Text ->
+  -- | 'queryString'
+  Prelude.Text ->
   CreateNamedQuery
-createNamedQuery pName_ pDatabase_ pQueryString_ =
+newCreateNamedQuery pName_ pDatabase_ pQueryString_ =
   CreateNamedQuery'
-    { _cnqWorkGroup = Nothing,
-      _cnqDescription = Nothing,
-      _cnqClientRequestToken = Nothing,
-      _cnqName = pName_,
-      _cnqDatabase = pDatabase_,
-      _cnqQueryString = pQueryString_
+    { workGroup = Prelude.Nothing,
+      description = Prelude.Nothing,
+      clientRequestToken = Prelude.Nothing,
+      name = pName_,
+      database = pDatabase_,
+      queryString = pQueryString_
     }
 
 -- | The name of the workgroup in which the named query is being created.
-cnqWorkGroup :: Lens' CreateNamedQuery (Maybe Text)
-cnqWorkGroup = lens _cnqWorkGroup (\s a -> s {_cnqWorkGroup = a})
+createNamedQuery_workGroup :: Lens.Lens' CreateNamedQuery (Prelude.Maybe Prelude.Text)
+createNamedQuery_workGroup = Lens.lens (\CreateNamedQuery' {workGroup} -> workGroup) (\s@CreateNamedQuery' {} a -> s {workGroup = a} :: CreateNamedQuery)
 
 -- | The query description.
-cnqDescription :: Lens' CreateNamedQuery (Maybe Text)
-cnqDescription = lens _cnqDescription (\s a -> s {_cnqDescription = a})
+createNamedQuery_description :: Lens.Lens' CreateNamedQuery (Prelude.Maybe Prelude.Text)
+createNamedQuery_description = Lens.lens (\CreateNamedQuery' {description} -> description) (\s@CreateNamedQuery' {} a -> s {description = a} :: CreateNamedQuery)
 
--- | A unique case-sensitive string used to ensure the request to create the query is idempotent (executes only once). If another @CreateNamedQuery@ request is received, the same response is returned and another query is not created. If a parameter has changed, for example, the @QueryString@ , an error is returned. /Important:/ This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
-cnqClientRequestToken :: Lens' CreateNamedQuery (Maybe Text)
-cnqClientRequestToken = lens _cnqClientRequestToken (\s a -> s {_cnqClientRequestToken = a})
+-- | A unique case-sensitive string used to ensure the request to create the
+-- query is idempotent (executes only once). If another @CreateNamedQuery@
+-- request is received, the same response is returned and another query is
+-- not created. If a parameter has changed, for example, the @QueryString@,
+-- an error is returned.
+--
+-- This token is listed as not required because AWS SDKs (for example the
+-- AWS SDK for Java) auto-generate the token for users. If you are not
+-- using the AWS SDK or the AWS CLI, you must provide this token or the
+-- action will fail.
+createNamedQuery_clientRequestToken :: Lens.Lens' CreateNamedQuery (Prelude.Maybe Prelude.Text)
+createNamedQuery_clientRequestToken = Lens.lens (\CreateNamedQuery' {clientRequestToken} -> clientRequestToken) (\s@CreateNamedQuery' {} a -> s {clientRequestToken = a} :: CreateNamedQuery)
 
 -- | The query name.
-cnqName :: Lens' CreateNamedQuery Text
-cnqName = lens _cnqName (\s a -> s {_cnqName = a})
+createNamedQuery_name :: Lens.Lens' CreateNamedQuery Prelude.Text
+createNamedQuery_name = Lens.lens (\CreateNamedQuery' {name} -> name) (\s@CreateNamedQuery' {} a -> s {name = a} :: CreateNamedQuery)
 
 -- | The database to which the query belongs.
-cnqDatabase :: Lens' CreateNamedQuery Text
-cnqDatabase = lens _cnqDatabase (\s a -> s {_cnqDatabase = a})
+createNamedQuery_database :: Lens.Lens' CreateNamedQuery Prelude.Text
+createNamedQuery_database = Lens.lens (\CreateNamedQuery' {database} -> database) (\s@CreateNamedQuery' {} a -> s {database = a} :: CreateNamedQuery)
 
 -- | The contents of the query with all query statements.
-cnqQueryString :: Lens' CreateNamedQuery Text
-cnqQueryString = lens _cnqQueryString (\s a -> s {_cnqQueryString = a})
+createNamedQuery_queryString :: Lens.Lens' CreateNamedQuery Prelude.Text
+createNamedQuery_queryString = Lens.lens (\CreateNamedQuery' {queryString} -> queryString) (\s@CreateNamedQuery' {} a -> s {queryString = a} :: CreateNamedQuery)
 
-instance AWSRequest CreateNamedQuery where
+instance Prelude.AWSRequest CreateNamedQuery where
   type Rs CreateNamedQuery = CreateNamedQueryResponse
-  request = postJSON athena
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateNamedQueryResponse'
-            <$> (x .?> "NamedQueryId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NamedQueryId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateNamedQuery
+instance Prelude.Hashable CreateNamedQuery
 
-instance NFData CreateNamedQuery
+instance Prelude.NFData CreateNamedQuery
 
-instance ToHeaders CreateNamedQuery where
+instance Prelude.ToHeaders CreateNamedQuery where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonAthena.CreateNamedQuery" :: ByteString),
+              Prelude.=# ( "AmazonAthena.CreateNamedQuery" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateNamedQuery where
+instance Prelude.ToJSON CreateNamedQuery where
   toJSON CreateNamedQuery' {..} =
-    object
-      ( catMaybes
-          [ ("WorkGroup" .=) <$> _cnqWorkGroup,
-            ("Description" .=) <$> _cnqDescription,
-            ("ClientRequestToken" .=) <$> _cnqClientRequestToken,
-            Just ("Name" .= _cnqName),
-            Just ("Database" .= _cnqDatabase),
-            Just ("QueryString" .= _cnqQueryString)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("WorkGroup" Prelude..=) Prelude.<$> workGroup,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("ClientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Database" Prelude..= database),
+            Prelude.Just ("QueryString" Prelude..= queryString)
           ]
       )
 
-instance ToPath CreateNamedQuery where
-  toPath = const "/"
+instance Prelude.ToPath CreateNamedQuery where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateNamedQuery where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateNamedQuery where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createNamedQueryResponse' smart constructor.
+-- | /See:/ 'newCreateNamedQueryResponse' smart constructor.
 data CreateNamedQueryResponse = CreateNamedQueryResponse'
-  { _cnqrrsNamedQueryId ::
-      !(Maybe Text),
-    _cnqrrsResponseStatus ::
-      !Int
+  { -- | The unique ID of the query.
+    namedQueryId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateNamedQueryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateNamedQueryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cnqrrsNamedQueryId' - The unique ID of the query.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cnqrrsResponseStatus' - -- | The response status code.
-createNamedQueryResponse ::
-  -- | 'cnqrrsResponseStatus'
-  Int ->
+-- 'namedQueryId', 'createNamedQueryResponse_namedQueryId' - The unique ID of the query.
+--
+-- 'httpStatus', 'createNamedQueryResponse_httpStatus' - The response's http status code.
+newCreateNamedQueryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateNamedQueryResponse
-createNamedQueryResponse pResponseStatus_ =
+newCreateNamedQueryResponse pHttpStatus_ =
   CreateNamedQueryResponse'
-    { _cnqrrsNamedQueryId =
-        Nothing,
-      _cnqrrsResponseStatus = pResponseStatus_
+    { namedQueryId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique ID of the query.
-cnqrrsNamedQueryId :: Lens' CreateNamedQueryResponse (Maybe Text)
-cnqrrsNamedQueryId = lens _cnqrrsNamedQueryId (\s a -> s {_cnqrrsNamedQueryId = a})
+createNamedQueryResponse_namedQueryId :: Lens.Lens' CreateNamedQueryResponse (Prelude.Maybe Prelude.Text)
+createNamedQueryResponse_namedQueryId = Lens.lens (\CreateNamedQueryResponse' {namedQueryId} -> namedQueryId) (\s@CreateNamedQueryResponse' {} a -> s {namedQueryId = a} :: CreateNamedQueryResponse)
 
--- | -- | The response status code.
-cnqrrsResponseStatus :: Lens' CreateNamedQueryResponse Int
-cnqrrsResponseStatus = lens _cnqrrsResponseStatus (\s a -> s {_cnqrrsResponseStatus = a})
+-- | The response's http status code.
+createNamedQueryResponse_httpStatus :: Lens.Lens' CreateNamedQueryResponse Prelude.Int
+createNamedQueryResponse_httpStatus = Lens.lens (\CreateNamedQueryResponse' {httpStatus} -> httpStatus) (\s@CreateNamedQueryResponse' {} a -> s {httpStatus = a} :: CreateNamedQueryResponse)
 
-instance NFData CreateNamedQueryResponse
+instance Prelude.NFData CreateNamedQueryResponse

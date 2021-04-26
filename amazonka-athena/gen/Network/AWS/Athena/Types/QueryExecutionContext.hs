@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Athena.Types.QueryExecutionContext where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The database and data catalog context in which the query execution occurs.
+-- | The database and data catalog context in which the query execution
+-- occurs.
 --
---
---
--- /See:/ 'queryExecutionContext' smart constructor.
+-- /See:/ 'newQueryExecutionContext' smart constructor.
 data QueryExecutionContext = QueryExecutionContext'
-  { _qecCatalog ::
-      !(Maybe Text),
-    _qecDatabase ::
-      !(Maybe Text)
+  { -- | The name of the data catalog used in the query execution.
+    catalog :: Prelude.Maybe Prelude.Text,
+    -- | The name of the database used in the query execution.
+    database :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryExecutionContext' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryExecutionContext' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qecCatalog' - The name of the data catalog used in the query execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qecDatabase' - The name of the database used in the query execution.
-queryExecutionContext ::
+-- 'catalog', 'queryExecutionContext_catalog' - The name of the data catalog used in the query execution.
+--
+-- 'database', 'queryExecutionContext_database' - The name of the database used in the query execution.
+newQueryExecutionContext ::
   QueryExecutionContext
-queryExecutionContext =
+newQueryExecutionContext =
   QueryExecutionContext'
-    { _qecCatalog = Nothing,
-      _qecDatabase = Nothing
+    { catalog = Prelude.Nothing,
+      database = Prelude.Nothing
     }
 
 -- | The name of the data catalog used in the query execution.
-qecCatalog :: Lens' QueryExecutionContext (Maybe Text)
-qecCatalog = lens _qecCatalog (\s a -> s {_qecCatalog = a})
+queryExecutionContext_catalog :: Lens.Lens' QueryExecutionContext (Prelude.Maybe Prelude.Text)
+queryExecutionContext_catalog = Lens.lens (\QueryExecutionContext' {catalog} -> catalog) (\s@QueryExecutionContext' {} a -> s {catalog = a} :: QueryExecutionContext)
 
 -- | The name of the database used in the query execution.
-qecDatabase :: Lens' QueryExecutionContext (Maybe Text)
-qecDatabase = lens _qecDatabase (\s a -> s {_qecDatabase = a})
+queryExecutionContext_database :: Lens.Lens' QueryExecutionContext (Prelude.Maybe Prelude.Text)
+queryExecutionContext_database = Lens.lens (\QueryExecutionContext' {database} -> database) (\s@QueryExecutionContext' {} a -> s {database = a} :: QueryExecutionContext)
 
-instance FromJSON QueryExecutionContext where
+instance Prelude.FromJSON QueryExecutionContext where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueryExecutionContext"
       ( \x ->
           QueryExecutionContext'
-            <$> (x .:? "Catalog") <*> (x .:? "Database")
+            Prelude.<$> (x Prelude..:? "Catalog")
+            Prelude.<*> (x Prelude..:? "Database")
       )
 
-instance Hashable QueryExecutionContext
+instance Prelude.Hashable QueryExecutionContext
 
-instance NFData QueryExecutionContext
+instance Prelude.NFData QueryExecutionContext
 
-instance ToJSON QueryExecutionContext where
+instance Prelude.ToJSON QueryExecutionContext where
   toJSON QueryExecutionContext' {..} =
-    object
-      ( catMaybes
-          [ ("Catalog" .=) <$> _qecCatalog,
-            ("Database" .=) <$> _qecDatabase
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Catalog" Prelude..=) Prelude.<$> catalog,
+            ("Database" Prelude..=) Prelude.<$> database
           ]
       )

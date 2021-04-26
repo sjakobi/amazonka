@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,133 @@
 -- Returns information about the workgroup with the specified name.
 module Network.AWS.Athena.GetWorkGroup
   ( -- * Creating a Request
-    getWorkGroup,
-    GetWorkGroup,
+    GetWorkGroup (..),
+    newGetWorkGroup,
 
     -- * Request Lenses
-    gwgWorkGroup,
+    getWorkGroup_workGroup,
 
     -- * Destructuring the Response
-    getWorkGroupResponse,
-    GetWorkGroupResponse,
+    GetWorkGroupResponse (..),
+    newGetWorkGroupResponse,
 
     -- * Response Lenses
-    gwgrrsWorkGroup,
-    gwgrrsResponseStatus,
+    getWorkGroupResponse_workGroup,
+    getWorkGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.Athena.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Athena.Types.WorkGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getWorkGroup' smart constructor.
-newtype GetWorkGroup = GetWorkGroup'
-  { _gwgWorkGroup ::
-      Text
+-- | /See:/ 'newGetWorkGroup' smart constructor.
+data GetWorkGroup = GetWorkGroup'
+  { -- | The name of the workgroup.
+    workGroup :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetWorkGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetWorkGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gwgWorkGroup' - The name of the workgroup.
-getWorkGroup ::
-  -- | 'gwgWorkGroup'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'workGroup', 'getWorkGroup_workGroup' - The name of the workgroup.
+newGetWorkGroup ::
+  -- | 'workGroup'
+  Prelude.Text ->
   GetWorkGroup
-getWorkGroup pWorkGroup_ =
-  GetWorkGroup' {_gwgWorkGroup = pWorkGroup_}
+newGetWorkGroup pWorkGroup_ =
+  GetWorkGroup' {workGroup = pWorkGroup_}
 
 -- | The name of the workgroup.
-gwgWorkGroup :: Lens' GetWorkGroup Text
-gwgWorkGroup = lens _gwgWorkGroup (\s a -> s {_gwgWorkGroup = a})
+getWorkGroup_workGroup :: Lens.Lens' GetWorkGroup Prelude.Text
+getWorkGroup_workGroup = Lens.lens (\GetWorkGroup' {workGroup} -> workGroup) (\s@GetWorkGroup' {} a -> s {workGroup = a} :: GetWorkGroup)
 
-instance AWSRequest GetWorkGroup where
+instance Prelude.AWSRequest GetWorkGroup where
   type Rs GetWorkGroup = GetWorkGroupResponse
-  request = postJSON athena
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetWorkGroupResponse'
-            <$> (x .?> "WorkGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "WorkGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetWorkGroup
+instance Prelude.Hashable GetWorkGroup
 
-instance NFData GetWorkGroup
+instance Prelude.NFData GetWorkGroup
 
-instance ToHeaders GetWorkGroup where
+instance Prelude.ToHeaders GetWorkGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonAthena.GetWorkGroup" :: ByteString),
+              Prelude.=# ("AmazonAthena.GetWorkGroup" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetWorkGroup where
+instance Prelude.ToJSON GetWorkGroup where
   toJSON GetWorkGroup' {..} =
-    object
-      (catMaybes [Just ("WorkGroup" .= _gwgWorkGroup)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("WorkGroup" Prelude..= workGroup)]
+      )
 
-instance ToPath GetWorkGroup where
-  toPath = const "/"
+instance Prelude.ToPath GetWorkGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetWorkGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery GetWorkGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getWorkGroupResponse' smart constructor.
+-- | /See:/ 'newGetWorkGroupResponse' smart constructor.
 data GetWorkGroupResponse = GetWorkGroupResponse'
-  { _gwgrrsWorkGroup ::
-      !(Maybe WorkGroup),
-    _gwgrrsResponseStatus :: !Int
+  { -- | Information about the workgroup.
+    workGroup :: Prelude.Maybe WorkGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetWorkGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetWorkGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gwgrrsWorkGroup' - Information about the workgroup.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gwgrrsResponseStatus' - -- | The response status code.
-getWorkGroupResponse ::
-  -- | 'gwgrrsResponseStatus'
-  Int ->
+-- 'workGroup', 'getWorkGroupResponse_workGroup' - Information about the workgroup.
+--
+-- 'httpStatus', 'getWorkGroupResponse_httpStatus' - The response's http status code.
+newGetWorkGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetWorkGroupResponse
-getWorkGroupResponse pResponseStatus_ =
+newGetWorkGroupResponse pHttpStatus_ =
   GetWorkGroupResponse'
-    { _gwgrrsWorkGroup = Nothing,
-      _gwgrrsResponseStatus = pResponseStatus_
+    { workGroup = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the workgroup.
-gwgrrsWorkGroup :: Lens' GetWorkGroupResponse (Maybe WorkGroup)
-gwgrrsWorkGroup = lens _gwgrrsWorkGroup (\s a -> s {_gwgrrsWorkGroup = a})
+getWorkGroupResponse_workGroup :: Lens.Lens' GetWorkGroupResponse (Prelude.Maybe WorkGroup)
+getWorkGroupResponse_workGroup = Lens.lens (\GetWorkGroupResponse' {workGroup} -> workGroup) (\s@GetWorkGroupResponse' {} a -> s {workGroup = a} :: GetWorkGroupResponse)
 
--- | -- | The response status code.
-gwgrrsResponseStatus :: Lens' GetWorkGroupResponse Int
-gwgrrsResponseStatus = lens _gwgrrsResponseStatus (\s a -> s {_gwgrrsResponseStatus = a})
+-- | The response's http status code.
+getWorkGroupResponse_httpStatus :: Lens.Lens' GetWorkGroupResponse Prelude.Int
+getWorkGroupResponse_httpStatus = Lens.lens (\GetWorkGroupResponse' {httpStatus} -> httpStatus) (\s@GetWorkGroupResponse' {} a -> s {httpStatus = a} :: GetWorkGroupResponse)
 
-instance NFData GetWorkGroupResponse
+instance Prelude.NFData GetWorkGroupResponse

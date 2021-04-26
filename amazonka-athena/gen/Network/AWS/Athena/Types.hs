@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Athena.Types
   ( -- * Service Configuration
-    athena,
+    defaultService,
 
     -- * Errors
     _InvalidRequestException,
@@ -40,210 +43,107 @@ module Network.AWS.Athena.Types
 
     -- * Column
     Column (..),
-    column,
-    cComment,
-    cType,
-    cName,
+    newColumn,
 
     -- * ColumnInfo
     ColumnInfo (..),
-    columnInfo,
-    ciCatalogName,
-    ciTableName,
-    ciPrecision,
-    ciCaseSensitive,
-    ciNullable,
-    ciLabel,
-    ciSchemaName,
-    ciScale,
-    ciName,
-    ciType,
+    newColumnInfo,
 
     -- * DataCatalog
     DataCatalog (..),
-    dataCatalog,
-    dcDescription,
-    dcParameters,
-    dcName,
-    dcType,
+    newDataCatalog,
 
     -- * DataCatalogSummary
     DataCatalogSummary (..),
-    dataCatalogSummary,
-    dcsCatalogName,
-    dcsType,
+    newDataCatalogSummary,
 
     -- * Database
     Database (..),
-    database,
-    dDescription,
-    dParameters,
-    dName,
+    newDatabase,
 
     -- * Datum
     Datum (..),
-    datum,
-    dVarCharValue,
+    newDatum,
 
     -- * EncryptionConfiguration
     EncryptionConfiguration (..),
-    encryptionConfiguration,
-    ecKMSKey,
-    ecEncryptionOption,
+    newEncryptionConfiguration,
 
     -- * EngineVersion
     EngineVersion (..),
-    engineVersion,
-    evEffectiveEngineVersion,
-    evSelectedEngineVersion,
+    newEngineVersion,
 
     -- * NamedQuery
     NamedQuery (..),
-    namedQuery,
-    nqNamedQueryId,
-    nqWorkGroup,
-    nqDescription,
-    nqName,
-    nqDatabase,
-    nqQueryString,
+    newNamedQuery,
 
     -- * QueryExecution
     QueryExecution (..),
-    queryExecution,
-    qeStatus,
-    qeQueryExecutionId,
-    qeStatistics,
-    qeQuery,
-    qeQueryExecutionContext,
-    qeEngineVersion,
-    qeResultConfiguration,
-    qeWorkGroup,
-    qeStatementType,
+    newQueryExecution,
 
     -- * QueryExecutionContext
     QueryExecutionContext (..),
-    queryExecutionContext,
-    qecCatalog,
-    qecDatabase,
+    newQueryExecutionContext,
 
     -- * QueryExecutionStatistics
     QueryExecutionStatistics (..),
-    queryExecutionStatistics,
-    qesTotalExecutionTimeInMillis,
-    qesServiceProcessingTimeInMillis,
-    qesQueryQueueTimeInMillis,
-    qesDataScannedInBytes,
-    qesQueryPlanningTimeInMillis,
-    qesEngineExecutionTimeInMillis,
-    qesDataManifestLocation,
+    newQueryExecutionStatistics,
 
     -- * QueryExecutionStatus
     QueryExecutionStatus (..),
-    queryExecutionStatus,
-    qesSubmissionDateTime,
-    qesStateChangeReason,
-    qesCompletionDateTime,
-    qesState,
+    newQueryExecutionStatus,
 
     -- * ResultConfiguration
     ResultConfiguration (..),
-    resultConfiguration,
-    rcEncryptionConfiguration,
-    rcOutputLocation,
+    newResultConfiguration,
 
     -- * ResultConfigurationUpdates
     ResultConfigurationUpdates (..),
-    resultConfigurationUpdates,
-    rcuEncryptionConfiguration,
-    rcuRemoveOutputLocation,
-    rcuRemoveEncryptionConfiguration,
-    rcuOutputLocation,
+    newResultConfigurationUpdates,
 
     -- * ResultSet
     ResultSet (..),
-    resultSet,
-    rsRows,
-    rsResultSetMetadata,
+    newResultSet,
 
     -- * ResultSetMetadata
     ResultSetMetadata (..),
-    resultSetMetadata,
-    rsmColumnInfo,
+    newResultSetMetadata,
 
     -- * Row
     Row (..),
-    row,
-    rowData,
+    newRow,
 
     -- * TableMetadata
     TableMetadata (..),
-    tableMetadata,
-    tmTableType,
-    tmCreateTime,
-    tmPartitionKeys,
-    tmLastAccessTime,
-    tmColumns,
-    tmParameters,
-    tmName,
+    newTableMetadata,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * UnprocessedNamedQueryId
     UnprocessedNamedQueryId (..),
-    unprocessedNamedQueryId,
-    unqiNamedQueryId,
-    unqiErrorMessage,
-    unqiErrorCode,
+    newUnprocessedNamedQueryId,
 
     -- * UnprocessedQueryExecutionId
     UnprocessedQueryExecutionId (..),
-    unprocessedQueryExecutionId,
-    uqeiQueryExecutionId,
-    uqeiErrorMessage,
-    uqeiErrorCode,
+    newUnprocessedQueryExecutionId,
 
     -- * WorkGroup
     WorkGroup (..),
-    workGroup,
-    wgCreationTime,
-    wgConfiguration,
-    wgState,
-    wgDescription,
-    wgName,
+    newWorkGroup,
 
     -- * WorkGroupConfiguration
     WorkGroupConfiguration (..),
-    workGroupConfiguration,
-    wgcBytesScannedCutoffPerQuery,
-    wgcPublishCloudWatchMetricsEnabled,
-    wgcEnforceWorkGroupConfiguration,
-    wgcRequesterPaysEnabled,
-    wgcEngineVersion,
-    wgcResultConfiguration,
+    newWorkGroupConfiguration,
 
     -- * WorkGroupConfigurationUpdates
     WorkGroupConfigurationUpdates (..),
-    workGroupConfigurationUpdates,
-    wgcuBytesScannedCutoffPerQuery,
-    wgcuResultConfigurationUpdates,
-    wgcuPublishCloudWatchMetricsEnabled,
-    wgcuEnforceWorkGroupConfiguration,
-    wgcuRequesterPaysEnabled,
-    wgcuRemoveBytesScannedCutoffPerQuery,
-    wgcuEngineVersion,
+    newWorkGroupConfigurationUpdates,
 
     -- * WorkGroupSummary
     WorkGroupSummary (..),
-    workGroupSummary,
-    wgsCreationTime,
-    wgsState,
-    wgsName,
-    wgsEngineVersion,
-    wgsDescription,
+    newWorkGroupSummary,
   )
 where
 
@@ -279,86 +179,117 @@ import Network.AWS.Athena.Types.WorkGroupConfiguration
 import Network.AWS.Athena.Types.WorkGroupConfigurationUpdates
 import Network.AWS.Athena.Types.WorkGroupState
 import Network.AWS.Athena.Types.WorkGroupSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-05-18@ of the Amazon Athena SDK configuration.
-athena :: Service
-athena =
-  Service
-    { _svcAbbrev = "Athena",
-      _svcSigner = v4,
-      _svcPrefix = "athena",
-      _svcVersion = "2017-05-18",
-      _svcEndpoint = defaultEndpoint athena,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Athena",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Athena",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "athena",
+      Prelude._svcVersion = "2017-05-18",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "Athena",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | Indicates that something is wrong with the input to the request. For example, a required parameter may be missing or out of range.
-_InvalidRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates that something is wrong with the input to the request. For
+-- example, a required parameter may be missing or out of range.
+_InvalidRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRequestException =
-  _MatchServiceError athena "InvalidRequestException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidRequestException"
 
 -- | A resource, such as a workgroup, was not found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    athena
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
--- | Indicates a platform issue, which may be due to a transient condition or outage.
-_InternalServerException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Indicates a platform issue, which may be due to a transient condition or
+-- outage.
+_InternalServerException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerException =
-  _MatchServiceError athena "InternalServerException"
+  Prelude._MatchServiceError
+    defaultService
+    "InternalServerException"
 
--- | An exception that Athena received when it called a custom metastore. Occurs if the error is not caused by user input (@InvalidRequestException@ ) or from the Athena platform (@InternalServerException@ ). For example, if a user-created Lambda function is missing permissions, the Lambda @4XX@ exception is returned in a @MetadataException@ .
-_MetadataException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An exception that Athena received when it called a custom metastore.
+-- Occurs if the error is not caused by user input
+-- (@InvalidRequestException@) or from the Athena platform
+-- (@InternalServerException@). For example, if a user-created Lambda
+-- function is missing permissions, the Lambda @4XX@ exception is returned
+-- in a @MetadataException@.
+_MetadataException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MetadataException =
-  _MatchServiceError athena "MetadataException"
+  Prelude._MatchServiceError
+    defaultService
+    "MetadataException"
 
 -- | Indicates that the request was throttled.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    athena
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"

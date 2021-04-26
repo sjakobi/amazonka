@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Athena.Types.Database where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains metadata information for a database in a data catalog.
 --
---
---
--- /See:/ 'database' smart constructor.
+-- /See:/ 'newDatabase' smart constructor.
 data Database = Database'
-  { _dDescription ::
-      !(Maybe Text),
-    _dParameters :: !(Maybe (Map Text Text)),
-    _dName :: !Text
+  { -- | An optional description of the database.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A set of custom key\/value pairs.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the database.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Database' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Database' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dDescription' - An optional description of the database.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dParameters' - A set of custom key/value pairs.
+-- 'description', 'database_description' - An optional description of the database.
 --
--- * 'dName' - The name of the database.
-database ::
-  -- | 'dName'
-  Text ->
+-- 'parameters', 'database_parameters' - A set of custom key\/value pairs.
+--
+-- 'name', 'database_name' - The name of the database.
+newDatabase ::
+  -- | 'name'
+  Prelude.Text ->
   Database
-database pName_ =
+newDatabase pName_ =
   Database'
-    { _dDescription = Nothing,
-      _dParameters = Nothing,
-      _dName = pName_
+    { description = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      name = pName_
     }
 
 -- | An optional description of the database.
-dDescription :: Lens' Database (Maybe Text)
-dDescription = lens _dDescription (\s a -> s {_dDescription = a})
+database_description :: Lens.Lens' Database (Prelude.Maybe Prelude.Text)
+database_description = Lens.lens (\Database' {description} -> description) (\s@Database' {} a -> s {description = a} :: Database)
 
--- | A set of custom key/value pairs.
-dParameters :: Lens' Database (HashMap Text Text)
-dParameters = lens _dParameters (\s a -> s {_dParameters = a}) . _Default . _Map
+-- | A set of custom key\/value pairs.
+database_parameters :: Lens.Lens' Database (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+database_parameters = Lens.lens (\Database' {parameters} -> parameters) (\s@Database' {} a -> s {parameters = a} :: Database) Prelude.. Lens.mapping Prelude._Map
 
 -- | The name of the database.
-dName :: Lens' Database Text
-dName = lens _dName (\s a -> s {_dName = a})
+database_name :: Lens.Lens' Database Prelude.Text
+database_name = Lens.lens (\Database' {name} -> name) (\s@Database' {} a -> s {name = a} :: Database)
 
-instance FromJSON Database where
+instance Prelude.FromJSON Database where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Database"
       ( \x ->
           Database'
-            <$> (x .:? "Description")
-            <*> (x .:? "Parameters" .!= mempty)
-            <*> (x .: "Name")
+            Prelude.<$> (x Prelude..:? "Description")
+            Prelude.<*> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable Database
+instance Prelude.Hashable Database
 
-instance NFData Database
+instance Prelude.NFData Database

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,36 +20,44 @@
 module Network.AWS.Athena.Types.Row where
 
 import Network.AWS.Athena.Types.Datum
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The rows that comprise a query result table.
 --
---
---
--- /See:/ 'row' smart constructor.
-newtype Row = Row' {_rowData :: Maybe [Datum]}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newRow' smart constructor.
+data Row = Row'
+  { -- | The data that populates a row in a query result table.
+    data' :: Prelude.Maybe [Datum]
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Row' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Row' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rowData' - The data that populates a row in a query result table.
-row ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'data'', 'row_data' - The data that populates a row in a query result table.
+newRow ::
   Row
-row = Row' {_rowData = Nothing}
+newRow = Row' {data' = Prelude.Nothing}
 
 -- | The data that populates a row in a query result table.
-rowData :: Lens' Row [Datum]
-rowData = lens _rowData (\s a -> s {_rowData = a}) . _Default . _Coerce
+row_data :: Lens.Lens' Row (Prelude.Maybe [Datum])
+row_data = Lens.lens (\Row' {data'} -> data') (\s@Row' {} a -> s {data' = a} :: Row) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Row where
+instance Prelude.FromJSON Row where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Row"
-      (\x -> Row' <$> (x .:? "Data" .!= mempty))
+      ( \x ->
+          Row'
+            Prelude.<$> (x Prelude..:? "Data" Prelude..!= Prelude.mempty)
+      )
 
-instance Hashable Row
+instance Prelude.Hashable Row
 
-instance NFData Row
+instance Prelude.NFData Row

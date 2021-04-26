@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,122 +25,160 @@ import Network.AWS.Athena.Types.QueryExecutionStatistics
 import Network.AWS.Athena.Types.QueryExecutionStatus
 import Network.AWS.Athena.Types.ResultConfiguration
 import Network.AWS.Athena.Types.StatementType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a single instance of a query execution.
 --
---
---
--- /See:/ 'queryExecution' smart constructor.
+-- /See:/ 'newQueryExecution' smart constructor.
 data QueryExecution = QueryExecution'
-  { _qeStatus ::
-      !(Maybe QueryExecutionStatus),
-    _qeQueryExecutionId :: !(Maybe Text),
-    _qeStatistics ::
-      !(Maybe QueryExecutionStatistics),
-    _qeQuery :: !(Maybe Text),
-    _qeQueryExecutionContext ::
-      !(Maybe QueryExecutionContext),
-    _qeEngineVersion ::
-      !(Maybe EngineVersion),
-    _qeResultConfiguration ::
-      !(Maybe ResultConfiguration),
-    _qeWorkGroup :: !(Maybe Text),
-    _qeStatementType ::
-      !(Maybe StatementType)
+  { -- | The completion date, current state, submission time, and state change
+    -- reason (if applicable) for the query execution.
+    status :: Prelude.Maybe QueryExecutionStatus,
+    -- | The unique identifier for each query execution.
+    queryExecutionId :: Prelude.Maybe Prelude.Text,
+    -- | Query execution statistics, such as the amount of data scanned, the
+    -- amount of time that the query took to process, and the type of statement
+    -- that was run.
+    statistics :: Prelude.Maybe QueryExecutionStatistics,
+    -- | The SQL query statements which the query execution ran.
+    query :: Prelude.Maybe Prelude.Text,
+    -- | The database in which the query execution occurred.
+    queryExecutionContext :: Prelude.Maybe QueryExecutionContext,
+    -- | The engine version that executed the query.
+    engineVersion :: Prelude.Maybe EngineVersion,
+    -- | The location in Amazon S3 where query results were stored and the
+    -- encryption option, if any, used for query results. These are known as
+    -- \"client-side settings\". If workgroup settings override client-side
+    -- settings, then the query uses the location for the query results and the
+    -- encryption configuration that are specified for the workgroup.
+    resultConfiguration :: Prelude.Maybe ResultConfiguration,
+    -- | The name of the workgroup in which the query ran.
+    workGroup :: Prelude.Maybe Prelude.Text,
+    -- | The type of query statement that was run. @DDL@ indicates DDL query
+    -- statements. @DML@ indicates DML (Data Manipulation Language) query
+    -- statements, such as @CREATE TABLE AS SELECT@. @UTILITY@ indicates query
+    -- statements other than DDL and DML, such as @SHOW CREATE TABLE@, or
+    -- @DESCRIBE \<table>@.
+    statementType :: Prelude.Maybe StatementType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qeStatus' - The completion date, current state, submission time, and state change reason (if applicable) for the query execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qeQueryExecutionId' - The unique identifier for each query execution.
+-- 'status', 'queryExecution_status' - The completion date, current state, submission time, and state change
+-- reason (if applicable) for the query execution.
 --
--- * 'qeStatistics' - Query execution statistics, such as the amount of data scanned, the amount of time that the query took to process, and the type of statement that was run.
+-- 'queryExecutionId', 'queryExecution_queryExecutionId' - The unique identifier for each query execution.
 --
--- * 'qeQuery' - The SQL query statements which the query execution ran.
+-- 'statistics', 'queryExecution_statistics' - Query execution statistics, such as the amount of data scanned, the
+-- amount of time that the query took to process, and the type of statement
+-- that was run.
 --
--- * 'qeQueryExecutionContext' - The database in which the query execution occurred.
+-- 'query', 'queryExecution_query' - The SQL query statements which the query execution ran.
 --
--- * 'qeEngineVersion' - The engine version that executed the query.
+-- 'queryExecutionContext', 'queryExecution_queryExecutionContext' - The database in which the query execution occurred.
 --
--- * 'qeResultConfiguration' - The location in Amazon S3 where query results were stored and the encryption option, if any, used for query results. These are known as "client-side settings". If workgroup settings override client-side settings, then the query uses the location for the query results and the encryption configuration that are specified for the workgroup.
+-- 'engineVersion', 'queryExecution_engineVersion' - The engine version that executed the query.
 --
--- * 'qeWorkGroup' - The name of the workgroup in which the query ran.
+-- 'resultConfiguration', 'queryExecution_resultConfiguration' - The location in Amazon S3 where query results were stored and the
+-- encryption option, if any, used for query results. These are known as
+-- \"client-side settings\". If workgroup settings override client-side
+-- settings, then the query uses the location for the query results and the
+-- encryption configuration that are specified for the workgroup.
 --
--- * 'qeStatementType' - The type of query statement that was run. @DDL@ indicates DDL query statements. @DML@ indicates DML (Data Manipulation Language) query statements, such as @CREATE TABLE AS SELECT@ . @UTILITY@ indicates query statements other than DDL and DML, such as @SHOW CREATE TABLE@ , or @DESCRIBE <table>@ .
-queryExecution ::
+-- 'workGroup', 'queryExecution_workGroup' - The name of the workgroup in which the query ran.
+--
+-- 'statementType', 'queryExecution_statementType' - The type of query statement that was run. @DDL@ indicates DDL query
+-- statements. @DML@ indicates DML (Data Manipulation Language) query
+-- statements, such as @CREATE TABLE AS SELECT@. @UTILITY@ indicates query
+-- statements other than DDL and DML, such as @SHOW CREATE TABLE@, or
+-- @DESCRIBE \<table>@.
+newQueryExecution ::
   QueryExecution
-queryExecution =
+newQueryExecution =
   QueryExecution'
-    { _qeStatus = Nothing,
-      _qeQueryExecutionId = Nothing,
-      _qeStatistics = Nothing,
-      _qeQuery = Nothing,
-      _qeQueryExecutionContext = Nothing,
-      _qeEngineVersion = Nothing,
-      _qeResultConfiguration = Nothing,
-      _qeWorkGroup = Nothing,
-      _qeStatementType = Nothing
+    { status = Prelude.Nothing,
+      queryExecutionId = Prelude.Nothing,
+      statistics = Prelude.Nothing,
+      query = Prelude.Nothing,
+      queryExecutionContext = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      resultConfiguration = Prelude.Nothing,
+      workGroup = Prelude.Nothing,
+      statementType = Prelude.Nothing
     }
 
--- | The completion date, current state, submission time, and state change reason (if applicable) for the query execution.
-qeStatus :: Lens' QueryExecution (Maybe QueryExecutionStatus)
-qeStatus = lens _qeStatus (\s a -> s {_qeStatus = a})
+-- | The completion date, current state, submission time, and state change
+-- reason (if applicable) for the query execution.
+queryExecution_status :: Lens.Lens' QueryExecution (Prelude.Maybe QueryExecutionStatus)
+queryExecution_status = Lens.lens (\QueryExecution' {status} -> status) (\s@QueryExecution' {} a -> s {status = a} :: QueryExecution)
 
 -- | The unique identifier for each query execution.
-qeQueryExecutionId :: Lens' QueryExecution (Maybe Text)
-qeQueryExecutionId = lens _qeQueryExecutionId (\s a -> s {_qeQueryExecutionId = a})
+queryExecution_queryExecutionId :: Lens.Lens' QueryExecution (Prelude.Maybe Prelude.Text)
+queryExecution_queryExecutionId = Lens.lens (\QueryExecution' {queryExecutionId} -> queryExecutionId) (\s@QueryExecution' {} a -> s {queryExecutionId = a} :: QueryExecution)
 
--- | Query execution statistics, such as the amount of data scanned, the amount of time that the query took to process, and the type of statement that was run.
-qeStatistics :: Lens' QueryExecution (Maybe QueryExecutionStatistics)
-qeStatistics = lens _qeStatistics (\s a -> s {_qeStatistics = a})
+-- | Query execution statistics, such as the amount of data scanned, the
+-- amount of time that the query took to process, and the type of statement
+-- that was run.
+queryExecution_statistics :: Lens.Lens' QueryExecution (Prelude.Maybe QueryExecutionStatistics)
+queryExecution_statistics = Lens.lens (\QueryExecution' {statistics} -> statistics) (\s@QueryExecution' {} a -> s {statistics = a} :: QueryExecution)
 
 -- | The SQL query statements which the query execution ran.
-qeQuery :: Lens' QueryExecution (Maybe Text)
-qeQuery = lens _qeQuery (\s a -> s {_qeQuery = a})
+queryExecution_query :: Lens.Lens' QueryExecution (Prelude.Maybe Prelude.Text)
+queryExecution_query = Lens.lens (\QueryExecution' {query} -> query) (\s@QueryExecution' {} a -> s {query = a} :: QueryExecution)
 
 -- | The database in which the query execution occurred.
-qeQueryExecutionContext :: Lens' QueryExecution (Maybe QueryExecutionContext)
-qeQueryExecutionContext = lens _qeQueryExecutionContext (\s a -> s {_qeQueryExecutionContext = a})
+queryExecution_queryExecutionContext :: Lens.Lens' QueryExecution (Prelude.Maybe QueryExecutionContext)
+queryExecution_queryExecutionContext = Lens.lens (\QueryExecution' {queryExecutionContext} -> queryExecutionContext) (\s@QueryExecution' {} a -> s {queryExecutionContext = a} :: QueryExecution)
 
 -- | The engine version that executed the query.
-qeEngineVersion :: Lens' QueryExecution (Maybe EngineVersion)
-qeEngineVersion = lens _qeEngineVersion (\s a -> s {_qeEngineVersion = a})
+queryExecution_engineVersion :: Lens.Lens' QueryExecution (Prelude.Maybe EngineVersion)
+queryExecution_engineVersion = Lens.lens (\QueryExecution' {engineVersion} -> engineVersion) (\s@QueryExecution' {} a -> s {engineVersion = a} :: QueryExecution)
 
--- | The location in Amazon S3 where query results were stored and the encryption option, if any, used for query results. These are known as "client-side settings". If workgroup settings override client-side settings, then the query uses the location for the query results and the encryption configuration that are specified for the workgroup.
-qeResultConfiguration :: Lens' QueryExecution (Maybe ResultConfiguration)
-qeResultConfiguration = lens _qeResultConfiguration (\s a -> s {_qeResultConfiguration = a})
+-- | The location in Amazon S3 where query results were stored and the
+-- encryption option, if any, used for query results. These are known as
+-- \"client-side settings\". If workgroup settings override client-side
+-- settings, then the query uses the location for the query results and the
+-- encryption configuration that are specified for the workgroup.
+queryExecution_resultConfiguration :: Lens.Lens' QueryExecution (Prelude.Maybe ResultConfiguration)
+queryExecution_resultConfiguration = Lens.lens (\QueryExecution' {resultConfiguration} -> resultConfiguration) (\s@QueryExecution' {} a -> s {resultConfiguration = a} :: QueryExecution)
 
 -- | The name of the workgroup in which the query ran.
-qeWorkGroup :: Lens' QueryExecution (Maybe Text)
-qeWorkGroup = lens _qeWorkGroup (\s a -> s {_qeWorkGroup = a})
+queryExecution_workGroup :: Lens.Lens' QueryExecution (Prelude.Maybe Prelude.Text)
+queryExecution_workGroup = Lens.lens (\QueryExecution' {workGroup} -> workGroup) (\s@QueryExecution' {} a -> s {workGroup = a} :: QueryExecution)
 
--- | The type of query statement that was run. @DDL@ indicates DDL query statements. @DML@ indicates DML (Data Manipulation Language) query statements, such as @CREATE TABLE AS SELECT@ . @UTILITY@ indicates query statements other than DDL and DML, such as @SHOW CREATE TABLE@ , or @DESCRIBE <table>@ .
-qeStatementType :: Lens' QueryExecution (Maybe StatementType)
-qeStatementType = lens _qeStatementType (\s a -> s {_qeStatementType = a})
+-- | The type of query statement that was run. @DDL@ indicates DDL query
+-- statements. @DML@ indicates DML (Data Manipulation Language) query
+-- statements, such as @CREATE TABLE AS SELECT@. @UTILITY@ indicates query
+-- statements other than DDL and DML, such as @SHOW CREATE TABLE@, or
+-- @DESCRIBE \<table>@.
+queryExecution_statementType :: Lens.Lens' QueryExecution (Prelude.Maybe StatementType)
+queryExecution_statementType = Lens.lens (\QueryExecution' {statementType} -> statementType) (\s@QueryExecution' {} a -> s {statementType = a} :: QueryExecution)
 
-instance FromJSON QueryExecution where
+instance Prelude.FromJSON QueryExecution where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueryExecution"
       ( \x ->
           QueryExecution'
-            <$> (x .:? "Status")
-            <*> (x .:? "QueryExecutionId")
-            <*> (x .:? "Statistics")
-            <*> (x .:? "Query")
-            <*> (x .:? "QueryExecutionContext")
-            <*> (x .:? "EngineVersion")
-            <*> (x .:? "ResultConfiguration")
-            <*> (x .:? "WorkGroup")
-            <*> (x .:? "StatementType")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "QueryExecutionId")
+            Prelude.<*> (x Prelude..:? "Statistics")
+            Prelude.<*> (x Prelude..:? "Query")
+            Prelude.<*> (x Prelude..:? "QueryExecutionContext")
+            Prelude.<*> (x Prelude..:? "EngineVersion")
+            Prelude.<*> (x Prelude..:? "ResultConfiguration")
+            Prelude.<*> (x Prelude..:? "WorkGroup")
+            Prelude.<*> (x Prelude..:? "StatementType")
       )
 
-instance Hashable QueryExecution
+instance Prelude.Hashable QueryExecution
 
-instance NFData QueryExecution
+instance Prelude.NFData QueryExecution

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,135 +24,150 @@
 -- Returns a database object for the specified database and data catalog.
 module Network.AWS.Athena.GetDatabase
   ( -- * Creating a Request
-    getDatabase,
-    GetDatabase,
+    GetDatabase (..),
+    newGetDatabase,
 
     -- * Request Lenses
-    gdCatalogName,
-    gdDatabaseName,
+    getDatabase_catalogName,
+    getDatabase_databaseName,
 
     -- * Destructuring the Response
-    getDatabaseResponse,
-    GetDatabaseResponse,
+    GetDatabaseResponse (..),
+    newGetDatabaseResponse,
 
     -- * Response Lenses
-    gdrrsDatabase,
-    gdrrsResponseStatus,
+    getDatabaseResponse_database,
+    getDatabaseResponse_httpStatus,
   )
 where
 
 import Network.AWS.Athena.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Athena.Types.Database
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDatabase' smart constructor.
+-- | /See:/ 'newGetDatabase' smart constructor.
 data GetDatabase = GetDatabase'
-  { _gdCatalogName ::
-      !Text,
-    _gdDatabaseName :: !Text
+  { -- | The name of the data catalog that contains the database to return.
+    catalogName :: Prelude.Text,
+    -- | The name of the database to return.
+    databaseName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDatabase' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDatabase' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdCatalogName' - The name of the data catalog that contains the database to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdDatabaseName' - The name of the database to return.
-getDatabase ::
-  -- | 'gdCatalogName'
-  Text ->
-  -- | 'gdDatabaseName'
-  Text ->
+-- 'catalogName', 'getDatabase_catalogName' - The name of the data catalog that contains the database to return.
+--
+-- 'databaseName', 'getDatabase_databaseName' - The name of the database to return.
+newGetDatabase ::
+  -- | 'catalogName'
+  Prelude.Text ->
+  -- | 'databaseName'
+  Prelude.Text ->
   GetDatabase
-getDatabase pCatalogName_ pDatabaseName_ =
+newGetDatabase pCatalogName_ pDatabaseName_ =
   GetDatabase'
-    { _gdCatalogName = pCatalogName_,
-      _gdDatabaseName = pDatabaseName_
+    { catalogName = pCatalogName_,
+      databaseName = pDatabaseName_
     }
 
 -- | The name of the data catalog that contains the database to return.
-gdCatalogName :: Lens' GetDatabase Text
-gdCatalogName = lens _gdCatalogName (\s a -> s {_gdCatalogName = a})
+getDatabase_catalogName :: Lens.Lens' GetDatabase Prelude.Text
+getDatabase_catalogName = Lens.lens (\GetDatabase' {catalogName} -> catalogName) (\s@GetDatabase' {} a -> s {catalogName = a} :: GetDatabase)
 
 -- | The name of the database to return.
-gdDatabaseName :: Lens' GetDatabase Text
-gdDatabaseName = lens _gdDatabaseName (\s a -> s {_gdDatabaseName = a})
+getDatabase_databaseName :: Lens.Lens' GetDatabase Prelude.Text
+getDatabase_databaseName = Lens.lens (\GetDatabase' {databaseName} -> databaseName) (\s@GetDatabase' {} a -> s {databaseName = a} :: GetDatabase)
 
-instance AWSRequest GetDatabase where
+instance Prelude.AWSRequest GetDatabase where
   type Rs GetDatabase = GetDatabaseResponse
-  request = postJSON athena
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDatabaseResponse'
-            <$> (x .?> "Database") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Database")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDatabase
+instance Prelude.Hashable GetDatabase
 
-instance NFData GetDatabase
+instance Prelude.NFData GetDatabase
 
-instance ToHeaders GetDatabase where
+instance Prelude.ToHeaders GetDatabase where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonAthena.GetDatabase" :: ByteString),
+              Prelude.=# ("AmazonAthena.GetDatabase" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDatabase where
+instance Prelude.ToJSON GetDatabase where
   toJSON GetDatabase' {..} =
-    object
-      ( catMaybes
-          [ Just ("CatalogName" .= _gdCatalogName),
-            Just ("DatabaseName" .= _gdDatabaseName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("CatalogName" Prelude..= catalogName),
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName)
           ]
       )
 
-instance ToPath GetDatabase where
-  toPath = const "/"
+instance Prelude.ToPath GetDatabase where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDatabase where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDatabase where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDatabaseResponse' smart constructor.
+-- | /See:/ 'newGetDatabaseResponse' smart constructor.
 data GetDatabaseResponse = GetDatabaseResponse'
-  { _gdrrsDatabase ::
-      !(Maybe Database),
-    _gdrrsResponseStatus :: !Int
+  { -- | The database returned.
+    database :: Prelude.Maybe Database,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDatabaseResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDatabaseResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdrrsDatabase' - The database returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdrrsResponseStatus' - -- | The response status code.
-getDatabaseResponse ::
-  -- | 'gdrrsResponseStatus'
-  Int ->
+-- 'database', 'getDatabaseResponse_database' - The database returned.
+--
+-- 'httpStatus', 'getDatabaseResponse_httpStatus' - The response's http status code.
+newGetDatabaseResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDatabaseResponse
-getDatabaseResponse pResponseStatus_ =
+newGetDatabaseResponse pHttpStatus_ =
   GetDatabaseResponse'
-    { _gdrrsDatabase = Nothing,
-      _gdrrsResponseStatus = pResponseStatus_
+    { database = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The database returned.
-gdrrsDatabase :: Lens' GetDatabaseResponse (Maybe Database)
-gdrrsDatabase = lens _gdrrsDatabase (\s a -> s {_gdrrsDatabase = a})
+getDatabaseResponse_database :: Lens.Lens' GetDatabaseResponse (Prelude.Maybe Database)
+getDatabaseResponse_database = Lens.lens (\GetDatabaseResponse' {database} -> database) (\s@GetDatabaseResponse' {} a -> s {database = a} :: GetDatabaseResponse)
 
--- | -- | The response status code.
-gdrrsResponseStatus :: Lens' GetDatabaseResponse Int
-gdrrsResponseStatus = lens _gdrrsResponseStatus (\s a -> s {_gdrrsResponseStatus = a})
+-- | The response's http status code.
+getDatabaseResponse_httpStatus :: Lens.Lens' GetDatabaseResponse Prelude.Int
+getDatabaseResponse_httpStatus = Lens.lens (\GetDatabaseResponse' {httpStatus} -> httpStatus) (\s@GetDatabaseResponse' {} a -> s {httpStatus = a} :: GetDatabaseResponse)
 
-instance NFData GetDatabaseResponse
+instance Prelude.NFData GetDatabaseResponse

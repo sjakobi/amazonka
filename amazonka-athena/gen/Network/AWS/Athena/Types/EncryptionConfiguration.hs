@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,94 @@
 module Network.AWS.Athena.Types.EncryptionConfiguration where
 
 import Network.AWS.Athena.Types.EncryptionOption
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | If query results are encrypted in Amazon S3, indicates the encryption option used (for example, @SSE-KMS@ or @CSE-KMS@ ) and key information.
+-- | If query results are encrypted in Amazon S3, indicates the encryption
+-- option used (for example, @SSE-KMS@ or @CSE-KMS@) and key information.
 --
---
---
--- /See:/ 'encryptionConfiguration' smart constructor.
+-- /See:/ 'newEncryptionConfiguration' smart constructor.
 data EncryptionConfiguration = EncryptionConfiguration'
-  { _ecKMSKey ::
-      !(Maybe Text),
-    _ecEncryptionOption ::
-      !EncryptionOption
+  { -- | For @SSE-KMS@ and @CSE-KMS@, this is the KMS key ARN or ID.
+    kmsKey :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether Amazon S3 server-side encryption with Amazon
+    -- S3-managed keys (@SSE-S3@), server-side encryption with KMS-managed keys
+    -- (@SSE-KMS@), or client-side encryption with KMS-managed keys (CSE-KMS)
+    -- is used.
+    --
+    -- If a query runs in a workgroup and the workgroup overrides client-side
+    -- settings, then the workgroup\'s setting for encryption is used. It
+    -- specifies whether query results must be encrypted, for all queries that
+    -- run in this workgroup.
+    encryptionOption :: EncryptionOption
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EncryptionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EncryptionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecKMSKey' - For @SSE-KMS@ and @CSE-KMS@ , this is the KMS key ARN or ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecEncryptionOption' - Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (@SSE-S3@ ), server-side encryption with KMS-managed keys (@SSE-KMS@ ), or client-side encryption with KMS-managed keys (CSE-KMS) is used. If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for encryption is used. It specifies whether query results must be encrypted, for all queries that run in this workgroup.
-encryptionConfiguration ::
-  -- | 'ecEncryptionOption'
+-- 'kmsKey', 'encryptionConfiguration_kmsKey' - For @SSE-KMS@ and @CSE-KMS@, this is the KMS key ARN or ID.
+--
+-- 'encryptionOption', 'encryptionConfiguration_encryptionOption' - Indicates whether Amazon S3 server-side encryption with Amazon
+-- S3-managed keys (@SSE-S3@), server-side encryption with KMS-managed keys
+-- (@SSE-KMS@), or client-side encryption with KMS-managed keys (CSE-KMS)
+-- is used.
+--
+-- If a query runs in a workgroup and the workgroup overrides client-side
+-- settings, then the workgroup\'s setting for encryption is used. It
+-- specifies whether query results must be encrypted, for all queries that
+-- run in this workgroup.
+newEncryptionConfiguration ::
+  -- | 'encryptionOption'
   EncryptionOption ->
   EncryptionConfiguration
-encryptionConfiguration pEncryptionOption_ =
+newEncryptionConfiguration pEncryptionOption_ =
   EncryptionConfiguration'
-    { _ecKMSKey = Nothing,
-      _ecEncryptionOption = pEncryptionOption_
+    { kmsKey = Prelude.Nothing,
+      encryptionOption = pEncryptionOption_
     }
 
--- | For @SSE-KMS@ and @CSE-KMS@ , this is the KMS key ARN or ID.
-ecKMSKey :: Lens' EncryptionConfiguration (Maybe Text)
-ecKMSKey = lens _ecKMSKey (\s a -> s {_ecKMSKey = a})
+-- | For @SSE-KMS@ and @CSE-KMS@, this is the KMS key ARN or ID.
+encryptionConfiguration_kmsKey :: Lens.Lens' EncryptionConfiguration (Prelude.Maybe Prelude.Text)
+encryptionConfiguration_kmsKey = Lens.lens (\EncryptionConfiguration' {kmsKey} -> kmsKey) (\s@EncryptionConfiguration' {} a -> s {kmsKey = a} :: EncryptionConfiguration)
 
--- | Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (@SSE-S3@ ), server-side encryption with KMS-managed keys (@SSE-KMS@ ), or client-side encryption with KMS-managed keys (CSE-KMS) is used. If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for encryption is used. It specifies whether query results must be encrypted, for all queries that run in this workgroup.
-ecEncryptionOption :: Lens' EncryptionConfiguration EncryptionOption
-ecEncryptionOption = lens _ecEncryptionOption (\s a -> s {_ecEncryptionOption = a})
+-- | Indicates whether Amazon S3 server-side encryption with Amazon
+-- S3-managed keys (@SSE-S3@), server-side encryption with KMS-managed keys
+-- (@SSE-KMS@), or client-side encryption with KMS-managed keys (CSE-KMS)
+-- is used.
+--
+-- If a query runs in a workgroup and the workgroup overrides client-side
+-- settings, then the workgroup\'s setting for encryption is used. It
+-- specifies whether query results must be encrypted, for all queries that
+-- run in this workgroup.
+encryptionConfiguration_encryptionOption :: Lens.Lens' EncryptionConfiguration EncryptionOption
+encryptionConfiguration_encryptionOption = Lens.lens (\EncryptionConfiguration' {encryptionOption} -> encryptionOption) (\s@EncryptionConfiguration' {} a -> s {encryptionOption = a} :: EncryptionConfiguration)
 
-instance FromJSON EncryptionConfiguration where
+instance Prelude.FromJSON EncryptionConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EncryptionConfiguration"
       ( \x ->
           EncryptionConfiguration'
-            <$> (x .:? "KmsKey") <*> (x .: "EncryptionOption")
+            Prelude.<$> (x Prelude..:? "KmsKey")
+            Prelude.<*> (x Prelude..: "EncryptionOption")
       )
 
-instance Hashable EncryptionConfiguration
+instance Prelude.Hashable EncryptionConfiguration
 
-instance NFData EncryptionConfiguration
+instance Prelude.NFData EncryptionConfiguration
 
-instance ToJSON EncryptionConfiguration where
+instance Prelude.ToJSON EncryptionConfiguration where
   toJSON EncryptionConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("KmsKey" .=) <$> _ecKMSKey,
-            Just ("EncryptionOption" .= _ecEncryptionOption)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("KmsKey" Prelude..=) Prelude.<$> kmsKey,
+            Prelude.Just
+              ("EncryptionOption" Prelude..= encryptionOption)
           ]
       )

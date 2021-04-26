@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Athena.Types.StatementType
   ( StatementType
       ( ..,
-        Ddl,
-        Dml,
-        Utility
+        StatementTypeDDL,
+        StatementTypeDML,
+        StatementTypeUTILITY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StatementType = StatementType' (CI Text)
+newtype StatementType = StatementType'
+  { fromStatementType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ddl :: StatementType
-pattern Ddl = StatementType' "DDL"
+pattern StatementTypeDDL :: StatementType
+pattern StatementTypeDDL = StatementType' "DDL"
 
-pattern Dml :: StatementType
-pattern Dml = StatementType' "DML"
+pattern StatementTypeDML :: StatementType
+pattern StatementTypeDML = StatementType' "DML"
 
-pattern Utility :: StatementType
-pattern Utility = StatementType' "UTILITY"
+pattern StatementTypeUTILITY :: StatementType
+pattern StatementTypeUTILITY = StatementType' "UTILITY"
 
 {-# COMPLETE
-  Ddl,
-  Dml,
-  Utility,
+  StatementTypeDDL,
+  StatementTypeDML,
+  StatementTypeUTILITY,
   StatementType'
   #-}
 
-instance FromText StatementType where
-  parser = (StatementType' . mk) <$> takeText
+instance Prelude.FromText StatementType where
+  parser = StatementType' Prelude.<$> Prelude.takeText
 
-instance ToText StatementType where
-  toText (StatementType' ci) = original ci
+instance Prelude.ToText StatementType where
+  toText (StatementType' x) = x
 
-instance Hashable StatementType
+instance Prelude.Hashable StatementType
 
-instance NFData StatementType
+instance Prelude.NFData StatementType
 
-instance ToByteString StatementType
+instance Prelude.ToByteString StatementType
 
-instance ToQuery StatementType
+instance Prelude.ToQuery StatementType
 
-instance ToHeader StatementType
+instance Prelude.ToHeader StatementType
 
-instance FromJSON StatementType where
-  parseJSON = parseJSONText "StatementType"
+instance Prelude.FromJSON StatementType where
+  parseJSON = Prelude.parseJSONText "StatementType"

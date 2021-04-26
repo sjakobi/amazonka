@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,167 +21,271 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates (registers) a data catalog with the specified name and properties. Catalogs created are visible to all users of the same AWS account.
+-- Creates (registers) a data catalog with the specified name and
+-- properties. Catalogs created are visible to all users of the same AWS
+-- account.
 module Network.AWS.Athena.CreateDataCatalog
   ( -- * Creating a Request
-    createDataCatalog,
-    CreateDataCatalog,
+    CreateDataCatalog (..),
+    newCreateDataCatalog,
 
     -- * Request Lenses
-    cdcTags,
-    cdcDescription,
-    cdcParameters,
-    cdcName,
-    cdcType,
+    createDataCatalog_tags,
+    createDataCatalog_description,
+    createDataCatalog_parameters,
+    createDataCatalog_name,
+    createDataCatalog_type,
 
     -- * Destructuring the Response
-    createDataCatalogResponse,
-    CreateDataCatalogResponse,
+    CreateDataCatalogResponse (..),
+    newCreateDataCatalogResponse,
 
     -- * Response Lenses
-    cdcrrsResponseStatus,
+    createDataCatalogResponse_httpStatus,
   )
 where
 
 import Network.AWS.Athena.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDataCatalog' smart constructor.
+-- | /See:/ 'newCreateDataCatalog' smart constructor.
 data CreateDataCatalog = CreateDataCatalog'
-  { _cdcTags ::
-      !(Maybe [Tag]),
-    _cdcDescription :: !(Maybe Text),
-    _cdcParameters ::
-      !(Maybe (Map Text Text)),
-    _cdcName :: !Text,
-    _cdcType :: !DataCatalogType
+  { -- | A list of comma separated tags to add to the data catalog that is
+    -- created.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the data catalog to be created.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the Lambda function or functions to use for creating the data
+    -- catalog. This is a mapping whose values depend on the catalog type.
+    --
+    -- -   For the @HIVE@ data catalog type, use the following syntax. The
+    --     @metadata-function@ parameter is required. @The sdk-version@
+    --     parameter is optional and defaults to the currently supported
+    --     version.
+    --
+    --     @metadata-function=lambda_arn, sdk-version=version_number @
+    --
+    -- -   For the @LAMBDA@ data catalog type, use one of the following sets of
+    --     required parameters, but not both.
+    --
+    --     -   If you have one Lambda function that processes metadata and
+    --         another for reading the actual data, use the following syntax.
+    --         Both parameters are required.
+    --
+    --         @metadata-function=lambda_arn, record-function=lambda_arn @
+    --
+    --     -   If you have a composite Lambda function that processes both
+    --         metadata and data, use the following syntax to specify your
+    --         Lambda function.
+    --
+    --         @function=lambda_arn @
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The name of the data catalog to create. The catalog name must be unique
+    -- for the AWS account and can use a maximum of 128 alphanumeric,
+    -- underscore, at sign, or hyphen characters.
+    name :: Prelude.Text,
+    -- | The type of data catalog to create: @LAMBDA@ for a federated catalog or
+    -- @HIVE@ for an external hive metastore.
+    --
+    -- Do not use the @GLUE@ type. This refers to the @AwsDataCatalog@ that
+    -- already exists in your account, of which you can have only one.
+    -- Specifying the @GLUE@ type will result in an @INVALID_INPUT@ error.
+    type' :: DataCatalogType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDataCatalog' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDataCatalog' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcTags' - A list of comma separated tags to add to the data catalog that is created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdcDescription' - A description of the data catalog to be created.
+-- 'tags', 'createDataCatalog_tags' - A list of comma separated tags to add to the data catalog that is
+-- created.
 --
--- * 'cdcParameters' - Specifies the Lambda function or functions to use for creating the data catalog. This is a mapping whose values depend on the catalog type.      * For the @HIVE@ data catalog type, use the following syntax. The @metadata-function@ parameter is required. @The sdk-version@ parameter is optional and defaults to the currently supported version. @metadata-function=/lambda_arn/ , sdk-version=/version_number/ @      * For the @LAMBDA@ data catalog type, use one of the following sets of required parameters, but not both.     * If you have one Lambda function that processes metadata and another for reading the actual data, use the following syntax. Both parameters are required. @metadata-function=/lambda_arn/ , record-function=/lambda_arn/ @      * If you have a composite Lambda function that processes both metadata and data, use the following syntax to specify your Lambda function. @function=/lambda_arn/ @
+-- 'description', 'createDataCatalog_description' - A description of the data catalog to be created.
 --
--- * 'cdcName' - The name of the data catalog to create. The catalog name must be unique for the AWS account and can use a maximum of 128 alphanumeric, underscore, at sign, or hyphen characters.
+-- 'parameters', 'createDataCatalog_parameters' - Specifies the Lambda function or functions to use for creating the data
+-- catalog. This is a mapping whose values depend on the catalog type.
 --
--- * 'cdcType' - The type of data catalog to create: @LAMBDA@ for a federated catalog or @HIVE@ for an external hive metastore.
-createDataCatalog ::
-  -- | 'cdcName'
-  Text ->
-  -- | 'cdcType'
+-- -   For the @HIVE@ data catalog type, use the following syntax. The
+--     @metadata-function@ parameter is required. @The sdk-version@
+--     parameter is optional and defaults to the currently supported
+--     version.
+--
+--     @metadata-function=lambda_arn, sdk-version=version_number @
+--
+-- -   For the @LAMBDA@ data catalog type, use one of the following sets of
+--     required parameters, but not both.
+--
+--     -   If you have one Lambda function that processes metadata and
+--         another for reading the actual data, use the following syntax.
+--         Both parameters are required.
+--
+--         @metadata-function=lambda_arn, record-function=lambda_arn @
+--
+--     -   If you have a composite Lambda function that processes both
+--         metadata and data, use the following syntax to specify your
+--         Lambda function.
+--
+--         @function=lambda_arn @
+--
+-- 'name', 'createDataCatalog_name' - The name of the data catalog to create. The catalog name must be unique
+-- for the AWS account and can use a maximum of 128 alphanumeric,
+-- underscore, at sign, or hyphen characters.
+--
+-- 'type'', 'createDataCatalog_type' - The type of data catalog to create: @LAMBDA@ for a federated catalog or
+-- @HIVE@ for an external hive metastore.
+--
+-- Do not use the @GLUE@ type. This refers to the @AwsDataCatalog@ that
+-- already exists in your account, of which you can have only one.
+-- Specifying the @GLUE@ type will result in an @INVALID_INPUT@ error.
+newCreateDataCatalog ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   DataCatalogType ->
   CreateDataCatalog
-createDataCatalog pName_ pType_ =
+newCreateDataCatalog pName_ pType_ =
   CreateDataCatalog'
-    { _cdcTags = Nothing,
-      _cdcDescription = Nothing,
-      _cdcParameters = Nothing,
-      _cdcName = pName_,
-      _cdcType = pType_
+    { tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      name = pName_,
+      type' = pType_
     }
 
--- | A list of comma separated tags to add to the data catalog that is created.
-cdcTags :: Lens' CreateDataCatalog [Tag]
-cdcTags = lens _cdcTags (\s a -> s {_cdcTags = a}) . _Default . _Coerce
+-- | A list of comma separated tags to add to the data catalog that is
+-- created.
+createDataCatalog_tags :: Lens.Lens' CreateDataCatalog (Prelude.Maybe [Tag])
+createDataCatalog_tags = Lens.lens (\CreateDataCatalog' {tags} -> tags) (\s@CreateDataCatalog' {} a -> s {tags = a} :: CreateDataCatalog) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the data catalog to be created.
-cdcDescription :: Lens' CreateDataCatalog (Maybe Text)
-cdcDescription = lens _cdcDescription (\s a -> s {_cdcDescription = a})
+createDataCatalog_description :: Lens.Lens' CreateDataCatalog (Prelude.Maybe Prelude.Text)
+createDataCatalog_description = Lens.lens (\CreateDataCatalog' {description} -> description) (\s@CreateDataCatalog' {} a -> s {description = a} :: CreateDataCatalog)
 
--- | Specifies the Lambda function or functions to use for creating the data catalog. This is a mapping whose values depend on the catalog type.      * For the @HIVE@ data catalog type, use the following syntax. The @metadata-function@ parameter is required. @The sdk-version@ parameter is optional and defaults to the currently supported version. @metadata-function=/lambda_arn/ , sdk-version=/version_number/ @      * For the @LAMBDA@ data catalog type, use one of the following sets of required parameters, but not both.     * If you have one Lambda function that processes metadata and another for reading the actual data, use the following syntax. Both parameters are required. @metadata-function=/lambda_arn/ , record-function=/lambda_arn/ @      * If you have a composite Lambda function that processes both metadata and data, use the following syntax to specify your Lambda function. @function=/lambda_arn/ @
-cdcParameters :: Lens' CreateDataCatalog (HashMap Text Text)
-cdcParameters = lens _cdcParameters (\s a -> s {_cdcParameters = a}) . _Default . _Map
+-- | Specifies the Lambda function or functions to use for creating the data
+-- catalog. This is a mapping whose values depend on the catalog type.
+--
+-- -   For the @HIVE@ data catalog type, use the following syntax. The
+--     @metadata-function@ parameter is required. @The sdk-version@
+--     parameter is optional and defaults to the currently supported
+--     version.
+--
+--     @metadata-function=lambda_arn, sdk-version=version_number @
+--
+-- -   For the @LAMBDA@ data catalog type, use one of the following sets of
+--     required parameters, but not both.
+--
+--     -   If you have one Lambda function that processes metadata and
+--         another for reading the actual data, use the following syntax.
+--         Both parameters are required.
+--
+--         @metadata-function=lambda_arn, record-function=lambda_arn @
+--
+--     -   If you have a composite Lambda function that processes both
+--         metadata and data, use the following syntax to specify your
+--         Lambda function.
+--
+--         @function=lambda_arn @
+createDataCatalog_parameters :: Lens.Lens' CreateDataCatalog (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createDataCatalog_parameters = Lens.lens (\CreateDataCatalog' {parameters} -> parameters) (\s@CreateDataCatalog' {} a -> s {parameters = a} :: CreateDataCatalog) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the data catalog to create. The catalog name must be unique for the AWS account and can use a maximum of 128 alphanumeric, underscore, at sign, or hyphen characters.
-cdcName :: Lens' CreateDataCatalog Text
-cdcName = lens _cdcName (\s a -> s {_cdcName = a})
+-- | The name of the data catalog to create. The catalog name must be unique
+-- for the AWS account and can use a maximum of 128 alphanumeric,
+-- underscore, at sign, or hyphen characters.
+createDataCatalog_name :: Lens.Lens' CreateDataCatalog Prelude.Text
+createDataCatalog_name = Lens.lens (\CreateDataCatalog' {name} -> name) (\s@CreateDataCatalog' {} a -> s {name = a} :: CreateDataCatalog)
 
--- | The type of data catalog to create: @LAMBDA@ for a federated catalog or @HIVE@ for an external hive metastore.
-cdcType :: Lens' CreateDataCatalog DataCatalogType
-cdcType = lens _cdcType (\s a -> s {_cdcType = a})
+-- | The type of data catalog to create: @LAMBDA@ for a federated catalog or
+-- @HIVE@ for an external hive metastore.
+--
+-- Do not use the @GLUE@ type. This refers to the @AwsDataCatalog@ that
+-- already exists in your account, of which you can have only one.
+-- Specifying the @GLUE@ type will result in an @INVALID_INPUT@ error.
+createDataCatalog_type :: Lens.Lens' CreateDataCatalog DataCatalogType
+createDataCatalog_type = Lens.lens (\CreateDataCatalog' {type'} -> type') (\s@CreateDataCatalog' {} a -> s {type' = a} :: CreateDataCatalog)
 
-instance AWSRequest CreateDataCatalog where
+instance Prelude.AWSRequest CreateDataCatalog where
   type Rs CreateDataCatalog = CreateDataCatalogResponse
-  request = postJSON athena
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CreateDataCatalogResponse' <$> (pure (fromEnum s))
+          CreateDataCatalogResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDataCatalog
+instance Prelude.Hashable CreateDataCatalog
 
-instance NFData CreateDataCatalog
+instance Prelude.NFData CreateDataCatalog
 
-instance ToHeaders CreateDataCatalog where
+instance Prelude.ToHeaders CreateDataCatalog where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonAthena.CreateDataCatalog" :: ByteString),
+              Prelude.=# ( "AmazonAthena.CreateDataCatalog" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateDataCatalog where
+instance Prelude.ToJSON CreateDataCatalog where
   toJSON CreateDataCatalog' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _cdcTags,
-            ("Description" .=) <$> _cdcDescription,
-            ("Parameters" .=) <$> _cdcParameters,
-            Just ("Name" .= _cdcName),
-            Just ("Type" .= _cdcType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("Parameters" Prelude..=) Prelude.<$> parameters,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )
 
-instance ToPath CreateDataCatalog where
-  toPath = const "/"
+instance Prelude.ToPath CreateDataCatalog where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDataCatalog where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDataCatalog where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDataCatalogResponse' smart constructor.
-newtype CreateDataCatalogResponse = CreateDataCatalogResponse'
-  { _cdcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newCreateDataCatalogResponse' smart constructor.
+data CreateDataCatalogResponse = CreateDataCatalogResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDataCatalogResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDataCatalogResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcrrsResponseStatus' - -- | The response status code.
-createDataCatalogResponse ::
-  -- | 'cdcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createDataCatalogResponse_httpStatus' - The response's http status code.
+newCreateDataCatalogResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDataCatalogResponse
-createDataCatalogResponse pResponseStatus_ =
+newCreateDataCatalogResponse pHttpStatus_ =
   CreateDataCatalogResponse'
-    { _cdcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-cdcrrsResponseStatus :: Lens' CreateDataCatalogResponse Int
-cdcrrsResponseStatus = lens _cdcrrsResponseStatus (\s a -> s {_cdcrrsResponseStatus = a})
+-- | The response's http status code.
+createDataCatalogResponse_httpStatus :: Lens.Lens' CreateDataCatalogResponse Prelude.Int
+createDataCatalogResponse_httpStatus = Lens.lens (\CreateDataCatalogResponse' {httpStatus} -> httpStatus) (\s@CreateDataCatalogResponse' {} a -> s {httpStatus = a} :: CreateDataCatalogResponse)
 
-instance NFData CreateDataCatalogResponse
+instance Prelude.NFData CreateDataCatalogResponse

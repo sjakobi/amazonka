@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Athena.Types.DataCatalogType
   ( DataCatalogType
       ( ..,
-        Glue,
-        Hive,
-        Lambda
+        DataCatalogTypeGLUE,
+        DataCatalogTypeHIVE,
+        DataCatalogTypeLAMBDA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DataCatalogType = DataCatalogType' (CI Text)
+newtype DataCatalogType = DataCatalogType'
+  { fromDataCatalogType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Glue :: DataCatalogType
-pattern Glue = DataCatalogType' "GLUE"
+pattern DataCatalogTypeGLUE :: DataCatalogType
+pattern DataCatalogTypeGLUE = DataCatalogType' "GLUE"
 
-pattern Hive :: DataCatalogType
-pattern Hive = DataCatalogType' "HIVE"
+pattern DataCatalogTypeHIVE :: DataCatalogType
+pattern DataCatalogTypeHIVE = DataCatalogType' "HIVE"
 
-pattern Lambda :: DataCatalogType
-pattern Lambda = DataCatalogType' "LAMBDA"
+pattern DataCatalogTypeLAMBDA :: DataCatalogType
+pattern DataCatalogTypeLAMBDA = DataCatalogType' "LAMBDA"
 
 {-# COMPLETE
-  Glue,
-  Hive,
-  Lambda,
+  DataCatalogTypeGLUE,
+  DataCatalogTypeHIVE,
+  DataCatalogTypeLAMBDA,
   DataCatalogType'
   #-}
 
-instance FromText DataCatalogType where
-  parser = (DataCatalogType' . mk) <$> takeText
+instance Prelude.FromText DataCatalogType where
+  parser = DataCatalogType' Prelude.<$> Prelude.takeText
 
-instance ToText DataCatalogType where
-  toText (DataCatalogType' ci) = original ci
+instance Prelude.ToText DataCatalogType where
+  toText (DataCatalogType' x) = x
 
-instance Hashable DataCatalogType
+instance Prelude.Hashable DataCatalogType
 
-instance NFData DataCatalogType
+instance Prelude.NFData DataCatalogType
 
-instance ToByteString DataCatalogType
+instance Prelude.ToByteString DataCatalogType
 
-instance ToQuery DataCatalogType
+instance Prelude.ToQuery DataCatalogType
 
-instance ToHeader DataCatalogType
+instance Prelude.ToHeader DataCatalogType
 
-instance ToJSON DataCatalogType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DataCatalogType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DataCatalogType where
-  parseJSON = parseJSONText "DataCatalogType"
+instance Prelude.FromJSON DataCatalogType where
+  parseJSON = Prelude.parseJSONText "DataCatalogType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the workgroup with the specified name. The primary workgroup cannot be deleted.
+-- Deletes the workgroup with the specified name. The primary workgroup
+-- cannot be deleted.
 module Network.AWS.Athena.DeleteWorkGroup
   ( -- * Creating a Request
-    deleteWorkGroup,
-    DeleteWorkGroup,
+    DeleteWorkGroup (..),
+    newDeleteWorkGroup,
 
     -- * Request Lenses
-    dwgRecursiveDeleteOption,
-    dwgWorkGroup,
+    deleteWorkGroup_recursiveDeleteOption,
+    deleteWorkGroup_workGroup,
 
     -- * Destructuring the Response
-    deleteWorkGroupResponse,
-    DeleteWorkGroupResponse,
+    DeleteWorkGroupResponse (..),
+    newDeleteWorkGroupResponse,
 
     -- * Response Lenses
-    dwgrrsResponseStatus,
+    deleteWorkGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.Athena.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteWorkGroup' smart constructor.
+-- | /See:/ 'newDeleteWorkGroup' smart constructor.
 data DeleteWorkGroup = DeleteWorkGroup'
-  { _dwgRecursiveDeleteOption ::
-      !(Maybe Bool),
-    _dwgWorkGroup :: !Text
+  { -- | The option to delete the workgroup and its contents even if the
+    -- workgroup contains any named queries or query executions.
+    recursiveDeleteOption :: Prelude.Maybe Prelude.Bool,
+    -- | The unique name of the workgroup to delete.
+    workGroup :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwgRecursiveDeleteOption' - The option to delete the workgroup and its contents even if the workgroup contains any named queries or query executions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwgWorkGroup' - The unique name of the workgroup to delete.
-deleteWorkGroup ::
-  -- | 'dwgWorkGroup'
-  Text ->
+-- 'recursiveDeleteOption', 'deleteWorkGroup_recursiveDeleteOption' - The option to delete the workgroup and its contents even if the
+-- workgroup contains any named queries or query executions.
+--
+-- 'workGroup', 'deleteWorkGroup_workGroup' - The unique name of the workgroup to delete.
+newDeleteWorkGroup ::
+  -- | 'workGroup'
+  Prelude.Text ->
   DeleteWorkGroup
-deleteWorkGroup pWorkGroup_ =
+newDeleteWorkGroup pWorkGroup_ =
   DeleteWorkGroup'
-    { _dwgRecursiveDeleteOption =
-        Nothing,
-      _dwgWorkGroup = pWorkGroup_
+    { recursiveDeleteOption =
+        Prelude.Nothing,
+      workGroup = pWorkGroup_
     }
 
--- | The option to delete the workgroup and its contents even if the workgroup contains any named queries or query executions.
-dwgRecursiveDeleteOption :: Lens' DeleteWorkGroup (Maybe Bool)
-dwgRecursiveDeleteOption = lens _dwgRecursiveDeleteOption (\s a -> s {_dwgRecursiveDeleteOption = a})
+-- | The option to delete the workgroup and its contents even if the
+-- workgroup contains any named queries or query executions.
+deleteWorkGroup_recursiveDeleteOption :: Lens.Lens' DeleteWorkGroup (Prelude.Maybe Prelude.Bool)
+deleteWorkGroup_recursiveDeleteOption = Lens.lens (\DeleteWorkGroup' {recursiveDeleteOption} -> recursiveDeleteOption) (\s@DeleteWorkGroup' {} a -> s {recursiveDeleteOption = a} :: DeleteWorkGroup)
 
 -- | The unique name of the workgroup to delete.
-dwgWorkGroup :: Lens' DeleteWorkGroup Text
-dwgWorkGroup = lens _dwgWorkGroup (\s a -> s {_dwgWorkGroup = a})
+deleteWorkGroup_workGroup :: Lens.Lens' DeleteWorkGroup Prelude.Text
+deleteWorkGroup_workGroup = Lens.lens (\DeleteWorkGroup' {workGroup} -> workGroup) (\s@DeleteWorkGroup' {} a -> s {workGroup = a} :: DeleteWorkGroup)
 
-instance AWSRequest DeleteWorkGroup where
+instance Prelude.AWSRequest DeleteWorkGroup where
   type Rs DeleteWorkGroup = DeleteWorkGroupResponse
-  request = postJSON athena
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteWorkGroupResponse' <$> (pure (fromEnum s))
+          DeleteWorkGroupResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteWorkGroup
+instance Prelude.Hashable DeleteWorkGroup
 
-instance NFData DeleteWorkGroup
+instance Prelude.NFData DeleteWorkGroup
 
-instance ToHeaders DeleteWorkGroup where
+instance Prelude.ToHeaders DeleteWorkGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonAthena.DeleteWorkGroup" :: ByteString),
+              Prelude.=# ( "AmazonAthena.DeleteWorkGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteWorkGroup where
+instance Prelude.ToJSON DeleteWorkGroup where
   toJSON DeleteWorkGroup' {..} =
-    object
-      ( catMaybes
-          [ ("RecursiveDeleteOption" .=)
-              <$> _dwgRecursiveDeleteOption,
-            Just ("WorkGroup" .= _dwgWorkGroup)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RecursiveDeleteOption" Prelude..=)
+              Prelude.<$> recursiveDeleteOption,
+            Prelude.Just ("WorkGroup" Prelude..= workGroup)
           ]
       )
 
-instance ToPath DeleteWorkGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteWorkGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteWorkGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteWorkGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteWorkGroupResponse' smart constructor.
-newtype DeleteWorkGroupResponse = DeleteWorkGroupResponse'
-  { _dwgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteWorkGroupResponse' smart constructor.
+data DeleteWorkGroupResponse = DeleteWorkGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwgrrsResponseStatus' - -- | The response status code.
-deleteWorkGroupResponse ::
-  -- | 'dwgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteWorkGroupResponse_httpStatus' - The response's http status code.
+newDeleteWorkGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteWorkGroupResponse
-deleteWorkGroupResponse pResponseStatus_ =
-  DeleteWorkGroupResponse'
-    { _dwgrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteWorkGroupResponse pHttpStatus_ =
+  DeleteWorkGroupResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dwgrrsResponseStatus :: Lens' DeleteWorkGroupResponse Int
-dwgrrsResponseStatus = lens _dwgrrsResponseStatus (\s a -> s {_dwgrrsResponseStatus = a})
+-- | The response's http status code.
+deleteWorkGroupResponse_httpStatus :: Lens.Lens' DeleteWorkGroupResponse Prelude.Int
+deleteWorkGroupResponse_httpStatus = Lens.lens (\DeleteWorkGroupResponse' {httpStatus} -> httpStatus) (\s@DeleteWorkGroupResponse' {} a -> s {httpStatus = a} :: DeleteWorkGroupResponse)
 
-instance NFData DeleteWorkGroupResponse
+instance Prelude.NFData DeleteWorkGroupResponse

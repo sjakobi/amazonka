@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +21,62 @@ module Network.AWS.Athena.Types.ResultSet where
 
 import Network.AWS.Athena.Types.ResultSetMetadata
 import Network.AWS.Athena.Types.Row
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The metadata and rows that comprise a query result set. The metadata describes the column structure and data types. To return a @ResultSet@ object, use 'GetQueryResults' .
+-- | The metadata and rows that comprise a query result set. The metadata
+-- describes the column structure and data types. To return a @ResultSet@
+-- object, use GetQueryResults.
 --
---
---
--- /See:/ 'resultSet' smart constructor.
+-- /See:/ 'newResultSet' smart constructor.
 data ResultSet = ResultSet'
-  { _rsRows ::
-      !(Maybe [Row]),
-    _rsResultSetMetadata :: !(Maybe ResultSetMetadata)
+  { -- | The rows in the table.
+    rows :: Prelude.Maybe [Row],
+    -- | The metadata that describes the column structure and data types of a
+    -- table of query results.
+    resultSetMetadata :: Prelude.Maybe ResultSetMetadata
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResultSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResultSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsRows' - The rows in the table.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsResultSetMetadata' - The metadata that describes the column structure and data types of a table of query results.
-resultSet ::
+-- 'rows', 'resultSet_rows' - The rows in the table.
+--
+-- 'resultSetMetadata', 'resultSet_resultSetMetadata' - The metadata that describes the column structure and data types of a
+-- table of query results.
+newResultSet ::
   ResultSet
-resultSet =
+newResultSet =
   ResultSet'
-    { _rsRows = Nothing,
-      _rsResultSetMetadata = Nothing
+    { rows = Prelude.Nothing,
+      resultSetMetadata = Prelude.Nothing
     }
 
 -- | The rows in the table.
-rsRows :: Lens' ResultSet [Row]
-rsRows = lens _rsRows (\s a -> s {_rsRows = a}) . _Default . _Coerce
+resultSet_rows :: Lens.Lens' ResultSet (Prelude.Maybe [Row])
+resultSet_rows = Lens.lens (\ResultSet' {rows} -> rows) (\s@ResultSet' {} a -> s {rows = a} :: ResultSet) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The metadata that describes the column structure and data types of a table of query results.
-rsResultSetMetadata :: Lens' ResultSet (Maybe ResultSetMetadata)
-rsResultSetMetadata = lens _rsResultSetMetadata (\s a -> s {_rsResultSetMetadata = a})
+-- | The metadata that describes the column structure and data types of a
+-- table of query results.
+resultSet_resultSetMetadata :: Lens.Lens' ResultSet (Prelude.Maybe ResultSetMetadata)
+resultSet_resultSetMetadata = Lens.lens (\ResultSet' {resultSetMetadata} -> resultSetMetadata) (\s@ResultSet' {} a -> s {resultSetMetadata = a} :: ResultSet)
 
-instance FromJSON ResultSet where
+instance Prelude.FromJSON ResultSet where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResultSet"
       ( \x ->
           ResultSet'
-            <$> (x .:? "Rows" .!= mempty)
-            <*> (x .:? "ResultSetMetadata")
+            Prelude.<$> (x Prelude..:? "Rows" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ResultSetMetadata")
       )
 
-instance Hashable ResultSet
+instance Prelude.Hashable ResultSet
 
-instance NFData ResultSet
+instance Prelude.NFData ResultSet
