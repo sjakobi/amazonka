@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,134 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops the execution of a bulk deployment. This action returns a status of ''Stopping'' until the deployment is stopped. You cannot start a new bulk deployment while a previous deployment is in the ''Stopping'' state. This action doesn't rollback completed deployments or cancel pending deployments.
+-- Stops the execution of a bulk deployment. This action returns a status
+-- of \'\'Stopping\'\' until the deployment is stopped. You cannot start a
+-- new bulk deployment while a previous deployment is in the
+-- \'\'Stopping\'\' state. This action doesn\'t rollback completed
+-- deployments or cancel pending deployments.
 module Network.AWS.Greengrass.StopBulkDeployment
   ( -- * Creating a Request
-    stopBulkDeployment,
-    StopBulkDeployment,
+    StopBulkDeployment (..),
+    newStopBulkDeployment,
 
     -- * Request Lenses
-    sbdBulkDeploymentId,
+    stopBulkDeployment_bulkDeploymentId,
 
     -- * Destructuring the Response
-    stopBulkDeploymentResponse,
-    StopBulkDeploymentResponse,
+    StopBulkDeploymentResponse (..),
+    newStopBulkDeploymentResponse,
 
     -- * Response Lenses
-    srsResponseStatus,
+    stopBulkDeploymentResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopBulkDeployment' smart constructor.
-newtype StopBulkDeployment = StopBulkDeployment'
-  { _sbdBulkDeploymentId ::
-      Text
+-- | /See:/ 'newStopBulkDeployment' smart constructor.
+data StopBulkDeployment = StopBulkDeployment'
+  { -- | The ID of the bulk deployment.
+    bulkDeploymentId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopBulkDeployment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopBulkDeployment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sbdBulkDeploymentId' - The ID of the bulk deployment.
-stopBulkDeployment ::
-  -- | 'sbdBulkDeploymentId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'bulkDeploymentId', 'stopBulkDeployment_bulkDeploymentId' - The ID of the bulk deployment.
+newStopBulkDeployment ::
+  -- | 'bulkDeploymentId'
+  Prelude.Text ->
   StopBulkDeployment
-stopBulkDeployment pBulkDeploymentId_ =
+newStopBulkDeployment pBulkDeploymentId_ =
   StopBulkDeployment'
-    { _sbdBulkDeploymentId =
+    { bulkDeploymentId =
         pBulkDeploymentId_
     }
 
 -- | The ID of the bulk deployment.
-sbdBulkDeploymentId :: Lens' StopBulkDeployment Text
-sbdBulkDeploymentId = lens _sbdBulkDeploymentId (\s a -> s {_sbdBulkDeploymentId = a})
+stopBulkDeployment_bulkDeploymentId :: Lens.Lens' StopBulkDeployment Prelude.Text
+stopBulkDeployment_bulkDeploymentId = Lens.lens (\StopBulkDeployment' {bulkDeploymentId} -> bulkDeploymentId) (\s@StopBulkDeployment' {} a -> s {bulkDeploymentId = a} :: StopBulkDeployment)
 
-instance AWSRequest StopBulkDeployment where
+instance Prelude.AWSRequest StopBulkDeployment where
   type
     Rs StopBulkDeployment =
       StopBulkDeploymentResponse
-  request = putJSON greengrass
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          StopBulkDeploymentResponse' <$> (pure (fromEnum s))
+          StopBulkDeploymentResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopBulkDeployment
+instance Prelude.Hashable StopBulkDeployment
 
-instance NFData StopBulkDeployment
+instance Prelude.NFData StopBulkDeployment
 
-instance ToHeaders StopBulkDeployment where
+instance Prelude.ToHeaders StopBulkDeployment where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopBulkDeployment where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON StopBulkDeployment where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath StopBulkDeployment where
+instance Prelude.ToPath StopBulkDeployment where
   toPath StopBulkDeployment' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/bulk/deployments/",
-        toBS _sbdBulkDeploymentId,
+        Prelude.toBS bulkDeploymentId,
         "/$stop"
       ]
 
-instance ToQuery StopBulkDeployment where
-  toQuery = const mempty
+instance Prelude.ToQuery StopBulkDeployment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopBulkDeploymentResponse' smart constructor.
-newtype StopBulkDeploymentResponse = StopBulkDeploymentResponse'
-  { _srsResponseStatus ::
-      Int
+-- | /See:/ 'newStopBulkDeploymentResponse' smart constructor.
+data StopBulkDeploymentResponse = StopBulkDeploymentResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopBulkDeploymentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopBulkDeploymentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsResponseStatus' - -- | The response status code.
-stopBulkDeploymentResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'stopBulkDeploymentResponse_httpStatus' - The response's http status code.
+newStopBulkDeploymentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopBulkDeploymentResponse
-stopBulkDeploymentResponse pResponseStatus_ =
+newStopBulkDeploymentResponse pHttpStatus_ =
   StopBulkDeploymentResponse'
-    { _srsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StopBulkDeploymentResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+stopBulkDeploymentResponse_httpStatus :: Lens.Lens' StopBulkDeploymentResponse Prelude.Int
+stopBulkDeploymentResponse_httpStatus = Lens.lens (\StopBulkDeploymentResponse' {httpStatus} -> httpStatus) (\s@StopBulkDeploymentResponse' {} a -> s {httpStatus = a} :: StopBulkDeploymentResponse)
 
-instance NFData StopBulkDeploymentResponse
+instance Prelude.NFData StopBulkDeploymentResponse

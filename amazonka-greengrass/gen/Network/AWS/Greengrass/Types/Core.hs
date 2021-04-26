@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.Core where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a core.
 --
--- /See:/ 'core' smart constructor.
+-- /See:/ 'newCore' smart constructor.
 data Core = Core'
-  { _corSyncShadow :: !(Maybe Bool),
-    _corThingARN :: !Text,
-    _corId :: !Text,
-    _corCertificateARN :: !Text
+  { -- | If true, the core\'s local shadow is automatically synced with the
+    -- cloud.
+    syncShadow :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN of the thing which is the core.
+    thingArn :: Prelude.Text,
+    -- | A descriptive or arbitrary ID for the core. This value must be unique
+    -- within the core definition version. Max length is 128 characters with
+    -- pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+    id :: Prelude.Text,
+    -- | The ARN of the certificate associated with the core.
+    certificateArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Core' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Core' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'corSyncShadow' - If true, the core's local shadow is automatically synced with the cloud.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'corThingARN' - The ARN of the thing which is the core.
+-- 'syncShadow', 'core_syncShadow' - If true, the core\'s local shadow is automatically synced with the
+-- cloud.
 --
--- * 'corId' - A descriptive or arbitrary ID for the core. This value must be unique within the core definition version. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''.
+-- 'thingArn', 'core_thingArn' - The ARN of the thing which is the core.
 --
--- * 'corCertificateARN' - The ARN of the certificate associated with the core.
-core ::
-  -- | 'corThingARN'
-  Text ->
-  -- | 'corId'
-  Text ->
-  -- | 'corCertificateARN'
-  Text ->
+-- 'id', 'core_id' - A descriptive or arbitrary ID for the core. This value must be unique
+-- within the core definition version. Max length is 128 characters with
+-- pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+--
+-- 'certificateArn', 'core_certificateArn' - The ARN of the certificate associated with the core.
+newCore ::
+  -- | 'thingArn'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'certificateArn'
+  Prelude.Text ->
   Core
-core pThingARN_ pId_ pCertificateARN_ =
+newCore pThingArn_ pId_ pCertificateArn_ =
   Core'
-    { _corSyncShadow = Nothing,
-      _corThingARN = pThingARN_,
-      _corId = pId_,
-      _corCertificateARN = pCertificateARN_
+    { syncShadow = Prelude.Nothing,
+      thingArn = pThingArn_,
+      id = pId_,
+      certificateArn = pCertificateArn_
     }
 
--- | If true, the core's local shadow is automatically synced with the cloud.
-corSyncShadow :: Lens' Core (Maybe Bool)
-corSyncShadow = lens _corSyncShadow (\s a -> s {_corSyncShadow = a})
+-- | If true, the core\'s local shadow is automatically synced with the
+-- cloud.
+core_syncShadow :: Lens.Lens' Core (Prelude.Maybe Prelude.Bool)
+core_syncShadow = Lens.lens (\Core' {syncShadow} -> syncShadow) (\s@Core' {} a -> s {syncShadow = a} :: Core)
 
 -- | The ARN of the thing which is the core.
-corThingARN :: Lens' Core Text
-corThingARN = lens _corThingARN (\s a -> s {_corThingARN = a})
+core_thingArn :: Lens.Lens' Core Prelude.Text
+core_thingArn = Lens.lens (\Core' {thingArn} -> thingArn) (\s@Core' {} a -> s {thingArn = a} :: Core)
 
--- | A descriptive or arbitrary ID for the core. This value must be unique within the core definition version. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''.
-corId :: Lens' Core Text
-corId = lens _corId (\s a -> s {_corId = a})
+-- | A descriptive or arbitrary ID for the core. This value must be unique
+-- within the core definition version. Max length is 128 characters with
+-- pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+core_id :: Lens.Lens' Core Prelude.Text
+core_id = Lens.lens (\Core' {id} -> id) (\s@Core' {} a -> s {id = a} :: Core)
 
 -- | The ARN of the certificate associated with the core.
-corCertificateARN :: Lens' Core Text
-corCertificateARN = lens _corCertificateARN (\s a -> s {_corCertificateARN = a})
+core_certificateArn :: Lens.Lens' Core Prelude.Text
+core_certificateArn = Lens.lens (\Core' {certificateArn} -> certificateArn) (\s@Core' {} a -> s {certificateArn = a} :: Core)
 
-instance FromJSON Core where
+instance Prelude.FromJSON Core where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Core"
       ( \x ->
           Core'
-            <$> (x .:? "SyncShadow")
-            <*> (x .: "ThingArn")
-            <*> (x .: "Id")
-            <*> (x .: "CertificateArn")
+            Prelude.<$> (x Prelude..:? "SyncShadow")
+            Prelude.<*> (x Prelude..: "ThingArn")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "CertificateArn")
       )
 
-instance Hashable Core
+instance Prelude.Hashable Core
 
-instance NFData Core
+instance Prelude.NFData Core
 
-instance ToJSON Core where
+instance Prelude.ToJSON Core where
   toJSON Core' {..} =
-    object
-      ( catMaybes
-          [ ("SyncShadow" .=) <$> _corSyncShadow,
-            Just ("ThingArn" .= _corThingARN),
-            Just ("Id" .= _corId),
-            Just ("CertificateArn" .= _corCertificateARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SyncShadow" Prelude..=) Prelude.<$> syncShadow,
+            Prelude.Just ("ThingArn" Prelude..= thingArn),
+            Prelude.Just ("Id" Prelude..= id),
+            Prelude.Just
+              ("CertificateArn" Prelude..= certificateArn)
           ]
       )

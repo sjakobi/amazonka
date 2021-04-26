@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Greengrass.Types.FunctionIsolationMode
   ( FunctionIsolationMode
       ( ..,
-        GreengrassContainer,
-        NoContainer
+        FunctionIsolationModeGreengrassContainer,
+        FunctionIsolationModeNoContainer
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies whether the Lambda function runs in a Greengrass container (default) or without containerization. Unless your scenario requires that you run without containerization, we recommend that you run in a Greengrass container. Omit this value to run the Lambda function with the default containerization for the group.
-data FunctionIsolationMode
-  = FunctionIsolationMode'
-      ( CI
-          Text
-      )
+-- | Specifies whether the Lambda function runs in a Greengrass container
+-- (default) or without containerization. Unless your scenario requires
+-- that you run without containerization, we recommend that you run in a
+-- Greengrass container. Omit this value to run the Lambda function with
+-- the default containerization for the group.
+newtype FunctionIsolationMode = FunctionIsolationMode'
+  { fromFunctionIsolationMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GreengrassContainer :: FunctionIsolationMode
-pattern GreengrassContainer = FunctionIsolationMode' "GreengrassContainer"
+pattern FunctionIsolationModeGreengrassContainer :: FunctionIsolationMode
+pattern FunctionIsolationModeGreengrassContainer = FunctionIsolationMode' "GreengrassContainer"
 
-pattern NoContainer :: FunctionIsolationMode
-pattern NoContainer = FunctionIsolationMode' "NoContainer"
+pattern FunctionIsolationModeNoContainer :: FunctionIsolationMode
+pattern FunctionIsolationModeNoContainer = FunctionIsolationMode' "NoContainer"
 
 {-# COMPLETE
-  GreengrassContainer,
-  NoContainer,
+  FunctionIsolationModeGreengrassContainer,
+  FunctionIsolationModeNoContainer,
   FunctionIsolationMode'
   #-}
 
-instance FromText FunctionIsolationMode where
-  parser = (FunctionIsolationMode' . mk) <$> takeText
+instance Prelude.FromText FunctionIsolationMode where
+  parser = FunctionIsolationMode' Prelude.<$> Prelude.takeText
 
-instance ToText FunctionIsolationMode where
-  toText (FunctionIsolationMode' ci) = original ci
+instance Prelude.ToText FunctionIsolationMode where
+  toText (FunctionIsolationMode' x) = x
 
-instance Hashable FunctionIsolationMode
+instance Prelude.Hashable FunctionIsolationMode
 
-instance NFData FunctionIsolationMode
+instance Prelude.NFData FunctionIsolationMode
 
-instance ToByteString FunctionIsolationMode
+instance Prelude.ToByteString FunctionIsolationMode
 
-instance ToQuery FunctionIsolationMode
+instance Prelude.ToQuery FunctionIsolationMode
 
-instance ToHeader FunctionIsolationMode
+instance Prelude.ToHeader FunctionIsolationMode
 
-instance ToJSON FunctionIsolationMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON FunctionIsolationMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FunctionIsolationMode where
-  parseJSON = parseJSONText "FunctionIsolationMode"
+instance Prelude.FromJSON FunctionIsolationMode where
+  parseJSON = Prelude.parseJSONText "FunctionIsolationMode"

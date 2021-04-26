@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,141 +24,145 @@
 -- Get the runtime configuration of a thing.
 module Network.AWS.Greengrass.GetThingRuntimeConfiguration
   ( -- * Creating a Request
-    getThingRuntimeConfiguration,
-    GetThingRuntimeConfiguration,
+    GetThingRuntimeConfiguration (..),
+    newGetThingRuntimeConfiguration,
 
     -- * Request Lenses
-    gtrcThingName,
+    getThingRuntimeConfiguration_thingName,
 
     -- * Destructuring the Response
-    getThingRuntimeConfigurationResponse,
-    GetThingRuntimeConfigurationResponse,
+    GetThingRuntimeConfigurationResponse (..),
+    newGetThingRuntimeConfigurationResponse,
 
     -- * Response Lenses
-    gtrcrrsRuntimeConfiguration,
-    gtrcrrsResponseStatus,
+    getThingRuntimeConfigurationResponse_runtimeConfiguration,
+    getThingRuntimeConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.RuntimeConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getThingRuntimeConfiguration' smart constructor.
-newtype GetThingRuntimeConfiguration = GetThingRuntimeConfiguration'
-  { _gtrcThingName ::
-      Text
+-- | /See:/ 'newGetThingRuntimeConfiguration' smart constructor.
+data GetThingRuntimeConfiguration = GetThingRuntimeConfiguration'
+  { -- | The thing name.
+    thingName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetThingRuntimeConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetThingRuntimeConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrcThingName' - The thing name.
-getThingRuntimeConfiguration ::
-  -- | 'gtrcThingName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'thingName', 'getThingRuntimeConfiguration_thingName' - The thing name.
+newGetThingRuntimeConfiguration ::
+  -- | 'thingName'
+  Prelude.Text ->
   GetThingRuntimeConfiguration
-getThingRuntimeConfiguration pThingName_ =
+newGetThingRuntimeConfiguration pThingName_ =
   GetThingRuntimeConfiguration'
-    { _gtrcThingName =
+    { thingName =
         pThingName_
     }
 
 -- | The thing name.
-gtrcThingName :: Lens' GetThingRuntimeConfiguration Text
-gtrcThingName = lens _gtrcThingName (\s a -> s {_gtrcThingName = a})
+getThingRuntimeConfiguration_thingName :: Lens.Lens' GetThingRuntimeConfiguration Prelude.Text
+getThingRuntimeConfiguration_thingName = Lens.lens (\GetThingRuntimeConfiguration' {thingName} -> thingName) (\s@GetThingRuntimeConfiguration' {} a -> s {thingName = a} :: GetThingRuntimeConfiguration)
 
-instance AWSRequest GetThingRuntimeConfiguration where
+instance
+  Prelude.AWSRequest
+    GetThingRuntimeConfiguration
+  where
   type
     Rs GetThingRuntimeConfiguration =
       GetThingRuntimeConfigurationResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetThingRuntimeConfigurationResponse'
-            <$> (x .?> "RuntimeConfiguration")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RuntimeConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetThingRuntimeConfiguration
+instance
+  Prelude.Hashable
+    GetThingRuntimeConfiguration
 
-instance NFData GetThingRuntimeConfiguration
+instance Prelude.NFData GetThingRuntimeConfiguration
 
-instance ToHeaders GetThingRuntimeConfiguration where
+instance
+  Prelude.ToHeaders
+    GetThingRuntimeConfiguration
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetThingRuntimeConfiguration where
+instance Prelude.ToPath GetThingRuntimeConfiguration where
   toPath GetThingRuntimeConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/things/",
-        toBS _gtrcThingName,
+        Prelude.toBS thingName,
         "/runtimeconfig"
       ]
 
-instance ToQuery GetThingRuntimeConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery GetThingRuntimeConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getThingRuntimeConfigurationResponse' smart constructor.
+-- | /See:/ 'newGetThingRuntimeConfigurationResponse' smart constructor.
 data GetThingRuntimeConfigurationResponse = GetThingRuntimeConfigurationResponse'
-  { _gtrcrrsRuntimeConfiguration ::
-      !( Maybe
-           RuntimeConfiguration
-       ),
-    _gtrcrrsResponseStatus ::
-      !Int
+  { -- | Runtime configuration for a thing.
+    runtimeConfiguration :: Prelude.Maybe RuntimeConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetThingRuntimeConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetThingRuntimeConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrcrrsRuntimeConfiguration' - Runtime configuration for a thing.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtrcrrsResponseStatus' - -- | The response status code.
-getThingRuntimeConfigurationResponse ::
-  -- | 'gtrcrrsResponseStatus'
-  Int ->
+-- 'runtimeConfiguration', 'getThingRuntimeConfigurationResponse_runtimeConfiguration' - Runtime configuration for a thing.
+--
+-- 'httpStatus', 'getThingRuntimeConfigurationResponse_httpStatus' - The response's http status code.
+newGetThingRuntimeConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetThingRuntimeConfigurationResponse
-getThingRuntimeConfigurationResponse pResponseStatus_ =
+newGetThingRuntimeConfigurationResponse pHttpStatus_ =
   GetThingRuntimeConfigurationResponse'
-    { _gtrcrrsRuntimeConfiguration =
-        Nothing,
-      _gtrcrrsResponseStatus =
-        pResponseStatus_
+    { runtimeConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Runtime configuration for a thing.
-gtrcrrsRuntimeConfiguration :: Lens' GetThingRuntimeConfigurationResponse (Maybe RuntimeConfiguration)
-gtrcrrsRuntimeConfiguration = lens _gtrcrrsRuntimeConfiguration (\s a -> s {_gtrcrrsRuntimeConfiguration = a})
+getThingRuntimeConfigurationResponse_runtimeConfiguration :: Lens.Lens' GetThingRuntimeConfigurationResponse (Prelude.Maybe RuntimeConfiguration)
+getThingRuntimeConfigurationResponse_runtimeConfiguration = Lens.lens (\GetThingRuntimeConfigurationResponse' {runtimeConfiguration} -> runtimeConfiguration) (\s@GetThingRuntimeConfigurationResponse' {} a -> s {runtimeConfiguration = a} :: GetThingRuntimeConfigurationResponse)
 
--- | -- | The response status code.
-gtrcrrsResponseStatus :: Lens' GetThingRuntimeConfigurationResponse Int
-gtrcrrsResponseStatus = lens _gtrcrrsResponseStatus (\s a -> s {_gtrcrrsResponseStatus = a})
+-- | The response's http status code.
+getThingRuntimeConfigurationResponse_httpStatus :: Lens.Lens' GetThingRuntimeConfigurationResponse Prelude.Int
+getThingRuntimeConfigurationResponse_httpStatus = Lens.lens (\GetThingRuntimeConfigurationResponse' {httpStatus} -> httpStatus) (\s@GetThingRuntimeConfigurationResponse' {} a -> s {httpStatus = a} :: GetThingRuntimeConfigurationResponse)
 
-instance NFData GetThingRuntimeConfigurationResponse
+instance
+  Prelude.NFData
+    GetThingRuntimeConfigurationResponse

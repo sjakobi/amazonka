@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the connectivity information for the core. Any devices that belong to the group which has this core will receive this information in order to find the location of the core and connect to it.
+-- Updates the connectivity information for the core. Any devices that
+-- belong to the group which has this core will receive this information in
+-- order to find the location of the core and connect to it.
 module Network.AWS.Greengrass.UpdateConnectivityInfo
   ( -- * Creating a Request
-    updateConnectivityInfo,
-    UpdateConnectivityInfo,
+    UpdateConnectivityInfo (..),
+    newUpdateConnectivityInfo,
 
     -- * Request Lenses
-    uciConnectivityInfo,
-    uciThingName,
+    updateConnectivityInfo_connectivityInfo,
+    updateConnectivityInfo_thingName,
 
     -- * Destructuring the Response
-    updateConnectivityInfoResponse,
-    UpdateConnectivityInfoResponse,
+    UpdateConnectivityInfoResponse (..),
+    newUpdateConnectivityInfoResponse,
 
     -- * Response Lenses
-    ucirrsMessage,
-    ucirrsVersion,
-    ucirrsResponseStatus,
+    updateConnectivityInfoResponse_message,
+    updateConnectivityInfoResponse_version,
+    updateConnectivityInfoResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Connectivity information.
 --
--- /See:/ 'updateConnectivityInfo' smart constructor.
+-- /See:/ 'newUpdateConnectivityInfo' smart constructor.
 data UpdateConnectivityInfo = UpdateConnectivityInfo'
-  { _uciConnectivityInfo ::
-      !( Maybe
-           [ConnectivityInfo]
-       ),
-    _uciThingName :: !Text
+  { -- | A list of connectivity info.
+    connectivityInfo :: Prelude.Maybe [ConnectivityInfo],
+    -- | The thing name.
+    thingName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConnectivityInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConnectivityInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uciConnectivityInfo' - A list of connectivity info.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uciThingName' - The thing name.
-updateConnectivityInfo ::
-  -- | 'uciThingName'
-  Text ->
+-- 'connectivityInfo', 'updateConnectivityInfo_connectivityInfo' - A list of connectivity info.
+--
+-- 'thingName', 'updateConnectivityInfo_thingName' - The thing name.
+newUpdateConnectivityInfo ::
+  -- | 'thingName'
+  Prelude.Text ->
   UpdateConnectivityInfo
-updateConnectivityInfo pThingName_ =
+newUpdateConnectivityInfo pThingName_ =
   UpdateConnectivityInfo'
-    { _uciConnectivityInfo =
-        Nothing,
-      _uciThingName = pThingName_
+    { connectivityInfo =
+        Prelude.Nothing,
+      thingName = pThingName_
     }
 
 -- | A list of connectivity info.
-uciConnectivityInfo :: Lens' UpdateConnectivityInfo [ConnectivityInfo]
-uciConnectivityInfo = lens _uciConnectivityInfo (\s a -> s {_uciConnectivityInfo = a}) . _Default . _Coerce
+updateConnectivityInfo_connectivityInfo :: Lens.Lens' UpdateConnectivityInfo (Prelude.Maybe [ConnectivityInfo])
+updateConnectivityInfo_connectivityInfo = Lens.lens (\UpdateConnectivityInfo' {connectivityInfo} -> connectivityInfo) (\s@UpdateConnectivityInfo' {} a -> s {connectivityInfo = a} :: UpdateConnectivityInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The thing name.
-uciThingName :: Lens' UpdateConnectivityInfo Text
-uciThingName = lens _uciThingName (\s a -> s {_uciThingName = a})
+updateConnectivityInfo_thingName :: Lens.Lens' UpdateConnectivityInfo Prelude.Text
+updateConnectivityInfo_thingName = Lens.lens (\UpdateConnectivityInfo' {thingName} -> thingName) (\s@UpdateConnectivityInfo' {} a -> s {thingName = a} :: UpdateConnectivityInfo)
 
-instance AWSRequest UpdateConnectivityInfo where
+instance Prelude.AWSRequest UpdateConnectivityInfo where
   type
     Rs UpdateConnectivityInfo =
       UpdateConnectivityInfoResponse
-  request = putJSON greengrass
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateConnectivityInfoResponse'
-            <$> (x .?> "message")
-            <*> (x .?> "Version")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "message")
+            Prelude.<*> (x Prelude..?> "Version")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateConnectivityInfo
+instance Prelude.Hashable UpdateConnectivityInfo
 
-instance NFData UpdateConnectivityInfo
+instance Prelude.NFData UpdateConnectivityInfo
 
-instance ToHeaders UpdateConnectivityInfo where
+instance Prelude.ToHeaders UpdateConnectivityInfo where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateConnectivityInfo where
+instance Prelude.ToJSON UpdateConnectivityInfo where
   toJSON UpdateConnectivityInfo' {..} =
-    object
-      ( catMaybes
-          [("ConnectivityInfo" .=) <$> _uciConnectivityInfo]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ConnectivityInfo" Prelude..=)
+              Prelude.<$> connectivityInfo
+          ]
       )
 
-instance ToPath UpdateConnectivityInfo where
+instance Prelude.ToPath UpdateConnectivityInfo where
   toPath UpdateConnectivityInfo' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/things/",
-        toBS _uciThingName,
+        Prelude.toBS thingName,
         "/connectivityInfo"
       ]
 
-instance ToQuery UpdateConnectivityInfo where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateConnectivityInfo where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateConnectivityInfoResponse' smart constructor.
+-- | /See:/ 'newUpdateConnectivityInfoResponse' smart constructor.
 data UpdateConnectivityInfoResponse = UpdateConnectivityInfoResponse'
-  { _ucirrsMessage ::
-      !( Maybe
-           Text
-       ),
-    _ucirrsVersion ::
-      !( Maybe
-           Text
-       ),
-    _ucirrsResponseStatus ::
-      !Int
+  { -- | A message about the connectivity info update request.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The new version of the connectivity info.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConnectivityInfoResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConnectivityInfoResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucirrsMessage' - A message about the connectivity info update request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucirrsVersion' - The new version of the connectivity info.
+-- 'message', 'updateConnectivityInfoResponse_message' - A message about the connectivity info update request.
 --
--- * 'ucirrsResponseStatus' - -- | The response status code.
-updateConnectivityInfoResponse ::
-  -- | 'ucirrsResponseStatus'
-  Int ->
+-- 'version', 'updateConnectivityInfoResponse_version' - The new version of the connectivity info.
+--
+-- 'httpStatus', 'updateConnectivityInfoResponse_httpStatus' - The response's http status code.
+newUpdateConnectivityInfoResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateConnectivityInfoResponse
-updateConnectivityInfoResponse pResponseStatus_ =
+newUpdateConnectivityInfoResponse pHttpStatus_ =
   UpdateConnectivityInfoResponse'
-    { _ucirrsMessage =
-        Nothing,
-      _ucirrsVersion = Nothing,
-      _ucirrsResponseStatus = pResponseStatus_
+    { message =
+        Prelude.Nothing,
+      version = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A message about the connectivity info update request.
-ucirrsMessage :: Lens' UpdateConnectivityInfoResponse (Maybe Text)
-ucirrsMessage = lens _ucirrsMessage (\s a -> s {_ucirrsMessage = a})
+updateConnectivityInfoResponse_message :: Lens.Lens' UpdateConnectivityInfoResponse (Prelude.Maybe Prelude.Text)
+updateConnectivityInfoResponse_message = Lens.lens (\UpdateConnectivityInfoResponse' {message} -> message) (\s@UpdateConnectivityInfoResponse' {} a -> s {message = a} :: UpdateConnectivityInfoResponse)
 
 -- | The new version of the connectivity info.
-ucirrsVersion :: Lens' UpdateConnectivityInfoResponse (Maybe Text)
-ucirrsVersion = lens _ucirrsVersion (\s a -> s {_ucirrsVersion = a})
+updateConnectivityInfoResponse_version :: Lens.Lens' UpdateConnectivityInfoResponse (Prelude.Maybe Prelude.Text)
+updateConnectivityInfoResponse_version = Lens.lens (\UpdateConnectivityInfoResponse' {version} -> version) (\s@UpdateConnectivityInfoResponse' {} a -> s {version = a} :: UpdateConnectivityInfoResponse)
 
--- | -- | The response status code.
-ucirrsResponseStatus :: Lens' UpdateConnectivityInfoResponse Int
-ucirrsResponseStatus = lens _ucirrsResponseStatus (\s a -> s {_ucirrsResponseStatus = a})
+-- | The response's http status code.
+updateConnectivityInfoResponse_httpStatus :: Lens.Lens' UpdateConnectivityInfoResponse Prelude.Int
+updateConnectivityInfoResponse_httpStatus = Lens.lens (\UpdateConnectivityInfoResponse' {httpStatus} -> httpStatus) (\s@UpdateConnectivityInfoResponse' {} a -> s {httpStatus = a} :: UpdateConnectivityInfoResponse)
 
-instance NFData UpdateConnectivityInfoResponse
+instance
+  Prelude.NFData
+    UpdateConnectivityInfoResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Greengrass.Types.LoggerComponent
   ( LoggerComponent
       ( ..,
-        GreengrassSystem,
-        Lambda
+        LoggerComponentGreengrassSystem,
+        LoggerComponentLambda
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoggerComponent = LoggerComponent' (CI Text)
+newtype LoggerComponent = LoggerComponent'
+  { fromLoggerComponent ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GreengrassSystem :: LoggerComponent
-pattern GreengrassSystem = LoggerComponent' "GreengrassSystem"
+pattern LoggerComponentGreengrassSystem :: LoggerComponent
+pattern LoggerComponentGreengrassSystem = LoggerComponent' "GreengrassSystem"
 
-pattern Lambda :: LoggerComponent
-pattern Lambda = LoggerComponent' "Lambda"
+pattern LoggerComponentLambda :: LoggerComponent
+pattern LoggerComponentLambda = LoggerComponent' "Lambda"
 
 {-# COMPLETE
-  GreengrassSystem,
-  Lambda,
+  LoggerComponentGreengrassSystem,
+  LoggerComponentLambda,
   LoggerComponent'
   #-}
 
-instance FromText LoggerComponent where
-  parser = (LoggerComponent' . mk) <$> takeText
+instance Prelude.FromText LoggerComponent where
+  parser = LoggerComponent' Prelude.<$> Prelude.takeText
 
-instance ToText LoggerComponent where
-  toText (LoggerComponent' ci) = original ci
+instance Prelude.ToText LoggerComponent where
+  toText (LoggerComponent' x) = x
 
-instance Hashable LoggerComponent
+instance Prelude.Hashable LoggerComponent
 
-instance NFData LoggerComponent
+instance Prelude.NFData LoggerComponent
 
-instance ToByteString LoggerComponent
+instance Prelude.ToByteString LoggerComponent
 
-instance ToQuery LoggerComponent
+instance Prelude.ToQuery LoggerComponent
 
-instance ToHeader LoggerComponent
+instance Prelude.ToHeader LoggerComponent
 
-instance ToJSON LoggerComponent where
-  toJSON = toJSONText
+instance Prelude.ToJSON LoggerComponent where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LoggerComponent where
-  parseJSON = parseJSONText "LoggerComponent"
+instance Prelude.FromJSON LoggerComponent where
+  parseJSON = Prelude.parseJSONText "LoggerComponent"

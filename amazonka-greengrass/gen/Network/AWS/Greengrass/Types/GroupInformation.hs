@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,98 +19,111 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.GroupInformation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a group.
 --
--- /See:/ 'groupInformation' smart constructor.
+-- /See:/ 'newGroupInformation' smart constructor.
 data GroupInformation = GroupInformation'
-  { _giCreationTimestamp ::
-      !(Maybe Text),
-    _giLatestVersionARN :: !(Maybe Text),
-    _giLatestVersion :: !(Maybe Text),
-    _giARN :: !(Maybe Text),
-    _giId :: !(Maybe Text),
-    _giName :: !(Maybe Text),
-    _giLastUpdatedTimestamp ::
-      !(Maybe Text)
+  { -- | The time, in milliseconds since the epoch, when the group was created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the group.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the group.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the group.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the group.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the group.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the group was last
+    -- updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GroupInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GroupInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giCreationTimestamp' - The time, in milliseconds since the epoch, when the group was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giLatestVersionARN' - The ARN of the latest version associated with the group.
+-- 'creationTimestamp', 'groupInformation_creationTimestamp' - The time, in milliseconds since the epoch, when the group was created.
 --
--- * 'giLatestVersion' - The ID of the latest version associated with the group.
+-- 'latestVersionArn', 'groupInformation_latestVersionArn' - The ARN of the latest version associated with the group.
 --
--- * 'giARN' - The ARN of the group.
+-- 'latestVersion', 'groupInformation_latestVersion' - The ID of the latest version associated with the group.
 --
--- * 'giId' - The ID of the group.
+-- 'arn', 'groupInformation_arn' - The ARN of the group.
 --
--- * 'giName' - The name of the group.
+-- 'id', 'groupInformation_id' - The ID of the group.
 --
--- * 'giLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the group was last updated.
-groupInformation ::
+-- 'name', 'groupInformation_name' - The name of the group.
+--
+-- 'lastUpdatedTimestamp', 'groupInformation_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the group was last
+-- updated.
+newGroupInformation ::
   GroupInformation
-groupInformation =
+newGroupInformation =
   GroupInformation'
-    { _giCreationTimestamp = Nothing,
-      _giLatestVersionARN = Nothing,
-      _giLatestVersion = Nothing,
-      _giARN = Nothing,
-      _giId = Nothing,
-      _giName = Nothing,
-      _giLastUpdatedTimestamp = Nothing
+    { creationTimestamp =
+        Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing
     }
 
 -- | The time, in milliseconds since the epoch, when the group was created.
-giCreationTimestamp :: Lens' GroupInformation (Maybe Text)
-giCreationTimestamp = lens _giCreationTimestamp (\s a -> s {_giCreationTimestamp = a})
+groupInformation_creationTimestamp :: Lens.Lens' GroupInformation (Prelude.Maybe Prelude.Text)
+groupInformation_creationTimestamp = Lens.lens (\GroupInformation' {creationTimestamp} -> creationTimestamp) (\s@GroupInformation' {} a -> s {creationTimestamp = a} :: GroupInformation)
 
 -- | The ARN of the latest version associated with the group.
-giLatestVersionARN :: Lens' GroupInformation (Maybe Text)
-giLatestVersionARN = lens _giLatestVersionARN (\s a -> s {_giLatestVersionARN = a})
+groupInformation_latestVersionArn :: Lens.Lens' GroupInformation (Prelude.Maybe Prelude.Text)
+groupInformation_latestVersionArn = Lens.lens (\GroupInformation' {latestVersionArn} -> latestVersionArn) (\s@GroupInformation' {} a -> s {latestVersionArn = a} :: GroupInformation)
 
 -- | The ID of the latest version associated with the group.
-giLatestVersion :: Lens' GroupInformation (Maybe Text)
-giLatestVersion = lens _giLatestVersion (\s a -> s {_giLatestVersion = a})
+groupInformation_latestVersion :: Lens.Lens' GroupInformation (Prelude.Maybe Prelude.Text)
+groupInformation_latestVersion = Lens.lens (\GroupInformation' {latestVersion} -> latestVersion) (\s@GroupInformation' {} a -> s {latestVersion = a} :: GroupInformation)
 
 -- | The ARN of the group.
-giARN :: Lens' GroupInformation (Maybe Text)
-giARN = lens _giARN (\s a -> s {_giARN = a})
+groupInformation_arn :: Lens.Lens' GroupInformation (Prelude.Maybe Prelude.Text)
+groupInformation_arn = Lens.lens (\GroupInformation' {arn} -> arn) (\s@GroupInformation' {} a -> s {arn = a} :: GroupInformation)
 
 -- | The ID of the group.
-giId :: Lens' GroupInformation (Maybe Text)
-giId = lens _giId (\s a -> s {_giId = a})
+groupInformation_id :: Lens.Lens' GroupInformation (Prelude.Maybe Prelude.Text)
+groupInformation_id = Lens.lens (\GroupInformation' {id} -> id) (\s@GroupInformation' {} a -> s {id = a} :: GroupInformation)
 
 -- | The name of the group.
-giName :: Lens' GroupInformation (Maybe Text)
-giName = lens _giName (\s a -> s {_giName = a})
+groupInformation_name :: Lens.Lens' GroupInformation (Prelude.Maybe Prelude.Text)
+groupInformation_name = Lens.lens (\GroupInformation' {name} -> name) (\s@GroupInformation' {} a -> s {name = a} :: GroupInformation)
 
--- | The time, in milliseconds since the epoch, when the group was last updated.
-giLastUpdatedTimestamp :: Lens' GroupInformation (Maybe Text)
-giLastUpdatedTimestamp = lens _giLastUpdatedTimestamp (\s a -> s {_giLastUpdatedTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the group was last
+-- updated.
+groupInformation_lastUpdatedTimestamp :: Lens.Lens' GroupInformation (Prelude.Maybe Prelude.Text)
+groupInformation_lastUpdatedTimestamp = Lens.lens (\GroupInformation' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@GroupInformation' {} a -> s {lastUpdatedTimestamp = a} :: GroupInformation)
 
-instance FromJSON GroupInformation where
+instance Prelude.FromJSON GroupInformation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GroupInformation"
       ( \x ->
           GroupInformation'
-            <$> (x .:? "CreationTimestamp")
-            <*> (x .:? "LatestVersionArn")
-            <*> (x .:? "LatestVersion")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Name")
-            <*> (x .:? "LastUpdatedTimestamp")
+            Prelude.<$> (x Prelude..:? "CreationTimestamp")
+            Prelude.<*> (x Prelude..:? "LatestVersionArn")
+            Prelude.<*> (x Prelude..:? "LatestVersion")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "LastUpdatedTimestamp")
       )
 
-instance Hashable GroupInformation
+instance Prelude.Hashable GroupInformation
 
-instance NFData GroupInformation
+instance Prelude.NFData GroupInformation

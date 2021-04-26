@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,236 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about a Lambda function definition, including its creation time and latest version.
+-- Retrieves information about a Lambda function definition, including its
+-- creation time and latest version.
 module Network.AWS.Greengrass.GetFunctionDefinition
   ( -- * Creating a Request
-    getFunctionDefinition,
-    GetFunctionDefinition,
+    GetFunctionDefinition (..),
+    newGetFunctionDefinition,
 
     -- * Request Lenses
-    gfdFunctionDefinitionId,
+    getFunctionDefinition_functionDefinitionId,
 
     -- * Destructuring the Response
-    getFunctionDefinitionResponse,
-    GetFunctionDefinitionResponse,
+    GetFunctionDefinitionResponse (..),
+    newGetFunctionDefinitionResponse,
 
     -- * Response Lenses
-    gfdrrsCreationTimestamp,
-    gfdrrsLatestVersionARN,
-    gfdrrsLatestVersion,
-    gfdrrsARN,
-    gfdrrsId,
-    gfdrrsName,
-    gfdrrsLastUpdatedTimestamp,
-    gfdrrsTags,
-    gfdrrsResponseStatus,
+    getFunctionDefinitionResponse_creationTimestamp,
+    getFunctionDefinitionResponse_latestVersionArn,
+    getFunctionDefinitionResponse_latestVersion,
+    getFunctionDefinitionResponse_arn,
+    getFunctionDefinitionResponse_id,
+    getFunctionDefinitionResponse_name,
+    getFunctionDefinitionResponse_lastUpdatedTimestamp,
+    getFunctionDefinitionResponse_tags,
+    getFunctionDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getFunctionDefinition' smart constructor.
-newtype GetFunctionDefinition = GetFunctionDefinition'
-  { _gfdFunctionDefinitionId ::
-      Text
+-- | /See:/ 'newGetFunctionDefinition' smart constructor.
+data GetFunctionDefinition = GetFunctionDefinition'
+  { -- | The ID of the Lambda function definition.
+    functionDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFunctionDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFunctionDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gfdFunctionDefinitionId' - The ID of the Lambda function definition.
-getFunctionDefinition ::
-  -- | 'gfdFunctionDefinitionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'functionDefinitionId', 'getFunctionDefinition_functionDefinitionId' - The ID of the Lambda function definition.
+newGetFunctionDefinition ::
+  -- | 'functionDefinitionId'
+  Prelude.Text ->
   GetFunctionDefinition
-getFunctionDefinition pFunctionDefinitionId_ =
+newGetFunctionDefinition pFunctionDefinitionId_ =
   GetFunctionDefinition'
-    { _gfdFunctionDefinitionId =
+    { functionDefinitionId =
         pFunctionDefinitionId_
     }
 
 -- | The ID of the Lambda function definition.
-gfdFunctionDefinitionId :: Lens' GetFunctionDefinition Text
-gfdFunctionDefinitionId = lens _gfdFunctionDefinitionId (\s a -> s {_gfdFunctionDefinitionId = a})
+getFunctionDefinition_functionDefinitionId :: Lens.Lens' GetFunctionDefinition Prelude.Text
+getFunctionDefinition_functionDefinitionId = Lens.lens (\GetFunctionDefinition' {functionDefinitionId} -> functionDefinitionId) (\s@GetFunctionDefinition' {} a -> s {functionDefinitionId = a} :: GetFunctionDefinition)
 
-instance AWSRequest GetFunctionDefinition where
+instance Prelude.AWSRequest GetFunctionDefinition where
   type
     Rs GetFunctionDefinition =
       GetFunctionDefinitionResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetFunctionDefinitionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "LatestVersionArn")
-            <*> (x .?> "LatestVersion")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Name")
-            <*> (x .?> "LastUpdatedTimestamp")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "LatestVersionArn")
+            Prelude.<*> (x Prelude..?> "LatestVersion")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "LastUpdatedTimestamp")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetFunctionDefinition
+instance Prelude.Hashable GetFunctionDefinition
 
-instance NFData GetFunctionDefinition
+instance Prelude.NFData GetFunctionDefinition
 
-instance ToHeaders GetFunctionDefinition where
+instance Prelude.ToHeaders GetFunctionDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetFunctionDefinition where
+instance Prelude.ToPath GetFunctionDefinition where
   toPath GetFunctionDefinition' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/functions/",
-        toBS _gfdFunctionDefinitionId
+        Prelude.toBS functionDefinitionId
       ]
 
-instance ToQuery GetFunctionDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery GetFunctionDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getFunctionDefinitionResponse' smart constructor.
+-- | /See:/ 'newGetFunctionDefinitionResponse' smart constructor.
 data GetFunctionDefinitionResponse = GetFunctionDefinitionResponse'
-  { _gfdrrsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _gfdrrsLatestVersionARN ::
-      !( Maybe
-           Text
-       ),
-    _gfdrrsLatestVersion ::
-      !( Maybe
-           Text
-       ),
-    _gfdrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _gfdrrsId ::
-      !( Maybe
-           Text
-       ),
-    _gfdrrsName ::
-      !( Maybe
-           Text
-       ),
-    _gfdrrsLastUpdatedTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _gfdrrsTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _gfdrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the definition was
+    -- created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the definition.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the definition.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the definition was last
+    -- updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | Tag(s) attached to the resource arn.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFunctionDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFunctionDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gfdrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gfdrrsLatestVersionARN' - The ARN of the latest version associated with the definition.
+-- 'creationTimestamp', 'getFunctionDefinitionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
+-- created.
 --
--- * 'gfdrrsLatestVersion' - The ID of the latest version associated with the definition.
+-- 'latestVersionArn', 'getFunctionDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
 --
--- * 'gfdrrsARN' - The ARN of the definition.
+-- 'latestVersion', 'getFunctionDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'gfdrrsId' - The ID of the definition.
+-- 'arn', 'getFunctionDefinitionResponse_arn' - The ARN of the definition.
 --
--- * 'gfdrrsName' - The name of the definition.
+-- 'id', 'getFunctionDefinitionResponse_id' - The ID of the definition.
 --
--- * 'gfdrrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- 'name', 'getFunctionDefinitionResponse_name' - The name of the definition.
 --
--- * 'gfdrrsTags' - Tag(s) attached to the resource arn.
+-- 'lastUpdatedTimestamp', 'getFunctionDefinitionResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
+-- updated.
 --
--- * 'gfdrrsResponseStatus' - -- | The response status code.
-getFunctionDefinitionResponse ::
-  -- | 'gfdrrsResponseStatus'
-  Int ->
+-- 'tags', 'getFunctionDefinitionResponse_tags' - Tag(s) attached to the resource arn.
+--
+-- 'httpStatus', 'getFunctionDefinitionResponse_httpStatus' - The response's http status code.
+newGetFunctionDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetFunctionDefinitionResponse
-getFunctionDefinitionResponse pResponseStatus_ =
+newGetFunctionDefinitionResponse pHttpStatus_ =
   GetFunctionDefinitionResponse'
-    { _gfdrrsCreationTimestamp =
-        Nothing,
-      _gfdrrsLatestVersionARN = Nothing,
-      _gfdrrsLatestVersion = Nothing,
-      _gfdrrsARN = Nothing,
-      _gfdrrsId = Nothing,
-      _gfdrrsName = Nothing,
-      _gfdrrsLastUpdatedTimestamp = Nothing,
-      _gfdrrsTags = Nothing,
-      _gfdrrsResponseStatus = pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the definition was created.
-gfdrrsCreationTimestamp :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrrsCreationTimestamp = lens _gfdrrsCreationTimestamp (\s a -> s {_gfdrrsCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was
+-- created.
+getFunctionDefinitionResponse_creationTimestamp :: Lens.Lens' GetFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getFunctionDefinitionResponse_creationTimestamp = Lens.lens (\GetFunctionDefinitionResponse' {creationTimestamp} -> creationTimestamp) (\s@GetFunctionDefinitionResponse' {} a -> s {creationTimestamp = a} :: GetFunctionDefinitionResponse)
 
 -- | The ARN of the latest version associated with the definition.
-gfdrrsLatestVersionARN :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrrsLatestVersionARN = lens _gfdrrsLatestVersionARN (\s a -> s {_gfdrrsLatestVersionARN = a})
+getFunctionDefinitionResponse_latestVersionArn :: Lens.Lens' GetFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getFunctionDefinitionResponse_latestVersionArn = Lens.lens (\GetFunctionDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@GetFunctionDefinitionResponse' {} a -> s {latestVersionArn = a} :: GetFunctionDefinitionResponse)
 
 -- | The ID of the latest version associated with the definition.
-gfdrrsLatestVersion :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrrsLatestVersion = lens _gfdrrsLatestVersion (\s a -> s {_gfdrrsLatestVersion = a})
+getFunctionDefinitionResponse_latestVersion :: Lens.Lens' GetFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getFunctionDefinitionResponse_latestVersion = Lens.lens (\GetFunctionDefinitionResponse' {latestVersion} -> latestVersion) (\s@GetFunctionDefinitionResponse' {} a -> s {latestVersion = a} :: GetFunctionDefinitionResponse)
 
 -- | The ARN of the definition.
-gfdrrsARN :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrrsARN = lens _gfdrrsARN (\s a -> s {_gfdrrsARN = a})
+getFunctionDefinitionResponse_arn :: Lens.Lens' GetFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getFunctionDefinitionResponse_arn = Lens.lens (\GetFunctionDefinitionResponse' {arn} -> arn) (\s@GetFunctionDefinitionResponse' {} a -> s {arn = a} :: GetFunctionDefinitionResponse)
 
 -- | The ID of the definition.
-gfdrrsId :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrrsId = lens _gfdrrsId (\s a -> s {_gfdrrsId = a})
+getFunctionDefinitionResponse_id :: Lens.Lens' GetFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getFunctionDefinitionResponse_id = Lens.lens (\GetFunctionDefinitionResponse' {id} -> id) (\s@GetFunctionDefinitionResponse' {} a -> s {id = a} :: GetFunctionDefinitionResponse)
 
 -- | The name of the definition.
-gfdrrsName :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrrsName = lens _gfdrrsName (\s a -> s {_gfdrrsName = a})
+getFunctionDefinitionResponse_name :: Lens.Lens' GetFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getFunctionDefinitionResponse_name = Lens.lens (\GetFunctionDefinitionResponse' {name} -> name) (\s@GetFunctionDefinitionResponse' {} a -> s {name = a} :: GetFunctionDefinitionResponse)
 
--- | The time, in milliseconds since the epoch, when the definition was last updated.
-gfdrrsLastUpdatedTimestamp :: Lens' GetFunctionDefinitionResponse (Maybe Text)
-gfdrrsLastUpdatedTimestamp = lens _gfdrrsLastUpdatedTimestamp (\s a -> s {_gfdrrsLastUpdatedTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+getFunctionDefinitionResponse_lastUpdatedTimestamp :: Lens.Lens' GetFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getFunctionDefinitionResponse_lastUpdatedTimestamp = Lens.lens (\GetFunctionDefinitionResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@GetFunctionDefinitionResponse' {} a -> s {lastUpdatedTimestamp = a} :: GetFunctionDefinitionResponse)
 
 -- | Tag(s) attached to the resource arn.
-gfdrrsTags :: Lens' GetFunctionDefinitionResponse (HashMap Text Text)
-gfdrrsTags = lens _gfdrrsTags (\s a -> s {_gfdrrsTags = a}) . _Default . _Map
+getFunctionDefinitionResponse_tags :: Lens.Lens' GetFunctionDefinitionResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getFunctionDefinitionResponse_tags = Lens.lens (\GetFunctionDefinitionResponse' {tags} -> tags) (\s@GetFunctionDefinitionResponse' {} a -> s {tags = a} :: GetFunctionDefinitionResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gfdrrsResponseStatus :: Lens' GetFunctionDefinitionResponse Int
-gfdrrsResponseStatus = lens _gfdrrsResponseStatus (\s a -> s {_gfdrrsResponseStatus = a})
+-- | The response's http status code.
+getFunctionDefinitionResponse_httpStatus :: Lens.Lens' GetFunctionDefinitionResponse Prelude.Int
+getFunctionDefinitionResponse_httpStatus = Lens.lens (\GetFunctionDefinitionResponse' {httpStatus} -> httpStatus) (\s@GetFunctionDefinitionResponse' {} a -> s {httpStatus = a} :: GetFunctionDefinitionResponse)
 
-instance NFData GetFunctionDefinitionResponse
+instance Prelude.NFData GetFunctionDefinitionResponse

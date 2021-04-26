@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,61 @@
 module Network.AWS.Greengrass.Types.ConnectorDefinitionVersion where
 
 import Network.AWS.Greengrass.Types.Connector
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the connector definition version, which is a container for connectors.
+-- | Information about the connector definition version, which is a container
+-- for connectors.
 --
--- /See:/ 'connectorDefinitionVersion' smart constructor.
-newtype ConnectorDefinitionVersion = ConnectorDefinitionVersion'
-  { _cdvConnectors ::
-      Maybe
-        [Connector]
+-- /See:/ 'newConnectorDefinitionVersion' smart constructor.
+data ConnectorDefinitionVersion = ConnectorDefinitionVersion'
+  { -- | A list of references to connectors in this version, with their
+    -- corresponding configuration settings.
+    connectors :: Prelude.Maybe [Connector]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConnectorDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConnectorDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdvConnectors' - A list of references to connectors in this version, with their corresponding configuration settings.
-connectorDefinitionVersion ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'connectors', 'connectorDefinitionVersion_connectors' - A list of references to connectors in this version, with their
+-- corresponding configuration settings.
+newConnectorDefinitionVersion ::
   ConnectorDefinitionVersion
-connectorDefinitionVersion =
+newConnectorDefinitionVersion =
   ConnectorDefinitionVersion'
-    { _cdvConnectors =
-        Nothing
+    { connectors =
+        Prelude.Nothing
     }
 
--- | A list of references to connectors in this version, with their corresponding configuration settings.
-cdvConnectors :: Lens' ConnectorDefinitionVersion [Connector]
-cdvConnectors = lens _cdvConnectors (\s a -> s {_cdvConnectors = a}) . _Default . _Coerce
+-- | A list of references to connectors in this version, with their
+-- corresponding configuration settings.
+connectorDefinitionVersion_connectors :: Lens.Lens' ConnectorDefinitionVersion (Prelude.Maybe [Connector])
+connectorDefinitionVersion_connectors = Lens.lens (\ConnectorDefinitionVersion' {connectors} -> connectors) (\s@ConnectorDefinitionVersion' {} a -> s {connectors = a} :: ConnectorDefinitionVersion) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ConnectorDefinitionVersion where
+instance Prelude.FromJSON ConnectorDefinitionVersion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConnectorDefinitionVersion"
       ( \x ->
           ConnectorDefinitionVersion'
-            <$> (x .:? "Connectors" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "Connectors"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ConnectorDefinitionVersion
+instance Prelude.Hashable ConnectorDefinitionVersion
 
-instance NFData ConnectorDefinitionVersion
+instance Prelude.NFData ConnectorDefinitionVersion
 
-instance ToJSON ConnectorDefinitionVersion where
+instance Prelude.ToJSON ConnectorDefinitionVersion where
   toJSON ConnectorDefinitionVersion' {..} =
-    object
-      (catMaybes [("Connectors" .=) <$> _cdvConnectors])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Connectors" Prelude..=) Prelude.<$> connectors]
+      )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,70 @@
 module Network.AWS.Greengrass.Types.DeploymentType
   ( DeploymentType
       ( ..,
-        ForceResetDeployment,
-        NewDeployment,
-        Redeployment,
-        ResetDeployment
+        DeploymentTypeForceResetDeployment,
+        DeploymentTypeNewDeployment,
+        DeploymentTypeRedeployment,
+        DeploymentTypeResetDeployment
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The type of deployment. When used for ''CreateDeployment'', only ''NewDeployment'' and ''Redeployment'' are valid.
-data DeploymentType = DeploymentType' (CI Text)
+-- | The type of deployment. When used for \'\'CreateDeployment\'\', only
+-- \'\'NewDeployment\'\' and \'\'Redeployment\'\' are valid.
+newtype DeploymentType = DeploymentType'
+  { fromDeploymentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ForceResetDeployment :: DeploymentType
-pattern ForceResetDeployment = DeploymentType' "ForceResetDeployment"
+pattern DeploymentTypeForceResetDeployment :: DeploymentType
+pattern DeploymentTypeForceResetDeployment = DeploymentType' "ForceResetDeployment"
 
-pattern NewDeployment :: DeploymentType
-pattern NewDeployment = DeploymentType' "NewDeployment"
+pattern DeploymentTypeNewDeployment :: DeploymentType
+pattern DeploymentTypeNewDeployment = DeploymentType' "NewDeployment"
 
-pattern Redeployment :: DeploymentType
-pattern Redeployment = DeploymentType' "Redeployment"
+pattern DeploymentTypeRedeployment :: DeploymentType
+pattern DeploymentTypeRedeployment = DeploymentType' "Redeployment"
 
-pattern ResetDeployment :: DeploymentType
-pattern ResetDeployment = DeploymentType' "ResetDeployment"
+pattern DeploymentTypeResetDeployment :: DeploymentType
+pattern DeploymentTypeResetDeployment = DeploymentType' "ResetDeployment"
 
 {-# COMPLETE
-  ForceResetDeployment,
-  NewDeployment,
-  Redeployment,
-  ResetDeployment,
+  DeploymentTypeForceResetDeployment,
+  DeploymentTypeNewDeployment,
+  DeploymentTypeRedeployment,
+  DeploymentTypeResetDeployment,
   DeploymentType'
   #-}
 
-instance FromText DeploymentType where
-  parser = (DeploymentType' . mk) <$> takeText
+instance Prelude.FromText DeploymentType where
+  parser = DeploymentType' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentType where
-  toText (DeploymentType' ci) = original ci
+instance Prelude.ToText DeploymentType where
+  toText (DeploymentType' x) = x
 
-instance Hashable DeploymentType
+instance Prelude.Hashable DeploymentType
 
-instance NFData DeploymentType
+instance Prelude.NFData DeploymentType
 
-instance ToByteString DeploymentType
+instance Prelude.ToByteString DeploymentType
 
-instance ToQuery DeploymentType
+instance Prelude.ToQuery DeploymentType
 
-instance ToHeader DeploymentType
+instance Prelude.ToHeader DeploymentType
 
-instance ToJSON DeploymentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeploymentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeploymentType where
-  parseJSON = parseJSONText "DeploymentType"
+instance Prelude.FromJSON DeploymentType where
+  parseJSON = Prelude.parseJSONText "DeploymentType"

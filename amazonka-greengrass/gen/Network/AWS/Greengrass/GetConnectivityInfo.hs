@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,148 +24,145 @@
 -- Retrieves the connectivity information for a core.
 module Network.AWS.Greengrass.GetConnectivityInfo
   ( -- * Creating a Request
-    getConnectivityInfo,
-    GetConnectivityInfo,
+    GetConnectivityInfo (..),
+    newGetConnectivityInfo,
 
     -- * Request Lenses
-    gciThingName,
+    getConnectivityInfo_thingName,
 
     -- * Destructuring the Response
-    getConnectivityInfoResponse,
-    GetConnectivityInfoResponse,
+    GetConnectivityInfoResponse (..),
+    newGetConnectivityInfoResponse,
 
     -- * Response Lenses
-    gcirrsMessage,
-    gcirrsConnectivityInfo,
-    gcirrsResponseStatus,
+    getConnectivityInfoResponse_message,
+    getConnectivityInfoResponse_connectivityInfo,
+    getConnectivityInfoResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.ConnectivityInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getConnectivityInfo' smart constructor.
-newtype GetConnectivityInfo = GetConnectivityInfo'
-  { _gciThingName ::
-      Text
+-- | /See:/ 'newGetConnectivityInfo' smart constructor.
+data GetConnectivityInfo = GetConnectivityInfo'
+  { -- | The thing name.
+    thingName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConnectivityInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConnectivityInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gciThingName' - The thing name.
-getConnectivityInfo ::
-  -- | 'gciThingName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'thingName', 'getConnectivityInfo_thingName' - The thing name.
+newGetConnectivityInfo ::
+  -- | 'thingName'
+  Prelude.Text ->
   GetConnectivityInfo
-getConnectivityInfo pThingName_ =
-  GetConnectivityInfo' {_gciThingName = pThingName_}
+newGetConnectivityInfo pThingName_ =
+  GetConnectivityInfo' {thingName = pThingName_}
 
 -- | The thing name.
-gciThingName :: Lens' GetConnectivityInfo Text
-gciThingName = lens _gciThingName (\s a -> s {_gciThingName = a})
+getConnectivityInfo_thingName :: Lens.Lens' GetConnectivityInfo Prelude.Text
+getConnectivityInfo_thingName = Lens.lens (\GetConnectivityInfo' {thingName} -> thingName) (\s@GetConnectivityInfo' {} a -> s {thingName = a} :: GetConnectivityInfo)
 
-instance AWSRequest GetConnectivityInfo where
+instance Prelude.AWSRequest GetConnectivityInfo where
   type
     Rs GetConnectivityInfo =
       GetConnectivityInfoResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetConnectivityInfoResponse'
-            <$> (x .?> "message")
-            <*> (x .?> "ConnectivityInfo" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "message")
+            Prelude.<*> ( x Prelude..?> "ConnectivityInfo"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetConnectivityInfo
+instance Prelude.Hashable GetConnectivityInfo
 
-instance NFData GetConnectivityInfo
+instance Prelude.NFData GetConnectivityInfo
 
-instance ToHeaders GetConnectivityInfo where
+instance Prelude.ToHeaders GetConnectivityInfo where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetConnectivityInfo where
+instance Prelude.ToPath GetConnectivityInfo where
   toPath GetConnectivityInfo' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/things/",
-        toBS _gciThingName,
+        Prelude.toBS thingName,
         "/connectivityInfo"
       ]
 
-instance ToQuery GetConnectivityInfo where
-  toQuery = const mempty
+instance Prelude.ToQuery GetConnectivityInfo where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getConnectivityInfoResponse' smart constructor.
+-- | /See:/ 'newGetConnectivityInfoResponse' smart constructor.
 data GetConnectivityInfoResponse = GetConnectivityInfoResponse'
-  { _gcirrsMessage ::
-      !(Maybe Text),
-    _gcirrsConnectivityInfo ::
-      !( Maybe
-           [ConnectivityInfo]
-       ),
-    _gcirrsResponseStatus ::
-      !Int
+  { -- | A message about the connectivity info request.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | Connectivity info list.
+    connectivityInfo :: Prelude.Maybe [ConnectivityInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConnectivityInfoResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConnectivityInfoResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcirrsMessage' - A message about the connectivity info request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcirrsConnectivityInfo' - Connectivity info list.
+-- 'message', 'getConnectivityInfoResponse_message' - A message about the connectivity info request.
 --
--- * 'gcirrsResponseStatus' - -- | The response status code.
-getConnectivityInfoResponse ::
-  -- | 'gcirrsResponseStatus'
-  Int ->
+-- 'connectivityInfo', 'getConnectivityInfoResponse_connectivityInfo' - Connectivity info list.
+--
+-- 'httpStatus', 'getConnectivityInfoResponse_httpStatus' - The response's http status code.
+newGetConnectivityInfoResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetConnectivityInfoResponse
-getConnectivityInfoResponse pResponseStatus_ =
+newGetConnectivityInfoResponse pHttpStatus_ =
   GetConnectivityInfoResponse'
-    { _gcirrsMessage =
-        Nothing,
-      _gcirrsConnectivityInfo = Nothing,
-      _gcirrsResponseStatus = pResponseStatus_
+    { message =
+        Prelude.Nothing,
+      connectivityInfo = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A message about the connectivity info request.
-gcirrsMessage :: Lens' GetConnectivityInfoResponse (Maybe Text)
-gcirrsMessage = lens _gcirrsMessage (\s a -> s {_gcirrsMessage = a})
+getConnectivityInfoResponse_message :: Lens.Lens' GetConnectivityInfoResponse (Prelude.Maybe Prelude.Text)
+getConnectivityInfoResponse_message = Lens.lens (\GetConnectivityInfoResponse' {message} -> message) (\s@GetConnectivityInfoResponse' {} a -> s {message = a} :: GetConnectivityInfoResponse)
 
 -- | Connectivity info list.
-gcirrsConnectivityInfo :: Lens' GetConnectivityInfoResponse [ConnectivityInfo]
-gcirrsConnectivityInfo = lens _gcirrsConnectivityInfo (\s a -> s {_gcirrsConnectivityInfo = a}) . _Default . _Coerce
+getConnectivityInfoResponse_connectivityInfo :: Lens.Lens' GetConnectivityInfoResponse (Prelude.Maybe [ConnectivityInfo])
+getConnectivityInfoResponse_connectivityInfo = Lens.lens (\GetConnectivityInfoResponse' {connectivityInfo} -> connectivityInfo) (\s@GetConnectivityInfoResponse' {} a -> s {connectivityInfo = a} :: GetConnectivityInfoResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcirrsResponseStatus :: Lens' GetConnectivityInfoResponse Int
-gcirrsResponseStatus = lens _gcirrsResponseStatus (\s a -> s {_gcirrsResponseStatus = a})
+-- | The response's http status code.
+getConnectivityInfoResponse_httpStatus :: Lens.Lens' GetConnectivityInfoResponse Prelude.Int
+getConnectivityInfoResponse_httpStatus = Lens.lens (\GetConnectivityInfoResponse' {httpStatus} -> httpStatus) (\s@GetConnectivityInfoResponse' {} a -> s {httpStatus = a} :: GetConnectivityInfoResponse)
 
-instance NFData GetConnectivityInfoResponse
+instance Prelude.NFData GetConnectivityInfoResponse

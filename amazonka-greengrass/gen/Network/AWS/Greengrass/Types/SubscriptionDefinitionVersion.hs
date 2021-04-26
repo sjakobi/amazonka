@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,59 +20,64 @@
 module Network.AWS.Greengrass.Types.SubscriptionDefinitionVersion where
 
 import Network.AWS.Greengrass.Types.Subscription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a subscription definition version.
 --
--- /See:/ 'subscriptionDefinitionVersion' smart constructor.
-newtype SubscriptionDefinitionVersion = SubscriptionDefinitionVersion'
-  { _sdvSubscriptions ::
-      Maybe
-        [Subscription]
+-- /See:/ 'newSubscriptionDefinitionVersion' smart constructor.
+data SubscriptionDefinitionVersion = SubscriptionDefinitionVersion'
+  { -- | A list of subscriptions.
+    subscriptions :: Prelude.Maybe [Subscription]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubscriptionDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubscriptionDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdvSubscriptions' - A list of subscriptions.
-subscriptionDefinitionVersion ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'subscriptions', 'subscriptionDefinitionVersion_subscriptions' - A list of subscriptions.
+newSubscriptionDefinitionVersion ::
   SubscriptionDefinitionVersion
-subscriptionDefinitionVersion =
+newSubscriptionDefinitionVersion =
   SubscriptionDefinitionVersion'
-    { _sdvSubscriptions =
-        Nothing
+    { subscriptions =
+        Prelude.Nothing
     }
 
 -- | A list of subscriptions.
-sdvSubscriptions :: Lens' SubscriptionDefinitionVersion [Subscription]
-sdvSubscriptions = lens _sdvSubscriptions (\s a -> s {_sdvSubscriptions = a}) . _Default . _Coerce
+subscriptionDefinitionVersion_subscriptions :: Lens.Lens' SubscriptionDefinitionVersion (Prelude.Maybe [Subscription])
+subscriptionDefinitionVersion_subscriptions = Lens.lens (\SubscriptionDefinitionVersion' {subscriptions} -> subscriptions) (\s@SubscriptionDefinitionVersion' {} a -> s {subscriptions = a} :: SubscriptionDefinitionVersion) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON SubscriptionDefinitionVersion where
+instance
+  Prelude.FromJSON
+    SubscriptionDefinitionVersion
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SubscriptionDefinitionVersion"
       ( \x ->
           SubscriptionDefinitionVersion'
-            <$> (x .:? "Subscriptions" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "Subscriptions"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable SubscriptionDefinitionVersion
+instance
+  Prelude.Hashable
+    SubscriptionDefinitionVersion
 
-instance NFData SubscriptionDefinitionVersion
+instance Prelude.NFData SubscriptionDefinitionVersion
 
-instance ToJSON SubscriptionDefinitionVersion where
+instance Prelude.ToJSON SubscriptionDefinitionVersion where
   toJSON SubscriptionDefinitionVersion' {..} =
-    object
-      ( catMaybes
-          [("Subscriptions" .=) <$> _sdvSubscriptions]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Subscriptions" Prelude..=)
+              Prelude.<$> subscriptions
+          ]
       )

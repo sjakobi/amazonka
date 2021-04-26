@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,256 +21,246 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a Lambda function definition which contains a list of Lambda functions and their configurations to be used in a group. You can create an initial version of the definition by providing a list of Lambda functions and their configurations now, or use ''CreateFunctionDefinitionVersion'' later.
+-- Creates a Lambda function definition which contains a list of Lambda
+-- functions and their configurations to be used in a group. You can create
+-- an initial version of the definition by providing a list of Lambda
+-- functions and their configurations now, or use
+-- \'\'CreateFunctionDefinitionVersion\'\' later.
 module Network.AWS.Greengrass.CreateFunctionDefinition
   ( -- * Creating a Request
-    createFunctionDefinition,
-    CreateFunctionDefinition,
+    CreateFunctionDefinition (..),
+    newCreateFunctionDefinition,
 
     -- * Request Lenses
-    cfdName,
-    cfdInitialVersion,
-    cfdTags,
-    cfdAmznClientToken,
+    createFunctionDefinition_name,
+    createFunctionDefinition_initialVersion,
+    createFunctionDefinition_tags,
+    createFunctionDefinition_amznClientToken,
 
     -- * Destructuring the Response
-    createFunctionDefinitionResponse,
-    CreateFunctionDefinitionResponse,
+    CreateFunctionDefinitionResponse (..),
+    newCreateFunctionDefinitionResponse,
 
     -- * Response Lenses
-    cfdrrsCreationTimestamp,
-    cfdrrsLatestVersionARN,
-    cfdrrsLatestVersion,
-    cfdrrsARN,
-    cfdrrsId,
-    cfdrrsName,
-    cfdrrsLastUpdatedTimestamp,
-    cfdrrsResponseStatus,
+    createFunctionDefinitionResponse_creationTimestamp,
+    createFunctionDefinitionResponse_latestVersionArn,
+    createFunctionDefinitionResponse_latestVersion,
+    createFunctionDefinitionResponse_arn,
+    createFunctionDefinitionResponse_id,
+    createFunctionDefinitionResponse_name,
+    createFunctionDefinitionResponse_lastUpdatedTimestamp,
+    createFunctionDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createFunctionDefinition' smart constructor.
+-- | /See:/ 'newCreateFunctionDefinition' smart constructor.
 data CreateFunctionDefinition = CreateFunctionDefinition'
-  { _cfdName ::
-      !(Maybe Text),
-    _cfdInitialVersion ::
-      !( Maybe
-           FunctionDefinitionVersion
-       ),
-    _cfdTags ::
-      !( Maybe
-           (Map Text Text)
-       ),
-    _cfdAmznClientToken ::
-      !(Maybe Text)
+  { -- | The name of the function definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Information about the initial version of the function definition.
+    initialVersion :: Prelude.Maybe FunctionDefinitionVersion,
+    -- | Tag(s) to add to the new resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A client token used to correlate requests and responses.
+    amznClientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFunctionDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFunctionDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfdName' - The name of the function definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfdInitialVersion' - Information about the initial version of the function definition.
+-- 'name', 'createFunctionDefinition_name' - The name of the function definition.
 --
--- * 'cfdTags' - Tag(s) to add to the new resource.
+-- 'initialVersion', 'createFunctionDefinition_initialVersion' - Information about the initial version of the function definition.
 --
--- * 'cfdAmznClientToken' - A client token used to correlate requests and responses.
-createFunctionDefinition ::
+-- 'tags', 'createFunctionDefinition_tags' - Tag(s) to add to the new resource.
+--
+-- 'amznClientToken', 'createFunctionDefinition_amznClientToken' - A client token used to correlate requests and responses.
+newCreateFunctionDefinition ::
   CreateFunctionDefinition
-createFunctionDefinition =
+newCreateFunctionDefinition =
   CreateFunctionDefinition'
-    { _cfdName = Nothing,
-      _cfdInitialVersion = Nothing,
-      _cfdTags = Nothing,
-      _cfdAmznClientToken = Nothing
+    { name = Prelude.Nothing,
+      initialVersion = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      amznClientToken = Prelude.Nothing
     }
 
 -- | The name of the function definition.
-cfdName :: Lens' CreateFunctionDefinition (Maybe Text)
-cfdName = lens _cfdName (\s a -> s {_cfdName = a})
+createFunctionDefinition_name :: Lens.Lens' CreateFunctionDefinition (Prelude.Maybe Prelude.Text)
+createFunctionDefinition_name = Lens.lens (\CreateFunctionDefinition' {name} -> name) (\s@CreateFunctionDefinition' {} a -> s {name = a} :: CreateFunctionDefinition)
 
 -- | Information about the initial version of the function definition.
-cfdInitialVersion :: Lens' CreateFunctionDefinition (Maybe FunctionDefinitionVersion)
-cfdInitialVersion = lens _cfdInitialVersion (\s a -> s {_cfdInitialVersion = a})
+createFunctionDefinition_initialVersion :: Lens.Lens' CreateFunctionDefinition (Prelude.Maybe FunctionDefinitionVersion)
+createFunctionDefinition_initialVersion = Lens.lens (\CreateFunctionDefinition' {initialVersion} -> initialVersion) (\s@CreateFunctionDefinition' {} a -> s {initialVersion = a} :: CreateFunctionDefinition)
 
 -- | Tag(s) to add to the new resource.
-cfdTags :: Lens' CreateFunctionDefinition (HashMap Text Text)
-cfdTags = lens _cfdTags (\s a -> s {_cfdTags = a}) . _Default . _Map
+createFunctionDefinition_tags :: Lens.Lens' CreateFunctionDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createFunctionDefinition_tags = Lens.lens (\CreateFunctionDefinition' {tags} -> tags) (\s@CreateFunctionDefinition' {} a -> s {tags = a} :: CreateFunctionDefinition) Prelude.. Lens.mapping Prelude._Map
 
 -- | A client token used to correlate requests and responses.
-cfdAmznClientToken :: Lens' CreateFunctionDefinition (Maybe Text)
-cfdAmznClientToken = lens _cfdAmznClientToken (\s a -> s {_cfdAmznClientToken = a})
+createFunctionDefinition_amznClientToken :: Lens.Lens' CreateFunctionDefinition (Prelude.Maybe Prelude.Text)
+createFunctionDefinition_amznClientToken = Lens.lens (\CreateFunctionDefinition' {amznClientToken} -> amznClientToken) (\s@CreateFunctionDefinition' {} a -> s {amznClientToken = a} :: CreateFunctionDefinition)
 
-instance AWSRequest CreateFunctionDefinition where
+instance Prelude.AWSRequest CreateFunctionDefinition where
   type
     Rs CreateFunctionDefinition =
       CreateFunctionDefinitionResponse
-  request = postJSON greengrass
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateFunctionDefinitionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "LatestVersionArn")
-            <*> (x .?> "LatestVersion")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Name")
-            <*> (x .?> "LastUpdatedTimestamp")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "LatestVersionArn")
+            Prelude.<*> (x Prelude..?> "LatestVersion")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "LastUpdatedTimestamp")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateFunctionDefinition
+instance Prelude.Hashable CreateFunctionDefinition
 
-instance NFData CreateFunctionDefinition
+instance Prelude.NFData CreateFunctionDefinition
 
-instance ToHeaders CreateFunctionDefinition where
+instance Prelude.ToHeaders CreateFunctionDefinition where
   toHeaders CreateFunctionDefinition' {..} =
-    mconcat
-      [ "X-Amzn-Client-Token" =# _cfdAmznClientToken,
+    Prelude.mconcat
+      [ "X-Amzn-Client-Token" Prelude.=# amznClientToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON CreateFunctionDefinition where
+instance Prelude.ToJSON CreateFunctionDefinition where
   toJSON CreateFunctionDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _cfdName,
-            ("InitialVersion" .=) <$> _cfdInitialVersion,
-            ("tags" .=) <$> _cfdTags
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("InitialVersion" Prelude..=)
+              Prelude.<$> initialVersion,
+            ("tags" Prelude..=) Prelude.<$> tags
           ]
       )
 
-instance ToPath CreateFunctionDefinition where
-  toPath = const "/greengrass/definition/functions"
+instance Prelude.ToPath CreateFunctionDefinition where
+  toPath =
+    Prelude.const "/greengrass/definition/functions"
 
-instance ToQuery CreateFunctionDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateFunctionDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createFunctionDefinitionResponse' smart constructor.
+-- | /See:/ 'newCreateFunctionDefinitionResponse' smart constructor.
 data CreateFunctionDefinitionResponse = CreateFunctionDefinitionResponse'
-  { _cfdrrsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _cfdrrsLatestVersionARN ::
-      !( Maybe
-           Text
-       ),
-    _cfdrrsLatestVersion ::
-      !( Maybe
-           Text
-       ),
-    _cfdrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _cfdrrsId ::
-      !( Maybe
-           Text
-       ),
-    _cfdrrsName ::
-      !( Maybe
-           Text
-       ),
-    _cfdrrsLastUpdatedTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _cfdrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the definition was
+    -- created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the definition.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the definition.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the definition was last
+    -- updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFunctionDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFunctionDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfdrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfdrrsLatestVersionARN' - The ARN of the latest version associated with the definition.
+-- 'creationTimestamp', 'createFunctionDefinitionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
+-- created.
 --
--- * 'cfdrrsLatestVersion' - The ID of the latest version associated with the definition.
+-- 'latestVersionArn', 'createFunctionDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
 --
--- * 'cfdrrsARN' - The ARN of the definition.
+-- 'latestVersion', 'createFunctionDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'cfdrrsId' - The ID of the definition.
+-- 'arn', 'createFunctionDefinitionResponse_arn' - The ARN of the definition.
 --
--- * 'cfdrrsName' - The name of the definition.
+-- 'id', 'createFunctionDefinitionResponse_id' - The ID of the definition.
 --
--- * 'cfdrrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- 'name', 'createFunctionDefinitionResponse_name' - The name of the definition.
 --
--- * 'cfdrrsResponseStatus' - -- | The response status code.
-createFunctionDefinitionResponse ::
-  -- | 'cfdrrsResponseStatus'
-  Int ->
+-- 'lastUpdatedTimestamp', 'createFunctionDefinitionResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+--
+-- 'httpStatus', 'createFunctionDefinitionResponse_httpStatus' - The response's http status code.
+newCreateFunctionDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateFunctionDefinitionResponse
-createFunctionDefinitionResponse pResponseStatus_ =
+newCreateFunctionDefinitionResponse pHttpStatus_ =
   CreateFunctionDefinitionResponse'
-    { _cfdrrsCreationTimestamp =
-        Nothing,
-      _cfdrrsLatestVersionARN = Nothing,
-      _cfdrrsLatestVersion = Nothing,
-      _cfdrrsARN = Nothing,
-      _cfdrrsId = Nothing,
-      _cfdrrsName = Nothing,
-      _cfdrrsLastUpdatedTimestamp = Nothing,
-      _cfdrrsResponseStatus = pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the definition was created.
-cfdrrsCreationTimestamp :: Lens' CreateFunctionDefinitionResponse (Maybe Text)
-cfdrrsCreationTimestamp = lens _cfdrrsCreationTimestamp (\s a -> s {_cfdrrsCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was
+-- created.
+createFunctionDefinitionResponse_creationTimestamp :: Lens.Lens' CreateFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionResponse_creationTimestamp = Lens.lens (\CreateFunctionDefinitionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateFunctionDefinitionResponse' {} a -> s {creationTimestamp = a} :: CreateFunctionDefinitionResponse)
 
 -- | The ARN of the latest version associated with the definition.
-cfdrrsLatestVersionARN :: Lens' CreateFunctionDefinitionResponse (Maybe Text)
-cfdrrsLatestVersionARN = lens _cfdrrsLatestVersionARN (\s a -> s {_cfdrrsLatestVersionARN = a})
+createFunctionDefinitionResponse_latestVersionArn :: Lens.Lens' CreateFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionResponse_latestVersionArn = Lens.lens (\CreateFunctionDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@CreateFunctionDefinitionResponse' {} a -> s {latestVersionArn = a} :: CreateFunctionDefinitionResponse)
 
 -- | The ID of the latest version associated with the definition.
-cfdrrsLatestVersion :: Lens' CreateFunctionDefinitionResponse (Maybe Text)
-cfdrrsLatestVersion = lens _cfdrrsLatestVersion (\s a -> s {_cfdrrsLatestVersion = a})
+createFunctionDefinitionResponse_latestVersion :: Lens.Lens' CreateFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionResponse_latestVersion = Lens.lens (\CreateFunctionDefinitionResponse' {latestVersion} -> latestVersion) (\s@CreateFunctionDefinitionResponse' {} a -> s {latestVersion = a} :: CreateFunctionDefinitionResponse)
 
 -- | The ARN of the definition.
-cfdrrsARN :: Lens' CreateFunctionDefinitionResponse (Maybe Text)
-cfdrrsARN = lens _cfdrrsARN (\s a -> s {_cfdrrsARN = a})
+createFunctionDefinitionResponse_arn :: Lens.Lens' CreateFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionResponse_arn = Lens.lens (\CreateFunctionDefinitionResponse' {arn} -> arn) (\s@CreateFunctionDefinitionResponse' {} a -> s {arn = a} :: CreateFunctionDefinitionResponse)
 
 -- | The ID of the definition.
-cfdrrsId :: Lens' CreateFunctionDefinitionResponse (Maybe Text)
-cfdrrsId = lens _cfdrrsId (\s a -> s {_cfdrrsId = a})
+createFunctionDefinitionResponse_id :: Lens.Lens' CreateFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionResponse_id = Lens.lens (\CreateFunctionDefinitionResponse' {id} -> id) (\s@CreateFunctionDefinitionResponse' {} a -> s {id = a} :: CreateFunctionDefinitionResponse)
 
 -- | The name of the definition.
-cfdrrsName :: Lens' CreateFunctionDefinitionResponse (Maybe Text)
-cfdrrsName = lens _cfdrrsName (\s a -> s {_cfdrrsName = a})
+createFunctionDefinitionResponse_name :: Lens.Lens' CreateFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionResponse_name = Lens.lens (\CreateFunctionDefinitionResponse' {name} -> name) (\s@CreateFunctionDefinitionResponse' {} a -> s {name = a} :: CreateFunctionDefinitionResponse)
 
--- | The time, in milliseconds since the epoch, when the definition was last updated.
-cfdrrsLastUpdatedTimestamp :: Lens' CreateFunctionDefinitionResponse (Maybe Text)
-cfdrrsLastUpdatedTimestamp = lens _cfdrrsLastUpdatedTimestamp (\s a -> s {_cfdrrsLastUpdatedTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+createFunctionDefinitionResponse_lastUpdatedTimestamp :: Lens.Lens' CreateFunctionDefinitionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionResponse_lastUpdatedTimestamp = Lens.lens (\CreateFunctionDefinitionResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@CreateFunctionDefinitionResponse' {} a -> s {lastUpdatedTimestamp = a} :: CreateFunctionDefinitionResponse)
 
--- | -- | The response status code.
-cfdrrsResponseStatus :: Lens' CreateFunctionDefinitionResponse Int
-cfdrrsResponseStatus = lens _cfdrrsResponseStatus (\s a -> s {_cfdrrsResponseStatus = a})
+-- | The response's http status code.
+createFunctionDefinitionResponse_httpStatus :: Lens.Lens' CreateFunctionDefinitionResponse Prelude.Int
+createFunctionDefinitionResponse_httpStatus = Lens.lens (\CreateFunctionDefinitionResponse' {httpStatus} -> httpStatus) (\s@CreateFunctionDefinitionResponse' {} a -> s {httpStatus = a} :: CreateFunctionDefinitionResponse)
 
-instance NFData CreateFunctionDefinitionResponse
+instance
+  Prelude.NFData
+    CreateFunctionDefinitionResponse

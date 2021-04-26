@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.FunctionRunAsConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the user and group whose permissions are used when running the Lambda function. You can specify one or both values to override the default values. We recommend that you avoid running as root unless absolutely necessary to minimize the risk of unintended changes or malicious attacks. To run as root, you must set ''IsolationMode'' to ''NoContainer'' and update config.json in ''greengrass-root/config'' to set ''allowFunctionsToRunAsRoot'' to ''yes''.
+-- | Specifies the user and group whose permissions are used when running the
+-- Lambda function. You can specify one or both values to override the
+-- default values. We recommend that you avoid running as root unless
+-- absolutely necessary to minimize the risk of unintended changes or
+-- malicious attacks. To run as root, you must set \'\'IsolationMode\'\' to
+-- \'\'NoContainer\'\' and update config.json in
+-- \'\'greengrass-root\/config\'\' to set \'\'allowFunctionsToRunAsRoot\'\'
+-- to \'\'yes\'\'.
 --
--- /See:/ 'functionRunAsConfig' smart constructor.
+-- /See:/ 'newFunctionRunAsConfig' smart constructor.
 data FunctionRunAsConfig = FunctionRunAsConfig'
-  { _fracGid ::
-      !(Maybe Int),
-    _fracUid :: !(Maybe Int)
+  { -- | The group ID whose permissions are used to run a Lambda function.
+    gid :: Prelude.Maybe Prelude.Int,
+    -- | The user ID whose permissions are used to run a Lambda function.
+    uid :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FunctionRunAsConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FunctionRunAsConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fracGid' - The group ID whose permissions are used to run a Lambda function.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fracUid' - The user ID whose permissions are used to run a Lambda function.
-functionRunAsConfig ::
+-- 'gid', 'functionRunAsConfig_gid' - The group ID whose permissions are used to run a Lambda function.
+--
+-- 'uid', 'functionRunAsConfig_uid' - The user ID whose permissions are used to run a Lambda function.
+newFunctionRunAsConfig ::
   FunctionRunAsConfig
-functionRunAsConfig =
+newFunctionRunAsConfig =
   FunctionRunAsConfig'
-    { _fracGid = Nothing,
-      _fracUid = Nothing
+    { gid = Prelude.Nothing,
+      uid = Prelude.Nothing
     }
 
 -- | The group ID whose permissions are used to run a Lambda function.
-fracGid :: Lens' FunctionRunAsConfig (Maybe Int)
-fracGid = lens _fracGid (\s a -> s {_fracGid = a})
+functionRunAsConfig_gid :: Lens.Lens' FunctionRunAsConfig (Prelude.Maybe Prelude.Int)
+functionRunAsConfig_gid = Lens.lens (\FunctionRunAsConfig' {gid} -> gid) (\s@FunctionRunAsConfig' {} a -> s {gid = a} :: FunctionRunAsConfig)
 
 -- | The user ID whose permissions are used to run a Lambda function.
-fracUid :: Lens' FunctionRunAsConfig (Maybe Int)
-fracUid = lens _fracUid (\s a -> s {_fracUid = a})
+functionRunAsConfig_uid :: Lens.Lens' FunctionRunAsConfig (Prelude.Maybe Prelude.Int)
+functionRunAsConfig_uid = Lens.lens (\FunctionRunAsConfig' {uid} -> uid) (\s@FunctionRunAsConfig' {} a -> s {uid = a} :: FunctionRunAsConfig)
 
-instance FromJSON FunctionRunAsConfig where
+instance Prelude.FromJSON FunctionRunAsConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FunctionRunAsConfig"
       ( \x ->
           FunctionRunAsConfig'
-            <$> (x .:? "Gid") <*> (x .:? "Uid")
+            Prelude.<$> (x Prelude..:? "Gid")
+            Prelude.<*> (x Prelude..:? "Uid")
       )
 
-instance Hashable FunctionRunAsConfig
+instance Prelude.Hashable FunctionRunAsConfig
 
-instance NFData FunctionRunAsConfig
+instance Prelude.NFData FunctionRunAsConfig
 
-instance ToJSON FunctionRunAsConfig where
+instance Prelude.ToJSON FunctionRunAsConfig where
   toJSON FunctionRunAsConfig' {..} =
-    object
-      ( catMaybes
-          [("Gid" .=) <$> _fracGid, ("Uid" .=) <$> _fracUid]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Gid" Prelude..=) Prelude.<$> gid,
+            ("Uid" Prelude..=) Prelude.<$> uid
+          ]
       )

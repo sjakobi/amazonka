@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,259 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a connector definition. You may provide the initial version of the connector definition now or use ''CreateConnectorDefinitionVersion'' at a later time.
+-- Creates a connector definition. You may provide the initial version of
+-- the connector definition now or use
+-- \'\'CreateConnectorDefinitionVersion\'\' at a later time.
 module Network.AWS.Greengrass.CreateConnectorDefinition
   ( -- * Creating a Request
-    createConnectorDefinition,
-    CreateConnectorDefinition,
+    CreateConnectorDefinition (..),
+    newCreateConnectorDefinition,
 
     -- * Request Lenses
-    creName,
-    creInitialVersion,
-    creTags,
-    creAmznClientToken,
+    createConnectorDefinition_name,
+    createConnectorDefinition_initialVersion,
+    createConnectorDefinition_tags,
+    createConnectorDefinition_amznClientToken,
 
     -- * Destructuring the Response
-    createConnectorDefinitionResponse,
-    CreateConnectorDefinitionResponse,
+    CreateConnectorDefinitionResponse (..),
+    newCreateConnectorDefinitionResponse,
 
     -- * Response Lenses
-    crsCreationTimestamp,
-    crsLatestVersionARN,
-    crsLatestVersion,
-    crsARN,
-    crsId,
-    crsName,
-    crsLastUpdatedTimestamp,
-    crsResponseStatus,
+    createConnectorDefinitionResponse_creationTimestamp,
+    createConnectorDefinitionResponse_latestVersionArn,
+    createConnectorDefinitionResponse_latestVersion,
+    createConnectorDefinitionResponse_arn,
+    createConnectorDefinitionResponse_id,
+    createConnectorDefinitionResponse_name,
+    createConnectorDefinitionResponse_lastUpdatedTimestamp,
+    createConnectorDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createConnectorDefinition' smart constructor.
+-- | /See:/ 'newCreateConnectorDefinition' smart constructor.
 data CreateConnectorDefinition = CreateConnectorDefinition'
-  { _creName ::
-      !(Maybe Text),
-    _creInitialVersion ::
-      !( Maybe
-           ConnectorDefinitionVersion
-       ),
-    _creTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _creAmznClientToken ::
-      !(Maybe Text)
+  { -- | The name of the connector definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Information about the initial version of the connector definition.
+    initialVersion :: Prelude.Maybe ConnectorDefinitionVersion,
+    -- | Tag(s) to add to the new resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A client token used to correlate requests and responses.
+    amznClientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConnectorDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConnectorDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'creName' - The name of the connector definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'creInitialVersion' - Information about the initial version of the connector definition.
+-- 'name', 'createConnectorDefinition_name' - The name of the connector definition.
 --
--- * 'creTags' - Tag(s) to add to the new resource.
+-- 'initialVersion', 'createConnectorDefinition_initialVersion' - Information about the initial version of the connector definition.
 --
--- * 'creAmznClientToken' - A client token used to correlate requests and responses.
-createConnectorDefinition ::
+-- 'tags', 'createConnectorDefinition_tags' - Tag(s) to add to the new resource.
+--
+-- 'amznClientToken', 'createConnectorDefinition_amznClientToken' - A client token used to correlate requests and responses.
+newCreateConnectorDefinition ::
   CreateConnectorDefinition
-createConnectorDefinition =
+newCreateConnectorDefinition =
   CreateConnectorDefinition'
-    { _creName = Nothing,
-      _creInitialVersion = Nothing,
-      _creTags = Nothing,
-      _creAmznClientToken = Nothing
+    { name = Prelude.Nothing,
+      initialVersion = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      amznClientToken = Prelude.Nothing
     }
 
 -- | The name of the connector definition.
-creName :: Lens' CreateConnectorDefinition (Maybe Text)
-creName = lens _creName (\s a -> s {_creName = a})
+createConnectorDefinition_name :: Lens.Lens' CreateConnectorDefinition (Prelude.Maybe Prelude.Text)
+createConnectorDefinition_name = Lens.lens (\CreateConnectorDefinition' {name} -> name) (\s@CreateConnectorDefinition' {} a -> s {name = a} :: CreateConnectorDefinition)
 
 -- | Information about the initial version of the connector definition.
-creInitialVersion :: Lens' CreateConnectorDefinition (Maybe ConnectorDefinitionVersion)
-creInitialVersion = lens _creInitialVersion (\s a -> s {_creInitialVersion = a})
+createConnectorDefinition_initialVersion :: Lens.Lens' CreateConnectorDefinition (Prelude.Maybe ConnectorDefinitionVersion)
+createConnectorDefinition_initialVersion = Lens.lens (\CreateConnectorDefinition' {initialVersion} -> initialVersion) (\s@CreateConnectorDefinition' {} a -> s {initialVersion = a} :: CreateConnectorDefinition)
 
 -- | Tag(s) to add to the new resource.
-creTags :: Lens' CreateConnectorDefinition (HashMap Text Text)
-creTags = lens _creTags (\s a -> s {_creTags = a}) . _Default . _Map
+createConnectorDefinition_tags :: Lens.Lens' CreateConnectorDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createConnectorDefinition_tags = Lens.lens (\CreateConnectorDefinition' {tags} -> tags) (\s@CreateConnectorDefinition' {} a -> s {tags = a} :: CreateConnectorDefinition) Prelude.. Lens.mapping Prelude._Map
 
 -- | A client token used to correlate requests and responses.
-creAmznClientToken :: Lens' CreateConnectorDefinition (Maybe Text)
-creAmznClientToken = lens _creAmznClientToken (\s a -> s {_creAmznClientToken = a})
+createConnectorDefinition_amznClientToken :: Lens.Lens' CreateConnectorDefinition (Prelude.Maybe Prelude.Text)
+createConnectorDefinition_amznClientToken = Lens.lens (\CreateConnectorDefinition' {amznClientToken} -> amznClientToken) (\s@CreateConnectorDefinition' {} a -> s {amznClientToken = a} :: CreateConnectorDefinition)
 
-instance AWSRequest CreateConnectorDefinition where
+instance Prelude.AWSRequest CreateConnectorDefinition where
   type
     Rs CreateConnectorDefinition =
       CreateConnectorDefinitionResponse
-  request = postJSON greengrass
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateConnectorDefinitionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "LatestVersionArn")
-            <*> (x .?> "LatestVersion")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Name")
-            <*> (x .?> "LastUpdatedTimestamp")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "LatestVersionArn")
+            Prelude.<*> (x Prelude..?> "LatestVersion")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "LastUpdatedTimestamp")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateConnectorDefinition
+instance Prelude.Hashable CreateConnectorDefinition
 
-instance NFData CreateConnectorDefinition
+instance Prelude.NFData CreateConnectorDefinition
 
-instance ToHeaders CreateConnectorDefinition where
+instance Prelude.ToHeaders CreateConnectorDefinition where
   toHeaders CreateConnectorDefinition' {..} =
-    mconcat
-      [ "X-Amzn-Client-Token" =# _creAmznClientToken,
+    Prelude.mconcat
+      [ "X-Amzn-Client-Token" Prelude.=# amznClientToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON CreateConnectorDefinition where
+instance Prelude.ToJSON CreateConnectorDefinition where
   toJSON CreateConnectorDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _creName,
-            ("InitialVersion" .=) <$> _creInitialVersion,
-            ("tags" .=) <$> _creTags
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("InitialVersion" Prelude..=)
+              Prelude.<$> initialVersion,
+            ("tags" Prelude..=) Prelude.<$> tags
           ]
       )
 
-instance ToPath CreateConnectorDefinition where
-  toPath = const "/greengrass/definition/connectors"
+instance Prelude.ToPath CreateConnectorDefinition where
+  toPath =
+    Prelude.const "/greengrass/definition/connectors"
 
-instance ToQuery CreateConnectorDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateConnectorDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createConnectorDefinitionResponse' smart constructor.
+-- | /See:/ 'newCreateConnectorDefinitionResponse' smart constructor.
 data CreateConnectorDefinitionResponse = CreateConnectorDefinitionResponse'
-  { _crsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _crsLatestVersionARN ::
-      !( Maybe
-           Text
-       ),
-    _crsLatestVersion ::
-      !( Maybe
-           Text
-       ),
-    _crsARN ::
-      !( Maybe
-           Text
-       ),
-    _crsId ::
-      !( Maybe
-           Text
-       ),
-    _crsName ::
-      !( Maybe
-           Text
-       ),
-    _crsLastUpdatedTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _crsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the definition was
+    -- created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the definition.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the definition.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the definition was last
+    -- updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConnectorDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConnectorDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crsLatestVersionARN' - The ARN of the latest version associated with the definition.
+-- 'creationTimestamp', 'createConnectorDefinitionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
+-- created.
 --
--- * 'crsLatestVersion' - The ID of the latest version associated with the definition.
+-- 'latestVersionArn', 'createConnectorDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
 --
--- * 'crsARN' - The ARN of the definition.
+-- 'latestVersion', 'createConnectorDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'crsId' - The ID of the definition.
+-- 'arn', 'createConnectorDefinitionResponse_arn' - The ARN of the definition.
 --
--- * 'crsName' - The name of the definition.
+-- 'id', 'createConnectorDefinitionResponse_id' - The ID of the definition.
 --
--- * 'crsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- 'name', 'createConnectorDefinitionResponse_name' - The name of the definition.
 --
--- * 'crsResponseStatus' - -- | The response status code.
-createConnectorDefinitionResponse ::
-  -- | 'crsResponseStatus'
-  Int ->
+-- 'lastUpdatedTimestamp', 'createConnectorDefinitionResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+--
+-- 'httpStatus', 'createConnectorDefinitionResponse_httpStatus' - The response's http status code.
+newCreateConnectorDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateConnectorDefinitionResponse
-createConnectorDefinitionResponse pResponseStatus_ =
+newCreateConnectorDefinitionResponse pHttpStatus_ =
   CreateConnectorDefinitionResponse'
-    { _crsCreationTimestamp =
-        Nothing,
-      _crsLatestVersionARN = Nothing,
-      _crsLatestVersion = Nothing,
-      _crsARN = Nothing,
-      _crsId = Nothing,
-      _crsName = Nothing,
-      _crsLastUpdatedTimestamp = Nothing,
-      _crsResponseStatus = pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the definition was created.
-crsCreationTimestamp :: Lens' CreateConnectorDefinitionResponse (Maybe Text)
-crsCreationTimestamp = lens _crsCreationTimestamp (\s a -> s {_crsCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was
+-- created.
+createConnectorDefinitionResponse_creationTimestamp :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_creationTimestamp = Lens.lens (\CreateConnectorDefinitionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateConnectorDefinitionResponse' {} a -> s {creationTimestamp = a} :: CreateConnectorDefinitionResponse)
 
 -- | The ARN of the latest version associated with the definition.
-crsLatestVersionARN :: Lens' CreateConnectorDefinitionResponse (Maybe Text)
-crsLatestVersionARN = lens _crsLatestVersionARN (\s a -> s {_crsLatestVersionARN = a})
+createConnectorDefinitionResponse_latestVersionArn :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_latestVersionArn = Lens.lens (\CreateConnectorDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@CreateConnectorDefinitionResponse' {} a -> s {latestVersionArn = a} :: CreateConnectorDefinitionResponse)
 
 -- | The ID of the latest version associated with the definition.
-crsLatestVersion :: Lens' CreateConnectorDefinitionResponse (Maybe Text)
-crsLatestVersion = lens _crsLatestVersion (\s a -> s {_crsLatestVersion = a})
+createConnectorDefinitionResponse_latestVersion :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_latestVersion = Lens.lens (\CreateConnectorDefinitionResponse' {latestVersion} -> latestVersion) (\s@CreateConnectorDefinitionResponse' {} a -> s {latestVersion = a} :: CreateConnectorDefinitionResponse)
 
 -- | The ARN of the definition.
-crsARN :: Lens' CreateConnectorDefinitionResponse (Maybe Text)
-crsARN = lens _crsARN (\s a -> s {_crsARN = a})
+createConnectorDefinitionResponse_arn :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_arn = Lens.lens (\CreateConnectorDefinitionResponse' {arn} -> arn) (\s@CreateConnectorDefinitionResponse' {} a -> s {arn = a} :: CreateConnectorDefinitionResponse)
 
 -- | The ID of the definition.
-crsId :: Lens' CreateConnectorDefinitionResponse (Maybe Text)
-crsId = lens _crsId (\s a -> s {_crsId = a})
+createConnectorDefinitionResponse_id :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_id = Lens.lens (\CreateConnectorDefinitionResponse' {id} -> id) (\s@CreateConnectorDefinitionResponse' {} a -> s {id = a} :: CreateConnectorDefinitionResponse)
 
 -- | The name of the definition.
-crsName :: Lens' CreateConnectorDefinitionResponse (Maybe Text)
-crsName = lens _crsName (\s a -> s {_crsName = a})
+createConnectorDefinitionResponse_name :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_name = Lens.lens (\CreateConnectorDefinitionResponse' {name} -> name) (\s@CreateConnectorDefinitionResponse' {} a -> s {name = a} :: CreateConnectorDefinitionResponse)
 
--- | The time, in milliseconds since the epoch, when the definition was last updated.
-crsLastUpdatedTimestamp :: Lens' CreateConnectorDefinitionResponse (Maybe Text)
-crsLastUpdatedTimestamp = lens _crsLastUpdatedTimestamp (\s a -> s {_crsLastUpdatedTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+createConnectorDefinitionResponse_lastUpdatedTimestamp :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_lastUpdatedTimestamp = Lens.lens (\CreateConnectorDefinitionResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@CreateConnectorDefinitionResponse' {} a -> s {lastUpdatedTimestamp = a} :: CreateConnectorDefinitionResponse)
 
--- | -- | The response status code.
-crsResponseStatus :: Lens' CreateConnectorDefinitionResponse Int
-crsResponseStatus = lens _crsResponseStatus (\s a -> s {_crsResponseStatus = a})
+-- | The response's http status code.
+createConnectorDefinitionResponse_httpStatus :: Lens.Lens' CreateConnectorDefinitionResponse Prelude.Int
+createConnectorDefinitionResponse_httpStatus = Lens.lens (\CreateConnectorDefinitionResponse' {httpStatus} -> httpStatus) (\s@CreateConnectorDefinitionResponse' {} a -> s {httpStatus = a} :: CreateConnectorDefinitionResponse)
 
-instance NFData CreateConnectorDefinitionResponse
+instance
+  Prelude.NFData
+    CreateConnectorDefinitionResponse

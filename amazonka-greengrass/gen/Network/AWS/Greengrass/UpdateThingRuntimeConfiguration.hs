@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,151 +24,164 @@
 -- Updates the runtime configuration of a thing.
 module Network.AWS.Greengrass.UpdateThingRuntimeConfiguration
   ( -- * Creating a Request
-    updateThingRuntimeConfiguration,
-    UpdateThingRuntimeConfiguration,
+    UpdateThingRuntimeConfiguration (..),
+    newUpdateThingRuntimeConfiguration,
 
     -- * Request Lenses
-    utrcTelemetryConfiguration,
-    utrcThingName,
+    updateThingRuntimeConfiguration_telemetryConfiguration,
+    updateThingRuntimeConfiguration_thingName,
 
     -- * Destructuring the Response
-    updateThingRuntimeConfigurationResponse,
-    UpdateThingRuntimeConfigurationResponse,
+    UpdateThingRuntimeConfigurationResponse (..),
+    newUpdateThingRuntimeConfigurationResponse,
 
     -- * Response Lenses
-    utrcrrsResponseStatus,
+    updateThingRuntimeConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateThingRuntimeConfiguration' smart constructor.
+-- | /See:/ 'newUpdateThingRuntimeConfiguration' smart constructor.
 data UpdateThingRuntimeConfiguration = UpdateThingRuntimeConfiguration'
-  { _utrcTelemetryConfiguration ::
-      !( Maybe
-           TelemetryConfigurationUpdate
-       ),
-    _utrcThingName ::
-      !Text
+  { -- | Configuration for telemetry service.
+    telemetryConfiguration :: Prelude.Maybe TelemetryConfigurationUpdate,
+    -- | The thing name.
+    thingName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateThingRuntimeConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateThingRuntimeConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utrcTelemetryConfiguration' - Configuration for telemetry service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utrcThingName' - The thing name.
-updateThingRuntimeConfiguration ::
-  -- | 'utrcThingName'
-  Text ->
+-- 'telemetryConfiguration', 'updateThingRuntimeConfiguration_telemetryConfiguration' - Configuration for telemetry service.
+--
+-- 'thingName', 'updateThingRuntimeConfiguration_thingName' - The thing name.
+newUpdateThingRuntimeConfiguration ::
+  -- | 'thingName'
+  Prelude.Text ->
   UpdateThingRuntimeConfiguration
-updateThingRuntimeConfiguration pThingName_ =
+newUpdateThingRuntimeConfiguration pThingName_ =
   UpdateThingRuntimeConfiguration'
-    { _utrcTelemetryConfiguration =
-        Nothing,
-      _utrcThingName = pThingName_
+    { telemetryConfiguration =
+        Prelude.Nothing,
+      thingName = pThingName_
     }
 
 -- | Configuration for telemetry service.
-utrcTelemetryConfiguration :: Lens' UpdateThingRuntimeConfiguration (Maybe TelemetryConfigurationUpdate)
-utrcTelemetryConfiguration = lens _utrcTelemetryConfiguration (\s a -> s {_utrcTelemetryConfiguration = a})
+updateThingRuntimeConfiguration_telemetryConfiguration :: Lens.Lens' UpdateThingRuntimeConfiguration (Prelude.Maybe TelemetryConfigurationUpdate)
+updateThingRuntimeConfiguration_telemetryConfiguration = Lens.lens (\UpdateThingRuntimeConfiguration' {telemetryConfiguration} -> telemetryConfiguration) (\s@UpdateThingRuntimeConfiguration' {} a -> s {telemetryConfiguration = a} :: UpdateThingRuntimeConfiguration)
 
 -- | The thing name.
-utrcThingName :: Lens' UpdateThingRuntimeConfiguration Text
-utrcThingName = lens _utrcThingName (\s a -> s {_utrcThingName = a})
+updateThingRuntimeConfiguration_thingName :: Lens.Lens' UpdateThingRuntimeConfiguration Prelude.Text
+updateThingRuntimeConfiguration_thingName = Lens.lens (\UpdateThingRuntimeConfiguration' {thingName} -> thingName) (\s@UpdateThingRuntimeConfiguration' {} a -> s {thingName = a} :: UpdateThingRuntimeConfiguration)
 
-instance AWSRequest UpdateThingRuntimeConfiguration where
+instance
+  Prelude.AWSRequest
+    UpdateThingRuntimeConfiguration
+  where
   type
     Rs UpdateThingRuntimeConfiguration =
       UpdateThingRuntimeConfigurationResponse
-  request = putJSON greengrass
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateThingRuntimeConfigurationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateThingRuntimeConfiguration
+instance
+  Prelude.Hashable
+    UpdateThingRuntimeConfiguration
 
-instance NFData UpdateThingRuntimeConfiguration
+instance
+  Prelude.NFData
+    UpdateThingRuntimeConfiguration
 
-instance ToHeaders UpdateThingRuntimeConfiguration where
+instance
+  Prelude.ToHeaders
+    UpdateThingRuntimeConfiguration
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateThingRuntimeConfiguration where
+instance
+  Prelude.ToJSON
+    UpdateThingRuntimeConfiguration
+  where
   toJSON UpdateThingRuntimeConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("TelemetryConfiguration" .=)
-              <$> _utrcTelemetryConfiguration
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TelemetryConfiguration" Prelude..=)
+              Prelude.<$> telemetryConfiguration
           ]
       )
 
-instance ToPath UpdateThingRuntimeConfiguration where
+instance
+  Prelude.ToPath
+    UpdateThingRuntimeConfiguration
+  where
   toPath UpdateThingRuntimeConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/things/",
-        toBS _utrcThingName,
+        Prelude.toBS thingName,
         "/runtimeconfig"
       ]
 
-instance ToQuery UpdateThingRuntimeConfiguration where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdateThingRuntimeConfiguration
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateThingRuntimeConfigurationResponse' smart constructor.
-newtype UpdateThingRuntimeConfigurationResponse = UpdateThingRuntimeConfigurationResponse'
-  { _utrcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateThingRuntimeConfigurationResponse' smart constructor.
+data UpdateThingRuntimeConfigurationResponse = UpdateThingRuntimeConfigurationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateThingRuntimeConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateThingRuntimeConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utrcrrsResponseStatus' - -- | The response status code.
-updateThingRuntimeConfigurationResponse ::
-  -- | 'utrcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateThingRuntimeConfigurationResponse_httpStatus' - The response's http status code.
+newUpdateThingRuntimeConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateThingRuntimeConfigurationResponse
-updateThingRuntimeConfigurationResponse
-  pResponseStatus_ =
+newUpdateThingRuntimeConfigurationResponse
+  pHttpStatus_ =
     UpdateThingRuntimeConfigurationResponse'
-      { _utrcrrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-utrcrrsResponseStatus :: Lens' UpdateThingRuntimeConfigurationResponse Int
-utrcrrsResponseStatus = lens _utrcrrsResponseStatus (\s a -> s {_utrcrrsResponseStatus = a})
+-- | The response's http status code.
+updateThingRuntimeConfigurationResponse_httpStatus :: Lens.Lens' UpdateThingRuntimeConfigurationResponse Prelude.Int
+updateThingRuntimeConfigurationResponse_httpStatus = Lens.lens (\UpdateThingRuntimeConfigurationResponse' {httpStatus} -> httpStatus) (\s@UpdateThingRuntimeConfigurationResponse' {} a -> s {httpStatus = a} :: UpdateThingRuntimeConfigurationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     UpdateThingRuntimeConfigurationResponse

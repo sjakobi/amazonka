@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,233 +24,219 @@
 -- Retrieves information about a subscription definition.
 module Network.AWS.Greengrass.GetSubscriptionDefinition
   ( -- * Creating a Request
-    getSubscriptionDefinition,
-    GetSubscriptionDefinition,
+    GetSubscriptionDefinition (..),
+    newGetSubscriptionDefinition,
 
     -- * Request Lenses
-    gsdSubscriptionDefinitionId,
+    getSubscriptionDefinition_subscriptionDefinitionId,
 
     -- * Destructuring the Response
-    getSubscriptionDefinitionResponse,
-    GetSubscriptionDefinitionResponse,
+    GetSubscriptionDefinitionResponse (..),
+    newGetSubscriptionDefinitionResponse,
 
     -- * Response Lenses
-    gsdrrsCreationTimestamp,
-    gsdrrsLatestVersionARN,
-    gsdrrsLatestVersion,
-    gsdrrsARN,
-    gsdrrsId,
-    gsdrrsName,
-    gsdrrsLastUpdatedTimestamp,
-    gsdrrsTags,
-    gsdrrsResponseStatus,
+    getSubscriptionDefinitionResponse_creationTimestamp,
+    getSubscriptionDefinitionResponse_latestVersionArn,
+    getSubscriptionDefinitionResponse_latestVersion,
+    getSubscriptionDefinitionResponse_arn,
+    getSubscriptionDefinitionResponse_id,
+    getSubscriptionDefinitionResponse_name,
+    getSubscriptionDefinitionResponse_lastUpdatedTimestamp,
+    getSubscriptionDefinitionResponse_tags,
+    getSubscriptionDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getSubscriptionDefinition' smart constructor.
-newtype GetSubscriptionDefinition = GetSubscriptionDefinition'
-  { _gsdSubscriptionDefinitionId ::
-      Text
+-- | /See:/ 'newGetSubscriptionDefinition' smart constructor.
+data GetSubscriptionDefinition = GetSubscriptionDefinition'
+  { -- | The ID of the subscription definition.
+    subscriptionDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSubscriptionDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSubscriptionDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsdSubscriptionDefinitionId' - The ID of the subscription definition.
-getSubscriptionDefinition ::
-  -- | 'gsdSubscriptionDefinitionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'subscriptionDefinitionId', 'getSubscriptionDefinition_subscriptionDefinitionId' - The ID of the subscription definition.
+newGetSubscriptionDefinition ::
+  -- | 'subscriptionDefinitionId'
+  Prelude.Text ->
   GetSubscriptionDefinition
-getSubscriptionDefinition pSubscriptionDefinitionId_ =
-  GetSubscriptionDefinition'
-    { _gsdSubscriptionDefinitionId =
-        pSubscriptionDefinitionId_
-    }
+newGetSubscriptionDefinition
+  pSubscriptionDefinitionId_ =
+    GetSubscriptionDefinition'
+      { subscriptionDefinitionId =
+          pSubscriptionDefinitionId_
+      }
 
 -- | The ID of the subscription definition.
-gsdSubscriptionDefinitionId :: Lens' GetSubscriptionDefinition Text
-gsdSubscriptionDefinitionId = lens _gsdSubscriptionDefinitionId (\s a -> s {_gsdSubscriptionDefinitionId = a})
+getSubscriptionDefinition_subscriptionDefinitionId :: Lens.Lens' GetSubscriptionDefinition Prelude.Text
+getSubscriptionDefinition_subscriptionDefinitionId = Lens.lens (\GetSubscriptionDefinition' {subscriptionDefinitionId} -> subscriptionDefinitionId) (\s@GetSubscriptionDefinition' {} a -> s {subscriptionDefinitionId = a} :: GetSubscriptionDefinition)
 
-instance AWSRequest GetSubscriptionDefinition where
+instance Prelude.AWSRequest GetSubscriptionDefinition where
   type
     Rs GetSubscriptionDefinition =
       GetSubscriptionDefinitionResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSubscriptionDefinitionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "LatestVersionArn")
-            <*> (x .?> "LatestVersion")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Name")
-            <*> (x .?> "LastUpdatedTimestamp")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "LatestVersionArn")
+            Prelude.<*> (x Prelude..?> "LatestVersion")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "LastUpdatedTimestamp")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSubscriptionDefinition
+instance Prelude.Hashable GetSubscriptionDefinition
 
-instance NFData GetSubscriptionDefinition
+instance Prelude.NFData GetSubscriptionDefinition
 
-instance ToHeaders GetSubscriptionDefinition where
+instance Prelude.ToHeaders GetSubscriptionDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetSubscriptionDefinition where
+instance Prelude.ToPath GetSubscriptionDefinition where
   toPath GetSubscriptionDefinition' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/subscriptions/",
-        toBS _gsdSubscriptionDefinitionId
+        Prelude.toBS subscriptionDefinitionId
       ]
 
-instance ToQuery GetSubscriptionDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSubscriptionDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSubscriptionDefinitionResponse' smart constructor.
+-- | /See:/ 'newGetSubscriptionDefinitionResponse' smart constructor.
 data GetSubscriptionDefinitionResponse = GetSubscriptionDefinitionResponse'
-  { _gsdrrsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _gsdrrsLatestVersionARN ::
-      !( Maybe
-           Text
-       ),
-    _gsdrrsLatestVersion ::
-      !( Maybe
-           Text
-       ),
-    _gsdrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _gsdrrsId ::
-      !( Maybe
-           Text
-       ),
-    _gsdrrsName ::
-      !( Maybe
-           Text
-       ),
-    _gsdrrsLastUpdatedTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _gsdrrsTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _gsdrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the definition was
+    -- created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the definition.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the definition.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the definition was last
+    -- updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | Tag(s) attached to the resource arn.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSubscriptionDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSubscriptionDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsdrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsdrrsLatestVersionARN' - The ARN of the latest version associated with the definition.
+-- 'creationTimestamp', 'getSubscriptionDefinitionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
+-- created.
 --
--- * 'gsdrrsLatestVersion' - The ID of the latest version associated with the definition.
+-- 'latestVersionArn', 'getSubscriptionDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
 --
--- * 'gsdrrsARN' - The ARN of the definition.
+-- 'latestVersion', 'getSubscriptionDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'gsdrrsId' - The ID of the definition.
+-- 'arn', 'getSubscriptionDefinitionResponse_arn' - The ARN of the definition.
 --
--- * 'gsdrrsName' - The name of the definition.
+-- 'id', 'getSubscriptionDefinitionResponse_id' - The ID of the definition.
 --
--- * 'gsdrrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- 'name', 'getSubscriptionDefinitionResponse_name' - The name of the definition.
 --
--- * 'gsdrrsTags' - Tag(s) attached to the resource arn.
+-- 'lastUpdatedTimestamp', 'getSubscriptionDefinitionResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
+-- updated.
 --
--- * 'gsdrrsResponseStatus' - -- | The response status code.
-getSubscriptionDefinitionResponse ::
-  -- | 'gsdrrsResponseStatus'
-  Int ->
+-- 'tags', 'getSubscriptionDefinitionResponse_tags' - Tag(s) attached to the resource arn.
+--
+-- 'httpStatus', 'getSubscriptionDefinitionResponse_httpStatus' - The response's http status code.
+newGetSubscriptionDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSubscriptionDefinitionResponse
-getSubscriptionDefinitionResponse pResponseStatus_ =
+newGetSubscriptionDefinitionResponse pHttpStatus_ =
   GetSubscriptionDefinitionResponse'
-    { _gsdrrsCreationTimestamp =
-        Nothing,
-      _gsdrrsLatestVersionARN = Nothing,
-      _gsdrrsLatestVersion = Nothing,
-      _gsdrrsARN = Nothing,
-      _gsdrrsId = Nothing,
-      _gsdrrsName = Nothing,
-      _gsdrrsLastUpdatedTimestamp = Nothing,
-      _gsdrrsTags = Nothing,
-      _gsdrrsResponseStatus = pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the definition was created.
-gsdrrsCreationTimestamp :: Lens' GetSubscriptionDefinitionResponse (Maybe Text)
-gsdrrsCreationTimestamp = lens _gsdrrsCreationTimestamp (\s a -> s {_gsdrrsCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was
+-- created.
+getSubscriptionDefinitionResponse_creationTimestamp :: Lens.Lens' GetSubscriptionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getSubscriptionDefinitionResponse_creationTimestamp = Lens.lens (\GetSubscriptionDefinitionResponse' {creationTimestamp} -> creationTimestamp) (\s@GetSubscriptionDefinitionResponse' {} a -> s {creationTimestamp = a} :: GetSubscriptionDefinitionResponse)
 
 -- | The ARN of the latest version associated with the definition.
-gsdrrsLatestVersionARN :: Lens' GetSubscriptionDefinitionResponse (Maybe Text)
-gsdrrsLatestVersionARN = lens _gsdrrsLatestVersionARN (\s a -> s {_gsdrrsLatestVersionARN = a})
+getSubscriptionDefinitionResponse_latestVersionArn :: Lens.Lens' GetSubscriptionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getSubscriptionDefinitionResponse_latestVersionArn = Lens.lens (\GetSubscriptionDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@GetSubscriptionDefinitionResponse' {} a -> s {latestVersionArn = a} :: GetSubscriptionDefinitionResponse)
 
 -- | The ID of the latest version associated with the definition.
-gsdrrsLatestVersion :: Lens' GetSubscriptionDefinitionResponse (Maybe Text)
-gsdrrsLatestVersion = lens _gsdrrsLatestVersion (\s a -> s {_gsdrrsLatestVersion = a})
+getSubscriptionDefinitionResponse_latestVersion :: Lens.Lens' GetSubscriptionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getSubscriptionDefinitionResponse_latestVersion = Lens.lens (\GetSubscriptionDefinitionResponse' {latestVersion} -> latestVersion) (\s@GetSubscriptionDefinitionResponse' {} a -> s {latestVersion = a} :: GetSubscriptionDefinitionResponse)
 
 -- | The ARN of the definition.
-gsdrrsARN :: Lens' GetSubscriptionDefinitionResponse (Maybe Text)
-gsdrrsARN = lens _gsdrrsARN (\s a -> s {_gsdrrsARN = a})
+getSubscriptionDefinitionResponse_arn :: Lens.Lens' GetSubscriptionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getSubscriptionDefinitionResponse_arn = Lens.lens (\GetSubscriptionDefinitionResponse' {arn} -> arn) (\s@GetSubscriptionDefinitionResponse' {} a -> s {arn = a} :: GetSubscriptionDefinitionResponse)
 
 -- | The ID of the definition.
-gsdrrsId :: Lens' GetSubscriptionDefinitionResponse (Maybe Text)
-gsdrrsId = lens _gsdrrsId (\s a -> s {_gsdrrsId = a})
+getSubscriptionDefinitionResponse_id :: Lens.Lens' GetSubscriptionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getSubscriptionDefinitionResponse_id = Lens.lens (\GetSubscriptionDefinitionResponse' {id} -> id) (\s@GetSubscriptionDefinitionResponse' {} a -> s {id = a} :: GetSubscriptionDefinitionResponse)
 
 -- | The name of the definition.
-gsdrrsName :: Lens' GetSubscriptionDefinitionResponse (Maybe Text)
-gsdrrsName = lens _gsdrrsName (\s a -> s {_gsdrrsName = a})
+getSubscriptionDefinitionResponse_name :: Lens.Lens' GetSubscriptionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getSubscriptionDefinitionResponse_name = Lens.lens (\GetSubscriptionDefinitionResponse' {name} -> name) (\s@GetSubscriptionDefinitionResponse' {} a -> s {name = a} :: GetSubscriptionDefinitionResponse)
 
--- | The time, in milliseconds since the epoch, when the definition was last updated.
-gsdrrsLastUpdatedTimestamp :: Lens' GetSubscriptionDefinitionResponse (Maybe Text)
-gsdrrsLastUpdatedTimestamp = lens _gsdrrsLastUpdatedTimestamp (\s a -> s {_gsdrrsLastUpdatedTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+getSubscriptionDefinitionResponse_lastUpdatedTimestamp :: Lens.Lens' GetSubscriptionDefinitionResponse (Prelude.Maybe Prelude.Text)
+getSubscriptionDefinitionResponse_lastUpdatedTimestamp = Lens.lens (\GetSubscriptionDefinitionResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@GetSubscriptionDefinitionResponse' {} a -> s {lastUpdatedTimestamp = a} :: GetSubscriptionDefinitionResponse)
 
 -- | Tag(s) attached to the resource arn.
-gsdrrsTags :: Lens' GetSubscriptionDefinitionResponse (HashMap Text Text)
-gsdrrsTags = lens _gsdrrsTags (\s a -> s {_gsdrrsTags = a}) . _Default . _Map
+getSubscriptionDefinitionResponse_tags :: Lens.Lens' GetSubscriptionDefinitionResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getSubscriptionDefinitionResponse_tags = Lens.lens (\GetSubscriptionDefinitionResponse' {tags} -> tags) (\s@GetSubscriptionDefinitionResponse' {} a -> s {tags = a} :: GetSubscriptionDefinitionResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gsdrrsResponseStatus :: Lens' GetSubscriptionDefinitionResponse Int
-gsdrrsResponseStatus = lens _gsdrrsResponseStatus (\s a -> s {_gsdrrsResponseStatus = a})
+-- | The response's http status code.
+getSubscriptionDefinitionResponse_httpStatus :: Lens.Lens' GetSubscriptionDefinitionResponse Prelude.Int
+getSubscriptionDefinitionResponse_httpStatus = Lens.lens (\GetSubscriptionDefinitionResponse' {httpStatus} -> httpStatus) (\s@GetSubscriptionDefinitionResponse' {} a -> s {httpStatus = a} :: GetSubscriptionDefinitionResponse)
 
-instance NFData GetSubscriptionDefinitionResponse
+instance
+  Prelude.NFData
+    GetSubscriptionDefinitionResponse

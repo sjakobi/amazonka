@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,88 +19,114 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.Subscription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a subscription.
 --
--- /See:/ 'subscription' smart constructor.
+-- /See:/ 'newSubscription' smart constructor.
 data Subscription = Subscription'
-  { _sTarget :: !Text,
-    _sId :: !Text,
-    _sSubject :: !Text,
-    _sSource :: !Text
+  { -- | Where the message is sent to. Can be a thing ARN, a Lambda function ARN,
+    -- a connector ARN, \'cloud\' (which represents the AWS IoT cloud), or
+    -- \'GGShadowService\'.
+    target :: Prelude.Text,
+    -- | A descriptive or arbitrary ID for the subscription. This value must be
+    -- unique within the subscription definition version. Max length is 128
+    -- characters with pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+    id :: Prelude.Text,
+    -- | The MQTT topic used to route the message.
+    subject :: Prelude.Text,
+    -- | The source of the subscription. Can be a thing ARN, a Lambda function
+    -- ARN, a connector ARN, \'cloud\' (which represents the AWS IoT cloud), or
+    -- \'GGShadowService\'.
+    source :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Subscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Subscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sTarget' - Where the message is sent to. Can be a thing ARN, a Lambda function ARN, a connector ARN, 'cloud' (which represents the AWS IoT cloud), or 'GGShadowService'.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sId' - A descriptive or arbitrary ID for the subscription. This value must be unique within the subscription definition version. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''.
+-- 'target', 'subscription_target' - Where the message is sent to. Can be a thing ARN, a Lambda function ARN,
+-- a connector ARN, \'cloud\' (which represents the AWS IoT cloud), or
+-- \'GGShadowService\'.
 --
--- * 'sSubject' - The MQTT topic used to route the message.
+-- 'id', 'subscription_id' - A descriptive or arbitrary ID for the subscription. This value must be
+-- unique within the subscription definition version. Max length is 128
+-- characters with pattern \'\'[a-zA-Z0-9:_-]+\'\'.
 --
--- * 'sSource' - The source of the subscription. Can be a thing ARN, a Lambda function ARN, a connector ARN, 'cloud' (which represents the AWS IoT cloud), or 'GGShadowService'.
-subscription ::
-  -- | 'sTarget'
-  Text ->
-  -- | 'sId'
-  Text ->
-  -- | 'sSubject'
-  Text ->
-  -- | 'sSource'
-  Text ->
+-- 'subject', 'subscription_subject' - The MQTT topic used to route the message.
+--
+-- 'source', 'subscription_source' - The source of the subscription. Can be a thing ARN, a Lambda function
+-- ARN, a connector ARN, \'cloud\' (which represents the AWS IoT cloud), or
+-- \'GGShadowService\'.
+newSubscription ::
+  -- | 'target'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'subject'
+  Prelude.Text ->
+  -- | 'source'
+  Prelude.Text ->
   Subscription
-subscription pTarget_ pId_ pSubject_ pSource_ =
+newSubscription pTarget_ pId_ pSubject_ pSource_ =
   Subscription'
-    { _sTarget = pTarget_,
-      _sId = pId_,
-      _sSubject = pSubject_,
-      _sSource = pSource_
+    { target = pTarget_,
+      id = pId_,
+      subject = pSubject_,
+      source = pSource_
     }
 
--- | Where the message is sent to. Can be a thing ARN, a Lambda function ARN, a connector ARN, 'cloud' (which represents the AWS IoT cloud), or 'GGShadowService'.
-sTarget :: Lens' Subscription Text
-sTarget = lens _sTarget (\s a -> s {_sTarget = a})
+-- | Where the message is sent to. Can be a thing ARN, a Lambda function ARN,
+-- a connector ARN, \'cloud\' (which represents the AWS IoT cloud), or
+-- \'GGShadowService\'.
+subscription_target :: Lens.Lens' Subscription Prelude.Text
+subscription_target = Lens.lens (\Subscription' {target} -> target) (\s@Subscription' {} a -> s {target = a} :: Subscription)
 
--- | A descriptive or arbitrary ID for the subscription. This value must be unique within the subscription definition version. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''.
-sId :: Lens' Subscription Text
-sId = lens _sId (\s a -> s {_sId = a})
+-- | A descriptive or arbitrary ID for the subscription. This value must be
+-- unique within the subscription definition version. Max length is 128
+-- characters with pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+subscription_id :: Lens.Lens' Subscription Prelude.Text
+subscription_id = Lens.lens (\Subscription' {id} -> id) (\s@Subscription' {} a -> s {id = a} :: Subscription)
 
 -- | The MQTT topic used to route the message.
-sSubject :: Lens' Subscription Text
-sSubject = lens _sSubject (\s a -> s {_sSubject = a})
+subscription_subject :: Lens.Lens' Subscription Prelude.Text
+subscription_subject = Lens.lens (\Subscription' {subject} -> subject) (\s@Subscription' {} a -> s {subject = a} :: Subscription)
 
--- | The source of the subscription. Can be a thing ARN, a Lambda function ARN, a connector ARN, 'cloud' (which represents the AWS IoT cloud), or 'GGShadowService'.
-sSource :: Lens' Subscription Text
-sSource = lens _sSource (\s a -> s {_sSource = a})
+-- | The source of the subscription. Can be a thing ARN, a Lambda function
+-- ARN, a connector ARN, \'cloud\' (which represents the AWS IoT cloud), or
+-- \'GGShadowService\'.
+subscription_source :: Lens.Lens' Subscription Prelude.Text
+subscription_source = Lens.lens (\Subscription' {source} -> source) (\s@Subscription' {} a -> s {source = a} :: Subscription)
 
-instance FromJSON Subscription where
+instance Prelude.FromJSON Subscription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Subscription"
       ( \x ->
           Subscription'
-            <$> (x .: "Target")
-            <*> (x .: "Id")
-            <*> (x .: "Subject")
-            <*> (x .: "Source")
+            Prelude.<$> (x Prelude..: "Target")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "Subject")
+            Prelude.<*> (x Prelude..: "Source")
       )
 
-instance Hashable Subscription
+instance Prelude.Hashable Subscription
 
-instance NFData Subscription
+instance Prelude.NFData Subscription
 
-instance ToJSON Subscription where
+instance Prelude.ToJSON Subscription where
   toJSON Subscription' {..} =
-    object
-      ( catMaybes
-          [ Just ("Target" .= _sTarget),
-            Just ("Id" .= _sId),
-            Just ("Subject" .= _sSubject),
-            Just ("Source" .= _sSource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Target" Prelude..= target),
+            Prelude.Just ("Id" Prelude..= id),
+            Prelude.Just ("Subject" Prelude..= subject),
+            Prelude.Just ("Source" Prelude..= source)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,144 +24,156 @@
 -- Retrieves the current CAs for a group.
 module Network.AWS.Greengrass.ListGroupCertificateAuthorities
   ( -- * Creating a Request
-    listGroupCertificateAuthorities,
-    ListGroupCertificateAuthorities,
+    ListGroupCertificateAuthorities (..),
+    newListGroupCertificateAuthorities,
 
     -- * Request Lenses
-    lgcaGroupId,
+    listGroupCertificateAuthorities_groupId,
 
     -- * Destructuring the Response
-    listGroupCertificateAuthoritiesResponse,
-    ListGroupCertificateAuthoritiesResponse,
+    ListGroupCertificateAuthoritiesResponse (..),
+    newListGroupCertificateAuthoritiesResponse,
 
     -- * Response Lenses
-    lgcarrsGroupCertificateAuthorities,
-    lgcarrsResponseStatus,
+    listGroupCertificateAuthoritiesResponse_groupCertificateAuthorities,
+    listGroupCertificateAuthoritiesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.GroupCertificateAuthorityProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listGroupCertificateAuthorities' smart constructor.
-newtype ListGroupCertificateAuthorities = ListGroupCertificateAuthorities'
-  { _lgcaGroupId ::
-      Text
+-- | /See:/ 'newListGroupCertificateAuthorities' smart constructor.
+data ListGroupCertificateAuthorities = ListGroupCertificateAuthorities'
+  { -- | The ID of the Greengrass group.
+    groupId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGroupCertificateAuthorities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGroupCertificateAuthorities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgcaGroupId' - The ID of the Greengrass group.
-listGroupCertificateAuthorities ::
-  -- | 'lgcaGroupId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'groupId', 'listGroupCertificateAuthorities_groupId' - The ID of the Greengrass group.
+newListGroupCertificateAuthorities ::
+  -- | 'groupId'
+  Prelude.Text ->
   ListGroupCertificateAuthorities
-listGroupCertificateAuthorities pGroupId_ =
+newListGroupCertificateAuthorities pGroupId_ =
   ListGroupCertificateAuthorities'
-    { _lgcaGroupId =
+    { groupId =
         pGroupId_
     }
 
 -- | The ID of the Greengrass group.
-lgcaGroupId :: Lens' ListGroupCertificateAuthorities Text
-lgcaGroupId = lens _lgcaGroupId (\s a -> s {_lgcaGroupId = a})
+listGroupCertificateAuthorities_groupId :: Lens.Lens' ListGroupCertificateAuthorities Prelude.Text
+listGroupCertificateAuthorities_groupId = Lens.lens (\ListGroupCertificateAuthorities' {groupId} -> groupId) (\s@ListGroupCertificateAuthorities' {} a -> s {groupId = a} :: ListGroupCertificateAuthorities)
 
-instance AWSRequest ListGroupCertificateAuthorities where
+instance
+  Prelude.AWSRequest
+    ListGroupCertificateAuthorities
+  where
   type
     Rs ListGroupCertificateAuthorities =
       ListGroupCertificateAuthoritiesResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListGroupCertificateAuthoritiesResponse'
-            <$> (x .?> "GroupCertificateAuthorities" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "GroupCertificateAuthorities"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListGroupCertificateAuthorities
+instance
+  Prelude.Hashable
+    ListGroupCertificateAuthorities
 
-instance NFData ListGroupCertificateAuthorities
+instance
+  Prelude.NFData
+    ListGroupCertificateAuthorities
 
-instance ToHeaders ListGroupCertificateAuthorities where
+instance
+  Prelude.ToHeaders
+    ListGroupCertificateAuthorities
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListGroupCertificateAuthorities where
+instance
+  Prelude.ToPath
+    ListGroupCertificateAuthorities
+  where
   toPath ListGroupCertificateAuthorities' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/groups/",
-        toBS _lgcaGroupId,
+        Prelude.toBS groupId,
         "/certificateauthorities"
       ]
 
-instance ToQuery ListGroupCertificateAuthorities where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    ListGroupCertificateAuthorities
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listGroupCertificateAuthoritiesResponse' smart constructor.
+-- | /See:/ 'newListGroupCertificateAuthoritiesResponse' smart constructor.
 data ListGroupCertificateAuthoritiesResponse = ListGroupCertificateAuthoritiesResponse'
-  { _lgcarrsGroupCertificateAuthorities ::
-      !( Maybe
-           [GroupCertificateAuthorityProperties]
-       ),
-    _lgcarrsResponseStatus ::
-      !Int
+  { -- | A list of certificate authorities associated with the group.
+    groupCertificateAuthorities :: Prelude.Maybe [GroupCertificateAuthorityProperties],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGroupCertificateAuthoritiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGroupCertificateAuthoritiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgcarrsGroupCertificateAuthorities' - A list of certificate authorities associated with the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgcarrsResponseStatus' - -- | The response status code.
-listGroupCertificateAuthoritiesResponse ::
-  -- | 'lgcarrsResponseStatus'
-  Int ->
+-- 'groupCertificateAuthorities', 'listGroupCertificateAuthoritiesResponse_groupCertificateAuthorities' - A list of certificate authorities associated with the group.
+--
+-- 'httpStatus', 'listGroupCertificateAuthoritiesResponse_httpStatus' - The response's http status code.
+newListGroupCertificateAuthoritiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListGroupCertificateAuthoritiesResponse
-listGroupCertificateAuthoritiesResponse
-  pResponseStatus_ =
+newListGroupCertificateAuthoritiesResponse
+  pHttpStatus_ =
     ListGroupCertificateAuthoritiesResponse'
-      { _lgcarrsGroupCertificateAuthorities =
-          Nothing,
-        _lgcarrsResponseStatus =
-          pResponseStatus_
+      { groupCertificateAuthorities =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A list of certificate authorities associated with the group.
-lgcarrsGroupCertificateAuthorities :: Lens' ListGroupCertificateAuthoritiesResponse [GroupCertificateAuthorityProperties]
-lgcarrsGroupCertificateAuthorities = lens _lgcarrsGroupCertificateAuthorities (\s a -> s {_lgcarrsGroupCertificateAuthorities = a}) . _Default . _Coerce
+listGroupCertificateAuthoritiesResponse_groupCertificateAuthorities :: Lens.Lens' ListGroupCertificateAuthoritiesResponse (Prelude.Maybe [GroupCertificateAuthorityProperties])
+listGroupCertificateAuthoritiesResponse_groupCertificateAuthorities = Lens.lens (\ListGroupCertificateAuthoritiesResponse' {groupCertificateAuthorities} -> groupCertificateAuthorities) (\s@ListGroupCertificateAuthoritiesResponse' {} a -> s {groupCertificateAuthorities = a} :: ListGroupCertificateAuthoritiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lgcarrsResponseStatus :: Lens' ListGroupCertificateAuthoritiesResponse Int
-lgcarrsResponseStatus = lens _lgcarrsResponseStatus (\s a -> s {_lgcarrsResponseStatus = a})
+-- | The response's http status code.
+listGroupCertificateAuthoritiesResponse_httpStatus :: Lens.Lens' ListGroupCertificateAuthoritiesResponse Prelude.Int
+listGroupCertificateAuthoritiesResponse_httpStatus = Lens.lens (\ListGroupCertificateAuthoritiesResponse' {httpStatus} -> httpStatus) (\s@ListGroupCertificateAuthoritiesResponse' {} a -> s {httpStatus = a} :: ListGroupCertificateAuthoritiesResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListGroupCertificateAuthoritiesResponse

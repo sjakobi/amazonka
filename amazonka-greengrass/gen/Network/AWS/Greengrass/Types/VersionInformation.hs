@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.VersionInformation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a version.
 --
--- /See:/ 'versionInformation' smart constructor.
+-- /See:/ 'newVersionInformation' smart constructor.
 data VersionInformation = VersionInformation'
-  { _viCreationTimestamp ::
-      !(Maybe Text),
-    _viARN :: !(Maybe Text),
-    _viId :: !(Maybe Text),
-    _viVersion :: !(Maybe Text)
+  { -- | The time, in milliseconds since the epoch, when the version was created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the version.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the parent definition that the version is associated with.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the version.
+    version :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VersionInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VersionInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'viCreationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'viARN' - The ARN of the version.
+-- 'creationTimestamp', 'versionInformation_creationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
 --
--- * 'viId' - The ID of the parent definition that the version is associated with.
+-- 'arn', 'versionInformation_arn' - The ARN of the version.
 --
--- * 'viVersion' - The ID of the version.
-versionInformation ::
+-- 'id', 'versionInformation_id' - The ID of the parent definition that the version is associated with.
+--
+-- 'version', 'versionInformation_version' - The ID of the version.
+newVersionInformation ::
   VersionInformation
-versionInformation =
+newVersionInformation =
   VersionInformation'
-    { _viCreationTimestamp = Nothing,
-      _viARN = Nothing,
-      _viId = Nothing,
-      _viVersion = Nothing
+    { creationTimestamp =
+        Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
 -- | The time, in milliseconds since the epoch, when the version was created.
-viCreationTimestamp :: Lens' VersionInformation (Maybe Text)
-viCreationTimestamp = lens _viCreationTimestamp (\s a -> s {_viCreationTimestamp = a})
+versionInformation_creationTimestamp :: Lens.Lens' VersionInformation (Prelude.Maybe Prelude.Text)
+versionInformation_creationTimestamp = Lens.lens (\VersionInformation' {creationTimestamp} -> creationTimestamp) (\s@VersionInformation' {} a -> s {creationTimestamp = a} :: VersionInformation)
 
 -- | The ARN of the version.
-viARN :: Lens' VersionInformation (Maybe Text)
-viARN = lens _viARN (\s a -> s {_viARN = a})
+versionInformation_arn :: Lens.Lens' VersionInformation (Prelude.Maybe Prelude.Text)
+versionInformation_arn = Lens.lens (\VersionInformation' {arn} -> arn) (\s@VersionInformation' {} a -> s {arn = a} :: VersionInformation)
 
 -- | The ID of the parent definition that the version is associated with.
-viId :: Lens' VersionInformation (Maybe Text)
-viId = lens _viId (\s a -> s {_viId = a})
+versionInformation_id :: Lens.Lens' VersionInformation (Prelude.Maybe Prelude.Text)
+versionInformation_id = Lens.lens (\VersionInformation' {id} -> id) (\s@VersionInformation' {} a -> s {id = a} :: VersionInformation)
 
 -- | The ID of the version.
-viVersion :: Lens' VersionInformation (Maybe Text)
-viVersion = lens _viVersion (\s a -> s {_viVersion = a})
+versionInformation_version :: Lens.Lens' VersionInformation (Prelude.Maybe Prelude.Text)
+versionInformation_version = Lens.lens (\VersionInformation' {version} -> version) (\s@VersionInformation' {} a -> s {version = a} :: VersionInformation)
 
-instance FromJSON VersionInformation where
+instance Prelude.FromJSON VersionInformation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VersionInformation"
       ( \x ->
           VersionInformation'
-            <$> (x .:? "CreationTimestamp")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Version")
+            Prelude.<$> (x Prelude..:? "CreationTimestamp")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Version")
       )
 
-instance Hashable VersionInformation
+instance Prelude.Hashable VersionInformation
 
-instance NFData VersionInformation
+instance Prelude.NFData VersionInformation

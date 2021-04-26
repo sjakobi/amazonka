@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,126 +24,124 @@
 -- Deletes a connector definition.
 module Network.AWS.Greengrass.DeleteConnectorDefinition
   ( -- * Creating a Request
-    deleteConnectorDefinition,
-    DeleteConnectorDefinition,
+    DeleteConnectorDefinition (..),
+    newDeleteConnectorDefinition,
 
     -- * Request Lenses
-    dcdConnectorDefinitionId,
+    deleteConnectorDefinition_connectorDefinitionId,
 
     -- * Destructuring the Response
-    deleteConnectorDefinitionResponse,
-    DeleteConnectorDefinitionResponse,
+    DeleteConnectorDefinitionResponse (..),
+    newDeleteConnectorDefinitionResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deleteConnectorDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteConnectorDefinition' smart constructor.
-newtype DeleteConnectorDefinition = DeleteConnectorDefinition'
-  { _dcdConnectorDefinitionId ::
-      Text
+-- | /See:/ 'newDeleteConnectorDefinition' smart constructor.
+data DeleteConnectorDefinition = DeleteConnectorDefinition'
+  { -- | The ID of the connector definition.
+    connectorDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConnectorDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConnectorDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcdConnectorDefinitionId' - The ID of the connector definition.
-deleteConnectorDefinition ::
-  -- | 'dcdConnectorDefinitionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'connectorDefinitionId', 'deleteConnectorDefinition_connectorDefinitionId' - The ID of the connector definition.
+newDeleteConnectorDefinition ::
+  -- | 'connectorDefinitionId'
+  Prelude.Text ->
   DeleteConnectorDefinition
-deleteConnectorDefinition pConnectorDefinitionId_ =
+newDeleteConnectorDefinition pConnectorDefinitionId_ =
   DeleteConnectorDefinition'
-    { _dcdConnectorDefinitionId =
+    { connectorDefinitionId =
         pConnectorDefinitionId_
     }
 
 -- | The ID of the connector definition.
-dcdConnectorDefinitionId :: Lens' DeleteConnectorDefinition Text
-dcdConnectorDefinitionId = lens _dcdConnectorDefinitionId (\s a -> s {_dcdConnectorDefinitionId = a})
+deleteConnectorDefinition_connectorDefinitionId :: Lens.Lens' DeleteConnectorDefinition Prelude.Text
+deleteConnectorDefinition_connectorDefinitionId = Lens.lens (\DeleteConnectorDefinition' {connectorDefinitionId} -> connectorDefinitionId) (\s@DeleteConnectorDefinition' {} a -> s {connectorDefinitionId = a} :: DeleteConnectorDefinition)
 
-instance AWSRequest DeleteConnectorDefinition where
+instance Prelude.AWSRequest DeleteConnectorDefinition where
   type
     Rs DeleteConnectorDefinition =
       DeleteConnectorDefinitionResponse
-  request = delete greengrass
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteConnectorDefinitionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteConnectorDefinition
+instance Prelude.Hashable DeleteConnectorDefinition
 
-instance NFData DeleteConnectorDefinition
+instance Prelude.NFData DeleteConnectorDefinition
 
-instance ToHeaders DeleteConnectorDefinition where
+instance Prelude.ToHeaders DeleteConnectorDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteConnectorDefinition where
+instance Prelude.ToPath DeleteConnectorDefinition where
   toPath DeleteConnectorDefinition' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/connectors/",
-        toBS _dcdConnectorDefinitionId
+        Prelude.toBS connectorDefinitionId
       ]
 
-instance ToQuery DeleteConnectorDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteConnectorDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteConnectorDefinitionResponse' smart constructor.
-newtype DeleteConnectorDefinitionResponse = DeleteConnectorDefinitionResponse'
-  { _drsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteConnectorDefinitionResponse' smart constructor.
+data DeleteConnectorDefinitionResponse = DeleteConnectorDefinitionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConnectorDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConnectorDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteConnectorDefinitionResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteConnectorDefinitionResponse_httpStatus' - The response's http status code.
+newDeleteConnectorDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteConnectorDefinitionResponse
-deleteConnectorDefinitionResponse pResponseStatus_ =
+newDeleteConnectorDefinitionResponse pHttpStatus_ =
   DeleteConnectorDefinitionResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteConnectorDefinitionResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteConnectorDefinitionResponse_httpStatus :: Lens.Lens' DeleteConnectorDefinitionResponse Prelude.Int
+deleteConnectorDefinitionResponse_httpStatus = Lens.lens (\DeleteConnectorDefinitionResponse' {httpStatus} -> httpStatus) (\s@DeleteConnectorDefinitionResponse' {} a -> s {httpStatus = a} :: DeleteConnectorDefinitionResponse)
 
-instance NFData DeleteConnectorDefinitionResponse
+instance
+  Prelude.NFData
+    DeleteConnectorDefinitionResponse

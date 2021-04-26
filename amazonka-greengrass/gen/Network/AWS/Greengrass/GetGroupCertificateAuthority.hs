@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,187 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retreives the CA associated with a group. Returns the public key of the CA.
+-- Retreives the CA associated with a group. Returns the public key of the
+-- CA.
 module Network.AWS.Greengrass.GetGroupCertificateAuthority
   ( -- * Creating a Request
-    getGroupCertificateAuthority,
-    GetGroupCertificateAuthority,
+    GetGroupCertificateAuthority (..),
+    newGetGroupCertificateAuthority,
 
     -- * Request Lenses
-    ggcaCertificateAuthorityId,
-    ggcaGroupId,
+    getGroupCertificateAuthority_certificateAuthorityId,
+    getGroupCertificateAuthority_groupId,
 
     -- * Destructuring the Response
-    getGroupCertificateAuthorityResponse,
-    GetGroupCertificateAuthorityResponse,
+    GetGroupCertificateAuthorityResponse (..),
+    newGetGroupCertificateAuthorityResponse,
 
     -- * Response Lenses
-    ggcarrsGroupCertificateAuthorityARN,
-    ggcarrsPemEncodedCertificate,
-    ggcarrsGroupCertificateAuthorityId,
-    ggcarrsResponseStatus,
+    getGroupCertificateAuthorityResponse_groupCertificateAuthorityArn,
+    getGroupCertificateAuthorityResponse_pemEncodedCertificate,
+    getGroupCertificateAuthorityResponse_groupCertificateAuthorityId,
+    getGroupCertificateAuthorityResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getGroupCertificateAuthority' smart constructor.
+-- | /See:/ 'newGetGroupCertificateAuthority' smart constructor.
 data GetGroupCertificateAuthority = GetGroupCertificateAuthority'
-  { _ggcaCertificateAuthorityId ::
-      !Text,
-    _ggcaGroupId ::
-      !Text
+  { -- | The ID of the certificate authority.
+    certificateAuthorityId :: Prelude.Text,
+    -- | The ID of the Greengrass group.
+    groupId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupCertificateAuthority' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupCertificateAuthority' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggcaCertificateAuthorityId' - The ID of the certificate authority.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggcaGroupId' - The ID of the Greengrass group.
-getGroupCertificateAuthority ::
-  -- | 'ggcaCertificateAuthorityId'
-  Text ->
-  -- | 'ggcaGroupId'
-  Text ->
+-- 'certificateAuthorityId', 'getGroupCertificateAuthority_certificateAuthorityId' - The ID of the certificate authority.
+--
+-- 'groupId', 'getGroupCertificateAuthority_groupId' - The ID of the Greengrass group.
+newGetGroupCertificateAuthority ::
+  -- | 'certificateAuthorityId'
+  Prelude.Text ->
+  -- | 'groupId'
+  Prelude.Text ->
   GetGroupCertificateAuthority
-getGroupCertificateAuthority
+newGetGroupCertificateAuthority
   pCertificateAuthorityId_
   pGroupId_ =
     GetGroupCertificateAuthority'
-      { _ggcaCertificateAuthorityId =
+      { certificateAuthorityId =
           pCertificateAuthorityId_,
-        _ggcaGroupId = pGroupId_
+        groupId = pGroupId_
       }
 
 -- | The ID of the certificate authority.
-ggcaCertificateAuthorityId :: Lens' GetGroupCertificateAuthority Text
-ggcaCertificateAuthorityId = lens _ggcaCertificateAuthorityId (\s a -> s {_ggcaCertificateAuthorityId = a})
+getGroupCertificateAuthority_certificateAuthorityId :: Lens.Lens' GetGroupCertificateAuthority Prelude.Text
+getGroupCertificateAuthority_certificateAuthorityId = Lens.lens (\GetGroupCertificateAuthority' {certificateAuthorityId} -> certificateAuthorityId) (\s@GetGroupCertificateAuthority' {} a -> s {certificateAuthorityId = a} :: GetGroupCertificateAuthority)
 
 -- | The ID of the Greengrass group.
-ggcaGroupId :: Lens' GetGroupCertificateAuthority Text
-ggcaGroupId = lens _ggcaGroupId (\s a -> s {_ggcaGroupId = a})
+getGroupCertificateAuthority_groupId :: Lens.Lens' GetGroupCertificateAuthority Prelude.Text
+getGroupCertificateAuthority_groupId = Lens.lens (\GetGroupCertificateAuthority' {groupId} -> groupId) (\s@GetGroupCertificateAuthority' {} a -> s {groupId = a} :: GetGroupCertificateAuthority)
 
-instance AWSRequest GetGroupCertificateAuthority where
+instance
+  Prelude.AWSRequest
+    GetGroupCertificateAuthority
+  where
   type
     Rs GetGroupCertificateAuthority =
       GetGroupCertificateAuthorityResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetGroupCertificateAuthorityResponse'
-            <$> (x .?> "GroupCertificateAuthorityArn")
-            <*> (x .?> "PemEncodedCertificate")
-            <*> (x .?> "GroupCertificateAuthorityId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GroupCertificateAuthorityArn")
+            Prelude.<*> (x Prelude..?> "PemEncodedCertificate")
+            Prelude.<*> (x Prelude..?> "GroupCertificateAuthorityId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetGroupCertificateAuthority
+instance
+  Prelude.Hashable
+    GetGroupCertificateAuthority
 
-instance NFData GetGroupCertificateAuthority
+instance Prelude.NFData GetGroupCertificateAuthority
 
-instance ToHeaders GetGroupCertificateAuthority where
+instance
+  Prelude.ToHeaders
+    GetGroupCertificateAuthority
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetGroupCertificateAuthority where
+instance Prelude.ToPath GetGroupCertificateAuthority where
   toPath GetGroupCertificateAuthority' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/groups/",
-        toBS _ggcaGroupId,
+        Prelude.toBS groupId,
         "/certificateauthorities/",
-        toBS _ggcaCertificateAuthorityId
+        Prelude.toBS certificateAuthorityId
       ]
 
-instance ToQuery GetGroupCertificateAuthority where
-  toQuery = const mempty
+instance Prelude.ToQuery GetGroupCertificateAuthority where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getGroupCertificateAuthorityResponse' smart constructor.
+-- | /See:/ 'newGetGroupCertificateAuthorityResponse' smart constructor.
 data GetGroupCertificateAuthorityResponse = GetGroupCertificateAuthorityResponse'
-  { _ggcarrsGroupCertificateAuthorityARN ::
-      !( Maybe
-           Text
-       ),
-    _ggcarrsPemEncodedCertificate ::
-      !( Maybe
-           Text
-       ),
-    _ggcarrsGroupCertificateAuthorityId ::
-      !( Maybe
-           Text
-       ),
-    _ggcarrsResponseStatus ::
-      !Int
+  { -- | The ARN of the certificate authority for the group.
+    groupCertificateAuthorityArn :: Prelude.Maybe Prelude.Text,
+    -- | The PEM encoded certificate for the group.
+    pemEncodedCertificate :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the certificate authority for the group.
+    groupCertificateAuthorityId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupCertificateAuthorityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupCertificateAuthorityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggcarrsGroupCertificateAuthorityARN' - The ARN of the certificate authority for the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggcarrsPemEncodedCertificate' - The PEM encoded certificate for the group.
+-- 'groupCertificateAuthorityArn', 'getGroupCertificateAuthorityResponse_groupCertificateAuthorityArn' - The ARN of the certificate authority for the group.
 --
--- * 'ggcarrsGroupCertificateAuthorityId' - The ID of the certificate authority for the group.
+-- 'pemEncodedCertificate', 'getGroupCertificateAuthorityResponse_pemEncodedCertificate' - The PEM encoded certificate for the group.
 --
--- * 'ggcarrsResponseStatus' - -- | The response status code.
-getGroupCertificateAuthorityResponse ::
-  -- | 'ggcarrsResponseStatus'
-  Int ->
+-- 'groupCertificateAuthorityId', 'getGroupCertificateAuthorityResponse_groupCertificateAuthorityId' - The ID of the certificate authority for the group.
+--
+-- 'httpStatus', 'getGroupCertificateAuthorityResponse_httpStatus' - The response's http status code.
+newGetGroupCertificateAuthorityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetGroupCertificateAuthorityResponse
-getGroupCertificateAuthorityResponse pResponseStatus_ =
+newGetGroupCertificateAuthorityResponse pHttpStatus_ =
   GetGroupCertificateAuthorityResponse'
-    { _ggcarrsGroupCertificateAuthorityARN =
-        Nothing,
-      _ggcarrsPemEncodedCertificate =
-        Nothing,
-      _ggcarrsGroupCertificateAuthorityId =
-        Nothing,
-      _ggcarrsResponseStatus =
-        pResponseStatus_
+    { groupCertificateAuthorityArn =
+        Prelude.Nothing,
+      pemEncodedCertificate =
+        Prelude.Nothing,
+      groupCertificateAuthorityId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the certificate authority for the group.
-ggcarrsGroupCertificateAuthorityARN :: Lens' GetGroupCertificateAuthorityResponse (Maybe Text)
-ggcarrsGroupCertificateAuthorityARN = lens _ggcarrsGroupCertificateAuthorityARN (\s a -> s {_ggcarrsGroupCertificateAuthorityARN = a})
+getGroupCertificateAuthorityResponse_groupCertificateAuthorityArn :: Lens.Lens' GetGroupCertificateAuthorityResponse (Prelude.Maybe Prelude.Text)
+getGroupCertificateAuthorityResponse_groupCertificateAuthorityArn = Lens.lens (\GetGroupCertificateAuthorityResponse' {groupCertificateAuthorityArn} -> groupCertificateAuthorityArn) (\s@GetGroupCertificateAuthorityResponse' {} a -> s {groupCertificateAuthorityArn = a} :: GetGroupCertificateAuthorityResponse)
 
 -- | The PEM encoded certificate for the group.
-ggcarrsPemEncodedCertificate :: Lens' GetGroupCertificateAuthorityResponse (Maybe Text)
-ggcarrsPemEncodedCertificate = lens _ggcarrsPemEncodedCertificate (\s a -> s {_ggcarrsPemEncodedCertificate = a})
+getGroupCertificateAuthorityResponse_pemEncodedCertificate :: Lens.Lens' GetGroupCertificateAuthorityResponse (Prelude.Maybe Prelude.Text)
+getGroupCertificateAuthorityResponse_pemEncodedCertificate = Lens.lens (\GetGroupCertificateAuthorityResponse' {pemEncodedCertificate} -> pemEncodedCertificate) (\s@GetGroupCertificateAuthorityResponse' {} a -> s {pemEncodedCertificate = a} :: GetGroupCertificateAuthorityResponse)
 
 -- | The ID of the certificate authority for the group.
-ggcarrsGroupCertificateAuthorityId :: Lens' GetGroupCertificateAuthorityResponse (Maybe Text)
-ggcarrsGroupCertificateAuthorityId = lens _ggcarrsGroupCertificateAuthorityId (\s a -> s {_ggcarrsGroupCertificateAuthorityId = a})
+getGroupCertificateAuthorityResponse_groupCertificateAuthorityId :: Lens.Lens' GetGroupCertificateAuthorityResponse (Prelude.Maybe Prelude.Text)
+getGroupCertificateAuthorityResponse_groupCertificateAuthorityId = Lens.lens (\GetGroupCertificateAuthorityResponse' {groupCertificateAuthorityId} -> groupCertificateAuthorityId) (\s@GetGroupCertificateAuthorityResponse' {} a -> s {groupCertificateAuthorityId = a} :: GetGroupCertificateAuthorityResponse)
 
--- | -- | The response status code.
-ggcarrsResponseStatus :: Lens' GetGroupCertificateAuthorityResponse Int
-ggcarrsResponseStatus = lens _ggcarrsResponseStatus (\s a -> s {_ggcarrsResponseStatus = a})
+-- | The response's http status code.
+getGroupCertificateAuthorityResponse_httpStatus :: Lens.Lens' GetGroupCertificateAuthorityResponse Prelude.Int
+getGroupCertificateAuthorityResponse_httpStatus = Lens.lens (\GetGroupCertificateAuthorityResponse' {httpStatus} -> httpStatus) (\s@GetGroupCertificateAuthorityResponse' {} a -> s {httpStatus = a} :: GetGroupCertificateAuthorityResponse)
 
-instance NFData GetGroupCertificateAuthorityResponse
+instance
+  Prelude.NFData
+    GetGroupCertificateAuthorityResponse

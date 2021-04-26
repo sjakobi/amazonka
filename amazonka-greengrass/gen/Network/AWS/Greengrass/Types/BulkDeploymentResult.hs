@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,112 +21,124 @@ module Network.AWS.Greengrass.Types.BulkDeploymentResult where
 
 import Network.AWS.Greengrass.Types.DeploymentType
 import Network.AWS.Greengrass.Types.ErrorDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about an individual group deployment in a bulk deployment operation.
+-- | Information about an individual group deployment in a bulk deployment
+-- operation.
 --
--- /See:/ 'bulkDeploymentResult' smart constructor.
+-- /See:/ 'newBulkDeploymentResult' smart constructor.
 data BulkDeploymentResult = BulkDeploymentResult'
-  { _bdrDeploymentId ::
-      !(Maybe Text),
-    _bdrDeploymentType ::
-      !(Maybe DeploymentType),
-    _bdrDeploymentStatus ::
-      !(Maybe Text),
-    _bdrCreatedAt ::
-      !(Maybe Text),
-    _bdrDeploymentARN ::
-      !(Maybe Text),
-    _bdrErrorMessage ::
-      !(Maybe Text),
-    _bdrGroupARN :: !(Maybe Text),
-    _bdrErrorDetails ::
-      !(Maybe [ErrorDetail])
+  { -- | The ID of the group deployment.
+    deploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the deployment.
+    deploymentType :: Prelude.Maybe DeploymentType,
+    -- | The current status of the group deployment: \'\'InProgress\'\',
+    -- \'\'Building\'\', \'\'Success\'\', or \'\'Failure\'\'.
+    deploymentStatus :: Prelude.Maybe Prelude.Text,
+    -- | The time, in ISO format, when the deployment was created.
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the group deployment.
+    deploymentArn :: Prelude.Maybe Prelude.Text,
+    -- | The error message for a failed deployment
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the Greengrass group.
+    groupArn :: Prelude.Maybe Prelude.Text,
+    -- | Details about the error.
+    errorDetails :: Prelude.Maybe [ErrorDetail]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BulkDeploymentResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BulkDeploymentResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdrDeploymentId' - The ID of the group deployment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdrDeploymentType' - The type of the deployment.
+-- 'deploymentId', 'bulkDeploymentResult_deploymentId' - The ID of the group deployment.
 --
--- * 'bdrDeploymentStatus' - The current status of the group deployment: ''InProgress'', ''Building'', ''Success'', or ''Failure''.
+-- 'deploymentType', 'bulkDeploymentResult_deploymentType' - The type of the deployment.
 --
--- * 'bdrCreatedAt' - The time, in ISO format, when the deployment was created.
+-- 'deploymentStatus', 'bulkDeploymentResult_deploymentStatus' - The current status of the group deployment: \'\'InProgress\'\',
+-- \'\'Building\'\', \'\'Success\'\', or \'\'Failure\'\'.
 --
--- * 'bdrDeploymentARN' - The ARN of the group deployment.
+-- 'createdAt', 'bulkDeploymentResult_createdAt' - The time, in ISO format, when the deployment was created.
 --
--- * 'bdrErrorMessage' - The error message for a failed deployment
+-- 'deploymentArn', 'bulkDeploymentResult_deploymentArn' - The ARN of the group deployment.
 --
--- * 'bdrGroupARN' - The ARN of the Greengrass group.
+-- 'errorMessage', 'bulkDeploymentResult_errorMessage' - The error message for a failed deployment
 --
--- * 'bdrErrorDetails' - Details about the error.
-bulkDeploymentResult ::
+-- 'groupArn', 'bulkDeploymentResult_groupArn' - The ARN of the Greengrass group.
+--
+-- 'errorDetails', 'bulkDeploymentResult_errorDetails' - Details about the error.
+newBulkDeploymentResult ::
   BulkDeploymentResult
-bulkDeploymentResult =
+newBulkDeploymentResult =
   BulkDeploymentResult'
-    { _bdrDeploymentId = Nothing,
-      _bdrDeploymentType = Nothing,
-      _bdrDeploymentStatus = Nothing,
-      _bdrCreatedAt = Nothing,
-      _bdrDeploymentARN = Nothing,
-      _bdrErrorMessage = Nothing,
-      _bdrGroupARN = Nothing,
-      _bdrErrorDetails = Nothing
+    { deploymentId =
+        Prelude.Nothing,
+      deploymentType = Prelude.Nothing,
+      deploymentStatus = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      deploymentArn = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      groupArn = Prelude.Nothing,
+      errorDetails = Prelude.Nothing
     }
 
 -- | The ID of the group deployment.
-bdrDeploymentId :: Lens' BulkDeploymentResult (Maybe Text)
-bdrDeploymentId = lens _bdrDeploymentId (\s a -> s {_bdrDeploymentId = a})
+bulkDeploymentResult_deploymentId :: Lens.Lens' BulkDeploymentResult (Prelude.Maybe Prelude.Text)
+bulkDeploymentResult_deploymentId = Lens.lens (\BulkDeploymentResult' {deploymentId} -> deploymentId) (\s@BulkDeploymentResult' {} a -> s {deploymentId = a} :: BulkDeploymentResult)
 
 -- | The type of the deployment.
-bdrDeploymentType :: Lens' BulkDeploymentResult (Maybe DeploymentType)
-bdrDeploymentType = lens _bdrDeploymentType (\s a -> s {_bdrDeploymentType = a})
+bulkDeploymentResult_deploymentType :: Lens.Lens' BulkDeploymentResult (Prelude.Maybe DeploymentType)
+bulkDeploymentResult_deploymentType = Lens.lens (\BulkDeploymentResult' {deploymentType} -> deploymentType) (\s@BulkDeploymentResult' {} a -> s {deploymentType = a} :: BulkDeploymentResult)
 
--- | The current status of the group deployment: ''InProgress'', ''Building'', ''Success'', or ''Failure''.
-bdrDeploymentStatus :: Lens' BulkDeploymentResult (Maybe Text)
-bdrDeploymentStatus = lens _bdrDeploymentStatus (\s a -> s {_bdrDeploymentStatus = a})
+-- | The current status of the group deployment: \'\'InProgress\'\',
+-- \'\'Building\'\', \'\'Success\'\', or \'\'Failure\'\'.
+bulkDeploymentResult_deploymentStatus :: Lens.Lens' BulkDeploymentResult (Prelude.Maybe Prelude.Text)
+bulkDeploymentResult_deploymentStatus = Lens.lens (\BulkDeploymentResult' {deploymentStatus} -> deploymentStatus) (\s@BulkDeploymentResult' {} a -> s {deploymentStatus = a} :: BulkDeploymentResult)
 
 -- | The time, in ISO format, when the deployment was created.
-bdrCreatedAt :: Lens' BulkDeploymentResult (Maybe Text)
-bdrCreatedAt = lens _bdrCreatedAt (\s a -> s {_bdrCreatedAt = a})
+bulkDeploymentResult_createdAt :: Lens.Lens' BulkDeploymentResult (Prelude.Maybe Prelude.Text)
+bulkDeploymentResult_createdAt = Lens.lens (\BulkDeploymentResult' {createdAt} -> createdAt) (\s@BulkDeploymentResult' {} a -> s {createdAt = a} :: BulkDeploymentResult)
 
 -- | The ARN of the group deployment.
-bdrDeploymentARN :: Lens' BulkDeploymentResult (Maybe Text)
-bdrDeploymentARN = lens _bdrDeploymentARN (\s a -> s {_bdrDeploymentARN = a})
+bulkDeploymentResult_deploymentArn :: Lens.Lens' BulkDeploymentResult (Prelude.Maybe Prelude.Text)
+bulkDeploymentResult_deploymentArn = Lens.lens (\BulkDeploymentResult' {deploymentArn} -> deploymentArn) (\s@BulkDeploymentResult' {} a -> s {deploymentArn = a} :: BulkDeploymentResult)
 
 -- | The error message for a failed deployment
-bdrErrorMessage :: Lens' BulkDeploymentResult (Maybe Text)
-bdrErrorMessage = lens _bdrErrorMessage (\s a -> s {_bdrErrorMessage = a})
+bulkDeploymentResult_errorMessage :: Lens.Lens' BulkDeploymentResult (Prelude.Maybe Prelude.Text)
+bulkDeploymentResult_errorMessage = Lens.lens (\BulkDeploymentResult' {errorMessage} -> errorMessage) (\s@BulkDeploymentResult' {} a -> s {errorMessage = a} :: BulkDeploymentResult)
 
 -- | The ARN of the Greengrass group.
-bdrGroupARN :: Lens' BulkDeploymentResult (Maybe Text)
-bdrGroupARN = lens _bdrGroupARN (\s a -> s {_bdrGroupARN = a})
+bulkDeploymentResult_groupArn :: Lens.Lens' BulkDeploymentResult (Prelude.Maybe Prelude.Text)
+bulkDeploymentResult_groupArn = Lens.lens (\BulkDeploymentResult' {groupArn} -> groupArn) (\s@BulkDeploymentResult' {} a -> s {groupArn = a} :: BulkDeploymentResult)
 
 -- | Details about the error.
-bdrErrorDetails :: Lens' BulkDeploymentResult [ErrorDetail]
-bdrErrorDetails = lens _bdrErrorDetails (\s a -> s {_bdrErrorDetails = a}) . _Default . _Coerce
+bulkDeploymentResult_errorDetails :: Lens.Lens' BulkDeploymentResult (Prelude.Maybe [ErrorDetail])
+bulkDeploymentResult_errorDetails = Lens.lens (\BulkDeploymentResult' {errorDetails} -> errorDetails) (\s@BulkDeploymentResult' {} a -> s {errorDetails = a} :: BulkDeploymentResult) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON BulkDeploymentResult where
+instance Prelude.FromJSON BulkDeploymentResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BulkDeploymentResult"
       ( \x ->
           BulkDeploymentResult'
-            <$> (x .:? "DeploymentId")
-            <*> (x .:? "DeploymentType")
-            <*> (x .:? "DeploymentStatus")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "DeploymentArn")
-            <*> (x .:? "ErrorMessage")
-            <*> (x .:? "GroupArn")
-            <*> (x .:? "ErrorDetails" .!= mempty)
+            Prelude.<$> (x Prelude..:? "DeploymentId")
+            Prelude.<*> (x Prelude..:? "DeploymentType")
+            Prelude.<*> (x Prelude..:? "DeploymentStatus")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "DeploymentArn")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "GroupArn")
+            Prelude.<*> ( x Prelude..:? "ErrorDetails"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable BulkDeploymentResult
+instance Prelude.Hashable BulkDeploymentResult
 
-instance NFData BulkDeploymentResult
+instance Prelude.NFData BulkDeploymentResult

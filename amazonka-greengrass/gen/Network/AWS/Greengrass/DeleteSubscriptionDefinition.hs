@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,127 +24,133 @@
 -- Deletes a subscription definition.
 module Network.AWS.Greengrass.DeleteSubscriptionDefinition
   ( -- * Creating a Request
-    deleteSubscriptionDefinition,
-    DeleteSubscriptionDefinition,
+    DeleteSubscriptionDefinition (..),
+    newDeleteSubscriptionDefinition,
 
     -- * Request Lenses
-    dsdSubscriptionDefinitionId,
+    deleteSubscriptionDefinition_subscriptionDefinitionId,
 
     -- * Destructuring the Response
-    deleteSubscriptionDefinitionResponse,
-    DeleteSubscriptionDefinitionResponse,
+    DeleteSubscriptionDefinitionResponse (..),
+    newDeleteSubscriptionDefinitionResponse,
 
     -- * Response Lenses
-    dsdrrsResponseStatus,
+    deleteSubscriptionDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSubscriptionDefinition' smart constructor.
-newtype DeleteSubscriptionDefinition = DeleteSubscriptionDefinition'
-  { _dsdSubscriptionDefinitionId ::
-      Text
+-- | /See:/ 'newDeleteSubscriptionDefinition' smart constructor.
+data DeleteSubscriptionDefinition = DeleteSubscriptionDefinition'
+  { -- | The ID of the subscription definition.
+    subscriptionDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSubscriptionDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSubscriptionDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsdSubscriptionDefinitionId' - The ID of the subscription definition.
-deleteSubscriptionDefinition ::
-  -- | 'dsdSubscriptionDefinitionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'subscriptionDefinitionId', 'deleteSubscriptionDefinition_subscriptionDefinitionId' - The ID of the subscription definition.
+newDeleteSubscriptionDefinition ::
+  -- | 'subscriptionDefinitionId'
+  Prelude.Text ->
   DeleteSubscriptionDefinition
-deleteSubscriptionDefinition
+newDeleteSubscriptionDefinition
   pSubscriptionDefinitionId_ =
     DeleteSubscriptionDefinition'
-      { _dsdSubscriptionDefinitionId =
+      { subscriptionDefinitionId =
           pSubscriptionDefinitionId_
       }
 
 -- | The ID of the subscription definition.
-dsdSubscriptionDefinitionId :: Lens' DeleteSubscriptionDefinition Text
-dsdSubscriptionDefinitionId = lens _dsdSubscriptionDefinitionId (\s a -> s {_dsdSubscriptionDefinitionId = a})
+deleteSubscriptionDefinition_subscriptionDefinitionId :: Lens.Lens' DeleteSubscriptionDefinition Prelude.Text
+deleteSubscriptionDefinition_subscriptionDefinitionId = Lens.lens (\DeleteSubscriptionDefinition' {subscriptionDefinitionId} -> subscriptionDefinitionId) (\s@DeleteSubscriptionDefinition' {} a -> s {subscriptionDefinitionId = a} :: DeleteSubscriptionDefinition)
 
-instance AWSRequest DeleteSubscriptionDefinition where
+instance
+  Prelude.AWSRequest
+    DeleteSubscriptionDefinition
+  where
   type
     Rs DeleteSubscriptionDefinition =
       DeleteSubscriptionDefinitionResponse
-  request = delete greengrass
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteSubscriptionDefinitionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSubscriptionDefinition
+instance
+  Prelude.Hashable
+    DeleteSubscriptionDefinition
 
-instance NFData DeleteSubscriptionDefinition
+instance Prelude.NFData DeleteSubscriptionDefinition
 
-instance ToHeaders DeleteSubscriptionDefinition where
+instance
+  Prelude.ToHeaders
+    DeleteSubscriptionDefinition
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteSubscriptionDefinition where
+instance Prelude.ToPath DeleteSubscriptionDefinition where
   toPath DeleteSubscriptionDefinition' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/subscriptions/",
-        toBS _dsdSubscriptionDefinitionId
+        Prelude.toBS subscriptionDefinitionId
       ]
 
-instance ToQuery DeleteSubscriptionDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSubscriptionDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSubscriptionDefinitionResponse' smart constructor.
-newtype DeleteSubscriptionDefinitionResponse = DeleteSubscriptionDefinitionResponse'
-  { _dsdrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteSubscriptionDefinitionResponse' smart constructor.
+data DeleteSubscriptionDefinitionResponse = DeleteSubscriptionDefinitionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSubscriptionDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSubscriptionDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsdrrsResponseStatus' - -- | The response status code.
-deleteSubscriptionDefinitionResponse ::
-  -- | 'dsdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteSubscriptionDefinitionResponse_httpStatus' - The response's http status code.
+newDeleteSubscriptionDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSubscriptionDefinitionResponse
-deleteSubscriptionDefinitionResponse pResponseStatus_ =
+newDeleteSubscriptionDefinitionResponse pHttpStatus_ =
   DeleteSubscriptionDefinitionResponse'
-    { _dsdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dsdrrsResponseStatus :: Lens' DeleteSubscriptionDefinitionResponse Int
-dsdrrsResponseStatus = lens _dsdrrsResponseStatus (\s a -> s {_dsdrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSubscriptionDefinitionResponse_httpStatus :: Lens.Lens' DeleteSubscriptionDefinitionResponse Prelude.Int
+deleteSubscriptionDefinitionResponse_httpStatus = Lens.lens (\DeleteSubscriptionDefinitionResponse' {httpStatus} -> httpStatus) (\s@DeleteSubscriptionDefinitionResponse' {} a -> s {httpStatus = a} :: DeleteSubscriptionDefinitionResponse)
 
-instance NFData DeleteSubscriptionDefinitionResponse
+instance
+  Prelude.NFData
+    DeleteSubscriptionDefinitionResponse

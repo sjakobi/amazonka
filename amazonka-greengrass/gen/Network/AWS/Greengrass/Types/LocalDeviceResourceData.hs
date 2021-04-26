@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,70 +20,74 @@
 module Network.AWS.Greengrass.Types.LocalDeviceResourceData where
 
 import Network.AWS.Greengrass.Types.GroupOwnerSetting
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Attributes that define a local device resource.
 --
--- /See:/ 'localDeviceResourceData' smart constructor.
+-- /See:/ 'newLocalDeviceResourceData' smart constructor.
 data LocalDeviceResourceData = LocalDeviceResourceData'
-  { _ldrdSourcePath ::
-      !(Maybe Text),
-    _ldrdGroupOwnerSetting ::
-      !( Maybe
-           GroupOwnerSetting
-       )
+  { -- | The local absolute path of the device resource. The source path for a
+    -- device resource can refer only to a character device or block device
+    -- under \'\'\/dev\'\'.
+    sourcePath :: Prelude.Maybe Prelude.Text,
+    -- | Group\/owner related settings for local resources.
+    groupOwnerSetting :: Prelude.Maybe GroupOwnerSetting
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LocalDeviceResourceData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LocalDeviceResourceData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrdSourcePath' - The local absolute path of the device resource. The source path for a device resource can refer only to a character device or block device under ''/dev''.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrdGroupOwnerSetting' - Group/owner related settings for local resources.
-localDeviceResourceData ::
+-- 'sourcePath', 'localDeviceResourceData_sourcePath' - The local absolute path of the device resource. The source path for a
+-- device resource can refer only to a character device or block device
+-- under \'\'\/dev\'\'.
+--
+-- 'groupOwnerSetting', 'localDeviceResourceData_groupOwnerSetting' - Group\/owner related settings for local resources.
+newLocalDeviceResourceData ::
   LocalDeviceResourceData
-localDeviceResourceData =
+newLocalDeviceResourceData =
   LocalDeviceResourceData'
-    { _ldrdSourcePath = Nothing,
-      _ldrdGroupOwnerSetting = Nothing
+    { sourcePath =
+        Prelude.Nothing,
+      groupOwnerSetting = Prelude.Nothing
     }
 
--- | The local absolute path of the device resource. The source path for a device resource can refer only to a character device or block device under ''/dev''.
-ldrdSourcePath :: Lens' LocalDeviceResourceData (Maybe Text)
-ldrdSourcePath = lens _ldrdSourcePath (\s a -> s {_ldrdSourcePath = a})
+-- | The local absolute path of the device resource. The source path for a
+-- device resource can refer only to a character device or block device
+-- under \'\'\/dev\'\'.
+localDeviceResourceData_sourcePath :: Lens.Lens' LocalDeviceResourceData (Prelude.Maybe Prelude.Text)
+localDeviceResourceData_sourcePath = Lens.lens (\LocalDeviceResourceData' {sourcePath} -> sourcePath) (\s@LocalDeviceResourceData' {} a -> s {sourcePath = a} :: LocalDeviceResourceData)
 
--- | Group/owner related settings for local resources.
-ldrdGroupOwnerSetting :: Lens' LocalDeviceResourceData (Maybe GroupOwnerSetting)
-ldrdGroupOwnerSetting = lens _ldrdGroupOwnerSetting (\s a -> s {_ldrdGroupOwnerSetting = a})
+-- | Group\/owner related settings for local resources.
+localDeviceResourceData_groupOwnerSetting :: Lens.Lens' LocalDeviceResourceData (Prelude.Maybe GroupOwnerSetting)
+localDeviceResourceData_groupOwnerSetting = Lens.lens (\LocalDeviceResourceData' {groupOwnerSetting} -> groupOwnerSetting) (\s@LocalDeviceResourceData' {} a -> s {groupOwnerSetting = a} :: LocalDeviceResourceData)
 
-instance FromJSON LocalDeviceResourceData where
+instance Prelude.FromJSON LocalDeviceResourceData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LocalDeviceResourceData"
       ( \x ->
           LocalDeviceResourceData'
-            <$> (x .:? "SourcePath") <*> (x .:? "GroupOwnerSetting")
+            Prelude.<$> (x Prelude..:? "SourcePath")
+            Prelude.<*> (x Prelude..:? "GroupOwnerSetting")
       )
 
-instance Hashable LocalDeviceResourceData
+instance Prelude.Hashable LocalDeviceResourceData
 
-instance NFData LocalDeviceResourceData
+instance Prelude.NFData LocalDeviceResourceData
 
-instance ToJSON LocalDeviceResourceData where
+instance Prelude.ToJSON LocalDeviceResourceData where
   toJSON LocalDeviceResourceData' {..} =
-    object
-      ( catMaybes
-          [ ("SourcePath" .=) <$> _ldrdSourcePath,
-            ("GroupOwnerSetting" .=) <$> _ldrdGroupOwnerSetting
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SourcePath" Prelude..=) Prelude.<$> sourcePath,
+            ("GroupOwnerSetting" Prelude..=)
+              Prelude.<$> groupOwnerSetting
           ]
       )

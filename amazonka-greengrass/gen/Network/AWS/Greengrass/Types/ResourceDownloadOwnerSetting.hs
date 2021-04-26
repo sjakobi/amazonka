@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,75 +20,88 @@
 module Network.AWS.Greengrass.Types.ResourceDownloadOwnerSetting where
 
 import Network.AWS.Greengrass.Types.Permission
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The owner setting for downloaded machine learning resources.
 --
--- /See:/ 'resourceDownloadOwnerSetting' smart constructor.
+-- /See:/ 'newResourceDownloadOwnerSetting' smart constructor.
 data ResourceDownloadOwnerSetting = ResourceDownloadOwnerSetting'
-  { _rdosGroupOwner ::
-      !Text,
-    _rdosGroupPermission ::
-      !Permission
+  { -- | The group owner of the resource. This is the name of an existing Linux
+    -- OS group on the system or a GID. The group\'s permissions are added to
+    -- the Lambda process.
+    groupOwner :: Prelude.Text,
+    -- | The permissions that the group owner has to the resource. Valid values
+    -- are \'\'rw\'\' (read\/write) or \'\'ro\'\' (read-only).
+    groupPermission :: Permission
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceDownloadOwnerSetting' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceDownloadOwnerSetting' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdosGroupOwner' - The group owner of the resource. This is the name of an existing Linux OS group on the system or a GID. The group's permissions are added to the Lambda process.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdosGroupPermission' - The permissions that the group owner has to the resource. Valid values are ''rw'' (read/write) or ''ro'' (read-only).
-resourceDownloadOwnerSetting ::
-  -- | 'rdosGroupOwner'
-  Text ->
-  -- | 'rdosGroupPermission'
+-- 'groupOwner', 'resourceDownloadOwnerSetting_groupOwner' - The group owner of the resource. This is the name of an existing Linux
+-- OS group on the system or a GID. The group\'s permissions are added to
+-- the Lambda process.
+--
+-- 'groupPermission', 'resourceDownloadOwnerSetting_groupPermission' - The permissions that the group owner has to the resource. Valid values
+-- are \'\'rw\'\' (read\/write) or \'\'ro\'\' (read-only).
+newResourceDownloadOwnerSetting ::
+  -- | 'groupOwner'
+  Prelude.Text ->
+  -- | 'groupPermission'
   Permission ->
   ResourceDownloadOwnerSetting
-resourceDownloadOwnerSetting
+newResourceDownloadOwnerSetting
   pGroupOwner_
   pGroupPermission_ =
     ResourceDownloadOwnerSetting'
-      { _rdosGroupOwner =
+      { groupOwner =
           pGroupOwner_,
-        _rdosGroupPermission = pGroupPermission_
+        groupPermission = pGroupPermission_
       }
 
--- | The group owner of the resource. This is the name of an existing Linux OS group on the system or a GID. The group's permissions are added to the Lambda process.
-rdosGroupOwner :: Lens' ResourceDownloadOwnerSetting Text
-rdosGroupOwner = lens _rdosGroupOwner (\s a -> s {_rdosGroupOwner = a})
+-- | The group owner of the resource. This is the name of an existing Linux
+-- OS group on the system or a GID. The group\'s permissions are added to
+-- the Lambda process.
+resourceDownloadOwnerSetting_groupOwner :: Lens.Lens' ResourceDownloadOwnerSetting Prelude.Text
+resourceDownloadOwnerSetting_groupOwner = Lens.lens (\ResourceDownloadOwnerSetting' {groupOwner} -> groupOwner) (\s@ResourceDownloadOwnerSetting' {} a -> s {groupOwner = a} :: ResourceDownloadOwnerSetting)
 
--- | The permissions that the group owner has to the resource. Valid values are ''rw'' (read/write) or ''ro'' (read-only).
-rdosGroupPermission :: Lens' ResourceDownloadOwnerSetting Permission
-rdosGroupPermission = lens _rdosGroupPermission (\s a -> s {_rdosGroupPermission = a})
+-- | The permissions that the group owner has to the resource. Valid values
+-- are \'\'rw\'\' (read\/write) or \'\'ro\'\' (read-only).
+resourceDownloadOwnerSetting_groupPermission :: Lens.Lens' ResourceDownloadOwnerSetting Permission
+resourceDownloadOwnerSetting_groupPermission = Lens.lens (\ResourceDownloadOwnerSetting' {groupPermission} -> groupPermission) (\s@ResourceDownloadOwnerSetting' {} a -> s {groupPermission = a} :: ResourceDownloadOwnerSetting)
 
-instance FromJSON ResourceDownloadOwnerSetting where
+instance
+  Prelude.FromJSON
+    ResourceDownloadOwnerSetting
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceDownloadOwnerSetting"
       ( \x ->
           ResourceDownloadOwnerSetting'
-            <$> (x .: "GroupOwner") <*> (x .: "GroupPermission")
+            Prelude.<$> (x Prelude..: "GroupOwner")
+            Prelude.<*> (x Prelude..: "GroupPermission")
       )
 
-instance Hashable ResourceDownloadOwnerSetting
+instance
+  Prelude.Hashable
+    ResourceDownloadOwnerSetting
 
-instance NFData ResourceDownloadOwnerSetting
+instance Prelude.NFData ResourceDownloadOwnerSetting
 
-instance ToJSON ResourceDownloadOwnerSetting where
+instance Prelude.ToJSON ResourceDownloadOwnerSetting where
   toJSON ResourceDownloadOwnerSetting' {..} =
-    object
-      ( catMaybes
-          [ Just ("GroupOwner" .= _rdosGroupOwner),
-            Just ("GroupPermission" .= _rdosGroupPermission)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("GroupOwner" Prelude..= groupOwner),
+            Prelude.Just
+              ("GroupPermission" Prelude..= groupPermission)
           ]
       )

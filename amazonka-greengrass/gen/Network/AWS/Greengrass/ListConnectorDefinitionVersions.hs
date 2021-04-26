@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,200 +21,231 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the versions of a connector definition, which are containers for connectors. Connectors run on the Greengrass core and contain built-in integration with local infrastructure, device protocols, AWS, and other cloud services.
+-- Lists the versions of a connector definition, which are containers for
+-- connectors. Connectors run on the Greengrass core and contain built-in
+-- integration with local infrastructure, device protocols, AWS, and other
+-- cloud services.
 --
 -- This operation returns paginated results.
 module Network.AWS.Greengrass.ListConnectorDefinitionVersions
   ( -- * Creating a Request
-    listConnectorDefinitionVersions,
-    ListConnectorDefinitionVersions,
+    ListConnectorDefinitionVersions (..),
+    newListConnectorDefinitionVersions,
 
     -- * Request Lenses
-    lNextToken,
-    lMaxResults,
-    lConnectorDefinitionId,
+    listConnectorDefinitionVersions_nextToken,
+    listConnectorDefinitionVersions_maxResults,
+    listConnectorDefinitionVersions_connectorDefinitionId,
 
     -- * Destructuring the Response
-    listConnectorDefinitionVersionsResponse,
-    ListConnectorDefinitionVersionsResponse,
+    ListConnectorDefinitionVersionsResponse (..),
+    newListConnectorDefinitionVersionsResponse,
 
     -- * Response Lenses
-    lcdvrrsNextToken,
-    lcdvrrsVersions,
-    lcdvrrsResponseStatus,
+    listConnectorDefinitionVersionsResponse_nextToken,
+    listConnectorDefinitionVersionsResponse_versions,
+    listConnectorDefinitionVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.VersionInformation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listConnectorDefinitionVersions' smart constructor.
+-- | /See:/ 'newListConnectorDefinitionVersions' smart constructor.
 data ListConnectorDefinitionVersions = ListConnectorDefinitionVersions'
-  { _lNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lMaxResults ::
-      !( Maybe
-           Text
-       ),
-    _lConnectorDefinitionId ::
-      !Text
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the connector definition.
+    connectorDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListConnectorDefinitionVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListConnectorDefinitionVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lMaxResults' - The maximum number of results to be returned per request.
+-- 'nextToken', 'listConnectorDefinitionVersions_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'lConnectorDefinitionId' - The ID of the connector definition.
-listConnectorDefinitionVersions ::
-  -- | 'lConnectorDefinitionId'
-  Text ->
+-- 'maxResults', 'listConnectorDefinitionVersions_maxResults' - The maximum number of results to be returned per request.
+--
+-- 'connectorDefinitionId', 'listConnectorDefinitionVersions_connectorDefinitionId' - The ID of the connector definition.
+newListConnectorDefinitionVersions ::
+  -- | 'connectorDefinitionId'
+  Prelude.Text ->
   ListConnectorDefinitionVersions
-listConnectorDefinitionVersions
+newListConnectorDefinitionVersions
   pConnectorDefinitionId_ =
     ListConnectorDefinitionVersions'
-      { _lNextToken =
-          Nothing,
-        _lMaxResults = Nothing,
-        _lConnectorDefinitionId =
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        connectorDefinitionId =
           pConnectorDefinitionId_
       }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lNextToken :: Lens' ListConnectorDefinitionVersions (Maybe Text)
-lNextToken = lens _lNextToken (\s a -> s {_lNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listConnectorDefinitionVersions_nextToken :: Lens.Lens' ListConnectorDefinitionVersions (Prelude.Maybe Prelude.Text)
+listConnectorDefinitionVersions_nextToken = Lens.lens (\ListConnectorDefinitionVersions' {nextToken} -> nextToken) (\s@ListConnectorDefinitionVersions' {} a -> s {nextToken = a} :: ListConnectorDefinitionVersions)
 
 -- | The maximum number of results to be returned per request.
-lMaxResults :: Lens' ListConnectorDefinitionVersions (Maybe Text)
-lMaxResults = lens _lMaxResults (\s a -> s {_lMaxResults = a})
+listConnectorDefinitionVersions_maxResults :: Lens.Lens' ListConnectorDefinitionVersions (Prelude.Maybe Prelude.Text)
+listConnectorDefinitionVersions_maxResults = Lens.lens (\ListConnectorDefinitionVersions' {maxResults} -> maxResults) (\s@ListConnectorDefinitionVersions' {} a -> s {maxResults = a} :: ListConnectorDefinitionVersions)
 
 -- | The ID of the connector definition.
-lConnectorDefinitionId :: Lens' ListConnectorDefinitionVersions Text
-lConnectorDefinitionId = lens _lConnectorDefinitionId (\s a -> s {_lConnectorDefinitionId = a})
+listConnectorDefinitionVersions_connectorDefinitionId :: Lens.Lens' ListConnectorDefinitionVersions Prelude.Text
+listConnectorDefinitionVersions_connectorDefinitionId = Lens.lens (\ListConnectorDefinitionVersions' {connectorDefinitionId} -> connectorDefinitionId) (\s@ListConnectorDefinitionVersions' {} a -> s {connectorDefinitionId = a} :: ListConnectorDefinitionVersions)
 
-instance AWSPager ListConnectorDefinitionVersions where
+instance
+  Pager.AWSPager
+    ListConnectorDefinitionVersions
+  where
   page rq rs
-    | stop (rs ^. lcdvrrsNextToken) = Nothing
-    | stop (rs ^. lcdvrrsVersions) = Nothing
-    | otherwise =
-      Just $ rq & lNextToken .~ rs ^. lcdvrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listConnectorDefinitionVersionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listConnectorDefinitionVersionsResponse_versions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listConnectorDefinitionVersions_nextToken
+          Lens..~ rs
+          Lens.^? listConnectorDefinitionVersionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListConnectorDefinitionVersions where
+instance
+  Prelude.AWSRequest
+    ListConnectorDefinitionVersions
+  where
   type
     Rs ListConnectorDefinitionVersions =
       ListConnectorDefinitionVersionsResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListConnectorDefinitionVersionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Versions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Versions" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListConnectorDefinitionVersions
+instance
+  Prelude.Hashable
+    ListConnectorDefinitionVersions
 
-instance NFData ListConnectorDefinitionVersions
+instance
+  Prelude.NFData
+    ListConnectorDefinitionVersions
 
-instance ToHeaders ListConnectorDefinitionVersions where
+instance
+  Prelude.ToHeaders
+    ListConnectorDefinitionVersions
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListConnectorDefinitionVersions where
+instance
+  Prelude.ToPath
+    ListConnectorDefinitionVersions
+  where
   toPath ListConnectorDefinitionVersions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/connectors/",
-        toBS _lConnectorDefinitionId,
+        Prelude.toBS connectorDefinitionId,
         "/versions"
       ]
 
-instance ToQuery ListConnectorDefinitionVersions where
+instance
+  Prelude.ToQuery
+    ListConnectorDefinitionVersions
+  where
   toQuery ListConnectorDefinitionVersions' {..} =
-    mconcat
-      [ "NextToken" =: _lNextToken,
-        "MaxResults" =: _lMaxResults
+    Prelude.mconcat
+      [ "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listConnectorDefinitionVersionsResponse' smart constructor.
+-- | /See:/ 'newListConnectorDefinitionVersionsResponse' smart constructor.
 data ListConnectorDefinitionVersionsResponse = ListConnectorDefinitionVersionsResponse'
-  { _lcdvrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lcdvrrsVersions ::
-      !( Maybe
-           [VersionInformation]
-       ),
-    _lcdvrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about a version.
+    versions :: Prelude.Maybe [VersionInformation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListConnectorDefinitionVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListConnectorDefinitionVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcdvrrsNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcdvrrsVersions' - Information about a version.
+-- 'nextToken', 'listConnectorDefinitionVersionsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'lcdvrrsResponseStatus' - -- | The response status code.
-listConnectorDefinitionVersionsResponse ::
-  -- | 'lcdvrrsResponseStatus'
-  Int ->
+-- 'versions', 'listConnectorDefinitionVersionsResponse_versions' - Information about a version.
+--
+-- 'httpStatus', 'listConnectorDefinitionVersionsResponse_httpStatus' - The response's http status code.
+newListConnectorDefinitionVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListConnectorDefinitionVersionsResponse
-listConnectorDefinitionVersionsResponse
-  pResponseStatus_ =
+newListConnectorDefinitionVersionsResponse
+  pHttpStatus_ =
     ListConnectorDefinitionVersionsResponse'
-      { _lcdvrrsNextToken =
-          Nothing,
-        _lcdvrrsVersions = Nothing,
-        _lcdvrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        versions = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lcdvrrsNextToken :: Lens' ListConnectorDefinitionVersionsResponse (Maybe Text)
-lcdvrrsNextToken = lens _lcdvrrsNextToken (\s a -> s {_lcdvrrsNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listConnectorDefinitionVersionsResponse_nextToken :: Lens.Lens' ListConnectorDefinitionVersionsResponse (Prelude.Maybe Prelude.Text)
+listConnectorDefinitionVersionsResponse_nextToken = Lens.lens (\ListConnectorDefinitionVersionsResponse' {nextToken} -> nextToken) (\s@ListConnectorDefinitionVersionsResponse' {} a -> s {nextToken = a} :: ListConnectorDefinitionVersionsResponse)
 
 -- | Information about a version.
-lcdvrrsVersions :: Lens' ListConnectorDefinitionVersionsResponse [VersionInformation]
-lcdvrrsVersions = lens _lcdvrrsVersions (\s a -> s {_lcdvrrsVersions = a}) . _Default . _Coerce
+listConnectorDefinitionVersionsResponse_versions :: Lens.Lens' ListConnectorDefinitionVersionsResponse (Prelude.Maybe [VersionInformation])
+listConnectorDefinitionVersionsResponse_versions = Lens.lens (\ListConnectorDefinitionVersionsResponse' {versions} -> versions) (\s@ListConnectorDefinitionVersionsResponse' {} a -> s {versions = a} :: ListConnectorDefinitionVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lcdvrrsResponseStatus :: Lens' ListConnectorDefinitionVersionsResponse Int
-lcdvrrsResponseStatus = lens _lcdvrrsResponseStatus (\s a -> s {_lcdvrrsResponseStatus = a})
+-- | The response's http status code.
+listConnectorDefinitionVersionsResponse_httpStatus :: Lens.Lens' ListConnectorDefinitionVersionsResponse Prelude.Int
+listConnectorDefinitionVersionsResponse_httpStatus = Lens.lens (\ListConnectorDefinitionVersionsResponse' {httpStatus} -> httpStatus) (\s@ListConnectorDefinitionVersionsResponse' {} a -> s {httpStatus = a} :: ListConnectorDefinitionVersionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListConnectorDefinitionVersionsResponse

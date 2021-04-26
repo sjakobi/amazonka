@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.BulkDeployment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a bulk deployment. You cannot start a new bulk deployment while another one is still running or in a non-terminal state.
+-- | Information about a bulk deployment. You cannot start a new bulk
+-- deployment while another one is still running or in a non-terminal
+-- state.
 --
--- /See:/ 'bulkDeployment' smart constructor.
+-- /See:/ 'newBulkDeployment' smart constructor.
 data BulkDeployment = BulkDeployment'
-  { _bdBulkDeploymentId ::
-      !(Maybe Text),
-    _bdCreatedAt :: !(Maybe Text),
-    _bdBulkDeploymentARN :: !(Maybe Text)
+  { -- | The ID of the bulk deployment.
+    bulkDeploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The time, in ISO format, when the deployment was created.
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the bulk deployment.
+    bulkDeploymentArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BulkDeployment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BulkDeployment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdBulkDeploymentId' - The ID of the bulk deployment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdCreatedAt' - The time, in ISO format, when the deployment was created.
+-- 'bulkDeploymentId', 'bulkDeployment_bulkDeploymentId' - The ID of the bulk deployment.
 --
--- * 'bdBulkDeploymentARN' - The ARN of the bulk deployment.
-bulkDeployment ::
+-- 'createdAt', 'bulkDeployment_createdAt' - The time, in ISO format, when the deployment was created.
+--
+-- 'bulkDeploymentArn', 'bulkDeployment_bulkDeploymentArn' - The ARN of the bulk deployment.
+newBulkDeployment ::
   BulkDeployment
-bulkDeployment =
+newBulkDeployment =
   BulkDeployment'
-    { _bdBulkDeploymentId = Nothing,
-      _bdCreatedAt = Nothing,
-      _bdBulkDeploymentARN = Nothing
+    { bulkDeploymentId = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      bulkDeploymentArn = Prelude.Nothing
     }
 
 -- | The ID of the bulk deployment.
-bdBulkDeploymentId :: Lens' BulkDeployment (Maybe Text)
-bdBulkDeploymentId = lens _bdBulkDeploymentId (\s a -> s {_bdBulkDeploymentId = a})
+bulkDeployment_bulkDeploymentId :: Lens.Lens' BulkDeployment (Prelude.Maybe Prelude.Text)
+bulkDeployment_bulkDeploymentId = Lens.lens (\BulkDeployment' {bulkDeploymentId} -> bulkDeploymentId) (\s@BulkDeployment' {} a -> s {bulkDeploymentId = a} :: BulkDeployment)
 
 -- | The time, in ISO format, when the deployment was created.
-bdCreatedAt :: Lens' BulkDeployment (Maybe Text)
-bdCreatedAt = lens _bdCreatedAt (\s a -> s {_bdCreatedAt = a})
+bulkDeployment_createdAt :: Lens.Lens' BulkDeployment (Prelude.Maybe Prelude.Text)
+bulkDeployment_createdAt = Lens.lens (\BulkDeployment' {createdAt} -> createdAt) (\s@BulkDeployment' {} a -> s {createdAt = a} :: BulkDeployment)
 
 -- | The ARN of the bulk deployment.
-bdBulkDeploymentARN :: Lens' BulkDeployment (Maybe Text)
-bdBulkDeploymentARN = lens _bdBulkDeploymentARN (\s a -> s {_bdBulkDeploymentARN = a})
+bulkDeployment_bulkDeploymentArn :: Lens.Lens' BulkDeployment (Prelude.Maybe Prelude.Text)
+bulkDeployment_bulkDeploymentArn = Lens.lens (\BulkDeployment' {bulkDeploymentArn} -> bulkDeploymentArn) (\s@BulkDeployment' {} a -> s {bulkDeploymentArn = a} :: BulkDeployment)
 
-instance FromJSON BulkDeployment where
+instance Prelude.FromJSON BulkDeployment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BulkDeployment"
       ( \x ->
           BulkDeployment'
-            <$> (x .:? "BulkDeploymentId")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "BulkDeploymentArn")
+            Prelude.<$> (x Prelude..:? "BulkDeploymentId")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "BulkDeploymentArn")
       )
 
-instance Hashable BulkDeployment
+instance Prelude.Hashable BulkDeployment
 
-instance NFData BulkDeployment
+instance Prelude.NFData BulkDeployment

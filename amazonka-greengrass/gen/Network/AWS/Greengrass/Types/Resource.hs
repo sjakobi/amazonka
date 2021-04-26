@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,79 +20,99 @@
 module Network.AWS.Greengrass.Types.Resource where
 
 import Network.AWS.Greengrass.Types.ResourceDataContainer
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a resource.
 --
--- /See:/ 'resource' smart constructor.
+-- /See:/ 'newResource' smart constructor.
 data Resource = Resource'
-  { _rResourceDataContainer ::
-      !ResourceDataContainer,
-    _rId :: !Text,
-    _rName :: !Text
+  { -- | A container of data for all resource types.
+    resourceDataContainer :: ResourceDataContainer,
+    -- | The resource ID, used to refer to a resource in the Lambda function
+    -- configuration. Max length is 128 characters with pattern
+    -- \'\'[a-zA-Z0-9:_-]+\'\'. This must be unique within a Greengrass group.
+    id :: Prelude.Text,
+    -- | The descriptive resource name, which is displayed on the AWS IoT
+    -- Greengrass console. Max length 128 characters with pattern
+    -- \'\'[a-zA-Z0-9:_-]+\'\'. This must be unique within a Greengrass group.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Resource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Resource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rResourceDataContainer' - A container of data for all resource types.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rId' - The resource ID, used to refer to a resource in the Lambda function configuration. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique within a Greengrass group.
+-- 'resourceDataContainer', 'resource_resourceDataContainer' - A container of data for all resource types.
 --
--- * 'rName' - The descriptive resource name, which is displayed on the AWS IoT Greengrass console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique within a Greengrass group.
-resource ::
-  -- | 'rResourceDataContainer'
+-- 'id', 'resource_id' - The resource ID, used to refer to a resource in the Lambda function
+-- configuration. Max length is 128 characters with pattern
+-- \'\'[a-zA-Z0-9:_-]+\'\'. This must be unique within a Greengrass group.
+--
+-- 'name', 'resource_name' - The descriptive resource name, which is displayed on the AWS IoT
+-- Greengrass console. Max length 128 characters with pattern
+-- \'\'[a-zA-Z0-9:_-]+\'\'. This must be unique within a Greengrass group.
+newResource ::
+  -- | 'resourceDataContainer'
   ResourceDataContainer ->
-  -- | 'rId'
-  Text ->
-  -- | 'rName'
-  Text ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   Resource
-resource pResourceDataContainer_ pId_ pName_ =
+newResource pResourceDataContainer_ pId_ pName_ =
   Resource'
-    { _rResourceDataContainer =
+    { resourceDataContainer =
         pResourceDataContainer_,
-      _rId = pId_,
-      _rName = pName_
+      id = pId_,
+      name = pName_
     }
 
 -- | A container of data for all resource types.
-rResourceDataContainer :: Lens' Resource ResourceDataContainer
-rResourceDataContainer = lens _rResourceDataContainer (\s a -> s {_rResourceDataContainer = a})
+resource_resourceDataContainer :: Lens.Lens' Resource ResourceDataContainer
+resource_resourceDataContainer = Lens.lens (\Resource' {resourceDataContainer} -> resourceDataContainer) (\s@Resource' {} a -> s {resourceDataContainer = a} :: Resource)
 
--- | The resource ID, used to refer to a resource in the Lambda function configuration. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique within a Greengrass group.
-rId :: Lens' Resource Text
-rId = lens _rId (\s a -> s {_rId = a})
+-- | The resource ID, used to refer to a resource in the Lambda function
+-- configuration. Max length is 128 characters with pattern
+-- \'\'[a-zA-Z0-9:_-]+\'\'. This must be unique within a Greengrass group.
+resource_id :: Lens.Lens' Resource Prelude.Text
+resource_id = Lens.lens (\Resource' {id} -> id) (\s@Resource' {} a -> s {id = a} :: Resource)
 
--- | The descriptive resource name, which is displayed on the AWS IoT Greengrass console. Max length 128 characters with pattern ''[a-zA-Z0-9:_-]+''. This must be unique within a Greengrass group.
-rName :: Lens' Resource Text
-rName = lens _rName (\s a -> s {_rName = a})
+-- | The descriptive resource name, which is displayed on the AWS IoT
+-- Greengrass console. Max length 128 characters with pattern
+-- \'\'[a-zA-Z0-9:_-]+\'\'. This must be unique within a Greengrass group.
+resource_name :: Lens.Lens' Resource Prelude.Text
+resource_name = Lens.lens (\Resource' {name} -> name) (\s@Resource' {} a -> s {name = a} :: Resource)
 
-instance FromJSON Resource where
+instance Prelude.FromJSON Resource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Resource"
       ( \x ->
           Resource'
-            <$> (x .: "ResourceDataContainer")
-            <*> (x .: "Id")
-            <*> (x .: "Name")
+            Prelude.<$> (x Prelude..: "ResourceDataContainer")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable Resource
+instance Prelude.Hashable Resource
 
-instance NFData Resource
+instance Prelude.NFData Resource
 
-instance ToJSON Resource where
+instance Prelude.ToJSON Resource where
   toJSON Resource' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("ResourceDataContainer" .= _rResourceDataContainer),
-            Just ("Id" .= _rId),
-            Just ("Name" .= _rName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "ResourceDataContainer"
+                  Prelude..= resourceDataContainer
+              ),
+            Prelude.Just ("Id" Prelude..= id),
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

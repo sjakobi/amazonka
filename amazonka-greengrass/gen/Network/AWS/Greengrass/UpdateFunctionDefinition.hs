@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,139 +24,140 @@
 -- Updates a Lambda function definition.
 module Network.AWS.Greengrass.UpdateFunctionDefinition
   ( -- * Creating a Request
-    updateFunctionDefinition,
-    UpdateFunctionDefinition,
+    UpdateFunctionDefinition (..),
+    newUpdateFunctionDefinition,
 
     -- * Request Lenses
-    ufdName,
-    ufdFunctionDefinitionId,
+    updateFunctionDefinition_name,
+    updateFunctionDefinition_functionDefinitionId,
 
     -- * Destructuring the Response
-    updateFunctionDefinitionResponse,
-    UpdateFunctionDefinitionResponse,
+    UpdateFunctionDefinitionResponse (..),
+    newUpdateFunctionDefinitionResponse,
 
     -- * Response Lenses
-    ufdrrsResponseStatus,
+    updateFunctionDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateFunctionDefinition' smart constructor.
+-- | /See:/ 'newUpdateFunctionDefinition' smart constructor.
 data UpdateFunctionDefinition = UpdateFunctionDefinition'
-  { _ufdName ::
-      !(Maybe Text),
-    _ufdFunctionDefinitionId ::
-      !Text
+  { -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Lambda function definition.
+    functionDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFunctionDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFunctionDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufdName' - The name of the definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufdFunctionDefinitionId' - The ID of the Lambda function definition.
-updateFunctionDefinition ::
-  -- | 'ufdFunctionDefinitionId'
-  Text ->
+-- 'name', 'updateFunctionDefinition_name' - The name of the definition.
+--
+-- 'functionDefinitionId', 'updateFunctionDefinition_functionDefinitionId' - The ID of the Lambda function definition.
+newUpdateFunctionDefinition ::
+  -- | 'functionDefinitionId'
+  Prelude.Text ->
   UpdateFunctionDefinition
-updateFunctionDefinition pFunctionDefinitionId_ =
+newUpdateFunctionDefinition pFunctionDefinitionId_ =
   UpdateFunctionDefinition'
-    { _ufdName = Nothing,
-      _ufdFunctionDefinitionId = pFunctionDefinitionId_
+    { name = Prelude.Nothing,
+      functionDefinitionId = pFunctionDefinitionId_
     }
 
 -- | The name of the definition.
-ufdName :: Lens' UpdateFunctionDefinition (Maybe Text)
-ufdName = lens _ufdName (\s a -> s {_ufdName = a})
+updateFunctionDefinition_name :: Lens.Lens' UpdateFunctionDefinition (Prelude.Maybe Prelude.Text)
+updateFunctionDefinition_name = Lens.lens (\UpdateFunctionDefinition' {name} -> name) (\s@UpdateFunctionDefinition' {} a -> s {name = a} :: UpdateFunctionDefinition)
 
 -- | The ID of the Lambda function definition.
-ufdFunctionDefinitionId :: Lens' UpdateFunctionDefinition Text
-ufdFunctionDefinitionId = lens _ufdFunctionDefinitionId (\s a -> s {_ufdFunctionDefinitionId = a})
+updateFunctionDefinition_functionDefinitionId :: Lens.Lens' UpdateFunctionDefinition Prelude.Text
+updateFunctionDefinition_functionDefinitionId = Lens.lens (\UpdateFunctionDefinition' {functionDefinitionId} -> functionDefinitionId) (\s@UpdateFunctionDefinition' {} a -> s {functionDefinitionId = a} :: UpdateFunctionDefinition)
 
-instance AWSRequest UpdateFunctionDefinition where
+instance Prelude.AWSRequest UpdateFunctionDefinition where
   type
     Rs UpdateFunctionDefinition =
       UpdateFunctionDefinitionResponse
-  request = putJSON greengrass
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateFunctionDefinitionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateFunctionDefinition
+instance Prelude.Hashable UpdateFunctionDefinition
 
-instance NFData UpdateFunctionDefinition
+instance Prelude.NFData UpdateFunctionDefinition
 
-instance ToHeaders UpdateFunctionDefinition where
+instance Prelude.ToHeaders UpdateFunctionDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateFunctionDefinition where
+instance Prelude.ToJSON UpdateFunctionDefinition where
   toJSON UpdateFunctionDefinition' {..} =
-    object (catMaybes [("Name" .=) <$> _ufdName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Name" Prelude..=) Prelude.<$> name]
+      )
 
-instance ToPath UpdateFunctionDefinition where
+instance Prelude.ToPath UpdateFunctionDefinition where
   toPath UpdateFunctionDefinition' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/functions/",
-        toBS _ufdFunctionDefinitionId
+        Prelude.toBS functionDefinitionId
       ]
 
-instance ToQuery UpdateFunctionDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFunctionDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateFunctionDefinitionResponse' smart constructor.
-newtype UpdateFunctionDefinitionResponse = UpdateFunctionDefinitionResponse'
-  { _ufdrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateFunctionDefinitionResponse' smart constructor.
+data UpdateFunctionDefinitionResponse = UpdateFunctionDefinitionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFunctionDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFunctionDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufdrrsResponseStatus' - -- | The response status code.
-updateFunctionDefinitionResponse ::
-  -- | 'ufdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateFunctionDefinitionResponse_httpStatus' - The response's http status code.
+newUpdateFunctionDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateFunctionDefinitionResponse
-updateFunctionDefinitionResponse pResponseStatus_ =
+newUpdateFunctionDefinitionResponse pHttpStatus_ =
   UpdateFunctionDefinitionResponse'
-    { _ufdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ufdrrsResponseStatus :: Lens' UpdateFunctionDefinitionResponse Int
-ufdrrsResponseStatus = lens _ufdrrsResponseStatus (\s a -> s {_ufdrrsResponseStatus = a})
+-- | The response's http status code.
+updateFunctionDefinitionResponse_httpStatus :: Lens.Lens' UpdateFunctionDefinitionResponse Prelude.Int
+updateFunctionDefinitionResponse_httpStatus = Lens.lens (\UpdateFunctionDefinitionResponse' {httpStatus} -> httpStatus) (\s@UpdateFunctionDefinitionResponse' {} a -> s {httpStatus = a} :: UpdateFunctionDefinitionResponse)
 
-instance NFData UpdateFunctionDefinitionResponse
+instance
+  Prelude.NFData
+    UpdateFunctionDefinitionResponse

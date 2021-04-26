@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,224 +21,221 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a version of a subscription definition which has already been defined.
+-- Creates a version of a subscription definition which has already been
+-- defined.
 module Network.AWS.Greengrass.CreateSubscriptionDefinitionVersion
   ( -- * Creating a Request
-    createSubscriptionDefinitionVersion,
-    CreateSubscriptionDefinitionVersion,
+    CreateSubscriptionDefinitionVersion (..),
+    newCreateSubscriptionDefinitionVersion,
 
     -- * Request Lenses
-    csdvSubscriptions,
-    csdvAmznClientToken,
-    csdvSubscriptionDefinitionId,
+    createSubscriptionDefinitionVersion_subscriptions,
+    createSubscriptionDefinitionVersion_amznClientToken,
+    createSubscriptionDefinitionVersion_subscriptionDefinitionId,
 
     -- * Destructuring the Response
-    createSubscriptionDefinitionVersionResponse,
-    CreateSubscriptionDefinitionVersionResponse,
+    CreateSubscriptionDefinitionVersionResponse (..),
+    newCreateSubscriptionDefinitionVersionResponse,
 
     -- * Response Lenses
-    csdvrrsCreationTimestamp,
-    csdvrrsARN,
-    csdvrrsId,
-    csdvrrsVersion,
-    csdvrrsResponseStatus,
+    createSubscriptionDefinitionVersionResponse_creationTimestamp,
+    createSubscriptionDefinitionVersionResponse_arn,
+    createSubscriptionDefinitionVersionResponse_id,
+    createSubscriptionDefinitionVersionResponse_version,
+    createSubscriptionDefinitionVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createSubscriptionDefinitionVersion' smart constructor.
+-- | /See:/ 'newCreateSubscriptionDefinitionVersion' smart constructor.
 data CreateSubscriptionDefinitionVersion = CreateSubscriptionDefinitionVersion'
-  { _csdvSubscriptions ::
-      !( Maybe
-           [Subscription]
-       ),
-    _csdvAmznClientToken ::
-      !( Maybe
-           Text
-       ),
-    _csdvSubscriptionDefinitionId ::
-      !Text
+  { -- | A list of subscriptions.
+    subscriptions :: Prelude.Maybe [Subscription],
+    -- | A client token used to correlate requests and responses.
+    amznClientToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the subscription definition.
+    subscriptionDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSubscriptionDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSubscriptionDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csdvSubscriptions' - A list of subscriptions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csdvAmznClientToken' - A client token used to correlate requests and responses.
+-- 'subscriptions', 'createSubscriptionDefinitionVersion_subscriptions' - A list of subscriptions.
 --
--- * 'csdvSubscriptionDefinitionId' - The ID of the subscription definition.
-createSubscriptionDefinitionVersion ::
-  -- | 'csdvSubscriptionDefinitionId'
-  Text ->
+-- 'amznClientToken', 'createSubscriptionDefinitionVersion_amznClientToken' - A client token used to correlate requests and responses.
+--
+-- 'subscriptionDefinitionId', 'createSubscriptionDefinitionVersion_subscriptionDefinitionId' - The ID of the subscription definition.
+newCreateSubscriptionDefinitionVersion ::
+  -- | 'subscriptionDefinitionId'
+  Prelude.Text ->
   CreateSubscriptionDefinitionVersion
-createSubscriptionDefinitionVersion
+newCreateSubscriptionDefinitionVersion
   pSubscriptionDefinitionId_ =
     CreateSubscriptionDefinitionVersion'
-      { _csdvSubscriptions =
-          Nothing,
-        _csdvAmznClientToken = Nothing,
-        _csdvSubscriptionDefinitionId =
+      { subscriptions =
+          Prelude.Nothing,
+        amznClientToken = Prelude.Nothing,
+        subscriptionDefinitionId =
           pSubscriptionDefinitionId_
       }
 
 -- | A list of subscriptions.
-csdvSubscriptions :: Lens' CreateSubscriptionDefinitionVersion [Subscription]
-csdvSubscriptions = lens _csdvSubscriptions (\s a -> s {_csdvSubscriptions = a}) . _Default . _Coerce
+createSubscriptionDefinitionVersion_subscriptions :: Lens.Lens' CreateSubscriptionDefinitionVersion (Prelude.Maybe [Subscription])
+createSubscriptionDefinitionVersion_subscriptions = Lens.lens (\CreateSubscriptionDefinitionVersion' {subscriptions} -> subscriptions) (\s@CreateSubscriptionDefinitionVersion' {} a -> s {subscriptions = a} :: CreateSubscriptionDefinitionVersion) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A client token used to correlate requests and responses.
-csdvAmznClientToken :: Lens' CreateSubscriptionDefinitionVersion (Maybe Text)
-csdvAmznClientToken = lens _csdvAmznClientToken (\s a -> s {_csdvAmznClientToken = a})
+createSubscriptionDefinitionVersion_amznClientToken :: Lens.Lens' CreateSubscriptionDefinitionVersion (Prelude.Maybe Prelude.Text)
+createSubscriptionDefinitionVersion_amznClientToken = Lens.lens (\CreateSubscriptionDefinitionVersion' {amznClientToken} -> amznClientToken) (\s@CreateSubscriptionDefinitionVersion' {} a -> s {amznClientToken = a} :: CreateSubscriptionDefinitionVersion)
 
 -- | The ID of the subscription definition.
-csdvSubscriptionDefinitionId :: Lens' CreateSubscriptionDefinitionVersion Text
-csdvSubscriptionDefinitionId = lens _csdvSubscriptionDefinitionId (\s a -> s {_csdvSubscriptionDefinitionId = a})
+createSubscriptionDefinitionVersion_subscriptionDefinitionId :: Lens.Lens' CreateSubscriptionDefinitionVersion Prelude.Text
+createSubscriptionDefinitionVersion_subscriptionDefinitionId = Lens.lens (\CreateSubscriptionDefinitionVersion' {subscriptionDefinitionId} -> subscriptionDefinitionId) (\s@CreateSubscriptionDefinitionVersion' {} a -> s {subscriptionDefinitionId = a} :: CreateSubscriptionDefinitionVersion)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateSubscriptionDefinitionVersion
   where
   type
     Rs CreateSubscriptionDefinitionVersion =
       CreateSubscriptionDefinitionVersionResponse
-  request = postJSON greengrass
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateSubscriptionDefinitionVersionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Version")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+              Prelude.<*> (x Prelude..?> "Arn")
+              Prelude.<*> (x Prelude..?> "Id")
+              Prelude.<*> (x Prelude..?> "Version")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSubscriptionDefinitionVersion
-
-instance NFData CreateSubscriptionDefinitionVersion
+instance
+  Prelude.Hashable
+    CreateSubscriptionDefinitionVersion
 
 instance
-  ToHeaders
+  Prelude.NFData
+    CreateSubscriptionDefinitionVersion
+
+instance
+  Prelude.ToHeaders
     CreateSubscriptionDefinitionVersion
   where
   toHeaders CreateSubscriptionDefinitionVersion' {..} =
-    mconcat
-      [ "X-Amzn-Client-Token" =# _csdvAmznClientToken,
+    Prelude.mconcat
+      [ "X-Amzn-Client-Token" Prelude.=# amznClientToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON CreateSubscriptionDefinitionVersion where
+instance
+  Prelude.ToJSON
+    CreateSubscriptionDefinitionVersion
+  where
   toJSON CreateSubscriptionDefinitionVersion' {..} =
-    object
-      ( catMaybes
-          [("Subscriptions" .=) <$> _csdvSubscriptions]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Subscriptions" Prelude..=)
+              Prelude.<$> subscriptions
+          ]
       )
 
-instance ToPath CreateSubscriptionDefinitionVersion where
+instance
+  Prelude.ToPath
+    CreateSubscriptionDefinitionVersion
+  where
   toPath CreateSubscriptionDefinitionVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/subscriptions/",
-        toBS _csdvSubscriptionDefinitionId,
+        Prelude.toBS subscriptionDefinitionId,
         "/versions"
       ]
 
-instance ToQuery CreateSubscriptionDefinitionVersion where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CreateSubscriptionDefinitionVersion
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createSubscriptionDefinitionVersionResponse' smart constructor.
+-- | /See:/ 'newCreateSubscriptionDefinitionVersionResponse' smart constructor.
 data CreateSubscriptionDefinitionVersionResponse = CreateSubscriptionDefinitionVersionResponse'
-  { _csdvrrsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _csdvrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _csdvrrsId ::
-      !( Maybe
-           Text
-       ),
-    _csdvrrsVersion ::
-      !( Maybe
-           Text
-       ),
-    _csdvrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the version was created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the version.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the parent definition that the version is associated with.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the version.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSubscriptionDefinitionVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSubscriptionDefinitionVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csdvrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csdvrrsARN' - The ARN of the version.
+-- 'creationTimestamp', 'createSubscriptionDefinitionVersionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
 --
--- * 'csdvrrsId' - The ID of the parent definition that the version is associated with.
+-- 'arn', 'createSubscriptionDefinitionVersionResponse_arn' - The ARN of the version.
 --
--- * 'csdvrrsVersion' - The ID of the version.
+-- 'id', 'createSubscriptionDefinitionVersionResponse_id' - The ID of the parent definition that the version is associated with.
 --
--- * 'csdvrrsResponseStatus' - -- | The response status code.
-createSubscriptionDefinitionVersionResponse ::
-  -- | 'csdvrrsResponseStatus'
-  Int ->
+-- 'version', 'createSubscriptionDefinitionVersionResponse_version' - The ID of the version.
+--
+-- 'httpStatus', 'createSubscriptionDefinitionVersionResponse_httpStatus' - The response's http status code.
+newCreateSubscriptionDefinitionVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSubscriptionDefinitionVersionResponse
-createSubscriptionDefinitionVersionResponse
-  pResponseStatus_ =
+newCreateSubscriptionDefinitionVersionResponse
+  pHttpStatus_ =
     CreateSubscriptionDefinitionVersionResponse'
-      { _csdvrrsCreationTimestamp =
-          Nothing,
-        _csdvrrsARN = Nothing,
-        _csdvrrsId = Nothing,
-        _csdvrrsVersion = Nothing,
-        _csdvrrsResponseStatus =
-          pResponseStatus_
+      { creationTimestamp =
+          Prelude.Nothing,
+        arn = Prelude.Nothing,
+        id = Prelude.Nothing,
+        version = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The time, in milliseconds since the epoch, when the version was created.
-csdvrrsCreationTimestamp :: Lens' CreateSubscriptionDefinitionVersionResponse (Maybe Text)
-csdvrrsCreationTimestamp = lens _csdvrrsCreationTimestamp (\s a -> s {_csdvrrsCreationTimestamp = a})
+createSubscriptionDefinitionVersionResponse_creationTimestamp :: Lens.Lens' CreateSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createSubscriptionDefinitionVersionResponse_creationTimestamp = Lens.lens (\CreateSubscriptionDefinitionVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateSubscriptionDefinitionVersionResponse' {} a -> s {creationTimestamp = a} :: CreateSubscriptionDefinitionVersionResponse)
 
 -- | The ARN of the version.
-csdvrrsARN :: Lens' CreateSubscriptionDefinitionVersionResponse (Maybe Text)
-csdvrrsARN = lens _csdvrrsARN (\s a -> s {_csdvrrsARN = a})
+createSubscriptionDefinitionVersionResponse_arn :: Lens.Lens' CreateSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createSubscriptionDefinitionVersionResponse_arn = Lens.lens (\CreateSubscriptionDefinitionVersionResponse' {arn} -> arn) (\s@CreateSubscriptionDefinitionVersionResponse' {} a -> s {arn = a} :: CreateSubscriptionDefinitionVersionResponse)
 
 -- | The ID of the parent definition that the version is associated with.
-csdvrrsId :: Lens' CreateSubscriptionDefinitionVersionResponse (Maybe Text)
-csdvrrsId = lens _csdvrrsId (\s a -> s {_csdvrrsId = a})
+createSubscriptionDefinitionVersionResponse_id :: Lens.Lens' CreateSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createSubscriptionDefinitionVersionResponse_id = Lens.lens (\CreateSubscriptionDefinitionVersionResponse' {id} -> id) (\s@CreateSubscriptionDefinitionVersionResponse' {} a -> s {id = a} :: CreateSubscriptionDefinitionVersionResponse)
 
 -- | The ID of the version.
-csdvrrsVersion :: Lens' CreateSubscriptionDefinitionVersionResponse (Maybe Text)
-csdvrrsVersion = lens _csdvrrsVersion (\s a -> s {_csdvrrsVersion = a})
+createSubscriptionDefinitionVersionResponse_version :: Lens.Lens' CreateSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createSubscriptionDefinitionVersionResponse_version = Lens.lens (\CreateSubscriptionDefinitionVersionResponse' {version} -> version) (\s@CreateSubscriptionDefinitionVersionResponse' {} a -> s {version = a} :: CreateSubscriptionDefinitionVersionResponse)
 
--- | -- | The response status code.
-csdvrrsResponseStatus :: Lens' CreateSubscriptionDefinitionVersionResponse Int
-csdvrrsResponseStatus = lens _csdvrrsResponseStatus (\s a -> s {_csdvrrsResponseStatus = a})
+-- | The response's http status code.
+createSubscriptionDefinitionVersionResponse_httpStatus :: Lens.Lens' CreateSubscriptionDefinitionVersionResponse Prelude.Int
+createSubscriptionDefinitionVersionResponse_httpStatus = Lens.lens (\CreateSubscriptionDefinitionVersionResponse' {httpStatus} -> httpStatus) (\s@CreateSubscriptionDefinitionVersionResponse' {} a -> s {httpStatus = a} :: CreateSubscriptionDefinitionVersionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateSubscriptionDefinitionVersionResponse

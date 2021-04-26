@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.Greengrass.Types.Permission
   ( Permission
       ( ..,
-        RO,
-        RW
+        PermissionRO,
+        PermissionRW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The type of permission a function has to access a resource.
-data Permission = Permission' (CI Text)
+newtype Permission = Permission'
+  { fromPermission ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RO :: Permission
-pattern RO = Permission' "ro"
+pattern PermissionRO :: Permission
+pattern PermissionRO = Permission' "ro"
 
-pattern RW :: Permission
-pattern RW = Permission' "rw"
+pattern PermissionRW :: Permission
+pattern PermissionRW = Permission' "rw"
 
 {-# COMPLETE
-  RO,
-  RW,
+  PermissionRO,
+  PermissionRW,
   Permission'
   #-}
 
-instance FromText Permission where
-  parser = (Permission' . mk) <$> takeText
+instance Prelude.FromText Permission where
+  parser = Permission' Prelude.<$> Prelude.takeText
 
-instance ToText Permission where
-  toText (Permission' ci) = original ci
+instance Prelude.ToText Permission where
+  toText (Permission' x) = x
 
-instance Hashable Permission
+instance Prelude.Hashable Permission
 
-instance NFData Permission
+instance Prelude.NFData Permission
 
-instance ToByteString Permission
+instance Prelude.ToByteString Permission
 
-instance ToQuery Permission
+instance Prelude.ToQuery Permission
 
-instance ToHeader Permission
+instance Prelude.ToHeader Permission
 
-instance ToJSON Permission where
-  toJSON = toJSONText
+instance Prelude.ToJSON Permission where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Permission where
-  parseJSON = parseJSONText "Permission"
+instance Prelude.FromJSON Permission where
+  parseJSON = Prelude.parseJSONText "Permission"

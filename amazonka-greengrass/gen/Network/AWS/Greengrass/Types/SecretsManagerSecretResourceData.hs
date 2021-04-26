@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.SecretsManagerSecretResourceData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Attributes that define a secret resource, which references a secret from AWS Secrets Manager. AWS IoT Greengrass stores a local, encrypted copy of the secret on the Greengrass core, where it can be securely accessed by connectors and Lambda functions.
+-- | Attributes that define a secret resource, which references a secret from
+-- AWS Secrets Manager. AWS IoT Greengrass stores a local, encrypted copy
+-- of the secret on the Greengrass core, where it can be securely accessed
+-- by connectors and Lambda functions.
 --
--- /See:/ 'secretsManagerSecretResourceData' smart constructor.
+-- /See:/ 'newSecretsManagerSecretResourceData' smart constructor.
 data SecretsManagerSecretResourceData = SecretsManagerSecretResourceData'
-  { _smsrdARN ::
-      !( Maybe
-           Text
-       ),
-    _smsrdAdditionalStagingLabelsToDownload ::
-      !( Maybe
-           [Text]
-       )
+  { -- | The ARN of the Secrets Manager secret to make available on the core. The
+    -- value of the secret\'s latest version (represented by the
+    -- \'\'AWSCURRENT\'\' staging label) is included by default.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | Optional. The staging labels whose values you want to make available on
+    -- the core, in addition to \'\'AWSCURRENT\'\'.
+    additionalStagingLabelsToDownload :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SecretsManagerSecretResourceData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SecretsManagerSecretResourceData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smsrdARN' - The ARN of the Secrets Manager secret to make available on the core. The value of the secret's latest version (represented by the ''AWSCURRENT'' staging label) is included by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smsrdAdditionalStagingLabelsToDownload' - Optional. The staging labels whose values you want to make available on the core, in addition to ''AWSCURRENT''.
-secretsManagerSecretResourceData ::
+-- 'aRN', 'secretsManagerSecretResourceData_aRN' - The ARN of the Secrets Manager secret to make available on the core. The
+-- value of the secret\'s latest version (represented by the
+-- \'\'AWSCURRENT\'\' staging label) is included by default.
+--
+-- 'additionalStagingLabelsToDownload', 'secretsManagerSecretResourceData_additionalStagingLabelsToDownload' - Optional. The staging labels whose values you want to make available on
+-- the core, in addition to \'\'AWSCURRENT\'\'.
+newSecretsManagerSecretResourceData ::
   SecretsManagerSecretResourceData
-secretsManagerSecretResourceData =
+newSecretsManagerSecretResourceData =
   SecretsManagerSecretResourceData'
-    { _smsrdARN =
-        Nothing,
-      _smsrdAdditionalStagingLabelsToDownload =
-        Nothing
+    { aRN =
+        Prelude.Nothing,
+      additionalStagingLabelsToDownload =
+        Prelude.Nothing
     }
 
--- | The ARN of the Secrets Manager secret to make available on the core. The value of the secret's latest version (represented by the ''AWSCURRENT'' staging label) is included by default.
-smsrdARN :: Lens' SecretsManagerSecretResourceData (Maybe Text)
-smsrdARN = lens _smsrdARN (\s a -> s {_smsrdARN = a})
+-- | The ARN of the Secrets Manager secret to make available on the core. The
+-- value of the secret\'s latest version (represented by the
+-- \'\'AWSCURRENT\'\' staging label) is included by default.
+secretsManagerSecretResourceData_aRN :: Lens.Lens' SecretsManagerSecretResourceData (Prelude.Maybe Prelude.Text)
+secretsManagerSecretResourceData_aRN = Lens.lens (\SecretsManagerSecretResourceData' {aRN} -> aRN) (\s@SecretsManagerSecretResourceData' {} a -> s {aRN = a} :: SecretsManagerSecretResourceData)
 
--- | Optional. The staging labels whose values you want to make available on the core, in addition to ''AWSCURRENT''.
-smsrdAdditionalStagingLabelsToDownload :: Lens' SecretsManagerSecretResourceData [Text]
-smsrdAdditionalStagingLabelsToDownload = lens _smsrdAdditionalStagingLabelsToDownload (\s a -> s {_smsrdAdditionalStagingLabelsToDownload = a}) . _Default . _Coerce
+-- | Optional. The staging labels whose values you want to make available on
+-- the core, in addition to \'\'AWSCURRENT\'\'.
+secretsManagerSecretResourceData_additionalStagingLabelsToDownload :: Lens.Lens' SecretsManagerSecretResourceData (Prelude.Maybe [Prelude.Text])
+secretsManagerSecretResourceData_additionalStagingLabelsToDownload = Lens.lens (\SecretsManagerSecretResourceData' {additionalStagingLabelsToDownload} -> additionalStagingLabelsToDownload) (\s@SecretsManagerSecretResourceData' {} a -> s {additionalStagingLabelsToDownload = a} :: SecretsManagerSecretResourceData) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON SecretsManagerSecretResourceData where
+instance
+  Prelude.FromJSON
+    SecretsManagerSecretResourceData
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SecretsManagerSecretResourceData"
       ( \x ->
           SecretsManagerSecretResourceData'
-            <$> (x .:? "ARN")
-            <*> ( x .:? "AdditionalStagingLabelsToDownload"
-                    .!= mempty
-                )
+            Prelude.<$> (x Prelude..:? "ARN")
+            Prelude.<*> ( x Prelude..:? "AdditionalStagingLabelsToDownload"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable SecretsManagerSecretResourceData
+instance
+  Prelude.Hashable
+    SecretsManagerSecretResourceData
 
-instance NFData SecretsManagerSecretResourceData
+instance
+  Prelude.NFData
+    SecretsManagerSecretResourceData
 
-instance ToJSON SecretsManagerSecretResourceData where
+instance
+  Prelude.ToJSON
+    SecretsManagerSecretResourceData
+  where
   toJSON SecretsManagerSecretResourceData' {..} =
-    object
-      ( catMaybes
-          [ ("ARN" .=) <$> _smsrdARN,
-            ("AdditionalStagingLabelsToDownload" .=)
-              <$> _smsrdAdditionalStagingLabelsToDownload
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ARN" Prelude..=) Prelude.<$> aRN,
+            ("AdditionalStagingLabelsToDownload" Prelude..=)
+              Prelude.<$> additionalStagingLabelsToDownload
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,99 +22,116 @@ module Network.AWS.Greengrass.Types.GreengrassLogger where
 import Network.AWS.Greengrass.Types.LoggerComponent
 import Network.AWS.Greengrass.Types.LoggerLevel
 import Network.AWS.Greengrass.Types.LoggerType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a logger
 --
--- /See:/ 'greengrassLogger' smart constructor.
+-- /See:/ 'newGreengrassLogger' smart constructor.
 data GreengrassLogger = GreengrassLogger'
-  { _glSpace ::
-      !(Maybe Int),
-    _glType :: !LoggerType,
-    _glLevel :: !LoggerLevel,
-    _glId :: !Text,
-    _glComponent :: !LoggerComponent
+  { -- | The amount of file space, in KB, to use if the local file system is used
+    -- for logging purposes.
+    space :: Prelude.Maybe Prelude.Int,
+    -- | The type of log output which will be used.
+    type' :: LoggerType,
+    -- | The level of the logs.
+    level :: LoggerLevel,
+    -- | A descriptive or arbitrary ID for the logger. This value must be unique
+    -- within the logger definition version. Max length is 128 characters with
+    -- pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+    id :: Prelude.Text,
+    -- | The component that will be subject to logging.
+    component :: LoggerComponent
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GreengrassLogger' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GreengrassLogger' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'glSpace' - The amount of file space, in KB, to use if the local file system is used for logging purposes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'glType' - The type of log output which will be used.
+-- 'space', 'greengrassLogger_space' - The amount of file space, in KB, to use if the local file system is used
+-- for logging purposes.
 --
--- * 'glLevel' - The level of the logs.
+-- 'type'', 'greengrassLogger_type' - The type of log output which will be used.
 --
--- * 'glId' - A descriptive or arbitrary ID for the logger. This value must be unique within the logger definition version. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''.
+-- 'level', 'greengrassLogger_level' - The level of the logs.
 --
--- * 'glComponent' - The component that will be subject to logging.
-greengrassLogger ::
-  -- | 'glType'
+-- 'id', 'greengrassLogger_id' - A descriptive or arbitrary ID for the logger. This value must be unique
+-- within the logger definition version. Max length is 128 characters with
+-- pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+--
+-- 'component', 'greengrassLogger_component' - The component that will be subject to logging.
+newGreengrassLogger ::
+  -- | 'type''
   LoggerType ->
-  -- | 'glLevel'
+  -- | 'level'
   LoggerLevel ->
-  -- | 'glId'
-  Text ->
-  -- | 'glComponent'
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'component'
   LoggerComponent ->
   GreengrassLogger
-greengrassLogger pType_ pLevel_ pId_ pComponent_ =
+newGreengrassLogger pType_ pLevel_ pId_ pComponent_ =
   GreengrassLogger'
-    { _glSpace = Nothing,
-      _glType = pType_,
-      _glLevel = pLevel_,
-      _glId = pId_,
-      _glComponent = pComponent_
+    { space = Prelude.Nothing,
+      type' = pType_,
+      level = pLevel_,
+      id = pId_,
+      component = pComponent_
     }
 
--- | The amount of file space, in KB, to use if the local file system is used for logging purposes.
-glSpace :: Lens' GreengrassLogger (Maybe Int)
-glSpace = lens _glSpace (\s a -> s {_glSpace = a})
+-- | The amount of file space, in KB, to use if the local file system is used
+-- for logging purposes.
+greengrassLogger_space :: Lens.Lens' GreengrassLogger (Prelude.Maybe Prelude.Int)
+greengrassLogger_space = Lens.lens (\GreengrassLogger' {space} -> space) (\s@GreengrassLogger' {} a -> s {space = a} :: GreengrassLogger)
 
 -- | The type of log output which will be used.
-glType :: Lens' GreengrassLogger LoggerType
-glType = lens _glType (\s a -> s {_glType = a})
+greengrassLogger_type :: Lens.Lens' GreengrassLogger LoggerType
+greengrassLogger_type = Lens.lens (\GreengrassLogger' {type'} -> type') (\s@GreengrassLogger' {} a -> s {type' = a} :: GreengrassLogger)
 
 -- | The level of the logs.
-glLevel :: Lens' GreengrassLogger LoggerLevel
-glLevel = lens _glLevel (\s a -> s {_glLevel = a})
+greengrassLogger_level :: Lens.Lens' GreengrassLogger LoggerLevel
+greengrassLogger_level = Lens.lens (\GreengrassLogger' {level} -> level) (\s@GreengrassLogger' {} a -> s {level = a} :: GreengrassLogger)
 
--- | A descriptive or arbitrary ID for the logger. This value must be unique within the logger definition version. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''.
-glId :: Lens' GreengrassLogger Text
-glId = lens _glId (\s a -> s {_glId = a})
+-- | A descriptive or arbitrary ID for the logger. This value must be unique
+-- within the logger definition version. Max length is 128 characters with
+-- pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+greengrassLogger_id :: Lens.Lens' GreengrassLogger Prelude.Text
+greengrassLogger_id = Lens.lens (\GreengrassLogger' {id} -> id) (\s@GreengrassLogger' {} a -> s {id = a} :: GreengrassLogger)
 
 -- | The component that will be subject to logging.
-glComponent :: Lens' GreengrassLogger LoggerComponent
-glComponent = lens _glComponent (\s a -> s {_glComponent = a})
+greengrassLogger_component :: Lens.Lens' GreengrassLogger LoggerComponent
+greengrassLogger_component = Lens.lens (\GreengrassLogger' {component} -> component) (\s@GreengrassLogger' {} a -> s {component = a} :: GreengrassLogger)
 
-instance FromJSON GreengrassLogger where
+instance Prelude.FromJSON GreengrassLogger where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GreengrassLogger"
       ( \x ->
           GreengrassLogger'
-            <$> (x .:? "Space")
-            <*> (x .: "Type")
-            <*> (x .: "Level")
-            <*> (x .: "Id")
-            <*> (x .: "Component")
+            Prelude.<$> (x Prelude..:? "Space")
+            Prelude.<*> (x Prelude..: "Type")
+            Prelude.<*> (x Prelude..: "Level")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "Component")
       )
 
-instance Hashable GreengrassLogger
+instance Prelude.Hashable GreengrassLogger
 
-instance NFData GreengrassLogger
+instance Prelude.NFData GreengrassLogger
 
-instance ToJSON GreengrassLogger where
+instance Prelude.ToJSON GreengrassLogger where
   toJSON GreengrassLogger' {..} =
-    object
-      ( catMaybes
-          [ ("Space" .=) <$> _glSpace,
-            Just ("Type" .= _glType),
-            Just ("Level" .= _glLevel),
-            Just ("Id" .= _glId),
-            Just ("Component" .= _glComponent)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Space" Prelude..=) Prelude.<$> space,
+            Prelude.Just ("Type" Prelude..= type'),
+            Prelude.Just ("Level" Prelude..= level),
+            Prelude.Just ("Id" Prelude..= id),
+            Prelude.Just ("Component" Prelude..= component)
           ]
       )

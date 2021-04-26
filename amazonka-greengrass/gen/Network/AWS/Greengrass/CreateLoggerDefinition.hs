@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,254 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a logger definition. You may provide the initial version of the logger definition now or use ''CreateLoggerDefinitionVersion'' at a later time.
+-- Creates a logger definition. You may provide the initial version of the
+-- logger definition now or use \'\'CreateLoggerDefinitionVersion\'\' at a
+-- later time.
 module Network.AWS.Greengrass.CreateLoggerDefinition
   ( -- * Creating a Request
-    createLoggerDefinition,
-    CreateLoggerDefinition,
+    CreateLoggerDefinition (..),
+    newCreateLoggerDefinition,
 
     -- * Request Lenses
-    cldName,
-    cldInitialVersion,
-    cldTags,
-    cldAmznClientToken,
+    createLoggerDefinition_name,
+    createLoggerDefinition_initialVersion,
+    createLoggerDefinition_tags,
+    createLoggerDefinition_amznClientToken,
 
     -- * Destructuring the Response
-    createLoggerDefinitionResponse,
-    CreateLoggerDefinitionResponse,
+    CreateLoggerDefinitionResponse (..),
+    newCreateLoggerDefinitionResponse,
 
     -- * Response Lenses
-    cldrrsCreationTimestamp,
-    cldrrsLatestVersionARN,
-    cldrrsLatestVersion,
-    cldrrsARN,
-    cldrrsId,
-    cldrrsName,
-    cldrrsLastUpdatedTimestamp,
-    cldrrsResponseStatus,
+    createLoggerDefinitionResponse_creationTimestamp,
+    createLoggerDefinitionResponse_latestVersionArn,
+    createLoggerDefinitionResponse_latestVersion,
+    createLoggerDefinitionResponse_arn,
+    createLoggerDefinitionResponse_id,
+    createLoggerDefinitionResponse_name,
+    createLoggerDefinitionResponse_lastUpdatedTimestamp,
+    createLoggerDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createLoggerDefinition' smart constructor.
+-- | /See:/ 'newCreateLoggerDefinition' smart constructor.
 data CreateLoggerDefinition = CreateLoggerDefinition'
-  { _cldName ::
-      !(Maybe Text),
-    _cldInitialVersion ::
-      !( Maybe
-           LoggerDefinitionVersion
-       ),
-    _cldTags ::
-      !(Maybe (Map Text Text)),
-    _cldAmznClientToken ::
-      !(Maybe Text)
+  { -- | The name of the logger definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Information about the initial version of the logger definition.
+    initialVersion :: Prelude.Maybe LoggerDefinitionVersion,
+    -- | Tag(s) to add to the new resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A client token used to correlate requests and responses.
+    amznClientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLoggerDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLoggerDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cldName' - The name of the logger definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cldInitialVersion' - Information about the initial version of the logger definition.
+-- 'name', 'createLoggerDefinition_name' - The name of the logger definition.
 --
--- * 'cldTags' - Tag(s) to add to the new resource.
+-- 'initialVersion', 'createLoggerDefinition_initialVersion' - Information about the initial version of the logger definition.
 --
--- * 'cldAmznClientToken' - A client token used to correlate requests and responses.
-createLoggerDefinition ::
+-- 'tags', 'createLoggerDefinition_tags' - Tag(s) to add to the new resource.
+--
+-- 'amznClientToken', 'createLoggerDefinition_amznClientToken' - A client token used to correlate requests and responses.
+newCreateLoggerDefinition ::
   CreateLoggerDefinition
-createLoggerDefinition =
+newCreateLoggerDefinition =
   CreateLoggerDefinition'
-    { _cldName = Nothing,
-      _cldInitialVersion = Nothing,
-      _cldTags = Nothing,
-      _cldAmznClientToken = Nothing
+    { name = Prelude.Nothing,
+      initialVersion = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      amznClientToken = Prelude.Nothing
     }
 
 -- | The name of the logger definition.
-cldName :: Lens' CreateLoggerDefinition (Maybe Text)
-cldName = lens _cldName (\s a -> s {_cldName = a})
+createLoggerDefinition_name :: Lens.Lens' CreateLoggerDefinition (Prelude.Maybe Prelude.Text)
+createLoggerDefinition_name = Lens.lens (\CreateLoggerDefinition' {name} -> name) (\s@CreateLoggerDefinition' {} a -> s {name = a} :: CreateLoggerDefinition)
 
 -- | Information about the initial version of the logger definition.
-cldInitialVersion :: Lens' CreateLoggerDefinition (Maybe LoggerDefinitionVersion)
-cldInitialVersion = lens _cldInitialVersion (\s a -> s {_cldInitialVersion = a})
+createLoggerDefinition_initialVersion :: Lens.Lens' CreateLoggerDefinition (Prelude.Maybe LoggerDefinitionVersion)
+createLoggerDefinition_initialVersion = Lens.lens (\CreateLoggerDefinition' {initialVersion} -> initialVersion) (\s@CreateLoggerDefinition' {} a -> s {initialVersion = a} :: CreateLoggerDefinition)
 
 -- | Tag(s) to add to the new resource.
-cldTags :: Lens' CreateLoggerDefinition (HashMap Text Text)
-cldTags = lens _cldTags (\s a -> s {_cldTags = a}) . _Default . _Map
+createLoggerDefinition_tags :: Lens.Lens' CreateLoggerDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createLoggerDefinition_tags = Lens.lens (\CreateLoggerDefinition' {tags} -> tags) (\s@CreateLoggerDefinition' {} a -> s {tags = a} :: CreateLoggerDefinition) Prelude.. Lens.mapping Prelude._Map
 
 -- | A client token used to correlate requests and responses.
-cldAmznClientToken :: Lens' CreateLoggerDefinition (Maybe Text)
-cldAmznClientToken = lens _cldAmznClientToken (\s a -> s {_cldAmznClientToken = a})
+createLoggerDefinition_amznClientToken :: Lens.Lens' CreateLoggerDefinition (Prelude.Maybe Prelude.Text)
+createLoggerDefinition_amznClientToken = Lens.lens (\CreateLoggerDefinition' {amznClientToken} -> amznClientToken) (\s@CreateLoggerDefinition' {} a -> s {amznClientToken = a} :: CreateLoggerDefinition)
 
-instance AWSRequest CreateLoggerDefinition where
+instance Prelude.AWSRequest CreateLoggerDefinition where
   type
     Rs CreateLoggerDefinition =
       CreateLoggerDefinitionResponse
-  request = postJSON greengrass
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateLoggerDefinitionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "LatestVersionArn")
-            <*> (x .?> "LatestVersion")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Name")
-            <*> (x .?> "LastUpdatedTimestamp")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "LatestVersionArn")
+            Prelude.<*> (x Prelude..?> "LatestVersion")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "LastUpdatedTimestamp")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateLoggerDefinition
+instance Prelude.Hashable CreateLoggerDefinition
 
-instance NFData CreateLoggerDefinition
+instance Prelude.NFData CreateLoggerDefinition
 
-instance ToHeaders CreateLoggerDefinition where
+instance Prelude.ToHeaders CreateLoggerDefinition where
   toHeaders CreateLoggerDefinition' {..} =
-    mconcat
-      [ "X-Amzn-Client-Token" =# _cldAmznClientToken,
+    Prelude.mconcat
+      [ "X-Amzn-Client-Token" Prelude.=# amznClientToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON CreateLoggerDefinition where
+instance Prelude.ToJSON CreateLoggerDefinition where
   toJSON CreateLoggerDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _cldName,
-            ("InitialVersion" .=) <$> _cldInitialVersion,
-            ("tags" .=) <$> _cldTags
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("InitialVersion" Prelude..=)
+              Prelude.<$> initialVersion,
+            ("tags" Prelude..=) Prelude.<$> tags
           ]
       )
 
-instance ToPath CreateLoggerDefinition where
-  toPath = const "/greengrass/definition/loggers"
+instance Prelude.ToPath CreateLoggerDefinition where
+  toPath =
+    Prelude.const "/greengrass/definition/loggers"
 
-instance ToQuery CreateLoggerDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateLoggerDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createLoggerDefinitionResponse' smart constructor.
+-- | /See:/ 'newCreateLoggerDefinitionResponse' smart constructor.
 data CreateLoggerDefinitionResponse = CreateLoggerDefinitionResponse'
-  { _cldrrsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _cldrrsLatestVersionARN ::
-      !( Maybe
-           Text
-       ),
-    _cldrrsLatestVersion ::
-      !( Maybe
-           Text
-       ),
-    _cldrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _cldrrsId ::
-      !( Maybe
-           Text
-       ),
-    _cldrrsName ::
-      !( Maybe
-           Text
-       ),
-    _cldrrsLastUpdatedTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _cldrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the definition was
+    -- created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the definition.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the definition.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the definition was last
+    -- updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLoggerDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLoggerDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cldrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cldrrsLatestVersionARN' - The ARN of the latest version associated with the definition.
+-- 'creationTimestamp', 'createLoggerDefinitionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
+-- created.
 --
--- * 'cldrrsLatestVersion' - The ID of the latest version associated with the definition.
+-- 'latestVersionArn', 'createLoggerDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
 --
--- * 'cldrrsARN' - The ARN of the definition.
+-- 'latestVersion', 'createLoggerDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'cldrrsId' - The ID of the definition.
+-- 'arn', 'createLoggerDefinitionResponse_arn' - The ARN of the definition.
 --
--- * 'cldrrsName' - The name of the definition.
+-- 'id', 'createLoggerDefinitionResponse_id' - The ID of the definition.
 --
--- * 'cldrrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- 'name', 'createLoggerDefinitionResponse_name' - The name of the definition.
 --
--- * 'cldrrsResponseStatus' - -- | The response status code.
-createLoggerDefinitionResponse ::
-  -- | 'cldrrsResponseStatus'
-  Int ->
+-- 'lastUpdatedTimestamp', 'createLoggerDefinitionResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+--
+-- 'httpStatus', 'createLoggerDefinitionResponse_httpStatus' - The response's http status code.
+newCreateLoggerDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateLoggerDefinitionResponse
-createLoggerDefinitionResponse pResponseStatus_ =
+newCreateLoggerDefinitionResponse pHttpStatus_ =
   CreateLoggerDefinitionResponse'
-    { _cldrrsCreationTimestamp =
-        Nothing,
-      _cldrrsLatestVersionARN = Nothing,
-      _cldrrsLatestVersion = Nothing,
-      _cldrrsARN = Nothing,
-      _cldrrsId = Nothing,
-      _cldrrsName = Nothing,
-      _cldrrsLastUpdatedTimestamp = Nothing,
-      _cldrrsResponseStatus = pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the definition was created.
-cldrrsCreationTimestamp :: Lens' CreateLoggerDefinitionResponse (Maybe Text)
-cldrrsCreationTimestamp = lens _cldrrsCreationTimestamp (\s a -> s {_cldrrsCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was
+-- created.
+createLoggerDefinitionResponse_creationTimestamp :: Lens.Lens' CreateLoggerDefinitionResponse (Prelude.Maybe Prelude.Text)
+createLoggerDefinitionResponse_creationTimestamp = Lens.lens (\CreateLoggerDefinitionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateLoggerDefinitionResponse' {} a -> s {creationTimestamp = a} :: CreateLoggerDefinitionResponse)
 
 -- | The ARN of the latest version associated with the definition.
-cldrrsLatestVersionARN :: Lens' CreateLoggerDefinitionResponse (Maybe Text)
-cldrrsLatestVersionARN = lens _cldrrsLatestVersionARN (\s a -> s {_cldrrsLatestVersionARN = a})
+createLoggerDefinitionResponse_latestVersionArn :: Lens.Lens' CreateLoggerDefinitionResponse (Prelude.Maybe Prelude.Text)
+createLoggerDefinitionResponse_latestVersionArn = Lens.lens (\CreateLoggerDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@CreateLoggerDefinitionResponse' {} a -> s {latestVersionArn = a} :: CreateLoggerDefinitionResponse)
 
 -- | The ID of the latest version associated with the definition.
-cldrrsLatestVersion :: Lens' CreateLoggerDefinitionResponse (Maybe Text)
-cldrrsLatestVersion = lens _cldrrsLatestVersion (\s a -> s {_cldrrsLatestVersion = a})
+createLoggerDefinitionResponse_latestVersion :: Lens.Lens' CreateLoggerDefinitionResponse (Prelude.Maybe Prelude.Text)
+createLoggerDefinitionResponse_latestVersion = Lens.lens (\CreateLoggerDefinitionResponse' {latestVersion} -> latestVersion) (\s@CreateLoggerDefinitionResponse' {} a -> s {latestVersion = a} :: CreateLoggerDefinitionResponse)
 
 -- | The ARN of the definition.
-cldrrsARN :: Lens' CreateLoggerDefinitionResponse (Maybe Text)
-cldrrsARN = lens _cldrrsARN (\s a -> s {_cldrrsARN = a})
+createLoggerDefinitionResponse_arn :: Lens.Lens' CreateLoggerDefinitionResponse (Prelude.Maybe Prelude.Text)
+createLoggerDefinitionResponse_arn = Lens.lens (\CreateLoggerDefinitionResponse' {arn} -> arn) (\s@CreateLoggerDefinitionResponse' {} a -> s {arn = a} :: CreateLoggerDefinitionResponse)
 
 -- | The ID of the definition.
-cldrrsId :: Lens' CreateLoggerDefinitionResponse (Maybe Text)
-cldrrsId = lens _cldrrsId (\s a -> s {_cldrrsId = a})
+createLoggerDefinitionResponse_id :: Lens.Lens' CreateLoggerDefinitionResponse (Prelude.Maybe Prelude.Text)
+createLoggerDefinitionResponse_id = Lens.lens (\CreateLoggerDefinitionResponse' {id} -> id) (\s@CreateLoggerDefinitionResponse' {} a -> s {id = a} :: CreateLoggerDefinitionResponse)
 
 -- | The name of the definition.
-cldrrsName :: Lens' CreateLoggerDefinitionResponse (Maybe Text)
-cldrrsName = lens _cldrrsName (\s a -> s {_cldrrsName = a})
+createLoggerDefinitionResponse_name :: Lens.Lens' CreateLoggerDefinitionResponse (Prelude.Maybe Prelude.Text)
+createLoggerDefinitionResponse_name = Lens.lens (\CreateLoggerDefinitionResponse' {name} -> name) (\s@CreateLoggerDefinitionResponse' {} a -> s {name = a} :: CreateLoggerDefinitionResponse)
 
--- | The time, in milliseconds since the epoch, when the definition was last updated.
-cldrrsLastUpdatedTimestamp :: Lens' CreateLoggerDefinitionResponse (Maybe Text)
-cldrrsLastUpdatedTimestamp = lens _cldrrsLastUpdatedTimestamp (\s a -> s {_cldrrsLastUpdatedTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+createLoggerDefinitionResponse_lastUpdatedTimestamp :: Lens.Lens' CreateLoggerDefinitionResponse (Prelude.Maybe Prelude.Text)
+createLoggerDefinitionResponse_lastUpdatedTimestamp = Lens.lens (\CreateLoggerDefinitionResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@CreateLoggerDefinitionResponse' {} a -> s {lastUpdatedTimestamp = a} :: CreateLoggerDefinitionResponse)
 
--- | -- | The response status code.
-cldrrsResponseStatus :: Lens' CreateLoggerDefinitionResponse Int
-cldrrsResponseStatus = lens _cldrrsResponseStatus (\s a -> s {_cldrrsResponseStatus = a})
+-- | The response's http status code.
+createLoggerDefinitionResponse_httpStatus :: Lens.Lens' CreateLoggerDefinitionResponse Prelude.Int
+createLoggerDefinitionResponse_httpStatus = Lens.lens (\CreateLoggerDefinitionResponse' {httpStatus} -> httpStatus) (\s@CreateLoggerDefinitionResponse' {} a -> s {httpStatus = a} :: CreateLoggerDefinitionResponse)
 
-instance NFData CreateLoggerDefinitionResponse
+instance
+  Prelude.NFData
+    CreateLoggerDefinitionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,118 +19,124 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.DefinitionInformation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a definition.
 --
--- /See:/ 'definitionInformation' smart constructor.
+-- /See:/ 'newDefinitionInformation' smart constructor.
 data DefinitionInformation = DefinitionInformation'
-  { _diCreationTimestamp ::
-      !(Maybe Text),
-    _diLatestVersionARN ::
-      !(Maybe Text),
-    _diLatestVersion ::
-      !(Maybe Text),
-    _diARN :: !(Maybe Text),
-    _diId :: !(Maybe Text),
-    _diName :: !(Maybe Text),
-    _diTags ::
-      !(Maybe (Map Text Text)),
-    _diLastUpdatedTimestamp ::
-      !(Maybe Text)
+  { -- | The time, in milliseconds since the epoch, when the definition was
+    -- created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the definition.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the definition.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Tag(s) attached to the resource arn.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The time, in milliseconds since the epoch, when the definition was last
+    -- updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefinitionInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefinitionInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diLatestVersionARN' - The ARN of the latest version associated with the definition.
+-- 'creationTimestamp', 'definitionInformation_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
+-- created.
 --
--- * 'diLatestVersion' - The ID of the latest version associated with the definition.
+-- 'latestVersionArn', 'definitionInformation_latestVersionArn' - The ARN of the latest version associated with the definition.
 --
--- * 'diARN' - The ARN of the definition.
+-- 'latestVersion', 'definitionInformation_latestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'diId' - The ID of the definition.
+-- 'arn', 'definitionInformation_arn' - The ARN of the definition.
 --
--- * 'diName' - The name of the definition.
+-- 'id', 'definitionInformation_id' - The ID of the definition.
 --
--- * 'diTags' - Tag(s) attached to the resource arn.
+-- 'name', 'definitionInformation_name' - The name of the definition.
 --
--- * 'diLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
-definitionInformation ::
+-- 'tags', 'definitionInformation_tags' - Tag(s) attached to the resource arn.
+--
+-- 'lastUpdatedTimestamp', 'definitionInformation_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+newDefinitionInformation ::
   DefinitionInformation
-definitionInformation =
+newDefinitionInformation =
   DefinitionInformation'
-    { _diCreationTimestamp =
-        Nothing,
-      _diLatestVersionARN = Nothing,
-      _diLatestVersion = Nothing,
-      _diARN = Nothing,
-      _diId = Nothing,
-      _diName = Nothing,
-      _diTags = Nothing,
-      _diLastUpdatedTimestamp = Nothing
+    { creationTimestamp =
+        Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing
     }
 
--- | The time, in milliseconds since the epoch, when the definition was created.
-diCreationTimestamp :: Lens' DefinitionInformation (Maybe Text)
-diCreationTimestamp = lens _diCreationTimestamp (\s a -> s {_diCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was
+-- created.
+definitionInformation_creationTimestamp :: Lens.Lens' DefinitionInformation (Prelude.Maybe Prelude.Text)
+definitionInformation_creationTimestamp = Lens.lens (\DefinitionInformation' {creationTimestamp} -> creationTimestamp) (\s@DefinitionInformation' {} a -> s {creationTimestamp = a} :: DefinitionInformation)
 
 -- | The ARN of the latest version associated with the definition.
-diLatestVersionARN :: Lens' DefinitionInformation (Maybe Text)
-diLatestVersionARN = lens _diLatestVersionARN (\s a -> s {_diLatestVersionARN = a})
+definitionInformation_latestVersionArn :: Lens.Lens' DefinitionInformation (Prelude.Maybe Prelude.Text)
+definitionInformation_latestVersionArn = Lens.lens (\DefinitionInformation' {latestVersionArn} -> latestVersionArn) (\s@DefinitionInformation' {} a -> s {latestVersionArn = a} :: DefinitionInformation)
 
 -- | The ID of the latest version associated with the definition.
-diLatestVersion :: Lens' DefinitionInformation (Maybe Text)
-diLatestVersion = lens _diLatestVersion (\s a -> s {_diLatestVersion = a})
+definitionInformation_latestVersion :: Lens.Lens' DefinitionInformation (Prelude.Maybe Prelude.Text)
+definitionInformation_latestVersion = Lens.lens (\DefinitionInformation' {latestVersion} -> latestVersion) (\s@DefinitionInformation' {} a -> s {latestVersion = a} :: DefinitionInformation)
 
 -- | The ARN of the definition.
-diARN :: Lens' DefinitionInformation (Maybe Text)
-diARN = lens _diARN (\s a -> s {_diARN = a})
+definitionInformation_arn :: Lens.Lens' DefinitionInformation (Prelude.Maybe Prelude.Text)
+definitionInformation_arn = Lens.lens (\DefinitionInformation' {arn} -> arn) (\s@DefinitionInformation' {} a -> s {arn = a} :: DefinitionInformation)
 
 -- | The ID of the definition.
-diId :: Lens' DefinitionInformation (Maybe Text)
-diId = lens _diId (\s a -> s {_diId = a})
+definitionInformation_id :: Lens.Lens' DefinitionInformation (Prelude.Maybe Prelude.Text)
+definitionInformation_id = Lens.lens (\DefinitionInformation' {id} -> id) (\s@DefinitionInformation' {} a -> s {id = a} :: DefinitionInformation)
 
 -- | The name of the definition.
-diName :: Lens' DefinitionInformation (Maybe Text)
-diName = lens _diName (\s a -> s {_diName = a})
+definitionInformation_name :: Lens.Lens' DefinitionInformation (Prelude.Maybe Prelude.Text)
+definitionInformation_name = Lens.lens (\DefinitionInformation' {name} -> name) (\s@DefinitionInformation' {} a -> s {name = a} :: DefinitionInformation)
 
 -- | Tag(s) attached to the resource arn.
-diTags :: Lens' DefinitionInformation (HashMap Text Text)
-diTags = lens _diTags (\s a -> s {_diTags = a}) . _Default . _Map
+definitionInformation_tags :: Lens.Lens' DefinitionInformation (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+definitionInformation_tags = Lens.lens (\DefinitionInformation' {tags} -> tags) (\s@DefinitionInformation' {} a -> s {tags = a} :: DefinitionInformation) Prelude.. Lens.mapping Prelude._Map
 
--- | The time, in milliseconds since the epoch, when the definition was last updated.
-diLastUpdatedTimestamp :: Lens' DefinitionInformation (Maybe Text)
-diLastUpdatedTimestamp = lens _diLastUpdatedTimestamp (\s a -> s {_diLastUpdatedTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+definitionInformation_lastUpdatedTimestamp :: Lens.Lens' DefinitionInformation (Prelude.Maybe Prelude.Text)
+definitionInformation_lastUpdatedTimestamp = Lens.lens (\DefinitionInformation' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@DefinitionInformation' {} a -> s {lastUpdatedTimestamp = a} :: DefinitionInformation)
 
-instance FromJSON DefinitionInformation where
+instance Prelude.FromJSON DefinitionInformation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DefinitionInformation"
       ( \x ->
           DefinitionInformation'
-            <$> (x .:? "CreationTimestamp")
-            <*> (x .:? "LatestVersionArn")
-            <*> (x .:? "LatestVersion")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Id")
-            <*> (x .:? "Name")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "LastUpdatedTimestamp")
+            Prelude.<$> (x Prelude..:? "CreationTimestamp")
+            Prelude.<*> (x Prelude..:? "LatestVersionArn")
+            Prelude.<*> (x Prelude..:? "LatestVersion")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "LastUpdatedTimestamp")
       )
 
-instance Hashable DefinitionInformation
+instance Prelude.Hashable DefinitionInformation
 
-instance NFData DefinitionInformation
+instance Prelude.NFData DefinitionInformation

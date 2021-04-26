@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Greengrass.Types.ConfigurationSyncStatus
   ( ConfigurationSyncStatus
       ( ..,
-        InSync,
-        OutOfSync
+        ConfigurationSyncStatusInSync,
+        ConfigurationSyncStatusOutOfSync
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfigurationSyncStatus
-  = ConfigurationSyncStatus'
-      ( CI
-          Text
-      )
+newtype ConfigurationSyncStatus = ConfigurationSyncStatus'
+  { fromConfigurationSyncStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InSync :: ConfigurationSyncStatus
-pattern InSync = ConfigurationSyncStatus' "InSync"
+pattern ConfigurationSyncStatusInSync :: ConfigurationSyncStatus
+pattern ConfigurationSyncStatusInSync = ConfigurationSyncStatus' "InSync"
 
-pattern OutOfSync :: ConfigurationSyncStatus
-pattern OutOfSync = ConfigurationSyncStatus' "OutOfSync"
+pattern ConfigurationSyncStatusOutOfSync :: ConfigurationSyncStatus
+pattern ConfigurationSyncStatusOutOfSync = ConfigurationSyncStatus' "OutOfSync"
 
 {-# COMPLETE
-  InSync,
-  OutOfSync,
+  ConfigurationSyncStatusInSync,
+  ConfigurationSyncStatusOutOfSync,
   ConfigurationSyncStatus'
   #-}
 
-instance FromText ConfigurationSyncStatus where
-  parser = (ConfigurationSyncStatus' . mk) <$> takeText
+instance Prelude.FromText ConfigurationSyncStatus where
+  parser = ConfigurationSyncStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ConfigurationSyncStatus where
-  toText (ConfigurationSyncStatus' ci) = original ci
+instance Prelude.ToText ConfigurationSyncStatus where
+  toText (ConfigurationSyncStatus' x) = x
 
-instance Hashable ConfigurationSyncStatus
+instance Prelude.Hashable ConfigurationSyncStatus
 
-instance NFData ConfigurationSyncStatus
+instance Prelude.NFData ConfigurationSyncStatus
 
-instance ToByteString ConfigurationSyncStatus
+instance Prelude.ToByteString ConfigurationSyncStatus
 
-instance ToQuery ConfigurationSyncStatus
+instance Prelude.ToQuery ConfigurationSyncStatus
 
-instance ToHeader ConfigurationSyncStatus
+instance Prelude.ToHeader ConfigurationSyncStatus
 
-instance FromJSON ConfigurationSyncStatus where
-  parseJSON = parseJSONText "ConfigurationSyncStatus"
+instance Prelude.FromJSON ConfigurationSyncStatus where
+  parseJSON = Prelude.parseJSONText "ConfigurationSyncStatus"

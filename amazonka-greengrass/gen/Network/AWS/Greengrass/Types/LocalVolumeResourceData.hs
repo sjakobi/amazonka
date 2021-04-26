@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,83 +20,86 @@
 module Network.AWS.Greengrass.Types.LocalVolumeResourceData where
 
 import Network.AWS.Greengrass.Types.GroupOwnerSetting
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Attributes that define a local volume resource.
 --
--- /See:/ 'localVolumeResourceData' smart constructor.
+-- /See:/ 'newLocalVolumeResourceData' smart constructor.
 data LocalVolumeResourceData = LocalVolumeResourceData'
-  { _lvrdDestinationPath ::
-      !(Maybe Text),
-    _lvrdSourcePath ::
-      !(Maybe Text),
-    _lvrdGroupOwnerSetting ::
-      !( Maybe
-           GroupOwnerSetting
-       )
+  { -- | The absolute local path of the resource inside the Lambda environment.
+    destinationPath :: Prelude.Maybe Prelude.Text,
+    -- | The local absolute path of the volume resource on the host. The source
+    -- path for a volume resource type cannot start with \'\'\/sys\'\'.
+    sourcePath :: Prelude.Maybe Prelude.Text,
+    -- | Allows you to configure additional group privileges for the Lambda
+    -- process. This field is optional.
+    groupOwnerSetting :: Prelude.Maybe GroupOwnerSetting
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LocalVolumeResourceData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LocalVolumeResourceData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lvrdDestinationPath' - The absolute local path of the resource inside the Lambda environment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lvrdSourcePath' - The local absolute path of the volume resource on the host. The source path for a volume resource type cannot start with ''/sys''.
+-- 'destinationPath', 'localVolumeResourceData_destinationPath' - The absolute local path of the resource inside the Lambda environment.
 --
--- * 'lvrdGroupOwnerSetting' - Allows you to configure additional group privileges for the Lambda process. This field is optional.
-localVolumeResourceData ::
+-- 'sourcePath', 'localVolumeResourceData_sourcePath' - The local absolute path of the volume resource on the host. The source
+-- path for a volume resource type cannot start with \'\'\/sys\'\'.
+--
+-- 'groupOwnerSetting', 'localVolumeResourceData_groupOwnerSetting' - Allows you to configure additional group privileges for the Lambda
+-- process. This field is optional.
+newLocalVolumeResourceData ::
   LocalVolumeResourceData
-localVolumeResourceData =
+newLocalVolumeResourceData =
   LocalVolumeResourceData'
-    { _lvrdDestinationPath =
-        Nothing,
-      _lvrdSourcePath = Nothing,
-      _lvrdGroupOwnerSetting = Nothing
+    { destinationPath =
+        Prelude.Nothing,
+      sourcePath = Prelude.Nothing,
+      groupOwnerSetting = Prelude.Nothing
     }
 
 -- | The absolute local path of the resource inside the Lambda environment.
-lvrdDestinationPath :: Lens' LocalVolumeResourceData (Maybe Text)
-lvrdDestinationPath = lens _lvrdDestinationPath (\s a -> s {_lvrdDestinationPath = a})
+localVolumeResourceData_destinationPath :: Lens.Lens' LocalVolumeResourceData (Prelude.Maybe Prelude.Text)
+localVolumeResourceData_destinationPath = Lens.lens (\LocalVolumeResourceData' {destinationPath} -> destinationPath) (\s@LocalVolumeResourceData' {} a -> s {destinationPath = a} :: LocalVolumeResourceData)
 
--- | The local absolute path of the volume resource on the host. The source path for a volume resource type cannot start with ''/sys''.
-lvrdSourcePath :: Lens' LocalVolumeResourceData (Maybe Text)
-lvrdSourcePath = lens _lvrdSourcePath (\s a -> s {_lvrdSourcePath = a})
+-- | The local absolute path of the volume resource on the host. The source
+-- path for a volume resource type cannot start with \'\'\/sys\'\'.
+localVolumeResourceData_sourcePath :: Lens.Lens' LocalVolumeResourceData (Prelude.Maybe Prelude.Text)
+localVolumeResourceData_sourcePath = Lens.lens (\LocalVolumeResourceData' {sourcePath} -> sourcePath) (\s@LocalVolumeResourceData' {} a -> s {sourcePath = a} :: LocalVolumeResourceData)
 
--- | Allows you to configure additional group privileges for the Lambda process. This field is optional.
-lvrdGroupOwnerSetting :: Lens' LocalVolumeResourceData (Maybe GroupOwnerSetting)
-lvrdGroupOwnerSetting = lens _lvrdGroupOwnerSetting (\s a -> s {_lvrdGroupOwnerSetting = a})
+-- | Allows you to configure additional group privileges for the Lambda
+-- process. This field is optional.
+localVolumeResourceData_groupOwnerSetting :: Lens.Lens' LocalVolumeResourceData (Prelude.Maybe GroupOwnerSetting)
+localVolumeResourceData_groupOwnerSetting = Lens.lens (\LocalVolumeResourceData' {groupOwnerSetting} -> groupOwnerSetting) (\s@LocalVolumeResourceData' {} a -> s {groupOwnerSetting = a} :: LocalVolumeResourceData)
 
-instance FromJSON LocalVolumeResourceData where
+instance Prelude.FromJSON LocalVolumeResourceData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LocalVolumeResourceData"
       ( \x ->
           LocalVolumeResourceData'
-            <$> (x .:? "DestinationPath")
-            <*> (x .:? "SourcePath")
-            <*> (x .:? "GroupOwnerSetting")
+            Prelude.<$> (x Prelude..:? "DestinationPath")
+            Prelude.<*> (x Prelude..:? "SourcePath")
+            Prelude.<*> (x Prelude..:? "GroupOwnerSetting")
       )
 
-instance Hashable LocalVolumeResourceData
+instance Prelude.Hashable LocalVolumeResourceData
 
-instance NFData LocalVolumeResourceData
+instance Prelude.NFData LocalVolumeResourceData
 
-instance ToJSON LocalVolumeResourceData where
+instance Prelude.ToJSON LocalVolumeResourceData where
   toJSON LocalVolumeResourceData' {..} =
-    object
-      ( catMaybes
-          [ ("DestinationPath" .=) <$> _lvrdDestinationPath,
-            ("SourcePath" .=) <$> _lvrdSourcePath,
-            ("GroupOwnerSetting" .=) <$> _lvrdGroupOwnerSetting
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DestinationPath" Prelude..=)
+              Prelude.<$> destinationPath,
+            ("SourcePath" Prelude..=) Prelude.<$> sourcePath,
+            ("GroupOwnerSetting" Prelude..=)
+              Prelude.<$> groupOwnerSetting
           ]
       )

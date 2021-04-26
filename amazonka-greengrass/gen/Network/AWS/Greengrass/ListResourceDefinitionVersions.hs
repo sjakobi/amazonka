@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,194 +26,223 @@
 -- This operation returns paginated results.
 module Network.AWS.Greengrass.ListResourceDefinitionVersions
   ( -- * Creating a Request
-    listResourceDefinitionVersions,
-    ListResourceDefinitionVersions,
+    ListResourceDefinitionVersions (..),
+    newListResourceDefinitionVersions,
 
     -- * Request Lenses
-    lrdvNextToken,
-    lrdvMaxResults,
-    lrdvResourceDefinitionId,
+    listResourceDefinitionVersions_nextToken,
+    listResourceDefinitionVersions_maxResults,
+    listResourceDefinitionVersions_resourceDefinitionId,
 
     -- * Destructuring the Response
-    listResourceDefinitionVersionsResponse,
-    ListResourceDefinitionVersionsResponse,
+    ListResourceDefinitionVersionsResponse (..),
+    newListResourceDefinitionVersionsResponse,
 
     -- * Response Lenses
-    lrdvrrsNextToken,
-    lrdvrrsVersions,
-    lrdvrrsResponseStatus,
+    listResourceDefinitionVersionsResponse_nextToken,
+    listResourceDefinitionVersionsResponse_versions,
+    listResourceDefinitionVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.VersionInformation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listResourceDefinitionVersions' smart constructor.
+-- | /See:/ 'newListResourceDefinitionVersions' smart constructor.
 data ListResourceDefinitionVersions = ListResourceDefinitionVersions'
-  { _lrdvNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lrdvMaxResults ::
-      !( Maybe
-           Text
-       ),
-    _lrdvResourceDefinitionId ::
-      !Text
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the resource definition.
+    resourceDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResourceDefinitionVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResourceDefinitionVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrdvNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrdvMaxResults' - The maximum number of results to be returned per request.
+-- 'nextToken', 'listResourceDefinitionVersions_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'lrdvResourceDefinitionId' - The ID of the resource definition.
-listResourceDefinitionVersions ::
-  -- | 'lrdvResourceDefinitionId'
-  Text ->
+-- 'maxResults', 'listResourceDefinitionVersions_maxResults' - The maximum number of results to be returned per request.
+--
+-- 'resourceDefinitionId', 'listResourceDefinitionVersions_resourceDefinitionId' - The ID of the resource definition.
+newListResourceDefinitionVersions ::
+  -- | 'resourceDefinitionId'
+  Prelude.Text ->
   ListResourceDefinitionVersions
-listResourceDefinitionVersions pResourceDefinitionId_ =
-  ListResourceDefinitionVersions'
-    { _lrdvNextToken =
-        Nothing,
-      _lrdvMaxResults = Nothing,
-      _lrdvResourceDefinitionId =
-        pResourceDefinitionId_
-    }
+newListResourceDefinitionVersions
+  pResourceDefinitionId_ =
+    ListResourceDefinitionVersions'
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        resourceDefinitionId =
+          pResourceDefinitionId_
+      }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lrdvNextToken :: Lens' ListResourceDefinitionVersions (Maybe Text)
-lrdvNextToken = lens _lrdvNextToken (\s a -> s {_lrdvNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listResourceDefinitionVersions_nextToken :: Lens.Lens' ListResourceDefinitionVersions (Prelude.Maybe Prelude.Text)
+listResourceDefinitionVersions_nextToken = Lens.lens (\ListResourceDefinitionVersions' {nextToken} -> nextToken) (\s@ListResourceDefinitionVersions' {} a -> s {nextToken = a} :: ListResourceDefinitionVersions)
 
 -- | The maximum number of results to be returned per request.
-lrdvMaxResults :: Lens' ListResourceDefinitionVersions (Maybe Text)
-lrdvMaxResults = lens _lrdvMaxResults (\s a -> s {_lrdvMaxResults = a})
+listResourceDefinitionVersions_maxResults :: Lens.Lens' ListResourceDefinitionVersions (Prelude.Maybe Prelude.Text)
+listResourceDefinitionVersions_maxResults = Lens.lens (\ListResourceDefinitionVersions' {maxResults} -> maxResults) (\s@ListResourceDefinitionVersions' {} a -> s {maxResults = a} :: ListResourceDefinitionVersions)
 
 -- | The ID of the resource definition.
-lrdvResourceDefinitionId :: Lens' ListResourceDefinitionVersions Text
-lrdvResourceDefinitionId = lens _lrdvResourceDefinitionId (\s a -> s {_lrdvResourceDefinitionId = a})
+listResourceDefinitionVersions_resourceDefinitionId :: Lens.Lens' ListResourceDefinitionVersions Prelude.Text
+listResourceDefinitionVersions_resourceDefinitionId = Lens.lens (\ListResourceDefinitionVersions' {resourceDefinitionId} -> resourceDefinitionId) (\s@ListResourceDefinitionVersions' {} a -> s {resourceDefinitionId = a} :: ListResourceDefinitionVersions)
 
-instance AWSPager ListResourceDefinitionVersions where
+instance
+  Pager.AWSPager
+    ListResourceDefinitionVersions
+  where
   page rq rs
-    | stop (rs ^. lrdvrrsNextToken) = Nothing
-    | stop (rs ^. lrdvrrsVersions) = Nothing
-    | otherwise =
-      Just $ rq & lrdvNextToken .~ rs ^. lrdvrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listResourceDefinitionVersionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listResourceDefinitionVersionsResponse_versions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listResourceDefinitionVersions_nextToken
+          Lens..~ rs
+          Lens.^? listResourceDefinitionVersionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListResourceDefinitionVersions where
+instance
+  Prelude.AWSRequest
+    ListResourceDefinitionVersions
+  where
   type
     Rs ListResourceDefinitionVersions =
       ListResourceDefinitionVersionsResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListResourceDefinitionVersionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Versions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Versions" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListResourceDefinitionVersions
+instance
+  Prelude.Hashable
+    ListResourceDefinitionVersions
 
-instance NFData ListResourceDefinitionVersions
+instance
+  Prelude.NFData
+    ListResourceDefinitionVersions
 
-instance ToHeaders ListResourceDefinitionVersions where
+instance
+  Prelude.ToHeaders
+    ListResourceDefinitionVersions
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListResourceDefinitionVersions where
+instance
+  Prelude.ToPath
+    ListResourceDefinitionVersions
+  where
   toPath ListResourceDefinitionVersions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/resources/",
-        toBS _lrdvResourceDefinitionId,
+        Prelude.toBS resourceDefinitionId,
         "/versions"
       ]
 
-instance ToQuery ListResourceDefinitionVersions where
+instance
+  Prelude.ToQuery
+    ListResourceDefinitionVersions
+  where
   toQuery ListResourceDefinitionVersions' {..} =
-    mconcat
-      [ "NextToken" =: _lrdvNextToken,
-        "MaxResults" =: _lrdvMaxResults
+    Prelude.mconcat
+      [ "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listResourceDefinitionVersionsResponse' smart constructor.
+-- | /See:/ 'newListResourceDefinitionVersionsResponse' smart constructor.
 data ListResourceDefinitionVersionsResponse = ListResourceDefinitionVersionsResponse'
-  { _lrdvrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lrdvrrsVersions ::
-      !( Maybe
-           [VersionInformation]
-       ),
-    _lrdvrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about a version.
+    versions :: Prelude.Maybe [VersionInformation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResourceDefinitionVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResourceDefinitionVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrdvrrsNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrdvrrsVersions' - Information about a version.
+-- 'nextToken', 'listResourceDefinitionVersionsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'lrdvrrsResponseStatus' - -- | The response status code.
-listResourceDefinitionVersionsResponse ::
-  -- | 'lrdvrrsResponseStatus'
-  Int ->
+-- 'versions', 'listResourceDefinitionVersionsResponse_versions' - Information about a version.
+--
+-- 'httpStatus', 'listResourceDefinitionVersionsResponse_httpStatus' - The response's http status code.
+newListResourceDefinitionVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListResourceDefinitionVersionsResponse
-listResourceDefinitionVersionsResponse
-  pResponseStatus_ =
+newListResourceDefinitionVersionsResponse
+  pHttpStatus_ =
     ListResourceDefinitionVersionsResponse'
-      { _lrdvrrsNextToken =
-          Nothing,
-        _lrdvrrsVersions = Nothing,
-        _lrdvrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        versions = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lrdvrrsNextToken :: Lens' ListResourceDefinitionVersionsResponse (Maybe Text)
-lrdvrrsNextToken = lens _lrdvrrsNextToken (\s a -> s {_lrdvrrsNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listResourceDefinitionVersionsResponse_nextToken :: Lens.Lens' ListResourceDefinitionVersionsResponse (Prelude.Maybe Prelude.Text)
+listResourceDefinitionVersionsResponse_nextToken = Lens.lens (\ListResourceDefinitionVersionsResponse' {nextToken} -> nextToken) (\s@ListResourceDefinitionVersionsResponse' {} a -> s {nextToken = a} :: ListResourceDefinitionVersionsResponse)
 
 -- | Information about a version.
-lrdvrrsVersions :: Lens' ListResourceDefinitionVersionsResponse [VersionInformation]
-lrdvrrsVersions = lens _lrdvrrsVersions (\s a -> s {_lrdvrrsVersions = a}) . _Default . _Coerce
+listResourceDefinitionVersionsResponse_versions :: Lens.Lens' ListResourceDefinitionVersionsResponse (Prelude.Maybe [VersionInformation])
+listResourceDefinitionVersionsResponse_versions = Lens.lens (\ListResourceDefinitionVersionsResponse' {versions} -> versions) (\s@ListResourceDefinitionVersionsResponse' {} a -> s {versions = a} :: ListResourceDefinitionVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrdvrrsResponseStatus :: Lens' ListResourceDefinitionVersionsResponse Int
-lrdvrrsResponseStatus = lens _lrdvrrsResponseStatus (\s a -> s {_lrdvrrsResponseStatus = a})
+-- | The response's http status code.
+listResourceDefinitionVersionsResponse_httpStatus :: Lens.Lens' ListResourceDefinitionVersionsResponse Prelude.Int
+listResourceDefinitionVersionsResponse_httpStatus = Lens.lens (\ListResourceDefinitionVersionsResponse' {httpStatus} -> httpStatus) (\s@ListResourceDefinitionVersionsResponse' {} a -> s {httpStatus = a} :: ListResourceDefinitionVersionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListResourceDefinitionVersionsResponse

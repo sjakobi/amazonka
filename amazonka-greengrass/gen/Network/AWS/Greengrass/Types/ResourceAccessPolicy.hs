@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,62 +20,74 @@
 module Network.AWS.Greengrass.Types.ResourceAccessPolicy where
 
 import Network.AWS.Greengrass.Types.Permission
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A policy used by the function to access a resource.
 --
--- /See:/ 'resourceAccessPolicy' smart constructor.
+-- /See:/ 'newResourceAccessPolicy' smart constructor.
 data ResourceAccessPolicy = ResourceAccessPolicy'
-  { _rapPermission ::
-      !(Maybe Permission),
-    _rapResourceId :: !Text
+  { -- | The permissions that the Lambda function has to the resource. Can be one
+    -- of \'\'rw\'\' (read\/write) or \'\'ro\'\' (read-only).
+    permission :: Prelude.Maybe Permission,
+    -- | The ID of the resource. (This ID is assigned to the resource when you
+    -- create the resource definiton.)
+    resourceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceAccessPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceAccessPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rapPermission' - The permissions that the Lambda function has to the resource. Can be one of ''rw'' (read/write) or ''ro'' (read-only).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rapResourceId' - The ID of the resource. (This ID is assigned to the resource when you create the resource definiton.)
-resourceAccessPolicy ::
-  -- | 'rapResourceId'
-  Text ->
+-- 'permission', 'resourceAccessPolicy_permission' - The permissions that the Lambda function has to the resource. Can be one
+-- of \'\'rw\'\' (read\/write) or \'\'ro\'\' (read-only).
+--
+-- 'resourceId', 'resourceAccessPolicy_resourceId' - The ID of the resource. (This ID is assigned to the resource when you
+-- create the resource definiton.)
+newResourceAccessPolicy ::
+  -- | 'resourceId'
+  Prelude.Text ->
   ResourceAccessPolicy
-resourceAccessPolicy pResourceId_ =
+newResourceAccessPolicy pResourceId_ =
   ResourceAccessPolicy'
-    { _rapPermission = Nothing,
-      _rapResourceId = pResourceId_
+    { permission = Prelude.Nothing,
+      resourceId = pResourceId_
     }
 
--- | The permissions that the Lambda function has to the resource. Can be one of ''rw'' (read/write) or ''ro'' (read-only).
-rapPermission :: Lens' ResourceAccessPolicy (Maybe Permission)
-rapPermission = lens _rapPermission (\s a -> s {_rapPermission = a})
+-- | The permissions that the Lambda function has to the resource. Can be one
+-- of \'\'rw\'\' (read\/write) or \'\'ro\'\' (read-only).
+resourceAccessPolicy_permission :: Lens.Lens' ResourceAccessPolicy (Prelude.Maybe Permission)
+resourceAccessPolicy_permission = Lens.lens (\ResourceAccessPolicy' {permission} -> permission) (\s@ResourceAccessPolicy' {} a -> s {permission = a} :: ResourceAccessPolicy)
 
--- | The ID of the resource. (This ID is assigned to the resource when you create the resource definiton.)
-rapResourceId :: Lens' ResourceAccessPolicy Text
-rapResourceId = lens _rapResourceId (\s a -> s {_rapResourceId = a})
+-- | The ID of the resource. (This ID is assigned to the resource when you
+-- create the resource definiton.)
+resourceAccessPolicy_resourceId :: Lens.Lens' ResourceAccessPolicy Prelude.Text
+resourceAccessPolicy_resourceId = Lens.lens (\ResourceAccessPolicy' {resourceId} -> resourceId) (\s@ResourceAccessPolicy' {} a -> s {resourceId = a} :: ResourceAccessPolicy)
 
-instance FromJSON ResourceAccessPolicy where
+instance Prelude.FromJSON ResourceAccessPolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceAccessPolicy"
       ( \x ->
           ResourceAccessPolicy'
-            <$> (x .:? "Permission") <*> (x .: "ResourceId")
+            Prelude.<$> (x Prelude..:? "Permission")
+            Prelude.<*> (x Prelude..: "ResourceId")
       )
 
-instance Hashable ResourceAccessPolicy
+instance Prelude.Hashable ResourceAccessPolicy
 
-instance NFData ResourceAccessPolicy
+instance Prelude.NFData ResourceAccessPolicy
 
-instance ToJSON ResourceAccessPolicy where
+instance Prelude.ToJSON ResourceAccessPolicy where
   toJSON ResourceAccessPolicy' {..} =
-    object
-      ( catMaybes
-          [ ("Permission" .=) <$> _rapPermission,
-            Just ("ResourceId" .= _rapResourceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Permission" Prelude..=) Prelude.<$> permission,
+            Prelude.Just ("ResourceId" Prelude..= resourceId)
           ]
       )

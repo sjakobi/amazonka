@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,143 +26,175 @@
 -- This operation returns paginated results.
 module Network.AWS.Greengrass.ListGroups
   ( -- * Creating a Request
-    listGroups,
-    ListGroups,
+    ListGroups (..),
+    newListGroups,
 
     -- * Request Lenses
-    lgNextToken,
-    lgMaxResults,
+    listGroups_nextToken,
+    listGroups_maxResults,
 
     -- * Destructuring the Response
-    listGroupsResponse,
-    ListGroupsResponse,
+    ListGroupsResponse (..),
+    newListGroupsResponse,
 
     -- * Response Lenses
-    lgrrsGroups,
-    lgrrsNextToken,
-    lgrrsResponseStatus,
+    listGroupsResponse_groups,
+    listGroupsResponse_nextToken,
+    listGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.GroupInformation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listGroups' smart constructor.
+-- | /See:/ 'newListGroups' smart constructor.
 data ListGroups = ListGroups'
-  { _lgNextToken ::
-      !(Maybe Text),
-    _lgMaxResults :: !(Maybe Text)
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgMaxResults' - The maximum number of results to be returned per request.
-listGroups ::
+-- 'nextToken', 'listGroups_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+--
+-- 'maxResults', 'listGroups_maxResults' - The maximum number of results to be returned per request.
+newListGroups ::
   ListGroups
-listGroups =
+newListGroups =
   ListGroups'
-    { _lgNextToken = Nothing,
-      _lgMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lgNextToken :: Lens' ListGroups (Maybe Text)
-lgNextToken = lens _lgNextToken (\s a -> s {_lgNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listGroups_nextToken :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
+listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@ListGroups' {} a -> s {nextToken = a} :: ListGroups)
 
 -- | The maximum number of results to be returned per request.
-lgMaxResults :: Lens' ListGroups (Maybe Text)
-lgMaxResults = lens _lgMaxResults (\s a -> s {_lgMaxResults = a})
+listGroups_maxResults :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
+listGroups_maxResults = Lens.lens (\ListGroups' {maxResults} -> maxResults) (\s@ListGroups' {} a -> s {maxResults = a} :: ListGroups)
 
-instance AWSPager ListGroups where
+instance Pager.AWSPager ListGroups where
   page rq rs
-    | stop (rs ^. lgrrsNextToken) = Nothing
-    | stop (rs ^. lgrrsGroups) = Nothing
-    | otherwise =
-      Just $ rq & lgNextToken .~ rs ^. lgrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listGroupsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listGroupsResponse_groups Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listGroups_nextToken
+          Lens..~ rs
+          Lens.^? listGroupsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListGroups where
+instance Prelude.AWSRequest ListGroups where
   type Rs ListGroups = ListGroupsResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListGroupsResponse'
-            <$> (x .?> "Groups" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Groups" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListGroups
+instance Prelude.Hashable ListGroups
 
-instance NFData ListGroups
+instance Prelude.NFData ListGroups
 
-instance ToHeaders ListGroups where
+instance Prelude.ToHeaders ListGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListGroups where
-  toPath = const "/greengrass/groups"
+instance Prelude.ToPath ListGroups where
+  toPath = Prelude.const "/greengrass/groups"
 
-instance ToQuery ListGroups where
+instance Prelude.ToQuery ListGroups where
   toQuery ListGroups' {..} =
-    mconcat
-      [ "NextToken" =: _lgNextToken,
-        "MaxResults" =: _lgMaxResults
+    Prelude.mconcat
+      [ "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listGroupsResponse' smart constructor.
+-- | /See:/ 'newListGroupsResponse' smart constructor.
 data ListGroupsResponse = ListGroupsResponse'
-  { _lgrrsGroups ::
-      !(Maybe [GroupInformation]),
-    _lgrrsNextToken :: !(Maybe Text),
-    _lgrrsResponseStatus :: !Int
+  { -- | Information about a group.
+    groups :: Prelude.Maybe [GroupInformation],
+    -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgrrsGroups' - Information about a group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgrrsNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- 'groups', 'listGroupsResponse_groups' - Information about a group.
 --
--- * 'lgrrsResponseStatus' - -- | The response status code.
-listGroupsResponse ::
-  -- | 'lgrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listGroupsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+--
+-- 'httpStatus', 'listGroupsResponse_httpStatus' - The response's http status code.
+newListGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListGroupsResponse
-listGroupsResponse pResponseStatus_ =
+newListGroupsResponse pHttpStatus_ =
   ListGroupsResponse'
-    { _lgrrsGroups = Nothing,
-      _lgrrsNextToken = Nothing,
-      _lgrrsResponseStatus = pResponseStatus_
+    { groups = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about a group.
-lgrrsGroups :: Lens' ListGroupsResponse [GroupInformation]
-lgrrsGroups = lens _lgrrsGroups (\s a -> s {_lgrrsGroups = a}) . _Default . _Coerce
+listGroupsResponse_groups :: Lens.Lens' ListGroupsResponse (Prelude.Maybe [GroupInformation])
+listGroupsResponse_groups = Lens.lens (\ListGroupsResponse' {groups} -> groups) (\s@ListGroupsResponse' {} a -> s {groups = a} :: ListGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lgrrsNextToken :: Lens' ListGroupsResponse (Maybe Text)
-lgrrsNextToken = lens _lgrrsNextToken (\s a -> s {_lgrrsNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listGroupsResponse_nextToken :: Lens.Lens' ListGroupsResponse (Prelude.Maybe Prelude.Text)
+listGroupsResponse_nextToken = Lens.lens (\ListGroupsResponse' {nextToken} -> nextToken) (\s@ListGroupsResponse' {} a -> s {nextToken = a} :: ListGroupsResponse)
 
--- | -- | The response status code.
-lgrrsResponseStatus :: Lens' ListGroupsResponse Int
-lgrrsResponseStatus = lens _lgrrsResponseStatus (\s a -> s {_lgrrsResponseStatus = a})
+-- | The response's http status code.
+listGroupsResponse_httpStatus :: Lens.Lens' ListGroupsResponse Prelude.Int
+listGroupsResponse_httpStatus = Lens.lens (\ListGroupsResponse' {httpStatus} -> httpStatus) (\s@ListGroupsResponse' {} a -> s {httpStatus = a} :: ListGroupsResponse)
 
-instance NFData ListGroupsResponse
+instance Prelude.NFData ListGroupsResponse

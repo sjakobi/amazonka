@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.Connector where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a connector. Connectors run on the Greengrass core and contain built-in integration with local infrastructure, device protocols, AWS, and other cloud services.
+-- | Information about a connector. Connectors run on the Greengrass core and
+-- contain built-in integration with local infrastructure, device
+-- protocols, AWS, and other cloud services.
 --
--- /See:/ 'connector' smart constructor.
+-- /See:/ 'newConnector' smart constructor.
 data Connector = Connector'
-  { _cParameters ::
-      !(Maybe (Map Text Text)),
-    _cConnectorARN :: !Text,
-    _cId :: !Text
+  { -- | The parameters or configuration that the connector uses.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The ARN of the connector.
+    connectorArn :: Prelude.Text,
+    -- | A descriptive or arbitrary ID for the connector. This value must be
+    -- unique within the connector definition version. Max length is 128
+    -- characters with pattern [a-zA-Z0-9:_-]+.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Connector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Connector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cParameters' - The parameters or configuration that the connector uses.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cConnectorARN' - The ARN of the connector.
+-- 'parameters', 'connector_parameters' - The parameters or configuration that the connector uses.
 --
--- * 'cId' - A descriptive or arbitrary ID for the connector. This value must be unique within the connector definition version. Max length is 128 characters with pattern [a-zA-Z0-9:_-]+.
-connector ::
-  -- | 'cConnectorARN'
-  Text ->
-  -- | 'cId'
-  Text ->
+-- 'connectorArn', 'connector_connectorArn' - The ARN of the connector.
+--
+-- 'id', 'connector_id' - A descriptive or arbitrary ID for the connector. This value must be
+-- unique within the connector definition version. Max length is 128
+-- characters with pattern [a-zA-Z0-9:_-]+.
+newConnector ::
+  -- | 'connectorArn'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
   Connector
-connector pConnectorARN_ pId_ =
+newConnector pConnectorArn_ pId_ =
   Connector'
-    { _cParameters = Nothing,
-      _cConnectorARN = pConnectorARN_,
-      _cId = pId_
+    { parameters = Prelude.Nothing,
+      connectorArn = pConnectorArn_,
+      id = pId_
     }
 
 -- | The parameters or configuration that the connector uses.
-cParameters :: Lens' Connector (HashMap Text Text)
-cParameters = lens _cParameters (\s a -> s {_cParameters = a}) . _Default . _Map
+connector_parameters :: Lens.Lens' Connector (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+connector_parameters = Lens.lens (\Connector' {parameters} -> parameters) (\s@Connector' {} a -> s {parameters = a} :: Connector) Prelude.. Lens.mapping Prelude._Map
 
 -- | The ARN of the connector.
-cConnectorARN :: Lens' Connector Text
-cConnectorARN = lens _cConnectorARN (\s a -> s {_cConnectorARN = a})
+connector_connectorArn :: Lens.Lens' Connector Prelude.Text
+connector_connectorArn = Lens.lens (\Connector' {connectorArn} -> connectorArn) (\s@Connector' {} a -> s {connectorArn = a} :: Connector)
 
--- | A descriptive or arbitrary ID for the connector. This value must be unique within the connector definition version. Max length is 128 characters with pattern [a-zA-Z0-9:_-]+.
-cId :: Lens' Connector Text
-cId = lens _cId (\s a -> s {_cId = a})
+-- | A descriptive or arbitrary ID for the connector. This value must be
+-- unique within the connector definition version. Max length is 128
+-- characters with pattern [a-zA-Z0-9:_-]+.
+connector_id :: Lens.Lens' Connector Prelude.Text
+connector_id = Lens.lens (\Connector' {id} -> id) (\s@Connector' {} a -> s {id = a} :: Connector)
 
-instance FromJSON Connector where
+instance Prelude.FromJSON Connector where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Connector"
       ( \x ->
           Connector'
-            <$> (x .:? "Parameters" .!= mempty)
-            <*> (x .: "ConnectorArn")
-            <*> (x .: "Id")
+            Prelude.<$> ( x Prelude..:? "Parameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "ConnectorArn")
+            Prelude.<*> (x Prelude..: "Id")
       )
 
-instance Hashable Connector
+instance Prelude.Hashable Connector
 
-instance NFData Connector
+instance Prelude.NFData Connector
 
-instance ToJSON Connector where
+instance Prelude.ToJSON Connector where
   toJSON Connector' {..} =
-    object
-      ( catMaybes
-          [ ("Parameters" .=) <$> _cParameters,
-            Just ("ConnectorArn" .= _cConnectorARN),
-            Just ("Id" .= _cId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Parameters" Prelude..=) Prelude.<$> parameters,
+            Prelude.Just
+              ("ConnectorArn" Prelude..= connectorArn),
+            Prelude.Just ("Id" Prelude..= id)
           ]
       )

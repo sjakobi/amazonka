@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,167 +26,187 @@
 -- This operation returns paginated results.
 module Network.AWS.Greengrass.ListConnectorDefinitions
   ( -- * Creating a Request
-    listConnectorDefinitions,
-    ListConnectorDefinitions,
+    ListConnectorDefinitions (..),
+    newListConnectorDefinitions,
 
     -- * Request Lenses
-    lcdsNextToken,
-    lcdsMaxResults,
+    listConnectorDefinitions_nextToken,
+    listConnectorDefinitions_maxResults,
 
     -- * Destructuring the Response
-    listConnectorDefinitionsResponse,
-    ListConnectorDefinitionsResponse,
+    ListConnectorDefinitionsResponse (..),
+    newListConnectorDefinitionsResponse,
 
     -- * Response Lenses
-    lrsNextToken,
-    lrsDefinitions,
-    lrsResponseStatus,
+    listConnectorDefinitionsResponse_nextToken,
+    listConnectorDefinitionsResponse_definitions,
+    listConnectorDefinitionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.DefinitionInformation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listConnectorDefinitions' smart constructor.
+-- | /See:/ 'newListConnectorDefinitions' smart constructor.
 data ListConnectorDefinitions = ListConnectorDefinitions'
-  { _lcdsNextToken ::
-      !(Maybe Text),
-    _lcdsMaxResults ::
-      !(Maybe Text)
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListConnectorDefinitions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListConnectorDefinitions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcdsNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcdsMaxResults' - The maximum number of results to be returned per request.
-listConnectorDefinitions ::
+-- 'nextToken', 'listConnectorDefinitions_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+--
+-- 'maxResults', 'listConnectorDefinitions_maxResults' - The maximum number of results to be returned per request.
+newListConnectorDefinitions ::
   ListConnectorDefinitions
-listConnectorDefinitions =
+newListConnectorDefinitions =
   ListConnectorDefinitions'
-    { _lcdsNextToken = Nothing,
-      _lcdsMaxResults = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lcdsNextToken :: Lens' ListConnectorDefinitions (Maybe Text)
-lcdsNextToken = lens _lcdsNextToken (\s a -> s {_lcdsNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listConnectorDefinitions_nextToken :: Lens.Lens' ListConnectorDefinitions (Prelude.Maybe Prelude.Text)
+listConnectorDefinitions_nextToken = Lens.lens (\ListConnectorDefinitions' {nextToken} -> nextToken) (\s@ListConnectorDefinitions' {} a -> s {nextToken = a} :: ListConnectorDefinitions)
 
 -- | The maximum number of results to be returned per request.
-lcdsMaxResults :: Lens' ListConnectorDefinitions (Maybe Text)
-lcdsMaxResults = lens _lcdsMaxResults (\s a -> s {_lcdsMaxResults = a})
+listConnectorDefinitions_maxResults :: Lens.Lens' ListConnectorDefinitions (Prelude.Maybe Prelude.Text)
+listConnectorDefinitions_maxResults = Lens.lens (\ListConnectorDefinitions' {maxResults} -> maxResults) (\s@ListConnectorDefinitions' {} a -> s {maxResults = a} :: ListConnectorDefinitions)
 
-instance AWSPager ListConnectorDefinitions where
+instance Pager.AWSPager ListConnectorDefinitions where
   page rq rs
-    | stop (rs ^. lrsNextToken) = Nothing
-    | stop (rs ^. lrsDefinitions) = Nothing
-    | otherwise =
-      Just $ rq & lcdsNextToken .~ rs ^. lrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listConnectorDefinitionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listConnectorDefinitionsResponse_definitions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listConnectorDefinitions_nextToken
+          Lens..~ rs
+          Lens.^? listConnectorDefinitionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListConnectorDefinitions where
+instance Prelude.AWSRequest ListConnectorDefinitions where
   type
     Rs ListConnectorDefinitions =
       ListConnectorDefinitionsResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListConnectorDefinitionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Definitions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Definitions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListConnectorDefinitions
+instance Prelude.Hashable ListConnectorDefinitions
 
-instance NFData ListConnectorDefinitions
+instance Prelude.NFData ListConnectorDefinitions
 
-instance ToHeaders ListConnectorDefinitions where
+instance Prelude.ToHeaders ListConnectorDefinitions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListConnectorDefinitions where
-  toPath = const "/greengrass/definition/connectors"
+instance Prelude.ToPath ListConnectorDefinitions where
+  toPath =
+    Prelude.const "/greengrass/definition/connectors"
 
-instance ToQuery ListConnectorDefinitions where
+instance Prelude.ToQuery ListConnectorDefinitions where
   toQuery ListConnectorDefinitions' {..} =
-    mconcat
-      [ "NextToken" =: _lcdsNextToken,
-        "MaxResults" =: _lcdsMaxResults
+    Prelude.mconcat
+      [ "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listConnectorDefinitionsResponse' smart constructor.
+-- | /See:/ 'newListConnectorDefinitionsResponse' smart constructor.
 data ListConnectorDefinitionsResponse = ListConnectorDefinitionsResponse'
-  { _lrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lrsDefinitions ::
-      !( Maybe
-           [DefinitionInformation]
-       ),
-    _lrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about a definition.
+    definitions :: Prelude.Maybe [DefinitionInformation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListConnectorDefinitionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListConnectorDefinitionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrsNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrsDefinitions' - Information about a definition.
+-- 'nextToken', 'listConnectorDefinitionsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'lrsResponseStatus' - -- | The response status code.
-listConnectorDefinitionsResponse ::
-  -- | 'lrsResponseStatus'
-  Int ->
+-- 'definitions', 'listConnectorDefinitionsResponse_definitions' - Information about a definition.
+--
+-- 'httpStatus', 'listConnectorDefinitionsResponse_httpStatus' - The response's http status code.
+newListConnectorDefinitionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListConnectorDefinitionsResponse
-listConnectorDefinitionsResponse pResponseStatus_ =
+newListConnectorDefinitionsResponse pHttpStatus_ =
   ListConnectorDefinitionsResponse'
-    { _lrsNextToken =
-        Nothing,
-      _lrsDefinitions = Nothing,
-      _lrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      definitions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lrsNextToken :: Lens' ListConnectorDefinitionsResponse (Maybe Text)
-lrsNextToken = lens _lrsNextToken (\s a -> s {_lrsNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listConnectorDefinitionsResponse_nextToken :: Lens.Lens' ListConnectorDefinitionsResponse (Prelude.Maybe Prelude.Text)
+listConnectorDefinitionsResponse_nextToken = Lens.lens (\ListConnectorDefinitionsResponse' {nextToken} -> nextToken) (\s@ListConnectorDefinitionsResponse' {} a -> s {nextToken = a} :: ListConnectorDefinitionsResponse)
 
 -- | Information about a definition.
-lrsDefinitions :: Lens' ListConnectorDefinitionsResponse [DefinitionInformation]
-lrsDefinitions = lens _lrsDefinitions (\s a -> s {_lrsDefinitions = a}) . _Default . _Coerce
+listConnectorDefinitionsResponse_definitions :: Lens.Lens' ListConnectorDefinitionsResponse (Prelude.Maybe [DefinitionInformation])
+listConnectorDefinitionsResponse_definitions = Lens.lens (\ListConnectorDefinitionsResponse' {definitions} -> definitions) (\s@ListConnectorDefinitionsResponse' {} a -> s {definitions = a} :: ListConnectorDefinitionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrsResponseStatus :: Lens' ListConnectorDefinitionsResponse Int
-lrsResponseStatus = lens _lrsResponseStatus (\s a -> s {_lrsResponseStatus = a})
+-- | The response's http status code.
+listConnectorDefinitionsResponse_httpStatus :: Lens.Lens' ListConnectorDefinitionsResponse Prelude.Int
+listConnectorDefinitionsResponse_httpStatus = Lens.lens (\ListConnectorDefinitionsResponse' {httpStatus} -> httpStatus) (\s@ListConnectorDefinitionsResponse' {} a -> s {httpStatus = a} :: ListConnectorDefinitionsResponse)
 
-instance NFData ListConnectorDefinitionsResponse
+instance
+  Prelude.NFData
+    ListConnectorDefinitionsResponse

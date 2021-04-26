@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,184 +24,209 @@
 -- Retrieves information about a group.
 module Network.AWS.Greengrass.GetGroup
   ( -- * Creating a Request
-    getGroup,
-    GetGroup,
+    GetGroup (..),
+    newGetGroup,
 
     -- * Request Lenses
-    ggGroupId,
+    getGroup_groupId,
 
     -- * Destructuring the Response
-    getGroupResponse,
-    GetGroupResponse,
+    GetGroupResponse (..),
+    newGetGroupResponse,
 
     -- * Response Lenses
-    ggrrsCreationTimestamp,
-    ggrrsLatestVersionARN,
-    ggrrsLatestVersion,
-    ggrrsARN,
-    ggrrsId,
-    ggrrsName,
-    ggrrsLastUpdatedTimestamp,
-    ggrrsTags,
-    ggrrsResponseStatus,
+    getGroupResponse_creationTimestamp,
+    getGroupResponse_latestVersionArn,
+    getGroupResponse_latestVersion,
+    getGroupResponse_arn,
+    getGroupResponse_id,
+    getGroupResponse_name,
+    getGroupResponse_lastUpdatedTimestamp,
+    getGroupResponse_tags,
+    getGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getGroup' smart constructor.
-newtype GetGroup = GetGroup' {_ggGroupId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetGroup' smart constructor.
+data GetGroup = GetGroup'
+  { -- | The ID of the Greengrass group.
+    groupId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggGroupId' - The ID of the Greengrass group.
-getGroup ::
-  -- | 'ggGroupId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'groupId', 'getGroup_groupId' - The ID of the Greengrass group.
+newGetGroup ::
+  -- | 'groupId'
+  Prelude.Text ->
   GetGroup
-getGroup pGroupId_ =
-  GetGroup' {_ggGroupId = pGroupId_}
+newGetGroup pGroupId_ =
+  GetGroup' {groupId = pGroupId_}
 
 -- | The ID of the Greengrass group.
-ggGroupId :: Lens' GetGroup Text
-ggGroupId = lens _ggGroupId (\s a -> s {_ggGroupId = a})
+getGroup_groupId :: Lens.Lens' GetGroup Prelude.Text
+getGroup_groupId = Lens.lens (\GetGroup' {groupId} -> groupId) (\s@GetGroup' {} a -> s {groupId = a} :: GetGroup)
 
-instance AWSRequest GetGroup where
+instance Prelude.AWSRequest GetGroup where
   type Rs GetGroup = GetGroupResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetGroupResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "LatestVersionArn")
-            <*> (x .?> "LatestVersion")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Name")
-            <*> (x .?> "LastUpdatedTimestamp")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "LatestVersionArn")
+            Prelude.<*> (x Prelude..?> "LatestVersion")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "LastUpdatedTimestamp")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetGroup
+instance Prelude.Hashable GetGroup
 
-instance NFData GetGroup
+instance Prelude.NFData GetGroup
 
-instance ToHeaders GetGroup where
+instance Prelude.ToHeaders GetGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetGroup where
+instance Prelude.ToPath GetGroup where
   toPath GetGroup' {..} =
-    mconcat ["/greengrass/groups/", toBS _ggGroupId]
+    Prelude.mconcat
+      ["/greengrass/groups/", Prelude.toBS groupId]
 
-instance ToQuery GetGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery GetGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getGroupResponse' smart constructor.
+-- | /See:/ 'newGetGroupResponse' smart constructor.
 data GetGroupResponse = GetGroupResponse'
-  { _ggrrsCreationTimestamp ::
-      !(Maybe Text),
-    _ggrrsLatestVersionARN ::
-      !(Maybe Text),
-    _ggrrsLatestVersion :: !(Maybe Text),
-    _ggrrsARN :: !(Maybe Text),
-    _ggrrsId :: !(Maybe Text),
-    _ggrrsName :: !(Maybe Text),
-    _ggrrsLastUpdatedTimestamp ::
-      !(Maybe Text),
-    _ggrrsTags ::
-      !(Maybe (Map Text Text)),
-    _ggrrsResponseStatus :: !Int
+  { -- | The time, in milliseconds since the epoch, when the definition was
+    -- created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the definition.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the definition.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the definition was last
+    -- updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | Tag(s) attached to the resource arn.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggrrsLatestVersionARN' - The ARN of the latest version associated with the definition.
+-- 'creationTimestamp', 'getGroupResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
+-- created.
 --
--- * 'ggrrsLatestVersion' - The ID of the latest version associated with the definition.
+-- 'latestVersionArn', 'getGroupResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
 --
--- * 'ggrrsARN' - The ARN of the definition.
+-- 'latestVersion', 'getGroupResponse_latestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'ggrrsId' - The ID of the definition.
+-- 'arn', 'getGroupResponse_arn' - The ARN of the definition.
 --
--- * 'ggrrsName' - The name of the definition.
+-- 'id', 'getGroupResponse_id' - The ID of the definition.
 --
--- * 'ggrrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- 'name', 'getGroupResponse_name' - The name of the definition.
 --
--- * 'ggrrsTags' - Tag(s) attached to the resource arn.
+-- 'lastUpdatedTimestamp', 'getGroupResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
+-- updated.
 --
--- * 'ggrrsResponseStatus' - -- | The response status code.
-getGroupResponse ::
-  -- | 'ggrrsResponseStatus'
-  Int ->
+-- 'tags', 'getGroupResponse_tags' - Tag(s) attached to the resource arn.
+--
+-- 'httpStatus', 'getGroupResponse_httpStatus' - The response's http status code.
+newGetGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetGroupResponse
-getGroupResponse pResponseStatus_ =
+newGetGroupResponse pHttpStatus_ =
   GetGroupResponse'
-    { _ggrrsCreationTimestamp =
-        Nothing,
-      _ggrrsLatestVersionARN = Nothing,
-      _ggrrsLatestVersion = Nothing,
-      _ggrrsARN = Nothing,
-      _ggrrsId = Nothing,
-      _ggrrsName = Nothing,
-      _ggrrsLastUpdatedTimestamp = Nothing,
-      _ggrrsTags = Nothing,
-      _ggrrsResponseStatus = pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the definition was created.
-ggrrsCreationTimestamp :: Lens' GetGroupResponse (Maybe Text)
-ggrrsCreationTimestamp = lens _ggrrsCreationTimestamp (\s a -> s {_ggrrsCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was
+-- created.
+getGroupResponse_creationTimestamp :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Text)
+getGroupResponse_creationTimestamp = Lens.lens (\GetGroupResponse' {creationTimestamp} -> creationTimestamp) (\s@GetGroupResponse' {} a -> s {creationTimestamp = a} :: GetGroupResponse)
 
 -- | The ARN of the latest version associated with the definition.
-ggrrsLatestVersionARN :: Lens' GetGroupResponse (Maybe Text)
-ggrrsLatestVersionARN = lens _ggrrsLatestVersionARN (\s a -> s {_ggrrsLatestVersionARN = a})
+getGroupResponse_latestVersionArn :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Text)
+getGroupResponse_latestVersionArn = Lens.lens (\GetGroupResponse' {latestVersionArn} -> latestVersionArn) (\s@GetGroupResponse' {} a -> s {latestVersionArn = a} :: GetGroupResponse)
 
 -- | The ID of the latest version associated with the definition.
-ggrrsLatestVersion :: Lens' GetGroupResponse (Maybe Text)
-ggrrsLatestVersion = lens _ggrrsLatestVersion (\s a -> s {_ggrrsLatestVersion = a})
+getGroupResponse_latestVersion :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Text)
+getGroupResponse_latestVersion = Lens.lens (\GetGroupResponse' {latestVersion} -> latestVersion) (\s@GetGroupResponse' {} a -> s {latestVersion = a} :: GetGroupResponse)
 
 -- | The ARN of the definition.
-ggrrsARN :: Lens' GetGroupResponse (Maybe Text)
-ggrrsARN = lens _ggrrsARN (\s a -> s {_ggrrsARN = a})
+getGroupResponse_arn :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Text)
+getGroupResponse_arn = Lens.lens (\GetGroupResponse' {arn} -> arn) (\s@GetGroupResponse' {} a -> s {arn = a} :: GetGroupResponse)
 
 -- | The ID of the definition.
-ggrrsId :: Lens' GetGroupResponse (Maybe Text)
-ggrrsId = lens _ggrrsId (\s a -> s {_ggrrsId = a})
+getGroupResponse_id :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Text)
+getGroupResponse_id = Lens.lens (\GetGroupResponse' {id} -> id) (\s@GetGroupResponse' {} a -> s {id = a} :: GetGroupResponse)
 
 -- | The name of the definition.
-ggrrsName :: Lens' GetGroupResponse (Maybe Text)
-ggrrsName = lens _ggrrsName (\s a -> s {_ggrrsName = a})
+getGroupResponse_name :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Text)
+getGroupResponse_name = Lens.lens (\GetGroupResponse' {name} -> name) (\s@GetGroupResponse' {} a -> s {name = a} :: GetGroupResponse)
 
--- | The time, in milliseconds since the epoch, when the definition was last updated.
-ggrrsLastUpdatedTimestamp :: Lens' GetGroupResponse (Maybe Text)
-ggrrsLastUpdatedTimestamp = lens _ggrrsLastUpdatedTimestamp (\s a -> s {_ggrrsLastUpdatedTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+getGroupResponse_lastUpdatedTimestamp :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Text)
+getGroupResponse_lastUpdatedTimestamp = Lens.lens (\GetGroupResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@GetGroupResponse' {} a -> s {lastUpdatedTimestamp = a} :: GetGroupResponse)
 
 -- | Tag(s) attached to the resource arn.
-ggrrsTags :: Lens' GetGroupResponse (HashMap Text Text)
-ggrrsTags = lens _ggrrsTags (\s a -> s {_ggrrsTags = a}) . _Default . _Map
+getGroupResponse_tags :: Lens.Lens' GetGroupResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getGroupResponse_tags = Lens.lens (\GetGroupResponse' {tags} -> tags) (\s@GetGroupResponse' {} a -> s {tags = a} :: GetGroupResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-ggrrsResponseStatus :: Lens' GetGroupResponse Int
-ggrrsResponseStatus = lens _ggrrsResponseStatus (\s a -> s {_ggrrsResponseStatus = a})
+-- | The response's http status code.
+getGroupResponse_httpStatus :: Lens.Lens' GetGroupResponse Prelude.Int
+getGroupResponse_httpStatus = Lens.lens (\GetGroupResponse' {httpStatus} -> httpStatus) (\s@GetGroupResponse' {} a -> s {httpStatus = a} :: GetGroupResponse)
 
-instance NFData GetGroupResponse
+instance Prelude.NFData GetGroupResponse

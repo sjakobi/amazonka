@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,210 +24,214 @@
 -- Retrieves information about a core definition version.
 module Network.AWS.Greengrass.GetCoreDefinition
   ( -- * Creating a Request
-    getCoreDefinition,
-    GetCoreDefinition,
+    GetCoreDefinition (..),
+    newGetCoreDefinition,
 
     -- * Request Lenses
-    gcdCoreDefinitionId,
+    getCoreDefinition_coreDefinitionId,
 
     -- * Destructuring the Response
-    getCoreDefinitionResponse,
-    GetCoreDefinitionResponse,
+    GetCoreDefinitionResponse (..),
+    newGetCoreDefinitionResponse,
 
     -- * Response Lenses
-    gcdrrsCreationTimestamp,
-    gcdrrsLatestVersionARN,
-    gcdrrsLatestVersion,
-    gcdrrsARN,
-    gcdrrsId,
-    gcdrrsName,
-    gcdrrsLastUpdatedTimestamp,
-    gcdrrsTags,
-    gcdrrsResponseStatus,
+    getCoreDefinitionResponse_creationTimestamp,
+    getCoreDefinitionResponse_latestVersionArn,
+    getCoreDefinitionResponse_latestVersion,
+    getCoreDefinitionResponse_arn,
+    getCoreDefinitionResponse_id,
+    getCoreDefinitionResponse_name,
+    getCoreDefinitionResponse_lastUpdatedTimestamp,
+    getCoreDefinitionResponse_tags,
+    getCoreDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCoreDefinition' smart constructor.
-newtype GetCoreDefinition = GetCoreDefinition'
-  { _gcdCoreDefinitionId ::
-      Text
+-- | /See:/ 'newGetCoreDefinition' smart constructor.
+data GetCoreDefinition = GetCoreDefinition'
+  { -- | The ID of the core definition.
+    coreDefinitionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCoreDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCoreDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcdCoreDefinitionId' - The ID of the core definition.
-getCoreDefinition ::
-  -- | 'gcdCoreDefinitionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'coreDefinitionId', 'getCoreDefinition_coreDefinitionId' - The ID of the core definition.
+newGetCoreDefinition ::
+  -- | 'coreDefinitionId'
+  Prelude.Text ->
   GetCoreDefinition
-getCoreDefinition pCoreDefinitionId_ =
+newGetCoreDefinition pCoreDefinitionId_ =
   GetCoreDefinition'
-    { _gcdCoreDefinitionId =
+    { coreDefinitionId =
         pCoreDefinitionId_
     }
 
 -- | The ID of the core definition.
-gcdCoreDefinitionId :: Lens' GetCoreDefinition Text
-gcdCoreDefinitionId = lens _gcdCoreDefinitionId (\s a -> s {_gcdCoreDefinitionId = a})
+getCoreDefinition_coreDefinitionId :: Lens.Lens' GetCoreDefinition Prelude.Text
+getCoreDefinition_coreDefinitionId = Lens.lens (\GetCoreDefinition' {coreDefinitionId} -> coreDefinitionId) (\s@GetCoreDefinition' {} a -> s {coreDefinitionId = a} :: GetCoreDefinition)
 
-instance AWSRequest GetCoreDefinition where
+instance Prelude.AWSRequest GetCoreDefinition where
   type Rs GetCoreDefinition = GetCoreDefinitionResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCoreDefinitionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "LatestVersionArn")
-            <*> (x .?> "LatestVersion")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Name")
-            <*> (x .?> "LastUpdatedTimestamp")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "LatestVersionArn")
+            Prelude.<*> (x Prelude..?> "LatestVersion")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (x Prelude..?> "LastUpdatedTimestamp")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCoreDefinition
+instance Prelude.Hashable GetCoreDefinition
 
-instance NFData GetCoreDefinition
+instance Prelude.NFData GetCoreDefinition
 
-instance ToHeaders GetCoreDefinition where
+instance Prelude.ToHeaders GetCoreDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetCoreDefinition where
+instance Prelude.ToPath GetCoreDefinition where
   toPath GetCoreDefinition' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/cores/",
-        toBS _gcdCoreDefinitionId
+        Prelude.toBS coreDefinitionId
       ]
 
-instance ToQuery GetCoreDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCoreDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCoreDefinitionResponse' smart constructor.
+-- | /See:/ 'newGetCoreDefinitionResponse' smart constructor.
 data GetCoreDefinitionResponse = GetCoreDefinitionResponse'
-  { _gcdrrsCreationTimestamp ::
-      !(Maybe Text),
-    _gcdrrsLatestVersionARN ::
-      !(Maybe Text),
-    _gcdrrsLatestVersion ::
-      !(Maybe Text),
-    _gcdrrsARN ::
-      !(Maybe Text),
-    _gcdrrsId ::
-      !(Maybe Text),
-    _gcdrrsName ::
-      !(Maybe Text),
-    _gcdrrsLastUpdatedTimestamp ::
-      !(Maybe Text),
-    _gcdrrsTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _gcdrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the definition was
+    -- created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the definition.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the definition.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the definition was last
+    -- updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | Tag(s) attached to the resource arn.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCoreDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCoreDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcdrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the definition was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcdrrsLatestVersionARN' - The ARN of the latest version associated with the definition.
+-- 'creationTimestamp', 'getCoreDefinitionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
+-- created.
 --
--- * 'gcdrrsLatestVersion' - The ID of the latest version associated with the definition.
+-- 'latestVersionArn', 'getCoreDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
 --
--- * 'gcdrrsARN' - The ARN of the definition.
+-- 'latestVersion', 'getCoreDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
 --
--- * 'gcdrrsId' - The ID of the definition.
+-- 'arn', 'getCoreDefinitionResponse_arn' - The ARN of the definition.
 --
--- * 'gcdrrsName' - The name of the definition.
+-- 'id', 'getCoreDefinitionResponse_id' - The ID of the definition.
 --
--- * 'gcdrrsLastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last updated.
+-- 'name', 'getCoreDefinitionResponse_name' - The name of the definition.
 --
--- * 'gcdrrsTags' - Tag(s) attached to the resource arn.
+-- 'lastUpdatedTimestamp', 'getCoreDefinitionResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
+-- updated.
 --
--- * 'gcdrrsResponseStatus' - -- | The response status code.
-getCoreDefinitionResponse ::
-  -- | 'gcdrrsResponseStatus'
-  Int ->
+-- 'tags', 'getCoreDefinitionResponse_tags' - Tag(s) attached to the resource arn.
+--
+-- 'httpStatus', 'getCoreDefinitionResponse_httpStatus' - The response's http status code.
+newGetCoreDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCoreDefinitionResponse
-getCoreDefinitionResponse pResponseStatus_ =
+newGetCoreDefinitionResponse pHttpStatus_ =
   GetCoreDefinitionResponse'
-    { _gcdrrsCreationTimestamp =
-        Nothing,
-      _gcdrrsLatestVersionARN = Nothing,
-      _gcdrrsLatestVersion = Nothing,
-      _gcdrrsARN = Nothing,
-      _gcdrrsId = Nothing,
-      _gcdrrsName = Nothing,
-      _gcdrrsLastUpdatedTimestamp = Nothing,
-      _gcdrrsTags = Nothing,
-      _gcdrrsResponseStatus = pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the definition was created.
-gcdrrsCreationTimestamp :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrrsCreationTimestamp = lens _gcdrrsCreationTimestamp (\s a -> s {_gcdrrsCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was
+-- created.
+getCoreDefinitionResponse_creationTimestamp :: Lens.Lens' GetCoreDefinitionResponse (Prelude.Maybe Prelude.Text)
+getCoreDefinitionResponse_creationTimestamp = Lens.lens (\GetCoreDefinitionResponse' {creationTimestamp} -> creationTimestamp) (\s@GetCoreDefinitionResponse' {} a -> s {creationTimestamp = a} :: GetCoreDefinitionResponse)
 
 -- | The ARN of the latest version associated with the definition.
-gcdrrsLatestVersionARN :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrrsLatestVersionARN = lens _gcdrrsLatestVersionARN (\s a -> s {_gcdrrsLatestVersionARN = a})
+getCoreDefinitionResponse_latestVersionArn :: Lens.Lens' GetCoreDefinitionResponse (Prelude.Maybe Prelude.Text)
+getCoreDefinitionResponse_latestVersionArn = Lens.lens (\GetCoreDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@GetCoreDefinitionResponse' {} a -> s {latestVersionArn = a} :: GetCoreDefinitionResponse)
 
 -- | The ID of the latest version associated with the definition.
-gcdrrsLatestVersion :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrrsLatestVersion = lens _gcdrrsLatestVersion (\s a -> s {_gcdrrsLatestVersion = a})
+getCoreDefinitionResponse_latestVersion :: Lens.Lens' GetCoreDefinitionResponse (Prelude.Maybe Prelude.Text)
+getCoreDefinitionResponse_latestVersion = Lens.lens (\GetCoreDefinitionResponse' {latestVersion} -> latestVersion) (\s@GetCoreDefinitionResponse' {} a -> s {latestVersion = a} :: GetCoreDefinitionResponse)
 
 -- | The ARN of the definition.
-gcdrrsARN :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrrsARN = lens _gcdrrsARN (\s a -> s {_gcdrrsARN = a})
+getCoreDefinitionResponse_arn :: Lens.Lens' GetCoreDefinitionResponse (Prelude.Maybe Prelude.Text)
+getCoreDefinitionResponse_arn = Lens.lens (\GetCoreDefinitionResponse' {arn} -> arn) (\s@GetCoreDefinitionResponse' {} a -> s {arn = a} :: GetCoreDefinitionResponse)
 
 -- | The ID of the definition.
-gcdrrsId :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrrsId = lens _gcdrrsId (\s a -> s {_gcdrrsId = a})
+getCoreDefinitionResponse_id :: Lens.Lens' GetCoreDefinitionResponse (Prelude.Maybe Prelude.Text)
+getCoreDefinitionResponse_id = Lens.lens (\GetCoreDefinitionResponse' {id} -> id) (\s@GetCoreDefinitionResponse' {} a -> s {id = a} :: GetCoreDefinitionResponse)
 
 -- | The name of the definition.
-gcdrrsName :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrrsName = lens _gcdrrsName (\s a -> s {_gcdrrsName = a})
+getCoreDefinitionResponse_name :: Lens.Lens' GetCoreDefinitionResponse (Prelude.Maybe Prelude.Text)
+getCoreDefinitionResponse_name = Lens.lens (\GetCoreDefinitionResponse' {name} -> name) (\s@GetCoreDefinitionResponse' {} a -> s {name = a} :: GetCoreDefinitionResponse)
 
--- | The time, in milliseconds since the epoch, when the definition was last updated.
-gcdrrsLastUpdatedTimestamp :: Lens' GetCoreDefinitionResponse (Maybe Text)
-gcdrrsLastUpdatedTimestamp = lens _gcdrrsLastUpdatedTimestamp (\s a -> s {_gcdrrsLastUpdatedTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the definition was last
+-- updated.
+getCoreDefinitionResponse_lastUpdatedTimestamp :: Lens.Lens' GetCoreDefinitionResponse (Prelude.Maybe Prelude.Text)
+getCoreDefinitionResponse_lastUpdatedTimestamp = Lens.lens (\GetCoreDefinitionResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@GetCoreDefinitionResponse' {} a -> s {lastUpdatedTimestamp = a} :: GetCoreDefinitionResponse)
 
 -- | Tag(s) attached to the resource arn.
-gcdrrsTags :: Lens' GetCoreDefinitionResponse (HashMap Text Text)
-gcdrrsTags = lens _gcdrrsTags (\s a -> s {_gcdrrsTags = a}) . _Default . _Map
+getCoreDefinitionResponse_tags :: Lens.Lens' GetCoreDefinitionResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getCoreDefinitionResponse_tags = Lens.lens (\GetCoreDefinitionResponse' {tags} -> tags) (\s@GetCoreDefinitionResponse' {} a -> s {tags = a} :: GetCoreDefinitionResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gcdrrsResponseStatus :: Lens' GetCoreDefinitionResponse Int
-gcdrrsResponseStatus = lens _gcdrrsResponseStatus (\s a -> s {_gcdrrsResponseStatus = a})
+-- | The response's http status code.
+getCoreDefinitionResponse_httpStatus :: Lens.Lens' GetCoreDefinitionResponse Prelude.Int
+getCoreDefinitionResponse_httpStatus = Lens.lens (\GetCoreDefinitionResponse' {httpStatus} -> httpStatus) (\s@GetCoreDefinitionResponse' {} a -> s {httpStatus = a} :: GetCoreDefinitionResponse)
 
-instance NFData GetCoreDefinitionResponse
+instance Prelude.NFData GetCoreDefinitionResponse

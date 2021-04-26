@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.Greengrass.Types.SoftwareToUpdate
   ( SoftwareToUpdate
       ( ..,
-        Core,
-        OtaAgent
+        SoftwareToUpdateCore,
+        SoftwareToUpdateOtaAgent
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The piece of software on the Greengrass core that will be updated.
-data SoftwareToUpdate = SoftwareToUpdate' (CI Text)
+newtype SoftwareToUpdate = SoftwareToUpdate'
+  { fromSoftwareToUpdate ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Core :: SoftwareToUpdate
-pattern Core = SoftwareToUpdate' "core"
+pattern SoftwareToUpdateCore :: SoftwareToUpdate
+pattern SoftwareToUpdateCore = SoftwareToUpdate' "core"
 
-pattern OtaAgent :: SoftwareToUpdate
-pattern OtaAgent = SoftwareToUpdate' "ota_agent"
+pattern SoftwareToUpdateOtaAgent :: SoftwareToUpdate
+pattern SoftwareToUpdateOtaAgent = SoftwareToUpdate' "ota_agent"
 
 {-# COMPLETE
-  Core,
-  OtaAgent,
+  SoftwareToUpdateCore,
+  SoftwareToUpdateOtaAgent,
   SoftwareToUpdate'
   #-}
 
-instance FromText SoftwareToUpdate where
-  parser = (SoftwareToUpdate' . mk) <$> takeText
+instance Prelude.FromText SoftwareToUpdate where
+  parser = SoftwareToUpdate' Prelude.<$> Prelude.takeText
 
-instance ToText SoftwareToUpdate where
-  toText (SoftwareToUpdate' ci) = original ci
+instance Prelude.ToText SoftwareToUpdate where
+  toText (SoftwareToUpdate' x) = x
 
-instance Hashable SoftwareToUpdate
+instance Prelude.Hashable SoftwareToUpdate
 
-instance NFData SoftwareToUpdate
+instance Prelude.NFData SoftwareToUpdate
 
-instance ToByteString SoftwareToUpdate
+instance Prelude.ToByteString SoftwareToUpdate
 
-instance ToQuery SoftwareToUpdate
+instance Prelude.ToQuery SoftwareToUpdate
 
-instance ToHeader SoftwareToUpdate
+instance Prelude.ToHeader SoftwareToUpdate
 
-instance ToJSON SoftwareToUpdate where
-  toJSON = toJSONText
+instance Prelude.ToJSON SoftwareToUpdate where
+  toJSON = Prelude.toJSONText

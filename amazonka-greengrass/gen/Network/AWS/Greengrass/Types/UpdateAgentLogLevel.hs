@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,87 @@
 module Network.AWS.Greengrass.Types.UpdateAgentLogLevel
   ( UpdateAgentLogLevel
       ( ..,
-        UALLDebug,
-        UALLError',
-        UALLFatal,
-        UALLInfo,
-        UALLNone,
-        UALLTrace,
-        UALLVerbose,
-        UALLWarn
+        UpdateAgentLogLevelDEBUG,
+        UpdateAgentLogLevelERROR,
+        UpdateAgentLogLevelFATAL,
+        UpdateAgentLogLevelINFO,
+        UpdateAgentLogLevelNONE,
+        UpdateAgentLogLevelTRACE,
+        UpdateAgentLogLevelVERBOSE,
+        UpdateAgentLogLevelWARN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The minimum level of log statements that should be logged by the OTA Agent during an update.
-data UpdateAgentLogLevel
-  = UpdateAgentLogLevel'
-      ( CI
-          Text
-      )
+-- | The minimum level of log statements that should be logged by the OTA
+-- Agent during an update.
+newtype UpdateAgentLogLevel = UpdateAgentLogLevel'
+  { fromUpdateAgentLogLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UALLDebug :: UpdateAgentLogLevel
-pattern UALLDebug = UpdateAgentLogLevel' "DEBUG"
+pattern UpdateAgentLogLevelDEBUG :: UpdateAgentLogLevel
+pattern UpdateAgentLogLevelDEBUG = UpdateAgentLogLevel' "DEBUG"
 
-pattern UALLError' :: UpdateAgentLogLevel
-pattern UALLError' = UpdateAgentLogLevel' "ERROR"
+pattern UpdateAgentLogLevelERROR :: UpdateAgentLogLevel
+pattern UpdateAgentLogLevelERROR = UpdateAgentLogLevel' "ERROR"
 
-pattern UALLFatal :: UpdateAgentLogLevel
-pattern UALLFatal = UpdateAgentLogLevel' "FATAL"
+pattern UpdateAgentLogLevelFATAL :: UpdateAgentLogLevel
+pattern UpdateAgentLogLevelFATAL = UpdateAgentLogLevel' "FATAL"
 
-pattern UALLInfo :: UpdateAgentLogLevel
-pattern UALLInfo = UpdateAgentLogLevel' "INFO"
+pattern UpdateAgentLogLevelINFO :: UpdateAgentLogLevel
+pattern UpdateAgentLogLevelINFO = UpdateAgentLogLevel' "INFO"
 
-pattern UALLNone :: UpdateAgentLogLevel
-pattern UALLNone = UpdateAgentLogLevel' "NONE"
+pattern UpdateAgentLogLevelNONE :: UpdateAgentLogLevel
+pattern UpdateAgentLogLevelNONE = UpdateAgentLogLevel' "NONE"
 
-pattern UALLTrace :: UpdateAgentLogLevel
-pattern UALLTrace = UpdateAgentLogLevel' "TRACE"
+pattern UpdateAgentLogLevelTRACE :: UpdateAgentLogLevel
+pattern UpdateAgentLogLevelTRACE = UpdateAgentLogLevel' "TRACE"
 
-pattern UALLVerbose :: UpdateAgentLogLevel
-pattern UALLVerbose = UpdateAgentLogLevel' "VERBOSE"
+pattern UpdateAgentLogLevelVERBOSE :: UpdateAgentLogLevel
+pattern UpdateAgentLogLevelVERBOSE = UpdateAgentLogLevel' "VERBOSE"
 
-pattern UALLWarn :: UpdateAgentLogLevel
-pattern UALLWarn = UpdateAgentLogLevel' "WARN"
+pattern UpdateAgentLogLevelWARN :: UpdateAgentLogLevel
+pattern UpdateAgentLogLevelWARN = UpdateAgentLogLevel' "WARN"
 
 {-# COMPLETE
-  UALLDebug,
-  UALLError',
-  UALLFatal,
-  UALLInfo,
-  UALLNone,
-  UALLTrace,
-  UALLVerbose,
-  UALLWarn,
+  UpdateAgentLogLevelDEBUG,
+  UpdateAgentLogLevelERROR,
+  UpdateAgentLogLevelFATAL,
+  UpdateAgentLogLevelINFO,
+  UpdateAgentLogLevelNONE,
+  UpdateAgentLogLevelTRACE,
+  UpdateAgentLogLevelVERBOSE,
+  UpdateAgentLogLevelWARN,
   UpdateAgentLogLevel'
   #-}
 
-instance FromText UpdateAgentLogLevel where
-  parser = (UpdateAgentLogLevel' . mk) <$> takeText
+instance Prelude.FromText UpdateAgentLogLevel where
+  parser = UpdateAgentLogLevel' Prelude.<$> Prelude.takeText
 
-instance ToText UpdateAgentLogLevel where
-  toText (UpdateAgentLogLevel' ci) = original ci
+instance Prelude.ToText UpdateAgentLogLevel where
+  toText (UpdateAgentLogLevel' x) = x
 
-instance Hashable UpdateAgentLogLevel
+instance Prelude.Hashable UpdateAgentLogLevel
 
-instance NFData UpdateAgentLogLevel
+instance Prelude.NFData UpdateAgentLogLevel
 
-instance ToByteString UpdateAgentLogLevel
+instance Prelude.ToByteString UpdateAgentLogLevel
 
-instance ToQuery UpdateAgentLogLevel
+instance Prelude.ToQuery UpdateAgentLogLevel
 
-instance ToHeader UpdateAgentLogLevel
+instance Prelude.ToHeader UpdateAgentLogLevel
 
-instance ToJSON UpdateAgentLogLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON UpdateAgentLogLevel where
+  toJSON = Prelude.toJSONText

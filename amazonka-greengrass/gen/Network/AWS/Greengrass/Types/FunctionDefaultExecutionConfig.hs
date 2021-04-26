@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +21,76 @@ module Network.AWS.Greengrass.Types.FunctionDefaultExecutionConfig where
 
 import Network.AWS.Greengrass.Types.FunctionIsolationMode
 import Network.AWS.Greengrass.Types.FunctionRunAsConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration information that specifies how a Lambda function runs.
 --
--- /See:/ 'functionDefaultExecutionConfig' smart constructor.
+-- /See:/ 'newFunctionDefaultExecutionConfig' smart constructor.
 data FunctionDefaultExecutionConfig = FunctionDefaultExecutionConfig'
-  { _fdecIsolationMode ::
-      !( Maybe
-           FunctionIsolationMode
-       ),
-    _fdecRunAs ::
-      !( Maybe
-           FunctionRunAsConfig
-       )
+  { isolationMode :: Prelude.Maybe FunctionIsolationMode,
+    runAs :: Prelude.Maybe FunctionRunAsConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FunctionDefaultExecutionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FunctionDefaultExecutionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdecIsolationMode' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fdecRunAs' - Undocumented member.
-functionDefaultExecutionConfig ::
+-- 'isolationMode', 'functionDefaultExecutionConfig_isolationMode' - Undocumented member.
+--
+-- 'runAs', 'functionDefaultExecutionConfig_runAs' - Undocumented member.
+newFunctionDefaultExecutionConfig ::
   FunctionDefaultExecutionConfig
-functionDefaultExecutionConfig =
+newFunctionDefaultExecutionConfig =
   FunctionDefaultExecutionConfig'
-    { _fdecIsolationMode =
-        Nothing,
-      _fdecRunAs = Nothing
+    { isolationMode =
+        Prelude.Nothing,
+      runAs = Prelude.Nothing
     }
 
 -- | Undocumented member.
-fdecIsolationMode :: Lens' FunctionDefaultExecutionConfig (Maybe FunctionIsolationMode)
-fdecIsolationMode = lens _fdecIsolationMode (\s a -> s {_fdecIsolationMode = a})
+functionDefaultExecutionConfig_isolationMode :: Lens.Lens' FunctionDefaultExecutionConfig (Prelude.Maybe FunctionIsolationMode)
+functionDefaultExecutionConfig_isolationMode = Lens.lens (\FunctionDefaultExecutionConfig' {isolationMode} -> isolationMode) (\s@FunctionDefaultExecutionConfig' {} a -> s {isolationMode = a} :: FunctionDefaultExecutionConfig)
 
 -- | Undocumented member.
-fdecRunAs :: Lens' FunctionDefaultExecutionConfig (Maybe FunctionRunAsConfig)
-fdecRunAs = lens _fdecRunAs (\s a -> s {_fdecRunAs = a})
+functionDefaultExecutionConfig_runAs :: Lens.Lens' FunctionDefaultExecutionConfig (Prelude.Maybe FunctionRunAsConfig)
+functionDefaultExecutionConfig_runAs = Lens.lens (\FunctionDefaultExecutionConfig' {runAs} -> runAs) (\s@FunctionDefaultExecutionConfig' {} a -> s {runAs = a} :: FunctionDefaultExecutionConfig)
 
-instance FromJSON FunctionDefaultExecutionConfig where
+instance
+  Prelude.FromJSON
+    FunctionDefaultExecutionConfig
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FunctionDefaultExecutionConfig"
       ( \x ->
           FunctionDefaultExecutionConfig'
-            <$> (x .:? "IsolationMode") <*> (x .:? "RunAs")
+            Prelude.<$> (x Prelude..:? "IsolationMode")
+            Prelude.<*> (x Prelude..:? "RunAs")
       )
 
-instance Hashable FunctionDefaultExecutionConfig
+instance
+  Prelude.Hashable
+    FunctionDefaultExecutionConfig
 
-instance NFData FunctionDefaultExecutionConfig
+instance
+  Prelude.NFData
+    FunctionDefaultExecutionConfig
 
-instance ToJSON FunctionDefaultExecutionConfig where
+instance
+  Prelude.ToJSON
+    FunctionDefaultExecutionConfig
+  where
   toJSON FunctionDefaultExecutionConfig' {..} =
-    object
-      ( catMaybes
-          [ ("IsolationMode" .=) <$> _fdecIsolationMode,
-            ("RunAs" .=) <$> _fdecRunAs
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IsolationMode" Prelude..=)
+              Prelude.<$> isolationMode,
+            ("RunAs" Prelude..=) Prelude.<$> runAs
           ]
       )

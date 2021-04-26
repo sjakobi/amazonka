@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,208 +24,196 @@
 -- Returns the status of a bulk deployment.
 module Network.AWS.Greengrass.GetBulkDeploymentStatus
   ( -- * Creating a Request
-    getBulkDeploymentStatus,
-    GetBulkDeploymentStatus,
+    GetBulkDeploymentStatus (..),
+    newGetBulkDeploymentStatus,
 
     -- * Request Lenses
-    gbdsBulkDeploymentId,
+    getBulkDeploymentStatus_bulkDeploymentId,
 
     -- * Destructuring the Response
-    getBulkDeploymentStatusResponse,
-    GetBulkDeploymentStatusResponse,
+    GetBulkDeploymentStatusResponse (..),
+    newGetBulkDeploymentStatusResponse,
 
     -- * Response Lenses
-    gbdsrrsCreatedAt,
-    gbdsrrsBulkDeploymentStatus,
-    gbdsrrsTags,
-    gbdsrrsBulkDeploymentMetrics,
-    gbdsrrsErrorMessage,
-    gbdsrrsErrorDetails,
-    gbdsrrsResponseStatus,
+    getBulkDeploymentStatusResponse_createdAt,
+    getBulkDeploymentStatusResponse_bulkDeploymentStatus,
+    getBulkDeploymentStatusResponse_tags,
+    getBulkDeploymentStatusResponse_bulkDeploymentMetrics,
+    getBulkDeploymentStatusResponse_errorMessage,
+    getBulkDeploymentStatusResponse_errorDetails,
+    getBulkDeploymentStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.BulkDeploymentMetrics
+import Network.AWS.Greengrass.Types.BulkDeploymentStatus
+import Network.AWS.Greengrass.Types.ErrorDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getBulkDeploymentStatus' smart constructor.
-newtype GetBulkDeploymentStatus = GetBulkDeploymentStatus'
-  { _gbdsBulkDeploymentId ::
-      Text
+-- | /See:/ 'newGetBulkDeploymentStatus' smart constructor.
+data GetBulkDeploymentStatus = GetBulkDeploymentStatus'
+  { -- | The ID of the bulk deployment.
+    bulkDeploymentId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBulkDeploymentStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBulkDeploymentStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbdsBulkDeploymentId' - The ID of the bulk deployment.
-getBulkDeploymentStatus ::
-  -- | 'gbdsBulkDeploymentId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'bulkDeploymentId', 'getBulkDeploymentStatus_bulkDeploymentId' - The ID of the bulk deployment.
+newGetBulkDeploymentStatus ::
+  -- | 'bulkDeploymentId'
+  Prelude.Text ->
   GetBulkDeploymentStatus
-getBulkDeploymentStatus pBulkDeploymentId_ =
+newGetBulkDeploymentStatus pBulkDeploymentId_ =
   GetBulkDeploymentStatus'
-    { _gbdsBulkDeploymentId =
+    { bulkDeploymentId =
         pBulkDeploymentId_
     }
 
 -- | The ID of the bulk deployment.
-gbdsBulkDeploymentId :: Lens' GetBulkDeploymentStatus Text
-gbdsBulkDeploymentId = lens _gbdsBulkDeploymentId (\s a -> s {_gbdsBulkDeploymentId = a})
+getBulkDeploymentStatus_bulkDeploymentId :: Lens.Lens' GetBulkDeploymentStatus Prelude.Text
+getBulkDeploymentStatus_bulkDeploymentId = Lens.lens (\GetBulkDeploymentStatus' {bulkDeploymentId} -> bulkDeploymentId) (\s@GetBulkDeploymentStatus' {} a -> s {bulkDeploymentId = a} :: GetBulkDeploymentStatus)
 
-instance AWSRequest GetBulkDeploymentStatus where
+instance Prelude.AWSRequest GetBulkDeploymentStatus where
   type
     Rs GetBulkDeploymentStatus =
       GetBulkDeploymentStatusResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBulkDeploymentStatusResponse'
-            <$> (x .?> "CreatedAt")
-            <*> (x .?> "BulkDeploymentStatus")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "BulkDeploymentMetrics")
-            <*> (x .?> "ErrorMessage")
-            <*> (x .?> "ErrorDetails" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreatedAt")
+            Prelude.<*> (x Prelude..?> "BulkDeploymentStatus")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "BulkDeploymentMetrics")
+            Prelude.<*> (x Prelude..?> "ErrorMessage")
+            Prelude.<*> ( x Prelude..?> "ErrorDetails"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBulkDeploymentStatus
+instance Prelude.Hashable GetBulkDeploymentStatus
 
-instance NFData GetBulkDeploymentStatus
+instance Prelude.NFData GetBulkDeploymentStatus
 
-instance ToHeaders GetBulkDeploymentStatus where
+instance Prelude.ToHeaders GetBulkDeploymentStatus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetBulkDeploymentStatus where
+instance Prelude.ToPath GetBulkDeploymentStatus where
   toPath GetBulkDeploymentStatus' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/bulk/deployments/",
-        toBS _gbdsBulkDeploymentId,
+        Prelude.toBS bulkDeploymentId,
         "/status"
       ]
 
-instance ToQuery GetBulkDeploymentStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery GetBulkDeploymentStatus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getBulkDeploymentStatusResponse' smart constructor.
+-- | /See:/ 'newGetBulkDeploymentStatusResponse' smart constructor.
 data GetBulkDeploymentStatusResponse = GetBulkDeploymentStatusResponse'
-  { _gbdsrrsCreatedAt ::
-      !( Maybe
-           Text
-       ),
-    _gbdsrrsBulkDeploymentStatus ::
-      !( Maybe
-           BulkDeploymentStatus
-       ),
-    _gbdsrrsTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _gbdsrrsBulkDeploymentMetrics ::
-      !( Maybe
-           BulkDeploymentMetrics
-       ),
-    _gbdsrrsErrorMessage ::
-      !( Maybe
-           Text
-       ),
-    _gbdsrrsErrorDetails ::
-      !( Maybe
-           [ErrorDetail]
-       ),
-    _gbdsrrsResponseStatus ::
-      !Int
+  { -- | The time, in ISO format, when the deployment was created.
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | The status of the bulk deployment.
+    bulkDeploymentStatus :: Prelude.Maybe BulkDeploymentStatus,
+    -- | Tag(s) attached to the resource arn.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Relevant metrics on input records processed during bulk deployment.
+    bulkDeploymentMetrics :: Prelude.Maybe BulkDeploymentMetrics,
+    -- | Error message
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | Error details
+    errorDetails :: Prelude.Maybe [ErrorDetail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBulkDeploymentStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBulkDeploymentStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbdsrrsCreatedAt' - The time, in ISO format, when the deployment was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbdsrrsBulkDeploymentStatus' - The status of the bulk deployment.
+-- 'createdAt', 'getBulkDeploymentStatusResponse_createdAt' - The time, in ISO format, when the deployment was created.
 --
--- * 'gbdsrrsTags' - Tag(s) attached to the resource arn.
+-- 'bulkDeploymentStatus', 'getBulkDeploymentStatusResponse_bulkDeploymentStatus' - The status of the bulk deployment.
 --
--- * 'gbdsrrsBulkDeploymentMetrics' - Relevant metrics on input records processed during bulk deployment.
+-- 'tags', 'getBulkDeploymentStatusResponse_tags' - Tag(s) attached to the resource arn.
 --
--- * 'gbdsrrsErrorMessage' - Error message
+-- 'bulkDeploymentMetrics', 'getBulkDeploymentStatusResponse_bulkDeploymentMetrics' - Relevant metrics on input records processed during bulk deployment.
 --
--- * 'gbdsrrsErrorDetails' - Error details
+-- 'errorMessage', 'getBulkDeploymentStatusResponse_errorMessage' - Error message
 --
--- * 'gbdsrrsResponseStatus' - -- | The response status code.
-getBulkDeploymentStatusResponse ::
-  -- | 'gbdsrrsResponseStatus'
-  Int ->
+-- 'errorDetails', 'getBulkDeploymentStatusResponse_errorDetails' - Error details
+--
+-- 'httpStatus', 'getBulkDeploymentStatusResponse_httpStatus' - The response's http status code.
+newGetBulkDeploymentStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBulkDeploymentStatusResponse
-getBulkDeploymentStatusResponse pResponseStatus_ =
+newGetBulkDeploymentStatusResponse pHttpStatus_ =
   GetBulkDeploymentStatusResponse'
-    { _gbdsrrsCreatedAt =
-        Nothing,
-      _gbdsrrsBulkDeploymentStatus = Nothing,
-      _gbdsrrsTags = Nothing,
-      _gbdsrrsBulkDeploymentMetrics = Nothing,
-      _gbdsrrsErrorMessage = Nothing,
-      _gbdsrrsErrorDetails = Nothing,
-      _gbdsrrsResponseStatus = pResponseStatus_
+    { createdAt =
+        Prelude.Nothing,
+      bulkDeploymentStatus = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      bulkDeploymentMetrics = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorDetails = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The time, in ISO format, when the deployment was created.
-gbdsrrsCreatedAt :: Lens' GetBulkDeploymentStatusResponse (Maybe Text)
-gbdsrrsCreatedAt = lens _gbdsrrsCreatedAt (\s a -> s {_gbdsrrsCreatedAt = a})
+getBulkDeploymentStatusResponse_createdAt :: Lens.Lens' GetBulkDeploymentStatusResponse (Prelude.Maybe Prelude.Text)
+getBulkDeploymentStatusResponse_createdAt = Lens.lens (\GetBulkDeploymentStatusResponse' {createdAt} -> createdAt) (\s@GetBulkDeploymentStatusResponse' {} a -> s {createdAt = a} :: GetBulkDeploymentStatusResponse)
 
 -- | The status of the bulk deployment.
-gbdsrrsBulkDeploymentStatus :: Lens' GetBulkDeploymentStatusResponse (Maybe BulkDeploymentStatus)
-gbdsrrsBulkDeploymentStatus = lens _gbdsrrsBulkDeploymentStatus (\s a -> s {_gbdsrrsBulkDeploymentStatus = a})
+getBulkDeploymentStatusResponse_bulkDeploymentStatus :: Lens.Lens' GetBulkDeploymentStatusResponse (Prelude.Maybe BulkDeploymentStatus)
+getBulkDeploymentStatusResponse_bulkDeploymentStatus = Lens.lens (\GetBulkDeploymentStatusResponse' {bulkDeploymentStatus} -> bulkDeploymentStatus) (\s@GetBulkDeploymentStatusResponse' {} a -> s {bulkDeploymentStatus = a} :: GetBulkDeploymentStatusResponse)
 
 -- | Tag(s) attached to the resource arn.
-gbdsrrsTags :: Lens' GetBulkDeploymentStatusResponse (HashMap Text Text)
-gbdsrrsTags = lens _gbdsrrsTags (\s a -> s {_gbdsrrsTags = a}) . _Default . _Map
+getBulkDeploymentStatusResponse_tags :: Lens.Lens' GetBulkDeploymentStatusResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getBulkDeploymentStatusResponse_tags = Lens.lens (\GetBulkDeploymentStatusResponse' {tags} -> tags) (\s@GetBulkDeploymentStatusResponse' {} a -> s {tags = a} :: GetBulkDeploymentStatusResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | Relevant metrics on input records processed during bulk deployment.
-gbdsrrsBulkDeploymentMetrics :: Lens' GetBulkDeploymentStatusResponse (Maybe BulkDeploymentMetrics)
-gbdsrrsBulkDeploymentMetrics = lens _gbdsrrsBulkDeploymentMetrics (\s a -> s {_gbdsrrsBulkDeploymentMetrics = a})
+getBulkDeploymentStatusResponse_bulkDeploymentMetrics :: Lens.Lens' GetBulkDeploymentStatusResponse (Prelude.Maybe BulkDeploymentMetrics)
+getBulkDeploymentStatusResponse_bulkDeploymentMetrics = Lens.lens (\GetBulkDeploymentStatusResponse' {bulkDeploymentMetrics} -> bulkDeploymentMetrics) (\s@GetBulkDeploymentStatusResponse' {} a -> s {bulkDeploymentMetrics = a} :: GetBulkDeploymentStatusResponse)
 
 -- | Error message
-gbdsrrsErrorMessage :: Lens' GetBulkDeploymentStatusResponse (Maybe Text)
-gbdsrrsErrorMessage = lens _gbdsrrsErrorMessage (\s a -> s {_gbdsrrsErrorMessage = a})
+getBulkDeploymentStatusResponse_errorMessage :: Lens.Lens' GetBulkDeploymentStatusResponse (Prelude.Maybe Prelude.Text)
+getBulkDeploymentStatusResponse_errorMessage = Lens.lens (\GetBulkDeploymentStatusResponse' {errorMessage} -> errorMessage) (\s@GetBulkDeploymentStatusResponse' {} a -> s {errorMessage = a} :: GetBulkDeploymentStatusResponse)
 
 -- | Error details
-gbdsrrsErrorDetails :: Lens' GetBulkDeploymentStatusResponse [ErrorDetail]
-gbdsrrsErrorDetails = lens _gbdsrrsErrorDetails (\s a -> s {_gbdsrrsErrorDetails = a}) . _Default . _Coerce
+getBulkDeploymentStatusResponse_errorDetails :: Lens.Lens' GetBulkDeploymentStatusResponse (Prelude.Maybe [ErrorDetail])
+getBulkDeploymentStatusResponse_errorDetails = Lens.lens (\GetBulkDeploymentStatusResponse' {errorDetails} -> errorDetails) (\s@GetBulkDeploymentStatusResponse' {} a -> s {errorDetails = a} :: GetBulkDeploymentStatusResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gbdsrrsResponseStatus :: Lens' GetBulkDeploymentStatusResponse Int
-gbdsrrsResponseStatus = lens _gbdsrrsResponseStatus (\s a -> s {_gbdsrrsResponseStatus = a})
+-- | The response's http status code.
+getBulkDeploymentStatusResponse_httpStatus :: Lens.Lens' GetBulkDeploymentStatusResponse Prelude.Int
+getBulkDeploymentStatusResponse_httpStatus = Lens.lens (\GetBulkDeploymentStatusResponse' {httpStatus} -> httpStatus) (\s@GetBulkDeploymentStatusResponse' {} a -> s {httpStatus = a} :: GetBulkDeploymentStatusResponse)
 
-instance NFData GetBulkDeploymentStatusResponse
+instance
+  Prelude.NFData
+    GetBulkDeploymentStatusResponse

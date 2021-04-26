@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,52 @@
 module Network.AWS.Greengrass.Types.FunctionDefaultConfig where
 
 import Network.AWS.Greengrass.Types.FunctionDefaultExecutionConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The default configuration that applies to all Lambda functions in the group. Individual Lambda functions can override these settings.
+-- | The default configuration that applies to all Lambda functions in the
+-- group. Individual Lambda functions can override these settings.
 --
--- /See:/ 'functionDefaultConfig' smart constructor.
-newtype FunctionDefaultConfig = FunctionDefaultConfig'
-  { _fdcExecution ::
-      Maybe
-        FunctionDefaultExecutionConfig
+-- /See:/ 'newFunctionDefaultConfig' smart constructor.
+data FunctionDefaultConfig = FunctionDefaultConfig'
+  { execution :: Prelude.Maybe FunctionDefaultExecutionConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FunctionDefaultConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FunctionDefaultConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdcExecution' - Undocumented member.
-functionDefaultConfig ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'execution', 'functionDefaultConfig_execution' - Undocumented member.
+newFunctionDefaultConfig ::
   FunctionDefaultConfig
-functionDefaultConfig =
-  FunctionDefaultConfig' {_fdcExecution = Nothing}
+newFunctionDefaultConfig =
+  FunctionDefaultConfig' {execution = Prelude.Nothing}
 
 -- | Undocumented member.
-fdcExecution :: Lens' FunctionDefaultConfig (Maybe FunctionDefaultExecutionConfig)
-fdcExecution = lens _fdcExecution (\s a -> s {_fdcExecution = a})
+functionDefaultConfig_execution :: Lens.Lens' FunctionDefaultConfig (Prelude.Maybe FunctionDefaultExecutionConfig)
+functionDefaultConfig_execution = Lens.lens (\FunctionDefaultConfig' {execution} -> execution) (\s@FunctionDefaultConfig' {} a -> s {execution = a} :: FunctionDefaultConfig)
 
-instance FromJSON FunctionDefaultConfig where
+instance Prelude.FromJSON FunctionDefaultConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FunctionDefaultConfig"
       ( \x ->
-          FunctionDefaultConfig' <$> (x .:? "Execution")
+          FunctionDefaultConfig'
+            Prelude.<$> (x Prelude..:? "Execution")
       )
 
-instance Hashable FunctionDefaultConfig
+instance Prelude.Hashable FunctionDefaultConfig
 
-instance NFData FunctionDefaultConfig
+instance Prelude.NFData FunctionDefaultConfig
 
-instance ToJSON FunctionDefaultConfig where
+instance Prelude.ToJSON FunctionDefaultConfig where
   toJSON FunctionDefaultConfig' {..} =
-    object
-      (catMaybes [("Execution" .=) <$> _fdcExecution])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Execution" Prelude..=) Prelude.<$> execution]
+      )

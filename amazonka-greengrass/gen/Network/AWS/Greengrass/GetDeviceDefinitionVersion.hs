@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,233 +24,246 @@
 -- Retrieves information about a device definition version.
 module Network.AWS.Greengrass.GetDeviceDefinitionVersion
   ( -- * Creating a Request
-    getDeviceDefinitionVersion,
-    GetDeviceDefinitionVersion,
+    GetDeviceDefinitionVersion (..),
+    newGetDeviceDefinitionVersion,
 
     -- * Request Lenses
-    gddvNextToken,
-    gddvDeviceDefinitionVersionId,
-    gddvDeviceDefinitionId,
+    getDeviceDefinitionVersion_nextToken,
+    getDeviceDefinitionVersion_deviceDefinitionVersionId,
+    getDeviceDefinitionVersion_deviceDefinitionId,
 
     -- * Destructuring the Response
-    getDeviceDefinitionVersionResponse,
-    GetDeviceDefinitionVersionResponse,
+    GetDeviceDefinitionVersionResponse (..),
+    newGetDeviceDefinitionVersionResponse,
 
     -- * Response Lenses
-    gddvrrsCreationTimestamp,
-    gddvrrsNextToken,
-    gddvrrsARN,
-    gddvrrsId,
-    gddvrrsVersion,
-    gddvrrsDefinition,
-    gddvrrsResponseStatus,
+    getDeviceDefinitionVersionResponse_creationTimestamp,
+    getDeviceDefinitionVersionResponse_nextToken,
+    getDeviceDefinitionVersionResponse_arn,
+    getDeviceDefinitionVersionResponse_id,
+    getDeviceDefinitionVersionResponse_version,
+    getDeviceDefinitionVersionResponse_definition,
+    getDeviceDefinitionVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.DeviceDefinitionVersion
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDeviceDefinitionVersion' smart constructor.
+-- | /See:/ 'newGetDeviceDefinitionVersion' smart constructor.
 data GetDeviceDefinitionVersion = GetDeviceDefinitionVersion'
-  { _gddvNextToken ::
-      !(Maybe Text),
-    _gddvDeviceDefinitionVersionId ::
-      !Text,
-    _gddvDeviceDefinitionId ::
-      !Text
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the device definition version. This value maps to the
+    -- \'\'Version\'\' property of the corresponding \'\'VersionInformation\'\'
+    -- object, which is returned by \'\'ListDeviceDefinitionVersions\'\'
+    -- requests. If the version is the last one that was associated with a
+    -- device definition, the value also maps to the \'\'LatestVersion\'\'
+    -- property of the corresponding \'\'DefinitionInformation\'\' object.
+    deviceDefinitionVersionId :: Prelude.Text,
+    -- | The ID of the device definition.
+    deviceDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeviceDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeviceDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gddvNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gddvDeviceDefinitionVersionId' - The ID of the device definition version. This value maps to the ''Version'' property of the corresponding ''VersionInformation'' object, which is returned by ''ListDeviceDefinitionVersions'' requests. If the version is the last one that was associated with a device definition, the value also maps to the ''LatestVersion'' property of the corresponding ''DefinitionInformation'' object.
+-- 'nextToken', 'getDeviceDefinitionVersion_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'gddvDeviceDefinitionId' - The ID of the device definition.
-getDeviceDefinitionVersion ::
-  -- | 'gddvDeviceDefinitionVersionId'
-  Text ->
-  -- | 'gddvDeviceDefinitionId'
-  Text ->
+-- 'deviceDefinitionVersionId', 'getDeviceDefinitionVersion_deviceDefinitionVersionId' - The ID of the device definition version. This value maps to the
+-- \'\'Version\'\' property of the corresponding \'\'VersionInformation\'\'
+-- object, which is returned by \'\'ListDeviceDefinitionVersions\'\'
+-- requests. If the version is the last one that was associated with a
+-- device definition, the value also maps to the \'\'LatestVersion\'\'
+-- property of the corresponding \'\'DefinitionInformation\'\' object.
+--
+-- 'deviceDefinitionId', 'getDeviceDefinitionVersion_deviceDefinitionId' - The ID of the device definition.
+newGetDeviceDefinitionVersion ::
+  -- | 'deviceDefinitionVersionId'
+  Prelude.Text ->
+  -- | 'deviceDefinitionId'
+  Prelude.Text ->
   GetDeviceDefinitionVersion
-getDeviceDefinitionVersion
+newGetDeviceDefinitionVersion
   pDeviceDefinitionVersionId_
   pDeviceDefinitionId_ =
     GetDeviceDefinitionVersion'
-      { _gddvNextToken =
-          Nothing,
-        _gddvDeviceDefinitionVersionId =
+      { nextToken =
+          Prelude.Nothing,
+        deviceDefinitionVersionId =
           pDeviceDefinitionVersionId_,
-        _gddvDeviceDefinitionId = pDeviceDefinitionId_
+        deviceDefinitionId = pDeviceDefinitionId_
       }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-gddvNextToken :: Lens' GetDeviceDefinitionVersion (Maybe Text)
-gddvNextToken = lens _gddvNextToken (\s a -> s {_gddvNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+getDeviceDefinitionVersion_nextToken :: Lens.Lens' GetDeviceDefinitionVersion (Prelude.Maybe Prelude.Text)
+getDeviceDefinitionVersion_nextToken = Lens.lens (\GetDeviceDefinitionVersion' {nextToken} -> nextToken) (\s@GetDeviceDefinitionVersion' {} a -> s {nextToken = a} :: GetDeviceDefinitionVersion)
 
--- | The ID of the device definition version. This value maps to the ''Version'' property of the corresponding ''VersionInformation'' object, which is returned by ''ListDeviceDefinitionVersions'' requests. If the version is the last one that was associated with a device definition, the value also maps to the ''LatestVersion'' property of the corresponding ''DefinitionInformation'' object.
-gddvDeviceDefinitionVersionId :: Lens' GetDeviceDefinitionVersion Text
-gddvDeviceDefinitionVersionId = lens _gddvDeviceDefinitionVersionId (\s a -> s {_gddvDeviceDefinitionVersionId = a})
+-- | The ID of the device definition version. This value maps to the
+-- \'\'Version\'\' property of the corresponding \'\'VersionInformation\'\'
+-- object, which is returned by \'\'ListDeviceDefinitionVersions\'\'
+-- requests. If the version is the last one that was associated with a
+-- device definition, the value also maps to the \'\'LatestVersion\'\'
+-- property of the corresponding \'\'DefinitionInformation\'\' object.
+getDeviceDefinitionVersion_deviceDefinitionVersionId :: Lens.Lens' GetDeviceDefinitionVersion Prelude.Text
+getDeviceDefinitionVersion_deviceDefinitionVersionId = Lens.lens (\GetDeviceDefinitionVersion' {deviceDefinitionVersionId} -> deviceDefinitionVersionId) (\s@GetDeviceDefinitionVersion' {} a -> s {deviceDefinitionVersionId = a} :: GetDeviceDefinitionVersion)
 
 -- | The ID of the device definition.
-gddvDeviceDefinitionId :: Lens' GetDeviceDefinitionVersion Text
-gddvDeviceDefinitionId = lens _gddvDeviceDefinitionId (\s a -> s {_gddvDeviceDefinitionId = a})
+getDeviceDefinitionVersion_deviceDefinitionId :: Lens.Lens' GetDeviceDefinitionVersion Prelude.Text
+getDeviceDefinitionVersion_deviceDefinitionId = Lens.lens (\GetDeviceDefinitionVersion' {deviceDefinitionId} -> deviceDefinitionId) (\s@GetDeviceDefinitionVersion' {} a -> s {deviceDefinitionId = a} :: GetDeviceDefinitionVersion)
 
-instance AWSRequest GetDeviceDefinitionVersion where
+instance
+  Prelude.AWSRequest
+    GetDeviceDefinitionVersion
+  where
   type
     Rs GetDeviceDefinitionVersion =
       GetDeviceDefinitionVersionResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDeviceDefinitionVersionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "NextToken")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Version")
-            <*> (x .?> "Definition")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Version")
+            Prelude.<*> (x Prelude..?> "Definition")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDeviceDefinitionVersion
+instance Prelude.Hashable GetDeviceDefinitionVersion
 
-instance NFData GetDeviceDefinitionVersion
+instance Prelude.NFData GetDeviceDefinitionVersion
 
-instance ToHeaders GetDeviceDefinitionVersion where
+instance Prelude.ToHeaders GetDeviceDefinitionVersion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetDeviceDefinitionVersion where
+instance Prelude.ToPath GetDeviceDefinitionVersion where
   toPath GetDeviceDefinitionVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/devices/",
-        toBS _gddvDeviceDefinitionId,
+        Prelude.toBS deviceDefinitionId,
         "/versions/",
-        toBS _gddvDeviceDefinitionVersionId
+        Prelude.toBS deviceDefinitionVersionId
       ]
 
-instance ToQuery GetDeviceDefinitionVersion where
+instance Prelude.ToQuery GetDeviceDefinitionVersion where
   toQuery GetDeviceDefinitionVersion' {..} =
-    mconcat ["NextToken" =: _gddvNextToken]
+    Prelude.mconcat ["NextToken" Prelude.=: nextToken]
 
--- | /See:/ 'getDeviceDefinitionVersionResponse' smart constructor.
+-- | /See:/ 'newGetDeviceDefinitionVersionResponse' smart constructor.
 data GetDeviceDefinitionVersionResponse = GetDeviceDefinitionVersionResponse'
-  { _gddvrrsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _gddvrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gddvrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _gddvrrsId ::
-      !( Maybe
-           Text
-       ),
-    _gddvrrsVersion ::
-      !( Maybe
-           Text
-       ),
-    _gddvrrsDefinition ::
-      !( Maybe
-           DeviceDefinitionVersion
-       ),
-    _gddvrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the device definition
+    -- version was created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the device definition version.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the device definition version.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The version of the device definition version.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | Information about the device definition version.
+    definition :: Prelude.Maybe DeviceDefinitionVersion,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeviceDefinitionVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeviceDefinitionVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gddvrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the device definition version was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gddvrrsNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- 'creationTimestamp', 'getDeviceDefinitionVersionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the device definition
+-- version was created.
 --
--- * 'gddvrrsARN' - The ARN of the device definition version.
+-- 'nextToken', 'getDeviceDefinitionVersionResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'gddvrrsId' - The ID of the device definition version.
+-- 'arn', 'getDeviceDefinitionVersionResponse_arn' - The ARN of the device definition version.
 --
--- * 'gddvrrsVersion' - The version of the device definition version.
+-- 'id', 'getDeviceDefinitionVersionResponse_id' - The ID of the device definition version.
 --
--- * 'gddvrrsDefinition' - Information about the device definition version.
+-- 'version', 'getDeviceDefinitionVersionResponse_version' - The version of the device definition version.
 --
--- * 'gddvrrsResponseStatus' - -- | The response status code.
-getDeviceDefinitionVersionResponse ::
-  -- | 'gddvrrsResponseStatus'
-  Int ->
+-- 'definition', 'getDeviceDefinitionVersionResponse_definition' - Information about the device definition version.
+--
+-- 'httpStatus', 'getDeviceDefinitionVersionResponse_httpStatus' - The response's http status code.
+newGetDeviceDefinitionVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDeviceDefinitionVersionResponse
-getDeviceDefinitionVersionResponse pResponseStatus_ =
+newGetDeviceDefinitionVersionResponse pHttpStatus_ =
   GetDeviceDefinitionVersionResponse'
-    { _gddvrrsCreationTimestamp =
-        Nothing,
-      _gddvrrsNextToken = Nothing,
-      _gddvrrsARN = Nothing,
-      _gddvrrsId = Nothing,
-      _gddvrrsVersion = Nothing,
-      _gddvrrsDefinition = Nothing,
-      _gddvrrsResponseStatus =
-        pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      version = Prelude.Nothing,
+      definition = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the device definition version was created.
-gddvrrsCreationTimestamp :: Lens' GetDeviceDefinitionVersionResponse (Maybe Text)
-gddvrrsCreationTimestamp = lens _gddvrrsCreationTimestamp (\s a -> s {_gddvrrsCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the device definition
+-- version was created.
+getDeviceDefinitionVersionResponse_creationTimestamp :: Lens.Lens' GetDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getDeviceDefinitionVersionResponse_creationTimestamp = Lens.lens (\GetDeviceDefinitionVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@GetDeviceDefinitionVersionResponse' {} a -> s {creationTimestamp = a} :: GetDeviceDefinitionVersionResponse)
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-gddvrrsNextToken :: Lens' GetDeviceDefinitionVersionResponse (Maybe Text)
-gddvrrsNextToken = lens _gddvrrsNextToken (\s a -> s {_gddvrrsNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+getDeviceDefinitionVersionResponse_nextToken :: Lens.Lens' GetDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getDeviceDefinitionVersionResponse_nextToken = Lens.lens (\GetDeviceDefinitionVersionResponse' {nextToken} -> nextToken) (\s@GetDeviceDefinitionVersionResponse' {} a -> s {nextToken = a} :: GetDeviceDefinitionVersionResponse)
 
 -- | The ARN of the device definition version.
-gddvrrsARN :: Lens' GetDeviceDefinitionVersionResponse (Maybe Text)
-gddvrrsARN = lens _gddvrrsARN (\s a -> s {_gddvrrsARN = a})
+getDeviceDefinitionVersionResponse_arn :: Lens.Lens' GetDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getDeviceDefinitionVersionResponse_arn = Lens.lens (\GetDeviceDefinitionVersionResponse' {arn} -> arn) (\s@GetDeviceDefinitionVersionResponse' {} a -> s {arn = a} :: GetDeviceDefinitionVersionResponse)
 
 -- | The ID of the device definition version.
-gddvrrsId :: Lens' GetDeviceDefinitionVersionResponse (Maybe Text)
-gddvrrsId = lens _gddvrrsId (\s a -> s {_gddvrrsId = a})
+getDeviceDefinitionVersionResponse_id :: Lens.Lens' GetDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getDeviceDefinitionVersionResponse_id = Lens.lens (\GetDeviceDefinitionVersionResponse' {id} -> id) (\s@GetDeviceDefinitionVersionResponse' {} a -> s {id = a} :: GetDeviceDefinitionVersionResponse)
 
 -- | The version of the device definition version.
-gddvrrsVersion :: Lens' GetDeviceDefinitionVersionResponse (Maybe Text)
-gddvrrsVersion = lens _gddvrrsVersion (\s a -> s {_gddvrrsVersion = a})
+getDeviceDefinitionVersionResponse_version :: Lens.Lens' GetDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getDeviceDefinitionVersionResponse_version = Lens.lens (\GetDeviceDefinitionVersionResponse' {version} -> version) (\s@GetDeviceDefinitionVersionResponse' {} a -> s {version = a} :: GetDeviceDefinitionVersionResponse)
 
 -- | Information about the device definition version.
-gddvrrsDefinition :: Lens' GetDeviceDefinitionVersionResponse (Maybe DeviceDefinitionVersion)
-gddvrrsDefinition = lens _gddvrrsDefinition (\s a -> s {_gddvrrsDefinition = a})
+getDeviceDefinitionVersionResponse_definition :: Lens.Lens' GetDeviceDefinitionVersionResponse (Prelude.Maybe DeviceDefinitionVersion)
+getDeviceDefinitionVersionResponse_definition = Lens.lens (\GetDeviceDefinitionVersionResponse' {definition} -> definition) (\s@GetDeviceDefinitionVersionResponse' {} a -> s {definition = a} :: GetDeviceDefinitionVersionResponse)
 
--- | -- | The response status code.
-gddvrrsResponseStatus :: Lens' GetDeviceDefinitionVersionResponse Int
-gddvrrsResponseStatus = lens _gddvrrsResponseStatus (\s a -> s {_gddvrrsResponseStatus = a})
+-- | The response's http status code.
+getDeviceDefinitionVersionResponse_httpStatus :: Lens.Lens' GetDeviceDefinitionVersionResponse Prelude.Int
+getDeviceDefinitionVersionResponse_httpStatus = Lens.lens (\GetDeviceDefinitionVersionResponse' {httpStatus} -> httpStatus) (\s@GetDeviceDefinitionVersionResponse' {} a -> s {httpStatus = a} :: GetDeviceDefinitionVersionResponse)
 
-instance NFData GetDeviceDefinitionVersionResponse
+instance
+  Prelude.NFData
+    GetDeviceDefinitionVersionResponse

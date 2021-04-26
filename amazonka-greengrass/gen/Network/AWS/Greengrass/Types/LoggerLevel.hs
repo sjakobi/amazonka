@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Greengrass.Types.LoggerLevel
   ( LoggerLevel
       ( ..,
-        Debug,
-        Error',
-        Fatal,
-        Info,
-        Warn
+        LoggerLevelDEBUG,
+        LoggerLevelERROR,
+        LoggerLevelFATAL,
+        LoggerLevelINFO,
+        LoggerLevelWARN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoggerLevel = LoggerLevel' (CI Text)
+newtype LoggerLevel = LoggerLevel'
+  { fromLoggerLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Debug :: LoggerLevel
-pattern Debug = LoggerLevel' "DEBUG"
+pattern LoggerLevelDEBUG :: LoggerLevel
+pattern LoggerLevelDEBUG = LoggerLevel' "DEBUG"
 
-pattern Error' :: LoggerLevel
-pattern Error' = LoggerLevel' "ERROR"
+pattern LoggerLevelERROR :: LoggerLevel
+pattern LoggerLevelERROR = LoggerLevel' "ERROR"
 
-pattern Fatal :: LoggerLevel
-pattern Fatal = LoggerLevel' "FATAL"
+pattern LoggerLevelFATAL :: LoggerLevel
+pattern LoggerLevelFATAL = LoggerLevel' "FATAL"
 
-pattern Info :: LoggerLevel
-pattern Info = LoggerLevel' "INFO"
+pattern LoggerLevelINFO :: LoggerLevel
+pattern LoggerLevelINFO = LoggerLevel' "INFO"
 
-pattern Warn :: LoggerLevel
-pattern Warn = LoggerLevel' "WARN"
+pattern LoggerLevelWARN :: LoggerLevel
+pattern LoggerLevelWARN = LoggerLevel' "WARN"
 
 {-# COMPLETE
-  Debug,
-  Error',
-  Fatal,
-  Info,
-  Warn,
+  LoggerLevelDEBUG,
+  LoggerLevelERROR,
+  LoggerLevelFATAL,
+  LoggerLevelINFO,
+  LoggerLevelWARN,
   LoggerLevel'
   #-}
 
-instance FromText LoggerLevel where
-  parser = (LoggerLevel' . mk) <$> takeText
+instance Prelude.FromText LoggerLevel where
+  parser = LoggerLevel' Prelude.<$> Prelude.takeText
 
-instance ToText LoggerLevel where
-  toText (LoggerLevel' ci) = original ci
+instance Prelude.ToText LoggerLevel where
+  toText (LoggerLevel' x) = x
 
-instance Hashable LoggerLevel
+instance Prelude.Hashable LoggerLevel
 
-instance NFData LoggerLevel
+instance Prelude.NFData LoggerLevel
 
-instance ToByteString LoggerLevel
+instance Prelude.ToByteString LoggerLevel
 
-instance ToQuery LoggerLevel
+instance Prelude.ToQuery LoggerLevel
 
-instance ToHeader LoggerLevel
+instance Prelude.ToHeader LoggerLevel
 
-instance ToJSON LoggerLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON LoggerLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LoggerLevel where
-  parseJSON = parseJSONText "LoggerLevel"
+instance Prelude.FromJSON LoggerLevel where
+  parseJSON = Prelude.parseJSONText "LoggerLevel"

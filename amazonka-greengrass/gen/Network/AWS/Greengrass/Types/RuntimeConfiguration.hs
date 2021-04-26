@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,52 +20,48 @@
 module Network.AWS.Greengrass.Types.RuntimeConfiguration where
 
 import Network.AWS.Greengrass.Types.TelemetryConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Runtime configuration for a thing.
 --
--- /See:/ 'runtimeConfiguration' smart constructor.
-newtype RuntimeConfiguration = RuntimeConfiguration'
-  { _rcTelemetryConfiguration ::
-      Maybe
-        TelemetryConfiguration
+-- /See:/ 'newRuntimeConfiguration' smart constructor.
+data RuntimeConfiguration = RuntimeConfiguration'
+  { -- | Configuration for telemetry service.
+    telemetryConfiguration :: Prelude.Maybe TelemetryConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RuntimeConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RuntimeConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcTelemetryConfiguration' - Configuration for telemetry service.
-runtimeConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'telemetryConfiguration', 'runtimeConfiguration_telemetryConfiguration' - Configuration for telemetry service.
+newRuntimeConfiguration ::
   RuntimeConfiguration
-runtimeConfiguration =
+newRuntimeConfiguration =
   RuntimeConfiguration'
-    { _rcTelemetryConfiguration =
-        Nothing
+    { telemetryConfiguration =
+        Prelude.Nothing
     }
 
 -- | Configuration for telemetry service.
-rcTelemetryConfiguration :: Lens' RuntimeConfiguration (Maybe TelemetryConfiguration)
-rcTelemetryConfiguration = lens _rcTelemetryConfiguration (\s a -> s {_rcTelemetryConfiguration = a})
+runtimeConfiguration_telemetryConfiguration :: Lens.Lens' RuntimeConfiguration (Prelude.Maybe TelemetryConfiguration)
+runtimeConfiguration_telemetryConfiguration = Lens.lens (\RuntimeConfiguration' {telemetryConfiguration} -> telemetryConfiguration) (\s@RuntimeConfiguration' {} a -> s {telemetryConfiguration = a} :: RuntimeConfiguration)
 
-instance FromJSON RuntimeConfiguration where
+instance Prelude.FromJSON RuntimeConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RuntimeConfiguration"
       ( \x ->
           RuntimeConfiguration'
-            <$> (x .:? "TelemetryConfiguration")
+            Prelude.<$> (x Prelude..:? "TelemetryConfiguration")
       )
 
-instance Hashable RuntimeConfiguration
+instance Prelude.Hashable RuntimeConfiguration
 
-instance NFData RuntimeConfiguration
+instance Prelude.NFData RuntimeConfiguration

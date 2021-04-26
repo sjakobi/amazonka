@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.Greengrass.Types.UpdateTargetsOperatingSystem
   ( UpdateTargetsOperatingSystem
       ( ..,
-        AmazonLinux,
-        Openwrt,
-        Raspbian,
-        Ubuntu
+        UpdateTargetsOperatingSystemAmazonLinux,
+        UpdateTargetsOperatingSystemOpenwrt,
+        UpdateTargetsOperatingSystemRaspbian,
+        UpdateTargetsOperatingSystemUbuntu
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The operating system of the cores which are the targets of an update.
-data UpdateTargetsOperatingSystem
-  = UpdateTargetsOperatingSystem'
-      ( CI
-          Text
-      )
+newtype UpdateTargetsOperatingSystem = UpdateTargetsOperatingSystem'
+  { fromUpdateTargetsOperatingSystem ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AmazonLinux :: UpdateTargetsOperatingSystem
-pattern AmazonLinux = UpdateTargetsOperatingSystem' "amazon_linux"
+pattern UpdateTargetsOperatingSystemAmazonLinux :: UpdateTargetsOperatingSystem
+pattern UpdateTargetsOperatingSystemAmazonLinux = UpdateTargetsOperatingSystem' "amazon_linux"
 
-pattern Openwrt :: UpdateTargetsOperatingSystem
-pattern Openwrt = UpdateTargetsOperatingSystem' "openwrt"
+pattern UpdateTargetsOperatingSystemOpenwrt :: UpdateTargetsOperatingSystem
+pattern UpdateTargetsOperatingSystemOpenwrt = UpdateTargetsOperatingSystem' "openwrt"
 
-pattern Raspbian :: UpdateTargetsOperatingSystem
-pattern Raspbian = UpdateTargetsOperatingSystem' "raspbian"
+pattern UpdateTargetsOperatingSystemRaspbian :: UpdateTargetsOperatingSystem
+pattern UpdateTargetsOperatingSystemRaspbian = UpdateTargetsOperatingSystem' "raspbian"
 
-pattern Ubuntu :: UpdateTargetsOperatingSystem
-pattern Ubuntu = UpdateTargetsOperatingSystem' "ubuntu"
+pattern UpdateTargetsOperatingSystemUbuntu :: UpdateTargetsOperatingSystem
+pattern UpdateTargetsOperatingSystemUbuntu = UpdateTargetsOperatingSystem' "ubuntu"
 
 {-# COMPLETE
-  AmazonLinux,
-  Openwrt,
-  Raspbian,
-  Ubuntu,
+  UpdateTargetsOperatingSystemAmazonLinux,
+  UpdateTargetsOperatingSystemOpenwrt,
+  UpdateTargetsOperatingSystemRaspbian,
+  UpdateTargetsOperatingSystemUbuntu,
   UpdateTargetsOperatingSystem'
   #-}
 
-instance FromText UpdateTargetsOperatingSystem where
-  parser = (UpdateTargetsOperatingSystem' . mk) <$> takeText
+instance Prelude.FromText UpdateTargetsOperatingSystem where
+  parser = UpdateTargetsOperatingSystem' Prelude.<$> Prelude.takeText
 
-instance ToText UpdateTargetsOperatingSystem where
-  toText (UpdateTargetsOperatingSystem' ci) = original ci
+instance Prelude.ToText UpdateTargetsOperatingSystem where
+  toText (UpdateTargetsOperatingSystem' x) = x
 
-instance Hashable UpdateTargetsOperatingSystem
+instance Prelude.Hashable UpdateTargetsOperatingSystem
 
-instance NFData UpdateTargetsOperatingSystem
+instance Prelude.NFData UpdateTargetsOperatingSystem
 
-instance ToByteString UpdateTargetsOperatingSystem
+instance Prelude.ToByteString UpdateTargetsOperatingSystem
 
-instance ToQuery UpdateTargetsOperatingSystem
+instance Prelude.ToQuery UpdateTargetsOperatingSystem
 
-instance ToHeader UpdateTargetsOperatingSystem
+instance Prelude.ToHeader UpdateTargetsOperatingSystem
 
-instance ToJSON UpdateTargetsOperatingSystem where
-  toJSON = toJSONText
+instance Prelude.ToJSON UpdateTargetsOperatingSystem where
+  toJSON = Prelude.toJSONText

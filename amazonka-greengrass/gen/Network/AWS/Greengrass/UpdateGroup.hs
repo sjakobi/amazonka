@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,125 +24,131 @@
 -- Updates a group.
 module Network.AWS.Greengrass.UpdateGroup
   ( -- * Creating a Request
-    updateGroup,
-    UpdateGroup,
+    UpdateGroup (..),
+    newUpdateGroup,
 
     -- * Request Lenses
-    ugName,
-    ugGroupId,
+    updateGroup_name,
+    updateGroup_groupId,
 
     -- * Destructuring the Response
-    updateGroupResponse,
-    UpdateGroupResponse,
+    UpdateGroupResponse (..),
+    newUpdateGroupResponse,
 
     -- * Response Lenses
-    ugrrsResponseStatus,
+    updateGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateGroup' smart constructor.
+-- | /See:/ 'newUpdateGroup' smart constructor.
 data UpdateGroup = UpdateGroup'
-  { _ugName ::
-      !(Maybe Text),
-    _ugGroupId :: !Text
+  { -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Greengrass group.
+    groupId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugName' - The name of the definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ugGroupId' - The ID of the Greengrass group.
-updateGroup ::
-  -- | 'ugGroupId'
-  Text ->
+-- 'name', 'updateGroup_name' - The name of the definition.
+--
+-- 'groupId', 'updateGroup_groupId' - The ID of the Greengrass group.
+newUpdateGroup ::
+  -- | 'groupId'
+  Prelude.Text ->
   UpdateGroup
-updateGroup pGroupId_ =
+newUpdateGroup pGroupId_ =
   UpdateGroup'
-    { _ugName = Nothing,
-      _ugGroupId = pGroupId_
+    { name = Prelude.Nothing,
+      groupId = pGroupId_
     }
 
 -- | The name of the definition.
-ugName :: Lens' UpdateGroup (Maybe Text)
-ugName = lens _ugName (\s a -> s {_ugName = a})
+updateGroup_name :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
+updateGroup_name = Lens.lens (\UpdateGroup' {name} -> name) (\s@UpdateGroup' {} a -> s {name = a} :: UpdateGroup)
 
 -- | The ID of the Greengrass group.
-ugGroupId :: Lens' UpdateGroup Text
-ugGroupId = lens _ugGroupId (\s a -> s {_ugGroupId = a})
+updateGroup_groupId :: Lens.Lens' UpdateGroup Prelude.Text
+updateGroup_groupId = Lens.lens (\UpdateGroup' {groupId} -> groupId) (\s@UpdateGroup' {} a -> s {groupId = a} :: UpdateGroup)
 
-instance AWSRequest UpdateGroup where
+instance Prelude.AWSRequest UpdateGroup where
   type Rs UpdateGroup = UpdateGroupResponse
-  request = putJSON greengrass
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateGroupResponse' <$> (pure (fromEnum s))
+          UpdateGroupResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateGroup
+instance Prelude.Hashable UpdateGroup
 
-instance NFData UpdateGroup
+instance Prelude.NFData UpdateGroup
 
-instance ToHeaders UpdateGroup where
+instance Prelude.ToHeaders UpdateGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateGroup where
+instance Prelude.ToJSON UpdateGroup where
   toJSON UpdateGroup' {..} =
-    object (catMaybes [("Name" .=) <$> _ugName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Name" Prelude..=) Prelude.<$> name]
+      )
 
-instance ToPath UpdateGroup where
+instance Prelude.ToPath UpdateGroup where
   toPath UpdateGroup' {..} =
-    mconcat ["/greengrass/groups/", toBS _ugGroupId]
+    Prelude.mconcat
+      ["/greengrass/groups/", Prelude.toBS groupId]
 
-instance ToQuery UpdateGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateGroupResponse' smart constructor.
-newtype UpdateGroupResponse = UpdateGroupResponse'
-  { _ugrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateGroupResponse' smart constructor.
+data UpdateGroupResponse = UpdateGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugrrsResponseStatus' - -- | The response status code.
-updateGroupResponse ::
-  -- | 'ugrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateGroupResponse_httpStatus' - The response's http status code.
+newUpdateGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateGroupResponse
-updateGroupResponse pResponseStatus_ =
-  UpdateGroupResponse'
-    { _ugrrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateGroupResponse pHttpStatus_ =
+  UpdateGroupResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ugrrsResponseStatus :: Lens' UpdateGroupResponse Int
-ugrrsResponseStatus = lens _ugrrsResponseStatus (\s a -> s {_ugrrsResponseStatus = a})
+-- | The response's http status code.
+updateGroupResponse_httpStatus :: Lens.Lens' UpdateGroupResponse Prelude.Int
+updateGroupResponse_httpStatus = Lens.lens (\UpdateGroupResponse' {httpStatus} -> httpStatus) (\s@UpdateGroupResponse' {} a -> s {httpStatus = a} :: UpdateGroupResponse)
 
-instance NFData UpdateGroupResponse
+instance Prelude.NFData UpdateGroupResponse

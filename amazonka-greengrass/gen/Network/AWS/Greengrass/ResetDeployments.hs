@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Resets a group's deployments.
+-- Resets a group\'s deployments.
 module Network.AWS.Greengrass.ResetDeployments
   ( -- * Creating a Request
-    resetDeployments,
-    ResetDeployments,
+    ResetDeployments (..),
+    newResetDeployments,
 
     -- * Request Lenses
-    rdForce,
-    rdAmznClientToken,
-    rdGroupId,
+    resetDeployments_force,
+    resetDeployments_amznClientToken,
+    resetDeployments_groupId,
 
     -- * Destructuring the Response
-    resetDeploymentsResponse,
-    ResetDeploymentsResponse,
+    ResetDeploymentsResponse (..),
+    newResetDeploymentsResponse,
 
     -- * Response Lenses
-    rdrrsDeploymentId,
-    rdrrsDeploymentARN,
-    rdrrsResponseStatus,
+    resetDeploymentsResponse_deploymentId,
+    resetDeploymentsResponse_deploymentArn,
+    resetDeploymentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Information needed to reset deployments.
 --
--- /See:/ 'resetDeployments' smart constructor.
+-- /See:/ 'newResetDeployments' smart constructor.
 data ResetDeployments = ResetDeployments'
-  { _rdForce ::
-      !(Maybe Bool),
-    _rdAmznClientToken :: !(Maybe Text),
-    _rdGroupId :: !Text
+  { -- | If true, performs a best-effort only core reset.
+    force :: Prelude.Maybe Prelude.Bool,
+    -- | A client token used to correlate requests and responses.
+    amznClientToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Greengrass group.
+    groupId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetDeployments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetDeployments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdForce' - If true, performs a best-effort only core reset.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdAmznClientToken' - A client token used to correlate requests and responses.
+-- 'force', 'resetDeployments_force' - If true, performs a best-effort only core reset.
 --
--- * 'rdGroupId' - The ID of the Greengrass group.
-resetDeployments ::
-  -- | 'rdGroupId'
-  Text ->
+-- 'amznClientToken', 'resetDeployments_amznClientToken' - A client token used to correlate requests and responses.
+--
+-- 'groupId', 'resetDeployments_groupId' - The ID of the Greengrass group.
+newResetDeployments ::
+  -- | 'groupId'
+  Prelude.Text ->
   ResetDeployments
-resetDeployments pGroupId_ =
+newResetDeployments pGroupId_ =
   ResetDeployments'
-    { _rdForce = Nothing,
-      _rdAmznClientToken = Nothing,
-      _rdGroupId = pGroupId_
+    { force = Prelude.Nothing,
+      amznClientToken = Prelude.Nothing,
+      groupId = pGroupId_
     }
 
 -- | If true, performs a best-effort only core reset.
-rdForce :: Lens' ResetDeployments (Maybe Bool)
-rdForce = lens _rdForce (\s a -> s {_rdForce = a})
+resetDeployments_force :: Lens.Lens' ResetDeployments (Prelude.Maybe Prelude.Bool)
+resetDeployments_force = Lens.lens (\ResetDeployments' {force} -> force) (\s@ResetDeployments' {} a -> s {force = a} :: ResetDeployments)
 
 -- | A client token used to correlate requests and responses.
-rdAmznClientToken :: Lens' ResetDeployments (Maybe Text)
-rdAmznClientToken = lens _rdAmznClientToken (\s a -> s {_rdAmznClientToken = a})
+resetDeployments_amznClientToken :: Lens.Lens' ResetDeployments (Prelude.Maybe Prelude.Text)
+resetDeployments_amznClientToken = Lens.lens (\ResetDeployments' {amznClientToken} -> amznClientToken) (\s@ResetDeployments' {} a -> s {amznClientToken = a} :: ResetDeployments)
 
 -- | The ID of the Greengrass group.
-rdGroupId :: Lens' ResetDeployments Text
-rdGroupId = lens _rdGroupId (\s a -> s {_rdGroupId = a})
+resetDeployments_groupId :: Lens.Lens' ResetDeployments Prelude.Text
+resetDeployments_groupId = Lens.lens (\ResetDeployments' {groupId} -> groupId) (\s@ResetDeployments' {} a -> s {groupId = a} :: ResetDeployments)
 
-instance AWSRequest ResetDeployments where
+instance Prelude.AWSRequest ResetDeployments where
   type Rs ResetDeployments = ResetDeploymentsResponse
-  request = postJSON greengrass
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ResetDeploymentsResponse'
-            <$> (x .?> "DeploymentId")
-            <*> (x .?> "DeploymentArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DeploymentId")
+            Prelude.<*> (x Prelude..?> "DeploymentArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ResetDeployments
+instance Prelude.Hashable ResetDeployments
 
-instance NFData ResetDeployments
+instance Prelude.NFData ResetDeployments
 
-instance ToHeaders ResetDeployments where
+instance Prelude.ToHeaders ResetDeployments where
   toHeaders ResetDeployments' {..} =
-    mconcat
-      [ "X-Amzn-Client-Token" =# _rdAmznClientToken,
+    Prelude.mconcat
+      [ "X-Amzn-Client-Token" Prelude.=# amznClientToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON ResetDeployments where
+instance Prelude.ToJSON ResetDeployments where
   toJSON ResetDeployments' {..} =
-    object (catMaybes [("Force" .=) <$> _rdForce])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Force" Prelude..=) Prelude.<$> force]
+      )
 
-instance ToPath ResetDeployments where
+instance Prelude.ToPath ResetDeployments where
   toPath ResetDeployments' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/groups/",
-        toBS _rdGroupId,
+        Prelude.toBS groupId,
         "/deployments/$reset"
       ]
 
-instance ToQuery ResetDeployments where
-  toQuery = const mempty
+instance Prelude.ToQuery ResetDeployments where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'resetDeploymentsResponse' smart constructor.
+-- | /See:/ 'newResetDeploymentsResponse' smart constructor.
 data ResetDeploymentsResponse = ResetDeploymentsResponse'
-  { _rdrrsDeploymentId ::
-      !(Maybe Text),
-    _rdrrsDeploymentARN ::
-      !(Maybe Text),
-    _rdrrsResponseStatus ::
-      !Int
+  { -- | The ID of the deployment.
+    deploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the deployment.
+    deploymentArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetDeploymentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetDeploymentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdrrsDeploymentId' - The ID of the deployment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdrrsDeploymentARN' - The ARN of the deployment.
+-- 'deploymentId', 'resetDeploymentsResponse_deploymentId' - The ID of the deployment.
 --
--- * 'rdrrsResponseStatus' - -- | The response status code.
-resetDeploymentsResponse ::
-  -- | 'rdrrsResponseStatus'
-  Int ->
+-- 'deploymentArn', 'resetDeploymentsResponse_deploymentArn' - The ARN of the deployment.
+--
+-- 'httpStatus', 'resetDeploymentsResponse_httpStatus' - The response's http status code.
+newResetDeploymentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ResetDeploymentsResponse
-resetDeploymentsResponse pResponseStatus_ =
+newResetDeploymentsResponse pHttpStatus_ =
   ResetDeploymentsResponse'
-    { _rdrrsDeploymentId =
-        Nothing,
-      _rdrrsDeploymentARN = Nothing,
-      _rdrrsResponseStatus = pResponseStatus_
+    { deploymentId =
+        Prelude.Nothing,
+      deploymentArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the deployment.
-rdrrsDeploymentId :: Lens' ResetDeploymentsResponse (Maybe Text)
-rdrrsDeploymentId = lens _rdrrsDeploymentId (\s a -> s {_rdrrsDeploymentId = a})
+resetDeploymentsResponse_deploymentId :: Lens.Lens' ResetDeploymentsResponse (Prelude.Maybe Prelude.Text)
+resetDeploymentsResponse_deploymentId = Lens.lens (\ResetDeploymentsResponse' {deploymentId} -> deploymentId) (\s@ResetDeploymentsResponse' {} a -> s {deploymentId = a} :: ResetDeploymentsResponse)
 
 -- | The ARN of the deployment.
-rdrrsDeploymentARN :: Lens' ResetDeploymentsResponse (Maybe Text)
-rdrrsDeploymentARN = lens _rdrrsDeploymentARN (\s a -> s {_rdrrsDeploymentARN = a})
+resetDeploymentsResponse_deploymentArn :: Lens.Lens' ResetDeploymentsResponse (Prelude.Maybe Prelude.Text)
+resetDeploymentsResponse_deploymentArn = Lens.lens (\ResetDeploymentsResponse' {deploymentArn} -> deploymentArn) (\s@ResetDeploymentsResponse' {} a -> s {deploymentArn = a} :: ResetDeploymentsResponse)
 
--- | -- | The response status code.
-rdrrsResponseStatus :: Lens' ResetDeploymentsResponse Int
-rdrrsResponseStatus = lens _rdrrsResponseStatus (\s a -> s {_rdrrsResponseStatus = a})
+-- | The response's http status code.
+resetDeploymentsResponse_httpStatus :: Lens.Lens' ResetDeploymentsResponse Prelude.Int
+resetDeploymentsResponse_httpStatus = Lens.lens (\ResetDeploymentsResponse' {httpStatus} -> httpStatus) (\s@ResetDeploymentsResponse' {} a -> s {httpStatus = a} :: ResetDeploymentsResponse)
 
-instance NFData ResetDeploymentsResponse
+instance Prelude.NFData ResetDeploymentsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,140 +24,140 @@
 -- Updates a connector definition.
 module Network.AWS.Greengrass.UpdateConnectorDefinition
   ( -- * Creating a Request
-    updateConnectorDefinition,
-    UpdateConnectorDefinition,
+    UpdateConnectorDefinition (..),
+    newUpdateConnectorDefinition,
 
     -- * Request Lenses
-    uName,
-    uConnectorDefinitionId,
+    updateConnectorDefinition_name,
+    updateConnectorDefinition_connectorDefinitionId,
 
     -- * Destructuring the Response
-    updateConnectorDefinitionResponse,
-    UpdateConnectorDefinitionResponse,
+    UpdateConnectorDefinitionResponse (..),
+    newUpdateConnectorDefinitionResponse,
 
     -- * Response Lenses
-    ursResponseStatus,
+    updateConnectorDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateConnectorDefinition' smart constructor.
+-- | /See:/ 'newUpdateConnectorDefinition' smart constructor.
 data UpdateConnectorDefinition = UpdateConnectorDefinition'
-  { _uName ::
-      !(Maybe Text),
-    _uConnectorDefinitionId ::
-      !Text
+  { -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the connector definition.
+    connectorDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConnectorDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConnectorDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uName' - The name of the definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uConnectorDefinitionId' - The ID of the connector definition.
-updateConnectorDefinition ::
-  -- | 'uConnectorDefinitionId'
-  Text ->
+-- 'name', 'updateConnectorDefinition_name' - The name of the definition.
+--
+-- 'connectorDefinitionId', 'updateConnectorDefinition_connectorDefinitionId' - The ID of the connector definition.
+newUpdateConnectorDefinition ::
+  -- | 'connectorDefinitionId'
+  Prelude.Text ->
   UpdateConnectorDefinition
-updateConnectorDefinition pConnectorDefinitionId_ =
+newUpdateConnectorDefinition pConnectorDefinitionId_ =
   UpdateConnectorDefinition'
-    { _uName = Nothing,
-      _uConnectorDefinitionId =
-        pConnectorDefinitionId_
+    { name = Prelude.Nothing,
+      connectorDefinitionId = pConnectorDefinitionId_
     }
 
 -- | The name of the definition.
-uName :: Lens' UpdateConnectorDefinition (Maybe Text)
-uName = lens _uName (\s a -> s {_uName = a})
+updateConnectorDefinition_name :: Lens.Lens' UpdateConnectorDefinition (Prelude.Maybe Prelude.Text)
+updateConnectorDefinition_name = Lens.lens (\UpdateConnectorDefinition' {name} -> name) (\s@UpdateConnectorDefinition' {} a -> s {name = a} :: UpdateConnectorDefinition)
 
 -- | The ID of the connector definition.
-uConnectorDefinitionId :: Lens' UpdateConnectorDefinition Text
-uConnectorDefinitionId = lens _uConnectorDefinitionId (\s a -> s {_uConnectorDefinitionId = a})
+updateConnectorDefinition_connectorDefinitionId :: Lens.Lens' UpdateConnectorDefinition Prelude.Text
+updateConnectorDefinition_connectorDefinitionId = Lens.lens (\UpdateConnectorDefinition' {connectorDefinitionId} -> connectorDefinitionId) (\s@UpdateConnectorDefinition' {} a -> s {connectorDefinitionId = a} :: UpdateConnectorDefinition)
 
-instance AWSRequest UpdateConnectorDefinition where
+instance Prelude.AWSRequest UpdateConnectorDefinition where
   type
     Rs UpdateConnectorDefinition =
       UpdateConnectorDefinitionResponse
-  request = putJSON greengrass
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateConnectorDefinitionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateConnectorDefinition
+instance Prelude.Hashable UpdateConnectorDefinition
 
-instance NFData UpdateConnectorDefinition
+instance Prelude.NFData UpdateConnectorDefinition
 
-instance ToHeaders UpdateConnectorDefinition where
+instance Prelude.ToHeaders UpdateConnectorDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateConnectorDefinition where
+instance Prelude.ToJSON UpdateConnectorDefinition where
   toJSON UpdateConnectorDefinition' {..} =
-    object (catMaybes [("Name" .=) <$> _uName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Name" Prelude..=) Prelude.<$> name]
+      )
 
-instance ToPath UpdateConnectorDefinition where
+instance Prelude.ToPath UpdateConnectorDefinition where
   toPath UpdateConnectorDefinition' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/connectors/",
-        toBS _uConnectorDefinitionId
+        Prelude.toBS connectorDefinitionId
       ]
 
-instance ToQuery UpdateConnectorDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateConnectorDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateConnectorDefinitionResponse' smart constructor.
-newtype UpdateConnectorDefinitionResponse = UpdateConnectorDefinitionResponse'
-  { _ursResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateConnectorDefinitionResponse' smart constructor.
+data UpdateConnectorDefinitionResponse = UpdateConnectorDefinitionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConnectorDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConnectorDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ursResponseStatus' - -- | The response status code.
-updateConnectorDefinitionResponse ::
-  -- | 'ursResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateConnectorDefinitionResponse_httpStatus' - The response's http status code.
+newUpdateConnectorDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateConnectorDefinitionResponse
-updateConnectorDefinitionResponse pResponseStatus_ =
+newUpdateConnectorDefinitionResponse pHttpStatus_ =
   UpdateConnectorDefinitionResponse'
-    { _ursResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ursResponseStatus :: Lens' UpdateConnectorDefinitionResponse Int
-ursResponseStatus = lens _ursResponseStatus (\s a -> s {_ursResponseStatus = a})
+-- | The response's http status code.
+updateConnectorDefinitionResponse_httpStatus :: Lens.Lens' UpdateConnectorDefinitionResponse Prelude.Int
+updateConnectorDefinitionResponse_httpStatus = Lens.lens (\UpdateConnectorDefinitionResponse' {httpStatus} -> httpStatus) (\s@UpdateConnectorDefinitionResponse' {} a -> s {httpStatus = a} :: UpdateConnectorDefinitionResponse)
 
-instance NFData UpdateConnectorDefinitionResponse
+instance
+  Prelude.NFData
+    UpdateConnectorDefinitionResponse

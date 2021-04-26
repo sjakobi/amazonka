@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,234 +21,240 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a version of a Lambda function definition that has already been defined.
+-- Creates a version of a Lambda function definition that has already been
+-- defined.
 module Network.AWS.Greengrass.CreateFunctionDefinitionVersion
   ( -- * Creating a Request
-    createFunctionDefinitionVersion,
-    CreateFunctionDefinitionVersion,
+    CreateFunctionDefinitionVersion (..),
+    newCreateFunctionDefinitionVersion,
 
     -- * Request Lenses
-    cfdvFunctions,
-    cfdvDefaultConfig,
-    cfdvAmznClientToken,
-    cfdvFunctionDefinitionId,
+    createFunctionDefinitionVersion_functions,
+    createFunctionDefinitionVersion_defaultConfig,
+    createFunctionDefinitionVersion_amznClientToken,
+    createFunctionDefinitionVersion_functionDefinitionId,
 
     -- * Destructuring the Response
-    createFunctionDefinitionVersionResponse,
-    CreateFunctionDefinitionVersionResponse,
+    CreateFunctionDefinitionVersionResponse (..),
+    newCreateFunctionDefinitionVersionResponse,
 
     -- * Response Lenses
-    cfdvrrsCreationTimestamp,
-    cfdvrrsARN,
-    cfdvrrsId,
-    cfdvrrsVersion,
-    cfdvrrsResponseStatus,
+    createFunctionDefinitionVersionResponse_creationTimestamp,
+    createFunctionDefinitionVersionResponse_arn,
+    createFunctionDefinitionVersionResponse_id,
+    createFunctionDefinitionVersionResponse_version,
+    createFunctionDefinitionVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Information needed to create a function definition version.
 --
--- /See:/ 'createFunctionDefinitionVersion' smart constructor.
+-- /See:/ 'newCreateFunctionDefinitionVersion' smart constructor.
 data CreateFunctionDefinitionVersion = CreateFunctionDefinitionVersion'
-  { _cfdvFunctions ::
-      !( Maybe
-           [Function]
-       ),
-    _cfdvDefaultConfig ::
-      !( Maybe
-           FunctionDefaultConfig
-       ),
-    _cfdvAmznClientToken ::
-      !( Maybe
-           Text
-       ),
-    _cfdvFunctionDefinitionId ::
-      !Text
+  { -- | A list of Lambda functions in this function definition version.
+    functions :: Prelude.Maybe [Function],
+    -- | The default configuration that applies to all Lambda functions in this
+    -- function definition version. Individual Lambda functions can override
+    -- these settings.
+    defaultConfig :: Prelude.Maybe FunctionDefaultConfig,
+    -- | A client token used to correlate requests and responses.
+    amznClientToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Lambda function definition.
+    functionDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFunctionDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFunctionDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfdvFunctions' - A list of Lambda functions in this function definition version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfdvDefaultConfig' - The default configuration that applies to all Lambda functions in this function definition version. Individual Lambda functions can override these settings.
+-- 'functions', 'createFunctionDefinitionVersion_functions' - A list of Lambda functions in this function definition version.
 --
--- * 'cfdvAmznClientToken' - A client token used to correlate requests and responses.
+-- 'defaultConfig', 'createFunctionDefinitionVersion_defaultConfig' - The default configuration that applies to all Lambda functions in this
+-- function definition version. Individual Lambda functions can override
+-- these settings.
 --
--- * 'cfdvFunctionDefinitionId' - The ID of the Lambda function definition.
-createFunctionDefinitionVersion ::
-  -- | 'cfdvFunctionDefinitionId'
-  Text ->
+-- 'amznClientToken', 'createFunctionDefinitionVersion_amznClientToken' - A client token used to correlate requests and responses.
+--
+-- 'functionDefinitionId', 'createFunctionDefinitionVersion_functionDefinitionId' - The ID of the Lambda function definition.
+newCreateFunctionDefinitionVersion ::
+  -- | 'functionDefinitionId'
+  Prelude.Text ->
   CreateFunctionDefinitionVersion
-createFunctionDefinitionVersion
+newCreateFunctionDefinitionVersion
   pFunctionDefinitionId_ =
     CreateFunctionDefinitionVersion'
-      { _cfdvFunctions =
-          Nothing,
-        _cfdvDefaultConfig = Nothing,
-        _cfdvAmznClientToken = Nothing,
-        _cfdvFunctionDefinitionId =
+      { functions =
+          Prelude.Nothing,
+        defaultConfig = Prelude.Nothing,
+        amznClientToken = Prelude.Nothing,
+        functionDefinitionId =
           pFunctionDefinitionId_
       }
 
 -- | A list of Lambda functions in this function definition version.
-cfdvFunctions :: Lens' CreateFunctionDefinitionVersion [Function]
-cfdvFunctions = lens _cfdvFunctions (\s a -> s {_cfdvFunctions = a}) . _Default . _Coerce
+createFunctionDefinitionVersion_functions :: Lens.Lens' CreateFunctionDefinitionVersion (Prelude.Maybe [Function])
+createFunctionDefinitionVersion_functions = Lens.lens (\CreateFunctionDefinitionVersion' {functions} -> functions) (\s@CreateFunctionDefinitionVersion' {} a -> s {functions = a} :: CreateFunctionDefinitionVersion) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The default configuration that applies to all Lambda functions in this function definition version. Individual Lambda functions can override these settings.
-cfdvDefaultConfig :: Lens' CreateFunctionDefinitionVersion (Maybe FunctionDefaultConfig)
-cfdvDefaultConfig = lens _cfdvDefaultConfig (\s a -> s {_cfdvDefaultConfig = a})
+-- | The default configuration that applies to all Lambda functions in this
+-- function definition version. Individual Lambda functions can override
+-- these settings.
+createFunctionDefinitionVersion_defaultConfig :: Lens.Lens' CreateFunctionDefinitionVersion (Prelude.Maybe FunctionDefaultConfig)
+createFunctionDefinitionVersion_defaultConfig = Lens.lens (\CreateFunctionDefinitionVersion' {defaultConfig} -> defaultConfig) (\s@CreateFunctionDefinitionVersion' {} a -> s {defaultConfig = a} :: CreateFunctionDefinitionVersion)
 
 -- | A client token used to correlate requests and responses.
-cfdvAmznClientToken :: Lens' CreateFunctionDefinitionVersion (Maybe Text)
-cfdvAmznClientToken = lens _cfdvAmznClientToken (\s a -> s {_cfdvAmznClientToken = a})
+createFunctionDefinitionVersion_amznClientToken :: Lens.Lens' CreateFunctionDefinitionVersion (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionVersion_amznClientToken = Lens.lens (\CreateFunctionDefinitionVersion' {amznClientToken} -> amznClientToken) (\s@CreateFunctionDefinitionVersion' {} a -> s {amznClientToken = a} :: CreateFunctionDefinitionVersion)
 
 -- | The ID of the Lambda function definition.
-cfdvFunctionDefinitionId :: Lens' CreateFunctionDefinitionVersion Text
-cfdvFunctionDefinitionId = lens _cfdvFunctionDefinitionId (\s a -> s {_cfdvFunctionDefinitionId = a})
+createFunctionDefinitionVersion_functionDefinitionId :: Lens.Lens' CreateFunctionDefinitionVersion Prelude.Text
+createFunctionDefinitionVersion_functionDefinitionId = Lens.lens (\CreateFunctionDefinitionVersion' {functionDefinitionId} -> functionDefinitionId) (\s@CreateFunctionDefinitionVersion' {} a -> s {functionDefinitionId = a} :: CreateFunctionDefinitionVersion)
 
-instance AWSRequest CreateFunctionDefinitionVersion where
+instance
+  Prelude.AWSRequest
+    CreateFunctionDefinitionVersion
+  where
   type
     Rs CreateFunctionDefinitionVersion =
       CreateFunctionDefinitionVersionResponse
-  request = postJSON greengrass
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateFunctionDefinitionVersionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Version")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Version")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateFunctionDefinitionVersion
+instance
+  Prelude.Hashable
+    CreateFunctionDefinitionVersion
 
-instance NFData CreateFunctionDefinitionVersion
+instance
+  Prelude.NFData
+    CreateFunctionDefinitionVersion
 
-instance ToHeaders CreateFunctionDefinitionVersion where
+instance
+  Prelude.ToHeaders
+    CreateFunctionDefinitionVersion
+  where
   toHeaders CreateFunctionDefinitionVersion' {..} =
-    mconcat
-      [ "X-Amzn-Client-Token" =# _cfdvAmznClientToken,
+    Prelude.mconcat
+      [ "X-Amzn-Client-Token" Prelude.=# amznClientToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON CreateFunctionDefinitionVersion where
+instance
+  Prelude.ToJSON
+    CreateFunctionDefinitionVersion
+  where
   toJSON CreateFunctionDefinitionVersion' {..} =
-    object
-      ( catMaybes
-          [ ("Functions" .=) <$> _cfdvFunctions,
-            ("DefaultConfig" .=) <$> _cfdvDefaultConfig
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Functions" Prelude..=) Prelude.<$> functions,
+            ("DefaultConfig" Prelude..=)
+              Prelude.<$> defaultConfig
           ]
       )
 
-instance ToPath CreateFunctionDefinitionVersion where
+instance
+  Prelude.ToPath
+    CreateFunctionDefinitionVersion
+  where
   toPath CreateFunctionDefinitionVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/functions/",
-        toBS _cfdvFunctionDefinitionId,
+        Prelude.toBS functionDefinitionId,
         "/versions"
       ]
 
-instance ToQuery CreateFunctionDefinitionVersion where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CreateFunctionDefinitionVersion
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createFunctionDefinitionVersionResponse' smart constructor.
+-- | /See:/ 'newCreateFunctionDefinitionVersionResponse' smart constructor.
 data CreateFunctionDefinitionVersionResponse = CreateFunctionDefinitionVersionResponse'
-  { _cfdvrrsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _cfdvrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _cfdvrrsId ::
-      !( Maybe
-           Text
-       ),
-    _cfdvrrsVersion ::
-      !( Maybe
-           Text
-       ),
-    _cfdvrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the version was created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the version.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the parent definition that the version is associated with.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the version.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFunctionDefinitionVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFunctionDefinitionVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfdvrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfdvrrsARN' - The ARN of the version.
+-- 'creationTimestamp', 'createFunctionDefinitionVersionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
 --
--- * 'cfdvrrsId' - The ID of the parent definition that the version is associated with.
+-- 'arn', 'createFunctionDefinitionVersionResponse_arn' - The ARN of the version.
 --
--- * 'cfdvrrsVersion' - The ID of the version.
+-- 'id', 'createFunctionDefinitionVersionResponse_id' - The ID of the parent definition that the version is associated with.
 --
--- * 'cfdvrrsResponseStatus' - -- | The response status code.
-createFunctionDefinitionVersionResponse ::
-  -- | 'cfdvrrsResponseStatus'
-  Int ->
+-- 'version', 'createFunctionDefinitionVersionResponse_version' - The ID of the version.
+--
+-- 'httpStatus', 'createFunctionDefinitionVersionResponse_httpStatus' - The response's http status code.
+newCreateFunctionDefinitionVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateFunctionDefinitionVersionResponse
-createFunctionDefinitionVersionResponse
-  pResponseStatus_ =
+newCreateFunctionDefinitionVersionResponse
+  pHttpStatus_ =
     CreateFunctionDefinitionVersionResponse'
-      { _cfdvrrsCreationTimestamp =
-          Nothing,
-        _cfdvrrsARN = Nothing,
-        _cfdvrrsId = Nothing,
-        _cfdvrrsVersion = Nothing,
-        _cfdvrrsResponseStatus =
-          pResponseStatus_
+      { creationTimestamp =
+          Prelude.Nothing,
+        arn = Prelude.Nothing,
+        id = Prelude.Nothing,
+        version = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The time, in milliseconds since the epoch, when the version was created.
-cfdvrrsCreationTimestamp :: Lens' CreateFunctionDefinitionVersionResponse (Maybe Text)
-cfdvrrsCreationTimestamp = lens _cfdvrrsCreationTimestamp (\s a -> s {_cfdvrrsCreationTimestamp = a})
+createFunctionDefinitionVersionResponse_creationTimestamp :: Lens.Lens' CreateFunctionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionVersionResponse_creationTimestamp = Lens.lens (\CreateFunctionDefinitionVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateFunctionDefinitionVersionResponse' {} a -> s {creationTimestamp = a} :: CreateFunctionDefinitionVersionResponse)
 
 -- | The ARN of the version.
-cfdvrrsARN :: Lens' CreateFunctionDefinitionVersionResponse (Maybe Text)
-cfdvrrsARN = lens _cfdvrrsARN (\s a -> s {_cfdvrrsARN = a})
+createFunctionDefinitionVersionResponse_arn :: Lens.Lens' CreateFunctionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionVersionResponse_arn = Lens.lens (\CreateFunctionDefinitionVersionResponse' {arn} -> arn) (\s@CreateFunctionDefinitionVersionResponse' {} a -> s {arn = a} :: CreateFunctionDefinitionVersionResponse)
 
 -- | The ID of the parent definition that the version is associated with.
-cfdvrrsId :: Lens' CreateFunctionDefinitionVersionResponse (Maybe Text)
-cfdvrrsId = lens _cfdvrrsId (\s a -> s {_cfdvrrsId = a})
+createFunctionDefinitionVersionResponse_id :: Lens.Lens' CreateFunctionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionVersionResponse_id = Lens.lens (\CreateFunctionDefinitionVersionResponse' {id} -> id) (\s@CreateFunctionDefinitionVersionResponse' {} a -> s {id = a} :: CreateFunctionDefinitionVersionResponse)
 
 -- | The ID of the version.
-cfdvrrsVersion :: Lens' CreateFunctionDefinitionVersionResponse (Maybe Text)
-cfdvrrsVersion = lens _cfdvrrsVersion (\s a -> s {_cfdvrrsVersion = a})
+createFunctionDefinitionVersionResponse_version :: Lens.Lens' CreateFunctionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createFunctionDefinitionVersionResponse_version = Lens.lens (\CreateFunctionDefinitionVersionResponse' {version} -> version) (\s@CreateFunctionDefinitionVersionResponse' {} a -> s {version = a} :: CreateFunctionDefinitionVersionResponse)
 
--- | -- | The response status code.
-cfdvrrsResponseStatus :: Lens' CreateFunctionDefinitionVersionResponse Int
-cfdvrrsResponseStatus = lens _cfdvrrsResponseStatus (\s a -> s {_cfdvrrsResponseStatus = a})
+-- | The response's http status code.
+createFunctionDefinitionVersionResponse_httpStatus :: Lens.Lens' CreateFunctionDefinitionVersionResponse Prelude.Int
+createFunctionDefinitionVersionResponse_httpStatus = Lens.lens (\CreateFunctionDefinitionVersionResponse' {httpStatus} -> httpStatus) (\s@CreateFunctionDefinitionVersionResponse' {} a -> s {httpStatus = a} :: CreateFunctionDefinitionVersionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateFunctionDefinitionVersionResponse

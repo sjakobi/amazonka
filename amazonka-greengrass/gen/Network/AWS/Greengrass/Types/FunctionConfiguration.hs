@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,124 +21,139 @@ module Network.AWS.Greengrass.Types.FunctionConfiguration where
 
 import Network.AWS.Greengrass.Types.EncodingType
 import Network.AWS.Greengrass.Types.FunctionConfigurationEnvironment
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The configuration of the Lambda function.
 --
--- /See:/ 'functionConfiguration' smart constructor.
+-- /See:/ 'newFunctionConfiguration' smart constructor.
 data FunctionConfiguration = FunctionConfiguration'
-  { _fcExecArgs ::
-      !(Maybe Text),
-    _fcMemorySize ::
-      !(Maybe Int),
-    _fcTimeout :: !(Maybe Int),
-    _fcEncodingType ::
-      !(Maybe EncodingType),
-    _fcPinned :: !(Maybe Bool),
-    _fcExecutable ::
-      !(Maybe Text),
-    _fcEnvironment ::
-      !( Maybe
-           FunctionConfigurationEnvironment
-       )
+  { -- | The execution arguments.
+    execArgs :: Prelude.Maybe Prelude.Text,
+    -- | The memory size, in KB, which the function requires. This setting is not
+    -- applicable and should be cleared when you run the Lambda function
+    -- without containerization.
+    memorySize :: Prelude.Maybe Prelude.Int,
+    -- | The allowed function execution time, after which Lambda should terminate
+    -- the function. This timeout still applies to pinned Lambda functions for
+    -- each request.
+    timeout :: Prelude.Maybe Prelude.Int,
+    -- | The expected encoding type of the input payload for the function. The
+    -- default is \'\'json\'\'.
+    encodingType :: Prelude.Maybe EncodingType,
+    -- | True if the function is pinned. Pinned means the function is long-lived
+    -- and starts when the core starts.
+    pinned :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the function executable.
+    executable :: Prelude.Maybe Prelude.Text,
+    -- | The environment configuration of the function.
+    environment :: Prelude.Maybe FunctionConfigurationEnvironment
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FunctionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FunctionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fcExecArgs' - The execution arguments.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fcMemorySize' - The memory size, in KB, which the function requires. This setting is not applicable and should be cleared when you run the Lambda function without containerization.
+-- 'execArgs', 'functionConfiguration_execArgs' - The execution arguments.
 --
--- * 'fcTimeout' - The allowed function execution time, after which Lambda should terminate the function. This timeout still applies to pinned Lambda functions for each request.
+-- 'memorySize', 'functionConfiguration_memorySize' - The memory size, in KB, which the function requires. This setting is not
+-- applicable and should be cleared when you run the Lambda function
+-- without containerization.
 --
--- * 'fcEncodingType' - The expected encoding type of the input payload for the function. The default is ''json''.
+-- 'timeout', 'functionConfiguration_timeout' - The allowed function execution time, after which Lambda should terminate
+-- the function. This timeout still applies to pinned Lambda functions for
+-- each request.
 --
--- * 'fcPinned' - True if the function is pinned. Pinned means the function is long-lived and starts when the core starts.
+-- 'encodingType', 'functionConfiguration_encodingType' - The expected encoding type of the input payload for the function. The
+-- default is \'\'json\'\'.
 --
--- * 'fcExecutable' - The name of the function executable.
+-- 'pinned', 'functionConfiguration_pinned' - True if the function is pinned. Pinned means the function is long-lived
+-- and starts when the core starts.
 --
--- * 'fcEnvironment' - The environment configuration of the function.
-functionConfiguration ::
+-- 'executable', 'functionConfiguration_executable' - The name of the function executable.
+--
+-- 'environment', 'functionConfiguration_environment' - The environment configuration of the function.
+newFunctionConfiguration ::
   FunctionConfiguration
-functionConfiguration =
+newFunctionConfiguration =
   FunctionConfiguration'
-    { _fcExecArgs = Nothing,
-      _fcMemorySize = Nothing,
-      _fcTimeout = Nothing,
-      _fcEncodingType = Nothing,
-      _fcPinned = Nothing,
-      _fcExecutable = Nothing,
-      _fcEnvironment = Nothing
+    { execArgs = Prelude.Nothing,
+      memorySize = Prelude.Nothing,
+      timeout = Prelude.Nothing,
+      encodingType = Prelude.Nothing,
+      pinned = Prelude.Nothing,
+      executable = Prelude.Nothing,
+      environment = Prelude.Nothing
     }
 
 -- | The execution arguments.
-fcExecArgs :: Lens' FunctionConfiguration (Maybe Text)
-fcExecArgs = lens _fcExecArgs (\s a -> s {_fcExecArgs = a})
+functionConfiguration_execArgs :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_execArgs = Lens.lens (\FunctionConfiguration' {execArgs} -> execArgs) (\s@FunctionConfiguration' {} a -> s {execArgs = a} :: FunctionConfiguration)
 
--- | The memory size, in KB, which the function requires. This setting is not applicable and should be cleared when you run the Lambda function without containerization.
-fcMemorySize :: Lens' FunctionConfiguration (Maybe Int)
-fcMemorySize = lens _fcMemorySize (\s a -> s {_fcMemorySize = a})
+-- | The memory size, in KB, which the function requires. This setting is not
+-- applicable and should be cleared when you run the Lambda function
+-- without containerization.
+functionConfiguration_memorySize :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Int)
+functionConfiguration_memorySize = Lens.lens (\FunctionConfiguration' {memorySize} -> memorySize) (\s@FunctionConfiguration' {} a -> s {memorySize = a} :: FunctionConfiguration)
 
--- | The allowed function execution time, after which Lambda should terminate the function. This timeout still applies to pinned Lambda functions for each request.
-fcTimeout :: Lens' FunctionConfiguration (Maybe Int)
-fcTimeout = lens _fcTimeout (\s a -> s {_fcTimeout = a})
+-- | The allowed function execution time, after which Lambda should terminate
+-- the function. This timeout still applies to pinned Lambda functions for
+-- each request.
+functionConfiguration_timeout :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Int)
+functionConfiguration_timeout = Lens.lens (\FunctionConfiguration' {timeout} -> timeout) (\s@FunctionConfiguration' {} a -> s {timeout = a} :: FunctionConfiguration)
 
--- | The expected encoding type of the input payload for the function. The default is ''json''.
-fcEncodingType :: Lens' FunctionConfiguration (Maybe EncodingType)
-fcEncodingType = lens _fcEncodingType (\s a -> s {_fcEncodingType = a})
+-- | The expected encoding type of the input payload for the function. The
+-- default is \'\'json\'\'.
+functionConfiguration_encodingType :: Lens.Lens' FunctionConfiguration (Prelude.Maybe EncodingType)
+functionConfiguration_encodingType = Lens.lens (\FunctionConfiguration' {encodingType} -> encodingType) (\s@FunctionConfiguration' {} a -> s {encodingType = a} :: FunctionConfiguration)
 
--- | True if the function is pinned. Pinned means the function is long-lived and starts when the core starts.
-fcPinned :: Lens' FunctionConfiguration (Maybe Bool)
-fcPinned = lens _fcPinned (\s a -> s {_fcPinned = a})
+-- | True if the function is pinned. Pinned means the function is long-lived
+-- and starts when the core starts.
+functionConfiguration_pinned :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Bool)
+functionConfiguration_pinned = Lens.lens (\FunctionConfiguration' {pinned} -> pinned) (\s@FunctionConfiguration' {} a -> s {pinned = a} :: FunctionConfiguration)
 
 -- | The name of the function executable.
-fcExecutable :: Lens' FunctionConfiguration (Maybe Text)
-fcExecutable = lens _fcExecutable (\s a -> s {_fcExecutable = a})
+functionConfiguration_executable :: Lens.Lens' FunctionConfiguration (Prelude.Maybe Prelude.Text)
+functionConfiguration_executable = Lens.lens (\FunctionConfiguration' {executable} -> executable) (\s@FunctionConfiguration' {} a -> s {executable = a} :: FunctionConfiguration)
 
 -- | The environment configuration of the function.
-fcEnvironment :: Lens' FunctionConfiguration (Maybe FunctionConfigurationEnvironment)
-fcEnvironment = lens _fcEnvironment (\s a -> s {_fcEnvironment = a})
+functionConfiguration_environment :: Lens.Lens' FunctionConfiguration (Prelude.Maybe FunctionConfigurationEnvironment)
+functionConfiguration_environment = Lens.lens (\FunctionConfiguration' {environment} -> environment) (\s@FunctionConfiguration' {} a -> s {environment = a} :: FunctionConfiguration)
 
-instance FromJSON FunctionConfiguration where
+instance Prelude.FromJSON FunctionConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FunctionConfiguration"
       ( \x ->
           FunctionConfiguration'
-            <$> (x .:? "ExecArgs")
-            <*> (x .:? "MemorySize")
-            <*> (x .:? "Timeout")
-            <*> (x .:? "EncodingType")
-            <*> (x .:? "Pinned")
-            <*> (x .:? "Executable")
-            <*> (x .:? "Environment")
+            Prelude.<$> (x Prelude..:? "ExecArgs")
+            Prelude.<*> (x Prelude..:? "MemorySize")
+            Prelude.<*> (x Prelude..:? "Timeout")
+            Prelude.<*> (x Prelude..:? "EncodingType")
+            Prelude.<*> (x Prelude..:? "Pinned")
+            Prelude.<*> (x Prelude..:? "Executable")
+            Prelude.<*> (x Prelude..:? "Environment")
       )
 
-instance Hashable FunctionConfiguration
+instance Prelude.Hashable FunctionConfiguration
 
-instance NFData FunctionConfiguration
+instance Prelude.NFData FunctionConfiguration
 
-instance ToJSON FunctionConfiguration where
+instance Prelude.ToJSON FunctionConfiguration where
   toJSON FunctionConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("ExecArgs" .=) <$> _fcExecArgs,
-            ("MemorySize" .=) <$> _fcMemorySize,
-            ("Timeout" .=) <$> _fcTimeout,
-            ("EncodingType" .=) <$> _fcEncodingType,
-            ("Pinned" .=) <$> _fcPinned,
-            ("Executable" .=) <$> _fcExecutable,
-            ("Environment" .=) <$> _fcEnvironment
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ExecArgs" Prelude..=) Prelude.<$> execArgs,
+            ("MemorySize" Prelude..=) Prelude.<$> memorySize,
+            ("Timeout" Prelude..=) Prelude.<$> timeout,
+            ("EncodingType" Prelude..=) Prelude.<$> encodingType,
+            ("Pinned" Prelude..=) Prelude.<$> pinned,
+            ("Executable" Prelude..=) Prelude.<$> executable,
+            ("Environment" Prelude..=) Prelude.<$> environment
           ]
       )

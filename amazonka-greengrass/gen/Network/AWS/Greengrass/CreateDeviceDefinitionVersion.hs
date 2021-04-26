@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,210 +24,204 @@
 -- Creates a version of a device definition that has already been defined.
 module Network.AWS.Greengrass.CreateDeviceDefinitionVersion
   ( -- * Creating a Request
-    createDeviceDefinitionVersion,
-    CreateDeviceDefinitionVersion,
+    CreateDeviceDefinitionVersion (..),
+    newCreateDeviceDefinitionVersion,
 
     -- * Request Lenses
-    cddvDevices,
-    cddvAmznClientToken,
-    cddvDeviceDefinitionId,
+    createDeviceDefinitionVersion_devices,
+    createDeviceDefinitionVersion_amznClientToken,
+    createDeviceDefinitionVersion_deviceDefinitionId,
 
     -- * Destructuring the Response
-    createDeviceDefinitionVersionResponse,
-    CreateDeviceDefinitionVersionResponse,
+    CreateDeviceDefinitionVersionResponse (..),
+    newCreateDeviceDefinitionVersionResponse,
 
     -- * Response Lenses
-    cddvrrsCreationTimestamp,
-    cddvrrsARN,
-    cddvrrsId,
-    cddvrrsVersion,
-    cddvrrsResponseStatus,
+    createDeviceDefinitionVersionResponse_creationTimestamp,
+    createDeviceDefinitionVersionResponse_arn,
+    createDeviceDefinitionVersionResponse_id,
+    createDeviceDefinitionVersionResponse_version,
+    createDeviceDefinitionVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDeviceDefinitionVersion' smart constructor.
+-- | /See:/ 'newCreateDeviceDefinitionVersion' smart constructor.
 data CreateDeviceDefinitionVersion = CreateDeviceDefinitionVersion'
-  { _cddvDevices ::
-      !( Maybe
-           [Device]
-       ),
-    _cddvAmznClientToken ::
-      !( Maybe
-           Text
-       ),
-    _cddvDeviceDefinitionId ::
-      !Text
+  { -- | A list of devices in the definition version.
+    devices :: Prelude.Maybe [Device],
+    -- | A client token used to correlate requests and responses.
+    amznClientToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the device definition.
+    deviceDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDeviceDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDeviceDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cddvDevices' - A list of devices in the definition version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cddvAmznClientToken' - A client token used to correlate requests and responses.
+-- 'devices', 'createDeviceDefinitionVersion_devices' - A list of devices in the definition version.
 --
--- * 'cddvDeviceDefinitionId' - The ID of the device definition.
-createDeviceDefinitionVersion ::
-  -- | 'cddvDeviceDefinitionId'
-  Text ->
+-- 'amznClientToken', 'createDeviceDefinitionVersion_amznClientToken' - A client token used to correlate requests and responses.
+--
+-- 'deviceDefinitionId', 'createDeviceDefinitionVersion_deviceDefinitionId' - The ID of the device definition.
+newCreateDeviceDefinitionVersion ::
+  -- | 'deviceDefinitionId'
+  Prelude.Text ->
   CreateDeviceDefinitionVersion
-createDeviceDefinitionVersion pDeviceDefinitionId_ =
+newCreateDeviceDefinitionVersion pDeviceDefinitionId_ =
   CreateDeviceDefinitionVersion'
-    { _cddvDevices =
-        Nothing,
-      _cddvAmznClientToken = Nothing,
-      _cddvDeviceDefinitionId =
-        pDeviceDefinitionId_
+    { devices =
+        Prelude.Nothing,
+      amznClientToken = Prelude.Nothing,
+      deviceDefinitionId = pDeviceDefinitionId_
     }
 
 -- | A list of devices in the definition version.
-cddvDevices :: Lens' CreateDeviceDefinitionVersion [Device]
-cddvDevices = lens _cddvDevices (\s a -> s {_cddvDevices = a}) . _Default . _Coerce
+createDeviceDefinitionVersion_devices :: Lens.Lens' CreateDeviceDefinitionVersion (Prelude.Maybe [Device])
+createDeviceDefinitionVersion_devices = Lens.lens (\CreateDeviceDefinitionVersion' {devices} -> devices) (\s@CreateDeviceDefinitionVersion' {} a -> s {devices = a} :: CreateDeviceDefinitionVersion) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A client token used to correlate requests and responses.
-cddvAmznClientToken :: Lens' CreateDeviceDefinitionVersion (Maybe Text)
-cddvAmznClientToken = lens _cddvAmznClientToken (\s a -> s {_cddvAmznClientToken = a})
+createDeviceDefinitionVersion_amznClientToken :: Lens.Lens' CreateDeviceDefinitionVersion (Prelude.Maybe Prelude.Text)
+createDeviceDefinitionVersion_amznClientToken = Lens.lens (\CreateDeviceDefinitionVersion' {amznClientToken} -> amznClientToken) (\s@CreateDeviceDefinitionVersion' {} a -> s {amznClientToken = a} :: CreateDeviceDefinitionVersion)
 
 -- | The ID of the device definition.
-cddvDeviceDefinitionId :: Lens' CreateDeviceDefinitionVersion Text
-cddvDeviceDefinitionId = lens _cddvDeviceDefinitionId (\s a -> s {_cddvDeviceDefinitionId = a})
+createDeviceDefinitionVersion_deviceDefinitionId :: Lens.Lens' CreateDeviceDefinitionVersion Prelude.Text
+createDeviceDefinitionVersion_deviceDefinitionId = Lens.lens (\CreateDeviceDefinitionVersion' {deviceDefinitionId} -> deviceDefinitionId) (\s@CreateDeviceDefinitionVersion' {} a -> s {deviceDefinitionId = a} :: CreateDeviceDefinitionVersion)
 
-instance AWSRequest CreateDeviceDefinitionVersion where
+instance
+  Prelude.AWSRequest
+    CreateDeviceDefinitionVersion
+  where
   type
     Rs CreateDeviceDefinitionVersion =
       CreateDeviceDefinitionVersionResponse
-  request = postJSON greengrass
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateDeviceDefinitionVersionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Version")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Version")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDeviceDefinitionVersion
+instance
+  Prelude.Hashable
+    CreateDeviceDefinitionVersion
 
-instance NFData CreateDeviceDefinitionVersion
+instance Prelude.NFData CreateDeviceDefinitionVersion
 
-instance ToHeaders CreateDeviceDefinitionVersion where
+instance
+  Prelude.ToHeaders
+    CreateDeviceDefinitionVersion
+  where
   toHeaders CreateDeviceDefinitionVersion' {..} =
-    mconcat
-      [ "X-Amzn-Client-Token" =# _cddvAmznClientToken,
+    Prelude.mconcat
+      [ "X-Amzn-Client-Token" Prelude.=# amznClientToken,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToJSON CreateDeviceDefinitionVersion where
+instance Prelude.ToJSON CreateDeviceDefinitionVersion where
   toJSON CreateDeviceDefinitionVersion' {..} =
-    object
-      (catMaybes [("Devices" .=) <$> _cddvDevices])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Devices" Prelude..=) Prelude.<$> devices]
+      )
 
-instance ToPath CreateDeviceDefinitionVersion where
+instance Prelude.ToPath CreateDeviceDefinitionVersion where
   toPath CreateDeviceDefinitionVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/devices/",
-        toBS _cddvDeviceDefinitionId,
+        Prelude.toBS deviceDefinitionId,
         "/versions"
       ]
 
-instance ToQuery CreateDeviceDefinitionVersion where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CreateDeviceDefinitionVersion
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDeviceDefinitionVersionResponse' smart constructor.
+-- | /See:/ 'newCreateDeviceDefinitionVersionResponse' smart constructor.
 data CreateDeviceDefinitionVersionResponse = CreateDeviceDefinitionVersionResponse'
-  { _cddvrrsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _cddvrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _cddvrrsId ::
-      !( Maybe
-           Text
-       ),
-    _cddvrrsVersion ::
-      !( Maybe
-           Text
-       ),
-    _cddvrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the version was created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the version.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the parent definition that the version is associated with.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the version.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDeviceDefinitionVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDeviceDefinitionVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cddvrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cddvrrsARN' - The ARN of the version.
+-- 'creationTimestamp', 'createDeviceDefinitionVersionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
 --
--- * 'cddvrrsId' - The ID of the parent definition that the version is associated with.
+-- 'arn', 'createDeviceDefinitionVersionResponse_arn' - The ARN of the version.
 --
--- * 'cddvrrsVersion' - The ID of the version.
+-- 'id', 'createDeviceDefinitionVersionResponse_id' - The ID of the parent definition that the version is associated with.
 --
--- * 'cddvrrsResponseStatus' - -- | The response status code.
-createDeviceDefinitionVersionResponse ::
-  -- | 'cddvrrsResponseStatus'
-  Int ->
+-- 'version', 'createDeviceDefinitionVersionResponse_version' - The ID of the version.
+--
+-- 'httpStatus', 'createDeviceDefinitionVersionResponse_httpStatus' - The response's http status code.
+newCreateDeviceDefinitionVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDeviceDefinitionVersionResponse
-createDeviceDefinitionVersionResponse
-  pResponseStatus_ =
-    CreateDeviceDefinitionVersionResponse'
-      { _cddvrrsCreationTimestamp =
-          Nothing,
-        _cddvrrsARN = Nothing,
-        _cddvrrsId = Nothing,
-        _cddvrrsVersion = Nothing,
-        _cddvrrsResponseStatus =
-          pResponseStatus_
-      }
+newCreateDeviceDefinitionVersionResponse pHttpStatus_ =
+  CreateDeviceDefinitionVersionResponse'
+    { creationTimestamp =
+        Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      version = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | The time, in milliseconds since the epoch, when the version was created.
-cddvrrsCreationTimestamp :: Lens' CreateDeviceDefinitionVersionResponse (Maybe Text)
-cddvrrsCreationTimestamp = lens _cddvrrsCreationTimestamp (\s a -> s {_cddvrrsCreationTimestamp = a})
+createDeviceDefinitionVersionResponse_creationTimestamp :: Lens.Lens' CreateDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createDeviceDefinitionVersionResponse_creationTimestamp = Lens.lens (\CreateDeviceDefinitionVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateDeviceDefinitionVersionResponse' {} a -> s {creationTimestamp = a} :: CreateDeviceDefinitionVersionResponse)
 
 -- | The ARN of the version.
-cddvrrsARN :: Lens' CreateDeviceDefinitionVersionResponse (Maybe Text)
-cddvrrsARN = lens _cddvrrsARN (\s a -> s {_cddvrrsARN = a})
+createDeviceDefinitionVersionResponse_arn :: Lens.Lens' CreateDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createDeviceDefinitionVersionResponse_arn = Lens.lens (\CreateDeviceDefinitionVersionResponse' {arn} -> arn) (\s@CreateDeviceDefinitionVersionResponse' {} a -> s {arn = a} :: CreateDeviceDefinitionVersionResponse)
 
 -- | The ID of the parent definition that the version is associated with.
-cddvrrsId :: Lens' CreateDeviceDefinitionVersionResponse (Maybe Text)
-cddvrrsId = lens _cddvrrsId (\s a -> s {_cddvrrsId = a})
+createDeviceDefinitionVersionResponse_id :: Lens.Lens' CreateDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createDeviceDefinitionVersionResponse_id = Lens.lens (\CreateDeviceDefinitionVersionResponse' {id} -> id) (\s@CreateDeviceDefinitionVersionResponse' {} a -> s {id = a} :: CreateDeviceDefinitionVersionResponse)
 
 -- | The ID of the version.
-cddvrrsVersion :: Lens' CreateDeviceDefinitionVersionResponse (Maybe Text)
-cddvrrsVersion = lens _cddvrrsVersion (\s a -> s {_cddvrrsVersion = a})
+createDeviceDefinitionVersionResponse_version :: Lens.Lens' CreateDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createDeviceDefinitionVersionResponse_version = Lens.lens (\CreateDeviceDefinitionVersionResponse' {version} -> version) (\s@CreateDeviceDefinitionVersionResponse' {} a -> s {version = a} :: CreateDeviceDefinitionVersionResponse)
 
--- | -- | The response status code.
-cddvrrsResponseStatus :: Lens' CreateDeviceDefinitionVersionResponse Int
-cddvrrsResponseStatus = lens _cddvrrsResponseStatus (\s a -> s {_cddvrrsResponseStatus = a})
+-- | The response's http status code.
+createDeviceDefinitionVersionResponse_httpStatus :: Lens.Lens' CreateDeviceDefinitionVersionResponse Prelude.Int
+createDeviceDefinitionVersionResponse_httpStatus = Lens.lens (\CreateDeviceDefinitionVersionResponse' {httpStatus} -> httpStatus) (\s@CreateDeviceDefinitionVersionResponse' {} a -> s {httpStatus = a} :: CreateDeviceDefinitionVersionResponse)
 
-instance NFData CreateDeviceDefinitionVersionResponse
+instance
+  Prelude.NFData
+    CreateDeviceDefinitionVersionResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,198 +26,223 @@
 -- This operation returns paginated results.
 module Network.AWS.Greengrass.ListSubscriptionDefinitionVersions
   ( -- * Creating a Request
-    listSubscriptionDefinitionVersions,
-    ListSubscriptionDefinitionVersions,
+    ListSubscriptionDefinitionVersions (..),
+    newListSubscriptionDefinitionVersions,
 
     -- * Request Lenses
-    lsdvNextToken,
-    lsdvMaxResults,
-    lsdvSubscriptionDefinitionId,
+    listSubscriptionDefinitionVersions_nextToken,
+    listSubscriptionDefinitionVersions_maxResults,
+    listSubscriptionDefinitionVersions_subscriptionDefinitionId,
 
     -- * Destructuring the Response
-    listSubscriptionDefinitionVersionsResponse,
-    ListSubscriptionDefinitionVersionsResponse,
+    ListSubscriptionDefinitionVersionsResponse (..),
+    newListSubscriptionDefinitionVersionsResponse,
 
     -- * Response Lenses
-    lsdvrrsNextToken,
-    lsdvrrsVersions,
-    lsdvrrsResponseStatus,
+    listSubscriptionDefinitionVersionsResponse_nextToken,
+    listSubscriptionDefinitionVersionsResponse_versions,
+    listSubscriptionDefinitionVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.VersionInformation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSubscriptionDefinitionVersions' smart constructor.
+-- | /See:/ 'newListSubscriptionDefinitionVersions' smart constructor.
 data ListSubscriptionDefinitionVersions = ListSubscriptionDefinitionVersions'
-  { _lsdvNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lsdvMaxResults ::
-      !( Maybe
-           Text
-       ),
-    _lsdvSubscriptionDefinitionId ::
-      !Text
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the subscription definition.
+    subscriptionDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSubscriptionDefinitionVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSubscriptionDefinitionVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsdvNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsdvMaxResults' - The maximum number of results to be returned per request.
+-- 'nextToken', 'listSubscriptionDefinitionVersions_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'lsdvSubscriptionDefinitionId' - The ID of the subscription definition.
-listSubscriptionDefinitionVersions ::
-  -- | 'lsdvSubscriptionDefinitionId'
-  Text ->
+-- 'maxResults', 'listSubscriptionDefinitionVersions_maxResults' - The maximum number of results to be returned per request.
+--
+-- 'subscriptionDefinitionId', 'listSubscriptionDefinitionVersions_subscriptionDefinitionId' - The ID of the subscription definition.
+newListSubscriptionDefinitionVersions ::
+  -- | 'subscriptionDefinitionId'
+  Prelude.Text ->
   ListSubscriptionDefinitionVersions
-listSubscriptionDefinitionVersions
+newListSubscriptionDefinitionVersions
   pSubscriptionDefinitionId_ =
     ListSubscriptionDefinitionVersions'
-      { _lsdvNextToken =
-          Nothing,
-        _lsdvMaxResults = Nothing,
-        _lsdvSubscriptionDefinitionId =
+      { nextToken =
+          Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        subscriptionDefinitionId =
           pSubscriptionDefinitionId_
       }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lsdvNextToken :: Lens' ListSubscriptionDefinitionVersions (Maybe Text)
-lsdvNextToken = lens _lsdvNextToken (\s a -> s {_lsdvNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listSubscriptionDefinitionVersions_nextToken :: Lens.Lens' ListSubscriptionDefinitionVersions (Prelude.Maybe Prelude.Text)
+listSubscriptionDefinitionVersions_nextToken = Lens.lens (\ListSubscriptionDefinitionVersions' {nextToken} -> nextToken) (\s@ListSubscriptionDefinitionVersions' {} a -> s {nextToken = a} :: ListSubscriptionDefinitionVersions)
 
 -- | The maximum number of results to be returned per request.
-lsdvMaxResults :: Lens' ListSubscriptionDefinitionVersions (Maybe Text)
-lsdvMaxResults = lens _lsdvMaxResults (\s a -> s {_lsdvMaxResults = a})
+listSubscriptionDefinitionVersions_maxResults :: Lens.Lens' ListSubscriptionDefinitionVersions (Prelude.Maybe Prelude.Text)
+listSubscriptionDefinitionVersions_maxResults = Lens.lens (\ListSubscriptionDefinitionVersions' {maxResults} -> maxResults) (\s@ListSubscriptionDefinitionVersions' {} a -> s {maxResults = a} :: ListSubscriptionDefinitionVersions)
 
 -- | The ID of the subscription definition.
-lsdvSubscriptionDefinitionId :: Lens' ListSubscriptionDefinitionVersions Text
-lsdvSubscriptionDefinitionId = lens _lsdvSubscriptionDefinitionId (\s a -> s {_lsdvSubscriptionDefinitionId = a})
-
-instance AWSPager ListSubscriptionDefinitionVersions where
-  page rq rs
-    | stop (rs ^. lsdvrrsNextToken) = Nothing
-    | stop (rs ^. lsdvrrsVersions) = Nothing
-    | otherwise =
-      Just $ rq & lsdvNextToken .~ rs ^. lsdvrrsNextToken
+listSubscriptionDefinitionVersions_subscriptionDefinitionId :: Lens.Lens' ListSubscriptionDefinitionVersions Prelude.Text
+listSubscriptionDefinitionVersions_subscriptionDefinitionId = Lens.lens (\ListSubscriptionDefinitionVersions' {subscriptionDefinitionId} -> subscriptionDefinitionId) (\s@ListSubscriptionDefinitionVersions' {} a -> s {subscriptionDefinitionId = a} :: ListSubscriptionDefinitionVersions)
 
 instance
-  AWSRequest
+  Pager.AWSPager
+    ListSubscriptionDefinitionVersions
+  where
+  page rq rs
+    | Pager.stop
+        ( rs
+            Lens.^? listSubscriptionDefinitionVersionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSubscriptionDefinitionVersionsResponse_versions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSubscriptionDefinitionVersions_nextToken
+          Lens..~ rs
+          Lens.^? listSubscriptionDefinitionVersionsResponse_nextToken
+            Prelude.. Lens._Just
+
+instance
+  Prelude.AWSRequest
     ListSubscriptionDefinitionVersions
   where
   type
     Rs ListSubscriptionDefinitionVersions =
       ListSubscriptionDefinitionVersionsResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSubscriptionDefinitionVersionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Versions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> (x Prelude..?> "Versions" Prelude..!@ Prelude.mempty)
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSubscriptionDefinitionVersions
+instance
+  Prelude.Hashable
+    ListSubscriptionDefinitionVersions
 
-instance NFData ListSubscriptionDefinitionVersions
+instance
+  Prelude.NFData
+    ListSubscriptionDefinitionVersions
 
-instance ToHeaders ListSubscriptionDefinitionVersions where
+instance
+  Prelude.ToHeaders
+    ListSubscriptionDefinitionVersions
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListSubscriptionDefinitionVersions where
+instance
+  Prelude.ToPath
+    ListSubscriptionDefinitionVersions
+  where
   toPath ListSubscriptionDefinitionVersions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/subscriptions/",
-        toBS _lsdvSubscriptionDefinitionId,
+        Prelude.toBS subscriptionDefinitionId,
         "/versions"
       ]
 
-instance ToQuery ListSubscriptionDefinitionVersions where
+instance
+  Prelude.ToQuery
+    ListSubscriptionDefinitionVersions
+  where
   toQuery ListSubscriptionDefinitionVersions' {..} =
-    mconcat
-      [ "NextToken" =: _lsdvNextToken,
-        "MaxResults" =: _lsdvMaxResults
+    Prelude.mconcat
+      [ "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listSubscriptionDefinitionVersionsResponse' smart constructor.
+-- | /See:/ 'newListSubscriptionDefinitionVersionsResponse' smart constructor.
 data ListSubscriptionDefinitionVersionsResponse = ListSubscriptionDefinitionVersionsResponse'
-  { _lsdvrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lsdvrrsVersions ::
-      !( Maybe
-           [VersionInformation]
-       ),
-    _lsdvrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about a version.
+    versions :: Prelude.Maybe [VersionInformation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSubscriptionDefinitionVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSubscriptionDefinitionVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsdvrrsNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsdvrrsVersions' - Information about a version.
+-- 'nextToken', 'listSubscriptionDefinitionVersionsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'lsdvrrsResponseStatus' - -- | The response status code.
-listSubscriptionDefinitionVersionsResponse ::
-  -- | 'lsdvrrsResponseStatus'
-  Int ->
+-- 'versions', 'listSubscriptionDefinitionVersionsResponse_versions' - Information about a version.
+--
+-- 'httpStatus', 'listSubscriptionDefinitionVersionsResponse_httpStatus' - The response's http status code.
+newListSubscriptionDefinitionVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSubscriptionDefinitionVersionsResponse
-listSubscriptionDefinitionVersionsResponse
-  pResponseStatus_ =
+newListSubscriptionDefinitionVersionsResponse
+  pHttpStatus_ =
     ListSubscriptionDefinitionVersionsResponse'
-      { _lsdvrrsNextToken =
-          Nothing,
-        _lsdvrrsVersions = Nothing,
-        _lsdvrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        versions = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lsdvrrsNextToken :: Lens' ListSubscriptionDefinitionVersionsResponse (Maybe Text)
-lsdvrrsNextToken = lens _lsdvrrsNextToken (\s a -> s {_lsdvrrsNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listSubscriptionDefinitionVersionsResponse_nextToken :: Lens.Lens' ListSubscriptionDefinitionVersionsResponse (Prelude.Maybe Prelude.Text)
+listSubscriptionDefinitionVersionsResponse_nextToken = Lens.lens (\ListSubscriptionDefinitionVersionsResponse' {nextToken} -> nextToken) (\s@ListSubscriptionDefinitionVersionsResponse' {} a -> s {nextToken = a} :: ListSubscriptionDefinitionVersionsResponse)
 
 -- | Information about a version.
-lsdvrrsVersions :: Lens' ListSubscriptionDefinitionVersionsResponse [VersionInformation]
-lsdvrrsVersions = lens _lsdvrrsVersions (\s a -> s {_lsdvrrsVersions = a}) . _Default . _Coerce
+listSubscriptionDefinitionVersionsResponse_versions :: Lens.Lens' ListSubscriptionDefinitionVersionsResponse (Prelude.Maybe [VersionInformation])
+listSubscriptionDefinitionVersionsResponse_versions = Lens.lens (\ListSubscriptionDefinitionVersionsResponse' {versions} -> versions) (\s@ListSubscriptionDefinitionVersionsResponse' {} a -> s {versions = a} :: ListSubscriptionDefinitionVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsdvrrsResponseStatus :: Lens' ListSubscriptionDefinitionVersionsResponse Int
-lsdvrrsResponseStatus = lens _lsdvrrsResponseStatus (\s a -> s {_lsdvrrsResponseStatus = a})
+-- | The response's http status code.
+listSubscriptionDefinitionVersionsResponse_httpStatus :: Lens.Lens' ListSubscriptionDefinitionVersionsResponse Prelude.Int
+listSubscriptionDefinitionVersionsResponse_httpStatus = Lens.lens (\ListSubscriptionDefinitionVersionsResponse' {httpStatus} -> httpStatus) (\s@ListSubscriptionDefinitionVersionsResponse' {} a -> s {httpStatus = a} :: ListSubscriptionDefinitionVersionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListSubscriptionDefinitionVersionsResponse

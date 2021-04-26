@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,52 +20,52 @@
 module Network.AWS.Greengrass.Types.CoreDefinitionVersion where
 
 import Network.AWS.Greengrass.Types.Core
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a core definition version.
 --
--- /See:/ 'coreDefinitionVersion' smart constructor.
-newtype CoreDefinitionVersion = CoreDefinitionVersion'
-  { _cdvCores ::
-      Maybe [Core]
+-- /See:/ 'newCoreDefinitionVersion' smart constructor.
+data CoreDefinitionVersion = CoreDefinitionVersion'
+  { -- | A list of cores in the core definition version.
+    cores :: Prelude.Maybe [Core]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CoreDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CoreDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdvCores' - A list of cores in the core definition version.
-coreDefinitionVersion ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'cores', 'coreDefinitionVersion_cores' - A list of cores in the core definition version.
+newCoreDefinitionVersion ::
   CoreDefinitionVersion
-coreDefinitionVersion =
-  CoreDefinitionVersion' {_cdvCores = Nothing}
+newCoreDefinitionVersion =
+  CoreDefinitionVersion' {cores = Prelude.Nothing}
 
 -- | A list of cores in the core definition version.
-cdvCores :: Lens' CoreDefinitionVersion [Core]
-cdvCores = lens _cdvCores (\s a -> s {_cdvCores = a}) . _Default . _Coerce
+coreDefinitionVersion_cores :: Lens.Lens' CoreDefinitionVersion (Prelude.Maybe [Core])
+coreDefinitionVersion_cores = Lens.lens (\CoreDefinitionVersion' {cores} -> cores) (\s@CoreDefinitionVersion' {} a -> s {cores = a} :: CoreDefinitionVersion) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON CoreDefinitionVersion where
+instance Prelude.FromJSON CoreDefinitionVersion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CoreDefinitionVersion"
       ( \x ->
           CoreDefinitionVersion'
-            <$> (x .:? "Cores" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Cores" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable CoreDefinitionVersion
+instance Prelude.Hashable CoreDefinitionVersion
 
-instance NFData CoreDefinitionVersion
+instance Prelude.NFData CoreDefinitionVersion
 
-instance ToJSON CoreDefinitionVersion where
+instance Prelude.ToJSON CoreDefinitionVersion where
   toJSON CoreDefinitionVersion' {..} =
-    object (catMaybes [("Cores" .=) <$> _cdvCores])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Cores" Prelude..=) Prelude.<$> cores]
+      )

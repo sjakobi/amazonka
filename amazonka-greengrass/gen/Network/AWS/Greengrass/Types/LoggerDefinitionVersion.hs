@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,52 @@
 module Network.AWS.Greengrass.Types.LoggerDefinitionVersion where
 
 import Network.AWS.Greengrass.Types.GreengrassLogger
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a logger definition version.
 --
--- /See:/ 'loggerDefinitionVersion' smart constructor.
-newtype LoggerDefinitionVersion = LoggerDefinitionVersion'
-  { _ldvLoggers ::
-      Maybe
-        [GreengrassLogger]
+-- /See:/ 'newLoggerDefinitionVersion' smart constructor.
+data LoggerDefinitionVersion = LoggerDefinitionVersion'
+  { -- | A list of loggers.
+    loggers :: Prelude.Maybe [GreengrassLogger]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoggerDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoggerDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldvLoggers' - A list of loggers.
-loggerDefinitionVersion ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'loggers', 'loggerDefinitionVersion_loggers' - A list of loggers.
+newLoggerDefinitionVersion ::
   LoggerDefinitionVersion
-loggerDefinitionVersion =
-  LoggerDefinitionVersion' {_ldvLoggers = Nothing}
+newLoggerDefinitionVersion =
+  LoggerDefinitionVersion' {loggers = Prelude.Nothing}
 
 -- | A list of loggers.
-ldvLoggers :: Lens' LoggerDefinitionVersion [GreengrassLogger]
-ldvLoggers = lens _ldvLoggers (\s a -> s {_ldvLoggers = a}) . _Default . _Coerce
+loggerDefinitionVersion_loggers :: Lens.Lens' LoggerDefinitionVersion (Prelude.Maybe [GreengrassLogger])
+loggerDefinitionVersion_loggers = Lens.lens (\LoggerDefinitionVersion' {loggers} -> loggers) (\s@LoggerDefinitionVersion' {} a -> s {loggers = a} :: LoggerDefinitionVersion) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON LoggerDefinitionVersion where
+instance Prelude.FromJSON LoggerDefinitionVersion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LoggerDefinitionVersion"
       ( \x ->
           LoggerDefinitionVersion'
-            <$> (x .:? "Loggers" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Loggers" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable LoggerDefinitionVersion
+instance Prelude.Hashable LoggerDefinitionVersion
 
-instance NFData LoggerDefinitionVersion
+instance Prelude.NFData LoggerDefinitionVersion
 
-instance ToJSON LoggerDefinitionVersion where
+instance Prelude.ToJSON LoggerDefinitionVersion where
   toJSON LoggerDefinitionVersion' {..} =
-    object (catMaybes [("Loggers" .=) <$> _ldvLoggers])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Loggers" Prelude..=) Prelude.<$> loggers]
+      )

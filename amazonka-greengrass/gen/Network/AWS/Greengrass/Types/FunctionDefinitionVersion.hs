@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +21,76 @@ module Network.AWS.Greengrass.Types.FunctionDefinitionVersion where
 
 import Network.AWS.Greengrass.Types.Function
 import Network.AWS.Greengrass.Types.FunctionDefaultConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a function definition version.
 --
--- /See:/ 'functionDefinitionVersion' smart constructor.
+-- /See:/ 'newFunctionDefinitionVersion' smart constructor.
 data FunctionDefinitionVersion = FunctionDefinitionVersion'
-  { _fdvFunctions ::
-      !(Maybe [Function]),
-    _fdvDefaultConfig ::
-      !( Maybe
-           FunctionDefaultConfig
-       )
+  { -- | A list of Lambda functions in this function definition version.
+    functions :: Prelude.Maybe [Function],
+    -- | The default configuration that applies to all Lambda functions in this
+    -- function definition version. Individual Lambda functions can override
+    -- these settings.
+    defaultConfig :: Prelude.Maybe FunctionDefaultConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FunctionDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FunctionDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdvFunctions' - A list of Lambda functions in this function definition version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fdvDefaultConfig' - The default configuration that applies to all Lambda functions in this function definition version. Individual Lambda functions can override these settings.
-functionDefinitionVersion ::
+-- 'functions', 'functionDefinitionVersion_functions' - A list of Lambda functions in this function definition version.
+--
+-- 'defaultConfig', 'functionDefinitionVersion_defaultConfig' - The default configuration that applies to all Lambda functions in this
+-- function definition version. Individual Lambda functions can override
+-- these settings.
+newFunctionDefinitionVersion ::
   FunctionDefinitionVersion
-functionDefinitionVersion =
+newFunctionDefinitionVersion =
   FunctionDefinitionVersion'
-    { _fdvFunctions = Nothing,
-      _fdvDefaultConfig = Nothing
+    { functions =
+        Prelude.Nothing,
+      defaultConfig = Prelude.Nothing
     }
 
 -- | A list of Lambda functions in this function definition version.
-fdvFunctions :: Lens' FunctionDefinitionVersion [Function]
-fdvFunctions = lens _fdvFunctions (\s a -> s {_fdvFunctions = a}) . _Default . _Coerce
+functionDefinitionVersion_functions :: Lens.Lens' FunctionDefinitionVersion (Prelude.Maybe [Function])
+functionDefinitionVersion_functions = Lens.lens (\FunctionDefinitionVersion' {functions} -> functions) (\s@FunctionDefinitionVersion' {} a -> s {functions = a} :: FunctionDefinitionVersion) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The default configuration that applies to all Lambda functions in this function definition version. Individual Lambda functions can override these settings.
-fdvDefaultConfig :: Lens' FunctionDefinitionVersion (Maybe FunctionDefaultConfig)
-fdvDefaultConfig = lens _fdvDefaultConfig (\s a -> s {_fdvDefaultConfig = a})
+-- | The default configuration that applies to all Lambda functions in this
+-- function definition version. Individual Lambda functions can override
+-- these settings.
+functionDefinitionVersion_defaultConfig :: Lens.Lens' FunctionDefinitionVersion (Prelude.Maybe FunctionDefaultConfig)
+functionDefinitionVersion_defaultConfig = Lens.lens (\FunctionDefinitionVersion' {defaultConfig} -> defaultConfig) (\s@FunctionDefinitionVersion' {} a -> s {defaultConfig = a} :: FunctionDefinitionVersion)
 
-instance FromJSON FunctionDefinitionVersion where
+instance Prelude.FromJSON FunctionDefinitionVersion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FunctionDefinitionVersion"
       ( \x ->
           FunctionDefinitionVersion'
-            <$> (x .:? "Functions" .!= mempty)
-            <*> (x .:? "DefaultConfig")
+            Prelude.<$> ( x Prelude..:? "Functions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DefaultConfig")
       )
 
-instance Hashable FunctionDefinitionVersion
+instance Prelude.Hashable FunctionDefinitionVersion
 
-instance NFData FunctionDefinitionVersion
+instance Prelude.NFData FunctionDefinitionVersion
 
-instance ToJSON FunctionDefinitionVersion where
+instance Prelude.ToJSON FunctionDefinitionVersion where
   toJSON FunctionDefinitionVersion' {..} =
-    object
-      ( catMaybes
-          [ ("Functions" .=) <$> _fdvFunctions,
-            ("DefaultConfig" .=) <$> _fdvDefaultConfig
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Functions" Prelude..=) Prelude.<$> functions,
+            ("DefaultConfig" Prelude..=)
+              Prelude.<$> defaultConfig
           ]
       )

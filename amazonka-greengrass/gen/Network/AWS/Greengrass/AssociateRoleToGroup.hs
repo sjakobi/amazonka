@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates a role with a group. Your Greengrass core will use the role to access AWS cloud services. The role's permissions should allow Greengrass core Lambda functions to perform actions against the cloud.
+-- Associates a role with a group. Your Greengrass core will use the role
+-- to access AWS cloud services. The role\'s permissions should allow
+-- Greengrass core Lambda functions to perform actions against the cloud.
 module Network.AWS.Greengrass.AssociateRoleToGroup
   ( -- * Creating a Request
-    associateRoleToGroup,
-    AssociateRoleToGroup,
+    AssociateRoleToGroup (..),
+    newAssociateRoleToGroup,
 
     -- * Request Lenses
-    artgGroupId,
-    artgRoleARN,
+    associateRoleToGroup_groupId,
+    associateRoleToGroup_roleArn,
 
     -- * Destructuring the Response
-    associateRoleToGroupResponse,
-    AssociateRoleToGroupResponse,
+    AssociateRoleToGroupResponse (..),
+    newAssociateRoleToGroupResponse,
 
     -- * Response Lenses
-    artgrrsAssociatedAt,
-    artgrrsResponseStatus,
+    associateRoleToGroupResponse_associatedAt,
+    associateRoleToGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateRoleToGroup' smart constructor.
+-- | /See:/ 'newAssociateRoleToGroup' smart constructor.
 data AssociateRoleToGroup = AssociateRoleToGroup'
-  { _artgGroupId ::
-      !Text,
-    _artgRoleARN :: !Text
+  { -- | The ID of the Greengrass group.
+    groupId :: Prelude.Text,
+    -- | The ARN of the role you wish to associate with this group. The existence
+    -- of the role is not validated.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateRoleToGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateRoleToGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'artgGroupId' - The ID of the Greengrass group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'artgRoleARN' - The ARN of the role you wish to associate with this group. The existence of the role is not validated.
-associateRoleToGroup ::
-  -- | 'artgGroupId'
-  Text ->
-  -- | 'artgRoleARN'
-  Text ->
+-- 'groupId', 'associateRoleToGroup_groupId' - The ID of the Greengrass group.
+--
+-- 'roleArn', 'associateRoleToGroup_roleArn' - The ARN of the role you wish to associate with this group. The existence
+-- of the role is not validated.
+newAssociateRoleToGroup ::
+  -- | 'groupId'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   AssociateRoleToGroup
-associateRoleToGroup pGroupId_ pRoleARN_ =
+newAssociateRoleToGroup pGroupId_ pRoleArn_ =
   AssociateRoleToGroup'
-    { _artgGroupId = pGroupId_,
-      _artgRoleARN = pRoleARN_
+    { groupId = pGroupId_,
+      roleArn = pRoleArn_
     }
 
 -- | The ID of the Greengrass group.
-artgGroupId :: Lens' AssociateRoleToGroup Text
-artgGroupId = lens _artgGroupId (\s a -> s {_artgGroupId = a})
+associateRoleToGroup_groupId :: Lens.Lens' AssociateRoleToGroup Prelude.Text
+associateRoleToGroup_groupId = Lens.lens (\AssociateRoleToGroup' {groupId} -> groupId) (\s@AssociateRoleToGroup' {} a -> s {groupId = a} :: AssociateRoleToGroup)
 
--- | The ARN of the role you wish to associate with this group. The existence of the role is not validated.
-artgRoleARN :: Lens' AssociateRoleToGroup Text
-artgRoleARN = lens _artgRoleARN (\s a -> s {_artgRoleARN = a})
+-- | The ARN of the role you wish to associate with this group. The existence
+-- of the role is not validated.
+associateRoleToGroup_roleArn :: Lens.Lens' AssociateRoleToGroup Prelude.Text
+associateRoleToGroup_roleArn = Lens.lens (\AssociateRoleToGroup' {roleArn} -> roleArn) (\s@AssociateRoleToGroup' {} a -> s {roleArn = a} :: AssociateRoleToGroup)
 
-instance AWSRequest AssociateRoleToGroup where
+instance Prelude.AWSRequest AssociateRoleToGroup where
   type
     Rs AssociateRoleToGroup =
       AssociateRoleToGroupResponse
-  request = putJSON greengrass
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AssociateRoleToGroupResponse'
-            <$> (x .?> "AssociatedAt") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AssociatedAt")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateRoleToGroup
+instance Prelude.Hashable AssociateRoleToGroup
 
-instance NFData AssociateRoleToGroup
+instance Prelude.NFData AssociateRoleToGroup
 
-instance ToHeaders AssociateRoleToGroup where
+instance Prelude.ToHeaders AssociateRoleToGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateRoleToGroup where
+instance Prelude.ToJSON AssociateRoleToGroup where
   toJSON AssociateRoleToGroup' {..} =
-    object
-      (catMaybes [Just ("RoleArn" .= _artgRoleARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("RoleArn" Prelude..= roleArn)]
+      )
 
-instance ToPath AssociateRoleToGroup where
+instance Prelude.ToPath AssociateRoleToGroup where
   toPath AssociateRoleToGroup' {..} =
-    mconcat
-      ["/greengrass/groups/", toBS _artgGroupId, "/role"]
+    Prelude.mconcat
+      [ "/greengrass/groups/",
+        Prelude.toBS groupId,
+        "/role"
+      ]
 
-instance ToQuery AssociateRoleToGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateRoleToGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateRoleToGroupResponse' smart constructor.
+-- | /See:/ 'newAssociateRoleToGroupResponse' smart constructor.
 data AssociateRoleToGroupResponse = AssociateRoleToGroupResponse'
-  { _artgrrsAssociatedAt ::
-      !(Maybe Text),
-    _artgrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the role ARN was
+    -- associated with the group.
+    associatedAt :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateRoleToGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateRoleToGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'artgrrsAssociatedAt' - The time, in milliseconds since the epoch, when the role ARN was associated with the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'artgrrsResponseStatus' - -- | The response status code.
-associateRoleToGroupResponse ::
-  -- | 'artgrrsResponseStatus'
-  Int ->
+-- 'associatedAt', 'associateRoleToGroupResponse_associatedAt' - The time, in milliseconds since the epoch, when the role ARN was
+-- associated with the group.
+--
+-- 'httpStatus', 'associateRoleToGroupResponse_httpStatus' - The response's http status code.
+newAssociateRoleToGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateRoleToGroupResponse
-associateRoleToGroupResponse pResponseStatus_ =
+newAssociateRoleToGroupResponse pHttpStatus_ =
   AssociateRoleToGroupResponse'
-    { _artgrrsAssociatedAt =
-        Nothing,
-      _artgrrsResponseStatus = pResponseStatus_
+    { associatedAt =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the role ARN was associated with the group.
-artgrrsAssociatedAt :: Lens' AssociateRoleToGroupResponse (Maybe Text)
-artgrrsAssociatedAt = lens _artgrrsAssociatedAt (\s a -> s {_artgrrsAssociatedAt = a})
+-- | The time, in milliseconds since the epoch, when the role ARN was
+-- associated with the group.
+associateRoleToGroupResponse_associatedAt :: Lens.Lens' AssociateRoleToGroupResponse (Prelude.Maybe Prelude.Text)
+associateRoleToGroupResponse_associatedAt = Lens.lens (\AssociateRoleToGroupResponse' {associatedAt} -> associatedAt) (\s@AssociateRoleToGroupResponse' {} a -> s {associatedAt = a} :: AssociateRoleToGroupResponse)
 
--- | -- | The response status code.
-artgrrsResponseStatus :: Lens' AssociateRoleToGroupResponse Int
-artgrrsResponseStatus = lens _artgrrsResponseStatus (\s a -> s {_artgrrsResponseStatus = a})
+-- | The response's http status code.
+associateRoleToGroupResponse_httpStatus :: Lens.Lens' AssociateRoleToGroupResponse Prelude.Int
+associateRoleToGroupResponse_httpStatus = Lens.lens (\AssociateRoleToGroupResponse' {httpStatus} -> httpStatus) (\s@AssociateRoleToGroupResponse' {} a -> s {httpStatus = a} :: AssociateRoleToGroupResponse)
 
-instance NFData AssociateRoleToGroupResponse
+instance Prelude.NFData AssociateRoleToGroupResponse

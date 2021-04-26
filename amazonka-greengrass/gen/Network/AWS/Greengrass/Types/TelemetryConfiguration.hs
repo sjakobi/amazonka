@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +21,63 @@ module Network.AWS.Greengrass.Types.TelemetryConfiguration where
 
 import Network.AWS.Greengrass.Types.ConfigurationSyncStatus
 import Network.AWS.Greengrass.Types.Telemetry
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration settings for running telemetry.
 --
--- /See:/ 'telemetryConfiguration' smart constructor.
+-- /See:/ 'newTelemetryConfiguration' smart constructor.
 data TelemetryConfiguration = TelemetryConfiguration'
-  { _tcConfigurationSyncStatus ::
-      !( Maybe
-           ConfigurationSyncStatus
-       ),
-    _tcTelemetry ::
-      !Telemetry
+  { -- | Synchronization status of the device reported configuration with the
+    -- desired configuration.
+    configurationSyncStatus :: Prelude.Maybe ConfigurationSyncStatus,
+    -- | Configure telemetry to be on or off.
+    telemetry :: Telemetry
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TelemetryConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TelemetryConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcConfigurationSyncStatus' - Synchronization status of the device reported configuration with the desired configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcTelemetry' - Configure telemetry to be on or off.
-telemetryConfiguration ::
-  -- | 'tcTelemetry'
+-- 'configurationSyncStatus', 'telemetryConfiguration_configurationSyncStatus' - Synchronization status of the device reported configuration with the
+-- desired configuration.
+--
+-- 'telemetry', 'telemetryConfiguration_telemetry' - Configure telemetry to be on or off.
+newTelemetryConfiguration ::
+  -- | 'telemetry'
   Telemetry ->
   TelemetryConfiguration
-telemetryConfiguration pTelemetry_ =
+newTelemetryConfiguration pTelemetry_ =
   TelemetryConfiguration'
-    { _tcConfigurationSyncStatus =
-        Nothing,
-      _tcTelemetry = pTelemetry_
+    { configurationSyncStatus =
+        Prelude.Nothing,
+      telemetry = pTelemetry_
     }
 
--- | Synchronization status of the device reported configuration with the desired configuration.
-tcConfigurationSyncStatus :: Lens' TelemetryConfiguration (Maybe ConfigurationSyncStatus)
-tcConfigurationSyncStatus = lens _tcConfigurationSyncStatus (\s a -> s {_tcConfigurationSyncStatus = a})
+-- | Synchronization status of the device reported configuration with the
+-- desired configuration.
+telemetryConfiguration_configurationSyncStatus :: Lens.Lens' TelemetryConfiguration (Prelude.Maybe ConfigurationSyncStatus)
+telemetryConfiguration_configurationSyncStatus = Lens.lens (\TelemetryConfiguration' {configurationSyncStatus} -> configurationSyncStatus) (\s@TelemetryConfiguration' {} a -> s {configurationSyncStatus = a} :: TelemetryConfiguration)
 
 -- | Configure telemetry to be on or off.
-tcTelemetry :: Lens' TelemetryConfiguration Telemetry
-tcTelemetry = lens _tcTelemetry (\s a -> s {_tcTelemetry = a})
+telemetryConfiguration_telemetry :: Lens.Lens' TelemetryConfiguration Telemetry
+telemetryConfiguration_telemetry = Lens.lens (\TelemetryConfiguration' {telemetry} -> telemetry) (\s@TelemetryConfiguration' {} a -> s {telemetry = a} :: TelemetryConfiguration)
 
-instance FromJSON TelemetryConfiguration where
+instance Prelude.FromJSON TelemetryConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TelemetryConfiguration"
       ( \x ->
           TelemetryConfiguration'
-            <$> (x .:? "ConfigurationSyncStatus")
-            <*> (x .: "Telemetry")
+            Prelude.<$> (x Prelude..:? "ConfigurationSyncStatus")
+            Prelude.<*> (x Prelude..: "Telemetry")
       )
 
-instance Hashable TelemetryConfiguration
+instance Prelude.Hashable TelemetryConfiguration
 
-instance NFData TelemetryConfiguration
+instance Prelude.NFData TelemetryConfiguration

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.Device where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a device.
 --
--- /See:/ 'device' smart constructor.
+-- /See:/ 'newDevice' smart constructor.
 data Device = Device'
-  { _dSyncShadow :: !(Maybe Bool),
-    _dThingARN :: !Text,
-    _dId :: !Text,
-    _dCertificateARN :: !Text
+  { -- | If true, the device\'s local shadow will be automatically synced with
+    -- the cloud.
+    syncShadow :: Prelude.Maybe Prelude.Bool,
+    -- | The thing ARN of the device.
+    thingArn :: Prelude.Text,
+    -- | A descriptive or arbitrary ID for the device. This value must be unique
+    -- within the device definition version. Max length is 128 characters with
+    -- pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+    id :: Prelude.Text,
+    -- | The ARN of the certificate associated with the device.
+    certificateArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Device' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Device' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dSyncShadow' - If true, the device's local shadow will be automatically synced with the cloud.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dThingARN' - The thing ARN of the device.
+-- 'syncShadow', 'device_syncShadow' - If true, the device\'s local shadow will be automatically synced with
+-- the cloud.
 --
--- * 'dId' - A descriptive or arbitrary ID for the device. This value must be unique within the device definition version. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''.
+-- 'thingArn', 'device_thingArn' - The thing ARN of the device.
 --
--- * 'dCertificateARN' - The ARN of the certificate associated with the device.
-device ::
-  -- | 'dThingARN'
-  Text ->
-  -- | 'dId'
-  Text ->
-  -- | 'dCertificateARN'
-  Text ->
+-- 'id', 'device_id' - A descriptive or arbitrary ID for the device. This value must be unique
+-- within the device definition version. Max length is 128 characters with
+-- pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+--
+-- 'certificateArn', 'device_certificateArn' - The ARN of the certificate associated with the device.
+newDevice ::
+  -- | 'thingArn'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'certificateArn'
+  Prelude.Text ->
   Device
-device pThingARN_ pId_ pCertificateARN_ =
+newDevice pThingArn_ pId_ pCertificateArn_ =
   Device'
-    { _dSyncShadow = Nothing,
-      _dThingARN = pThingARN_,
-      _dId = pId_,
-      _dCertificateARN = pCertificateARN_
+    { syncShadow = Prelude.Nothing,
+      thingArn = pThingArn_,
+      id = pId_,
+      certificateArn = pCertificateArn_
     }
 
--- | If true, the device's local shadow will be automatically synced with the cloud.
-dSyncShadow :: Lens' Device (Maybe Bool)
-dSyncShadow = lens _dSyncShadow (\s a -> s {_dSyncShadow = a})
+-- | If true, the device\'s local shadow will be automatically synced with
+-- the cloud.
+device_syncShadow :: Lens.Lens' Device (Prelude.Maybe Prelude.Bool)
+device_syncShadow = Lens.lens (\Device' {syncShadow} -> syncShadow) (\s@Device' {} a -> s {syncShadow = a} :: Device)
 
 -- | The thing ARN of the device.
-dThingARN :: Lens' Device Text
-dThingARN = lens _dThingARN (\s a -> s {_dThingARN = a})
+device_thingArn :: Lens.Lens' Device Prelude.Text
+device_thingArn = Lens.lens (\Device' {thingArn} -> thingArn) (\s@Device' {} a -> s {thingArn = a} :: Device)
 
--- | A descriptive or arbitrary ID for the device. This value must be unique within the device definition version. Max length is 128 characters with pattern ''[a-zA-Z0-9:_-]+''.
-dId :: Lens' Device Text
-dId = lens _dId (\s a -> s {_dId = a})
+-- | A descriptive or arbitrary ID for the device. This value must be unique
+-- within the device definition version. Max length is 128 characters with
+-- pattern \'\'[a-zA-Z0-9:_-]+\'\'.
+device_id :: Lens.Lens' Device Prelude.Text
+device_id = Lens.lens (\Device' {id} -> id) (\s@Device' {} a -> s {id = a} :: Device)
 
 -- | The ARN of the certificate associated with the device.
-dCertificateARN :: Lens' Device Text
-dCertificateARN = lens _dCertificateARN (\s a -> s {_dCertificateARN = a})
+device_certificateArn :: Lens.Lens' Device Prelude.Text
+device_certificateArn = Lens.lens (\Device' {certificateArn} -> certificateArn) (\s@Device' {} a -> s {certificateArn = a} :: Device)
 
-instance FromJSON Device where
+instance Prelude.FromJSON Device where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Device"
       ( \x ->
           Device'
-            <$> (x .:? "SyncShadow")
-            <*> (x .: "ThingArn")
-            <*> (x .: "Id")
-            <*> (x .: "CertificateArn")
+            Prelude.<$> (x Prelude..:? "SyncShadow")
+            Prelude.<*> (x Prelude..: "ThingArn")
+            Prelude.<*> (x Prelude..: "Id")
+            Prelude.<*> (x Prelude..: "CertificateArn")
       )
 
-instance Hashable Device
+instance Prelude.Hashable Device
 
-instance NFData Device
+instance Prelude.NFData Device
 
-instance ToJSON Device where
+instance Prelude.ToJSON Device where
   toJSON Device' {..} =
-    object
-      ( catMaybes
-          [ ("SyncShadow" .=) <$> _dSyncShadow,
-            Just ("ThingArn" .= _dThingARN),
-            Just ("Id" .= _dId),
-            Just ("CertificateArn" .= _dCertificateARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SyncShadow" Prelude..=) Prelude.<$> syncShadow,
+            Prelude.Just ("ThingArn" Prelude..= thingArn),
+            Prelude.Just ("Id" Prelude..= id),
+            Prelude.Just
+              ("CertificateArn" Prelude..= certificateArn)
           ]
       )

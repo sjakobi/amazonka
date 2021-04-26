@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,212 +21,226 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about a resource definition version, including which resources are included in the version.
+-- Retrieves information about a resource definition version, including
+-- which resources are included in the version.
 module Network.AWS.Greengrass.GetResourceDefinitionVersion
   ( -- * Creating a Request
-    getResourceDefinitionVersion,
-    GetResourceDefinitionVersion,
+    GetResourceDefinitionVersion (..),
+    newGetResourceDefinitionVersion,
 
     -- * Request Lenses
-    grdvResourceDefinitionVersionId,
-    grdvResourceDefinitionId,
+    getResourceDefinitionVersion_resourceDefinitionVersionId,
+    getResourceDefinitionVersion_resourceDefinitionId,
 
     -- * Destructuring the Response
-    getResourceDefinitionVersionResponse,
-    GetResourceDefinitionVersionResponse,
+    GetResourceDefinitionVersionResponse (..),
+    newGetResourceDefinitionVersionResponse,
 
     -- * Response Lenses
-    grdvrrsCreationTimestamp,
-    grdvrrsARN,
-    grdvrrsId,
-    grdvrrsVersion,
-    grdvrrsDefinition,
-    grdvrrsResponseStatus,
+    getResourceDefinitionVersionResponse_creationTimestamp,
+    getResourceDefinitionVersionResponse_arn,
+    getResourceDefinitionVersionResponse_id,
+    getResourceDefinitionVersionResponse_version,
+    getResourceDefinitionVersionResponse_definition,
+    getResourceDefinitionVersionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.ResourceDefinitionVersion
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getResourceDefinitionVersion' smart constructor.
+-- | /See:/ 'newGetResourceDefinitionVersion' smart constructor.
 data GetResourceDefinitionVersion = GetResourceDefinitionVersion'
-  { _grdvResourceDefinitionVersionId ::
-      !Text,
-    _grdvResourceDefinitionId ::
-      !Text
+  { -- | The ID of the resource definition version. This value maps to the
+    -- \'\'Version\'\' property of the corresponding \'\'VersionInformation\'\'
+    -- object, which is returned by \'\'ListResourceDefinitionVersions\'\'
+    -- requests. If the version is the last one that was associated with a
+    -- resource definition, the value also maps to the \'\'LatestVersion\'\'
+    -- property of the corresponding \'\'DefinitionInformation\'\' object.
+    resourceDefinitionVersionId :: Prelude.Text,
+    -- | The ID of the resource definition.
+    resourceDefinitionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResourceDefinitionVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResourceDefinitionVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grdvResourceDefinitionVersionId' - The ID of the resource definition version. This value maps to the ''Version'' property of the corresponding ''VersionInformation'' object, which is returned by ''ListResourceDefinitionVersions'' requests. If the version is the last one that was associated with a resource definition, the value also maps to the ''LatestVersion'' property of the corresponding ''DefinitionInformation'' object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grdvResourceDefinitionId' - The ID of the resource definition.
-getResourceDefinitionVersion ::
-  -- | 'grdvResourceDefinitionVersionId'
-  Text ->
-  -- | 'grdvResourceDefinitionId'
-  Text ->
+-- 'resourceDefinitionVersionId', 'getResourceDefinitionVersion_resourceDefinitionVersionId' - The ID of the resource definition version. This value maps to the
+-- \'\'Version\'\' property of the corresponding \'\'VersionInformation\'\'
+-- object, which is returned by \'\'ListResourceDefinitionVersions\'\'
+-- requests. If the version is the last one that was associated with a
+-- resource definition, the value also maps to the \'\'LatestVersion\'\'
+-- property of the corresponding \'\'DefinitionInformation\'\' object.
+--
+-- 'resourceDefinitionId', 'getResourceDefinitionVersion_resourceDefinitionId' - The ID of the resource definition.
+newGetResourceDefinitionVersion ::
+  -- | 'resourceDefinitionVersionId'
+  Prelude.Text ->
+  -- | 'resourceDefinitionId'
+  Prelude.Text ->
   GetResourceDefinitionVersion
-getResourceDefinitionVersion
+newGetResourceDefinitionVersion
   pResourceDefinitionVersionId_
   pResourceDefinitionId_ =
     GetResourceDefinitionVersion'
-      { _grdvResourceDefinitionVersionId =
+      { resourceDefinitionVersionId =
           pResourceDefinitionVersionId_,
-        _grdvResourceDefinitionId =
-          pResourceDefinitionId_
+        resourceDefinitionId = pResourceDefinitionId_
       }
 
--- | The ID of the resource definition version. This value maps to the ''Version'' property of the corresponding ''VersionInformation'' object, which is returned by ''ListResourceDefinitionVersions'' requests. If the version is the last one that was associated with a resource definition, the value also maps to the ''LatestVersion'' property of the corresponding ''DefinitionInformation'' object.
-grdvResourceDefinitionVersionId :: Lens' GetResourceDefinitionVersion Text
-grdvResourceDefinitionVersionId = lens _grdvResourceDefinitionVersionId (\s a -> s {_grdvResourceDefinitionVersionId = a})
+-- | The ID of the resource definition version. This value maps to the
+-- \'\'Version\'\' property of the corresponding \'\'VersionInformation\'\'
+-- object, which is returned by \'\'ListResourceDefinitionVersions\'\'
+-- requests. If the version is the last one that was associated with a
+-- resource definition, the value also maps to the \'\'LatestVersion\'\'
+-- property of the corresponding \'\'DefinitionInformation\'\' object.
+getResourceDefinitionVersion_resourceDefinitionVersionId :: Lens.Lens' GetResourceDefinitionVersion Prelude.Text
+getResourceDefinitionVersion_resourceDefinitionVersionId = Lens.lens (\GetResourceDefinitionVersion' {resourceDefinitionVersionId} -> resourceDefinitionVersionId) (\s@GetResourceDefinitionVersion' {} a -> s {resourceDefinitionVersionId = a} :: GetResourceDefinitionVersion)
 
 -- | The ID of the resource definition.
-grdvResourceDefinitionId :: Lens' GetResourceDefinitionVersion Text
-grdvResourceDefinitionId = lens _grdvResourceDefinitionId (\s a -> s {_grdvResourceDefinitionId = a})
+getResourceDefinitionVersion_resourceDefinitionId :: Lens.Lens' GetResourceDefinitionVersion Prelude.Text
+getResourceDefinitionVersion_resourceDefinitionId = Lens.lens (\GetResourceDefinitionVersion' {resourceDefinitionId} -> resourceDefinitionId) (\s@GetResourceDefinitionVersion' {} a -> s {resourceDefinitionId = a} :: GetResourceDefinitionVersion)
 
-instance AWSRequest GetResourceDefinitionVersion where
+instance
+  Prelude.AWSRequest
+    GetResourceDefinitionVersion
+  where
   type
     Rs GetResourceDefinitionVersion =
       GetResourceDefinitionVersionResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetResourceDefinitionVersionResponse'
-            <$> (x .?> "CreationTimestamp")
-            <*> (x .?> "Arn")
-            <*> (x .?> "Id")
-            <*> (x .?> "Version")
-            <*> (x .?> "Definition")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTimestamp")
+            Prelude.<*> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Id")
+            Prelude.<*> (x Prelude..?> "Version")
+            Prelude.<*> (x Prelude..?> "Definition")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetResourceDefinitionVersion
+instance
+  Prelude.Hashable
+    GetResourceDefinitionVersion
 
-instance NFData GetResourceDefinitionVersion
+instance Prelude.NFData GetResourceDefinitionVersion
 
-instance ToHeaders GetResourceDefinitionVersion where
+instance
+  Prelude.ToHeaders
+    GetResourceDefinitionVersion
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetResourceDefinitionVersion where
+instance Prelude.ToPath GetResourceDefinitionVersion where
   toPath GetResourceDefinitionVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/greengrass/definition/resources/",
-        toBS _grdvResourceDefinitionId,
+        Prelude.toBS resourceDefinitionId,
         "/versions/",
-        toBS _grdvResourceDefinitionVersionId
+        Prelude.toBS resourceDefinitionVersionId
       ]
 
-instance ToQuery GetResourceDefinitionVersion where
-  toQuery = const mempty
+instance Prelude.ToQuery GetResourceDefinitionVersion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getResourceDefinitionVersionResponse' smart constructor.
+-- | /See:/ 'newGetResourceDefinitionVersionResponse' smart constructor.
 data GetResourceDefinitionVersionResponse = GetResourceDefinitionVersionResponse'
-  { _grdvrrsCreationTimestamp ::
-      !( Maybe
-           Text
-       ),
-    _grdvrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _grdvrrsId ::
-      !( Maybe
-           Text
-       ),
-    _grdvrrsVersion ::
-      !( Maybe
-           Text
-       ),
-    _grdvrrsDefinition ::
-      !( Maybe
-           ResourceDefinitionVersion
-       ),
-    _grdvrrsResponseStatus ::
-      !Int
+  { -- | The time, in milliseconds since the epoch, when the resource definition
+    -- version was created.
+    creationTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | Arn of the resource definition version.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the resource definition version.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The version of the resource definition version.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | Information about the definition.
+    definition :: Prelude.Maybe ResourceDefinitionVersion,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResourceDefinitionVersionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResourceDefinitionVersionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grdvrrsCreationTimestamp' - The time, in milliseconds since the epoch, when the resource definition version was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grdvrrsARN' - Arn of the resource definition version.
+-- 'creationTimestamp', 'getResourceDefinitionVersionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the resource definition
+-- version was created.
 --
--- * 'grdvrrsId' - The ID of the resource definition version.
+-- 'arn', 'getResourceDefinitionVersionResponse_arn' - Arn of the resource definition version.
 --
--- * 'grdvrrsVersion' - The version of the resource definition version.
+-- 'id', 'getResourceDefinitionVersionResponse_id' - The ID of the resource definition version.
 --
--- * 'grdvrrsDefinition' - Information about the definition.
+-- 'version', 'getResourceDefinitionVersionResponse_version' - The version of the resource definition version.
 --
--- * 'grdvrrsResponseStatus' - -- | The response status code.
-getResourceDefinitionVersionResponse ::
-  -- | 'grdvrrsResponseStatus'
-  Int ->
+-- 'definition', 'getResourceDefinitionVersionResponse_definition' - Information about the definition.
+--
+-- 'httpStatus', 'getResourceDefinitionVersionResponse_httpStatus' - The response's http status code.
+newGetResourceDefinitionVersionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetResourceDefinitionVersionResponse
-getResourceDefinitionVersionResponse pResponseStatus_ =
+newGetResourceDefinitionVersionResponse pHttpStatus_ =
   GetResourceDefinitionVersionResponse'
-    { _grdvrrsCreationTimestamp =
-        Nothing,
-      _grdvrrsARN = Nothing,
-      _grdvrrsId = Nothing,
-      _grdvrrsVersion = Nothing,
-      _grdvrrsDefinition = Nothing,
-      _grdvrrsResponseStatus =
-        pResponseStatus_
+    { creationTimestamp =
+        Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      version = Prelude.Nothing,
+      definition = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The time, in milliseconds since the epoch, when the resource definition version was created.
-grdvrrsCreationTimestamp :: Lens' GetResourceDefinitionVersionResponse (Maybe Text)
-grdvrrsCreationTimestamp = lens _grdvrrsCreationTimestamp (\s a -> s {_grdvrrsCreationTimestamp = a})
+-- | The time, in milliseconds since the epoch, when the resource definition
+-- version was created.
+getResourceDefinitionVersionResponse_creationTimestamp :: Lens.Lens' GetResourceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getResourceDefinitionVersionResponse_creationTimestamp = Lens.lens (\GetResourceDefinitionVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@GetResourceDefinitionVersionResponse' {} a -> s {creationTimestamp = a} :: GetResourceDefinitionVersionResponse)
 
 -- | Arn of the resource definition version.
-grdvrrsARN :: Lens' GetResourceDefinitionVersionResponse (Maybe Text)
-grdvrrsARN = lens _grdvrrsARN (\s a -> s {_grdvrrsARN = a})
+getResourceDefinitionVersionResponse_arn :: Lens.Lens' GetResourceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getResourceDefinitionVersionResponse_arn = Lens.lens (\GetResourceDefinitionVersionResponse' {arn} -> arn) (\s@GetResourceDefinitionVersionResponse' {} a -> s {arn = a} :: GetResourceDefinitionVersionResponse)
 
 -- | The ID of the resource definition version.
-grdvrrsId :: Lens' GetResourceDefinitionVersionResponse (Maybe Text)
-grdvrrsId = lens _grdvrrsId (\s a -> s {_grdvrrsId = a})
+getResourceDefinitionVersionResponse_id :: Lens.Lens' GetResourceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getResourceDefinitionVersionResponse_id = Lens.lens (\GetResourceDefinitionVersionResponse' {id} -> id) (\s@GetResourceDefinitionVersionResponse' {} a -> s {id = a} :: GetResourceDefinitionVersionResponse)
 
 -- | The version of the resource definition version.
-grdvrrsVersion :: Lens' GetResourceDefinitionVersionResponse (Maybe Text)
-grdvrrsVersion = lens _grdvrrsVersion (\s a -> s {_grdvrrsVersion = a})
+getResourceDefinitionVersionResponse_version :: Lens.Lens' GetResourceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getResourceDefinitionVersionResponse_version = Lens.lens (\GetResourceDefinitionVersionResponse' {version} -> version) (\s@GetResourceDefinitionVersionResponse' {} a -> s {version = a} :: GetResourceDefinitionVersionResponse)
 
 -- | Information about the definition.
-grdvrrsDefinition :: Lens' GetResourceDefinitionVersionResponse (Maybe ResourceDefinitionVersion)
-grdvrrsDefinition = lens _grdvrrsDefinition (\s a -> s {_grdvrrsDefinition = a})
+getResourceDefinitionVersionResponse_definition :: Lens.Lens' GetResourceDefinitionVersionResponse (Prelude.Maybe ResourceDefinitionVersion)
+getResourceDefinitionVersionResponse_definition = Lens.lens (\GetResourceDefinitionVersionResponse' {definition} -> definition) (\s@GetResourceDefinitionVersionResponse' {} a -> s {definition = a} :: GetResourceDefinitionVersionResponse)
 
--- | -- | The response status code.
-grdvrrsResponseStatus :: Lens' GetResourceDefinitionVersionResponse Int
-grdvrrsResponseStatus = lens _grdvrrsResponseStatus (\s a -> s {_grdvrrsResponseStatus = a})
+-- | The response's http status code.
+getResourceDefinitionVersionResponse_httpStatus :: Lens.Lens' GetResourceDefinitionVersionResponse Prelude.Int
+getResourceDefinitionVersionResponse_httpStatus = Lens.lens (\GetResourceDefinitionVersionResponse' {httpStatus} -> httpStatus) (\s@GetResourceDefinitionVersionResponse' {} a -> s {httpStatus = a} :: GetResourceDefinitionVersionResponse)
 
-instance NFData GetResourceDefinitionVersionResponse
+instance
+  Prelude.NFData
+    GetResourceDefinitionVersionResponse

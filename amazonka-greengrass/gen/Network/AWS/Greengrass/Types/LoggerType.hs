@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Greengrass.Types.LoggerType
   ( LoggerType
       ( ..,
-        AWSCloudWatch,
-        FileSystem
+        LoggerTypeAWSCloudWatch,
+        LoggerTypeFileSystem
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoggerType = LoggerType' (CI Text)
+newtype LoggerType = LoggerType'
+  { fromLoggerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSCloudWatch :: LoggerType
-pattern AWSCloudWatch = LoggerType' "AWSCloudWatch"
+pattern LoggerTypeAWSCloudWatch :: LoggerType
+pattern LoggerTypeAWSCloudWatch = LoggerType' "AWSCloudWatch"
 
-pattern FileSystem :: LoggerType
-pattern FileSystem = LoggerType' "FileSystem"
+pattern LoggerTypeFileSystem :: LoggerType
+pattern LoggerTypeFileSystem = LoggerType' "FileSystem"
 
 {-# COMPLETE
-  AWSCloudWatch,
-  FileSystem,
+  LoggerTypeAWSCloudWatch,
+  LoggerTypeFileSystem,
   LoggerType'
   #-}
 
-instance FromText LoggerType where
-  parser = (LoggerType' . mk) <$> takeText
+instance Prelude.FromText LoggerType where
+  parser = LoggerType' Prelude.<$> Prelude.takeText
 
-instance ToText LoggerType where
-  toText (LoggerType' ci) = original ci
+instance Prelude.ToText LoggerType where
+  toText (LoggerType' x) = x
 
-instance Hashable LoggerType
+instance Prelude.Hashable LoggerType
 
-instance NFData LoggerType
+instance Prelude.NFData LoggerType
 
-instance ToByteString LoggerType
+instance Prelude.ToByteString LoggerType
 
-instance ToQuery LoggerType
+instance Prelude.ToQuery LoggerType
 
-instance ToHeader LoggerType
+instance Prelude.ToHeader LoggerType
 
-instance ToJSON LoggerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LoggerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LoggerType where
-  parseJSON = parseJSONText "LoggerType"
+instance Prelude.FromJSON LoggerType where
+  parseJSON = Prelude.parseJSONText "LoggerType"

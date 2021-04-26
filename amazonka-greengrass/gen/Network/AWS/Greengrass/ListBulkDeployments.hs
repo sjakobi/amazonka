@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,157 +26,183 @@
 -- This operation returns paginated results.
 module Network.AWS.Greengrass.ListBulkDeployments
   ( -- * Creating a Request
-    listBulkDeployments,
-    ListBulkDeployments,
+    ListBulkDeployments (..),
+    newListBulkDeployments,
 
     -- * Request Lenses
-    lbdNextToken,
-    lbdMaxResults,
+    listBulkDeployments_nextToken,
+    listBulkDeployments_maxResults,
 
     -- * Destructuring the Response
-    listBulkDeploymentsResponse,
-    ListBulkDeploymentsResponse,
+    ListBulkDeploymentsResponse (..),
+    newListBulkDeploymentsResponse,
 
     -- * Response Lenses
-    lbdrrsNextToken,
-    lbdrrsBulkDeployments,
-    lbdrrsResponseStatus,
+    listBulkDeploymentsResponse_nextToken,
+    listBulkDeploymentsResponse_bulkDeployments,
+    listBulkDeploymentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.BulkDeployment
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listBulkDeployments' smart constructor.
+-- | /See:/ 'newListBulkDeployments' smart constructor.
 data ListBulkDeployments = ListBulkDeployments'
-  { _lbdNextToken ::
-      !(Maybe Text),
-    _lbdMaxResults :: !(Maybe Text)
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBulkDeployments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBulkDeployments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbdNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbdMaxResults' - The maximum number of results to be returned per request.
-listBulkDeployments ::
+-- 'nextToken', 'listBulkDeployments_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+--
+-- 'maxResults', 'listBulkDeployments_maxResults' - The maximum number of results to be returned per request.
+newListBulkDeployments ::
   ListBulkDeployments
-listBulkDeployments =
+newListBulkDeployments =
   ListBulkDeployments'
-    { _lbdNextToken = Nothing,
-      _lbdMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lbdNextToken :: Lens' ListBulkDeployments (Maybe Text)
-lbdNextToken = lens _lbdNextToken (\s a -> s {_lbdNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listBulkDeployments_nextToken :: Lens.Lens' ListBulkDeployments (Prelude.Maybe Prelude.Text)
+listBulkDeployments_nextToken = Lens.lens (\ListBulkDeployments' {nextToken} -> nextToken) (\s@ListBulkDeployments' {} a -> s {nextToken = a} :: ListBulkDeployments)
 
 -- | The maximum number of results to be returned per request.
-lbdMaxResults :: Lens' ListBulkDeployments (Maybe Text)
-lbdMaxResults = lens _lbdMaxResults (\s a -> s {_lbdMaxResults = a})
+listBulkDeployments_maxResults :: Lens.Lens' ListBulkDeployments (Prelude.Maybe Prelude.Text)
+listBulkDeployments_maxResults = Lens.lens (\ListBulkDeployments' {maxResults} -> maxResults) (\s@ListBulkDeployments' {} a -> s {maxResults = a} :: ListBulkDeployments)
 
-instance AWSPager ListBulkDeployments where
+instance Pager.AWSPager ListBulkDeployments where
   page rq rs
-    | stop (rs ^. lbdrrsNextToken) = Nothing
-    | stop (rs ^. lbdrrsBulkDeployments) = Nothing
-    | otherwise =
-      Just $ rq & lbdNextToken .~ rs ^. lbdrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listBulkDeploymentsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listBulkDeploymentsResponse_bulkDeployments
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listBulkDeployments_nextToken
+          Lens..~ rs
+          Lens.^? listBulkDeploymentsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListBulkDeployments where
+instance Prelude.AWSRequest ListBulkDeployments where
   type
     Rs ListBulkDeployments =
       ListBulkDeploymentsResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListBulkDeploymentsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "BulkDeployments" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "BulkDeployments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListBulkDeployments
+instance Prelude.Hashable ListBulkDeployments
 
-instance NFData ListBulkDeployments
+instance Prelude.NFData ListBulkDeployments
 
-instance ToHeaders ListBulkDeployments where
+instance Prelude.ToHeaders ListBulkDeployments where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListBulkDeployments where
-  toPath = const "/greengrass/bulk/deployments"
+instance Prelude.ToPath ListBulkDeployments where
+  toPath = Prelude.const "/greengrass/bulk/deployments"
 
-instance ToQuery ListBulkDeployments where
+instance Prelude.ToQuery ListBulkDeployments where
   toQuery ListBulkDeployments' {..} =
-    mconcat
-      [ "NextToken" =: _lbdNextToken,
-        "MaxResults" =: _lbdMaxResults
+    Prelude.mconcat
+      [ "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listBulkDeploymentsResponse' smart constructor.
+-- | /See:/ 'newListBulkDeploymentsResponse' smart constructor.
 data ListBulkDeploymentsResponse = ListBulkDeploymentsResponse'
-  { _lbdrrsNextToken ::
-      !(Maybe Text),
-    _lbdrrsBulkDeployments ::
-      !( Maybe
-           [BulkDeployment]
-       ),
-    _lbdrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of bulk deployments.
+    bulkDeployments :: Prelude.Maybe [BulkDeployment],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBulkDeploymentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBulkDeploymentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbdrrsNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbdrrsBulkDeployments' - A list of bulk deployments.
+-- 'nextToken', 'listBulkDeploymentsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'lbdrrsResponseStatus' - -- | The response status code.
-listBulkDeploymentsResponse ::
-  -- | 'lbdrrsResponseStatus'
-  Int ->
+-- 'bulkDeployments', 'listBulkDeploymentsResponse_bulkDeployments' - A list of bulk deployments.
+--
+-- 'httpStatus', 'listBulkDeploymentsResponse_httpStatus' - The response's http status code.
+newListBulkDeploymentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListBulkDeploymentsResponse
-listBulkDeploymentsResponse pResponseStatus_ =
+newListBulkDeploymentsResponse pHttpStatus_ =
   ListBulkDeploymentsResponse'
-    { _lbdrrsNextToken =
-        Nothing,
-      _lbdrrsBulkDeployments = Nothing,
-      _lbdrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      bulkDeployments = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lbdrrsNextToken :: Lens' ListBulkDeploymentsResponse (Maybe Text)
-lbdrrsNextToken = lens _lbdrrsNextToken (\s a -> s {_lbdrrsNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listBulkDeploymentsResponse_nextToken :: Lens.Lens' ListBulkDeploymentsResponse (Prelude.Maybe Prelude.Text)
+listBulkDeploymentsResponse_nextToken = Lens.lens (\ListBulkDeploymentsResponse' {nextToken} -> nextToken) (\s@ListBulkDeploymentsResponse' {} a -> s {nextToken = a} :: ListBulkDeploymentsResponse)
 
 -- | A list of bulk deployments.
-lbdrrsBulkDeployments :: Lens' ListBulkDeploymentsResponse [BulkDeployment]
-lbdrrsBulkDeployments = lens _lbdrrsBulkDeployments (\s a -> s {_lbdrrsBulkDeployments = a}) . _Default . _Coerce
+listBulkDeploymentsResponse_bulkDeployments :: Lens.Lens' ListBulkDeploymentsResponse (Prelude.Maybe [BulkDeployment])
+listBulkDeploymentsResponse_bulkDeployments = Lens.lens (\ListBulkDeploymentsResponse' {bulkDeployments} -> bulkDeployments) (\s@ListBulkDeploymentsResponse' {} a -> s {bulkDeployments = a} :: ListBulkDeploymentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lbdrrsResponseStatus :: Lens' ListBulkDeploymentsResponse Int
-lbdrrsResponseStatus = lens _lbdrrsResponseStatus (\s a -> s {_lbdrrsResponseStatus = a})
+-- | The response's http status code.
+listBulkDeploymentsResponse_httpStatus :: Lens.Lens' ListBulkDeploymentsResponse Prelude.Int
+listBulkDeploymentsResponse_httpStatus = Lens.lens (\ListBulkDeploymentsResponse' {httpStatus} -> httpStatus) (\s@ListBulkDeploymentsResponse' {} a -> s {httpStatus = a} :: ListBulkDeploymentsResponse)
 
-instance NFData ListBulkDeploymentsResponse
+instance Prelude.NFData ListBulkDeploymentsResponse

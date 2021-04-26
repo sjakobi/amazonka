@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +21,66 @@ module Network.AWS.Greengrass.Types.FunctionExecutionConfig where
 
 import Network.AWS.Greengrass.Types.FunctionIsolationMode
 import Network.AWS.Greengrass.Types.FunctionRunAsConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration information that specifies how a Lambda function runs.
 --
--- /See:/ 'functionExecutionConfig' smart constructor.
+-- /See:/ 'newFunctionExecutionConfig' smart constructor.
 data FunctionExecutionConfig = FunctionExecutionConfig'
-  { _fecIsolationMode ::
-      !( Maybe
-           FunctionIsolationMode
-       ),
-    _fecRunAs ::
-      !( Maybe
-           FunctionRunAsConfig
-       )
+  { isolationMode :: Prelude.Maybe FunctionIsolationMode,
+    runAs :: Prelude.Maybe FunctionRunAsConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FunctionExecutionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FunctionExecutionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fecIsolationMode' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fecRunAs' - Undocumented member.
-functionExecutionConfig ::
+-- 'isolationMode', 'functionExecutionConfig_isolationMode' - Undocumented member.
+--
+-- 'runAs', 'functionExecutionConfig_runAs' - Undocumented member.
+newFunctionExecutionConfig ::
   FunctionExecutionConfig
-functionExecutionConfig =
+newFunctionExecutionConfig =
   FunctionExecutionConfig'
-    { _fecIsolationMode =
-        Nothing,
-      _fecRunAs = Nothing
+    { isolationMode =
+        Prelude.Nothing,
+      runAs = Prelude.Nothing
     }
 
 -- | Undocumented member.
-fecIsolationMode :: Lens' FunctionExecutionConfig (Maybe FunctionIsolationMode)
-fecIsolationMode = lens _fecIsolationMode (\s a -> s {_fecIsolationMode = a})
+functionExecutionConfig_isolationMode :: Lens.Lens' FunctionExecutionConfig (Prelude.Maybe FunctionIsolationMode)
+functionExecutionConfig_isolationMode = Lens.lens (\FunctionExecutionConfig' {isolationMode} -> isolationMode) (\s@FunctionExecutionConfig' {} a -> s {isolationMode = a} :: FunctionExecutionConfig)
 
 -- | Undocumented member.
-fecRunAs :: Lens' FunctionExecutionConfig (Maybe FunctionRunAsConfig)
-fecRunAs = lens _fecRunAs (\s a -> s {_fecRunAs = a})
+functionExecutionConfig_runAs :: Lens.Lens' FunctionExecutionConfig (Prelude.Maybe FunctionRunAsConfig)
+functionExecutionConfig_runAs = Lens.lens (\FunctionExecutionConfig' {runAs} -> runAs) (\s@FunctionExecutionConfig' {} a -> s {runAs = a} :: FunctionExecutionConfig)
 
-instance FromJSON FunctionExecutionConfig where
+instance Prelude.FromJSON FunctionExecutionConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FunctionExecutionConfig"
       ( \x ->
           FunctionExecutionConfig'
-            <$> (x .:? "IsolationMode") <*> (x .:? "RunAs")
+            Prelude.<$> (x Prelude..:? "IsolationMode")
+            Prelude.<*> (x Prelude..:? "RunAs")
       )
 
-instance Hashable FunctionExecutionConfig
+instance Prelude.Hashable FunctionExecutionConfig
 
-instance NFData FunctionExecutionConfig
+instance Prelude.NFData FunctionExecutionConfig
 
-instance ToJSON FunctionExecutionConfig where
+instance Prelude.ToJSON FunctionExecutionConfig where
   toJSON FunctionExecutionConfig' {..} =
-    object
-      ( catMaybes
-          [ ("IsolationMode" .=) <$> _fecIsolationMode,
-            ("RunAs" .=) <$> _fecRunAs
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IsolationMode" Prelude..=)
+              Prelude.<$> isolationMode,
+            ("RunAs" Prelude..=) Prelude.<$> runAs
           ]
       )

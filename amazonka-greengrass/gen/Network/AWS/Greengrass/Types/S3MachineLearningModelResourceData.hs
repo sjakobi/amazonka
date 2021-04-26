@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,92 @@
 module Network.AWS.Greengrass.Types.S3MachineLearningModelResourceData where
 
 import Network.AWS.Greengrass.Types.ResourceDownloadOwnerSetting
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Attributes that define an Amazon S3 machine learning resource.
 --
--- /See:/ 's3MachineLearningModelResourceData' smart constructor.
+-- /See:/ 'newS3MachineLearningModelResourceData' smart constructor.
 data S3MachineLearningModelResourceData = S3MachineLearningModelResourceData'
-  { _smlmrdOwnerSetting ::
-      !( Maybe
-           ResourceDownloadOwnerSetting
-       ),
-    _smlmrdDestinationPath ::
-      !( Maybe
-           Text
-       ),
-    _smlmrdS3URI ::
-      !( Maybe
-           Text
-       )
+  { ownerSetting :: Prelude.Maybe ResourceDownloadOwnerSetting,
+    -- | The absolute local path of the resource inside the Lambda environment.
+    destinationPath :: Prelude.Maybe Prelude.Text,
+    -- | The URI of the source model in an S3 bucket. The model package must be
+    -- in tar.gz or .zip format.
+    s3Uri :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3MachineLearningModelResourceData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3MachineLearningModelResourceData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smlmrdOwnerSetting' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smlmrdDestinationPath' - The absolute local path of the resource inside the Lambda environment.
+-- 'ownerSetting', 's3MachineLearningModelResourceData_ownerSetting' - Undocumented member.
 --
--- * 'smlmrdS3URI' - The URI of the source model in an S3 bucket. The model package must be in tar.gz or .zip format.
-s3MachineLearningModelResourceData ::
+-- 'destinationPath', 's3MachineLearningModelResourceData_destinationPath' - The absolute local path of the resource inside the Lambda environment.
+--
+-- 's3Uri', 's3MachineLearningModelResourceData_s3Uri' - The URI of the source model in an S3 bucket. The model package must be
+-- in tar.gz or .zip format.
+newS3MachineLearningModelResourceData ::
   S3MachineLearningModelResourceData
-s3MachineLearningModelResourceData =
+newS3MachineLearningModelResourceData =
   S3MachineLearningModelResourceData'
-    { _smlmrdOwnerSetting =
-        Nothing,
-      _smlmrdDestinationPath = Nothing,
-      _smlmrdS3URI = Nothing
+    { ownerSetting =
+        Prelude.Nothing,
+      destinationPath = Prelude.Nothing,
+      s3Uri = Prelude.Nothing
     }
 
 -- | Undocumented member.
-smlmrdOwnerSetting :: Lens' S3MachineLearningModelResourceData (Maybe ResourceDownloadOwnerSetting)
-smlmrdOwnerSetting = lens _smlmrdOwnerSetting (\s a -> s {_smlmrdOwnerSetting = a})
+s3MachineLearningModelResourceData_ownerSetting :: Lens.Lens' S3MachineLearningModelResourceData (Prelude.Maybe ResourceDownloadOwnerSetting)
+s3MachineLearningModelResourceData_ownerSetting = Lens.lens (\S3MachineLearningModelResourceData' {ownerSetting} -> ownerSetting) (\s@S3MachineLearningModelResourceData' {} a -> s {ownerSetting = a} :: S3MachineLearningModelResourceData)
 
 -- | The absolute local path of the resource inside the Lambda environment.
-smlmrdDestinationPath :: Lens' S3MachineLearningModelResourceData (Maybe Text)
-smlmrdDestinationPath = lens _smlmrdDestinationPath (\s a -> s {_smlmrdDestinationPath = a})
+s3MachineLearningModelResourceData_destinationPath :: Lens.Lens' S3MachineLearningModelResourceData (Prelude.Maybe Prelude.Text)
+s3MachineLearningModelResourceData_destinationPath = Lens.lens (\S3MachineLearningModelResourceData' {destinationPath} -> destinationPath) (\s@S3MachineLearningModelResourceData' {} a -> s {destinationPath = a} :: S3MachineLearningModelResourceData)
 
--- | The URI of the source model in an S3 bucket. The model package must be in tar.gz or .zip format.
-smlmrdS3URI :: Lens' S3MachineLearningModelResourceData (Maybe Text)
-smlmrdS3URI = lens _smlmrdS3URI (\s a -> s {_smlmrdS3URI = a})
+-- | The URI of the source model in an S3 bucket. The model package must be
+-- in tar.gz or .zip format.
+s3MachineLearningModelResourceData_s3Uri :: Lens.Lens' S3MachineLearningModelResourceData (Prelude.Maybe Prelude.Text)
+s3MachineLearningModelResourceData_s3Uri = Lens.lens (\S3MachineLearningModelResourceData' {s3Uri} -> s3Uri) (\s@S3MachineLearningModelResourceData' {} a -> s {s3Uri = a} :: S3MachineLearningModelResourceData)
 
-instance FromJSON S3MachineLearningModelResourceData where
+instance
+  Prelude.FromJSON
+    S3MachineLearningModelResourceData
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "S3MachineLearningModelResourceData"
       ( \x ->
           S3MachineLearningModelResourceData'
-            <$> (x .:? "OwnerSetting")
-            <*> (x .:? "DestinationPath")
-            <*> (x .:? "S3Uri")
+            Prelude.<$> (x Prelude..:? "OwnerSetting")
+            Prelude.<*> (x Prelude..:? "DestinationPath")
+            Prelude.<*> (x Prelude..:? "S3Uri")
       )
 
-instance Hashable S3MachineLearningModelResourceData
+instance
+  Prelude.Hashable
+    S3MachineLearningModelResourceData
 
-instance NFData S3MachineLearningModelResourceData
+instance
+  Prelude.NFData
+    S3MachineLearningModelResourceData
 
-instance ToJSON S3MachineLearningModelResourceData where
+instance
+  Prelude.ToJSON
+    S3MachineLearningModelResourceData
+  where
   toJSON S3MachineLearningModelResourceData' {..} =
-    object
-      ( catMaybes
-          [ ("OwnerSetting" .=) <$> _smlmrdOwnerSetting,
-            ("DestinationPath" .=) <$> _smlmrdDestinationPath,
-            ("S3Uri" .=) <$> _smlmrdS3URI
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OwnerSetting" Prelude..=)
+              Prelude.<$> ownerSetting,
+            ("DestinationPath" Prelude..=)
+              Prelude.<$> destinationPath,
+            ("S3Uri" Prelude..=) Prelude.<$> s3Uri
           ]
       )

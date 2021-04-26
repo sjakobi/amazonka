@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,157 +26,183 @@
 -- This operation returns paginated results.
 module Network.AWS.Greengrass.ListCoreDefinitions
   ( -- * Creating a Request
-    listCoreDefinitions,
-    ListCoreDefinitions,
+    ListCoreDefinitions (..),
+    newListCoreDefinitions,
 
     -- * Request Lenses
-    lcdNextToken,
-    lcdMaxResults,
+    listCoreDefinitions_nextToken,
+    listCoreDefinitions_maxResults,
 
     -- * Destructuring the Response
-    listCoreDefinitionsResponse,
-    ListCoreDefinitionsResponse,
+    ListCoreDefinitionsResponse (..),
+    newListCoreDefinitionsResponse,
 
     -- * Response Lenses
-    lcdrrsNextToken,
-    lcdrrsDefinitions,
-    lcdrrsResponseStatus,
+    listCoreDefinitionsResponse_nextToken,
+    listCoreDefinitionsResponse_definitions,
+    listCoreDefinitionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Greengrass.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Greengrass.Types.DefinitionInformation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listCoreDefinitions' smart constructor.
+-- | /See:/ 'newListCoreDefinitions' smart constructor.
 data ListCoreDefinitions = ListCoreDefinitions'
-  { _lcdNextToken ::
-      !(Maybe Text),
-    _lcdMaxResults :: !(Maybe Text)
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCoreDefinitions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCoreDefinitions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcdNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcdMaxResults' - The maximum number of results to be returned per request.
-listCoreDefinitions ::
+-- 'nextToken', 'listCoreDefinitions_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+--
+-- 'maxResults', 'listCoreDefinitions_maxResults' - The maximum number of results to be returned per request.
+newListCoreDefinitions ::
   ListCoreDefinitions
-listCoreDefinitions =
+newListCoreDefinitions =
   ListCoreDefinitions'
-    { _lcdNextToken = Nothing,
-      _lcdMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lcdNextToken :: Lens' ListCoreDefinitions (Maybe Text)
-lcdNextToken = lens _lcdNextToken (\s a -> s {_lcdNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listCoreDefinitions_nextToken :: Lens.Lens' ListCoreDefinitions (Prelude.Maybe Prelude.Text)
+listCoreDefinitions_nextToken = Lens.lens (\ListCoreDefinitions' {nextToken} -> nextToken) (\s@ListCoreDefinitions' {} a -> s {nextToken = a} :: ListCoreDefinitions)
 
 -- | The maximum number of results to be returned per request.
-lcdMaxResults :: Lens' ListCoreDefinitions (Maybe Text)
-lcdMaxResults = lens _lcdMaxResults (\s a -> s {_lcdMaxResults = a})
+listCoreDefinitions_maxResults :: Lens.Lens' ListCoreDefinitions (Prelude.Maybe Prelude.Text)
+listCoreDefinitions_maxResults = Lens.lens (\ListCoreDefinitions' {maxResults} -> maxResults) (\s@ListCoreDefinitions' {} a -> s {maxResults = a} :: ListCoreDefinitions)
 
-instance AWSPager ListCoreDefinitions where
+instance Pager.AWSPager ListCoreDefinitions where
   page rq rs
-    | stop (rs ^. lcdrrsNextToken) = Nothing
-    | stop (rs ^. lcdrrsDefinitions) = Nothing
-    | otherwise =
-      Just $ rq & lcdNextToken .~ rs ^. lcdrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listCoreDefinitionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listCoreDefinitionsResponse_definitions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listCoreDefinitions_nextToken
+          Lens..~ rs
+          Lens.^? listCoreDefinitionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListCoreDefinitions where
+instance Prelude.AWSRequest ListCoreDefinitions where
   type
     Rs ListCoreDefinitions =
       ListCoreDefinitionsResponse
-  request = get greengrass
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListCoreDefinitionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Definitions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Definitions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListCoreDefinitions
+instance Prelude.Hashable ListCoreDefinitions
 
-instance NFData ListCoreDefinitions
+instance Prelude.NFData ListCoreDefinitions
 
-instance ToHeaders ListCoreDefinitions where
+instance Prelude.ToHeaders ListCoreDefinitions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListCoreDefinitions where
-  toPath = const "/greengrass/definition/cores"
+instance Prelude.ToPath ListCoreDefinitions where
+  toPath = Prelude.const "/greengrass/definition/cores"
 
-instance ToQuery ListCoreDefinitions where
+instance Prelude.ToQuery ListCoreDefinitions where
   toQuery ListCoreDefinitions' {..} =
-    mconcat
-      [ "NextToken" =: _lcdNextToken,
-        "MaxResults" =: _lcdMaxResults
+    Prelude.mconcat
+      [ "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listCoreDefinitionsResponse' smart constructor.
+-- | /See:/ 'newListCoreDefinitionsResponse' smart constructor.
 data ListCoreDefinitionsResponse = ListCoreDefinitionsResponse'
-  { _lcdrrsNextToken ::
-      !(Maybe Text),
-    _lcdrrsDefinitions ::
-      !( Maybe
-           [DefinitionInformation]
-       ),
-    _lcdrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about a definition.
+    definitions :: Prelude.Maybe [DefinitionInformation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCoreDefinitionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCoreDefinitionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcdrrsNextToken' - The token for the next set of results, or ''null'' if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcdrrsDefinitions' - Information about a definition.
+-- 'nextToken', 'listCoreDefinitionsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
 --
--- * 'lcdrrsResponseStatus' - -- | The response status code.
-listCoreDefinitionsResponse ::
-  -- | 'lcdrrsResponseStatus'
-  Int ->
+-- 'definitions', 'listCoreDefinitionsResponse_definitions' - Information about a definition.
+--
+-- 'httpStatus', 'listCoreDefinitionsResponse_httpStatus' - The response's http status code.
+newListCoreDefinitionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListCoreDefinitionsResponse
-listCoreDefinitionsResponse pResponseStatus_ =
+newListCoreDefinitionsResponse pHttpStatus_ =
   ListCoreDefinitionsResponse'
-    { _lcdrrsNextToken =
-        Nothing,
-      _lcdrrsDefinitions = Nothing,
-      _lcdrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      definitions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of results, or ''null'' if there are no additional results.
-lcdrrsNextToken :: Lens' ListCoreDefinitionsResponse (Maybe Text)
-lcdrrsNextToken = lens _lcdrrsNextToken (\s a -> s {_lcdrrsNextToken = a})
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+listCoreDefinitionsResponse_nextToken :: Lens.Lens' ListCoreDefinitionsResponse (Prelude.Maybe Prelude.Text)
+listCoreDefinitionsResponse_nextToken = Lens.lens (\ListCoreDefinitionsResponse' {nextToken} -> nextToken) (\s@ListCoreDefinitionsResponse' {} a -> s {nextToken = a} :: ListCoreDefinitionsResponse)
 
 -- | Information about a definition.
-lcdrrsDefinitions :: Lens' ListCoreDefinitionsResponse [DefinitionInformation]
-lcdrrsDefinitions = lens _lcdrrsDefinitions (\s a -> s {_lcdrrsDefinitions = a}) . _Default . _Coerce
+listCoreDefinitionsResponse_definitions :: Lens.Lens' ListCoreDefinitionsResponse (Prelude.Maybe [DefinitionInformation])
+listCoreDefinitionsResponse_definitions = Lens.lens (\ListCoreDefinitionsResponse' {definitions} -> definitions) (\s@ListCoreDefinitionsResponse' {} a -> s {definitions = a} :: ListCoreDefinitionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lcdrrsResponseStatus :: Lens' ListCoreDefinitionsResponse Int
-lcdrrsResponseStatus = lens _lcdrrsResponseStatus (\s a -> s {_lcdrrsResponseStatus = a})
+-- | The response's http status code.
+listCoreDefinitionsResponse_httpStatus :: Lens.Lens' ListCoreDefinitionsResponse Prelude.Int
+listCoreDefinitionsResponse_httpStatus = Lens.lens (\ListCoreDefinitionsResponse' {httpStatus} -> httpStatus) (\s@ListCoreDefinitionsResponse' {} a -> s {httpStatus = a} :: ListCoreDefinitionsResponse)
 
-instance NFData ListCoreDefinitionsResponse
+instance Prelude.NFData ListCoreDefinitionsResponse

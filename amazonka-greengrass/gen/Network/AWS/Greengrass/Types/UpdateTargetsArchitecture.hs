@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.Greengrass.Types.UpdateTargetsArchitecture
   ( UpdateTargetsArchitecture
       ( ..,
-        AARCH64,
-        Armv6l,
-        Armv7l,
-        X86_64
+        UpdateTargetsArchitectureAARCH64,
+        UpdateTargetsArchitectureArmv6l,
+        UpdateTargetsArchitectureArmv7l,
+        UpdateTargetsArchitectureX8664
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The architecture of the cores which are the targets of an update.
-data UpdateTargetsArchitecture
-  = UpdateTargetsArchitecture'
-      ( CI
-          Text
-      )
+newtype UpdateTargetsArchitecture = UpdateTargetsArchitecture'
+  { fromUpdateTargetsArchitecture ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AARCH64 :: UpdateTargetsArchitecture
-pattern AARCH64 = UpdateTargetsArchitecture' "aarch64"
+pattern UpdateTargetsArchitectureAARCH64 :: UpdateTargetsArchitecture
+pattern UpdateTargetsArchitectureAARCH64 = UpdateTargetsArchitecture' "aarch64"
 
-pattern Armv6l :: UpdateTargetsArchitecture
-pattern Armv6l = UpdateTargetsArchitecture' "armv6l"
+pattern UpdateTargetsArchitectureArmv6l :: UpdateTargetsArchitecture
+pattern UpdateTargetsArchitectureArmv6l = UpdateTargetsArchitecture' "armv6l"
 
-pattern Armv7l :: UpdateTargetsArchitecture
-pattern Armv7l = UpdateTargetsArchitecture' "armv7l"
+pattern UpdateTargetsArchitectureArmv7l :: UpdateTargetsArchitecture
+pattern UpdateTargetsArchitectureArmv7l = UpdateTargetsArchitecture' "armv7l"
 
-pattern X86_64 :: UpdateTargetsArchitecture
-pattern X86_64 = UpdateTargetsArchitecture' "x86_64"
+pattern UpdateTargetsArchitectureX8664 :: UpdateTargetsArchitecture
+pattern UpdateTargetsArchitectureX8664 = UpdateTargetsArchitecture' "x86_64"
 
 {-# COMPLETE
-  AARCH64,
-  Armv6l,
-  Armv7l,
-  X86_64,
+  UpdateTargetsArchitectureAARCH64,
+  UpdateTargetsArchitectureArmv6l,
+  UpdateTargetsArchitectureArmv7l,
+  UpdateTargetsArchitectureX8664,
   UpdateTargetsArchitecture'
   #-}
 
-instance FromText UpdateTargetsArchitecture where
-  parser = (UpdateTargetsArchitecture' . mk) <$> takeText
+instance Prelude.FromText UpdateTargetsArchitecture where
+  parser = UpdateTargetsArchitecture' Prelude.<$> Prelude.takeText
 
-instance ToText UpdateTargetsArchitecture where
-  toText (UpdateTargetsArchitecture' ci) = original ci
+instance Prelude.ToText UpdateTargetsArchitecture where
+  toText (UpdateTargetsArchitecture' x) = x
 
-instance Hashable UpdateTargetsArchitecture
+instance Prelude.Hashable UpdateTargetsArchitecture
 
-instance NFData UpdateTargetsArchitecture
+instance Prelude.NFData UpdateTargetsArchitecture
 
-instance ToByteString UpdateTargetsArchitecture
+instance Prelude.ToByteString UpdateTargetsArchitecture
 
-instance ToQuery UpdateTargetsArchitecture
+instance Prelude.ToQuery UpdateTargetsArchitecture
 
-instance ToHeader UpdateTargetsArchitecture
+instance Prelude.ToHeader UpdateTargetsArchitecture
 
-instance ToJSON UpdateTargetsArchitecture where
-  toJSON = toJSONText
+instance Prelude.ToJSON UpdateTargetsArchitecture where
+  toJSON = Prelude.toJSONText

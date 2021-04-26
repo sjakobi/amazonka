@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Greengrass.Types.ConnectivityInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a Greengrass core's connectivity.
+-- | Information about a Greengrass core\'s connectivity.
 --
--- /See:/ 'connectivityInfo' smart constructor.
+-- /See:/ 'newConnectivityInfo' smart constructor.
 data ConnectivityInfo = ConnectivityInfo'
-  { _ciId ::
-      !(Maybe Text),
-    _ciMetadata :: !(Maybe Text),
-    _ciPortNumber :: !(Maybe Int),
-    _ciHostAddress :: !(Maybe Text)
+  { -- | The ID of the connectivity information.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Metadata for this endpoint.
+    metadata :: Prelude.Maybe Prelude.Text,
+    -- | The port of the Greengrass core. Usually 8883.
+    portNumber :: Prelude.Maybe Prelude.Int,
+    -- | The endpoint for the Greengrass core. Can be an IP address or DNS.
+    hostAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConnectivityInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConnectivityInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciId' - The ID of the connectivity information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciMetadata' - Metadata for this endpoint.
+-- 'id', 'connectivityInfo_id' - The ID of the connectivity information.
 --
--- * 'ciPortNumber' - The port of the Greengrass core. Usually 8883.
+-- 'metadata', 'connectivityInfo_metadata' - Metadata for this endpoint.
 --
--- * 'ciHostAddress' - The endpoint for the Greengrass core. Can be an IP address or DNS.
-connectivityInfo ::
+-- 'portNumber', 'connectivityInfo_portNumber' - The port of the Greengrass core. Usually 8883.
+--
+-- 'hostAddress', 'connectivityInfo_hostAddress' - The endpoint for the Greengrass core. Can be an IP address or DNS.
+newConnectivityInfo ::
   ConnectivityInfo
-connectivityInfo =
+newConnectivityInfo =
   ConnectivityInfo'
-    { _ciId = Nothing,
-      _ciMetadata = Nothing,
-      _ciPortNumber = Nothing,
-      _ciHostAddress = Nothing
+    { id = Prelude.Nothing,
+      metadata = Prelude.Nothing,
+      portNumber = Prelude.Nothing,
+      hostAddress = Prelude.Nothing
     }
 
 -- | The ID of the connectivity information.
-ciId :: Lens' ConnectivityInfo (Maybe Text)
-ciId = lens _ciId (\s a -> s {_ciId = a})
+connectivityInfo_id :: Lens.Lens' ConnectivityInfo (Prelude.Maybe Prelude.Text)
+connectivityInfo_id = Lens.lens (\ConnectivityInfo' {id} -> id) (\s@ConnectivityInfo' {} a -> s {id = a} :: ConnectivityInfo)
 
 -- | Metadata for this endpoint.
-ciMetadata :: Lens' ConnectivityInfo (Maybe Text)
-ciMetadata = lens _ciMetadata (\s a -> s {_ciMetadata = a})
+connectivityInfo_metadata :: Lens.Lens' ConnectivityInfo (Prelude.Maybe Prelude.Text)
+connectivityInfo_metadata = Lens.lens (\ConnectivityInfo' {metadata} -> metadata) (\s@ConnectivityInfo' {} a -> s {metadata = a} :: ConnectivityInfo)
 
 -- | The port of the Greengrass core. Usually 8883.
-ciPortNumber :: Lens' ConnectivityInfo (Maybe Int)
-ciPortNumber = lens _ciPortNumber (\s a -> s {_ciPortNumber = a})
+connectivityInfo_portNumber :: Lens.Lens' ConnectivityInfo (Prelude.Maybe Prelude.Int)
+connectivityInfo_portNumber = Lens.lens (\ConnectivityInfo' {portNumber} -> portNumber) (\s@ConnectivityInfo' {} a -> s {portNumber = a} :: ConnectivityInfo)
 
 -- | The endpoint for the Greengrass core. Can be an IP address or DNS.
-ciHostAddress :: Lens' ConnectivityInfo (Maybe Text)
-ciHostAddress = lens _ciHostAddress (\s a -> s {_ciHostAddress = a})
+connectivityInfo_hostAddress :: Lens.Lens' ConnectivityInfo (Prelude.Maybe Prelude.Text)
+connectivityInfo_hostAddress = Lens.lens (\ConnectivityInfo' {hostAddress} -> hostAddress) (\s@ConnectivityInfo' {} a -> s {hostAddress = a} :: ConnectivityInfo)
 
-instance FromJSON ConnectivityInfo where
+instance Prelude.FromJSON ConnectivityInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConnectivityInfo"
       ( \x ->
           ConnectivityInfo'
-            <$> (x .:? "Id")
-            <*> (x .:? "Metadata")
-            <*> (x .:? "PortNumber")
-            <*> (x .:? "HostAddress")
+            Prelude.<$> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Metadata")
+            Prelude.<*> (x Prelude..:? "PortNumber")
+            Prelude.<*> (x Prelude..:? "HostAddress")
       )
 
-instance Hashable ConnectivityInfo
+instance Prelude.Hashable ConnectivityInfo
 
-instance NFData ConnectivityInfo
+instance Prelude.NFData ConnectivityInfo
 
-instance ToJSON ConnectivityInfo where
+instance Prelude.ToJSON ConnectivityInfo where
   toJSON ConnectivityInfo' {..} =
-    object
-      ( catMaybes
-          [ ("Id" .=) <$> _ciId,
-            ("Metadata" .=) <$> _ciMetadata,
-            ("PortNumber" .=) <$> _ciPortNumber,
-            ("HostAddress" .=) <$> _ciHostAddress
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Id" Prelude..=) Prelude.<$> id,
+            ("Metadata" Prelude..=) Prelude.<$> metadata,
+            ("PortNumber" Prelude..=) Prelude.<$> portNumber,
+            ("HostAddress" Prelude..=) Prelude.<$> hostAddress
           ]
       )

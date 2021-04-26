@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Greengrass.Types.Telemetry
   ( Telemetry
       ( ..,
-        ON,
-        Off
+        TelemetryON,
+        TelemetryOff
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Telemetry = Telemetry' (CI Text)
+newtype Telemetry = Telemetry'
+  { fromTelemetry ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ON :: Telemetry
-pattern ON = Telemetry' "On"
+pattern TelemetryON :: Telemetry
+pattern TelemetryON = Telemetry' "On"
 
-pattern Off :: Telemetry
-pattern Off = Telemetry' "Off"
+pattern TelemetryOff :: Telemetry
+pattern TelemetryOff = Telemetry' "Off"
 
 {-# COMPLETE
-  ON,
-  Off,
+  TelemetryON,
+  TelemetryOff,
   Telemetry'
   #-}
 
-instance FromText Telemetry where
-  parser = (Telemetry' . mk) <$> takeText
+instance Prelude.FromText Telemetry where
+  parser = Telemetry' Prelude.<$> Prelude.takeText
 
-instance ToText Telemetry where
-  toText (Telemetry' ci) = original ci
+instance Prelude.ToText Telemetry where
+  toText (Telemetry' x) = x
 
-instance Hashable Telemetry
+instance Prelude.Hashable Telemetry
 
-instance NFData Telemetry
+instance Prelude.NFData Telemetry
 
-instance ToByteString Telemetry
+instance Prelude.ToByteString Telemetry
 
-instance ToQuery Telemetry
+instance Prelude.ToQuery Telemetry
 
-instance ToHeader Telemetry
+instance Prelude.ToHeader Telemetry
 
-instance ToJSON Telemetry where
-  toJSON = toJSONText
+instance Prelude.ToJSON Telemetry where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Telemetry where
-  parseJSON = parseJSONText "Telemetry"
+instance Prelude.FromJSON Telemetry where
+  parseJSON = Prelude.parseJSONText "Telemetry"
