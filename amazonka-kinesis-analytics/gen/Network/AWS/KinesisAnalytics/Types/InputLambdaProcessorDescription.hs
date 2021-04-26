@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisAnalytics.Types.InputLambdaProcessorDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object that contains the Amazon Resource Name (ARN) of the <https://docs.aws.amazon.com/lambda/ AWS Lambda> function that is used to preprocess records in the stream, and the ARN of the IAM role that is used to access the AWS Lambda expression.
+-- | An object that contains the Amazon Resource Name (ARN) of the
+-- <https://docs.aws.amazon.com/lambda/ AWS Lambda> function that is used
+-- to preprocess records in the stream, and the ARN of the IAM role that is
+-- used to access the AWS Lambda expression.
 --
---
---
--- /See:/ 'inputLambdaProcessorDescription' smart constructor.
+-- /See:/ 'newInputLambdaProcessorDescription' smart constructor.
 data InputLambdaProcessorDescription = InputLambdaProcessorDescription'
-  { _ilpdResourceARN ::
-      !( Maybe
-           Text
-       ),
-    _ilpdRoleARN ::
-      !( Maybe
-           Text
-       )
+  { -- | The ARN of the <https://docs.aws.amazon.com/lambda/ AWS Lambda> function
+    -- that is used to preprocess the records in the stream.
+    resourceARN :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the IAM role that is used to access the AWS Lambda function.
+    roleARN :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputLambdaProcessorDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputLambdaProcessorDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ilpdResourceARN' - The ARN of the <https://docs.aws.amazon.com/lambda/ AWS Lambda> function that is used to preprocess the records in the stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ilpdRoleARN' - The ARN of the IAM role that is used to access the AWS Lambda function.
-inputLambdaProcessorDescription ::
+-- 'resourceARN', 'inputLambdaProcessorDescription_resourceARN' - The ARN of the <https://docs.aws.amazon.com/lambda/ AWS Lambda> function
+-- that is used to preprocess the records in the stream.
+--
+-- 'roleARN', 'inputLambdaProcessorDescription_roleARN' - The ARN of the IAM role that is used to access the AWS Lambda function.
+newInputLambdaProcessorDescription ::
   InputLambdaProcessorDescription
-inputLambdaProcessorDescription =
+newInputLambdaProcessorDescription =
   InputLambdaProcessorDescription'
-    { _ilpdResourceARN =
-        Nothing,
-      _ilpdRoleARN = Nothing
+    { resourceARN =
+        Prelude.Nothing,
+      roleARN = Prelude.Nothing
     }
 
--- | The ARN of the <https://docs.aws.amazon.com/lambda/ AWS Lambda> function that is used to preprocess the records in the stream.
-ilpdResourceARN :: Lens' InputLambdaProcessorDescription (Maybe Text)
-ilpdResourceARN = lens _ilpdResourceARN (\s a -> s {_ilpdResourceARN = a})
+-- | The ARN of the <https://docs.aws.amazon.com/lambda/ AWS Lambda> function
+-- that is used to preprocess the records in the stream.
+inputLambdaProcessorDescription_resourceARN :: Lens.Lens' InputLambdaProcessorDescription (Prelude.Maybe Prelude.Text)
+inputLambdaProcessorDescription_resourceARN = Lens.lens (\InputLambdaProcessorDescription' {resourceARN} -> resourceARN) (\s@InputLambdaProcessorDescription' {} a -> s {resourceARN = a} :: InputLambdaProcessorDescription)
 
 -- | The ARN of the IAM role that is used to access the AWS Lambda function.
-ilpdRoleARN :: Lens' InputLambdaProcessorDescription (Maybe Text)
-ilpdRoleARN = lens _ilpdRoleARN (\s a -> s {_ilpdRoleARN = a})
+inputLambdaProcessorDescription_roleARN :: Lens.Lens' InputLambdaProcessorDescription (Prelude.Maybe Prelude.Text)
+inputLambdaProcessorDescription_roleARN = Lens.lens (\InputLambdaProcessorDescription' {roleARN} -> roleARN) (\s@InputLambdaProcessorDescription' {} a -> s {roleARN = a} :: InputLambdaProcessorDescription)
 
-instance FromJSON InputLambdaProcessorDescription where
+instance
+  Prelude.FromJSON
+    InputLambdaProcessorDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InputLambdaProcessorDescription"
       ( \x ->
           InputLambdaProcessorDescription'
-            <$> (x .:? "ResourceARN") <*> (x .:? "RoleARN")
+            Prelude.<$> (x Prelude..:? "ResourceARN")
+            Prelude.<*> (x Prelude..:? "RoleARN")
       )
 
-instance Hashable InputLambdaProcessorDescription
+instance
+  Prelude.Hashable
+    InputLambdaProcessorDescription
 
-instance NFData InputLambdaProcessorDescription
+instance
+  Prelude.NFData
+    InputLambdaProcessorDescription

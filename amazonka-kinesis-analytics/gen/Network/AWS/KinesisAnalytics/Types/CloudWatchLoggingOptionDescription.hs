@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisAnalytics.Types.CloudWatchLoggingOptionDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Description of the CloudWatch logging option.
 --
---
---
--- /See:/ 'cloudWatchLoggingOptionDescription' smart constructor.
+-- /See:/ 'newCloudWatchLoggingOptionDescription' smart constructor.
 data CloudWatchLoggingOptionDescription = CloudWatchLoggingOptionDescription'
-  { _cwlodCloudWatchLoggingOptionId ::
-      !( Maybe
-           Text
-       ),
-    _cwlodLogStreamARN ::
-      !Text,
-    _cwlodRoleARN ::
-      !Text
+  { -- | ID of the CloudWatch logging option description.
+    cloudWatchLoggingOptionId :: Prelude.Maybe Prelude.Text,
+    -- | ARN of the CloudWatch log to receive application messages.
+    logStreamARN :: Prelude.Text,
+    -- | IAM ARN of the role to use to send application messages. Note: To write
+    -- application messages to CloudWatch, the IAM role used must have the
+    -- @PutLogEvents@ policy action enabled.
+    roleARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudWatchLoggingOptionDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudWatchLoggingOptionDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwlodCloudWatchLoggingOptionId' - ID of the CloudWatch logging option description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwlodLogStreamARN' - ARN of the CloudWatch log to receive application messages.
+-- 'cloudWatchLoggingOptionId', 'cloudWatchLoggingOptionDescription_cloudWatchLoggingOptionId' - ID of the CloudWatch logging option description.
 --
--- * 'cwlodRoleARN' - IAM ARN of the role to use to send application messages. Note: To write application messages to CloudWatch, the IAM role used must have the @PutLogEvents@ policy action enabled.
-cloudWatchLoggingOptionDescription ::
-  -- | 'cwlodLogStreamARN'
-  Text ->
-  -- | 'cwlodRoleARN'
-  Text ->
+-- 'logStreamARN', 'cloudWatchLoggingOptionDescription_logStreamARN' - ARN of the CloudWatch log to receive application messages.
+--
+-- 'roleARN', 'cloudWatchLoggingOptionDescription_roleARN' - IAM ARN of the role to use to send application messages. Note: To write
+-- application messages to CloudWatch, the IAM role used must have the
+-- @PutLogEvents@ policy action enabled.
+newCloudWatchLoggingOptionDescription ::
+  -- | 'logStreamARN'
+  Prelude.Text ->
+  -- | 'roleARN'
+  Prelude.Text ->
   CloudWatchLoggingOptionDescription
-cloudWatchLoggingOptionDescription
+newCloudWatchLoggingOptionDescription
   pLogStreamARN_
   pRoleARN_ =
     CloudWatchLoggingOptionDescription'
-      { _cwlodCloudWatchLoggingOptionId =
-          Nothing,
-        _cwlodLogStreamARN = pLogStreamARN_,
-        _cwlodRoleARN = pRoleARN_
+      { cloudWatchLoggingOptionId =
+          Prelude.Nothing,
+        logStreamARN = pLogStreamARN_,
+        roleARN = pRoleARN_
       }
 
 -- | ID of the CloudWatch logging option description.
-cwlodCloudWatchLoggingOptionId :: Lens' CloudWatchLoggingOptionDescription (Maybe Text)
-cwlodCloudWatchLoggingOptionId = lens _cwlodCloudWatchLoggingOptionId (\s a -> s {_cwlodCloudWatchLoggingOptionId = a})
+cloudWatchLoggingOptionDescription_cloudWatchLoggingOptionId :: Lens.Lens' CloudWatchLoggingOptionDescription (Prelude.Maybe Prelude.Text)
+cloudWatchLoggingOptionDescription_cloudWatchLoggingOptionId = Lens.lens (\CloudWatchLoggingOptionDescription' {cloudWatchLoggingOptionId} -> cloudWatchLoggingOptionId) (\s@CloudWatchLoggingOptionDescription' {} a -> s {cloudWatchLoggingOptionId = a} :: CloudWatchLoggingOptionDescription)
 
 -- | ARN of the CloudWatch log to receive application messages.
-cwlodLogStreamARN :: Lens' CloudWatchLoggingOptionDescription Text
-cwlodLogStreamARN = lens _cwlodLogStreamARN (\s a -> s {_cwlodLogStreamARN = a})
+cloudWatchLoggingOptionDescription_logStreamARN :: Lens.Lens' CloudWatchLoggingOptionDescription Prelude.Text
+cloudWatchLoggingOptionDescription_logStreamARN = Lens.lens (\CloudWatchLoggingOptionDescription' {logStreamARN} -> logStreamARN) (\s@CloudWatchLoggingOptionDescription' {} a -> s {logStreamARN = a} :: CloudWatchLoggingOptionDescription)
 
--- | IAM ARN of the role to use to send application messages. Note: To write application messages to CloudWatch, the IAM role used must have the @PutLogEvents@ policy action enabled.
-cwlodRoleARN :: Lens' CloudWatchLoggingOptionDescription Text
-cwlodRoleARN = lens _cwlodRoleARN (\s a -> s {_cwlodRoleARN = a})
+-- | IAM ARN of the role to use to send application messages. Note: To write
+-- application messages to CloudWatch, the IAM role used must have the
+-- @PutLogEvents@ policy action enabled.
+cloudWatchLoggingOptionDescription_roleARN :: Lens.Lens' CloudWatchLoggingOptionDescription Prelude.Text
+cloudWatchLoggingOptionDescription_roleARN = Lens.lens (\CloudWatchLoggingOptionDescription' {roleARN} -> roleARN) (\s@CloudWatchLoggingOptionDescription' {} a -> s {roleARN = a} :: CloudWatchLoggingOptionDescription)
 
-instance FromJSON CloudWatchLoggingOptionDescription where
+instance
+  Prelude.FromJSON
+    CloudWatchLoggingOptionDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CloudWatchLoggingOptionDescription"
       ( \x ->
           CloudWatchLoggingOptionDescription'
-            <$> (x .:? "CloudWatchLoggingOptionId")
-            <*> (x .: "LogStreamARN")
-            <*> (x .: "RoleARN")
+            Prelude.<$> (x Prelude..:? "CloudWatchLoggingOptionId")
+            Prelude.<*> (x Prelude..: "LogStreamARN")
+            Prelude.<*> (x Prelude..: "RoleARN")
       )
 
-instance Hashable CloudWatchLoggingOptionDescription
+instance
+  Prelude.Hashable
+    CloudWatchLoggingOptionDescription
 
-instance NFData CloudWatchLoggingOptionDescription
+instance
+  Prelude.NFData
+    CloudWatchLoggingOptionDescription

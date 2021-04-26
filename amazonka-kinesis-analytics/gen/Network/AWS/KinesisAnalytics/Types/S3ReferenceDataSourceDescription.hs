@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisAnalytics.Types.S3ReferenceDataSourceDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides the bucket name and object key name that stores the reference data.
+-- | Provides the bucket name and object key name that stores the reference
+-- data.
 --
---
---
--- /See:/ 's3ReferenceDataSourceDescription' smart constructor.
+-- /See:/ 'newS3ReferenceDataSourceDescription' smart constructor.
 data S3ReferenceDataSourceDescription = S3ReferenceDataSourceDescription'
-  { _srdsdBucketARN ::
-      !Text,
-    _srdsdFileKey ::
-      !Text,
-    _srdsdReferenceRoleARN ::
-      !Text
+  { -- | Amazon Resource Name (ARN) of the S3 bucket.
+    bucketARN :: Prelude.Text,
+    -- | Amazon S3 object key name.
+    fileKey :: Prelude.Text,
+    -- | ARN of the IAM role that Amazon Kinesis Analytics can assume to read the
+    -- Amazon S3 object on your behalf to populate the in-application reference
+    -- table.
+    referenceRoleARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3ReferenceDataSourceDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3ReferenceDataSourceDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srdsdBucketARN' - Amazon Resource Name (ARN) of the S3 bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srdsdFileKey' - Amazon S3 object key name.
+-- 'bucketARN', 's3ReferenceDataSourceDescription_bucketARN' - Amazon Resource Name (ARN) of the S3 bucket.
 --
--- * 'srdsdReferenceRoleARN' - ARN of the IAM role that Amazon Kinesis Analytics can assume to read the Amazon S3 object on your behalf to populate the in-application reference table.
-s3ReferenceDataSourceDescription ::
-  -- | 'srdsdBucketARN'
-  Text ->
-  -- | 'srdsdFileKey'
-  Text ->
-  -- | 'srdsdReferenceRoleARN'
-  Text ->
+-- 'fileKey', 's3ReferenceDataSourceDescription_fileKey' - Amazon S3 object key name.
+--
+-- 'referenceRoleARN', 's3ReferenceDataSourceDescription_referenceRoleARN' - ARN of the IAM role that Amazon Kinesis Analytics can assume to read the
+-- Amazon S3 object on your behalf to populate the in-application reference
+-- table.
+newS3ReferenceDataSourceDescription ::
+  -- | 'bucketARN'
+  Prelude.Text ->
+  -- | 'fileKey'
+  Prelude.Text ->
+  -- | 'referenceRoleARN'
+  Prelude.Text ->
   S3ReferenceDataSourceDescription
-s3ReferenceDataSourceDescription
+newS3ReferenceDataSourceDescription
   pBucketARN_
   pFileKey_
   pReferenceRoleARN_ =
     S3ReferenceDataSourceDescription'
-      { _srdsdBucketARN =
+      { bucketARN =
           pBucketARN_,
-        _srdsdFileKey = pFileKey_,
-        _srdsdReferenceRoleARN =
-          pReferenceRoleARN_
+        fileKey = pFileKey_,
+        referenceRoleARN = pReferenceRoleARN_
       }
 
 -- | Amazon Resource Name (ARN) of the S3 bucket.
-srdsdBucketARN :: Lens' S3ReferenceDataSourceDescription Text
-srdsdBucketARN = lens _srdsdBucketARN (\s a -> s {_srdsdBucketARN = a})
+s3ReferenceDataSourceDescription_bucketARN :: Lens.Lens' S3ReferenceDataSourceDescription Prelude.Text
+s3ReferenceDataSourceDescription_bucketARN = Lens.lens (\S3ReferenceDataSourceDescription' {bucketARN} -> bucketARN) (\s@S3ReferenceDataSourceDescription' {} a -> s {bucketARN = a} :: S3ReferenceDataSourceDescription)
 
 -- | Amazon S3 object key name.
-srdsdFileKey :: Lens' S3ReferenceDataSourceDescription Text
-srdsdFileKey = lens _srdsdFileKey (\s a -> s {_srdsdFileKey = a})
+s3ReferenceDataSourceDescription_fileKey :: Lens.Lens' S3ReferenceDataSourceDescription Prelude.Text
+s3ReferenceDataSourceDescription_fileKey = Lens.lens (\S3ReferenceDataSourceDescription' {fileKey} -> fileKey) (\s@S3ReferenceDataSourceDescription' {} a -> s {fileKey = a} :: S3ReferenceDataSourceDescription)
 
--- | ARN of the IAM role that Amazon Kinesis Analytics can assume to read the Amazon S3 object on your behalf to populate the in-application reference table.
-srdsdReferenceRoleARN :: Lens' S3ReferenceDataSourceDescription Text
-srdsdReferenceRoleARN = lens _srdsdReferenceRoleARN (\s a -> s {_srdsdReferenceRoleARN = a})
+-- | ARN of the IAM role that Amazon Kinesis Analytics can assume to read the
+-- Amazon S3 object on your behalf to populate the in-application reference
+-- table.
+s3ReferenceDataSourceDescription_referenceRoleARN :: Lens.Lens' S3ReferenceDataSourceDescription Prelude.Text
+s3ReferenceDataSourceDescription_referenceRoleARN = Lens.lens (\S3ReferenceDataSourceDescription' {referenceRoleARN} -> referenceRoleARN) (\s@S3ReferenceDataSourceDescription' {} a -> s {referenceRoleARN = a} :: S3ReferenceDataSourceDescription)
 
-instance FromJSON S3ReferenceDataSourceDescription where
+instance
+  Prelude.FromJSON
+    S3ReferenceDataSourceDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "S3ReferenceDataSourceDescription"
       ( \x ->
           S3ReferenceDataSourceDescription'
-            <$> (x .: "BucketARN")
-            <*> (x .: "FileKey")
-            <*> (x .: "ReferenceRoleARN")
+            Prelude.<$> (x Prelude..: "BucketARN")
+            Prelude.<*> (x Prelude..: "FileKey")
+            Prelude.<*> (x Prelude..: "ReferenceRoleARN")
       )
 
-instance Hashable S3ReferenceDataSourceDescription
+instance
+  Prelude.Hashable
+    S3ReferenceDataSourceDescription
 
-instance NFData S3ReferenceDataSourceDescription
+instance
+  Prelude.NFData
+    S3ReferenceDataSourceDescription

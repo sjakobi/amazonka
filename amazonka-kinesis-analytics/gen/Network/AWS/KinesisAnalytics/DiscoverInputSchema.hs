@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,233 +21,279 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Infers a schema by evaluating sample records on the specified streaming source (Amazon Kinesis stream or Amazon Kinesis Firehose delivery stream) or S3 object. In the response, the operation returns the inferred schema and also the sample records that the operation used to infer the schema.
+-- This documentation is for version 1 of the Amazon Kinesis Data Analytics
+-- API, which only supports SQL applications. Version 2 of the API supports
+-- SQL and Java applications. For more information about version 2, see
+-- </kinesisanalytics/latest/apiv2/Welcome.html Amazon Kinesis Data Analytics API V2 Documentation>.
 --
+-- Infers a schema by evaluating sample records on the specified streaming
+-- source (Amazon Kinesis stream or Amazon Kinesis Firehose delivery
+-- stream) or S3 object. In the response, the operation returns the
+-- inferred schema and also the sample records that the operation used to
+-- infer the schema.
 --
--- You can use the inferred schema when configuring a streaming source for your application. For conceptual information, see <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html Configuring Application Input> . Note that when you create an application using the Amazon Kinesis Analytics console, the console uses this operation to infer a schema and show it in the console user interface.
+-- You can use the inferred schema when configuring a streaming source for
+-- your application. For conceptual information, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html Configuring Application Input>.
+-- Note that when you create an application using the Amazon Kinesis
+-- Analytics console, the console uses this operation to infer a schema and
+-- show it in the console user interface.
 --
--- This operation requires permissions to perform the @kinesisanalytics:DiscoverInputSchema@ action.
+-- This operation requires permissions to perform the
+-- @kinesisanalytics:DiscoverInputSchema@ action.
 module Network.AWS.KinesisAnalytics.DiscoverInputSchema
   ( -- * Creating a Request
-    discoverInputSchema,
-    DiscoverInputSchema,
+    DiscoverInputSchema (..),
+    newDiscoverInputSchema,
 
     -- * Request Lenses
-    disResourceARN,
-    disInputStartingPositionConfiguration,
-    disRoleARN,
-    disS3Configuration,
-    disInputProcessingConfiguration,
+    discoverInputSchema_resourceARN,
+    discoverInputSchema_inputStartingPositionConfiguration,
+    discoverInputSchema_roleARN,
+    discoverInputSchema_s3Configuration,
+    discoverInputSchema_inputProcessingConfiguration,
 
     -- * Destructuring the Response
-    discoverInputSchemaResponse,
-    DiscoverInputSchemaResponse,
+    DiscoverInputSchemaResponse (..),
+    newDiscoverInputSchemaResponse,
 
     -- * Response Lenses
-    disrrsInputSchema,
-    disrrsProcessedInputRecords,
-    disrrsRawInputRecords,
-    disrrsParsedInputRecords,
-    disrrsResponseStatus,
+    discoverInputSchemaResponse_inputSchema,
+    discoverInputSchemaResponse_processedInputRecords,
+    discoverInputSchemaResponse_rawInputRecords,
+    discoverInputSchemaResponse_parsedInputRecords,
+    discoverInputSchemaResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.KinesisAnalytics.Types.SourceSchema
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'discoverInputSchema' smart constructor.
+-- | /See:/ 'newDiscoverInputSchema' smart constructor.
 data DiscoverInputSchema = DiscoverInputSchema'
-  { _disResourceARN ::
-      !(Maybe Text),
-    _disInputStartingPositionConfiguration ::
-      !( Maybe
-           InputStartingPositionConfiguration
-       ),
-    _disRoleARN :: !(Maybe Text),
-    _disS3Configuration ::
-      !(Maybe S3Configuration),
-    _disInputProcessingConfiguration ::
-      !( Maybe
-           InputProcessingConfiguration
-       )
+  { -- | Amazon Resource Name (ARN) of the streaming source.
+    resourceARN :: Prelude.Maybe Prelude.Text,
+    -- | Point at which you want Amazon Kinesis Analytics to start reading
+    -- records from the specified streaming source discovery purposes.
+    inputStartingPositionConfiguration :: Prelude.Maybe InputStartingPositionConfiguration,
+    -- | ARN of the IAM role that Amazon Kinesis Analytics can assume to access
+    -- the stream on your behalf.
+    roleARN :: Prelude.Maybe Prelude.Text,
+    -- | Specify this parameter to discover a schema from data in an Amazon S3
+    -- object.
+    s3Configuration :: Prelude.Maybe S3Configuration,
+    -- | The
+    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration>
+    -- to use to preprocess the records before discovering the schema of the
+    -- records.
+    inputProcessingConfiguration :: Prelude.Maybe InputProcessingConfiguration
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiscoverInputSchema' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiscoverInputSchema' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disResourceARN' - Amazon Resource Name (ARN) of the streaming source.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'disInputStartingPositionConfiguration' - Point at which you want Amazon Kinesis Analytics to start reading records from the specified streaming source discovery purposes.
+-- 'resourceARN', 'discoverInputSchema_resourceARN' - Amazon Resource Name (ARN) of the streaming source.
 --
--- * 'disRoleARN' - ARN of the IAM role that Amazon Kinesis Analytics can assume to access the stream on your behalf.
+-- 'inputStartingPositionConfiguration', 'discoverInputSchema_inputStartingPositionConfiguration' - Point at which you want Amazon Kinesis Analytics to start reading
+-- records from the specified streaming source discovery purposes.
 --
--- * 'disS3Configuration' - Specify this parameter to discover a schema from data in an Amazon S3 object.
+-- 'roleARN', 'discoverInputSchema_roleARN' - ARN of the IAM role that Amazon Kinesis Analytics can assume to access
+-- the stream on your behalf.
 --
--- * 'disInputProcessingConfiguration' - The <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration> to use to preprocess the records before discovering the schema of the records.
-discoverInputSchema ::
+-- 's3Configuration', 'discoverInputSchema_s3Configuration' - Specify this parameter to discover a schema from data in an Amazon S3
+-- object.
+--
+-- 'inputProcessingConfiguration', 'discoverInputSchema_inputProcessingConfiguration' - The
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration>
+-- to use to preprocess the records before discovering the schema of the
+-- records.
+newDiscoverInputSchema ::
   DiscoverInputSchema
-discoverInputSchema =
+newDiscoverInputSchema =
   DiscoverInputSchema'
-    { _disResourceARN = Nothing,
-      _disInputStartingPositionConfiguration = Nothing,
-      _disRoleARN = Nothing,
-      _disS3Configuration = Nothing,
-      _disInputProcessingConfiguration = Nothing
+    { resourceARN = Prelude.Nothing,
+      inputStartingPositionConfiguration = Prelude.Nothing,
+      roleARN = Prelude.Nothing,
+      s3Configuration = Prelude.Nothing,
+      inputProcessingConfiguration = Prelude.Nothing
     }
 
 -- | Amazon Resource Name (ARN) of the streaming source.
-disResourceARN :: Lens' DiscoverInputSchema (Maybe Text)
-disResourceARN = lens _disResourceARN (\s a -> s {_disResourceARN = a})
+discoverInputSchema_resourceARN :: Lens.Lens' DiscoverInputSchema (Prelude.Maybe Prelude.Text)
+discoverInputSchema_resourceARN = Lens.lens (\DiscoverInputSchema' {resourceARN} -> resourceARN) (\s@DiscoverInputSchema' {} a -> s {resourceARN = a} :: DiscoverInputSchema)
 
--- | Point at which you want Amazon Kinesis Analytics to start reading records from the specified streaming source discovery purposes.
-disInputStartingPositionConfiguration :: Lens' DiscoverInputSchema (Maybe InputStartingPositionConfiguration)
-disInputStartingPositionConfiguration = lens _disInputStartingPositionConfiguration (\s a -> s {_disInputStartingPositionConfiguration = a})
+-- | Point at which you want Amazon Kinesis Analytics to start reading
+-- records from the specified streaming source discovery purposes.
+discoverInputSchema_inputStartingPositionConfiguration :: Lens.Lens' DiscoverInputSchema (Prelude.Maybe InputStartingPositionConfiguration)
+discoverInputSchema_inputStartingPositionConfiguration = Lens.lens (\DiscoverInputSchema' {inputStartingPositionConfiguration} -> inputStartingPositionConfiguration) (\s@DiscoverInputSchema' {} a -> s {inputStartingPositionConfiguration = a} :: DiscoverInputSchema)
 
--- | ARN of the IAM role that Amazon Kinesis Analytics can assume to access the stream on your behalf.
-disRoleARN :: Lens' DiscoverInputSchema (Maybe Text)
-disRoleARN = lens _disRoleARN (\s a -> s {_disRoleARN = a})
+-- | ARN of the IAM role that Amazon Kinesis Analytics can assume to access
+-- the stream on your behalf.
+discoverInputSchema_roleARN :: Lens.Lens' DiscoverInputSchema (Prelude.Maybe Prelude.Text)
+discoverInputSchema_roleARN = Lens.lens (\DiscoverInputSchema' {roleARN} -> roleARN) (\s@DiscoverInputSchema' {} a -> s {roleARN = a} :: DiscoverInputSchema)
 
--- | Specify this parameter to discover a schema from data in an Amazon S3 object.
-disS3Configuration :: Lens' DiscoverInputSchema (Maybe S3Configuration)
-disS3Configuration = lens _disS3Configuration (\s a -> s {_disS3Configuration = a})
+-- | Specify this parameter to discover a schema from data in an Amazon S3
+-- object.
+discoverInputSchema_s3Configuration :: Lens.Lens' DiscoverInputSchema (Prelude.Maybe S3Configuration)
+discoverInputSchema_s3Configuration = Lens.lens (\DiscoverInputSchema' {s3Configuration} -> s3Configuration) (\s@DiscoverInputSchema' {} a -> s {s3Configuration = a} :: DiscoverInputSchema)
 
--- | The <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration> to use to preprocess the records before discovering the schema of the records.
-disInputProcessingConfiguration :: Lens' DiscoverInputSchema (Maybe InputProcessingConfiguration)
-disInputProcessingConfiguration = lens _disInputProcessingConfiguration (\s a -> s {_disInputProcessingConfiguration = a})
+-- | The
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration>
+-- to use to preprocess the records before discovering the schema of the
+-- records.
+discoverInputSchema_inputProcessingConfiguration :: Lens.Lens' DiscoverInputSchema (Prelude.Maybe InputProcessingConfiguration)
+discoverInputSchema_inputProcessingConfiguration = Lens.lens (\DiscoverInputSchema' {inputProcessingConfiguration} -> inputProcessingConfiguration) (\s@DiscoverInputSchema' {} a -> s {inputProcessingConfiguration = a} :: DiscoverInputSchema)
 
-instance AWSRequest DiscoverInputSchema where
+instance Prelude.AWSRequest DiscoverInputSchema where
   type
     Rs DiscoverInputSchema =
       DiscoverInputSchemaResponse
-  request = postJSON kinesisAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DiscoverInputSchemaResponse'
-            <$> (x .?> "InputSchema")
-            <*> (x .?> "ProcessedInputRecords" .!@ mempty)
-            <*> (x .?> "RawInputRecords" .!@ mempty)
-            <*> (x .?> "ParsedInputRecords" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "InputSchema")
+            Prelude.<*> ( x Prelude..?> "ProcessedInputRecords"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "RawInputRecords"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "ParsedInputRecords"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DiscoverInputSchema
+instance Prelude.Hashable DiscoverInputSchema
 
-instance NFData DiscoverInputSchema
+instance Prelude.NFData DiscoverInputSchema
 
-instance ToHeaders DiscoverInputSchema where
+instance Prelude.ToHeaders DiscoverInputSchema where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "KinesisAnalytics_20150814.DiscoverInputSchema" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "KinesisAnalytics_20150814.DiscoverInputSchema" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DiscoverInputSchema where
+instance Prelude.ToJSON DiscoverInputSchema where
   toJSON DiscoverInputSchema' {..} =
-    object
-      ( catMaybes
-          [ ("ResourceARN" .=) <$> _disResourceARN,
-            ("InputStartingPositionConfiguration" .=)
-              <$> _disInputStartingPositionConfiguration,
-            ("RoleARN" .=) <$> _disRoleARN,
-            ("S3Configuration" .=) <$> _disS3Configuration,
-            ("InputProcessingConfiguration" .=)
-              <$> _disInputProcessingConfiguration
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ResourceARN" Prelude..=) Prelude.<$> resourceARN,
+            ("InputStartingPositionConfiguration" Prelude..=)
+              Prelude.<$> inputStartingPositionConfiguration,
+            ("RoleARN" Prelude..=) Prelude.<$> roleARN,
+            ("S3Configuration" Prelude..=)
+              Prelude.<$> s3Configuration,
+            ("InputProcessingConfiguration" Prelude..=)
+              Prelude.<$> inputProcessingConfiguration
           ]
       )
 
-instance ToPath DiscoverInputSchema where
-  toPath = const "/"
+instance Prelude.ToPath DiscoverInputSchema where
+  toPath = Prelude.const "/"
 
-instance ToQuery DiscoverInputSchema where
-  toQuery = const mempty
+instance Prelude.ToQuery DiscoverInputSchema where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'discoverInputSchemaResponse' smart constructor.
+-- /See:/ 'newDiscoverInputSchemaResponse' smart constructor.
 data DiscoverInputSchemaResponse = DiscoverInputSchemaResponse'
-  { _disrrsInputSchema ::
-      !( Maybe
-           SourceSchema
-       ),
-    _disrrsProcessedInputRecords ::
-      !(Maybe [Text]),
-    _disrrsRawInputRecords ::
-      !(Maybe [Text]),
-    _disrrsParsedInputRecords ::
-      !( Maybe
-           [[Text]]
-       ),
-    _disrrsResponseStatus ::
-      !Int
+  { -- | Schema inferred from the streaming source. It identifies the format of
+    -- the data in the streaming source and how each data element maps to
+    -- corresponding columns in the in-application stream that you can create.
+    inputSchema :: Prelude.Maybe SourceSchema,
+    -- | Stream data that was modified by the processor specified in the
+    -- @InputProcessingConfiguration@ parameter.
+    processedInputRecords :: Prelude.Maybe [Prelude.Text],
+    -- | Raw stream data that was sampled to infer the schema.
+    rawInputRecords :: Prelude.Maybe [Prelude.Text],
+    -- | An array of elements, where each element corresponds to a row in a
+    -- stream record (a stream record can have more than one row).
+    parsedInputRecords :: Prelude.Maybe [[Prelude.Text]],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiscoverInputSchemaResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiscoverInputSchemaResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disrrsInputSchema' - Schema inferred from the streaming source. It identifies the format of the data in the streaming source and how each data element maps to corresponding columns in the in-application stream that you can create.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'disrrsProcessedInputRecords' - Stream data that was modified by the processor specified in the @InputProcessingConfiguration@ parameter.
+-- 'inputSchema', 'discoverInputSchemaResponse_inputSchema' - Schema inferred from the streaming source. It identifies the format of
+-- the data in the streaming source and how each data element maps to
+-- corresponding columns in the in-application stream that you can create.
 --
--- * 'disrrsRawInputRecords' - Raw stream data that was sampled to infer the schema.
+-- 'processedInputRecords', 'discoverInputSchemaResponse_processedInputRecords' - Stream data that was modified by the processor specified in the
+-- @InputProcessingConfiguration@ parameter.
 --
--- * 'disrrsParsedInputRecords' - An array of elements, where each element corresponds to a row in a stream record (a stream record can have more than one row).
+-- 'rawInputRecords', 'discoverInputSchemaResponse_rawInputRecords' - Raw stream data that was sampled to infer the schema.
 --
--- * 'disrrsResponseStatus' - -- | The response status code.
-discoverInputSchemaResponse ::
-  -- | 'disrrsResponseStatus'
-  Int ->
+-- 'parsedInputRecords', 'discoverInputSchemaResponse_parsedInputRecords' - An array of elements, where each element corresponds to a row in a
+-- stream record (a stream record can have more than one row).
+--
+-- 'httpStatus', 'discoverInputSchemaResponse_httpStatus' - The response's http status code.
+newDiscoverInputSchemaResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DiscoverInputSchemaResponse
-discoverInputSchemaResponse pResponseStatus_ =
+newDiscoverInputSchemaResponse pHttpStatus_ =
   DiscoverInputSchemaResponse'
-    { _disrrsInputSchema =
-        Nothing,
-      _disrrsProcessedInputRecords = Nothing,
-      _disrrsRawInputRecords = Nothing,
-      _disrrsParsedInputRecords = Nothing,
-      _disrrsResponseStatus = pResponseStatus_
+    { inputSchema =
+        Prelude.Nothing,
+      processedInputRecords = Prelude.Nothing,
+      rawInputRecords = Prelude.Nothing,
+      parsedInputRecords = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Schema inferred from the streaming source. It identifies the format of the data in the streaming source and how each data element maps to corresponding columns in the in-application stream that you can create.
-disrrsInputSchema :: Lens' DiscoverInputSchemaResponse (Maybe SourceSchema)
-disrrsInputSchema = lens _disrrsInputSchema (\s a -> s {_disrrsInputSchema = a})
+-- | Schema inferred from the streaming source. It identifies the format of
+-- the data in the streaming source and how each data element maps to
+-- corresponding columns in the in-application stream that you can create.
+discoverInputSchemaResponse_inputSchema :: Lens.Lens' DiscoverInputSchemaResponse (Prelude.Maybe SourceSchema)
+discoverInputSchemaResponse_inputSchema = Lens.lens (\DiscoverInputSchemaResponse' {inputSchema} -> inputSchema) (\s@DiscoverInputSchemaResponse' {} a -> s {inputSchema = a} :: DiscoverInputSchemaResponse)
 
--- | Stream data that was modified by the processor specified in the @InputProcessingConfiguration@ parameter.
-disrrsProcessedInputRecords :: Lens' DiscoverInputSchemaResponse [Text]
-disrrsProcessedInputRecords = lens _disrrsProcessedInputRecords (\s a -> s {_disrrsProcessedInputRecords = a}) . _Default . _Coerce
+-- | Stream data that was modified by the processor specified in the
+-- @InputProcessingConfiguration@ parameter.
+discoverInputSchemaResponse_processedInputRecords :: Lens.Lens' DiscoverInputSchemaResponse (Prelude.Maybe [Prelude.Text])
+discoverInputSchemaResponse_processedInputRecords = Lens.lens (\DiscoverInputSchemaResponse' {processedInputRecords} -> processedInputRecords) (\s@DiscoverInputSchemaResponse' {} a -> s {processedInputRecords = a} :: DiscoverInputSchemaResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Raw stream data that was sampled to infer the schema.
-disrrsRawInputRecords :: Lens' DiscoverInputSchemaResponse [Text]
-disrrsRawInputRecords = lens _disrrsRawInputRecords (\s a -> s {_disrrsRawInputRecords = a}) . _Default . _Coerce
+discoverInputSchemaResponse_rawInputRecords :: Lens.Lens' DiscoverInputSchemaResponse (Prelude.Maybe [Prelude.Text])
+discoverInputSchemaResponse_rawInputRecords = Lens.lens (\DiscoverInputSchemaResponse' {rawInputRecords} -> rawInputRecords) (\s@DiscoverInputSchemaResponse' {} a -> s {rawInputRecords = a} :: DiscoverInputSchemaResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An array of elements, where each element corresponds to a row in a stream record (a stream record can have more than one row).
-disrrsParsedInputRecords :: Lens' DiscoverInputSchemaResponse [[Text]]
-disrrsParsedInputRecords = lens _disrrsParsedInputRecords (\s a -> s {_disrrsParsedInputRecords = a}) . _Default . _Coerce
+-- | An array of elements, where each element corresponds to a row in a
+-- stream record (a stream record can have more than one row).
+discoverInputSchemaResponse_parsedInputRecords :: Lens.Lens' DiscoverInputSchemaResponse (Prelude.Maybe [[Prelude.Text]])
+discoverInputSchemaResponse_parsedInputRecords = Lens.lens (\DiscoverInputSchemaResponse' {parsedInputRecords} -> parsedInputRecords) (\s@DiscoverInputSchemaResponse' {} a -> s {parsedInputRecords = a} :: DiscoverInputSchemaResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-disrrsResponseStatus :: Lens' DiscoverInputSchemaResponse Int
-disrrsResponseStatus = lens _disrrsResponseStatus (\s a -> s {_disrrsResponseStatus = a})
+-- | The response's http status code.
+discoverInputSchemaResponse_httpStatus :: Lens.Lens' DiscoverInputSchemaResponse Prelude.Int
+discoverInputSchemaResponse_httpStatus = Lens.lens (\DiscoverInputSchemaResponse' {httpStatus} -> httpStatus) (\s@DiscoverInputSchemaResponse' {} a -> s {httpStatus = a} :: DiscoverInputSchemaResponse)
 
-instance NFData DiscoverInputSchemaResponse
+instance Prelude.NFData DiscoverInputSchemaResponse

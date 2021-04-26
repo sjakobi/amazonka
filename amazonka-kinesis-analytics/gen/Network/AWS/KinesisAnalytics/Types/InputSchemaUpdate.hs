@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +21,79 @@ module Network.AWS.KinesisAnalytics.Types.InputSchemaUpdate where
 
 import Network.AWS.KinesisAnalytics.Types.RecordColumn
 import Network.AWS.KinesisAnalytics.Types.RecordFormat
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes updates for the application's input schema.
+-- | Describes updates for the application\'s input schema.
 --
---
---
--- /See:/ 'inputSchemaUpdate' smart constructor.
+-- /See:/ 'newInputSchemaUpdate' smart constructor.
 data InputSchemaUpdate = InputSchemaUpdate'
-  { _isuRecordFormatUpdate ::
-      !(Maybe RecordFormat),
-    _isuRecordColumnUpdates ::
-      !(Maybe (List1 RecordColumn)),
-    _isuRecordEncodingUpdate ::
-      !(Maybe Text)
+  { -- | Specifies the format of the records on the streaming source.
+    recordFormatUpdate :: Prelude.Maybe RecordFormat,
+    -- | A list of @RecordColumn@ objects. Each object describes the mapping of
+    -- the streaming source element to the corresponding column in the
+    -- in-application stream.
+    recordColumnUpdates :: Prelude.Maybe (Prelude.List1 RecordColumn),
+    -- | Specifies the encoding of the records in the streaming source. For
+    -- example, UTF-8.
+    recordEncodingUpdate :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputSchemaUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputSchemaUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isuRecordFormatUpdate' - Specifies the format of the records on the streaming source.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isuRecordColumnUpdates' - A list of @RecordColumn@ objects. Each object describes the mapping of the streaming source element to the corresponding column in the in-application stream.
+-- 'recordFormatUpdate', 'inputSchemaUpdate_recordFormatUpdate' - Specifies the format of the records on the streaming source.
 --
--- * 'isuRecordEncodingUpdate' - Specifies the encoding of the records in the streaming source. For example, UTF-8.
-inputSchemaUpdate ::
+-- 'recordColumnUpdates', 'inputSchemaUpdate_recordColumnUpdates' - A list of @RecordColumn@ objects. Each object describes the mapping of
+-- the streaming source element to the corresponding column in the
+-- in-application stream.
+--
+-- 'recordEncodingUpdate', 'inputSchemaUpdate_recordEncodingUpdate' - Specifies the encoding of the records in the streaming source. For
+-- example, UTF-8.
+newInputSchemaUpdate ::
   InputSchemaUpdate
-inputSchemaUpdate =
+newInputSchemaUpdate =
   InputSchemaUpdate'
-    { _isuRecordFormatUpdate =
-        Nothing,
-      _isuRecordColumnUpdates = Nothing,
-      _isuRecordEncodingUpdate = Nothing
+    { recordFormatUpdate =
+        Prelude.Nothing,
+      recordColumnUpdates = Prelude.Nothing,
+      recordEncodingUpdate = Prelude.Nothing
     }
 
 -- | Specifies the format of the records on the streaming source.
-isuRecordFormatUpdate :: Lens' InputSchemaUpdate (Maybe RecordFormat)
-isuRecordFormatUpdate = lens _isuRecordFormatUpdate (\s a -> s {_isuRecordFormatUpdate = a})
+inputSchemaUpdate_recordFormatUpdate :: Lens.Lens' InputSchemaUpdate (Prelude.Maybe RecordFormat)
+inputSchemaUpdate_recordFormatUpdate = Lens.lens (\InputSchemaUpdate' {recordFormatUpdate} -> recordFormatUpdate) (\s@InputSchemaUpdate' {} a -> s {recordFormatUpdate = a} :: InputSchemaUpdate)
 
--- | A list of @RecordColumn@ objects. Each object describes the mapping of the streaming source element to the corresponding column in the in-application stream.
-isuRecordColumnUpdates :: Lens' InputSchemaUpdate (Maybe (NonEmpty RecordColumn))
-isuRecordColumnUpdates = lens _isuRecordColumnUpdates (\s a -> s {_isuRecordColumnUpdates = a}) . mapping _List1
+-- | A list of @RecordColumn@ objects. Each object describes the mapping of
+-- the streaming source element to the corresponding column in the
+-- in-application stream.
+inputSchemaUpdate_recordColumnUpdates :: Lens.Lens' InputSchemaUpdate (Prelude.Maybe (Prelude.NonEmpty RecordColumn))
+inputSchemaUpdate_recordColumnUpdates = Lens.lens (\InputSchemaUpdate' {recordColumnUpdates} -> recordColumnUpdates) (\s@InputSchemaUpdate' {} a -> s {recordColumnUpdates = a} :: InputSchemaUpdate) Prelude.. Lens.mapping Prelude._List1
 
--- | Specifies the encoding of the records in the streaming source. For example, UTF-8.
-isuRecordEncodingUpdate :: Lens' InputSchemaUpdate (Maybe Text)
-isuRecordEncodingUpdate = lens _isuRecordEncodingUpdate (\s a -> s {_isuRecordEncodingUpdate = a})
+-- | Specifies the encoding of the records in the streaming source. For
+-- example, UTF-8.
+inputSchemaUpdate_recordEncodingUpdate :: Lens.Lens' InputSchemaUpdate (Prelude.Maybe Prelude.Text)
+inputSchemaUpdate_recordEncodingUpdate = Lens.lens (\InputSchemaUpdate' {recordEncodingUpdate} -> recordEncodingUpdate) (\s@InputSchemaUpdate' {} a -> s {recordEncodingUpdate = a} :: InputSchemaUpdate)
 
-instance Hashable InputSchemaUpdate
+instance Prelude.Hashable InputSchemaUpdate
 
-instance NFData InputSchemaUpdate
+instance Prelude.NFData InputSchemaUpdate
 
-instance ToJSON InputSchemaUpdate where
+instance Prelude.ToJSON InputSchemaUpdate where
   toJSON InputSchemaUpdate' {..} =
-    object
-      ( catMaybes
-          [ ("RecordFormatUpdate" .=)
-              <$> _isuRecordFormatUpdate,
-            ("RecordColumnUpdates" .=)
-              <$> _isuRecordColumnUpdates,
-            ("RecordEncodingUpdate" .=)
-              <$> _isuRecordEncodingUpdate
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RecordFormatUpdate" Prelude..=)
+              Prelude.<$> recordFormatUpdate,
+            ("RecordColumnUpdates" Prelude..=)
+              Prelude.<$> recordColumnUpdates,
+            ("RecordEncodingUpdate" Prelude..=)
+              Prelude.<$> recordEncodingUpdate
           ]
       )

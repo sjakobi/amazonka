@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a specific Amazon Kinesis Analytics application.
+-- This documentation is for version 1 of the Amazon Kinesis Data Analytics
+-- API, which only supports SQL applications. Version 2 of the API supports
+-- SQL and Java applications. For more information about version 2, see
+-- </kinesisanalytics/latest/apiv2/Welcome.html Amazon Kinesis Data Analytics API V2 Documentation>.
 --
+-- Returns information about a specific Amazon Kinesis Analytics
+-- application.
 --
--- If you want to retrieve a list of all applications in your account, use the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_ListApplications.html ListApplications> operation.
+-- If you want to retrieve a list of all applications in your account, use
+-- the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_ListApplications.html ListApplications>
+-- operation.
 --
--- This operation requires permissions to perform the @kinesisanalytics:DescribeApplication@ action. You can use @DescribeApplication@ to get the current application versionId, which you need to call other operations such as @Update@ .
+-- This operation requires permissions to perform the
+-- @kinesisanalytics:DescribeApplication@ action. You can use
+-- @DescribeApplication@ to get the current application versionId, which
+-- you need to call other operations such as @Update@.
 module Network.AWS.KinesisAnalytics.DescribeApplication
   ( -- * Creating a Request
-    describeApplication,
-    DescribeApplication,
+    DescribeApplication (..),
+    newDescribeApplication,
 
     -- * Request Lenses
-    daApplicationName,
+    describeApplication_applicationName,
 
     -- * Destructuring the Response
-    describeApplicationResponse,
-    DescribeApplicationResponse,
+    DescribeApplicationResponse (..),
+    newDescribeApplicationResponse,
 
     -- * Response Lenses
-    darrsResponseStatus,
-    darrsApplicationDetail,
+    describeApplicationResponse_httpStatus,
+    describeApplicationResponse_applicationDetail,
   )
 where
 
 import Network.AWS.KinesisAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.KinesisAnalytics.Types.ApplicationDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeApplication' smart constructor.
-newtype DescribeApplication = DescribeApplication'
-  { _daApplicationName ::
-      Text
+-- /See:/ 'newDescribeApplication' smart constructor.
+data DescribeApplication = DescribeApplication'
+  { -- | Name of the application.
+    applicationName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeApplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeApplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daApplicationName' - Name of the application.
-describeApplication ::
-  -- | 'daApplicationName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationName', 'describeApplication_applicationName' - Name of the application.
+newDescribeApplication ::
+  -- | 'applicationName'
+  Prelude.Text ->
   DescribeApplication
-describeApplication pApplicationName_ =
+newDescribeApplication pApplicationName_ =
   DescribeApplication'
-    { _daApplicationName =
+    { applicationName =
         pApplicationName_
     }
 
 -- | Name of the application.
-daApplicationName :: Lens' DescribeApplication Text
-daApplicationName = lens _daApplicationName (\s a -> s {_daApplicationName = a})
+describeApplication_applicationName :: Lens.Lens' DescribeApplication Prelude.Text
+describeApplication_applicationName = Lens.lens (\DescribeApplication' {applicationName} -> applicationName) (\s@DescribeApplication' {} a -> s {applicationName = a} :: DescribeApplication)
 
-instance AWSRequest DescribeApplication where
+instance Prelude.AWSRequest DescribeApplication where
   type
     Rs DescribeApplication =
       DescribeApplicationResponse
-  request = postJSON kinesisAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeApplicationResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "ApplicationDetail")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ApplicationDetail")
       )
 
-instance Hashable DescribeApplication
+instance Prelude.Hashable DescribeApplication
 
-instance NFData DescribeApplication
+instance Prelude.NFData DescribeApplication
 
-instance ToHeaders DescribeApplication where
+instance Prelude.ToHeaders DescribeApplication where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "KinesisAnalytics_20150814.DescribeApplication" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "KinesisAnalytics_20150814.DescribeApplication" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeApplication where
+instance Prelude.ToJSON DescribeApplication where
   toJSON DescribeApplication' {..} =
-    object
-      ( catMaybes
-          [Just ("ApplicationName" .= _daApplicationName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ApplicationName" Prelude..= applicationName)
+          ]
       )
 
-instance ToPath DescribeApplication where
-  toPath = const "/"
+instance Prelude.ToPath DescribeApplication where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeApplication where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeApplication where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'describeApplicationResponse' smart constructor.
+-- /See:/ 'newDescribeApplicationResponse' smart constructor.
 data DescribeApplicationResponse = DescribeApplicationResponse'
-  { _darrsResponseStatus ::
-      !Int,
-    _darrsApplicationDetail ::
-      !ApplicationDetail
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Provides a description of the application, such as the application
+    -- Amazon Resource Name (ARN), status, latest version, and input and output
+    -- configuration details.
+    applicationDetail :: ApplicationDetail
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeApplicationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeApplicationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsApplicationDetail' - Provides a description of the application, such as the application Amazon Resource Name (ARN), status, latest version, and input and output configuration details.
-describeApplicationResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
-  -- | 'darrsApplicationDetail'
+-- 'httpStatus', 'describeApplicationResponse_httpStatus' - The response's http status code.
+--
+-- 'applicationDetail', 'describeApplicationResponse_applicationDetail' - Provides a description of the application, such as the application
+-- Amazon Resource Name (ARN), status, latest version, and input and output
+-- configuration details.
+newDescribeApplicationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'applicationDetail'
   ApplicationDetail ->
   DescribeApplicationResponse
-describeApplicationResponse
-  pResponseStatus_
+newDescribeApplicationResponse
+  pHttpStatus_
   pApplicationDetail_ =
     DescribeApplicationResponse'
-      { _darrsResponseStatus =
-          pResponseStatus_,
-        _darrsApplicationDetail = pApplicationDetail_
+      { httpStatus =
+          pHttpStatus_,
+        applicationDetail = pApplicationDetail_
       }
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DescribeApplicationResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+describeApplicationResponse_httpStatus :: Lens.Lens' DescribeApplicationResponse Prelude.Int
+describeApplicationResponse_httpStatus = Lens.lens (\DescribeApplicationResponse' {httpStatus} -> httpStatus) (\s@DescribeApplicationResponse' {} a -> s {httpStatus = a} :: DescribeApplicationResponse)
 
--- | Provides a description of the application, such as the application Amazon Resource Name (ARN), status, latest version, and input and output configuration details.
-darrsApplicationDetail :: Lens' DescribeApplicationResponse ApplicationDetail
-darrsApplicationDetail = lens _darrsApplicationDetail (\s a -> s {_darrsApplicationDetail = a})
+-- | Provides a description of the application, such as the application
+-- Amazon Resource Name (ARN), status, latest version, and input and output
+-- configuration details.
+describeApplicationResponse_applicationDetail :: Lens.Lens' DescribeApplicationResponse ApplicationDetail
+describeApplicationResponse_applicationDetail = Lens.lens (\DescribeApplicationResponse' {applicationDetail} -> applicationDetail) (\s@DescribeApplicationResponse' {} a -> s {applicationDetail = a} :: DescribeApplicationResponse)
 
-instance NFData DescribeApplicationResponse
+instance Prelude.NFData DescribeApplicationResponse

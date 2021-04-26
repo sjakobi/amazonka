@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,189 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds a CloudWatch log stream to monitor application configuration errors. For more information about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html Working with Amazon CloudWatch Logs> .
+-- This documentation is for version 1 of the Amazon Kinesis Data Analytics
+-- API, which only supports SQL applications. Version 2 of the API supports
+-- SQL and Java applications. For more information about version 2, see
+-- </kinesisanalytics/latest/apiv2/Welcome.html Amazon Kinesis Data Analytics API V2 Documentation>.
+--
+-- Adds a CloudWatch log stream to monitor application configuration
+-- errors. For more information about using CloudWatch log streams with
+-- Amazon Kinesis Analytics applications, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html Working with Amazon CloudWatch Logs>.
 module Network.AWS.KinesisAnalytics.AddApplicationCloudWatchLoggingOption
   ( -- * Creating a Request
-    addApplicationCloudWatchLoggingOption,
-    AddApplicationCloudWatchLoggingOption,
+    AddApplicationCloudWatchLoggingOption (..),
+    newAddApplicationCloudWatchLoggingOption,
 
     -- * Request Lenses
-    aacwloApplicationName,
-    aacwloCurrentApplicationVersionId,
-    aacwloCloudWatchLoggingOption,
+    addApplicationCloudWatchLoggingOption_applicationName,
+    addApplicationCloudWatchLoggingOption_currentApplicationVersionId,
+    addApplicationCloudWatchLoggingOption_cloudWatchLoggingOption,
 
     -- * Destructuring the Response
-    addApplicationCloudWatchLoggingOptionResponse,
-    AddApplicationCloudWatchLoggingOptionResponse,
+    AddApplicationCloudWatchLoggingOptionResponse (..),
+    newAddApplicationCloudWatchLoggingOptionResponse,
 
     -- * Response Lenses
-    aacwlorrsResponseStatus,
+    addApplicationCloudWatchLoggingOptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addApplicationCloudWatchLoggingOption' smart constructor.
+-- | /See:/ 'newAddApplicationCloudWatchLoggingOption' smart constructor.
 data AddApplicationCloudWatchLoggingOption = AddApplicationCloudWatchLoggingOption'
-  { _aacwloApplicationName ::
-      !Text,
-    _aacwloCurrentApplicationVersionId ::
-      !Nat,
-    _aacwloCloudWatchLoggingOption ::
-      !CloudWatchLoggingOption
+  { -- | The Kinesis Analytics application name.
+    applicationName :: Prelude.Text,
+    -- | The version ID of the Kinesis Analytics application.
+    currentApplicationVersionId :: Prelude.Nat,
+    -- | Provides the CloudWatch log stream Amazon Resource Name (ARN) and the
+    -- IAM role ARN. Note: To write application messages to CloudWatch, the IAM
+    -- role that is used must have the @PutLogEvents@ policy action enabled.
+    cloudWatchLoggingOption :: CloudWatchLoggingOption
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddApplicationCloudWatchLoggingOption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddApplicationCloudWatchLoggingOption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aacwloApplicationName' - The Kinesis Analytics application name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aacwloCurrentApplicationVersionId' - The version ID of the Kinesis Analytics application.
+-- 'applicationName', 'addApplicationCloudWatchLoggingOption_applicationName' - The Kinesis Analytics application name.
 --
--- * 'aacwloCloudWatchLoggingOption' - Provides the CloudWatch log stream Amazon Resource Name (ARN) and the IAM role ARN. Note: To write application messages to CloudWatch, the IAM role that is used must have the @PutLogEvents@ policy action enabled.
-addApplicationCloudWatchLoggingOption ::
-  -- | 'aacwloApplicationName'
-  Text ->
-  -- | 'aacwloCurrentApplicationVersionId'
-  Natural ->
-  -- | 'aacwloCloudWatchLoggingOption'
+-- 'currentApplicationVersionId', 'addApplicationCloudWatchLoggingOption_currentApplicationVersionId' - The version ID of the Kinesis Analytics application.
+--
+-- 'cloudWatchLoggingOption', 'addApplicationCloudWatchLoggingOption_cloudWatchLoggingOption' - Provides the CloudWatch log stream Amazon Resource Name (ARN) and the
+-- IAM role ARN. Note: To write application messages to CloudWatch, the IAM
+-- role that is used must have the @PutLogEvents@ policy action enabled.
+newAddApplicationCloudWatchLoggingOption ::
+  -- | 'applicationName'
+  Prelude.Text ->
+  -- | 'currentApplicationVersionId'
+  Prelude.Natural ->
+  -- | 'cloudWatchLoggingOption'
   CloudWatchLoggingOption ->
   AddApplicationCloudWatchLoggingOption
-addApplicationCloudWatchLoggingOption
+newAddApplicationCloudWatchLoggingOption
   pApplicationName_
   pCurrentApplicationVersionId_
   pCloudWatchLoggingOption_ =
     AddApplicationCloudWatchLoggingOption'
-      { _aacwloApplicationName =
+      { applicationName =
           pApplicationName_,
-        _aacwloCurrentApplicationVersionId =
-          _Nat
-            # pCurrentApplicationVersionId_,
-        _aacwloCloudWatchLoggingOption =
+        currentApplicationVersionId =
+          Prelude._Nat
+            Lens.# pCurrentApplicationVersionId_,
+        cloudWatchLoggingOption =
           pCloudWatchLoggingOption_
       }
 
 -- | The Kinesis Analytics application name.
-aacwloApplicationName :: Lens' AddApplicationCloudWatchLoggingOption Text
-aacwloApplicationName = lens _aacwloApplicationName (\s a -> s {_aacwloApplicationName = a})
+addApplicationCloudWatchLoggingOption_applicationName :: Lens.Lens' AddApplicationCloudWatchLoggingOption Prelude.Text
+addApplicationCloudWatchLoggingOption_applicationName = Lens.lens (\AddApplicationCloudWatchLoggingOption' {applicationName} -> applicationName) (\s@AddApplicationCloudWatchLoggingOption' {} a -> s {applicationName = a} :: AddApplicationCloudWatchLoggingOption)
 
 -- | The version ID of the Kinesis Analytics application.
-aacwloCurrentApplicationVersionId :: Lens' AddApplicationCloudWatchLoggingOption Natural
-aacwloCurrentApplicationVersionId = lens _aacwloCurrentApplicationVersionId (\s a -> s {_aacwloCurrentApplicationVersionId = a}) . _Nat
+addApplicationCloudWatchLoggingOption_currentApplicationVersionId :: Lens.Lens' AddApplicationCloudWatchLoggingOption Prelude.Natural
+addApplicationCloudWatchLoggingOption_currentApplicationVersionId = Lens.lens (\AddApplicationCloudWatchLoggingOption' {currentApplicationVersionId} -> currentApplicationVersionId) (\s@AddApplicationCloudWatchLoggingOption' {} a -> s {currentApplicationVersionId = a} :: AddApplicationCloudWatchLoggingOption) Prelude.. Prelude._Nat
 
--- | Provides the CloudWatch log stream Amazon Resource Name (ARN) and the IAM role ARN. Note: To write application messages to CloudWatch, the IAM role that is used must have the @PutLogEvents@ policy action enabled.
-aacwloCloudWatchLoggingOption :: Lens' AddApplicationCloudWatchLoggingOption CloudWatchLoggingOption
-aacwloCloudWatchLoggingOption = lens _aacwloCloudWatchLoggingOption (\s a -> s {_aacwloCloudWatchLoggingOption = a})
+-- | Provides the CloudWatch log stream Amazon Resource Name (ARN) and the
+-- IAM role ARN. Note: To write application messages to CloudWatch, the IAM
+-- role that is used must have the @PutLogEvents@ policy action enabled.
+addApplicationCloudWatchLoggingOption_cloudWatchLoggingOption :: Lens.Lens' AddApplicationCloudWatchLoggingOption CloudWatchLoggingOption
+addApplicationCloudWatchLoggingOption_cloudWatchLoggingOption = Lens.lens (\AddApplicationCloudWatchLoggingOption' {cloudWatchLoggingOption} -> cloudWatchLoggingOption) (\s@AddApplicationCloudWatchLoggingOption' {} a -> s {cloudWatchLoggingOption = a} :: AddApplicationCloudWatchLoggingOption)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     AddApplicationCloudWatchLoggingOption
   where
   type
     Rs AddApplicationCloudWatchLoggingOption =
       AddApplicationCloudWatchLoggingOptionResponse
-  request = postJSON kinesisAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AddApplicationCloudWatchLoggingOptionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     AddApplicationCloudWatchLoggingOption
 
-instance NFData AddApplicationCloudWatchLoggingOption
+instance
+  Prelude.NFData
+    AddApplicationCloudWatchLoggingOption
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     AddApplicationCloudWatchLoggingOption
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "KinesisAnalytics_20150814.AddApplicationCloudWatchLoggingOption" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "KinesisAnalytics_20150814.AddApplicationCloudWatchLoggingOption" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddApplicationCloudWatchLoggingOption where
+instance
+  Prelude.ToJSON
+    AddApplicationCloudWatchLoggingOption
+  where
   toJSON AddApplicationCloudWatchLoggingOption' {..} =
-    object
-      ( catMaybes
-          [ Just ("ApplicationName" .= _aacwloApplicationName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ApplicationName" Prelude..= applicationName),
+            Prelude.Just
               ( "CurrentApplicationVersionId"
-                  .= _aacwloCurrentApplicationVersionId
+                  Prelude..= currentApplicationVersionId
               ),
-            Just
+            Prelude.Just
               ( "CloudWatchLoggingOption"
-                  .= _aacwloCloudWatchLoggingOption
+                  Prelude..= cloudWatchLoggingOption
               )
           ]
       )
 
-instance ToPath AddApplicationCloudWatchLoggingOption where
-  toPath = const "/"
-
 instance
-  ToQuery
+  Prelude.ToPath
     AddApplicationCloudWatchLoggingOption
   where
-  toQuery = const mempty
-
--- | /See:/ 'addApplicationCloudWatchLoggingOptionResponse' smart constructor.
-newtype AddApplicationCloudWatchLoggingOptionResponse = AddApplicationCloudWatchLoggingOptionResponse'
-  { _aacwlorrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'AddApplicationCloudWatchLoggingOptionResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'aacwlorrsResponseStatus' - -- | The response status code.
-addApplicationCloudWatchLoggingOptionResponse ::
-  -- | 'aacwlorrsResponseStatus'
-  Int ->
-  AddApplicationCloudWatchLoggingOptionResponse
-addApplicationCloudWatchLoggingOptionResponse
-  pResponseStatus_ =
-    AddApplicationCloudWatchLoggingOptionResponse'
-      { _aacwlorrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-aacwlorrsResponseStatus :: Lens' AddApplicationCloudWatchLoggingOptionResponse Int
-aacwlorrsResponseStatus = lens _aacwlorrsResponseStatus (\s a -> s {_aacwlorrsResponseStatus = a})
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    AddApplicationCloudWatchLoggingOption
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newAddApplicationCloudWatchLoggingOptionResponse' smart constructor.
+data AddApplicationCloudWatchLoggingOptionResponse = AddApplicationCloudWatchLoggingOptionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'AddApplicationCloudWatchLoggingOptionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addApplicationCloudWatchLoggingOptionResponse_httpStatus' - The response's http status code.
+newAddApplicationCloudWatchLoggingOptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  AddApplicationCloudWatchLoggingOptionResponse
+newAddApplicationCloudWatchLoggingOptionResponse
+  pHttpStatus_ =
+    AddApplicationCloudWatchLoggingOptionResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+addApplicationCloudWatchLoggingOptionResponse_httpStatus :: Lens.Lens' AddApplicationCloudWatchLoggingOptionResponse Prelude.Int
+addApplicationCloudWatchLoggingOptionResponse_httpStatus = Lens.lens (\AddApplicationCloudWatchLoggingOptionResponse' {httpStatus} -> httpStatus) (\s@AddApplicationCloudWatchLoggingOptionResponse' {} a -> s {httpStatus = a} :: AddApplicationCloudWatchLoggingOptionResponse)
+
+instance
+  Prelude.NFData
     AddApplicationCloudWatchLoggingOptionResponse

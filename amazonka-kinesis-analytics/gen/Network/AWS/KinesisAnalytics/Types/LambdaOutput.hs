@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisAnalytics.Types.LambdaOutput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | When configuring application output, identifies an AWS Lambda function as the destination. You provide the function Amazon Resource Name (ARN) and also an IAM role ARN that Amazon Kinesis Analytics can use to write to the function on your behalf.
+-- | When configuring application output, identifies an AWS Lambda function
+-- as the destination. You provide the function Amazon Resource Name (ARN)
+-- and also an IAM role ARN that Amazon Kinesis Analytics can use to write
+-- to the function on your behalf.
 --
---
---
--- /See:/ 'lambdaOutput' smart constructor.
+-- /See:/ 'newLambdaOutput' smart constructor.
 data LambdaOutput = LambdaOutput'
-  { _loResourceARN ::
-      !Text,
-    _loRoleARN :: !Text
+  { -- | Amazon Resource Name (ARN) of the destination Lambda function to write
+    -- to.
+    --
+    -- To specify an earlier version of the Lambda function than the latest,
+    -- include the Lambda function version in the Lambda function ARN. For more
+    -- information about Lambda ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda Example ARNs: AWS Lambda>
+    resourceARN :: Prelude.Text,
+    -- | ARN of the IAM role that Amazon Kinesis Analytics can assume to write to
+    -- the destination function on your behalf. You need to grant the necessary
+    -- permissions to this role.
+    roleARN :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'loResourceARN' - Amazon Resource Name (ARN) of the destination Lambda function to write to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'loRoleARN' - ARN of the IAM role that Amazon Kinesis Analytics can assume to write to the destination function on your behalf. You need to grant the necessary permissions to this role.
-lambdaOutput ::
-  -- | 'loResourceARN'
-  Text ->
-  -- | 'loRoleARN'
-  Text ->
+-- 'resourceARN', 'lambdaOutput_resourceARN' - Amazon Resource Name (ARN) of the destination Lambda function to write
+-- to.
+--
+-- To specify an earlier version of the Lambda function than the latest,
+-- include the Lambda function version in the Lambda function ARN. For more
+-- information about Lambda ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda Example ARNs: AWS Lambda>
+--
+-- 'roleARN', 'lambdaOutput_roleARN' - ARN of the IAM role that Amazon Kinesis Analytics can assume to write to
+-- the destination function on your behalf. You need to grant the necessary
+-- permissions to this role.
+newLambdaOutput ::
+  -- | 'resourceARN'
+  Prelude.Text ->
+  -- | 'roleARN'
+  Prelude.Text ->
   LambdaOutput
-lambdaOutput pResourceARN_ pRoleARN_ =
+newLambdaOutput pResourceARN_ pRoleARN_ =
   LambdaOutput'
-    { _loResourceARN = pResourceARN_,
-      _loRoleARN = pRoleARN_
+    { resourceARN = pResourceARN_,
+      roleARN = pRoleARN_
     }
 
--- | Amazon Resource Name (ARN) of the destination Lambda function to write to.
-loResourceARN :: Lens' LambdaOutput Text
-loResourceARN = lens _loResourceARN (\s a -> s {_loResourceARN = a})
+-- | Amazon Resource Name (ARN) of the destination Lambda function to write
+-- to.
+--
+-- To specify an earlier version of the Lambda function than the latest,
+-- include the Lambda function version in the Lambda function ARN. For more
+-- information about Lambda ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda Example ARNs: AWS Lambda>
+lambdaOutput_resourceARN :: Lens.Lens' LambdaOutput Prelude.Text
+lambdaOutput_resourceARN = Lens.lens (\LambdaOutput' {resourceARN} -> resourceARN) (\s@LambdaOutput' {} a -> s {resourceARN = a} :: LambdaOutput)
 
--- | ARN of the IAM role that Amazon Kinesis Analytics can assume to write to the destination function on your behalf. You need to grant the necessary permissions to this role.
-loRoleARN :: Lens' LambdaOutput Text
-loRoleARN = lens _loRoleARN (\s a -> s {_loRoleARN = a})
+-- | ARN of the IAM role that Amazon Kinesis Analytics can assume to write to
+-- the destination function on your behalf. You need to grant the necessary
+-- permissions to this role.
+lambdaOutput_roleARN :: Lens.Lens' LambdaOutput Prelude.Text
+lambdaOutput_roleARN = Lens.lens (\LambdaOutput' {roleARN} -> roleARN) (\s@LambdaOutput' {} a -> s {roleARN = a} :: LambdaOutput)
 
-instance Hashable LambdaOutput
+instance Prelude.Hashable LambdaOutput
 
-instance NFData LambdaOutput
+instance Prelude.NFData LambdaOutput
 
-instance ToJSON LambdaOutput where
+instance Prelude.ToJSON LambdaOutput where
   toJSON LambdaOutput' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceARN" .= _loResourceARN),
-            Just ("RoleARN" .= _loRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceARN" Prelude..= resourceARN),
+            Prelude.Just ("RoleARN" Prelude..= roleARN)
           ]
       )

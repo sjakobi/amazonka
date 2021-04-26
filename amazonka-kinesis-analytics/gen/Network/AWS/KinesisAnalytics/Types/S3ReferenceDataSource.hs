@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisAnalytics.Types.S3ReferenceDataSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Identifies the S3 bucket and object that contains the reference data. Also identifies the IAM role Amazon Kinesis Analytics can assume to read this object on your behalf.
+-- | Identifies the S3 bucket and object that contains the reference data.
+-- Also identifies the IAM role Amazon Kinesis Analytics can assume to read
+-- this object on your behalf.
 --
+-- An Amazon Kinesis Analytics application loads reference data only once.
+-- If the data changes, you call the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_UpdateApplication.html UpdateApplication>
+-- operation to trigger reloading of data into your application.
 --
--- An Amazon Kinesis Analytics application loads reference data only once. If the data changes, you call the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_UpdateApplication.html UpdateApplication> operation to trigger reloading of data into your application.
---
---
--- /See:/ 's3ReferenceDataSource' smart constructor.
+-- /See:/ 'newS3ReferenceDataSource' smart constructor.
 data S3ReferenceDataSource = S3ReferenceDataSource'
-  { _srdsBucketARN ::
-      !Text,
-    _srdsFileKey :: !Text,
-    _srdsReferenceRoleARN ::
-      !Text
+  { -- | Amazon Resource Name (ARN) of the S3 bucket.
+    bucketARN :: Prelude.Text,
+    -- | Object key name containing reference data.
+    fileKey :: Prelude.Text,
+    -- | ARN of the IAM role that the service can assume to read data on your
+    -- behalf. This role must have permission for the @s3:GetObject@ action on
+    -- the object and trust policy that allows Amazon Kinesis Analytics service
+    -- principal to assume this role.
+    referenceRoleARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3ReferenceDataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3ReferenceDataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srdsBucketARN' - Amazon Resource Name (ARN) of the S3 bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srdsFileKey' - Object key name containing reference data.
+-- 'bucketARN', 's3ReferenceDataSource_bucketARN' - Amazon Resource Name (ARN) of the S3 bucket.
 --
--- * 'srdsReferenceRoleARN' - ARN of the IAM role that the service can assume to read data on your behalf. This role must have permission for the @s3:GetObject@ action on the object and trust policy that allows Amazon Kinesis Analytics service principal to assume this role.
-s3ReferenceDataSource ::
-  -- | 'srdsBucketARN'
-  Text ->
-  -- | 'srdsFileKey'
-  Text ->
-  -- | 'srdsReferenceRoleARN'
-  Text ->
+-- 'fileKey', 's3ReferenceDataSource_fileKey' - Object key name containing reference data.
+--
+-- 'referenceRoleARN', 's3ReferenceDataSource_referenceRoleARN' - ARN of the IAM role that the service can assume to read data on your
+-- behalf. This role must have permission for the @s3:GetObject@ action on
+-- the object and trust policy that allows Amazon Kinesis Analytics service
+-- principal to assume this role.
+newS3ReferenceDataSource ::
+  -- | 'bucketARN'
+  Prelude.Text ->
+  -- | 'fileKey'
+  Prelude.Text ->
+  -- | 'referenceRoleARN'
+  Prelude.Text ->
   S3ReferenceDataSource
-s3ReferenceDataSource
+newS3ReferenceDataSource
   pBucketARN_
   pFileKey_
   pReferenceRoleARN_ =
     S3ReferenceDataSource'
-      { _srdsBucketARN =
-          pBucketARN_,
-        _srdsFileKey = pFileKey_,
-        _srdsReferenceRoleARN = pReferenceRoleARN_
+      { bucketARN = pBucketARN_,
+        fileKey = pFileKey_,
+        referenceRoleARN = pReferenceRoleARN_
       }
 
 -- | Amazon Resource Name (ARN) of the S3 bucket.
-srdsBucketARN :: Lens' S3ReferenceDataSource Text
-srdsBucketARN = lens _srdsBucketARN (\s a -> s {_srdsBucketARN = a})
+s3ReferenceDataSource_bucketARN :: Lens.Lens' S3ReferenceDataSource Prelude.Text
+s3ReferenceDataSource_bucketARN = Lens.lens (\S3ReferenceDataSource' {bucketARN} -> bucketARN) (\s@S3ReferenceDataSource' {} a -> s {bucketARN = a} :: S3ReferenceDataSource)
 
 -- | Object key name containing reference data.
-srdsFileKey :: Lens' S3ReferenceDataSource Text
-srdsFileKey = lens _srdsFileKey (\s a -> s {_srdsFileKey = a})
+s3ReferenceDataSource_fileKey :: Lens.Lens' S3ReferenceDataSource Prelude.Text
+s3ReferenceDataSource_fileKey = Lens.lens (\S3ReferenceDataSource' {fileKey} -> fileKey) (\s@S3ReferenceDataSource' {} a -> s {fileKey = a} :: S3ReferenceDataSource)
 
--- | ARN of the IAM role that the service can assume to read data on your behalf. This role must have permission for the @s3:GetObject@ action on the object and trust policy that allows Amazon Kinesis Analytics service principal to assume this role.
-srdsReferenceRoleARN :: Lens' S3ReferenceDataSource Text
-srdsReferenceRoleARN = lens _srdsReferenceRoleARN (\s a -> s {_srdsReferenceRoleARN = a})
+-- | ARN of the IAM role that the service can assume to read data on your
+-- behalf. This role must have permission for the @s3:GetObject@ action on
+-- the object and trust policy that allows Amazon Kinesis Analytics service
+-- principal to assume this role.
+s3ReferenceDataSource_referenceRoleARN :: Lens.Lens' S3ReferenceDataSource Prelude.Text
+s3ReferenceDataSource_referenceRoleARN = Lens.lens (\S3ReferenceDataSource' {referenceRoleARN} -> referenceRoleARN) (\s@S3ReferenceDataSource' {} a -> s {referenceRoleARN = a} :: S3ReferenceDataSource)
 
-instance Hashable S3ReferenceDataSource
+instance Prelude.Hashable S3ReferenceDataSource
 
-instance NFData S3ReferenceDataSource
+instance Prelude.NFData S3ReferenceDataSource
 
-instance ToJSON S3ReferenceDataSource where
+instance Prelude.ToJSON S3ReferenceDataSource where
   toJSON S3ReferenceDataSource' {..} =
-    object
-      ( catMaybes
-          [ Just ("BucketARN" .= _srdsBucketARN),
-            Just ("FileKey" .= _srdsFileKey),
-            Just ("ReferenceRoleARN" .= _srdsReferenceRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("BucketARN" Prelude..= bucketARN),
+            Prelude.Just ("FileKey" Prelude..= fileKey),
+            Prelude.Just
+              ("ReferenceRoleARN" Prelude..= referenceRoleARN)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisAnalytics.Types.CSVMappingParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides additional mapping information when the record format uses delimiters, such as CSV. For example, the following sample records use CSV format, where the records use the /'\n'/ as the row delimiter and a comma (",") as the column delimiter:
+-- | Provides additional mapping information when the record format uses
+-- delimiters, such as CSV. For example, the following sample records use
+-- CSV format, where the records use the /\'\\n\'/ as the row delimiter and
+-- a comma (\",\") as the column delimiter:
 --
+-- @\"name1\", \"address1\"@
 --
--- @"name1", "address1"@
+-- @\"name2\", \"address2\"@
 --
--- @"name2", "address2"@
---
---
--- /See:/ 'csvMappingParameters' smart constructor.
+-- /See:/ 'newCSVMappingParameters' smart constructor.
 data CSVMappingParameters = CSVMappingParameters'
-  { _cmpRecordRowDelimiter ::
-      !Text,
-    _cmpRecordColumnDelimiter ::
-      !Text
+  { -- | Row delimiter. For example, in a CSV format, /\'\\n\'/ is the typical
+    -- row delimiter.
+    recordRowDelimiter :: Prelude.Text,
+    -- | Column delimiter. For example, in a CSV format, a comma (\",\") is the
+    -- typical column delimiter.
+    recordColumnDelimiter :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CSVMappingParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CSVMappingParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmpRecordRowDelimiter' - Row delimiter. For example, in a CSV format, /'\n'/ is the typical row delimiter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmpRecordColumnDelimiter' - Column delimiter. For example, in a CSV format, a comma (",") is the typical column delimiter.
-csvMappingParameters ::
-  -- | 'cmpRecordRowDelimiter'
-  Text ->
-  -- | 'cmpRecordColumnDelimiter'
-  Text ->
+-- 'recordRowDelimiter', 'cSVMappingParameters_recordRowDelimiter' - Row delimiter. For example, in a CSV format, /\'\\n\'/ is the typical
+-- row delimiter.
+--
+-- 'recordColumnDelimiter', 'cSVMappingParameters_recordColumnDelimiter' - Column delimiter. For example, in a CSV format, a comma (\",\") is the
+-- typical column delimiter.
+newCSVMappingParameters ::
+  -- | 'recordRowDelimiter'
+  Prelude.Text ->
+  -- | 'recordColumnDelimiter'
+  Prelude.Text ->
   CSVMappingParameters
-csvMappingParameters
+newCSVMappingParameters
   pRecordRowDelimiter_
   pRecordColumnDelimiter_ =
     CSVMappingParameters'
-      { _cmpRecordRowDelimiter =
+      { recordRowDelimiter =
           pRecordRowDelimiter_,
-        _cmpRecordColumnDelimiter = pRecordColumnDelimiter_
+        recordColumnDelimiter = pRecordColumnDelimiter_
       }
 
--- | Row delimiter. For example, in a CSV format, /'\n'/ is the typical row delimiter.
-cmpRecordRowDelimiter :: Lens' CSVMappingParameters Text
-cmpRecordRowDelimiter = lens _cmpRecordRowDelimiter (\s a -> s {_cmpRecordRowDelimiter = a})
+-- | Row delimiter. For example, in a CSV format, /\'\\n\'/ is the typical
+-- row delimiter.
+cSVMappingParameters_recordRowDelimiter :: Lens.Lens' CSVMappingParameters Prelude.Text
+cSVMappingParameters_recordRowDelimiter = Lens.lens (\CSVMappingParameters' {recordRowDelimiter} -> recordRowDelimiter) (\s@CSVMappingParameters' {} a -> s {recordRowDelimiter = a} :: CSVMappingParameters)
 
--- | Column delimiter. For example, in a CSV format, a comma (",") is the typical column delimiter.
-cmpRecordColumnDelimiter :: Lens' CSVMappingParameters Text
-cmpRecordColumnDelimiter = lens _cmpRecordColumnDelimiter (\s a -> s {_cmpRecordColumnDelimiter = a})
+-- | Column delimiter. For example, in a CSV format, a comma (\",\") is the
+-- typical column delimiter.
+cSVMappingParameters_recordColumnDelimiter :: Lens.Lens' CSVMappingParameters Prelude.Text
+cSVMappingParameters_recordColumnDelimiter = Lens.lens (\CSVMappingParameters' {recordColumnDelimiter} -> recordColumnDelimiter) (\s@CSVMappingParameters' {} a -> s {recordColumnDelimiter = a} :: CSVMappingParameters)
 
-instance FromJSON CSVMappingParameters where
+instance Prelude.FromJSON CSVMappingParameters where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CSVMappingParameters"
       ( \x ->
           CSVMappingParameters'
-            <$> (x .: "RecordRowDelimiter")
-            <*> (x .: "RecordColumnDelimiter")
+            Prelude.<$> (x Prelude..: "RecordRowDelimiter")
+            Prelude.<*> (x Prelude..: "RecordColumnDelimiter")
       )
 
-instance Hashable CSVMappingParameters
+instance Prelude.Hashable CSVMappingParameters
 
-instance NFData CSVMappingParameters
+instance Prelude.NFData CSVMappingParameters
 
-instance ToJSON CSVMappingParameters where
+instance Prelude.ToJSON CSVMappingParameters where
   toJSON CSVMappingParameters' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("RecordRowDelimiter" .= _cmpRecordRowDelimiter),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("RecordRowDelimiter" Prelude..= recordRowDelimiter),
+            Prelude.Just
               ( "RecordColumnDelimiter"
-                  .= _cmpRecordColumnDelimiter
+                  Prelude..= recordColumnDelimiter
               )
           ]
       )

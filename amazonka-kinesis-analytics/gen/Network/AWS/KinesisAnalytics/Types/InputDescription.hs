@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,131 +25,172 @@ import Network.AWS.KinesisAnalytics.Types.InputStartingPositionConfiguration
 import Network.AWS.KinesisAnalytics.Types.KinesisFirehoseInputDescription
 import Network.AWS.KinesisAnalytics.Types.KinesisStreamsInputDescription
 import Network.AWS.KinesisAnalytics.Types.SourceSchema
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the application input configuration. For more information, see <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html Configuring Application Input> .
+-- | Describes the application input configuration. For more information, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html Configuring Application Input>.
 --
---
---
--- /See:/ 'inputDescription' smart constructor.
+-- /See:/ 'newInputDescription' smart constructor.
 data InputDescription = InputDescription'
-  { _idInputSchema ::
-      !(Maybe SourceSchema),
-    _idInputStartingPositionConfiguration ::
-      !( Maybe
-           InputStartingPositionConfiguration
-       ),
-    _idInputProcessingConfigurationDescription ::
-      !( Maybe
-           InputProcessingConfigurationDescription
-       ),
-    _idInputParallelism ::
-      !(Maybe InputParallelism),
-    _idNamePrefix :: !(Maybe Text),
-    _idKinesisStreamsInputDescription ::
-      !( Maybe
-           KinesisStreamsInputDescription
-       ),
-    _idKinesisFirehoseInputDescription ::
-      !( Maybe
-           KinesisFirehoseInputDescription
-       ),
-    _idInAppStreamNames ::
-      !(Maybe [Text]),
-    _idInputId :: !(Maybe Text)
+  { -- | Describes the format of the data in the streaming source, and how each
+    -- data element maps to corresponding columns in the in-application stream
+    -- that is being created.
+    inputSchema :: Prelude.Maybe SourceSchema,
+    -- | Point at which the application is configured to read from the input
+    -- stream.
+    inputStartingPositionConfiguration :: Prelude.Maybe InputStartingPositionConfiguration,
+    -- | The description of the preprocessor that executes on records in this
+    -- input before the application\'s code is run.
+    inputProcessingConfigurationDescription :: Prelude.Maybe InputProcessingConfigurationDescription,
+    -- | Describes the configured parallelism (number of in-application streams
+    -- mapped to the streaming source).
+    inputParallelism :: Prelude.Maybe InputParallelism,
+    -- | In-application name prefix.
+    namePrefix :: Prelude.Maybe Prelude.Text,
+    -- | If an Amazon Kinesis stream is configured as streaming source, provides
+    -- Amazon Kinesis stream\'s Amazon Resource Name (ARN) and an IAM role that
+    -- enables Amazon Kinesis Analytics to access the stream on your behalf.
+    kinesisStreamsInputDescription :: Prelude.Maybe KinesisStreamsInputDescription,
+    -- | If an Amazon Kinesis Firehose delivery stream is configured as a
+    -- streaming source, provides the delivery stream\'s ARN and an IAM role
+    -- that enables Amazon Kinesis Analytics to access the stream on your
+    -- behalf.
+    kinesisFirehoseInputDescription :: Prelude.Maybe KinesisFirehoseInputDescription,
+    -- | Returns the in-application stream names that are mapped to the stream
+    -- source.
+    inAppStreamNames :: Prelude.Maybe [Prelude.Text],
+    -- | Input ID associated with the application input. This is the ID that
+    -- Amazon Kinesis Analytics assigns to each input configuration you add to
+    -- your application.
+    inputId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'idInputSchema' - Describes the format of the data in the streaming source, and how each data element maps to corresponding columns in the in-application stream that is being created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'idInputStartingPositionConfiguration' - Point at which the application is configured to read from the input stream.
+-- 'inputSchema', 'inputDescription_inputSchema' - Describes the format of the data in the streaming source, and how each
+-- data element maps to corresponding columns in the in-application stream
+-- that is being created.
 --
--- * 'idInputProcessingConfigurationDescription' - The description of the preprocessor that executes on records in this input before the application's code is run.
+-- 'inputStartingPositionConfiguration', 'inputDescription_inputStartingPositionConfiguration' - Point at which the application is configured to read from the input
+-- stream.
 --
--- * 'idInputParallelism' - Describes the configured parallelism (number of in-application streams mapped to the streaming source).
+-- 'inputProcessingConfigurationDescription', 'inputDescription_inputProcessingConfigurationDescription' - The description of the preprocessor that executes on records in this
+-- input before the application\'s code is run.
 --
--- * 'idNamePrefix' - In-application name prefix.
+-- 'inputParallelism', 'inputDescription_inputParallelism' - Describes the configured parallelism (number of in-application streams
+-- mapped to the streaming source).
 --
--- * 'idKinesisStreamsInputDescription' - If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+-- 'namePrefix', 'inputDescription_namePrefix' - In-application name prefix.
 --
--- * 'idKinesisFirehoseInputDescription' - If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the delivery stream's ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+-- 'kinesisStreamsInputDescription', 'inputDescription_kinesisStreamsInputDescription' - If an Amazon Kinesis stream is configured as streaming source, provides
+-- Amazon Kinesis stream\'s Amazon Resource Name (ARN) and an IAM role that
+-- enables Amazon Kinesis Analytics to access the stream on your behalf.
 --
--- * 'idInAppStreamNames' - Returns the in-application stream names that are mapped to the stream source.
+-- 'kinesisFirehoseInputDescription', 'inputDescription_kinesisFirehoseInputDescription' - If an Amazon Kinesis Firehose delivery stream is configured as a
+-- streaming source, provides the delivery stream\'s ARN and an IAM role
+-- that enables Amazon Kinesis Analytics to access the stream on your
+-- behalf.
 --
--- * 'idInputId' - Input ID associated with the application input. This is the ID that Amazon Kinesis Analytics assigns to each input configuration you add to your application.
-inputDescription ::
+-- 'inAppStreamNames', 'inputDescription_inAppStreamNames' - Returns the in-application stream names that are mapped to the stream
+-- source.
+--
+-- 'inputId', 'inputDescription_inputId' - Input ID associated with the application input. This is the ID that
+-- Amazon Kinesis Analytics assigns to each input configuration you add to
+-- your application.
+newInputDescription ::
   InputDescription
-inputDescription =
+newInputDescription =
   InputDescription'
-    { _idInputSchema = Nothing,
-      _idInputStartingPositionConfiguration = Nothing,
-      _idInputProcessingConfigurationDescription = Nothing,
-      _idInputParallelism = Nothing,
-      _idNamePrefix = Nothing,
-      _idKinesisStreamsInputDescription = Nothing,
-      _idKinesisFirehoseInputDescription = Nothing,
-      _idInAppStreamNames = Nothing,
-      _idInputId = Nothing
+    { inputSchema = Prelude.Nothing,
+      inputStartingPositionConfiguration = Prelude.Nothing,
+      inputProcessingConfigurationDescription =
+        Prelude.Nothing,
+      inputParallelism = Prelude.Nothing,
+      namePrefix = Prelude.Nothing,
+      kinesisStreamsInputDescription = Prelude.Nothing,
+      kinesisFirehoseInputDescription = Prelude.Nothing,
+      inAppStreamNames = Prelude.Nothing,
+      inputId = Prelude.Nothing
     }
 
--- | Describes the format of the data in the streaming source, and how each data element maps to corresponding columns in the in-application stream that is being created.
-idInputSchema :: Lens' InputDescription (Maybe SourceSchema)
-idInputSchema = lens _idInputSchema (\s a -> s {_idInputSchema = a})
+-- | Describes the format of the data in the streaming source, and how each
+-- data element maps to corresponding columns in the in-application stream
+-- that is being created.
+inputDescription_inputSchema :: Lens.Lens' InputDescription (Prelude.Maybe SourceSchema)
+inputDescription_inputSchema = Lens.lens (\InputDescription' {inputSchema} -> inputSchema) (\s@InputDescription' {} a -> s {inputSchema = a} :: InputDescription)
 
--- | Point at which the application is configured to read from the input stream.
-idInputStartingPositionConfiguration :: Lens' InputDescription (Maybe InputStartingPositionConfiguration)
-idInputStartingPositionConfiguration = lens _idInputStartingPositionConfiguration (\s a -> s {_idInputStartingPositionConfiguration = a})
+-- | Point at which the application is configured to read from the input
+-- stream.
+inputDescription_inputStartingPositionConfiguration :: Lens.Lens' InputDescription (Prelude.Maybe InputStartingPositionConfiguration)
+inputDescription_inputStartingPositionConfiguration = Lens.lens (\InputDescription' {inputStartingPositionConfiguration} -> inputStartingPositionConfiguration) (\s@InputDescription' {} a -> s {inputStartingPositionConfiguration = a} :: InputDescription)
 
--- | The description of the preprocessor that executes on records in this input before the application's code is run.
-idInputProcessingConfigurationDescription :: Lens' InputDescription (Maybe InputProcessingConfigurationDescription)
-idInputProcessingConfigurationDescription = lens _idInputProcessingConfigurationDescription (\s a -> s {_idInputProcessingConfigurationDescription = a})
+-- | The description of the preprocessor that executes on records in this
+-- input before the application\'s code is run.
+inputDescription_inputProcessingConfigurationDescription :: Lens.Lens' InputDescription (Prelude.Maybe InputProcessingConfigurationDescription)
+inputDescription_inputProcessingConfigurationDescription = Lens.lens (\InputDescription' {inputProcessingConfigurationDescription} -> inputProcessingConfigurationDescription) (\s@InputDescription' {} a -> s {inputProcessingConfigurationDescription = a} :: InputDescription)
 
--- | Describes the configured parallelism (number of in-application streams mapped to the streaming source).
-idInputParallelism :: Lens' InputDescription (Maybe InputParallelism)
-idInputParallelism = lens _idInputParallelism (\s a -> s {_idInputParallelism = a})
+-- | Describes the configured parallelism (number of in-application streams
+-- mapped to the streaming source).
+inputDescription_inputParallelism :: Lens.Lens' InputDescription (Prelude.Maybe InputParallelism)
+inputDescription_inputParallelism = Lens.lens (\InputDescription' {inputParallelism} -> inputParallelism) (\s@InputDescription' {} a -> s {inputParallelism = a} :: InputDescription)
 
 -- | In-application name prefix.
-idNamePrefix :: Lens' InputDescription (Maybe Text)
-idNamePrefix = lens _idNamePrefix (\s a -> s {_idNamePrefix = a})
+inputDescription_namePrefix :: Lens.Lens' InputDescription (Prelude.Maybe Prelude.Text)
+inputDescription_namePrefix = Lens.lens (\InputDescription' {namePrefix} -> namePrefix) (\s@InputDescription' {} a -> s {namePrefix = a} :: InputDescription)
 
--- | If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
-idKinesisStreamsInputDescription :: Lens' InputDescription (Maybe KinesisStreamsInputDescription)
-idKinesisStreamsInputDescription = lens _idKinesisStreamsInputDescription (\s a -> s {_idKinesisStreamsInputDescription = a})
+-- | If an Amazon Kinesis stream is configured as streaming source, provides
+-- Amazon Kinesis stream\'s Amazon Resource Name (ARN) and an IAM role that
+-- enables Amazon Kinesis Analytics to access the stream on your behalf.
+inputDescription_kinesisStreamsInputDescription :: Lens.Lens' InputDescription (Prelude.Maybe KinesisStreamsInputDescription)
+inputDescription_kinesisStreamsInputDescription = Lens.lens (\InputDescription' {kinesisStreamsInputDescription} -> kinesisStreamsInputDescription) (\s@InputDescription' {} a -> s {kinesisStreamsInputDescription = a} :: InputDescription)
 
--- | If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the delivery stream's ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
-idKinesisFirehoseInputDescription :: Lens' InputDescription (Maybe KinesisFirehoseInputDescription)
-idKinesisFirehoseInputDescription = lens _idKinesisFirehoseInputDescription (\s a -> s {_idKinesisFirehoseInputDescription = a})
+-- | If an Amazon Kinesis Firehose delivery stream is configured as a
+-- streaming source, provides the delivery stream\'s ARN and an IAM role
+-- that enables Amazon Kinesis Analytics to access the stream on your
+-- behalf.
+inputDescription_kinesisFirehoseInputDescription :: Lens.Lens' InputDescription (Prelude.Maybe KinesisFirehoseInputDescription)
+inputDescription_kinesisFirehoseInputDescription = Lens.lens (\InputDescription' {kinesisFirehoseInputDescription} -> kinesisFirehoseInputDescription) (\s@InputDescription' {} a -> s {kinesisFirehoseInputDescription = a} :: InputDescription)
 
--- | Returns the in-application stream names that are mapped to the stream source.
-idInAppStreamNames :: Lens' InputDescription [Text]
-idInAppStreamNames = lens _idInAppStreamNames (\s a -> s {_idInAppStreamNames = a}) . _Default . _Coerce
+-- | Returns the in-application stream names that are mapped to the stream
+-- source.
+inputDescription_inAppStreamNames :: Lens.Lens' InputDescription (Prelude.Maybe [Prelude.Text])
+inputDescription_inAppStreamNames = Lens.lens (\InputDescription' {inAppStreamNames} -> inAppStreamNames) (\s@InputDescription' {} a -> s {inAppStreamNames = a} :: InputDescription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Input ID associated with the application input. This is the ID that Amazon Kinesis Analytics assigns to each input configuration you add to your application.
-idInputId :: Lens' InputDescription (Maybe Text)
-idInputId = lens _idInputId (\s a -> s {_idInputId = a})
+-- | Input ID associated with the application input. This is the ID that
+-- Amazon Kinesis Analytics assigns to each input configuration you add to
+-- your application.
+inputDescription_inputId :: Lens.Lens' InputDescription (Prelude.Maybe Prelude.Text)
+inputDescription_inputId = Lens.lens (\InputDescription' {inputId} -> inputId) (\s@InputDescription' {} a -> s {inputId = a} :: InputDescription)
 
-instance FromJSON InputDescription where
+instance Prelude.FromJSON InputDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InputDescription"
       ( \x ->
           InputDescription'
-            <$> (x .:? "InputSchema")
-            <*> (x .:? "InputStartingPositionConfiguration")
-            <*> (x .:? "InputProcessingConfigurationDescription")
-            <*> (x .:? "InputParallelism")
-            <*> (x .:? "NamePrefix")
-            <*> (x .:? "KinesisStreamsInputDescription")
-            <*> (x .:? "KinesisFirehoseInputDescription")
-            <*> (x .:? "InAppStreamNames" .!= mempty)
-            <*> (x .:? "InputId")
+            Prelude.<$> (x Prelude..:? "InputSchema")
+            Prelude.<*> (x Prelude..:? "InputStartingPositionConfiguration")
+            Prelude.<*> ( x
+                            Prelude..:? "InputProcessingConfigurationDescription"
+                        )
+            Prelude.<*> (x Prelude..:? "InputParallelism")
+            Prelude.<*> (x Prelude..:? "NamePrefix")
+            Prelude.<*> (x Prelude..:? "KinesisStreamsInputDescription")
+            Prelude.<*> (x Prelude..:? "KinesisFirehoseInputDescription")
+            Prelude.<*> ( x Prelude..:? "InAppStreamNames"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "InputId")
       )
 
-instance Hashable InputDescription
+instance Prelude.Hashable InputDescription
 
-instance NFData InputDescription
+instance Prelude.NFData InputDescription

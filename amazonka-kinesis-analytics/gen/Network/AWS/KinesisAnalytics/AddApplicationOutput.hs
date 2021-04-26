@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,232 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds an external destination to your Amazon Kinesis Analytics application.
+-- This documentation is for version 1 of the Amazon Kinesis Data Analytics
+-- API, which only supports SQL applications. Version 2 of the API supports
+-- SQL and Java applications. For more information about version 2, see
+-- </kinesisanalytics/latest/apiv2/Welcome.html Amazon Kinesis Data Analytics API V2 Documentation>.
 --
+-- Adds an external destination to your Amazon Kinesis Analytics
+-- application.
 --
--- If you want Amazon Kinesis Analytics to deliver data from an in-application stream within your application to an external destination (such as an Amazon Kinesis stream, an Amazon Kinesis Firehose delivery stream, or an AWS Lambda function), you add the relevant configuration to your application using this operation. You can configure one or more outputs for your application. Each output configuration maps an in-application stream and an external destination.
+-- If you want Amazon Kinesis Analytics to deliver data from an
+-- in-application stream within your application to an external destination
+-- (such as an Amazon Kinesis stream, an Amazon Kinesis Firehose delivery
+-- stream, or an AWS Lambda function), you add the relevant configuration
+-- to your application using this operation. You can configure one or more
+-- outputs for your application. Each output configuration maps an
+-- in-application stream and an external destination.
 --
--- You can use one of the output configurations to deliver data from your in-application error stream to an external destination so that you can analyze the errors. For more information, see <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Understanding Application Output (Destination)> .
+-- You can use one of the output configurations to deliver data from your
+-- in-application error stream to an external destination so that you can
+-- analyze the errors. For more information, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Understanding Application Output (Destination)>.
 --
--- Any configuration update, including adding a streaming source using this operation, results in a new version of the application. You can use the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation to find the current application version.
+-- Any configuration update, including adding a streaming source using this
+-- operation, results in a new version of the application. You can use the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation to find the current application version.
 --
--- For the limits on the number of application inputs and outputs you can configure, see <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/limits.html Limits> .
+-- For the limits on the number of application inputs and outputs you can
+-- configure, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/limits.html Limits>.
 --
--- This operation requires permissions to perform the @kinesisanalytics:AddApplicationOutput@ action.
+-- This operation requires permissions to perform the
+-- @kinesisanalytics:AddApplicationOutput@ action.
 module Network.AWS.KinesisAnalytics.AddApplicationOutput
   ( -- * Creating a Request
-    addApplicationOutput,
-    AddApplicationOutput,
+    AddApplicationOutput (..),
+    newAddApplicationOutput,
 
     -- * Request Lenses
-    aaoApplicationName,
-    aaoCurrentApplicationVersionId,
-    aaoOutput,
+    addApplicationOutput_applicationName,
+    addApplicationOutput_currentApplicationVersionId,
+    addApplicationOutput_output,
 
     -- * Destructuring the Response
-    addApplicationOutputResponse,
-    AddApplicationOutputResponse,
+    AddApplicationOutputResponse (..),
+    newAddApplicationOutputResponse,
 
     -- * Response Lenses
-    aaorrsResponseStatus,
+    addApplicationOutputResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'addApplicationOutput' smart constructor.
+-- /See:/ 'newAddApplicationOutput' smart constructor.
 data AddApplicationOutput = AddApplicationOutput'
-  { _aaoApplicationName ::
-      !Text,
-    _aaoCurrentApplicationVersionId ::
-      !Nat,
-    _aaoOutput :: !Output
+  { -- | Name of the application to which you want to add the output
+    -- configuration.
+    applicationName :: Prelude.Text,
+    -- | Version of the application to which you want to add the output
+    -- configuration. You can use the
+    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+    -- operation to get the current application version. If the version
+    -- specified is not the current version, the
+    -- @ConcurrentModificationException@ is returned.
+    currentApplicationVersionId :: Prelude.Nat,
+    -- | An array of objects, each describing one output configuration. In the
+    -- output configuration, you specify the name of an in-application stream,
+    -- a destination (that is, an Amazon Kinesis stream, an Amazon Kinesis
+    -- Firehose delivery stream, or an AWS Lambda function), and record the
+    -- formation to use when writing to the destination.
+    output :: Output
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddApplicationOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddApplicationOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaoApplicationName' - Name of the application to which you want to add the output configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aaoCurrentApplicationVersionId' - Version of the application to which you want to add the output configuration. You can use the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation to get the current application version. If the version specified is not the current version, the @ConcurrentModificationException@ is returned.
+-- 'applicationName', 'addApplicationOutput_applicationName' - Name of the application to which you want to add the output
+-- configuration.
 --
--- * 'aaoOutput' - An array of objects, each describing one output configuration. In the output configuration, you specify the name of an in-application stream, a destination (that is, an Amazon Kinesis stream, an Amazon Kinesis Firehose delivery stream, or an AWS Lambda function), and record the formation to use when writing to the destination.
-addApplicationOutput ::
-  -- | 'aaoApplicationName'
-  Text ->
-  -- | 'aaoCurrentApplicationVersionId'
-  Natural ->
-  -- | 'aaoOutput'
+-- 'currentApplicationVersionId', 'addApplicationOutput_currentApplicationVersionId' - Version of the application to which you want to add the output
+-- configuration. You can use the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation to get the current application version. If the version
+-- specified is not the current version, the
+-- @ConcurrentModificationException@ is returned.
+--
+-- 'output', 'addApplicationOutput_output' - An array of objects, each describing one output configuration. In the
+-- output configuration, you specify the name of an in-application stream,
+-- a destination (that is, an Amazon Kinesis stream, an Amazon Kinesis
+-- Firehose delivery stream, or an AWS Lambda function), and record the
+-- formation to use when writing to the destination.
+newAddApplicationOutput ::
+  -- | 'applicationName'
+  Prelude.Text ->
+  -- | 'currentApplicationVersionId'
+  Prelude.Natural ->
+  -- | 'output'
   Output ->
   AddApplicationOutput
-addApplicationOutput
+newAddApplicationOutput
   pApplicationName_
   pCurrentApplicationVersionId_
   pOutput_ =
     AddApplicationOutput'
-      { _aaoApplicationName =
+      { applicationName =
           pApplicationName_,
-        _aaoCurrentApplicationVersionId =
-          _Nat # pCurrentApplicationVersionId_,
-        _aaoOutput = pOutput_
+        currentApplicationVersionId =
+          Prelude._Nat Lens.# pCurrentApplicationVersionId_,
+        output = pOutput_
       }
 
--- | Name of the application to which you want to add the output configuration.
-aaoApplicationName :: Lens' AddApplicationOutput Text
-aaoApplicationName = lens _aaoApplicationName (\s a -> s {_aaoApplicationName = a})
+-- | Name of the application to which you want to add the output
+-- configuration.
+addApplicationOutput_applicationName :: Lens.Lens' AddApplicationOutput Prelude.Text
+addApplicationOutput_applicationName = Lens.lens (\AddApplicationOutput' {applicationName} -> applicationName) (\s@AddApplicationOutput' {} a -> s {applicationName = a} :: AddApplicationOutput)
 
--- | Version of the application to which you want to add the output configuration. You can use the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation to get the current application version. If the version specified is not the current version, the @ConcurrentModificationException@ is returned.
-aaoCurrentApplicationVersionId :: Lens' AddApplicationOutput Natural
-aaoCurrentApplicationVersionId = lens _aaoCurrentApplicationVersionId (\s a -> s {_aaoCurrentApplicationVersionId = a}) . _Nat
+-- | Version of the application to which you want to add the output
+-- configuration. You can use the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation to get the current application version. If the version
+-- specified is not the current version, the
+-- @ConcurrentModificationException@ is returned.
+addApplicationOutput_currentApplicationVersionId :: Lens.Lens' AddApplicationOutput Prelude.Natural
+addApplicationOutput_currentApplicationVersionId = Lens.lens (\AddApplicationOutput' {currentApplicationVersionId} -> currentApplicationVersionId) (\s@AddApplicationOutput' {} a -> s {currentApplicationVersionId = a} :: AddApplicationOutput) Prelude.. Prelude._Nat
 
--- | An array of objects, each describing one output configuration. In the output configuration, you specify the name of an in-application stream, a destination (that is, an Amazon Kinesis stream, an Amazon Kinesis Firehose delivery stream, or an AWS Lambda function), and record the formation to use when writing to the destination.
-aaoOutput :: Lens' AddApplicationOutput Output
-aaoOutput = lens _aaoOutput (\s a -> s {_aaoOutput = a})
+-- | An array of objects, each describing one output configuration. In the
+-- output configuration, you specify the name of an in-application stream,
+-- a destination (that is, an Amazon Kinesis stream, an Amazon Kinesis
+-- Firehose delivery stream, or an AWS Lambda function), and record the
+-- formation to use when writing to the destination.
+addApplicationOutput_output :: Lens.Lens' AddApplicationOutput Output
+addApplicationOutput_output = Lens.lens (\AddApplicationOutput' {output} -> output) (\s@AddApplicationOutput' {} a -> s {output = a} :: AddApplicationOutput)
 
-instance AWSRequest AddApplicationOutput where
+instance Prelude.AWSRequest AddApplicationOutput where
   type
     Rs AddApplicationOutput =
       AddApplicationOutputResponse
-  request = postJSON kinesisAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AddApplicationOutputResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddApplicationOutput
+instance Prelude.Hashable AddApplicationOutput
 
-instance NFData AddApplicationOutput
+instance Prelude.NFData AddApplicationOutput
 
-instance ToHeaders AddApplicationOutput where
+instance Prelude.ToHeaders AddApplicationOutput where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "KinesisAnalytics_20150814.AddApplicationOutput" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "KinesisAnalytics_20150814.AddApplicationOutput" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddApplicationOutput where
+instance Prelude.ToJSON AddApplicationOutput where
   toJSON AddApplicationOutput' {..} =
-    object
-      ( catMaybes
-          [ Just ("ApplicationName" .= _aaoApplicationName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ApplicationName" Prelude..= applicationName),
+            Prelude.Just
               ( "CurrentApplicationVersionId"
-                  .= _aaoCurrentApplicationVersionId
+                  Prelude..= currentApplicationVersionId
               ),
-            Just ("Output" .= _aaoOutput)
+            Prelude.Just ("Output" Prelude..= output)
           ]
       )
 
-instance ToPath AddApplicationOutput where
-  toPath = const "/"
+instance Prelude.ToPath AddApplicationOutput where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddApplicationOutput where
-  toQuery = const mempty
+instance Prelude.ToQuery AddApplicationOutput where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'addApplicationOutputResponse' smart constructor.
-newtype AddApplicationOutputResponse = AddApplicationOutputResponse'
-  { _aaorrsResponseStatus ::
-      Int
+-- /See:/ 'newAddApplicationOutputResponse' smart constructor.
+data AddApplicationOutputResponse = AddApplicationOutputResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddApplicationOutputResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddApplicationOutputResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaorrsResponseStatus' - -- | The response status code.
-addApplicationOutputResponse ::
-  -- | 'aaorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addApplicationOutputResponse_httpStatus' - The response's http status code.
+newAddApplicationOutputResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddApplicationOutputResponse
-addApplicationOutputResponse pResponseStatus_ =
+newAddApplicationOutputResponse pHttpStatus_ =
   AddApplicationOutputResponse'
-    { _aaorrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-aaorrsResponseStatus :: Lens' AddApplicationOutputResponse Int
-aaorrsResponseStatus = lens _aaorrsResponseStatus (\s a -> s {_aaorrsResponseStatus = a})
+-- | The response's http status code.
+addApplicationOutputResponse_httpStatus :: Lens.Lens' AddApplicationOutputResponse Prelude.Int
+addApplicationOutputResponse_httpStatus = Lens.lens (\AddApplicationOutputResponse' {httpStatus} -> httpStatus) (\s@AddApplicationOutputResponse' {} a -> s {httpStatus = a} :: AddApplicationOutputResponse)
 
-instance NFData AddApplicationOutputResponse
+instance Prelude.NFData AddApplicationOutputResponse

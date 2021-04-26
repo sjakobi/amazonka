@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +21,90 @@ module Network.AWS.KinesisAnalytics.Types.SourceSchema where
 
 import Network.AWS.KinesisAnalytics.Types.RecordColumn
 import Network.AWS.KinesisAnalytics.Types.RecordFormat
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the format of the data in the streaming source, and how each data element maps to corresponding columns created in the in-application stream.
+-- | Describes the format of the data in the streaming source, and how each
+-- data element maps to corresponding columns created in the in-application
+-- stream.
 --
---
---
--- /See:/ 'sourceSchema' smart constructor.
+-- /See:/ 'newSourceSchema' smart constructor.
 data SourceSchema = SourceSchema'
-  { _ssRecordEncoding ::
-      !(Maybe Text),
-    _ssRecordFormat :: !RecordFormat,
-    _ssRecordColumns :: !(List1 RecordColumn)
+  { -- | Specifies the encoding of the records in the streaming source. For
+    -- example, UTF-8.
+    recordEncoding :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the format of the records on the streaming source.
+    recordFormat :: RecordFormat,
+    -- | A list of @RecordColumn@ objects.
+    recordColumns :: Prelude.List1 RecordColumn
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceSchema' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceSchema' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssRecordEncoding' - Specifies the encoding of the records in the streaming source. For example, UTF-8.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssRecordFormat' - Specifies the format of the records on the streaming source.
+-- 'recordEncoding', 'sourceSchema_recordEncoding' - Specifies the encoding of the records in the streaming source. For
+-- example, UTF-8.
 --
--- * 'ssRecordColumns' - A list of @RecordColumn@ objects.
-sourceSchema ::
-  -- | 'ssRecordFormat'
+-- 'recordFormat', 'sourceSchema_recordFormat' - Specifies the format of the records on the streaming source.
+--
+-- 'recordColumns', 'sourceSchema_recordColumns' - A list of @RecordColumn@ objects.
+newSourceSchema ::
+  -- | 'recordFormat'
   RecordFormat ->
-  -- | 'ssRecordColumns'
-  NonEmpty RecordColumn ->
+  -- | 'recordColumns'
+  Prelude.NonEmpty RecordColumn ->
   SourceSchema
-sourceSchema pRecordFormat_ pRecordColumns_ =
+newSourceSchema pRecordFormat_ pRecordColumns_ =
   SourceSchema'
-    { _ssRecordEncoding = Nothing,
-      _ssRecordFormat = pRecordFormat_,
-      _ssRecordColumns = _List1 # pRecordColumns_
+    { recordEncoding = Prelude.Nothing,
+      recordFormat = pRecordFormat_,
+      recordColumns =
+        Prelude._List1 Lens.# pRecordColumns_
     }
 
--- | Specifies the encoding of the records in the streaming source. For example, UTF-8.
-ssRecordEncoding :: Lens' SourceSchema (Maybe Text)
-ssRecordEncoding = lens _ssRecordEncoding (\s a -> s {_ssRecordEncoding = a})
+-- | Specifies the encoding of the records in the streaming source. For
+-- example, UTF-8.
+sourceSchema_recordEncoding :: Lens.Lens' SourceSchema (Prelude.Maybe Prelude.Text)
+sourceSchema_recordEncoding = Lens.lens (\SourceSchema' {recordEncoding} -> recordEncoding) (\s@SourceSchema' {} a -> s {recordEncoding = a} :: SourceSchema)
 
 -- | Specifies the format of the records on the streaming source.
-ssRecordFormat :: Lens' SourceSchema RecordFormat
-ssRecordFormat = lens _ssRecordFormat (\s a -> s {_ssRecordFormat = a})
+sourceSchema_recordFormat :: Lens.Lens' SourceSchema RecordFormat
+sourceSchema_recordFormat = Lens.lens (\SourceSchema' {recordFormat} -> recordFormat) (\s@SourceSchema' {} a -> s {recordFormat = a} :: SourceSchema)
 
 -- | A list of @RecordColumn@ objects.
-ssRecordColumns :: Lens' SourceSchema (NonEmpty RecordColumn)
-ssRecordColumns = lens _ssRecordColumns (\s a -> s {_ssRecordColumns = a}) . _List1
+sourceSchema_recordColumns :: Lens.Lens' SourceSchema (Prelude.NonEmpty RecordColumn)
+sourceSchema_recordColumns = Lens.lens (\SourceSchema' {recordColumns} -> recordColumns) (\s@SourceSchema' {} a -> s {recordColumns = a} :: SourceSchema) Prelude.. Prelude._List1
 
-instance FromJSON SourceSchema where
+instance Prelude.FromJSON SourceSchema where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SourceSchema"
       ( \x ->
           SourceSchema'
-            <$> (x .:? "RecordEncoding")
-            <*> (x .: "RecordFormat")
-            <*> (x .: "RecordColumns")
+            Prelude.<$> (x Prelude..:? "RecordEncoding")
+            Prelude.<*> (x Prelude..: "RecordFormat")
+            Prelude.<*> (x Prelude..: "RecordColumns")
       )
 
-instance Hashable SourceSchema
+instance Prelude.Hashable SourceSchema
 
-instance NFData SourceSchema
+instance Prelude.NFData SourceSchema
 
-instance ToJSON SourceSchema where
+instance Prelude.ToJSON SourceSchema where
   toJSON SourceSchema' {..} =
-    object
-      ( catMaybes
-          [ ("RecordEncoding" .=) <$> _ssRecordEncoding,
-            Just ("RecordFormat" .= _ssRecordFormat),
-            Just ("RecordColumns" .= _ssRecordColumns)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RecordEncoding" Prelude..=)
+              Prelude.<$> recordEncoding,
+            Prelude.Just
+              ("RecordFormat" Prelude..= recordFormat),
+            Prelude.Just
+              ("RecordColumns" Prelude..= recordColumns)
           ]
       )

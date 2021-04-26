@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.KinesisAnalytics.Types.RecordFormatType
   ( RecordFormatType
       ( ..,
-        CSV,
-        JSON
+        RecordFormatTypeCSV,
+        RecordFormatTypeJSON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecordFormatType = RecordFormatType' (CI Text)
+newtype RecordFormatType = RecordFormatType'
+  { fromRecordFormatType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSV :: RecordFormatType
-pattern CSV = RecordFormatType' "CSV"
+pattern RecordFormatTypeCSV :: RecordFormatType
+pattern RecordFormatTypeCSV = RecordFormatType' "CSV"
 
-pattern JSON :: RecordFormatType
-pattern JSON = RecordFormatType' "JSON"
+pattern RecordFormatTypeJSON :: RecordFormatType
+pattern RecordFormatTypeJSON = RecordFormatType' "JSON"
 
 {-# COMPLETE
-  CSV,
-  JSON,
+  RecordFormatTypeCSV,
+  RecordFormatTypeJSON,
   RecordFormatType'
   #-}
 
-instance FromText RecordFormatType where
-  parser = (RecordFormatType' . mk) <$> takeText
+instance Prelude.FromText RecordFormatType where
+  parser = RecordFormatType' Prelude.<$> Prelude.takeText
 
-instance ToText RecordFormatType where
-  toText (RecordFormatType' ci) = original ci
+instance Prelude.ToText RecordFormatType where
+  toText (RecordFormatType' x) = x
 
-instance Hashable RecordFormatType
+instance Prelude.Hashable RecordFormatType
 
-instance NFData RecordFormatType
+instance Prelude.NFData RecordFormatType
 
-instance ToByteString RecordFormatType
+instance Prelude.ToByteString RecordFormatType
 
-instance ToQuery RecordFormatType
+instance Prelude.ToQuery RecordFormatType
 
-instance ToHeader RecordFormatType
+instance Prelude.ToHeader RecordFormatType
 
-instance ToJSON RecordFormatType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RecordFormatType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RecordFormatType where
-  parseJSON = parseJSONText "RecordFormatType"
+instance Prelude.FromJSON RecordFormatType where
+  parseJSON = Prelude.parseJSONText "RecordFormatType"

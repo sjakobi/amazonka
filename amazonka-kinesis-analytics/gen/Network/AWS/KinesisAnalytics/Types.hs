@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisAnalytics.Types
   ( -- * Service Configuration
-    kinesisAnalytics,
+    defaultService,
 
     -- * Errors
     _InvalidApplicationConfigurationException,
@@ -38,368 +41,215 @@ module Network.AWS.KinesisAnalytics.Types
 
     -- * ApplicationDetail
     ApplicationDetail (..),
-    applicationDetail,
-    adApplicationCode,
-    adApplicationDescription,
-    adCloudWatchLoggingOptionDescriptions,
-    adCreateTimestamp,
-    adOutputDescriptions,
-    adReferenceDataSourceDescriptions,
-    adInputDescriptions,
-    adLastUpdateTimestamp,
-    adApplicationName,
-    adApplicationARN,
-    adApplicationStatus,
-    adApplicationVersionId,
+    newApplicationDetail,
 
     -- * ApplicationSummary
     ApplicationSummary (..),
-    applicationSummary,
-    asApplicationName,
-    asApplicationARN,
-    asApplicationStatus,
+    newApplicationSummary,
 
     -- * ApplicationUpdate
     ApplicationUpdate (..),
-    applicationUpdate,
-    auReferenceDataSourceUpdates,
-    auInputUpdates,
-    auCloudWatchLoggingOptionUpdates,
-    auApplicationCodeUpdate,
-    auOutputUpdates,
+    newApplicationUpdate,
 
     -- * CSVMappingParameters
     CSVMappingParameters (..),
-    csvMappingParameters,
-    cmpRecordRowDelimiter,
-    cmpRecordColumnDelimiter,
+    newCSVMappingParameters,
 
     -- * CloudWatchLoggingOption
     CloudWatchLoggingOption (..),
-    cloudWatchLoggingOption,
-    cwloLogStreamARN,
-    cwloRoleARN,
+    newCloudWatchLoggingOption,
 
     -- * CloudWatchLoggingOptionDescription
     CloudWatchLoggingOptionDescription (..),
-    cloudWatchLoggingOptionDescription,
-    cwlodCloudWatchLoggingOptionId,
-    cwlodLogStreamARN,
-    cwlodRoleARN,
+    newCloudWatchLoggingOptionDescription,
 
     -- * CloudWatchLoggingOptionUpdate
     CloudWatchLoggingOptionUpdate (..),
-    cloudWatchLoggingOptionUpdate,
-    cwlouLogStreamARNUpdate,
-    cwlouRoleARNUpdate,
-    cwlouCloudWatchLoggingOptionId,
+    newCloudWatchLoggingOptionUpdate,
 
     -- * DestinationSchema
     DestinationSchema (..),
-    destinationSchema,
-    dsRecordFormatType,
+    newDestinationSchema,
 
     -- * Input
     Input (..),
-    input,
-    iInputParallelism,
-    iKinesisFirehoseInput,
-    iKinesisStreamsInput,
-    iInputProcessingConfiguration,
-    iNamePrefix,
-    iInputSchema,
+    newInput,
 
     -- * InputConfiguration
     InputConfiguration (..),
-    inputConfiguration,
-    icId,
-    icInputStartingPositionConfiguration,
+    newInputConfiguration,
 
     -- * InputDescription
     InputDescription (..),
-    inputDescription,
-    idInputSchema,
-    idInputStartingPositionConfiguration,
-    idInputProcessingConfigurationDescription,
-    idInputParallelism,
-    idNamePrefix,
-    idKinesisStreamsInputDescription,
-    idKinesisFirehoseInputDescription,
-    idInAppStreamNames,
-    idInputId,
+    newInputDescription,
 
     -- * InputLambdaProcessor
     InputLambdaProcessor (..),
-    inputLambdaProcessor,
-    ilpResourceARN,
-    ilpRoleARN,
+    newInputLambdaProcessor,
 
     -- * InputLambdaProcessorDescription
     InputLambdaProcessorDescription (..),
-    inputLambdaProcessorDescription,
-    ilpdResourceARN,
-    ilpdRoleARN,
+    newInputLambdaProcessorDescription,
 
     -- * InputLambdaProcessorUpdate
     InputLambdaProcessorUpdate (..),
-    inputLambdaProcessorUpdate,
-    ilpuResourceARNUpdate,
-    ilpuRoleARNUpdate,
+    newInputLambdaProcessorUpdate,
 
     -- * InputParallelism
     InputParallelism (..),
-    inputParallelism,
-    ipCount,
+    newInputParallelism,
 
     -- * InputParallelismUpdate
     InputParallelismUpdate (..),
-    inputParallelismUpdate,
-    ipuCountUpdate,
+    newInputParallelismUpdate,
 
     -- * InputProcessingConfiguration
     InputProcessingConfiguration (..),
-    inputProcessingConfiguration,
-    ipcInputLambdaProcessor,
+    newInputProcessingConfiguration,
 
     -- * InputProcessingConfigurationDescription
     InputProcessingConfigurationDescription (..),
-    inputProcessingConfigurationDescription,
-    ipcdInputLambdaProcessorDescription,
+    newInputProcessingConfigurationDescription,
 
     -- * InputProcessingConfigurationUpdate
     InputProcessingConfigurationUpdate (..),
-    inputProcessingConfigurationUpdate,
-    ipcuInputLambdaProcessorUpdate,
+    newInputProcessingConfigurationUpdate,
 
     -- * InputSchemaUpdate
     InputSchemaUpdate (..),
-    inputSchemaUpdate,
-    isuRecordFormatUpdate,
-    isuRecordColumnUpdates,
-    isuRecordEncodingUpdate,
+    newInputSchemaUpdate,
 
     -- * InputStartingPositionConfiguration
     InputStartingPositionConfiguration (..),
-    inputStartingPositionConfiguration,
-    ispcInputStartingPosition,
+    newInputStartingPositionConfiguration,
 
     -- * InputUpdate
     InputUpdate (..),
-    inputUpdate,
-    iuNamePrefixUpdate,
-    iuKinesisFirehoseInputUpdate,
-    iuKinesisStreamsInputUpdate,
-    iuInputProcessingConfigurationUpdate,
-    iuInputSchemaUpdate,
-    iuInputParallelismUpdate,
-    iuInputId,
+    newInputUpdate,
 
     -- * JSONMappingParameters
     JSONMappingParameters (..),
-    jsonMappingParameters,
-    jmpRecordRowPath,
+    newJSONMappingParameters,
 
     -- * KinesisFirehoseInput
     KinesisFirehoseInput (..),
-    kinesisFirehoseInput,
-    kfiResourceARN,
-    kfiRoleARN,
+    newKinesisFirehoseInput,
 
     -- * KinesisFirehoseInputDescription
     KinesisFirehoseInputDescription (..),
-    kinesisFirehoseInputDescription,
-    kfidResourceARN,
-    kfidRoleARN,
+    newKinesisFirehoseInputDescription,
 
     -- * KinesisFirehoseInputUpdate
     KinesisFirehoseInputUpdate (..),
-    kinesisFirehoseInputUpdate,
-    kfiuResourceARNUpdate,
-    kfiuRoleARNUpdate,
+    newKinesisFirehoseInputUpdate,
 
     -- * KinesisFirehoseOutput
     KinesisFirehoseOutput (..),
-    kinesisFirehoseOutput,
-    kfoResourceARN,
-    kfoRoleARN,
+    newKinesisFirehoseOutput,
 
     -- * KinesisFirehoseOutputDescription
     KinesisFirehoseOutputDescription (..),
-    kinesisFirehoseOutputDescription,
-    kfodResourceARN,
-    kfodRoleARN,
+    newKinesisFirehoseOutputDescription,
 
     -- * KinesisFirehoseOutputUpdate
     KinesisFirehoseOutputUpdate (..),
-    kinesisFirehoseOutputUpdate,
-    kfouResourceARNUpdate,
-    kfouRoleARNUpdate,
+    newKinesisFirehoseOutputUpdate,
 
     -- * KinesisStreamsInput
     KinesisStreamsInput (..),
-    kinesisStreamsInput,
-    ksiResourceARN,
-    ksiRoleARN,
+    newKinesisStreamsInput,
 
     -- * KinesisStreamsInputDescription
     KinesisStreamsInputDescription (..),
-    kinesisStreamsInputDescription,
-    ksidResourceARN,
-    ksidRoleARN,
+    newKinesisStreamsInputDescription,
 
     -- * KinesisStreamsInputUpdate
     KinesisStreamsInputUpdate (..),
-    kinesisStreamsInputUpdate,
-    ksiuResourceARNUpdate,
-    ksiuRoleARNUpdate,
+    newKinesisStreamsInputUpdate,
 
     -- * KinesisStreamsOutput
     KinesisStreamsOutput (..),
-    kinesisStreamsOutput,
-    ksoResourceARN,
-    ksoRoleARN,
+    newKinesisStreamsOutput,
 
     -- * KinesisStreamsOutputDescription
     KinesisStreamsOutputDescription (..),
-    kinesisStreamsOutputDescription,
-    ksodResourceARN,
-    ksodRoleARN,
+    newKinesisStreamsOutputDescription,
 
     -- * KinesisStreamsOutputUpdate
     KinesisStreamsOutputUpdate (..),
-    kinesisStreamsOutputUpdate,
-    ksouResourceARNUpdate,
-    ksouRoleARNUpdate,
+    newKinesisStreamsOutputUpdate,
 
     -- * LambdaOutput
     LambdaOutput (..),
-    lambdaOutput,
-    loResourceARN,
-    loRoleARN,
+    newLambdaOutput,
 
     -- * LambdaOutputDescription
     LambdaOutputDescription (..),
-    lambdaOutputDescription,
-    lodResourceARN,
-    lodRoleARN,
+    newLambdaOutputDescription,
 
     -- * LambdaOutputUpdate
     LambdaOutputUpdate (..),
-    lambdaOutputUpdate,
-    louResourceARNUpdate,
-    louRoleARNUpdate,
+    newLambdaOutputUpdate,
 
     -- * MappingParameters
     MappingParameters (..),
-    mappingParameters,
-    mpJSONMappingParameters,
-    mpCSVMappingParameters,
+    newMappingParameters,
 
     -- * Output
     Output (..),
-    output,
-    oLambdaOutput,
-    oKinesisFirehoseOutput,
-    oKinesisStreamsOutput,
-    oName,
-    oDestinationSchema,
+    newOutput,
 
     -- * OutputDescription
     OutputDescription (..),
-    outputDescription,
-    odKinesisStreamsOutputDescription,
-    odKinesisFirehoseOutputDescription,
-    odDestinationSchema,
-    odOutputId,
-    odName,
-    odLambdaOutputDescription,
+    newOutputDescription,
 
     -- * OutputUpdate
     OutputUpdate (..),
-    outputUpdate,
-    ouKinesisFirehoseOutputUpdate,
-    ouDestinationSchemaUpdate,
-    ouKinesisStreamsOutputUpdate,
-    ouNameUpdate,
-    ouLambdaOutputUpdate,
-    ouOutputId,
+    newOutputUpdate,
 
     -- * RecordColumn
     RecordColumn (..),
-    recordColumn,
-    rcMapping,
-    rcName,
-    rcSqlType,
+    newRecordColumn,
 
     -- * RecordFormat
     RecordFormat (..),
-    recordFormat,
-    rfMappingParameters,
-    rfRecordFormatType,
+    newRecordFormat,
 
     -- * ReferenceDataSource
     ReferenceDataSource (..),
-    referenceDataSource,
-    rdsS3ReferenceDataSource,
-    rdsTableName,
-    rdsReferenceSchema,
+    newReferenceDataSource,
 
     -- * ReferenceDataSourceDescription
     ReferenceDataSourceDescription (..),
-    referenceDataSourceDescription,
-    rdsdReferenceSchema,
-    rdsdReferenceId,
-    rdsdTableName,
-    rdsdS3ReferenceDataSourceDescription,
+    newReferenceDataSourceDescription,
 
     -- * ReferenceDataSourceUpdate
     ReferenceDataSourceUpdate (..),
-    referenceDataSourceUpdate,
-    rdsuS3ReferenceDataSourceUpdate,
-    rdsuReferenceSchemaUpdate,
-    rdsuTableNameUpdate,
-    rdsuReferenceId,
+    newReferenceDataSourceUpdate,
 
     -- * S3Configuration
     S3Configuration (..),
-    s3Configuration,
-    scRoleARN,
-    scBucketARN,
-    scFileKey,
+    newS3Configuration,
 
     -- * S3ReferenceDataSource
     S3ReferenceDataSource (..),
-    s3ReferenceDataSource,
-    srdsBucketARN,
-    srdsFileKey,
-    srdsReferenceRoleARN,
+    newS3ReferenceDataSource,
 
     -- * S3ReferenceDataSourceDescription
     S3ReferenceDataSourceDescription (..),
-    s3ReferenceDataSourceDescription,
-    srdsdBucketARN,
-    srdsdFileKey,
-    srdsdReferenceRoleARN,
+    newS3ReferenceDataSourceDescription,
 
     -- * S3ReferenceDataSourceUpdate
     S3ReferenceDataSourceUpdate (..),
-    s3ReferenceDataSourceUpdate,
-    srdsuReferenceRoleARNUpdate,
-    srdsuFileKeyUpdate,
-    srdsuBucketARNUpdate,
+    newS3ReferenceDataSourceUpdate,
 
     -- * SourceSchema
     SourceSchema (..),
-    sourceSchema,
-    ssRecordEncoding,
-    ssRecordFormat,
-    ssRecordColumns,
+    newSourceSchema,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagValue,
-    tagKey,
+    newTag,
   )
 where
 
@@ -459,141 +309,172 @@ import Network.AWS.KinesisAnalytics.Types.S3ReferenceDataSourceDescription
 import Network.AWS.KinesisAnalytics.Types.S3ReferenceDataSourceUpdate
 import Network.AWS.KinesisAnalytics.Types.SourceSchema
 import Network.AWS.KinesisAnalytics.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2015-08-14@ of the Amazon Kinesis Analytics SDK configuration.
-kinesisAnalytics :: Service
-kinesisAnalytics =
-  Service
-    { _svcAbbrev = "KinesisAnalytics",
-      _svcSigner = v4,
-      _svcPrefix = "kinesisanalytics",
-      _svcVersion = "2015-08-14",
-      _svcEndpoint = defaultEndpoint kinesisAnalytics,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "KinesisAnalytics",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "KinesisAnalytics",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "kinesisanalytics",
+      Prelude._svcVersion = "2015-08-14",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "KinesisAnalytics",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | User-provided application configuration is not valid.
-_InvalidApplicationConfigurationException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidApplicationConfigurationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidApplicationConfigurationException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "InvalidApplicationConfigurationException"
 
--- | Discovery failed to get a record from the streaming source because of the Amazon Kinesis Streams ProvisionedThroughputExceededException. For more information, see <https://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetRecords.html GetRecords> in the Amazon Kinesis Streams API Reference.
-_ResourceProvisionedThroughputExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Discovery failed to get a record from the streaming source because of
+-- the Amazon Kinesis Streams ProvisionedThroughputExceededException. For
+-- more information, see
+-- <https://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetRecords.html GetRecords>
+-- in the Amazon Kinesis Streams API Reference.
+_ResourceProvisionedThroughputExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceProvisionedThroughputExceededException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "ResourceProvisionedThroughputExceededException"
 
--- | Application created with too many tags, or too many tags added to an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50.
-_TooManyTagsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Application created with too many tags, or too many tags added to an
+-- application. Note that the maximum number of application tags includes
+-- system tags. The maximum number of user-defined application tags is 50.
+_TooManyTagsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyTagsException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "TooManyTagsException"
 
--- | Data format is not valid. Amazon Kinesis Analytics is not able to detect schema for the given streaming source.
-_UnableToDetectSchemaException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Data format is not valid. Amazon Kinesis Analytics is not able to detect
+-- schema for the given streaming source.
+_UnableToDetectSchemaException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnableToDetectSchemaException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "UnableToDetectSchemaException"
 
 -- | The service is unavailable. Back off and retry the operation.
-_ServiceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableException"
 
--- | Exception thrown as a result of concurrent modification to an application. For example, two individuals attempting to edit the same application at the same time.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception thrown as a result of concurrent modification to an
+-- application. For example, two individuals attempting to edit the same
+-- application at the same time.
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
 
--- | The request was rejected because a specified parameter is not supported or a specified resource is not valid for this operation.
-_UnsupportedOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request was rejected because a specified parameter is not supported
+-- or a specified resource is not valid for this operation.
+_UnsupportedOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedOperationException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedOperationException"
 
 -- | Application is not available for this operation.
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "ResourceInUseException"
 
 -- | Exceeded the number of applications allowed.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | User-provided application code (query) is invalid. This can be a simple syntax error.
-_CodeValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | User-provided application code (query) is invalid. This can be a simple
+-- syntax error.
+_CodeValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CodeValidationException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "CodeValidationException"
 
--- | Specified application can't be found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Specified application can\'t be found.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
 -- | Specified input parameter value is invalid.
-_InvalidArgumentException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidArgumentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidArgumentException =
-  _MatchServiceError
-    kinesisAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "InvalidArgumentException"

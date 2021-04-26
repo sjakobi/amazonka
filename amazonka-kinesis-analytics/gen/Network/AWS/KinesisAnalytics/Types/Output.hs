@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,92 +23,110 @@ import Network.AWS.KinesisAnalytics.Types.DestinationSchema
 import Network.AWS.KinesisAnalytics.Types.KinesisFirehoseOutput
 import Network.AWS.KinesisAnalytics.Types.KinesisStreamsOutput
 import Network.AWS.KinesisAnalytics.Types.LambdaOutput
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes application output configuration in which you identify an in-application stream and a destination where you want the in-application stream data to be written. The destination can be an Amazon Kinesis stream or an Amazon Kinesis Firehose delivery stream.
+-- | Describes application output configuration in which you identify an
+-- in-application stream and a destination where you want the
+-- in-application stream data to be written. The destination can be an
+-- Amazon Kinesis stream or an Amazon Kinesis Firehose delivery stream.
 --
+-- For limits on how many destinations an application can write and other
+-- limitations, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/limits.html Limits>.
 --
---
---
--- For limits on how many destinations an application can write and other limitations, see <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/limits.html Limits> .
---
---
--- /See:/ 'output' smart constructor.
+-- /See:/ 'newOutput' smart constructor.
 data Output = Output'
-  { _oLambdaOutput ::
-      !(Maybe LambdaOutput),
-    _oKinesisFirehoseOutput ::
-      !(Maybe KinesisFirehoseOutput),
-    _oKinesisStreamsOutput ::
-      !(Maybe KinesisStreamsOutput),
-    _oName :: !Text,
-    _oDestinationSchema :: !DestinationSchema
+  { -- | Identifies an AWS Lambda function as the destination.
+    lambdaOutput :: Prelude.Maybe LambdaOutput,
+    -- | Identifies an Amazon Kinesis Firehose delivery stream as the
+    -- destination.
+    kinesisFirehoseOutput :: Prelude.Maybe KinesisFirehoseOutput,
+    -- | Identifies an Amazon Kinesis stream as the destination.
+    kinesisStreamsOutput :: Prelude.Maybe KinesisStreamsOutput,
+    -- | Name of the in-application stream.
+    name :: Prelude.Text,
+    -- | Describes the data format when records are written to the destination.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output>.
+    destinationSchema :: DestinationSchema
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Output' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Output' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oLambdaOutput' - Identifies an AWS Lambda function as the destination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oKinesisFirehoseOutput' - Identifies an Amazon Kinesis Firehose delivery stream as the destination.
+-- 'lambdaOutput', 'output_lambdaOutput' - Identifies an AWS Lambda function as the destination.
 --
--- * 'oKinesisStreamsOutput' - Identifies an Amazon Kinesis stream as the destination.
+-- 'kinesisFirehoseOutput', 'output_kinesisFirehoseOutput' - Identifies an Amazon Kinesis Firehose delivery stream as the
+-- destination.
 --
--- * 'oName' - Name of the in-application stream.
+-- 'kinesisStreamsOutput', 'output_kinesisStreamsOutput' - Identifies an Amazon Kinesis stream as the destination.
 --
--- * 'oDestinationSchema' - Describes the data format when records are written to the destination. For more information, see <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output> .
-output ::
-  -- | 'oName'
-  Text ->
-  -- | 'oDestinationSchema'
+-- 'name', 'output_name' - Name of the in-application stream.
+--
+-- 'destinationSchema', 'output_destinationSchema' - Describes the data format when records are written to the destination.
+-- For more information, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output>.
+newOutput ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'destinationSchema'
   DestinationSchema ->
   Output
-output pName_ pDestinationSchema_ =
+newOutput pName_ pDestinationSchema_ =
   Output'
-    { _oLambdaOutput = Nothing,
-      _oKinesisFirehoseOutput = Nothing,
-      _oKinesisStreamsOutput = Nothing,
-      _oName = pName_,
-      _oDestinationSchema = pDestinationSchema_
+    { lambdaOutput = Prelude.Nothing,
+      kinesisFirehoseOutput = Prelude.Nothing,
+      kinesisStreamsOutput = Prelude.Nothing,
+      name = pName_,
+      destinationSchema = pDestinationSchema_
     }
 
 -- | Identifies an AWS Lambda function as the destination.
-oLambdaOutput :: Lens' Output (Maybe LambdaOutput)
-oLambdaOutput = lens _oLambdaOutput (\s a -> s {_oLambdaOutput = a})
+output_lambdaOutput :: Lens.Lens' Output (Prelude.Maybe LambdaOutput)
+output_lambdaOutput = Lens.lens (\Output' {lambdaOutput} -> lambdaOutput) (\s@Output' {} a -> s {lambdaOutput = a} :: Output)
 
--- | Identifies an Amazon Kinesis Firehose delivery stream as the destination.
-oKinesisFirehoseOutput :: Lens' Output (Maybe KinesisFirehoseOutput)
-oKinesisFirehoseOutput = lens _oKinesisFirehoseOutput (\s a -> s {_oKinesisFirehoseOutput = a})
+-- | Identifies an Amazon Kinesis Firehose delivery stream as the
+-- destination.
+output_kinesisFirehoseOutput :: Lens.Lens' Output (Prelude.Maybe KinesisFirehoseOutput)
+output_kinesisFirehoseOutput = Lens.lens (\Output' {kinesisFirehoseOutput} -> kinesisFirehoseOutput) (\s@Output' {} a -> s {kinesisFirehoseOutput = a} :: Output)
 
 -- | Identifies an Amazon Kinesis stream as the destination.
-oKinesisStreamsOutput :: Lens' Output (Maybe KinesisStreamsOutput)
-oKinesisStreamsOutput = lens _oKinesisStreamsOutput (\s a -> s {_oKinesisStreamsOutput = a})
+output_kinesisStreamsOutput :: Lens.Lens' Output (Prelude.Maybe KinesisStreamsOutput)
+output_kinesisStreamsOutput = Lens.lens (\Output' {kinesisStreamsOutput} -> kinesisStreamsOutput) (\s@Output' {} a -> s {kinesisStreamsOutput = a} :: Output)
 
 -- | Name of the in-application stream.
-oName :: Lens' Output Text
-oName = lens _oName (\s a -> s {_oName = a})
+output_name :: Lens.Lens' Output Prelude.Text
+output_name = Lens.lens (\Output' {name} -> name) (\s@Output' {} a -> s {name = a} :: Output)
 
--- | Describes the data format when records are written to the destination. For more information, see <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output> .
-oDestinationSchema :: Lens' Output DestinationSchema
-oDestinationSchema = lens _oDestinationSchema (\s a -> s {_oDestinationSchema = a})
+-- | Describes the data format when records are written to the destination.
+-- For more information, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output>.
+output_destinationSchema :: Lens.Lens' Output DestinationSchema
+output_destinationSchema = Lens.lens (\Output' {destinationSchema} -> destinationSchema) (\s@Output' {} a -> s {destinationSchema = a} :: Output)
 
-instance Hashable Output
+instance Prelude.Hashable Output
 
-instance NFData Output
+instance Prelude.NFData Output
 
-instance ToJSON Output where
+instance Prelude.ToJSON Output where
   toJSON Output' {..} =
-    object
-      ( catMaybes
-          [ ("LambdaOutput" .=) <$> _oLambdaOutput,
-            ("KinesisFirehoseOutput" .=)
-              <$> _oKinesisFirehoseOutput,
-            ("KinesisStreamsOutput" .=)
-              <$> _oKinesisStreamsOutput,
-            Just ("Name" .= _oName),
-            Just ("DestinationSchema" .= _oDestinationSchema)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LambdaOutput" Prelude..=)
+              Prelude.<$> lambdaOutput,
+            ("KinesisFirehoseOutput" Prelude..=)
+              Prelude.<$> kinesisFirehoseOutput,
+            ("KinesisStreamsOutput" Prelude..=)
+              Prelude.<$> kinesisStreamsOutput,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("DestinationSchema" Prelude..= destinationSchema)
           ]
       )

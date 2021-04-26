@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,101 @@
 module Network.AWS.KinesisAnalytics.Types.InputStartingPositionConfiguration where
 
 import Network.AWS.KinesisAnalytics.Types.InputStartingPosition
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the point at which the application reads from the streaming source.
+-- | Describes the point at which the application reads from the streaming
+-- source.
 --
---
---
--- /See:/ 'inputStartingPositionConfiguration' smart constructor.
-newtype InputStartingPositionConfiguration = InputStartingPositionConfiguration'
-  { _ispcInputStartingPosition ::
-      Maybe
-        InputStartingPosition
+-- /See:/ 'newInputStartingPositionConfiguration' smart constructor.
+data InputStartingPositionConfiguration = InputStartingPositionConfiguration'
+  { -- | The starting position on the stream.
+    --
+    -- -   @NOW@ - Start reading just after the most recent record in the
+    --     stream, start at the request time stamp that the customer issued.
+    --
+    -- -   @TRIM_HORIZON@ - Start reading at the last untrimmed record in the
+    --     stream, which is the oldest record available in the stream. This
+    --     option is not available for an Amazon Kinesis Firehose delivery
+    --     stream.
+    --
+    -- -   @LAST_STOPPED_POINT@ - Resume reading from where the application
+    --     last stopped reading.
+    inputStartingPosition :: Prelude.Maybe InputStartingPosition
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputStartingPositionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputStartingPositionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ispcInputStartingPosition' - The starting position on the stream.     * @NOW@ - Start reading just after the most recent record in the stream, start at the request time stamp that the customer issued.     * @TRIM_HORIZON@ - Start reading at the last untrimmed record in the stream, which is the oldest record available in the stream. This option is not available for an Amazon Kinesis Firehose delivery stream.     * @LAST_STOPPED_POINT@ - Resume reading from where the application last stopped reading.
-inputStartingPositionConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'inputStartingPosition', 'inputStartingPositionConfiguration_inputStartingPosition' - The starting position on the stream.
+--
+-- -   @NOW@ - Start reading just after the most recent record in the
+--     stream, start at the request time stamp that the customer issued.
+--
+-- -   @TRIM_HORIZON@ - Start reading at the last untrimmed record in the
+--     stream, which is the oldest record available in the stream. This
+--     option is not available for an Amazon Kinesis Firehose delivery
+--     stream.
+--
+-- -   @LAST_STOPPED_POINT@ - Resume reading from where the application
+--     last stopped reading.
+newInputStartingPositionConfiguration ::
   InputStartingPositionConfiguration
-inputStartingPositionConfiguration =
+newInputStartingPositionConfiguration =
   InputStartingPositionConfiguration'
-    { _ispcInputStartingPosition =
-        Nothing
+    { inputStartingPosition =
+        Prelude.Nothing
     }
 
--- | The starting position on the stream.     * @NOW@ - Start reading just after the most recent record in the stream, start at the request time stamp that the customer issued.     * @TRIM_HORIZON@ - Start reading at the last untrimmed record in the stream, which is the oldest record available in the stream. This option is not available for an Amazon Kinesis Firehose delivery stream.     * @LAST_STOPPED_POINT@ - Resume reading from where the application last stopped reading.
-ispcInputStartingPosition :: Lens' InputStartingPositionConfiguration (Maybe InputStartingPosition)
-ispcInputStartingPosition = lens _ispcInputStartingPosition (\s a -> s {_ispcInputStartingPosition = a})
+-- | The starting position on the stream.
+--
+-- -   @NOW@ - Start reading just after the most recent record in the
+--     stream, start at the request time stamp that the customer issued.
+--
+-- -   @TRIM_HORIZON@ - Start reading at the last untrimmed record in the
+--     stream, which is the oldest record available in the stream. This
+--     option is not available for an Amazon Kinesis Firehose delivery
+--     stream.
+--
+-- -   @LAST_STOPPED_POINT@ - Resume reading from where the application
+--     last stopped reading.
+inputStartingPositionConfiguration_inputStartingPosition :: Lens.Lens' InputStartingPositionConfiguration (Prelude.Maybe InputStartingPosition)
+inputStartingPositionConfiguration_inputStartingPosition = Lens.lens (\InputStartingPositionConfiguration' {inputStartingPosition} -> inputStartingPosition) (\s@InputStartingPositionConfiguration' {} a -> s {inputStartingPosition = a} :: InputStartingPositionConfiguration)
 
-instance FromJSON InputStartingPositionConfiguration where
+instance
+  Prelude.FromJSON
+    InputStartingPositionConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InputStartingPositionConfiguration"
       ( \x ->
           InputStartingPositionConfiguration'
-            <$> (x .:? "InputStartingPosition")
+            Prelude.<$> (x Prelude..:? "InputStartingPosition")
       )
 
-instance Hashable InputStartingPositionConfiguration
+instance
+  Prelude.Hashable
+    InputStartingPositionConfiguration
 
-instance NFData InputStartingPositionConfiguration
+instance
+  Prelude.NFData
+    InputStartingPositionConfiguration
 
-instance ToJSON InputStartingPositionConfiguration where
+instance
+  Prelude.ToJSON
+    InputStartingPositionConfiguration
+  where
   toJSON InputStartingPositionConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("InputStartingPosition" .=)
-              <$> _ispcInputStartingPosition
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InputStartingPosition" Prelude..=)
+              Prelude.<$> inputStartingPosition
           ]
       )

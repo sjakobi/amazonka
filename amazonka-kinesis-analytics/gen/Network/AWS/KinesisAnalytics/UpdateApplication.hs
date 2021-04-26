@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing Amazon Kinesis Analytics application. Using this API, you can update application code, input configuration, and output configuration.
+-- This documentation is for version 1 of the Amazon Kinesis Data Analytics
+-- API, which only supports SQL applications. Version 2 of the API supports
+-- SQL and Java applications. For more information about version 2, see
+-- </kinesisanalytics/latest/apiv2/Welcome.html Amazon Kinesis Data Analytics API V2 Documentation>.
 --
+-- Updates an existing Amazon Kinesis Analytics application. Using this
+-- API, you can update application code, input configuration, and output
+-- configuration.
 --
--- Note that Amazon Kinesis Analytics updates the @CurrentApplicationVersionId@ each time you update your application.
+-- Note that Amazon Kinesis Analytics updates the
+-- @CurrentApplicationVersionId@ each time you update your application.
 --
--- This operation requires permission for the @kinesisanalytics:UpdateApplication@ action.
+-- This operation requires permission for the
+-- @kinesisanalytics:UpdateApplication@ action.
 module Network.AWS.KinesisAnalytics.UpdateApplication
   ( -- * Creating a Request
-    updateApplication,
-    UpdateApplication,
+    UpdateApplication (..),
+    newUpdateApplication,
 
     -- * Request Lenses
-    uaApplicationName,
-    uaCurrentApplicationVersionId,
-    uaApplicationUpdate,
+    updateApplication_applicationName,
+    updateApplication_currentApplicationVersionId,
+    updateApplication_applicationUpdate,
 
     -- * Destructuring the Response
-    updateApplicationResponse,
-    UpdateApplicationResponse,
+    UpdateApplicationResponse (..),
+    newUpdateApplicationResponse,
 
     -- * Response Lenses
-    uarrsResponseStatus,
+    updateApplicationResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateApplication' smart constructor.
+-- | /See:/ 'newUpdateApplication' smart constructor.
 data UpdateApplication = UpdateApplication'
-  { _uaApplicationName ::
-      !Text,
-    _uaCurrentApplicationVersionId ::
-      !Nat,
-    _uaApplicationUpdate ::
-      !ApplicationUpdate
+  { -- | Name of the Amazon Kinesis Analytics application to update.
+    applicationName :: Prelude.Text,
+    -- | The current application version ID. You can use the
+    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+    -- operation to get this value.
+    currentApplicationVersionId :: Prelude.Nat,
+    -- | Describes application updates.
+    applicationUpdate :: ApplicationUpdate
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaApplicationName' - Name of the Amazon Kinesis Analytics application to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaCurrentApplicationVersionId' - The current application version ID. You can use the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation to get this value.
+-- 'applicationName', 'updateApplication_applicationName' - Name of the Amazon Kinesis Analytics application to update.
 --
--- * 'uaApplicationUpdate' - Describes application updates.
-updateApplication ::
-  -- | 'uaApplicationName'
-  Text ->
-  -- | 'uaCurrentApplicationVersionId'
-  Natural ->
-  -- | 'uaApplicationUpdate'
+-- 'currentApplicationVersionId', 'updateApplication_currentApplicationVersionId' - The current application version ID. You can use the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation to get this value.
+--
+-- 'applicationUpdate', 'updateApplication_applicationUpdate' - Describes application updates.
+newUpdateApplication ::
+  -- | 'applicationName'
+  Prelude.Text ->
+  -- | 'currentApplicationVersionId'
+  Prelude.Natural ->
+  -- | 'applicationUpdate'
   ApplicationUpdate ->
   UpdateApplication
-updateApplication
+newUpdateApplication
   pApplicationName_
   pCurrentApplicationVersionId_
   pApplicationUpdate_ =
     UpdateApplication'
-      { _uaApplicationName =
+      { applicationName =
           pApplicationName_,
-        _uaCurrentApplicationVersionId =
-          _Nat # pCurrentApplicationVersionId_,
-        _uaApplicationUpdate = pApplicationUpdate_
+        currentApplicationVersionId =
+          Prelude._Nat Lens.# pCurrentApplicationVersionId_,
+        applicationUpdate = pApplicationUpdate_
       }
 
 -- | Name of the Amazon Kinesis Analytics application to update.
-uaApplicationName :: Lens' UpdateApplication Text
-uaApplicationName = lens _uaApplicationName (\s a -> s {_uaApplicationName = a})
+updateApplication_applicationName :: Lens.Lens' UpdateApplication Prelude.Text
+updateApplication_applicationName = Lens.lens (\UpdateApplication' {applicationName} -> applicationName) (\s@UpdateApplication' {} a -> s {applicationName = a} :: UpdateApplication)
 
--- | The current application version ID. You can use the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation to get this value.
-uaCurrentApplicationVersionId :: Lens' UpdateApplication Natural
-uaCurrentApplicationVersionId = lens _uaCurrentApplicationVersionId (\s a -> s {_uaCurrentApplicationVersionId = a}) . _Nat
+-- | The current application version ID. You can use the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation to get this value.
+updateApplication_currentApplicationVersionId :: Lens.Lens' UpdateApplication Prelude.Natural
+updateApplication_currentApplicationVersionId = Lens.lens (\UpdateApplication' {currentApplicationVersionId} -> currentApplicationVersionId) (\s@UpdateApplication' {} a -> s {currentApplicationVersionId = a} :: UpdateApplication) Prelude.. Prelude._Nat
 
 -- | Describes application updates.
-uaApplicationUpdate :: Lens' UpdateApplication ApplicationUpdate
-uaApplicationUpdate = lens _uaApplicationUpdate (\s a -> s {_uaApplicationUpdate = a})
+updateApplication_applicationUpdate :: Lens.Lens' UpdateApplication ApplicationUpdate
+updateApplication_applicationUpdate = Lens.lens (\UpdateApplication' {applicationUpdate} -> applicationUpdate) (\s@UpdateApplication' {} a -> s {applicationUpdate = a} :: UpdateApplication)
 
-instance AWSRequest UpdateApplication where
+instance Prelude.AWSRequest UpdateApplication where
   type Rs UpdateApplication = UpdateApplicationResponse
-  request = postJSON kinesisAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateApplicationResponse' <$> (pure (fromEnum s))
+          UpdateApplicationResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateApplication
+instance Prelude.Hashable UpdateApplication
 
-instance NFData UpdateApplication
+instance Prelude.NFData UpdateApplication
 
-instance ToHeaders UpdateApplication where
+instance Prelude.ToHeaders UpdateApplication where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "KinesisAnalytics_20150814.UpdateApplication" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "KinesisAnalytics_20150814.UpdateApplication" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateApplication where
+instance Prelude.ToJSON UpdateApplication where
   toJSON UpdateApplication' {..} =
-    object
-      ( catMaybes
-          [ Just ("ApplicationName" .= _uaApplicationName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ApplicationName" Prelude..= applicationName),
+            Prelude.Just
               ( "CurrentApplicationVersionId"
-                  .= _uaCurrentApplicationVersionId
+                  Prelude..= currentApplicationVersionId
               ),
-            Just ("ApplicationUpdate" .= _uaApplicationUpdate)
+            Prelude.Just
+              ("ApplicationUpdate" Prelude..= applicationUpdate)
           ]
       )
 
-instance ToPath UpdateApplication where
-  toPath = const "/"
+instance Prelude.ToPath UpdateApplication where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateApplication where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateApplication where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateApplicationResponse' smart constructor.
-newtype UpdateApplicationResponse = UpdateApplicationResponse'
-  { _uarrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateApplicationResponse' smart constructor.
+data UpdateApplicationResponse = UpdateApplicationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApplicationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApplicationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uarrsResponseStatus' - -- | The response status code.
-updateApplicationResponse ::
-  -- | 'uarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateApplicationResponse_httpStatus' - The response's http status code.
+newUpdateApplicationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateApplicationResponse
-updateApplicationResponse pResponseStatus_ =
+newUpdateApplicationResponse pHttpStatus_ =
   UpdateApplicationResponse'
-    { _uarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uarrsResponseStatus :: Lens' UpdateApplicationResponse Int
-uarrsResponseStatus = lens _uarrsResponseStatus (\s a -> s {_uarrsResponseStatus = a})
+-- | The response's http status code.
+updateApplicationResponse_httpStatus :: Lens.Lens' UpdateApplicationResponse Prelude.Int
+updateApplicationResponse_httpStatus = Lens.lens (\UpdateApplicationResponse' {httpStatus} -> httpStatus) (\s@UpdateApplicationResponse' {} a -> s {httpStatus = a} :: UpdateApplicationResponse)
 
-instance NFData UpdateApplicationResponse
+instance Prelude.NFData UpdateApplicationResponse

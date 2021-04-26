@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,61 @@
 module Network.AWS.KinesisAnalytics.Types.DestinationSchema where
 
 import Network.AWS.KinesisAnalytics.Types.RecordFormatType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the data format when records are written to the destination. For more information, see <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output> .
+-- | Describes the data format when records are written to the destination.
+-- For more information, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output>.
 --
---
---
--- /See:/ 'destinationSchema' smart constructor.
-newtype DestinationSchema = DestinationSchema'
-  { _dsRecordFormatType ::
-      RecordFormatType
+-- /See:/ 'newDestinationSchema' smart constructor.
+data DestinationSchema = DestinationSchema'
+  { -- | Specifies the format of the records on the output stream.
+    recordFormatType :: RecordFormatType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DestinationSchema' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DestinationSchema' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsRecordFormatType' - Specifies the format of the records on the output stream.
-destinationSchema ::
-  -- | 'dsRecordFormatType'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'recordFormatType', 'destinationSchema_recordFormatType' - Specifies the format of the records on the output stream.
+newDestinationSchema ::
+  -- | 'recordFormatType'
   RecordFormatType ->
   DestinationSchema
-destinationSchema pRecordFormatType_ =
+newDestinationSchema pRecordFormatType_ =
   DestinationSchema'
-    { _dsRecordFormatType =
+    { recordFormatType =
         pRecordFormatType_
     }
 
 -- | Specifies the format of the records on the output stream.
-dsRecordFormatType :: Lens' DestinationSchema RecordFormatType
-dsRecordFormatType = lens _dsRecordFormatType (\s a -> s {_dsRecordFormatType = a})
+destinationSchema_recordFormatType :: Lens.Lens' DestinationSchema RecordFormatType
+destinationSchema_recordFormatType = Lens.lens (\DestinationSchema' {recordFormatType} -> recordFormatType) (\s@DestinationSchema' {} a -> s {recordFormatType = a} :: DestinationSchema)
 
-instance FromJSON DestinationSchema where
+instance Prelude.FromJSON DestinationSchema where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DestinationSchema"
       ( \x ->
-          DestinationSchema' <$> (x .: "RecordFormatType")
+          DestinationSchema'
+            Prelude.<$> (x Prelude..: "RecordFormatType")
       )
 
-instance Hashable DestinationSchema
+instance Prelude.Hashable DestinationSchema
 
-instance NFData DestinationSchema
+instance Prelude.NFData DestinationSchema
 
-instance ToJSON DestinationSchema where
+instance Prelude.ToJSON DestinationSchema where
   toJSON DestinationSchema' {..} =
-    object
-      ( catMaybes
-          [Just ("RecordFormatType" .= _dsRecordFormatType)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("RecordFormatType" Prelude..= recordFormatType)
+          ]
       )

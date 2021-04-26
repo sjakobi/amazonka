@@ -11,13 +11,19 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon Kinesis Analytics is the easiest way to process streaming data in real time with standard SQL without having to learn new programming languages or processing frameworks. Amazon Kinesis Analytics enables you to create and run SQL queries on streaming data so that you can gain actionable insights and respond to your business and customer needs promptly.
---
---
--- Amazon Kinesis Analytics takes care of everything required to run your queries continuously and scales automatically to match the volume and throughput rate of your incoming data. With Amazon Kinesis Analytics, you only pay for the resources your queries consume. There is no minimum fee or setup cost.
+-- Amazon Kinesis Analytics is the easiest way to process streaming data in
+-- real time with standard SQL without having to learn new programming
+-- languages or processing frameworks. Amazon Kinesis Analytics enables you
+-- to create and run SQL queries on streaming data so that you can gain
+-- actionable insights and respond to your business and customer needs
+-- promptly. Amazon Kinesis Analytics takes care of everything required to
+-- run your queries continuously and scales automatically to match the
+-- volume and throughput rate of your incoming data. With Amazon Kinesis
+-- Analytics, you only pay for the resources your queries consume. There is
+-- no minimum fee or setup cost.
 module Network.AWS.KinesisAnalytics
   ( -- * Service Configuration
-    kinesisAnalytics,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -65,64 +71,124 @@ module Network.AWS.KinesisAnalytics
     -- $operations
 
     -- ** DeleteApplicationOutput
-    module Network.AWS.KinesisAnalytics.DeleteApplicationOutput,
+    DeleteApplicationOutput (DeleteApplicationOutput'),
+    newDeleteApplicationOutput,
+    DeleteApplicationOutputResponse (DeleteApplicationOutputResponse'),
+    newDeleteApplicationOutputResponse,
 
     -- ** AddApplicationOutput
-    module Network.AWS.KinesisAnalytics.AddApplicationOutput,
+    AddApplicationOutput (AddApplicationOutput'),
+    newAddApplicationOutput,
+    AddApplicationOutputResponse (AddApplicationOutputResponse'),
+    newAddApplicationOutputResponse,
 
     -- ** CreateApplication
-    module Network.AWS.KinesisAnalytics.CreateApplication,
+    CreateApplication (CreateApplication'),
+    newCreateApplication,
+    CreateApplicationResponse (CreateApplicationResponse'),
+    newCreateApplicationResponse,
 
     -- ** DeleteApplicationCloudWatchLoggingOption
-    module Network.AWS.KinesisAnalytics.DeleteApplicationCloudWatchLoggingOption,
+    DeleteApplicationCloudWatchLoggingOption (DeleteApplicationCloudWatchLoggingOption'),
+    newDeleteApplicationCloudWatchLoggingOption,
+    DeleteApplicationCloudWatchLoggingOptionResponse (DeleteApplicationCloudWatchLoggingOptionResponse'),
+    newDeleteApplicationCloudWatchLoggingOptionResponse,
 
     -- ** AddApplicationCloudWatchLoggingOption
-    module Network.AWS.KinesisAnalytics.AddApplicationCloudWatchLoggingOption,
+    AddApplicationCloudWatchLoggingOption (AddApplicationCloudWatchLoggingOption'),
+    newAddApplicationCloudWatchLoggingOption,
+    AddApplicationCloudWatchLoggingOptionResponse (AddApplicationCloudWatchLoggingOptionResponse'),
+    newAddApplicationCloudWatchLoggingOptionResponse,
 
     -- ** UntagResource
-    module Network.AWS.KinesisAnalytics.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** TagResource
-    module Network.AWS.KinesisAnalytics.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** StopApplication
-    module Network.AWS.KinesisAnalytics.StopApplication,
+    StopApplication (StopApplication'),
+    newStopApplication,
+    StopApplicationResponse (StopApplicationResponse'),
+    newStopApplicationResponse,
 
     -- ** StartApplication
-    module Network.AWS.KinesisAnalytics.StartApplication,
+    StartApplication (StartApplication'),
+    newStartApplication,
+    StartApplicationResponse (StartApplicationResponse'),
+    newStartApplicationResponse,
 
     -- ** DescribeApplication
-    module Network.AWS.KinesisAnalytics.DescribeApplication,
+    DescribeApplication (DescribeApplication'),
+    newDescribeApplication,
+    DescribeApplicationResponse (DescribeApplicationResponse'),
+    newDescribeApplicationResponse,
 
     -- ** DiscoverInputSchema
-    module Network.AWS.KinesisAnalytics.DiscoverInputSchema,
+    DiscoverInputSchema (DiscoverInputSchema'),
+    newDiscoverInputSchema,
+    DiscoverInputSchemaResponse (DiscoverInputSchemaResponse'),
+    newDiscoverInputSchemaResponse,
 
     -- ** AddApplicationInputProcessingConfiguration
-    module Network.AWS.KinesisAnalytics.AddApplicationInputProcessingConfiguration,
+    AddApplicationInputProcessingConfiguration (AddApplicationInputProcessingConfiguration'),
+    newAddApplicationInputProcessingConfiguration,
+    AddApplicationInputProcessingConfigurationResponse (AddApplicationInputProcessingConfigurationResponse'),
+    newAddApplicationInputProcessingConfigurationResponse,
 
     -- ** DeleteApplicationInputProcessingConfiguration
-    module Network.AWS.KinesisAnalytics.DeleteApplicationInputProcessingConfiguration,
+    DeleteApplicationInputProcessingConfiguration (DeleteApplicationInputProcessingConfiguration'),
+    newDeleteApplicationInputProcessingConfiguration,
+    DeleteApplicationInputProcessingConfigurationResponse (DeleteApplicationInputProcessingConfigurationResponse'),
+    newDeleteApplicationInputProcessingConfigurationResponse,
 
     -- ** DeleteApplication
-    module Network.AWS.KinesisAnalytics.DeleteApplication,
+    DeleteApplication (DeleteApplication'),
+    newDeleteApplication,
+    DeleteApplicationResponse (DeleteApplicationResponse'),
+    newDeleteApplicationResponse,
 
     -- ** ListApplications
-    module Network.AWS.KinesisAnalytics.ListApplications,
+    ListApplications (ListApplications'),
+    newListApplications,
+    ListApplicationsResponse (ListApplicationsResponse'),
+    newListApplicationsResponse,
 
     -- ** UpdateApplication
-    module Network.AWS.KinesisAnalytics.UpdateApplication,
+    UpdateApplication (UpdateApplication'),
+    newUpdateApplication,
+    UpdateApplicationResponse (UpdateApplicationResponse'),
+    newUpdateApplicationResponse,
 
     -- ** AddApplicationInput
-    module Network.AWS.KinesisAnalytics.AddApplicationInput,
+    AddApplicationInput (AddApplicationInput'),
+    newAddApplicationInput,
+    AddApplicationInputResponse (AddApplicationInputResponse'),
+    newAddApplicationInputResponse,
 
     -- ** AddApplicationReferenceDataSource
-    module Network.AWS.KinesisAnalytics.AddApplicationReferenceDataSource,
+    AddApplicationReferenceDataSource (AddApplicationReferenceDataSource'),
+    newAddApplicationReferenceDataSource,
+    AddApplicationReferenceDataSourceResponse (AddApplicationReferenceDataSourceResponse'),
+    newAddApplicationReferenceDataSourceResponse,
 
     -- ** DeleteApplicationReferenceDataSource
-    module Network.AWS.KinesisAnalytics.DeleteApplicationReferenceDataSource,
+    DeleteApplicationReferenceDataSource (DeleteApplicationReferenceDataSource'),
+    newDeleteApplicationReferenceDataSource,
+    DeleteApplicationReferenceDataSourceResponse (DeleteApplicationReferenceDataSourceResponse'),
+    newDeleteApplicationReferenceDataSourceResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.KinesisAnalytics.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- * Types
 
@@ -136,369 +202,216 @@ module Network.AWS.KinesisAnalytics
     RecordFormatType (..),
 
     -- ** ApplicationDetail
-    ApplicationDetail,
-    applicationDetail,
-    adApplicationCode,
-    adApplicationDescription,
-    adCloudWatchLoggingOptionDescriptions,
-    adCreateTimestamp,
-    adOutputDescriptions,
-    adReferenceDataSourceDescriptions,
-    adInputDescriptions,
-    adLastUpdateTimestamp,
-    adApplicationName,
-    adApplicationARN,
-    adApplicationStatus,
-    adApplicationVersionId,
+    ApplicationDetail (ApplicationDetail'),
+    newApplicationDetail,
 
     -- ** ApplicationSummary
-    ApplicationSummary,
-    applicationSummary,
-    asApplicationName,
-    asApplicationARN,
-    asApplicationStatus,
+    ApplicationSummary (ApplicationSummary'),
+    newApplicationSummary,
 
     -- ** ApplicationUpdate
-    ApplicationUpdate,
-    applicationUpdate,
-    auReferenceDataSourceUpdates,
-    auInputUpdates,
-    auCloudWatchLoggingOptionUpdates,
-    auApplicationCodeUpdate,
-    auOutputUpdates,
+    ApplicationUpdate (ApplicationUpdate'),
+    newApplicationUpdate,
 
     -- ** CSVMappingParameters
-    CSVMappingParameters,
-    csvMappingParameters,
-    cmpRecordRowDelimiter,
-    cmpRecordColumnDelimiter,
+    CSVMappingParameters (CSVMappingParameters'),
+    newCSVMappingParameters,
 
     -- ** CloudWatchLoggingOption
-    CloudWatchLoggingOption,
-    cloudWatchLoggingOption,
-    cwloLogStreamARN,
-    cwloRoleARN,
+    CloudWatchLoggingOption (CloudWatchLoggingOption'),
+    newCloudWatchLoggingOption,
 
     -- ** CloudWatchLoggingOptionDescription
-    CloudWatchLoggingOptionDescription,
-    cloudWatchLoggingOptionDescription,
-    cwlodCloudWatchLoggingOptionId,
-    cwlodLogStreamARN,
-    cwlodRoleARN,
+    CloudWatchLoggingOptionDescription (CloudWatchLoggingOptionDescription'),
+    newCloudWatchLoggingOptionDescription,
 
     -- ** CloudWatchLoggingOptionUpdate
-    CloudWatchLoggingOptionUpdate,
-    cloudWatchLoggingOptionUpdate,
-    cwlouLogStreamARNUpdate,
-    cwlouRoleARNUpdate,
-    cwlouCloudWatchLoggingOptionId,
+    CloudWatchLoggingOptionUpdate (CloudWatchLoggingOptionUpdate'),
+    newCloudWatchLoggingOptionUpdate,
 
     -- ** DestinationSchema
-    DestinationSchema,
-    destinationSchema,
-    dsRecordFormatType,
+    DestinationSchema (DestinationSchema'),
+    newDestinationSchema,
 
     -- ** Input
-    Input,
-    input,
-    iInputParallelism,
-    iKinesisFirehoseInput,
-    iKinesisStreamsInput,
-    iInputProcessingConfiguration,
-    iNamePrefix,
-    iInputSchema,
+    Input (Input'),
+    newInput,
 
     -- ** InputConfiguration
-    InputConfiguration,
-    inputConfiguration,
-    icId,
-    icInputStartingPositionConfiguration,
+    InputConfiguration (InputConfiguration'),
+    newInputConfiguration,
 
     -- ** InputDescription
-    InputDescription,
-    inputDescription,
-    idInputSchema,
-    idInputStartingPositionConfiguration,
-    idInputProcessingConfigurationDescription,
-    idInputParallelism,
-    idNamePrefix,
-    idKinesisStreamsInputDescription,
-    idKinesisFirehoseInputDescription,
-    idInAppStreamNames,
-    idInputId,
+    InputDescription (InputDescription'),
+    newInputDescription,
 
     -- ** InputLambdaProcessor
-    InputLambdaProcessor,
-    inputLambdaProcessor,
-    ilpResourceARN,
-    ilpRoleARN,
+    InputLambdaProcessor (InputLambdaProcessor'),
+    newInputLambdaProcessor,
 
     -- ** InputLambdaProcessorDescription
-    InputLambdaProcessorDescription,
-    inputLambdaProcessorDescription,
-    ilpdResourceARN,
-    ilpdRoleARN,
+    InputLambdaProcessorDescription (InputLambdaProcessorDescription'),
+    newInputLambdaProcessorDescription,
 
     -- ** InputLambdaProcessorUpdate
-    InputLambdaProcessorUpdate,
-    inputLambdaProcessorUpdate,
-    ilpuResourceARNUpdate,
-    ilpuRoleARNUpdate,
+    InputLambdaProcessorUpdate (InputLambdaProcessorUpdate'),
+    newInputLambdaProcessorUpdate,
 
     -- ** InputParallelism
-    InputParallelism,
-    inputParallelism,
-    ipCount,
+    InputParallelism (InputParallelism'),
+    newInputParallelism,
 
     -- ** InputParallelismUpdate
-    InputParallelismUpdate,
-    inputParallelismUpdate,
-    ipuCountUpdate,
+    InputParallelismUpdate (InputParallelismUpdate'),
+    newInputParallelismUpdate,
 
     -- ** InputProcessingConfiguration
-    InputProcessingConfiguration,
-    inputProcessingConfiguration,
-    ipcInputLambdaProcessor,
+    InputProcessingConfiguration (InputProcessingConfiguration'),
+    newInputProcessingConfiguration,
 
     -- ** InputProcessingConfigurationDescription
-    InputProcessingConfigurationDescription,
-    inputProcessingConfigurationDescription,
-    ipcdInputLambdaProcessorDescription,
+    InputProcessingConfigurationDescription (InputProcessingConfigurationDescription'),
+    newInputProcessingConfigurationDescription,
 
     -- ** InputProcessingConfigurationUpdate
-    InputProcessingConfigurationUpdate,
-    inputProcessingConfigurationUpdate,
-    ipcuInputLambdaProcessorUpdate,
+    InputProcessingConfigurationUpdate (InputProcessingConfigurationUpdate'),
+    newInputProcessingConfigurationUpdate,
 
     -- ** InputSchemaUpdate
-    InputSchemaUpdate,
-    inputSchemaUpdate,
-    isuRecordFormatUpdate,
-    isuRecordColumnUpdates,
-    isuRecordEncodingUpdate,
+    InputSchemaUpdate (InputSchemaUpdate'),
+    newInputSchemaUpdate,
 
     -- ** InputStartingPositionConfiguration
-    InputStartingPositionConfiguration,
-    inputStartingPositionConfiguration,
-    ispcInputStartingPosition,
+    InputStartingPositionConfiguration (InputStartingPositionConfiguration'),
+    newInputStartingPositionConfiguration,
 
     -- ** InputUpdate
-    InputUpdate,
-    inputUpdate,
-    iuNamePrefixUpdate,
-    iuKinesisFirehoseInputUpdate,
-    iuKinesisStreamsInputUpdate,
-    iuInputProcessingConfigurationUpdate,
-    iuInputSchemaUpdate,
-    iuInputParallelismUpdate,
-    iuInputId,
+    InputUpdate (InputUpdate'),
+    newInputUpdate,
 
     -- ** JSONMappingParameters
-    JSONMappingParameters,
-    jsonMappingParameters,
-    jmpRecordRowPath,
+    JSONMappingParameters (JSONMappingParameters'),
+    newJSONMappingParameters,
 
     -- ** KinesisFirehoseInput
-    KinesisFirehoseInput,
-    kinesisFirehoseInput,
-    kfiResourceARN,
-    kfiRoleARN,
+    KinesisFirehoseInput (KinesisFirehoseInput'),
+    newKinesisFirehoseInput,
 
     -- ** KinesisFirehoseInputDescription
-    KinesisFirehoseInputDescription,
-    kinesisFirehoseInputDescription,
-    kfidResourceARN,
-    kfidRoleARN,
+    KinesisFirehoseInputDescription (KinesisFirehoseInputDescription'),
+    newKinesisFirehoseInputDescription,
 
     -- ** KinesisFirehoseInputUpdate
-    KinesisFirehoseInputUpdate,
-    kinesisFirehoseInputUpdate,
-    kfiuResourceARNUpdate,
-    kfiuRoleARNUpdate,
+    KinesisFirehoseInputUpdate (KinesisFirehoseInputUpdate'),
+    newKinesisFirehoseInputUpdate,
 
     -- ** KinesisFirehoseOutput
-    KinesisFirehoseOutput,
-    kinesisFirehoseOutput,
-    kfoResourceARN,
-    kfoRoleARN,
+    KinesisFirehoseOutput (KinesisFirehoseOutput'),
+    newKinesisFirehoseOutput,
 
     -- ** KinesisFirehoseOutputDescription
-    KinesisFirehoseOutputDescription,
-    kinesisFirehoseOutputDescription,
-    kfodResourceARN,
-    kfodRoleARN,
+    KinesisFirehoseOutputDescription (KinesisFirehoseOutputDescription'),
+    newKinesisFirehoseOutputDescription,
 
     -- ** KinesisFirehoseOutputUpdate
-    KinesisFirehoseOutputUpdate,
-    kinesisFirehoseOutputUpdate,
-    kfouResourceARNUpdate,
-    kfouRoleARNUpdate,
+    KinesisFirehoseOutputUpdate (KinesisFirehoseOutputUpdate'),
+    newKinesisFirehoseOutputUpdate,
 
     -- ** KinesisStreamsInput
-    KinesisStreamsInput,
-    kinesisStreamsInput,
-    ksiResourceARN,
-    ksiRoleARN,
+    KinesisStreamsInput (KinesisStreamsInput'),
+    newKinesisStreamsInput,
 
     -- ** KinesisStreamsInputDescription
-    KinesisStreamsInputDescription,
-    kinesisStreamsInputDescription,
-    ksidResourceARN,
-    ksidRoleARN,
+    KinesisStreamsInputDescription (KinesisStreamsInputDescription'),
+    newKinesisStreamsInputDescription,
 
     -- ** KinesisStreamsInputUpdate
-    KinesisStreamsInputUpdate,
-    kinesisStreamsInputUpdate,
-    ksiuResourceARNUpdate,
-    ksiuRoleARNUpdate,
+    KinesisStreamsInputUpdate (KinesisStreamsInputUpdate'),
+    newKinesisStreamsInputUpdate,
 
     -- ** KinesisStreamsOutput
-    KinesisStreamsOutput,
-    kinesisStreamsOutput,
-    ksoResourceARN,
-    ksoRoleARN,
+    KinesisStreamsOutput (KinesisStreamsOutput'),
+    newKinesisStreamsOutput,
 
     -- ** KinesisStreamsOutputDescription
-    KinesisStreamsOutputDescription,
-    kinesisStreamsOutputDescription,
-    ksodResourceARN,
-    ksodRoleARN,
+    KinesisStreamsOutputDescription (KinesisStreamsOutputDescription'),
+    newKinesisStreamsOutputDescription,
 
     -- ** KinesisStreamsOutputUpdate
-    KinesisStreamsOutputUpdate,
-    kinesisStreamsOutputUpdate,
-    ksouResourceARNUpdate,
-    ksouRoleARNUpdate,
+    KinesisStreamsOutputUpdate (KinesisStreamsOutputUpdate'),
+    newKinesisStreamsOutputUpdate,
 
     -- ** LambdaOutput
-    LambdaOutput,
-    lambdaOutput,
-    loResourceARN,
-    loRoleARN,
+    LambdaOutput (LambdaOutput'),
+    newLambdaOutput,
 
     -- ** LambdaOutputDescription
-    LambdaOutputDescription,
-    lambdaOutputDescription,
-    lodResourceARN,
-    lodRoleARN,
+    LambdaOutputDescription (LambdaOutputDescription'),
+    newLambdaOutputDescription,
 
     -- ** LambdaOutputUpdate
-    LambdaOutputUpdate,
-    lambdaOutputUpdate,
-    louResourceARNUpdate,
-    louRoleARNUpdate,
+    LambdaOutputUpdate (LambdaOutputUpdate'),
+    newLambdaOutputUpdate,
 
     -- ** MappingParameters
-    MappingParameters,
-    mappingParameters,
-    mpJSONMappingParameters,
-    mpCSVMappingParameters,
+    MappingParameters (MappingParameters'),
+    newMappingParameters,
 
     -- ** Output
-    Output,
-    output,
-    oLambdaOutput,
-    oKinesisFirehoseOutput,
-    oKinesisStreamsOutput,
-    oName,
-    oDestinationSchema,
+    Output (Output'),
+    newOutput,
 
     -- ** OutputDescription
-    OutputDescription,
-    outputDescription,
-    odKinesisStreamsOutputDescription,
-    odKinesisFirehoseOutputDescription,
-    odDestinationSchema,
-    odOutputId,
-    odName,
-    odLambdaOutputDescription,
+    OutputDescription (OutputDescription'),
+    newOutputDescription,
 
     -- ** OutputUpdate
-    OutputUpdate,
-    outputUpdate,
-    ouKinesisFirehoseOutputUpdate,
-    ouDestinationSchemaUpdate,
-    ouKinesisStreamsOutputUpdate,
-    ouNameUpdate,
-    ouLambdaOutputUpdate,
-    ouOutputId,
+    OutputUpdate (OutputUpdate'),
+    newOutputUpdate,
 
     -- ** RecordColumn
-    RecordColumn,
-    recordColumn,
-    rcMapping,
-    rcName,
-    rcSqlType,
+    RecordColumn (RecordColumn'),
+    newRecordColumn,
 
     -- ** RecordFormat
-    RecordFormat,
-    recordFormat,
-    rfMappingParameters,
-    rfRecordFormatType,
+    RecordFormat (RecordFormat'),
+    newRecordFormat,
 
     -- ** ReferenceDataSource
-    ReferenceDataSource,
-    referenceDataSource,
-    rdsS3ReferenceDataSource,
-    rdsTableName,
-    rdsReferenceSchema,
+    ReferenceDataSource (ReferenceDataSource'),
+    newReferenceDataSource,
 
     -- ** ReferenceDataSourceDescription
-    ReferenceDataSourceDescription,
-    referenceDataSourceDescription,
-    rdsdReferenceSchema,
-    rdsdReferenceId,
-    rdsdTableName,
-    rdsdS3ReferenceDataSourceDescription,
+    ReferenceDataSourceDescription (ReferenceDataSourceDescription'),
+    newReferenceDataSourceDescription,
 
     -- ** ReferenceDataSourceUpdate
-    ReferenceDataSourceUpdate,
-    referenceDataSourceUpdate,
-    rdsuS3ReferenceDataSourceUpdate,
-    rdsuReferenceSchemaUpdate,
-    rdsuTableNameUpdate,
-    rdsuReferenceId,
+    ReferenceDataSourceUpdate (ReferenceDataSourceUpdate'),
+    newReferenceDataSourceUpdate,
 
     -- ** S3Configuration
-    S3Configuration,
-    s3Configuration,
-    scRoleARN,
-    scBucketARN,
-    scFileKey,
+    S3Configuration (S3Configuration'),
+    newS3Configuration,
 
     -- ** S3ReferenceDataSource
-    S3ReferenceDataSource,
-    s3ReferenceDataSource,
-    srdsBucketARN,
-    srdsFileKey,
-    srdsReferenceRoleARN,
+    S3ReferenceDataSource (S3ReferenceDataSource'),
+    newS3ReferenceDataSource,
 
     -- ** S3ReferenceDataSourceDescription
-    S3ReferenceDataSourceDescription,
-    s3ReferenceDataSourceDescription,
-    srdsdBucketARN,
-    srdsdFileKey,
-    srdsdReferenceRoleARN,
+    S3ReferenceDataSourceDescription (S3ReferenceDataSourceDescription'),
+    newS3ReferenceDataSourceDescription,
 
     -- ** S3ReferenceDataSourceUpdate
-    S3ReferenceDataSourceUpdate,
-    s3ReferenceDataSourceUpdate,
-    srdsuReferenceRoleARNUpdate,
-    srdsuFileKeyUpdate,
-    srdsuBucketARNUpdate,
+    S3ReferenceDataSourceUpdate (S3ReferenceDataSourceUpdate'),
+    newS3ReferenceDataSourceUpdate,
 
     -- ** SourceSchema
-    SourceSchema,
-    sourceSchema,
-    ssRecordEncoding,
-    ssRecordFormat,
-    ssRecordColumns,
+    SourceSchema (SourceSchema'),
+    newSourceSchema,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -515,6 +428,7 @@ import Network.AWS.KinesisAnalytics.DeleteApplicationOutput
 import Network.AWS.KinesisAnalytics.DeleteApplicationReferenceDataSource
 import Network.AWS.KinesisAnalytics.DescribeApplication
 import Network.AWS.KinesisAnalytics.DiscoverInputSchema
+import Network.AWS.KinesisAnalytics.Lens
 import Network.AWS.KinesisAnalytics.ListApplications
 import Network.AWS.KinesisAnalytics.ListTagsForResource
 import Network.AWS.KinesisAnalytics.StartApplication

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,212 +21,255 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds an <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration> to an application. An input processor preprocesses records on the input stream before the application's SQL code executes. Currently, the only input processor available is <https://docs.aws.amazon.com/lambda/ AWS Lambda> .
+-- This documentation is for version 1 of the Amazon Kinesis Data Analytics
+-- API, which only supports SQL applications. Version 2 of the API supports
+-- SQL and Java applications. For more information about version 2, see
+-- </kinesisanalytics/latest/apiv2/Welcome.html Amazon Kinesis Data Analytics API V2 Documentation>.
+--
+-- Adds an
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration>
+-- to an application. An input processor preprocesses records on the input
+-- stream before the application\'s SQL code executes. Currently, the only
+-- input processor available is
+-- <https://docs.aws.amazon.com/lambda/ AWS Lambda>.
 module Network.AWS.KinesisAnalytics.AddApplicationInputProcessingConfiguration
   ( -- * Creating a Request
-    addApplicationInputProcessingConfiguration,
-    AddApplicationInputProcessingConfiguration,
+    AddApplicationInputProcessingConfiguration (..),
+    newAddApplicationInputProcessingConfiguration,
 
     -- * Request Lenses
-    aaipcApplicationName,
-    aaipcCurrentApplicationVersionId,
-    aaipcInputId,
-    aaipcInputProcessingConfiguration,
+    addApplicationInputProcessingConfiguration_applicationName,
+    addApplicationInputProcessingConfiguration_currentApplicationVersionId,
+    addApplicationInputProcessingConfiguration_inputId,
+    addApplicationInputProcessingConfiguration_inputProcessingConfiguration,
 
     -- * Destructuring the Response
-    addApplicationInputProcessingConfigurationResponse,
-    AddApplicationInputProcessingConfigurationResponse,
+    AddApplicationInputProcessingConfigurationResponse (..),
+    newAddApplicationInputProcessingConfigurationResponse,
 
     -- * Response Lenses
-    aaipcrrsResponseStatus,
+    addApplicationInputProcessingConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addApplicationInputProcessingConfiguration' smart constructor.
+-- | /See:/ 'newAddApplicationInputProcessingConfiguration' smart constructor.
 data AddApplicationInputProcessingConfiguration = AddApplicationInputProcessingConfiguration'
-  { _aaipcApplicationName ::
-      !Text,
-    _aaipcCurrentApplicationVersionId ::
-      !Nat,
-    _aaipcInputId ::
-      !Text,
-    _aaipcInputProcessingConfiguration ::
-      !InputProcessingConfiguration
+  { -- | Name of the application to which you want to add the input processing
+    -- configuration.
+    applicationName :: Prelude.Text,
+    -- | Version of the application to which you want to add the input processing
+    -- configuration. You can use the
+    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+    -- operation to get the current application version. If the version
+    -- specified is not the current version, the
+    -- @ConcurrentModificationException@ is returned.
+    currentApplicationVersionId :: Prelude.Nat,
+    -- | The ID of the input configuration to add the input processing
+    -- configuration to. You can get a list of the input IDs for an application
+    -- using the
+    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+    -- operation.
+    inputId :: Prelude.Text,
+    -- | The
+    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration>
+    -- to add to the application.
+    inputProcessingConfiguration :: InputProcessingConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddApplicationInputProcessingConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddApplicationInputProcessingConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaipcApplicationName' - Name of the application to which you want to add the input processing configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aaipcCurrentApplicationVersionId' - Version of the application to which you want to add the input processing configuration. You can use the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation to get the current application version. If the version specified is not the current version, the @ConcurrentModificationException@ is returned.
+-- 'applicationName', 'addApplicationInputProcessingConfiguration_applicationName' - Name of the application to which you want to add the input processing
+-- configuration.
 --
--- * 'aaipcInputId' - The ID of the input configuration to add the input processing configuration to. You can get a list of the input IDs for an application using the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation.
+-- 'currentApplicationVersionId', 'addApplicationInputProcessingConfiguration_currentApplicationVersionId' - Version of the application to which you want to add the input processing
+-- configuration. You can use the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation to get the current application version. If the version
+-- specified is not the current version, the
+-- @ConcurrentModificationException@ is returned.
 --
--- * 'aaipcInputProcessingConfiguration' - The <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration> to add to the application.
-addApplicationInputProcessingConfiguration ::
-  -- | 'aaipcApplicationName'
-  Text ->
-  -- | 'aaipcCurrentApplicationVersionId'
-  Natural ->
-  -- | 'aaipcInputId'
-  Text ->
-  -- | 'aaipcInputProcessingConfiguration'
+-- 'inputId', 'addApplicationInputProcessingConfiguration_inputId' - The ID of the input configuration to add the input processing
+-- configuration to. You can get a list of the input IDs for an application
+-- using the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation.
+--
+-- 'inputProcessingConfiguration', 'addApplicationInputProcessingConfiguration_inputProcessingConfiguration' - The
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration>
+-- to add to the application.
+newAddApplicationInputProcessingConfiguration ::
+  -- | 'applicationName'
+  Prelude.Text ->
+  -- | 'currentApplicationVersionId'
+  Prelude.Natural ->
+  -- | 'inputId'
+  Prelude.Text ->
+  -- | 'inputProcessingConfiguration'
   InputProcessingConfiguration ->
   AddApplicationInputProcessingConfiguration
-addApplicationInputProcessingConfiguration
+newAddApplicationInputProcessingConfiguration
   pApplicationName_
   pCurrentApplicationVersionId_
   pInputId_
   pInputProcessingConfiguration_ =
     AddApplicationInputProcessingConfiguration'
-      { _aaipcApplicationName =
+      { applicationName =
           pApplicationName_,
-        _aaipcCurrentApplicationVersionId =
-          _Nat
-            # pCurrentApplicationVersionId_,
-        _aaipcInputId = pInputId_,
-        _aaipcInputProcessingConfiguration =
+        currentApplicationVersionId =
+          Prelude._Nat
+            Lens.# pCurrentApplicationVersionId_,
+        inputId = pInputId_,
+        inputProcessingConfiguration =
           pInputProcessingConfiguration_
       }
 
--- | Name of the application to which you want to add the input processing configuration.
-aaipcApplicationName :: Lens' AddApplicationInputProcessingConfiguration Text
-aaipcApplicationName = lens _aaipcApplicationName (\s a -> s {_aaipcApplicationName = a})
+-- | Name of the application to which you want to add the input processing
+-- configuration.
+addApplicationInputProcessingConfiguration_applicationName :: Lens.Lens' AddApplicationInputProcessingConfiguration Prelude.Text
+addApplicationInputProcessingConfiguration_applicationName = Lens.lens (\AddApplicationInputProcessingConfiguration' {applicationName} -> applicationName) (\s@AddApplicationInputProcessingConfiguration' {} a -> s {applicationName = a} :: AddApplicationInputProcessingConfiguration)
 
--- | Version of the application to which you want to add the input processing configuration. You can use the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation to get the current application version. If the version specified is not the current version, the @ConcurrentModificationException@ is returned.
-aaipcCurrentApplicationVersionId :: Lens' AddApplicationInputProcessingConfiguration Natural
-aaipcCurrentApplicationVersionId = lens _aaipcCurrentApplicationVersionId (\s a -> s {_aaipcCurrentApplicationVersionId = a}) . _Nat
+-- | Version of the application to which you want to add the input processing
+-- configuration. You can use the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation to get the current application version. If the version
+-- specified is not the current version, the
+-- @ConcurrentModificationException@ is returned.
+addApplicationInputProcessingConfiguration_currentApplicationVersionId :: Lens.Lens' AddApplicationInputProcessingConfiguration Prelude.Natural
+addApplicationInputProcessingConfiguration_currentApplicationVersionId = Lens.lens (\AddApplicationInputProcessingConfiguration' {currentApplicationVersionId} -> currentApplicationVersionId) (\s@AddApplicationInputProcessingConfiguration' {} a -> s {currentApplicationVersionId = a} :: AddApplicationInputProcessingConfiguration) Prelude.. Prelude._Nat
 
--- | The ID of the input configuration to add the input processing configuration to. You can get a list of the input IDs for an application using the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation.
-aaipcInputId :: Lens' AddApplicationInputProcessingConfiguration Text
-aaipcInputId = lens _aaipcInputId (\s a -> s {_aaipcInputId = a})
+-- | The ID of the input configuration to add the input processing
+-- configuration to. You can get a list of the input IDs for an application
+-- using the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation.
+addApplicationInputProcessingConfiguration_inputId :: Lens.Lens' AddApplicationInputProcessingConfiguration Prelude.Text
+addApplicationInputProcessingConfiguration_inputId = Lens.lens (\AddApplicationInputProcessingConfiguration' {inputId} -> inputId) (\s@AddApplicationInputProcessingConfiguration' {} a -> s {inputId = a} :: AddApplicationInputProcessingConfiguration)
 
--- | The <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration> to add to the application.
-aaipcInputProcessingConfiguration :: Lens' AddApplicationInputProcessingConfiguration InputProcessingConfiguration
-aaipcInputProcessingConfiguration = lens _aaipcInputProcessingConfiguration (\s a -> s {_aaipcInputProcessingConfiguration = a})
+-- | The
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html InputProcessingConfiguration>
+-- to add to the application.
+addApplicationInputProcessingConfiguration_inputProcessingConfiguration :: Lens.Lens' AddApplicationInputProcessingConfiguration InputProcessingConfiguration
+addApplicationInputProcessingConfiguration_inputProcessingConfiguration = Lens.lens (\AddApplicationInputProcessingConfiguration' {inputProcessingConfiguration} -> inputProcessingConfiguration) (\s@AddApplicationInputProcessingConfiguration' {} a -> s {inputProcessingConfiguration = a} :: AddApplicationInputProcessingConfiguration)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     AddApplicationInputProcessingConfiguration
   where
   type
     Rs AddApplicationInputProcessingConfiguration =
       AddApplicationInputProcessingConfigurationResponse
-  request = postJSON kinesisAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AddApplicationInputProcessingConfigurationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     AddApplicationInputProcessingConfiguration
 
 instance
-  NFData
+  Prelude.NFData
     AddApplicationInputProcessingConfiguration
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     AddApplicationInputProcessingConfiguration
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "KinesisAnalytics_20150814.AddApplicationInputProcessingConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "KinesisAnalytics_20150814.AddApplicationInputProcessingConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     AddApplicationInputProcessingConfiguration
   where
   toJSON
     AddApplicationInputProcessingConfiguration' {..} =
-      object
-        ( catMaybes
-            [ Just ("ApplicationName" .= _aaipcApplicationName),
-              Just
+      Prelude.object
+        ( Prelude.catMaybes
+            [ Prelude.Just
+                ("ApplicationName" Prelude..= applicationName),
+              Prelude.Just
                 ( "CurrentApplicationVersionId"
-                    .= _aaipcCurrentApplicationVersionId
+                    Prelude..= currentApplicationVersionId
                 ),
-              Just ("InputId" .= _aaipcInputId),
-              Just
+              Prelude.Just ("InputId" Prelude..= inputId),
+              Prelude.Just
                 ( "InputProcessingConfiguration"
-                    .= _aaipcInputProcessingConfiguration
+                    Prelude..= inputProcessingConfiguration
                 )
             ]
         )
 
 instance
-  ToPath
+  Prelude.ToPath
     AddApplicationInputProcessingConfiguration
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     AddApplicationInputProcessingConfiguration
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'addApplicationInputProcessingConfigurationResponse' smart constructor.
-newtype AddApplicationInputProcessingConfigurationResponse = AddApplicationInputProcessingConfigurationResponse'
-  { _aaipcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAddApplicationInputProcessingConfigurationResponse' smart constructor.
+data AddApplicationInputProcessingConfigurationResponse = AddApplicationInputProcessingConfigurationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddApplicationInputProcessingConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddApplicationInputProcessingConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaipcrrsResponseStatus' - -- | The response status code.
-addApplicationInputProcessingConfigurationResponse ::
-  -- | 'aaipcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addApplicationInputProcessingConfigurationResponse_httpStatus' - The response's http status code.
+newAddApplicationInputProcessingConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddApplicationInputProcessingConfigurationResponse
-addApplicationInputProcessingConfigurationResponse
-  pResponseStatus_ =
+newAddApplicationInputProcessingConfigurationResponse
+  pHttpStatus_ =
     AddApplicationInputProcessingConfigurationResponse'
-      { _aaipcrrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-aaipcrrsResponseStatus :: Lens' AddApplicationInputProcessingConfigurationResponse Int
-aaipcrrsResponseStatus = lens _aaipcrrsResponseStatus (\s a -> s {_aaipcrrsResponseStatus = a})
+-- | The response's http status code.
+addApplicationInputProcessingConfigurationResponse_httpStatus :: Lens.Lens' AddApplicationInputProcessingConfigurationResponse Prelude.Int
+addApplicationInputProcessingConfigurationResponse_httpStatus = Lens.lens (\AddApplicationInputProcessingConfigurationResponse' {httpStatus} -> httpStatus) (\s@AddApplicationInputProcessingConfigurationResponse' {} a -> s {httpStatus = a} :: AddApplicationInputProcessingConfigurationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     AddApplicationInputProcessingConfigurationResponse

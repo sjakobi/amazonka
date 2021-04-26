@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.KinesisAnalytics.Types.InputStartingPosition
   ( InputStartingPosition
       ( ..,
-        LastStoppedPoint,
-        Now,
-        TrimHorizon
+        InputStartingPositionLASTSTOPPEDPOINT,
+        InputStartingPositionNOW,
+        InputStartingPositionTRIMHORIZON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InputStartingPosition
-  = InputStartingPosition'
-      ( CI
-          Text
-      )
+newtype InputStartingPosition = InputStartingPosition'
+  { fromInputStartingPosition ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LastStoppedPoint :: InputStartingPosition
-pattern LastStoppedPoint = InputStartingPosition' "LAST_STOPPED_POINT"
+pattern InputStartingPositionLASTSTOPPEDPOINT :: InputStartingPosition
+pattern InputStartingPositionLASTSTOPPEDPOINT = InputStartingPosition' "LAST_STOPPED_POINT"
 
-pattern Now :: InputStartingPosition
-pattern Now = InputStartingPosition' "NOW"
+pattern InputStartingPositionNOW :: InputStartingPosition
+pattern InputStartingPositionNOW = InputStartingPosition' "NOW"
 
-pattern TrimHorizon :: InputStartingPosition
-pattern TrimHorizon = InputStartingPosition' "TRIM_HORIZON"
+pattern InputStartingPositionTRIMHORIZON :: InputStartingPosition
+pattern InputStartingPositionTRIMHORIZON = InputStartingPosition' "TRIM_HORIZON"
 
 {-# COMPLETE
-  LastStoppedPoint,
-  Now,
-  TrimHorizon,
+  InputStartingPositionLASTSTOPPEDPOINT,
+  InputStartingPositionNOW,
+  InputStartingPositionTRIMHORIZON,
   InputStartingPosition'
   #-}
 
-instance FromText InputStartingPosition where
-  parser = (InputStartingPosition' . mk) <$> takeText
+instance Prelude.FromText InputStartingPosition where
+  parser = InputStartingPosition' Prelude.<$> Prelude.takeText
 
-instance ToText InputStartingPosition where
-  toText (InputStartingPosition' ci) = original ci
+instance Prelude.ToText InputStartingPosition where
+  toText (InputStartingPosition' x) = x
 
-instance Hashable InputStartingPosition
+instance Prelude.Hashable InputStartingPosition
 
-instance NFData InputStartingPosition
+instance Prelude.NFData InputStartingPosition
 
-instance ToByteString InputStartingPosition
+instance Prelude.ToByteString InputStartingPosition
 
-instance ToQuery InputStartingPosition
+instance Prelude.ToQuery InputStartingPosition
 
-instance ToHeader InputStartingPosition
+instance Prelude.ToHeader InputStartingPosition
 
-instance ToJSON InputStartingPosition where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputStartingPosition where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputStartingPosition where
-  parseJSON = parseJSONText "InputStartingPosition"
+instance Prelude.FromJSON InputStartingPosition where
+  parseJSON = Prelude.parseJSONText "InputStartingPosition"

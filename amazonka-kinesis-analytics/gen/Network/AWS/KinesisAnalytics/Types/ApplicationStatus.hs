@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.KinesisAnalytics.Types.ApplicationStatus
   ( ApplicationStatus
       ( ..,
-        Deleting,
-        Ready,
-        Running,
-        Starting,
-        Stopping,
-        Updating
+        ApplicationStatusDELETING,
+        ApplicationStatusREADY,
+        ApplicationStatusRUNNING,
+        ApplicationStatusSTARTING,
+        ApplicationStatusSTOPPING,
+        ApplicationStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ApplicationStatus = ApplicationStatus' (CI Text)
+newtype ApplicationStatus = ApplicationStatus'
+  { fromApplicationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Deleting :: ApplicationStatus
-pattern Deleting = ApplicationStatus' "DELETING"
+pattern ApplicationStatusDELETING :: ApplicationStatus
+pattern ApplicationStatusDELETING = ApplicationStatus' "DELETING"
 
-pattern Ready :: ApplicationStatus
-pattern Ready = ApplicationStatus' "READY"
+pattern ApplicationStatusREADY :: ApplicationStatus
+pattern ApplicationStatusREADY = ApplicationStatus' "READY"
 
-pattern Running :: ApplicationStatus
-pattern Running = ApplicationStatus' "RUNNING"
+pattern ApplicationStatusRUNNING :: ApplicationStatus
+pattern ApplicationStatusRUNNING = ApplicationStatus' "RUNNING"
 
-pattern Starting :: ApplicationStatus
-pattern Starting = ApplicationStatus' "STARTING"
+pattern ApplicationStatusSTARTING :: ApplicationStatus
+pattern ApplicationStatusSTARTING = ApplicationStatus' "STARTING"
 
-pattern Stopping :: ApplicationStatus
-pattern Stopping = ApplicationStatus' "STOPPING"
+pattern ApplicationStatusSTOPPING :: ApplicationStatus
+pattern ApplicationStatusSTOPPING = ApplicationStatus' "STOPPING"
 
-pattern Updating :: ApplicationStatus
-pattern Updating = ApplicationStatus' "UPDATING"
+pattern ApplicationStatusUPDATING :: ApplicationStatus
+pattern ApplicationStatusUPDATING = ApplicationStatus' "UPDATING"
 
 {-# COMPLETE
-  Deleting,
-  Ready,
-  Running,
-  Starting,
-  Stopping,
-  Updating,
+  ApplicationStatusDELETING,
+  ApplicationStatusREADY,
+  ApplicationStatusRUNNING,
+  ApplicationStatusSTARTING,
+  ApplicationStatusSTOPPING,
+  ApplicationStatusUPDATING,
   ApplicationStatus'
   #-}
 
-instance FromText ApplicationStatus where
-  parser = (ApplicationStatus' . mk) <$> takeText
+instance Prelude.FromText ApplicationStatus where
+  parser = ApplicationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ApplicationStatus where
-  toText (ApplicationStatus' ci) = original ci
+instance Prelude.ToText ApplicationStatus where
+  toText (ApplicationStatus' x) = x
 
-instance Hashable ApplicationStatus
+instance Prelude.Hashable ApplicationStatus
 
-instance NFData ApplicationStatus
+instance Prelude.NFData ApplicationStatus
 
-instance ToByteString ApplicationStatus
+instance Prelude.ToByteString ApplicationStatus
 
-instance ToQuery ApplicationStatus
+instance Prelude.ToQuery ApplicationStatus
 
-instance ToHeader ApplicationStatus
+instance Prelude.ToHeader ApplicationStatus
 
-instance FromJSON ApplicationStatus where
-  parseJSON = parseJSONText "ApplicationStatus"
+instance Prelude.FromJSON ApplicationStatus where
+  parseJSON = Prelude.parseJSONText "ApplicationStatus"

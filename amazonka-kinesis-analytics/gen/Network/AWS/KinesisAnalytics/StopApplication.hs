@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops the application from processing input data. You can stop an application only if it is in the running state. You can use the <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication> operation to find the application state. After the application is stopped, Amazon Kinesis Analytics stops reading data from the input, the application stops processing data, and there is no output written to the destination.
+-- This documentation is for version 1 of the Amazon Kinesis Data Analytics
+-- API, which only supports SQL applications. Version 2 of the API supports
+-- SQL and Java applications. For more information about version 2, see
+-- </kinesisanalytics/latest/apiv2/Welcome.html Amazon Kinesis Data Analytics API V2 Documentation>.
 --
+-- Stops the application from processing input data. You can stop an
+-- application only if it is in the running state. You can use the
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
+-- operation to find the application state. After the application is
+-- stopped, Amazon Kinesis Analytics stops reading data from the input, the
+-- application stops processing data, and there is no output written to the
+-- destination.
 --
--- This operation requires permissions to perform the @kinesisanalytics:StopApplication@ action.
+-- This operation requires permissions to perform the
+-- @kinesisanalytics:StopApplication@ action.
 module Network.AWS.KinesisAnalytics.StopApplication
   ( -- * Creating a Request
-    stopApplication,
-    StopApplication,
+    StopApplication (..),
+    newStopApplication,
 
     -- * Request Lenses
-    saApplicationName,
+    stopApplication_applicationName,
 
     -- * Destructuring the Response
-    stopApplicationResponse,
-    StopApplicationResponse,
+    StopApplicationResponse (..),
+    newStopApplicationResponse,
 
     -- * Response Lenses
-    sarrsResponseStatus,
+    stopApplicationResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'stopApplication' smart constructor.
-newtype StopApplication = StopApplication'
-  { _saApplicationName ::
-      Text
+-- /See:/ 'newStopApplication' smart constructor.
+data StopApplication = StopApplication'
+  { -- | Name of the running application to stop.
+    applicationName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopApplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopApplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saApplicationName' - Name of the running application to stop.
-stopApplication ::
-  -- | 'saApplicationName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationName', 'stopApplication_applicationName' - Name of the running application to stop.
+newStopApplication ::
+  -- | 'applicationName'
+  Prelude.Text ->
   StopApplication
-stopApplication pApplicationName_ =
+newStopApplication pApplicationName_ =
   StopApplication'
-    { _saApplicationName =
+    { applicationName =
         pApplicationName_
     }
 
 -- | Name of the running application to stop.
-saApplicationName :: Lens' StopApplication Text
-saApplicationName = lens _saApplicationName (\s a -> s {_saApplicationName = a})
+stopApplication_applicationName :: Lens.Lens' StopApplication Prelude.Text
+stopApplication_applicationName = Lens.lens (\StopApplication' {applicationName} -> applicationName) (\s@StopApplication' {} a -> s {applicationName = a} :: StopApplication)
 
-instance AWSRequest StopApplication where
+instance Prelude.AWSRequest StopApplication where
   type Rs StopApplication = StopApplicationResponse
-  request = postJSON kinesisAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          StopApplicationResponse' <$> (pure (fromEnum s))
+          StopApplicationResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopApplication
+instance Prelude.Hashable StopApplication
 
-instance NFData StopApplication
+instance Prelude.NFData StopApplication
 
-instance ToHeaders StopApplication where
+instance Prelude.ToHeaders StopApplication where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "KinesisAnalytics_20150814.StopApplication" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "KinesisAnalytics_20150814.StopApplication" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopApplication where
+instance Prelude.ToJSON StopApplication where
   toJSON StopApplication' {..} =
-    object
-      ( catMaybes
-          [Just ("ApplicationName" .= _saApplicationName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ApplicationName" Prelude..= applicationName)
+          ]
       )
 
-instance ToPath StopApplication where
-  toPath = const "/"
+instance Prelude.ToPath StopApplication where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopApplication where
-  toQuery = const mempty
+instance Prelude.ToQuery StopApplication where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'stopApplicationResponse' smart constructor.
-newtype StopApplicationResponse = StopApplicationResponse'
-  { _sarrsResponseStatus ::
-      Int
+-- /See:/ 'newStopApplicationResponse' smart constructor.
+data StopApplicationResponse = StopApplicationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopApplicationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopApplicationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sarrsResponseStatus' - -- | The response status code.
-stopApplicationResponse ::
-  -- | 'sarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'stopApplicationResponse_httpStatus' - The response's http status code.
+newStopApplicationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopApplicationResponse
-stopApplicationResponse pResponseStatus_ =
-  StopApplicationResponse'
-    { _sarrsResponseStatus =
-        pResponseStatus_
-    }
+newStopApplicationResponse pHttpStatus_ =
+  StopApplicationResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-sarrsResponseStatus :: Lens' StopApplicationResponse Int
-sarrsResponseStatus = lens _sarrsResponseStatus (\s a -> s {_sarrsResponseStatus = a})
+-- | The response's http status code.
+stopApplicationResponse_httpStatus :: Lens.Lens' StopApplicationResponse Prelude.Int
+stopApplicationResponse_httpStatus = Lens.lens (\StopApplicationResponse' {httpStatus} -> httpStatus) (\s@StopApplicationResponse' {} a -> s {httpStatus = a} :: StopApplicationResponse)
 
-instance NFData StopApplicationResponse
+instance Prelude.NFData StopApplicationResponse

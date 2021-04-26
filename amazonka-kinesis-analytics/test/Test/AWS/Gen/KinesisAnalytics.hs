@@ -28,127 +28,127 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDeleteApplicationOutput $
---             deleteApplicationOutput
+--             newDeleteApplicationOutput
 --
 --         , requestAddApplicationOutput $
---             addApplicationOutput
+--             newAddApplicationOutput
 --
 --         , requestCreateApplication $
---             createApplication
+--             newCreateApplication
 --
 --         , requestDeleteApplicationCloudWatchLoggingOption $
---             deleteApplicationCloudWatchLoggingOption
+--             newDeleteApplicationCloudWatchLoggingOption
 --
 --         , requestAddApplicationCloudWatchLoggingOption $
---             addApplicationCloudWatchLoggingOption
+--             newAddApplicationCloudWatchLoggingOption
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestStopApplication $
---             stopApplication
+--             newStopApplication
 --
 --         , requestStartApplication $
---             startApplication
+--             newStartApplication
 --
 --         , requestDescribeApplication $
---             describeApplication
+--             newDescribeApplication
 --
 --         , requestDiscoverInputSchema $
---             discoverInputSchema
+--             newDiscoverInputSchema
 --
 --         , requestAddApplicationInputProcessingConfiguration $
---             addApplicationInputProcessingConfiguration
+--             newAddApplicationInputProcessingConfiguration
 --
 --         , requestDeleteApplicationInputProcessingConfiguration $
---             deleteApplicationInputProcessingConfiguration
+--             newDeleteApplicationInputProcessingConfiguration
 --
 --         , requestDeleteApplication $
---             deleteApplication
+--             newDeleteApplication
 --
 --         , requestListApplications $
---             listApplications
+--             newListApplications
 --
 --         , requestUpdateApplication $
---             updateApplication
+--             newUpdateApplication
 --
 --         , requestAddApplicationInput $
---             addApplicationInput
+--             newAddApplicationInput
 --
 --         , requestAddApplicationReferenceDataSource $
---             addApplicationReferenceDataSource
+--             newAddApplicationReferenceDataSource
 --
 --         , requestDeleteApplicationReferenceDataSource $
---             deleteApplicationReferenceDataSource
+--             newDeleteApplicationReferenceDataSource
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDeleteApplicationOutput $
---             deleteApplicationOutputResponse
+--             newDeleteApplicationOutputResponse
 --
 --         , responseAddApplicationOutput $
---             addApplicationOutputResponse
+--             newAddApplicationOutputResponse
 --
 --         , responseCreateApplication $
---             createApplicationResponse
+--             newCreateApplicationResponse
 --
 --         , responseDeleteApplicationCloudWatchLoggingOption $
---             deleteApplicationCloudWatchLoggingOptionResponse
+--             newDeleteApplicationCloudWatchLoggingOptionResponse
 --
 --         , responseAddApplicationCloudWatchLoggingOption $
---             addApplicationCloudWatchLoggingOptionResponse
+--             newAddApplicationCloudWatchLoggingOptionResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseStopApplication $
---             stopApplicationResponse
+--             newStopApplicationResponse
 --
 --         , responseStartApplication $
---             startApplicationResponse
+--             newStartApplicationResponse
 --
 --         , responseDescribeApplication $
---             describeApplicationResponse
+--             newDescribeApplicationResponse
 --
 --         , responseDiscoverInputSchema $
---             discoverInputSchemaResponse
+--             newDiscoverInputSchemaResponse
 --
 --         , responseAddApplicationInputProcessingConfiguration $
---             addApplicationInputProcessingConfigurationResponse
+--             newAddApplicationInputProcessingConfigurationResponse
 --
 --         , responseDeleteApplicationInputProcessingConfiguration $
---             deleteApplicationInputProcessingConfigurationResponse
+--             newDeleteApplicationInputProcessingConfigurationResponse
 --
 --         , responseDeleteApplication $
---             deleteApplicationResponse
+--             newDeleteApplicationResponse
 --
 --         , responseListApplications $
---             listApplicationsResponse
+--             newListApplicationsResponse
 --
 --         , responseUpdateApplication $
---             updateApplicationResponse
+--             newUpdateApplicationResponse
 --
 --         , responseAddApplicationInput $
---             addApplicationInputResponse
+--             newAddApplicationInputResponse
 --
 --         , responseAddApplicationReferenceDataSource $
---             addApplicationReferenceDataSourceResponse
+--             newAddApplicationReferenceDataSourceResponse
 --
 --         , responseDeleteApplicationReferenceDataSource $
---             deleteApplicationReferenceDataSourceResponse
+--             newDeleteApplicationReferenceDataSourceResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --           ]
 --     ]
@@ -282,7 +282,7 @@ responseDeleteApplicationOutput =
   res
     "DeleteApplicationOutputResponse"
     "fixture/DeleteApplicationOutputResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy DeleteApplicationOutput)
 
 responseAddApplicationOutput :: AddApplicationOutputResponse -> TestTree
@@ -290,7 +290,7 @@ responseAddApplicationOutput =
   res
     "AddApplicationOutputResponse"
     "fixture/AddApplicationOutputResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy AddApplicationOutput)
 
 responseCreateApplication :: CreateApplicationResponse -> TestTree
@@ -298,7 +298,7 @@ responseCreateApplication =
   res
     "CreateApplicationResponse"
     "fixture/CreateApplicationResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy CreateApplication)
 
 responseDeleteApplicationCloudWatchLoggingOption :: DeleteApplicationCloudWatchLoggingOptionResponse -> TestTree
@@ -306,7 +306,7 @@ responseDeleteApplicationCloudWatchLoggingOption =
   res
     "DeleteApplicationCloudWatchLoggingOptionResponse"
     "fixture/DeleteApplicationCloudWatchLoggingOptionResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy DeleteApplicationCloudWatchLoggingOption)
 
 responseAddApplicationCloudWatchLoggingOption :: AddApplicationCloudWatchLoggingOptionResponse -> TestTree
@@ -314,7 +314,7 @@ responseAddApplicationCloudWatchLoggingOption =
   res
     "AddApplicationCloudWatchLoggingOptionResponse"
     "fixture/AddApplicationCloudWatchLoggingOptionResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy AddApplicationCloudWatchLoggingOption)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -322,7 +322,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -330,7 +330,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseStopApplication :: StopApplicationResponse -> TestTree
@@ -338,7 +338,7 @@ responseStopApplication =
   res
     "StopApplicationResponse"
     "fixture/StopApplicationResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy StopApplication)
 
 responseStartApplication :: StartApplicationResponse -> TestTree
@@ -346,7 +346,7 @@ responseStartApplication =
   res
     "StartApplicationResponse"
     "fixture/StartApplicationResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy StartApplication)
 
 responseDescribeApplication :: DescribeApplicationResponse -> TestTree
@@ -354,7 +354,7 @@ responseDescribeApplication =
   res
     "DescribeApplicationResponse"
     "fixture/DescribeApplicationResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy DescribeApplication)
 
 responseDiscoverInputSchema :: DiscoverInputSchemaResponse -> TestTree
@@ -362,7 +362,7 @@ responseDiscoverInputSchema =
   res
     "DiscoverInputSchemaResponse"
     "fixture/DiscoverInputSchemaResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy DiscoverInputSchema)
 
 responseAddApplicationInputProcessingConfiguration :: AddApplicationInputProcessingConfigurationResponse -> TestTree
@@ -370,7 +370,7 @@ responseAddApplicationInputProcessingConfiguration =
   res
     "AddApplicationInputProcessingConfigurationResponse"
     "fixture/AddApplicationInputProcessingConfigurationResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy AddApplicationInputProcessingConfiguration)
 
 responseDeleteApplicationInputProcessingConfiguration :: DeleteApplicationInputProcessingConfigurationResponse -> TestTree
@@ -378,7 +378,7 @@ responseDeleteApplicationInputProcessingConfiguration =
   res
     "DeleteApplicationInputProcessingConfigurationResponse"
     "fixture/DeleteApplicationInputProcessingConfigurationResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy DeleteApplicationInputProcessingConfiguration)
 
 responseDeleteApplication :: DeleteApplicationResponse -> TestTree
@@ -386,7 +386,7 @@ responseDeleteApplication =
   res
     "DeleteApplicationResponse"
     "fixture/DeleteApplicationResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy DeleteApplication)
 
 responseListApplications :: ListApplicationsResponse -> TestTree
@@ -394,7 +394,7 @@ responseListApplications =
   res
     "ListApplicationsResponse"
     "fixture/ListApplicationsResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy ListApplications)
 
 responseUpdateApplication :: UpdateApplicationResponse -> TestTree
@@ -402,7 +402,7 @@ responseUpdateApplication =
   res
     "UpdateApplicationResponse"
     "fixture/UpdateApplicationResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy UpdateApplication)
 
 responseAddApplicationInput :: AddApplicationInputResponse -> TestTree
@@ -410,7 +410,7 @@ responseAddApplicationInput =
   res
     "AddApplicationInputResponse"
     "fixture/AddApplicationInputResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy AddApplicationInput)
 
 responseAddApplicationReferenceDataSource :: AddApplicationReferenceDataSourceResponse -> TestTree
@@ -418,7 +418,7 @@ responseAddApplicationReferenceDataSource =
   res
     "AddApplicationReferenceDataSourceResponse"
     "fixture/AddApplicationReferenceDataSourceResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy AddApplicationReferenceDataSource)
 
 responseDeleteApplicationReferenceDataSource :: DeleteApplicationReferenceDataSourceResponse -> TestTree
@@ -426,7 +426,7 @@ responseDeleteApplicationReferenceDataSource =
   res
     "DeleteApplicationReferenceDataSourceResponse"
     "fixture/DeleteApplicationReferenceDataSourceResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy DeleteApplicationReferenceDataSource)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -434,5 +434,5 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    kinesisAnalytics
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
