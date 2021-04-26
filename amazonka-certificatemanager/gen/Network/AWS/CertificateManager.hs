@@ -11,12 +11,15 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Certificate Manager__
+-- AWS Certificate Manager
 --
--- You can use AWS Certificate Manager (ACM) to manage SSL/TLS certificates for your AWS-based websites and applications. For more information about using ACM, see the <https://docs.aws.amazon.com/acm/latest/userguide/ AWS Certificate Manager User Guide> .
+-- You can use AWS Certificate Manager (ACM) to manage SSL\/TLS
+-- certificates for your AWS-based websites and applications. For more
+-- information about using ACM, see the
+-- <https://docs.aws.amazon.com/acm/latest/userguide/ AWS Certificate Manager User Guide>.
 module Network.AWS.CertificateManager
   ( -- * Service Configuration
-    certificateManager,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -30,8 +33,8 @@ module Network.AWS.CertificateManager
     -- ** InvalidArgsException
     _InvalidArgsException,
 
-    -- ** InvalidARNException
-    _InvalidARNException,
+    -- ** InvalidArnException
+    _InvalidArnException,
 
     -- ** TagPolicyException
     _TagPolicyException,
@@ -72,53 +75,101 @@ module Network.AWS.CertificateManager
     -- * Waiters
     -- $waiters
 
+    -- ** CertificateValidated
+    newCertificateValidated,
+
     -- * Operations
     -- $operations
 
     -- ** GetAccountConfiguration
-    module Network.AWS.CertificateManager.GetAccountConfiguration,
+    GetAccountConfiguration (GetAccountConfiguration'),
+    newGetAccountConfiguration,
+    GetAccountConfigurationResponse (GetAccountConfigurationResponse'),
+    newGetAccountConfigurationResponse,
 
     -- ** DeleteCertificate
-    module Network.AWS.CertificateManager.DeleteCertificate,
+    DeleteCertificate (DeleteCertificate'),
+    newDeleteCertificate,
+    DeleteCertificateResponse (DeleteCertificateResponse'),
+    newDeleteCertificateResponse,
 
     -- ** UpdateCertificateOptions
-    module Network.AWS.CertificateManager.UpdateCertificateOptions,
+    UpdateCertificateOptions (UpdateCertificateOptions'),
+    newUpdateCertificateOptions,
+    UpdateCertificateOptionsResponse (UpdateCertificateOptionsResponse'),
+    newUpdateCertificateOptionsResponse,
 
     -- ** RemoveTagsFromCertificate
-    module Network.AWS.CertificateManager.RemoveTagsFromCertificate,
+    RemoveTagsFromCertificate (RemoveTagsFromCertificate'),
+    newRemoveTagsFromCertificate,
+    RemoveTagsFromCertificateResponse (RemoveTagsFromCertificateResponse'),
+    newRemoveTagsFromCertificateResponse,
 
     -- ** ExportCertificate
-    module Network.AWS.CertificateManager.ExportCertificate,
+    ExportCertificate (ExportCertificate'),
+    newExportCertificate,
+    ExportCertificateResponse (ExportCertificateResponse'),
+    newExportCertificateResponse,
 
     -- ** RenewCertificate
-    module Network.AWS.CertificateManager.RenewCertificate,
+    RenewCertificate (RenewCertificate'),
+    newRenewCertificate,
+    RenewCertificateResponse (RenewCertificateResponse'),
+    newRenewCertificateResponse,
 
     -- ** GetCertificate
-    module Network.AWS.CertificateManager.GetCertificate,
+    GetCertificate (GetCertificate'),
+    newGetCertificate,
+    GetCertificateResponse (GetCertificateResponse'),
+    newGetCertificateResponse,
 
     -- ** DescribeCertificate
-    module Network.AWS.CertificateManager.DescribeCertificate,
+    DescribeCertificate (DescribeCertificate'),
+    newDescribeCertificate,
+    DescribeCertificateResponse (DescribeCertificateResponse'),
+    newDescribeCertificateResponse,
 
     -- ** PutAccountConfiguration
-    module Network.AWS.CertificateManager.PutAccountConfiguration,
+    PutAccountConfiguration (PutAccountConfiguration'),
+    newPutAccountConfiguration,
+    PutAccountConfigurationResponse (PutAccountConfigurationResponse'),
+    newPutAccountConfigurationResponse,
 
     -- ** ImportCertificate
-    module Network.AWS.CertificateManager.ImportCertificate,
+    ImportCertificate (ImportCertificate'),
+    newImportCertificate,
+    ImportCertificateResponse (ImportCertificateResponse'),
+    newImportCertificateResponse,
 
     -- ** ListCertificates (Paginated)
-    module Network.AWS.CertificateManager.ListCertificates,
+    ListCertificates (ListCertificates'),
+    newListCertificates,
+    ListCertificatesResponse (ListCertificatesResponse'),
+    newListCertificatesResponse,
 
     -- ** RequestCertificate
-    module Network.AWS.CertificateManager.RequestCertificate,
+    RequestCertificate (RequestCertificate'),
+    newRequestCertificate,
+    RequestCertificateResponse (RequestCertificateResponse'),
+    newRequestCertificateResponse,
 
     -- ** ResendValidationEmail
-    module Network.AWS.CertificateManager.ResendValidationEmail,
+    ResendValidationEmail (ResendValidationEmail'),
+    newResendValidationEmail,
+    ResendValidationEmailResponse (ResendValidationEmailResponse'),
+    newResendValidationEmailResponse,
 
     -- ** AddTagsToCertificate
-    module Network.AWS.CertificateManager.AddTagsToCertificate,
+    AddTagsToCertificate (AddTagsToCertificate'),
+    newAddTagsToCertificate,
+    AddTagsToCertificateResponse (AddTagsToCertificateResponse'),
+    newAddTagsToCertificateResponse,
 
     -- ** ListTagsForCertificate
-    module Network.AWS.CertificateManager.ListTagsForCertificate,
+    ListTagsForCertificate (ListTagsForCertificate'),
+    newListTagsForCertificate,
+    ListTagsForCertificateResponse (ListTagsForCertificateResponse'),
+    newListTagsForCertificateResponse,
 
     -- * Types
 
@@ -162,105 +213,52 @@ module Network.AWS.CertificateManager
     ValidationMethod (..),
 
     -- ** CertificateDetail
-    CertificateDetail,
-    certificateDetail,
-    cdStatus,
-    cdNotBefore,
-    cdCertificateAuthorityARN,
-    cdImportedAt,
-    cdExtendedKeyUsages,
-    cdDomainValidationOptions,
-    cdRenewalEligibility,
-    cdOptions,
-    cdSerial,
-    cdCertificateARN,
-    cdCreatedAt,
-    cdInUseBy,
-    cdSubjectAlternativeNames,
-    cdDomainName,
-    cdRevocationReason,
-    cdSubject,
-    cdFailureReason,
-    cdKeyUsages,
-    cdRevokedAt,
-    cdNotAfter,
-    cdSignatureAlgorithm,
-    cdIssuer,
-    cdType,
-    cdKeyAlgorithm,
-    cdIssuedAt,
-    cdRenewalSummary,
+    CertificateDetail (CertificateDetail'),
+    newCertificateDetail,
 
     -- ** CertificateOptions
-    CertificateOptions,
-    certificateOptions,
-    coCertificateTransparencyLoggingPreference,
+    CertificateOptions (CertificateOptions'),
+    newCertificateOptions,
 
     -- ** CertificateSummary
-    CertificateSummary,
-    certificateSummary,
-    csCertificateARN,
-    csDomainName,
+    CertificateSummary (CertificateSummary'),
+    newCertificateSummary,
 
     -- ** DomainValidation
-    DomainValidation,
-    domainValidation,
-    dvResourceRecord,
-    dvValidationEmails,
-    dvValidationMethod,
-    dvValidationStatus,
-    dvValidationDomain,
-    dvDomainName,
+    DomainValidation (DomainValidation'),
+    newDomainValidation,
 
     -- ** DomainValidationOption
-    DomainValidationOption,
-    domainValidationOption,
-    dvoDomainName,
-    dvoValidationDomain,
+    DomainValidationOption (DomainValidationOption'),
+    newDomainValidationOption,
 
     -- ** ExpiryEventsConfiguration
-    ExpiryEventsConfiguration,
-    expiryEventsConfiguration,
-    eecDaysBeforeExpiry,
+    ExpiryEventsConfiguration (ExpiryEventsConfiguration'),
+    newExpiryEventsConfiguration,
 
     -- ** ExtendedKeyUsage
-    ExtendedKeyUsage,
-    extendedKeyUsage,
-    ekuName,
-    ekuOId,
+    ExtendedKeyUsage (ExtendedKeyUsage'),
+    newExtendedKeyUsage,
 
     -- ** Filters
-    Filters,
-    filters,
-    fKeyTypes,
-    fExtendedKeyUsage,
-    fKeyUsage,
+    Filters (Filters'),
+    newFilters,
 
     -- ** KeyUsage
-    KeyUsage,
-    keyUsage,
-    kuName,
+    KeyUsage (KeyUsage'),
+    newKeyUsage,
 
     -- ** RenewalSummary
-    RenewalSummary,
-    renewalSummary,
-    rsRenewalStatusReason,
-    rsRenewalStatus,
-    rsDomainValidationOptions,
-    rsUpdatedAt,
+    RenewalSummary (RenewalSummary'),
+    newRenewalSummary,
 
     -- ** ResourceRecord
-    ResourceRecord,
-    resourceRecord,
-    rrName,
-    rrType,
-    rrValue,
+    ResourceRecord (ResourceRecord'),
+    newResourceRecord,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -271,6 +269,7 @@ import Network.AWS.CertificateManager.ExportCertificate
 import Network.AWS.CertificateManager.GetAccountConfiguration
 import Network.AWS.CertificateManager.GetCertificate
 import Network.AWS.CertificateManager.ImportCertificate
+import Network.AWS.CertificateManager.Lens
 import Network.AWS.CertificateManager.ListCertificates
 import Network.AWS.CertificateManager.ListTagsForCertificate
 import Network.AWS.CertificateManager.PutAccountConfiguration

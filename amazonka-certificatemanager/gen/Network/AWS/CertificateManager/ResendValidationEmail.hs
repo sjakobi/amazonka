@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,141 +21,222 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Resends the email that requests domain ownership validation. The domain owner or an authorized representative must approve the ACM certificate before it can be issued. The certificate can be approved by clicking a link in the mail to navigate to the Amazon certificate approval website and then clicking __I Approve__ . However, the validation email can be blocked by spam filters. Therefore, if you do not receive the original mail, you can request that the mail be resent within 72 hours of requesting the ACM certificate. If more than 72 hours have elapsed since your original request or since your last attempt to resend validation mail, you must request a new certificate. For more information about setting up your contact email addresses, see <https://docs.aws.amazon.com/acm/latest/userguide/setup-email.html Configure Email for your Domain> .
+-- Resends the email that requests domain ownership validation. The domain
+-- owner or an authorized representative must approve the ACM certificate
+-- before it can be issued. The certificate can be approved by clicking a
+-- link in the mail to navigate to the Amazon certificate approval website
+-- and then clicking __I Approve__. However, the validation email can be
+-- blocked by spam filters. Therefore, if you do not receive the original
+-- mail, you can request that the mail be resent within 72 hours of
+-- requesting the ACM certificate. If more than 72 hours have elapsed since
+-- your original request or since your last attempt to resend validation
+-- mail, you must request a new certificate. For more information about
+-- setting up your contact email addresses, see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/setup-email.html Configure Email for your Domain>.
 module Network.AWS.CertificateManager.ResendValidationEmail
   ( -- * Creating a Request
-    resendValidationEmail,
-    ResendValidationEmail,
+    ResendValidationEmail (..),
+    newResendValidationEmail,
 
     -- * Request Lenses
-    rveCertificateARN,
-    rveDomain,
-    rveValidationDomain,
+    resendValidationEmail_certificateArn,
+    resendValidationEmail_domain,
+    resendValidationEmail_validationDomain,
 
     -- * Destructuring the Response
-    resendValidationEmailResponse,
-    ResendValidationEmailResponse,
+    ResendValidationEmailResponse (..),
+    newResendValidationEmailResponse,
   )
 where
 
 import Network.AWS.CertificateManager.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'resendValidationEmail' smart constructor.
+-- | /See:/ 'newResendValidationEmail' smart constructor.
 data ResendValidationEmail = ResendValidationEmail'
-  { _rveCertificateARN ::
-      !Text,
-    _rveDomain :: !Text,
-    _rveValidationDomain ::
-      !Text
+  { -- | String that contains the ARN of the requested certificate. The
+    -- certificate ARN is generated and returned by the RequestCertificate
+    -- action as soon as the request is made. By default, using this parameter
+    -- causes email to be sent to all top-level domains you specified in the
+    -- certificate request. The ARN must be of the form:
+    --
+    -- @arn:aws:acm:us-east-1:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+    certificateArn :: Prelude.Text,
+    -- | The fully qualified domain name (FQDN) of the certificate that needs to
+    -- be validated.
+    domain :: Prelude.Text,
+    -- | The base validation domain that will act as the suffix of the email
+    -- addresses that are used to send the emails. This must be the same as the
+    -- @Domain@ value or a superdomain of the @Domain@ value. For example, if
+    -- you requested a certificate for @site.subdomain.example.com@ and specify
+    -- a __ValidationDomain__ of @subdomain.example.com@, ACM sends email to
+    -- the domain registrant, technical contact, and administrative contact in
+    -- WHOIS and the following five addresses:
+    --
+    -- -   admin\@subdomain.example.com
+    --
+    -- -   administrator\@subdomain.example.com
+    --
+    -- -   hostmaster\@subdomain.example.com
+    --
+    -- -   postmaster\@subdomain.example.com
+    --
+    -- -   webmaster\@subdomain.example.com
+    validationDomain :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResendValidationEmail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResendValidationEmail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rveCertificateARN' - String that contains the ARN of the requested certificate. The certificate ARN is generated and returned by the 'RequestCertificate' action as soon as the request is made. By default, using this parameter causes email to be sent to all top-level domains you specified in the certificate request. The ARN must be of the form:  @arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rveDomain' - The fully qualified domain name (FQDN) of the certificate that needs to be validated.
+-- 'certificateArn', 'resendValidationEmail_certificateArn' - String that contains the ARN of the requested certificate. The
+-- certificate ARN is generated and returned by the RequestCertificate
+-- action as soon as the request is made. By default, using this parameter
+-- causes email to be sent to all top-level domains you specified in the
+-- certificate request. The ARN must be of the form:
 --
--- * 'rveValidationDomain' - The base validation domain that will act as the suffix of the email addresses that are used to send the emails. This must be the same as the @Domain@ value or a superdomain of the @Domain@ value. For example, if you requested a certificate for @site.subdomain.example.com@ and specify a __ValidationDomain__ of @subdomain.example.com@ , ACM sends email to the domain registrant, technical contact, and administrative contact in WHOIS and the following five addresses:     * admin@subdomain.example.com     * administrator@subdomain.example.com     * hostmaster@subdomain.example.com     * postmaster@subdomain.example.com     * webmaster@subdomain.example.com
-resendValidationEmail ::
-  -- | 'rveCertificateARN'
-  Text ->
-  -- | 'rveDomain'
-  Text ->
-  -- | 'rveValidationDomain'
-  Text ->
+-- @arn:aws:acm:us-east-1:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+--
+-- 'domain', 'resendValidationEmail_domain' - The fully qualified domain name (FQDN) of the certificate that needs to
+-- be validated.
+--
+-- 'validationDomain', 'resendValidationEmail_validationDomain' - The base validation domain that will act as the suffix of the email
+-- addresses that are used to send the emails. This must be the same as the
+-- @Domain@ value or a superdomain of the @Domain@ value. For example, if
+-- you requested a certificate for @site.subdomain.example.com@ and specify
+-- a __ValidationDomain__ of @subdomain.example.com@, ACM sends email to
+-- the domain registrant, technical contact, and administrative contact in
+-- WHOIS and the following five addresses:
+--
+-- -   admin\@subdomain.example.com
+--
+-- -   administrator\@subdomain.example.com
+--
+-- -   hostmaster\@subdomain.example.com
+--
+-- -   postmaster\@subdomain.example.com
+--
+-- -   webmaster\@subdomain.example.com
+newResendValidationEmail ::
+  -- | 'certificateArn'
+  Prelude.Text ->
+  -- | 'domain'
+  Prelude.Text ->
+  -- | 'validationDomain'
+  Prelude.Text ->
   ResendValidationEmail
-resendValidationEmail
-  pCertificateARN_
+newResendValidationEmail
+  pCertificateArn_
   pDomain_
   pValidationDomain_ =
     ResendValidationEmail'
-      { _rveCertificateARN =
-          pCertificateARN_,
-        _rveDomain = pDomain_,
-        _rveValidationDomain = pValidationDomain_
+      { certificateArn =
+          pCertificateArn_,
+        domain = pDomain_,
+        validationDomain = pValidationDomain_
       }
 
--- | String that contains the ARN of the requested certificate. The certificate ARN is generated and returned by the 'RequestCertificate' action as soon as the request is made. By default, using this parameter causes email to be sent to all top-level domains you specified in the certificate request. The ARN must be of the form:  @arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012@
-rveCertificateARN :: Lens' ResendValidationEmail Text
-rveCertificateARN = lens _rveCertificateARN (\s a -> s {_rveCertificateARN = a})
+-- | String that contains the ARN of the requested certificate. The
+-- certificate ARN is generated and returned by the RequestCertificate
+-- action as soon as the request is made. By default, using this parameter
+-- causes email to be sent to all top-level domains you specified in the
+-- certificate request. The ARN must be of the form:
+--
+-- @arn:aws:acm:us-east-1:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+resendValidationEmail_certificateArn :: Lens.Lens' ResendValidationEmail Prelude.Text
+resendValidationEmail_certificateArn = Lens.lens (\ResendValidationEmail' {certificateArn} -> certificateArn) (\s@ResendValidationEmail' {} a -> s {certificateArn = a} :: ResendValidationEmail)
 
--- | The fully qualified domain name (FQDN) of the certificate that needs to be validated.
-rveDomain :: Lens' ResendValidationEmail Text
-rveDomain = lens _rveDomain (\s a -> s {_rveDomain = a})
+-- | The fully qualified domain name (FQDN) of the certificate that needs to
+-- be validated.
+resendValidationEmail_domain :: Lens.Lens' ResendValidationEmail Prelude.Text
+resendValidationEmail_domain = Lens.lens (\ResendValidationEmail' {domain} -> domain) (\s@ResendValidationEmail' {} a -> s {domain = a} :: ResendValidationEmail)
 
--- | The base validation domain that will act as the suffix of the email addresses that are used to send the emails. This must be the same as the @Domain@ value or a superdomain of the @Domain@ value. For example, if you requested a certificate for @site.subdomain.example.com@ and specify a __ValidationDomain__ of @subdomain.example.com@ , ACM sends email to the domain registrant, technical contact, and administrative contact in WHOIS and the following five addresses:     * admin@subdomain.example.com     * administrator@subdomain.example.com     * hostmaster@subdomain.example.com     * postmaster@subdomain.example.com     * webmaster@subdomain.example.com
-rveValidationDomain :: Lens' ResendValidationEmail Text
-rveValidationDomain = lens _rveValidationDomain (\s a -> s {_rveValidationDomain = a})
+-- | The base validation domain that will act as the suffix of the email
+-- addresses that are used to send the emails. This must be the same as the
+-- @Domain@ value or a superdomain of the @Domain@ value. For example, if
+-- you requested a certificate for @site.subdomain.example.com@ and specify
+-- a __ValidationDomain__ of @subdomain.example.com@, ACM sends email to
+-- the domain registrant, technical contact, and administrative contact in
+-- WHOIS and the following five addresses:
+--
+-- -   admin\@subdomain.example.com
+--
+-- -   administrator\@subdomain.example.com
+--
+-- -   hostmaster\@subdomain.example.com
+--
+-- -   postmaster\@subdomain.example.com
+--
+-- -   webmaster\@subdomain.example.com
+resendValidationEmail_validationDomain :: Lens.Lens' ResendValidationEmail Prelude.Text
+resendValidationEmail_validationDomain = Lens.lens (\ResendValidationEmail' {validationDomain} -> validationDomain) (\s@ResendValidationEmail' {} a -> s {validationDomain = a} :: ResendValidationEmail)
 
-instance AWSRequest ResendValidationEmail where
+instance Prelude.AWSRequest ResendValidationEmail where
   type
     Rs ResendValidationEmail =
       ResendValidationEmailResponse
-  request = postJSON certificateManager
-  response = receiveNull ResendValidationEmailResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull ResendValidationEmailResponse'
 
-instance Hashable ResendValidationEmail
+instance Prelude.Hashable ResendValidationEmail
 
-instance NFData ResendValidationEmail
+instance Prelude.NFData ResendValidationEmail
 
-instance ToHeaders ResendValidationEmail where
+instance Prelude.ToHeaders ResendValidationEmail where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CertificateManager.ResendValidationEmail" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CertificateManager.ResendValidationEmail" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ResendValidationEmail where
+instance Prelude.ToJSON ResendValidationEmail where
   toJSON ResendValidationEmail' {..} =
-    object
-      ( catMaybes
-          [ Just ("CertificateArn" .= _rveCertificateARN),
-            Just ("Domain" .= _rveDomain),
-            Just ("ValidationDomain" .= _rveValidationDomain)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CertificateArn" Prelude..= certificateArn),
+            Prelude.Just ("Domain" Prelude..= domain),
+            Prelude.Just
+              ("ValidationDomain" Prelude..= validationDomain)
           ]
       )
 
-instance ToPath ResendValidationEmail where
-  toPath = const "/"
+instance Prelude.ToPath ResendValidationEmail where
+  toPath = Prelude.const "/"
 
-instance ToQuery ResendValidationEmail where
-  toQuery = const mempty
+instance Prelude.ToQuery ResendValidationEmail where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'resendValidationEmailResponse' smart constructor.
+-- | /See:/ 'newResendValidationEmailResponse' smart constructor.
 data ResendValidationEmailResponse = ResendValidationEmailResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResendValidationEmailResponse' with the minimum fields required to make a request.
-resendValidationEmailResponse ::
+-- |
+-- Create a value of 'ResendValidationEmailResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newResendValidationEmailResponse ::
   ResendValidationEmailResponse
-resendValidationEmailResponse =
+newResendValidationEmailResponse =
   ResendValidationEmailResponse'
 
-instance NFData ResendValidationEmailResponse
+instance Prelude.NFData ResendValidationEmailResponse

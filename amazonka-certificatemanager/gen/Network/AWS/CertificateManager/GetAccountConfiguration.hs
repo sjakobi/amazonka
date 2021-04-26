@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,124 +21,125 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the account configuration options associated with an AWS account.
+-- Returns the account configuration options associated with an AWS
+-- account.
 module Network.AWS.CertificateManager.GetAccountConfiguration
   ( -- * Creating a Request
-    getAccountConfiguration,
-    GetAccountConfiguration,
+    GetAccountConfiguration (..),
+    newGetAccountConfiguration,
 
     -- * Destructuring the Response
-    getAccountConfigurationResponse,
-    GetAccountConfigurationResponse,
+    GetAccountConfigurationResponse (..),
+    newGetAccountConfigurationResponse,
 
     -- * Response Lenses
-    gacrrsExpiryEvents,
-    gacrrsResponseStatus,
+    getAccountConfigurationResponse_expiryEvents,
+    getAccountConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.CertificateManager.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CertificateManager.Types.ExpiryEventsConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAccountConfiguration' smart constructor.
+-- | /See:/ 'newGetAccountConfiguration' smart constructor.
 data GetAccountConfiguration = GetAccountConfiguration'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountConfiguration' with the minimum fields required to make a request.
-getAccountConfiguration ::
+-- |
+-- Create a value of 'GetAccountConfiguration' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetAccountConfiguration ::
   GetAccountConfiguration
-getAccountConfiguration = GetAccountConfiguration'
+newGetAccountConfiguration = GetAccountConfiguration'
 
-instance AWSRequest GetAccountConfiguration where
+instance Prelude.AWSRequest GetAccountConfiguration where
   type
     Rs GetAccountConfiguration =
       GetAccountConfigurationResponse
-  request = postJSON certificateManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAccountConfigurationResponse'
-            <$> (x .?> "ExpiryEvents") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ExpiryEvents")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAccountConfiguration
+instance Prelude.Hashable GetAccountConfiguration
 
-instance NFData GetAccountConfiguration
+instance Prelude.NFData GetAccountConfiguration
 
-instance ToHeaders GetAccountConfiguration where
+instance Prelude.ToHeaders GetAccountConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CertificateManager.GetAccountConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CertificateManager.GetAccountConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAccountConfiguration where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetAccountConfiguration where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetAccountConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath GetAccountConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAccountConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAccountConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAccountConfigurationResponse' smart constructor.
+-- | /See:/ 'newGetAccountConfigurationResponse' smart constructor.
 data GetAccountConfigurationResponse = GetAccountConfigurationResponse'
-  { _gacrrsExpiryEvents ::
-      !( Maybe
-           ExpiryEventsConfiguration
-       ),
-    _gacrrsResponseStatus ::
-      !Int
+  { -- | Expiration events configuration options associated with the AWS account.
+    expiryEvents :: Prelude.Maybe ExpiryEventsConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAccountConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gacrrsExpiryEvents' - Expiration events configuration options associated with the AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gacrrsResponseStatus' - -- | The response status code.
-getAccountConfigurationResponse ::
-  -- | 'gacrrsResponseStatus'
-  Int ->
+-- 'expiryEvents', 'getAccountConfigurationResponse_expiryEvents' - Expiration events configuration options associated with the AWS account.
+--
+-- 'httpStatus', 'getAccountConfigurationResponse_httpStatus' - The response's http status code.
+newGetAccountConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAccountConfigurationResponse
-getAccountConfigurationResponse pResponseStatus_ =
+newGetAccountConfigurationResponse pHttpStatus_ =
   GetAccountConfigurationResponse'
-    { _gacrrsExpiryEvents =
-        Nothing,
-      _gacrrsResponseStatus = pResponseStatus_
+    { expiryEvents =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Expiration events configuration options associated with the AWS account.
-gacrrsExpiryEvents :: Lens' GetAccountConfigurationResponse (Maybe ExpiryEventsConfiguration)
-gacrrsExpiryEvents = lens _gacrrsExpiryEvents (\s a -> s {_gacrrsExpiryEvents = a})
+getAccountConfigurationResponse_expiryEvents :: Lens.Lens' GetAccountConfigurationResponse (Prelude.Maybe ExpiryEventsConfiguration)
+getAccountConfigurationResponse_expiryEvents = Lens.lens (\GetAccountConfigurationResponse' {expiryEvents} -> expiryEvents) (\s@GetAccountConfigurationResponse' {} a -> s {expiryEvents = a} :: GetAccountConfigurationResponse)
 
--- | -- | The response status code.
-gacrrsResponseStatus :: Lens' GetAccountConfigurationResponse Int
-gacrrsResponseStatus = lens _gacrrsResponseStatus (\s a -> s {_gacrrsResponseStatus = a})
+-- | The response's http status code.
+getAccountConfigurationResponse_httpStatus :: Lens.Lens' GetAccountConfigurationResponse Prelude.Int
+getAccountConfigurationResponse_httpStatus = Lens.lens (\GetAccountConfigurationResponse' {httpStatus} -> httpStatus) (\s@GetAccountConfigurationResponse' {} a -> s {httpStatus = a} :: GetAccountConfigurationResponse)
 
-instance NFData GetAccountConfigurationResponse
+instance
+  Prelude.NFData
+    GetAccountConfigurationResponse

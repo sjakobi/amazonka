@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,128 +23,146 @@
 --
 -- Adds or modifies account-level configurations in ACM.
 --
---
--- The supported configuration option is @DaysBeforeExpiry@ . This option specifies the number of days prior to certificate expiration when ACM starts generating @EventBridge@ events. ACM sends one event per day per certificate until the certificate expires. By default, accounts receive events starting 45 days before certificate expiration.
+-- The supported configuration option is @DaysBeforeExpiry@. This option
+-- specifies the number of days prior to certificate expiration when ACM
+-- starts generating @EventBridge@ events. ACM sends one event per day per
+-- certificate until the certificate expires. By default, accounts receive
+-- events starting 45 days before certificate expiration.
 module Network.AWS.CertificateManager.PutAccountConfiguration
   ( -- * Creating a Request
-    putAccountConfiguration,
-    PutAccountConfiguration,
+    PutAccountConfiguration (..),
+    newPutAccountConfiguration,
 
     -- * Request Lenses
-    pacExpiryEvents,
-    pacIdempotencyToken,
+    putAccountConfiguration_expiryEvents,
+    putAccountConfiguration_idempotencyToken,
 
     -- * Destructuring the Response
-    putAccountConfigurationResponse,
-    PutAccountConfigurationResponse,
+    PutAccountConfigurationResponse (..),
+    newPutAccountConfigurationResponse,
   )
 where
 
 import Network.AWS.CertificateManager.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putAccountConfiguration' smart constructor.
+-- | /See:/ 'newPutAccountConfiguration' smart constructor.
 data PutAccountConfiguration = PutAccountConfiguration'
-  { _pacExpiryEvents ::
-      !( Maybe
-           ExpiryEventsConfiguration
-       ),
-    _pacIdempotencyToken ::
-      !Text
+  { -- | Specifies expiration events associated with an account.
+    expiryEvents :: Prelude.Maybe ExpiryEventsConfiguration,
+    -- | Customer-chosen string used to distinguish between calls to
+    -- @PutAccountConfiguration@. Idempotency tokens time out after one hour.
+    -- If you call @PutAccountConfiguration@ multiple times with the same
+    -- unexpired idempotency token, ACM treats it as the same request and
+    -- returns the original result. If you change the idempotency token for
+    -- each call, ACM treats each call as a new request.
+    idempotencyToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutAccountConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutAccountConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pacExpiryEvents' - Specifies expiration events associated with an account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pacIdempotencyToken' - Customer-chosen string used to distinguish between calls to @PutAccountConfiguration@ . Idempotency tokens time out after one hour. If you call @PutAccountConfiguration@ multiple times with the same unexpired idempotency token, ACM treats it as the same request and returns the original result. If you change the idempotency token for each call, ACM treats each call as a new request.
-putAccountConfiguration ::
-  -- | 'pacIdempotencyToken'
-  Text ->
+-- 'expiryEvents', 'putAccountConfiguration_expiryEvents' - Specifies expiration events associated with an account.
+--
+-- 'idempotencyToken', 'putAccountConfiguration_idempotencyToken' - Customer-chosen string used to distinguish between calls to
+-- @PutAccountConfiguration@. Idempotency tokens time out after one hour.
+-- If you call @PutAccountConfiguration@ multiple times with the same
+-- unexpired idempotency token, ACM treats it as the same request and
+-- returns the original result. If you change the idempotency token for
+-- each call, ACM treats each call as a new request.
+newPutAccountConfiguration ::
+  -- | 'idempotencyToken'
+  Prelude.Text ->
   PutAccountConfiguration
-putAccountConfiguration pIdempotencyToken_ =
+newPutAccountConfiguration pIdempotencyToken_ =
   PutAccountConfiguration'
-    { _pacExpiryEvents =
-        Nothing,
-      _pacIdempotencyToken = pIdempotencyToken_
+    { expiryEvents =
+        Prelude.Nothing,
+      idempotencyToken = pIdempotencyToken_
     }
 
 -- | Specifies expiration events associated with an account.
-pacExpiryEvents :: Lens' PutAccountConfiguration (Maybe ExpiryEventsConfiguration)
-pacExpiryEvents = lens _pacExpiryEvents (\s a -> s {_pacExpiryEvents = a})
+putAccountConfiguration_expiryEvents :: Lens.Lens' PutAccountConfiguration (Prelude.Maybe ExpiryEventsConfiguration)
+putAccountConfiguration_expiryEvents = Lens.lens (\PutAccountConfiguration' {expiryEvents} -> expiryEvents) (\s@PutAccountConfiguration' {} a -> s {expiryEvents = a} :: PutAccountConfiguration)
 
--- | Customer-chosen string used to distinguish between calls to @PutAccountConfiguration@ . Idempotency tokens time out after one hour. If you call @PutAccountConfiguration@ multiple times with the same unexpired idempotency token, ACM treats it as the same request and returns the original result. If you change the idempotency token for each call, ACM treats each call as a new request.
-pacIdempotencyToken :: Lens' PutAccountConfiguration Text
-pacIdempotencyToken = lens _pacIdempotencyToken (\s a -> s {_pacIdempotencyToken = a})
+-- | Customer-chosen string used to distinguish between calls to
+-- @PutAccountConfiguration@. Idempotency tokens time out after one hour.
+-- If you call @PutAccountConfiguration@ multiple times with the same
+-- unexpired idempotency token, ACM treats it as the same request and
+-- returns the original result. If you change the idempotency token for
+-- each call, ACM treats each call as a new request.
+putAccountConfiguration_idempotencyToken :: Lens.Lens' PutAccountConfiguration Prelude.Text
+putAccountConfiguration_idempotencyToken = Lens.lens (\PutAccountConfiguration' {idempotencyToken} -> idempotencyToken) (\s@PutAccountConfiguration' {} a -> s {idempotencyToken = a} :: PutAccountConfiguration)
 
-instance AWSRequest PutAccountConfiguration where
+instance Prelude.AWSRequest PutAccountConfiguration where
   type
     Rs PutAccountConfiguration =
       PutAccountConfigurationResponse
-  request = postJSON certificateManager
+  request = Request.postJSON defaultService
   response =
-    receiveNull PutAccountConfigurationResponse'
+    Response.receiveNull
+      PutAccountConfigurationResponse'
 
-instance Hashable PutAccountConfiguration
+instance Prelude.Hashable PutAccountConfiguration
 
-instance NFData PutAccountConfiguration
+instance Prelude.NFData PutAccountConfiguration
 
-instance ToHeaders PutAccountConfiguration where
+instance Prelude.ToHeaders PutAccountConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CertificateManager.PutAccountConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CertificateManager.PutAccountConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutAccountConfiguration where
+instance Prelude.ToJSON PutAccountConfiguration where
   toJSON PutAccountConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("ExpiryEvents" .=) <$> _pacExpiryEvents,
-            Just ("IdempotencyToken" .= _pacIdempotencyToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ExpiryEvents" Prelude..=)
+              Prelude.<$> expiryEvents,
+            Prelude.Just
+              ("IdempotencyToken" Prelude..= idempotencyToken)
           ]
       )
 
-instance ToPath PutAccountConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath PutAccountConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutAccountConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery PutAccountConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putAccountConfigurationResponse' smart constructor.
+-- | /See:/ 'newPutAccountConfigurationResponse' smart constructor.
 data PutAccountConfigurationResponse = PutAccountConfigurationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutAccountConfigurationResponse' with the minimum fields required to make a request.
-putAccountConfigurationResponse ::
+-- |
+-- Create a value of 'PutAccountConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPutAccountConfigurationResponse ::
   PutAccountConfigurationResponse
-putAccountConfigurationResponse =
+newPutAccountConfigurationResponse =
   PutAccountConfigurationResponse'
 
-instance NFData PutAccountConfigurationResponse
+instance
+  Prelude.NFData
+    PutAccountConfigurationResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,83 +22,112 @@ module Network.AWS.CertificateManager.Types.RenewalSummary where
 import Network.AWS.CertificateManager.Types.DomainValidation
 import Network.AWS.CertificateManager.Types.FailureReason
 import Network.AWS.CertificateManager.Types.RenewalStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the status of ACM's <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal> for the certificate. This structure exists only when the certificate type is @AMAZON_ISSUED@ .
+-- | Contains information about the status of ACM\'s
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+-- for the certificate. This structure exists only when the certificate
+-- type is @AMAZON_ISSUED@.
 --
---
---
--- /See:/ 'renewalSummary' smart constructor.
+-- /See:/ 'newRenewalSummary' smart constructor.
 data RenewalSummary = RenewalSummary'
-  { _rsRenewalStatusReason ::
-      !(Maybe FailureReason),
-    _rsRenewalStatus :: !RenewalStatus,
-    _rsDomainValidationOptions ::
-      !(List1 DomainValidation),
-    _rsUpdatedAt :: !POSIX
+  { -- | The reason that a renewal request was unsuccessful.
+    renewalStatusReason :: Prelude.Maybe FailureReason,
+    -- | The status of ACM\'s
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+    -- of the certificate.
+    renewalStatus :: RenewalStatus,
+    -- | Contains information about the validation of each domain name in the
+    -- certificate, as it pertains to ACM\'s
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>.
+    -- This is different from the initial validation that occurs as a result of
+    -- the RequestCertificate request. This field exists only when the
+    -- certificate type is @AMAZON_ISSUED@.
+    domainValidationOptions :: Prelude.List1 DomainValidation,
+    -- | The time at which the renewal summary was last updated.
+    updatedAt :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RenewalSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RenewalSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsRenewalStatusReason' - The reason that a renewal request was unsuccessful.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsRenewalStatus' - The status of ACM's <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal> of the certificate.
+-- 'renewalStatusReason', 'renewalSummary_renewalStatusReason' - The reason that a renewal request was unsuccessful.
 --
--- * 'rsDomainValidationOptions' - Contains information about the validation of each domain name in the certificate, as it pertains to ACM's <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal> . This is different from the initial validation that occurs as a result of the 'RequestCertificate' request. This field exists only when the certificate type is @AMAZON_ISSUED@ .
+-- 'renewalStatus', 'renewalSummary_renewalStatus' - The status of ACM\'s
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+-- of the certificate.
 --
--- * 'rsUpdatedAt' - The time at which the renewal summary was last updated.
-renewalSummary ::
-  -- | 'rsRenewalStatus'
+-- 'domainValidationOptions', 'renewalSummary_domainValidationOptions' - Contains information about the validation of each domain name in the
+-- certificate, as it pertains to ACM\'s
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>.
+-- This is different from the initial validation that occurs as a result of
+-- the RequestCertificate request. This field exists only when the
+-- certificate type is @AMAZON_ISSUED@.
+--
+-- 'updatedAt', 'renewalSummary_updatedAt' - The time at which the renewal summary was last updated.
+newRenewalSummary ::
+  -- | 'renewalStatus'
   RenewalStatus ->
-  -- | 'rsDomainValidationOptions'
-  NonEmpty DomainValidation ->
-  -- | 'rsUpdatedAt'
-  UTCTime ->
+  -- | 'domainValidationOptions'
+  Prelude.NonEmpty DomainValidation ->
+  -- | 'updatedAt'
+  Prelude.UTCTime ->
   RenewalSummary
-renewalSummary
+newRenewalSummary
   pRenewalStatus_
   pDomainValidationOptions_
   pUpdatedAt_ =
     RenewalSummary'
-      { _rsRenewalStatusReason = Nothing,
-        _rsRenewalStatus = pRenewalStatus_,
-        _rsDomainValidationOptions =
-          _List1 # pDomainValidationOptions_,
-        _rsUpdatedAt = _Time # pUpdatedAt_
+      { renewalStatusReason =
+          Prelude.Nothing,
+        renewalStatus = pRenewalStatus_,
+        domainValidationOptions =
+          Prelude._List1 Lens.# pDomainValidationOptions_,
+        updatedAt = Prelude._Time Lens.# pUpdatedAt_
       }
 
 -- | The reason that a renewal request was unsuccessful.
-rsRenewalStatusReason :: Lens' RenewalSummary (Maybe FailureReason)
-rsRenewalStatusReason = lens _rsRenewalStatusReason (\s a -> s {_rsRenewalStatusReason = a})
+renewalSummary_renewalStatusReason :: Lens.Lens' RenewalSummary (Prelude.Maybe FailureReason)
+renewalSummary_renewalStatusReason = Lens.lens (\RenewalSummary' {renewalStatusReason} -> renewalStatusReason) (\s@RenewalSummary' {} a -> s {renewalStatusReason = a} :: RenewalSummary)
 
--- | The status of ACM's <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal> of the certificate.
-rsRenewalStatus :: Lens' RenewalSummary RenewalStatus
-rsRenewalStatus = lens _rsRenewalStatus (\s a -> s {_rsRenewalStatus = a})
+-- | The status of ACM\'s
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+-- of the certificate.
+renewalSummary_renewalStatus :: Lens.Lens' RenewalSummary RenewalStatus
+renewalSummary_renewalStatus = Lens.lens (\RenewalSummary' {renewalStatus} -> renewalStatus) (\s@RenewalSummary' {} a -> s {renewalStatus = a} :: RenewalSummary)
 
--- | Contains information about the validation of each domain name in the certificate, as it pertains to ACM's <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal> . This is different from the initial validation that occurs as a result of the 'RequestCertificate' request. This field exists only when the certificate type is @AMAZON_ISSUED@ .
-rsDomainValidationOptions :: Lens' RenewalSummary (NonEmpty DomainValidation)
-rsDomainValidationOptions = lens _rsDomainValidationOptions (\s a -> s {_rsDomainValidationOptions = a}) . _List1
+-- | Contains information about the validation of each domain name in the
+-- certificate, as it pertains to ACM\'s
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>.
+-- This is different from the initial validation that occurs as a result of
+-- the RequestCertificate request. This field exists only when the
+-- certificate type is @AMAZON_ISSUED@.
+renewalSummary_domainValidationOptions :: Lens.Lens' RenewalSummary (Prelude.NonEmpty DomainValidation)
+renewalSummary_domainValidationOptions = Lens.lens (\RenewalSummary' {domainValidationOptions} -> domainValidationOptions) (\s@RenewalSummary' {} a -> s {domainValidationOptions = a} :: RenewalSummary) Prelude.. Prelude._List1
 
 -- | The time at which the renewal summary was last updated.
-rsUpdatedAt :: Lens' RenewalSummary UTCTime
-rsUpdatedAt = lens _rsUpdatedAt (\s a -> s {_rsUpdatedAt = a}) . _Time
+renewalSummary_updatedAt :: Lens.Lens' RenewalSummary Prelude.UTCTime
+renewalSummary_updatedAt = Lens.lens (\RenewalSummary' {updatedAt} -> updatedAt) (\s@RenewalSummary' {} a -> s {updatedAt = a} :: RenewalSummary) Prelude.. Prelude._Time
 
-instance FromJSON RenewalSummary where
+instance Prelude.FromJSON RenewalSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RenewalSummary"
       ( \x ->
           RenewalSummary'
-            <$> (x .:? "RenewalStatusReason")
-            <*> (x .: "RenewalStatus")
-            <*> (x .: "DomainValidationOptions")
-            <*> (x .: "UpdatedAt")
+            Prelude.<$> (x Prelude..:? "RenewalStatusReason")
+            Prelude.<*> (x Prelude..: "RenewalStatus")
+            Prelude.<*> (x Prelude..: "DomainValidationOptions")
+            Prelude.<*> (x Prelude..: "UpdatedAt")
       )
 
-instance Hashable RenewalSummary
+instance Prelude.Hashable RenewalSummary
 
-instance NFData RenewalSummary
+instance Prelude.NFData RenewalSummary

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CertificateManager.Types.CertificateSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This structure is returned in the response object of 'ListCertificates' action.
+-- | This structure is returned in the response object of ListCertificates
+-- action.
 --
---
---
--- /See:/ 'certificateSummary' smart constructor.
+-- /See:/ 'newCertificateSummary' smart constructor.
 data CertificateSummary = CertificateSummary'
-  { _csCertificateARN ::
-      !(Maybe Text),
-    _csDomainName :: !(Maybe Text)
+  { -- | Amazon Resource Name (ARN) of the certificate. This is of the form:
+    --
+    -- @arn:aws:acm:region:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+    --
+    -- For more information about ARNs, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | Fully qualified domain name (FQDN), such as www.example.com or
+    -- example.com, for the certificate.
+    domainName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CertificateSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CertificateSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csCertificateARN' - Amazon Resource Name (ARN) of the certificate. This is of the form: @arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012@  For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csDomainName' - Fully qualified domain name (FQDN), such as www.example.com or example.com, for the certificate.
-certificateSummary ::
+-- 'certificateArn', 'certificateSummary_certificateArn' - Amazon Resource Name (ARN) of the certificate. This is of the form:
+--
+-- @arn:aws:acm:region:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+--
+-- 'domainName', 'certificateSummary_domainName' - Fully qualified domain name (FQDN), such as www.example.com or
+-- example.com, for the certificate.
+newCertificateSummary ::
   CertificateSummary
-certificateSummary =
+newCertificateSummary =
   CertificateSummary'
-    { _csCertificateARN = Nothing,
-      _csDomainName = Nothing
+    { certificateArn =
+        Prelude.Nothing,
+      domainName = Prelude.Nothing
     }
 
--- | Amazon Resource Name (ARN) of the certificate. This is of the form: @arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012@  For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> .
-csCertificateARN :: Lens' CertificateSummary (Maybe Text)
-csCertificateARN = lens _csCertificateARN (\s a -> s {_csCertificateARN = a})
+-- | Amazon Resource Name (ARN) of the certificate. This is of the form:
+--
+-- @arn:aws:acm:region:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+certificateSummary_certificateArn :: Lens.Lens' CertificateSummary (Prelude.Maybe Prelude.Text)
+certificateSummary_certificateArn = Lens.lens (\CertificateSummary' {certificateArn} -> certificateArn) (\s@CertificateSummary' {} a -> s {certificateArn = a} :: CertificateSummary)
 
--- | Fully qualified domain name (FQDN), such as www.example.com or example.com, for the certificate.
-csDomainName :: Lens' CertificateSummary (Maybe Text)
-csDomainName = lens _csDomainName (\s a -> s {_csDomainName = a})
+-- | Fully qualified domain name (FQDN), such as www.example.com or
+-- example.com, for the certificate.
+certificateSummary_domainName :: Lens.Lens' CertificateSummary (Prelude.Maybe Prelude.Text)
+certificateSummary_domainName = Lens.lens (\CertificateSummary' {domainName} -> domainName) (\s@CertificateSummary' {} a -> s {domainName = a} :: CertificateSummary)
 
-instance FromJSON CertificateSummary where
+instance Prelude.FromJSON CertificateSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CertificateSummary"
       ( \x ->
           CertificateSummary'
-            <$> (x .:? "CertificateArn") <*> (x .:? "DomainName")
+            Prelude.<$> (x Prelude..:? "CertificateArn")
+            Prelude.<*> (x Prelude..:? "DomainName")
       )
 
-instance Hashable CertificateSummary
+instance Prelude.Hashable CertificateSummary
 
-instance NFData CertificateSummary
+instance Prelude.NFData CertificateSummary

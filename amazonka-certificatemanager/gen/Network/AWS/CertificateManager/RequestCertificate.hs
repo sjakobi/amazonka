@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,224 +21,422 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Requests an ACM certificate for use with other AWS services. To request an ACM certificate, you must specify a fully qualified domain name (FQDN) in the @DomainName@ parameter. You can also specify additional FQDNs in the @SubjectAlternativeNames@ parameter.
+-- Requests an ACM certificate for use with other AWS services. To request
+-- an ACM certificate, you must specify a fully qualified domain name
+-- (FQDN) in the @DomainName@ parameter. You can also specify additional
+-- FQDNs in the @SubjectAlternativeNames@ parameter.
 --
---
--- If you are requesting a private certificate, domain validation is not required. If you are requesting a public certificate, each domain name that you specify must be validated to verify that you own or control the domain. You can use <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html DNS validation> or <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html email validation> . We recommend that you use DNS validation. ACM issues public certificates after receiving approval from the domain owner.
+-- If you are requesting a private certificate, domain validation is not
+-- required. If you are requesting a public certificate, each domain name
+-- that you specify must be validated to verify that you own or control the
+-- domain. You can use
+-- <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html DNS validation>
+-- or
+-- <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html email validation>.
+-- We recommend that you use DNS validation. ACM issues public certificates
+-- after receiving approval from the domain owner.
 module Network.AWS.CertificateManager.RequestCertificate
   ( -- * Creating a Request
-    requestCertificate,
-    RequestCertificate,
+    RequestCertificate (..),
+    newRequestCertificate,
 
     -- * Request Lenses
-    rcIdempotencyToken,
-    rcValidationMethod,
-    rcCertificateAuthorityARN,
-    rcDomainValidationOptions,
-    rcOptions,
-    rcSubjectAlternativeNames,
-    rcTags,
-    rcDomainName,
+    requestCertificate_idempotencyToken,
+    requestCertificate_validationMethod,
+    requestCertificate_certificateAuthorityArn,
+    requestCertificate_domainValidationOptions,
+    requestCertificate_options,
+    requestCertificate_subjectAlternativeNames,
+    requestCertificate_tags,
+    requestCertificate_domainName,
 
     -- * Destructuring the Response
-    requestCertificateResponse,
-    RequestCertificateResponse,
+    RequestCertificateResponse (..),
+    newRequestCertificateResponse,
 
     -- * Response Lenses
-    rcrrsCertificateARN,
-    rcrrsResponseStatus,
+    requestCertificateResponse_certificateArn,
+    requestCertificateResponse_httpStatus,
   )
 where
 
 import Network.AWS.CertificateManager.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'requestCertificate' smart constructor.
+-- | /See:/ 'newRequestCertificate' smart constructor.
 data RequestCertificate = RequestCertificate'
-  { _rcIdempotencyToken ::
-      !(Maybe Text),
-    _rcValidationMethod ::
-      !(Maybe ValidationMethod),
-    _rcCertificateAuthorityARN ::
-      !(Maybe Text),
-    _rcDomainValidationOptions ::
-      !( Maybe
-           ( List1
-               DomainValidationOption
-           )
-       ),
-    _rcOptions ::
-      !(Maybe CertificateOptions),
-    _rcSubjectAlternativeNames ::
-      !(Maybe (List1 Text)),
-    _rcTags :: !(Maybe (List1 Tag)),
-    _rcDomainName :: !Text
+  { -- | Customer chosen string that can be used to distinguish between calls to
+    -- @RequestCertificate@. Idempotency tokens time out after one hour.
+    -- Therefore, if you call @RequestCertificate@ multiple times with the same
+    -- idempotency token within one hour, ACM recognizes that you are
+    -- requesting only one certificate and will issue only one. If you change
+    -- the idempotency token for each call, ACM recognizes that you are
+    -- requesting multiple certificates.
+    idempotencyToken :: Prelude.Maybe Prelude.Text,
+    -- | The method you want to use if you are requesting a public certificate to
+    -- validate that you own or control domain. You can
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html validate with DNS>
+    -- or
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html validate with email>.
+    -- We recommend that you use DNS validation.
+    validationMethod :: Prelude.Maybe ValidationMethod,
+    -- | The Amazon Resource Name (ARN) of the private certificate authority (CA)
+    -- that will be used to issue the certificate. If you do not provide an ARN
+    -- and you are trying to request a private certificate, ACM will attempt to
+    -- issue a public certificate. For more information about private CAs, see
+    -- the
+    -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html AWS Certificate Manager Private Certificate Authority (PCA)>
+    -- user guide. The ARN must have the following form:
+    --
+    -- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012@
+    certificateAuthorityArn :: Prelude.Maybe Prelude.Text,
+    -- | The domain name that you want ACM to use to send you emails so that you
+    -- can validate domain ownership.
+    domainValidationOptions :: Prelude.Maybe (Prelude.List1 DomainValidationOption),
+    -- | Currently, you can use this parameter to specify whether to add the
+    -- certificate to a certificate transparency log. Certificate transparency
+    -- makes it possible to detect SSL\/TLS certificates that have been
+    -- mistakenly or maliciously issued. Certificates that have not been logged
+    -- typically produce an error message in a browser. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency Opting Out of Certificate Transparency Logging>.
+    options :: Prelude.Maybe CertificateOptions,
+    -- | Additional FQDNs to be included in the Subject Alternative Name
+    -- extension of the ACM certificate. For example, add the name
+    -- www.example.net to a certificate for which the @DomainName@ field is
+    -- www.example.com if users can reach your site by using either name. The
+    -- maximum number of domain names that you can add to an ACM certificate is
+    -- 100. However, the initial quota is 10 domain names. If you need more
+    -- than 10 names, you must request a quota increase. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html Quotas>.
+    --
+    -- The maximum length of a SAN DNS name is 253 octets. The name is made up
+    -- of multiple labels separated by periods. No label can be longer than 63
+    -- octets. Consider the following examples:
+    --
+    -- -   @(63 octets).(63 octets).(63 octets).(61 octets)@ is legal because
+    --     the total length is 253 octets (63+1+63+1+63+1+61) and no label
+    --     exceeds 63 octets.
+    --
+    -- -   @(64 octets).(63 octets).(63 octets).(61 octets)@ is not legal
+    --     because the total length exceeds 253 octets (64+1+63+1+63+1+61) and
+    --     the first label exceeds 63 octets.
+    --
+    -- -   @(63 octets).(63 octets).(63 octets).(62 octets)@ is not legal
+    --     because the total length of the DNS name (63+1+63+1+63+1+62) exceeds
+    --     253 octets.
+    subjectAlternativeNames :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | One or more resource tags to associate with the certificate.
+    tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | Fully qualified domain name (FQDN), such as www.example.com, that you
+    -- want to secure with an ACM certificate. Use an asterisk (*) to create a
+    -- wildcard certificate that protects several sites in the same domain. For
+    -- example, *.example.com protects www.example.com, site.example.com, and
+    -- images.example.com.
+    --
+    -- The first domain name you enter cannot exceed 64 octets, including
+    -- periods. Each subsequent Subject Alternative Name (SAN), however, can be
+    -- up to 253 octets in length.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RequestCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RequestCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcIdempotencyToken' - Customer chosen string that can be used to distinguish between calls to @RequestCertificate@ . Idempotency tokens time out after one hour. Therefore, if you call @RequestCertificate@ multiple times with the same idempotency token within one hour, ACM recognizes that you are requesting only one certificate and will issue only one. If you change the idempotency token for each call, ACM recognizes that you are requesting multiple certificates.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcValidationMethod' - The method you want to use if you are requesting a public certificate to validate that you own or control domain. You can <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html validate with DNS> or <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html validate with email> . We recommend that you use DNS validation.
+-- 'idempotencyToken', 'requestCertificate_idempotencyToken' - Customer chosen string that can be used to distinguish between calls to
+-- @RequestCertificate@. Idempotency tokens time out after one hour.
+-- Therefore, if you call @RequestCertificate@ multiple times with the same
+-- idempotency token within one hour, ACM recognizes that you are
+-- requesting only one certificate and will issue only one. If you change
+-- the idempotency token for each call, ACM recognizes that you are
+-- requesting multiple certificates.
 --
--- * 'rcCertificateAuthorityARN' - The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will attempt to issue a public certificate. For more information about private CAs, see the <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html AWS Certificate Manager Private Certificate Authority (PCA)> user guide. The ARN must have the following form:  @arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012@
+-- 'validationMethod', 'requestCertificate_validationMethod' - The method you want to use if you are requesting a public certificate to
+-- validate that you own or control domain. You can
+-- <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html validate with DNS>
+-- or
+-- <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html validate with email>.
+-- We recommend that you use DNS validation.
 --
--- * 'rcDomainValidationOptions' - The domain name that you want ACM to use to send you emails so that you can validate domain ownership.
+-- 'certificateAuthorityArn', 'requestCertificate_certificateAuthorityArn' - The Amazon Resource Name (ARN) of the private certificate authority (CA)
+-- that will be used to issue the certificate. If you do not provide an ARN
+-- and you are trying to request a private certificate, ACM will attempt to
+-- issue a public certificate. For more information about private CAs, see
+-- the
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html AWS Certificate Manager Private Certificate Authority (PCA)>
+-- user guide. The ARN must have the following form:
 --
--- * 'rcOptions' - Currently, you can use this parameter to specify whether to add the certificate to a certificate transparency log. Certificate transparency makes it possible to detect SSL/TLS certificates that have been mistakenly or maliciously issued. Certificates that have not been logged typically produce an error message in a browser. For more information, see <https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency Opting Out of Certificate Transparency Logging> .
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012@
 --
--- * 'rcSubjectAlternativeNames' - Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example, add the name www.example.net to a certificate for which the @DomainName@ field is www.example.com if users can reach your site by using either name. The maximum number of domain names that you can add to an ACM certificate is 100. However, the initial quota is 10 domain names. If you need more than 10 names, you must request a quota increase. For more information, see <https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html Quotas> . The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by periods. No label can be longer than 63 octets. Consider the following examples:      * @(63 octets).(63 octets).(63 octets).(61 octets)@ is legal because the total length is 253 octets (63+1+63+1+63+1+61) and no label exceeds 63 octets.     * @(64 octets).(63 octets).(63 octets).(61 octets)@ is not legal because the total length exceeds 253 octets (64+1+63+1+63+1+61) and the first label exceeds 63 octets.     * @(63 octets).(63 octets).(63 octets).(62 octets)@ is not legal because the total length of the DNS name (63+1+63+1+63+1+62) exceeds 253 octets.
+-- 'domainValidationOptions', 'requestCertificate_domainValidationOptions' - The domain name that you want ACM to use to send you emails so that you
+-- can validate domain ownership.
 --
--- * 'rcTags' - One or more resource tags to associate with the certificate.
+-- 'options', 'requestCertificate_options' - Currently, you can use this parameter to specify whether to add the
+-- certificate to a certificate transparency log. Certificate transparency
+-- makes it possible to detect SSL\/TLS certificates that have been
+-- mistakenly or maliciously issued. Certificates that have not been logged
+-- typically produce an error message in a browser. For more information,
+-- see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency Opting Out of Certificate Transparency Logging>.
 --
--- * 'rcDomainName' - Fully qualified domain name (FQDN), such as www.example.com, that you want to secure with an ACM certificate. Use an asterisk (*) to create a wildcard certificate that protects several sites in the same domain. For example, *.example.com protects www.example.com, site.example.com, and images.example.com.  The first domain name you enter cannot exceed 64 octets, including periods. Each subsequent Subject Alternative Name (SAN), however, can be up to 253 octets in length.
-requestCertificate ::
-  -- | 'rcDomainName'
-  Text ->
+-- 'subjectAlternativeNames', 'requestCertificate_subjectAlternativeNames' - Additional FQDNs to be included in the Subject Alternative Name
+-- extension of the ACM certificate. For example, add the name
+-- www.example.net to a certificate for which the @DomainName@ field is
+-- www.example.com if users can reach your site by using either name. The
+-- maximum number of domain names that you can add to an ACM certificate is
+-- 100. However, the initial quota is 10 domain names. If you need more
+-- than 10 names, you must request a quota increase. For more information,
+-- see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html Quotas>.
+--
+-- The maximum length of a SAN DNS name is 253 octets. The name is made up
+-- of multiple labels separated by periods. No label can be longer than 63
+-- octets. Consider the following examples:
+--
+-- -   @(63 octets).(63 octets).(63 octets).(61 octets)@ is legal because
+--     the total length is 253 octets (63+1+63+1+63+1+61) and no label
+--     exceeds 63 octets.
+--
+-- -   @(64 octets).(63 octets).(63 octets).(61 octets)@ is not legal
+--     because the total length exceeds 253 octets (64+1+63+1+63+1+61) and
+--     the first label exceeds 63 octets.
+--
+-- -   @(63 octets).(63 octets).(63 octets).(62 octets)@ is not legal
+--     because the total length of the DNS name (63+1+63+1+63+1+62) exceeds
+--     253 octets.
+--
+-- 'tags', 'requestCertificate_tags' - One or more resource tags to associate with the certificate.
+--
+-- 'domainName', 'requestCertificate_domainName' - Fully qualified domain name (FQDN), such as www.example.com, that you
+-- want to secure with an ACM certificate. Use an asterisk (*) to create a
+-- wildcard certificate that protects several sites in the same domain. For
+-- example, *.example.com protects www.example.com, site.example.com, and
+-- images.example.com.
+--
+-- The first domain name you enter cannot exceed 64 octets, including
+-- periods. Each subsequent Subject Alternative Name (SAN), however, can be
+-- up to 253 octets in length.
+newRequestCertificate ::
+  -- | 'domainName'
+  Prelude.Text ->
   RequestCertificate
-requestCertificate pDomainName_ =
+newRequestCertificate pDomainName_ =
   RequestCertificate'
-    { _rcIdempotencyToken = Nothing,
-      _rcValidationMethod = Nothing,
-      _rcCertificateAuthorityARN = Nothing,
-      _rcDomainValidationOptions = Nothing,
-      _rcOptions = Nothing,
-      _rcSubjectAlternativeNames = Nothing,
-      _rcTags = Nothing,
-      _rcDomainName = pDomainName_
+    { idempotencyToken =
+        Prelude.Nothing,
+      validationMethod = Prelude.Nothing,
+      certificateAuthorityArn = Prelude.Nothing,
+      domainValidationOptions = Prelude.Nothing,
+      options = Prelude.Nothing,
+      subjectAlternativeNames = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | Customer chosen string that can be used to distinguish between calls to @RequestCertificate@ . Idempotency tokens time out after one hour. Therefore, if you call @RequestCertificate@ multiple times with the same idempotency token within one hour, ACM recognizes that you are requesting only one certificate and will issue only one. If you change the idempotency token for each call, ACM recognizes that you are requesting multiple certificates.
-rcIdempotencyToken :: Lens' RequestCertificate (Maybe Text)
-rcIdempotencyToken = lens _rcIdempotencyToken (\s a -> s {_rcIdempotencyToken = a})
+-- | Customer chosen string that can be used to distinguish between calls to
+-- @RequestCertificate@. Idempotency tokens time out after one hour.
+-- Therefore, if you call @RequestCertificate@ multiple times with the same
+-- idempotency token within one hour, ACM recognizes that you are
+-- requesting only one certificate and will issue only one. If you change
+-- the idempotency token for each call, ACM recognizes that you are
+-- requesting multiple certificates.
+requestCertificate_idempotencyToken :: Lens.Lens' RequestCertificate (Prelude.Maybe Prelude.Text)
+requestCertificate_idempotencyToken = Lens.lens (\RequestCertificate' {idempotencyToken} -> idempotencyToken) (\s@RequestCertificate' {} a -> s {idempotencyToken = a} :: RequestCertificate)
 
--- | The method you want to use if you are requesting a public certificate to validate that you own or control domain. You can <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html validate with DNS> or <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html validate with email> . We recommend that you use DNS validation.
-rcValidationMethod :: Lens' RequestCertificate (Maybe ValidationMethod)
-rcValidationMethod = lens _rcValidationMethod (\s a -> s {_rcValidationMethod = a})
+-- | The method you want to use if you are requesting a public certificate to
+-- validate that you own or control domain. You can
+-- <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html validate with DNS>
+-- or
+-- <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html validate with email>.
+-- We recommend that you use DNS validation.
+requestCertificate_validationMethod :: Lens.Lens' RequestCertificate (Prelude.Maybe ValidationMethod)
+requestCertificate_validationMethod = Lens.lens (\RequestCertificate' {validationMethod} -> validationMethod) (\s@RequestCertificate' {} a -> s {validationMethod = a} :: RequestCertificate)
 
--- | The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will attempt to issue a public certificate. For more information about private CAs, see the <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html AWS Certificate Manager Private Certificate Authority (PCA)> user guide. The ARN must have the following form:  @arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012@
-rcCertificateAuthorityARN :: Lens' RequestCertificate (Maybe Text)
-rcCertificateAuthorityARN = lens _rcCertificateAuthorityARN (\s a -> s {_rcCertificateAuthorityARN = a})
+-- | The Amazon Resource Name (ARN) of the private certificate authority (CA)
+-- that will be used to issue the certificate. If you do not provide an ARN
+-- and you are trying to request a private certificate, ACM will attempt to
+-- issue a public certificate. For more information about private CAs, see
+-- the
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html AWS Certificate Manager Private Certificate Authority (PCA)>
+-- user guide. The ARN must have the following form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012@
+requestCertificate_certificateAuthorityArn :: Lens.Lens' RequestCertificate (Prelude.Maybe Prelude.Text)
+requestCertificate_certificateAuthorityArn = Lens.lens (\RequestCertificate' {certificateAuthorityArn} -> certificateAuthorityArn) (\s@RequestCertificate' {} a -> s {certificateAuthorityArn = a} :: RequestCertificate)
 
--- | The domain name that you want ACM to use to send you emails so that you can validate domain ownership.
-rcDomainValidationOptions :: Lens' RequestCertificate (Maybe (NonEmpty DomainValidationOption))
-rcDomainValidationOptions = lens _rcDomainValidationOptions (\s a -> s {_rcDomainValidationOptions = a}) . mapping _List1
+-- | The domain name that you want ACM to use to send you emails so that you
+-- can validate domain ownership.
+requestCertificate_domainValidationOptions :: Lens.Lens' RequestCertificate (Prelude.Maybe (Prelude.NonEmpty DomainValidationOption))
+requestCertificate_domainValidationOptions = Lens.lens (\RequestCertificate' {domainValidationOptions} -> domainValidationOptions) (\s@RequestCertificate' {} a -> s {domainValidationOptions = a} :: RequestCertificate) Prelude.. Lens.mapping Prelude._List1
 
--- | Currently, you can use this parameter to specify whether to add the certificate to a certificate transparency log. Certificate transparency makes it possible to detect SSL/TLS certificates that have been mistakenly or maliciously issued. Certificates that have not been logged typically produce an error message in a browser. For more information, see <https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency Opting Out of Certificate Transparency Logging> .
-rcOptions :: Lens' RequestCertificate (Maybe CertificateOptions)
-rcOptions = lens _rcOptions (\s a -> s {_rcOptions = a})
+-- | Currently, you can use this parameter to specify whether to add the
+-- certificate to a certificate transparency log. Certificate transparency
+-- makes it possible to detect SSL\/TLS certificates that have been
+-- mistakenly or maliciously issued. Certificates that have not been logged
+-- typically produce an error message in a browser. For more information,
+-- see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency Opting Out of Certificate Transparency Logging>.
+requestCertificate_options :: Lens.Lens' RequestCertificate (Prelude.Maybe CertificateOptions)
+requestCertificate_options = Lens.lens (\RequestCertificate' {options} -> options) (\s@RequestCertificate' {} a -> s {options = a} :: RequestCertificate)
 
--- | Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example, add the name www.example.net to a certificate for which the @DomainName@ field is www.example.com if users can reach your site by using either name. The maximum number of domain names that you can add to an ACM certificate is 100. However, the initial quota is 10 domain names. If you need more than 10 names, you must request a quota increase. For more information, see <https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html Quotas> . The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by periods. No label can be longer than 63 octets. Consider the following examples:      * @(63 octets).(63 octets).(63 octets).(61 octets)@ is legal because the total length is 253 octets (63+1+63+1+63+1+61) and no label exceeds 63 octets.     * @(64 octets).(63 octets).(63 octets).(61 octets)@ is not legal because the total length exceeds 253 octets (64+1+63+1+63+1+61) and the first label exceeds 63 octets.     * @(63 octets).(63 octets).(63 octets).(62 octets)@ is not legal because the total length of the DNS name (63+1+63+1+63+1+62) exceeds 253 octets.
-rcSubjectAlternativeNames :: Lens' RequestCertificate (Maybe (NonEmpty Text))
-rcSubjectAlternativeNames = lens _rcSubjectAlternativeNames (\s a -> s {_rcSubjectAlternativeNames = a}) . mapping _List1
+-- | Additional FQDNs to be included in the Subject Alternative Name
+-- extension of the ACM certificate. For example, add the name
+-- www.example.net to a certificate for which the @DomainName@ field is
+-- www.example.com if users can reach your site by using either name. The
+-- maximum number of domain names that you can add to an ACM certificate is
+-- 100. However, the initial quota is 10 domain names. If you need more
+-- than 10 names, you must request a quota increase. For more information,
+-- see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html Quotas>.
+--
+-- The maximum length of a SAN DNS name is 253 octets. The name is made up
+-- of multiple labels separated by periods. No label can be longer than 63
+-- octets. Consider the following examples:
+--
+-- -   @(63 octets).(63 octets).(63 octets).(61 octets)@ is legal because
+--     the total length is 253 octets (63+1+63+1+63+1+61) and no label
+--     exceeds 63 octets.
+--
+-- -   @(64 octets).(63 octets).(63 octets).(61 octets)@ is not legal
+--     because the total length exceeds 253 octets (64+1+63+1+63+1+61) and
+--     the first label exceeds 63 octets.
+--
+-- -   @(63 octets).(63 octets).(63 octets).(62 octets)@ is not legal
+--     because the total length of the DNS name (63+1+63+1+63+1+62) exceeds
+--     253 octets.
+requestCertificate_subjectAlternativeNames :: Lens.Lens' RequestCertificate (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+requestCertificate_subjectAlternativeNames = Lens.lens (\RequestCertificate' {subjectAlternativeNames} -> subjectAlternativeNames) (\s@RequestCertificate' {} a -> s {subjectAlternativeNames = a} :: RequestCertificate) Prelude.. Lens.mapping Prelude._List1
 
 -- | One or more resource tags to associate with the certificate.
-rcTags :: Lens' RequestCertificate (Maybe (NonEmpty Tag))
-rcTags = lens _rcTags (\s a -> s {_rcTags = a}) . mapping _List1
+requestCertificate_tags :: Lens.Lens' RequestCertificate (Prelude.Maybe (Prelude.NonEmpty Tag))
+requestCertificate_tags = Lens.lens (\RequestCertificate' {tags} -> tags) (\s@RequestCertificate' {} a -> s {tags = a} :: RequestCertificate) Prelude.. Lens.mapping Prelude._List1
 
--- | Fully qualified domain name (FQDN), such as www.example.com, that you want to secure with an ACM certificate. Use an asterisk (*) to create a wildcard certificate that protects several sites in the same domain. For example, *.example.com protects www.example.com, site.example.com, and images.example.com.  The first domain name you enter cannot exceed 64 octets, including periods. Each subsequent Subject Alternative Name (SAN), however, can be up to 253 octets in length.
-rcDomainName :: Lens' RequestCertificate Text
-rcDomainName = lens _rcDomainName (\s a -> s {_rcDomainName = a})
+-- | Fully qualified domain name (FQDN), such as www.example.com, that you
+-- want to secure with an ACM certificate. Use an asterisk (*) to create a
+-- wildcard certificate that protects several sites in the same domain. For
+-- example, *.example.com protects www.example.com, site.example.com, and
+-- images.example.com.
+--
+-- The first domain name you enter cannot exceed 64 octets, including
+-- periods. Each subsequent Subject Alternative Name (SAN), however, can be
+-- up to 253 octets in length.
+requestCertificate_domainName :: Lens.Lens' RequestCertificate Prelude.Text
+requestCertificate_domainName = Lens.lens (\RequestCertificate' {domainName} -> domainName) (\s@RequestCertificate' {} a -> s {domainName = a} :: RequestCertificate)
 
-instance AWSRequest RequestCertificate where
+instance Prelude.AWSRequest RequestCertificate where
   type
     Rs RequestCertificate =
       RequestCertificateResponse
-  request = postJSON certificateManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RequestCertificateResponse'
-            <$> (x .?> "CertificateArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CertificateArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RequestCertificate
+instance Prelude.Hashable RequestCertificate
 
-instance NFData RequestCertificate
+instance Prelude.NFData RequestCertificate
 
-instance ToHeaders RequestCertificate where
+instance Prelude.ToHeaders RequestCertificate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CertificateManager.RequestCertificate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CertificateManager.RequestCertificate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RequestCertificate where
+instance Prelude.ToJSON RequestCertificate where
   toJSON RequestCertificate' {..} =
-    object
-      ( catMaybes
-          [ ("IdempotencyToken" .=) <$> _rcIdempotencyToken,
-            ("ValidationMethod" .=) <$> _rcValidationMethod,
-            ("CertificateAuthorityArn" .=)
-              <$> _rcCertificateAuthorityARN,
-            ("DomainValidationOptions" .=)
-              <$> _rcDomainValidationOptions,
-            ("Options" .=) <$> _rcOptions,
-            ("SubjectAlternativeNames" .=)
-              <$> _rcSubjectAlternativeNames,
-            ("Tags" .=) <$> _rcTags,
-            Just ("DomainName" .= _rcDomainName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IdempotencyToken" Prelude..=)
+              Prelude.<$> idempotencyToken,
+            ("ValidationMethod" Prelude..=)
+              Prelude.<$> validationMethod,
+            ("CertificateAuthorityArn" Prelude..=)
+              Prelude.<$> certificateAuthorityArn,
+            ("DomainValidationOptions" Prelude..=)
+              Prelude.<$> domainValidationOptions,
+            ("Options" Prelude..=) Prelude.<$> options,
+            ("SubjectAlternativeNames" Prelude..=)
+              Prelude.<$> subjectAlternativeNames,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("DomainName" Prelude..= domainName)
           ]
       )
 
-instance ToPath RequestCertificate where
-  toPath = const "/"
+instance Prelude.ToPath RequestCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery RequestCertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery RequestCertificate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'requestCertificateResponse' smart constructor.
+-- | /See:/ 'newRequestCertificateResponse' smart constructor.
 data RequestCertificateResponse = RequestCertificateResponse'
-  { _rcrrsCertificateARN ::
-      !(Maybe Text),
-    _rcrrsResponseStatus ::
-      !Int
+  { -- | String that contains the ARN of the issued certificate. This must be of
+    -- the form:
+    --
+    -- @arn:aws:acm:us-east-1:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RequestCertificateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RequestCertificateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcrrsCertificateARN' - String that contains the ARN of the issued certificate. This must be of the form: @arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcrrsResponseStatus' - -- | The response status code.
-requestCertificateResponse ::
-  -- | 'rcrrsResponseStatus'
-  Int ->
+-- 'certificateArn', 'requestCertificateResponse_certificateArn' - String that contains the ARN of the issued certificate. This must be of
+-- the form:
+--
+-- @arn:aws:acm:us-east-1:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+--
+-- 'httpStatus', 'requestCertificateResponse_httpStatus' - The response's http status code.
+newRequestCertificateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RequestCertificateResponse
-requestCertificateResponse pResponseStatus_ =
+newRequestCertificateResponse pHttpStatus_ =
   RequestCertificateResponse'
-    { _rcrrsCertificateARN =
-        Nothing,
-      _rcrrsResponseStatus = pResponseStatus_
+    { certificateArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | String that contains the ARN of the issued certificate. This must be of the form: @arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012@
-rcrrsCertificateARN :: Lens' RequestCertificateResponse (Maybe Text)
-rcrrsCertificateARN = lens _rcrrsCertificateARN (\s a -> s {_rcrrsCertificateARN = a})
+-- | String that contains the ARN of the issued certificate. This must be of
+-- the form:
+--
+-- @arn:aws:acm:us-east-1:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+requestCertificateResponse_certificateArn :: Lens.Lens' RequestCertificateResponse (Prelude.Maybe Prelude.Text)
+requestCertificateResponse_certificateArn = Lens.lens (\RequestCertificateResponse' {certificateArn} -> certificateArn) (\s@RequestCertificateResponse' {} a -> s {certificateArn = a} :: RequestCertificateResponse)
 
--- | -- | The response status code.
-rcrrsResponseStatus :: Lens' RequestCertificateResponse Int
-rcrrsResponseStatus = lens _rcrrsResponseStatus (\s a -> s {_rcrrsResponseStatus = a})
+-- | The response's http status code.
+requestCertificateResponse_httpStatus :: Lens.Lens' RequestCertificateResponse Prelude.Int
+requestCertificateResponse_httpStatus = Lens.lens (\RequestCertificateResponse' {httpStatus} -> httpStatus) (\s@RequestCertificateResponse' {} a -> s {httpStatus = a} :: RequestCertificateResponse)
 
-instance NFData RequestCertificateResponse
+instance Prelude.NFData RequestCertificateResponse

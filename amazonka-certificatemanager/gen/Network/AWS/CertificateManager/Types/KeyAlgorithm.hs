@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.CertificateManager.Types.KeyAlgorithm
   ( KeyAlgorithm
       ( ..,
-        EcPRIME256V1,
-        EcSECP384R1,
-        EcSECP521R1,
-        Rsa1024,
-        Rsa2048,
-        Rsa4096
+        KeyAlgorithmECPRIME256V1,
+        KeyAlgorithmECSECP384R1,
+        KeyAlgorithmECSECP521R1,
+        KeyAlgorithmRSA1024,
+        KeyAlgorithmRSA2048,
+        KeyAlgorithmRSA4096
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data KeyAlgorithm = KeyAlgorithm' (CI Text)
+newtype KeyAlgorithm = KeyAlgorithm'
+  { fromKeyAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EcPRIME256V1 :: KeyAlgorithm
-pattern EcPRIME256V1 = KeyAlgorithm' "EC_prime256v1"
+pattern KeyAlgorithmECPRIME256V1 :: KeyAlgorithm
+pattern KeyAlgorithmECPRIME256V1 = KeyAlgorithm' "EC_prime256v1"
 
-pattern EcSECP384R1 :: KeyAlgorithm
-pattern EcSECP384R1 = KeyAlgorithm' "EC_secp384r1"
+pattern KeyAlgorithmECSECP384R1 :: KeyAlgorithm
+pattern KeyAlgorithmECSECP384R1 = KeyAlgorithm' "EC_secp384r1"
 
-pattern EcSECP521R1 :: KeyAlgorithm
-pattern EcSECP521R1 = KeyAlgorithm' "EC_secp521r1"
+pattern KeyAlgorithmECSECP521R1 :: KeyAlgorithm
+pattern KeyAlgorithmECSECP521R1 = KeyAlgorithm' "EC_secp521r1"
 
-pattern Rsa1024 :: KeyAlgorithm
-pattern Rsa1024 = KeyAlgorithm' "RSA_1024"
+pattern KeyAlgorithmRSA1024 :: KeyAlgorithm
+pattern KeyAlgorithmRSA1024 = KeyAlgorithm' "RSA_1024"
 
-pattern Rsa2048 :: KeyAlgorithm
-pattern Rsa2048 = KeyAlgorithm' "RSA_2048"
+pattern KeyAlgorithmRSA2048 :: KeyAlgorithm
+pattern KeyAlgorithmRSA2048 = KeyAlgorithm' "RSA_2048"
 
-pattern Rsa4096 :: KeyAlgorithm
-pattern Rsa4096 = KeyAlgorithm' "RSA_4096"
+pattern KeyAlgorithmRSA4096 :: KeyAlgorithm
+pattern KeyAlgorithmRSA4096 = KeyAlgorithm' "RSA_4096"
 
 {-# COMPLETE
-  EcPRIME256V1,
-  EcSECP384R1,
-  EcSECP521R1,
-  Rsa1024,
-  Rsa2048,
-  Rsa4096,
+  KeyAlgorithmECPRIME256V1,
+  KeyAlgorithmECSECP384R1,
+  KeyAlgorithmECSECP521R1,
+  KeyAlgorithmRSA1024,
+  KeyAlgorithmRSA2048,
+  KeyAlgorithmRSA4096,
   KeyAlgorithm'
   #-}
 
-instance FromText KeyAlgorithm where
-  parser = (KeyAlgorithm' . mk) <$> takeText
+instance Prelude.FromText KeyAlgorithm where
+  parser = KeyAlgorithm' Prelude.<$> Prelude.takeText
 
-instance ToText KeyAlgorithm where
-  toText (KeyAlgorithm' ci) = original ci
+instance Prelude.ToText KeyAlgorithm where
+  toText (KeyAlgorithm' x) = x
 
-instance Hashable KeyAlgorithm
+instance Prelude.Hashable KeyAlgorithm
 
-instance NFData KeyAlgorithm
+instance Prelude.NFData KeyAlgorithm
 
-instance ToByteString KeyAlgorithm
+instance Prelude.ToByteString KeyAlgorithm
 
-instance ToQuery KeyAlgorithm
+instance Prelude.ToQuery KeyAlgorithm
 
-instance ToHeader KeyAlgorithm
+instance Prelude.ToHeader KeyAlgorithm
 
-instance ToJSON KeyAlgorithm where
-  toJSON = toJSONText
+instance Prelude.ToJSON KeyAlgorithm where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON KeyAlgorithm where
-  parseJSON = parseJSONText "KeyAlgorithm"
+instance Prelude.FromJSON KeyAlgorithm where
+  parseJSON = Prelude.parseJSONText "KeyAlgorithm"

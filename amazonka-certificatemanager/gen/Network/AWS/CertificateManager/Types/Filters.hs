@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,63 +22,86 @@ module Network.AWS.CertificateManager.Types.Filters where
 import Network.AWS.CertificateManager.Types.ExtendedKeyUsageName
 import Network.AWS.CertificateManager.Types.KeyAlgorithm
 import Network.AWS.CertificateManager.Types.KeyUsageName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This structure can be used in the 'ListCertificates' action to filter the output of the certificate list.
+-- | This structure can be used in the ListCertificates action to filter the
+-- output of the certificate list.
 --
---
---
--- /See:/ 'filters' smart constructor.
+-- /See:/ 'newFilters' smart constructor.
 data Filters = Filters'
-  { _fKeyTypes ::
-      !(Maybe [KeyAlgorithm]),
-    _fExtendedKeyUsage ::
-      !(Maybe [ExtendedKeyUsageName]),
-    _fKeyUsage :: !(Maybe [KeyUsageName])
+  { -- | Specify one or more algorithms that can be used to generate key pairs.
+    --
+    -- Default filtering returns only @RSA_1024@ and @RSA_2048@ certificates
+    -- that have at least one domain. To return other certificate types,
+    -- provide the desired type signatures in a comma-separated list. For
+    -- example, @\"keyTypes\": [\"RSA_2048,RSA_4096\"]@ returns both @RSA_2048@
+    -- and @RSA_4096@ certificates.
+    keyTypes :: Prelude.Maybe [KeyAlgorithm],
+    -- | Specify one or more ExtendedKeyUsage extension values.
+    extendedKeyUsage :: Prelude.Maybe [ExtendedKeyUsageName],
+    -- | Specify one or more KeyUsage extension values.
+    keyUsage :: Prelude.Maybe [KeyUsageName]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Filters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Filters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fKeyTypes' - Specify one or more algorithms that can be used to generate key pairs. Default filtering returns only @RSA_1024@ and @RSA_2048@ certificates that have at least one domain. To return other certificate types, provide the desired type signatures in a comma-separated list. For example, @"keyTypes": ["RSA_2048,RSA_4096"]@ returns both @RSA_2048@ and @RSA_4096@ certificates.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fExtendedKeyUsage' - Specify one or more 'ExtendedKeyUsage' extension values.
+-- 'keyTypes', 'filters_keyTypes' - Specify one or more algorithms that can be used to generate key pairs.
 --
--- * 'fKeyUsage' - Specify one or more 'KeyUsage' extension values.
-filters ::
+-- Default filtering returns only @RSA_1024@ and @RSA_2048@ certificates
+-- that have at least one domain. To return other certificate types,
+-- provide the desired type signatures in a comma-separated list. For
+-- example, @\"keyTypes\": [\"RSA_2048,RSA_4096\"]@ returns both @RSA_2048@
+-- and @RSA_4096@ certificates.
+--
+-- 'extendedKeyUsage', 'filters_extendedKeyUsage' - Specify one or more ExtendedKeyUsage extension values.
+--
+-- 'keyUsage', 'filters_keyUsage' - Specify one or more KeyUsage extension values.
+newFilters ::
   Filters
-filters =
+newFilters =
   Filters'
-    { _fKeyTypes = Nothing,
-      _fExtendedKeyUsage = Nothing,
-      _fKeyUsage = Nothing
+    { keyTypes = Prelude.Nothing,
+      extendedKeyUsage = Prelude.Nothing,
+      keyUsage = Prelude.Nothing
     }
 
--- | Specify one or more algorithms that can be used to generate key pairs. Default filtering returns only @RSA_1024@ and @RSA_2048@ certificates that have at least one domain. To return other certificate types, provide the desired type signatures in a comma-separated list. For example, @"keyTypes": ["RSA_2048,RSA_4096"]@ returns both @RSA_2048@ and @RSA_4096@ certificates.
-fKeyTypes :: Lens' Filters [KeyAlgorithm]
-fKeyTypes = lens _fKeyTypes (\s a -> s {_fKeyTypes = a}) . _Default . _Coerce
+-- | Specify one or more algorithms that can be used to generate key pairs.
+--
+-- Default filtering returns only @RSA_1024@ and @RSA_2048@ certificates
+-- that have at least one domain. To return other certificate types,
+-- provide the desired type signatures in a comma-separated list. For
+-- example, @\"keyTypes\": [\"RSA_2048,RSA_4096\"]@ returns both @RSA_2048@
+-- and @RSA_4096@ certificates.
+filters_keyTypes :: Lens.Lens' Filters (Prelude.Maybe [KeyAlgorithm])
+filters_keyTypes = Lens.lens (\Filters' {keyTypes} -> keyTypes) (\s@Filters' {} a -> s {keyTypes = a} :: Filters) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specify one or more 'ExtendedKeyUsage' extension values.
-fExtendedKeyUsage :: Lens' Filters [ExtendedKeyUsageName]
-fExtendedKeyUsage = lens _fExtendedKeyUsage (\s a -> s {_fExtendedKeyUsage = a}) . _Default . _Coerce
+-- | Specify one or more ExtendedKeyUsage extension values.
+filters_extendedKeyUsage :: Lens.Lens' Filters (Prelude.Maybe [ExtendedKeyUsageName])
+filters_extendedKeyUsage = Lens.lens (\Filters' {extendedKeyUsage} -> extendedKeyUsage) (\s@Filters' {} a -> s {extendedKeyUsage = a} :: Filters) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specify one or more 'KeyUsage' extension values.
-fKeyUsage :: Lens' Filters [KeyUsageName]
-fKeyUsage = lens _fKeyUsage (\s a -> s {_fKeyUsage = a}) . _Default . _Coerce
+-- | Specify one or more KeyUsage extension values.
+filters_keyUsage :: Lens.Lens' Filters (Prelude.Maybe [KeyUsageName])
+filters_keyUsage = Lens.lens (\Filters' {keyUsage} -> keyUsage) (\s@Filters' {} a -> s {keyUsage = a} :: Filters) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable Filters
+instance Prelude.Hashable Filters
 
-instance NFData Filters
+instance Prelude.NFData Filters
 
-instance ToJSON Filters where
+instance Prelude.ToJSON Filters where
   toJSON Filters' {..} =
-    object
-      ( catMaybes
-          [ ("keyTypes" .=) <$> _fKeyTypes,
-            ("extendedKeyUsage" .=) <$> _fExtendedKeyUsage,
-            ("keyUsage" .=) <$> _fKeyUsage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("keyTypes" Prelude..=) Prelude.<$> keyTypes,
+            ("extendedKeyUsage" Prelude..=)
+              Prelude.<$> extendedKeyUsage,
+            ("keyUsage" Prelude..=) Prelude.<$> keyUsage
           ]
       )

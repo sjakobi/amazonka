@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,81 @@
 module Network.AWS.CertificateManager.Types.ResourceRecord where
 
 import Network.AWS.CertificateManager.Types.RecordType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains a DNS record value that you can use to can use to validate ownership or control of a domain. This is used by the 'DescribeCertificate' action.
+-- | Contains a DNS record value that you can use to can use to validate
+-- ownership or control of a domain. This is used by the
+-- DescribeCertificate action.
 --
---
---
--- /See:/ 'resourceRecord' smart constructor.
+-- /See:/ 'newResourceRecord' smart constructor.
 data ResourceRecord = ResourceRecord'
-  { _rrName ::
-      !Text,
-    _rrType :: !RecordType,
-    _rrValue :: !Text
+  { -- | The name of the DNS record to create in your domain. This is supplied by
+    -- ACM.
+    name :: Prelude.Text,
+    -- | The type of DNS record. Currently this can be @CNAME@.
+    type' :: RecordType,
+    -- | The value of the CNAME record to add to your DNS database. This is
+    -- supplied by ACM.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceRecord' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceRecord' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrName' - The name of the DNS record to create in your domain. This is supplied by ACM.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrType' - The type of DNS record. Currently this can be @CNAME@ .
+-- 'name', 'resourceRecord_name' - The name of the DNS record to create in your domain. This is supplied by
+-- ACM.
 --
--- * 'rrValue' - The value of the CNAME record to add to your DNS database. This is supplied by ACM.
-resourceRecord ::
-  -- | 'rrName'
-  Text ->
-  -- | 'rrType'
+-- 'type'', 'resourceRecord_type' - The type of DNS record. Currently this can be @CNAME@.
+--
+-- 'value', 'resourceRecord_value' - The value of the CNAME record to add to your DNS database. This is
+-- supplied by ACM.
+newResourceRecord ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   RecordType ->
-  -- | 'rrValue'
-  Text ->
+  -- | 'value'
+  Prelude.Text ->
   ResourceRecord
-resourceRecord pName_ pType_ pValue_ =
+newResourceRecord pName_ pType_ pValue_ =
   ResourceRecord'
-    { _rrName = pName_,
-      _rrType = pType_,
-      _rrValue = pValue_
+    { name = pName_,
+      type' = pType_,
+      value = pValue_
     }
 
--- | The name of the DNS record to create in your domain. This is supplied by ACM.
-rrName :: Lens' ResourceRecord Text
-rrName = lens _rrName (\s a -> s {_rrName = a})
+-- | The name of the DNS record to create in your domain. This is supplied by
+-- ACM.
+resourceRecord_name :: Lens.Lens' ResourceRecord Prelude.Text
+resourceRecord_name = Lens.lens (\ResourceRecord' {name} -> name) (\s@ResourceRecord' {} a -> s {name = a} :: ResourceRecord)
 
--- | The type of DNS record. Currently this can be @CNAME@ .
-rrType :: Lens' ResourceRecord RecordType
-rrType = lens _rrType (\s a -> s {_rrType = a})
+-- | The type of DNS record. Currently this can be @CNAME@.
+resourceRecord_type :: Lens.Lens' ResourceRecord RecordType
+resourceRecord_type = Lens.lens (\ResourceRecord' {type'} -> type') (\s@ResourceRecord' {} a -> s {type' = a} :: ResourceRecord)
 
--- | The value of the CNAME record to add to your DNS database. This is supplied by ACM.
-rrValue :: Lens' ResourceRecord Text
-rrValue = lens _rrValue (\s a -> s {_rrValue = a})
+-- | The value of the CNAME record to add to your DNS database. This is
+-- supplied by ACM.
+resourceRecord_value :: Lens.Lens' ResourceRecord Prelude.Text
+resourceRecord_value = Lens.lens (\ResourceRecord' {value} -> value) (\s@ResourceRecord' {} a -> s {value = a} :: ResourceRecord)
 
-instance FromJSON ResourceRecord where
+instance Prelude.FromJSON ResourceRecord where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceRecord"
       ( \x ->
           ResourceRecord'
-            <$> (x .: "Name") <*> (x .: "Type") <*> (x .: "Value")
+            Prelude.<$> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Type")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable ResourceRecord
+instance Prelude.Hashable ResourceRecord
 
-instance NFData ResourceRecord
+instance Prelude.NFData ResourceRecord

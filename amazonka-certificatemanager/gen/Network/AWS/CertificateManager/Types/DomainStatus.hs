@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CertificateManager.Types.DomainStatus
   ( DomainStatus
       ( ..,
-        Failed,
-        PendingValidation,
-        Success
+        DomainStatusFAILED,
+        DomainStatusPENDINGVALIDATION,
+        DomainStatusSUCCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DomainStatus = DomainStatus' (CI Text)
+newtype DomainStatus = DomainStatus'
+  { fromDomainStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: DomainStatus
-pattern Failed = DomainStatus' "FAILED"
+pattern DomainStatusFAILED :: DomainStatus
+pattern DomainStatusFAILED = DomainStatus' "FAILED"
 
-pattern PendingValidation :: DomainStatus
-pattern PendingValidation = DomainStatus' "PENDING_VALIDATION"
+pattern DomainStatusPENDINGVALIDATION :: DomainStatus
+pattern DomainStatusPENDINGVALIDATION = DomainStatus' "PENDING_VALIDATION"
 
-pattern Success :: DomainStatus
-pattern Success = DomainStatus' "SUCCESS"
+pattern DomainStatusSUCCESS :: DomainStatus
+pattern DomainStatusSUCCESS = DomainStatus' "SUCCESS"
 
 {-# COMPLETE
-  Failed,
-  PendingValidation,
-  Success,
+  DomainStatusFAILED,
+  DomainStatusPENDINGVALIDATION,
+  DomainStatusSUCCESS,
   DomainStatus'
   #-}
 
-instance FromText DomainStatus where
-  parser = (DomainStatus' . mk) <$> takeText
+instance Prelude.FromText DomainStatus where
+  parser = DomainStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DomainStatus where
-  toText (DomainStatus' ci) = original ci
+instance Prelude.ToText DomainStatus where
+  toText (DomainStatus' x) = x
 
-instance Hashable DomainStatus
+instance Prelude.Hashable DomainStatus
 
-instance NFData DomainStatus
+instance Prelude.NFData DomainStatus
 
-instance ToByteString DomainStatus
+instance Prelude.ToByteString DomainStatus
 
-instance ToQuery DomainStatus
+instance Prelude.ToQuery DomainStatus
 
-instance ToHeader DomainStatus
+instance Prelude.ToHeader DomainStatus
 
-instance FromJSON DomainStatus where
-  parseJSON = parseJSONText "DomainStatus"
+instance Prelude.FromJSON DomainStatus where
+  parseJSON = Prelude.parseJSONText "DomainStatus"

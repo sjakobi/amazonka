@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,119 @@
 module Network.AWS.CertificateManager.Types.ExtendedKeyUsage where
 
 import Network.AWS.CertificateManager.Types.ExtendedKeyUsageName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Extended Key Usage X.509 v3 extension defines one or more purposes for which the public key can be used. This is in addition to or in place of the basic purposes specified by the Key Usage extension.
+-- | The Extended Key Usage X.509 v3 extension defines one or more purposes
+-- for which the public key can be used. This is in addition to or in place
+-- of the basic purposes specified by the Key Usage extension.
 --
---
---
--- /See:/ 'extendedKeyUsage' smart constructor.
+-- /See:/ 'newExtendedKeyUsage' smart constructor.
 data ExtendedKeyUsage = ExtendedKeyUsage'
-  { _ekuName ::
-      !(Maybe ExtendedKeyUsageName),
-    _ekuOId :: !(Maybe Text)
+  { -- | The name of an Extended Key Usage value.
+    name :: Prelude.Maybe ExtendedKeyUsageName,
+    -- | An object identifier (OID) for the extension value. OIDs are strings of
+    -- numbers separated by periods. The following OIDs are defined in RFC 3280
+    -- and RFC 5280.
+    --
+    -- -   @1.3.6.1.5.5.7.3.1 (TLS_WEB_SERVER_AUTHENTICATION)@
+    --
+    -- -   @1.3.6.1.5.5.7.3.2 (TLS_WEB_CLIENT_AUTHENTICATION)@
+    --
+    -- -   @1.3.6.1.5.5.7.3.3 (CODE_SIGNING)@
+    --
+    -- -   @1.3.6.1.5.5.7.3.4 (EMAIL_PROTECTION)@
+    --
+    -- -   @1.3.6.1.5.5.7.3.8 (TIME_STAMPING)@
+    --
+    -- -   @1.3.6.1.5.5.7.3.9 (OCSP_SIGNING)@
+    --
+    -- -   @1.3.6.1.5.5.7.3.5 (IPSEC_END_SYSTEM)@
+    --
+    -- -   @1.3.6.1.5.5.7.3.6 (IPSEC_TUNNEL)@
+    --
+    -- -   @1.3.6.1.5.5.7.3.7 (IPSEC_USER)@
+    oID :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExtendedKeyUsage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExtendedKeyUsage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ekuName' - The name of an Extended Key Usage value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ekuOId' - An object identifier (OID) for the extension value. OIDs are strings of numbers separated by periods. The following OIDs are defined in RFC 3280 and RFC 5280.      * @1.3.6.1.5.5.7.3.1 (TLS_WEB_SERVER_AUTHENTICATION)@      * @1.3.6.1.5.5.7.3.2 (TLS_WEB_CLIENT_AUTHENTICATION)@      * @1.3.6.1.5.5.7.3.3 (CODE_SIGNING)@      * @1.3.6.1.5.5.7.3.4 (EMAIL_PROTECTION)@      * @1.3.6.1.5.5.7.3.8 (TIME_STAMPING)@      * @1.3.6.1.5.5.7.3.9 (OCSP_SIGNING)@      * @1.3.6.1.5.5.7.3.5 (IPSEC_END_SYSTEM)@      * @1.3.6.1.5.5.7.3.6 (IPSEC_TUNNEL)@      * @1.3.6.1.5.5.7.3.7 (IPSEC_USER)@
-extendedKeyUsage ::
+-- 'name', 'extendedKeyUsage_name' - The name of an Extended Key Usage value.
+--
+-- 'oID', 'extendedKeyUsage_oID' - An object identifier (OID) for the extension value. OIDs are strings of
+-- numbers separated by periods. The following OIDs are defined in RFC 3280
+-- and RFC 5280.
+--
+-- -   @1.3.6.1.5.5.7.3.1 (TLS_WEB_SERVER_AUTHENTICATION)@
+--
+-- -   @1.3.6.1.5.5.7.3.2 (TLS_WEB_CLIENT_AUTHENTICATION)@
+--
+-- -   @1.3.6.1.5.5.7.3.3 (CODE_SIGNING)@
+--
+-- -   @1.3.6.1.5.5.7.3.4 (EMAIL_PROTECTION)@
+--
+-- -   @1.3.6.1.5.5.7.3.8 (TIME_STAMPING)@
+--
+-- -   @1.3.6.1.5.5.7.3.9 (OCSP_SIGNING)@
+--
+-- -   @1.3.6.1.5.5.7.3.5 (IPSEC_END_SYSTEM)@
+--
+-- -   @1.3.6.1.5.5.7.3.6 (IPSEC_TUNNEL)@
+--
+-- -   @1.3.6.1.5.5.7.3.7 (IPSEC_USER)@
+newExtendedKeyUsage ::
   ExtendedKeyUsage
-extendedKeyUsage =
+newExtendedKeyUsage =
   ExtendedKeyUsage'
-    { _ekuName = Nothing,
-      _ekuOId = Nothing
+    { name = Prelude.Nothing,
+      oID = Prelude.Nothing
     }
 
 -- | The name of an Extended Key Usage value.
-ekuName :: Lens' ExtendedKeyUsage (Maybe ExtendedKeyUsageName)
-ekuName = lens _ekuName (\s a -> s {_ekuName = a})
+extendedKeyUsage_name :: Lens.Lens' ExtendedKeyUsage (Prelude.Maybe ExtendedKeyUsageName)
+extendedKeyUsage_name = Lens.lens (\ExtendedKeyUsage' {name} -> name) (\s@ExtendedKeyUsage' {} a -> s {name = a} :: ExtendedKeyUsage)
 
--- | An object identifier (OID) for the extension value. OIDs are strings of numbers separated by periods. The following OIDs are defined in RFC 3280 and RFC 5280.      * @1.3.6.1.5.5.7.3.1 (TLS_WEB_SERVER_AUTHENTICATION)@      * @1.3.6.1.5.5.7.3.2 (TLS_WEB_CLIENT_AUTHENTICATION)@      * @1.3.6.1.5.5.7.3.3 (CODE_SIGNING)@      * @1.3.6.1.5.5.7.3.4 (EMAIL_PROTECTION)@      * @1.3.6.1.5.5.7.3.8 (TIME_STAMPING)@      * @1.3.6.1.5.5.7.3.9 (OCSP_SIGNING)@      * @1.3.6.1.5.5.7.3.5 (IPSEC_END_SYSTEM)@      * @1.3.6.1.5.5.7.3.6 (IPSEC_TUNNEL)@      * @1.3.6.1.5.5.7.3.7 (IPSEC_USER)@
-ekuOId :: Lens' ExtendedKeyUsage (Maybe Text)
-ekuOId = lens _ekuOId (\s a -> s {_ekuOId = a})
+-- | An object identifier (OID) for the extension value. OIDs are strings of
+-- numbers separated by periods. The following OIDs are defined in RFC 3280
+-- and RFC 5280.
+--
+-- -   @1.3.6.1.5.5.7.3.1 (TLS_WEB_SERVER_AUTHENTICATION)@
+--
+-- -   @1.3.6.1.5.5.7.3.2 (TLS_WEB_CLIENT_AUTHENTICATION)@
+--
+-- -   @1.3.6.1.5.5.7.3.3 (CODE_SIGNING)@
+--
+-- -   @1.3.6.1.5.5.7.3.4 (EMAIL_PROTECTION)@
+--
+-- -   @1.3.6.1.5.5.7.3.8 (TIME_STAMPING)@
+--
+-- -   @1.3.6.1.5.5.7.3.9 (OCSP_SIGNING)@
+--
+-- -   @1.3.6.1.5.5.7.3.5 (IPSEC_END_SYSTEM)@
+--
+-- -   @1.3.6.1.5.5.7.3.6 (IPSEC_TUNNEL)@
+--
+-- -   @1.3.6.1.5.5.7.3.7 (IPSEC_USER)@
+extendedKeyUsage_oID :: Lens.Lens' ExtendedKeyUsage (Prelude.Maybe Prelude.Text)
+extendedKeyUsage_oID = Lens.lens (\ExtendedKeyUsage' {oID} -> oID) (\s@ExtendedKeyUsage' {} a -> s {oID = a} :: ExtendedKeyUsage)
 
-instance FromJSON ExtendedKeyUsage where
+instance Prelude.FromJSON ExtendedKeyUsage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExtendedKeyUsage"
       ( \x ->
           ExtendedKeyUsage'
-            <$> (x .:? "Name") <*> (x .:? "OID")
+            Prelude.<$> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "OID")
       )
 
-instance Hashable ExtendedKeyUsage
+instance Prelude.Hashable ExtendedKeyUsage
 
-instance NFData ExtendedKeyUsage
+instance Prelude.NFData ExtendedKeyUsage

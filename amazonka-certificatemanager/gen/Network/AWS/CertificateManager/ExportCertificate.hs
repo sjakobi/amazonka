@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,226 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Exports a private certificate issued by a private certificate authority (CA) for use anywhere. The exported file contains the certificate, the certificate chain, and the encrypted private 2048-bit RSA key associated with the public key that is embedded in the certificate. For security, you must assign a passphrase for the private key when exporting it.
+-- Exports a private certificate issued by a private certificate authority
+-- (CA) for use anywhere. The exported file contains the certificate, the
+-- certificate chain, and the encrypted private 2048-bit RSA key associated
+-- with the public key that is embedded in the certificate. For security,
+-- you must assign a passphrase for the private key when exporting it.
 --
---
--- For information about exporting and formatting a certificate using the ACM console or CLI, see <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-export-private.html Export a Private Certificate> .
+-- For information about exporting and formatting a certificate using the
+-- ACM console or CLI, see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-export-private.html Export a Private Certificate>.
 module Network.AWS.CertificateManager.ExportCertificate
   ( -- * Creating a Request
-    exportCertificate,
-    ExportCertificate,
+    ExportCertificate (..),
+    newExportCertificate,
 
     -- * Request Lenses
-    ecCertificateARN,
-    ecPassphrase,
+    exportCertificate_certificateArn,
+    exportCertificate_passphrase,
 
     -- * Destructuring the Response
-    exportCertificateResponse,
-    ExportCertificateResponse,
+    ExportCertificateResponse (..),
+    newExportCertificateResponse,
 
     -- * Response Lenses
-    ecrrsPrivateKey,
-    ecrrsCertificateChain,
-    ecrrsCertificate,
-    ecrrsResponseStatus,
+    exportCertificateResponse_privateKey,
+    exportCertificateResponse_certificateChain,
+    exportCertificateResponse_certificate,
+    exportCertificateResponse_httpStatus,
   )
 where
 
 import Network.AWS.CertificateManager.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'exportCertificate' smart constructor.
+-- | /See:/ 'newExportCertificate' smart constructor.
 data ExportCertificate = ExportCertificate'
-  { _ecCertificateARN ::
-      !Text,
-    _ecPassphrase ::
-      !(Sensitive Base64)
+  { -- | An Amazon Resource Name (ARN) of the issued certificate. This must be of
+    -- the form:
+    --
+    -- @arn:aws:acm:region:account:certificate\/12345678-1234-1234-1234-123456789012@
+    certificateArn :: Prelude.Text,
+    -- | Passphrase to associate with the encrypted exported private key. If you
+    -- want to later decrypt the private key, you must have the passphrase. You
+    -- can use the following OpenSSL command to decrypt a private key:
+    --
+    -- @openssl rsa -in encrypted_key.pem -out decrypted_key.pem@
+    passphrase :: Prelude.Sensitive Prelude.Base64
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecCertificateARN' - An Amazon Resource Name (ARN) of the issued certificate. This must be of the form: @arn:aws:acm:region:account:certificate/12345678-1234-1234-1234-123456789012@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecPassphrase' - Passphrase to associate with the encrypted exported private key. If you want to later decrypt the private key, you must have the passphrase. You can use the following OpenSSL command to decrypt a private key:  @openssl rsa -in encrypted_key.pem -out decrypted_key.pem@ -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-exportCertificate ::
-  -- | 'ecCertificateARN'
-  Text ->
-  -- | 'ecPassphrase'
-  ByteString ->
+-- 'certificateArn', 'exportCertificate_certificateArn' - An Amazon Resource Name (ARN) of the issued certificate. This must be of
+-- the form:
+--
+-- @arn:aws:acm:region:account:certificate\/12345678-1234-1234-1234-123456789012@
+--
+-- 'passphrase', 'exportCertificate_passphrase' - Passphrase to associate with the encrypted exported private key. If you
+-- want to later decrypt the private key, you must have the passphrase. You
+-- can use the following OpenSSL command to decrypt a private key:
+--
+-- @openssl rsa -in encrypted_key.pem -out decrypted_key.pem@--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+newExportCertificate ::
+  -- | 'certificateArn'
+  Prelude.Text ->
+  -- | 'passphrase'
+  Prelude.ByteString ->
   ExportCertificate
-exportCertificate pCertificateARN_ pPassphrase_ =
+newExportCertificate pCertificateArn_ pPassphrase_ =
   ExportCertificate'
-    { _ecCertificateARN =
-        pCertificateARN_,
-      _ecPassphrase = _Sensitive . _Base64 # pPassphrase_
+    { certificateArn =
+        pCertificateArn_,
+      passphrase =
+        Prelude._Sensitive Prelude.. Prelude._Base64
+          Lens.# pPassphrase_
     }
 
--- | An Amazon Resource Name (ARN) of the issued certificate. This must be of the form: @arn:aws:acm:region:account:certificate/12345678-1234-1234-1234-123456789012@
-ecCertificateARN :: Lens' ExportCertificate Text
-ecCertificateARN = lens _ecCertificateARN (\s a -> s {_ecCertificateARN = a})
+-- | An Amazon Resource Name (ARN) of the issued certificate. This must be of
+-- the form:
+--
+-- @arn:aws:acm:region:account:certificate\/12345678-1234-1234-1234-123456789012@
+exportCertificate_certificateArn :: Lens.Lens' ExportCertificate Prelude.Text
+exportCertificate_certificateArn = Lens.lens (\ExportCertificate' {certificateArn} -> certificateArn) (\s@ExportCertificate' {} a -> s {certificateArn = a} :: ExportCertificate)
 
--- | Passphrase to associate with the encrypted exported private key. If you want to later decrypt the private key, you must have the passphrase. You can use the following OpenSSL command to decrypt a private key:  @openssl rsa -in encrypted_key.pem -out decrypted_key.pem@ -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-ecPassphrase :: Lens' ExportCertificate ByteString
-ecPassphrase = lens _ecPassphrase (\s a -> s {_ecPassphrase = a}) . _Sensitive . _Base64
+-- | Passphrase to associate with the encrypted exported private key. If you
+-- want to later decrypt the private key, you must have the passphrase. You
+-- can use the following OpenSSL command to decrypt a private key:
+--
+-- @openssl rsa -in encrypted_key.pem -out decrypted_key.pem@--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+exportCertificate_passphrase :: Lens.Lens' ExportCertificate Prelude.ByteString
+exportCertificate_passphrase = Lens.lens (\ExportCertificate' {passphrase} -> passphrase) (\s@ExportCertificate' {} a -> s {passphrase = a} :: ExportCertificate) Prelude.. Prelude._Sensitive Prelude.. Prelude._Base64
 
-instance AWSRequest ExportCertificate where
+instance Prelude.AWSRequest ExportCertificate where
   type Rs ExportCertificate = ExportCertificateResponse
-  request = postJSON certificateManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ExportCertificateResponse'
-            <$> (x .?> "PrivateKey")
-            <*> (x .?> "CertificateChain")
-            <*> (x .?> "Certificate")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PrivateKey")
+            Prelude.<*> (x Prelude..?> "CertificateChain")
+            Prelude.<*> (x Prelude..?> "Certificate")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ExportCertificate
+instance Prelude.Hashable ExportCertificate
 
-instance NFData ExportCertificate
+instance Prelude.NFData ExportCertificate
 
-instance ToHeaders ExportCertificate where
+instance Prelude.ToHeaders ExportCertificate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CertificateManager.ExportCertificate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CertificateManager.ExportCertificate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ExportCertificate where
+instance Prelude.ToJSON ExportCertificate where
   toJSON ExportCertificate' {..} =
-    object
-      ( catMaybes
-          [ Just ("CertificateArn" .= _ecCertificateARN),
-            Just ("Passphrase" .= _ecPassphrase)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CertificateArn" Prelude..= certificateArn),
+            Prelude.Just ("Passphrase" Prelude..= passphrase)
           ]
       )
 
-instance ToPath ExportCertificate where
-  toPath = const "/"
+instance Prelude.ToPath ExportCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery ExportCertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery ExportCertificate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'exportCertificateResponse' smart constructor.
+-- | /See:/ 'newExportCertificateResponse' smart constructor.
 data ExportCertificateResponse = ExportCertificateResponse'
-  { _ecrrsPrivateKey ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _ecrrsCertificateChain ::
-      !(Maybe Text),
-    _ecrrsCertificate ::
-      !(Maybe Text),
-    _ecrrsResponseStatus ::
-      !Int
+  { -- | The encrypted private key associated with the public key in the
+    -- certificate. The key is output in PKCS #8 format and is base64
+    -- PEM-encoded.
+    privateKey :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The base64 PEM-encoded certificate chain. This does not include the
+    -- certificate that you are exporting.
+    certificateChain :: Prelude.Maybe Prelude.Text,
+    -- | The base64 PEM-encoded certificate.
+    certificate :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportCertificateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportCertificateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecrrsPrivateKey' - The encrypted private key associated with the public key in the certificate. The key is output in PKCS #8 format and is base64 PEM-encoded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecrrsCertificateChain' - The base64 PEM-encoded certificate chain. This does not include the certificate that you are exporting.
+-- 'privateKey', 'exportCertificateResponse_privateKey' - The encrypted private key associated with the public key in the
+-- certificate. The key is output in PKCS #8 format and is base64
+-- PEM-encoded.
 --
--- * 'ecrrsCertificate' - The base64 PEM-encoded certificate.
+-- 'certificateChain', 'exportCertificateResponse_certificateChain' - The base64 PEM-encoded certificate chain. This does not include the
+-- certificate that you are exporting.
 --
--- * 'ecrrsResponseStatus' - -- | The response status code.
-exportCertificateResponse ::
-  -- | 'ecrrsResponseStatus'
-  Int ->
+-- 'certificate', 'exportCertificateResponse_certificate' - The base64 PEM-encoded certificate.
+--
+-- 'httpStatus', 'exportCertificateResponse_httpStatus' - The response's http status code.
+newExportCertificateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ExportCertificateResponse
-exportCertificateResponse pResponseStatus_ =
+newExportCertificateResponse pHttpStatus_ =
   ExportCertificateResponse'
-    { _ecrrsPrivateKey =
-        Nothing,
-      _ecrrsCertificateChain = Nothing,
-      _ecrrsCertificate = Nothing,
-      _ecrrsResponseStatus = pResponseStatus_
+    { privateKey =
+        Prelude.Nothing,
+      certificateChain = Prelude.Nothing,
+      certificate = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The encrypted private key associated with the public key in the certificate. The key is output in PKCS #8 format and is base64 PEM-encoded.
-ecrrsPrivateKey :: Lens' ExportCertificateResponse (Maybe Text)
-ecrrsPrivateKey = lens _ecrrsPrivateKey (\s a -> s {_ecrrsPrivateKey = a}) . mapping _Sensitive
+-- | The encrypted private key associated with the public key in the
+-- certificate. The key is output in PKCS #8 format and is base64
+-- PEM-encoded.
+exportCertificateResponse_privateKey :: Lens.Lens' ExportCertificateResponse (Prelude.Maybe Prelude.Text)
+exportCertificateResponse_privateKey = Lens.lens (\ExportCertificateResponse' {privateKey} -> privateKey) (\s@ExportCertificateResponse' {} a -> s {privateKey = a} :: ExportCertificateResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The base64 PEM-encoded certificate chain. This does not include the certificate that you are exporting.
-ecrrsCertificateChain :: Lens' ExportCertificateResponse (Maybe Text)
-ecrrsCertificateChain = lens _ecrrsCertificateChain (\s a -> s {_ecrrsCertificateChain = a})
+-- | The base64 PEM-encoded certificate chain. This does not include the
+-- certificate that you are exporting.
+exportCertificateResponse_certificateChain :: Lens.Lens' ExportCertificateResponse (Prelude.Maybe Prelude.Text)
+exportCertificateResponse_certificateChain = Lens.lens (\ExportCertificateResponse' {certificateChain} -> certificateChain) (\s@ExportCertificateResponse' {} a -> s {certificateChain = a} :: ExportCertificateResponse)
 
 -- | The base64 PEM-encoded certificate.
-ecrrsCertificate :: Lens' ExportCertificateResponse (Maybe Text)
-ecrrsCertificate = lens _ecrrsCertificate (\s a -> s {_ecrrsCertificate = a})
+exportCertificateResponse_certificate :: Lens.Lens' ExportCertificateResponse (Prelude.Maybe Prelude.Text)
+exportCertificateResponse_certificate = Lens.lens (\ExportCertificateResponse' {certificate} -> certificate) (\s@ExportCertificateResponse' {} a -> s {certificate = a} :: ExportCertificateResponse)
 
--- | -- | The response status code.
-ecrrsResponseStatus :: Lens' ExportCertificateResponse Int
-ecrrsResponseStatus = lens _ecrrsResponseStatus (\s a -> s {_ecrrsResponseStatus = a})
+-- | The response's http status code.
+exportCertificateResponse_httpStatus :: Lens.Lens' ExportCertificateResponse Prelude.Int
+exportCertificateResponse_httpStatus = Lens.lens (\ExportCertificateResponse' {httpStatus} -> httpStatus) (\s@ExportCertificateResponse' {} a -> s {httpStatus = a} :: ExportCertificateResponse)
 
-instance NFData ExportCertificateResponse
+instance Prelude.NFData ExportCertificateResponse

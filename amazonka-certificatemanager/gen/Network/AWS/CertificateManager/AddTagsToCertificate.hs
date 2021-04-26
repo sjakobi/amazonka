@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,123 +21,161 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds one or more tags to an ACM certificate. Tags are labels that you can use to identify and organize your AWS resources. Each tag consists of a @key@ and an optional @value@ . You specify the certificate on input by its Amazon Resource Name (ARN). You specify the tag by using a key-value pair.
+-- Adds one or more tags to an ACM certificate. Tags are labels that you
+-- can use to identify and organize your AWS resources. Each tag consists
+-- of a @key@ and an optional @value@. You specify the certificate on input
+-- by its Amazon Resource Name (ARN). You specify the tag by using a
+-- key-value pair.
 --
+-- You can apply a tag to just one certificate if you want to identify a
+-- specific characteristic of that certificate, or you can apply the same
+-- tag to multiple certificates if you want to filter for a common
+-- relationship among those certificates. Similarly, you can apply the same
+-- tag to multiple resources if you want to specify a relationship among
+-- those resources. For example, you can add the same tag to an ACM
+-- certificate and an Elastic Load Balancing load balancer to indicate that
+-- they are both used by the same website. For more information, see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/tags.html Tagging ACM certificates>.
 --
--- You can apply a tag to just one certificate if you want to identify a specific characteristic of that certificate, or you can apply the same tag to multiple certificates if you want to filter for a common relationship among those certificates. Similarly, you can apply the same tag to multiple resources if you want to specify a relationship among those resources. For example, you can add the same tag to an ACM certificate and an Elastic Load Balancing load balancer to indicate that they are both used by the same website. For more information, see <https://docs.aws.amazon.com/acm/latest/userguide/tags.html Tagging ACM certificates> .
---
--- To remove one or more tags, use the 'RemoveTagsFromCertificate' action. To view all of the tags that have been applied to the certificate, use the 'ListTagsForCertificate' action.
+-- To remove one or more tags, use the RemoveTagsFromCertificate action. To
+-- view all of the tags that have been applied to the certificate, use the
+-- ListTagsForCertificate action.
 module Network.AWS.CertificateManager.AddTagsToCertificate
   ( -- * Creating a Request
-    addTagsToCertificate,
-    AddTagsToCertificate,
+    AddTagsToCertificate (..),
+    newAddTagsToCertificate,
 
     -- * Request Lenses
-    attcCertificateARN,
-    attcTags,
+    addTagsToCertificate_certificateArn,
+    addTagsToCertificate_tags,
 
     -- * Destructuring the Response
-    addTagsToCertificateResponse,
-    AddTagsToCertificateResponse,
+    AddTagsToCertificateResponse (..),
+    newAddTagsToCertificateResponse,
   )
 where
 
 import Network.AWS.CertificateManager.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addTagsToCertificate' smart constructor.
+-- | /See:/ 'newAddTagsToCertificate' smart constructor.
 data AddTagsToCertificate = AddTagsToCertificate'
-  { _attcCertificateARN ::
-      !Text,
-    _attcTags :: !(List1 Tag)
+  { -- | String that contains the ARN of the ACM certificate to which the tag is
+    -- to be applied. This must be of the form:
+    --
+    -- @arn:aws:acm:region:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+    --
+    -- For more information about ARNs, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+    certificateArn :: Prelude.Text,
+    -- | The key-value pair that defines the tag. The tag value is optional.
+    tags :: Prelude.List1 Tag
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsToCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTagsToCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'attcCertificateARN' - String that contains the ARN of the ACM certificate to which the tag is to be applied. This must be of the form: @arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012@  For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'attcTags' - The key-value pair that defines the tag. The tag value is optional.
-addTagsToCertificate ::
-  -- | 'attcCertificateARN'
-  Text ->
-  -- | 'attcTags'
-  NonEmpty Tag ->
+-- 'certificateArn', 'addTagsToCertificate_certificateArn' - String that contains the ARN of the ACM certificate to which the tag is
+-- to be applied. This must be of the form:
+--
+-- @arn:aws:acm:region:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+--
+-- 'tags', 'addTagsToCertificate_tags' - The key-value pair that defines the tag. The tag value is optional.
+newAddTagsToCertificate ::
+  -- | 'certificateArn'
+  Prelude.Text ->
+  -- | 'tags'
+  Prelude.NonEmpty Tag ->
   AddTagsToCertificate
-addTagsToCertificate pCertificateARN_ pTags_ =
+newAddTagsToCertificate pCertificateArn_ pTags_ =
   AddTagsToCertificate'
-    { _attcCertificateARN =
-        pCertificateARN_,
-      _attcTags = _List1 # pTags_
+    { certificateArn =
+        pCertificateArn_,
+      tags = Prelude._List1 Lens.# pTags_
     }
 
--- | String that contains the ARN of the ACM certificate to which the tag is to be applied. This must be of the form: @arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012@  For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> .
-attcCertificateARN :: Lens' AddTagsToCertificate Text
-attcCertificateARN = lens _attcCertificateARN (\s a -> s {_attcCertificateARN = a})
+-- | String that contains the ARN of the ACM certificate to which the tag is
+-- to be applied. This must be of the form:
+--
+-- @arn:aws:acm:region:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+addTagsToCertificate_certificateArn :: Lens.Lens' AddTagsToCertificate Prelude.Text
+addTagsToCertificate_certificateArn = Lens.lens (\AddTagsToCertificate' {certificateArn} -> certificateArn) (\s@AddTagsToCertificate' {} a -> s {certificateArn = a} :: AddTagsToCertificate)
 
 -- | The key-value pair that defines the tag. The tag value is optional.
-attcTags :: Lens' AddTagsToCertificate (NonEmpty Tag)
-attcTags = lens _attcTags (\s a -> s {_attcTags = a}) . _List1
+addTagsToCertificate_tags :: Lens.Lens' AddTagsToCertificate (Prelude.NonEmpty Tag)
+addTagsToCertificate_tags = Lens.lens (\AddTagsToCertificate' {tags} -> tags) (\s@AddTagsToCertificate' {} a -> s {tags = a} :: AddTagsToCertificate) Prelude.. Prelude._List1
 
-instance AWSRequest AddTagsToCertificate where
+instance Prelude.AWSRequest AddTagsToCertificate where
   type
     Rs AddTagsToCertificate =
       AddTagsToCertificateResponse
-  request = postJSON certificateManager
-  response = receiveNull AddTagsToCertificateResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull AddTagsToCertificateResponse'
 
-instance Hashable AddTagsToCertificate
+instance Prelude.Hashable AddTagsToCertificate
 
-instance NFData AddTagsToCertificate
+instance Prelude.NFData AddTagsToCertificate
 
-instance ToHeaders AddTagsToCertificate where
+instance Prelude.ToHeaders AddTagsToCertificate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CertificateManager.AddTagsToCertificate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CertificateManager.AddTagsToCertificate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddTagsToCertificate where
+instance Prelude.ToJSON AddTagsToCertificate where
   toJSON AddTagsToCertificate' {..} =
-    object
-      ( catMaybes
-          [ Just ("CertificateArn" .= _attcCertificateARN),
-            Just ("Tags" .= _attcTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CertificateArn" Prelude..= certificateArn),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath AddTagsToCertificate where
-  toPath = const "/"
+instance Prelude.ToPath AddTagsToCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddTagsToCertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery AddTagsToCertificate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'addTagsToCertificateResponse' smart constructor.
+-- | /See:/ 'newAddTagsToCertificateResponse' smart constructor.
 data AddTagsToCertificateResponse = AddTagsToCertificateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsToCertificateResponse' with the minimum fields required to make a request.
-addTagsToCertificateResponse ::
+-- |
+-- Create a value of 'AddTagsToCertificateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAddTagsToCertificateResponse ::
   AddTagsToCertificateResponse
-addTagsToCertificateResponse =
+newAddTagsToCertificateResponse =
   AddTagsToCertificateResponse'
 
-instance NFData AddTagsToCertificateResponse
+instance Prelude.NFData AddTagsToCertificateResponse

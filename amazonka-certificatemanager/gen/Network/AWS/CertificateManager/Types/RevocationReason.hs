@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,93 +19,95 @@
 module Network.AWS.CertificateManager.Types.RevocationReason
   ( RevocationReason
       ( ..,
-        AACompromise,
-        AffiliationChanged,
-        CaCompromise,
-        CertificateHold,
-        CessationOfOperation,
-        KeyCompromise,
-        PrivilegeWithdrawn,
-        RemoveFromCrl,
-        Superceded,
-        Unspecified
+        RevocationReasonAACOMPROMISE,
+        RevocationReasonAFFILIATIONCHANGED,
+        RevocationReasonCACOMPROMISE,
+        RevocationReasonCERTIFICATEHOLD,
+        RevocationReasonCESSATIONOFOPERATION,
+        RevocationReasonKEYCOMPROMISE,
+        RevocationReasonPRIVILEGEWITHDRAWN,
+        RevocationReasonREMOVEFROMCRL,
+        RevocationReasonSUPERCEDED,
+        RevocationReasonUNSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RevocationReason = RevocationReason' (CI Text)
+newtype RevocationReason = RevocationReason'
+  { fromRevocationReason ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AACompromise :: RevocationReason
-pattern AACompromise = RevocationReason' "A_A_COMPROMISE"
+pattern RevocationReasonAACOMPROMISE :: RevocationReason
+pattern RevocationReasonAACOMPROMISE = RevocationReason' "A_A_COMPROMISE"
 
-pattern AffiliationChanged :: RevocationReason
-pattern AffiliationChanged = RevocationReason' "AFFILIATION_CHANGED"
+pattern RevocationReasonAFFILIATIONCHANGED :: RevocationReason
+pattern RevocationReasonAFFILIATIONCHANGED = RevocationReason' "AFFILIATION_CHANGED"
 
-pattern CaCompromise :: RevocationReason
-pattern CaCompromise = RevocationReason' "CA_COMPROMISE"
+pattern RevocationReasonCACOMPROMISE :: RevocationReason
+pattern RevocationReasonCACOMPROMISE = RevocationReason' "CA_COMPROMISE"
 
-pattern CertificateHold :: RevocationReason
-pattern CertificateHold = RevocationReason' "CERTIFICATE_HOLD"
+pattern RevocationReasonCERTIFICATEHOLD :: RevocationReason
+pattern RevocationReasonCERTIFICATEHOLD = RevocationReason' "CERTIFICATE_HOLD"
 
-pattern CessationOfOperation :: RevocationReason
-pattern CessationOfOperation = RevocationReason' "CESSATION_OF_OPERATION"
+pattern RevocationReasonCESSATIONOFOPERATION :: RevocationReason
+pattern RevocationReasonCESSATIONOFOPERATION = RevocationReason' "CESSATION_OF_OPERATION"
 
-pattern KeyCompromise :: RevocationReason
-pattern KeyCompromise = RevocationReason' "KEY_COMPROMISE"
+pattern RevocationReasonKEYCOMPROMISE :: RevocationReason
+pattern RevocationReasonKEYCOMPROMISE = RevocationReason' "KEY_COMPROMISE"
 
-pattern PrivilegeWithdrawn :: RevocationReason
-pattern PrivilegeWithdrawn = RevocationReason' "PRIVILEGE_WITHDRAWN"
+pattern RevocationReasonPRIVILEGEWITHDRAWN :: RevocationReason
+pattern RevocationReasonPRIVILEGEWITHDRAWN = RevocationReason' "PRIVILEGE_WITHDRAWN"
 
-pattern RemoveFromCrl :: RevocationReason
-pattern RemoveFromCrl = RevocationReason' "REMOVE_FROM_CRL"
+pattern RevocationReasonREMOVEFROMCRL :: RevocationReason
+pattern RevocationReasonREMOVEFROMCRL = RevocationReason' "REMOVE_FROM_CRL"
 
-pattern Superceded :: RevocationReason
-pattern Superceded = RevocationReason' "SUPERCEDED"
+pattern RevocationReasonSUPERCEDED :: RevocationReason
+pattern RevocationReasonSUPERCEDED = RevocationReason' "SUPERCEDED"
 
-pattern Unspecified :: RevocationReason
-pattern Unspecified = RevocationReason' "UNSPECIFIED"
+pattern RevocationReasonUNSPECIFIED :: RevocationReason
+pattern RevocationReasonUNSPECIFIED = RevocationReason' "UNSPECIFIED"
 
 {-# COMPLETE
-  AACompromise,
-  AffiliationChanged,
-  CaCompromise,
-  CertificateHold,
-  CessationOfOperation,
-  KeyCompromise,
-  PrivilegeWithdrawn,
-  RemoveFromCrl,
-  Superceded,
-  Unspecified,
+  RevocationReasonAACOMPROMISE,
+  RevocationReasonAFFILIATIONCHANGED,
+  RevocationReasonCACOMPROMISE,
+  RevocationReasonCERTIFICATEHOLD,
+  RevocationReasonCESSATIONOFOPERATION,
+  RevocationReasonKEYCOMPROMISE,
+  RevocationReasonPRIVILEGEWITHDRAWN,
+  RevocationReasonREMOVEFROMCRL,
+  RevocationReasonSUPERCEDED,
+  RevocationReasonUNSPECIFIED,
   RevocationReason'
   #-}
 
-instance FromText RevocationReason where
-  parser = (RevocationReason' . mk) <$> takeText
+instance Prelude.FromText RevocationReason where
+  parser = RevocationReason' Prelude.<$> Prelude.takeText
 
-instance ToText RevocationReason where
-  toText (RevocationReason' ci) = original ci
+instance Prelude.ToText RevocationReason where
+  toText (RevocationReason' x) = x
 
-instance Hashable RevocationReason
+instance Prelude.Hashable RevocationReason
 
-instance NFData RevocationReason
+instance Prelude.NFData RevocationReason
 
-instance ToByteString RevocationReason
+instance Prelude.ToByteString RevocationReason
 
-instance ToQuery RevocationReason
+instance Prelude.ToQuery RevocationReason
 
-instance ToHeader RevocationReason
+instance Prelude.ToHeader RevocationReason
 
-instance FromJSON RevocationReason where
-  parseJSON = parseJSONText "RevocationReason"
+instance Prelude.FromJSON RevocationReason where
+  parseJSON = Prelude.parseJSONText "RevocationReason"

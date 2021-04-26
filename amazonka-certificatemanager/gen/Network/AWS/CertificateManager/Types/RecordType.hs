@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.CertificateManager.Types.RecordType
   ( RecordType
       ( ..,
-        Cname
+        RecordTypeCNAME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecordType = RecordType' (CI Text)
+newtype RecordType = RecordType'
+  { fromRecordType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cname :: RecordType
-pattern Cname = RecordType' "CNAME"
+pattern RecordTypeCNAME :: RecordType
+pattern RecordTypeCNAME = RecordType' "CNAME"
 
 {-# COMPLETE
-  Cname,
+  RecordTypeCNAME,
   RecordType'
   #-}
 
-instance FromText RecordType where
-  parser = (RecordType' . mk) <$> takeText
+instance Prelude.FromText RecordType where
+  parser = RecordType' Prelude.<$> Prelude.takeText
 
-instance ToText RecordType where
-  toText (RecordType' ci) = original ci
+instance Prelude.ToText RecordType where
+  toText (RecordType' x) = x
 
-instance Hashable RecordType
+instance Prelude.Hashable RecordType
 
-instance NFData RecordType
+instance Prelude.NFData RecordType
 
-instance ToByteString RecordType
+instance Prelude.ToByteString RecordType
 
-instance ToQuery RecordType
+instance Prelude.ToQuery RecordType
 
-instance ToHeader RecordType
+instance Prelude.ToHeader RecordType
 
-instance FromJSON RecordType where
-  parseJSON = parseJSONText "RecordType"
+instance Prelude.FromJSON RecordType where
+  parseJSON = Prelude.parseJSONText "RecordType"

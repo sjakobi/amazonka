@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,101 +19,103 @@
 module Network.AWS.CertificateManager.Types.KeyUsageName
   ( KeyUsageName
       ( ..,
-        KUNAny,
-        KUNCertificateSigning,
-        KUNCrlSigning,
-        KUNCustom,
-        KUNDataEncipherment,
-        KUNDecipherOnly,
-        KUNDigitalSignature,
-        KUNEncipherOnly,
-        KUNKeyAgreement,
-        KUNKeyEncipherment,
-        KUNNonRepudiation
+        KeyUsageNameANY,
+        KeyUsageNameCERTIFICATESIGNING,
+        KeyUsageNameCRLSIGNING,
+        KeyUsageNameCUSTOM,
+        KeyUsageNameDATAENCIPHERMENT,
+        KeyUsageNameDECIPHERONLY,
+        KeyUsageNameDIGITALSIGNATURE,
+        KeyUsageNameENCIPHERONLY,
+        KeyUsageNameKEYAGREEMENT,
+        KeyUsageNameKEYENCIPHERMENT,
+        KeyUsageNameNONREPUDIATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data KeyUsageName = KeyUsageName' (CI Text)
+newtype KeyUsageName = KeyUsageName'
+  { fromKeyUsageName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern KUNAny :: KeyUsageName
-pattern KUNAny = KeyUsageName' "ANY"
+pattern KeyUsageNameANY :: KeyUsageName
+pattern KeyUsageNameANY = KeyUsageName' "ANY"
 
-pattern KUNCertificateSigning :: KeyUsageName
-pattern KUNCertificateSigning = KeyUsageName' "CERTIFICATE_SIGNING"
+pattern KeyUsageNameCERTIFICATESIGNING :: KeyUsageName
+pattern KeyUsageNameCERTIFICATESIGNING = KeyUsageName' "CERTIFICATE_SIGNING"
 
-pattern KUNCrlSigning :: KeyUsageName
-pattern KUNCrlSigning = KeyUsageName' "CRL_SIGNING"
+pattern KeyUsageNameCRLSIGNING :: KeyUsageName
+pattern KeyUsageNameCRLSIGNING = KeyUsageName' "CRL_SIGNING"
 
-pattern KUNCustom :: KeyUsageName
-pattern KUNCustom = KeyUsageName' "CUSTOM"
+pattern KeyUsageNameCUSTOM :: KeyUsageName
+pattern KeyUsageNameCUSTOM = KeyUsageName' "CUSTOM"
 
-pattern KUNDataEncipherment :: KeyUsageName
-pattern KUNDataEncipherment = KeyUsageName' "DATA_ENCIPHERMENT"
+pattern KeyUsageNameDATAENCIPHERMENT :: KeyUsageName
+pattern KeyUsageNameDATAENCIPHERMENT = KeyUsageName' "DATA_ENCIPHERMENT"
 
-pattern KUNDecipherOnly :: KeyUsageName
-pattern KUNDecipherOnly = KeyUsageName' "DECIPHER_ONLY"
+pattern KeyUsageNameDECIPHERONLY :: KeyUsageName
+pattern KeyUsageNameDECIPHERONLY = KeyUsageName' "DECIPHER_ONLY"
 
-pattern KUNDigitalSignature :: KeyUsageName
-pattern KUNDigitalSignature = KeyUsageName' "DIGITAL_SIGNATURE"
+pattern KeyUsageNameDIGITALSIGNATURE :: KeyUsageName
+pattern KeyUsageNameDIGITALSIGNATURE = KeyUsageName' "DIGITAL_SIGNATURE"
 
-pattern KUNEncipherOnly :: KeyUsageName
-pattern KUNEncipherOnly = KeyUsageName' "ENCIPHER_ONLY"
+pattern KeyUsageNameENCIPHERONLY :: KeyUsageName
+pattern KeyUsageNameENCIPHERONLY = KeyUsageName' "ENCIPHER_ONLY"
 
-pattern KUNKeyAgreement :: KeyUsageName
-pattern KUNKeyAgreement = KeyUsageName' "KEY_AGREEMENT"
+pattern KeyUsageNameKEYAGREEMENT :: KeyUsageName
+pattern KeyUsageNameKEYAGREEMENT = KeyUsageName' "KEY_AGREEMENT"
 
-pattern KUNKeyEncipherment :: KeyUsageName
-pattern KUNKeyEncipherment = KeyUsageName' "KEY_ENCIPHERMENT"
+pattern KeyUsageNameKEYENCIPHERMENT :: KeyUsageName
+pattern KeyUsageNameKEYENCIPHERMENT = KeyUsageName' "KEY_ENCIPHERMENT"
 
-pattern KUNNonRepudiation :: KeyUsageName
-pattern KUNNonRepudiation = KeyUsageName' "NON_REPUDIATION"
+pattern KeyUsageNameNONREPUDIATION :: KeyUsageName
+pattern KeyUsageNameNONREPUDIATION = KeyUsageName' "NON_REPUDIATION"
 
 {-# COMPLETE
-  KUNAny,
-  KUNCertificateSigning,
-  KUNCrlSigning,
-  KUNCustom,
-  KUNDataEncipherment,
-  KUNDecipherOnly,
-  KUNDigitalSignature,
-  KUNEncipherOnly,
-  KUNKeyAgreement,
-  KUNKeyEncipherment,
-  KUNNonRepudiation,
+  KeyUsageNameANY,
+  KeyUsageNameCERTIFICATESIGNING,
+  KeyUsageNameCRLSIGNING,
+  KeyUsageNameCUSTOM,
+  KeyUsageNameDATAENCIPHERMENT,
+  KeyUsageNameDECIPHERONLY,
+  KeyUsageNameDIGITALSIGNATURE,
+  KeyUsageNameENCIPHERONLY,
+  KeyUsageNameKEYAGREEMENT,
+  KeyUsageNameKEYENCIPHERMENT,
+  KeyUsageNameNONREPUDIATION,
   KeyUsageName'
   #-}
 
-instance FromText KeyUsageName where
-  parser = (KeyUsageName' . mk) <$> takeText
+instance Prelude.FromText KeyUsageName where
+  parser = KeyUsageName' Prelude.<$> Prelude.takeText
 
-instance ToText KeyUsageName where
-  toText (KeyUsageName' ci) = original ci
+instance Prelude.ToText KeyUsageName where
+  toText (KeyUsageName' x) = x
 
-instance Hashable KeyUsageName
+instance Prelude.Hashable KeyUsageName
 
-instance NFData KeyUsageName
+instance Prelude.NFData KeyUsageName
 
-instance ToByteString KeyUsageName
+instance Prelude.ToByteString KeyUsageName
 
-instance ToQuery KeyUsageName
+instance Prelude.ToQuery KeyUsageName
 
-instance ToHeader KeyUsageName
+instance Prelude.ToHeader KeyUsageName
 
-instance ToJSON KeyUsageName where
-  toJSON = toJSONText
+instance Prelude.ToJSON KeyUsageName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON KeyUsageName where
-  parseJSON = parseJSONText "KeyUsageName"
+instance Prelude.FromJSON KeyUsageName where
+  parseJSON = Prelude.parseJSONText "KeyUsageName"

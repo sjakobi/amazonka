@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,145 +24,161 @@
 -- Returns detailed metadata about the specified ACM certificate.
 module Network.AWS.CertificateManager.DescribeCertificate
   ( -- * Creating a Request
-    describeCertificate,
-    DescribeCertificate,
+    DescribeCertificate (..),
+    newDescribeCertificate,
 
     -- * Request Lenses
-    dCertificateARN,
+    describeCertificate_certificateArn,
 
     -- * Destructuring the Response
-    describeCertificateResponse,
-    DescribeCertificateResponse,
+    DescribeCertificateResponse (..),
+    newDescribeCertificateResponse,
 
     -- * Response Lenses
-    dcrrsCertificate,
-    dcrrsResponseStatus,
+    describeCertificateResponse_certificate,
+    describeCertificateResponse_httpStatus,
   )
 where
 
 import Network.AWS.CertificateManager.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CertificateManager.Types.CertificateDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCertificate' smart constructor.
-newtype DescribeCertificate = DescribeCertificate'
-  { _dCertificateARN ::
-      Text
+-- | /See:/ 'newDescribeCertificate' smart constructor.
+data DescribeCertificate = DescribeCertificate'
+  { -- | The Amazon Resource Name (ARN) of the ACM certificate. The ARN must have
+    -- the following form:
+    --
+    -- @arn:aws:acm:region:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+    --
+    -- For more information about ARNs, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+    certificateArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dCertificateARN' - The Amazon Resource Name (ARN) of the ACM certificate. The ARN must have the following form: @arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012@  For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> .
-describeCertificate ::
-  -- | 'dCertificateARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'certificateArn', 'describeCertificate_certificateArn' - The Amazon Resource Name (ARN) of the ACM certificate. The ARN must have
+-- the following form:
+--
+-- @arn:aws:acm:region:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+newDescribeCertificate ::
+  -- | 'certificateArn'
+  Prelude.Text ->
   DescribeCertificate
-describeCertificate pCertificateARN_ =
+newDescribeCertificate pCertificateArn_ =
   DescribeCertificate'
-    { _dCertificateARN =
-        pCertificateARN_
+    { certificateArn =
+        pCertificateArn_
     }
 
--- | The Amazon Resource Name (ARN) of the ACM certificate. The ARN must have the following form: @arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012@  For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> .
-dCertificateARN :: Lens' DescribeCertificate Text
-dCertificateARN = lens _dCertificateARN (\s a -> s {_dCertificateARN = a})
+-- | The Amazon Resource Name (ARN) of the ACM certificate. The ARN must have
+-- the following form:
+--
+-- @arn:aws:acm:region:123456789012:certificate\/12345678-1234-1234-1234-123456789012@
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+describeCertificate_certificateArn :: Lens.Lens' DescribeCertificate Prelude.Text
+describeCertificate_certificateArn = Lens.lens (\DescribeCertificate' {certificateArn} -> certificateArn) (\s@DescribeCertificate' {} a -> s {certificateArn = a} :: DescribeCertificate)
 
-instance AWSRequest DescribeCertificate where
+instance Prelude.AWSRequest DescribeCertificate where
   type
     Rs DescribeCertificate =
       DescribeCertificateResponse
-  request = postJSON certificateManager
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCertificateResponse'
-            <$> (x .?> "Certificate") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Certificate")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCertificate
+instance Prelude.Hashable DescribeCertificate
 
-instance NFData DescribeCertificate
+instance Prelude.NFData DescribeCertificate
 
-instance ToHeaders DescribeCertificate where
+instance Prelude.ToHeaders DescribeCertificate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CertificateManager.DescribeCertificate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CertificateManager.DescribeCertificate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCertificate where
+instance Prelude.ToJSON DescribeCertificate where
   toJSON DescribeCertificate' {..} =
-    object
-      ( catMaybes
-          [Just ("CertificateArn" .= _dCertificateARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CertificateArn" Prelude..= certificateArn)
+          ]
       )
 
-instance ToPath DescribeCertificate where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeCertificate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeCertificateResponse' smart constructor.
+-- | /See:/ 'newDescribeCertificateResponse' smart constructor.
 data DescribeCertificateResponse = DescribeCertificateResponse'
-  { _dcrrsCertificate ::
-      !( Maybe
-           CertificateDetail
-       ),
-    _dcrrsResponseStatus ::
-      !Int
+  { -- | Metadata about an ACM certificate.
+    certificate :: Prelude.Maybe CertificateDetail,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCertificateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCertificateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsCertificate' - Metadata about an ACM certificate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-describeCertificateResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- 'certificate', 'describeCertificateResponse_certificate' - Metadata about an ACM certificate.
+--
+-- 'httpStatus', 'describeCertificateResponse_httpStatus' - The response's http status code.
+newDescribeCertificateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCertificateResponse
-describeCertificateResponse pResponseStatus_ =
+newDescribeCertificateResponse pHttpStatus_ =
   DescribeCertificateResponse'
-    { _dcrrsCertificate =
-        Nothing,
-      _dcrrsResponseStatus = pResponseStatus_
+    { certificate =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Metadata about an ACM certificate.
-dcrrsCertificate :: Lens' DescribeCertificateResponse (Maybe CertificateDetail)
-dcrrsCertificate = lens _dcrrsCertificate (\s a -> s {_dcrrsCertificate = a})
+describeCertificateResponse_certificate :: Lens.Lens' DescribeCertificateResponse (Prelude.Maybe CertificateDetail)
+describeCertificateResponse_certificate = Lens.lens (\DescribeCertificateResponse' {certificate} -> certificate) (\s@DescribeCertificateResponse' {} a -> s {certificate = a} :: DescribeCertificateResponse)
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DescribeCertificateResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+describeCertificateResponse_httpStatus :: Lens.Lens' DescribeCertificateResponse Prelude.Int
+describeCertificateResponse_httpStatus = Lens.lens (\DescribeCertificateResponse' {httpStatus} -> httpStatus) (\s@DescribeCertificateResponse' {} a -> s {httpStatus = a} :: DescribeCertificateResponse)
 
-instance NFData DescribeCertificateResponse
+instance Prelude.NFData DescribeCertificateResponse

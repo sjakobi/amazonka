@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,110 +19,108 @@
 module Network.AWS.CertificateManager.Types.ExtendedKeyUsageName
   ( ExtendedKeyUsageName
       ( ..,
-        Any,
-        CodeSigning,
-        Custom,
-        EmailProtection,
-        IPsecEndSystem,
-        IPsecTunnel,
-        IPsecUser,
-        None,
-        OcspSigning,
-        TLSWebClientAuthentication,
-        TLSWebServerAuthentication,
-        TimeStamping
+        ExtendedKeyUsageNameANY,
+        ExtendedKeyUsageNameCODESIGNING,
+        ExtendedKeyUsageNameCUSTOM,
+        ExtendedKeyUsageNameEMAILPROTECTION,
+        ExtendedKeyUsageNameIPSECENDSYSTEM,
+        ExtendedKeyUsageNameIPSECTUNNEL,
+        ExtendedKeyUsageNameIPSECUSER,
+        ExtendedKeyUsageNameNONE,
+        ExtendedKeyUsageNameOCSPSIGNING,
+        ExtendedKeyUsageNameTIMESTAMPING,
+        ExtendedKeyUsageNameTLSWEBCLIENTAUTHENTICATION,
+        ExtendedKeyUsageNameTLSWEBSERVERAUTHENTICATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExtendedKeyUsageName
-  = ExtendedKeyUsageName'
-      ( CI
-          Text
-      )
+newtype ExtendedKeyUsageName = ExtendedKeyUsageName'
+  { fromExtendedKeyUsageName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Any :: ExtendedKeyUsageName
-pattern Any = ExtendedKeyUsageName' "ANY"
+pattern ExtendedKeyUsageNameANY :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameANY = ExtendedKeyUsageName' "ANY"
 
-pattern CodeSigning :: ExtendedKeyUsageName
-pattern CodeSigning = ExtendedKeyUsageName' "CODE_SIGNING"
+pattern ExtendedKeyUsageNameCODESIGNING :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameCODESIGNING = ExtendedKeyUsageName' "CODE_SIGNING"
 
-pattern Custom :: ExtendedKeyUsageName
-pattern Custom = ExtendedKeyUsageName' "CUSTOM"
+pattern ExtendedKeyUsageNameCUSTOM :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameCUSTOM = ExtendedKeyUsageName' "CUSTOM"
 
-pattern EmailProtection :: ExtendedKeyUsageName
-pattern EmailProtection = ExtendedKeyUsageName' "EMAIL_PROTECTION"
+pattern ExtendedKeyUsageNameEMAILPROTECTION :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameEMAILPROTECTION = ExtendedKeyUsageName' "EMAIL_PROTECTION"
 
-pattern IPsecEndSystem :: ExtendedKeyUsageName
-pattern IPsecEndSystem = ExtendedKeyUsageName' "IPSEC_END_SYSTEM"
+pattern ExtendedKeyUsageNameIPSECENDSYSTEM :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameIPSECENDSYSTEM = ExtendedKeyUsageName' "IPSEC_END_SYSTEM"
 
-pattern IPsecTunnel :: ExtendedKeyUsageName
-pattern IPsecTunnel = ExtendedKeyUsageName' "IPSEC_TUNNEL"
+pattern ExtendedKeyUsageNameIPSECTUNNEL :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameIPSECTUNNEL = ExtendedKeyUsageName' "IPSEC_TUNNEL"
 
-pattern IPsecUser :: ExtendedKeyUsageName
-pattern IPsecUser = ExtendedKeyUsageName' "IPSEC_USER"
+pattern ExtendedKeyUsageNameIPSECUSER :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameIPSECUSER = ExtendedKeyUsageName' "IPSEC_USER"
 
-pattern None :: ExtendedKeyUsageName
-pattern None = ExtendedKeyUsageName' "NONE"
+pattern ExtendedKeyUsageNameNONE :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameNONE = ExtendedKeyUsageName' "NONE"
 
-pattern OcspSigning :: ExtendedKeyUsageName
-pattern OcspSigning = ExtendedKeyUsageName' "OCSP_SIGNING"
+pattern ExtendedKeyUsageNameOCSPSIGNING :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameOCSPSIGNING = ExtendedKeyUsageName' "OCSP_SIGNING"
 
-pattern TLSWebClientAuthentication :: ExtendedKeyUsageName
-pattern TLSWebClientAuthentication = ExtendedKeyUsageName' "TLS_WEB_CLIENT_AUTHENTICATION"
+pattern ExtendedKeyUsageNameTIMESTAMPING :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameTIMESTAMPING = ExtendedKeyUsageName' "TIME_STAMPING"
 
-pattern TLSWebServerAuthentication :: ExtendedKeyUsageName
-pattern TLSWebServerAuthentication = ExtendedKeyUsageName' "TLS_WEB_SERVER_AUTHENTICATION"
+pattern ExtendedKeyUsageNameTLSWEBCLIENTAUTHENTICATION :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameTLSWEBCLIENTAUTHENTICATION = ExtendedKeyUsageName' "TLS_WEB_CLIENT_AUTHENTICATION"
 
-pattern TimeStamping :: ExtendedKeyUsageName
-pattern TimeStamping = ExtendedKeyUsageName' "TIME_STAMPING"
+pattern ExtendedKeyUsageNameTLSWEBSERVERAUTHENTICATION :: ExtendedKeyUsageName
+pattern ExtendedKeyUsageNameTLSWEBSERVERAUTHENTICATION = ExtendedKeyUsageName' "TLS_WEB_SERVER_AUTHENTICATION"
 
 {-# COMPLETE
-  Any,
-  CodeSigning,
-  Custom,
-  EmailProtection,
-  IPsecEndSystem,
-  IPsecTunnel,
-  IPsecUser,
-  None,
-  OcspSigning,
-  TLSWebClientAuthentication,
-  TLSWebServerAuthentication,
-  TimeStamping,
+  ExtendedKeyUsageNameANY,
+  ExtendedKeyUsageNameCODESIGNING,
+  ExtendedKeyUsageNameCUSTOM,
+  ExtendedKeyUsageNameEMAILPROTECTION,
+  ExtendedKeyUsageNameIPSECENDSYSTEM,
+  ExtendedKeyUsageNameIPSECTUNNEL,
+  ExtendedKeyUsageNameIPSECUSER,
+  ExtendedKeyUsageNameNONE,
+  ExtendedKeyUsageNameOCSPSIGNING,
+  ExtendedKeyUsageNameTIMESTAMPING,
+  ExtendedKeyUsageNameTLSWEBCLIENTAUTHENTICATION,
+  ExtendedKeyUsageNameTLSWEBSERVERAUTHENTICATION,
   ExtendedKeyUsageName'
   #-}
 
-instance FromText ExtendedKeyUsageName where
-  parser = (ExtendedKeyUsageName' . mk) <$> takeText
+instance Prelude.FromText ExtendedKeyUsageName where
+  parser = ExtendedKeyUsageName' Prelude.<$> Prelude.takeText
 
-instance ToText ExtendedKeyUsageName where
-  toText (ExtendedKeyUsageName' ci) = original ci
+instance Prelude.ToText ExtendedKeyUsageName where
+  toText (ExtendedKeyUsageName' x) = x
 
-instance Hashable ExtendedKeyUsageName
+instance Prelude.Hashable ExtendedKeyUsageName
 
-instance NFData ExtendedKeyUsageName
+instance Prelude.NFData ExtendedKeyUsageName
 
-instance ToByteString ExtendedKeyUsageName
+instance Prelude.ToByteString ExtendedKeyUsageName
 
-instance ToQuery ExtendedKeyUsageName
+instance Prelude.ToQuery ExtendedKeyUsageName
 
-instance ToHeader ExtendedKeyUsageName
+instance Prelude.ToHeader ExtendedKeyUsageName
 
-instance ToJSON ExtendedKeyUsageName where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExtendedKeyUsageName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExtendedKeyUsageName where
-  parseJSON = parseJSONText "ExtendedKeyUsageName"
+instance Prelude.FromJSON ExtendedKeyUsageName where
+  parseJSON = Prelude.parseJSONText "ExtendedKeyUsageName"

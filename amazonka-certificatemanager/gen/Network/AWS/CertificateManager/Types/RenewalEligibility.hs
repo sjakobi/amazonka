@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CertificateManager.Types.RenewalEligibility
   ( RenewalEligibility
       ( ..,
-        Eligible,
-        Ineligible
+        RenewalEligibilityELIGIBLE,
+        RenewalEligibilityINELIGIBLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RenewalEligibility
-  = RenewalEligibility'
-      ( CI
-          Text
-      )
+newtype RenewalEligibility = RenewalEligibility'
+  { fromRenewalEligibility ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Eligible :: RenewalEligibility
-pattern Eligible = RenewalEligibility' "ELIGIBLE"
+pattern RenewalEligibilityELIGIBLE :: RenewalEligibility
+pattern RenewalEligibilityELIGIBLE = RenewalEligibility' "ELIGIBLE"
 
-pattern Ineligible :: RenewalEligibility
-pattern Ineligible = RenewalEligibility' "INELIGIBLE"
+pattern RenewalEligibilityINELIGIBLE :: RenewalEligibility
+pattern RenewalEligibilityINELIGIBLE = RenewalEligibility' "INELIGIBLE"
 
 {-# COMPLETE
-  Eligible,
-  Ineligible,
+  RenewalEligibilityELIGIBLE,
+  RenewalEligibilityINELIGIBLE,
   RenewalEligibility'
   #-}
 
-instance FromText RenewalEligibility where
-  parser = (RenewalEligibility' . mk) <$> takeText
+instance Prelude.FromText RenewalEligibility where
+  parser = RenewalEligibility' Prelude.<$> Prelude.takeText
 
-instance ToText RenewalEligibility where
-  toText (RenewalEligibility' ci) = original ci
+instance Prelude.ToText RenewalEligibility where
+  toText (RenewalEligibility' x) = x
 
-instance Hashable RenewalEligibility
+instance Prelude.Hashable RenewalEligibility
 
-instance NFData RenewalEligibility
+instance Prelude.NFData RenewalEligibility
 
-instance ToByteString RenewalEligibility
+instance Prelude.ToByteString RenewalEligibility
 
-instance ToQuery RenewalEligibility
+instance Prelude.ToQuery RenewalEligibility
 
-instance ToHeader RenewalEligibility
+instance Prelude.ToHeader RenewalEligibility
 
-instance FromJSON RenewalEligibility where
-  parseJSON = parseJSONText "RenewalEligibility"
+instance Prelude.FromJSON RenewalEligibility where
+  parseJSON = Prelude.parseJSONText "RenewalEligibility"

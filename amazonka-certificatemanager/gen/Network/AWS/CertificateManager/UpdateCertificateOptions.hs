@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a certificate. Currently, you can use this function to specify whether to opt in to or out of recording your certificate in a certificate transparency log. For more information, see <https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency Opting Out of Certificate Transparency Logging> .
+-- Updates a certificate. Currently, you can use this function to specify
+-- whether to opt in to or out of recording your certificate in a
+-- certificate transparency log. For more information, see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency Opting Out of Certificate Transparency Logging>.
 module Network.AWS.CertificateManager.UpdateCertificateOptions
   ( -- * Creating a Request
-    updateCertificateOptions,
-    UpdateCertificateOptions,
+    UpdateCertificateOptions (..),
+    newUpdateCertificateOptions,
 
     -- * Request Lenses
-    ucoCertificateARN,
-    ucoOptions,
+    updateCertificateOptions_certificateArn,
+    updateCertificateOptions_options,
 
     -- * Destructuring the Response
-    updateCertificateOptionsResponse,
-    UpdateCertificateOptionsResponse,
+    UpdateCertificateOptionsResponse (..),
+    newUpdateCertificateOptionsResponse,
   )
 where
 
 import Network.AWS.CertificateManager.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateCertificateOptions' smart constructor.
+-- | /See:/ 'newUpdateCertificateOptions' smart constructor.
 data UpdateCertificateOptions = UpdateCertificateOptions'
-  { _ucoCertificateARN ::
-      !Text,
-    _ucoOptions ::
-      !CertificateOptions
+  { -- | ARN of the requested certificate to update. This must be of the form:
+    --
+    -- @arn:aws:acm:us-east-1:account:certificate\/12345678-1234-1234-1234-123456789012 @
+    certificateArn :: Prelude.Text,
+    -- | Use to update the options for your certificate. Currently, you can
+    -- specify whether to add your certificate to a transparency log.
+    -- Certificate transparency makes it possible to detect SSL\/TLS
+    -- certificates that have been mistakenly or maliciously issued.
+    -- Certificates that have not been logged typically produce an error
+    -- message in a browser.
+    options :: CertificateOptions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCertificateOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCertificateOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucoCertificateARN' - ARN of the requested certificate to update. This must be of the form: @arn:aws:acm:us-east-1:/account/ :certificate//12345678-1234-1234-1234-123456789012/ @
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucoOptions' - Use to update the options for your certificate. Currently, you can specify whether to add your certificate to a transparency log. Certificate transparency makes it possible to detect SSL/TLS certificates that have been mistakenly or maliciously issued. Certificates that have not been logged typically produce an error message in a browser.
-updateCertificateOptions ::
-  -- | 'ucoCertificateARN'
-  Text ->
-  -- | 'ucoOptions'
+-- 'certificateArn', 'updateCertificateOptions_certificateArn' - ARN of the requested certificate to update. This must be of the form:
+--
+-- @arn:aws:acm:us-east-1:account:certificate\/12345678-1234-1234-1234-123456789012 @
+--
+-- 'options', 'updateCertificateOptions_options' - Use to update the options for your certificate. Currently, you can
+-- specify whether to add your certificate to a transparency log.
+-- Certificate transparency makes it possible to detect SSL\/TLS
+-- certificates that have been mistakenly or maliciously issued.
+-- Certificates that have not been logged typically produce an error
+-- message in a browser.
+newUpdateCertificateOptions ::
+  -- | 'certificateArn'
+  Prelude.Text ->
+  -- | 'options'
   CertificateOptions ->
   UpdateCertificateOptions
-updateCertificateOptions pCertificateARN_ pOptions_ =
-  UpdateCertificateOptions'
-    { _ucoCertificateARN =
-        pCertificateARN_,
-      _ucoOptions = pOptions_
-    }
+newUpdateCertificateOptions
+  pCertificateArn_
+  pOptions_ =
+    UpdateCertificateOptions'
+      { certificateArn =
+          pCertificateArn_,
+        options = pOptions_
+      }
 
--- | ARN of the requested certificate to update. This must be of the form: @arn:aws:acm:us-east-1:/account/ :certificate//12345678-1234-1234-1234-123456789012/ @
-ucoCertificateARN :: Lens' UpdateCertificateOptions Text
-ucoCertificateARN = lens _ucoCertificateARN (\s a -> s {_ucoCertificateARN = a})
+-- | ARN of the requested certificate to update. This must be of the form:
+--
+-- @arn:aws:acm:us-east-1:account:certificate\/12345678-1234-1234-1234-123456789012 @
+updateCertificateOptions_certificateArn :: Lens.Lens' UpdateCertificateOptions Prelude.Text
+updateCertificateOptions_certificateArn = Lens.lens (\UpdateCertificateOptions' {certificateArn} -> certificateArn) (\s@UpdateCertificateOptions' {} a -> s {certificateArn = a} :: UpdateCertificateOptions)
 
--- | Use to update the options for your certificate. Currently, you can specify whether to add your certificate to a transparency log. Certificate transparency makes it possible to detect SSL/TLS certificates that have been mistakenly or maliciously issued. Certificates that have not been logged typically produce an error message in a browser.
-ucoOptions :: Lens' UpdateCertificateOptions CertificateOptions
-ucoOptions = lens _ucoOptions (\s a -> s {_ucoOptions = a})
+-- | Use to update the options for your certificate. Currently, you can
+-- specify whether to add your certificate to a transparency log.
+-- Certificate transparency makes it possible to detect SSL\/TLS
+-- certificates that have been mistakenly or maliciously issued.
+-- Certificates that have not been logged typically produce an error
+-- message in a browser.
+updateCertificateOptions_options :: Lens.Lens' UpdateCertificateOptions CertificateOptions
+updateCertificateOptions_options = Lens.lens (\UpdateCertificateOptions' {options} -> options) (\s@UpdateCertificateOptions' {} a -> s {options = a} :: UpdateCertificateOptions)
 
-instance AWSRequest UpdateCertificateOptions where
+instance Prelude.AWSRequest UpdateCertificateOptions where
   type
     Rs UpdateCertificateOptions =
       UpdateCertificateOptionsResponse
-  request = postJSON certificateManager
+  request = Request.postJSON defaultService
   response =
-    receiveNull UpdateCertificateOptionsResponse'
+    Response.receiveNull
+      UpdateCertificateOptionsResponse'
 
-instance Hashable UpdateCertificateOptions
+instance Prelude.Hashable UpdateCertificateOptions
 
-instance NFData UpdateCertificateOptions
+instance Prelude.NFData UpdateCertificateOptions
 
-instance ToHeaders UpdateCertificateOptions where
+instance Prelude.ToHeaders UpdateCertificateOptions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CertificateManager.UpdateCertificateOptions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CertificateManager.UpdateCertificateOptions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateCertificateOptions where
+instance Prelude.ToJSON UpdateCertificateOptions where
   toJSON UpdateCertificateOptions' {..} =
-    object
-      ( catMaybes
-          [ Just ("CertificateArn" .= _ucoCertificateARN),
-            Just ("Options" .= _ucoOptions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CertificateArn" Prelude..= certificateArn),
+            Prelude.Just ("Options" Prelude..= options)
           ]
       )
 
-instance ToPath UpdateCertificateOptions where
-  toPath = const "/"
+instance Prelude.ToPath UpdateCertificateOptions where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateCertificateOptions where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateCertificateOptions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateCertificateOptionsResponse' smart constructor.
+-- | /See:/ 'newUpdateCertificateOptionsResponse' smart constructor.
 data UpdateCertificateOptionsResponse = UpdateCertificateOptionsResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCertificateOptionsResponse' with the minimum fields required to make a request.
-updateCertificateOptionsResponse ::
+-- |
+-- Create a value of 'UpdateCertificateOptionsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateCertificateOptionsResponse ::
   UpdateCertificateOptionsResponse
-updateCertificateOptionsResponse =
+newUpdateCertificateOptionsResponse =
   UpdateCertificateOptionsResponse'
 
-instance NFData UpdateCertificateOptionsResponse
+instance
+  Prelude.NFData
+    UpdateCertificateOptionsResponse

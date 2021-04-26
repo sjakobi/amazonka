@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CertificateManager.Types.CertificateTransparencyLoggingPreference
   ( CertificateTransparencyLoggingPreference
       ( ..,
-        Disabled,
-        Enabled
+        CertificateTransparencyLoggingPreferenceDISABLED,
+        CertificateTransparencyLoggingPreferenceENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateTransparencyLoggingPreference
-  = CertificateTransparencyLoggingPreference'
-      ( CI
-          Text
-      )
+newtype CertificateTransparencyLoggingPreference = CertificateTransparencyLoggingPreference'
+  { fromCertificateTransparencyLoggingPreference ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: CertificateTransparencyLoggingPreference
-pattern Disabled = CertificateTransparencyLoggingPreference' "DISABLED"
+pattern CertificateTransparencyLoggingPreferenceDISABLED :: CertificateTransparencyLoggingPreference
+pattern CertificateTransparencyLoggingPreferenceDISABLED = CertificateTransparencyLoggingPreference' "DISABLED"
 
-pattern Enabled :: CertificateTransparencyLoggingPreference
-pattern Enabled = CertificateTransparencyLoggingPreference' "ENABLED"
+pattern CertificateTransparencyLoggingPreferenceENABLED :: CertificateTransparencyLoggingPreference
+pattern CertificateTransparencyLoggingPreferenceENABLED = CertificateTransparencyLoggingPreference' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  CertificateTransparencyLoggingPreferenceDISABLED,
+  CertificateTransparencyLoggingPreferenceENABLED,
   CertificateTransparencyLoggingPreference'
   #-}
 
-instance FromText CertificateTransparencyLoggingPreference where
-  parser = (CertificateTransparencyLoggingPreference' . mk) <$> takeText
+instance Prelude.FromText CertificateTransparencyLoggingPreference where
+  parser = CertificateTransparencyLoggingPreference' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateTransparencyLoggingPreference where
-  toText (CertificateTransparencyLoggingPreference' ci) = original ci
+instance Prelude.ToText CertificateTransparencyLoggingPreference where
+  toText (CertificateTransparencyLoggingPreference' x) = x
 
-instance Hashable CertificateTransparencyLoggingPreference
+instance Prelude.Hashable CertificateTransparencyLoggingPreference
 
-instance NFData CertificateTransparencyLoggingPreference
+instance Prelude.NFData CertificateTransparencyLoggingPreference
 
-instance ToByteString CertificateTransparencyLoggingPreference
+instance Prelude.ToByteString CertificateTransparencyLoggingPreference
 
-instance ToQuery CertificateTransparencyLoggingPreference
+instance Prelude.ToQuery CertificateTransparencyLoggingPreference
 
-instance ToHeader CertificateTransparencyLoggingPreference
+instance Prelude.ToHeader CertificateTransparencyLoggingPreference
 
-instance ToJSON CertificateTransparencyLoggingPreference where
-  toJSON = toJSONText
+instance Prelude.ToJSON CertificateTransparencyLoggingPreference where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CertificateTransparencyLoggingPreference where
-  parseJSON = parseJSONText "CertificateTransparencyLoggingPreference"
+instance Prelude.FromJSON CertificateTransparencyLoggingPreference where
+  parseJSON = Prelude.parseJSONText "CertificateTransparencyLoggingPreference"

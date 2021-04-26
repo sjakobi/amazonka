@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.CertificateManager.Types.RenewalStatus
   ( RenewalStatus
       ( ..,
-        RSFailed,
-        RSPendingAutoRenewal,
-        RSPendingValidation,
-        RSSuccess
+        RenewalStatusFAILED,
+        RenewalStatusPENDINGAUTORENEWAL,
+        RenewalStatusPENDINGVALIDATION,
+        RenewalStatusSUCCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RenewalStatus = RenewalStatus' (CI Text)
+newtype RenewalStatus = RenewalStatus'
+  { fromRenewalStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSFailed :: RenewalStatus
-pattern RSFailed = RenewalStatus' "FAILED"
+pattern RenewalStatusFAILED :: RenewalStatus
+pattern RenewalStatusFAILED = RenewalStatus' "FAILED"
 
-pattern RSPendingAutoRenewal :: RenewalStatus
-pattern RSPendingAutoRenewal = RenewalStatus' "PENDING_AUTO_RENEWAL"
+pattern RenewalStatusPENDINGAUTORENEWAL :: RenewalStatus
+pattern RenewalStatusPENDINGAUTORENEWAL = RenewalStatus' "PENDING_AUTO_RENEWAL"
 
-pattern RSPendingValidation :: RenewalStatus
-pattern RSPendingValidation = RenewalStatus' "PENDING_VALIDATION"
+pattern RenewalStatusPENDINGVALIDATION :: RenewalStatus
+pattern RenewalStatusPENDINGVALIDATION = RenewalStatus' "PENDING_VALIDATION"
 
-pattern RSSuccess :: RenewalStatus
-pattern RSSuccess = RenewalStatus' "SUCCESS"
+pattern RenewalStatusSUCCESS :: RenewalStatus
+pattern RenewalStatusSUCCESS = RenewalStatus' "SUCCESS"
 
 {-# COMPLETE
-  RSFailed,
-  RSPendingAutoRenewal,
-  RSPendingValidation,
-  RSSuccess,
+  RenewalStatusFAILED,
+  RenewalStatusPENDINGAUTORENEWAL,
+  RenewalStatusPENDINGVALIDATION,
+  RenewalStatusSUCCESS,
   RenewalStatus'
   #-}
 
-instance FromText RenewalStatus where
-  parser = (RenewalStatus' . mk) <$> takeText
+instance Prelude.FromText RenewalStatus where
+  parser = RenewalStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RenewalStatus where
-  toText (RenewalStatus' ci) = original ci
+instance Prelude.ToText RenewalStatus where
+  toText (RenewalStatus' x) = x
 
-instance Hashable RenewalStatus
+instance Prelude.Hashable RenewalStatus
 
-instance NFData RenewalStatus
+instance Prelude.NFData RenewalStatus
 
-instance ToByteString RenewalStatus
+instance Prelude.ToByteString RenewalStatus
 
-instance ToQuery RenewalStatus
+instance Prelude.ToQuery RenewalStatus
 
-instance ToHeader RenewalStatus
+instance Prelude.ToHeader RenewalStatus
 
-instance FromJSON RenewalStatus where
-  parseJSON = parseJSONText "RenewalStatus"
+instance Prelude.FromJSON RenewalStatus where
+  parseJSON = Prelude.parseJSONText "RenewalStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -26,281 +30,437 @@ import Network.AWS.CertificateManager.Types.KeyUsage
 import Network.AWS.CertificateManager.Types.RenewalEligibility
 import Network.AWS.CertificateManager.Types.RenewalSummary
 import Network.AWS.CertificateManager.Types.RevocationReason
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains metadata about an ACM certificate. This structure is returned in the response to a 'DescribeCertificate' request.
+-- | Contains metadata about an ACM certificate. This structure is returned
+-- in the response to a DescribeCertificate request.
 --
---
---
--- /See:/ 'certificateDetail' smart constructor.
+-- /See:/ 'newCertificateDetail' smart constructor.
 data CertificateDetail = CertificateDetail'
-  { _cdStatus ::
-      !(Maybe CertificateStatus),
-    _cdNotBefore :: !(Maybe POSIX),
-    _cdCertificateAuthorityARN ::
-      !(Maybe Text),
-    _cdImportedAt :: !(Maybe POSIX),
-    _cdExtendedKeyUsages ::
-      !(Maybe [ExtendedKeyUsage]),
-    _cdDomainValidationOptions ::
-      !(Maybe (List1 DomainValidation)),
-    _cdRenewalEligibility ::
-      !(Maybe RenewalEligibility),
-    _cdOptions ::
-      !(Maybe CertificateOptions),
-    _cdSerial :: !(Maybe Text),
-    _cdCertificateARN :: !(Maybe Text),
-    _cdCreatedAt :: !(Maybe POSIX),
-    _cdInUseBy :: !(Maybe [Text]),
-    _cdSubjectAlternativeNames ::
-      !(Maybe (List1 Text)),
-    _cdDomainName :: !(Maybe Text),
-    _cdRevocationReason ::
-      !(Maybe RevocationReason),
-    _cdSubject :: !(Maybe Text),
-    _cdFailureReason ::
-      !(Maybe FailureReason),
-    _cdKeyUsages :: !(Maybe [KeyUsage]),
-    _cdRevokedAt :: !(Maybe POSIX),
-    _cdNotAfter :: !(Maybe POSIX),
-    _cdSignatureAlgorithm ::
-      !(Maybe Text),
-    _cdIssuer :: !(Maybe Text),
-    _cdType :: !(Maybe CertificateType),
-    _cdKeyAlgorithm ::
-      !(Maybe KeyAlgorithm),
-    _cdIssuedAt :: !(Maybe POSIX),
-    _cdRenewalSummary ::
-      !(Maybe RenewalSummary)
+  { -- | The status of the certificate.
+    status :: Prelude.Maybe CertificateStatus,
+    -- | The time before which the certificate is not valid.
+    notBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the ACM PCA private certificate
+    -- authority (CA) that issued the certificate. This has the following
+    -- format:
+    --
+    -- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012@
+    certificateAuthorityArn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time at which the certificate was imported. This value
+    -- exists only when the certificate type is @IMPORTED@.
+    importedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | Contains a list of Extended Key Usage X.509 v3 extension objects. Each
+    -- object specifies a purpose for which the certificate public key can be
+    -- used and consists of a name and an object identifier (OID).
+    extendedKeyUsages :: Prelude.Maybe [ExtendedKeyUsage],
+    -- | Contains information about the initial validation of each domain name
+    -- that occurs as a result of the RequestCertificate request. This field
+    -- exists only when the certificate type is @AMAZON_ISSUED@.
+    domainValidationOptions :: Prelude.Maybe (Prelude.List1 DomainValidation),
+    -- | Specifies whether the certificate is eligible for renewal. At this time,
+    -- only exported private certificates can be renewed with the
+    -- RenewCertificate command.
+    renewalEligibility :: Prelude.Maybe RenewalEligibility,
+    -- | Value that specifies whether to add the certificate to a transparency
+    -- log. Certificate transparency makes it possible to detect SSL
+    -- certificates that have been mistakenly or maliciously issued. A browser
+    -- might respond to certificate that has not been logged by showing an
+    -- error message. The logs are cryptographically secure.
+    options :: Prelude.Maybe CertificateOptions,
+    -- | The serial number of the certificate.
+    serial :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the certificate. For more information
+    -- about ARNs, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+    -- in the /AWS General Reference/.
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The time at which the certificate was requested.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | A list of ARNs for the AWS resources that are using the certificate. A
+    -- certificate can be used by multiple AWS resources.
+    inUseBy :: Prelude.Maybe [Prelude.Text],
+    -- | One or more domain names (subject alternative names) included in the
+    -- certificate. This list contains the domain names that are bound to the
+    -- public key that is contained in the certificate. The subject alternative
+    -- names include the canonical domain name (CN) of the certificate and
+    -- additional domain names that can be used to connect to the website.
+    subjectAlternativeNames :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The fully qualified domain name for the certificate, such as
+    -- www.example.com or example.com.
+    domainName :: Prelude.Maybe Prelude.Text,
+    -- | The reason the certificate was revoked. This value exists only when the
+    -- certificate status is @REVOKED@.
+    revocationReason :: Prelude.Maybe RevocationReason,
+    -- | The name of the entity that is associated with the public key contained
+    -- in the certificate.
+    subject :: Prelude.Maybe Prelude.Text,
+    -- | The reason the certificate request failed. This value exists only when
+    -- the certificate status is @FAILED@. For more information, see
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/troubleshooting.html#troubleshooting-failed Certificate Request Failed>
+    -- in the /AWS Certificate Manager User Guide/.
+    failureReason :: Prelude.Maybe FailureReason,
+    -- | A list of Key Usage X.509 v3 extension objects. Each object is a string
+    -- value that identifies the purpose of the public key contained in the
+    -- certificate. Possible extension values include DIGITAL_SIGNATURE,
+    -- KEY_ENCHIPHERMENT, NON_REPUDIATION, and more.
+    keyUsages :: Prelude.Maybe [KeyUsage],
+    -- | The time at which the certificate was revoked. This value exists only
+    -- when the certificate status is @REVOKED@.
+    revokedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The time after which the certificate is not valid.
+    notAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The algorithm that was used to sign the certificate.
+    signatureAlgorithm :: Prelude.Maybe Prelude.Text,
+    -- | The name of the certificate authority that issued and signed the
+    -- certificate.
+    issuer :: Prelude.Maybe Prelude.Text,
+    -- | The source of the certificate. For certificates provided by ACM, this
+    -- value is @AMAZON_ISSUED@. For certificates that you imported with
+    -- ImportCertificate, this value is @IMPORTED@. ACM does not provide
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+    -- for imported certificates. For more information about the differences
+    -- between certificates that you import and those that ACM provides, see
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html Importing Certificates>
+    -- in the /AWS Certificate Manager User Guide/.
+    type' :: Prelude.Maybe CertificateType,
+    -- | The algorithm that was used to generate the public-private key pair.
+    keyAlgorithm :: Prelude.Maybe KeyAlgorithm,
+    -- | The time at which the certificate was issued. This value exists only
+    -- when the certificate type is @AMAZON_ISSUED@.
+    issuedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | Contains information about the status of ACM\'s
+    -- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+    -- for the certificate. This field exists only when the certificate type is
+    -- @AMAZON_ISSUED@.
+    renewalSummary :: Prelude.Maybe RenewalSummary
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CertificateDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CertificateDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdStatus' - The status of the certificate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdNotBefore' - The time before which the certificate is not valid.
+-- 'status', 'certificateDetail_status' - The status of the certificate.
 --
--- * 'cdCertificateAuthorityARN' - The Amazon Resource Name (ARN) of the ACM PCA private certificate authority (CA) that issued the certificate. This has the following format:  @arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012@
+-- 'notBefore', 'certificateDetail_notBefore' - The time before which the certificate is not valid.
 --
--- * 'cdImportedAt' - The date and time at which the certificate was imported. This value exists only when the certificate type is @IMPORTED@ .
+-- 'certificateAuthorityArn', 'certificateDetail_certificateAuthorityArn' - The Amazon Resource Name (ARN) of the ACM PCA private certificate
+-- authority (CA) that issued the certificate. This has the following
+-- format:
 --
--- * 'cdExtendedKeyUsages' - Contains a list of Extended Key Usage X.509 v3 extension objects. Each object specifies a purpose for which the certificate public key can be used and consists of a name and an object identifier (OID).
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012@
 --
--- * 'cdDomainValidationOptions' - Contains information about the initial validation of each domain name that occurs as a result of the 'RequestCertificate' request. This field exists only when the certificate type is @AMAZON_ISSUED@ .
+-- 'importedAt', 'certificateDetail_importedAt' - The date and time at which the certificate was imported. This value
+-- exists only when the certificate type is @IMPORTED@.
 --
--- * 'cdRenewalEligibility' - Specifies whether the certificate is eligible for renewal. At this time, only exported private certificates can be renewed with the 'RenewCertificate' command.
+-- 'extendedKeyUsages', 'certificateDetail_extendedKeyUsages' - Contains a list of Extended Key Usage X.509 v3 extension objects. Each
+-- object specifies a purpose for which the certificate public key can be
+-- used and consists of a name and an object identifier (OID).
 --
--- * 'cdOptions' - Value that specifies whether to add the certificate to a transparency log. Certificate transparency makes it possible to detect SSL certificates that have been mistakenly or maliciously issued. A browser might respond to certificate that has not been logged by showing an error message. The logs are cryptographically secure.
+-- 'domainValidationOptions', 'certificateDetail_domainValidationOptions' - Contains information about the initial validation of each domain name
+-- that occurs as a result of the RequestCertificate request. This field
+-- exists only when the certificate type is @AMAZON_ISSUED@.
 --
--- * 'cdSerial' - The serial number of the certificate.
+-- 'renewalEligibility', 'certificateDetail_renewalEligibility' - Specifies whether the certificate is eligible for renewal. At this time,
+-- only exported private certificates can be renewed with the
+-- RenewCertificate command.
 --
--- * 'cdCertificateARN' - The Amazon Resource Name (ARN) of the certificate. For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> in the /AWS General Reference/ .
+-- 'options', 'certificateDetail_options' - Value that specifies whether to add the certificate to a transparency
+-- log. Certificate transparency makes it possible to detect SSL
+-- certificates that have been mistakenly or maliciously issued. A browser
+-- might respond to certificate that has not been logged by showing an
+-- error message. The logs are cryptographically secure.
 --
--- * 'cdCreatedAt' - The time at which the certificate was requested.
+-- 'serial', 'certificateDetail_serial' - The serial number of the certificate.
 --
--- * 'cdInUseBy' - A list of ARNs for the AWS resources that are using the certificate. A certificate can be used by multiple AWS resources.
+-- 'certificateArn', 'certificateDetail_certificateArn' - The Amazon Resource Name (ARN) of the certificate. For more information
+-- about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /AWS General Reference/.
 --
--- * 'cdSubjectAlternativeNames' - One or more domain names (subject alternative names) included in the certificate. This list contains the domain names that are bound to the public key that is contained in the certificate. The subject alternative names include the canonical domain name (CN) of the certificate and additional domain names that can be used to connect to the website.
+-- 'createdAt', 'certificateDetail_createdAt' - The time at which the certificate was requested.
 --
--- * 'cdDomainName' - The fully qualified domain name for the certificate, such as www.example.com or example.com.
+-- 'inUseBy', 'certificateDetail_inUseBy' - A list of ARNs for the AWS resources that are using the certificate. A
+-- certificate can be used by multiple AWS resources.
 --
--- * 'cdRevocationReason' - The reason the certificate was revoked. This value exists only when the certificate status is @REVOKED@ .
+-- 'subjectAlternativeNames', 'certificateDetail_subjectAlternativeNames' - One or more domain names (subject alternative names) included in the
+-- certificate. This list contains the domain names that are bound to the
+-- public key that is contained in the certificate. The subject alternative
+-- names include the canonical domain name (CN) of the certificate and
+-- additional domain names that can be used to connect to the website.
 --
--- * 'cdSubject' - The name of the entity that is associated with the public key contained in the certificate.
+-- 'domainName', 'certificateDetail_domainName' - The fully qualified domain name for the certificate, such as
+-- www.example.com or example.com.
 --
--- * 'cdFailureReason' - The reason the certificate request failed. This value exists only when the certificate status is @FAILED@ . For more information, see <https://docs.aws.amazon.com/acm/latest/userguide/troubleshooting.html#troubleshooting-failed Certificate Request Failed> in the /AWS Certificate Manager User Guide/ .
+-- 'revocationReason', 'certificateDetail_revocationReason' - The reason the certificate was revoked. This value exists only when the
+-- certificate status is @REVOKED@.
 --
--- * 'cdKeyUsages' - A list of Key Usage X.509 v3 extension objects. Each object is a string value that identifies the purpose of the public key contained in the certificate. Possible extension values include DIGITAL_SIGNATURE, KEY_ENCHIPHERMENT, NON_REPUDIATION, and more.
+-- 'subject', 'certificateDetail_subject' - The name of the entity that is associated with the public key contained
+-- in the certificate.
 --
--- * 'cdRevokedAt' - The time at which the certificate was revoked. This value exists only when the certificate status is @REVOKED@ .
+-- 'failureReason', 'certificateDetail_failureReason' - The reason the certificate request failed. This value exists only when
+-- the certificate status is @FAILED@. For more information, see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/troubleshooting.html#troubleshooting-failed Certificate Request Failed>
+-- in the /AWS Certificate Manager User Guide/.
 --
--- * 'cdNotAfter' - The time after which the certificate is not valid.
+-- 'keyUsages', 'certificateDetail_keyUsages' - A list of Key Usage X.509 v3 extension objects. Each object is a string
+-- value that identifies the purpose of the public key contained in the
+-- certificate. Possible extension values include DIGITAL_SIGNATURE,
+-- KEY_ENCHIPHERMENT, NON_REPUDIATION, and more.
 --
--- * 'cdSignatureAlgorithm' - The algorithm that was used to sign the certificate.
+-- 'revokedAt', 'certificateDetail_revokedAt' - The time at which the certificate was revoked. This value exists only
+-- when the certificate status is @REVOKED@.
 --
--- * 'cdIssuer' - The name of the certificate authority that issued and signed the certificate.
+-- 'notAfter', 'certificateDetail_notAfter' - The time after which the certificate is not valid.
 --
--- * 'cdType' - The source of the certificate. For certificates provided by ACM, this value is @AMAZON_ISSUED@ . For certificates that you imported with 'ImportCertificate' , this value is @IMPORTED@ . ACM does not provide <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal> for imported certificates. For more information about the differences between certificates that you import and those that ACM provides, see <https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html Importing Certificates> in the /AWS Certificate Manager User Guide/ .
+-- 'signatureAlgorithm', 'certificateDetail_signatureAlgorithm' - The algorithm that was used to sign the certificate.
 --
--- * 'cdKeyAlgorithm' - The algorithm that was used to generate the public-private key pair.
+-- 'issuer', 'certificateDetail_issuer' - The name of the certificate authority that issued and signed the
+-- certificate.
 --
--- * 'cdIssuedAt' - The time at which the certificate was issued. This value exists only when the certificate type is @AMAZON_ISSUED@ .
+-- 'type'', 'certificateDetail_type' - The source of the certificate. For certificates provided by ACM, this
+-- value is @AMAZON_ISSUED@. For certificates that you imported with
+-- ImportCertificate, this value is @IMPORTED@. ACM does not provide
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+-- for imported certificates. For more information about the differences
+-- between certificates that you import and those that ACM provides, see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html Importing Certificates>
+-- in the /AWS Certificate Manager User Guide/.
 --
--- * 'cdRenewalSummary' - Contains information about the status of ACM's <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal> for the certificate. This field exists only when the certificate type is @AMAZON_ISSUED@ .
-certificateDetail ::
+-- 'keyAlgorithm', 'certificateDetail_keyAlgorithm' - The algorithm that was used to generate the public-private key pair.
+--
+-- 'issuedAt', 'certificateDetail_issuedAt' - The time at which the certificate was issued. This value exists only
+-- when the certificate type is @AMAZON_ISSUED@.
+--
+-- 'renewalSummary', 'certificateDetail_renewalSummary' - Contains information about the status of ACM\'s
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+-- for the certificate. This field exists only when the certificate type is
+-- @AMAZON_ISSUED@.
+newCertificateDetail ::
   CertificateDetail
-certificateDetail =
+newCertificateDetail =
   CertificateDetail'
-    { _cdStatus = Nothing,
-      _cdNotBefore = Nothing,
-      _cdCertificateAuthorityARN = Nothing,
-      _cdImportedAt = Nothing,
-      _cdExtendedKeyUsages = Nothing,
-      _cdDomainValidationOptions = Nothing,
-      _cdRenewalEligibility = Nothing,
-      _cdOptions = Nothing,
-      _cdSerial = Nothing,
-      _cdCertificateARN = Nothing,
-      _cdCreatedAt = Nothing,
-      _cdInUseBy = Nothing,
-      _cdSubjectAlternativeNames = Nothing,
-      _cdDomainName = Nothing,
-      _cdRevocationReason = Nothing,
-      _cdSubject = Nothing,
-      _cdFailureReason = Nothing,
-      _cdKeyUsages = Nothing,
-      _cdRevokedAt = Nothing,
-      _cdNotAfter = Nothing,
-      _cdSignatureAlgorithm = Nothing,
-      _cdIssuer = Nothing,
-      _cdType = Nothing,
-      _cdKeyAlgorithm = Nothing,
-      _cdIssuedAt = Nothing,
-      _cdRenewalSummary = Nothing
+    { status = Prelude.Nothing,
+      notBefore = Prelude.Nothing,
+      certificateAuthorityArn = Prelude.Nothing,
+      importedAt = Prelude.Nothing,
+      extendedKeyUsages = Prelude.Nothing,
+      domainValidationOptions = Prelude.Nothing,
+      renewalEligibility = Prelude.Nothing,
+      options = Prelude.Nothing,
+      serial = Prelude.Nothing,
+      certificateArn = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      inUseBy = Prelude.Nothing,
+      subjectAlternativeNames = Prelude.Nothing,
+      domainName = Prelude.Nothing,
+      revocationReason = Prelude.Nothing,
+      subject = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      keyUsages = Prelude.Nothing,
+      revokedAt = Prelude.Nothing,
+      notAfter = Prelude.Nothing,
+      signatureAlgorithm = Prelude.Nothing,
+      issuer = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      keyAlgorithm = Prelude.Nothing,
+      issuedAt = Prelude.Nothing,
+      renewalSummary = Prelude.Nothing
     }
 
 -- | The status of the certificate.
-cdStatus :: Lens' CertificateDetail (Maybe CertificateStatus)
-cdStatus = lens _cdStatus (\s a -> s {_cdStatus = a})
+certificateDetail_status :: Lens.Lens' CertificateDetail (Prelude.Maybe CertificateStatus)
+certificateDetail_status = Lens.lens (\CertificateDetail' {status} -> status) (\s@CertificateDetail' {} a -> s {status = a} :: CertificateDetail)
 
 -- | The time before which the certificate is not valid.
-cdNotBefore :: Lens' CertificateDetail (Maybe UTCTime)
-cdNotBefore = lens _cdNotBefore (\s a -> s {_cdNotBefore = a}) . mapping _Time
+certificateDetail_notBefore :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.UTCTime)
+certificateDetail_notBefore = Lens.lens (\CertificateDetail' {notBefore} -> notBefore) (\s@CertificateDetail' {} a -> s {notBefore = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._Time
 
--- | The Amazon Resource Name (ARN) of the ACM PCA private certificate authority (CA) that issued the certificate. This has the following format:  @arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012@
-cdCertificateAuthorityARN :: Lens' CertificateDetail (Maybe Text)
-cdCertificateAuthorityARN = lens _cdCertificateAuthorityARN (\s a -> s {_cdCertificateAuthorityARN = a})
+-- | The Amazon Resource Name (ARN) of the ACM PCA private certificate
+-- authority (CA) that issued the certificate. This has the following
+-- format:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012@
+certificateDetail_certificateAuthorityArn :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.Text)
+certificateDetail_certificateAuthorityArn = Lens.lens (\CertificateDetail' {certificateAuthorityArn} -> certificateAuthorityArn) (\s@CertificateDetail' {} a -> s {certificateAuthorityArn = a} :: CertificateDetail)
 
--- | The date and time at which the certificate was imported. This value exists only when the certificate type is @IMPORTED@ .
-cdImportedAt :: Lens' CertificateDetail (Maybe UTCTime)
-cdImportedAt = lens _cdImportedAt (\s a -> s {_cdImportedAt = a}) . mapping _Time
+-- | The date and time at which the certificate was imported. This value
+-- exists only when the certificate type is @IMPORTED@.
+certificateDetail_importedAt :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.UTCTime)
+certificateDetail_importedAt = Lens.lens (\CertificateDetail' {importedAt} -> importedAt) (\s@CertificateDetail' {} a -> s {importedAt = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._Time
 
--- | Contains a list of Extended Key Usage X.509 v3 extension objects. Each object specifies a purpose for which the certificate public key can be used and consists of a name and an object identifier (OID).
-cdExtendedKeyUsages :: Lens' CertificateDetail [ExtendedKeyUsage]
-cdExtendedKeyUsages = lens _cdExtendedKeyUsages (\s a -> s {_cdExtendedKeyUsages = a}) . _Default . _Coerce
+-- | Contains a list of Extended Key Usage X.509 v3 extension objects. Each
+-- object specifies a purpose for which the certificate public key can be
+-- used and consists of a name and an object identifier (OID).
+certificateDetail_extendedKeyUsages :: Lens.Lens' CertificateDetail (Prelude.Maybe [ExtendedKeyUsage])
+certificateDetail_extendedKeyUsages = Lens.lens (\CertificateDetail' {extendedKeyUsages} -> extendedKeyUsages) (\s@CertificateDetail' {} a -> s {extendedKeyUsages = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Contains information about the initial validation of each domain name that occurs as a result of the 'RequestCertificate' request. This field exists only when the certificate type is @AMAZON_ISSUED@ .
-cdDomainValidationOptions :: Lens' CertificateDetail (Maybe (NonEmpty DomainValidation))
-cdDomainValidationOptions = lens _cdDomainValidationOptions (\s a -> s {_cdDomainValidationOptions = a}) . mapping _List1
+-- | Contains information about the initial validation of each domain name
+-- that occurs as a result of the RequestCertificate request. This field
+-- exists only when the certificate type is @AMAZON_ISSUED@.
+certificateDetail_domainValidationOptions :: Lens.Lens' CertificateDetail (Prelude.Maybe (Prelude.NonEmpty DomainValidation))
+certificateDetail_domainValidationOptions = Lens.lens (\CertificateDetail' {domainValidationOptions} -> domainValidationOptions) (\s@CertificateDetail' {} a -> s {domainValidationOptions = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._List1
 
--- | Specifies whether the certificate is eligible for renewal. At this time, only exported private certificates can be renewed with the 'RenewCertificate' command.
-cdRenewalEligibility :: Lens' CertificateDetail (Maybe RenewalEligibility)
-cdRenewalEligibility = lens _cdRenewalEligibility (\s a -> s {_cdRenewalEligibility = a})
+-- | Specifies whether the certificate is eligible for renewal. At this time,
+-- only exported private certificates can be renewed with the
+-- RenewCertificate command.
+certificateDetail_renewalEligibility :: Lens.Lens' CertificateDetail (Prelude.Maybe RenewalEligibility)
+certificateDetail_renewalEligibility = Lens.lens (\CertificateDetail' {renewalEligibility} -> renewalEligibility) (\s@CertificateDetail' {} a -> s {renewalEligibility = a} :: CertificateDetail)
 
--- | Value that specifies whether to add the certificate to a transparency log. Certificate transparency makes it possible to detect SSL certificates that have been mistakenly or maliciously issued. A browser might respond to certificate that has not been logged by showing an error message. The logs are cryptographically secure.
-cdOptions :: Lens' CertificateDetail (Maybe CertificateOptions)
-cdOptions = lens _cdOptions (\s a -> s {_cdOptions = a})
+-- | Value that specifies whether to add the certificate to a transparency
+-- log. Certificate transparency makes it possible to detect SSL
+-- certificates that have been mistakenly or maliciously issued. A browser
+-- might respond to certificate that has not been logged by showing an
+-- error message. The logs are cryptographically secure.
+certificateDetail_options :: Lens.Lens' CertificateDetail (Prelude.Maybe CertificateOptions)
+certificateDetail_options = Lens.lens (\CertificateDetail' {options} -> options) (\s@CertificateDetail' {} a -> s {options = a} :: CertificateDetail)
 
 -- | The serial number of the certificate.
-cdSerial :: Lens' CertificateDetail (Maybe Text)
-cdSerial = lens _cdSerial (\s a -> s {_cdSerial = a})
+certificateDetail_serial :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.Text)
+certificateDetail_serial = Lens.lens (\CertificateDetail' {serial} -> serial) (\s@CertificateDetail' {} a -> s {serial = a} :: CertificateDetail)
 
--- | The Amazon Resource Name (ARN) of the certificate. For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> in the /AWS General Reference/ .
-cdCertificateARN :: Lens' CertificateDetail (Maybe Text)
-cdCertificateARN = lens _cdCertificateARN (\s a -> s {_cdCertificateARN = a})
+-- | The Amazon Resource Name (ARN) of the certificate. For more information
+-- about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /AWS General Reference/.
+certificateDetail_certificateArn :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.Text)
+certificateDetail_certificateArn = Lens.lens (\CertificateDetail' {certificateArn} -> certificateArn) (\s@CertificateDetail' {} a -> s {certificateArn = a} :: CertificateDetail)
 
 -- | The time at which the certificate was requested.
-cdCreatedAt :: Lens' CertificateDetail (Maybe UTCTime)
-cdCreatedAt = lens _cdCreatedAt (\s a -> s {_cdCreatedAt = a}) . mapping _Time
+certificateDetail_createdAt :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.UTCTime)
+certificateDetail_createdAt = Lens.lens (\CertificateDetail' {createdAt} -> createdAt) (\s@CertificateDetail' {} a -> s {createdAt = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._Time
 
--- | A list of ARNs for the AWS resources that are using the certificate. A certificate can be used by multiple AWS resources.
-cdInUseBy :: Lens' CertificateDetail [Text]
-cdInUseBy = lens _cdInUseBy (\s a -> s {_cdInUseBy = a}) . _Default . _Coerce
+-- | A list of ARNs for the AWS resources that are using the certificate. A
+-- certificate can be used by multiple AWS resources.
+certificateDetail_inUseBy :: Lens.Lens' CertificateDetail (Prelude.Maybe [Prelude.Text])
+certificateDetail_inUseBy = Lens.lens (\CertificateDetail' {inUseBy} -> inUseBy) (\s@CertificateDetail' {} a -> s {inUseBy = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._Coerce
 
--- | One or more domain names (subject alternative names) included in the certificate. This list contains the domain names that are bound to the public key that is contained in the certificate. The subject alternative names include the canonical domain name (CN) of the certificate and additional domain names that can be used to connect to the website.
-cdSubjectAlternativeNames :: Lens' CertificateDetail (Maybe (NonEmpty Text))
-cdSubjectAlternativeNames = lens _cdSubjectAlternativeNames (\s a -> s {_cdSubjectAlternativeNames = a}) . mapping _List1
+-- | One or more domain names (subject alternative names) included in the
+-- certificate. This list contains the domain names that are bound to the
+-- public key that is contained in the certificate. The subject alternative
+-- names include the canonical domain name (CN) of the certificate and
+-- additional domain names that can be used to connect to the website.
+certificateDetail_subjectAlternativeNames :: Lens.Lens' CertificateDetail (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+certificateDetail_subjectAlternativeNames = Lens.lens (\CertificateDetail' {subjectAlternativeNames} -> subjectAlternativeNames) (\s@CertificateDetail' {} a -> s {subjectAlternativeNames = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._List1
 
--- | The fully qualified domain name for the certificate, such as www.example.com or example.com.
-cdDomainName :: Lens' CertificateDetail (Maybe Text)
-cdDomainName = lens _cdDomainName (\s a -> s {_cdDomainName = a})
+-- | The fully qualified domain name for the certificate, such as
+-- www.example.com or example.com.
+certificateDetail_domainName :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.Text)
+certificateDetail_domainName = Lens.lens (\CertificateDetail' {domainName} -> domainName) (\s@CertificateDetail' {} a -> s {domainName = a} :: CertificateDetail)
 
--- | The reason the certificate was revoked. This value exists only when the certificate status is @REVOKED@ .
-cdRevocationReason :: Lens' CertificateDetail (Maybe RevocationReason)
-cdRevocationReason = lens _cdRevocationReason (\s a -> s {_cdRevocationReason = a})
+-- | The reason the certificate was revoked. This value exists only when the
+-- certificate status is @REVOKED@.
+certificateDetail_revocationReason :: Lens.Lens' CertificateDetail (Prelude.Maybe RevocationReason)
+certificateDetail_revocationReason = Lens.lens (\CertificateDetail' {revocationReason} -> revocationReason) (\s@CertificateDetail' {} a -> s {revocationReason = a} :: CertificateDetail)
 
--- | The name of the entity that is associated with the public key contained in the certificate.
-cdSubject :: Lens' CertificateDetail (Maybe Text)
-cdSubject = lens _cdSubject (\s a -> s {_cdSubject = a})
+-- | The name of the entity that is associated with the public key contained
+-- in the certificate.
+certificateDetail_subject :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.Text)
+certificateDetail_subject = Lens.lens (\CertificateDetail' {subject} -> subject) (\s@CertificateDetail' {} a -> s {subject = a} :: CertificateDetail)
 
--- | The reason the certificate request failed. This value exists only when the certificate status is @FAILED@ . For more information, see <https://docs.aws.amazon.com/acm/latest/userguide/troubleshooting.html#troubleshooting-failed Certificate Request Failed> in the /AWS Certificate Manager User Guide/ .
-cdFailureReason :: Lens' CertificateDetail (Maybe FailureReason)
-cdFailureReason = lens _cdFailureReason (\s a -> s {_cdFailureReason = a})
+-- | The reason the certificate request failed. This value exists only when
+-- the certificate status is @FAILED@. For more information, see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/troubleshooting.html#troubleshooting-failed Certificate Request Failed>
+-- in the /AWS Certificate Manager User Guide/.
+certificateDetail_failureReason :: Lens.Lens' CertificateDetail (Prelude.Maybe FailureReason)
+certificateDetail_failureReason = Lens.lens (\CertificateDetail' {failureReason} -> failureReason) (\s@CertificateDetail' {} a -> s {failureReason = a} :: CertificateDetail)
 
--- | A list of Key Usage X.509 v3 extension objects. Each object is a string value that identifies the purpose of the public key contained in the certificate. Possible extension values include DIGITAL_SIGNATURE, KEY_ENCHIPHERMENT, NON_REPUDIATION, and more.
-cdKeyUsages :: Lens' CertificateDetail [KeyUsage]
-cdKeyUsages = lens _cdKeyUsages (\s a -> s {_cdKeyUsages = a}) . _Default . _Coerce
+-- | A list of Key Usage X.509 v3 extension objects. Each object is a string
+-- value that identifies the purpose of the public key contained in the
+-- certificate. Possible extension values include DIGITAL_SIGNATURE,
+-- KEY_ENCHIPHERMENT, NON_REPUDIATION, and more.
+certificateDetail_keyUsages :: Lens.Lens' CertificateDetail (Prelude.Maybe [KeyUsage])
+certificateDetail_keyUsages = Lens.lens (\CertificateDetail' {keyUsages} -> keyUsages) (\s@CertificateDetail' {} a -> s {keyUsages = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The time at which the certificate was revoked. This value exists only when the certificate status is @REVOKED@ .
-cdRevokedAt :: Lens' CertificateDetail (Maybe UTCTime)
-cdRevokedAt = lens _cdRevokedAt (\s a -> s {_cdRevokedAt = a}) . mapping _Time
+-- | The time at which the certificate was revoked. This value exists only
+-- when the certificate status is @REVOKED@.
+certificateDetail_revokedAt :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.UTCTime)
+certificateDetail_revokedAt = Lens.lens (\CertificateDetail' {revokedAt} -> revokedAt) (\s@CertificateDetail' {} a -> s {revokedAt = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time after which the certificate is not valid.
-cdNotAfter :: Lens' CertificateDetail (Maybe UTCTime)
-cdNotAfter = lens _cdNotAfter (\s a -> s {_cdNotAfter = a}) . mapping _Time
+certificateDetail_notAfter :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.UTCTime)
+certificateDetail_notAfter = Lens.lens (\CertificateDetail' {notAfter} -> notAfter) (\s@CertificateDetail' {} a -> s {notAfter = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._Time
 
 -- | The algorithm that was used to sign the certificate.
-cdSignatureAlgorithm :: Lens' CertificateDetail (Maybe Text)
-cdSignatureAlgorithm = lens _cdSignatureAlgorithm (\s a -> s {_cdSignatureAlgorithm = a})
+certificateDetail_signatureAlgorithm :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.Text)
+certificateDetail_signatureAlgorithm = Lens.lens (\CertificateDetail' {signatureAlgorithm} -> signatureAlgorithm) (\s@CertificateDetail' {} a -> s {signatureAlgorithm = a} :: CertificateDetail)
 
--- | The name of the certificate authority that issued and signed the certificate.
-cdIssuer :: Lens' CertificateDetail (Maybe Text)
-cdIssuer = lens _cdIssuer (\s a -> s {_cdIssuer = a})
+-- | The name of the certificate authority that issued and signed the
+-- certificate.
+certificateDetail_issuer :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.Text)
+certificateDetail_issuer = Lens.lens (\CertificateDetail' {issuer} -> issuer) (\s@CertificateDetail' {} a -> s {issuer = a} :: CertificateDetail)
 
--- | The source of the certificate. For certificates provided by ACM, this value is @AMAZON_ISSUED@ . For certificates that you imported with 'ImportCertificate' , this value is @IMPORTED@ . ACM does not provide <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal> for imported certificates. For more information about the differences between certificates that you import and those that ACM provides, see <https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html Importing Certificates> in the /AWS Certificate Manager User Guide/ .
-cdType :: Lens' CertificateDetail (Maybe CertificateType)
-cdType = lens _cdType (\s a -> s {_cdType = a})
+-- | The source of the certificate. For certificates provided by ACM, this
+-- value is @AMAZON_ISSUED@. For certificates that you imported with
+-- ImportCertificate, this value is @IMPORTED@. ACM does not provide
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+-- for imported certificates. For more information about the differences
+-- between certificates that you import and those that ACM provides, see
+-- <https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html Importing Certificates>
+-- in the /AWS Certificate Manager User Guide/.
+certificateDetail_type :: Lens.Lens' CertificateDetail (Prelude.Maybe CertificateType)
+certificateDetail_type = Lens.lens (\CertificateDetail' {type'} -> type') (\s@CertificateDetail' {} a -> s {type' = a} :: CertificateDetail)
 
 -- | The algorithm that was used to generate the public-private key pair.
-cdKeyAlgorithm :: Lens' CertificateDetail (Maybe KeyAlgorithm)
-cdKeyAlgorithm = lens _cdKeyAlgorithm (\s a -> s {_cdKeyAlgorithm = a})
+certificateDetail_keyAlgorithm :: Lens.Lens' CertificateDetail (Prelude.Maybe KeyAlgorithm)
+certificateDetail_keyAlgorithm = Lens.lens (\CertificateDetail' {keyAlgorithm} -> keyAlgorithm) (\s@CertificateDetail' {} a -> s {keyAlgorithm = a} :: CertificateDetail)
 
--- | The time at which the certificate was issued. This value exists only when the certificate type is @AMAZON_ISSUED@ .
-cdIssuedAt :: Lens' CertificateDetail (Maybe UTCTime)
-cdIssuedAt = lens _cdIssuedAt (\s a -> s {_cdIssuedAt = a}) . mapping _Time
+-- | The time at which the certificate was issued. This value exists only
+-- when the certificate type is @AMAZON_ISSUED@.
+certificateDetail_issuedAt :: Lens.Lens' CertificateDetail (Prelude.Maybe Prelude.UTCTime)
+certificateDetail_issuedAt = Lens.lens (\CertificateDetail' {issuedAt} -> issuedAt) (\s@CertificateDetail' {} a -> s {issuedAt = a} :: CertificateDetail) Prelude.. Lens.mapping Prelude._Time
 
--- | Contains information about the status of ACM's <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal> for the certificate. This field exists only when the certificate type is @AMAZON_ISSUED@ .
-cdRenewalSummary :: Lens' CertificateDetail (Maybe RenewalSummary)
-cdRenewalSummary = lens _cdRenewalSummary (\s a -> s {_cdRenewalSummary = a})
+-- | Contains information about the status of ACM\'s
+-- <https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html managed renewal>
+-- for the certificate. This field exists only when the certificate type is
+-- @AMAZON_ISSUED@.
+certificateDetail_renewalSummary :: Lens.Lens' CertificateDetail (Prelude.Maybe RenewalSummary)
+certificateDetail_renewalSummary = Lens.lens (\CertificateDetail' {renewalSummary} -> renewalSummary) (\s@CertificateDetail' {} a -> s {renewalSummary = a} :: CertificateDetail)
 
-instance FromJSON CertificateDetail where
+instance Prelude.FromJSON CertificateDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CertificateDetail"
       ( \x ->
           CertificateDetail'
-            <$> (x .:? "Status")
-            <*> (x .:? "NotBefore")
-            <*> (x .:? "CertificateAuthorityArn")
-            <*> (x .:? "ImportedAt")
-            <*> (x .:? "ExtendedKeyUsages" .!= mempty)
-            <*> (x .:? "DomainValidationOptions")
-            <*> (x .:? "RenewalEligibility")
-            <*> (x .:? "Options")
-            <*> (x .:? "Serial")
-            <*> (x .:? "CertificateArn")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "InUseBy" .!= mempty)
-            <*> (x .:? "SubjectAlternativeNames")
-            <*> (x .:? "DomainName")
-            <*> (x .:? "RevocationReason")
-            <*> (x .:? "Subject")
-            <*> (x .:? "FailureReason")
-            <*> (x .:? "KeyUsages" .!= mempty)
-            <*> (x .:? "RevokedAt")
-            <*> (x .:? "NotAfter")
-            <*> (x .:? "SignatureAlgorithm")
-            <*> (x .:? "Issuer")
-            <*> (x .:? "Type")
-            <*> (x .:? "KeyAlgorithm")
-            <*> (x .:? "IssuedAt")
-            <*> (x .:? "RenewalSummary")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "NotBefore")
+            Prelude.<*> (x Prelude..:? "CertificateAuthorityArn")
+            Prelude.<*> (x Prelude..:? "ImportedAt")
+            Prelude.<*> ( x Prelude..:? "ExtendedKeyUsages"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DomainValidationOptions")
+            Prelude.<*> (x Prelude..:? "RenewalEligibility")
+            Prelude.<*> (x Prelude..:? "Options")
+            Prelude.<*> (x Prelude..:? "Serial")
+            Prelude.<*> (x Prelude..:? "CertificateArn")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "InUseBy" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "SubjectAlternativeNames")
+            Prelude.<*> (x Prelude..:? "DomainName")
+            Prelude.<*> (x Prelude..:? "RevocationReason")
+            Prelude.<*> (x Prelude..:? "Subject")
+            Prelude.<*> (x Prelude..:? "FailureReason")
+            Prelude.<*> ( x Prelude..:? "KeyUsages"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "RevokedAt")
+            Prelude.<*> (x Prelude..:? "NotAfter")
+            Prelude.<*> (x Prelude..:? "SignatureAlgorithm")
+            Prelude.<*> (x Prelude..:? "Issuer")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "KeyAlgorithm")
+            Prelude.<*> (x Prelude..:? "IssuedAt")
+            Prelude.<*> (x Prelude..:? "RenewalSummary")
       )
 
-instance Hashable CertificateDetail
+instance Prelude.Hashable CertificateDetail
 
-instance NFData CertificateDetail
+instance Prelude.NFData CertificateDetail

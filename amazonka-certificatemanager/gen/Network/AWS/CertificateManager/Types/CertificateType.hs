@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CertificateManager.Types.CertificateType
   ( CertificateType
       ( ..,
-        AmazonIssued,
-        Imported,
-        Private
+        CertificateTypeAMAZONISSUED,
+        CertificateTypeIMPORTED,
+        CertificateTypePRIVATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateType = CertificateType' (CI Text)
+newtype CertificateType = CertificateType'
+  { fromCertificateType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AmazonIssued :: CertificateType
-pattern AmazonIssued = CertificateType' "AMAZON_ISSUED"
+pattern CertificateTypeAMAZONISSUED :: CertificateType
+pattern CertificateTypeAMAZONISSUED = CertificateType' "AMAZON_ISSUED"
 
-pattern Imported :: CertificateType
-pattern Imported = CertificateType' "IMPORTED"
+pattern CertificateTypeIMPORTED :: CertificateType
+pattern CertificateTypeIMPORTED = CertificateType' "IMPORTED"
 
-pattern Private :: CertificateType
-pattern Private = CertificateType' "PRIVATE"
+pattern CertificateTypePRIVATE :: CertificateType
+pattern CertificateTypePRIVATE = CertificateType' "PRIVATE"
 
 {-# COMPLETE
-  AmazonIssued,
-  Imported,
-  Private,
+  CertificateTypeAMAZONISSUED,
+  CertificateTypeIMPORTED,
+  CertificateTypePRIVATE,
   CertificateType'
   #-}
 
-instance FromText CertificateType where
-  parser = (CertificateType' . mk) <$> takeText
+instance Prelude.FromText CertificateType where
+  parser = CertificateType' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateType where
-  toText (CertificateType' ci) = original ci
+instance Prelude.ToText CertificateType where
+  toText (CertificateType' x) = x
 
-instance Hashable CertificateType
+instance Prelude.Hashable CertificateType
 
-instance NFData CertificateType
+instance Prelude.NFData CertificateType
 
-instance ToByteString CertificateType
+instance Prelude.ToByteString CertificateType
 
-instance ToQuery CertificateType
+instance Prelude.ToQuery CertificateType
 
-instance ToHeader CertificateType
+instance Prelude.ToHeader CertificateType
 
-instance FromJSON CertificateType where
-  parseJSON = parseJSONText "CertificateType"
+instance Prelude.FromJSON CertificateType where
+  parseJSON = Prelude.parseJSONText "CertificateType"
