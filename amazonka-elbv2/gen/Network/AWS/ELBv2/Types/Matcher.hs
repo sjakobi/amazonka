@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.Matcher where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The codes to use when checking for a successful response from a target. If the protocol version is gRPC, these are gRPC codes. Otherwise, these are HTTP codes.
+-- | The codes to use when checking for a successful response from a target.
+-- If the protocol version is gRPC, these are gRPC codes. Otherwise, these
+-- are HTTP codes.
 --
---
---
--- /See:/ 'matcher' smart constructor.
+-- /See:/ 'newMatcher' smart constructor.
 data Matcher = Matcher'
-  { _mGrpcCode :: !(Maybe Text),
-    _mHTTPCode :: !(Maybe Text)
+  { -- | You can specify values between 0 and 99. You can specify multiple values
+    -- (for example, \"0,1\") or a range of values (for example, \"0-5\"). The
+    -- default value is 12.
+    grpcCode :: Prelude.Maybe Prelude.Text,
+    -- | For Application Load Balancers, you can specify values between 200 and
+    -- 499, and the default value is 200. You can specify multiple values (for
+    -- example, \"200,202\") or a range of values (for example, \"200-299\").
+    --
+    -- For Network Load Balancers and Gateway Load Balancers, this must be
+    -- \"200–399\".
+    httpCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Matcher' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Matcher' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mGrpcCode' - You can specify values between 0 and 99. You can specify multiple values (for example, "0,1") or a range of values (for example, "0-5"). The default value is 12.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mHTTPCode' - For Application Load Balancers, you can specify values between 200 and 499, and the default value is 200. You can specify multiple values (for example, "200,202") or a range of values (for example, "200-299"). For Network Load Balancers and Gateway Load Balancers, this must be "200–399".
-matcher ::
+-- 'grpcCode', 'matcher_grpcCode' - You can specify values between 0 and 99. You can specify multiple values
+-- (for example, \"0,1\") or a range of values (for example, \"0-5\"). The
+-- default value is 12.
+--
+-- 'httpCode', 'matcher_httpCode' - For Application Load Balancers, you can specify values between 200 and
+-- 499, and the default value is 200. You can specify multiple values (for
+-- example, \"200,202\") or a range of values (for example, \"200-299\").
+--
+-- For Network Load Balancers and Gateway Load Balancers, this must be
+-- \"200–399\".
+newMatcher ::
   Matcher
-matcher =
+newMatcher =
   Matcher'
-    { _mGrpcCode = Nothing,
-      _mHTTPCode = Nothing
+    { grpcCode = Prelude.Nothing,
+      httpCode = Prelude.Nothing
     }
 
--- | You can specify values between 0 and 99. You can specify multiple values (for example, "0,1") or a range of values (for example, "0-5"). The default value is 12.
-mGrpcCode :: Lens' Matcher (Maybe Text)
-mGrpcCode = lens _mGrpcCode (\s a -> s {_mGrpcCode = a})
+-- | You can specify values between 0 and 99. You can specify multiple values
+-- (for example, \"0,1\") or a range of values (for example, \"0-5\"). The
+-- default value is 12.
+matcher_grpcCode :: Lens.Lens' Matcher (Prelude.Maybe Prelude.Text)
+matcher_grpcCode = Lens.lens (\Matcher' {grpcCode} -> grpcCode) (\s@Matcher' {} a -> s {grpcCode = a} :: Matcher)
 
--- | For Application Load Balancers, you can specify values between 200 and 499, and the default value is 200. You can specify multiple values (for example, "200,202") or a range of values (for example, "200-299"). For Network Load Balancers and Gateway Load Balancers, this must be "200–399".
-mHTTPCode :: Lens' Matcher (Maybe Text)
-mHTTPCode = lens _mHTTPCode (\s a -> s {_mHTTPCode = a})
+-- | For Application Load Balancers, you can specify values between 200 and
+-- 499, and the default value is 200. You can specify multiple values (for
+-- example, \"200,202\") or a range of values (for example, \"200-299\").
+--
+-- For Network Load Balancers and Gateway Load Balancers, this must be
+-- \"200–399\".
+matcher_httpCode :: Lens.Lens' Matcher (Prelude.Maybe Prelude.Text)
+matcher_httpCode = Lens.lens (\Matcher' {httpCode} -> httpCode) (\s@Matcher' {} a -> s {httpCode = a} :: Matcher)
 
-instance FromXML Matcher where
+instance Prelude.FromXML Matcher where
   parseXML x =
     Matcher'
-      <$> (x .@? "GrpcCode") <*> (x .@? "HttpCode")
+      Prelude.<$> (x Prelude..@? "GrpcCode")
+      Prelude.<*> (x Prelude..@? "HttpCode")
 
-instance Hashable Matcher
+instance Prelude.Hashable Matcher
 
-instance NFData Matcher
+instance Prelude.NFData Matcher
 
-instance ToQuery Matcher where
+instance Prelude.ToQuery Matcher where
   toQuery Matcher' {..} =
-    mconcat
-      ["GrpcCode" =: _mGrpcCode, "HttpCode" =: _mHTTPCode]
+    Prelude.mconcat
+      [ "GrpcCode" Prelude.=: grpcCode,
+        "HttpCode" Prelude.=: httpCode
+      ]

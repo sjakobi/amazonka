@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.TargetGroupStickinessConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the target group stickiness for a rule.
 --
---
---
--- /See:/ 'targetGroupStickinessConfig' smart constructor.
+-- /See:/ 'newTargetGroupStickinessConfig' smart constructor.
 data TargetGroupStickinessConfig = TargetGroupStickinessConfig'
-  { _tgscEnabled ::
-      !(Maybe Bool),
-    _tgscDurationSeconds ::
-      !(Maybe Int)
+  { -- | Indicates whether target group stickiness is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The time period, in seconds, during which requests from a client should
+    -- be routed to the same target group. The range is 1-604800 seconds (7
+    -- days).
+    durationSeconds :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetGroupStickinessConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetGroupStickinessConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgscEnabled' - Indicates whether target group stickiness is enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgscDurationSeconds' - The time period, in seconds, during which requests from a client should be routed to the same target group. The range is 1-604800 seconds (7 days).
-targetGroupStickinessConfig ::
+-- 'enabled', 'targetGroupStickinessConfig_enabled' - Indicates whether target group stickiness is enabled.
+--
+-- 'durationSeconds', 'targetGroupStickinessConfig_durationSeconds' - The time period, in seconds, during which requests from a client should
+-- be routed to the same target group. The range is 1-604800 seconds (7
+-- days).
+newTargetGroupStickinessConfig ::
   TargetGroupStickinessConfig
-targetGroupStickinessConfig =
+newTargetGroupStickinessConfig =
   TargetGroupStickinessConfig'
-    { _tgscEnabled =
-        Nothing,
-      _tgscDurationSeconds = Nothing
+    { enabled =
+        Prelude.Nothing,
+      durationSeconds = Prelude.Nothing
     }
 
 -- | Indicates whether target group stickiness is enabled.
-tgscEnabled :: Lens' TargetGroupStickinessConfig (Maybe Bool)
-tgscEnabled = lens _tgscEnabled (\s a -> s {_tgscEnabled = a})
+targetGroupStickinessConfig_enabled :: Lens.Lens' TargetGroupStickinessConfig (Prelude.Maybe Prelude.Bool)
+targetGroupStickinessConfig_enabled = Lens.lens (\TargetGroupStickinessConfig' {enabled} -> enabled) (\s@TargetGroupStickinessConfig' {} a -> s {enabled = a} :: TargetGroupStickinessConfig)
 
--- | The time period, in seconds, during which requests from a client should be routed to the same target group. The range is 1-604800 seconds (7 days).
-tgscDurationSeconds :: Lens' TargetGroupStickinessConfig (Maybe Int)
-tgscDurationSeconds = lens _tgscDurationSeconds (\s a -> s {_tgscDurationSeconds = a})
+-- | The time period, in seconds, during which requests from a client should
+-- be routed to the same target group. The range is 1-604800 seconds (7
+-- days).
+targetGroupStickinessConfig_durationSeconds :: Lens.Lens' TargetGroupStickinessConfig (Prelude.Maybe Prelude.Int)
+targetGroupStickinessConfig_durationSeconds = Lens.lens (\TargetGroupStickinessConfig' {durationSeconds} -> durationSeconds) (\s@TargetGroupStickinessConfig' {} a -> s {durationSeconds = a} :: TargetGroupStickinessConfig)
 
-instance FromXML TargetGroupStickinessConfig where
+instance Prelude.FromXML TargetGroupStickinessConfig where
   parseXML x =
     TargetGroupStickinessConfig'
-      <$> (x .@? "Enabled") <*> (x .@? "DurationSeconds")
+      Prelude.<$> (x Prelude..@? "Enabled")
+      Prelude.<*> (x Prelude..@? "DurationSeconds")
 
-instance Hashable TargetGroupStickinessConfig
+instance Prelude.Hashable TargetGroupStickinessConfig
 
-instance NFData TargetGroupStickinessConfig
+instance Prelude.NFData TargetGroupStickinessConfig
 
-instance ToQuery TargetGroupStickinessConfig where
+instance Prelude.ToQuery TargetGroupStickinessConfig where
   toQuery TargetGroupStickinessConfig' {..} =
-    mconcat
-      [ "Enabled" =: _tgscEnabled,
-        "DurationSeconds" =: _tgscDurationSeconds
+    Prelude.mconcat
+      [ "Enabled" Prelude.=: enabled,
+        "DurationSeconds" Prelude.=: durationSeconds
       ]

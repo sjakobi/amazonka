@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ELBv2.Types.AuthenticateOidcActionConditionalBehaviorEnum
   ( AuthenticateOidcActionConditionalBehaviorEnum
       ( ..,
-        Allow,
-        Authenticate,
-        Deny
+        AuthenticateOidcActionConditionalBehaviorEnumAllow,
+        AuthenticateOidcActionConditionalBehaviorEnumAuthenticate,
+        AuthenticateOidcActionConditionalBehaviorEnumDeny
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthenticateOidcActionConditionalBehaviorEnum
-  = AuthenticateOidcActionConditionalBehaviorEnum'
-      ( CI
-          Text
-      )
+newtype AuthenticateOidcActionConditionalBehaviorEnum = AuthenticateOidcActionConditionalBehaviorEnum'
+  { fromAuthenticateOidcActionConditionalBehaviorEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allow :: AuthenticateOidcActionConditionalBehaviorEnum
-pattern Allow = AuthenticateOidcActionConditionalBehaviorEnum' "allow"
+pattern AuthenticateOidcActionConditionalBehaviorEnumAllow :: AuthenticateOidcActionConditionalBehaviorEnum
+pattern AuthenticateOidcActionConditionalBehaviorEnumAllow = AuthenticateOidcActionConditionalBehaviorEnum' "allow"
 
-pattern Authenticate :: AuthenticateOidcActionConditionalBehaviorEnum
-pattern Authenticate = AuthenticateOidcActionConditionalBehaviorEnum' "authenticate"
+pattern AuthenticateOidcActionConditionalBehaviorEnumAuthenticate :: AuthenticateOidcActionConditionalBehaviorEnum
+pattern AuthenticateOidcActionConditionalBehaviorEnumAuthenticate = AuthenticateOidcActionConditionalBehaviorEnum' "authenticate"
 
-pattern Deny :: AuthenticateOidcActionConditionalBehaviorEnum
-pattern Deny = AuthenticateOidcActionConditionalBehaviorEnum' "deny"
+pattern AuthenticateOidcActionConditionalBehaviorEnumDeny :: AuthenticateOidcActionConditionalBehaviorEnum
+pattern AuthenticateOidcActionConditionalBehaviorEnumDeny = AuthenticateOidcActionConditionalBehaviorEnum' "deny"
 
 {-# COMPLETE
-  Allow,
-  Authenticate,
-  Deny,
+  AuthenticateOidcActionConditionalBehaviorEnumAllow,
+  AuthenticateOidcActionConditionalBehaviorEnumAuthenticate,
+  AuthenticateOidcActionConditionalBehaviorEnumDeny,
   AuthenticateOidcActionConditionalBehaviorEnum'
   #-}
 
-instance FromText AuthenticateOidcActionConditionalBehaviorEnum where
-  parser = (AuthenticateOidcActionConditionalBehaviorEnum' . mk) <$> takeText
+instance Prelude.FromText AuthenticateOidcActionConditionalBehaviorEnum where
+  parser = AuthenticateOidcActionConditionalBehaviorEnum' Prelude.<$> Prelude.takeText
 
-instance ToText AuthenticateOidcActionConditionalBehaviorEnum where
-  toText (AuthenticateOidcActionConditionalBehaviorEnum' ci) = original ci
+instance Prelude.ToText AuthenticateOidcActionConditionalBehaviorEnum where
+  toText (AuthenticateOidcActionConditionalBehaviorEnum' x) = x
 
-instance Hashable AuthenticateOidcActionConditionalBehaviorEnum
+instance Prelude.Hashable AuthenticateOidcActionConditionalBehaviorEnum
 
-instance NFData AuthenticateOidcActionConditionalBehaviorEnum
+instance Prelude.NFData AuthenticateOidcActionConditionalBehaviorEnum
 
-instance ToByteString AuthenticateOidcActionConditionalBehaviorEnum
+instance Prelude.ToByteString AuthenticateOidcActionConditionalBehaviorEnum
 
-instance ToQuery AuthenticateOidcActionConditionalBehaviorEnum
+instance Prelude.ToQuery AuthenticateOidcActionConditionalBehaviorEnum
 
-instance ToHeader AuthenticateOidcActionConditionalBehaviorEnum
+instance Prelude.ToHeader AuthenticateOidcActionConditionalBehaviorEnum
 
-instance FromXML AuthenticateOidcActionConditionalBehaviorEnum where
-  parseXML = parseXMLText "AuthenticateOidcActionConditionalBehaviorEnum"
+instance Prelude.FromXML AuthenticateOidcActionConditionalBehaviorEnum where
+  parseXML = Prelude.parseXMLText "AuthenticateOidcActionConditionalBehaviorEnum"

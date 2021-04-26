@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ELBv2.Types.LoadBalancerTypeEnum
   ( LoadBalancerTypeEnum
       ( ..,
-        Application,
-        Gateway,
-        Network
+        LoadBalancerTypeEnumApplication,
+        LoadBalancerTypeEnumGateway,
+        LoadBalancerTypeEnumNetwork
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoadBalancerTypeEnum
-  = LoadBalancerTypeEnum'
-      ( CI
-          Text
-      )
+newtype LoadBalancerTypeEnum = LoadBalancerTypeEnum'
+  { fromLoadBalancerTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Application :: LoadBalancerTypeEnum
-pattern Application = LoadBalancerTypeEnum' "application"
+pattern LoadBalancerTypeEnumApplication :: LoadBalancerTypeEnum
+pattern LoadBalancerTypeEnumApplication = LoadBalancerTypeEnum' "application"
 
-pattern Gateway :: LoadBalancerTypeEnum
-pattern Gateway = LoadBalancerTypeEnum' "gateway"
+pattern LoadBalancerTypeEnumGateway :: LoadBalancerTypeEnum
+pattern LoadBalancerTypeEnumGateway = LoadBalancerTypeEnum' "gateway"
 
-pattern Network :: LoadBalancerTypeEnum
-pattern Network = LoadBalancerTypeEnum' "network"
+pattern LoadBalancerTypeEnumNetwork :: LoadBalancerTypeEnum
+pattern LoadBalancerTypeEnumNetwork = LoadBalancerTypeEnum' "network"
 
 {-# COMPLETE
-  Application,
-  Gateway,
-  Network,
+  LoadBalancerTypeEnumApplication,
+  LoadBalancerTypeEnumGateway,
+  LoadBalancerTypeEnumNetwork,
   LoadBalancerTypeEnum'
   #-}
 
-instance FromText LoadBalancerTypeEnum where
-  parser = (LoadBalancerTypeEnum' . mk) <$> takeText
+instance Prelude.FromText LoadBalancerTypeEnum where
+  parser = LoadBalancerTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText LoadBalancerTypeEnum where
-  toText (LoadBalancerTypeEnum' ci) = original ci
+instance Prelude.ToText LoadBalancerTypeEnum where
+  toText (LoadBalancerTypeEnum' x) = x
 
-instance Hashable LoadBalancerTypeEnum
+instance Prelude.Hashable LoadBalancerTypeEnum
 
-instance NFData LoadBalancerTypeEnum
+instance Prelude.NFData LoadBalancerTypeEnum
 
-instance ToByteString LoadBalancerTypeEnum
+instance Prelude.ToByteString LoadBalancerTypeEnum
 
-instance ToQuery LoadBalancerTypeEnum
+instance Prelude.ToQuery LoadBalancerTypeEnum
 
-instance ToHeader LoadBalancerTypeEnum
+instance Prelude.ToHeader LoadBalancerTypeEnum
 
-instance FromXML LoadBalancerTypeEnum where
-  parseXML = parseXMLText "LoadBalancerTypeEnum"
+instance Prelude.FromXML LoadBalancerTypeEnum where
+  parseXML = Prelude.parseXMLText "LoadBalancerTypeEnum"

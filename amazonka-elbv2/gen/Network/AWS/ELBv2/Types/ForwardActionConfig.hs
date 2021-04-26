@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +21,72 @@ module Network.AWS.ELBv2.Types.ForwardActionConfig where
 
 import Network.AWS.ELBv2.Types.TargetGroupStickinessConfig
 import Network.AWS.ELBv2.Types.TargetGroupTuple
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a forward action.
 --
---
---
--- /See:/ 'forwardActionConfig' smart constructor.
+-- /See:/ 'newForwardActionConfig' smart constructor.
 data ForwardActionConfig = ForwardActionConfig'
-  { _facTargetGroupStickinessConfig ::
-      !( Maybe
-           TargetGroupStickinessConfig
-       ),
-    _facTargetGroups ::
-      !(Maybe [TargetGroupTuple])
+  { -- | The target group stickiness for the rule.
+    targetGroupStickinessConfig :: Prelude.Maybe TargetGroupStickinessConfig,
+    -- | One or more target groups. For Network Load Balancers, you can specify a
+    -- single target group.
+    targetGroups :: Prelude.Maybe [TargetGroupTuple]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ForwardActionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ForwardActionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'facTargetGroupStickinessConfig' - The target group stickiness for the rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'facTargetGroups' - One or more target groups. For Network Load Balancers, you can specify a single target group.
-forwardActionConfig ::
+-- 'targetGroupStickinessConfig', 'forwardActionConfig_targetGroupStickinessConfig' - The target group stickiness for the rule.
+--
+-- 'targetGroups', 'forwardActionConfig_targetGroups' - One or more target groups. For Network Load Balancers, you can specify a
+-- single target group.
+newForwardActionConfig ::
   ForwardActionConfig
-forwardActionConfig =
+newForwardActionConfig =
   ForwardActionConfig'
-    { _facTargetGroupStickinessConfig =
-        Nothing,
-      _facTargetGroups = Nothing
+    { targetGroupStickinessConfig =
+        Prelude.Nothing,
+      targetGroups = Prelude.Nothing
     }
 
 -- | The target group stickiness for the rule.
-facTargetGroupStickinessConfig :: Lens' ForwardActionConfig (Maybe TargetGroupStickinessConfig)
-facTargetGroupStickinessConfig = lens _facTargetGroupStickinessConfig (\s a -> s {_facTargetGroupStickinessConfig = a})
+forwardActionConfig_targetGroupStickinessConfig :: Lens.Lens' ForwardActionConfig (Prelude.Maybe TargetGroupStickinessConfig)
+forwardActionConfig_targetGroupStickinessConfig = Lens.lens (\ForwardActionConfig' {targetGroupStickinessConfig} -> targetGroupStickinessConfig) (\s@ForwardActionConfig' {} a -> s {targetGroupStickinessConfig = a} :: ForwardActionConfig)
 
--- | One or more target groups. For Network Load Balancers, you can specify a single target group.
-facTargetGroups :: Lens' ForwardActionConfig [TargetGroupTuple]
-facTargetGroups = lens _facTargetGroups (\s a -> s {_facTargetGroups = a}) . _Default . _Coerce
+-- | One or more target groups. For Network Load Balancers, you can specify a
+-- single target group.
+forwardActionConfig_targetGroups :: Lens.Lens' ForwardActionConfig (Prelude.Maybe [TargetGroupTuple])
+forwardActionConfig_targetGroups = Lens.lens (\ForwardActionConfig' {targetGroups} -> targetGroups) (\s@ForwardActionConfig' {} a -> s {targetGroups = a} :: ForwardActionConfig) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML ForwardActionConfig where
+instance Prelude.FromXML ForwardActionConfig where
   parseXML x =
     ForwardActionConfig'
-      <$> (x .@? "TargetGroupStickinessConfig")
-      <*> ( x .@? "TargetGroups" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> (x Prelude..@? "TargetGroupStickinessConfig")
+      Prelude.<*> ( x Prelude..@? "TargetGroups"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable ForwardActionConfig
+instance Prelude.Hashable ForwardActionConfig
 
-instance NFData ForwardActionConfig
+instance Prelude.NFData ForwardActionConfig
 
-instance ToQuery ForwardActionConfig where
+instance Prelude.ToQuery ForwardActionConfig where
   toQuery ForwardActionConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "TargetGroupStickinessConfig"
-          =: _facTargetGroupStickinessConfig,
+          Prelude.=: targetGroupStickinessConfig,
         "TargetGroups"
-          =: toQuery (toQueryList "member" <$> _facTargetGroups)
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> targetGroups
+            )
       ]

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ELBv2.Types.LoadBalancerSchemeEnum
   ( LoadBalancerSchemeEnum
       ( ..,
-        Internal,
-        InternetFacing
+        LoadBalancerSchemeEnumInternal,
+        LoadBalancerSchemeEnumInternetFacing
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoadBalancerSchemeEnum
-  = LoadBalancerSchemeEnum'
-      ( CI
-          Text
-      )
+newtype LoadBalancerSchemeEnum = LoadBalancerSchemeEnum'
+  { fromLoadBalancerSchemeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Internal :: LoadBalancerSchemeEnum
-pattern Internal = LoadBalancerSchemeEnum' "internal"
+pattern LoadBalancerSchemeEnumInternal :: LoadBalancerSchemeEnum
+pattern LoadBalancerSchemeEnumInternal = LoadBalancerSchemeEnum' "internal"
 
-pattern InternetFacing :: LoadBalancerSchemeEnum
-pattern InternetFacing = LoadBalancerSchemeEnum' "internet-facing"
+pattern LoadBalancerSchemeEnumInternetFacing :: LoadBalancerSchemeEnum
+pattern LoadBalancerSchemeEnumInternetFacing = LoadBalancerSchemeEnum' "internet-facing"
 
 {-# COMPLETE
-  Internal,
-  InternetFacing,
+  LoadBalancerSchemeEnumInternal,
+  LoadBalancerSchemeEnumInternetFacing,
   LoadBalancerSchemeEnum'
   #-}
 
-instance FromText LoadBalancerSchemeEnum where
-  parser = (LoadBalancerSchemeEnum' . mk) <$> takeText
+instance Prelude.FromText LoadBalancerSchemeEnum where
+  parser = LoadBalancerSchemeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText LoadBalancerSchemeEnum where
-  toText (LoadBalancerSchemeEnum' ci) = original ci
+instance Prelude.ToText LoadBalancerSchemeEnum where
+  toText (LoadBalancerSchemeEnum' x) = x
 
-instance Hashable LoadBalancerSchemeEnum
+instance Prelude.Hashable LoadBalancerSchemeEnum
 
-instance NFData LoadBalancerSchemeEnum
+instance Prelude.NFData LoadBalancerSchemeEnum
 
-instance ToByteString LoadBalancerSchemeEnum
+instance Prelude.ToByteString LoadBalancerSchemeEnum
 
-instance ToQuery LoadBalancerSchemeEnum
+instance Prelude.ToQuery LoadBalancerSchemeEnum
 
-instance ToHeader LoadBalancerSchemeEnum
+instance Prelude.ToHeader LoadBalancerSchemeEnum
 
-instance FromXML LoadBalancerSchemeEnum where
-  parseXML = parseXMLText "LoadBalancerSchemeEnum"
+instance Prelude.FromXML LoadBalancerSchemeEnum where
+  parseXML = Prelude.parseXMLText "LoadBalancerSchemeEnum"

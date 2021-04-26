@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,187 +22,242 @@ module Network.AWS.ELBv2.Types.TargetGroup where
 import Network.AWS.ELBv2.Types.Matcher
 import Network.AWS.ELBv2.Types.ProtocolEnum
 import Network.AWS.ELBv2.Types.TargetTypeEnum
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a target group.
 --
---
---
--- /See:/ 'targetGroup' smart constructor.
+-- /See:/ 'newTargetGroup' smart constructor.
 data TargetGroup = TargetGroup'
-  { _tgHealthCheckEnabled ::
-      !(Maybe Bool),
-    _tgHealthCheckProtocol :: !(Maybe ProtocolEnum),
-    _tgTargetGroupName :: !(Maybe Text),
-    _tgTargetType :: !(Maybe TargetTypeEnum),
-    _tgTargetGroupARN :: !(Maybe Text),
-    _tgHealthCheckPort :: !(Maybe Text),
-    _tgHealthCheckTimeoutSeconds :: !(Maybe Nat),
-    _tgHealthCheckPath :: !(Maybe Text),
-    _tgLoadBalancerARNs :: !(Maybe [Text]),
-    _tgMatcher :: !(Maybe Matcher),
-    _tgProtocolVersion :: !(Maybe Text),
-    _tgHealthyThresholdCount :: !(Maybe Nat),
-    _tgPort :: !(Maybe Nat),
-    _tgHealthCheckIntervalSeconds :: !(Maybe Nat),
-    _tgProtocol :: !(Maybe ProtocolEnum),
-    _tgVPCId :: !(Maybe Text),
-    _tgUnhealthyThresholdCount :: !(Maybe Nat)
+  { -- | Indicates whether health checks are enabled.
+    healthCheckEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The protocol to use to connect with the target. The GENEVE, TLS, UDP,
+    -- and TCP_UDP protocols are not supported for health checks.
+    healthCheckProtocol :: Prelude.Maybe ProtocolEnum,
+    -- | The name of the target group.
+    targetGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The type of target that you must specify when registering targets with
+    -- this target group. The possible values are @instance@ (register targets
+    -- by instance ID), @ip@ (register targets by IP address), or @lambda@
+    -- (register a single Lambda function as a target).
+    targetType :: Prelude.Maybe TargetTypeEnum,
+    -- | The Amazon Resource Name (ARN) of the target group.
+    targetGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The port to use to connect with the target.
+    healthCheckPort :: Prelude.Maybe Prelude.Text,
+    -- | The amount of time, in seconds, during which no response means a failed
+    -- health check.
+    healthCheckTimeoutSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The destination for health checks on the targets.
+    healthCheckPath :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Names (ARN) of the load balancers that route traffic
+    -- to this target group.
+    loadBalancerArns :: Prelude.Maybe [Prelude.Text],
+    -- | The HTTP or gRPC codes to use when checking for a successful response
+    -- from a target.
+    matcher :: Prelude.Maybe Matcher,
+    -- | [HTTP\/HTTPS protocol] The protocol version. The possible values are
+    -- @GRPC@, @HTTP1@, and @HTTP2@.
+    protocolVersion :: Prelude.Maybe Prelude.Text,
+    -- | The number of consecutive health checks successes required before
+    -- considering an unhealthy target healthy.
+    healthyThresholdCount :: Prelude.Maybe Prelude.Nat,
+    -- | The port on which the targets are listening. Not used if the target is a
+    -- Lambda function.
+    port :: Prelude.Maybe Prelude.Nat,
+    -- | The approximate amount of time, in seconds, between health checks of an
+    -- individual target.
+    healthCheckIntervalSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The protocol to use for routing traffic to the targets.
+    protocol :: Prelude.Maybe ProtocolEnum,
+    -- | The ID of the VPC for the targets.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | The number of consecutive health check failures required before
+    -- considering the target unhealthy.
+    unhealthyThresholdCount :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgHealthCheckEnabled' - Indicates whether health checks are enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgHealthCheckProtocol' - The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for health checks.
+-- 'healthCheckEnabled', 'targetGroup_healthCheckEnabled' - Indicates whether health checks are enabled.
 --
--- * 'tgTargetGroupName' - The name of the target group.
+-- 'healthCheckProtocol', 'targetGroup_healthCheckProtocol' - The protocol to use to connect with the target. The GENEVE, TLS, UDP,
+-- and TCP_UDP protocols are not supported for health checks.
 --
--- * 'tgTargetType' - The type of target that you must specify when registering targets with this target group. The possible values are @instance@ (register targets by instance ID), @ip@ (register targets by IP address), or @lambda@ (register a single Lambda function as a target).
+-- 'targetGroupName', 'targetGroup_targetGroupName' - The name of the target group.
 --
--- * 'tgTargetGroupARN' - The Amazon Resource Name (ARN) of the target group.
+-- 'targetType', 'targetGroup_targetType' - The type of target that you must specify when registering targets with
+-- this target group. The possible values are @instance@ (register targets
+-- by instance ID), @ip@ (register targets by IP address), or @lambda@
+-- (register a single Lambda function as a target).
 --
--- * 'tgHealthCheckPort' - The port to use to connect with the target.
+-- 'targetGroupArn', 'targetGroup_targetGroupArn' - The Amazon Resource Name (ARN) of the target group.
 --
--- * 'tgHealthCheckTimeoutSeconds' - The amount of time, in seconds, during which no response means a failed health check.
+-- 'healthCheckPort', 'targetGroup_healthCheckPort' - The port to use to connect with the target.
 --
--- * 'tgHealthCheckPath' - The destination for health checks on the targets.
+-- 'healthCheckTimeoutSeconds', 'targetGroup_healthCheckTimeoutSeconds' - The amount of time, in seconds, during which no response means a failed
+-- health check.
 --
--- * 'tgLoadBalancerARNs' - The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+-- 'healthCheckPath', 'targetGroup_healthCheckPath' - The destination for health checks on the targets.
 --
--- * 'tgMatcher' - The HTTP or gRPC codes to use when checking for a successful response from a target.
+-- 'loadBalancerArns', 'targetGroup_loadBalancerArns' - The Amazon Resource Names (ARN) of the load balancers that route traffic
+-- to this target group.
 --
--- * 'tgProtocolVersion' - [HTTP/HTTPS protocol] The protocol version. The possible values are @GRPC@ , @HTTP1@ , and @HTTP2@ .
+-- 'matcher', 'targetGroup_matcher' - The HTTP or gRPC codes to use when checking for a successful response
+-- from a target.
 --
--- * 'tgHealthyThresholdCount' - The number of consecutive health checks successes required before considering an unhealthy target healthy.
+-- 'protocolVersion', 'targetGroup_protocolVersion' - [HTTP\/HTTPS protocol] The protocol version. The possible values are
+-- @GRPC@, @HTTP1@, and @HTTP2@.
 --
--- * 'tgPort' - The port on which the targets are listening. Not used if the target is a Lambda function.
+-- 'healthyThresholdCount', 'targetGroup_healthyThresholdCount' - The number of consecutive health checks successes required before
+-- considering an unhealthy target healthy.
 --
--- * 'tgHealthCheckIntervalSeconds' - The approximate amount of time, in seconds, between health checks of an individual target.
+-- 'port', 'targetGroup_port' - The port on which the targets are listening. Not used if the target is a
+-- Lambda function.
 --
--- * 'tgProtocol' - The protocol to use for routing traffic to the targets.
+-- 'healthCheckIntervalSeconds', 'targetGroup_healthCheckIntervalSeconds' - The approximate amount of time, in seconds, between health checks of an
+-- individual target.
 --
--- * 'tgVPCId' - The ID of the VPC for the targets.
+-- 'protocol', 'targetGroup_protocol' - The protocol to use for routing traffic to the targets.
 --
--- * 'tgUnhealthyThresholdCount' - The number of consecutive health check failures required before considering the target unhealthy.
-targetGroup ::
+-- 'vpcId', 'targetGroup_vpcId' - The ID of the VPC for the targets.
+--
+-- 'unhealthyThresholdCount', 'targetGroup_unhealthyThresholdCount' - The number of consecutive health check failures required before
+-- considering the target unhealthy.
+newTargetGroup ::
   TargetGroup
-targetGroup =
+newTargetGroup =
   TargetGroup'
-    { _tgHealthCheckEnabled = Nothing,
-      _tgHealthCheckProtocol = Nothing,
-      _tgTargetGroupName = Nothing,
-      _tgTargetType = Nothing,
-      _tgTargetGroupARN = Nothing,
-      _tgHealthCheckPort = Nothing,
-      _tgHealthCheckTimeoutSeconds = Nothing,
-      _tgHealthCheckPath = Nothing,
-      _tgLoadBalancerARNs = Nothing,
-      _tgMatcher = Nothing,
-      _tgProtocolVersion = Nothing,
-      _tgHealthyThresholdCount = Nothing,
-      _tgPort = Nothing,
-      _tgHealthCheckIntervalSeconds = Nothing,
-      _tgProtocol = Nothing,
-      _tgVPCId = Nothing,
-      _tgUnhealthyThresholdCount = Nothing
+    { healthCheckEnabled = Prelude.Nothing,
+      healthCheckProtocol = Prelude.Nothing,
+      targetGroupName = Prelude.Nothing,
+      targetType = Prelude.Nothing,
+      targetGroupArn = Prelude.Nothing,
+      healthCheckPort = Prelude.Nothing,
+      healthCheckTimeoutSeconds = Prelude.Nothing,
+      healthCheckPath = Prelude.Nothing,
+      loadBalancerArns = Prelude.Nothing,
+      matcher = Prelude.Nothing,
+      protocolVersion = Prelude.Nothing,
+      healthyThresholdCount = Prelude.Nothing,
+      port = Prelude.Nothing,
+      healthCheckIntervalSeconds = Prelude.Nothing,
+      protocol = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      unhealthyThresholdCount = Prelude.Nothing
     }
 
 -- | Indicates whether health checks are enabled.
-tgHealthCheckEnabled :: Lens' TargetGroup (Maybe Bool)
-tgHealthCheckEnabled = lens _tgHealthCheckEnabled (\s a -> s {_tgHealthCheckEnabled = a})
+targetGroup_healthCheckEnabled :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Bool)
+targetGroup_healthCheckEnabled = Lens.lens (\TargetGroup' {healthCheckEnabled} -> healthCheckEnabled) (\s@TargetGroup' {} a -> s {healthCheckEnabled = a} :: TargetGroup)
 
--- | The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for health checks.
-tgHealthCheckProtocol :: Lens' TargetGroup (Maybe ProtocolEnum)
-tgHealthCheckProtocol = lens _tgHealthCheckProtocol (\s a -> s {_tgHealthCheckProtocol = a})
+-- | The protocol to use to connect with the target. The GENEVE, TLS, UDP,
+-- and TCP_UDP protocols are not supported for health checks.
+targetGroup_healthCheckProtocol :: Lens.Lens' TargetGroup (Prelude.Maybe ProtocolEnum)
+targetGroup_healthCheckProtocol = Lens.lens (\TargetGroup' {healthCheckProtocol} -> healthCheckProtocol) (\s@TargetGroup' {} a -> s {healthCheckProtocol = a} :: TargetGroup)
 
 -- | The name of the target group.
-tgTargetGroupName :: Lens' TargetGroup (Maybe Text)
-tgTargetGroupName = lens _tgTargetGroupName (\s a -> s {_tgTargetGroupName = a})
+targetGroup_targetGroupName :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Text)
+targetGroup_targetGroupName = Lens.lens (\TargetGroup' {targetGroupName} -> targetGroupName) (\s@TargetGroup' {} a -> s {targetGroupName = a} :: TargetGroup)
 
--- | The type of target that you must specify when registering targets with this target group. The possible values are @instance@ (register targets by instance ID), @ip@ (register targets by IP address), or @lambda@ (register a single Lambda function as a target).
-tgTargetType :: Lens' TargetGroup (Maybe TargetTypeEnum)
-tgTargetType = lens _tgTargetType (\s a -> s {_tgTargetType = a})
+-- | The type of target that you must specify when registering targets with
+-- this target group. The possible values are @instance@ (register targets
+-- by instance ID), @ip@ (register targets by IP address), or @lambda@
+-- (register a single Lambda function as a target).
+targetGroup_targetType :: Lens.Lens' TargetGroup (Prelude.Maybe TargetTypeEnum)
+targetGroup_targetType = Lens.lens (\TargetGroup' {targetType} -> targetType) (\s@TargetGroup' {} a -> s {targetType = a} :: TargetGroup)
 
 -- | The Amazon Resource Name (ARN) of the target group.
-tgTargetGroupARN :: Lens' TargetGroup (Maybe Text)
-tgTargetGroupARN = lens _tgTargetGroupARN (\s a -> s {_tgTargetGroupARN = a})
+targetGroup_targetGroupArn :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Text)
+targetGroup_targetGroupArn = Lens.lens (\TargetGroup' {targetGroupArn} -> targetGroupArn) (\s@TargetGroup' {} a -> s {targetGroupArn = a} :: TargetGroup)
 
 -- | The port to use to connect with the target.
-tgHealthCheckPort :: Lens' TargetGroup (Maybe Text)
-tgHealthCheckPort = lens _tgHealthCheckPort (\s a -> s {_tgHealthCheckPort = a})
+targetGroup_healthCheckPort :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Text)
+targetGroup_healthCheckPort = Lens.lens (\TargetGroup' {healthCheckPort} -> healthCheckPort) (\s@TargetGroup' {} a -> s {healthCheckPort = a} :: TargetGroup)
 
--- | The amount of time, in seconds, during which no response means a failed health check.
-tgHealthCheckTimeoutSeconds :: Lens' TargetGroup (Maybe Natural)
-tgHealthCheckTimeoutSeconds = lens _tgHealthCheckTimeoutSeconds (\s a -> s {_tgHealthCheckTimeoutSeconds = a}) . mapping _Nat
+-- | The amount of time, in seconds, during which no response means a failed
+-- health check.
+targetGroup_healthCheckTimeoutSeconds :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Natural)
+targetGroup_healthCheckTimeoutSeconds = Lens.lens (\TargetGroup' {healthCheckTimeoutSeconds} -> healthCheckTimeoutSeconds) (\s@TargetGroup' {} a -> s {healthCheckTimeoutSeconds = a} :: TargetGroup) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The destination for health checks on the targets.
-tgHealthCheckPath :: Lens' TargetGroup (Maybe Text)
-tgHealthCheckPath = lens _tgHealthCheckPath (\s a -> s {_tgHealthCheckPath = a})
+targetGroup_healthCheckPath :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Text)
+targetGroup_healthCheckPath = Lens.lens (\TargetGroup' {healthCheckPath} -> healthCheckPath) (\s@TargetGroup' {} a -> s {healthCheckPath = a} :: TargetGroup)
 
--- | The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
-tgLoadBalancerARNs :: Lens' TargetGroup [Text]
-tgLoadBalancerARNs = lens _tgLoadBalancerARNs (\s a -> s {_tgLoadBalancerARNs = a}) . _Default . _Coerce
+-- | The Amazon Resource Names (ARN) of the load balancers that route traffic
+-- to this target group.
+targetGroup_loadBalancerArns :: Lens.Lens' TargetGroup (Prelude.Maybe [Prelude.Text])
+targetGroup_loadBalancerArns = Lens.lens (\TargetGroup' {loadBalancerArns} -> loadBalancerArns) (\s@TargetGroup' {} a -> s {loadBalancerArns = a} :: TargetGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The HTTP or gRPC codes to use when checking for a successful response from a target.
-tgMatcher :: Lens' TargetGroup (Maybe Matcher)
-tgMatcher = lens _tgMatcher (\s a -> s {_tgMatcher = a})
+-- | The HTTP or gRPC codes to use when checking for a successful response
+-- from a target.
+targetGroup_matcher :: Lens.Lens' TargetGroup (Prelude.Maybe Matcher)
+targetGroup_matcher = Lens.lens (\TargetGroup' {matcher} -> matcher) (\s@TargetGroup' {} a -> s {matcher = a} :: TargetGroup)
 
--- | [HTTP/HTTPS protocol] The protocol version. The possible values are @GRPC@ , @HTTP1@ , and @HTTP2@ .
-tgProtocolVersion :: Lens' TargetGroup (Maybe Text)
-tgProtocolVersion = lens _tgProtocolVersion (\s a -> s {_tgProtocolVersion = a})
+-- | [HTTP\/HTTPS protocol] The protocol version. The possible values are
+-- @GRPC@, @HTTP1@, and @HTTP2@.
+targetGroup_protocolVersion :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Text)
+targetGroup_protocolVersion = Lens.lens (\TargetGroup' {protocolVersion} -> protocolVersion) (\s@TargetGroup' {} a -> s {protocolVersion = a} :: TargetGroup)
 
--- | The number of consecutive health checks successes required before considering an unhealthy target healthy.
-tgHealthyThresholdCount :: Lens' TargetGroup (Maybe Natural)
-tgHealthyThresholdCount = lens _tgHealthyThresholdCount (\s a -> s {_tgHealthyThresholdCount = a}) . mapping _Nat
+-- | The number of consecutive health checks successes required before
+-- considering an unhealthy target healthy.
+targetGroup_healthyThresholdCount :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Natural)
+targetGroup_healthyThresholdCount = Lens.lens (\TargetGroup' {healthyThresholdCount} -> healthyThresholdCount) (\s@TargetGroup' {} a -> s {healthyThresholdCount = a} :: TargetGroup) Prelude.. Lens.mapping Prelude._Nat
 
--- | The port on which the targets are listening. Not used if the target is a Lambda function.
-tgPort :: Lens' TargetGroup (Maybe Natural)
-tgPort = lens _tgPort (\s a -> s {_tgPort = a}) . mapping _Nat
+-- | The port on which the targets are listening. Not used if the target is a
+-- Lambda function.
+targetGroup_port :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Natural)
+targetGroup_port = Lens.lens (\TargetGroup' {port} -> port) (\s@TargetGroup' {} a -> s {port = a} :: TargetGroup) Prelude.. Lens.mapping Prelude._Nat
 
--- | The approximate amount of time, in seconds, between health checks of an individual target.
-tgHealthCheckIntervalSeconds :: Lens' TargetGroup (Maybe Natural)
-tgHealthCheckIntervalSeconds = lens _tgHealthCheckIntervalSeconds (\s a -> s {_tgHealthCheckIntervalSeconds = a}) . mapping _Nat
+-- | The approximate amount of time, in seconds, between health checks of an
+-- individual target.
+targetGroup_healthCheckIntervalSeconds :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Natural)
+targetGroup_healthCheckIntervalSeconds = Lens.lens (\TargetGroup' {healthCheckIntervalSeconds} -> healthCheckIntervalSeconds) (\s@TargetGroup' {} a -> s {healthCheckIntervalSeconds = a} :: TargetGroup) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The protocol to use for routing traffic to the targets.
-tgProtocol :: Lens' TargetGroup (Maybe ProtocolEnum)
-tgProtocol = lens _tgProtocol (\s a -> s {_tgProtocol = a})
+targetGroup_protocol :: Lens.Lens' TargetGroup (Prelude.Maybe ProtocolEnum)
+targetGroup_protocol = Lens.lens (\TargetGroup' {protocol} -> protocol) (\s@TargetGroup' {} a -> s {protocol = a} :: TargetGroup)
 
 -- | The ID of the VPC for the targets.
-tgVPCId :: Lens' TargetGroup (Maybe Text)
-tgVPCId = lens _tgVPCId (\s a -> s {_tgVPCId = a})
+targetGroup_vpcId :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Text)
+targetGroup_vpcId = Lens.lens (\TargetGroup' {vpcId} -> vpcId) (\s@TargetGroup' {} a -> s {vpcId = a} :: TargetGroup)
 
--- | The number of consecutive health check failures required before considering the target unhealthy.
-tgUnhealthyThresholdCount :: Lens' TargetGroup (Maybe Natural)
-tgUnhealthyThresholdCount = lens _tgUnhealthyThresholdCount (\s a -> s {_tgUnhealthyThresholdCount = a}) . mapping _Nat
+-- | The number of consecutive health check failures required before
+-- considering the target unhealthy.
+targetGroup_unhealthyThresholdCount :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Natural)
+targetGroup_unhealthyThresholdCount = Lens.lens (\TargetGroup' {unhealthyThresholdCount} -> unhealthyThresholdCount) (\s@TargetGroup' {} a -> s {unhealthyThresholdCount = a} :: TargetGroup) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromXML TargetGroup where
+instance Prelude.FromXML TargetGroup where
   parseXML x =
     TargetGroup'
-      <$> (x .@? "HealthCheckEnabled")
-      <*> (x .@? "HealthCheckProtocol")
-      <*> (x .@? "TargetGroupName")
-      <*> (x .@? "TargetType")
-      <*> (x .@? "TargetGroupArn")
-      <*> (x .@? "HealthCheckPort")
-      <*> (x .@? "HealthCheckTimeoutSeconds")
-      <*> (x .@? "HealthCheckPath")
-      <*> ( x .@? "LoadBalancerArns" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Matcher")
-      <*> (x .@? "ProtocolVersion")
-      <*> (x .@? "HealthyThresholdCount")
-      <*> (x .@? "Port")
-      <*> (x .@? "HealthCheckIntervalSeconds")
-      <*> (x .@? "Protocol")
-      <*> (x .@? "VpcId")
-      <*> (x .@? "UnhealthyThresholdCount")
+      Prelude.<$> (x Prelude..@? "HealthCheckEnabled")
+      Prelude.<*> (x Prelude..@? "HealthCheckProtocol")
+      Prelude.<*> (x Prelude..@? "TargetGroupName")
+      Prelude.<*> (x Prelude..@? "TargetType")
+      Prelude.<*> (x Prelude..@? "TargetGroupArn")
+      Prelude.<*> (x Prelude..@? "HealthCheckPort")
+      Prelude.<*> (x Prelude..@? "HealthCheckTimeoutSeconds")
+      Prelude.<*> (x Prelude..@? "HealthCheckPath")
+      Prelude.<*> ( x Prelude..@? "LoadBalancerArns"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Matcher")
+      Prelude.<*> (x Prelude..@? "ProtocolVersion")
+      Prelude.<*> (x Prelude..@? "HealthyThresholdCount")
+      Prelude.<*> (x Prelude..@? "Port")
+      Prelude.<*> (x Prelude..@? "HealthCheckIntervalSeconds")
+      Prelude.<*> (x Prelude..@? "Protocol")
+      Prelude.<*> (x Prelude..@? "VpcId")
+      Prelude.<*> (x Prelude..@? "UnhealthyThresholdCount")
 
-instance Hashable TargetGroup
+instance Prelude.Hashable TargetGroup
 
-instance NFData TargetGroup
+instance Prelude.NFData TargetGroup

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,134 +19,286 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.RuleCondition where
 
-import Network.AWS.ELBv2.Types.HTTPHeaderConditionConfig
-import Network.AWS.ELBv2.Types.HTTPRequestMethodConditionConfig
 import Network.AWS.ELBv2.Types.HostHeaderConditionConfig
+import Network.AWS.ELBv2.Types.HttpHeaderConditionConfig
+import Network.AWS.ELBv2.Types.HttpRequestMethodConditionConfig
 import Network.AWS.ELBv2.Types.PathPatternConditionConfig
 import Network.AWS.ELBv2.Types.QueryStringConditionConfig
-import Network.AWS.ELBv2.Types.SourceIPConditionConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.ELBv2.Types.SourceIpConditionConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a condition for a rule.
 --
+-- Each rule can optionally include up to one of each of the following
+-- conditions: @http-request-method@, @host-header@, @path-pattern@, and
+-- @source-ip@. Each rule can also optionally include one or more of each
+-- of the following conditions: @http-header@ and @query-string@.
 --
--- Each rule can optionally include up to one of each of the following conditions: @http-request-method@ , @host-header@ , @path-pattern@ , and @source-ip@ . Each rule can also optionally include one or more of each of the following conditions: @http-header@ and @query-string@ .
---
---
--- /See:/ 'ruleCondition' smart constructor.
+-- /See:/ 'newRuleCondition' smart constructor.
 data RuleCondition = RuleCondition'
-  { _rcPathPatternConfig ::
-      !(Maybe PathPatternConditionConfig),
-    _rcHTTPRequestMethodConfig ::
-      !(Maybe HTTPRequestMethodConditionConfig),
-    _rcValues :: !(Maybe [Text]),
-    _rcSourceIPConfig ::
-      !(Maybe SourceIPConditionConfig),
-    _rcHTTPHeaderConfig ::
-      !(Maybe HTTPHeaderConditionConfig),
-    _rcHostHeaderConfig ::
-      !(Maybe HostHeaderConditionConfig),
-    _rcQueryStringConfig ::
-      !(Maybe QueryStringConditionConfig),
-    _rcField :: !(Maybe Text)
+  { -- | Information for a path pattern condition. Specify only when @Field@ is
+    -- @path-pattern@.
+    pathPatternConfig :: Prelude.Maybe PathPatternConditionConfig,
+    -- | Information for an HTTP method condition. Specify only when @Field@ is
+    -- @http-request-method@.
+    httpRequestMethodConfig :: Prelude.Maybe HttpRequestMethodConditionConfig,
+    -- | The condition value. Specify only when @Field@ is @host-header@ or
+    -- @path-pattern@. Alternatively, to specify multiple host names or
+    -- multiple path patterns, use @HostHeaderConfig@ or @PathPatternConfig@.
+    --
+    -- If @Field@ is @host-header@ and you are not using @HostHeaderConfig@,
+    -- you can specify a single host name (for example, my.example.com) in
+    -- @Values@. A host name is case insensitive, can be up to 128 characters
+    -- in length, and can contain any of the following characters.
+    --
+    -- -   A-Z, a-z, 0-9
+    --
+    -- -   - .
+    --
+    -- -   * (matches 0 or more characters)
+    --
+    -- -   ? (matches exactly 1 character)
+    --
+    -- If @Field@ is @path-pattern@ and you are not using @PathPatternConfig@,
+    -- you can specify a single path pattern (for example, \/img\/*) in
+    -- @Values@. A path pattern is case-sensitive, can be up to 128 characters
+    -- in length, and can contain any of the following characters.
+    --
+    -- -   A-Z, a-z, 0-9
+    --
+    -- -   _ - . $ \/ ~ \" \' \@ : +
+    --
+    -- -   & (using &amp;)
+    --
+    -- -   * (matches 0 or more characters)
+    --
+    -- -   ? (matches exactly 1 character)
+    values :: Prelude.Maybe [Prelude.Text],
+    -- | Information for a source IP condition. Specify only when @Field@ is
+    -- @source-ip@.
+    sourceIpConfig :: Prelude.Maybe SourceIpConditionConfig,
+    -- | Information for an HTTP header condition. Specify only when @Field@ is
+    -- @http-header@.
+    httpHeaderConfig :: Prelude.Maybe HttpHeaderConditionConfig,
+    -- | Information for a host header condition. Specify only when @Field@ is
+    -- @host-header@.
+    hostHeaderConfig :: Prelude.Maybe HostHeaderConditionConfig,
+    -- | Information for a query string condition. Specify only when @Field@ is
+    -- @query-string@.
+    queryStringConfig :: Prelude.Maybe QueryStringConditionConfig,
+    -- | The field in the HTTP request. The following are the possible values:
+    --
+    -- -   @http-header@
+    --
+    -- -   @http-request-method@
+    --
+    -- -   @host-header@
+    --
+    -- -   @path-pattern@
+    --
+    -- -   @query-string@
+    --
+    -- -   @source-ip@
+    field :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RuleCondition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RuleCondition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcPathPatternConfig' - Information for a path pattern condition. Specify only when @Field@ is @path-pattern@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcHTTPRequestMethodConfig' - Information for an HTTP method condition. Specify only when @Field@ is @http-request-method@ .
+-- 'pathPatternConfig', 'ruleCondition_pathPatternConfig' - Information for a path pattern condition. Specify only when @Field@ is
+-- @path-pattern@.
 --
--- * 'rcValues' - The condition value. Specify only when @Field@ is @host-header@ or @path-pattern@ . Alternatively, to specify multiple host names or multiple path patterns, use @HostHeaderConfig@ or @PathPatternConfig@ . If @Field@ is @host-header@ and you are not using @HostHeaderConfig@ , you can specify a single host name (for example, my.example.com) in @Values@ . A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters.     * A-Z, a-z, 0-9     * - .     * * (matches 0 or more characters)     * ? (matches exactly 1 character) If @Field@ is @path-pattern@ and you are not using @PathPatternConfig@ , you can specify a single path pattern (for example, /img/*) in @Values@ . A path pattern is case-sensitive, can be up to 128 characters in length, and can contain any of the following characters.     * A-Z, a-z, 0-9     * _ - . $ / ~ " ' @ : +     * & (using &amp;)     * * (matches 0 or more characters)     * ? (matches exactly 1 character)
+-- 'httpRequestMethodConfig', 'ruleCondition_httpRequestMethodConfig' - Information for an HTTP method condition. Specify only when @Field@ is
+-- @http-request-method@.
 --
--- * 'rcSourceIPConfig' - Information for a source IP condition. Specify only when @Field@ is @source-ip@ .
+-- 'values', 'ruleCondition_values' - The condition value. Specify only when @Field@ is @host-header@ or
+-- @path-pattern@. Alternatively, to specify multiple host names or
+-- multiple path patterns, use @HostHeaderConfig@ or @PathPatternConfig@.
 --
--- * 'rcHTTPHeaderConfig' - Information for an HTTP header condition. Specify only when @Field@ is @http-header@ .
+-- If @Field@ is @host-header@ and you are not using @HostHeaderConfig@,
+-- you can specify a single host name (for example, my.example.com) in
+-- @Values@. A host name is case insensitive, can be up to 128 characters
+-- in length, and can contain any of the following characters.
 --
--- * 'rcHostHeaderConfig' - Information for a host header condition. Specify only when @Field@ is @host-header@ .
+-- -   A-Z, a-z, 0-9
 --
--- * 'rcQueryStringConfig' - Information for a query string condition. Specify only when @Field@ is @query-string@ .
+-- -   - .
 --
--- * 'rcField' - The field in the HTTP request. The following are the possible values:     * @http-header@      * @http-request-method@      * @host-header@      * @path-pattern@      * @query-string@      * @source-ip@
-ruleCondition ::
+-- -   * (matches 0 or more characters)
+--
+-- -   ? (matches exactly 1 character)
+--
+-- If @Field@ is @path-pattern@ and you are not using @PathPatternConfig@,
+-- you can specify a single path pattern (for example, \/img\/*) in
+-- @Values@. A path pattern is case-sensitive, can be up to 128 characters
+-- in length, and can contain any of the following characters.
+--
+-- -   A-Z, a-z, 0-9
+--
+-- -   _ - . $ \/ ~ \" \' \@ : +
+--
+-- -   & (using &amp;)
+--
+-- -   * (matches 0 or more characters)
+--
+-- -   ? (matches exactly 1 character)
+--
+-- 'sourceIpConfig', 'ruleCondition_sourceIpConfig' - Information for a source IP condition. Specify only when @Field@ is
+-- @source-ip@.
+--
+-- 'httpHeaderConfig', 'ruleCondition_httpHeaderConfig' - Information for an HTTP header condition. Specify only when @Field@ is
+-- @http-header@.
+--
+-- 'hostHeaderConfig', 'ruleCondition_hostHeaderConfig' - Information for a host header condition. Specify only when @Field@ is
+-- @host-header@.
+--
+-- 'queryStringConfig', 'ruleCondition_queryStringConfig' - Information for a query string condition. Specify only when @Field@ is
+-- @query-string@.
+--
+-- 'field', 'ruleCondition_field' - The field in the HTTP request. The following are the possible values:
+--
+-- -   @http-header@
+--
+-- -   @http-request-method@
+--
+-- -   @host-header@
+--
+-- -   @path-pattern@
+--
+-- -   @query-string@
+--
+-- -   @source-ip@
+newRuleCondition ::
   RuleCondition
-ruleCondition =
+newRuleCondition =
   RuleCondition'
-    { _rcPathPatternConfig = Nothing,
-      _rcHTTPRequestMethodConfig = Nothing,
-      _rcValues = Nothing,
-      _rcSourceIPConfig = Nothing,
-      _rcHTTPHeaderConfig = Nothing,
-      _rcHostHeaderConfig = Nothing,
-      _rcQueryStringConfig = Nothing,
-      _rcField = Nothing
+    { pathPatternConfig = Prelude.Nothing,
+      httpRequestMethodConfig = Prelude.Nothing,
+      values = Prelude.Nothing,
+      sourceIpConfig = Prelude.Nothing,
+      httpHeaderConfig = Prelude.Nothing,
+      hostHeaderConfig = Prelude.Nothing,
+      queryStringConfig = Prelude.Nothing,
+      field = Prelude.Nothing
     }
 
--- | Information for a path pattern condition. Specify only when @Field@ is @path-pattern@ .
-rcPathPatternConfig :: Lens' RuleCondition (Maybe PathPatternConditionConfig)
-rcPathPatternConfig = lens _rcPathPatternConfig (\s a -> s {_rcPathPatternConfig = a})
+-- | Information for a path pattern condition. Specify only when @Field@ is
+-- @path-pattern@.
+ruleCondition_pathPatternConfig :: Lens.Lens' RuleCondition (Prelude.Maybe PathPatternConditionConfig)
+ruleCondition_pathPatternConfig = Lens.lens (\RuleCondition' {pathPatternConfig} -> pathPatternConfig) (\s@RuleCondition' {} a -> s {pathPatternConfig = a} :: RuleCondition)
 
--- | Information for an HTTP method condition. Specify only when @Field@ is @http-request-method@ .
-rcHTTPRequestMethodConfig :: Lens' RuleCondition (Maybe HTTPRequestMethodConditionConfig)
-rcHTTPRequestMethodConfig = lens _rcHTTPRequestMethodConfig (\s a -> s {_rcHTTPRequestMethodConfig = a})
+-- | Information for an HTTP method condition. Specify only when @Field@ is
+-- @http-request-method@.
+ruleCondition_httpRequestMethodConfig :: Lens.Lens' RuleCondition (Prelude.Maybe HttpRequestMethodConditionConfig)
+ruleCondition_httpRequestMethodConfig = Lens.lens (\RuleCondition' {httpRequestMethodConfig} -> httpRequestMethodConfig) (\s@RuleCondition' {} a -> s {httpRequestMethodConfig = a} :: RuleCondition)
 
--- | The condition value. Specify only when @Field@ is @host-header@ or @path-pattern@ . Alternatively, to specify multiple host names or multiple path patterns, use @HostHeaderConfig@ or @PathPatternConfig@ . If @Field@ is @host-header@ and you are not using @HostHeaderConfig@ , you can specify a single host name (for example, my.example.com) in @Values@ . A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters.     * A-Z, a-z, 0-9     * - .     * * (matches 0 or more characters)     * ? (matches exactly 1 character) If @Field@ is @path-pattern@ and you are not using @PathPatternConfig@ , you can specify a single path pattern (for example, /img/*) in @Values@ . A path pattern is case-sensitive, can be up to 128 characters in length, and can contain any of the following characters.     * A-Z, a-z, 0-9     * _ - . $ / ~ " ' @ : +     * & (using &amp;)     * * (matches 0 or more characters)     * ? (matches exactly 1 character)
-rcValues :: Lens' RuleCondition [Text]
-rcValues = lens _rcValues (\s a -> s {_rcValues = a}) . _Default . _Coerce
+-- | The condition value. Specify only when @Field@ is @host-header@ or
+-- @path-pattern@. Alternatively, to specify multiple host names or
+-- multiple path patterns, use @HostHeaderConfig@ or @PathPatternConfig@.
+--
+-- If @Field@ is @host-header@ and you are not using @HostHeaderConfig@,
+-- you can specify a single host name (for example, my.example.com) in
+-- @Values@. A host name is case insensitive, can be up to 128 characters
+-- in length, and can contain any of the following characters.
+--
+-- -   A-Z, a-z, 0-9
+--
+-- -   - .
+--
+-- -   * (matches 0 or more characters)
+--
+-- -   ? (matches exactly 1 character)
+--
+-- If @Field@ is @path-pattern@ and you are not using @PathPatternConfig@,
+-- you can specify a single path pattern (for example, \/img\/*) in
+-- @Values@. A path pattern is case-sensitive, can be up to 128 characters
+-- in length, and can contain any of the following characters.
+--
+-- -   A-Z, a-z, 0-9
+--
+-- -   _ - . $ \/ ~ \" \' \@ : +
+--
+-- -   & (using &amp;)
+--
+-- -   * (matches 0 or more characters)
+--
+-- -   ? (matches exactly 1 character)
+ruleCondition_values :: Lens.Lens' RuleCondition (Prelude.Maybe [Prelude.Text])
+ruleCondition_values = Lens.lens (\RuleCondition' {values} -> values) (\s@RuleCondition' {} a -> s {values = a} :: RuleCondition) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Information for a source IP condition. Specify only when @Field@ is @source-ip@ .
-rcSourceIPConfig :: Lens' RuleCondition (Maybe SourceIPConditionConfig)
-rcSourceIPConfig = lens _rcSourceIPConfig (\s a -> s {_rcSourceIPConfig = a})
+-- | Information for a source IP condition. Specify only when @Field@ is
+-- @source-ip@.
+ruleCondition_sourceIpConfig :: Lens.Lens' RuleCondition (Prelude.Maybe SourceIpConditionConfig)
+ruleCondition_sourceIpConfig = Lens.lens (\RuleCondition' {sourceIpConfig} -> sourceIpConfig) (\s@RuleCondition' {} a -> s {sourceIpConfig = a} :: RuleCondition)
 
--- | Information for an HTTP header condition. Specify only when @Field@ is @http-header@ .
-rcHTTPHeaderConfig :: Lens' RuleCondition (Maybe HTTPHeaderConditionConfig)
-rcHTTPHeaderConfig = lens _rcHTTPHeaderConfig (\s a -> s {_rcHTTPHeaderConfig = a})
+-- | Information for an HTTP header condition. Specify only when @Field@ is
+-- @http-header@.
+ruleCondition_httpHeaderConfig :: Lens.Lens' RuleCondition (Prelude.Maybe HttpHeaderConditionConfig)
+ruleCondition_httpHeaderConfig = Lens.lens (\RuleCondition' {httpHeaderConfig} -> httpHeaderConfig) (\s@RuleCondition' {} a -> s {httpHeaderConfig = a} :: RuleCondition)
 
--- | Information for a host header condition. Specify only when @Field@ is @host-header@ .
-rcHostHeaderConfig :: Lens' RuleCondition (Maybe HostHeaderConditionConfig)
-rcHostHeaderConfig = lens _rcHostHeaderConfig (\s a -> s {_rcHostHeaderConfig = a})
+-- | Information for a host header condition. Specify only when @Field@ is
+-- @host-header@.
+ruleCondition_hostHeaderConfig :: Lens.Lens' RuleCondition (Prelude.Maybe HostHeaderConditionConfig)
+ruleCondition_hostHeaderConfig = Lens.lens (\RuleCondition' {hostHeaderConfig} -> hostHeaderConfig) (\s@RuleCondition' {} a -> s {hostHeaderConfig = a} :: RuleCondition)
 
--- | Information for a query string condition. Specify only when @Field@ is @query-string@ .
-rcQueryStringConfig :: Lens' RuleCondition (Maybe QueryStringConditionConfig)
-rcQueryStringConfig = lens _rcQueryStringConfig (\s a -> s {_rcQueryStringConfig = a})
+-- | Information for a query string condition. Specify only when @Field@ is
+-- @query-string@.
+ruleCondition_queryStringConfig :: Lens.Lens' RuleCondition (Prelude.Maybe QueryStringConditionConfig)
+ruleCondition_queryStringConfig = Lens.lens (\RuleCondition' {queryStringConfig} -> queryStringConfig) (\s@RuleCondition' {} a -> s {queryStringConfig = a} :: RuleCondition)
 
--- | The field in the HTTP request. The following are the possible values:     * @http-header@      * @http-request-method@      * @host-header@      * @path-pattern@      * @query-string@      * @source-ip@
-rcField :: Lens' RuleCondition (Maybe Text)
-rcField = lens _rcField (\s a -> s {_rcField = a})
+-- | The field in the HTTP request. The following are the possible values:
+--
+-- -   @http-header@
+--
+-- -   @http-request-method@
+--
+-- -   @host-header@
+--
+-- -   @path-pattern@
+--
+-- -   @query-string@
+--
+-- -   @source-ip@
+ruleCondition_field :: Lens.Lens' RuleCondition (Prelude.Maybe Prelude.Text)
+ruleCondition_field = Lens.lens (\RuleCondition' {field} -> field) (\s@RuleCondition' {} a -> s {field = a} :: RuleCondition)
 
-instance FromXML RuleCondition where
+instance Prelude.FromXML RuleCondition where
   parseXML x =
     RuleCondition'
-      <$> (x .@? "PathPatternConfig")
-      <*> (x .@? "HttpRequestMethodConfig")
-      <*> ( x .@? "Values" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "SourceIpConfig")
-      <*> (x .@? "HttpHeaderConfig")
-      <*> (x .@? "HostHeaderConfig")
-      <*> (x .@? "QueryStringConfig")
-      <*> (x .@? "Field")
+      Prelude.<$> (x Prelude..@? "PathPatternConfig")
+      Prelude.<*> (x Prelude..@? "HttpRequestMethodConfig")
+      Prelude.<*> ( x Prelude..@? "Values" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "SourceIpConfig")
+      Prelude.<*> (x Prelude..@? "HttpHeaderConfig")
+      Prelude.<*> (x Prelude..@? "HostHeaderConfig")
+      Prelude.<*> (x Prelude..@? "QueryStringConfig")
+      Prelude.<*> (x Prelude..@? "Field")
 
-instance Hashable RuleCondition
+instance Prelude.Hashable RuleCondition
 
-instance NFData RuleCondition
+instance Prelude.NFData RuleCondition
 
-instance ToQuery RuleCondition where
+instance Prelude.ToQuery RuleCondition where
   toQuery RuleCondition' {..} =
-    mconcat
-      [ "PathPatternConfig" =: _rcPathPatternConfig,
+    Prelude.mconcat
+      [ "PathPatternConfig" Prelude.=: pathPatternConfig,
         "HttpRequestMethodConfig"
-          =: _rcHTTPRequestMethodConfig,
+          Prelude.=: httpRequestMethodConfig,
         "Values"
-          =: toQuery (toQueryList "member" <$> _rcValues),
-        "SourceIpConfig" =: _rcSourceIPConfig,
-        "HttpHeaderConfig" =: _rcHTTPHeaderConfig,
-        "HostHeaderConfig" =: _rcHostHeaderConfig,
-        "QueryStringConfig" =: _rcQueryStringConfig,
-        "Field" =: _rcField
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> values),
+        "SourceIpConfig" Prelude.=: sourceIpConfig,
+        "HttpHeaderConfig" Prelude.=: httpHeaderConfig,
+        "HostHeaderConfig" Prelude.=: hostHeaderConfig,
+        "QueryStringConfig" Prelude.=: queryStringConfig,
+        "Field" Prelude.=: field
       ]

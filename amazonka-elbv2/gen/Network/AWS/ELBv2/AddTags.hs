@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,132 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds the specified tags to the specified Elastic Load Balancing resource. You can tag your Application Load Balancers, Network Load Balancers, Gateway Load Balancers, target groups, listeners, and rules.
+-- Adds the specified tags to the specified Elastic Load Balancing
+-- resource. You can tag your Application Load Balancers, Network Load
+-- Balancers, Gateway Load Balancers, target groups, listeners, and rules.
 --
---
--- Each tag consists of a key and an optional value. If a resource already has a tag with the same key, @AddTags@ updates its value.
+-- Each tag consists of a key and an optional value. If a resource already
+-- has a tag with the same key, @AddTags@ updates its value.
 module Network.AWS.ELBv2.AddTags
   ( -- * Creating a Request
-    addTags,
-    AddTags,
+    AddTags (..),
+    newAddTags,
 
     -- * Request Lenses
-    atResourceARNs,
-    atTags,
+    addTags_resourceArns,
+    addTags_tags,
 
     -- * Destructuring the Response
-    addTagsResponse,
-    AddTagsResponse,
+    AddTagsResponse (..),
+    newAddTagsResponse,
 
     -- * Response Lenses
-    atrrsResponseStatus,
+    addTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELBv2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addTags' smart constructor.
+-- | /See:/ 'newAddTags' smart constructor.
 data AddTags = AddTags'
-  { _atResourceARNs :: ![Text],
-    _atTags :: !(List1 Tag)
+  { -- | The Amazon Resource Name (ARN) of the resource.
+    resourceArns :: [Prelude.Text],
+    -- | The tags.
+    tags :: Prelude.List1 Tag
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atResourceARNs' - The Amazon Resource Name (ARN) of the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atTags' - The tags.
-addTags ::
-  -- | 'atTags'
-  NonEmpty Tag ->
+-- 'resourceArns', 'addTags_resourceArns' - The Amazon Resource Name (ARN) of the resource.
+--
+-- 'tags', 'addTags_tags' - The tags.
+newAddTags ::
+  -- | 'tags'
+  Prelude.NonEmpty Tag ->
   AddTags
-addTags pTags_ =
+newAddTags pTags_ =
   AddTags'
-    { _atResourceARNs = mempty,
-      _atTags = _List1 # pTags_
+    { resourceArns = Prelude.mempty,
+      tags = Prelude._List1 Lens.# pTags_
     }
 
 -- | The Amazon Resource Name (ARN) of the resource.
-atResourceARNs :: Lens' AddTags [Text]
-atResourceARNs = lens _atResourceARNs (\s a -> s {_atResourceARNs = a}) . _Coerce
+addTags_resourceArns :: Lens.Lens' AddTags [Prelude.Text]
+addTags_resourceArns = Lens.lens (\AddTags' {resourceArns} -> resourceArns) (\s@AddTags' {} a -> s {resourceArns = a} :: AddTags) Prelude.. Prelude._Coerce
 
 -- | The tags.
-atTags :: Lens' AddTags (NonEmpty Tag)
-atTags = lens _atTags (\s a -> s {_atTags = a}) . _List1
+addTags_tags :: Lens.Lens' AddTags (Prelude.NonEmpty Tag)
+addTags_tags = Lens.lens (\AddTags' {tags} -> tags) (\s@AddTags' {} a -> s {tags = a} :: AddTags) Prelude.. Prelude._List1
 
-instance AWSRequest AddTags where
+instance Prelude.AWSRequest AddTags where
   type Rs AddTags = AddTagsResponse
-  request = postQuery eLBv2
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "AddTagsResult"
-      (\s h x -> AddTagsResponse' <$> (pure (fromEnum s)))
+      ( \s h x ->
+          AddTagsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+      )
 
-instance Hashable AddTags
+instance Prelude.Hashable AddTags
 
-instance NFData AddTags
+instance Prelude.NFData AddTags
 
-instance ToHeaders AddTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AddTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AddTags where
-  toPath = const "/"
+instance Prelude.ToPath AddTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddTags where
+instance Prelude.ToQuery AddTags where
   toQuery AddTags' {..} =
-    mconcat
-      [ "Action" =: ("AddTags" :: ByteString),
-        "Version" =: ("2015-12-01" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("AddTags" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-12-01" :: Prelude.ByteString),
         "ResourceArns"
-          =: toQueryList "member" _atResourceARNs,
-        "Tags" =: toQueryList "member" _atTags
+          Prelude.=: Prelude.toQueryList "member" resourceArns,
+        "Tags" Prelude.=: Prelude.toQueryList "member" tags
       ]
 
--- | /See:/ 'addTagsResponse' smart constructor.
-newtype AddTagsResponse = AddTagsResponse'
-  { _atrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAddTagsResponse' smart constructor.
+data AddTagsResponse = AddTagsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atrrsResponseStatus' - -- | The response status code.
-addTagsResponse ::
-  -- | 'atrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addTagsResponse_httpStatus' - The response's http status code.
+newAddTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddTagsResponse
-addTagsResponse pResponseStatus_ =
-  AddTagsResponse'
-    { _atrrsResponseStatus =
-        pResponseStatus_
-    }
+newAddTagsResponse pHttpStatus_ =
+  AddTagsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-atrrsResponseStatus :: Lens' AddTagsResponse Int
-atrrsResponseStatus = lens _atrrsResponseStatus (\s a -> s {_atrrsResponseStatus = a})
+-- | The response's http status code.
+addTagsResponse_httpStatus :: Lens.Lens' AddTagsResponse Prelude.Int
+addTagsResponse_httpStatus = Lens.lens (\AddTagsResponse' {httpStatus} -> httpStatus) (\s@AddTagsResponse' {} a -> s {httpStatus = a} :: AddTagsResponse)
 
-instance NFData AddTagsResponse
+instance Prelude.NFData AddTagsResponse

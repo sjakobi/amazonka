@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.ELBv2" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.ELBv2.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.ELBv2" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,8 +37,8 @@ source-repository head
   subdir:   amazonka-elbv2
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
@@ -69,6 +67,7 @@ library
     Network.AWS.ELBv2.DescribeTargetGroupAttributes
     Network.AWS.ELBv2.DescribeTargetGroups
     Network.AWS.ELBv2.DescribeTargetHealth
+    Network.AWS.ELBv2.Lens
     Network.AWS.ELBv2.ModifyListener
     Network.AWS.ELBv2.ModifyLoadBalancerAttributes
     Network.AWS.ELBv2.ModifyRule
@@ -77,14 +76,11 @@ library
     Network.AWS.ELBv2.RegisterTargets
     Network.AWS.ELBv2.RemoveListenerCertificates
     Network.AWS.ELBv2.RemoveTags
-    Network.AWS.ELBv2.SetIPAddressType
+    Network.AWS.ELBv2.SetIpAddressType
     Network.AWS.ELBv2.SetRulePriorities
     Network.AWS.ELBv2.SetSecurityGroups
     Network.AWS.ELBv2.SetSubnets
     Network.AWS.ELBv2.Types
-    Network.AWS.ELBv2.Waiters
-
-  other-modules:
     Network.AWS.ELBv2.Types.Action
     Network.AWS.ELBv2.Types.ActionTypeEnum
     Network.AWS.ELBv2.Types.AuthenticateCognitoActionConditionalBehaviorEnum
@@ -97,9 +93,9 @@ library
     Network.AWS.ELBv2.Types.FixedResponseActionConfig
     Network.AWS.ELBv2.Types.ForwardActionConfig
     Network.AWS.ELBv2.Types.HostHeaderConditionConfig
-    Network.AWS.ELBv2.Types.HTTPHeaderConditionConfig
-    Network.AWS.ELBv2.Types.HTTPRequestMethodConditionConfig
-    Network.AWS.ELBv2.Types.IPAddressType
+    Network.AWS.ELBv2.Types.HttpHeaderConditionConfig
+    Network.AWS.ELBv2.Types.HttpRequestMethodConditionConfig
+    Network.AWS.ELBv2.Types.IpAddressType
     Network.AWS.ELBv2.Types.Limit
     Network.AWS.ELBv2.Types.Listener
     Network.AWS.ELBv2.Types.LoadBalancer
@@ -119,8 +115,8 @@ library
     Network.AWS.ELBv2.Types.Rule
     Network.AWS.ELBv2.Types.RuleCondition
     Network.AWS.ELBv2.Types.RulePriorityPair
-    Network.AWS.ELBv2.Types.SourceIPConditionConfig
-    Network.AWS.ELBv2.Types.SSLPolicy
+    Network.AWS.ELBv2.Types.SourceIpConditionConfig
+    Network.AWS.ELBv2.Types.SslPolicy
     Network.AWS.ELBv2.Types.SubnetMapping
     Network.AWS.ELBv2.Types.Tag
     Network.AWS.ELBv2.Types.TagDescription
@@ -134,11 +130,12 @@ library
     Network.AWS.ELBv2.Types.TargetHealthReasonEnum
     Network.AWS.ELBv2.Types.TargetHealthStateEnum
     Network.AWS.ELBv2.Types.TargetTypeEnum
+    Network.AWS.ELBv2.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-elbv2-test
   type:             exitcode-stdio-1.0

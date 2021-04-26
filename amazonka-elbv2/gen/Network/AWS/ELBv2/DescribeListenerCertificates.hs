@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,193 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the default certificate and the certificate list for the specified HTTPS or TLS listener.
+-- Describes the default certificate and the certificate list for the
+-- specified HTTPS or TLS listener.
 --
+-- If the default certificate is also in the certificate list, it appears
+-- twice in the results (once with @IsDefault@ set to true and once with
+-- @IsDefault@ set to false).
 --
--- If the default certificate is also in the certificate list, it appears twice in the results (once with @IsDefault@ set to true and once with @IsDefault@ set to false).
---
--- For more information, see <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#https-listener-certificates SSL certificates> in the /Application Load Balancers Guide/ or <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#tls-listener-certificate Server certificates> in the /Network Load Balancers Guide/ .
---
+-- For more information, see
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#https-listener-certificates SSL certificates>
+-- in the /Application Load Balancers Guide/ or
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#tls-listener-certificate Server certificates>
+-- in the /Network Load Balancers Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.ELBv2.DescribeListenerCertificates
   ( -- * Creating a Request
-    describeListenerCertificates,
-    DescribeListenerCertificates,
+    DescribeListenerCertificates (..),
+    newDescribeListenerCertificates,
 
     -- * Request Lenses
-    dlcPageSize,
-    dlcMarker,
-    dlcListenerARN,
+    describeListenerCertificates_pageSize,
+    describeListenerCertificates_marker,
+    describeListenerCertificates_listenerArn,
 
     -- * Destructuring the Response
-    describeListenerCertificatesResponse,
-    DescribeListenerCertificatesResponse,
+    DescribeListenerCertificatesResponse (..),
+    newDescribeListenerCertificatesResponse,
 
     -- * Response Lenses
-    dlcrrsNextMarker,
-    dlcrrsCertificates,
-    dlcrrsResponseStatus,
+    describeListenerCertificatesResponse_nextMarker,
+    describeListenerCertificatesResponse_certificates,
+    describeListenerCertificatesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELBv2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ELBv2.Types.Certificate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeListenerCertificates' smart constructor.
+-- | /See:/ 'newDescribeListenerCertificates' smart constructor.
 data DescribeListenerCertificates = DescribeListenerCertificates'
-  { _dlcPageSize ::
-      !(Maybe Nat),
-    _dlcMarker ::
-      !(Maybe Text),
-    _dlcListenerARN ::
-      !Text
+  { -- | The maximum number of results to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The marker for the next set of results. (You received this marker from a
+    -- previous call.)
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Names (ARN) of the listener.
+    listenerArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeListenerCertificates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeListenerCertificates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlcPageSize' - The maximum number of results to return with this call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlcMarker' - The marker for the next set of results. (You received this marker from a previous call.)
+-- 'pageSize', 'describeListenerCertificates_pageSize' - The maximum number of results to return with this call.
 --
--- * 'dlcListenerARN' - The Amazon Resource Names (ARN) of the listener.
-describeListenerCertificates ::
-  -- | 'dlcListenerARN'
-  Text ->
+-- 'marker', 'describeListenerCertificates_marker' - The marker for the next set of results. (You received this marker from a
+-- previous call.)
+--
+-- 'listenerArn', 'describeListenerCertificates_listenerArn' - The Amazon Resource Names (ARN) of the listener.
+newDescribeListenerCertificates ::
+  -- | 'listenerArn'
+  Prelude.Text ->
   DescribeListenerCertificates
-describeListenerCertificates pListenerARN_ =
+newDescribeListenerCertificates pListenerArn_ =
   DescribeListenerCertificates'
-    { _dlcPageSize =
-        Nothing,
-      _dlcMarker = Nothing,
-      _dlcListenerARN = pListenerARN_
+    { pageSize =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      listenerArn = pListenerArn_
     }
 
 -- | The maximum number of results to return with this call.
-dlcPageSize :: Lens' DescribeListenerCertificates (Maybe Natural)
-dlcPageSize = lens _dlcPageSize (\s a -> s {_dlcPageSize = a}) . mapping _Nat
+describeListenerCertificates_pageSize :: Lens.Lens' DescribeListenerCertificates (Prelude.Maybe Prelude.Natural)
+describeListenerCertificates_pageSize = Lens.lens (\DescribeListenerCertificates' {pageSize} -> pageSize) (\s@DescribeListenerCertificates' {} a -> s {pageSize = a} :: DescribeListenerCertificates) Prelude.. Lens.mapping Prelude._Nat
 
--- | The marker for the next set of results. (You received this marker from a previous call.)
-dlcMarker :: Lens' DescribeListenerCertificates (Maybe Text)
-dlcMarker = lens _dlcMarker (\s a -> s {_dlcMarker = a})
+-- | The marker for the next set of results. (You received this marker from a
+-- previous call.)
+describeListenerCertificates_marker :: Lens.Lens' DescribeListenerCertificates (Prelude.Maybe Prelude.Text)
+describeListenerCertificates_marker = Lens.lens (\DescribeListenerCertificates' {marker} -> marker) (\s@DescribeListenerCertificates' {} a -> s {marker = a} :: DescribeListenerCertificates)
 
 -- | The Amazon Resource Names (ARN) of the listener.
-dlcListenerARN :: Lens' DescribeListenerCertificates Text
-dlcListenerARN = lens _dlcListenerARN (\s a -> s {_dlcListenerARN = a})
+describeListenerCertificates_listenerArn :: Lens.Lens' DescribeListenerCertificates Prelude.Text
+describeListenerCertificates_listenerArn = Lens.lens (\DescribeListenerCertificates' {listenerArn} -> listenerArn) (\s@DescribeListenerCertificates' {} a -> s {listenerArn = a} :: DescribeListenerCertificates)
 
-instance AWSPager DescribeListenerCertificates where
+instance Pager.AWSPager DescribeListenerCertificates where
   page rq rs
-    | stop (rs ^. dlcrrsNextMarker) = Nothing
-    | stop (rs ^. dlcrrsCertificates) = Nothing
-    | otherwise =
-      Just $ rq & dlcMarker .~ rs ^. dlcrrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeListenerCertificatesResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeListenerCertificatesResponse_certificates
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeListenerCertificates_marker
+          Lens..~ rs
+          Lens.^? describeListenerCertificatesResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeListenerCertificates where
+instance
+  Prelude.AWSRequest
+    DescribeListenerCertificates
+  where
   type
     Rs DescribeListenerCertificates =
       DescribeListenerCertificatesResponse
-  request = postQuery eLBv2
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeListenerCertificatesResult"
       ( \s h x ->
           DescribeListenerCertificatesResponse'
-            <$> (x .@? "NextMarker")
-            <*> ( x .@? "Certificates" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextMarker")
+            Prelude.<*> ( x Prelude..@? "Certificates"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeListenerCertificates
+instance
+  Prelude.Hashable
+    DescribeListenerCertificates
 
-instance NFData DescribeListenerCertificates
+instance Prelude.NFData DescribeListenerCertificates
 
-instance ToHeaders DescribeListenerCertificates where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeListenerCertificates
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeListenerCertificates where
-  toPath = const "/"
+instance Prelude.ToPath DescribeListenerCertificates where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeListenerCertificates where
+instance Prelude.ToQuery DescribeListenerCertificates where
   toQuery DescribeListenerCertificates' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeListenerCertificates" :: ByteString),
-        "Version" =: ("2015-12-01" :: ByteString),
-        "PageSize" =: _dlcPageSize,
-        "Marker" =: _dlcMarker,
-        "ListenerArn" =: _dlcListenerARN
+          Prelude.=: ( "DescribeListenerCertificates" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2015-12-01" :: Prelude.ByteString),
+        "PageSize" Prelude.=: pageSize,
+        "Marker" Prelude.=: marker,
+        "ListenerArn" Prelude.=: listenerArn
       ]
 
--- | /See:/ 'describeListenerCertificatesResponse' smart constructor.
+-- | /See:/ 'newDescribeListenerCertificatesResponse' smart constructor.
 data DescribeListenerCertificatesResponse = DescribeListenerCertificatesResponse'
-  { _dlcrrsNextMarker ::
-      !( Maybe
-           Text
-       ),
-    _dlcrrsCertificates ::
-      !( Maybe
-           [Certificate]
-       ),
-    _dlcrrsResponseStatus ::
-      !Int
+  { -- | If there are additional results, this is the marker for the next set of
+    -- results. Otherwise, this is null.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | Information about the certificates.
+    certificates :: Prelude.Maybe [Certificate],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeListenerCertificatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeListenerCertificatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlcrrsNextMarker' - If there are additional results, this is the marker for the next set of results. Otherwise, this is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlcrrsCertificates' - Information about the certificates.
+-- 'nextMarker', 'describeListenerCertificatesResponse_nextMarker' - If there are additional results, this is the marker for the next set of
+-- results. Otherwise, this is null.
 --
--- * 'dlcrrsResponseStatus' - -- | The response status code.
-describeListenerCertificatesResponse ::
-  -- | 'dlcrrsResponseStatus'
-  Int ->
+-- 'certificates', 'describeListenerCertificatesResponse_certificates' - Information about the certificates.
+--
+-- 'httpStatus', 'describeListenerCertificatesResponse_httpStatus' - The response's http status code.
+newDescribeListenerCertificatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeListenerCertificatesResponse
-describeListenerCertificatesResponse pResponseStatus_ =
+newDescribeListenerCertificatesResponse pHttpStatus_ =
   DescribeListenerCertificatesResponse'
-    { _dlcrrsNextMarker =
-        Nothing,
-      _dlcrrsCertificates = Nothing,
-      _dlcrrsResponseStatus =
-        pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      certificates = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are additional results, this is the marker for the next set of results. Otherwise, this is null.
-dlcrrsNextMarker :: Lens' DescribeListenerCertificatesResponse (Maybe Text)
-dlcrrsNextMarker = lens _dlcrrsNextMarker (\s a -> s {_dlcrrsNextMarker = a})
+-- | If there are additional results, this is the marker for the next set of
+-- results. Otherwise, this is null.
+describeListenerCertificatesResponse_nextMarker :: Lens.Lens' DescribeListenerCertificatesResponse (Prelude.Maybe Prelude.Text)
+describeListenerCertificatesResponse_nextMarker = Lens.lens (\DescribeListenerCertificatesResponse' {nextMarker} -> nextMarker) (\s@DescribeListenerCertificatesResponse' {} a -> s {nextMarker = a} :: DescribeListenerCertificatesResponse)
 
 -- | Information about the certificates.
-dlcrrsCertificates :: Lens' DescribeListenerCertificatesResponse [Certificate]
-dlcrrsCertificates = lens _dlcrrsCertificates (\s a -> s {_dlcrrsCertificates = a}) . _Default . _Coerce
+describeListenerCertificatesResponse_certificates :: Lens.Lens' DescribeListenerCertificatesResponse (Prelude.Maybe [Certificate])
+describeListenerCertificatesResponse_certificates = Lens.lens (\DescribeListenerCertificatesResponse' {certificates} -> certificates) (\s@DescribeListenerCertificatesResponse' {} a -> s {certificates = a} :: DescribeListenerCertificatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dlcrrsResponseStatus :: Lens' DescribeListenerCertificatesResponse Int
-dlcrrsResponseStatus = lens _dlcrrsResponseStatus (\s a -> s {_dlcrrsResponseStatus = a})
+-- | The response's http status code.
+describeListenerCertificatesResponse_httpStatus :: Lens.Lens' DescribeListenerCertificatesResponse Prelude.Int
+describeListenerCertificatesResponse_httpStatus = Lens.lens (\DescribeListenerCertificatesResponse' {httpStatus} -> httpStatus) (\s@DescribeListenerCertificatesResponse' {} a -> s {httpStatus = a} :: DescribeListenerCertificatesResponse)
 
-instance NFData DescribeListenerCertificatesResponse
+instance
+  Prelude.NFData
+    DescribeListenerCertificatesResponse

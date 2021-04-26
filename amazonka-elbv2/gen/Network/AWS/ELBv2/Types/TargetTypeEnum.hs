@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ELBv2.Types.TargetTypeEnum
   ( TargetTypeEnum
       ( ..,
-        IP,
-        Instance,
-        Lambda
+        TargetTypeEnumIP,
+        TargetTypeEnumInstance,
+        TargetTypeEnumLambda
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetTypeEnum = TargetTypeEnum' (CI Text)
+newtype TargetTypeEnum = TargetTypeEnum'
+  { fromTargetTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IP :: TargetTypeEnum
-pattern IP = TargetTypeEnum' "ip"
+pattern TargetTypeEnumIP :: TargetTypeEnum
+pattern TargetTypeEnumIP = TargetTypeEnum' "ip"
 
-pattern Instance :: TargetTypeEnum
-pattern Instance = TargetTypeEnum' "instance"
+pattern TargetTypeEnumInstance :: TargetTypeEnum
+pattern TargetTypeEnumInstance = TargetTypeEnum' "instance"
 
-pattern Lambda :: TargetTypeEnum
-pattern Lambda = TargetTypeEnum' "lambda"
+pattern TargetTypeEnumLambda :: TargetTypeEnum
+pattern TargetTypeEnumLambda = TargetTypeEnum' "lambda"
 
 {-# COMPLETE
-  IP,
-  Instance,
-  Lambda,
+  TargetTypeEnumIP,
+  TargetTypeEnumInstance,
+  TargetTypeEnumLambda,
   TargetTypeEnum'
   #-}
 
-instance FromText TargetTypeEnum where
-  parser = (TargetTypeEnum' . mk) <$> takeText
+instance Prelude.FromText TargetTypeEnum where
+  parser = TargetTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText TargetTypeEnum where
-  toText (TargetTypeEnum' ci) = original ci
+instance Prelude.ToText TargetTypeEnum where
+  toText (TargetTypeEnum' x) = x
 
-instance Hashable TargetTypeEnum
+instance Prelude.Hashable TargetTypeEnum
 
-instance NFData TargetTypeEnum
+instance Prelude.NFData TargetTypeEnum
 
-instance ToByteString TargetTypeEnum
+instance Prelude.ToByteString TargetTypeEnum
 
-instance ToQuery TargetTypeEnum
+instance Prelude.ToQuery TargetTypeEnum
 
-instance ToHeader TargetTypeEnum
+instance Prelude.ToHeader TargetTypeEnum
 
-instance FromXML TargetTypeEnum where
-  parseXML = parseXMLText "TargetTypeEnum"
+instance Prelude.FromXML TargetTypeEnum where
+  parseXML = Prelude.parseXMLText "TargetTypeEnum"

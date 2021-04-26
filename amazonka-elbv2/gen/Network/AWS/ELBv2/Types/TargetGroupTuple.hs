@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.TargetGroupTuple where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about how traffic will be distributed between multiple target groups in a forward rule.
+-- | Information about how traffic will be distributed between multiple
+-- target groups in a forward rule.
 --
---
---
--- /See:/ 'targetGroupTuple' smart constructor.
+-- /See:/ 'newTargetGroupTuple' smart constructor.
 data TargetGroupTuple = TargetGroupTuple'
-  { _tgtTargetGroupARN ::
-      !(Maybe Text),
-    _tgtWeight :: !(Maybe Int)
+  { -- | The Amazon Resource Name (ARN) of the target group.
+    targetGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The weight. The range is 0 to 999.
+    weight :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetGroupTuple' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetGroupTuple' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgtTargetGroupARN' - The Amazon Resource Name (ARN) of the target group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgtWeight' - The weight. The range is 0 to 999.
-targetGroupTuple ::
+-- 'targetGroupArn', 'targetGroupTuple_targetGroupArn' - The Amazon Resource Name (ARN) of the target group.
+--
+-- 'weight', 'targetGroupTuple_weight' - The weight. The range is 0 to 999.
+newTargetGroupTuple ::
   TargetGroupTuple
-targetGroupTuple =
+newTargetGroupTuple =
   TargetGroupTuple'
-    { _tgtTargetGroupARN = Nothing,
-      _tgtWeight = Nothing
+    { targetGroupArn = Prelude.Nothing,
+      weight = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the target group.
-tgtTargetGroupARN :: Lens' TargetGroupTuple (Maybe Text)
-tgtTargetGroupARN = lens _tgtTargetGroupARN (\s a -> s {_tgtTargetGroupARN = a})
+targetGroupTuple_targetGroupArn :: Lens.Lens' TargetGroupTuple (Prelude.Maybe Prelude.Text)
+targetGroupTuple_targetGroupArn = Lens.lens (\TargetGroupTuple' {targetGroupArn} -> targetGroupArn) (\s@TargetGroupTuple' {} a -> s {targetGroupArn = a} :: TargetGroupTuple)
 
 -- | The weight. The range is 0 to 999.
-tgtWeight :: Lens' TargetGroupTuple (Maybe Int)
-tgtWeight = lens _tgtWeight (\s a -> s {_tgtWeight = a})
+targetGroupTuple_weight :: Lens.Lens' TargetGroupTuple (Prelude.Maybe Prelude.Int)
+targetGroupTuple_weight = Lens.lens (\TargetGroupTuple' {weight} -> weight) (\s@TargetGroupTuple' {} a -> s {weight = a} :: TargetGroupTuple)
 
-instance FromXML TargetGroupTuple where
+instance Prelude.FromXML TargetGroupTuple where
   parseXML x =
     TargetGroupTuple'
-      <$> (x .@? "TargetGroupArn") <*> (x .@? "Weight")
+      Prelude.<$> (x Prelude..@? "TargetGroupArn")
+      Prelude.<*> (x Prelude..@? "Weight")
 
-instance Hashable TargetGroupTuple
+instance Prelude.Hashable TargetGroupTuple
 
-instance NFData TargetGroupTuple
+instance Prelude.NFData TargetGroupTuple
 
-instance ToQuery TargetGroupTuple where
+instance Prelude.ToQuery TargetGroupTuple where
   toQuery TargetGroupTuple' {..} =
-    mconcat
-      [ "TargetGroupArn" =: _tgtTargetGroupARN,
-        "Weight" =: _tgtWeight
+    Prelude.mconcat
+      [ "TargetGroupArn" Prelude.=: targetGroupArn,
+        "Weight" Prelude.=: weight
       ]

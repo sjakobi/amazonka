@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.SubnetMapping where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a subnet mapping.
 --
---
---
--- /See:/ 'subnetMapping' smart constructor.
+-- /See:/ 'newSubnetMapping' smart constructor.
 data SubnetMapping = SubnetMapping'
-  { _smPrivateIPv4Address ::
-      !(Maybe Text),
-    _smIPv6Address :: !(Maybe Text),
-    _smSubnetId :: !(Maybe Text),
-    _smAllocationId :: !(Maybe Text)
+  { -- | [Network Load Balancers] The private IPv4 address for an internal load
+    -- balancer.
+    privateIPv4Address :: Prelude.Maybe Prelude.Text,
+    -- | [Network Load Balancers] The IPv6 address.
+    iPv6Address :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the subnet.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | [Network Load Balancers] The allocation ID of the Elastic IP address for
+    -- an internet-facing load balancer.
+    allocationId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubnetMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubnetMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smPrivateIPv4Address' - [Network Load Balancers] The private IPv4 address for an internal load balancer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smIPv6Address' - [Network Load Balancers] The IPv6 address.
+-- 'privateIPv4Address', 'subnetMapping_privateIPv4Address' - [Network Load Balancers] The private IPv4 address for an internal load
+-- balancer.
 --
--- * 'smSubnetId' - The ID of the subnet.
+-- 'iPv6Address', 'subnetMapping_iPv6Address' - [Network Load Balancers] The IPv6 address.
 --
--- * 'smAllocationId' - [Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load balancer.
-subnetMapping ::
+-- 'subnetId', 'subnetMapping_subnetId' - The ID of the subnet.
+--
+-- 'allocationId', 'subnetMapping_allocationId' - [Network Load Balancers] The allocation ID of the Elastic IP address for
+-- an internet-facing load balancer.
+newSubnetMapping ::
   SubnetMapping
-subnetMapping =
+newSubnetMapping =
   SubnetMapping'
-    { _smPrivateIPv4Address = Nothing,
-      _smIPv6Address = Nothing,
-      _smSubnetId = Nothing,
-      _smAllocationId = Nothing
+    { privateIPv4Address =
+        Prelude.Nothing,
+      iPv6Address = Prelude.Nothing,
+      subnetId = Prelude.Nothing,
+      allocationId = Prelude.Nothing
     }
 
--- | [Network Load Balancers] The private IPv4 address for an internal load balancer.
-smPrivateIPv4Address :: Lens' SubnetMapping (Maybe Text)
-smPrivateIPv4Address = lens _smPrivateIPv4Address (\s a -> s {_smPrivateIPv4Address = a})
+-- | [Network Load Balancers] The private IPv4 address for an internal load
+-- balancer.
+subnetMapping_privateIPv4Address :: Lens.Lens' SubnetMapping (Prelude.Maybe Prelude.Text)
+subnetMapping_privateIPv4Address = Lens.lens (\SubnetMapping' {privateIPv4Address} -> privateIPv4Address) (\s@SubnetMapping' {} a -> s {privateIPv4Address = a} :: SubnetMapping)
 
 -- | [Network Load Balancers] The IPv6 address.
-smIPv6Address :: Lens' SubnetMapping (Maybe Text)
-smIPv6Address = lens _smIPv6Address (\s a -> s {_smIPv6Address = a})
+subnetMapping_iPv6Address :: Lens.Lens' SubnetMapping (Prelude.Maybe Prelude.Text)
+subnetMapping_iPv6Address = Lens.lens (\SubnetMapping' {iPv6Address} -> iPv6Address) (\s@SubnetMapping' {} a -> s {iPv6Address = a} :: SubnetMapping)
 
 -- | The ID of the subnet.
-smSubnetId :: Lens' SubnetMapping (Maybe Text)
-smSubnetId = lens _smSubnetId (\s a -> s {_smSubnetId = a})
+subnetMapping_subnetId :: Lens.Lens' SubnetMapping (Prelude.Maybe Prelude.Text)
+subnetMapping_subnetId = Lens.lens (\SubnetMapping' {subnetId} -> subnetId) (\s@SubnetMapping' {} a -> s {subnetId = a} :: SubnetMapping)
 
--- | [Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load balancer.
-smAllocationId :: Lens' SubnetMapping (Maybe Text)
-smAllocationId = lens _smAllocationId (\s a -> s {_smAllocationId = a})
+-- | [Network Load Balancers] The allocation ID of the Elastic IP address for
+-- an internet-facing load balancer.
+subnetMapping_allocationId :: Lens.Lens' SubnetMapping (Prelude.Maybe Prelude.Text)
+subnetMapping_allocationId = Lens.lens (\SubnetMapping' {allocationId} -> allocationId) (\s@SubnetMapping' {} a -> s {allocationId = a} :: SubnetMapping)
 
-instance Hashable SubnetMapping
+instance Prelude.Hashable SubnetMapping
 
-instance NFData SubnetMapping
+instance Prelude.NFData SubnetMapping
 
-instance ToQuery SubnetMapping where
+instance Prelude.ToQuery SubnetMapping where
   toQuery SubnetMapping' {..} =
-    mconcat
-      [ "PrivateIPv4Address" =: _smPrivateIPv4Address,
-        "IPv6Address" =: _smIPv6Address,
-        "SubnetId" =: _smSubnetId,
-        "AllocationId" =: _smAllocationId
+    Prelude.mconcat
+      [ "PrivateIPv4Address" Prelude.=: privateIPv4Address,
+        "IPv6Address" Prelude.=: iPv6Address,
+        "SubnetId" Prelude.=: subnetId,
+        "AllocationId" Prelude.=: allocationId
       ]

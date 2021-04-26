@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.LoadBalancerAddress where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a static IP address for a load balancer.
 --
---
---
--- /See:/ 'loadBalancerAddress' smart constructor.
+-- /See:/ 'newLoadBalancerAddress' smart constructor.
 data LoadBalancerAddress = LoadBalancerAddress'
-  { _lbaPrivateIPv4Address ::
-      !(Maybe Text),
-    _lbaIPAddress :: !(Maybe Text),
-    _lbaIPv6Address ::
-      !(Maybe Text),
-    _lbaAllocationId ::
-      !(Maybe Text)
+  { -- | [Network Load Balancers] The private IPv4 address for an internal load
+    -- balancer.
+    privateIPv4Address :: Prelude.Maybe Prelude.Text,
+    -- | The static IP address.
+    ipAddress :: Prelude.Maybe Prelude.Text,
+    -- | [Network Load Balancers] The IPv6 address.
+    iPv6Address :: Prelude.Maybe Prelude.Text,
+    -- | [Network Load Balancers] The allocation ID of the Elastic IP address for
+    -- an internal-facing load balancer.
+    allocationId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoadBalancerAddress' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoadBalancerAddress' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbaPrivateIPv4Address' - [Network Load Balancers] The private IPv4 address for an internal load balancer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbaIPAddress' - The static IP address.
+-- 'privateIPv4Address', 'loadBalancerAddress_privateIPv4Address' - [Network Load Balancers] The private IPv4 address for an internal load
+-- balancer.
 --
--- * 'lbaIPv6Address' - [Network Load Balancers] The IPv6 address.
+-- 'ipAddress', 'loadBalancerAddress_ipAddress' - The static IP address.
 --
--- * 'lbaAllocationId' - [Network Load Balancers] The allocation ID of the Elastic IP address for an internal-facing load balancer.
-loadBalancerAddress ::
+-- 'iPv6Address', 'loadBalancerAddress_iPv6Address' - [Network Load Balancers] The IPv6 address.
+--
+-- 'allocationId', 'loadBalancerAddress_allocationId' - [Network Load Balancers] The allocation ID of the Elastic IP address for
+-- an internal-facing load balancer.
+newLoadBalancerAddress ::
   LoadBalancerAddress
-loadBalancerAddress =
+newLoadBalancerAddress =
   LoadBalancerAddress'
-    { _lbaPrivateIPv4Address =
-        Nothing,
-      _lbaIPAddress = Nothing,
-      _lbaIPv6Address = Nothing,
-      _lbaAllocationId = Nothing
+    { privateIPv4Address =
+        Prelude.Nothing,
+      ipAddress = Prelude.Nothing,
+      iPv6Address = Prelude.Nothing,
+      allocationId = Prelude.Nothing
     }
 
--- | [Network Load Balancers] The private IPv4 address for an internal load balancer.
-lbaPrivateIPv4Address :: Lens' LoadBalancerAddress (Maybe Text)
-lbaPrivateIPv4Address = lens _lbaPrivateIPv4Address (\s a -> s {_lbaPrivateIPv4Address = a})
+-- | [Network Load Balancers] The private IPv4 address for an internal load
+-- balancer.
+loadBalancerAddress_privateIPv4Address :: Lens.Lens' LoadBalancerAddress (Prelude.Maybe Prelude.Text)
+loadBalancerAddress_privateIPv4Address = Lens.lens (\LoadBalancerAddress' {privateIPv4Address} -> privateIPv4Address) (\s@LoadBalancerAddress' {} a -> s {privateIPv4Address = a} :: LoadBalancerAddress)
 
 -- | The static IP address.
-lbaIPAddress :: Lens' LoadBalancerAddress (Maybe Text)
-lbaIPAddress = lens _lbaIPAddress (\s a -> s {_lbaIPAddress = a})
+loadBalancerAddress_ipAddress :: Lens.Lens' LoadBalancerAddress (Prelude.Maybe Prelude.Text)
+loadBalancerAddress_ipAddress = Lens.lens (\LoadBalancerAddress' {ipAddress} -> ipAddress) (\s@LoadBalancerAddress' {} a -> s {ipAddress = a} :: LoadBalancerAddress)
 
 -- | [Network Load Balancers] The IPv6 address.
-lbaIPv6Address :: Lens' LoadBalancerAddress (Maybe Text)
-lbaIPv6Address = lens _lbaIPv6Address (\s a -> s {_lbaIPv6Address = a})
+loadBalancerAddress_iPv6Address :: Lens.Lens' LoadBalancerAddress (Prelude.Maybe Prelude.Text)
+loadBalancerAddress_iPv6Address = Lens.lens (\LoadBalancerAddress' {iPv6Address} -> iPv6Address) (\s@LoadBalancerAddress' {} a -> s {iPv6Address = a} :: LoadBalancerAddress)
 
--- | [Network Load Balancers] The allocation ID of the Elastic IP address for an internal-facing load balancer.
-lbaAllocationId :: Lens' LoadBalancerAddress (Maybe Text)
-lbaAllocationId = lens _lbaAllocationId (\s a -> s {_lbaAllocationId = a})
+-- | [Network Load Balancers] The allocation ID of the Elastic IP address for
+-- an internal-facing load balancer.
+loadBalancerAddress_allocationId :: Lens.Lens' LoadBalancerAddress (Prelude.Maybe Prelude.Text)
+loadBalancerAddress_allocationId = Lens.lens (\LoadBalancerAddress' {allocationId} -> allocationId) (\s@LoadBalancerAddress' {} a -> s {allocationId = a} :: LoadBalancerAddress)
 
-instance FromXML LoadBalancerAddress where
+instance Prelude.FromXML LoadBalancerAddress where
   parseXML x =
     LoadBalancerAddress'
-      <$> (x .@? "PrivateIPv4Address")
-      <*> (x .@? "IpAddress")
-      <*> (x .@? "IPv6Address")
-      <*> (x .@? "AllocationId")
+      Prelude.<$> (x Prelude..@? "PrivateIPv4Address")
+      Prelude.<*> (x Prelude..@? "IpAddress")
+      Prelude.<*> (x Prelude..@? "IPv6Address")
+      Prelude.<*> (x Prelude..@? "AllocationId")
 
-instance Hashable LoadBalancerAddress
+instance Prelude.Hashable LoadBalancerAddress
 
-instance NFData LoadBalancerAddress
+instance Prelude.NFData LoadBalancerAddress

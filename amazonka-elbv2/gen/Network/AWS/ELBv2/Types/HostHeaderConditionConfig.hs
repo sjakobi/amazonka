@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.HostHeaderConditionConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a host header condition.
 --
---
---
--- /See:/ 'hostHeaderConditionConfig' smart constructor.
-newtype HostHeaderConditionConfig = HostHeaderConditionConfig'
-  { _hhccValues ::
-      Maybe [Text]
+-- /See:/ 'newHostHeaderConditionConfig' smart constructor.
+data HostHeaderConditionConfig = HostHeaderConditionConfig'
+  { -- | One or more host names. The maximum size of each name is 128 characters.
+    -- The comparison is case insensitive. The following wildcard characters
+    -- are supported: * (matches 0 or more characters) and ? (matches exactly 1
+    -- character).
+    --
+    -- If you specify multiple strings, the condition is satisfied if one of
+    -- the strings matches the host name.
+    values :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HostHeaderConditionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HostHeaderConditionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hhccValues' - One or more host names. The maximum size of each name is 128 characters. The comparison is case insensitive. The following wildcard characters are supported: * (matches 0 or more characters) and ? (matches exactly 1 character). If you specify multiple strings, the condition is satisfied if one of the strings matches the host name.
-hostHeaderConditionConfig ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'values', 'hostHeaderConditionConfig_values' - One or more host names. The maximum size of each name is 128 characters.
+-- The comparison is case insensitive. The following wildcard characters
+-- are supported: * (matches 0 or more characters) and ? (matches exactly 1
+-- character).
+--
+-- If you specify multiple strings, the condition is satisfied if one of
+-- the strings matches the host name.
+newHostHeaderConditionConfig ::
   HostHeaderConditionConfig
-hostHeaderConditionConfig =
-  HostHeaderConditionConfig' {_hhccValues = Nothing}
+newHostHeaderConditionConfig =
+  HostHeaderConditionConfig'
+    { values =
+        Prelude.Nothing
+    }
 
--- | One or more host names. The maximum size of each name is 128 characters. The comparison is case insensitive. The following wildcard characters are supported: * (matches 0 or more characters) and ? (matches exactly 1 character). If you specify multiple strings, the condition is satisfied if one of the strings matches the host name.
-hhccValues :: Lens' HostHeaderConditionConfig [Text]
-hhccValues = lens _hhccValues (\s a -> s {_hhccValues = a}) . _Default . _Coerce
+-- | One or more host names. The maximum size of each name is 128 characters.
+-- The comparison is case insensitive. The following wildcard characters
+-- are supported: * (matches 0 or more characters) and ? (matches exactly 1
+-- character).
+--
+-- If you specify multiple strings, the condition is satisfied if one of
+-- the strings matches the host name.
+hostHeaderConditionConfig_values :: Lens.Lens' HostHeaderConditionConfig (Prelude.Maybe [Prelude.Text])
+hostHeaderConditionConfig_values = Lens.lens (\HostHeaderConditionConfig' {values} -> values) (\s@HostHeaderConditionConfig' {} a -> s {values = a} :: HostHeaderConditionConfig) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML HostHeaderConditionConfig where
+instance Prelude.FromXML HostHeaderConditionConfig where
   parseXML x =
     HostHeaderConditionConfig'
-      <$> ( x .@? "Values" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> ( x Prelude..@? "Values" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable HostHeaderConditionConfig
+instance Prelude.Hashable HostHeaderConditionConfig
 
-instance NFData HostHeaderConditionConfig
+instance Prelude.NFData HostHeaderConditionConfig
 
-instance ToQuery HostHeaderConditionConfig where
+instance Prelude.ToQuery HostHeaderConditionConfig where
   toQuery HostHeaderConditionConfig' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Values"
-          =: toQuery (toQueryList "member" <$> _hhccValues)
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> values)
       ]

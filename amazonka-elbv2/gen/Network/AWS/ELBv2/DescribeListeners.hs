@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,213 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified listeners or the listeners for the specified Application Load Balancer, Network Load Balancer, or Gateway Load Balancer. You must specify either a load balancer or one or more listeners.
---
---
+-- Describes the specified listeners or the listeners for the specified
+-- Application Load Balancer, Network Load Balancer, or Gateway Load
+-- Balancer. You must specify either a load balancer or one or more
+-- listeners.
 --
 -- This operation returns paginated results.
 module Network.AWS.ELBv2.DescribeListeners
   ( -- * Creating a Request
-    describeListeners,
-    DescribeListeners,
+    DescribeListeners (..),
+    newDescribeListeners,
 
     -- * Request Lenses
-    dlLoadBalancerARN,
-    dlPageSize,
-    dlListenerARNs,
-    dlMarker,
+    describeListeners_loadBalancerArn,
+    describeListeners_pageSize,
+    describeListeners_listenerArns,
+    describeListeners_marker,
 
     -- * Destructuring the Response
-    describeListenersResponse,
-    DescribeListenersResponse,
+    DescribeListenersResponse (..),
+    newDescribeListenersResponse,
 
     -- * Response Lenses
-    dlrrsNextMarker,
-    dlrrsListeners,
-    dlrrsResponseStatus,
+    describeListenersResponse_nextMarker,
+    describeListenersResponse_listeners,
+    describeListenersResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELBv2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ELBv2.Types.Listener
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeListeners' smart constructor.
+-- | /See:/ 'newDescribeListeners' smart constructor.
 data DescribeListeners = DescribeListeners'
-  { _dlLoadBalancerARN ::
-      !(Maybe Text),
-    _dlPageSize :: !(Maybe Nat),
-    _dlListenerARNs :: !(Maybe [Text]),
-    _dlMarker :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the load balancer.
+    loadBalancerArn :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Names (ARN) of the listeners.
+    listenerArns :: Prelude.Maybe [Prelude.Text],
+    -- | The marker for the next set of results. (You received this marker from a
+    -- previous call.)
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeListeners' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeListeners' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlLoadBalancerARN' - The Amazon Resource Name (ARN) of the load balancer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlPageSize' - The maximum number of results to return with this call.
+-- 'loadBalancerArn', 'describeListeners_loadBalancerArn' - The Amazon Resource Name (ARN) of the load balancer.
 --
--- * 'dlListenerARNs' - The Amazon Resource Names (ARN) of the listeners.
+-- 'pageSize', 'describeListeners_pageSize' - The maximum number of results to return with this call.
 --
--- * 'dlMarker' - The marker for the next set of results. (You received this marker from a previous call.)
-describeListeners ::
+-- 'listenerArns', 'describeListeners_listenerArns' - The Amazon Resource Names (ARN) of the listeners.
+--
+-- 'marker', 'describeListeners_marker' - The marker for the next set of results. (You received this marker from a
+-- previous call.)
+newDescribeListeners ::
   DescribeListeners
-describeListeners =
+newDescribeListeners =
   DescribeListeners'
-    { _dlLoadBalancerARN = Nothing,
-      _dlPageSize = Nothing,
-      _dlListenerARNs = Nothing,
-      _dlMarker = Nothing
+    { loadBalancerArn =
+        Prelude.Nothing,
+      pageSize = Prelude.Nothing,
+      listenerArns = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the load balancer.
-dlLoadBalancerARN :: Lens' DescribeListeners (Maybe Text)
-dlLoadBalancerARN = lens _dlLoadBalancerARN (\s a -> s {_dlLoadBalancerARN = a})
+describeListeners_loadBalancerArn :: Lens.Lens' DescribeListeners (Prelude.Maybe Prelude.Text)
+describeListeners_loadBalancerArn = Lens.lens (\DescribeListeners' {loadBalancerArn} -> loadBalancerArn) (\s@DescribeListeners' {} a -> s {loadBalancerArn = a} :: DescribeListeners)
 
 -- | The maximum number of results to return with this call.
-dlPageSize :: Lens' DescribeListeners (Maybe Natural)
-dlPageSize = lens _dlPageSize (\s a -> s {_dlPageSize = a}) . mapping _Nat
+describeListeners_pageSize :: Lens.Lens' DescribeListeners (Prelude.Maybe Prelude.Natural)
+describeListeners_pageSize = Lens.lens (\DescribeListeners' {pageSize} -> pageSize) (\s@DescribeListeners' {} a -> s {pageSize = a} :: DescribeListeners) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The Amazon Resource Names (ARN) of the listeners.
-dlListenerARNs :: Lens' DescribeListeners [Text]
-dlListenerARNs = lens _dlListenerARNs (\s a -> s {_dlListenerARNs = a}) . _Default . _Coerce
+describeListeners_listenerArns :: Lens.Lens' DescribeListeners (Prelude.Maybe [Prelude.Text])
+describeListeners_listenerArns = Lens.lens (\DescribeListeners' {listenerArns} -> listenerArns) (\s@DescribeListeners' {} a -> s {listenerArns = a} :: DescribeListeners) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The marker for the next set of results. (You received this marker from a previous call.)
-dlMarker :: Lens' DescribeListeners (Maybe Text)
-dlMarker = lens _dlMarker (\s a -> s {_dlMarker = a})
+-- | The marker for the next set of results. (You received this marker from a
+-- previous call.)
+describeListeners_marker :: Lens.Lens' DescribeListeners (Prelude.Maybe Prelude.Text)
+describeListeners_marker = Lens.lens (\DescribeListeners' {marker} -> marker) (\s@DescribeListeners' {} a -> s {marker = a} :: DescribeListeners)
 
-instance AWSPager DescribeListeners where
+instance Pager.AWSPager DescribeListeners where
   page rq rs
-    | stop (rs ^. dlrrsNextMarker) = Nothing
-    | stop (rs ^. dlrrsListeners) = Nothing
-    | otherwise =
-      Just $ rq & dlMarker .~ rs ^. dlrrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeListenersResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeListenersResponse_listeners
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeListeners_marker
+          Lens..~ rs
+          Lens.^? describeListenersResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeListeners where
+instance Prelude.AWSRequest DescribeListeners where
   type Rs DescribeListeners = DescribeListenersResponse
-  request = postQuery eLBv2
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeListenersResult"
       ( \s h x ->
           DescribeListenersResponse'
-            <$> (x .@? "NextMarker")
-            <*> ( x .@? "Listeners" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextMarker")
+            Prelude.<*> ( x Prelude..@? "Listeners" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeListeners
+instance Prelude.Hashable DescribeListeners
 
-instance NFData DescribeListeners
+instance Prelude.NFData DescribeListeners
 
-instance ToHeaders DescribeListeners where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeListeners where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeListeners where
-  toPath = const "/"
+instance Prelude.ToPath DescribeListeners where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeListeners where
+instance Prelude.ToQuery DescribeListeners where
   toQuery DescribeListeners' {..} =
-    mconcat
-      [ "Action" =: ("DescribeListeners" :: ByteString),
-        "Version" =: ("2015-12-01" :: ByteString),
-        "LoadBalancerArn" =: _dlLoadBalancerARN,
-        "PageSize" =: _dlPageSize,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeListeners" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-12-01" :: Prelude.ByteString),
+        "LoadBalancerArn" Prelude.=: loadBalancerArn,
+        "PageSize" Prelude.=: pageSize,
         "ListenerArns"
-          =: toQuery (toQueryList "member" <$> _dlListenerARNs),
-        "Marker" =: _dlMarker
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> listenerArns
+            ),
+        "Marker" Prelude.=: marker
       ]
 
--- | /See:/ 'describeListenersResponse' smart constructor.
+-- | /See:/ 'newDescribeListenersResponse' smart constructor.
 data DescribeListenersResponse = DescribeListenersResponse'
-  { _dlrrsNextMarker ::
-      !(Maybe Text),
-    _dlrrsListeners ::
-      !(Maybe [Listener]),
-    _dlrrsResponseStatus ::
-      !Int
+  { -- | If there are additional results, this is the marker for the next set of
+    -- results. Otherwise, this is null.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | Information about the listeners.
+    listeners :: Prelude.Maybe [Listener],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeListenersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeListenersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlrrsNextMarker' - If there are additional results, this is the marker for the next set of results. Otherwise, this is null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlrrsListeners' - Information about the listeners.
+-- 'nextMarker', 'describeListenersResponse_nextMarker' - If there are additional results, this is the marker for the next set of
+-- results. Otherwise, this is null.
 --
--- * 'dlrrsResponseStatus' - -- | The response status code.
-describeListenersResponse ::
-  -- | 'dlrrsResponseStatus'
-  Int ->
+-- 'listeners', 'describeListenersResponse_listeners' - Information about the listeners.
+--
+-- 'httpStatus', 'describeListenersResponse_httpStatus' - The response's http status code.
+newDescribeListenersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeListenersResponse
-describeListenersResponse pResponseStatus_ =
+newDescribeListenersResponse pHttpStatus_ =
   DescribeListenersResponse'
-    { _dlrrsNextMarker =
-        Nothing,
-      _dlrrsListeners = Nothing,
-      _dlrrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      listeners = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If there are additional results, this is the marker for the next set of results. Otherwise, this is null.
-dlrrsNextMarker :: Lens' DescribeListenersResponse (Maybe Text)
-dlrrsNextMarker = lens _dlrrsNextMarker (\s a -> s {_dlrrsNextMarker = a})
+-- | If there are additional results, this is the marker for the next set of
+-- results. Otherwise, this is null.
+describeListenersResponse_nextMarker :: Lens.Lens' DescribeListenersResponse (Prelude.Maybe Prelude.Text)
+describeListenersResponse_nextMarker = Lens.lens (\DescribeListenersResponse' {nextMarker} -> nextMarker) (\s@DescribeListenersResponse' {} a -> s {nextMarker = a} :: DescribeListenersResponse)
 
 -- | Information about the listeners.
-dlrrsListeners :: Lens' DescribeListenersResponse [Listener]
-dlrrsListeners = lens _dlrrsListeners (\s a -> s {_dlrrsListeners = a}) . _Default . _Coerce
+describeListenersResponse_listeners :: Lens.Lens' DescribeListenersResponse (Prelude.Maybe [Listener])
+describeListenersResponse_listeners = Lens.lens (\DescribeListenersResponse' {listeners} -> listeners) (\s@DescribeListenersResponse' {} a -> s {listeners = a} :: DescribeListenersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dlrrsResponseStatus :: Lens' DescribeListenersResponse Int
-dlrrsResponseStatus = lens _dlrrsResponseStatus (\s a -> s {_dlrrsResponseStatus = a})
+-- | The response's http status code.
+describeListenersResponse_httpStatus :: Lens.Lens' DescribeListenersResponse Prelude.Int
+describeListenersResponse_httpStatus = Lens.lens (\DescribeListenersResponse' {httpStatus} -> httpStatus) (\s@DescribeListenersResponse' {} a -> s {httpStatus = a} :: DescribeListenersResponse)
 
-instance NFData DescribeListenersResponse
+instance Prelude.NFData DescribeListenersResponse

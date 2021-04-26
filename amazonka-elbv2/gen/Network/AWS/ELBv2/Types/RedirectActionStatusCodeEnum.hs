@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ELBv2.Types.RedirectActionStatusCodeEnum
   ( RedirectActionStatusCodeEnum
       ( ..,
-        HTTP301,
-        HTTP302
+        RedirectActionStatusCodeEnumHTTP301,
+        RedirectActionStatusCodeEnumHTTP302
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RedirectActionStatusCodeEnum
-  = RedirectActionStatusCodeEnum'
-      ( CI
-          Text
-      )
+newtype RedirectActionStatusCodeEnum = RedirectActionStatusCodeEnum'
+  { fromRedirectActionStatusCodeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTTP301 :: RedirectActionStatusCodeEnum
-pattern HTTP301 = RedirectActionStatusCodeEnum' "HTTP_301"
+pattern RedirectActionStatusCodeEnumHTTP301 :: RedirectActionStatusCodeEnum
+pattern RedirectActionStatusCodeEnumHTTP301 = RedirectActionStatusCodeEnum' "HTTP_301"
 
-pattern HTTP302 :: RedirectActionStatusCodeEnum
-pattern HTTP302 = RedirectActionStatusCodeEnum' "HTTP_302"
+pattern RedirectActionStatusCodeEnumHTTP302 :: RedirectActionStatusCodeEnum
+pattern RedirectActionStatusCodeEnumHTTP302 = RedirectActionStatusCodeEnum' "HTTP_302"
 
 {-# COMPLETE
-  HTTP301,
-  HTTP302,
+  RedirectActionStatusCodeEnumHTTP301,
+  RedirectActionStatusCodeEnumHTTP302,
   RedirectActionStatusCodeEnum'
   #-}
 
-instance FromText RedirectActionStatusCodeEnum where
-  parser = (RedirectActionStatusCodeEnum' . mk) <$> takeText
+instance Prelude.FromText RedirectActionStatusCodeEnum where
+  parser = RedirectActionStatusCodeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText RedirectActionStatusCodeEnum where
-  toText (RedirectActionStatusCodeEnum' ci) = original ci
+instance Prelude.ToText RedirectActionStatusCodeEnum where
+  toText (RedirectActionStatusCodeEnum' x) = x
 
-instance Hashable RedirectActionStatusCodeEnum
+instance Prelude.Hashable RedirectActionStatusCodeEnum
 
-instance NFData RedirectActionStatusCodeEnum
+instance Prelude.NFData RedirectActionStatusCodeEnum
 
-instance ToByteString RedirectActionStatusCodeEnum
+instance Prelude.ToByteString RedirectActionStatusCodeEnum
 
-instance ToQuery RedirectActionStatusCodeEnum
+instance Prelude.ToQuery RedirectActionStatusCodeEnum
 
-instance ToHeader RedirectActionStatusCodeEnum
+instance Prelude.ToHeader RedirectActionStatusCodeEnum
 
-instance FromXML RedirectActionStatusCodeEnum where
-  parseXML = parseXMLText "RedirectActionStatusCodeEnum"
+instance Prelude.FromXML RedirectActionStatusCodeEnum where
+  parseXML = Prelude.parseXMLText "RedirectActionStatusCodeEnum"

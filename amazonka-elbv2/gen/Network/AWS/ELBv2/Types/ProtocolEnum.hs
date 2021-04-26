@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.ELBv2.Types.ProtocolEnum
   ( ProtocolEnum
       ( ..,
-        Geneve,
-        HTTP,
-        HTTPS,
-        TCP,
-        TCPUdp,
-        TLS,
-        Udp
+        ProtocolEnumGENEVE,
+        ProtocolEnumHTTP,
+        ProtocolEnumHTTPS,
+        ProtocolEnumTCP,
+        ProtocolEnumTCPUDP,
+        ProtocolEnumTLS,
+        ProtocolEnumUDP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProtocolEnum = ProtocolEnum' (CI Text)
+newtype ProtocolEnum = ProtocolEnum'
+  { fromProtocolEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Geneve :: ProtocolEnum
-pattern Geneve = ProtocolEnum' "GENEVE"
+pattern ProtocolEnumGENEVE :: ProtocolEnum
+pattern ProtocolEnumGENEVE = ProtocolEnum' "GENEVE"
 
-pattern HTTP :: ProtocolEnum
-pattern HTTP = ProtocolEnum' "HTTP"
+pattern ProtocolEnumHTTP :: ProtocolEnum
+pattern ProtocolEnumHTTP = ProtocolEnum' "HTTP"
 
-pattern HTTPS :: ProtocolEnum
-pattern HTTPS = ProtocolEnum' "HTTPS"
+pattern ProtocolEnumHTTPS :: ProtocolEnum
+pattern ProtocolEnumHTTPS = ProtocolEnum' "HTTPS"
 
-pattern TCP :: ProtocolEnum
-pattern TCP = ProtocolEnum' "TCP"
+pattern ProtocolEnumTCP :: ProtocolEnum
+pattern ProtocolEnumTCP = ProtocolEnum' "TCP"
 
-pattern TCPUdp :: ProtocolEnum
-pattern TCPUdp = ProtocolEnum' "TCP_UDP"
+pattern ProtocolEnumTCPUDP :: ProtocolEnum
+pattern ProtocolEnumTCPUDP = ProtocolEnum' "TCP_UDP"
 
-pattern TLS :: ProtocolEnum
-pattern TLS = ProtocolEnum' "TLS"
+pattern ProtocolEnumTLS :: ProtocolEnum
+pattern ProtocolEnumTLS = ProtocolEnum' "TLS"
 
-pattern Udp :: ProtocolEnum
-pattern Udp = ProtocolEnum' "UDP"
+pattern ProtocolEnumUDP :: ProtocolEnum
+pattern ProtocolEnumUDP = ProtocolEnum' "UDP"
 
 {-# COMPLETE
-  Geneve,
-  HTTP,
-  HTTPS,
-  TCP,
-  TCPUdp,
-  TLS,
-  Udp,
+  ProtocolEnumGENEVE,
+  ProtocolEnumHTTP,
+  ProtocolEnumHTTPS,
+  ProtocolEnumTCP,
+  ProtocolEnumTCPUDP,
+  ProtocolEnumTLS,
+  ProtocolEnumUDP,
   ProtocolEnum'
   #-}
 
-instance FromText ProtocolEnum where
-  parser = (ProtocolEnum' . mk) <$> takeText
+instance Prelude.FromText ProtocolEnum where
+  parser = ProtocolEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ProtocolEnum where
-  toText (ProtocolEnum' ci) = original ci
+instance Prelude.ToText ProtocolEnum where
+  toText (ProtocolEnum' x) = x
 
-instance Hashable ProtocolEnum
+instance Prelude.Hashable ProtocolEnum
 
-instance NFData ProtocolEnum
+instance Prelude.NFData ProtocolEnum
 
-instance ToByteString ProtocolEnum
+instance Prelude.ToByteString ProtocolEnum
 
-instance ToQuery ProtocolEnum
+instance Prelude.ToQuery ProtocolEnum
 
-instance ToHeader ProtocolEnum
+instance Prelude.ToHeader ProtocolEnum
 
-instance FromXML ProtocolEnum where
-  parseXML = parseXMLText "ProtocolEnum"
+instance Prelude.FromXML ProtocolEnum where
+  parseXML = Prelude.parseXMLText "ProtocolEnum"

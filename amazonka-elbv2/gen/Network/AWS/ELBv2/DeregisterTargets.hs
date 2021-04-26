@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deregisters the specified targets from the specified target group. After the targets are deregistered, they no longer receive traffic from the load balancer.
+-- Deregisters the specified targets from the specified target group. After
+-- the targets are deregistered, they no longer receive traffic from the
+-- load balancer.
 module Network.AWS.ELBv2.DeregisterTargets
   ( -- * Creating a Request
-    deregisterTargets,
-    DeregisterTargets,
+    DeregisterTargets (..),
+    newDeregisterTargets,
 
     -- * Request Lenses
-    dtTargetGroupARN,
-    dtTargets,
+    deregisterTargets_targetGroupArn,
+    deregisterTargets_targets,
 
     -- * Destructuring the Response
-    deregisterTargetsResponse,
-    DeregisterTargetsResponse,
+    DeregisterTargetsResponse (..),
+    newDeregisterTargetsResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deregisterTargetsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELBv2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deregisterTargets' smart constructor.
+-- | /See:/ 'newDeregisterTargets' smart constructor.
 data DeregisterTargets = DeregisterTargets'
-  { _dtTargetGroupARN ::
-      !Text,
-    _dtTargets :: ![TargetDescription]
+  { -- | The Amazon Resource Name (ARN) of the target group.
+    targetGroupArn :: Prelude.Text,
+    -- | The targets. If you specified a port override when you registered a
+    -- target, you must specify both the target ID and the port when you
+    -- deregister it.
+    targets :: [TargetDescription]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterTargets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterTargets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtTargetGroupARN' - The Amazon Resource Name (ARN) of the target group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtTargets' - The targets. If you specified a port override when you registered a target, you must specify both the target ID and the port when you deregister it.
-deregisterTargets ::
-  -- | 'dtTargetGroupARN'
-  Text ->
+-- 'targetGroupArn', 'deregisterTargets_targetGroupArn' - The Amazon Resource Name (ARN) of the target group.
+--
+-- 'targets', 'deregisterTargets_targets' - The targets. If you specified a port override when you registered a
+-- target, you must specify both the target ID and the port when you
+-- deregister it.
+newDeregisterTargets ::
+  -- | 'targetGroupArn'
+  Prelude.Text ->
   DeregisterTargets
-deregisterTargets pTargetGroupARN_ =
+newDeregisterTargets pTargetGroupArn_ =
   DeregisterTargets'
-    { _dtTargetGroupARN =
-        pTargetGroupARN_,
-      _dtTargets = mempty
+    { targetGroupArn =
+        pTargetGroupArn_,
+      targets = Prelude.mempty
     }
 
 -- | The Amazon Resource Name (ARN) of the target group.
-dtTargetGroupARN :: Lens' DeregisterTargets Text
-dtTargetGroupARN = lens _dtTargetGroupARN (\s a -> s {_dtTargetGroupARN = a})
+deregisterTargets_targetGroupArn :: Lens.Lens' DeregisterTargets Prelude.Text
+deregisterTargets_targetGroupArn = Lens.lens (\DeregisterTargets' {targetGroupArn} -> targetGroupArn) (\s@DeregisterTargets' {} a -> s {targetGroupArn = a} :: DeregisterTargets)
 
--- | The targets. If you specified a port override when you registered a target, you must specify both the target ID and the port when you deregister it.
-dtTargets :: Lens' DeregisterTargets [TargetDescription]
-dtTargets = lens _dtTargets (\s a -> s {_dtTargets = a}) . _Coerce
+-- | The targets. If you specified a port override when you registered a
+-- target, you must specify both the target ID and the port when you
+-- deregister it.
+deregisterTargets_targets :: Lens.Lens' DeregisterTargets [TargetDescription]
+deregisterTargets_targets = Lens.lens (\DeregisterTargets' {targets} -> targets) (\s@DeregisterTargets' {} a -> s {targets = a} :: DeregisterTargets) Prelude.. Prelude._Coerce
 
-instance AWSRequest DeregisterTargets where
+instance Prelude.AWSRequest DeregisterTargets where
   type Rs DeregisterTargets = DeregisterTargetsResponse
-  request = postQuery eLBv2
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeregisterTargetsResult"
       ( \s h x ->
-          DeregisterTargetsResponse' <$> (pure (fromEnum s))
+          DeregisterTargetsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeregisterTargets
+instance Prelude.Hashable DeregisterTargets
 
-instance NFData DeregisterTargets
+instance Prelude.NFData DeregisterTargets
 
-instance ToHeaders DeregisterTargets where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeregisterTargets where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeregisterTargets where
-  toPath = const "/"
+instance Prelude.ToPath DeregisterTargets where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeregisterTargets where
+instance Prelude.ToQuery DeregisterTargets where
   toQuery DeregisterTargets' {..} =
-    mconcat
-      [ "Action" =: ("DeregisterTargets" :: ByteString),
-        "Version" =: ("2015-12-01" :: ByteString),
-        "TargetGroupArn" =: _dtTargetGroupARN,
-        "Targets" =: toQueryList "member" _dtTargets
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeregisterTargets" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-12-01" :: Prelude.ByteString),
+        "TargetGroupArn" Prelude.=: targetGroupArn,
+        "Targets"
+          Prelude.=: Prelude.toQueryList "member" targets
       ]
 
--- | /See:/ 'deregisterTargetsResponse' smart constructor.
-newtype DeregisterTargetsResponse = DeregisterTargetsResponse'
-  { _drsResponseStatus ::
-      Int
+-- | /See:/ 'newDeregisterTargetsResponse' smart constructor.
+data DeregisterTargetsResponse = DeregisterTargetsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterTargetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterTargetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deregisterTargetsResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deregisterTargetsResponse_httpStatus' - The response's http status code.
+newDeregisterTargetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeregisterTargetsResponse
-deregisterTargetsResponse pResponseStatus_ =
+newDeregisterTargetsResponse pHttpStatus_ =
   DeregisterTargetsResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeregisterTargetsResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deregisterTargetsResponse_httpStatus :: Lens.Lens' DeregisterTargetsResponse Prelude.Int
+deregisterTargetsResponse_httpStatus = Lens.lens (\DeregisterTargetsResponse' {httpStatus} -> httpStatus) (\s@DeregisterTargetsResponse' {} a -> s {httpStatus = a} :: DeregisterTargetsResponse)
 
-instance NFData DeregisterTargetsResponse
+instance Prelude.NFData DeregisterTargetsResponse

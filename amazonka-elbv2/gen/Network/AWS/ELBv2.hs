@@ -11,26 +11,40 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Elastic Load Balancing__
+-- Elastic Load Balancing
 --
--- A load balancer distributes incoming traffic across targets, such as your EC2 instances. This enables you to increase the availability of your application. The load balancer also monitors the health of its registered targets and ensures that it routes traffic only to healthy targets. You configure your load balancer to accept incoming traffic by specifying one or more listeners, which are configured with a protocol and port number for connections from clients to the load balancer. You configure a target group with a protocol and port number for connections from the load balancer to the targets, and with health check settings to be used when checking the health status of the targets.
+-- A load balancer distributes incoming traffic across targets, such as
+-- your EC2 instances. This enables you to increase the availability of
+-- your application. The load balancer also monitors the health of its
+-- registered targets and ensures that it routes traffic only to healthy
+-- targets. You configure your load balancer to accept incoming traffic by
+-- specifying one or more listeners, which are configured with a protocol
+-- and port number for connections from clients to the load balancer. You
+-- configure a target group with a protocol and port number for connections
+-- from the load balancer to the targets, and with health check settings to
+-- be used when checking the health status of the targets.
 --
--- Elastic Load Balancing supports the following types of load balancers: Application Load Balancers, Network Load Balancers, Gateway Load Balancers, and Classic Load Balancers. This reference covers the following load balancer types:
+-- Elastic Load Balancing supports the following types of load balancers:
+-- Application Load Balancers, Network Load Balancers, Gateway Load
+-- Balancers, and Classic Load Balancers. This reference covers the
+-- following load balancer types:
 --
---     * Application Load Balancer - Operates at the application layer (layer 7) and supports HTTP and HTTPS.
+-- -   Application Load Balancer - Operates at the application layer (layer
+--     7) and supports HTTP and HTTPS.
 --
---     * Network Load Balancer - Operates at the transport layer (layer 4) and supports TCP, TLS, and UDP.
+-- -   Network Load Balancer - Operates at the transport layer (layer 4)
+--     and supports TCP, TLS, and UDP.
 --
---     * Gateway Load Balancer - Operates at the network layer (layer 3).
+-- -   Gateway Load Balancer - Operates at the network layer (layer 3).
 --
+-- For more information, see the
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/ Elastic Load Balancing User Guide>.
 --
---
--- For more information, see the <https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/ Elastic Load Balancing User Guide> .
---
--- All Elastic Load Balancing operations are idempotent, which means that they complete at most one time. If you repeat an operation, it succeeds.
+-- All Elastic Load Balancing operations are idempotent, which means that
+-- they complete at most one time. If you repeat an operation, it succeeds.
 module Network.AWS.ELBv2
   ( -- * Service Configuration
-    eLBv2,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -150,124 +164,226 @@ module Network.AWS.ELBv2
     -- $waiters
 
     -- ** LoadBalancersDeleted
-    loadBalancersDeleted,
+    newLoadBalancersDeleted,
 
     -- ** TargetDeregistered
-    targetDeregistered,
+    newTargetDeregistered,
 
     -- ** LoadBalancerAvailable
-    loadBalancerAvailable,
+    newLoadBalancerAvailable,
 
     -- ** TargetInService
-    targetInService,
+    newTargetInService,
 
     -- ** LoadBalancerExists
-    loadBalancerExists,
+    newLoadBalancerExists,
 
     -- * Operations
     -- $operations
 
     -- ** DescribeSSLPolicies (Paginated)
-    module Network.AWS.ELBv2.DescribeSSLPolicies,
+    DescribeSSLPolicies (DescribeSSLPolicies'),
+    newDescribeSSLPolicies,
+    DescribeSSLPoliciesResponse (DescribeSSLPoliciesResponse'),
+    newDescribeSSLPoliciesResponse,
 
     -- ** RemoveTags
-    module Network.AWS.ELBv2.RemoveTags,
+    RemoveTags (RemoveTags'),
+    newRemoveTags,
+    RemoveTagsResponse (RemoveTagsResponse'),
+    newRemoveTagsResponse,
 
     -- ** DeleteRule
-    module Network.AWS.ELBv2.DeleteRule,
+    DeleteRule (DeleteRule'),
+    newDeleteRule,
+    DeleteRuleResponse (DeleteRuleResponse'),
+    newDeleteRuleResponse,
 
     -- ** DescribeTags
-    module Network.AWS.ELBv2.DescribeTags,
+    DescribeTags (DescribeTags'),
+    newDescribeTags,
+    DescribeTagsResponse (DescribeTagsResponse'),
+    newDescribeTagsResponse,
 
     -- ** DescribeTargetGroupAttributes
-    module Network.AWS.ELBv2.DescribeTargetGroupAttributes,
+    DescribeTargetGroupAttributes (DescribeTargetGroupAttributes'),
+    newDescribeTargetGroupAttributes,
+    DescribeTargetGroupAttributesResponse (DescribeTargetGroupAttributesResponse'),
+    newDescribeTargetGroupAttributesResponse,
 
     -- ** AddListenerCertificates
-    module Network.AWS.ELBv2.AddListenerCertificates,
+    AddListenerCertificates (AddListenerCertificates'),
+    newAddListenerCertificates,
+    AddListenerCertificatesResponse (AddListenerCertificatesResponse'),
+    newAddListenerCertificatesResponse,
 
     -- ** CreateLoadBalancer
-    module Network.AWS.ELBv2.CreateLoadBalancer,
+    CreateLoadBalancer (CreateLoadBalancer'),
+    newCreateLoadBalancer,
+    CreateLoadBalancerResponse (CreateLoadBalancerResponse'),
+    newCreateLoadBalancerResponse,
 
     -- ** RemoveListenerCertificates
-    module Network.AWS.ELBv2.RemoveListenerCertificates,
+    RemoveListenerCertificates (RemoveListenerCertificates'),
+    newRemoveListenerCertificates,
+    RemoveListenerCertificatesResponse (RemoveListenerCertificatesResponse'),
+    newRemoveListenerCertificatesResponse,
 
     -- ** ModifyRule
-    module Network.AWS.ELBv2.ModifyRule,
+    ModifyRule (ModifyRule'),
+    newModifyRule,
+    ModifyRuleResponse (ModifyRuleResponse'),
+    newModifyRuleResponse,
 
     -- ** ModifyTargetGroup
-    module Network.AWS.ELBv2.ModifyTargetGroup,
+    ModifyTargetGroup (ModifyTargetGroup'),
+    newModifyTargetGroup,
+    ModifyTargetGroupResponse (ModifyTargetGroupResponse'),
+    newModifyTargetGroupResponse,
 
     -- ** DeleteLoadBalancer
-    module Network.AWS.ELBv2.DeleteLoadBalancer,
+    DeleteLoadBalancer (DeleteLoadBalancer'),
+    newDeleteLoadBalancer,
+    DeleteLoadBalancerResponse (DeleteLoadBalancerResponse'),
+    newDeleteLoadBalancerResponse,
 
     -- ** DescribeListeners (Paginated)
-    module Network.AWS.ELBv2.DescribeListeners,
+    DescribeListeners (DescribeListeners'),
+    newDescribeListeners,
+    DescribeListenersResponse (DescribeListenersResponse'),
+    newDescribeListenersResponse,
 
     -- ** AddTags
-    module Network.AWS.ELBv2.AddTags,
+    AddTags (AddTags'),
+    newAddTags,
+    AddTagsResponse (AddTagsResponse'),
+    newAddTagsResponse,
 
     -- ** DescribeTargetGroups (Paginated)
-    module Network.AWS.ELBv2.DescribeTargetGroups,
+    DescribeTargetGroups (DescribeTargetGroups'),
+    newDescribeTargetGroups,
+    DescribeTargetGroupsResponse (DescribeTargetGroupsResponse'),
+    newDescribeTargetGroupsResponse,
 
-    -- ** SetIPAddressType
-    module Network.AWS.ELBv2.SetIPAddressType,
+    -- ** SetIpAddressType
+    SetIpAddressType (SetIpAddressType'),
+    newSetIpAddressType,
+    SetIpAddressTypeResponse (SetIpAddressTypeResponse'),
+    newSetIpAddressTypeResponse,
 
     -- ** ModifyLoadBalancerAttributes
-    module Network.AWS.ELBv2.ModifyLoadBalancerAttributes,
+    ModifyLoadBalancerAttributes (ModifyLoadBalancerAttributes'),
+    newModifyLoadBalancerAttributes,
+    ModifyLoadBalancerAttributesResponse (ModifyLoadBalancerAttributesResponse'),
+    newModifyLoadBalancerAttributesResponse,
 
     -- ** DescribeAccountLimits (Paginated)
-    module Network.AWS.ELBv2.DescribeAccountLimits,
+    DescribeAccountLimits (DescribeAccountLimits'),
+    newDescribeAccountLimits,
+    DescribeAccountLimitsResponse (DescribeAccountLimitsResponse'),
+    newDescribeAccountLimitsResponse,
 
     -- ** CreateRule
-    module Network.AWS.ELBv2.CreateRule,
+    CreateRule (CreateRule'),
+    newCreateRule,
+    CreateRuleResponse (CreateRuleResponse'),
+    newCreateRuleResponse,
 
     -- ** CreateTargetGroup
-    module Network.AWS.ELBv2.CreateTargetGroup,
+    CreateTargetGroup (CreateTargetGroup'),
+    newCreateTargetGroup,
+    CreateTargetGroupResponse (CreateTargetGroupResponse'),
+    newCreateTargetGroupResponse,
 
     -- ** SetSubnets
-    module Network.AWS.ELBv2.SetSubnets,
+    SetSubnets (SetSubnets'),
+    newSetSubnets,
+    SetSubnetsResponse (SetSubnetsResponse'),
+    newSetSubnetsResponse,
 
     -- ** DeregisterTargets
-    module Network.AWS.ELBv2.DeregisterTargets,
+    DeregisterTargets (DeregisterTargets'),
+    newDeregisterTargets,
+    DeregisterTargetsResponse (DeregisterTargetsResponse'),
+    newDeregisterTargetsResponse,
 
     -- ** DeleteListener
-    module Network.AWS.ELBv2.DeleteListener,
+    DeleteListener (DeleteListener'),
+    newDeleteListener,
+    DeleteListenerResponse (DeleteListenerResponse'),
+    newDeleteListenerResponse,
 
     -- ** DeleteTargetGroup
-    module Network.AWS.ELBv2.DeleteTargetGroup,
+    DeleteTargetGroup (DeleteTargetGroup'),
+    newDeleteTargetGroup,
+    DeleteTargetGroupResponse (DeleteTargetGroupResponse'),
+    newDeleteTargetGroupResponse,
 
     -- ** DescribeLoadBalancers (Paginated)
-    module Network.AWS.ELBv2.DescribeLoadBalancers,
+    DescribeLoadBalancers (DescribeLoadBalancers'),
+    newDescribeLoadBalancers,
+    DescribeLoadBalancersResponse (DescribeLoadBalancersResponse'),
+    newDescribeLoadBalancersResponse,
 
     -- ** ModifyTargetGroupAttributes
-    module Network.AWS.ELBv2.ModifyTargetGroupAttributes,
+    ModifyTargetGroupAttributes (ModifyTargetGroupAttributes'),
+    newModifyTargetGroupAttributes,
+    ModifyTargetGroupAttributesResponse (ModifyTargetGroupAttributesResponse'),
+    newModifyTargetGroupAttributesResponse,
 
     -- ** ModifyListener
-    module Network.AWS.ELBv2.ModifyListener,
+    ModifyListener (ModifyListener'),
+    newModifyListener,
+    ModifyListenerResponse (ModifyListenerResponse'),
+    newModifyListenerResponse,
 
     -- ** RegisterTargets
-    module Network.AWS.ELBv2.RegisterTargets,
+    RegisterTargets (RegisterTargets'),
+    newRegisterTargets,
+    RegisterTargetsResponse (RegisterTargetsResponse'),
+    newRegisterTargetsResponse,
 
     -- ** DescribeTargetHealth
-    module Network.AWS.ELBv2.DescribeTargetHealth,
+    DescribeTargetHealth (DescribeTargetHealth'),
+    newDescribeTargetHealth,
+    DescribeTargetHealthResponse (DescribeTargetHealthResponse'),
+    newDescribeTargetHealthResponse,
 
     -- ** SetRulePriorities
-    module Network.AWS.ELBv2.SetRulePriorities,
+    SetRulePriorities (SetRulePriorities'),
+    newSetRulePriorities,
+    SetRulePrioritiesResponse (SetRulePrioritiesResponse'),
+    newSetRulePrioritiesResponse,
 
     -- ** DescribeRules (Paginated)
-    module Network.AWS.ELBv2.DescribeRules,
+    DescribeRules (DescribeRules'),
+    newDescribeRules,
+    DescribeRulesResponse (DescribeRulesResponse'),
+    newDescribeRulesResponse,
 
     -- ** SetSecurityGroups
-    module Network.AWS.ELBv2.SetSecurityGroups,
+    SetSecurityGroups (SetSecurityGroups'),
+    newSetSecurityGroups,
+    SetSecurityGroupsResponse (SetSecurityGroupsResponse'),
+    newSetSecurityGroupsResponse,
 
     -- ** DescribeLoadBalancerAttributes
-    module Network.AWS.ELBv2.DescribeLoadBalancerAttributes,
+    DescribeLoadBalancerAttributes (DescribeLoadBalancerAttributes'),
+    newDescribeLoadBalancerAttributes,
+    DescribeLoadBalancerAttributesResponse (DescribeLoadBalancerAttributesResponse'),
+    newDescribeLoadBalancerAttributesResponse,
 
     -- ** DescribeListenerCertificates (Paginated)
-    module Network.AWS.ELBv2.DescribeListenerCertificates,
+    DescribeListenerCertificates (DescribeListenerCertificates'),
+    newDescribeListenerCertificates,
+    DescribeListenerCertificatesResponse (DescribeListenerCertificatesResponse'),
+    newDescribeListenerCertificatesResponse,
 
     -- ** CreateListener
-    module Network.AWS.ELBv2.CreateListener,
+    CreateListener (CreateListener'),
+    newCreateListener,
+    CreateListenerResponse (CreateListenerResponse'),
+    newCreateListenerResponse,
 
     -- * Types
 
@@ -280,8 +396,8 @@ module Network.AWS.ELBv2
     -- ** AuthenticateOidcActionConditionalBehaviorEnum
     AuthenticateOidcActionConditionalBehaviorEnum (..),
 
-    -- ** IPAddressType
-    IPAddressType (..),
+    -- ** IpAddressType
+    IpAddressType (..),
 
     -- ** LoadBalancerSchemeEnum
     LoadBalancerSchemeEnum (..),
@@ -308,299 +424,152 @@ module Network.AWS.ELBv2
     TargetTypeEnum (..),
 
     -- ** Action
-    Action,
-    action,
-    aAuthenticateOidcConfig,
-    aTargetGroupARN,
-    aAuthenticateCognitoConfig,
-    aFixedResponseConfig,
-    aForwardConfig,
-    aOrder,
-    aRedirectConfig,
-    aType,
+    Action (Action'),
+    newAction,
 
     -- ** AuthenticateCognitoActionConfig
-    AuthenticateCognitoActionConfig,
-    authenticateCognitoActionConfig,
-    acacSessionTimeout,
-    acacScope,
-    acacAuthenticationRequestExtraParams,
-    acacSessionCookieName,
-    acacOnUnauthenticatedRequest,
-    acacUserPoolARN,
-    acacUserPoolClientId,
-    acacUserPoolDomain,
+    AuthenticateCognitoActionConfig (AuthenticateCognitoActionConfig'),
+    newAuthenticateCognitoActionConfig,
 
     -- ** AuthenticateOidcActionConfig
-    AuthenticateOidcActionConfig,
-    authenticateOidcActionConfig,
-    aoacUseExistingClientSecret,
-    aoacClientSecret,
-    aoacSessionTimeout,
-    aoacScope,
-    aoacAuthenticationRequestExtraParams,
-    aoacSessionCookieName,
-    aoacOnUnauthenticatedRequest,
-    aoacIssuer,
-    aoacAuthorizationEndpoint,
-    aoacTokenEndpoint,
-    aoacUserInfoEndpoint,
-    aoacClientId,
+    AuthenticateOidcActionConfig (AuthenticateOidcActionConfig'),
+    newAuthenticateOidcActionConfig,
 
     -- ** AvailabilityZone
-    AvailabilityZone,
-    availabilityZone,
-    azZoneName,
-    azOutpostId,
-    azLoadBalancerAddresses,
-    azSubnetId,
+    AvailabilityZone (AvailabilityZone'),
+    newAvailabilityZone,
 
     -- ** Certificate
-    Certificate,
-    certificate,
-    cIsDefault,
-    cCertificateARN,
+    Certificate (Certificate'),
+    newCertificate,
 
     -- ** Cipher
-    Cipher,
-    cipher,
-    cPriority,
-    cName,
+    Cipher (Cipher'),
+    newCipher,
 
     -- ** FixedResponseActionConfig
-    FixedResponseActionConfig,
-    fixedResponseActionConfig,
-    fracContentType,
-    fracMessageBody,
-    fracStatusCode,
+    FixedResponseActionConfig (FixedResponseActionConfig'),
+    newFixedResponseActionConfig,
 
     -- ** ForwardActionConfig
-    ForwardActionConfig,
-    forwardActionConfig,
-    facTargetGroupStickinessConfig,
-    facTargetGroups,
-
-    -- ** HTTPHeaderConditionConfig
-    HTTPHeaderConditionConfig,
-    hTTPHeaderConditionConfig,
-    httphccValues,
-    httphccHTTPHeaderName,
-
-    -- ** HTTPRequestMethodConditionConfig
-    HTTPRequestMethodConditionConfig,
-    hTTPRequestMethodConditionConfig,
-    httprmccValues,
+    ForwardActionConfig (ForwardActionConfig'),
+    newForwardActionConfig,
 
     -- ** HostHeaderConditionConfig
-    HostHeaderConditionConfig,
-    hostHeaderConditionConfig,
-    hhccValues,
+    HostHeaderConditionConfig (HostHeaderConditionConfig'),
+    newHostHeaderConditionConfig,
+
+    -- ** HttpHeaderConditionConfig
+    HttpHeaderConditionConfig (HttpHeaderConditionConfig'),
+    newHttpHeaderConditionConfig,
+
+    -- ** HttpRequestMethodConditionConfig
+    HttpRequestMethodConditionConfig (HttpRequestMethodConditionConfig'),
+    newHttpRequestMethodConditionConfig,
 
     -- ** Limit
-    Limit,
-    limit,
-    lName,
-    lMax,
+    Limit (Limit'),
+    newLimit,
 
     -- ** Listener
-    Listener,
-    listener,
-    lLoadBalancerARN,
-    lSSLPolicy,
-    lPort,
-    lDefaultActions,
-    lProtocol,
-    lCertificates,
-    lListenerARN,
-    lAlpnPolicy,
+    Listener (Listener'),
+    newListener,
 
     -- ** LoadBalancer
-    LoadBalancer,
-    loadBalancer,
-    lbIPAddressType,
-    lbLoadBalancerARN,
-    lbCustomerOwnedIPv4Pool,
-    lbAvailabilityZones,
-    lbScheme,
-    lbCreatedTime,
-    lbSecurityGroups,
-    lbState,
-    lbDNSName,
-    lbType,
-    lbCanonicalHostedZoneId,
-    lbVPCId,
-    lbLoadBalancerName,
+    LoadBalancer (LoadBalancer'),
+    newLoadBalancer,
 
     -- ** LoadBalancerAddress
-    LoadBalancerAddress,
-    loadBalancerAddress,
-    lbaPrivateIPv4Address,
-    lbaIPAddress,
-    lbaIPv6Address,
-    lbaAllocationId,
+    LoadBalancerAddress (LoadBalancerAddress'),
+    newLoadBalancerAddress,
 
     -- ** LoadBalancerAttribute
-    LoadBalancerAttribute,
-    loadBalancerAttribute,
-    lbaKey,
-    lbaValue,
+    LoadBalancerAttribute (LoadBalancerAttribute'),
+    newLoadBalancerAttribute,
 
     -- ** LoadBalancerState
-    LoadBalancerState,
-    loadBalancerState,
-    lbsCode,
-    lbsReason,
+    LoadBalancerState (LoadBalancerState'),
+    newLoadBalancerState,
 
     -- ** Matcher
-    Matcher,
-    matcher,
-    mGrpcCode,
-    mHTTPCode,
+    Matcher (Matcher'),
+    newMatcher,
 
     -- ** PathPatternConditionConfig
-    PathPatternConditionConfig,
-    pathPatternConditionConfig,
-    ppccValues,
+    PathPatternConditionConfig (PathPatternConditionConfig'),
+    newPathPatternConditionConfig,
 
     -- ** QueryStringConditionConfig
-    QueryStringConditionConfig,
-    queryStringConditionConfig,
-    qsccValues,
+    QueryStringConditionConfig (QueryStringConditionConfig'),
+    newQueryStringConditionConfig,
 
     -- ** QueryStringKeyValuePair
-    QueryStringKeyValuePair,
-    queryStringKeyValuePair,
-    qskvpKey,
-    qskvpValue,
+    QueryStringKeyValuePair (QueryStringKeyValuePair'),
+    newQueryStringKeyValuePair,
 
     -- ** RedirectActionConfig
-    RedirectActionConfig,
-    redirectActionConfig,
-    racQuery,
-    racPort,
-    racProtocol,
-    racHost,
-    racPath,
-    racStatusCode,
+    RedirectActionConfig (RedirectActionConfig'),
+    newRedirectActionConfig,
 
     -- ** Rule
-    Rule,
-    rule,
-    rIsDefault,
-    rRuleARN,
-    rActions,
-    rPriority,
-    rConditions,
+    Rule (Rule'),
+    newRule,
 
     -- ** RuleCondition
-    RuleCondition,
-    ruleCondition,
-    rcPathPatternConfig,
-    rcHTTPRequestMethodConfig,
-    rcValues,
-    rcSourceIPConfig,
-    rcHTTPHeaderConfig,
-    rcHostHeaderConfig,
-    rcQueryStringConfig,
-    rcField,
+    RuleCondition (RuleCondition'),
+    newRuleCondition,
 
     -- ** RulePriorityPair
-    RulePriorityPair,
-    rulePriorityPair,
-    rppRuleARN,
-    rppPriority,
+    RulePriorityPair (RulePriorityPair'),
+    newRulePriorityPair,
 
-    -- ** SSLPolicy
-    SSLPolicy,
-    sslPolicy,
-    spCiphers,
-    spName,
-    spSSLProtocols,
+    -- ** SourceIpConditionConfig
+    SourceIpConditionConfig (SourceIpConditionConfig'),
+    newSourceIpConditionConfig,
 
-    -- ** SourceIPConditionConfig
-    SourceIPConditionConfig,
-    sourceIPConditionConfig,
-    siccValues,
+    -- ** SslPolicy
+    SslPolicy (SslPolicy'),
+    newSslPolicy,
 
     -- ** SubnetMapping
-    SubnetMapping,
-    subnetMapping,
-    smPrivateIPv4Address,
-    smIPv6Address,
-    smSubnetId,
-    smAllocationId,
+    SubnetMapping (SubnetMapping'),
+    newSubnetMapping,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
 
     -- ** TagDescription
-    TagDescription,
-    tagDescription,
-    tdResourceARN,
-    tdTags,
+    TagDescription (TagDescription'),
+    newTagDescription,
 
     -- ** TargetDescription
-    TargetDescription,
-    targetDescription,
-    tdAvailabilityZone,
-    tdPort,
-    tdId,
+    TargetDescription (TargetDescription'),
+    newTargetDescription,
 
     -- ** TargetGroup
-    TargetGroup,
-    targetGroup,
-    tgHealthCheckEnabled,
-    tgHealthCheckProtocol,
-    tgTargetGroupName,
-    tgTargetType,
-    tgTargetGroupARN,
-    tgHealthCheckPort,
-    tgHealthCheckTimeoutSeconds,
-    tgHealthCheckPath,
-    tgLoadBalancerARNs,
-    tgMatcher,
-    tgProtocolVersion,
-    tgHealthyThresholdCount,
-    tgPort,
-    tgHealthCheckIntervalSeconds,
-    tgProtocol,
-    tgVPCId,
-    tgUnhealthyThresholdCount,
+    TargetGroup (TargetGroup'),
+    newTargetGroup,
 
     -- ** TargetGroupAttribute
-    TargetGroupAttribute,
-    targetGroupAttribute,
-    tgaKey,
-    tgaValue,
+    TargetGroupAttribute (TargetGroupAttribute'),
+    newTargetGroupAttribute,
 
     -- ** TargetGroupStickinessConfig
-    TargetGroupStickinessConfig,
-    targetGroupStickinessConfig,
-    tgscEnabled,
-    tgscDurationSeconds,
+    TargetGroupStickinessConfig (TargetGroupStickinessConfig'),
+    newTargetGroupStickinessConfig,
 
     -- ** TargetGroupTuple
-    TargetGroupTuple,
-    targetGroupTuple,
-    tgtTargetGroupARN,
-    tgtWeight,
+    TargetGroupTuple (TargetGroupTuple'),
+    newTargetGroupTuple,
 
     -- ** TargetHealth
-    TargetHealth,
-    targetHealth,
-    thState,
-    thReason,
-    thDescription,
+    TargetHealth (TargetHealth'),
+    newTargetHealth,
 
     -- ** TargetHealthDescription
-    TargetHealthDescription,
-    targetHealthDescription,
-    thdHealthCheckPort,
-    thdTarget,
-    thdTargetHealth,
+    TargetHealthDescription (TargetHealthDescription'),
+    newTargetHealthDescription,
   )
 where
 
@@ -626,6 +595,7 @@ import Network.AWS.ELBv2.DescribeTags
 import Network.AWS.ELBv2.DescribeTargetGroupAttributes
 import Network.AWS.ELBv2.DescribeTargetGroups
 import Network.AWS.ELBv2.DescribeTargetHealth
+import Network.AWS.ELBv2.Lens
 import Network.AWS.ELBv2.ModifyListener
 import Network.AWS.ELBv2.ModifyLoadBalancerAttributes
 import Network.AWS.ELBv2.ModifyRule
@@ -634,7 +604,7 @@ import Network.AWS.ELBv2.ModifyTargetGroupAttributes
 import Network.AWS.ELBv2.RegisterTargets
 import Network.AWS.ELBv2.RemoveListenerCertificates
 import Network.AWS.ELBv2.RemoveTags
-import Network.AWS.ELBv2.SetIPAddressType
+import Network.AWS.ELBv2.SetIpAddressType
 import Network.AWS.ELBv2.SetRulePriorities
 import Network.AWS.ELBv2.SetSecurityGroups
 import Network.AWS.ELBv2.SetSubnets

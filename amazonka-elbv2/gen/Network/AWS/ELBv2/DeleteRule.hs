@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,110 +23,113 @@
 --
 -- Deletes the specified rule.
 --
---
--- You can't delete the default rule.
+-- You can\'t delete the default rule.
 module Network.AWS.ELBv2.DeleteRule
   ( -- * Creating a Request
-    deleteRule,
-    DeleteRule,
+    DeleteRule (..),
+    newDeleteRule,
 
     -- * Request Lenses
-    drRuleARN,
+    deleteRule_ruleArn,
 
     -- * Destructuring the Response
-    deleteRuleResponse,
-    DeleteRuleResponse,
+    DeleteRuleResponse (..),
+    newDeleteRuleResponse,
 
     -- * Response Lenses
-    drrrsResponseStatus,
+    deleteRuleResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELBv2.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteRule' smart constructor.
-newtype DeleteRule = DeleteRule' {_drRuleARN :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteRule' smart constructor.
+data DeleteRule = DeleteRule'
+  { -- | The Amazon Resource Name (ARN) of the rule.
+    ruleArn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drRuleARN' - The Amazon Resource Name (ARN) of the rule.
-deleteRule ::
-  -- | 'drRuleARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ruleArn', 'deleteRule_ruleArn' - The Amazon Resource Name (ARN) of the rule.
+newDeleteRule ::
+  -- | 'ruleArn'
+  Prelude.Text ->
   DeleteRule
-deleteRule pRuleARN_ =
-  DeleteRule' {_drRuleARN = pRuleARN_}
+newDeleteRule pRuleArn_ =
+  DeleteRule' {ruleArn = pRuleArn_}
 
 -- | The Amazon Resource Name (ARN) of the rule.
-drRuleARN :: Lens' DeleteRule Text
-drRuleARN = lens _drRuleARN (\s a -> s {_drRuleARN = a})
+deleteRule_ruleArn :: Lens.Lens' DeleteRule Prelude.Text
+deleteRule_ruleArn = Lens.lens (\DeleteRule' {ruleArn} -> ruleArn) (\s@DeleteRule' {} a -> s {ruleArn = a} :: DeleteRule)
 
-instance AWSRequest DeleteRule where
+instance Prelude.AWSRequest DeleteRule where
   type Rs DeleteRule = DeleteRuleResponse
-  request = postQuery eLBv2
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteRuleResult"
       ( \s h x ->
-          DeleteRuleResponse' <$> (pure (fromEnum s))
+          DeleteRuleResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteRule
+instance Prelude.Hashable DeleteRule
 
-instance NFData DeleteRule
+instance Prelude.NFData DeleteRule
 
-instance ToHeaders DeleteRule where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteRule where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteRule where
-  toPath = const "/"
+instance Prelude.ToPath DeleteRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteRule where
+instance Prelude.ToQuery DeleteRule where
   toQuery DeleteRule' {..} =
-    mconcat
-      [ "Action" =: ("DeleteRule" :: ByteString),
-        "Version" =: ("2015-12-01" :: ByteString),
-        "RuleArn" =: _drRuleARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteRule" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-12-01" :: Prelude.ByteString),
+        "RuleArn" Prelude.=: ruleArn
       ]
 
--- | /See:/ 'deleteRuleResponse' smart constructor.
-newtype DeleteRuleResponse = DeleteRuleResponse'
-  { _drrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteRuleResponse' smart constructor.
+data DeleteRuleResponse = DeleteRuleResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drrrsResponseStatus' - -- | The response status code.
-deleteRuleResponse ::
-  -- | 'drrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteRuleResponse_httpStatus' - The response's http status code.
+newDeleteRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteRuleResponse
-deleteRuleResponse pResponseStatus_ =
-  DeleteRuleResponse'
-    { _drrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteRuleResponse pHttpStatus_ =
+  DeleteRuleResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-drrrsResponseStatus :: Lens' DeleteRuleResponse Int
-drrrsResponseStatus = lens _drrrsResponseStatus (\s a -> s {_drrrsResponseStatus = a})
+-- | The response's http status code.
+deleteRuleResponse_httpStatus :: Lens.Lens' DeleteRuleResponse Prelude.Int
+deleteRuleResponse_httpStatus = Lens.lens (\DeleteRuleResponse' {httpStatus} -> httpStatus) (\s@DeleteRuleResponse' {} a -> s {httpStatus = a} :: DeleteRuleResponse)
 
-instance NFData DeleteRuleResponse
+instance Prelude.NFData DeleteRuleResponse

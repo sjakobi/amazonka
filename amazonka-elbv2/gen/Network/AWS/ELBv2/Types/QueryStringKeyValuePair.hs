@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.QueryStringKeyValuePair where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a key/value pair.
+-- | Information about a key\/value pair.
 --
---
---
--- /See:/ 'queryStringKeyValuePair' smart constructor.
+-- /See:/ 'newQueryStringKeyValuePair' smart constructor.
 data QueryStringKeyValuePair = QueryStringKeyValuePair'
-  { _qskvpKey ::
-      !(Maybe Text),
-    _qskvpValue ::
-      !(Maybe Text)
+  { -- | The key. You can omit the key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryStringKeyValuePair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryStringKeyValuePair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qskvpKey' - The key. You can omit the key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qskvpValue' - The value.
-queryStringKeyValuePair ::
+-- 'key', 'queryStringKeyValuePair_key' - The key. You can omit the key.
+--
+-- 'value', 'queryStringKeyValuePair_value' - The value.
+newQueryStringKeyValuePair ::
   QueryStringKeyValuePair
-queryStringKeyValuePair =
+newQueryStringKeyValuePair =
   QueryStringKeyValuePair'
-    { _qskvpKey = Nothing,
-      _qskvpValue = Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The key. You can omit the key.
-qskvpKey :: Lens' QueryStringKeyValuePair (Maybe Text)
-qskvpKey = lens _qskvpKey (\s a -> s {_qskvpKey = a})
+queryStringKeyValuePair_key :: Lens.Lens' QueryStringKeyValuePair (Prelude.Maybe Prelude.Text)
+queryStringKeyValuePair_key = Lens.lens (\QueryStringKeyValuePair' {key} -> key) (\s@QueryStringKeyValuePair' {} a -> s {key = a} :: QueryStringKeyValuePair)
 
 -- | The value.
-qskvpValue :: Lens' QueryStringKeyValuePair (Maybe Text)
-qskvpValue = lens _qskvpValue (\s a -> s {_qskvpValue = a})
+queryStringKeyValuePair_value :: Lens.Lens' QueryStringKeyValuePair (Prelude.Maybe Prelude.Text)
+queryStringKeyValuePair_value = Lens.lens (\QueryStringKeyValuePair' {value} -> value) (\s@QueryStringKeyValuePair' {} a -> s {value = a} :: QueryStringKeyValuePair)
 
-instance FromXML QueryStringKeyValuePair where
+instance Prelude.FromXML QueryStringKeyValuePair where
   parseXML x =
     QueryStringKeyValuePair'
-      <$> (x .@? "Key") <*> (x .@? "Value")
+      Prelude.<$> (x Prelude..@? "Key")
+      Prelude.<*> (x Prelude..@? "Value")
 
-instance Hashable QueryStringKeyValuePair
+instance Prelude.Hashable QueryStringKeyValuePair
 
-instance NFData QueryStringKeyValuePair
+instance Prelude.NFData QueryStringKeyValuePair
 
-instance ToQuery QueryStringKeyValuePair where
+instance Prelude.ToQuery QueryStringKeyValuePair where
   toQuery QueryStringKeyValuePair' {..} =
-    mconcat
-      ["Key" =: _qskvpKey, "Value" =: _qskvpValue]
+    Prelude.mconcat
+      ["Key" Prelude.=: key, "Value" Prelude.=: value]

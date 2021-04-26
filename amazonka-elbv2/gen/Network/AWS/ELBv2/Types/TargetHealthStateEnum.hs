@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.ELBv2.Types.TargetHealthStateEnum
   ( TargetHealthStateEnum
       ( ..,
-        Draining,
-        Healthy,
-        Initial,
-        Unavailable,
-        Unhealthy,
-        Unused
+        TargetHealthStateEnumDraining,
+        TargetHealthStateEnumHealthy,
+        TargetHealthStateEnumInitial,
+        TargetHealthStateEnumUnavailable,
+        TargetHealthStateEnumUnhealthy,
+        TargetHealthStateEnumUnused
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetHealthStateEnum
-  = TargetHealthStateEnum'
-      ( CI
-          Text
-      )
+newtype TargetHealthStateEnum = TargetHealthStateEnum'
+  { fromTargetHealthStateEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Draining :: TargetHealthStateEnum
-pattern Draining = TargetHealthStateEnum' "draining"
+pattern TargetHealthStateEnumDraining :: TargetHealthStateEnum
+pattern TargetHealthStateEnumDraining = TargetHealthStateEnum' "draining"
 
-pattern Healthy :: TargetHealthStateEnum
-pattern Healthy = TargetHealthStateEnum' "healthy"
+pattern TargetHealthStateEnumHealthy :: TargetHealthStateEnum
+pattern TargetHealthStateEnumHealthy = TargetHealthStateEnum' "healthy"
 
-pattern Initial :: TargetHealthStateEnum
-pattern Initial = TargetHealthStateEnum' "initial"
+pattern TargetHealthStateEnumInitial :: TargetHealthStateEnum
+pattern TargetHealthStateEnumInitial = TargetHealthStateEnum' "initial"
 
-pattern Unavailable :: TargetHealthStateEnum
-pattern Unavailable = TargetHealthStateEnum' "unavailable"
+pattern TargetHealthStateEnumUnavailable :: TargetHealthStateEnum
+pattern TargetHealthStateEnumUnavailable = TargetHealthStateEnum' "unavailable"
 
-pattern Unhealthy :: TargetHealthStateEnum
-pattern Unhealthy = TargetHealthStateEnum' "unhealthy"
+pattern TargetHealthStateEnumUnhealthy :: TargetHealthStateEnum
+pattern TargetHealthStateEnumUnhealthy = TargetHealthStateEnum' "unhealthy"
 
-pattern Unused :: TargetHealthStateEnum
-pattern Unused = TargetHealthStateEnum' "unused"
+pattern TargetHealthStateEnumUnused :: TargetHealthStateEnum
+pattern TargetHealthStateEnumUnused = TargetHealthStateEnum' "unused"
 
 {-# COMPLETE
-  Draining,
-  Healthy,
-  Initial,
-  Unavailable,
-  Unhealthy,
-  Unused,
+  TargetHealthStateEnumDraining,
+  TargetHealthStateEnumHealthy,
+  TargetHealthStateEnumInitial,
+  TargetHealthStateEnumUnavailable,
+  TargetHealthStateEnumUnhealthy,
+  TargetHealthStateEnumUnused,
   TargetHealthStateEnum'
   #-}
 
-instance FromText TargetHealthStateEnum where
-  parser = (TargetHealthStateEnum' . mk) <$> takeText
+instance Prelude.FromText TargetHealthStateEnum where
+  parser = TargetHealthStateEnum' Prelude.<$> Prelude.takeText
 
-instance ToText TargetHealthStateEnum where
-  toText (TargetHealthStateEnum' ci) = original ci
+instance Prelude.ToText TargetHealthStateEnum where
+  toText (TargetHealthStateEnum' x) = x
 
-instance Hashable TargetHealthStateEnum
+instance Prelude.Hashable TargetHealthStateEnum
 
-instance NFData TargetHealthStateEnum
+instance Prelude.NFData TargetHealthStateEnum
 
-instance ToByteString TargetHealthStateEnum
+instance Prelude.ToByteString TargetHealthStateEnum
 
-instance ToQuery TargetHealthStateEnum
+instance Prelude.ToQuery TargetHealthStateEnum
 
-instance ToHeader TargetHealthStateEnum
+instance Prelude.ToHeader TargetHealthStateEnum
 
-instance FromXML TargetHealthStateEnum where
-  parseXML = parseXMLText "TargetHealthStateEnum"
+instance Prelude.FromXML TargetHealthStateEnum where
+  parseXML = Prelude.parseXMLText "TargetHealthStateEnum"

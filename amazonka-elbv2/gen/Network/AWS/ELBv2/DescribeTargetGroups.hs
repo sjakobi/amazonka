@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,198 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified target groups or all of your target groups. By default, all target groups are described. Alternatively, you can specify one of the following to filter the results: the ARN of the load balancer, the names of one or more target groups, or the ARNs of one or more target groups.
---
---
+-- Describes the specified target groups or all of your target groups. By
+-- default, all target groups are described. Alternatively, you can specify
+-- one of the following to filter the results: the ARN of the load
+-- balancer, the names of one or more target groups, or the ARNs of one or
+-- more target groups.
 --
 -- This operation returns paginated results.
 module Network.AWS.ELBv2.DescribeTargetGroups
   ( -- * Creating a Request
-    describeTargetGroups,
-    DescribeTargetGroups,
+    DescribeTargetGroups (..),
+    newDescribeTargetGroups,
 
     -- * Request Lenses
-    dtgLoadBalancerARN,
-    dtgNames,
-    dtgPageSize,
-    dtgTargetGroupARNs,
-    dtgMarker,
+    describeTargetGroups_loadBalancerArn,
+    describeTargetGroups_names,
+    describeTargetGroups_pageSize,
+    describeTargetGroups_targetGroupArns,
+    describeTargetGroups_marker,
 
     -- * Destructuring the Response
-    describeTargetGroupsResponse,
-    DescribeTargetGroupsResponse,
+    DescribeTargetGroupsResponse (..),
+    newDescribeTargetGroupsResponse,
 
     -- * Response Lenses
-    dtgrrsTargetGroups,
-    dtgrrsNextMarker,
-    dtgrrsResponseStatus,
+    describeTargetGroupsResponse_targetGroups,
+    describeTargetGroupsResponse_nextMarker,
+    describeTargetGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ELBv2.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ELBv2.Types.TargetGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeTargetGroups' smart constructor.
+-- | /See:/ 'newDescribeTargetGroups' smart constructor.
 data DescribeTargetGroups = DescribeTargetGroups'
-  { _dtgLoadBalancerARN ::
-      !(Maybe Text),
-    _dtgNames :: !(Maybe [Text]),
-    _dtgPageSize :: !(Maybe Nat),
-    _dtgTargetGroupARNs ::
-      !(Maybe [Text]),
-    _dtgMarker :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the load balancer.
+    loadBalancerArn :: Prelude.Maybe Prelude.Text,
+    -- | The names of the target groups.
+    names :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of results to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The Amazon Resource Names (ARN) of the target groups.
+    targetGroupArns :: Prelude.Maybe [Prelude.Text],
+    -- | The marker for the next set of results. (You received this marker from a
+    -- previous call.)
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTargetGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTargetGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgLoadBalancerARN' - The Amazon Resource Name (ARN) of the load balancer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgNames' - The names of the target groups.
+-- 'loadBalancerArn', 'describeTargetGroups_loadBalancerArn' - The Amazon Resource Name (ARN) of the load balancer.
 --
--- * 'dtgPageSize' - The maximum number of results to return with this call.
+-- 'names', 'describeTargetGroups_names' - The names of the target groups.
 --
--- * 'dtgTargetGroupARNs' - The Amazon Resource Names (ARN) of the target groups.
+-- 'pageSize', 'describeTargetGroups_pageSize' - The maximum number of results to return with this call.
 --
--- * 'dtgMarker' - The marker for the next set of results. (You received this marker from a previous call.)
-describeTargetGroups ::
+-- 'targetGroupArns', 'describeTargetGroups_targetGroupArns' - The Amazon Resource Names (ARN) of the target groups.
+--
+-- 'marker', 'describeTargetGroups_marker' - The marker for the next set of results. (You received this marker from a
+-- previous call.)
+newDescribeTargetGroups ::
   DescribeTargetGroups
-describeTargetGroups =
+newDescribeTargetGroups =
   DescribeTargetGroups'
-    { _dtgLoadBalancerARN =
-        Nothing,
-      _dtgNames = Nothing,
-      _dtgPageSize = Nothing,
-      _dtgTargetGroupARNs = Nothing,
-      _dtgMarker = Nothing
+    { loadBalancerArn =
+        Prelude.Nothing,
+      names = Prelude.Nothing,
+      pageSize = Prelude.Nothing,
+      targetGroupArns = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the load balancer.
-dtgLoadBalancerARN :: Lens' DescribeTargetGroups (Maybe Text)
-dtgLoadBalancerARN = lens _dtgLoadBalancerARN (\s a -> s {_dtgLoadBalancerARN = a})
+describeTargetGroups_loadBalancerArn :: Lens.Lens' DescribeTargetGroups (Prelude.Maybe Prelude.Text)
+describeTargetGroups_loadBalancerArn = Lens.lens (\DescribeTargetGroups' {loadBalancerArn} -> loadBalancerArn) (\s@DescribeTargetGroups' {} a -> s {loadBalancerArn = a} :: DescribeTargetGroups)
 
 -- | The names of the target groups.
-dtgNames :: Lens' DescribeTargetGroups [Text]
-dtgNames = lens _dtgNames (\s a -> s {_dtgNames = a}) . _Default . _Coerce
+describeTargetGroups_names :: Lens.Lens' DescribeTargetGroups (Prelude.Maybe [Prelude.Text])
+describeTargetGroups_names = Lens.lens (\DescribeTargetGroups' {names} -> names) (\s@DescribeTargetGroups' {} a -> s {names = a} :: DescribeTargetGroups) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The maximum number of results to return with this call.
-dtgPageSize :: Lens' DescribeTargetGroups (Maybe Natural)
-dtgPageSize = lens _dtgPageSize (\s a -> s {_dtgPageSize = a}) . mapping _Nat
+describeTargetGroups_pageSize :: Lens.Lens' DescribeTargetGroups (Prelude.Maybe Prelude.Natural)
+describeTargetGroups_pageSize = Lens.lens (\DescribeTargetGroups' {pageSize} -> pageSize) (\s@DescribeTargetGroups' {} a -> s {pageSize = a} :: DescribeTargetGroups) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The Amazon Resource Names (ARN) of the target groups.
-dtgTargetGroupARNs :: Lens' DescribeTargetGroups [Text]
-dtgTargetGroupARNs = lens _dtgTargetGroupARNs (\s a -> s {_dtgTargetGroupARNs = a}) . _Default . _Coerce
+describeTargetGroups_targetGroupArns :: Lens.Lens' DescribeTargetGroups (Prelude.Maybe [Prelude.Text])
+describeTargetGroups_targetGroupArns = Lens.lens (\DescribeTargetGroups' {targetGroupArns} -> targetGroupArns) (\s@DescribeTargetGroups' {} a -> s {targetGroupArns = a} :: DescribeTargetGroups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The marker for the next set of results. (You received this marker from a previous call.)
-dtgMarker :: Lens' DescribeTargetGroups (Maybe Text)
-dtgMarker = lens _dtgMarker (\s a -> s {_dtgMarker = a})
+-- | The marker for the next set of results. (You received this marker from a
+-- previous call.)
+describeTargetGroups_marker :: Lens.Lens' DescribeTargetGroups (Prelude.Maybe Prelude.Text)
+describeTargetGroups_marker = Lens.lens (\DescribeTargetGroups' {marker} -> marker) (\s@DescribeTargetGroups' {} a -> s {marker = a} :: DescribeTargetGroups)
 
-instance AWSPager DescribeTargetGroups where
+instance Pager.AWSPager DescribeTargetGroups where
   page rq rs
-    | stop (rs ^. dtgrrsNextMarker) = Nothing
-    | stop (rs ^. dtgrrsTargetGroups) = Nothing
-    | otherwise =
-      Just $ rq & dtgMarker .~ rs ^. dtgrrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeTargetGroupsResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeTargetGroupsResponse_targetGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeTargetGroups_marker
+          Lens..~ rs
+          Lens.^? describeTargetGroupsResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeTargetGroups where
+instance Prelude.AWSRequest DescribeTargetGroups where
   type
     Rs DescribeTargetGroups =
       DescribeTargetGroupsResponse
-  request = postQuery eLBv2
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeTargetGroupsResult"
       ( \s h x ->
           DescribeTargetGroupsResponse'
-            <$> ( x .@? "TargetGroups" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "NextMarker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "TargetGroups"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "NextMarker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTargetGroups
+instance Prelude.Hashable DescribeTargetGroups
 
-instance NFData DescribeTargetGroups
+instance Prelude.NFData DescribeTargetGroups
 
-instance ToHeaders DescribeTargetGroups where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeTargetGroups where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeTargetGroups where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTargetGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTargetGroups where
+instance Prelude.ToQuery DescribeTargetGroups where
   toQuery DescribeTargetGroups' {..} =
-    mconcat
-      [ "Action" =: ("DescribeTargetGroups" :: ByteString),
-        "Version" =: ("2015-12-01" :: ByteString),
-        "LoadBalancerArn" =: _dtgLoadBalancerARN,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeTargetGroups" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-12-01" :: Prelude.ByteString),
+        "LoadBalancerArn" Prelude.=: loadBalancerArn,
         "Names"
-          =: toQuery (toQueryList "member" <$> _dtgNames),
-        "PageSize" =: _dtgPageSize,
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> names),
+        "PageSize" Prelude.=: pageSize,
         "TargetGroupArns"
-          =: toQuery
-            (toQueryList "member" <$> _dtgTargetGroupARNs),
-        "Marker" =: _dtgMarker
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> targetGroupArns
+            ),
+        "Marker" Prelude.=: marker
       ]
 
--- | /See:/ 'describeTargetGroupsResponse' smart constructor.
+-- | /See:/ 'newDescribeTargetGroupsResponse' smart constructor.
 data DescribeTargetGroupsResponse = DescribeTargetGroupsResponse'
-  { _dtgrrsTargetGroups ::
-      !( Maybe
-           [TargetGroup]
-       ),
-    _dtgrrsNextMarker ::
-      !(Maybe Text),
-    _dtgrrsResponseStatus ::
-      !Int
+  { -- | Information about the target groups.
+    targetGroups :: Prelude.Maybe [TargetGroup],
+    -- | If there are additional results, this is the marker for the next set of
+    -- results. Otherwise, this is null.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTargetGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTargetGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtgrrsTargetGroups' - Information about the target groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtgrrsNextMarker' - If there are additional results, this is the marker for the next set of results. Otherwise, this is null.
+-- 'targetGroups', 'describeTargetGroupsResponse_targetGroups' - Information about the target groups.
 --
--- * 'dtgrrsResponseStatus' - -- | The response status code.
-describeTargetGroupsResponse ::
-  -- | 'dtgrrsResponseStatus'
-  Int ->
+-- 'nextMarker', 'describeTargetGroupsResponse_nextMarker' - If there are additional results, this is the marker for the next set of
+-- results. Otherwise, this is null.
+--
+-- 'httpStatus', 'describeTargetGroupsResponse_httpStatus' - The response's http status code.
+newDescribeTargetGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTargetGroupsResponse
-describeTargetGroupsResponse pResponseStatus_ =
+newDescribeTargetGroupsResponse pHttpStatus_ =
   DescribeTargetGroupsResponse'
-    { _dtgrrsTargetGroups =
-        Nothing,
-      _dtgrrsNextMarker = Nothing,
-      _dtgrrsResponseStatus = pResponseStatus_
+    { targetGroups =
+        Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the target groups.
-dtgrrsTargetGroups :: Lens' DescribeTargetGroupsResponse [TargetGroup]
-dtgrrsTargetGroups = lens _dtgrrsTargetGroups (\s a -> s {_dtgrrsTargetGroups = a}) . _Default . _Coerce
+describeTargetGroupsResponse_targetGroups :: Lens.Lens' DescribeTargetGroupsResponse (Prelude.Maybe [TargetGroup])
+describeTargetGroupsResponse_targetGroups = Lens.lens (\DescribeTargetGroupsResponse' {targetGroups} -> targetGroups) (\s@DescribeTargetGroupsResponse' {} a -> s {targetGroups = a} :: DescribeTargetGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If there are additional results, this is the marker for the next set of results. Otherwise, this is null.
-dtgrrsNextMarker :: Lens' DescribeTargetGroupsResponse (Maybe Text)
-dtgrrsNextMarker = lens _dtgrrsNextMarker (\s a -> s {_dtgrrsNextMarker = a})
+-- | If there are additional results, this is the marker for the next set of
+-- results. Otherwise, this is null.
+describeTargetGroupsResponse_nextMarker :: Lens.Lens' DescribeTargetGroupsResponse (Prelude.Maybe Prelude.Text)
+describeTargetGroupsResponse_nextMarker = Lens.lens (\DescribeTargetGroupsResponse' {nextMarker} -> nextMarker) (\s@DescribeTargetGroupsResponse' {} a -> s {nextMarker = a} :: DescribeTargetGroupsResponse)
 
--- | -- | The response status code.
-dtgrrsResponseStatus :: Lens' DescribeTargetGroupsResponse Int
-dtgrrsResponseStatus = lens _dtgrrsResponseStatus (\s a -> s {_dtgrrsResponseStatus = a})
+-- | The response's http status code.
+describeTargetGroupsResponse_httpStatus :: Lens.Lens' DescribeTargetGroupsResponse Prelude.Int
+describeTargetGroupsResponse_httpStatus = Lens.lens (\DescribeTargetGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeTargetGroupsResponse' {} a -> s {httpStatus = a} :: DescribeTargetGroupsResponse)
 
-instance NFData DescribeTargetGroupsResponse
+instance Prelude.NFData DescribeTargetGroupsResponse

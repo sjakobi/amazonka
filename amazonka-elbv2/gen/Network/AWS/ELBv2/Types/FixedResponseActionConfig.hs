@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.FixedResponseActionConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an action that returns a custom HTTP response.
 --
---
---
--- /See:/ 'fixedResponseActionConfig' smart constructor.
+-- /See:/ 'newFixedResponseActionConfig' smart constructor.
 data FixedResponseActionConfig = FixedResponseActionConfig'
-  { _fracContentType ::
-      !(Maybe Text),
-    _fracMessageBody ::
-      !(Maybe Text),
-    _fracStatusCode ::
-      !Text
+  { -- | The content type.
+    --
+    -- Valid Values: text\/plain | text\/css | text\/html |
+    -- application\/javascript | application\/json
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The message.
+    messageBody :: Prelude.Maybe Prelude.Text,
+    -- | The HTTP response code (2XX, 4XX, or 5XX).
+    statusCode :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FixedResponseActionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FixedResponseActionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fracContentType' - The content type. Valid Values: text/plain | text/css | text/html | application/javascript | application/json
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fracMessageBody' - The message.
+-- 'contentType', 'fixedResponseActionConfig_contentType' - The content type.
 --
--- * 'fracStatusCode' - The HTTP response code (2XX, 4XX, or 5XX).
-fixedResponseActionConfig ::
-  -- | 'fracStatusCode'
-  Text ->
+-- Valid Values: text\/plain | text\/css | text\/html |
+-- application\/javascript | application\/json
+--
+-- 'messageBody', 'fixedResponseActionConfig_messageBody' - The message.
+--
+-- 'statusCode', 'fixedResponseActionConfig_statusCode' - The HTTP response code (2XX, 4XX, or 5XX).
+newFixedResponseActionConfig ::
+  -- | 'statusCode'
+  Prelude.Text ->
   FixedResponseActionConfig
-fixedResponseActionConfig pStatusCode_ =
+newFixedResponseActionConfig pStatusCode_ =
   FixedResponseActionConfig'
-    { _fracContentType =
-        Nothing,
-      _fracMessageBody = Nothing,
-      _fracStatusCode = pStatusCode_
+    { contentType =
+        Prelude.Nothing,
+      messageBody = Prelude.Nothing,
+      statusCode = pStatusCode_
     }
 
--- | The content type. Valid Values: text/plain | text/css | text/html | application/javascript | application/json
-fracContentType :: Lens' FixedResponseActionConfig (Maybe Text)
-fracContentType = lens _fracContentType (\s a -> s {_fracContentType = a})
+-- | The content type.
+--
+-- Valid Values: text\/plain | text\/css | text\/html |
+-- application\/javascript | application\/json
+fixedResponseActionConfig_contentType :: Lens.Lens' FixedResponseActionConfig (Prelude.Maybe Prelude.Text)
+fixedResponseActionConfig_contentType = Lens.lens (\FixedResponseActionConfig' {contentType} -> contentType) (\s@FixedResponseActionConfig' {} a -> s {contentType = a} :: FixedResponseActionConfig)
 
 -- | The message.
-fracMessageBody :: Lens' FixedResponseActionConfig (Maybe Text)
-fracMessageBody = lens _fracMessageBody (\s a -> s {_fracMessageBody = a})
+fixedResponseActionConfig_messageBody :: Lens.Lens' FixedResponseActionConfig (Prelude.Maybe Prelude.Text)
+fixedResponseActionConfig_messageBody = Lens.lens (\FixedResponseActionConfig' {messageBody} -> messageBody) (\s@FixedResponseActionConfig' {} a -> s {messageBody = a} :: FixedResponseActionConfig)
 
 -- | The HTTP response code (2XX, 4XX, or 5XX).
-fracStatusCode :: Lens' FixedResponseActionConfig Text
-fracStatusCode = lens _fracStatusCode (\s a -> s {_fracStatusCode = a})
+fixedResponseActionConfig_statusCode :: Lens.Lens' FixedResponseActionConfig Prelude.Text
+fixedResponseActionConfig_statusCode = Lens.lens (\FixedResponseActionConfig' {statusCode} -> statusCode) (\s@FixedResponseActionConfig' {} a -> s {statusCode = a} :: FixedResponseActionConfig)
 
-instance FromXML FixedResponseActionConfig where
+instance Prelude.FromXML FixedResponseActionConfig where
   parseXML x =
     FixedResponseActionConfig'
-      <$> (x .@? "ContentType")
-      <*> (x .@? "MessageBody")
-      <*> (x .@ "StatusCode")
+      Prelude.<$> (x Prelude..@? "ContentType")
+      Prelude.<*> (x Prelude..@? "MessageBody")
+      Prelude.<*> (x Prelude..@ "StatusCode")
 
-instance Hashable FixedResponseActionConfig
+instance Prelude.Hashable FixedResponseActionConfig
 
-instance NFData FixedResponseActionConfig
+instance Prelude.NFData FixedResponseActionConfig
 
-instance ToQuery FixedResponseActionConfig where
+instance Prelude.ToQuery FixedResponseActionConfig where
   toQuery FixedResponseActionConfig' {..} =
-    mconcat
-      [ "ContentType" =: _fracContentType,
-        "MessageBody" =: _fracMessageBody,
-        "StatusCode" =: _fracStatusCode
+    Prelude.mconcat
+      [ "ContentType" Prelude.=: contentType,
+        "MessageBody" Prelude.=: messageBody,
+        "StatusCode" Prelude.=: statusCode
       ]

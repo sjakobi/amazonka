@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ELBv2.Types.Certificate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an SSL server certificate.
 --
---
---
--- /See:/ 'certificate' smart constructor.
+-- /See:/ 'newCertificate' smart constructor.
 data Certificate = Certificate'
-  { _cIsDefault ::
-      !(Maybe Bool),
-    _cCertificateARN :: !(Maybe Text)
+  { -- | Indicates whether the certificate is the default certificate. Do not set
+    -- this value when specifying a certificate as an input. This value is not
+    -- included in the output when describing a listener, but is included when
+    -- describing listener certificates.
+    isDefault :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the certificate.
+    certificateArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Certificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Certificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cIsDefault' - Indicates whether the certificate is the default certificate. Do not set this value when specifying a certificate as an input. This value is not included in the output when describing a listener, but is included when describing listener certificates.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cCertificateARN' - The Amazon Resource Name (ARN) of the certificate.
-certificate ::
+-- 'isDefault', 'certificate_isDefault' - Indicates whether the certificate is the default certificate. Do not set
+-- this value when specifying a certificate as an input. This value is not
+-- included in the output when describing a listener, but is included when
+-- describing listener certificates.
+--
+-- 'certificateArn', 'certificate_certificateArn' - The Amazon Resource Name (ARN) of the certificate.
+newCertificate ::
   Certificate
-certificate =
+newCertificate =
   Certificate'
-    { _cIsDefault = Nothing,
-      _cCertificateARN = Nothing
+    { isDefault = Prelude.Nothing,
+      certificateArn = Prelude.Nothing
     }
 
--- | Indicates whether the certificate is the default certificate. Do not set this value when specifying a certificate as an input. This value is not included in the output when describing a listener, but is included when describing listener certificates.
-cIsDefault :: Lens' Certificate (Maybe Bool)
-cIsDefault = lens _cIsDefault (\s a -> s {_cIsDefault = a})
+-- | Indicates whether the certificate is the default certificate. Do not set
+-- this value when specifying a certificate as an input. This value is not
+-- included in the output when describing a listener, but is included when
+-- describing listener certificates.
+certificate_isDefault :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Bool)
+certificate_isDefault = Lens.lens (\Certificate' {isDefault} -> isDefault) (\s@Certificate' {} a -> s {isDefault = a} :: Certificate)
 
 -- | The Amazon Resource Name (ARN) of the certificate.
-cCertificateARN :: Lens' Certificate (Maybe Text)
-cCertificateARN = lens _cCertificateARN (\s a -> s {_cCertificateARN = a})
+certificate_certificateArn :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_certificateArn = Lens.lens (\Certificate' {certificateArn} -> certificateArn) (\s@Certificate' {} a -> s {certificateArn = a} :: Certificate)
 
-instance FromXML Certificate where
+instance Prelude.FromXML Certificate where
   parseXML x =
     Certificate'
-      <$> (x .@? "IsDefault") <*> (x .@? "CertificateArn")
+      Prelude.<$> (x Prelude..@? "IsDefault")
+      Prelude.<*> (x Prelude..@? "CertificateArn")
 
-instance Hashable Certificate
+instance Prelude.Hashable Certificate
 
-instance NFData Certificate
+instance Prelude.NFData Certificate
 
-instance ToQuery Certificate where
+instance Prelude.ToQuery Certificate where
   toQuery Certificate' {..} =
-    mconcat
-      [ "IsDefault" =: _cIsDefault,
-        "CertificateArn" =: _cCertificateARN
+    Prelude.mconcat
+      [ "IsDefault" Prelude.=: isDefault,
+        "CertificateArn" Prelude.=: certificateArn
       ]

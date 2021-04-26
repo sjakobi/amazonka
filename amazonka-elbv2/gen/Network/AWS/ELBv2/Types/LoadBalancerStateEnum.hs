@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.ELBv2.Types.LoadBalancerStateEnum
   ( LoadBalancerStateEnum
       ( ..,
-        Active,
-        ActiveImpaired,
-        Failed,
-        Provisioning
+        LoadBalancerStateEnumActive,
+        LoadBalancerStateEnumActiveImpaired,
+        LoadBalancerStateEnumFailed,
+        LoadBalancerStateEnumProvisioning
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoadBalancerStateEnum
-  = LoadBalancerStateEnum'
-      ( CI
-          Text
-      )
+newtype LoadBalancerStateEnum = LoadBalancerStateEnum'
+  { fromLoadBalancerStateEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: LoadBalancerStateEnum
-pattern Active = LoadBalancerStateEnum' "active"
+pattern LoadBalancerStateEnumActive :: LoadBalancerStateEnum
+pattern LoadBalancerStateEnumActive = LoadBalancerStateEnum' "active"
 
-pattern ActiveImpaired :: LoadBalancerStateEnum
-pattern ActiveImpaired = LoadBalancerStateEnum' "active_impaired"
+pattern LoadBalancerStateEnumActiveImpaired :: LoadBalancerStateEnum
+pattern LoadBalancerStateEnumActiveImpaired = LoadBalancerStateEnum' "active_impaired"
 
-pattern Failed :: LoadBalancerStateEnum
-pattern Failed = LoadBalancerStateEnum' "failed"
+pattern LoadBalancerStateEnumFailed :: LoadBalancerStateEnum
+pattern LoadBalancerStateEnumFailed = LoadBalancerStateEnum' "failed"
 
-pattern Provisioning :: LoadBalancerStateEnum
-pattern Provisioning = LoadBalancerStateEnum' "provisioning"
+pattern LoadBalancerStateEnumProvisioning :: LoadBalancerStateEnum
+pattern LoadBalancerStateEnumProvisioning = LoadBalancerStateEnum' "provisioning"
 
 {-# COMPLETE
-  Active,
-  ActiveImpaired,
-  Failed,
-  Provisioning,
+  LoadBalancerStateEnumActive,
+  LoadBalancerStateEnumActiveImpaired,
+  LoadBalancerStateEnumFailed,
+  LoadBalancerStateEnumProvisioning,
   LoadBalancerStateEnum'
   #-}
 
-instance FromText LoadBalancerStateEnum where
-  parser = (LoadBalancerStateEnum' . mk) <$> takeText
+instance Prelude.FromText LoadBalancerStateEnum where
+  parser = LoadBalancerStateEnum' Prelude.<$> Prelude.takeText
 
-instance ToText LoadBalancerStateEnum where
-  toText (LoadBalancerStateEnum' ci) = original ci
+instance Prelude.ToText LoadBalancerStateEnum where
+  toText (LoadBalancerStateEnum' x) = x
 
-instance Hashable LoadBalancerStateEnum
+instance Prelude.Hashable LoadBalancerStateEnum
 
-instance NFData LoadBalancerStateEnum
+instance Prelude.NFData LoadBalancerStateEnum
 
-instance ToByteString LoadBalancerStateEnum
+instance Prelude.ToByteString LoadBalancerStateEnum
 
-instance ToQuery LoadBalancerStateEnum
+instance Prelude.ToQuery LoadBalancerStateEnum
 
-instance ToHeader LoadBalancerStateEnum
+instance Prelude.ToHeader LoadBalancerStateEnum
 
-instance FromXML LoadBalancerStateEnum where
-  parseXML = parseXMLText "LoadBalancerStateEnum"
+instance Prelude.FromXML LoadBalancerStateEnum where
+  parseXML = Prelude.parseXMLText "LoadBalancerStateEnum"
